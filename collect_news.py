@@ -998,7 +998,12 @@ def build_html(
 body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
 .phone {{ width: min(100%, 520px); min-height: 100vh; margin: 0 auto; background: #b2c7d9; }}
 .topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: rgba(178,199,217,.97); border-bottom: 1px solid rgba(17,24,39,.08); backdrop-filter: blur(8px); }}
+.topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
 .topbar h1 {{ margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }}
+.header-toggle {{ flex: 0 0 auto; height: 28px; padding: 0 9px; border: 0; border-radius: 7px; background: rgba(255,255,255,.72); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; }}
+.header-controls {{ overflow: hidden; max-height: 210px; opacity: 1; transition: max-height .2s ease, opacity .15s ease, margin .2s ease; }}
+.topbar.collapsed {{ padding-bottom: 9px; }}
+.topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
 .updated {{ margin-top: 5px; color: #344054; font-size: 10px; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
 .date-picker-row {{ display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px; margin-top: 7px; }}
@@ -1060,10 +1065,17 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
 </head>
 <body>
 <div class="phone">
-  <header class="topbar">
-    <h1>금일 원자력 주요기사</h1>
-    <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
-    <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div><div class="tabs">{buttons}</div><div class="date-picker-row"><input id="archive-date" class="date-input" type="date"><button id="archive-open" class="date-button" type="button">날짜 보기</button></div>
+  <header class="topbar" id="topbar">
+    <div class="topbar-title-row">
+      <h1>금일 원자력 주요기사</h1>
+      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">접기 ▲</button>
+    </div>
+    <div class="header-controls" id="header-controls">
+      <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
+      <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div>
+      <div class="tabs">{buttons}</div>
+      <div class="date-picker-row"><input id="archive-date" class="date-input" type="date"><button id="archive-open" class="date-button" type="button">날짜 보기</button></div>
+    </div>
   </header>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동하며, 확인한 기사는 회색으로 표시됩니다.</footer>
@@ -1073,9 +1085,34 @@ const readKey = "nuclearDailyBriefReadArticles";
 const importantKey = "nuclearDailyBriefImportantArticles";
 const readArticles = new Set(JSON.parse(localStorage.getItem(readKey) || "[]"));
 const importantArticles = new Set(JSON.parse(localStorage.getItem(importantKey) || "[]"));
+const headerStateKey = "nuclearDailyBriefHeaderCollapsed";
+const topbar = document.getElementById("topbar");
+const headerToggle = document.getElementById("header-toggle");
+function setHeaderCollapsed(collapsed){{
+  topbar.classList.toggle("collapsed", collapsed);
+  headerToggle.textContent = collapsed ? "펼치기 ▼" : "접기 ▲";
+  headerToggle.setAttribute("aria-expanded", String(!collapsed));
+  localStorage.setItem(headerStateKey, collapsed ? "1" : "0");
+}}
+setHeaderCollapsed(localStorage.getItem(headerStateKey) === "1");
+headerToggle.addEventListener("click", () => setHeaderCollapsed(!topbar.classList.contains("collapsed")));
 function saveState(){{ localStorage.setItem(readKey, JSON.stringify([...readArticles])); localStorage.setItem(importantKey, JSON.stringify([...importantArticles])); }}
-function applyState(card){{ const u=card.dataset.url; card.classList.toggle("read", readArticles.has(u)); card.classList.toggle("important", importantArticles.has(u)); }}
-function openArticle(card){{ const u=card.dataset.url; readArticles.add(u); saveState(); applyState(card); window.open(u,"_blank","noopener"); }}
+function applyState(card){{
+  const u=card.dataset.url;
+  const isRead=readArticles.has(u);
+  card.classList.toggle("read", isRead);
+  card.classList.toggle("important", importantArticles.has(u));
+  if(isRead){{
+    card.querySelectorAll(".new-badge").forEach(badge=>badge.remove());
+  }}
+}}
+function openArticle(card){{
+  const u=card.dataset.url;
+  readArticles.add(u);
+  saveState();
+  document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(u)}}"]`).forEach(applyState);
+  window.open(u,"_blank","noopener");
+}}
 document.querySelectorAll(".preview-card").forEach(card=>{{
   applyState(card);
   card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button")) openArticle(card); }});
