@@ -21,6 +21,8 @@ ARCHIVE_DAYS = 90
 BACKFILL_DATES_PER_RUN = 2
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
+ALWAYS_SHOW_GROUPS = {"TerraPower", "Fermi America"}
+
 GROUPS = [
     ("현대건설", [
         # 현대건설은 원전 분야로 한정하지 않고 회사 전체 동향을 수집
@@ -151,7 +153,7 @@ BLOCKED_HARMFUL_KEYWORDS = {
     "토토", "스포츠토토", "프로토", "로또", "복권", "카지노",
     "바카라", "슬롯", "경마", "경륜", "경정", "베팅", "배팅",
     "잭팟", "당첨번호", "파워볼", "사설토토", "먹튀",
-    "gambling", "casino", "betting", "sportsbook", "lottery",
+    "gambling", "casino", "bet", "betting", "sportsbook", "lottery",
     "jackpot", "poker", "slot machine",
 
     # 성인·불법·유해 홍보
@@ -970,7 +972,7 @@ def render_group_unified(
     articles: list[Article],
     new_urls: set[str] | None = None,
 ) -> str:
-    if not articles:
+    if not articles and group not in ALWAYS_SHOW_GROUPS:
         return ''
     new_urls = new_urls or set()
     korean_articles = order_similar_articles([a for a in articles if a.language == 'ko'])
@@ -980,6 +982,8 @@ def render_group_unified(
         render_card(article, index, article.link in new_urls)
         for index, article in enumerate(ordered_articles, start=1)
     )
+    if not cards:
+        cards = '<div class="empty">해당 시간대에 수집된 기사가 없습니다.</div>'
     return f"""
 <section class="news-group" data-group="{escape(group)}">
   <button class="group-title" type="button" aria-expanded="true">
