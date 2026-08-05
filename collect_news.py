@@ -724,6 +724,11 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
         image_html = '<div class="no-image">NUCLEAR<br>NEWS</div>'
 
     new_badge = '<span class="new-badge">NEW</span>' if is_new else ''
+    translate_button = (
+        '<button class="translate-button" type="button" aria-label="영문 기사 번역">번역</button>'
+        if article.language == "en"
+        else ""
+    )
     search_text = ' '.join([article.title, article.publisher, article.group]).lower()
 
     return f"""
@@ -732,6 +737,7 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   data-title="{escape(article.title)}"
   data-publisher="{escape(article.publisher)}"
   data-group="{escape(article.group)}"
+  data-language="{escape(article.language)}"
   data-search="{escape(search_text)}"
   tabindex="0" role="link">
   <div class="article-number">{number}</div>
@@ -742,6 +748,7 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
       <span class="important-label">중요</span>
+      {translate_button}
     </div>
   </div>
   <div class="card-side">
@@ -972,7 +979,6 @@ def archive_panels_html(archive: dict[str, dict], new_urls: set[str]) -> str:
     <span>{start:%Y. %-m. %-d. %H:%M} ~ {end:%Y. %-m. %-d. %H:%M} (KST)</span>
   </div>
   <div class="language-section">
-    <div class="language-title">뉴스기사</div>
     {sections or '<div class="empty">해당 날짜에 저장된 뉴스 기사가 없습니다.</div>'}
   </div>
 </section>
@@ -1015,7 +1021,6 @@ def build_html(
   </div>
   {note}
   <div class="language-section">
-    <div class="language-title">뉴스기사</div>
     {sections or '<div class="empty">해당 기간에 수집된 뉴스 기사가 없습니다.</div>'}
   </div>
 </section>
@@ -1029,24 +1034,28 @@ def build_html(
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#b2c7d9">
-<title>금일 원자력 주요기사</title>
+<title>원자력 주요기사</title>
 <style>
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
 .phone {{ width: min(100%, 520px); min-height: 100vh; margin: 0 auto; background: #b2c7d9; }}
-.topbar {{ position: sticky; top: 0; z-index: 20; margin: 8px 8px 0; padding: 15px 16px 12px; background: rgba(178,199,217,.98); border: 1px solid rgba(35,57,93,.22); border-radius: 12px; box-shadow: 0 1px 5px rgba(35,57,93,.08); backdrop-filter: blur(8px); }}
+.topbar {{ position: sticky; top: 0; z-index: 20; margin: 8px 8px 0; padding: 15px 16px 12px; background: #23395d; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; box-shadow: 0 1px 5px rgba(17,24,39,.16); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
-.topbar h1 {{ margin: 0; color: #ffffff; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; text-shadow: 0 1px 2px rgba(35,57,93,.35); }}
+.topbar h1 {{ margin: 0; color: #ffffff; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; text-shadow: none; }}
 .header-toggle {{ flex: 0 0 auto; min-width: 54px; height: 24px; padding: 0 7px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 9px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
 .header-toggle:hover {{ background: #f5d900; }}
 .header-toggle:active {{ transform: translateY(1px); }}
 .topbar.collapsed .header-toggle {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.14); box-shadow: none; }}
 .header-controls {{ overflow: hidden; max-height: 210px; opacity: 1; transition: max-height .2s ease, opacity .15s ease, margin .2s ease; }}
-.topbar.collapsed {{ padding-bottom: 9px; background: rgba(178,199,217,.99); }}
+.topbar.collapsed {{ padding-bottom: 9px; background: #23395d; }}
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
-.updated {{ margin-top: 5px; color: #475467; font-size: 10px; font-weight: 600; }}
+.updated {{ margin-top: 5px; color: rgba(255,255,255,.72); font-size: 10px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
 .date-picker-row {{ display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px; margin-top: 7px; }}
+.language-order-row {{ display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 7px; margin-top: 7px; }}
+.language-order-label {{ color: rgba(255,255,255,.78); font-size: 10px; font-weight: 700; }}
+.language-order-select {{ width: 100%; height: 32px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); color: #344054; font-size: 11px; font-weight: 700; }}
+
 .date-input {{ width: 100%; height: 34px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); color: #344054; font-size: 11px; }}
 .date-button {{ height: 34px; padding: 0 12px; border: 0; border-radius: 8px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
@@ -1070,7 +1079,6 @@ main {{ padding: 12px 12px 34px; }}
 .period-card strong {{ color: #111827; font-size: 14px; }}
 .partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
 .language-section {{ margin-bottom: 30px; }}
-.language-title {{ margin: 4px 0 15px; padding: 10px 12px; color: white; background: #23395d; border-radius: 9px; font-size: 16px; font-weight: 800; text-align: left; }}
 .news-group {{ margin-bottom: 20px; }}
 .group-title {{ display: inline-flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin: 0 0 8px 0; padding: 8px 11px; background: #fee500; border-radius: 4px 11px 11px 11px; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); }}
 .group-square {{ width: 9px; height: 9px; background: #111; border-radius: 1px; }}
@@ -1084,6 +1092,9 @@ main {{ padding: 12px 12px 34px; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
 .headline {{ display: -webkit-box; overflow: hidden; margin-top: 5px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
 .status-line {{ margin-top: auto; margin-top: auto; padding-top: 5px; font-size: 10px; }}
+.translate-button {{ float: right; height: 20px; margin-top: -3px; padding: 0 7px; border: 1px solid rgba(35,57,93,.18); border-radius: 6px; background: #eef3f8; color: #23395d; font-size: 8px; font-weight: 800; cursor: pointer; }}
+.translate-button:hover {{ background: #dfe9f2; }}
+
 .unread-label {{ color: #17639f; font-weight: 700; }}
 .read-label {{ display: none; color: #667085; font-weight: 700; }}
 .important-label {{ display: none; color: #b77900; font-weight: 800; }}
@@ -1114,6 +1125,13 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
       <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div>
       <div class="tabs">{buttons}</div>
+      <div class="language-order-row">
+        <span class="language-order-label">기사 순서</span>
+        <select id="language-order" class="language-order-select" aria-label="기사 언어 우선순위">
+          <option value="ko-en">KOR → ENG</option>
+          <option value="en-ko">ENG → KOR</option>
+        </select>
+      </div>
       <div class="date-picker-row"><input id="archive-date" class="date-input" type="date"><button id="archive-open" class="date-button" type="button">날짜 보기</button></div>
     </div>
   </header>
@@ -1136,6 +1154,42 @@ function setHeaderCollapsed(collapsed){{
 }}
 setHeaderCollapsed(localStorage.getItem(headerStateKey) === "1");
 headerToggle.addEventListener("click", () => setHeaderCollapsed(!topbar.classList.contains("collapsed")));
+const languageOrderKey = "nuclearDailyBriefLanguageOrder";
+const languageOrderSelect = document.getElementById("language-order");
+
+function reorderLanguageArticles(order){{
+  const languageRank = order === "en-ko"
+    ? {{ en: 0, ko: 1 }}
+    : {{ ko: 0, en: 1 }};
+
+  document.querySelectorAll(".news-group").forEach(group => {{
+    const stack = group.querySelector(".article-stack");
+    if(!stack) return;
+
+    const cards = [...stack.querySelectorAll(".preview-card")];
+    cards.sort((a, b) => {{
+      const rankA = languageRank[a.dataset.language] ?? 9;
+      const rankB = languageRank[b.dataset.language] ?? 9;
+      return rankA - rankB;
+    }});
+
+    cards.forEach((card, index) => {{
+      stack.appendChild(card);
+      const number = card.querySelector(".article-number");
+      if(number) number.textContent = String(index + 1);
+    }});
+  }});
+
+  localStorage.setItem(languageOrderKey, order);
+}}
+
+const savedLanguageOrder = localStorage.getItem(languageOrderKey) || "ko-en";
+languageOrderSelect.value = savedLanguageOrder;
+reorderLanguageArticles(savedLanguageOrder);
+languageOrderSelect.addEventListener("change", () => {{
+  reorderLanguageArticles(languageOrderSelect.value);
+  renderFavorites();
+}});
 function saveState(){{ localStorage.setItem(readKey, JSON.stringify([...readArticles])); localStorage.setItem(importantKey, JSON.stringify([...importantArticles])); }}
 function applyState(card){{
   const u=card.dataset.url;
@@ -1155,11 +1209,22 @@ function openArticle(card){{
 }}
 document.querySelectorAll(".preview-card").forEach(card=>{{
   applyState(card);
-  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button")) openArticle(card); }});
+  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button, .translate-button")) openArticle(card); }});
   card.addEventListener("keydown",e=>{{ if(e.key==="Enter"||e.key===" "){{ e.preventDefault(); openArticle(card); }}}});
   card.querySelector(".important-button").addEventListener("click",e=>{{
     e.stopPropagation(); const u=card.dataset.url; importantArticles.has(u)?importantArticles.delete(u):importantArticles.add(u); saveState(); document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(u)}}"]`).forEach(applyState); renderFavorites();
   }});
+
+  const translateButton = card.querySelector(".translate-button");
+  if(translateButton){{
+    translateButton.addEventListener("click", e => {{
+      e.stopPropagation();
+      const translatedUrl =
+        "https://translate.google.com/translate?sl=en&tl=ko&u=" +
+        encodeURIComponent(card.dataset.url);
+      window.open(translatedUrl, "_blank", "noopener");
+    }});
+  }}
 }});
 function activePanel(){{ return document.querySelector(".tab-panel.active"); }}
 function renderFavorites(){{
