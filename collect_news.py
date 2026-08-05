@@ -2,17 +2,15 @@ from __future__ import annotations
 
 import html
 import re
-import sys
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 from pathlib import Path
-from typing import Iterable
 from urllib.parse import quote_plus
+from zoneinfo import ZoneInfo
 
 import feedparser
 from dateutil import parser as date_parser
-from zoneinfo import ZoneInfo
 
 KST = ZoneInfo("Asia/Seoul")
 OUTPUT = Path("index.html")
@@ -53,6 +51,7 @@ GROUPS = [
     ]),
 ]
 
+
 @dataclass
 class Article:
     title: str
@@ -60,26 +59,24 @@ class Article:
     published: datetime
     language: str
     group: str
+    publisher: str
+    image: str
 
 
 def period(now: datetime) -> tuple[datetime, datetime]:
-    """Return the Daily Brief interval in KST."""
     now = now.astimezone(KST)
     end = now.replace(hour=6, minute=0, second=0, microsecond=0)
 
-    # When manually run before 06:00, use the previous 06:00 as the endpoint.
     if now < end:
         end -= timedelta(days=1)
 
-    weekday = end.weekday()  # Monday=0
+    weekday = end.weekday()
     if weekday == 0:
         start = end - timedelta(days=3)
     elif weekday in (1, 2, 3, 4):
         start = end - timedelta(days=1)
     else:
-        # A manual weekend run uses the most recent Friday 06:00 endpoint.
-        days_back = 1 if weekday == 5 else 2
-        end -= timedelta(days=days_back)
+        end -= timedelta(days=1 if weekday == 5 else 2)
         start = end - timedelta(days=1)
 
     return start, end
@@ -97,13 +94,29 @@ def google_news_url(query: str, language: str) -> str:
     )
 
 
-def clean_title(title: str) -> str:
-    # Google News often appends " - Publisher".
-    return re.sub(r"\s+-\s+[^-]{2,80}$", "", title).strip()
+def split_title_and_publisher(raw_title: str) -> tuple[str, str]:
+    raw_title = html.unescape(raw_title or "").strip()
+    match = re.match(r"^(.*)\s+-\s+([^-]{2,80})$", raw_title)
+    if match:
+        return match.group(1).strip(), match.group(2).strip()
+    return raw_title, ""
+
+
+def extract_image(entry) -> str:
+    for field in ("media_content", "media_thumbnail"):
+        values = getattr(entry, field, None)
+        if values:
+            for value in values:
+                if isinstance(value, dict) and value.get("url"):
+                    return value["url"]
+
+    summary = getattr(entry, "summary", "") or getattr(entry, "description", "")
+    match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', summary, re.I)
+    return match.group(1) if match else ""
 
 
 def normalized(title: str) -> str:
-    text = clean_title(title).lower()
+    text = title.lower()
     text = re.sub(r"[^0-9a-z가-힣]+", " ", text)
     return " ".join(text.split())
 
@@ -114,7 +127,6 @@ def is_duplicate(article: Article, selected: list[Article]) -> bool:
         other = normalized(existing.title)
         if key == other:
             return True
-        # Similar headlines from the same announcement/republication.
         if SequenceMatcher(None, key, other).ratio() >= 0.86:
             return True
     return False
@@ -124,22 +136,37 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     published_raw = getattr(entry, "published", None) or getattr(entry, "updated", None)
     if not published_raw:
         return None
+
     try:
         published = date_parser.parse(published_raw).astimezone(KST)
     except Exception:
         return None
 
-    title = clean_title(html.unescape(getattr(entry, "title", "")).strip())
+    title, publisher_from_title = split_title_and_publisher(
+        getattr(entry, "title", "")
+    )
     link = getattr(entry, "link", "").strip()
     if not title or not link:
         return None
 
-    return Article(title=title, link=link, published=published,
-                   language=language, group=group)
+    source = getattr(entry, "source", {})
+    publisher = source.get("title", "") if isinstance(source, dict) else ""
+    publisher = publisher.strip() or publisher_from_title or "출처 확인"
+
+    return Article(
+        title=title,
+        link=link,
+        published=published,
+        language=language,
+        group=group,
+        publisher=publisher,
+        image=extract_image(entry),
+    )
 
 
 def collect(start: datetime, end: datetime) -> list[Article]:
     found: list[Article] = []
+
     for group, queries in GROUPS:
         for language in ("ko", "en"):
             for query in queries:
@@ -149,12 +176,12 @@ def collect(start: datetime, end: datetime) -> list[Article]:
                     if article and start <= article.published < end:
                         found.append(article)
 
-    # Priority by group, then newest first.
     priority = {name: i for i, (name, _) in enumerate(GROUPS)}
     found.sort(key=lambda a: (priority[a.group], -a.published.timestamp()))
 
     selected: list[Article] = []
     language_counts = {"ko": 0, "en": 0}
+
     for article in found:
         if language_counts[article.language] >= MAX_PER_LANGUAGE:
             continue
@@ -170,18 +197,43 @@ def escape(text: str) -> str:
     return html.escape(text, quote=True)
 
 
-def render_section(group: str, articles: Iterable[Article]) -> str:
-    items = list(articles)
-    if not items:
+def render_card(article: Article) -> str:
+    if article.image:
+        thumbnail = (
+            f'<img src="{escape(article.image)}" alt="" loading="lazy" '
+            'referrerpolicy="no-referrer">'
+        )
+    else:
+        thumbnail = '<div class="fallback">NUCLEAR<br>DAILY BRIEF</div>'
+
+    badge = "KR" if article.language == "ko" else "EN"
+
+    return f'''
+<a class="news-card" href="{escape(article.link)}" target="_blank" rel="noopener">
+  <div class="thumbnail">{thumbnail}</div>
+  <div class="card-body">
+    <div class="source-line">
+      <span class="badge">{badge}</span>
+      <span class="publisher">{escape(article.publisher)}</span>
+    </div>
+    <h3>{escape(article.title)}</h3>
+    <div class="open-text">기사 원문 보기 →</div>
+  </div>
+</a>
+'''
+
+
+def render_section(group: str, articles: list[Article]) -> str:
+    if not articles:
         return ""
-    rows = []
-    for article in items:
-        title = escape(article.title)
-        link = escape(article.link)
-        # English headlines are left in the original language to avoid
-        # unreliable machine translation without a paid AI API.
-        rows.append(f'<li><a href="{link}" target="_blank" rel="noopener">{title}</a></li>')
-    return f"<section><h2>{escape(group)}</h2><ul>{''.join(rows)}</ul></section>"
+
+    cards = "".join(render_card(article) for article in articles)
+    return f'''
+<section>
+  <div class="section-title">{escape(group)}</div>
+  <div class="card-list">{cards}</div>
+</section>
+'''
 
 
 def build_html(start: datetime, end: datetime, articles: list[Article]) -> str:
@@ -189,51 +241,229 @@ def build_html(start: datetime, end: datetime, articles: list[Article]) -> str:
     for article in articles:
         grouped[article.group].append(article)
 
-    sections = "\n".join(render_section(group, grouped[group]) for group, _ in GROUPS)
-    count_ko = sum(a.language == "ko" for a in articles)
-    count_en = sum(a.language == "en" for a in articles)
+    sections = "".join(
+        render_section(group, grouped[group]) for group, _ in GROUPS
+    )
 
-    return f"""<!doctype html>
+    count_ko = sum(article.language == "ko" for article in articles)
+    count_en = sum(article.language == "en" for article in articles)
+
+    return f'''<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d2340">
   <title>원자력 주요기사 Daily Brief</title>
   <style>
-    body {{ max-width: 920px; margin: 0 auto; padding: 32px 20px 70px;
-            font-family: Arial, "Noto Sans KR", sans-serif; line-height: 1.6;
-            color: #1f2937; background: #f5f7fa; }}
-    main {{ background: white; padding: 30px; border: 1px solid #d1d5db;
-            border-radius: 12px; }}
-    h1 {{ margin-top: 0; font-size: 28px; }}
-    h2 {{ margin-top: 30px; padding-bottom: 7px; border-bottom: 2px solid #111827;
-          font-size: 20px; }}
-    .meta {{ padding: 14px 16px; background: #f3f4f6; border-radius: 8px; }}
-    ul {{ padding-left: 22px; }}
-    li {{ margin: 10px 0; }}
-    a {{ color: #075985; text-decoration: none; }}
-    a:hover {{ text-decoration: underline; }}
-    footer {{ margin-top: 28px; color: #6b7280; font-size: 13px; }}
+    * {{ box-sizing: border-box; }}
+
+    body {{
+      margin: 0;
+      background: #e9eef4;
+      color: #172033;
+      font-family: Arial, "Malgun Gothic", sans-serif;
+    }}
+
+    .page {{
+      width: min(100%, 540px);
+      min-height: 100vh;
+      margin: 0 auto;
+      background: #f7f9fc;
+      box-shadow: 0 0 28px rgba(15, 23, 42, 0.08);
+    }}
+
+    .hero {{
+      padding: 28px 20px 23px;
+      color: white;
+      background:
+        radial-gradient(circle at top right, rgba(77, 159, 255, 0.28), transparent 36%),
+        linear-gradient(135deg, #091f3b, #14518a);
+    }}
+
+    .eyebrow {{
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      opacity: 0.78;
+    }}
+
+    h1 {{
+      margin: 7px 0 14px;
+      font-size: 25px;
+      line-height: 1.25;
+    }}
+
+    .brief-meta {{
+      font-size: 12px;
+      line-height: 1.65;
+      opacity: 0.9;
+    }}
+
+    main {{
+      padding: 18px 13px 38px;
+    }}
+
+    section {{
+      margin-bottom: 25px;
+    }}
+
+    .section-title {{
+      display: inline-block;
+      margin: 0 0 11px 2px;
+      padding: 7px 11px;
+      border-radius: 8px;
+      background: #ffd43b;
+      color: #172033;
+      font-size: 15px;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(251, 191, 36, 0.18);
+    }}
+
+    .card-list {{
+      display: grid;
+      gap: 11px;
+    }}
+
+    .news-card {{
+      display: grid;
+      grid-template-columns: 118px 1fr;
+      min-height: 112px;
+      overflow: hidden;
+      color: inherit;
+      background: white;
+      border: 1px solid #dbe3ec;
+      border-radius: 13px;
+      text-decoration: none;
+      box-shadow: 0 5px 14px rgba(15, 23, 42, 0.07);
+    }}
+
+    .news-card:active {{
+      transform: scale(0.992);
+    }}
+
+    .thumbnail {{
+      width: 118px;
+      min-height: 112px;
+      background: #dbe3ec;
+    }}
+
+    .thumbnail img {{
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 112px;
+      object-fit: cover;
+    }}
+
+    .fallback {{
+      display: grid;
+      place-items: center;
+      width: 100%;
+      height: 100%;
+      min-height: 112px;
+      color: white;
+      background: linear-gradient(135deg, #123f70, #0a223d);
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.5;
+      text-align: center;
+    }}
+
+    .card-body {{
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 11px 12px 10px;
+    }}
+
+    .source-line {{
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      font-size: 11px;
+      color: #6b7280;
+    }}
+
+    .badge {{
+      flex: 0 0 auto;
+      margin-right: 7px;
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #164a7b;
+      background: #e7f0fa;
+      font-weight: 800;
+    }}
+
+    .publisher {{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }}
+
+    h3 {{
+      display: -webkit-box;
+      margin: 7px 0 8px;
+      overflow: hidden;
+      font-size: 14px;
+      line-height: 1.42;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }}
+
+    .open-text {{
+      margin-top: auto;
+      color: #17639f;
+      font-size: 11px;
+      font-weight: 700;
+    }}
+
+    .empty {{
+      padding: 30px 18px;
+      color: #6b7280;
+      background: white;
+      border: 1px solid #dbe3ec;
+      border-radius: 12px;
+      text-align: center;
+    }}
+
+    footer {{
+      padding: 0 15px 28px;
+      color: #7b8493;
+      font-size: 11px;
+      text-align: center;
+    }}
+
+    @media (max-width: 380px) {{
+      .news-card {{ grid-template-columns: 102px 1fr; }}
+      .thumbnail {{ width: 102px; }}
+      h1 {{ font-size: 22px; }}
+    }}
   </style>
 </head>
 <body>
-<main>
-  <h1>원자력 주요기사 Daily Brief</h1>
-  <div class="meta">
-    <div><strong>조회기간:</strong> {start:%Y. %-m. %-d. %H:%M} ~ {end:%Y. %-m. %-d. %H:%M} (KST)</div>
-    <div><strong>한글기사:</strong> {count_ko}건 · <strong>영문기사:</strong> {count_en}건</div>
+  <div class="page">
+    <header class="hero">
+      <div class="eyebrow">NEW ENERGY · NUCLEAR NEWS</div>
+      <h1>원자력 주요기사<br>Daily Brief</h1>
+      <div class="brief-meta">
+        조회기간: {start:%Y. %-m. %-d. %H:%M} ~ {end:%Y. %-m. %-d. %H:%M} (KST)<br>
+        한글 {count_ko}건 · 영문 {count_en}건
+      </div>
+    </header>
+
+    <main>
+      {sections or '<div class="empty">조회기간 내 확인된 관련 기사가 없습니다.</div>'}
+    </main>
+
+    <footer>카드를 누르면 기사 원문으로 이동합니다.</footer>
   </div>
-  {sections or '<p>조회기간 내 확인된 관련 기사가 없습니다.</p>'}
-  <footer>기사 제목을 클릭하면 원문으로 이동합니다.</footer>
-</main>
 </body>
 </html>
-"""
+'''
 
 
 def main() -> int:
-    now = datetime.now(KST)
-    start, end = period(now)
+    start, end = period(datetime.now(KST))
     articles = collect(start, end)
     OUTPUT.write_text(build_html(start, end, articles), encoding="utf-8")
     print(f"Generated {OUTPUT}: {len(articles)} articles")
