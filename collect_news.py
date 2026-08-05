@@ -167,12 +167,108 @@ def normalized(title: str) -> str:
     return " ".join(re.sub(r"[^0-9a-z가-힣]+", " ", title.lower()).split())
 
 
+ENTITY_ALIASES = {
+    "새울원전": "새울원자력",
+    "새울 원전": "새울원자력",
+    "한국수력원자력": "한수원",
+    "한국 전력": "한전",
+    "한국전력": "한전",
+    "현대건설": "hdec",
+    "hyundai e c": "hdec",
+    "hyundai engineering construction": "hdec",
+}
+
+ACTION_ALIASES = {
+    "무상 교체": "교체 지원",
+    "무료 교체": "교체 지원",
+    "교체해준다": "교체 지원",
+    "설치 지원": "지원",
+    "업무협약": "협약",
+    "mou": "협약",
+    "체결": "협약",
+    "착공": "건설 시작",
+    "준공": "건설 완료",
+}
+
+OBJECT_ALIASES = {
+    "고효율 조명": "led 조명",
+    "엘이디 조명": "led 조명",
+    "소형 모듈 원자로": "smr",
+    "small modular reactor": "smr",
+    "원자력 발전소": "원전",
+    "원자력발전소": "원전",
+}
+
+STOPWORDS = {
+    "관련", "대한", "통해", "위해", "추진", "지원", "사업",
+    "밝혀", "발표", "나서", "진행", "계획", "예정", "이번",
+    "the", "a", "an", "and", "for", "to", "of", "in", "on",
+}
+
+
+def semantic_normalized(title: str) -> str:
+    text = normalized(title)
+
+    for source, target in ENTITY_ALIASES.items():
+        text = text.replace(source, target)
+    for source, target in ACTION_ALIASES.items():
+        text = text.replace(source, target)
+    for source, target in OBJECT_ALIASES.items():
+        text = text.replace(source, target)
+
+    return " ".join(text.split())
+
+
+def keyword_set(title: str) -> set[str]:
+    text = semantic_normalized(title)
+    tokens = {
+        token for token in text.split()
+        if len(token) >= 2 and token not in STOPWORDS
+    }
+    return tokens
+
+
+def semantic_duplicate_score(title_a: str, title_b: str) -> float:
+    """
+    제목 전체 유사도와 핵심 키워드 겹침을 함께 계산합니다.
+    언론사가 달라도 주체·대상·행위가 같으면 같은 기사로 판단합니다.
+    """
+    norm_a = semantic_normalized(title_a)
+    norm_b = semantic_normalized(title_b)
+
+    sequence_score = SequenceMatcher(None, norm_a, norm_b).ratio()
+
+    keys_a = keyword_set(title_a)
+    keys_b = keyword_set(title_b)
+
+    if not keys_a or not keys_b:
+        return sequence_score
+
+    intersection = len(keys_a & keys_b)
+    union = len(keys_a | keys_b)
+    jaccard = intersection / union if union else 0.0
+
+    containment = intersection / min(len(keys_a), len(keys_b))
+
+    return max(sequence_score, jaccard, containment)
+
+
 def is_duplicate(article: Article, selected: list[Article]) -> bool:
-    key = normalized(article.title)
     for existing in selected:
-        other = normalized(existing.title)
-        if key == other or SequenceMatcher(None, key, other).ratio() >= 0.85:
+        score = semantic_duplicate_score(article.title, existing.title)
+        time_gap = abs(
+            (article.published - existing.published).total_seconds()
+        )
+
+        # 제목·핵심 의미가 85% 이상 같으면 동일 기사
+        if score >= 0.85:
             return True
+
+        # 48시간 이내 기사 중 핵심 주체·대상·행위가 70% 이상 겹치면
+        # 언론사와 문장 표현이 달라도 동일 이슈의 중복 기사로 처리
+        if time_gap <= 48 * 60 * 60 and score >= 0.70:
+            return True
+
     return False
 
 
@@ -190,17 +286,14 @@ def order_similar_articles(articles: list[Article]) -> list[Article]:
     while remaining:
         anchor = remaining.pop(0)
         cluster = [anchor]
-        anchor_key = normalized(anchor.title)
-
         related: list[tuple[float, Article]] = []
         unrelated: list[Article] = []
 
         for article in remaining:
-            score = SequenceMatcher(
-                None,
-                anchor_key,
-                normalized(article.title),
-            ).ratio()
+            score = semantic_duplicate_score(
+                anchor.title,
+                article.title,
+            )
 
             # 85% 이상은 앞 단계에서 중복 제거됨.
             # 45% 이상이면 같은 이슈·유사 항목으로 보고 연속 배치.
@@ -422,7 +515,7 @@ def build_html(
             note = (
                 '<div class="partial-note">'
                 f'현재 {generated_at:%Y. %-m. %-d. %H:%M}까지 확인된 기사입니다. '
-                '10분마다 새 기사가 추가됩니다.'
+                '30분마다 새 기사가 추가됩니다.'
                 '</div>'
             )
 
@@ -448,7 +541,7 @@ def build_html(
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#b2c7d9">
-<title>원자력 주요기사 Daily Brief</title>
+<title>금일 원자력 주요기사</title>
 <style>
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
@@ -492,7 +585,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
 <body>
 <div class="phone">
   <header class="topbar">
-    <h1>원자력 주요기사 Daily Brief</h1>
+    <h1>금일 원자력 주요기사</h1>
     <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
     <div class="tabs">{buttons}</div>
   </header>
