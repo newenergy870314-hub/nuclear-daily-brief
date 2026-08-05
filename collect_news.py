@@ -109,6 +109,31 @@ BLOCKED_PRESS_RELEASE_SOURCES = {
 }
 
 
+# 원자력 뉴스와 무관한 도박·복권·성인·불법 홍보성 콘텐츠 제외
+BLOCKED_HARMFUL_KEYWORDS = {
+    # 도박·복권·베팅
+    "토토", "스포츠토토", "프로토", "로또", "복권", "카지노",
+    "바카라", "슬롯", "경마", "경륜", "경정", "베팅", "배팅",
+    "잭팟", "당첨번호", "파워볼", "사설토토", "먹튀",
+    "gambling", "casino", "betting", "sportsbook", "lottery",
+    "jackpot", "poker", "slot machine",
+
+    # 성인·불법·유해 홍보
+    "성인사이트", "성인 사이트", "야동", "조건만남", "불법대출",
+    "불법 도박", "불법도박", "마약 판매", "해킹 판매",
+    "adult site", "porn", "escort", "illegal gambling",
+
+    # 이번에 확인된 무관 기사
+    "세븐일레븐", "7-eleven", "7eleven",
+}
+
+BLOCKED_HARMFUL_SOURCE_KEYWORDS = {
+    "토토", "카지노", "바카라", "베팅", "배팅", "로또", "복권",
+    "성인", "먹튀", "gambling", "casino", "sportsbook",
+    "betting", "lottery", "adult",
+}
+
+
 # 증권사 리포트·주가 전망·투자의견 관련 기사 제외
 BLOCKED_STOCK_KEYWORDS = {
     "목표주가", "투자의견", "매수 유지", "매도 유지",
@@ -626,6 +651,12 @@ def is_news_source(
         return False
     if any(keyword in publisher_lower for keyword in BLOCKED_PRESS_RELEASE_SOURCES):
         return False
+    if any(keyword in title_lower for keyword in BLOCKED_HARMFUL_KEYWORDS):
+        return False
+    if any(keyword in publisher_lower for keyword in BLOCKED_HARMFUL_SOURCE_KEYWORDS):
+        return False
+    if any(keyword in host for keyword in BLOCKED_HARMFUL_SOURCE_KEYWORDS):
+        return False
     if any(keyword in title_lower for keyword in BLOCKED_STOCK_KEYWORDS):
         return False
     if any(keyword in publisher_lower for keyword in BLOCKED_STOCK_KEYWORDS):
@@ -839,15 +870,23 @@ def article_to_dict(article: Article) -> dict:
 
 def article_from_dict(data: dict) -> Article | None:
     try:
+        title = str(data.get("title", ""))
+        publisher = str(data.get("publisher", ""))
+        source_url = str(data.get("source_url", ""))
+
+        # 과거 archive에 이미 저장된 무관·광고·유해 기사도 표시하지 않음
+        if not is_news_source(publisher, source_url, title):
+            return None
+
         return Article(
-            title=str(data.get("title", "")),
+            title=title,
             link=str(data.get("link", "")),
             published=date_parser.parse(str(data.get("published", ""))).astimezone(KST),
             language=str(data.get("language", "")),
             group=str(data.get("group", "")),
-            publisher=str(data.get("publisher", "")),
+            publisher=publisher,
             image=str(data.get("image", "")),
-            source_url=str(data.get("source_url", "")),
+            source_url=source_url,
         )
     except Exception:
         return None
