@@ -200,23 +200,34 @@ class Article:
 
 
 def period(now: datetime) -> tuple[datetime, datetime]:
-    """기존 금일 기사 구간을 반환합니다."""
-    now = now.astimezone(KST)
-    end = now.replace(hour=6, minute=0, second=0, microsecond=0)
+    """
+    실행 시점의 한국시간을 기준으로 '금일' 구간을 매일 자동 갱신합니다.
 
-    if now < end:
-        end -= timedelta(days=1)
+    예)
+    2026-08-05 06:00 이후 실행:
+      2026-08-04 06:00 ~ 2026-08-05 06:00
+    2026-08-06 06:00 이후 실행:
+      2026-08-05 06:00 ~ 2026-08-06 06:00
 
-    weekday = end.weekday()
-    if weekday == 0:
-        start = end - timedelta(days=3)
-    elif weekday in (1, 2, 3, 4):
-        start = end - timedelta(days=1)
+    월요일은 주말을 포함하여 금요일 06:00 ~ 월요일 06:00으로 계산합니다.
+    """
+    now_kst = now.astimezone(KST)
+    report_end = now_kst.replace(hour=6, minute=0, second=0, microsecond=0)
+
+    if now_kst < report_end:
+        report_end -= timedelta(days=1)
+
+    if report_end.weekday() == 5:
+        report_end -= timedelta(days=1)
+    elif report_end.weekday() == 6:
+        report_end -= timedelta(days=2)
+
+    if report_end.weekday() == 0:
+        report_start = report_end - timedelta(days=3)
     else:
-        end -= timedelta(days=1 if weekday == 5 else 2)
-        start = end - timedelta(days=1)
+        report_start = report_end - timedelta(days=1)
 
-    return start, end
+    return report_start, report_end
 
 
 def brief_periods(now: datetime) -> dict[str, tuple[datetime, datetime]]:
@@ -1210,6 +1221,9 @@ def archive_panels_html(archive: dict[str, dict], new_urls: set[str]) -> str:
     <span>{start:%Y. %-m. %-d. %H:%M} ~ {end:%Y. %-m. %-d. %H:%M} (KST)</span>
   </div>
   <div class="language-section">
+    <div class="group-master-control">
+      <button class="group-master-button" type="button" data-collapsed="false">전체 접기 ▲</button>
+    </div>
     {sections or '<div class="empty">해당 날짜에 저장된 뉴스 기사가 없습니다.</div>'}
   </div>
 </section>
@@ -1252,6 +1266,9 @@ def build_html(
   </div>
   {note}
   <div class="language-section">
+    <div class="group-master-control">
+      <button class="group-master-button" type="button" data-collapsed="false">전체 접기 ▲</button>
+    </div>
     {sections or '<div class="empty">해당 기간에 수집된 뉴스 기사가 없습니다.</div>'}
   </div>
 </section>
@@ -1314,6 +1331,9 @@ main {{ padding: 12px 12px 34px; }}
 .news-group {{ margin-bottom: 12px; }}
 .group-title {{ display: flex; align-items: center; gap: 6px; width: 100%; max-width: 100%; box-sizing: border-box; margin: 0; padding: 8px 11px; border: 0; background: #fee500; color: #111827; border-radius: 4px 11px 11px 11px; font: inherit; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
+.group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
+.group-master-button {{ padding: 6px 10px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
+.group-master-button:active {{ transform: translateY(1px); }}
 .group-count {{ align-self: flex-end; margin-bottom: 1px; color: #5f5200; font-size: 9px; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 13px; color: #111827; font-size: 11px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 7px; margin-top: 8px; }}
@@ -1343,6 +1363,47 @@ main {{ padding: 12px 12px 34px; }}
 .no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 104px; min-height: 104px; padding: 24px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
+@media (min-width: 768px) {{
+  body {{ background: #d7e0e8; }}
+  .phone {{ width: min(100%, 1180px); background: #d7e0e8; }}
+  .topbar {{ margin: 16px 20px 0; padding: 18px 22px 15px; border-radius: 14px; }}
+  .topbar h1 {{ font-size: 23px; }}
+  .header-controls {{ max-height: 260px; }}
+  .search-wrap {{ margin-top: 12px; }}
+  .search-input {{ height: 40px; font-size: 13px; }}
+  .tabs {{ grid-template-columns: repeat(3, 140px); justify-content: start; }}
+  .tab-button {{ height: 38px; font-size: 13px; }}
+  .language-order-row {{ justify-content: flex-start; }}
+  .language-order-toggle {{ flex: 0 0 160px; height: 36px; font-size: 12px; }}
+  .date-picker-row {{ grid-template-columns: 190px 100px; justify-content: start; }}
+  .date-input, .date-button {{ height: 36px; font-size: 12px; }}
+  main {{ padding: 18px 20px 44px; }}
+  .period-card {{ flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 12px; }}
+  .period-card strong {{ font-size: 16px; }}
+  .group-master-button {{ padding: 8px 13px; font-size: 11px; }}
+  .news-group {{ margin-bottom: 18px; }}
+  .group-title {{ padding: 10px 14px; font-size: 16px; border-radius: 5px 12px 12px 12px; }}
+  .group-count {{ font-size: 10px; }}
+  .article-stack {{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }}
+  .preview-card {{ grid-template-columns: 32px minmax(0,1fr) 112px; height: 118px; min-height: 118px; border-radius: 11px; }}
+  .article-number {{ padding-top: 12px; font-size: 13px; }}
+  .preview-copy {{ padding: 10px 11px 8px 0; }}
+  .publisher {{ font-size: 11px; }}
+  .headline {{ margin-top: 5px; font-size: 14px; line-height: 1.38; -webkit-line-clamp: 3; }}
+  .status-line {{ font-size: 10px; }}
+  .card-side, .preview-image {{ width: 112px; height: 118px; min-height: 118px; }}
+  footer {{ padding-bottom: 28px; font-size: 11px; }}
+}}
+
+@media (min-width: 1200px) {{
+  .phone {{ width: min(100%, 1320px); }}
+  .topbar {{ margin-left: 24px; margin-right: 24px; }}
+  main {{ padding-left: 24px; padding-right: 24px; }}
+  .article-stack {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }}
+  .preview-card {{ grid-template-columns: 30px minmax(0,1fr) 104px; }}
+  .card-side, .preview-image {{ width: 104px; }}
+}}
+
 @media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .card-side, .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
 </style>
 </head>
@@ -1385,7 +1446,31 @@ const savedHeaderState = localStorage.getItem(headerStateKey);
 setHeaderCollapsed(savedHeaderState === null ? true : savedHeaderState === "1");
 headerToggle.addEventListener("click", () => setHeaderCollapsed(!topbar.classList.contains("collapsed")));
 
+function setCategoryGroups(container, collapsed) {{
+  container.querySelectorAll(".news-group").forEach(group => {{
+    group.classList.toggle("collapsed", collapsed);
+
+    const title = group.querySelector(".group-title");
+    if(title) title.setAttribute("aria-expanded", String(!collapsed));
+
+    const arrow = group.querySelector(".group-arrow");
+    if(arrow) arrow.textContent = collapsed ? "▼" : "▲";
+  }});
+}}
+
 document.addEventListener("click", event => {{
+  const masterButton = event.target.closest(".group-master-button");
+  if(masterButton) {{
+    const section = masterButton.closest(".language-section");
+    const currentlyCollapsed = masterButton.dataset.collapsed === "true";
+    const nextCollapsed = !currentlyCollapsed;
+
+    setCategoryGroups(section, nextCollapsed);
+    masterButton.dataset.collapsed = String(nextCollapsed);
+    masterButton.textContent = nextCollapsed ? "전체 펼치기 ▼" : "전체 접기 ▲";
+    return;
+  }}
+
   const groupTitle = event.target.closest(".group-title");
   if(!groupTitle) return;
 
@@ -1532,6 +1617,11 @@ filterArticles();renderFavorites();
 def main() -> int:
     now = datetime.now(KST)
     periods = brief_periods(now)
+    today_start, today_end = periods["금일"]
+    print(
+        "Current KST window:",
+        f"{today_start:%Y-%m-%d %H:%M} ~ {today_end:%Y-%m-%d %H:%M}"
+    )
     previous_urls = load_previous_urls()
     articles_by_period = {
         label: collect(start, end)
