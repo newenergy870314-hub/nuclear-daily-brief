@@ -1000,7 +1000,9 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: rgba(178,199,217,.97); border-bottom: 1px solid rgba(17,24,39,.08); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
 .topbar h1 {{ margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }}
-.header-toggle {{ flex: 0 0 auto; height: 28px; padding: 0 9px; border: 0; border-radius: 7px; background: rgba(255,255,255,.72); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; }}
+.header-toggle {{ flex: 0 0 auto; height: 28px; padding: 0 10px; border: 1px solid rgba(255,255,255,.35); border-radius: 7px; background: #173b67; color: #ffffff; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 3px rgba(17,24,39,.22); }}
+.header-toggle:hover {{ background: #0b213d; }}
+.topbar.collapsed .header-toggle {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.12); }}
 .header-controls {{ overflow: hidden; max-height: 210px; opacity: 1; transition: max-height .2s ease, opacity .15s ease, margin .2s ease; }}
 .topbar.collapsed {{ padding-bottom: 9px; }}
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
@@ -1052,12 +1054,12 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
 .card-side {{ position: relative; align-self: stretch; width: 82px; height: 118px; min-height: 118px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.important-button {{ position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
+.important-button {{ position: absolute; z-index: 3; top: 43%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
 .preview-card.important .important-button {{ color: #111; background: #fee500; }}
 .preview-image {{ width: 82px; height: 118px; min-height: 118px; background: linear-gradient(135deg,#173b67,#0b213d); }}
 .preview-image img {{ display: block; width: 100%; height: 118px; min-height: 118px; object-fit: cover; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
-.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 118px; min-height: 118px; padding: 54px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
+.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 118px; min-height: 118px; padding: 24px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .card-side, .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
