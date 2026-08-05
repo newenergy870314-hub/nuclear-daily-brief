@@ -1695,7 +1695,23 @@ function openArticle(card){{
   readArticles.add(u);
   saveState();
   document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(u)}}"]`).forEach(applyState);
-  window.open(u,"_blank","noopener");
+
+  const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+
+  if(isDesktop){{
+    const width = Math.min(1280, Math.max(900, Math.floor(screen.availWidth * 0.82)));
+    const height = Math.min(920, Math.max(700, Math.floor(screen.availHeight * 0.88)));
+    const left = Math.max(0, Math.floor((screen.availWidth - width) / 2));
+    const top = Math.max(0, Math.floor((screen.availHeight - height) / 2));
+
+    window.open(
+      u,
+      "nuclearArticleWindow",
+      `popup=yes,width=${{width}},height=${{height}},left=${{left}},top=${{top}},scrollbars=yes,resizable=yes,noopener`
+    );
+  }} else {{
+    window.open(u, "_blank", "noopener");
+  }}
 }}
 document.querySelectorAll(".preview-card").forEach(card=>{{
   applyState(card);
