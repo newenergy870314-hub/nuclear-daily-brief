@@ -315,6 +315,11 @@ EVENT_CONCEPTS = {
         "공론화착수", "공론화 착수", "속도낸다", "속도 낸다",
         "속도", "추진", "신설추진", "신설 추진",
     },
+    "topic:살수드론": {
+        "살수드론", "살수 드론", "방수드론", "방수 드론",
+        "소방드론", "소방 드론", "water spraying drone",
+        "firefighting drone", "water-spraying drone",
+    },
 }
 
 
@@ -508,6 +513,11 @@ def is_same_event(title_a: str, title_b: str) -> bool:
         "action:지역별차등요금",
     }
     if policy_bundle.issubset(shared):
+        return True
+
+    # '살수드론'처럼 희소성이 높은 핵심 기술·장비명이 동일하면
+    # 언론사와 제목 표현이 달라도 같은 보도자료 기반 기사로 처리
+    if "topic:살수드론" in shared:
         return True
 
     # 특정 개념이 4개 이상 겹치는 경우도 동일 사건
@@ -1024,15 +1034,15 @@ def build_html(
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
 .phone {{ width: min(100%, 520px); min-height: 100vh; margin: 0 auto; background: #b2c7d9; }}
-.topbar {{ position: sticky; top: 0; z-index: 20; margin: 8px 8px 0; padding: 15px 16px 12px; background: linear-gradient(180deg, rgba(201,218,231,.98) 0%, rgba(178,199,217,.98) 100%); border: 1px solid rgba(35,57,93,.32); border-bottom: 2px solid #23395d; border-radius: 12px; box-shadow: 0 2px 8px rgba(35,57,93,.12); backdrop-filter: blur(8px); }}
+.topbar {{ position: sticky; top: 0; z-index: 20; margin: 8px 8px 0; padding: 15px 16px 12px; background: rgba(178,199,217,.98); border: 1px solid rgba(35,57,93,.22); border-radius: 12px; box-shadow: 0 1px 5px rgba(35,57,93,.08); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
-.topbar h1 {{ margin: 0; color: #173b67; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; }}
+.topbar h1 {{ margin: 0; color: #ffffff; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; text-shadow: 0 1px 2px rgba(35,57,93,.35); }}
 .header-toggle {{ flex: 0 0 auto; min-width: 54px; height: 24px; padding: 0 7px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 9px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
 .header-toggle:hover {{ background: #f5d900; }}
 .header-toggle:active {{ transform: translateY(1px); }}
 .topbar.collapsed .header-toggle {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.14); box-shadow: none; }}
 .header-controls {{ overflow: hidden; max-height: 210px; opacity: 1; transition: max-height .2s ease, opacity .15s ease, margin .2s ease; }}
-.topbar.collapsed {{ padding-bottom: 9px; background: linear-gradient(180deg, rgba(201,218,231,.99) 0%, rgba(178,199,217,.99) 100%); }}
+.topbar.collapsed {{ padding-bottom: 9px; background: rgba(178,199,217,.99); }}
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
 .updated {{ margin-top: 5px; color: #475467; font-size: 10px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
