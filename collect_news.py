@@ -170,6 +170,7 @@ def normalized(title: str) -> str:
 ENTITY_ALIASES = {
     "새울원전": "새울원자력",
     "새울 원전": "새울원자력",
+    "새울본부": "새울원자력",
     "한국수력원자력": "한수원",
     "한국 전력": "한전",
     "한국전력": "한전",
@@ -179,20 +180,26 @@ ENTITY_ALIASES = {
 }
 
 ACTION_ALIASES = {
-    "무상 교체": "교체 지원",
-    "무료 교체": "교체 지원",
-    "교체해준다": "교체 지원",
-    "설치 지원": "지원",
+    "무상 교체": "교체지원",
+    "무료 교체": "교체지원",
+    "조명 교체 지원": "교체지원",
+    "교체 지원": "교체지원",
+    "교체해준다": "교체지원",
+    "설치 지원": "설치지원",
     "업무협약": "협약",
+    "양해각서": "협약",
     "mou": "협약",
     "체결": "협약",
-    "착공": "건설 시작",
-    "준공": "건설 완료",
+    "착공": "건설시작",
+    "첫 삽": "건설시작",
+    "준공": "건설완료",
 }
 
 OBJECT_ALIASES = {
-    "고효율 조명": "led 조명",
-    "엘이디 조명": "led 조명",
+    "고효율 led 조명": "led조명",
+    "고효율 조명": "led조명",
+    "엘이디 조명": "led조명",
+    "led 조명": "led조명",
     "소형 모듈 원자로": "smr",
     "small modular reactor": "smr",
     "원자력 발전소": "원전",
@@ -202,8 +209,58 @@ OBJECT_ALIASES = {
 STOPWORDS = {
     "관련", "대한", "통해", "위해", "추진", "지원", "사업",
     "밝혀", "발표", "나서", "진행", "계획", "예정", "이번",
+    "제공", "실시", "본격", "개최", "확대", "강화",
     "the", "a", "an", "and", "for", "to", "of", "in", "on",
 }
+
+# 제목 표현이 달라도 동일 사건으로 묶기 위한 개념 사전
+EVENT_CONCEPTS = {
+    "entity:새울원자력": {
+        "새울원자력", "새울원전", "새울본부",
+    },
+    "entity:한수원": {
+        "한수원", "한국수력원자력", "khnp",
+    },
+    "entity:한전": {
+        "한전", "한국전력", "kepco",
+    },
+    "target:소상공인": {
+        "소상공인", "소상공인들",
+    },
+    "location:울주군": {
+        "울주군", "울산 울주",
+    },
+    "object:led조명": {
+        "led조명", "led 조명", "고효율조명", "고효율 조명", "엘이디조명",
+    },
+    "action:교체지원": {
+        "교체지원", "교체 지원", "무상교체", "무상 교체",
+        "무료교체", "무료 교체", "교체해준다",
+    },
+    "action:협약": {
+        "업무협약", "양해각서", "mou", "협약체결", "협약 체결",
+    },
+    "action:건설시작": {
+        "착공", "첫삽", "첫 삽", "건설시작",
+    },
+    "action:건설완료": {
+        "준공", "완공", "건설완료",
+    },
+}
+
+
+def strip_korean_particle(token: str) -> str:
+    """간단한 한국어 조사를 제거해 핵심 명사를 비교하기 쉽게 합니다."""
+    particles = (
+        "으로부터", "에게서", "에서는", "으로는", "까지도",
+        "으로", "에서", "에게", "한테", "께서", "부터", "까지",
+        "에는", "에도", "이라", "라고", "과의", "와의",
+        "은", "는", "이", "가", "을", "를", "에", "의", "와", "과", "도", "로",
+    )
+    for particle in particles:
+        if token.endswith(particle) and len(token) > len(particle) + 1:
+            return token[:-len(particle)]
+    return token
 
 
 def semantic_normalized(title: str) -> str:
@@ -216,23 +273,35 @@ def semantic_normalized(title: str) -> str:
     for source, target in OBJECT_ALIASES.items():
         text = text.replace(source, target)
 
-    return " ".join(text.split())
+    tokens = [strip_korean_particle(token) for token in text.split()]
+    return " ".join(tokens)
 
 
 def keyword_set(title: str) -> set[str]:
-    text = semantic_normalized(title)
-    tokens = {
-        token for token in text.split()
+    return {
+        token
+        for token in semantic_normalized(title).split()
         if len(token) >= 2 and token not in STOPWORDS
     }
-    return tokens
+
+
+def event_concepts(title: str) -> set[str]:
+    """
+    제목에서 주체·대상·지역·행위 개념을 추출합니다.
+    문장 구조가 달라도 같은 사건이면 공통 개념이 남습니다.
+    """
+    raw = normalized(title).replace(" ", "")
+    semantic = semantic_normalized(title).replace(" ", "")
+    combined = f"{raw} {semantic}"
+
+    concepts: set[str] = set()
+    for concept, variants in EVENT_CONCEPTS.items():
+        if any(variant.replace(" ", "") in combined for variant in variants):
+            concepts.add(concept)
+    return concepts
 
 
 def semantic_duplicate_score(title_a: str, title_b: str) -> float:
-    """
-    제목 전체 유사도와 핵심 키워드 겹침을 함께 계산합니다.
-    언론사가 달라도 주체·대상·행위가 같으면 같은 기사로 판단합니다.
-    """
     norm_a = semantic_normalized(title_a)
     norm_b = semantic_normalized(title_b)
 
@@ -240,37 +309,80 @@ def semantic_duplicate_score(title_a: str, title_b: str) -> float:
 
     keys_a = keyword_set(title_a)
     keys_b = keyword_set(title_b)
-
     if not keys_a or not keys_b:
         return sequence_score
 
     intersection = len(keys_a & keys_b)
     union = len(keys_a | keys_b)
     jaccard = intersection / union if union else 0.0
-
     containment = intersection / min(len(keys_a), len(keys_b))
 
-    return max(sequence_score, jaccard, containment)
+    concepts_a = event_concepts(title_a)
+    concepts_b = event_concepts(title_b)
+    concept_intersection = len(concepts_a & concepts_b)
+    concept_containment = (
+        concept_intersection / min(len(concepts_a), len(concepts_b))
+        if concepts_a and concepts_b
+        else 0.0
+    )
+
+    return max(sequence_score, jaccard, containment, concept_containment)
+
+
+def is_same_event(title_a: str, title_b: str) -> bool:
+    """
+    제목의 문구가 달라도 주체·대상·행위가 같으면 동일 사건으로 판단합니다.
+    """
+    concepts_a = event_concepts(title_a)
+    concepts_b = event_concepts(title_b)
+    shared = concepts_a & concepts_b
+
+    has_entity = any(item.startswith("entity:") for item in shared)
+    has_action = any(item.startswith("action:") for item in shared)
+    has_subject_detail = any(
+        item.startswith(("target:", "object:", "location:"))
+        for item in shared
+    )
+
+    # 주체 + 행위 + 대상/목적물/지역이 겹치면 같은 사건
+    if has_entity and has_action and has_subject_detail and len(shared) >= 3:
+        return True
+
+    # 특정 개념이 4개 이상 겹치는 경우도 동일 사건
+    if len(shared) >= 4:
+        return True
+
+    return False
 
 
 def is_duplicate(article: Article, selected: list[Article]) -> bool:
     for existing in selected:
-        score = semantic_duplicate_score(article.title, existing.title)
         time_gap = abs(
             (article.published - existing.published).total_seconds()
         )
+        score = semantic_duplicate_score(article.title, existing.title)
 
-        # 제목·핵심 의미가 85% 이상 같으면 동일 기사
+        # 명확히 같은 사건이면 언론사와 제목 표현이 달라도 중복 처리
+        if time_gap <= 72 * 60 * 60 and is_same_event(
+            article.title,
+            existing.title,
+        ):
+            return True
+
+        # 제목 및 핵심 키워드 유사도 기준
         if score >= 0.85:
             return True
 
-        # 48시간 이내 기사 중 핵심 주체·대상·행위가 70% 이상 겹치면
-        # 언론사와 문장 표현이 달라도 동일 이슈의 중복 기사로 처리
-        if time_gap <= 48 * 60 * 60 and score >= 0.70:
-            return True
+        # 72시간 이내 보도는 핵심 내용이 65% 이상 겹치면 중복 처리
+        if time_gap <= 72 * 60 * 60 and score >= 0.65:
+            common_keywords = (
+                keyword_set(article.title)
+                & keyword_set(existing.title)
+            )
+            if len(common_keywords) >= 3:
+                return True
 
     return False
-
 
 def order_similar_articles(articles: list[Article]) -> list[Article]:
     """Place related headlines next to each other while keeping newer clusters first."""
