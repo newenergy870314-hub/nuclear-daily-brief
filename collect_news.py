@@ -1000,9 +1000,10 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: rgba(178,199,217,.97); border-bottom: 1px solid rgba(17,24,39,.08); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
 .topbar h1 {{ margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }}
-.header-toggle {{ flex: 0 0 auto; height: 28px; padding: 0 10px; border: 1px solid rgba(255,255,255,.35); border-radius: 7px; background: #173b67; color: #ffffff; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 3px rgba(17,24,39,.22); }}
-.header-toggle:hover {{ background: #0b213d; }}
-.topbar.collapsed .header-toggle {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.12); }}
+.header-toggle {{ flex: 0 0 auto; min-width: 92px; height: 36px; padding: 0 12px; border: 2px solid #111827; border-radius: 18px; background: #ffb000; color: #111827; font-size: 12px; font-weight: 900; letter-spacing: -.2px; cursor: pointer; box-shadow: 0 3px 0 #111827, 0 4px 8px rgba(17,24,39,.25); }}
+.header-toggle:hover {{ background: #fee500; transform: translateY(-1px); }}
+.header-toggle:active {{ transform: translateY(2px); box-shadow: 0 1px 0 #111827; }}
+.topbar.collapsed .header-toggle {{ background: #19c37d; color: #062d1f; border-color: #062d1f; box-shadow: 0 3px 0 #062d1f, 0 4px 8px rgba(17,24,39,.25); }}
 .header-controls {{ overflow: hidden; max-height: 210px; opacity: 1; transition: max-height .2s ease, opacity .15s ease, margin .2s ease; }}
 .topbar.collapsed {{ padding-bottom: 9px; }}
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
@@ -1070,7 +1071,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <h1>금일 원자력 주요기사</h1>
-      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">접기 ▲</button>
+      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">메뉴 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
       <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
@@ -1092,7 +1093,7 @@ const topbar = document.getElementById("topbar");
 const headerToggle = document.getElementById("header-toggle");
 function setHeaderCollapsed(collapsed){{
   topbar.classList.toggle("collapsed", collapsed);
-  headerToggle.textContent = collapsed ? "펼치기 ▼" : "접기 ▲";
+  headerToggle.textContent = collapsed ? "메뉴 펼치기 ▼" : "메뉴 접기 ▲";
   headerToggle.setAttribute("aria-expanded", String(!collapsed));
   localStorage.setItem(headerStateKey, collapsed ? "1" : "0");
 }}
