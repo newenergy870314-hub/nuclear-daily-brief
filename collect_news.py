@@ -43,15 +43,15 @@ GROUPS = [
         "HDEC construction",
         "HDEC nuclear",
     ]),
-    ("한수원·한국수력원자력", [
+    ("한국수력원자력", [
         "한수원 원전", "한국수력원자력", "KHNP nuclear",
         "KHNP reactor", "KHNP nuclear project",
     ]),
-    ("한전·한국전력", [
+    ("한국전력", [
         "한전 원전", "한국전력 원자력", "KEPCO nuclear",
         "KEPCO reactor", "KEPCO nuclear project",
     ]),
-    ("원전·원자력", [
+    ("원자력", [
         "원전", "원자력", "원자력발전", "원자력발전소",
         "대형원전", "신규 원전", "원전 건설", "원전 프로젝트", "원전 수출",
     ]),
@@ -914,12 +914,19 @@ def article_from_dict(data: dict) -> Article | None:
         if not is_news_source(publisher, source_url, title):
             return None
 
+        group_name = str(data.get("group", ""))
+        group_name = {
+            "한수원·한국수력원자력": "한국수력원자력",
+            "한전·한국전력": "한국전력",
+            "원전·원자력": "원자력",
+        }.get(group_name, group_name)
+
         return Article(
             title=title,
             link=str(data.get("link", "")),
             published=date_parser.parse(str(data.get("published", ""))).astimezone(KST),
             language=str(data.get("language", "")),
-            group=str(data.get("group", "")),
+            group=group_name,
             publisher=publisher,
             image=str(data.get("image", "")),
             source_url=source_url,
