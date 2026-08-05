@@ -148,7 +148,7 @@ def is_duplicate(article: Article, selected: list[Article]) -> bool:
     key = normalized(article.title)
     for existing in selected:
         other = normalized(existing.title)
-        if key == other or SequenceMatcher(None, key, other).ratio() >= 0.86:
+        if key == other or SequenceMatcher(None, key, other).ratio() >= 0.85:
             return True
     return False
 
@@ -280,28 +280,31 @@ def render_group(group: str, articles: list[Article]) -> str:
 '''
 
 
-def render_language_section(
-    language_title: str,
-    language_code: str,
-    grouped: dict[str, list[Article]],
-) -> str:
-    group_html = "".join(
-        render_group(
-            group,
-            [article for article in grouped[group] if article.language == language_code],
-        )
-        for group, _ in GROUPS
-    )
-
-    if not group_html:
+def render_group_unified(group: str, articles: list[Article]) -> str:
+    if not articles:
         return ""
 
-    return f'''
-<div class="language-section">
-  <div class="language-title">{escape(language_title)}</div>
-  {group_html}
-</div>
-'''
+    korean_articles = [
+        article for article in articles if article.language == "ko"
+    ]
+    english_articles = [
+        article for article in articles if article.language == "en"
+    ]
+
+    ordered_articles = korean_articles + english_articles
+
+    cards = "".join(
+        render_card(article, index)
+        for index, article in enumerate(ordered_articles, start=1)
+    )
+
+    return f"""
+<section class="news-group">
+  <div class="group-title">{escape(group)}</div>
+  <div class="article-stack">{cards}</div>
+</section>
+"""
+
 
 
 def build_html(start: datetime, end: datetime, articles: list[Article]) -> str:
@@ -309,8 +312,10 @@ def build_html(start: datetime, end: datetime, articles: list[Article]) -> str:
     for article in articles:
         grouped[article.group].append(article)
 
-    korean_section = render_language_section("한글기사", "ko", grouped)
-    english_section = render_language_section("영문기사", "en", grouped)
+    news_sections = "".join(
+        render_group_unified(group, grouped[group])
+        for group, _ in GROUPS
+    )
 
     return f'''<!doctype html>
 <html lang="ko">
@@ -447,6 +452,17 @@ main {{
   white-space: nowrap;
 }}
 
+.lang-badge {{
+  display: inline-block;
+  margin-right: 5px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  color: white;
+  background: #23395d;
+  font-size: 9px;
+  font-weight: 800;
+}}
+
 .headline {{
   display: -webkit-box;
   margin-top: 5px;
@@ -536,7 +552,18 @@ footer {{
     width: 72px;
   }}
 
-  .headline {{
+  .lang-badge {{
+  display: inline-block;
+  margin-right: 5px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  color: white;
+  background: #23395d;
+  font-size: 9px;
+  font-weight: 800;
+}}
+
+.headline {{
     font-size: 12px;
   }}
 }}
@@ -552,9 +579,11 @@ footer {{
   </header>
 
   <main>
-    {korean_section}
-    {english_section}
-    {"" if korean_section or english_section else '<div class="empty">조회기간 내 뉴스 기사가 없습니다.</div>'}
+    <div class="language-section">
+      <div class="language-title">뉴스기사</div>
+      {news_sections}
+    </div>
+    {"" if news_sections else '<div class="empty">조회기간 내 뉴스 기사가 없습니다.</div>'}
   </main>
 
   <footer>기사 카드를 누르면 원문으로 이동하며, 확인한 기사는 회색으로 표시됩니다.</footer>
