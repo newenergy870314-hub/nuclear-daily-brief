@@ -1312,7 +1312,7 @@ main {{ padding: 12px 12px 34px; }}
 .partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
 .language-section {{ margin-bottom: 30px; }}
 .news-group {{ margin-bottom: 12px; }}
-.group-title {{ display: inline-flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin: 0; padding: 8px 11px; border: 0; background: #fee500; color: #111827; border-radius: 4px 11px 11px 11px; font: inherit; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
+.group-title {{ display: flex; align-items: center; gap: 6px; width: 100%; max-width: 100%; box-sizing: border-box; margin: 0; padding: 8px 11px; border: 0; background: #fee500; color: #111827; border-radius: 4px 11px 11px 11px; font: inherit; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-count {{ align-self: flex-end; margin-bottom: 1px; color: #5f5200; font-size: 9px; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 13px; color: #111827; font-size: 11px; line-height: 1; }}
