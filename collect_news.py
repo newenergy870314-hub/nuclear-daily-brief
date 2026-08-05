@@ -43,6 +43,20 @@ GROUPS = [
         "HDEC construction",
         "HDEC nuclear",
     ]),
+    ("타 건설사", [
+        # 국내 주요 건설사 동향을 하나의 항목으로 통합
+        '"삼성물산 건설부문"', '"Samsung C&T" construction',
+        '"대우건설"', '"Daewoo E&C"',
+        '"DL이앤씨"', '"DL E&C"',
+        '"GS건설"', '"GS E&C"',
+        '"SK에코플랜트"', '"SK ecoplant"',
+        '"포스코이앤씨"', '"POSCO E&C"',
+        '"롯데건설"', '"Lotte E&C"',
+        '"현대엔지니어링"', '"Hyundai Engineering"',
+        '"HDC현대산업개발"', '"HDC Hyundai Development"',
+        '"한화 건설부문"', '"Hanwha construction"',
+        '"두산에너빌리티" 건설', '"Doosan Enerbility" construction',
+    ]),
     ("한국수력원자력", [
         "한수원 원전", "한국수력원자력", "KHNP nuclear",
         "KHNP reactor", "KHNP nuclear project",
@@ -50,6 +64,28 @@ GROUPS = [
     ("한국전력", [
         "한전 원전", "한국전력 원자력", "KEPCO nuclear",
         "KEPCO reactor", "KEPCO nuclear project",
+    ]),
+    ("정부 관계부처", [
+        # 산업통상부·기후에너지환경부·과학기술정보통신부의
+        # 장관·차관급 이상 인사 및 정책 관련 기사
+        '"산업통상부" 장관',
+        '"산업통상부" 차관',
+        '"산업통상자원부" 장관',
+        '"산업통상자원부" 차관',
+        '"기후에너지환경부" 장관',
+        '"기후에너지환경부" 차관',
+        '"기후부" 장관',
+        '"기후부" 차관',
+        '"과학기술정보통신부" 장관',
+        '"과학기술정보통신부" 차관',
+        '"과기정통부" 장관',
+        '"과기정통부" 차관',
+        '"과기부" 장관',
+        '"과기부" 차관',
+        '"Ministry of Trade, Industry and Energy" minister',
+        '"Ministry of Climate, Energy and Environment" minister',
+        '"Ministry of Science and ICT" minister',
+        '"Ministry of Science and ICT" vice minister',
     ]),
     ("원자력", [
         "원전", "원자력", "원자력발전", "원자력발전소",
@@ -693,6 +729,73 @@ def is_news_source(
     return True
 
 
+HYUNDAI_EC_TERMS = {
+    "현대건설", "hyundai e&c", "hyundai e c",
+    "hyundai engineering & construction",
+    "hyundai engineering and construction", "hdec",
+}
+
+OTHER_CONSTRUCTION_TERMS = {
+    "삼성물산", "samsung c&t",
+    "대우건설", "daewoo e&c", "daewoo e c",
+    "dl이앤씨", "dl e&c", "dl e c",
+    "gs건설", "gs e&c", "gs e c",
+    "sk에코플랜트", "sk ecoplant",
+    "포스코이앤씨", "posco e&c", "posco e c",
+    "롯데건설", "lotte e&c", "lotte e c",
+    "현대엔지니어링", "hyundai engineering",
+    "hdc현대산업개발", "hdc hyundai development",
+    "한화 건설부문", "한화건설", "hanwha construction",
+    "두산에너빌리티", "doosan enerbility",
+}
+
+
+HOLTEC_TERMS = {
+    "holtec", "holtec international", "smr-300", "smr 300",
+    "palisades smr", "palisades nuclear", "oyster creek smr",
+}
+
+FERMI_AMERICA_TERMS = {
+    "fermi america", "project matador", "hypergrid",
+    "amarillo nuclear", "carson county nuclear",
+}
+
+
+def classify_priority_company_group(group: str, title: str, summary: str) -> str:
+    """
+    Holtec 및 Fermi America 관련 기사는 검색된 원래 항목과 관계없이
+    각각의 전용 항목으로 분류합니다.
+    """
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    if any(term in haystack for term in HOLTEC_TERMS):
+        return "Holtec"
+
+    if any(term in haystack for term in FERMI_AMERICA_TERMS):
+        return "Fermi America"
+
+    return group
+
+
+def classify_construction_group(group: str, title: str, summary: str) -> str | None:
+    """
+    타 건설사 검색 결과라도 제목이나 RSS 기사 요약에 현대건설이 포함되면
+    현대건설 항목으로 분류합니다.
+    """
+    if group != "타 건설사":
+        return group
+
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    if any(term in haystack for term in HYUNDAI_EC_TERMS):
+        return "현대건설"
+
+    if any(term in haystack for term in OTHER_CONSTRUCTION_TERMS):
+        return "타 건설사"
+
+    return None
+
+
 def parse_entry(entry, language: str, group: str) -> Article | None:
     raw_date = getattr(entry, "published", None) or getattr(entry, "updated", None)
     if not raw_date:
@@ -716,16 +819,51 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if not title or not link or not is_news_source(publisher, source_url, title):
         return None
 
+    summary = (
+        getattr(entry, "summary", "")
+        or getattr(entry, "description", "")
+        or ""
+    )
+    priority_group = classify_priority_company_group(group, title, summary)
+    classified_group = classify_construction_group(priority_group, title, summary)
+    if classified_group is None:
+        return None
+
     return Article(
         title=title,
         link=link,
         published=published,
         language=language,
-        group=group,
+        group=classified_group,
         publisher=publisher,
         image=extract_image(entry),
         source_url=source_url,
     )
+
+
+GOVERNMENT_MINISTRY_TERMS = {
+    "산업통상부", "산업통상자원부", "산업부",
+    "기후에너지환경부", "기후부",
+    "과학기술정보통신부", "과기정통부", "과기부",
+    "ministry of trade, industry and energy",
+    "ministry of climate, energy and environment",
+    "ministry of science and ict",
+}
+
+GOVERNMENT_SENIOR_RANK_TERMS = {
+    "장관", "차관", "1차관", "2차관", "제1차관", "제2차관",
+    "부총리", "대통령", "국무총리",
+    "minister", "vice minister", "deputy prime minister",
+    "president", "prime minister",
+}
+
+
+def is_government_senior_article(article: Article) -> bool:
+    """정부 관계부처 그룹에는 장관·차관급 이상 관련 기사만 포함합니다."""
+    title = normalize_text(article.title)
+    has_ministry = any(term in title for term in GOVERNMENT_MINISTRY_TERMS)
+    has_senior_rank = any(term in title for term in GOVERNMENT_SENIOR_RANK_TERMS)
+    return has_ministry and has_senior_rank
 
 
 def collect(start: datetime, end: datetime) -> list[Article]:
@@ -739,8 +877,11 @@ def collect(start: datetime, end: datetime) -> list[Article]:
                 feed = feedparser.parse(google_news_url(query, language))
                 for entry in feed.entries:
                     article = parse_entry(entry, language, group)
-                    if article and start <= article.published < end:
-                        found.append(article)
+                    if not article or not (start <= article.published < end):
+                        continue
+                    if group == "정부 관계부처" and not is_government_senior_article(article):
+                        continue
+                    found.append(article)
 
             found.sort(key=lambda article: -article.published.timestamp())
 
@@ -749,7 +890,7 @@ def collect(start: datetime, end: datetime) -> list[Article]:
             # 현대건설은 원전뿐 아니라 기술·안전·로봇·수주 등
             # 회사 전체 동향을 보여주기 위해 기사 수를 더 넉넉하게 유지합니다.
             group_limit = (
-                20 if group == "현대건설"
+                20 if group in {"현대건설", "타 건설사", "정부 관계부처"}
                 else MAX_PER_GROUP_PER_LANGUAGE
             )
 
@@ -842,10 +983,9 @@ def render_group_unified(
     return f"""
 <section class="news-group" data-group="{escape(group)}">
   <button class="group-title" type="button" aria-expanded="true">
-    <span class="group-square"></span>
+    <span class="group-arrow">▲</span>
     <span>{escape(group)}</span>
     <span class="group-count">{len(ordered_articles)}건</span>
-    <span class="group-arrow">▲</span>
   </button>
   <div class="article-stack">{cards}</div>
 </section>
@@ -1170,19 +1310,18 @@ main {{ padding: 12px 12px 34px; }}
 .news-group {{ margin-bottom: 12px; }}
 .group-title {{ display: inline-flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin: 0; padding: 8px 11px; border: 0; background: #fee500; color: #111827; border-radius: 4px 11px 11px 11px; font: inherit; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
-.group-square {{ width: 9px; height: 9px; background: #111; border-radius: 1px; }}
 .group-count {{ align-self: flex-end; margin-bottom: 1px; color: #5f5200; font-size: 9px; line-height: 1; white-space: nowrap; }}
-.group-arrow {{ margin-left: 1px; color: #5f5200; font-size: 10px; line-height: 1; }}
+.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 13px; color: #111827; font-size: 11px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 7px; margin-top: 8px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
-.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; height: 118px; min-height: 118px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
+.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; height: 104px; min-height: 104px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #eef1f4; opacity: .72; }}
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
-.article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 12px; color: #344054; font-size: 12px; font-weight: 800; }}
-.preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 10px 9px 8px 0; }}
+.article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; color: #344054; font-size: 12px; font-weight: 800; }}
+.preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 8px 8px 6px 0; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
-.headline {{ display: -webkit-box; overflow: hidden; margin-top: 5px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
-.status-line {{ margin-top: auto; margin-top: auto; padding-top: 5px; font-size: 10px; }}
+.headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
+.status-line {{ margin-top: auto; margin-top: auto; padding-top: 3px; font-size: 9px; }}
 
 .unread-label {{ color: #17639f; font-weight: 700; }}
 .read-label {{ display: none; color: #667085; font-weight: 700; }}
@@ -1191,13 +1330,13 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.read .read-label {{ display: inline; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
-.card-side {{ position: relative; align-self: stretch; width: 82px; height: 118px; min-height: 118px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.important-button {{ position: absolute; z-index: 3; top: calc(43% - 8px); left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
+.card-side {{ position: relative; align-self: stretch; width: 82px; height: 104px; min-height: 104px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.important-button {{ position: absolute; z-index: 3; top: calc(42% - 6px); left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
 .preview-card.important .important-button {{ color: #111; background: #fee500; }}
-.preview-image {{ width: 82px; height: 118px; min-height: 118px; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.preview-image img {{ display: block; width: 100%; height: 118px; min-height: 118px; object-fit: cover; }}
+.preview-image {{ width: 82px; height: 104px; min-height: 104px; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.preview-image img {{ display: block; width: 100%; height: 104px; min-height: 104px; object-fit: cover; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
-.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 118px; min-height: 118px; padding: 24px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
+.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 104px; min-height: 104px; padding: 24px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .card-side, .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
