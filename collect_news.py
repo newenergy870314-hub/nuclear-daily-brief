@@ -26,7 +26,8 @@ ALWAYS_SHOW_GROUPS = {
     "타 건설사",
     "한국수력원자력",
     "한국전력",
-    "정부 관계부처",
+    "원전 관계부처",
+    "원전 대미투자",
     "원자력",
     "SMR",
     "Nuclear Power·Nuclear Energy",
@@ -75,12 +76,20 @@ GROUPS = [
     ("한국수력원자력", [
         "한수원 원전", "한국수력원자력", "KHNP nuclear",
         "KHNP reactor", "KHNP nuclear project",
+        "한수원 인사", "한국수력원자력 인사",
+        "한수원 임명", "한수원 취임", "한수원 승진",
+        "한수원 보직", "한수원 인사발령",
+        "KHNP appointment", "KHNP personnel", "KHNP executive",
     ]),
     ("한국전력", [
         "한전 원전", "한국전력 원자력", "KEPCO nuclear",
         "KEPCO reactor", "KEPCO nuclear project",
+        "한전 인사", "한국전력 인사",
+        "한전 임명", "한전 취임", "한전 승진",
+        "한전 보직", "한전 인사발령",
+        "KEPCO appointment", "KEPCO personnel", "KEPCO executive",
     ]),
-    ("정부 관계부처", [
+    ("원전 관계부처", [
         # 산업통상부·기후에너지환경부·과학기술정보통신부의
         # 장관·차관급 이상 인사 및 정책 관련 기사
         '"산업통상부" 장관',
@@ -101,6 +110,36 @@ GROUPS = [
         '"Ministry of Climate, Energy and Environment" minister',
         '"Ministry of Science and ICT" minister',
         '"Ministry of Science and ICT" vice minister',
+        '"산업통상부" 인사',
+        '"산업통상자원부" 인사',
+        '"기후에너지환경부" 인사',
+        '"과학기술정보통신부" 인사',
+        '"과기정통부" 인사',
+        '"산업통상부" 임명',
+        '"기후에너지환경부" 임명',
+        '"과학기술정보통신부" 임명',
+        '"Ministry of Trade, Industry and Energy" appointment',
+        '"Ministry of Climate, Energy and Environment" appointment',
+        '"Ministry of Science and ICT" appointment',
+    ]),
+    ("원전 대미투자", [
+        '"대미투자" 원전',
+        '"대미 투자" 원전',
+        '"미국 투자" 원전',
+        '"대미투자" 원자력',
+        '"대미 투자" 원자력',
+        '"미국 투자" 원자력',
+        '"대미투자펀드" 원전',
+        '"대미 투자 펀드" 원전',
+        '"한미 투자" 원전',
+        '"한미 정상회담" 원전 투자',
+        '"미국 원전" 투자',
+        '"미국 원자력" 투자',
+        '"U.S. investment" nuclear',
+        '"US investment" nuclear',
+        '"Korea investment" U.S. nuclear',
+        '"Korea-US investment" nuclear',
+        '"nuclear investment fund" Korea U.S.',
     ]),
     ("원자력", [
         "원전", "원자력", "원자력발전", "원자력발전소",
@@ -791,6 +830,18 @@ TERRAPOWER_TERMS = {
     "kemmerer nuclear", "케머러 원전",
 }
 
+NUCLEAR_US_INVESTMENT_NUCLEAR_TERMS = {
+    "원전", "원자력", "원자로", "smr",
+    "nuclear", "reactor", "ap1000",
+}
+
+NUCLEAR_US_INVESTMENT_TERMS = {
+    "대미투자", "대미 투자", "대미투자펀드", "대미 투자 펀드",
+    "미국 투자", "한미 투자", "대미 투자금", "대미 투자액",
+    "u.s. investment", "us investment", "korea-us investment",
+    "korea u.s. investment", "investment fund", "투자 펀드",
+}
+
 FERMI_AMERICA_TERMS = {
     "fermi america",
     "페르미 아메리카", "페르미아메리카", "페르미",
@@ -804,10 +855,19 @@ FERMI_AMERICA_TERMS = {
 
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
-    Holtec 및 Fermi America 관련 기사는 검색된 원래 항목과 관계없이
+    원전 대미투자, Holtec, TerraPower 및 Fermi America 관련 기사는 검색된 원래 항목과 관계없이
     각각의 전용 항목으로 분류합니다.
     """
     haystack = html.unescape(f"{title} {summary}").lower()
+
+    has_nuclear_term = any(
+        term in haystack for term in NUCLEAR_US_INVESTMENT_NUCLEAR_TERMS
+    )
+    has_us_investment_term = any(
+        term in haystack for term in NUCLEAR_US_INVESTMENT_TERMS
+    )
+    if has_nuclear_term and has_us_investment_term:
+        return "원전 대미투자"
 
     if any(term in haystack for term in HOLTEC_TERMS):
         return "Holtec"
@@ -902,12 +962,25 @@ GOVERNMENT_SENIOR_RANK_TERMS = {
 }
 
 
+PERSONNEL_NEWS_TERMS = {
+    "인사", "인사발령", "임명", "선임", "취임", "승진", "전보",
+    "보직", "부임", "내정", "연임", "사장 선임", "대표 선임",
+    "appointment", "appointed", "personnel", "executive appointment",
+    "promotion", "named as", "takes office", "inauguration",
+}
+
+
 def is_government_senior_article(article: Article) -> bool:
-    """정부 관계부처 그룹에는 장관·차관급 이상 관련 기사만 포함합니다."""
+    """
+    원전 관계부처 그룹에는 다음 기사를 포함합니다.
+    1) 장관·차관급 이상 인사 관련 기사
+    2) 관계부처의 인사발령·임명·취임·승진 등 인사 기사
+    """
     title = normalized(article.title)
     has_ministry = any(term in title for term in GOVERNMENT_MINISTRY_TERMS)
     has_senior_rank = any(term in title for term in GOVERNMENT_SENIOR_RANK_TERMS)
-    return has_ministry and has_senior_rank
+    has_personnel_news = any(term in title for term in PERSONNEL_NEWS_TERMS)
+    return has_ministry and (has_senior_rank or has_personnel_news)
 
 
 def collect(start: datetime, end: datetime) -> list[Article]:
@@ -923,7 +996,7 @@ def collect(start: datetime, end: datetime) -> list[Article]:
                     article = parse_entry(entry, language, group)
                     if not article or not (start <= article.published < end):
                         continue
-                    if group == "정부 관계부처" and not is_government_senior_article(article):
+                    if group == "원전 관계부처" and not is_government_senior_article(article):
                         continue
                     found.append(article)
 
@@ -934,7 +1007,7 @@ def collect(start: datetime, end: datetime) -> list[Article]:
             # 현대건설은 원전뿐 아니라 기술·안전·로봇·수주 등
             # 회사 전체 동향을 보여주기 위해 기사 수를 더 넉넉하게 유지합니다.
             group_limit = (
-                20 if group in {"현대건설", "타 건설사", "정부 관계부처"}
+                20 if group in {"현대건설", "타 건설사", "원전 관계부처"}
                 else MAX_PER_GROUP_PER_LANGUAGE
             )
 
@@ -1110,6 +1183,7 @@ def article_from_dict(data: dict) -> Article | None:
             "한수원·한국수력원자력": "한국수력원자력",
             "한전·한국전력": "한국전력",
             "원전·원자력": "원자력",
+            "정부 관계부처": "원전 관계부처",
         }.get(group_name, group_name)
 
         return Article(
