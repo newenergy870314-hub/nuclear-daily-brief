@@ -681,7 +681,7 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
             'loading="lazy" referrerpolicy="no-referrer">'
         )
     else:
-        image_html = '<div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div>'
+        image_html = '<div class="no-image">NUCLEAR<br>NEWS</div>'
 
     new_badge = '<span class="new-badge">NEW</span>' if is_new else ''
     search_text = ' '.join([article.title, article.publisher, article.group]).lower()
@@ -875,17 +875,16 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.read .read-label {{ display: inline; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
-.card-side {{ position: relative; width: 82px; min-height: 88px; }}
-.important-button {{ position: absolute; z-index: 2; top: 4px; right: 4px; width: 25px; height: 25px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.58); font-size: 16px; cursor: pointer; }}
+.card-side {{ position: relative; align-self: stretch; width: 82px; min-height: 88px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.important-button {{ position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
 .preview-card.important .important-button {{ color: #111; background: #fee500; }}
-.preview-image {{ width: 82px; min-height: 88px; background: #d0d5dd; }}
+.preview-image {{ width: 82px; height: 100%; min-height: 88px; background: linear-gradient(135deg,#173b67,#0b213d); }}
 .preview-image img {{ display: block; width: 100%; height: 100%; min-height: 88px; object-fit: cover; }}
-.plant-icon {{ font-size: 22px; line-height: 1; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
 .no-image {{ display: grid; place-items: center; width: 100%; height: 100%; min-height: 88px; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.45; text-align: center; }}
 .empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
-@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
+@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .card-side, .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
 </style>
 </head>
 <body>
