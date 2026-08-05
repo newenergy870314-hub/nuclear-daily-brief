@@ -18,6 +18,7 @@ OUTPUT = Path("index.html")
 STATE_FILE = Path("article_state.json")
 ARCHIVE_FILE = Path("news_archive.json")
 ARCHIVE_DAYS = 30
+BACKFILL_DATES_PER_RUN = 2
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
 GROUPS = [
@@ -841,6 +842,68 @@ def update_archive(
     return {key: archive[key] for key in sorted(keep_keys)}
 
 
+
+def archive_window_for_date(report_date) -> tuple[datetime, datetime]:
+    """
+    선택한 보고일의 기사 구간을 계산합니다.
+    월요일은 금요일 06:00부터 월요일 06:00까지,
+    화~금요일은 전일 06:00부터 당일 06:00까지입니다.
+    """
+    end = datetime(
+        report_date.year,
+        report_date.month,
+        report_date.day,
+        6, 0, 0,
+        tzinfo=KST,
+    )
+    if report_date.weekday() == 0:
+        start = end - timedelta(days=3)
+    else:
+        start = end - timedelta(days=1)
+    return start, end
+
+
+def backfill_missing_archive_dates(
+    archive: dict[str, dict],
+    generated_at: datetime,
+) -> dict[str, dict]:
+    """
+    기능 적용 이전 날짜를 한 번에 너무 많이 수집하지 않도록
+    실행할 때마다 최대 2개 보고일을 과거 방향으로 채웁니다.
+    주말은 월요일 보고에 포함되므로 별도 보고일로 만들지 않습니다.
+    """
+    today = generated_at.astimezone(KST).date()
+    candidates = []
+
+    for offset in range(1, ARCHIVE_DAYS + 1):
+        report_date = today - timedelta(days=offset)
+
+        # 토요일·일요일은 월요일 보고에 포함
+        if report_date.weekday() >= 5:
+            continue
+
+        key = report_date.isoformat()
+        if key not in archive:
+            candidates.append(report_date)
+
+    # 가장 최근에 비어 있는 날짜부터 조금씩 채움
+    for report_date in candidates[:BACKFILL_DATES_PER_RUN]:
+        start, end = archive_window_for_date(report_date)
+        articles = collect(start, end)
+        key = report_date.isoformat()
+        archive[key] = {
+            "label": key,
+            "start": start.isoformat(),
+            "end": end.isoformat(),
+            "updated_at": generated_at.isoformat(),
+            "articles": [article_to_dict(a) for a in articles],
+        }
+        print(f"Backfilled archive date {key}: {len(articles)} articles")
+
+    keep_keys = sorted(archive.keys(), reverse=True)[:ARCHIVE_DAYS]
+    return {key: archive[key] for key in sorted(keep_keys)}
+
+
 def save_archive(archive: dict[str, dict]) -> None:
     ARCHIVE_FILE.write_text(
         json.dumps(archive, ensure_ascii=False, indent=2),
@@ -968,14 +1031,14 @@ main {{ padding: 12px 12px 34px; }}
 .group-square {{ width: 9px; height: 9px; background: #111; border-radius: 1px; }}
 .group-count {{ align-self: flex-end; margin-bottom: 1px; color: #5f5200; font-size: 9px; line-height: 1; white-space: nowrap; }}
 .article-stack {{ display: grid; gap: 7px; }}
-.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; height: 96px; min-height: 96px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
+.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; height: 118px; min-height: 118px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #eef1f4; opacity: .72; }}
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 12px; color: #344054; font-size: 12px; font-weight: 800; }}
 .preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 10px 9px 8px 0; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
 .headline {{ display: -webkit-box; overflow: hidden; margin-top: 5px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
-.status-line {{ margin-top: auto; padding-top: 5px; font-size: 10px; }}
+.status-line {{ margin-top: auto; margin-top: auto; padding-top: 5px; font-size: 10px; }}
 .unread-label {{ color: #17639f; font-weight: 700; }}
 .read-label {{ display: none; color: #667085; font-weight: 700; }}
 .important-label {{ display: none; color: #b77900; font-weight: 800; }}
@@ -983,13 +1046,13 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.read .read-label {{ display: inline; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
-.card-side {{ position: relative; align-self: stretch; width: 82px; height: 96px; min-height: 96px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.card-side {{ position: relative; align-self: stretch; width: 82px; height: 118px; min-height: 118px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
 .important-button {{ position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
 .preview-card.important .important-button {{ color: #111; background: #fee500; }}
-.preview-image {{ width: 82px; height: 96px; min-height: 96px; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.preview-image img {{ display: block; width: 100%; height: 96px; min-height: 96px; object-fit: cover; }}
+.preview-image {{ width: 82px; height: 118px; min-height: 118px; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.preview-image img {{ display: block; width: 100%; height: 118px; min-height: 118px; object-fit: cover; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
-.no-image {{ display: flex; align-items: flex-end; justify-content: center; width: 100%; height: 96px; min-height: 96px; padding: 0 4px 8px; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
+.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 118px; min-height: 118px; padding: 54px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .card-side, .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
@@ -1054,7 +1117,7 @@ document.getElementById("archive-open").addEventListener("click",()=>{{
   if(!value)return;
   const panel=document.getElementById(`archive-${{value}}`);
   if(!panel){{
-    alert("선택한 날짜의 저장된 기사가 없습니다. 날짜 선택 기능 적용 이후부터 최근 30일간 저장됩니다.");
+    alert("선택한 날짜의 기사가 아직 저장되지 않았습니다. GitHub Actions가 실행될 때마다 과거 날짜를 순차적으로 채웁니다.");
     return;
   }}
   activatePanel(panel);
@@ -1081,6 +1144,7 @@ def main() -> int:
     current_urls = {article.link for items in articles_by_period.values() for article in items}
     new_urls = current_urls - previous_urls if previous_urls else set()
     archive = update_archive(load_archive(), periods, articles_by_period, now)
+    archive = backfill_missing_archive_dates(archive, now)
     save_archive(archive)
     OUTPUT.write_text(
         build_html(periods, articles_by_period, now, new_urls, archive),
