@@ -17,7 +17,7 @@ KST = ZoneInfo("Asia/Seoul")
 OUTPUT = Path("index.html")
 STATE_FILE = Path("article_state.json")
 ARCHIVE_FILE = Path("news_archive.json")
-ARCHIVE_DAYS = 30
+ARCHIVE_DAYS = 90
 BACKFILL_DATES_PER_RUN = 2
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
@@ -1127,9 +1127,10 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .updated {{ margin-top: 5px; color: rgba(255,255,255,.72); font-size: 10px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
 .date-picker-row {{ display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px; margin-top: 7px; }}
-.language-order-row {{ display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 7px; margin-top: 7px; }}
+.language-order-row {{ display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: 7px; }}
 .language-order-label {{ color: rgba(255,255,255,.78); font-size: 10px; font-weight: 700; }}
-.language-order-select {{ width: 100%; height: 32px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); color: #344054; font-size: 11px; font-weight: 700; }}
+.language-order-toggle {{ flex: 1; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); color: #23395d; font-size: 11px; font-weight: 800; cursor: pointer; }}
+.language-order-toggle:active {{ transform: translateY(1px); }}
 
 .date-input {{ width: 100%; height: 34px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); color: #344054; font-size: 11px; }}
 .date-button {{ height: 34px; padding: 0 12px; border: 0; border-radius: 8px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
@@ -1200,10 +1201,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
       <div class="tabs">{buttons}</div>
       <div class="language-order-row">
         <span class="language-order-label">기사 순서</span>
-        <select id="language-order" class="language-order-select" aria-label="기사 언어 우선순위">
-          <option value="ko-en">KOR → ENG</option>
-          <option value="en-ko">ENG → KOR</option>
-        </select>
+        <button id="language-order" class="language-order-toggle" type="button" aria-label="기사 언어 우선순위 변경">KOR → ENG</button>
       </div>
       <div class="date-picker-row"><input id="archive-date" class="date-input" type="date"><button id="archive-open" class="date-button" type="button">날짜 보기</button></div>
     </div>
@@ -1228,7 +1226,11 @@ function setHeaderCollapsed(collapsed){{
 setHeaderCollapsed(localStorage.getItem(headerStateKey) === "1");
 headerToggle.addEventListener("click", () => setHeaderCollapsed(!topbar.classList.contains("collapsed")));
 const languageOrderKey = "nuclearDailyBriefLanguageOrder";
-const languageOrderSelect = document.getElementById("language-order");
+const languageOrderButton = document.getElementById("language-order");
+
+function languageOrderLabel(order){{
+  return order === "en-ko" ? "ENG → KOR" : "KOR → ENG";
+}}
 
 function reorderLanguageArticles(order){{
   const languageRank = order === "en-ko"
@@ -1253,14 +1255,18 @@ function reorderLanguageArticles(order){{
     }});
   }});
 
+  languageOrderButton.dataset.order = order;
+  languageOrderButton.textContent = languageOrderLabel(order);
   localStorage.setItem(languageOrderKey, order);
 }}
 
 const savedLanguageOrder = localStorage.getItem(languageOrderKey) || "ko-en";
-languageOrderSelect.value = savedLanguageOrder;
 reorderLanguageArticles(savedLanguageOrder);
-languageOrderSelect.addEventListener("change", () => {{
-  reorderLanguageArticles(languageOrderSelect.value);
+
+languageOrderButton.addEventListener("click", () => {{
+  const currentOrder = languageOrderButton.dataset.order || "ko-en";
+  const nextOrder = currentOrder === "ko-en" ? "en-ko" : "ko-en";
+  reorderLanguageArticles(nextOrder);
   renderFavorites();
 }});
 function saveState(){{ localStorage.setItem(readKey, JSON.stringify([...readArticles])); localStorage.setItem(importantKey, JSON.stringify([...importantArticles])); }}
