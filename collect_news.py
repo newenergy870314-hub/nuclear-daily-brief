@@ -277,6 +277,22 @@ EVENT_CONCEPTS = {
     "action:건설완료": {
         "준공", "완공", "건설완료",
     },
+    "entity:현대건설": {
+        "현대건설", "hdec", "hyundaie&c", "hyundaiengineeringconstruction",
+    },
+    "object:살수드론": {
+        "살수드론", "살수 드론", "물뿌리는드론", "물 뿌리는 드론",
+        "드론살수", "드론 살수",
+    },
+    "object:살수로봇": {
+        "살수로봇", "살수 로봇", "물분사로봇", "물 분사 로봇",
+    },
+    "location:철거현장": {
+        "철거현장", "철거 현장", "해체현장", "해체 현장",
+    },
+    "action:투입": {
+        "투입", "도입", "적용", "배치", "운영",
+    },
 }
 
 
@@ -332,6 +348,81 @@ def event_concepts(title: str) -> set[str]:
     return concepts
 
 
+def compact_title(title: str) -> str:
+    """띄어쓰기·문장부호 차이를 없앤 비교용 제목입니다."""
+    return re.sub(r"[^0-9a-z가-힣]+", "", semantic_normalized(title))
+
+
+def character_ngrams(title: str, size: int = 2) -> set[str]:
+    compact = compact_title(title)
+    if len(compact) < size:
+        return {compact} if compact else set()
+    return {
+        compact[index:index + size]
+        for index in range(len(compact) - size + 1)
+    }
+
+
+def character_ngram_similarity(title_a: str, title_b: str) -> float:
+    grams_a = character_ngrams(title_a)
+    grams_b = character_ngrams(title_b)
+    if not grams_a or not grams_b:
+        return 0.0
+
+    intersection = len(grams_a & grams_b)
+    return intersection / min(len(grams_a), len(grams_b))
+
+
+def meaningful_keywords(title: str) -> set[str]:
+    """
+    기사 사건을 나타내는 핵심 단어를 추출합니다.
+    언론사별 수식어·따옴표·조사가 달라도 같은 보도자료성 기사를 묶습니다.
+    """
+    generic = {
+        "현대건설", "한수원", "한전", "원전", "원자력",
+        "도입", "투입", "적용", "운영", "개발", "공개",
+        "기술", "현장", "건설", "사업", "시스템",
+    }
+    return {
+        token for token in keyword_set(title)
+        if token not in generic and len(token) >= 2
+    }
+
+
+def same_press_release_event(title_a: str, title_b: str) -> bool:
+    """
+    동일 보도자료를 여러 언론사가 제목만 바꿔 보도한 경우를 판정합니다.
+    """
+    concepts_a = event_concepts(title_a)
+    concepts_b = event_concepts(title_b)
+    shared_concepts = concepts_a & concepts_b
+
+    shared_entity = any(item.startswith("entity:") for item in shared_concepts)
+    shared_object = any(item.startswith("object:") for item in shared_concepts)
+    shared_location = any(item.startswith("location:") for item in shared_concepts)
+    shared_action = any(item.startswith("action:") for item in shared_concepts)
+
+    # 현대건설 + 살수드론/살수로봇 + 철거현장 + 투입처럼
+    # 핵심 사건 요소가 3개 이상 같으면 동일 기사로 처리합니다.
+    if shared_entity and len(shared_concepts) >= 3:
+        if shared_object or shared_location or shared_action:
+            return True
+
+    keys_a = meaningful_keywords(title_a)
+    keys_b = meaningful_keywords(title_b)
+    common = keys_a & keys_b
+
+    # 제목 표현이 달라도 핵심 사건 단어가 3개 이상 일치
+    if len(common) >= 3:
+        return True
+
+    # 짧은 제목이나 따옴표형 제목은 문자 2-gram 포함률로 보완
+    if character_ngram_similarity(title_a, title_b) >= 0.62:
+        return True
+
+    return False
+
+
 def semantic_duplicate_score(title_a: str, title_b: str) -> float:
     norm_a = semantic_normalized(title_a)
     norm_b = semantic_normalized(title_b)
@@ -357,7 +448,15 @@ def semantic_duplicate_score(title_a: str, title_b: str) -> float:
         else 0.0
     )
 
-    return max(sequence_score, jaccard, containment, concept_containment)
+    ngram_score = character_ngram_similarity(title_a, title_b)
+
+    return max(
+        sequence_score,
+        jaccard,
+        containment,
+        concept_containment,
+        ngram_score,
+    )
 
 
 def is_same_event(title_a: str, title_b: str) -> bool:
@@ -393,6 +492,13 @@ def is_duplicate(article: Article, selected: list[Article]) -> bool:
         )
         score = semantic_duplicate_score(article.title, existing.title)
 
+        # 동일 보도자료를 여러 언론사가 제목만 바꿔 보도한 경우
+        if time_gap <= 72 * 60 * 60 and same_press_release_event(
+            article.title,
+            existing.title,
+        ):
+            return True
+
         # 명확히 같은 사건이면 언론사와 제목 표현이 달라도 중복 처리
         if time_gap <= 72 * 60 * 60 and is_same_event(
             article.title,
@@ -401,7 +507,7 @@ def is_duplicate(article: Article, selected: list[Article]) -> bool:
             return True
 
         # 제목 및 핵심 키워드 유사도 기준
-        if score >= 0.85:
+        if score >= 0.82:
             return True
 
         # 72시간 이내 보도는 핵심 내용이 65% 이상 겹치면 중복 처리
