@@ -658,23 +658,59 @@ def is_same_event(title_a: str, title_b: str) -> bool:
     return False
 
 
-def same_day_two_keyword_duplicate(article: Article, existing: Article) -> bool:
+def same_day_duplicate(article: Article, existing: Article) -> bool:
     """
-    같은 언어 기사끼리 KST 기준 같은 날짜에 발행되었고,
-    제목의 의미 있는 공통 단어가 2개 이상이면 동일 기사로 처리합니다.
+    KST 기준 같은 날짜에 올라온 기사 중 핵심 내용이 같은 경우
+    언론사·언어·제목 표현이 달라도 동일 기사로 처리합니다.
 
-    예: '폭염' + '원안위'가 함께 반복되는 여러 언론사 기사
+    판정 기준
+    1) 의미 있는 핵심 단어가 2개 이상 일치
+    2) 제목 문자 유사도가 높음
+    3) 동일 주체가 확인되고 핵심 단어 1개 이상 + 제목 유사도가 일정 수준 이상
     """
-    if article.language != existing.language:
-        return False
-
     article_day = article.published.astimezone(KST).date()
     existing_day = existing.published.astimezone(KST).date()
     if article_day != existing_day:
         return False
 
-    shared_keywords = meaningful_keywords(article.title) & meaningful_keywords(existing.title)
-    return len(shared_keywords) >= 2
+    shared_keywords = (
+        meaningful_keywords(article.title)
+        & meaningful_keywords(existing.title)
+    )
+    if len(shared_keywords) >= 2:
+        return True
+
+    ngram_score = character_ngram_similarity(
+        article.title,
+        existing.title,
+    )
+    sequence_score = SequenceMatcher(
+        None,
+        semantic_normalized(article.title),
+        semantic_normalized(existing.title),
+    ).ratio()
+
+    # 제목 표현만 조금 바뀐 동일 기사
+    if ngram_score >= 0.58 or sequence_score >= 0.74:
+        return True
+
+    concepts_a = event_concepts(article.title)
+    concepts_b = event_concepts(existing.title)
+    shared_concepts = concepts_a & concepts_b
+    shared_entity = any(
+        concept.startswith("entity:")
+        for concept in shared_concepts
+    )
+
+    # 같은 주체의 같은 사건을 제목만 다르게 쓴 경우
+    if (
+        shared_entity
+        and len(shared_keywords) >= 1
+        and (ngram_score >= 0.38 or sequence_score >= 0.52)
+    ):
+        return True
+
+    return False
 
 
 def is_duplicate(article: Article, selected: list[Article]) -> bool:
@@ -684,9 +720,9 @@ def is_duplicate(article: Article, selected: list[Article]) -> bool:
         )
         score = semantic_duplicate_score(article.title, existing.title)
 
-        # 같은 날 같은 언어 기사에서 핵심 단어가 2개 이상 반복되면
+        # 같은 날 핵심 내용이 반복되면
         # 언론사가 달라도 동일 기사로 보고 최신 기사 1건만 유지
-        if same_day_two_keyword_duplicate(article, existing):
+        if same_day_duplicate(article, existing):
             return True
 
         # 동일 보도자료를 여러 언론사가 제목만 바꿔 보도한 경우
@@ -1470,7 +1506,7 @@ main {{ padding: 12px 12px 34px; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (min-width: 768px) {{
   body {{ background: #d7e0e8; }}
-  .phone {{ width: min(100%, 1180px); background: #d7e0e8; }}
+  .phone {{ width: 100%; max-width: none; background: #d7e0e8; }}
   .topbar {{ margin: 16px 20px 0; padding: 18px 22px 15px; border-radius: 14px; }}
   .topbar h1 {{ font-size: 23px; }}
   .header-controls {{ max-height: 260px; }}
@@ -1483,6 +1519,13 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .date-picker-row {{ grid-template-columns: 190px 100px; justify-content: start; }}
   .date-input, .date-button {{ height: 36px; font-size: 12px; }}
   main {{ padding: 18px 20px 44px; }}
+  .favorites-panel {{ margin-bottom: 16px; padding: 16px; border-radius: 12px; }}
+  .favorites-title {{ margin-bottom: 12px; font-size: 16px; }}
+  .favorites-list {{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }}
+  .favorite-item {{ min-height: 92px; padding: 14px 16px; gap: 10px; border-radius: 10px; }}
+  .favorite-publisher {{ font-size: 11px; }}
+  .favorite-headline {{ margin-top: 5px; font-size: 14px; line-height: 1.45; }}
+  .favorite-remove {{ align-self: start; font-size: 22px; }}
   .period-card {{ flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 12px; }}
   .period-card strong {{ font-size: 16px; }}
   .group-master-button, .header-toggle {{ width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }}
@@ -1501,9 +1544,13 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
 }}
 
 @media (min-width: 1200px) {{
-  .phone {{ width: min(100%, 1320px); }}
+  .phone {{ width: 100%; max-width: none; }}
   .topbar {{ margin-left: 24px; margin-right: 24px; }}
   main {{ padding-left: 24px; padding-right: 24px; }}
+  .favorites-list {{ grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }}
+  .favorite-item {{ min-height: 104px; padding: 16px 18px; }}
+  .favorite-publisher {{ font-size: 12px; }}
+  .favorite-headline {{ font-size: 15px; line-height: 1.48; }}
   .article-stack {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }}
   .preview-card {{ grid-template-columns: 30px minmax(0,1fr) 104px; }}
   .card-side, .preview-image {{ width: 104px; }}
