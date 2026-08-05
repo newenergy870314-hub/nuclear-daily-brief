@@ -12,10 +12,10 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
 .topbar { position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: rgba(178,199,217,.97); border-bottom: 1px solid rgba(17,24,39,.08); backdrop-filter: blur(8px); }
 .topbar-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .topbar h1 { margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }
-.header-toggle { flex: 0 0 auto; min-width: 92px; height: 36px; padding: 0 12px; border: 2px solid #111827; border-radius: 18px; background: #ffb000; color: #111827; font-size: 12px; font-weight: 900; letter-spacing: -.2px; cursor: pointer; box-shadow: 0 3px 0 #111827, 0 4px 8px rgba(17,24,39,.25); }
-.header-toggle:hover { background: #fee500; transform: translateY(-1px); }
-.header-toggle:active { transform: translateY(2px); box-shadow: 0 1px 0 #111827; }
-.topbar.collapsed .header-toggle { background: #19c37d; color: #062d1f; border-color: #062d1f; box-shadow: 0 3px 0 #062d1f, 0 4px 8px rgba(17,24,39,.25); }
+.header-toggle { flex: 0 0 auto; min-width: 54px; height: 24px; padding: 0 7px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 9px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }
+.header-toggle:hover { background: #f5d900; }
+.header-toggle:active { transform: translateY(1px); }
+.topbar.collapsed .header-toggle { background: #fee500; color: #111827; border-color: rgba(17,24,39,.14); box-shadow: none; }
 .header-controls { overflow: hidden; max-height: 210px; opacity: 1; transition: max-height .2s ease, opacity .15s ease, margin .2s ease; }
 .topbar.collapsed { padding-bottom: 9px; }
 .topbar.collapsed .header-controls { max-height: 0; opacity: 0; margin: 0; pointer-events: none; }
@@ -67,7 +67,7 @@ main { padding: 12px 12px 34px; }
 .preview-card.important .unread-label, .preview-card.important .read-label { display: none; }
 .preview-card.important .important-label { display: inline; }
 .card-side { position: relative; align-self: stretch; width: 82px; height: 118px; min-height: 118px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }
-.important-button { position: absolute; z-index: 3; top: 43%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }
+.important-button { position: absolute; z-index: 3; top: calc(43% - 8px); left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }
 .preview-card.important .important-button { color: #111; background: #fee500; }
 .preview-image { width: 82px; height: 118px; min-height: 118px; background: linear-gradient(135deg,#173b67,#0b213d); }
 .preview-image img { display: block; width: 100%; height: 118px; min-height: 118px; object-fit: cover; }
@@ -83,10 +83,10 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <h1>금일 원자력 주요기사</h1>
-      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">메뉴 접기 ▲</button>
+      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 5. 20:12 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 5. 20:25 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div>
       <div class="tabs"><button class="tab-button" data-tab="전일">전일</button><button class="tab-button active" data-tab="금일">금일</button><button class="tab-button" data-tab="익일">익일</button></div>
       <div class="date-picker-row"><input id="archive-date" class="date-input" type="date"><button id="archive-open" class="date-button" type="button">날짜 보기</button></div>
@@ -748,15 +748,15 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPRzQtNGprQXlub05iVlJKdVFJc0JsdjlUYVdDeGpWMjVDVmE1cHBLdk5WbWxpc0JFdUNmNnRNM0lMS0t0by1JbU1MV202VkZndzNZZHpHMDlIT2dhcHdMSzZ2RDFXUHh0YTBtVm1qczNtd1NDS09CaUg3T2M1M1FqNG1hNC12dGph?oc=5"
-  data-title="뉴스케일 파워, 美 최대 SMR 사업 추진…비구속 협약이 변수"
-  data-publisher="글로벌이코노믹"
+  data-title="뉴스케일 파워, 美 최대 SMR 사업 추진…비구속 협약이 변수 - g-enews.com"
+  data-publisher="g-enews.com"
   data-group="SMR"
-  data-search="뉴스케일 파워, 美 최대 smr 사업 추진…비구속 협약이 변수 글로벌이코노믹 smr"
+  data-search="뉴스케일 파워, 美 최대 smr 사업 추진…비구속 협약이 변수 - g-enews.com g-enews.com smr"
   tabindex="0" role="link">
   <div class="article-number">10</div>
   <div class="preview-copy">
-    <div class="publisher">글로벌이코노믹</div>
-    <div class="headline">뉴스케일 파워, 美 최대 SMR 사업 추진…비구속 협약이 변수</div>
+    <div class="publisher">g-enews.com</div>
+    <div class="headline">뉴스케일 파워, 美 최대 SMR 사업 추진…비구속 협약이 변수 - g-enews.com</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -772,13 +772,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMilwFBVV95cUxQTS0yOVI1YU5hOF9lVktvVzZCLUVXYWJqU2JzcEhsUU9uTXlvQXE2Snh3U2hRSkFXY21SckVQZXExaGRpb1B3c2d6Rm9rYkFuMC1qNG1qMllxaGx0UWJETWdZQXdzSTRzdk1iNDdnYUVYbWFQdXBXbTBsWjNUdHpNejZwMU42dlFsYWs2S3E0RXhWaEFfa3hF?oc=5"
   data-title="Here&#x27;s How a Small Bet on This Nuclear Stock Could Pay Off Big"
-  data-publisher="The Motley Fool"
+  data-publisher="fool.com"
   data-group="SMR"
-  data-search="here&#x27;s how a small bet on this nuclear stock could pay off big the motley fool smr"
+  data-search="here&#x27;s how a small bet on this nuclear stock could pay off big fool.com smr"
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">The Motley Fool</div>
+    <div class="publisher">fool.com</div>
     <div class="headline">Here&#x27;s How a Small Bet on This Nuclear Stock Could Pay Off Big</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -887,37 +887,14 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiigFBVV95cUxNMm9RVWFPcTFjZzQtSlhKR2JPdVM4OE00OFpmMHNDMExpMlNkRjdMb0Juanc3aEU3bFoyLWhDbDZncUVaenNzSGRua3B1Y01tZXg5MW5iUVJ1YV95SV9TSzFJckpWY1g0aFhSczk2VVhnTGd0Z0p1X0hKbnd6WWt1QnNJMFhtSThCcEE?oc=5"
   data-title="Better Small Modular Reactor Stock: NuScale Power vs. GE Vernova"
-  data-publisher="The Motley Fool"
+  data-publisher="fool.com"
   data-group="SMR"
-  data-search="better small modular reactor stock: nuscale power vs. ge vernova the motley fool smr"
+  data-search="better small modular reactor stock: nuscale power vs. ge vernova fool.com smr"
   tabindex="0" role="link">
   <div class="article-number">16</div>
   <div class="preview-copy">
-    <div class="publisher">The Motley Fool</div>
+    <div class="publisher">fool.com</div>
     <div class="headline">Better Small Modular Reactor Stock: NuScale Power vs. GE Vernova</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPUVNfajNiZlhLZXM5X2tqZFlDRi1rQ1dVa3QzNFlWeF9FVUt6bTJmek5qZHlTaExfNlRoYUtUcXZLWE9wVFRFWWFwakdIUDhJS2tBV0JWSkxjX1RiUHlza05ZYlF2R1o3RXRQYW1BZm9Pb0JUdmFjaGp6bVdRR1pTWVRhWTZ4Z3Jk?oc=5"
-  data-title="Uzbekistan’s Nuclear Power Plant Project Advances"
-  data-publisher="thediplomat.com"
-  data-group="SMR"
-  data-search="uzbekistan’s nuclear power plant project advances thediplomat.com smr"
-  tabindex="0" role="link">
-  <div class="article-number">17</div>
-  <div class="preview-copy">
-    <div class="publisher">thediplomat.com</div>
-    <div class="headline">Uzbekistan’s Nuclear Power Plant Project Advances</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -937,7 +914,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="arc partners with inl for smr deployment world nuclear news smr"
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     <div class="headline">ARC partners with INL for SMR deployment</div>
@@ -956,14 +933,37 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMid0FVX3lxTFA4Tnd0MGl4c0NyVTJfNnJNUGNaV1hFTnFCVDd3Qkt2cTlnckhCcWhwU3hGT1dhQVJURXUtbHc2VnhPYUc3UVFsU0VKZTdmNmhGNVZBZm51S2psZlVWRTF2VmpTd2JPS3hJcXJpVXVpelM3NEdGQ2xn0gF8QVVfeXFMUGg1RF9fTjFWRk5lVVhRaTVYUjNOMkFoMFQ5MlY1NjJYemhMX3E3RzB4M2Jma0ZXM05QLVVMOTJKUkpTWUhkUWlmQk9UNVhIMXJJMkJLcmxwdHZNSXpjSjljSnd1NXduRGNQcmF5bE9NU2ZIRmdnVWthV1E0SA?oc=5"
   data-title="Antares to Fast-Track US Military Base Nuclear Microreactors With $470M Injection"
-  data-publisher="thedefensepost.com"
+  data-publisher="The Defense Post"
   data-group="SMR"
-  data-search="antares to fast-track us military base nuclear microreactors with $470m injection thedefensepost.com smr"
+  data-search="antares to fast-track us military base nuclear microreactors with $470m injection the defense post smr"
+  tabindex="0" role="link">
+  <div class="article-number">18</div>
+  <div class="preview-copy">
+    <div class="publisher">The Defense Post</div>
+    <div class="headline">Antares to Fast-Track US Military Base Nuclear Microreactors With $470M Injection</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPUVNfajNiZlhLZXM5X2tqZFlDRi1rQ1dVa3QzNFlWeF9FVUt6bTJmek5qZHlTaExfNlRoYUtUcXZLWE9wVFRFWWFwakdIUDhJS2tBV0JWSkxjX1RiUHlza05ZYlF2R1o3RXRQYW1BZm9Pb0JUdmFjaGp6bVdRR1pTWVRhWTZ4Z3Jk?oc=5"
+  data-title="Uzbekistan’s Nuclear Power Plant Project Advances - The Diplomat – Asia-Pacific"
+  data-publisher="The Diplomat – Asia-Pacific"
+  data-group="SMR"
+  data-search="uzbekistan’s nuclear power plant project advances - the diplomat – asia-pacific the diplomat – asia-pacific smr"
   tabindex="0" role="link">
   <div class="article-number">19</div>
   <div class="preview-copy">
-    <div class="publisher">thedefensepost.com</div>
-    <div class="headline">Antares to Fast-Track US Military Base Nuclear Microreactors With $470M Injection</div>
+    <div class="publisher">The Diplomat – Asia-Pacific</div>
+    <div class="headline">Uzbekistan’s Nuclear Power Plant Project Advances - The Diplomat – Asia-Pacific</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -1191,13 +1191,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMi3AFBVV95cUxNbUpiRkFKTVZnWEVQNzNxV3g5WkNoZC1OOTkzVkw2VmpUd29pbkdiM3lSVXZQVjBSSG1tbkV4bzJ4Zkp6WjA3SlduRW9LMmd1Z215dkRSMUpNMHI4T0xvRzZVZ3A0SG0zbV9tbGtPem5DeFY5dmQ0enZUYTJuM1cxN0ktVUpmMzc4ZG16Qm5SU2xXaWQ2UkRSRjY2SlZ5c1B3SFBvUUZMc3ItUEtxdWw1UE0yOHB6TDBJN2tjczROaERCazNDS1Jxd1V0N2YwNDdkckxrblRKTWhrd1NG?oc=5"
   data-title="Record low Danube levels push some countries in Eastern Europe to the brink of energy emergency"
-  data-publisher="latimes.com"
+  data-publisher="Los Angeles Times"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="record low danube levels push some countries in eastern europe to the brink of energy emergency latimes.com nuclear power·nuclear energy"
+  data-search="record low danube levels push some countries in eastern europe to the brink of energy emergency los angeles times nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">8</div>
   <div class="preview-copy">
-    <div class="publisher">latimes.com</div>
+    <div class="publisher">Los Angeles Times</div>
     <div class="headline">Record low Danube levels push some countries in Eastern Europe to the brink of energy emergency</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1305,15 +1305,15 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMinAFBVV95cUxNeDZhb1FDQzhNZjFhenZpUmY2LTJKTWc5eHFLTXlHOUhOdUp6SGQySjk0elRYTk8zU0ltZHQyaGFSSktSYkVPY1pfcWM3Qkd0WEdpRHEyTDFONkFScVZ4UFJjcVVtQUVsOElYWDdTVTB2SzRUdzE0R2x4M0tYTEt0VDFQNFk3ZXRTNlpMeUpOQ3R1OFR4b0YzV2VlRU0?oc=5"
-  data-title="NEA Director-General opens civil nuclear energy workshop"
-  data-publisher="Nuclear Energy Agency (NEA)"
+  data-title="NEA Director-General opens civil nuclear energy workshop - oecd-nea.org"
+  data-publisher="oecd-nea.org"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="nea director-general opens civil nuclear energy workshop nuclear energy agency (nea) nuclear power·nuclear energy"
+  data-search="nea director-general opens civil nuclear energy workshop - oecd-nea.org oecd-nea.org nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">13</div>
   <div class="preview-copy">
-    <div class="publisher">Nuclear Energy Agency (NEA)</div>
-    <div class="headline">NEA Director-General opens civil nuclear energy workshop</div>
+    <div class="publisher">oecd-nea.org</div>
+    <div class="headline">NEA Director-General opens civil nuclear energy workshop - oecd-nea.org</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -1535,18 +1535,18 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </section>
 
 <section class="news-group" data-group="한수원·한국수력원자력">
-  <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">11건</span></div>
+  <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">10건</span></div>
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTFB0VHZ1UzV3Nm1Ib0RaeWxHU21xVHV1NWdOWWJIeTVFX2lfMmJEUkZwRDBJQTVQV3pBR0dIT2twcHQ2eXoxMzJ4NmtBWWE3U2JDNUFwX3EyQTVGZnVfTkR3cg?oc=5"
   data-title="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화"
-  data-publisher="heraldk.com"
+  data-publisher="헤럴드경제 미주판"
   data-group="한수원·한국수력원자력"
-  data-search="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화 heraldk.com 한수원·한국수력원자력"
+  data-search="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화 헤럴드경제 미주판 한수원·한국수력원자력"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">heraldk.com</div>
+    <div class="publisher">헤럴드경제 미주판</div>
     <div class="headline">한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1607,36 +1607,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTE9wLUhpenFiVmlBMG5LQkY2UHdXUVBOVFpmU01DR1FVX3JuS2tfdlRISzhHR0hNQmF0OW5nemdRU2hxbnIxemcwMjlJRzJGZTRPZjJ4NDdPcGpGTjh5NkdxUA?oc=5"
-  data-title="한빛1·2호기 계속운전 내년 상반기 상정…&quot;호남 반도체 전력 적기 공급&quot;"
-  data-publisher="asiae.co.kr"
-  data-group="한수원·한국수력원자력"
-  data-search="한빛1·2호기 계속운전 내년 상반기 상정…&quot;호남 반도체 전력 적기 공급&quot; asiae.co.kr 한수원·한국수력원자력"
-  tabindex="0" role="link">
-  <div class="article-number">4</div>
-  <div class="preview-copy">
-    <div class="publisher">asiae.co.kr</div>
-    <div class="headline">한빛1·2호기 계속운전 내년 상반기 상정…&quot;호남 반도체 전력 적기 공급&quot;</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiVEFVX3lxTE42cVctN1pYMTFKZ2Z0dEhrS3Vhc01jYWZhNW1rRlpNM1VtOVJiNEUyWDhVRXVBSEtZcXFjZHVDbUZpMlJRQ2tWMmE0UzJ0QnRBVi1Beg?oc=5"
   data-title="원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌"
   data-publisher="동아사이언스"
   data-group="한수원·한국수력원자력"
   data-search="원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌 동아사이언스 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">동아사이언스</div>
     <div class="headline">원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌</div>
@@ -1659,7 +1636,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="폭염 속 &#x27;새울 3ㆍ4호기 건설현장&#x27; 온열질환 예방 총력 인사이트n파워 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
     <div class="headline">폭염 속 &#x27;새울 3ㆍ4호기 건설현장&#x27; 온열질환 예방 총력</div>
@@ -1678,13 +1655,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE05ZlNSUF84eUQyd1JpUGJwbXhMcy0wdnRVT2xlbXlWWjRKeUUwZTZBSXF3RkdYOHoyU3RiY25fZXpvaWlWelBDMklNSVdtLVIxSXU5cDRPSFFlMlY0d3Ewb2Zyd3V5cGs?oc=5"
   data-title="영덕군 신규 원전 미래에너지 전략사업 직무교육 시행"
-  data-publisher="경상투데이"
+  data-publisher="gyeongsangtoday.com"
   data-group="한수원·한국수력원자력"
-  data-search="영덕군 신규 원전 미래에너지 전략사업 직무교육 시행 경상투데이 한수원·한국수력원자력"
+  data-search="영덕군 신규 원전 미래에너지 전략사업 직무교육 시행 gyeongsangtoday.com 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
-    <div class="publisher">경상투데이</div>
+    <div class="publisher">gyeongsangtoday.com</div>
     <div class="headline">영덕군 신규 원전 미래에너지 전략사업 직무교육 시행</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1705,7 +1682,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="[단독] 백중사리로 떠오른 가마미 &#x27;숨은 지뢰&#x27;…한빛원전 공사 잔재물 묵인 의혹 대한경제 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">대한경제</div>
     <div class="headline">[단독] 백중사리로 떠오른 가마미 &#x27;숨은 지뢰&#x27;…한빛원전 공사 잔재물 묵인 의혹</div>
@@ -1728,7 +1705,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="1조7508억원 포천양수발전소 본공사 착수 &#x27;2033년 준공&#x27; 목표 인사이트n파워 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
     <div class="headline">1조7508억원 포천양수발전소 본공사 착수 &#x27;2033년 준공&#x27; 목표</div>
@@ -1751,7 +1728,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="한울원자력본부, 울진군 부구천 산책로 조성 지원 전국안전신문 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">전국안전신문</div>
     <div class="headline">한울원자력본부, 울진군 부구천 산책로 조성 지원</div>
@@ -1774,7 +1751,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="saeul nuclear power headquarters combats heatwave with ice, cooling buses 조선일보 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">조선일보</div>
     <div class="headline">Saeul Nuclear Power Headquarters Combats Heatwave with Ice, Cooling Buses</div>
@@ -1917,15 +1894,15 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNUWZ3V2JzQWFCUEZ5T2RsLWtEcG1YZ1pHMHNzaUphODc2bldPNUFQRnZtMS1IdmtzSjBOOHRybTU1bXN4Szk0UEZXdC1tS19WcVNEWncxTjI3dDEyVklGdUtVbF9OZmIwaU5UaEd5eUhxbmRna0FnR0hDSl81TlBrYXZGX2E4M2R2?oc=5"
-  data-title="X 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의"
-  data-publisher="글로벌이코노믹"
+  data-title="X 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의 - g-enews.com"
+  data-publisher="g-enews.com"
   data-group="원전·원자력"
-  data-search="x 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의 글로벌이코노믹 원전·원자력"
+  data-search="x 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의 - g-enews.com g-enews.com 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">글로벌이코노믹</div>
-    <div class="headline">X 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의</div>
+    <div class="publisher">g-enews.com</div>
+    <div class="headline">X 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의 - g-enews.com</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -2031,36 +2008,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiW0FVX3lxTE0xc1lKVHhUbThPc2xZSjJEYk54bDNVaFpzR1p3VjdKSnRyYUlud3pJaS00ZDRBVVdmVDJvUHJWR2JLVG5mQnVtZk1UcEl0em1aWVFaTzNqZEtvSjg?oc=5"
-  data-title="원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침"
-  data-publisher="newsasia.kr"
-  data-group="원전·원자력"
-  data-search="원안위, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침 newsasia.kr 원전·원자력"
-  tabindex="0" role="link">
-  <div class="article-number">10</div>
-  <div class="preview-copy">
-    <div class="publisher">newsasia.kr</div>
-    <div class="headline">원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiT0FVX3lxTE5pM01pYk5nNTdIZ3JoWGNjZ0tSRWR4MndrbVB5TTBQN2cwT3FaR3dvc1FVNzA1TERCdjRCZ0pxRGZ4VzRiTnZBQUJBQ0RNTms?oc=5"
   data-title="가뭄에 군대 동원해 강바닥 폭파‥유럽 경제 고사할 판"
   data-publisher="v.daum.net"
   data-group="원전·원자력"
   data-search="가뭄에 군대 동원해 강바닥 폭파‥유럽 경제 고사할 판 v.daum.net 원전·원자력"
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">v.daum.net</div>
     <div class="headline">가뭄에 군대 동원해 강바닥 폭파‥유럽 경제 고사할 판</div>
@@ -2077,6 +2031,29 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiTEFVX3lxTE8tRWQySHRTZG12SWp3ajNLZm5KZUlzakExUXA3dkEwYUhtbkowd3p3WlBKR0FtaFFrZzJpZndudGpMaGJrS091bU55ekU?oc=5"
+  data-title="원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침"
+  data-publisher="시사일보"
+  data-group="원전·원자력"
+  data-search="원안위, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침 시사일보 원전·원자력"
+  tabindex="0" role="link">
+  <div class="article-number">11</div>
+  <div class="preview-copy">
+    <div class="publisher">시사일보</div>
+    <div class="headline"><span class="new-badge">NEW</span>원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE9pMWg0WVlib1RUbGxyRlp2Rzd0WjE4Q2lyWkhVYWY2RHBvUE5KV3ZZTER4c2xSRXRablhzWkdKdDRuZ01JUS1YTUJfSEo2LWt2aWMtS0Z4cjNqNEQ2M2RabDA3QWhmeG9RdW5peGhR?oc=5"
   data-title="[위클리오늘] 영덕군 오늘(8. 4)"
   data-publisher="위클리오늘"
@@ -2086,7 +2063,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">위클리오늘</div>
-    <div class="headline"><span class="new-badge">NEW</span>[위클리오늘] 영덕군 오늘(8. 4)</div>
+    <div class="headline">[위클리오늘] 영덕군 오늘(8. 4)</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -2222,13 +2199,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5seGdFVm03aVJhZnFzREVIV181VXpzWTlmUV9rOEM5NThVcC1wNFREU1hzcm5VQ1ZCamd4UXpqdVBndHlXb0ZvVFlnVmZXTWJBeE1PQndTM0NReDZWM3BzUGE4OHlEcmvSAWtBVV95cUxOTXN1bHIyUm5Mc0FTQnRmRGtfNmktMlUtNGFlVFZuNE1xN3RsZkNGdW1jdmRTV2pFTjR4dko3LXNlRHp3NjEtbENXSGxHdFpxNU5UdklKdk9ydUVsS09VMXhmeFFDRThPa2NVTQ?oc=5"
   data-title="원자력산업協, “차세대 원전 국가전략기술 지정 환영”"
-  data-publisher="inenews.kr"
+  data-publisher="인사이트에너지뉴스"
   data-group="SMR"
-  data-search="원자력산업協, “차세대 원전 국가전략기술 지정 환영” inenews.kr smr"
+  data-search="원자력산업協, “차세대 원전 국가전략기술 지정 환영” 인사이트에너지뉴스 smr"
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">inenews.kr</div>
+    <div class="publisher">인사이트에너지뉴스</div>
     <div class="headline">원자력산업協, “차세대 원전 국가전략기술 지정 환영”</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2337,13 +2314,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZkFVX3lxTE5xaTNBQ1FEQ0lzS2MzcDUxYkxQYS1fdFhZVVk3cjE2cHQ2RzB0VnA0SzhxNVgzMkxhcFlKamQya2cxMDVMbmZuU0dfSUVselhoR2NFbUdXWE9WNXRMdGRXbXFTMURKUQ?oc=5"
   data-title="AI 전력원 SMR 상용화 대비…원안위, 기술중립 규제체계 구축"
-  data-publisher="news1.kr"
+  data-publisher="뉴스1"
   data-group="SMR"
-  data-search="ai 전력원 smr 상용화 대비…원안위, 기술중립 규제체계 구축 news1.kr smr"
+  data-search="ai 전력원 smr 상용화 대비…원안위, 기술중립 규제체계 구축 뉴스1 smr"
   tabindex="0" role="link">
   <div class="article-number">7</div>
   <div class="preview-copy">
-    <div class="publisher">news1.kr</div>
+    <div class="publisher">뉴스1</div>
     <div class="headline">AI 전력원 SMR 상용화 대비…원안위, 기술중립 규제체계 구축</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2475,13 +2452,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMigAFBVV95cUxOWVZJejNFcU1NRUtVZVVpUmNCRFlyb1JvaElna3dLU08zWVlWZXp5eGpsVFZXa2ZlMW44ZHhzTzdwdkpIZ2xoRDZCcGVSWkdtSGQ3Nm1xaGpuZEVKVG8wRXlwVC13OXFmX2FqSW9XTkVPcG5ldGJuZm1pTTRoUmh6bw?oc=5"
   data-title="One nuclear platform, two reactors: AP1000 technology now extends to AP300 SMR"
-  data-publisher="Interesting Engineering"
+  data-publisher="interestingengineering.com"
   data-group="SMR"
-  data-search="one nuclear platform, two reactors: ap1000 technology now extends to ap300 smr interesting engineering smr"
+  data-search="one nuclear platform, two reactors: ap1000 technology now extends to ap300 smr interestingengineering.com smr"
   tabindex="0" role="link">
   <div class="article-number">13</div>
   <div class="preview-copy">
-    <div class="publisher">Interesting Engineering</div>
+    <div class="publisher">interestingengineering.com</div>
     <div class="headline">One nuclear platform, two reactors: AP1000 technology now extends to AP300 SMR</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2521,13 +2498,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOcnBzbDdTRmZ1OTBEbW5qaTFWYXM0N0V6YzNMdWFIanIzRHAwc2NKX0xBNGk1RlNidVdDWkNrdEk4eUExXzVkblZNdDJpbEU3M3o2eWVQYnNpSmF5azBsNFh3ZkZDZGZjV1pqRGgtZjc5UUdZcGRYSFpkXy1IbjBpZnF6U1BsV3FVX3pNaWpOVkpQTVVFYTRZYjA1TXdDRDlGbEplZjlzZkhVaHhBNmxaM0psYXJab3l0NzAw?oc=5"
   data-title="Dual SMR-300 reactors to boost US Gulf South grid with 680 MW power"
-  data-publisher="Interesting Engineering"
+  data-publisher="interestingengineering.com"
   data-group="SMR"
-  data-search="dual smr-300 reactors to boost us gulf south grid with 680 mw power interesting engineering smr"
+  data-search="dual smr-300 reactors to boost us gulf south grid with 680 mw power interestingengineering.com smr"
   tabindex="0" role="link">
   <div class="article-number">15</div>
   <div class="preview-copy">
-    <div class="publisher">Interesting Engineering</div>
+    <div class="publisher">interestingengineering.com</div>
     <div class="headline">Dual SMR-300 reactors to boost US Gulf South grid with 680 MW power</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2610,6 +2587,29 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMinwFBVV95cUxPZkRhX1pNai1hVGtuQmlWUmIzSW9JaWNkUHZlVzRyUC1lb2xEVlBhb0FlbXJjZ1ltOGROSkMzazEtRUJaN2RCa1lBbTJRVWNJSUtIb0dINnlDRml0Rkh2azFobG0zdkVTZTdfdXlvSEZzU0xPLVlCRXY5WlFXcy1YamVsRVdZMUZ1OV9MZk1UdlcwUXc5bFpSa3d5Rm94cFE?oc=5"
+  data-title="Earnings To Watch: NuScale Power Corp (SMR) Q2 2026 -- GF Value Sees 76% Upside"
+  data-publisher="Yahoo Finance"
+  data-group="SMR"
+  data-search="earnings to watch: nuscale power corp (smr) q2 2026 -- gf value sees 76% upside yahoo finance smr"
+  tabindex="0" role="link">
+  <div class="article-number">19</div>
+  <div class="preview-copy">
+    <div class="publisher">Yahoo Finance</div>
+    <div class="headline"><span class="new-badge">NEW</span>Earnings To Watch: NuScale Power Corp (SMR) Q2 2026 -- GF Value Sees 76% Upside</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMi0wFBVV95cUxOZG1ZeDZDLVRENm8xWV9uV3FQR0VTRmN2ZGZQeTlLTHVFVHJBNkdxX2ROVVBHU0JzMUZoNUdWaUNFLTJZcUJlMDNFbkR1WjExRl83NFAxSEticEhWQ1RUeVNhdDhYNlN2cWZUNVNWSDBXUXBuRDBucjNzUmVqTE51QUhaX0hHUGFadmF6YlNwazd0R3phNmlLMnM5U0xRLW0zdFNYT3R3UGVadTlOM0JldjVQVWxYVzBYME1RRldPZ1oxUmJvMUNTZS1ZMy1Pa2NUSUNV?oc=5"
   data-title="Westinghouse and Amentum Partner to Expand Delivery Capacity for APX Fleet Deployment"
@@ -2617,7 +2617,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="westinghouse and amentum partner to expand delivery capacity for apx fleet deployment pa media smr"
   tabindex="0" role="link">
-  <div class="article-number">19</div>
+  <div class="article-number">20</div>
   <div class="preview-copy">
     <div class="publisher">PA Media</div>
     <div class="headline">Westinghouse and Amentum Partner to Expand Delivery Capacity for APX Fleet Deployment</div>
@@ -2640,7 +2640,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="the global small modular reactor ecosystem: why supply chains will shape the nuclear renaissance logistics viewpoints smr"
   tabindex="0" role="link">
-  <div class="article-number">20</div>
+  <div class="article-number">21</div>
   <div class="preview-copy">
     <div class="publisher">Logistics Viewpoints</div>
     <div class="headline">The Global Small Modular Reactor Ecosystem: Why Supply Chains Will Shape the Nuclear Renaissance</div>
@@ -2663,7 +2663,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="grundy co. could be getting small modular reactor wspynews.com smr"
   tabindex="0" role="link">
-  <div class="article-number">21</div>
+  <div class="article-number">22</div>
   <div class="preview-copy">
     <div class="publisher">WSPYnews.com</div>
     <div class="headline">Grundy Co. Could Be Getting Small Modular Reactor</div>
@@ -2686,7 +2686,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="onr helps shape international toolkit to support cooperation in assessment of advanced reactors office for nuclear regulation smr"
   tabindex="0" role="link">
-  <div class="article-number">22</div>
+  <div class="article-number">23</div>
   <div class="preview-copy">
     <div class="publisher">Office for Nuclear Regulation</div>
     <div class="headline">ONR helps shape international toolkit to support cooperation in assessment of advanced reactors</div>
@@ -2709,33 +2709,10 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="mcdermott and ulc-energy sign cooperation agreement to advance rolls-royce smr projects dredgewire smr"
   tabindex="0" role="link">
-  <div class="article-number">23</div>
+  <div class="article-number">24</div>
   <div class="preview-copy">
     <div class="publisher">DredgeWire</div>
     <div class="headline">McDermott and ULC-Energy Sign Cooperation Agreement to Advance Rolls-Royce SMR Projects</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiggFBVV95cUxPX3JCQWhrZWY0eWM0cUR1aE03SGljY1dwT3JkYWdVREZLc2Y2RDdxSU1MNnVJQ1JHbDhseDI3SVNEZVFNQmVCY2E0Rml5Zm9NQk5UM2VrcU5XOEJLS3NXWnpHelhLNUt1eWdwRWtKMEZVbDVXYnNOTXVCQ1VudF9vUE530gGWAUFVX3lxTE5rZFFkSk1FR0JERWlaTDdKYlFzRHFWaUswZUFjNjN1cGphbG01cExOUmFIREpCeEJFdkFmR3EzSW9sR2cycnB1U3BObGZ1ZDJISW5ZcWRNb3BGWERjVmstX241TzZLRjNRZFQ2Ymt0eVNrZmVubXNWaTJfLTlKSGtoWHlLUDVMQndldmtvY3B0dFN4WDBlUQ?oc=5"
-  data-title="South Korea designates SMR as strategic tech, industry rallies for global lead - CHOSUNBIZ"
-  data-publisher="Chosunbiz"
-  data-group="SMR"
-  data-search="south korea designates smr as strategic tech, industry rallies for global lead - chosunbiz chosunbiz smr"
-  tabindex="0" role="link">
-  <div class="article-number">24</div>
-  <div class="preview-copy">
-    <div class="publisher">Chosunbiz</div>
-    <div class="headline">South Korea designates SMR as strategic tech, industry rallies for global lead - CHOSUNBIZ</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -2802,13 +2779,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMikgFBVV95cUxPbnNuajVEZ2FpeDdIeDBUUEFyOGdmaElfMzZSYlFEckZHWjVPTS1GY25KZ3dWeU9IYXp4OFQ4RUV1Z0trd1oydmZhVDZIVjIxRlk2NFF2Ujl3eWFobTRWNXJPSnYtQ1dQTEJkMWs0ZFlsY0g2czc3SWNqeEpicENiZTRIM3pNSjhWeC11YzB1X3dOZw?oc=5"
   data-title="World first: Scientists detect antineutrinos from spent nuclear fuel"
-  data-publisher="Interesting Engineering"
+  data-publisher="interestingengineering.com"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="world first: scientists detect antineutrinos from spent nuclear fuel interesting engineering nuclear power·nuclear energy"
+  data-search="world first: scientists detect antineutrinos from spent nuclear fuel interestingengineering.com nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">Interesting Engineering</div>
+    <div class="publisher">interestingengineering.com</div>
     <div class="headline">World first: Scientists detect antineutrinos from spent nuclear fuel</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2986,13 +2963,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMihgFBVV95cUxPejJxMFZvMmRZLXVEaGFDaDluRkdySl9qSlFudEdGZGF2YXV4WU16ajJvUFI5QTB5cE8zUnZMclZEeTQ3RTFuWk14XzBCSy1lY05GOEpTaVJ2UlY0bVB2UjBTdzVvNE9JUGV0NXZsVUp1eHR2VDFaNThDM19aZE9ac3czUzNOdw?oc=5"
   data-title="Opinion: How Utah has become a national leader in energy"
-  data-publisher="Deseret News"
+  data-publisher="deseret.com"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="opinion: how utah has become a national leader in energy deseret news nuclear power·nuclear energy"
+  data-search="opinion: how utah has become a national leader in energy deseret.com nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">Deseret News</div>
+    <div class="publisher">deseret.com</div>
     <div class="headline">Opinion: How Utah has become a national leader in energy</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -3210,7 +3187,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
     <strong>익일</strong>
     <span>2026. 8. 5. 06:00 ~ 2026. 8. 6. 06:00 (KST)</span>
   </div>
-  <div class="partial-note">현재 2026. 8. 5. 20:12까지 확인된 기사입니다. 30분마다 새 기사가 추가됩니다.</div>
+  <div class="partial-note">현재 2026. 8. 5. 20:25까지 확인된 기사입니다. 30분마다 새 기사가 추가됩니다.</div>
   <div class="language-section">
     <div class="language-title">뉴스기사</div>
     
@@ -3383,7 +3360,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <section class="news-group" data-group="한수원·한국수력원자력">
   <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">10건</span></div>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiREFVX3lxTE16bUMta2Y0SG5HQ0F4R3hCRkMwcUxhQ2hjZGRkbjZjZ29HTFFGSUJISnh3ZWdLNDJaTmRvcXVZUXhDcjB0?oc=5"
   data-title="한국수력원자력, 필리핀 대표 에너지기업 아보이티즈 파워와 원전 사업 협력 양해각서 체결"
   data-publisher="다경뉴스"
@@ -3393,7 +3370,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">다경뉴스</div>
-    <div class="headline"><span class="new-badge">NEW</span>한국수력원자력, 필리핀 대표 에너지기업 아보이티즈 파워와 원전 사업 협력 양해각서 체결</div>
+    <div class="headline">한국수력원자력, 필리핀 대표 에너지기업 아보이티즈 파워와 원전 사업 협력 양해각서 체결</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -3406,7 +3383,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMickFVX3lxTE5xSzRkZDJxRl9BUnFFeG9NaHJSa2tfZGl5dG5uSzdkR0xHS3dtM2xHOXVyQkFtQl9QNThUc0FGTERNVVBRcU9SZk9IOTlXSDU1ZFJfUDRFVzBpVnQtTGtpMDVWSmN2MmpSTF9sRGJMRHFlUQ?oc=5"
   data-title="새울본부, 108억 규모 &#x27;2027년도 한수원 지원사업&#x27; 공모"
   data-publisher="에너지신문"
@@ -3416,7 +3393,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">에너지신문</div>
-    <div class="headline"><span class="new-badge">NEW</span>새울본부, 108억 규모 &#x27;2027년도 한수원 지원사업&#x27; 공모</div>
+    <div class="headline">새울본부, 108억 규모 &#x27;2027년도 한수원 지원사업&#x27; 공모</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -3879,13 +3856,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMidEFVX3lxTE9rT1RlNEZLZ2l5VURrSG5wNUoxWW52RU1TZGc3M19CTnJQMG9lMzJRbmtHRkNTVkNyeTBXVGZBbEZPX2JfWUIwYTBIQXloOWoxLXo3RnR6a2M4bVVYUGNXdXNobUpJVVNIa1htbDBIcGNYWXI2?oc=5"
   data-title="中 하이난 최초 &#x27;화룽 1호&#x27; 원전 프로젝트 계통 연결 성공-Xinhua"
-  data-publisher="kr.news.cn"
+  data-publisher="신화망"
   data-group="원전·원자력"
-  data-search="中 하이난 최초 &#x27;화룽 1호&#x27; 원전 프로젝트 계통 연결 성공-xinhua kr.news.cn 원전·원자력"
+  data-search="中 하이난 최초 &#x27;화룽 1호&#x27; 원전 프로젝트 계통 연결 성공-xinhua 신화망 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">kr.news.cn</div>
+    <div class="publisher">신화망</div>
     <div class="headline">中 하이난 최초 &#x27;화룽 1호&#x27; 원전 프로젝트 계통 연결 성공-Xinhua</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -3925,7 +3902,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </section>
 
 <section class="news-group" data-group="SMR">
-  <div class="group-title"><span class="group-square"></span><span>SMR</span><span class="group-count">17건</span></div>
+  <div class="group-title"><span class="group-square"></span><span>SMR</span><span class="group-count">18건</span></div>
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMihgFBVV95cUxQbkRtZmpQYXZEbG01clp4MEF0Vjg2WjhKaUVBRWdvSkU1MWpTNGR2LThhc3o3dlBvMzNqY3NTeUxYamotcm53UUczb3BQUG1mYm9KX3FJTU9zYVA1M3ZMdUd0RnZnNERsOVByVGFhM0FVeHIzV2hlWEVUTjIwaHg2VHlZR0d0UQ?oc=5"
@@ -3973,16 +3950,39 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiY0FVX3lxTE5uaWdLQTl0aTJNNFRIVGMyZ0lXSUdwdmtEc3hzeWpSRmN2U2xVRGxfV3oweVkxUjZlVDIzcnVEdlFIZHFqaDI4bVBtVHlGSEF0S1haTk5CWFFZMEQySkxxWDh1OA?oc=5"
-  data-title="美 SMR 엑스에너지, 핵연료 생산시설 부지 추가 확보"
-  data-publisher="더구루"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiiwFBVV95cUxNajNUcHNlVXd3UGJqN1NyUWRydVFPUTdRNVg2dmZjTFJkZFpiZnJ1MnhZc2s0S3ZXYkU3Y1FSUXVDbTBMeGlyandSaGVCZXBzOEJHb05MbDlMQTZhTHB4ZnpYWmFlTjZ5U0NFVHkzaXV2X2d3eFYyTzVoN212VlQ3UFhMRHdiS1A1YXg4?oc=5"
+  data-title="미래 신형원자로(SMR), 선제적 인허가 체계 구축 - 전체 | 카드/한컷 | 멀티미디어"
+  data-publisher="대한민국 정책브리핑"
   data-group="SMR"
-  data-search="美 smr 엑스에너지, 핵연료 생산시설 부지 추가 확보 더구루 smr"
+  data-search="미래 신형원자로(smr), 선제적 인허가 체계 구축 - 전체 | 카드/한컷 | 멀티미디어 대한민국 정책브리핑 smr"
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">더구루</div>
+    <div class="publisher">대한민국 정책브리핑</div>
+    <div class="headline"><span class="new-badge">NEW</span>미래 신형원자로(SMR), 선제적 인허가 체계 구축 - 전체 | 카드/한컷 | 멀티미디어</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiY0FVX3lxTE5uaWdLQTl0aTJNNFRIVGMyZ0lXSUdwdmtEc3hzeWpSRmN2U2xVRGxfV3oweVkxUjZlVDIzcnVEdlFIZHFqaDI4bVBtVHlGSEF0S1haTk5CWFFZMEQySkxxWDh1OA?oc=5"
+  data-title="美 SMR 엑스에너지, 핵연료 생산시설 부지 추가 확보"
+  data-publisher="theguru.co.kr"
+  data-group="SMR"
+  data-search="美 smr 엑스에너지, 핵연료 생산시설 부지 추가 확보 theguru.co.kr smr"
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">theguru.co.kr</div>
     <div class="headline">美 SMR 엑스에너지, 핵연료 생산시설 부지 추가 확보</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -4003,7 +4003,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="원자력안전위원회, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침한다 일렉트릭파워 smr"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">일렉트릭파워</div>
     <div class="headline">원자력안전위원회, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침한다</div>
@@ -4026,7 +4026,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="&quot;중국이 치고, 러시아가 버틴다&quot;... 차세대 smr 특허전쟁, 한국도 &#x27;게임 체인저&#x27;로 떠올랐다 특허뉴스 smr"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">특허뉴스</div>
     <div class="headline">&quot;중국이 치고, 러시아가 버틴다&quot;... 차세대 SMR 특허전쟁, 한국도 &#x27;게임 체인저&#x27;로 떠올랐다</div>
@@ -4049,7 +4049,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="원전 관련주 장중 강세…두산에너빌리티·우리기술 등 주가 동반 상승 cbc뉴스 smr"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">CBC뉴스</div>
     <div class="headline">원전 관련주 장중 강세…두산에너빌리티·우리기술 등 주가 동반 상승</div>
@@ -4072,7 +4072,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="‘i-smr’ 심사 본격화…원안위, 신규원전ㆍ사용후핵연료 규제체계 강화 인사이트n파워 smr"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
     <div class="headline">‘i-SMR’ 심사 본격화…원안위, 신규원전ㆍ사용후핵연료 규제체계 강화</div>
@@ -4095,7 +4095,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="[인물포커스] 이재선 국립창원대 smr2 플랫폼 국가연구소장 knn.co.kr smr"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">knn.co.kr</div>
     <div class="headline">[인물포커스] 이재선 국립창원대 SMR2 플랫폼 국가연구소장</div>
@@ -4118,7 +4118,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="웨스팅하우스-아멘텀, 원전 공급 역량 확대 ‘맞손’ 인사이트n파워 smr"
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
     <div class="headline">웨스팅하우스-아멘텀, 원전 공급 역량 확대 ‘맞손’</div>
@@ -4141,7 +4141,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="웨스팅하우스·아멘텀 원전 동맹, 대형원전과 smr 시장 정조준 에너지안전신문 smr"
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">에너지안전신문</div>
     <div class="headline">웨스팅하우스·아멘텀 원전 동맹, 대형원전과 SMR 시장 정조준</div>
@@ -4164,7 +4164,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="fleets put automated predictive maintenance at top of wish list fleet news smr"
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">Fleet News</div>
     <div class="headline">Fleets put automated predictive maintenance at top of wish list</div>
@@ -4187,7 +4187,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="valar atomics raises $1b to scale advanced nuclear reactors for data centers citybiz smr"
   tabindex="0" role="link">
-  <div class="article-number">12</div>
+  <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">citybiz</div>
     <div class="headline">Valar Atomics Raises $1B to Scale Advanced Nuclear Reactors for Data Centers</div>
@@ -4210,7 +4210,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="canada’s smr strategy creates dependence on foreign reactors and enriched uranium: winfield energi media smr"
   tabindex="0" role="link">
-  <div class="article-number">13</div>
+  <div class="article-number">14</div>
   <div class="preview-copy">
     <div class="publisher">Energi Media</div>
     <div class="headline">Canada’s SMR Strategy Creates Dependence on Foreign Reactors and Enriched Uranium: Winfield</div>
@@ -4233,7 +4233,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="nrc to review radiant r-50 part 70 license application - american nuclear society -- ans american nuclear society -- ans smr"
   tabindex="0" role="link">
-  <div class="article-number">14</div>
+  <div class="article-number">15</div>
   <div class="preview-copy">
     <div class="publisher">American Nuclear Society -- ANS</div>
     <div class="headline">NRC to review Radiant R-50 Part 70 license application - American Nuclear Society -- ANS</div>
@@ -4256,7 +4256,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="nano nuclear moves ahead with the fuel management system for its kronos microreactor program energies media smr"
   tabindex="0" role="link">
-  <div class="article-number">15</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
     <div class="publisher">Energies Media</div>
     <div class="headline">NANO Nuclear moves ahead with the fuel management system for its KRONOS microreactor program</div>
@@ -4279,7 +4279,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="nuscale power (nyse: smr) faces unfavorable risk-reward profile ahead of q2 2026 earnings release foreignpolicyjournal.com smr"
   tabindex="0" role="link">
-  <div class="article-number">16</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">foreignpolicyjournal.com</div>
     <div class="headline">NuScale Power (NYSE: SMR) Faces Unfavorable Risk-Reward Profile Ahead Of Q2 2026 Earnings Release</div>
@@ -4302,7 +4302,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="gs e&amp;c jumps 18%, daewoo e&amp;c 14% on smr tax support, bill gates visit seoul economic daily smr"
   tabindex="0" role="link">
-  <div class="article-number">17</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">Seoul Economic Daily</div>
     <div class="headline">GS E&amp;C Jumps 18%, Daewoo E&amp;C 14% on SMR Tax Support, Bill Gates Visit</div>
@@ -4326,13 +4326,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMingFBVV95cUxOQkJvRzJWY1FqUmdZMThqck43LVloTGxRZkxObzJwMHVBVVJ2V2pIenJhNEFxUFF4UTVpMlM1UkxNQ09oekdUckJKdWJEaGUyZ0pqelNzYjBNeHpLQkstUVhxVXJVdnMxWFFMZm5EV0Mzb2JLUkd3TzA5MXVLTEd4MUNxcEZ3UTBMWWt0cTNRa2hiQk9FaHlJaE4tbXpkUdIBngFBVV95cUxOQkJvRzJWY1FqUmdZMThqck43LVloTGxRZkxObzJwMHVBVVJ2V2pIenJhNEFxUFF4UTVpMlM1UkxNQ09oekdUckJKdWJEaGUyZ0pqelNzYjBNeHpLQkstUVhxVXJVdnMxWFFMZm5EV0Mzb2JLUkd3TzA5MXVLTEd4MUNxcEZ3UTBMWWt0cTNRa2hiQk9FaHlJaE4tbXpkUQ?oc=5"
   data-title="Chitosan-powered electrode advances low-energy uranium recovery | Newswise"
-  data-publisher="Newswise"
+  data-publisher="newswise.com"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="chitosan-powered electrode advances low-energy uranium recovery | newswise newswise nuclear power·nuclear energy"
+  data-search="chitosan-powered electrode advances low-energy uranium recovery | newswise newswise.com nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">Newswise</div>
+    <div class="publisher">newswise.com</div>
     <div class="headline">Chitosan-powered electrode advances low-energy uranium recovery | Newswise</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -4418,13 +4418,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMifkFVX3lxTE5KVkF5VExLSFBFQnNUZkNZSnJ5SXFKbHhaVzJEWDA1NHBTMWZGcFA3R3NxcjZzb1ZmOTVad2lMbmN2eVJsMWNmREhsUmtSOTl5dTNKcTV6NzdJWHVnbWVOa0JPTlRqU3BYOVVyWGh1NS01b3dpbXQwYk1BQ0FBdw?oc=5"
   data-title="Danube River Hits Record Lows and Threatens Romania, Hungary Nuclear Plants"
-  data-publisher="insurancejournal.com"
+  data-publisher="Insurance Journal"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="danube river hits record lows and threatens romania, hungary nuclear plants insurancejournal.com nuclear power·nuclear energy"
+  data-search="danube river hits record lows and threatens romania, hungary nuclear plants insurance journal nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">insurancejournal.com</div>
+    <div class="publisher">Insurance Journal</div>
     <div class="headline">Danube River Hits Record Lows and Threatens Romania, Hungary Nuclear Plants</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -4487,13 +4487,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMitAFBVV95cUxNMXd5ME84anZQdHpJTjkzY1V3RTBXdzJkbnhlLVhkZVF4ME51RjhFcjVvRVQ0SlgzYk5DRVBBaFlFcUlwdE8wd0tibThMOUJJZkhHUWlPbl96bVBFUVVGOElRZS1TNjFLMnJqdTBGb0dlai10MUFrcUd3MFVIanlNWXI4R0hKYlEybXAzQVptMHdvb1lrT094SGI4Y29EaERCbC1HY3VFeG5KU1R4bWh0RjVnVDc?oc=5"
   data-title="China Nuclear Power Projects Worth US$25 Billion Clear State Council Approval"
-  data-publisher="Construction Review"
+  data-publisher="constructionreviewonline.com"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="china nuclear power projects worth us$25 billion clear state council approval construction review nuclear power·nuclear energy"
+  data-search="china nuclear power projects worth us$25 billion clear state council approval constructionreviewonline.com nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">8</div>
   <div class="preview-copy">
-    <div class="publisher">Construction Review</div>
+    <div class="publisher">constructionreviewonline.com</div>
     <div class="headline">China Nuclear Power Projects Worth US$25 Billion Clear State Council Approval</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -4553,17 +4553,17 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMifkFVX3lxTE00TS1BMzJVSzNqYlpOSDgtalpNOEk0ZmdqRVRXMlBfZW5ZNm5RTEREeW9kY0hqZEFjVTZUd2UwaWRPaDRmc0JhQTVIRVpVNkd0MVNmcTA1QW5PY21mTmFyclAyY2t4Vi1Vb2diNExRS3V1Y0JZQkFhVktRTTBaUQ?oc=5"
   data-title="Taipingling plant boosts power output"
-  data-publisher="China Daily"
+  data-publisher="chinadaily.com.cn"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="taipingling plant boosts power output china daily nuclear power·nuclear energy"
+  data-search="taipingling plant boosts power output chinadaily.com.cn nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">China Daily</div>
-    <div class="headline"><span class="new-badge">NEW</span>Taipingling plant boosts power output</div>
+    <div class="publisher">chinadaily.com.cn</div>
+    <div class="headline">Taipingling plant boosts power output</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -4576,17 +4576,17 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMihgFBVV95cUxPLS1LY3ZEYzI0bEVVQTVzSkxNblE2TDZpU3Nxdjg1MWZHQ2RSMS1qWTQ2VGx0Q1Z4bllIQnQzX09hQTdPa21wb19xZVdRZzdCbnRfdDZ3ak16RnU3ZWNlVjlTeG9sSk53NUdweXV1VnY3dW85ZEhiUlFIWGZkZE5LdEROTXF1UQ?oc=5"
   data-title="Can A Nuclear Reactor Explode Like An Atomic Bomb?"
-  data-publisher="AOL.com"
+  data-publisher="aol.com"
   data-group="Nuclear Power·Nuclear Energy"
   data-search="can a nuclear reactor explode like an atomic bomb? aol.com nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">12</div>
   <div class="preview-copy">
-    <div class="publisher">AOL.com</div>
-    <div class="headline"><span class="new-badge">NEW</span>Can A Nuclear Reactor Explode Like An Atomic Bomb?</div>
+    <div class="publisher">aol.com</div>
+    <div class="headline">Can A Nuclear Reactor Explode Like An Atomic Bomb?</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -4784,18 +4784,18 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </section>
 
 <section class="news-group" data-group="한수원·한국수력원자력">
-  <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">11건</span></div>
+  <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">10건</span></div>
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTFB0VHZ1UzV3Nm1Ib0RaeWxHU21xVHV1NWdOWWJIeTVFX2lfMmJEUkZwRDBJQTVQV3pBR0dIT2twcHQ2eXoxMzJ4NmtBWWE3U2JDNUFwX3EyQTVGZnVfTkR3cg?oc=5"
   data-title="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화"
-  data-publisher="heraldk.com"
+  data-publisher="헤럴드경제 미주판"
   data-group="한수원·한국수력원자력"
-  data-search="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화 heraldk.com 한수원·한국수력원자력"
+  data-search="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화 헤럴드경제 미주판 한수원·한국수력원자력"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">heraldk.com</div>
+    <div class="publisher">헤럴드경제 미주판</div>
     <div class="headline">한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -4856,36 +4856,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTE9wLUhpenFiVmlBMG5LQkY2UHdXUVBOVFpmU01DR1FVX3JuS2tfdlRISzhHR0hNQmF0OW5nemdRU2hxbnIxemcwMjlJRzJGZTRPZjJ4NDdPcGpGTjh5NkdxUA?oc=5"
-  data-title="한빛1·2호기 계속운전 내년 상반기 상정…&quot;호남 반도체 전력 적기 공급&quot;"
-  data-publisher="asiae.co.kr"
-  data-group="한수원·한국수력원자력"
-  data-search="한빛1·2호기 계속운전 내년 상반기 상정…&quot;호남 반도체 전력 적기 공급&quot; asiae.co.kr 한수원·한국수력원자력"
-  tabindex="0" role="link">
-  <div class="article-number">4</div>
-  <div class="preview-copy">
-    <div class="publisher">asiae.co.kr</div>
-    <div class="headline">한빛1·2호기 계속운전 내년 상반기 상정…&quot;호남 반도체 전력 적기 공급&quot;</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiVEFVX3lxTE42cVctN1pYMTFKZ2Z0dEhrS3Vhc01jYWZhNW1rRlpNM1VtOVJiNEUyWDhVRXVBSEtZcXFjZHVDbUZpMlJRQ2tWMmE0UzJ0QnRBVi1Beg?oc=5"
   data-title="원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌"
   data-publisher="동아사이언스"
   data-group="한수원·한국수력원자력"
   data-search="원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌 동아사이언스 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">동아사이언스</div>
     <div class="headline">원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌</div>
@@ -4908,7 +4885,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="폭염 속 &#x27;새울 3ㆍ4호기 건설현장&#x27; 온열질환 예방 총력 인사이트n파워 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
     <div class="headline">폭염 속 &#x27;새울 3ㆍ4호기 건설현장&#x27; 온열질환 예방 총력</div>
@@ -4927,13 +4904,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE05ZlNSUF84eUQyd1JpUGJwbXhMcy0wdnRVT2xlbXlWWjRKeUUwZTZBSXF3RkdYOHoyU3RiY25fZXpvaWlWelBDMklNSVdtLVIxSXU5cDRPSFFlMlY0d3Ewb2Zyd3V5cGs?oc=5"
   data-title="영덕군 신규 원전 미래에너지 전략사업 직무교육 시행"
-  data-publisher="경상투데이"
+  data-publisher="gyeongsangtoday.com"
   data-group="한수원·한국수력원자력"
-  data-search="영덕군 신규 원전 미래에너지 전략사업 직무교육 시행 경상투데이 한수원·한국수력원자력"
+  data-search="영덕군 신규 원전 미래에너지 전략사업 직무교육 시행 gyeongsangtoday.com 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
-    <div class="publisher">경상투데이</div>
+    <div class="publisher">gyeongsangtoday.com</div>
     <div class="headline">영덕군 신규 원전 미래에너지 전략사업 직무교육 시행</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -4954,7 +4931,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="[단독] 백중사리로 떠오른 가마미 &#x27;숨은 지뢰&#x27;…한빛원전 공사 잔재물 묵인 의혹 대한경제 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">대한경제</div>
     <div class="headline">[단독] 백중사리로 떠오른 가마미 &#x27;숨은 지뢰&#x27;…한빛원전 공사 잔재물 묵인 의혹</div>
@@ -4977,7 +4954,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="1조7508억원 포천양수발전소 본공사 착수 &#x27;2033년 준공&#x27; 목표 인사이트n파워 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
     <div class="headline">1조7508억원 포천양수발전소 본공사 착수 &#x27;2033년 준공&#x27; 목표</div>
@@ -5000,7 +4977,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="한울원자력본부, 울진군 부구천 산책로 조성 지원 전국안전신문 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">전국안전신문</div>
     <div class="headline">한울원자력본부, 울진군 부구천 산책로 조성 지원</div>
@@ -5023,7 +5000,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="saeul nuclear power headquarters combats heatwave with ice, cooling buses 조선일보 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">조선일보</div>
     <div class="headline">Saeul Nuclear Power Headquarters Combats Heatwave with Ice, Cooling Buses</div>
@@ -5166,15 +5143,15 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNUWZ3V2JzQWFCUEZ5T2RsLWtEcG1YZ1pHMHNzaUphODc2bldPNUFQRnZtMS1IdmtzSjBOOHRybTU1bXN4Szk0UEZXdC1tS19WcVNEWncxTjI3dDEyVklGdUtVbF9OZmIwaU5UaEd5eUhxbmRna0FnR0hDSl81TlBrYXZGX2E4M2R2?oc=5"
-  data-title="X 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의"
-  data-publisher="글로벌이코노믹"
+  data-title="X 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의 - g-enews.com"
+  data-publisher="g-enews.com"
   data-group="원전·원자력"
-  data-search="x 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의 글로벌이코노믹 원전·원자력"
+  data-search="x 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의 - g-enews.com g-enews.com 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">글로벌이코노믹</div>
-    <div class="headline">X 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의</div>
+    <div class="publisher">g-enews.com</div>
+    <div class="headline">X 에너지, 차세대 원자력 등급 흑연 공급망 2배 확충 합의 - g-enews.com</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -5280,36 +5257,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiW0FVX3lxTE0xc1lKVHhUbThPc2xZSjJEYk54bDNVaFpzR1p3VjdKSnRyYUlud3pJaS00ZDRBVVdmVDJvUHJWR2JLVG5mQnVtZk1UcEl0em1aWVFaTzNqZEtvSjg?oc=5"
-  data-title="원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침"
-  data-publisher="newsasia.kr"
-  data-group="원전·원자력"
-  data-search="원안위, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침 newsasia.kr 원전·원자력"
-  tabindex="0" role="link">
-  <div class="article-number">10</div>
-  <div class="preview-copy">
-    <div class="publisher">newsasia.kr</div>
-    <div class="headline">원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiT0FVX3lxTE5pM01pYk5nNTdIZ3JoWGNjZ0tSRWR4MndrbVB5TTBQN2cwT3FaR3dvc1FVNzA1TERCdjRCZ0pxRGZ4VzRiTnZBQUJBQ0RNTms?oc=5"
   data-title="가뭄에 군대 동원해 강바닥 폭파‥유럽 경제 고사할 판"
   data-publisher="v.daum.net"
   data-group="원전·원자력"
   data-search="가뭄에 군대 동원해 강바닥 폭파‥유럽 경제 고사할 판 v.daum.net 원전·원자력"
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">v.daum.net</div>
     <div class="headline">가뭄에 군대 동원해 강바닥 폭파‥유럽 경제 고사할 판</div>
@@ -5326,6 +5280,29 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiTEFVX3lxTE8tRWQySHRTZG12SWp3ajNLZm5KZUlzakExUXA3dkEwYUhtbkowd3p3WlBKR0FtaFFrZzJpZndudGpMaGJrS091bU55ekU?oc=5"
+  data-title="원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침"
+  data-publisher="시사일보"
+  data-group="원전·원자력"
+  data-search="원안위, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침 시사일보 원전·원자력"
+  tabindex="0" role="link">
+  <div class="article-number">11</div>
+  <div class="preview-copy">
+    <div class="publisher">시사일보</div>
+    <div class="headline"><span class="new-badge">NEW</span>원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE9pMWg0WVlib1RUbGxyRlp2Rzd0WjE4Q2lyWkhVYWY2RHBvUE5KV3ZZTER4c2xSRXRablhzWkdKdDRuZ01JUS1YTUJfSEo2LWt2aWMtS0Z4cjNqNEQ2M2RabDA3QWhmeG9RdW5peGhR?oc=5"
   data-title="[위클리오늘] 영덕군 오늘(8. 4)"
   data-publisher="위클리오늘"
@@ -5335,7 +5312,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">위클리오늘</div>
-    <div class="headline"><span class="new-badge">NEW</span>[위클리오늘] 영덕군 오늘(8. 4)</div>
+    <div class="headline">[위클리오늘] 영덕군 오늘(8. 4)</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -5471,13 +5448,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5seGdFVm03aVJhZnFzREVIV181VXpzWTlmUV9rOEM5NThVcC1wNFREU1hzcm5VQ1ZCamd4UXpqdVBndHlXb0ZvVFlnVmZXTWJBeE1PQndTM0NReDZWM3BzUGE4OHlEcmvSAWtBVV95cUxOTXN1bHIyUm5Mc0FTQnRmRGtfNmktMlUtNGFlVFZuNE1xN3RsZkNGdW1jdmRTV2pFTjR4dko3LXNlRHp3NjEtbENXSGxHdFpxNU5UdklKdk9ydUVsS09VMXhmeFFDRThPa2NVTQ?oc=5"
   data-title="원자력산업協, “차세대 원전 국가전략기술 지정 환영”"
-  data-publisher="inenews.kr"
+  data-publisher="인사이트에너지뉴스"
   data-group="SMR"
-  data-search="원자력산업協, “차세대 원전 국가전략기술 지정 환영” inenews.kr smr"
+  data-search="원자력산업協, “차세대 원전 국가전략기술 지정 환영” 인사이트에너지뉴스 smr"
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">inenews.kr</div>
+    <div class="publisher">인사이트에너지뉴스</div>
     <div class="headline">원자력산업協, “차세대 원전 국가전략기술 지정 환영”</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -5586,13 +5563,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZkFVX3lxTE5xaTNBQ1FEQ0lzS2MzcDUxYkxQYS1fdFhZVVk3cjE2cHQ2RzB0VnA0SzhxNVgzMkxhcFlKamQya2cxMDVMbmZuU0dfSUVselhoR2NFbUdXWE9WNXRMdGRXbXFTMURKUQ?oc=5"
   data-title="AI 전력원 SMR 상용화 대비…원안위, 기술중립 규제체계 구축"
-  data-publisher="news1.kr"
+  data-publisher="뉴스1"
   data-group="SMR"
-  data-search="ai 전력원 smr 상용화 대비…원안위, 기술중립 규제체계 구축 news1.kr smr"
+  data-search="ai 전력원 smr 상용화 대비…원안위, 기술중립 규제체계 구축 뉴스1 smr"
   tabindex="0" role="link">
   <div class="article-number">7</div>
   <div class="preview-copy">
-    <div class="publisher">news1.kr</div>
+    <div class="publisher">뉴스1</div>
     <div class="headline">AI 전력원 SMR 상용화 대비…원안위, 기술중립 규제체계 구축</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -5724,13 +5701,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMigAFBVV95cUxOWVZJejNFcU1NRUtVZVVpUmNCRFlyb1JvaElna3dLU08zWVlWZXp5eGpsVFZXa2ZlMW44ZHhzTzdwdkpIZ2xoRDZCcGVSWkdtSGQ3Nm1xaGpuZEVKVG8wRXlwVC13OXFmX2FqSW9XTkVPcG5ldGJuZm1pTTRoUmh6bw?oc=5"
   data-title="One nuclear platform, two reactors: AP1000 technology now extends to AP300 SMR"
-  data-publisher="Interesting Engineering"
+  data-publisher="interestingengineering.com"
   data-group="SMR"
-  data-search="one nuclear platform, two reactors: ap1000 technology now extends to ap300 smr interesting engineering smr"
+  data-search="one nuclear platform, two reactors: ap1000 technology now extends to ap300 smr interestingengineering.com smr"
   tabindex="0" role="link">
   <div class="article-number">13</div>
   <div class="preview-copy">
-    <div class="publisher">Interesting Engineering</div>
+    <div class="publisher">interestingengineering.com</div>
     <div class="headline">One nuclear platform, two reactors: AP1000 technology now extends to AP300 SMR</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -5770,13 +5747,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOcnBzbDdTRmZ1OTBEbW5qaTFWYXM0N0V6YzNMdWFIanIzRHAwc2NKX0xBNGk1RlNidVdDWkNrdEk4eUExXzVkblZNdDJpbEU3M3o2eWVQYnNpSmF5azBsNFh3ZkZDZGZjV1pqRGgtZjc5UUdZcGRYSFpkXy1IbjBpZnF6U1BsV3FVX3pNaWpOVkpQTVVFYTRZYjA1TXdDRDlGbEplZjlzZkhVaHhBNmxaM0psYXJab3l0NzAw?oc=5"
   data-title="Dual SMR-300 reactors to boost US Gulf South grid with 680 MW power"
-  data-publisher="Interesting Engineering"
+  data-publisher="interestingengineering.com"
   data-group="SMR"
-  data-search="dual smr-300 reactors to boost us gulf south grid with 680 mw power interesting engineering smr"
+  data-search="dual smr-300 reactors to boost us gulf south grid with 680 mw power interestingengineering.com smr"
   tabindex="0" role="link">
   <div class="article-number">15</div>
   <div class="preview-copy">
-    <div class="publisher">Interesting Engineering</div>
+    <div class="publisher">interestingengineering.com</div>
     <div class="headline">Dual SMR-300 reactors to boost US Gulf South grid with 680 MW power</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -5859,6 +5836,29 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMinwFBVV95cUxPZkRhX1pNai1hVGtuQmlWUmIzSW9JaWNkUHZlVzRyUC1lb2xEVlBhb0FlbXJjZ1ltOGROSkMzazEtRUJaN2RCa1lBbTJRVWNJSUtIb0dINnlDRml0Rkh2azFobG0zdkVTZTdfdXlvSEZzU0xPLVlCRXY5WlFXcy1YamVsRVdZMUZ1OV9MZk1UdlcwUXc5bFpSa3d5Rm94cFE?oc=5"
+  data-title="Earnings To Watch: NuScale Power Corp (SMR) Q2 2026 -- GF Value Sees 76% Upside"
+  data-publisher="Yahoo Finance"
+  data-group="SMR"
+  data-search="earnings to watch: nuscale power corp (smr) q2 2026 -- gf value sees 76% upside yahoo finance smr"
+  tabindex="0" role="link">
+  <div class="article-number">19</div>
+  <div class="preview-copy">
+    <div class="publisher">Yahoo Finance</div>
+    <div class="headline"><span class="new-badge">NEW</span>Earnings To Watch: NuScale Power Corp (SMR) Q2 2026 -- GF Value Sees 76% Upside</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMi0wFBVV95cUxOZG1ZeDZDLVRENm8xWV9uV3FQR0VTRmN2ZGZQeTlLTHVFVHJBNkdxX2ROVVBHU0JzMUZoNUdWaUNFLTJZcUJlMDNFbkR1WjExRl83NFAxSEticEhWQ1RUeVNhdDhYNlN2cWZUNVNWSDBXUXBuRDBucjNzUmVqTE51QUhaX0hHUGFadmF6YlNwazd0R3phNmlLMnM5U0xRLW0zdFNYT3R3UGVadTlOM0JldjVQVWxYVzBYME1RRldPZ1oxUmJvMUNTZS1ZMy1Pa2NUSUNV?oc=5"
   data-title="Westinghouse and Amentum Partner to Expand Delivery Capacity for APX Fleet Deployment"
@@ -5866,7 +5866,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="westinghouse and amentum partner to expand delivery capacity for apx fleet deployment pa media smr"
   tabindex="0" role="link">
-  <div class="article-number">19</div>
+  <div class="article-number">20</div>
   <div class="preview-copy">
     <div class="publisher">PA Media</div>
     <div class="headline">Westinghouse and Amentum Partner to Expand Delivery Capacity for APX Fleet Deployment</div>
@@ -5889,7 +5889,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="the global small modular reactor ecosystem: why supply chains will shape the nuclear renaissance logistics viewpoints smr"
   tabindex="0" role="link">
-  <div class="article-number">20</div>
+  <div class="article-number">21</div>
   <div class="preview-copy">
     <div class="publisher">Logistics Viewpoints</div>
     <div class="headline">The Global Small Modular Reactor Ecosystem: Why Supply Chains Will Shape the Nuclear Renaissance</div>
@@ -5912,7 +5912,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="grundy co. could be getting small modular reactor wspynews.com smr"
   tabindex="0" role="link">
-  <div class="article-number">21</div>
+  <div class="article-number">22</div>
   <div class="preview-copy">
     <div class="publisher">WSPYnews.com</div>
     <div class="headline">Grundy Co. Could Be Getting Small Modular Reactor</div>
@@ -5935,7 +5935,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="onr helps shape international toolkit to support cooperation in assessment of advanced reactors office for nuclear regulation smr"
   tabindex="0" role="link">
-  <div class="article-number">22</div>
+  <div class="article-number">23</div>
   <div class="preview-copy">
     <div class="publisher">Office for Nuclear Regulation</div>
     <div class="headline">ONR helps shape international toolkit to support cooperation in assessment of advanced reactors</div>
@@ -5958,33 +5958,10 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="mcdermott and ulc-energy sign cooperation agreement to advance rolls-royce smr projects dredgewire smr"
   tabindex="0" role="link">
-  <div class="article-number">23</div>
+  <div class="article-number">24</div>
   <div class="preview-copy">
     <div class="publisher">DredgeWire</div>
     <div class="headline">McDermott and ULC-Energy Sign Cooperation Agreement to Advance Rolls-Royce SMR Projects</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiggFBVV95cUxPX3JCQWhrZWY0eWM0cUR1aE03SGljY1dwT3JkYWdVREZLc2Y2RDdxSU1MNnVJQ1JHbDhseDI3SVNEZVFNQmVCY2E0Rml5Zm9NQk5UM2VrcU5XOEJLS3NXWnpHelhLNUt1eWdwRWtKMEZVbDVXYnNOTXVCQ1VudF9vUE530gGWAUFVX3lxTE5rZFFkSk1FR0JERWlaTDdKYlFzRHFWaUswZUFjNjN1cGphbG01cExOUmFIREpCeEJFdkFmR3EzSW9sR2cycnB1U3BObGZ1ZDJISW5ZcWRNb3BGWERjVmstX241TzZLRjNRZFQ2Ymt0eVNrZmVubXNWaTJfLTlKSGtoWHlLUDVMQndldmtvY3B0dFN4WDBlUQ?oc=5"
-  data-title="South Korea designates SMR as strategic tech, industry rallies for global lead - CHOSUNBIZ"
-  data-publisher="Chosunbiz"
-  data-group="SMR"
-  data-search="south korea designates smr as strategic tech, industry rallies for global lead - chosunbiz chosunbiz smr"
-  tabindex="0" role="link">
-  <div class="article-number">24</div>
-  <div class="preview-copy">
-    <div class="publisher">Chosunbiz</div>
-    <div class="headline">South Korea designates SMR as strategic tech, industry rallies for global lead - CHOSUNBIZ</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -6051,13 +6028,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMikgFBVV95cUxPbnNuajVEZ2FpeDdIeDBUUEFyOGdmaElfMzZSYlFEckZHWjVPTS1GY25KZ3dWeU9IYXp4OFQ4RUV1Z0trd1oydmZhVDZIVjIxRlk2NFF2Ujl3eWFobTRWNXJPSnYtQ1dQTEJkMWs0ZFlsY0g2czc3SWNqeEpicENiZTRIM3pNSjhWeC11YzB1X3dOZw?oc=5"
   data-title="World first: Scientists detect antineutrinos from spent nuclear fuel"
-  data-publisher="Interesting Engineering"
+  data-publisher="interestingengineering.com"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="world first: scientists detect antineutrinos from spent nuclear fuel interesting engineering nuclear power·nuclear energy"
+  data-search="world first: scientists detect antineutrinos from spent nuclear fuel interestingengineering.com nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">Interesting Engineering</div>
+    <div class="publisher">interestingengineering.com</div>
     <div class="headline">World first: Scientists detect antineutrinos from spent nuclear fuel</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -6235,13 +6212,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMihgFBVV95cUxPejJxMFZvMmRZLXVEaGFDaDluRkdySl9qSlFudEdGZGF2YXV4WU16ajJvUFI5QTB5cE8zUnZMclZEeTQ3RTFuWk14XzBCSy1lY05GOEpTaVJ2UlY0bVB2UjBTdzVvNE9JUGV0NXZsVUp1eHR2VDFaNThDM19aZE9ac3czUzNOdw?oc=5"
   data-title="Opinion: How Utah has become a national leader in energy"
-  data-publisher="Deseret News"
+  data-publisher="deseret.com"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="opinion: how utah has become a national leader in energy deseret news nuclear power·nuclear energy"
+  data-search="opinion: how utah has become a national leader in energy deseret.com nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">Deseret News</div>
+    <div class="publisher">deseret.com</div>
     <div class="headline">Opinion: How Utah has become a national leader in energy</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -7108,15 +7085,15 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPRzQtNGprQXlub05iVlJKdVFJc0JsdjlUYVdDeGpWMjVDVmE1cHBLdk5WbWxpc0JFdUNmNnRNM0lMS0t0by1JbU1MV202VkZndzNZZHpHMDlIT2dhcHdMSzZ2RDFXUHh0YTBtVm1qczNtd1NDS09CaUg3T2M1M1FqNG1hNC12dGph?oc=5"
-  data-title="뉴스케일 파워, 美 최대 SMR 사업 추진…비구속 협약이 변수"
-  data-publisher="글로벌이코노믹"
+  data-title="뉴스케일 파워, 美 최대 SMR 사업 추진…비구속 협약이 변수 - g-enews.com"
+  data-publisher="g-enews.com"
   data-group="SMR"
-  data-search="뉴스케일 파워, 美 최대 smr 사업 추진…비구속 협약이 변수 글로벌이코노믹 smr"
+  data-search="뉴스케일 파워, 美 최대 smr 사업 추진…비구속 협약이 변수 - g-enews.com g-enews.com smr"
   tabindex="0" role="link">
   <div class="article-number">10</div>
   <div class="preview-copy">
-    <div class="publisher">글로벌이코노믹</div>
-    <div class="headline">뉴스케일 파워, 美 최대 SMR 사업 추진…비구속 협약이 변수</div>
+    <div class="publisher">g-enews.com</div>
+    <div class="headline">뉴스케일 파워, 美 최대 SMR 사업 추진…비구속 협약이 변수 - g-enews.com</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -7132,13 +7109,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMilwFBVV95cUxQTS0yOVI1YU5hOF9lVktvVzZCLUVXYWJqU2JzcEhsUU9uTXlvQXE2Snh3U2hRSkFXY21SckVQZXExaGRpb1B3c2d6Rm9rYkFuMC1qNG1qMllxaGx0UWJETWdZQXdzSTRzdk1iNDdnYUVYbWFQdXBXbTBsWjNUdHpNejZwMU42dlFsYWs2S3E0RXhWaEFfa3hF?oc=5"
   data-title="Here&#x27;s How a Small Bet on This Nuclear Stock Could Pay Off Big"
-  data-publisher="The Motley Fool"
+  data-publisher="fool.com"
   data-group="SMR"
-  data-search="here&#x27;s how a small bet on this nuclear stock could pay off big the motley fool smr"
+  data-search="here&#x27;s how a small bet on this nuclear stock could pay off big fool.com smr"
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">The Motley Fool</div>
+    <div class="publisher">fool.com</div>
     <div class="headline">Here&#x27;s How a Small Bet on This Nuclear Stock Could Pay Off Big</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -7247,37 +7224,14 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiigFBVV95cUxNMm9RVWFPcTFjZzQtSlhKR2JPdVM4OE00OFpmMHNDMExpMlNkRjdMb0Juanc3aEU3bFoyLWhDbDZncUVaenNzSGRua3B1Y01tZXg5MW5iUVJ1YV95SV9TSzFJckpWY1g0aFhSczk2VVhnTGd0Z0p1X0hKbnd6WWt1QnNJMFhtSThCcEE?oc=5"
   data-title="Better Small Modular Reactor Stock: NuScale Power vs. GE Vernova"
-  data-publisher="The Motley Fool"
+  data-publisher="fool.com"
   data-group="SMR"
-  data-search="better small modular reactor stock: nuscale power vs. ge vernova the motley fool smr"
+  data-search="better small modular reactor stock: nuscale power vs. ge vernova fool.com smr"
   tabindex="0" role="link">
   <div class="article-number">16</div>
   <div class="preview-copy">
-    <div class="publisher">The Motley Fool</div>
+    <div class="publisher">fool.com</div>
     <div class="headline">Better Small Modular Reactor Stock: NuScale Power vs. GE Vernova</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPUVNfajNiZlhLZXM5X2tqZFlDRi1rQ1dVa3QzNFlWeF9FVUt6bTJmek5qZHlTaExfNlRoYUtUcXZLWE9wVFRFWWFwakdIUDhJS2tBV0JWSkxjX1RiUHlza05ZYlF2R1o3RXRQYW1BZm9Pb0JUdmFjaGp6bVdRR1pTWVRhWTZ4Z3Jk?oc=5"
-  data-title="Uzbekistan’s Nuclear Power Plant Project Advances"
-  data-publisher="thediplomat.com"
-  data-group="SMR"
-  data-search="uzbekistan’s nuclear power plant project advances thediplomat.com smr"
-  tabindex="0" role="link">
-  <div class="article-number">17</div>
-  <div class="preview-copy">
-    <div class="publisher">thediplomat.com</div>
-    <div class="headline">Uzbekistan’s Nuclear Power Plant Project Advances</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -7297,7 +7251,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="SMR"
   data-search="arc partners with inl for smr deployment world nuclear news smr"
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     <div class="headline">ARC partners with INL for SMR deployment</div>
@@ -7316,14 +7270,37 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMid0FVX3lxTFA4Tnd0MGl4c0NyVTJfNnJNUGNaV1hFTnFCVDd3Qkt2cTlnckhCcWhwU3hGT1dhQVJURXUtbHc2VnhPYUc3UVFsU0VKZTdmNmhGNVZBZm51S2psZlVWRTF2VmpTd2JPS3hJcXJpVXVpelM3NEdGQ2xn0gF8QVVfeXFMUGg1RF9fTjFWRk5lVVhRaTVYUjNOMkFoMFQ5MlY1NjJYemhMX3E3RzB4M2Jma0ZXM05QLVVMOTJKUkpTWUhkUWlmQk9UNVhIMXJJMkJLcmxwdHZNSXpjSjljSnd1NXduRGNQcmF5bE9NU2ZIRmdnVWthV1E0SA?oc=5"
   data-title="Antares to Fast-Track US Military Base Nuclear Microreactors With $470M Injection"
-  data-publisher="thedefensepost.com"
+  data-publisher="The Defense Post"
   data-group="SMR"
-  data-search="antares to fast-track us military base nuclear microreactors with $470m injection thedefensepost.com smr"
+  data-search="antares to fast-track us military base nuclear microreactors with $470m injection the defense post smr"
+  tabindex="0" role="link">
+  <div class="article-number">18</div>
+  <div class="preview-copy">
+    <div class="publisher">The Defense Post</div>
+    <div class="headline">Antares to Fast-Track US Military Base Nuclear Microreactors With $470M Injection</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxPUVNfajNiZlhLZXM5X2tqZFlDRi1rQ1dVa3QzNFlWeF9FVUt6bTJmek5qZHlTaExfNlRoYUtUcXZLWE9wVFRFWWFwakdIUDhJS2tBV0JWSkxjX1RiUHlza05ZYlF2R1o3RXRQYW1BZm9Pb0JUdmFjaGp6bVdRR1pTWVRhWTZ4Z3Jk?oc=5"
+  data-title="Uzbekistan’s Nuclear Power Plant Project Advances - The Diplomat – Asia-Pacific"
+  data-publisher="The Diplomat – Asia-Pacific"
+  data-group="SMR"
+  data-search="uzbekistan’s nuclear power plant project advances - the diplomat – asia-pacific the diplomat – asia-pacific smr"
   tabindex="0" role="link">
   <div class="article-number">19</div>
   <div class="preview-copy">
-    <div class="publisher">thedefensepost.com</div>
-    <div class="headline">Antares to Fast-Track US Military Base Nuclear Microreactors With $470M Injection</div>
+    <div class="publisher">The Diplomat – Asia-Pacific</div>
+    <div class="headline">Uzbekistan’s Nuclear Power Plant Project Advances - The Diplomat – Asia-Pacific</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -7551,13 +7528,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMi3AFBVV95cUxNbUpiRkFKTVZnWEVQNzNxV3g5WkNoZC1OOTkzVkw2VmpUd29pbkdiM3lSVXZQVjBSSG1tbkV4bzJ4Zkp6WjA3SlduRW9LMmd1Z215dkRSMUpNMHI4T0xvRzZVZ3A0SG0zbV9tbGtPem5DeFY5dmQ0enZUYTJuM1cxN0ktVUpmMzc4ZG16Qm5SU2xXaWQ2UkRSRjY2SlZ5c1B3SFBvUUZMc3ItUEtxdWw1UE0yOHB6TDBJN2tjczROaERCazNDS1Jxd1V0N2YwNDdkckxrblRKTWhrd1NG?oc=5"
   data-title="Record low Danube levels push some countries in Eastern Europe to the brink of energy emergency"
-  data-publisher="latimes.com"
+  data-publisher="Los Angeles Times"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="record low danube levels push some countries in eastern europe to the brink of energy emergency latimes.com nuclear power·nuclear energy"
+  data-search="record low danube levels push some countries in eastern europe to the brink of energy emergency los angeles times nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">8</div>
   <div class="preview-copy">
-    <div class="publisher">latimes.com</div>
+    <div class="publisher">Los Angeles Times</div>
     <div class="headline">Record low Danube levels push some countries in Eastern Europe to the brink of energy emergency</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -7665,15 +7642,15 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMinAFBVV95cUxNeDZhb1FDQzhNZjFhenZpUmY2LTJKTWc5eHFLTXlHOUhOdUp6SGQySjk0elRYTk8zU0ltZHQyaGFSSktSYkVPY1pfcWM3Qkd0WEdpRHEyTDFONkFScVZ4UFJjcVVtQUVsOElYWDdTVTB2SzRUdzE0R2x4M0tYTEt0VDFQNFk3ZXRTNlpMeUpOQ3R1OFR4b0YzV2VlRU0?oc=5"
-  data-title="NEA Director-General opens civil nuclear energy workshop"
-  data-publisher="Nuclear Energy Agency (NEA)"
+  data-title="NEA Director-General opens civil nuclear energy workshop - oecd-nea.org"
+  data-publisher="oecd-nea.org"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="nea director-general opens civil nuclear energy workshop nuclear energy agency (nea) nuclear power·nuclear energy"
+  data-search="nea director-general opens civil nuclear energy workshop - oecd-nea.org oecd-nea.org nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">13</div>
   <div class="preview-copy">
-    <div class="publisher">Nuclear Energy Agency (NEA)</div>
-    <div class="headline">NEA Director-General opens civil nuclear energy workshop</div>
+    <div class="publisher">oecd-nea.org</div>
+    <div class="headline">NEA Director-General opens civil nuclear energy workshop - oecd-nea.org</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -17129,6 +17106,678 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 
   </div>
 </section>
+
+<section class="tab-panel archive-panel" id="archive-2026-07-16" data-archive-date="2026-07-16">
+  <div class="period-card">
+    <strong>2026. 7. 16.</strong>
+    <span>2026. 7. 15. 06:00 ~ 2026. 7. 16. 06:00 (KST)</span>
+  </div>
+  <div class="language-section">
+    <div class="language-title">뉴스기사</div>
+    
+<section class="news-group" data-group="현대건설">
+  <div class="group-title"><span class="group-square"></span><span>현대건설</span><span class="group-count">2건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTFAyeHBZTWN3TXJqbmlSNFI2cUs4TFZXRUVjUV9SNURlenViU3F0SkpYZmpQNTE5aWdZV0FTNzIxYXMzVlB1Sy1udDlmRzJSd0dyM0k4Wm40aXgzMDRjOHIxamhsb1c?oc=5"
+  data-title="&quot;K-건설, 미국 원전 시장에 깃발&quot; 현대건설, 美 차세대 원전 &#x27;EAGL-1&#x27; 건설"
+  data-publisher="에너지안전신문"
+  data-group="현대건설"
+  data-search="&quot;k-건설, 미국 원전 시장에 깃발&quot; 현대건설, 美 차세대 원전 &#x27;eagl-1&#x27; 건설 에너지안전신문 현대건설"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">에너지안전신문</div>
+    <div class="headline">&quot;K-건설, 미국 원전 시장에 깃발&quot; 현대건설, 美 차세대 원전 &#x27;EAGL-1&#x27; 건설</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNMzB1U0RjVkJtN2RpdDI0Y0FLVkpHb09nVVVjUVBPc2Y5VjB2bkVsOHJMaEVzOEY2cDRBRER5RVRRcDlIbnlENlN3VkNob2Z2T1VRUWR4Q0xqQWVrVlBIVU1qc2trdGVQR3A1MEYzNUthM1BobDdTVGNaSmNaXzVEcDNENEptYzY1?oc=5"
+  data-title="Top 10 Construction Firms Near 30T Won Maintenance"
+  data-publisher="조선일보"
+  data-group="현대건설"
+  data-search="top 10 construction firms near 30t won maintenance 조선일보 현대건설"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">조선일보</div>
+    <div class="headline">Top 10 Construction Firms Near 30T Won Maintenance</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="한수원·한국수력원자력">
+  <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiW0FVX3lxTFBxcTVuTjRoanlkbDZKUTNDTkY0U2tlNDk0WDl3WmVSUmt4VWsyUG51Nnc2b3JVakNlTnVDdWUzSHZ5LWkweUJGbWlvR2lfdG5iRGd3dThhRFJfZkk?oc=5"
+  data-title="신규 원전 추가 검토에 양수발전도 힘 받는다…한수원·발전사·수공 3파전"
+  data-publisher="에너지경제신문"
+  data-group="한수원·한국수력원자력"
+  data-search="신규 원전 추가 검토에 양수발전도 힘 받는다…한수원·발전사·수공 3파전 에너지경제신문 한수원·한국수력원자력"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">에너지경제신문</div>
+    <div class="headline">신규 원전 추가 검토에 양수발전도 힘 받는다…한수원·발전사·수공 3파전</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="한전·한국전력">
+  <div class="group-title"><span class="group-square"></span><span>한전·한국전력</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiRkFVX3lxTE1FdGJyYnlmRkR3RUFmeEt4WVF2bVJNcEc1dG02WDFaVWR5SFF4eWpTMEUxRHZlcnpMdXl4WmRmNjRfWHRxS1E?oc=5"
+  data-title="한전국제원자력대학원대학교, 베트남 석유대학교와 함께 고급 원자력 인재 양성 나선다"
+  data-publisher="v.daum.net"
+  data-group="한전·한국전력"
+  data-search="한전국제원자력대학원대학교, 베트남 석유대학교와 함께 고급 원자력 인재 양성 나선다 v.daum.net 한전·한국전력"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">v.daum.net</div>
+    <div class="headline">한전국제원자력대학원대학교, 베트남 석유대학교와 함께 고급 원자력 인재 양성 나선다</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="원전·원자력">
+  <div class="group-title"><span class="group-square"></span><span>원전·원자력</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiT0FVX3lxTE9Kd0NKT05jTGh6UHFQTWdON0hsNHJYSUZqSWJ3THYyMGZTRDN2Yjg2Tjd5bWYtLVhyd2pFR18zTTZZOGFRaS1ySjhDYkFhSDA?oc=5"
+  data-title="두산에너빌리티, 대형원전·SMR·유지보수 &#x27;3개의 날개&#x27;… 세계 원전 공급망 핵심으로"
+  data-publisher="v.daum.net"
+  data-group="원전·원자력"
+  data-search="두산에너빌리티, 대형원전·smr·유지보수 &#x27;3개의 날개&#x27;… 세계 원전 공급망 핵심으로 v.daum.net 원전·원자력"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">v.daum.net</div>
+    <div class="headline">두산에너빌리티, 대형원전·SMR·유지보수 &#x27;3개의 날개&#x27;… 세계 원전 공급망 핵심으로</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="SMR">
+  <div class="group-title"><span class="group-square"></span><span>SMR</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiV0FVX3lxTE5NQVNGQm1ESnFUWlVEdG9sNVNXUDFDVURsMF91UzZnV3ZRTXV2VmZyRGdLcURaRlZ5eThxMkFtUTRSY2d3dzNRZkpUbm5MTUg5ZUV4Wm1Ycw?oc=5"
+  data-title="Korea eyes slice of global SMR market after pact with US, Japan"
+  data-publisher="koreaherald.com"
+  data-group="SMR"
+  data-search="korea eyes slice of global smr market after pact with us, japan koreaherald.com smr"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">koreaherald.com</div>
+    <div class="headline">Korea eyes slice of global SMR market after pact with US, Japan</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="Nuclear Power·Nuclear Energy">
+  <div class="group-title"><span class="group-square"></span><span>Nuclear Power·Nuclear Energy</span><span class="group-count">2건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMimAFBVV95cUxOUHM5WjBwb1YyRXlIbmw3bjFXZWRTT0FGXzJCeHoyV0NmWV91NUJpV1Nid0wyTGJHMTMzTXBsalhvblZsbER1bG80ckZRRUNqbnp2TmJ0bVZCQjZIVzdhRkR2NGtVNDE2Z25mRVg0ZXdGU0o3T25nOTdYTEpmNlBzMXlrWHlCSmJVZnJZU2dpMkNOOHBaLWNadA?oc=5"
+  data-title="Tender set to be launched for Mahi Banswara plant"
+  data-publisher="World Nuclear News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-search="tender set to be launched for mahi banswara plant world nuclear news nuclear power·nuclear energy"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">World Nuclear News</div>
+    <div class="headline">Tender set to be launched for Mahi Banswara plant</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMikgFBVV95cUxOblBFLWtwVkl5alJjTWpmd1hlMjg2dWZ1Tl9NN0liYUh1b3EtLWQ1a2JiYk4wREw3UEwtdEFPWVc2bXlNRFAtd3Y2aVdNbnVyWEc4TXpQeGRfdnNKS2FqZ0I0T1Nic01hZGtnNEthWkQxdTZNMFFYLXdNT0FqOVlMOXBYYkM4bjVJYnFZa0M4WHJaZw?oc=5"
+  data-title="Gov. Sherrill Signs Legislation to Build New Nuclear Plants"
+  data-publisher="State Affairs"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-search="gov. sherrill signs legislation to build new nuclear plants state affairs nuclear power·nuclear energy"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">State Affairs</div>
+    <div class="headline">Gov. Sherrill Signs Legislation to Build New Nuclear Plants</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="Holtec">
+  <div class="group-title"><span class="group-square"></span><span>Holtec</span><span class="group-count">2건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMihAFBVV95cUxPeXpGSFFwbVFXX0xUdUNiaTZ2WHVuSnJsNTFTUWJWOEpJdkstMVZpNy1RWXhyVVk5OXNFNGEteDl5ZnFGd3NxX1piOWdOZUxERkpicnZtLWs3RmQycDVNRk54R21sWHZsYVVUeXpEVWdvdVVuZFBIQ25EM0dZRWJ6ZlhYRE8?oc=5"
+  data-title="Holtec bets big on small nuclear reactors in its IPO filing"
+  data-publisher="canarymedia.com"
+  data-group="Holtec"
+  data-search="holtec bets big on small nuclear reactors in its ipo filing canarymedia.com holtec"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">canarymedia.com</div>
+    <div class="headline">Holtec bets big on small nuclear reactors in its IPO filing</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMi8AFBVV95cUxObTZsNE9iS3AyTFdqWjNKeHUzQVRpT3oyWkZQNjdyaHJJWTFsRW9lWVlxc1VkSWRROWdSV2NTSFh2Z2ZFMWJrZ1hGSFc0TmVuTDVsSk5vM0J0YjFHNzVFVnhGWmFuSHNhT0tyTzBpSC1YZGVtdlY5Q2I3VU1PN2N1bkpWaDZ5bUtLb0lqam1ETDFSdWFoemRLV2NKd0tnNzZEdFNxelRyUUZELTJ0Y3FPcTZSMjl0ZmpyQ1g0alRVS21HX25FMFNuNzA0OGdGNDBpRThNcG5qOXVVT2dIdGpPVXhST1ZfNk91WTIwV2YtNWM?oc=5"
+  data-title="Camden nuclear firm Holtec eyes stock market debut - Courier-Post"
+  data-publisher="Courier-Post"
+  data-group="Holtec"
+  data-search="camden nuclear firm holtec eyes stock market debut - courier-post courier-post holtec"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">Courier-Post</div>
+    <div class="headline">Camden nuclear firm Holtec eyes stock market debut - Courier-Post</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="TerraPower">
+  <div class="group-title"><span class="group-square"></span><span>TerraPower</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMivwFBVV95cUxQam8xUVpCaEhsLWQtYUxTVExlNE1scmhURVBzQ3BDNF9GRDVBZ1FrdXVKaUk2ZGFwLWVHbTZDS3hDQkFzTkU4dVQ3dHFTWGhjaHhZZ0FtTFVEbmJmcmxQYkhITlphRkRWWjBFaDZiSjNKQmliZFNoZHppel94NVB0RnZmd25mQWpEVEo4RXlNbDVPYUI0TWxlLVhNZC1ETG1aWC1BREN2RnhCS082RlM0azdOUHc3YmxMU1hUN1g2NA?oc=5"
+  data-title="TerraPower Holds Positive Talks With UK, Targets Early To Mid-2030s For Reactor Launch"
+  data-publisher="NucNet"
+  data-group="TerraPower"
+  data-search="terrapower holds positive talks with uk, targets early to mid-2030s for reactor launch nucnet terrapower"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">NucNet</div>
+    <div class="headline">TerraPower Holds Positive Talks With UK, Targets Early To Mid-2030s For Reactor Launch</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="Fermi America">
+  <div class="group-title"><span class="group-square"></span><span>Fermi America</span><span class="group-count">4건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMicEFVX3lxTE84X1VBR3ZJcnM4ZExuTUtoLVV6Z1RMbVpwY0I5TUU3alQzNmpreUNUcjQ4YnBRbS0ycUlZdEprZzhJYml3VzV1NDJfN3dEenBuZlpNNHZGMnJmZm10WlY2ZWdKMnFjaTQyOTg0NGktUlQ?oc=5"
+  data-title="페르미, 2031년 만기 전환사채로 4억 3,125만 달러 조달"
+  data-publisher="Investing.com 한국어"
+  data-group="Fermi America"
+  data-search="페르미, 2031년 만기 전환사채로 4억 3,125만 달러 조달 investing.com 한국어 fermi america"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">Investing.com 한국어</div>
+    <div class="headline">페르미, 2031년 만기 전환사채로 4억 3,125만 달러 조달</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiqwFBVV95cUxQSlk3UVNSLUZ0T25kNV9MV0pFcU1FV2ZSVExVNk10V1lrLTJzbTdiaHcwejVFckZYQkNQLUk4Z1JDcDBOTTFoUFFoT1NEXzhWZjN0dHROLWNDUm9Qd2tKaUYwZWJ5c1JBUlBoTEpYNmtVTnBsR0Z0UGNXSEx5dEZ2NW1UYUhPVkRYVEdSbzZkQXVCTGtIeWVHT3FoejY3VEd5YTJPQmpQSTduejA?oc=5"
+  data-title="Fermi Outlines Strategic Rationale for Upsized $431 Million Convertible Notes Offering"
+  data-publisher="Yahoo Finance"
+  data-group="Fermi America"
+  data-search="fermi outlines strategic rationale for upsized $431 million convertible notes offering yahoo finance fermi america"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">Yahoo Finance</div>
+    <div class="headline">Fermi Outlines Strategic Rationale for Upsized $431 Million Convertible Notes Offering</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMikgFBVV95cUxQVEdITDZmX3FZdUp4N043SXdSanAyX1JibWRuS2VXem1VNU1wNXdFblF1VzB5a3Q5ZVZZMEJLZC0zQndudGNyWXBuejVSX0Y3SlhIUkdzUFVvbVJET2tkUXFOYWRXUkozWjlsb2w0eE1LanhXRFducGFWMzNJV05VUllyRThiNEVfYWN3TXdsQmZXQQ?oc=5"
+  data-title="A UFO report says security chased a mystery object at a Texas nuke site"
+  data-publisher="statesman.com"
+  data-group="Fermi America"
+  data-search="a ufo report says security chased a mystery object at a texas nuke site statesman.com fermi america"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">statesman.com</div>
+    <div class="headline">A UFO report says security chased a mystery object at a Texas nuke site</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiwwFBVV95cUxNOVRtTjlaZFhMRmh1Y0REekY0VmowWFo0LTd5OVk0NmVyeThlWG54LUpZaFM0akMzUDFUbkh4Tld0blY4WjJvTFVrdm93SkxFT0VmdHk5Z1JJMTdwT0tGLUtrQUdyakw2M3A3NHR2b01KcGtqcExlTXlNM2FYdkx3NkpFN3hmNXlHRWluNVFaUWF2eXAxazcyZVV1ejMxYnNkaVY4cndYVDliV2kwTHZDelM1TWtLWXJueDcxR0h5cUZIbDTSAdcBQVVfeXFMTlgweXNFcDExN0VqT29IWmg3UTl3M2NxVllxd2FlcGczN0p2MnpIUVVlRWRwcXZhTHlhaFZ2YVpfMXQtZ2dMblFwWkRkdnh5clRRR09BV1BuWl9veUYyR25wODFmSzdlbDZ6NjEydUE0SGNHTzFZRWp2enhCUG1pZUxxbjlkVEJHY0hrSGJYN1NzRXFaMldULWlrRUh2UjhIN3ZHZDJNRE1UWURpQ012UTMzSDJBdloxMm1vTHRGdXJfbEx6M1lwZTMtdUlyUmwzN3gxZ0tILTQ?oc=5"
+  data-title="Declassified documents detail 2015 ‘silent’ UFO sighting near Pantex nuclear facility"
+  data-publisher="NewsChannel 10"
+  data-group="Fermi America"
+  data-search="declassified documents detail 2015 ‘silent’ ufo sighting near pantex nuclear facility newschannel 10 fermi america"
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">NewsChannel 10</div>
+    <div class="headline">Declassified documents detail 2015 ‘silent’ UFO sighting near Pantex nuclear facility</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+  </div>
+</section>
+
+<section class="tab-panel archive-panel" id="archive-2026-07-15" data-archive-date="2026-07-15">
+  <div class="period-card">
+    <strong>2026. 7. 15.</strong>
+    <span>2026. 7. 14. 06:00 ~ 2026. 7. 15. 06:00 (KST)</span>
+  </div>
+  <div class="language-section">
+    <div class="language-title">뉴스기사</div>
+    
+<section class="news-group" data-group="현대건설">
+  <div class="group-title"><span class="group-square"></span><span>현대건설</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE0tdUtZQXJrYWlFV3N1aDlVY2Y3aUJLZWs1bVRreWNkMExqMktNTTJmemplU1NqWDhyUXQxNUZuajdxbjBQLWdnX2VSLVlKb3BEOXVuLThDQm13aW1yZVdIc19jR3pnbHNXY3g0Q2x3?oc=5"
+  data-title="현대건설, 美 FANCO와 차세대 SMR 협력… 4세대 원전 라인업 확대"
+  data-publisher="S저널"
+  data-group="현대건설"
+  data-search="현대건설, 美 fanco와 차세대 smr 협력… 4세대 원전 라인업 확대 s저널 현대건설"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">S저널</div>
+    <div class="headline">현대건설, 美 FANCO와 차세대 SMR 협력… 4세대 원전 라인업 확대</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="원전·원자력">
+  <div class="group-title"><span class="group-square"></span><span>원전·원자력</span><span class="group-count">2건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMijwFBVV95cUxPU0U5djhBSXZ3SE03R1J3T1VsdERYZ195ekI3aGZFMHR2b1JRWjBFOEU3aWJUeDJwSGhzTnEwTEhzeWJ0ei1sWWxGanY5OHh2WW9NS2hJaVJaNjdDVEZQelBNODZPUHNxUkFkTm9TOVZ6VEZYeXdvY2t4T3JWWVBuQ2pmX2ducTdUcDJDZjI3TQ?oc=5"
+  data-title="메가 프로젝트 핵심은 전력… 원전·SMR 추가 공식화"
+  data-publisher="조선일보"
+  data-group="원전·원자력"
+  data-search="메가 프로젝트 핵심은 전력… 원전·smr 추가 공식화 조선일보 원전·원자력"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">조선일보</div>
+    <div class="headline">메가 프로젝트 핵심은 전력… 원전·SMR 추가 공식화</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMicEFVX3lxTE1jb0xxV3Nsd21IY3pHRk9TWWRfRThSaFlnMXVycHJOdTRLa05NWFNDN1hURTFhaURqaDRTQ08yQUxmMThxWXRidVc4ZDVKbFZMcXZ3UzEzQ1MxUmx3UjlhclNkR20yNVRYaFp0T2ZxSGk?oc=5"
+  data-title="원전 증설 검토에 경향 칼럼 “무책임”…중앙 주필 “과거 좌파정부와 달라 다행”"
+  data-publisher="미디어오늘"
+  data-group="원전·원자력"
+  data-search="원전 증설 검토에 경향 칼럼 “무책임”…중앙 주필 “과거 좌파정부와 달라 다행” 미디어오늘 원전·원자력"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">미디어오늘</div>
+    <div class="headline">원전 증설 검토에 경향 칼럼 “무책임”…중앙 주필 “과거 좌파정부와 달라 다행”</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="SMR">
+  <div class="group-title"><span class="group-square"></span><span>SMR</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiY0FVX3lxTE9DV1NmYlBhMlFzV1RUN1MyZFBCeTk1ZWR4M3Z0Mjg2T0RiQ2FGVG83S3NSUXBBZzAtS3lyNWpFX2I5bXRCd1FKQ1dIQTV4UDQ0MnpKRU1BdEZ4YV9XTnhwRU1CRQ?oc=5"
+  data-title="[단독] 체코 정부·롤스로이스 SMR 건설 계약 체결...두산에너빌리티 대형 특수 예고"
+  data-publisher="theguru.co.kr"
+  data-group="SMR"
+  data-search="[단독] 체코 정부·롤스로이스 smr 건설 계약 체결...두산에너빌리티 대형 특수 예고 theguru.co.kr smr"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">theguru.co.kr</div>
+    <div class="headline">[단독] 체코 정부·롤스로이스 SMR 건설 계약 체결...두산에너빌리티 대형 특수 예고</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="Nuclear Power·Nuclear Energy">
+  <div class="group-title"><span class="group-square"></span><span>Nuclear Power·Nuclear Energy</span><span class="group-count">4건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiXkFVX3lxTE5aaXptMER5cEgwYWczRmk2X0RmSWE4TTZuNEgxRW1fbEpMMm03bEowSVNqVllBUTRMRTFMbnJ0RkdLT1V2cFFZM3hNOXo0anN2SzMzWFFyYU43RjlFRWc?oc=5"
+  data-title="Government formalizes additional nuclear plants and SMR construction…“To be reflected in the 12th Basic Plan after public deliberation”"
+  data-publisher="경향신문"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-search="government formalizes additional nuclear plants and smr construction…“to be reflected in the 12th basic plan after public deliberation” 경향신문 nuclear power·nuclear energy"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">경향신문</div>
+    <div class="headline">Government formalizes additional nuclear plants and SMR construction…“To be reflected in the 12th Basic Plan after public deliberation”</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMingFBVV95cUxPc285bV9EazF2bWtsdmxoakFFQW1yQVFVNXNWV1Mxdlc3SklFNjB0d1RQS3NWUFpGeWI0ZlNmSVFTUm9SU2hadkJlTmY1ZkxPbW02bnktUE42cE1wTDlfcldYdHNPUWR2ajlJZkJobHhsU043OUUyZDlFM2k4VEJFUVZBcXNia2E2bjdHZkVhNDMycTRqX1ItNnktX05EUQ?oc=5"
+  data-title="This day in history: Cheney City Council reversed course on nuclear project. Spokane Valley fruit packing plant destroyed before completion - The Spokesman-Review"
+  data-publisher="The Spokesman-Review"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-search="this day in history: cheney city council reversed course on nuclear project. spokane valley fruit packing plant destroyed before completion - the spokesman-review the spokesman-review nuclear power·nuclear energy"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">The Spokesman-Review</div>
+    <div class="headline">This day in history: Cheney City Council reversed course on nuclear project. Spokane Valley fruit packing plant destroyed before completion - The Spokesman-Review</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMisgFBVV95cUxOSUlTZXVyMmJTM0MtZ1F2LXF3SXduYi1BVG5CcEtxQ090ck5DR1hiQ2ljTTVMZ3Y3YW1hRF8zUm9ESGxPQkxVMmQ0VXJxNU11a2k2WDd0XzhDeU1nXzVKTTQ1NjJIZXFWVHVzb2w2cUFFZXczTFozaWNJcFp2T3MyLUJyVmdFR1B1VksyMVZkSDR3bWpRZWxmejZUY1hPejhYSzVWeS0tcm5QcDFTTGhWbXRB?oc=5"
+  data-title="South Africa’s next nuclear operators are sitting in classrooms today"
+  data-publisher="IOL"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-search="south africa’s next nuclear operators are sitting in classrooms today iol nuclear power·nuclear energy"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">IOL</div>
+    <div class="headline">South Africa’s next nuclear operators are sitting in classrooms today</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMihgFBVV95cUxQUFlKSzM5SDlMZ3FWYWpxVnpwU3RGTlJ4SDk0VUt1SDhfM1R3UlZkMThQeVo4MEVoa3lnOFc5OXU1ODhwdFBfcThrMnJ1MThqZzBhV0ZtVDdIbEJsSzZQMkxqZjV2ZG4tNHcyU3luamtRdVg0Z3B2dk1jZ1h5VUdXcnc5Z0l6QQ?oc=5"
+  data-title="Governor Signs ‘Power NJ Act’ to Boost Advanced Nuclear Energy"
+  data-publisher="New Jersey Business &amp; Industry Association"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-search="governor signs ‘power nj act’ to boost advanced nuclear energy new jersey business &amp; industry association nuclear power·nuclear energy"
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">New Jersey Business &amp; Industry Association</div>
+    <div class="headline">Governor Signs ‘Power NJ Act’ to Boost Advanced Nuclear Energy</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="Holtec">
+  <div class="group-title"><span class="group-square"></span><span>Holtec</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMipAFBVV95cUxQYjY3Vzl1ZDd0T2F6WFdIMEtrZWZjeWotVmdTemFELXJ1c1E3T2w3NmJvWGw3ODJpYmdQWE5GM2ZKWnE4SjN3UnoxYnU0WERzMlJQTl9JMHJpV3Bxb2c4VmRGSEt1YXhfcmNyWTktYVBURDRrbUdTdUFKZTQ5aXVPVTRIR3RwOVZ1MXItNF9LSHpnaFFCd3h6V3BCNE56bGFGXzhkdw?oc=5"
+  data-title="Company that owns Palisades files to be publicly traded"
+  data-publisher="Yahoo Finance"
+  data-group="Holtec"
+  data-search="company that owns palisades files to be publicly traded yahoo finance holtec"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">Yahoo Finance</div>
+    <div class="headline">Company that owns Palisades files to be publicly traded</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group" data-group="Westinghouse">
+  <div class="group-title"><span class="group-square"></span><span>Westinghouse</span><span class="group-count">1건</span></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiqwFBVV95cUxQSWZ0OHJxYnpIM29WUFlkazhub3lGRG9PRjV3UUxHNUE3YVhYM1BfT2dQc3B1YzVZZWRzZEpKdHdhN19PWHlmZDRsUXpka01HVXZXWWs5VVVPTW5scWxzXzhoMlNPUUlIQzFIZmVmZkVjemlpU0xqb0gtcDVYaTVQbHJDZmUxVkxYd1daU2pWeXNnSlgzOUdZOGJFUHIwQVcxZUItUlJvcDFmR3M?oc=5"
+  data-title="NRC approves Westinghouse exemption request for AP1000 DC - American Nuclear Society -- ANS"
+  data-publisher="American Nuclear Society -- ANS"
+  data-group="Westinghouse"
+  data-search="nrc approves westinghouse exemption request for ap1000 dc - american nuclear society -- ans american nuclear society -- ans westinghouse"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">American Nuclear Society -- ANS</div>
+    <div class="headline">NRC approves Westinghouse exemption request for AP1000 DC - American Nuclear Society -- ANS</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
+</section>
+
+  </div>
+</section>
 </main>
   <footer>기사 카드를 누르면 원문으로 이동하며, 확인한 기사는 회색으로 표시됩니다.</footer>
 </div>
@@ -17142,7 +17791,7 @@ const topbar = document.getElementById("topbar");
 const headerToggle = document.getElementById("header-toggle");
 function setHeaderCollapsed(collapsed){
   topbar.classList.toggle("collapsed", collapsed);
-  headerToggle.textContent = collapsed ? "메뉴 펼치기 ▼" : "메뉴 접기 ▲";
+  headerToggle.textContent = collapsed ? "펼치기 ▼" : "접기 ▲";
   headerToggle.setAttribute("aria-expanded", String(!collapsed));
   localStorage.setItem(headerStateKey, collapsed ? "1" : "0");
 }
