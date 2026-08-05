@@ -860,7 +860,7 @@ GOVERNMENT_SENIOR_RANK_TERMS = {
 
 def is_government_senior_article(article: Article) -> bool:
     """정부 관계부처 그룹에는 장관·차관급 이상 관련 기사만 포함합니다."""
-    title = normalize_text(article.title)
+    title = normalized(article.title)
     has_ministry = any(term in title for term in GOVERNMENT_MINISTRY_TERMS)
     has_senior_rank = any(term in title for term in GOVERNMENT_SENIOR_RANK_TERMS)
     return has_ministry and has_senior_rank
