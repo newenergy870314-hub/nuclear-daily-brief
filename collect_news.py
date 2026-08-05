@@ -841,7 +841,12 @@ def render_group_unified(
     )
     return f"""
 <section class="news-group" data-group="{escape(group)}">
-  <div class="group-title"><span class="group-square"></span><span>{escape(group)}</span><span class="group-count">{len(ordered_articles)}건</span></div>
+  <button class="group-title" type="button" aria-expanded="true">
+    <span class="group-square"></span>
+    <span>{escape(group)}</span>
+    <span class="group-count">{len(ordered_articles)}건</span>
+    <span class="group-arrow">▲</span>
+  </button>
   <div class="article-stack">{cards}</div>
 </section>
 """
@@ -1162,11 +1167,14 @@ main {{ padding: 12px 12px 34px; }}
 .period-card strong {{ color: #111827; font-size: 14px; }}
 .partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
 .language-section {{ margin-bottom: 30px; }}
-.news-group {{ margin-bottom: 20px; }}
-.group-title {{ display: inline-flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin: 0 0 8px 0; padding: 8px 11px; background: #fee500; border-radius: 4px 11px 11px 11px; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); }}
+.news-group {{ margin-bottom: 12px; }}
+.group-title {{ display: inline-flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin: 0; padding: 8px 11px; border: 0; background: #fee500; color: #111827; border-radius: 4px 11px 11px 11px; font: inherit; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
+.group-title:active {{ transform: translateY(1px); }}
 .group-square {{ width: 9px; height: 9px; background: #111; border-radius: 1px; }}
 .group-count {{ align-self: flex-end; margin-bottom: 1px; color: #5f5200; font-size: 9px; line-height: 1; white-space: nowrap; }}
-.article-stack {{ display: grid; gap: 7px; }}
+.group-arrow {{ margin-left: 1px; color: #5f5200; font-size: 10px; line-height: 1; }}
+.article-stack {{ display: grid; gap: 7px; margin-top: 8px; }}
+.news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; height: 118px; min-height: 118px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #eef1f4; opacity: .72; }}
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
@@ -1233,6 +1241,21 @@ function setHeaderCollapsed(collapsed){{
 const savedHeaderState = localStorage.getItem(headerStateKey);
 setHeaderCollapsed(savedHeaderState === null ? true : savedHeaderState === "1");
 headerToggle.addEventListener("click", () => setHeaderCollapsed(!topbar.classList.contains("collapsed")));
+
+document.addEventListener("click", event => {{
+  const groupTitle = event.target.closest(".group-title");
+  if(!groupTitle) return;
+
+  const group = groupTitle.closest(".news-group");
+  if(!group) return;
+
+  const collapsed = group.classList.toggle("collapsed");
+  const expanded = !collapsed;
+  groupTitle.setAttribute("aria-expanded", String(expanded));
+
+  const arrow = groupTitle.querySelector(".group-arrow");
+  if(arrow) arrow.textContent = expanded ? "▲" : "▼";
+}});
 const languageOrderKey = "nuclearDailyBriefLanguageOrder";
 const languageOrderButton = document.getElementById("language-order");
 
