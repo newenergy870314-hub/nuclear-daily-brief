@@ -1,4 +1,4 @@
-from __future__ import annotations
+rom __future__ import annotations
 
 import html
 import re
@@ -18,9 +18,25 @@ MAX_PER_GROUP_PER_LANGUAGE = 12
 
 GROUPS = [
     ("현대건설", [
-        "현대건설 원전", "현대건설 원자력",
-        '"Hyundai Engineering & Construction" nuclear',
-        '"Hyundai E&C" nuclear', "HDEC nuclear",
+        # 현대건설은 원전 분야로 한정하지 않고 회사 전체 동향을 수집
+        '"현대건설"',
+        '"현대건설" 건설',
+        '"현대건설" 기술',
+        '"현대건설" 로봇',
+        '"현대건설" 드론',
+        '"현대건설" 안전',
+        '"현대건설" 수주',
+        '"현대건설" 해외',
+        '"현대건설" 원전',
+        '"현대건설" 원자력',
+        '"Hyundai Engineering & Construction"',
+        '"Hyundai E&C"',
+        '"Hyundai E&C" technology',
+        '"Hyundai E&C" construction',
+        '"Hyundai E&C" project',
+        '"Hyundai E&C" nuclear',
+        "HDEC construction",
+        "HDEC nuclear",
     ]),
     ("한수원·한국수력원자력", [
         "한수원 원전", "한국수력원자력", "KHNP nuclear",
@@ -526,8 +542,16 @@ def collect(start: datetime, end: datetime) -> list[Article]:
             found.sort(key=lambda article: -article.published.timestamp())
 
             selected_group: list[Article] = []
+
+            # 현대건설은 원전뿐 아니라 기술·안전·로봇·수주 등
+            # 회사 전체 동향을 보여주기 위해 기사 수를 더 넉넉하게 유지합니다.
+            group_limit = (
+                20 if group == "현대건설"
+                else MAX_PER_GROUP_PER_LANGUAGE
+            )
+
             for article in found:
-                if len(selected_group) >= MAX_PER_GROUP_PER_LANGUAGE:
+                if len(selected_group) >= group_limit:
                     break
                 if is_duplicate(article, all_selected + selected_group):
                     continue
