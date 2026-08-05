@@ -3,11 +3,13 @@ from __future__ import annotations
 import html
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 from pathlib import Path
-from urllib.parse import quote_plus, urlparse
+from urllib.parse import quote_plus, urljoin, urlparse
+from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 import feedparser
@@ -17,6 +19,9 @@ KST = ZoneInfo("Asia/Seoul")
 OUTPUT = Path("index.html")
 STATE_FILE = Path("article_state.json")
 MAX_PER_GROUP_PER_LANGUAGE = 12
+IMAGE_FETCH_TIMEOUT = 6
+IMAGE_FETCH_WORKERS = 8
+IMAGE_CACHE: dict[str, str] = {}
 
 GROUPS = [
     ("현대건설", [
@@ -194,6 +199,98 @@ def extract_image(entry) -> str:
     summary = getattr(entry, "summary", "") or getattr(entry, "description", "")
     match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', summary, re.I)
     return match.group(1) if match else ""
+
+
+def valid_image_url(url: str) -> bool:
+    if not url:
+        return False
+    lowered = url.lower()
+    blocked = (
+        "logo", "favicon", "icon", "sprite", "blank",
+        "tracking", "pixel", "avatar", "profile",
+    )
+    return lowered.startswith(("http://", "https://")) and not any(
+        word in lowered for word in blocked
+    )
+
+
+def extract_meta_image(page_html: str, base_url: str) -> str:
+    """기사 페이지의 og:image 또는 twitter:image를 추출합니다."""
+    patterns = [
+        r'<meta[^>]+property=["\']og:image(?::secure_url)?["\'][^>]+content=["\']([^"\']+)["\']',
+        r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image(?::secure_url)?["\']',
+        r'<meta[^>]+name=["\']twitter:image(?::src)?["\'][^>]+content=["\']([^"\']+)["\']',
+        r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+name=["\']twitter:image(?::src)?["\']',
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, page_html, re.I)
+        if match:
+            image_url = html.unescape(match.group(1).strip())
+            image_url = urljoin(base_url, image_url)
+            if valid_image_url(image_url):
+                return image_url
+    return ""
+
+
+def fetch_article_image(article_url: str) -> str:
+    """
+    기사 원문을 열어 대표 이미지를 가져옵니다.
+    실패하거나 차단된 사이트는 빈 문자열을 반환합니다.
+    """
+    if article_url in IMAGE_CACHE:
+        return IMAGE_CACHE[article_url]
+
+    request = Request(
+        article_url,
+        headers={
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 Chrome/151 Safari/537.36"
+            ),
+            "Accept": "text/html,application/xhtml+xml",
+            "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.7",
+        },
+    )
+
+    try:
+        with urlopen(request, timeout=IMAGE_FETCH_TIMEOUT) as response:
+            content_type = response.headers.get("Content-Type", "").lower()
+            if "html" not in content_type:
+                IMAGE_CACHE[article_url] = ""
+                return ""
+
+            final_url = response.geturl()
+            raw = response.read(700_000)
+            encoding = response.headers.get_content_charset() or "utf-8"
+            page_html = raw.decode(encoding, errors="ignore")
+            image_url = extract_meta_image(page_html, final_url)
+            IMAGE_CACHE[article_url] = image_url
+            return image_url
+    except Exception:
+        IMAGE_CACHE[article_url] = ""
+        return ""
+
+
+def enrich_article_images(articles: list[Article]) -> None:
+    """RSS에 이미지가 없는 기사만 원문 대표 이미지로 보완합니다."""
+    targets = [article for article in articles if not article.image]
+    if not targets:
+        return
+
+    with ThreadPoolExecutor(max_workers=IMAGE_FETCH_WORKERS) as executor:
+        future_map = {
+            executor.submit(fetch_article_image, article.link): article
+            for article in targets
+        }
+        for future in as_completed(future_map):
+            article = future_map[future]
+            try:
+                image_url = future.result()
+            except Exception:
+                image_url = ""
+            if image_url:
+                article.image = image_url
 
 
 def normalized(title: str) -> str:
@@ -667,6 +764,8 @@ def collect(start: datetime, end: datetime) -> list[Article]:
 
             all_selected.extend(selected_group)
 
+    # 최종 선별된 기사만 원문 페이지를 확인해 대표 이미지를 보완합니다.
+    enrich_article_images(all_selected)
     return all_selected
 
 
