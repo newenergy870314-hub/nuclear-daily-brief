@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import html
+import json
 import re
 from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -14,6 +15,7 @@ from dateutil import parser as date_parser
 
 KST = ZoneInfo("Asia/Seoul")
 OUTPUT = Path("index.html")
+STATE_FILE = Path("article_state.json")
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
 GROUPS = [
@@ -672,31 +674,42 @@ def escape(text: str) -> str:
     return html.escape(text, quote=True)
 
 
-def render_card(article: Article, number: int) -> str:
+def render_card(article: Article, number: int, is_new: bool = False) -> str:
     if article.image:
         image_html = (
             f'<img src="{escape(article.image)}" alt="" '
             'loading="lazy" referrerpolicy="no-referrer">'
         )
     else:
-        image_html = '<div class="no-image">NUCLEAR<br>NEWS</div>'
+        image_html = '<div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div>'
 
-    return f'''
-<a class="preview-card" data-url="{escape(article.link)}"
-   href="{escape(article.link)}" target="_blank" rel="noopener">
+    new_badge = '<span class="new-badge">NEW</span>' if is_new else ''
+    search_text = ' '.join([article.title, article.publisher, article.group]).lower()
+
+    return f"""
+<article class="preview-card{' new-article' if is_new else ''}"
+  data-url="{escape(article.link)}"
+  data-title="{escape(article.title)}"
+  data-publisher="{escape(article.publisher)}"
+  data-group="{escape(article.group)}"
+  data-search="{escape(search_text)}"
+  tabindex="0" role="link">
   <div class="article-number">{number}</div>
   <div class="preview-copy">
     <div class="publisher">{escape(article.publisher)}</div>
-    <div class="headline">{escape(article.title)}</div>
+    <div class="headline">{new_badge}{escape(article.title)}</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
-      <span class="read-label">확인함</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
     </div>
   </div>
-  <div class="preview-image">{image_html}</div>
-</a>
-'''
-
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image">{image_html}</div>
+  </div>
+</article>
+"""
 
 def render_group(group: str, articles: list[Article]) -> str:
     if not articles:
@@ -715,50 +728,59 @@ def render_group(group: str, articles: list[Article]) -> str:
 '''
 
 
-def render_group_unified(group: str, articles: list[Article]) -> str:
+def render_group_unified(
+    group: str,
+    articles: list[Article],
+    new_urls: set[str] | None = None,
+) -> str:
     if not articles:
-        return ""
-
-    korean_articles = order_similar_articles([
-        article for article in articles if article.language == "ko"
-    ])
-    english_articles = order_similar_articles([
-        article for article in articles if article.language == "en"
-    ])
-
-    # 한글기사 먼저, 이어서 영문기사 배치.
-    # 각 언어 안에서는 비슷한 주제의 기사를 바로 다음 순서로 정렬.
+        return ''
+    new_urls = new_urls or set()
+    korean_articles = order_similar_articles([a for a in articles if a.language == 'ko'])
+    english_articles = order_similar_articles([a for a in articles if a.language == 'en'])
     ordered_articles = korean_articles + english_articles
-
-    cards = "".join(
-        render_card(article, index)
+    cards = ''.join(
+        render_card(article, index, article.link in new_urls)
         for index, article in enumerate(ordered_articles, start=1)
     )
-
     return f"""
-<section class="news-group">
-  <div class="group-title">{escape(group)}</div>
+<section class="news-group" data-group="{escape(group)}">
+  <div class="group-title"><span class="group-square"></span><span>{escape(group)}</span><span class="group-count">{len(ordered_articles)}건</span></div>
   <div class="article-stack">{cards}</div>
 </section>
 """
 
 
-
-def render_news_sections(articles: list[Article]) -> str:
+def render_news_sections(articles: list[Article], new_urls: set[str] | None = None) -> str:
     grouped: dict[str, list[Article]] = {name: [] for name, _ in GROUPS}
     for article in articles:
         grouped[article.group].append(article)
-
-    return "".join(
-        render_group_unified(group, grouped[group])
+    return ''.join(
+        render_group_unified(group, grouped[group], new_urls)
         for group, _ in GROUPS
     )
+
+
+def load_previous_urls() -> set[str]:
+    if not STATE_FILE.exists():
+        return set()
+    try:
+        data = json.loads(STATE_FILE.read_text(encoding='utf-8'))
+        return {str(url) for url in data.get('urls', [])}
+    except (OSError, ValueError, TypeError):
+        return set()
+
+
+def save_current_urls(urls: set[str], generated_at: datetime) -> None:
+    payload = {'updated_at': generated_at.isoformat(), 'urls': sorted(urls)}
+    STATE_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
 def build_html(
     periods: dict[str, tuple[datetime, datetime]],
     articles_by_period: dict[str, list[Article]],
     generated_at: datetime,
+    new_urls: set[str],
 ) -> str:
     buttons = "".join(
         f'<button class="tab-button{" active" if label == "금일" else ""}" data-tab="{escape(label)}">{escape(label)}</button>'
@@ -768,7 +790,7 @@ def build_html(
     panels: list[str] = []
     for label in ("전일", "금일", "익일"):
         start, end = periods[label]
-        sections = render_news_sections(articles_by_period[label])
+        sections = render_news_sections(articles_by_period[label], new_urls)
         panel_class = "tab-panel active" if label == "금일" else "tab-panel"
 
         note = ""
@@ -811,6 +833,18 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar h1 {{ margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }}
 .updated {{ margin-top: 5px; color: #344054; font-size: 10px; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
+.search-wrap {{ position: relative; margin-top: 6px; }}
+.search-input {{ width: 100%; height: 32px; padding: 0 32px 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
+.search-clear {{ position: absolute; right: 5px; top: 4px; width: 24px; height: 24px; border: 0; background: transparent; color: #667085; cursor: pointer; }}
+.favorites-panel {{ margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,.82); border-radius: 9px; }}
+.favorites-panel[hidden] {{ display: none; }}
+.favorites-title {{ margin-bottom: 6px; font-size: 11px; font-weight: 800; }}
+.favorites-list {{ display: grid; gap: 5px; }}
+.favorite-item {{ display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 6px; padding: 7px 8px; border: 1px solid #f2c94c; border-radius: 7px; background: #fff9dc; cursor: pointer; }}
+.favorite-publisher {{ color: #667085; font-size: 8px; }}
+.favorite-headline {{ margin-top: 2px; font-size: 10px; font-weight: 700; line-height: 1.35; }}
+.favorite-remove {{ border: 0; background: transparent; color: #d49a00; font-size: 16px; cursor: pointer; }}
+.no-results {{ display: none; padding: 16px 12px; background: rgba(255,255,255,.82); border-radius: 9px; text-align: center; color: #667085; font-size: 11px; }}
 .tab-button {{ padding: 9px 5px; border: 0; border-radius: 8px; color: #344054; background: rgba(255,255,255,.62); font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }}
 .tab-button.active {{ color: #111827; background: #fee500; box-shadow: 0 1px 3px rgba(17,24,39,.18); }}
 main {{ padding: 12px 12px 34px; }}
@@ -822,10 +856,13 @@ main {{ padding: 12px 12px 34px; }}
 .language-section {{ margin-bottom: 30px; }}
 .language-title {{ margin: 4px 0 15px; padding: 10px 12px; color: white; background: #23395d; border-radius: 9px; font-size: 16px; font-weight: 800; text-align: left; }}
 .news-group {{ margin-bottom: 20px; }}
-.group-title {{ display: block; width: fit-content; max-width: 100%; margin: 0 0 8px 0; padding: 8px 11px; background: #fee500; border-radius: 4px 11px 11px 11px; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); }}
+.group-title {{ display: inline-flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin: 0 0 8px 0; padding: 8px 11px; background: #fee500; border-radius: 4px 11px 11px 11px; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); }}
+.group-square {{ width: 9px; height: 9px; background: #111; border-radius: 1px; }}
+.group-count {{ color: #5f5200; font-size: 9px; }}
 .article-stack {{ display: grid; gap: 7px; }}
 .preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; min-height: 88px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #eef1f4; opacity: .72; }}
+.preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 12px; color: #344054; font-size: 12px; font-weight: 800; }}
 .preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 10px 9px 8px 0; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
@@ -833,10 +870,18 @@ main {{ padding: 12px 12px 34px; }}
 .status-line {{ margin-top: auto; padding-top: 5px; font-size: 10px; }}
 .unread-label {{ color: #17639f; font-weight: 700; }}
 .read-label {{ display: none; color: #667085; font-weight: 700; }}
+.important-label {{ display: none; color: #b77900; font-weight: 800; }}
 .preview-card.read .unread-label {{ display: none; }}
 .preview-card.read .read-label {{ display: inline; }}
+.preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
+.preview-card.important .important-label {{ display: inline; }}
+.card-side {{ position: relative; width: 82px; min-height: 88px; }}
+.important-button {{ position: absolute; z-index: 2; top: 4px; right: 4px; width: 25px; height: 25px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.58); font-size: 16px; cursor: pointer; }}
+.preview-card.important .important-button {{ color: #111; background: #fee500; }}
 .preview-image {{ width: 82px; min-height: 88px; background: #d0d5dd; }}
 .preview-image img {{ display: block; width: 100%; height: 100%; min-height: 88px; object-fit: cover; }}
+.plant-icon {{ font-size: 22px; line-height: 1; }}
+.new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
 .no-image {{ display: grid; place-items: center; width: 100%; height: 100%; min-height: 88px; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.45; text-align: center; }}
 .empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
@@ -848,31 +893,40 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   <header class="topbar">
     <h1>금일 원자력 주요기사</h1>
     <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
-    <div class="tabs">{buttons}</div>
+    <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div><div class="tabs">{buttons}</div>
   </header>
-  <main>{panels_html}</main>
+  <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동하며, 확인한 기사는 회색으로 표시됩니다.</footer>
 </div>
 <script>
-const storageKey = "nuclearDailyBriefReadArticles";
-const readArticles = new Set(JSON.parse(localStorage.getItem(storageKey) || "[]"));
-document.querySelectorAll(".preview-card").forEach((card) => {{
-  const url = card.dataset.url;
-  if (readArticles.has(url)) card.classList.add("read");
-  card.addEventListener("click", () => {{
-    readArticles.add(url);
-    localStorage.setItem(storageKey, JSON.stringify([...readArticles]));
-    card.classList.add("read");
+const readKey = "nuclearDailyBriefReadArticles";
+const importantKey = "nuclearDailyBriefImportantArticles";
+const readArticles = new Set(JSON.parse(localStorage.getItem(readKey) || "[]"));
+const importantArticles = new Set(JSON.parse(localStorage.getItem(importantKey) || "[]"));
+function saveState(){{ localStorage.setItem(readKey, JSON.stringify([...readArticles])); localStorage.setItem(importantKey, JSON.stringify([...importantArticles])); }}
+function applyState(card){{ const u=card.dataset.url; card.classList.toggle("read", readArticles.has(u)); card.classList.toggle("important", importantArticles.has(u)); }}
+function openArticle(card){{ const u=card.dataset.url; readArticles.add(u); saveState(); applyState(card); window.open(u,"_blank","noopener"); }}
+document.querySelectorAll(".preview-card").forEach(card=>{{
+  applyState(card);
+  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button")) openArticle(card); }});
+  card.addEventListener("keydown",e=>{{ if(e.key==="Enter"||e.key===" "){{ e.preventDefault(); openArticle(card); }}}});
+  card.querySelector(".important-button").addEventListener("click",e=>{{
+    e.stopPropagation(); const u=card.dataset.url; importantArticles.has(u)?importantArticles.delete(u):importantArticles.add(u); saveState(); document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(u)}}"]`).forEach(applyState); renderFavorites();
   }});
 }});
-document.querySelectorAll(".tab-button").forEach((button) => {{
-  button.addEventListener("click", () => {{
-    document.querySelectorAll(".tab-button").forEach((item) => item.classList.remove("active"));
-    document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.remove("active"));
-    button.classList.add("active");
-    document.getElementById(`tab-${{button.dataset.tab}}`).classList.add("active");
-  }});
-}});
+function activePanel(){{ return document.querySelector(".tab-panel.active"); }}
+function renderFavorites(){{
+  const panel=activePanel(), box=document.getElementById("favorites-panel"), list=document.getElementById("favorites-list"), count=document.getElementById("favorite-count"); list.innerHTML="";
+  if(!panel){{box.hidden=true;return;}}
+  const cards=[...panel.querySelectorAll(".preview-card")].filter(c=>importantArticles.has(c.dataset.url));
+  cards.forEach(card=>{{ const item=document.createElement("div"); item.className="favorite-item"; item.innerHTML=`<div><div class="favorite-publisher">${{card.dataset.publisher}}</div><div class="favorite-headline">${{card.dataset.title}}</div></div><button class="favorite-remove" type="button">★</button>`; item.addEventListener("click",e=>{{if(!e.target.closest(".favorite-remove"))openArticle(card)}}); item.querySelector(".favorite-remove").addEventListener("click",e=>{{e.stopPropagation();importantArticles.delete(card.dataset.url);saveState();document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(card.dataset.url)}}"]`).forEach(applyState);renderFavorites();}}); list.appendChild(item); }});
+  count.textContent=`${{cards.length}}건`; box.hidden=cards.length===0;
+}}
+function filterArticles(){{ const q=document.getElementById("article-search").value.trim().toLowerCase(), panel=activePanel(); if(!panel)return; let total=0; panel.querySelectorAll(".news-group").forEach(group=>{{let n=0;group.querySelectorAll(".preview-card").forEach(card=>{{const show=!q||card.dataset.search.includes(q);card.style.display=show?"":"none";if(show){{n++;total++;}}}});group.style.display=n?"":"none";}});document.getElementById("no-results").style.display=q&&total===0?"block":"none";}}
+document.querySelectorAll(".tab-button").forEach(button=>button.addEventListener("click",()=>{{document.querySelectorAll(".tab-button").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-panel").forEach(x=>x.classList.remove("active"));button.classList.add("active");document.getElementById(`tab-${{button.dataset.tab}}`).classList.add("active");filterArticles();renderFavorites();}}));
+document.getElementById("article-search").addEventListener("input",filterArticles);
+document.getElementById("search-clear").addEventListener("click",()=>{{const input=document.getElementById("article-search");input.value="";input.focus();filterArticles();}});
+filterArticles();renderFavorites();
 </script>
 </body>
 </html>
@@ -882,14 +936,18 @@ document.querySelectorAll(".tab-button").forEach((button) => {{
 def main() -> int:
     now = datetime.now(KST)
     periods = brief_periods(now)
+    previous_urls = load_previous_urls()
     articles_by_period = {
         label: collect(start, end)
         for label, (start, end) in periods.items()
     }
+    current_urls = {article.link for items in articles_by_period.values() for article in items}
+    new_urls = current_urls - previous_urls if previous_urls else set()
     OUTPUT.write_text(
-        build_html(periods, articles_by_period, now),
+        build_html(periods, articles_by_period, now, new_urls),
         encoding="utf-8",
     )
+    save_current_urls(current_urls, now)
     total = sum(len(items) for items in articles_by_period.values())
     print(f"Generated {OUTPUT}: {total} news articles across 3 periods")
     return 0
