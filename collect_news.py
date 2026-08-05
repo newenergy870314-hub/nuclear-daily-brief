@@ -298,6 +298,23 @@ EVENT_CONCEPTS = {
     "action:투입": {
         "투입", "도입", "적용", "배치", "운영",
     },
+    "topic:신규원전": {
+        "신규원전", "신규 원전", "새원전", "새 원전",
+        "원전신설", "원전 신설",
+    },
+    "topic:산업용전기요금": {
+        "산업용전기요금", "산업용 전기요금", "산업용전력요금",
+        "산업용 전력요금", "산업용전기", "산업용 전기",
+    },
+    "action:지역별차등요금": {
+        "차등인하", "차등 인하", "차등화", "차등 요금",
+        "지역별차등", "지역별 차등", "전국4등급", "전국 4등급",
+        "권역별차등", "권역별 차등",
+    },
+    "action:신규원전추진": {
+        "공론화착수", "공론화 착수", "속도낸다", "속도 낸다",
+        "속도", "추진", "신설추진", "신설 추진",
+    },
 }
 
 
@@ -481,6 +498,16 @@ def is_same_event(title_a: str, title_b: str) -> bool:
 
     # 주체 + 행위 + 대상/목적물/지역이 겹치면 같은 사건
     if has_entity and has_action and has_subject_detail and len(shared) >= 3:
+        return True
+
+    # 신규 원전 추진과 산업용 전기요금 차등화가 함께 언급된
+    # 동일 정책 발표·브리핑 기사는 제목 순서와 표현이 달라도 하나로 처리
+    policy_bundle = {
+        "topic:신규원전",
+        "topic:산업용전기요금",
+        "action:지역별차등요금",
+    }
+    if policy_bundle.issubset(shared):
         return True
 
     # 특정 개념이 4개 이상 겹치는 경우도 동일 사건
@@ -997,7 +1024,7 @@ def build_html(
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
 .phone {{ width: min(100%, 520px); min-height: 100vh; margin: 0 auto; background: #b2c7d9; }}
-.topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: rgba(178,199,217,.97); border-bottom: 1px solid rgba(17,24,39,.08); backdrop-filter: blur(8px); }}
+.topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: rgba(145,174,198,.98); border-bottom: 1px solid rgba(17,24,39,.08); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
 .topbar h1 {{ margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }}
 .header-toggle {{ flex: 0 0 auto; min-width: 54px; height: 24px; padding: 0 7px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 9px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
