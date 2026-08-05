@@ -552,12 +552,36 @@ def is_same_event(title_a: str, title_b: str) -> bool:
     return False
 
 
+def same_day_two_keyword_duplicate(article: Article, existing: Article) -> bool:
+    """
+    같은 언어 기사끼리 KST 기준 같은 날짜에 발행되었고,
+    제목의 의미 있는 공통 단어가 2개 이상이면 동일 기사로 처리합니다.
+
+    예: '폭염' + '원안위'가 함께 반복되는 여러 언론사 기사
+    """
+    if article.language != existing.language:
+        return False
+
+    article_day = article.published.astimezone(KST).date()
+    existing_day = existing.published.astimezone(KST).date()
+    if article_day != existing_day:
+        return False
+
+    shared_keywords = meaningful_keywords(article.title) & meaningful_keywords(existing.title)
+    return len(shared_keywords) >= 2
+
+
 def is_duplicate(article: Article, selected: list[Article]) -> bool:
     for existing in selected:
         time_gap = abs(
             (article.published - existing.published).total_seconds()
         )
         score = semantic_duplicate_score(article.title, existing.title)
+
+        # 같은 날 같은 언어 기사에서 핵심 단어가 2개 이상 반복되면
+        # 언론사가 달라도 동일 기사로 보고 최신 기사 1건만 유지
+        if same_day_two_keyword_duplicate(article, existing):
+            return True
 
         # 동일 보도자료를 여러 언론사가 제목만 바꿔 보도한 경우
         if time_gap <= 72 * 60 * 60 and same_press_release_event(
@@ -755,11 +779,6 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
         image_html = '<div class="no-image">NUCLEAR<br>NEWS</div>'
 
     new_badge = '<span class="new-badge">NEW</span>' if is_new else ''
-    translate_button = (
-        '<button class="translate-button" type="button" aria-label="영문 기사 번역">번역</button>'
-        if article.language == "en"
-        else ""
-    )
     search_text = ' '.join([article.title, article.publisher, article.group]).lower()
 
     return f"""
@@ -779,7 +798,6 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
       <span class="important-label">중요</span>
-      {translate_button}
     </div>
   </div>
   <div class="card-side">
@@ -829,7 +847,25 @@ def render_group_unified(
 """
 
 
+def final_deduplicate_articles(articles: list[Article]) -> list[Article]:
+    """
+    화면 표시 직전에 한 번 더 중복을 제거합니다.
+    따라서 과거 news_archive.json에 이미 저장된 반복 기사도 숨겨집니다.
+    최신 기사부터 검사하여 대표 기사 1건만 유지합니다.
+    """
+    selected: list[Article] = []
+    for article in sorted(
+        articles,
+        key=lambda item: -item.published.timestamp(),
+    ):
+        if is_duplicate(article, selected):
+            continue
+        selected.append(article)
+    return selected
+
+
 def render_news_sections(articles: list[Article], new_urls: set[str] | None = None) -> str:
+    articles = final_deduplicate_articles(articles)
     grouped: dict[str, list[Article]] = {name: [] for name, _ in GROUPS}
     for article in articles:
         grouped[article.group].append(article)
@@ -1131,8 +1167,6 @@ main {{ padding: 12px 12px 34px; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
 .headline {{ display: -webkit-box; overflow: hidden; margin-top: 5px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
 .status-line {{ margin-top: auto; margin-top: auto; padding-top: 5px; font-size: 10px; }}
-.translate-button {{ float: right; height: 20px; margin-top: -3px; padding: 0 7px; border: 1px solid rgba(35,57,93,.18); border-radius: 6px; background: #eef3f8; color: #23395d; font-size: 8px; font-weight: 800; cursor: pointer; }}
-.translate-button:hover {{ background: #dfe9f2; }}
 
 .unread-label {{ color: #17639f; font-weight: 700; }}
 .read-label {{ display: none; color: #667085; font-weight: 700; }}
@@ -1248,7 +1282,7 @@ function openArticle(card){{
 }}
 document.querySelectorAll(".preview-card").forEach(card=>{{
   applyState(card);
-  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button, .translate-button")) openArticle(card); }});
+  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button")) openArticle(card); }});
   card.addEventListener("keydown",e=>{{ if(e.key==="Enter"||e.key===" "){{ e.preventDefault(); openArticle(card); }}}});
   card.querySelector(".important-button").addEventListener("click",e=>{{
     e.stopPropagation(); const u=card.dataset.url; importantArticles.has(u)?importantArticles.delete(u):importantArticles.add(u); saveState(); document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(u)}}"]`).forEach(applyState); renderFavorites();
@@ -1259,8 +1293,9 @@ document.querySelectorAll(".preview-card").forEach(card=>{{
     translateButton.addEventListener("click", e => {{
       e.stopPropagation();
       const translatedUrl =
-        "https://translate.google.com/translate?sl=en&tl=ko&u=" +
-        encodeURIComponent(card.dataset.url);
+        "https://translate.google.com/?sl=en&tl=ko&text=" +
+        encodeURIComponent(card.dataset.title) +
+        "&op=translate";
       window.open(translatedUrl, "_blank", "noopener");
     }});
   }}
