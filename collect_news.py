@@ -16,6 +16,8 @@ from dateutil import parser as date_parser
 KST = ZoneInfo("Asia/Seoul")
 OUTPUT = Path("index.html")
 STATE_FILE = Path("article_state.json")
+ARCHIVE_FILE = Path("news_archive.json")
+ARCHIVE_DAYS = 30
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
 GROUPS = [
@@ -776,11 +778,114 @@ def save_current_urls(urls: set[str], generated_at: datetime) -> None:
     STATE_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
+
+def article_to_dict(article: Article) -> dict:
+    return {
+        "title": article.title,
+        "link": article.link,
+        "published": article.published.isoformat(),
+        "language": article.language,
+        "group": article.group,
+        "publisher": article.publisher,
+        "image": article.image,
+        "source_url": article.source_url,
+    }
+
+
+def article_from_dict(data: dict) -> Article | None:
+    try:
+        return Article(
+            title=str(data.get("title", "")),
+            link=str(data.get("link", "")),
+            published=date_parser.parse(str(data.get("published", ""))).astimezone(KST),
+            language=str(data.get("language", "")),
+            group=str(data.get("group", "")),
+            publisher=str(data.get("publisher", "")),
+            image=str(data.get("image", "")),
+            source_url=str(data.get("source_url", "")),
+        )
+    except Exception:
+        return None
+
+
+def load_archive() -> dict[str, dict]:
+    if not ARCHIVE_FILE.exists():
+        return {}
+    try:
+        data = json.loads(ARCHIVE_FILE.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except (OSError, ValueError, TypeError):
+        return {}
+
+
+def update_archive(
+    archive: dict[str, dict],
+    periods: dict[str, tuple[datetime, datetime]],
+    articles_by_period: dict[str, list[Article]],
+    generated_at: datetime,
+) -> dict[str, dict]:
+    # 전일과 금일 구간을 날짜별로 저장합니다.
+    for label in ("전일", "금일"):
+        start, end = periods[label]
+        key = end.strftime("%Y-%m-%d")
+        archive[key] = {
+            "label": key,
+            "start": start.isoformat(),
+            "end": end.isoformat(),
+            "updated_at": generated_at.isoformat(),
+            "articles": [article_to_dict(a) for a in articles_by_period[label]],
+        }
+
+    # 최근 30개 날짜만 유지합니다.
+    keep_keys = sorted(archive.keys(), reverse=True)[:ARCHIVE_DAYS]
+    return {key: archive[key] for key in sorted(keep_keys)}
+
+
+def save_archive(archive: dict[str, dict]) -> None:
+    ARCHIVE_FILE.write_text(
+        json.dumps(archive, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def archive_panels_html(archive: dict[str, dict], new_urls: set[str]) -> str:
+    panels = []
+    for key in sorted(archive.keys(), reverse=True):
+        item = archive[key]
+        try:
+            start = date_parser.parse(item["start"]).astimezone(KST)
+            end = date_parser.parse(item["end"]).astimezone(KST)
+        except Exception:
+            continue
+
+        articles = []
+        for raw in item.get("articles", []):
+            article = article_from_dict(raw)
+            if article:
+                articles.append(article)
+
+        sections = render_news_sections(articles, new_urls)
+        panels.append(f"""
+<section class="tab-panel archive-panel" id="archive-{escape(key)}" data-archive-date="{escape(key)}">
+  <div class="period-card">
+    <strong>{end:%Y. %-m. %-d.}</strong>
+    <span>{start:%Y. %-m. %-d. %H:%M} ~ {end:%Y. %-m. %-d. %H:%M} (KST)</span>
+  </div>
+  <div class="language-section">
+    <div class="language-title">뉴스기사</div>
+    {sections or '<div class="empty">해당 날짜에 저장된 뉴스 기사가 없습니다.</div>'}
+  </div>
+</section>
+""")
+    return "".join(panels)
+
+
 def build_html(
     periods: dict[str, tuple[datetime, datetime]],
     articles_by_period: dict[str, list[Article]],
     generated_at: datetime,
     new_urls: set[str],
+    archive: dict[str, dict],
 ) -> str:
     buttons = "".join(
         f'<button class="tab-button{" active" if label == "금일" else ""}" data-tab="{escape(label)}">{escape(label)}</button>'
@@ -816,7 +921,7 @@ def build_html(
 </section>
 ''')
 
-    panels_html = "".join(panels)
+    panels_html = "".join(panels) + archive_panels_html(archive, new_urls)
 
     return f'''<!doctype html>
 <html lang="ko">
@@ -833,6 +938,9 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar h1 {{ margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }}
 .updated {{ margin-top: 5px; color: #344054; font-size: 10px; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
+.date-picker-row {{ display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px; margin-top: 7px; }}
+.date-input {{ width: 100%; height: 34px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); color: #344054; font-size: 11px; }}
+.date-button {{ height: 34px; padding: 0 12px; border: 0; border-radius: 8px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
 .search-input {{ width: 100%; height: 32px; padding: 0 32px 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
 .search-clear {{ position: absolute; right: 5px; top: 4px; width: 24px; height: 24px; border: 0; background: transparent; color: #667085; cursor: pointer; }}
@@ -858,15 +966,15 @@ main {{ padding: 12px 12px 34px; }}
 .news-group {{ margin-bottom: 20px; }}
 .group-title {{ display: inline-flex; align-items: center; gap: 6px; width: fit-content; max-width: 100%; margin: 0 0 8px 0; padding: 8px 11px; background: #fee500; border-radius: 4px 11px 11px 11px; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); }}
 .group-square {{ width: 9px; height: 9px; background: #111; border-radius: 1px; }}
-.group-count {{ color: #5f5200; font-size: 9px; }}
+.group-count {{ align-self: flex-end; margin-bottom: 1px; color: #5f5200; font-size: 9px; line-height: 1; white-space: nowrap; }}
 .article-stack {{ display: grid; gap: 7px; }}
-.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; min-height: 88px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
+.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; height: 96px; min-height: 96px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #eef1f4; opacity: .72; }}
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 12px; color: #344054; font-size: 12px; font-weight: 800; }}
 .preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 10px 9px 8px 0; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
-.headline {{ display: -webkit-box; margin-top: 5px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
+.headline {{ display: -webkit-box; overflow: hidden; margin-top: 5px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
 .status-line {{ margin-top: auto; padding-top: 5px; font-size: 10px; }}
 .unread-label {{ color: #17639f; font-weight: 700; }}
 .read-label {{ display: none; color: #667085; font-weight: 700; }}
@@ -875,13 +983,13 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.read .read-label {{ display: inline; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
-.card-side {{ position: relative; align-self: stretch; width: 82px; min-height: 88px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.card-side {{ position: relative; align-self: stretch; width: 82px; height: 96px; min-height: 96px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
 .important-button {{ position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
 .preview-card.important .important-button {{ color: #111; background: #fee500; }}
-.preview-image {{ width: 82px; height: 100%; min-height: 88px; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.preview-image img {{ display: block; width: 100%; height: 100%; min-height: 88px; object-fit: cover; }}
+.preview-image {{ width: 82px; height: 96px; min-height: 96px; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.preview-image img {{ display: block; width: 100%; height: 96px; min-height: 96px; object-fit: cover; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
-.no-image {{ display: grid; place-items: center; width: 100%; height: 100%; min-height: 88px; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.45; text-align: center; }}
+.no-image {{ display: flex; align-items: flex-end; justify-content: center; width: 100%; height: 96px; min-height: 96px; padding: 0 4px 8px; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .card-side, .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
@@ -892,7 +1000,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   <header class="topbar">
     <h1>금일 원자력 주요기사</h1>
     <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
-    <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div><div class="tabs">{buttons}</div>
+    <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div><div class="tabs">{buttons}</div><div class="date-picker-row"><input id="archive-date" class="date-input" type="date"><button id="archive-open" class="date-button" type="button">날짜 보기</button></div>
   </header>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동하며, 확인한 기사는 회색으로 표시됩니다.</footer>
@@ -922,7 +1030,37 @@ function renderFavorites(){{
   count.textContent=`${{cards.length}}건`; box.hidden=cards.length===0;
 }}
 function filterArticles(){{ const q=document.getElementById("article-search").value.trim().toLowerCase(), panel=activePanel(); if(!panel)return; let total=0; panel.querySelectorAll(".news-group").forEach(group=>{{let n=0;group.querySelectorAll(".preview-card").forEach(card=>{{const show=!q||card.dataset.search.includes(q);card.style.display=show?"":"none";if(show){{n++;total++;}}}});group.style.display=n?"":"none";}});document.getElementById("no-results").style.display=q&&total===0?"block":"none";}}
-document.querySelectorAll(".tab-button").forEach(button=>button.addEventListener("click",()=>{{document.querySelectorAll(".tab-button").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-panel").forEach(x=>x.classList.remove("active"));button.classList.add("active");document.getElementById(`tab-${{button.dataset.tab}}`).classList.add("active");filterArticles();renderFavorites();}}));
+function activatePanel(panel, button=null){{
+  document.querySelectorAll(".tab-button").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(x=>x.classList.remove("active"));
+  if(button)button.classList.add("active");
+  panel.classList.add("active");
+  filterArticles();
+  renderFavorites();
+}}
+document.querySelectorAll(".tab-button").forEach(button=>button.addEventListener("click",()=>{{
+  const panel=document.getElementById(`tab-${{button.dataset.tab}}`);
+  if(panel)activatePanel(panel,button);
+}}));
+const archiveDates=[...document.querySelectorAll(".archive-panel")].map(x=>x.dataset.archiveDate).sort();
+const archiveInput=document.getElementById("archive-date");
+if(archiveDates.length){{
+  archiveInput.min=archiveDates[0];
+  archiveInput.max=archiveDates[archiveDates.length-1];
+  archiveInput.value=archiveDates[archiveDates.length-1];
+}}
+document.getElementById("archive-open").addEventListener("click",()=>{{
+  const value=archiveInput.value;
+  if(!value)return;
+  const panel=document.getElementById(`archive-${{value}}`);
+  if(!panel){{
+    alert("선택한 날짜의 저장된 기사가 없습니다. 날짜 선택 기능 적용 이후부터 최근 30일간 저장됩니다.");
+    return;
+  }}
+  activatePanel(panel);
+  window.scrollTo({{top:0,behavior:"smooth"}});
+}});
+archiveInput.addEventListener("change",()=>document.getElementById("archive-open").click());
 document.getElementById("article-search").addEventListener("input",filterArticles);
 document.getElementById("search-clear").addEventListener("click",()=>{{const input=document.getElementById("article-search");input.value="";input.focus();filterArticles();}});
 filterArticles();renderFavorites();
@@ -942,13 +1080,15 @@ def main() -> int:
     }
     current_urls = {article.link for items in articles_by_period.values() for article in items}
     new_urls = current_urls - previous_urls if previous_urls else set()
+    archive = update_archive(load_archive(), periods, articles_by_period, now)
+    save_archive(archive)
     OUTPUT.write_text(
-        build_html(periods, articles_by_period, now, new_urls),
+        build_html(periods, articles_by_period, now, new_urls, archive),
         encoding="utf-8",
     )
     save_current_urls(current_urls, now)
     total = sum(len(items) for items in articles_by_period.values())
-    print(f"Generated {OUTPUT}: {total} news articles across 3 periods")
+    print(f"Generated {OUTPUT}: {total} news articles across 3 periods; {len(archive)} archive dates")
     return 0
 
 
