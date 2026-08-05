@@ -1223,7 +1223,8 @@ function setHeaderCollapsed(collapsed){{
   headerToggle.setAttribute("aria-expanded", String(!collapsed));
   localStorage.setItem(headerStateKey, collapsed ? "1" : "0");
 }}
-setHeaderCollapsed(localStorage.getItem(headerStateKey) === "1");
+const savedHeaderState = localStorage.getItem(headerStateKey);
+setHeaderCollapsed(savedHeaderState === null ? true : savedHeaderState === "1");
 headerToggle.addEventListener("click", () => setHeaderCollapsed(!topbar.classList.contains("collapsed")));
 const languageOrderKey = "nuclearDailyBriefLanguageOrder";
 const languageOrderButton = document.getElementById("language-order");
