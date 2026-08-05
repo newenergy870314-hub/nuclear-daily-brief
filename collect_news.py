@@ -1024,7 +1024,7 @@ def build_html(
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
 .phone {{ width: min(100%, 520px); min-height: 100vh; margin: 0 auto; background: #b2c7d9; }}
-.topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: linear-gradient(180deg, rgba(201,218,231,.98) 0%, rgba(178,199,217,.98) 100%); border-bottom: 3px solid #23395d; box-shadow: 0 2px 8px rgba(35,57,93,.14); backdrop-filter: blur(8px); }}
+.topbar {{ position: sticky; top: 0; z-index: 20; margin: 8px 8px 0; padding: 15px 16px 12px; background: linear-gradient(180deg, rgba(201,218,231,.98) 0%, rgba(178,199,217,.98) 100%); border: 1px solid rgba(35,57,93,.32); border-bottom: 2px solid #23395d; border-radius: 12px; box-shadow: 0 2px 8px rgba(35,57,93,.12); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
 .topbar h1 {{ margin: 0; color: #173b67; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; }}
 .header-toggle {{ flex: 0 0 auto; min-width: 54px; height: 24px; padding: 0 7px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 9px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
