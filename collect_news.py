@@ -1024,17 +1024,17 @@ def build_html(
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
 .phone {{ width: min(100%, 520px); min-height: 100vh; margin: 0 auto; background: #b2c7d9; }}
-.topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: rgba(145,174,198,.98); border-bottom: 1px solid rgba(17,24,39,.08); backdrop-filter: blur(8px); }}
+.topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: linear-gradient(180deg, rgba(201,218,231,.98) 0%, rgba(178,199,217,.98) 100%); border-bottom: 3px solid #23395d; box-shadow: 0 2px 8px rgba(35,57,93,.14); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
-.topbar h1 {{ margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }}
+.topbar h1 {{ margin: 0; color: #173b67; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; }}
 .header-toggle {{ flex: 0 0 auto; min-width: 54px; height: 24px; padding: 0 7px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 9px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
 .header-toggle:hover {{ background: #f5d900; }}
 .header-toggle:active {{ transform: translateY(1px); }}
 .topbar.collapsed .header-toggle {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.14); box-shadow: none; }}
 .header-controls {{ overflow: hidden; max-height: 210px; opacity: 1; transition: max-height .2s ease, opacity .15s ease, margin .2s ease; }}
-.topbar.collapsed {{ padding-bottom: 9px; }}
+.topbar.collapsed {{ padding-bottom: 9px; background: linear-gradient(180deg, rgba(201,218,231,.99) 0%, rgba(178,199,217,.99) 100%); }}
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
-.updated {{ margin-top: 5px; color: #344054; font-size: 10px; }}
+.updated {{ margin-top: 5px; color: #475467; font-size: 10px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
 .date-picker-row {{ display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px; margin-top: 7px; }}
 .date-input {{ width: 100%; height: 34px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); color: #344054; font-size: 11px; }}
@@ -1097,7 +1097,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
 <div class="phone">
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
-      <h1>금일 원자력 주요기사</h1>
+      <h1>원자력 주요기사</h1>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
