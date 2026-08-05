@@ -1321,7 +1321,7 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar {{ position: sticky; top: 0; z-index: 20; margin: 8px 8px 0; padding: 15px 16px 12px; background: #23395d; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; box-shadow: 0 1px 5px rgba(17,24,39,.16); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
 .topbar h1 {{ margin: 0; color: #ffffff; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; text-shadow: none; }}
-.header-toggle {{ flex: 0 0 auto; min-width: 54px; height: 24px; padding: 0 7px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 9px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
+.header-toggle {{ flex: 0 0 96px; width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 10px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
 .header-toggle:hover {{ background: #f5d900; }}
 .header-toggle:active {{ transform: translateY(1px); }}
 .topbar.collapsed .header-toggle {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.14); box-shadow: none; }}
@@ -1363,7 +1363,7 @@ main {{ padding: 12px 12px 34px; }}
 .group-title {{ display: flex; align-items: center; gap: 6px; width: 100%; max-width: 100%; box-sizing: border-box; margin: 0; padding: 8px 11px; border: 0; background: #fee500; color: #111827; border-radius: 4px 11px 11px 11px; font: inherit; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
-.group-master-button {{ padding: 6px 10px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
+.group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
 .group-count {{ align-self: flex-end; margin-bottom: 1px; color: #5f5200; font-size: 9px; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 13px; color: #111827; font-size: 11px; line-height: 1; }}
@@ -1411,7 +1411,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   main {{ padding: 18px 20px 44px; }}
   .period-card {{ flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 12px; }}
   .period-card strong {{ font-size: 16px; }}
-  .group-master-button {{ padding: 8px 13px; font-size: 11px; }}
+  .group-master-button, .header-toggle {{ width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }}
   .news-group {{ margin-bottom: 18px; }}
   .group-title {{ padding: 10px 14px; font-size: 16px; border-radius: 5px 12px 12px 12px; }}
   .group-count {{ font-size: 10px; }}
@@ -1443,7 +1443,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
-      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">접기 ▲</button>
+      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
       <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
@@ -1469,7 +1469,7 @@ const topbar = document.getElementById("topbar");
 const headerToggle = document.getElementById("header-toggle");
 function setHeaderCollapsed(collapsed){{
   topbar.classList.toggle("collapsed", collapsed);
-  headerToggle.textContent = collapsed ? "펼치기 ▼" : "접기 ▲";
+  headerToggle.textContent = collapsed ? "설정 펼치기 ▼" : "설정 접기 ▲";
   headerToggle.setAttribute("aria-expanded", String(!collapsed));
   localStorage.setItem(headerStateKey, collapsed ? "1" : "0");
 }}
