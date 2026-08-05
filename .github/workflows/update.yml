@@ -30,6 +30,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html article_state.json
+          git add index.html article_state.json news_archive.json
           git diff --cached --quiet || git commit -m "Update nuclear daily brief"
           git push
