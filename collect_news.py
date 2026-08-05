@@ -88,6 +88,21 @@ BLOCKED_PRESS_RELEASE_SOURCES = {
 }
 
 
+# 증권사 리포트·주가 전망·투자의견 관련 기사 제외
+BLOCKED_STOCK_KEYWORDS = {
+    "목표주가", "투자의견", "매수 유지", "매도 유지",
+    "중립 유지", "보유 유지", "매수 의견", "매도 의견",
+    "목표가", "적정주가", "주가 전망", "주가 상승",
+    "주가 하락", "증권사", "리포트", "컨센서스",
+    "실적 전망", "어닝", "밸류에이션", "시가총액",
+    "주식", "종목", "코스피", "코스닥",
+    "target price", "price target", "buy rating",
+    "sell rating", "hold rating", "overweight",
+    "underweight", "stock outlook", "equity research",
+    "brokerage", "analyst report",
+}
+
+
 @dataclass
 class Article:
     title: str
@@ -446,6 +461,10 @@ def is_news_source(
     if any(keyword in publisher_lower for keyword in BLOCKED_AD_KEYWORDS):
         return False
     if any(keyword in publisher_lower for keyword in BLOCKED_PRESS_RELEASE_SOURCES):
+        return False
+    if any(keyword in title_lower for keyword in BLOCKED_STOCK_KEYWORDS):
+        return False
+    if any(keyword in publisher_lower for keyword in BLOCKED_STOCK_KEYWORDS):
         return False
 
     # 출처명이 없는 항목은 제외
