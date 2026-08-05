@@ -422,7 +422,7 @@ def build_html(
             note = (
                 '<div class="partial-note">'
                 f'현재 {generated_at:%Y. %-m. %-d. %H:%M}까지 확인된 기사입니다. '
-                '30분마다 새 기사가 추가됩니다.'
+                '10분마다 새 기사가 추가됩니다.'
                 '</div>'
             )
 
