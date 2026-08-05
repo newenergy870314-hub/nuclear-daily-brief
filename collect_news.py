@@ -76,6 +76,18 @@ BLOCKED_HOST_KEYWORDS = {
 }
 
 
+# 광고·협찬·보도자료 배포성 콘텐츠 제외
+BLOCKED_AD_KEYWORDS = {
+    "광고", "협찬", "스폰서", "sponsored", "advertisement",
+    "advertorial", "promoted", "유료광고", "paid content",
+}
+
+BLOCKED_PRESS_RELEASE_SOURCES = {
+    "pr newswire", "business wire", "globe newswire",
+    "ein presswire", "accesswire", "newsfile",
+}
+
+
 @dataclass
 class Article:
     title: str
@@ -89,6 +101,7 @@ class Article:
 
 
 def period(now: datetime) -> tuple[datetime, datetime]:
+    """기존 금일 기사 구간을 반환합니다."""
     now = now.astimezone(KST)
     end = now.replace(hour=6, minute=0, second=0, microsecond=0)
 
@@ -105,6 +118,16 @@ def period(now: datetime) -> tuple[datetime, datetime]:
         start = end - timedelta(days=1)
 
     return start, end
+
+
+def brief_periods(now: datetime) -> dict[str, tuple[datetime, datetime]]:
+    """전일·금일·익일 구간을 반환합니다."""
+    today_start, today_end = period(now)
+    return {
+        "전일": (today_start - timedelta(days=1), today_start),
+        "금일": (today_start, today_end),
+        "익일": (today_end, today_end + timedelta(days=1)),
+    }
 
 
 def google_news_url(query: str, language: str) -> str:
@@ -153,13 +176,71 @@ def is_duplicate(article: Article, selected: list[Article]) -> bool:
     return False
 
 
-def is_news_source(publisher: str, source_url: str) -> bool:
+def order_similar_articles(articles: list[Article]) -> list[Article]:
+    """Place related headlines next to each other while keeping newer clusters first."""
+    if not articles:
+        return []
+
+    remaining = sorted(
+        articles,
+        key=lambda article: -article.published.timestamp(),
+    )
+    ordered: list[Article] = []
+
+    while remaining:
+        anchor = remaining.pop(0)
+        cluster = [anchor]
+        anchor_key = normalized(anchor.title)
+
+        related: list[tuple[float, Article]] = []
+        unrelated: list[Article] = []
+
+        for article in remaining:
+            score = SequenceMatcher(
+                None,
+                anchor_key,
+                normalized(article.title),
+            ).ratio()
+
+            # 85% 이상은 앞 단계에서 중복 제거됨.
+            # 45% 이상이면 같은 이슈·유사 항목으로 보고 연속 배치.
+            if score >= 0.45:
+                related.append((score, article))
+            else:
+                unrelated.append(article)
+
+        related.sort(
+            key=lambda item: (
+                -item[0],
+                -item[1].published.timestamp(),
+            )
+        )
+
+        cluster.extend(article for _, article in related)
+        ordered.extend(cluster)
+        remaining = unrelated
+
+    return ordered
+
+
+def is_news_source(
+    publisher: str,
+    source_url: str,
+    title: str = "",
+) -> bool:
     publisher_lower = publisher.lower()
+    title_lower = title.lower()
     host = urlparse(source_url).netloc.lower()
 
     if any(keyword in publisher_lower for keyword in BLOCKED_SOURCE_KEYWORDS):
         return False
     if any(keyword in host for keyword in BLOCKED_HOST_KEYWORDS):
+        return False
+    if any(keyword in title_lower for keyword in BLOCKED_AD_KEYWORDS):
+        return False
+    if any(keyword in publisher_lower for keyword in BLOCKED_AD_KEYWORDS):
+        return False
+    if any(keyword in publisher_lower for keyword in BLOCKED_PRESS_RELEASE_SOURCES):
         return False
 
     # 출처명이 없는 항목은 제외
@@ -189,7 +270,7 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     source_url = source.get("href", "") if isinstance(source, dict) else ""
     publisher = publisher.strip() or publisher_from_title
 
-    if not title or not link or not is_news_source(publisher, source_url):
+    if not title or not link or not is_news_source(publisher, source_url, title):
         return None
 
     return Article(
@@ -284,13 +365,15 @@ def render_group_unified(group: str, articles: list[Article]) -> str:
     if not articles:
         return ""
 
-    korean_articles = [
+    korean_articles = order_similar_articles([
         article for article in articles if article.language == "ko"
-    ]
-    english_articles = [
+    ])
+    english_articles = order_similar_articles([
         article for article in articles if article.language == "en"
-    ]
+    ])
 
+    # 한글기사 먼저, 이어서 영문기사 배치.
+    # 각 언어 안에서는 비슷한 주제의 기사를 바로 다음 순서로 정렬.
     ordered_articles = korean_articles + english_articles
 
     cards = "".join(
@@ -307,15 +390,57 @@ def render_group_unified(group: str, articles: list[Article]) -> str:
 
 
 
-def build_html(start: datetime, end: datetime, articles: list[Article]) -> str:
+def render_news_sections(articles: list[Article]) -> str:
     grouped: dict[str, list[Article]] = {name: [] for name, _ in GROUPS}
     for article in articles:
         grouped[article.group].append(article)
 
-    news_sections = "".join(
+    return "".join(
         render_group_unified(group, grouped[group])
         for group, _ in GROUPS
     )
+
+
+def build_html(
+    periods: dict[str, tuple[datetime, datetime]],
+    articles_by_period: dict[str, list[Article]],
+    generated_at: datetime,
+) -> str:
+    buttons = "".join(
+        f'<button class="tab-button{" active" if label == "금일" else ""}" data-tab="{escape(label)}">{escape(label)}</button>'
+        for label in ("전일", "금일", "익일")
+    )
+
+    panels: list[str] = []
+    for label in ("전일", "금일", "익일"):
+        start, end = periods[label]
+        sections = render_news_sections(articles_by_period[label])
+        panel_class = "tab-panel active" if label == "금일" else "tab-panel"
+
+        note = ""
+        if label == "익일" and generated_at < end:
+            note = (
+                '<div class="partial-note">'
+                f'현재 {generated_at:%Y. %-m. %-d. %H:%M}까지 확인된 기사입니다. '
+                '30분마다 새 기사가 추가됩니다.'
+                '</div>'
+            )
+
+        panels.append(f'''
+<section class="{panel_class}" id="tab-{escape(label)}">
+  <div class="period-card">
+    <strong>{escape(label)}</strong>
+    <span>{start:%Y. %-m. %-d. %H:%M} ~ {end:%Y. %-m. %-d. %H:%M} (KST)</span>
+  </div>
+  {note}
+  <div class="language-section">
+    <div class="language-title">뉴스기사</div>
+    {sections or '<div class="empty">해당 기간에 수집된 뉴스 기사가 없습니다.</div>'}
+  </div>
+</section>
+''')
+
+    panels_html = "".join(panels)
 
     return f'''<!doctype html>
 <html lang="ko">
@@ -326,284 +451,72 @@ def build_html(start: datetime, end: datetime, articles: list[Article]) -> str:
 <title>원자력 주요기사 Daily Brief</title>
 <style>
 * {{ box-sizing: border-box; }}
-
-body {{
-  margin: 0;
-  background: #b2c7d9;
-  color: #111827;
-  font-family: Arial, "Malgun Gothic", sans-serif;
-}}
-
-.phone {{
-  width: min(100%, 520px);
-  min-height: 100vh;
-  margin: 0 auto;
-  background: #b2c7d9;
-}}
-
-.topbar {{
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  padding: 15px 16px 13px;
-  background: rgba(178, 199, 217, 0.97);
-  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
-  backdrop-filter: blur(8px);
-}}
-
-.topbar h1 {{
-  margin: 0;
-  font-size: 19px;
-  line-height: 1.25;
-  font-weight: 800;
-}}
-
-.period {{
-  margin-top: 5px;
-  color: #344054;
-  font-size: 11px;
-  line-height: 1.45;
-}}
-
-main {{
-  padding: 12px 12px 34px;
-}}
-
-.language-section {{
-  margin-bottom: 30px;
-}}
-
-.language-title {{
-  margin: 4px 0 15px;
-  padding: 10px 12px;
-  color: white;
-  background: #23395d;
-  border-radius: 9px;
-  font-size: 16px;
-  font-weight: 800;
-  text-align: left;
-}}
-
-.news-group {{
-  margin-bottom: 20px;
-}}
-
-.group-title {{
-  display: block;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 0 8px 0;
-  padding: 8px 11px;
-  background: #fee500;
-  border-radius: 4px 11px 11px 11px;
-  font-size: 14px;
-  font-weight: 800;
-  text-align: left;
-  box-shadow: 0 1px 2px rgba(17, 24, 39, 0.12);
-}}
-
-.article-stack {{
-  display: grid;
-  gap: 7px;
-}}
-
-.preview-card {{
-  position: relative;
-  display: grid;
-  grid-template-columns: 26px minmax(0, 1fr) 82px;
-  min-height: 88px;
-  overflow: hidden;
-  color: inherit;
-  background: white;
-  border: 1px solid rgba(17, 24, 39, 0.08);
-  border-radius: 10px;
-  text-decoration: none;
-  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.15);
-  transition: opacity 0.15s ease, background 0.15s ease;
-}}
-
-.preview-card.read {{
-  background: #eef1f4;
-  opacity: 0.72;
-}}
-
-.article-number {{
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 12px;
-  color: #344054;
-  font-size: 12px;
-  font-weight: 800;
-}}
-
-.preview-copy {{
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: 10px 9px 8px 0;
-}}
-
-.publisher {{
-  overflow: hidden;
-  color: #667085;
-  font-size: 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}}
-
-.lang-badge {{
-  display: inline-block;
-  margin-right: 5px;
-  padding: 1px 4px;
-  border-radius: 4px;
-  color: white;
-  background: #23395d;
-  font-size: 9px;
-  font-weight: 800;
-}}
-
-.headline {{
-  display: -webkit-box;
-  margin-top: 5px;
-  overflow: hidden;
-  color: #101828;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.38;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}}
-
-.status-line {{
-  margin-top: auto;
-  padding-top: 5px;
-  font-size: 10px;
-}}
-
-.unread-label {{
-  color: #17639f;
-  font-weight: 700;
-}}
-
-.read-label {{
-  display: none;
-  color: #667085;
-  font-weight: 700;
-}}
-
-.preview-card.read .unread-label {{
-  display: none;
-}}
-
-.preview-card.read .read-label {{
-  display: inline;
-}}
-
-.preview-image {{
-  width: 82px;
-  min-height: 88px;
-  background: #d0d5dd;
-}}
-
-.preview-image img {{
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 88px;
-  object-fit: cover;
-}}
-
-.no-image {{
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  min-height: 88px;
-  color: white;
-  background: linear-gradient(135deg, #173b67, #0b213d);
-  font-size: 9px;
-  font-weight: 800;
-  line-height: 1.45;
-  text-align: center;
-}}
-
-.empty {{
-  padding: 22px 15px;
-  background: white;
-  border-radius: 10px;
-  text-align: center;
-  color: #667085;
-}}
-
-footer {{
-  padding: 0 12px 28px;
-  color: #475467;
-  font-size: 10px;
-  text-align: center;
-}}
-
-@media (max-width: 380px) {{
-  .preview-card {{
-    grid-template-columns: 24px minmax(0, 1fr) 72px;
-  }}
-
-  .preview-image {{
-    width: 72px;
-  }}
-
-  .lang-badge {{
-  display: inline-block;
-  margin-right: 5px;
-  padding: 1px 4px;
-  border-radius: 4px;
-  color: white;
-  background: #23395d;
-  font-size: 9px;
-  font-weight: 800;
-}}
-
-.headline {{
-    font-size: 12px;
-  }}
-}}
+body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
+.phone {{ width: min(100%, 520px); min-height: 100vh; margin: 0 auto; background: #b2c7d9; }}
+.topbar {{ position: sticky; top: 0; z-index: 20; padding: 15px 16px 12px; background: rgba(178,199,217,.97); border-bottom: 1px solid rgba(17,24,39,.08); backdrop-filter: blur(8px); }}
+.topbar h1 {{ margin: 0; font-size: 19px; line-height: 1.25; font-weight: 800; }}
+.updated {{ margin-top: 5px; color: #344054; font-size: 10px; }}
+.tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
+.tab-button {{ padding: 9px 5px; border: 0; border-radius: 8px; color: #344054; background: rgba(255,255,255,.62); font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }}
+.tab-button.active {{ color: #111827; background: #fee500; box-shadow: 0 1px 3px rgba(17,24,39,.18); }}
+main {{ padding: 12px 12px 34px; }}
+.tab-panel {{ display: none; }}
+.tab-panel.active {{ display: block; }}
+.period-card {{ display: flex; flex-direction: column; gap: 3px; margin-bottom: 10px; padding: 10px 12px; color: #344054; background: rgba(255,255,255,.68); border-radius: 9px; font-size: 11px; }}
+.period-card strong {{ color: #111827; font-size: 14px; }}
+.partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
+.language-section {{ margin-bottom: 30px; }}
+.language-title {{ margin: 4px 0 15px; padding: 10px 12px; color: white; background: #23395d; border-radius: 9px; font-size: 16px; font-weight: 800; text-align: left; }}
+.news-group {{ margin-bottom: 20px; }}
+.group-title {{ display: block; width: fit-content; max-width: 100%; margin: 0 0 8px 0; padding: 8px 11px; background: #fee500; border-radius: 4px 11px 11px 11px; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); }}
+.article-stack {{ display: grid; gap: 7px; }}
+.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; min-height: 88px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
+.preview-card.read {{ background: #eef1f4; opacity: .72; }}
+.article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 12px; color: #344054; font-size: 12px; font-weight: 800; }}
+.preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 10px 9px 8px 0; }}
+.publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
+.headline {{ display: -webkit-box; margin-top: 5px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.38; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
+.status-line {{ margin-top: auto; padding-top: 5px; font-size: 10px; }}
+.unread-label {{ color: #17639f; font-weight: 700; }}
+.read-label {{ display: none; color: #667085; font-weight: 700; }}
+.preview-card.read .unread-label {{ display: none; }}
+.preview-card.read .read-label {{ display: inline; }}
+.preview-image {{ width: 82px; min-height: 88px; background: #d0d5dd; }}
+.preview-image img {{ display: block; width: 100%; height: 100%; min-height: 88px; object-fit: cover; }}
+.no-image {{ display: grid; place-items: center; width: 100%; height: 100%; min-height: 88px; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.45; text-align: center; }}
+.empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
+footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
+@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
 </style>
 </head>
 <body>
 <div class="phone">
   <header class="topbar">
     <h1>원자력 주요기사 Daily Brief</h1>
-    <div class="period">
-      {start:%Y. %-m. %-d. %H:%M} ~ {end:%Y. %-m. %-d. %H:%M} (KST)
-    </div>
+    <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
+    <div class="tabs">{buttons}</div>
   </header>
-
-  <main>
-    <div class="language-section">
-      <div class="language-title">뉴스기사</div>
-      {news_sections}
-    </div>
-    {"" if news_sections else '<div class="empty">조회기간 내 뉴스 기사가 없습니다.</div>'}
-  </main>
-
+  <main>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동하며, 확인한 기사는 회색으로 표시됩니다.</footer>
 </div>
-
 <script>
 const storageKey = "nuclearDailyBriefReadArticles";
 const readArticles = new Set(JSON.parse(localStorage.getItem(storageKey) || "[]"));
-
 document.querySelectorAll(".preview-card").forEach((card) => {{
   const url = card.dataset.url;
-
-  if (readArticles.has(url)) {{
-    card.classList.add("read");
-  }}
-
+  if (readArticles.has(url)) card.classList.add("read");
   card.addEventListener("click", () => {{
     readArticles.add(url);
     localStorage.setItem(storageKey, JSON.stringify([...readArticles]));
     card.classList.add("read");
+  }});
+}});
+document.querySelectorAll(".tab-button").forEach((button) => {{
+  button.addEventListener("click", () => {{
+    document.querySelectorAll(".tab-button").forEach((item) => item.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach((panel) => panel.classList.remove("active"));
+    button.classList.add("active");
+    document.getElementById(`tab-${{button.dataset.tab}}`).classList.add("active");
   }});
 }});
 </script>
@@ -613,10 +526,18 @@ document.querySelectorAll(".preview-card").forEach((card) => {{
 
 
 def main() -> int:
-    start, end = period(datetime.now(KST))
-    articles = collect(start, end)
-    OUTPUT.write_text(build_html(start, end, articles), encoding="utf-8")
-    print(f"Generated {OUTPUT}: {len(articles)} news articles")
+    now = datetime.now(KST)
+    periods = brief_periods(now)
+    articles_by_period = {
+        label: collect(start, end)
+        for label, (start, end) in periods.items()
+    }
+    OUTPUT.write_text(
+        build_html(periods, articles_by_period, now),
+        encoding="utf-8",
+    )
+    total = sum(len(items) for items in articles_by_period.values())
+    print(f"Generated {OUTPUT}: {total} news articles across 3 periods")
     return 0
 
 
