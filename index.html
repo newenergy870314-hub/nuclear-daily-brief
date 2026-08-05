@@ -55,24 +55,23 @@ main { padding: 12px 12px 34px; }
 .preview-card.read .read-label { display: inline; }
 .preview-card.important .unread-label, .preview-card.important .read-label { display: none; }
 .preview-card.important .important-label { display: inline; }
-.card-side { position: relative; width: 82px; min-height: 88px; }
-.important-button { position: absolute; z-index: 2; top: 4px; right: 4px; width: 25px; height: 25px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.58); font-size: 16px; cursor: pointer; }
+.card-side { position: relative; align-self: stretch; width: 82px; min-height: 88px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }
+.important-button { position: absolute; z-index: 3; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }
 .preview-card.important .important-button { color: #111; background: #fee500; }
-.preview-image { width: 82px; min-height: 88px; background: #d0d5dd; }
+.preview-image { width: 82px; height: 100%; min-height: 88px; background: linear-gradient(135deg,#173b67,#0b213d); }
 .preview-image img { display: block; width: 100%; height: 100%; min-height: 88px; object-fit: cover; }
-.plant-icon { font-size: 22px; line-height: 1; }
 .new-badge { display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }
 .no-image { display: grid; place-items: center; width: 100%; height: 100%; min-height: 88px; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.45; text-align: center; }
 .empty { padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }
 footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }
-@media (max-width: 380px) { .preview-card { grid-template-columns: 24px minmax(0,1fr) 72px; } .preview-image { width: 72px; } .headline { font-size: 12px; } }
+@media (max-width: 380px) { .preview-card { grid-template-columns: 24px minmax(0,1fr) 72px; } .card-side, .preview-image { width: 72px; } .headline { font-size: 12px; } }
 </style>
 </head>
 <body>
 <div class="phone">
   <header class="topbar">
     <h1>금일 원자력 주요기사</h1>
-    <div class="updated">최종 업데이트: 2026. 8. 5. 17:48 (KST)</div>
+    <div class="updated">최종 업데이트: 2026. 8. 5. 17:56 (KST)</div>
     <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div><div class="tabs"><button class="tab-button" data-tab="전일">전일</button><button class="tab-button active" data-tab="금일">금일</button><button class="tab-button" data-tab="익일">익일</button></div>
   </header>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
@@ -107,7 +106,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -130,7 +129,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -158,7 +157,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -181,7 +180,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -204,7 +203,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -216,13 +215,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE8zbTctMkRWNWZtZmY3Y192OGxWTEViamdTanFSZmh5Q1FtRU9zTFZiVzAxZFN0YTZ2QWY3ZWNoMnY1cGdwbjcteGRIdm1kdEhNRXdUVXBPVkNJSzdIcE56LXU5czB6OHJIdW1Oa0Zn?oc=5"
   data-title="해양SMR 조선사 경쟁 본격화… 한전기술 ‘반디’ 국책R&amp;D 추진"
-  data-publisher="asiatoday.co.kr"
+  data-publisher="아시아투데이"
   data-group="한전·한국전력"
-  data-search="해양smr 조선사 경쟁 본격화… 한전기술 ‘반디’ 국책r&amp;d 추진 asiatoday.co.kr 한전·한국전력"
+  data-search="해양smr 조선사 경쟁 본격화… 한전기술 ‘반디’ 국책r&amp;d 추진 아시아투데이 한전·한국전력"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">asiatoday.co.kr</div>
+    <div class="publisher">아시아투데이</div>
     <div class="headline">해양SMR 조선사 경쟁 본격화… 한전기술 ‘반디’ 국책R&amp;D 추진</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -232,7 +231,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -260,7 +259,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -283,7 +282,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -306,7 +305,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -329,7 +328,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -352,7 +351,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -375,7 +374,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -398,7 +397,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -421,7 +420,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -444,7 +443,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -467,7 +466,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -490,7 +489,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -513,7 +512,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -541,7 +540,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -564,7 +563,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -587,7 +586,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -610,7 +609,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -633,7 +632,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -656,7 +655,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -679,7 +678,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -702,7 +701,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -725,7 +724,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -748,7 +747,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -771,7 +770,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -794,7 +793,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -817,7 +816,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -840,7 +839,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -863,7 +862,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -886,7 +885,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -909,7 +908,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -932,7 +931,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -955,7 +954,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -978,7 +977,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -1006,7 +1005,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1029,7 +1028,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1052,7 +1051,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1075,7 +1074,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1098,11 +1097,11 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiugFBVV95cUxOczNuRWhUUXBDa293TExfUlRGWnZLMnM2NjlDbEFNQ2p0WTVvNjdXNWw3YlZOc2FzY0RxY3ZBSXFPT1BETERybVgzR2FDWlQ5MElqcnNFc2dMUWhlOWlOQWthYWRuUnljZ09DeWpFMkx5MXV4WXA1VXJqR19mVWJRbFhPbkV5bGpBaDVLX2ZPeDk1clk2V3FzdWJCdkFaeGdkcHpFNDc5Y1MwOTFQeWlkeDlwRjNEWTlCb1E?oc=5"
   data-title="Romania blasts rock to divert water from drought-hit Danube to nuclear reactor"
   data-publisher="The Guardian"
@@ -1112,7 +1111,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">The Guardian</div>
-    <div class="headline"><span class="new-badge">NEW</span>Romania blasts rock to divert water from drought-hit Danube to nuclear reactor</div>
+    <div class="headline">Romania blasts rock to divert water from drought-hit Danube to nuclear reactor</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -1121,7 +1120,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1144,7 +1143,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1167,7 +1166,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1190,7 +1189,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1213,7 +1212,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1236,7 +1235,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1259,7 +1258,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1282,7 +1281,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -1294,13 +1293,13 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMi8wFBVV95cUxOQ05fLVgwYlN6ZHVfbVU4elRGY2JqQ3FTeHRpNHY4MWh3WkJ2dk1OQ09hcmRtYkJnZGZMcnh0S2VKQ2VIQkpqNHg2QWJyYTNPLUNHT29zZTMzeFllNXNyTTdIWVMzZTdvZEtiYzVNUHB3U18xekJfNjlKZy1IbTVfU3FNNjBHYUFVbFlTZnZwblpUYTdQaWdFd2RqQnFtTXpjMnB2U20xcnB1ZXNBWS1XMUJDRUlCVXdIQnV6WHdDakNhakFNdUJnVnFwZHNTaU8teVI5QXRUckdqamlxX1dqUE44RWtPT3A1eVVWQUIxREVodjQ?oc=5"
   data-title="Holtec Targets 2036 for 1.36 GW SMR Project; India Pipeline at 11 GW"
-  data-publisher="Indiatimes"
+  data-publisher="datacenters.economictimes.indiatimes.com"
   data-group="Holtec"
-  data-search="holtec targets 2036 for 1.36 gw smr project; india pipeline at 11 gw indiatimes holtec"
+  data-search="holtec targets 2036 for 1.36 gw smr project; india pipeline at 11 gw datacenters.economictimes.indiatimes.com holtec"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">Indiatimes</div>
+    <div class="publisher">datacenters.economictimes.indiatimes.com</div>
     <div class="headline">Holtec Targets 2036 for 1.36 GW SMR Project; India Pipeline at 11 GW</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1310,7 +1309,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -1338,7 +1337,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1361,7 +1360,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -1380,19 +1379,19 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
     <div class="language-title">뉴스기사</div>
     
 <section class="news-group" data-group="현대건설">
-  <div class="group-title"><span class="group-square"></span><span>현대건설</span><span class="group-count">6건</span></div>
+  <div class="group-title"><span class="group-square"></span><span>현대건설</span><span class="group-count">5건</span></div>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMidkFVX3lxTFBuM00wRElxaktTZGlJUW5xTVBwdXh5M0tUVmlMaWIxWmNIQXgxM1hCR2FEemtOVE9XYzVOVzdNSHhFUXJWWkV6U3ZFU3djZU9VUk1teWlTLWdhRWg4RVRFNjlYUHUybC1qeVlfTFRBVkdEMmJVSXfSAXZBVV95cUxQbjNNMERJcWpLU2RpSVFucU1QcHV4eTNLVFZpTGliMVpjSEF4MTNYQkdhRHprTlRPV2M1Tlc3TUh4RVFyVlpFelN2RVN3Y2VPVVJNbXlpUy1nYUVoOEVURTY5WFB1MmwtanlZX0xUQVZHRDJiVUl3?oc=5"
-  data-title="현대건설, 아파트 철거 현장에 &#x27;살수드론&#x27; 실증 진행"
-  data-publisher="증권경제신문"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMidEFVX3lxTE03QnNLRzBWNEVEYjhhTVhnbFE4bE53clF0RUJqU0x4TXdvREo4ZkJVenk3QjlsTFQwdTVGdzNxYU5QbFlMTFhiUzZRZkNUMkNZN3k0d1JFWjF1ZkpvOTQ0WUliX1FnOTJmZzcyVGZib0pta2Jw0gF0QVVfeXFMTTdCc0tHMFY0RURiOGFNWGdsUThsTndyUXRFQmpTTHhNd29ESjhmQlV6eTdCOWxMVDB1NUZ3M3FhTlBsWUxMWGJTNlFmQ1QyQ1k3eTR3UkVaMXVmSm85NDRZSWJfUWc5MmZnNzJUZmJvSm1rYnA?oc=5"
+  data-title="현대건설 철거현장에 살수드론 도입 확대"
+  data-publisher="뉴스클레임"
   data-group="현대건설"
-  data-search="현대건설, 아파트 철거 현장에 &#x27;살수드론&#x27; 실증 진행 증권경제신문 현대건설"
+  data-search="현대건설 철거현장에 살수드론 도입 확대 뉴스클레임 현대건설"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">증권경제신문</div>
-    <div class="headline">현대건설, 아파트 철거 현장에 &#x27;살수드론&#x27; 실증 진행</div>
+    <div class="publisher">뉴스클레임</div>
+    <div class="headline"><span class="new-badge">NEW</span>현대건설 철거현장에 살수드론 도입 확대</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -1401,43 +1400,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMicEFVX3lxTFBDTWFrV2tBY2dwOF9XOUV4M1p4ZzNIT2c3ekQ0ZUk4THgyQUhPUERvLTVBVHU3N1VxTDlzdWNrM2RlLW5Ob3JpbHhCcEtua2Q3WElwOEFMSVVyZUQtMDFBR181d0ZZLWpVUmZxYnU1d2fSAXBBVV95cUxQQ01ha1drQWNncDhfVzlFeDNaeGczSE9nN3pENGVJOEx4MkFIT1BEby01QVR1NzdVcUw5c3VjazNkZS1uTm9yaWx4QnBLbmtkN1hJcDhBTElVcmVELTAxQUdfNXdGWS1qVVJmcWJ1NXdn?oc=5"
-  data-title="현대건설, 현장 환경·안전관리 위한 무인로봇 도입 확대 추진한다"
-  data-publisher="글로벌경제신문"
-  data-group="현대건설"
-  data-search="현대건설, 현장 환경·안전관리 위한 무인로봇 도입 확대 추진한다 글로벌경제신문 현대건설"
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">글로벌경제신문</div>
-    <div class="headline">현대건설, 현장 환경·안전관리 위한 무인로봇 도입 확대 추진한다</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiaEFVX3lxTE92TzUwRmlCX0NiN3dGRzJSblBDX0dSV2VnbTgwLXpmUmdhblotLUVrbnNPUzJyOUV1VlRROXdKNTRDam5xWXk2VTdlODR3SHBXSUNHc0ZER0x6TDNWai0zU0tvN19IOVp4?oc=5"
   data-title="상반기 이익 늘린 대형 건설사들…다음 승부는 신규 수주"
-  data-publisher="greened.kr"
+  data-publisher="녹색경제신문"
   data-group="현대건설"
-  data-search="상반기 이익 늘린 대형 건설사들…다음 승부는 신규 수주 greened.kr 현대건설"
+  data-search="상반기 이익 늘린 대형 건설사들…다음 승부는 신규 수주 녹색경제신문 현대건설"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">greened.kr</div>
+    <div class="publisher">녹색경제신문</div>
     <div class="headline">상반기 이익 늘린 대형 건설사들…다음 승부는 신규 수주</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1447,7 +1423,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1458,7 +1434,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="현대건설"
   data-search="작업 돕고 하자 찾고...건설현장에 스며드는 로봇 대한경제 현대건설"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">대한경제</div>
     <div class="headline">작업 돕고 하자 찾고...건설현장에 스며드는 로봇</div>
@@ -1470,7 +1446,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1481,7 +1457,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="현대건설"
   data-search="concerns have been raised that the reconstruction and maintenance project in deungchon district 1 in.. 매일경제 현대건설"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">매일경제</div>
     <div class="headline">Concerns have been raised that the reconstruction and maintenance project in Deungchon District 1 in..</div>
@@ -1493,20 +1469,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE5Lc3dCZjRFN1J2OXFuSUFGUlB2VEVsV0wtWGZmNG1WTFAwdERRaEs4M0VONEdjeXJhMVZjUG1wSl80UFdObm9yWjE4SDBuSGVsT0tSSklDejR1THBJQ3oyeDhDVUQ?oc=5"
   data-title="[Click eStock] &quot;Order Momentum Returns&quot;... Undervalued Construction Stocks"
-  data-publisher="asiae.co.kr"
+  data-publisher="아시아경제"
   data-group="현대건설"
-  data-search="[click estock] &quot;order momentum returns&quot;... undervalued construction stocks asiae.co.kr 현대건설"
+  data-search="[click estock] &quot;order momentum returns&quot;... undervalued construction stocks 아시아경제 현대건설"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">asiae.co.kr</div>
+    <div class="publisher">아시아경제</div>
     <div class="headline">[Click eStock] &quot;Order Momentum Returns&quot;... Undervalued Construction Stocks</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1516,25 +1492,25 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
 </section>
 
 <section class="news-group" data-group="한수원·한국수력원자력">
-  <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">11건</span></div>
+  <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">12건</span></div>
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTFB0VHZ1UzV3Nm1Ib0RaeWxHU21xVHV1NWdOWWJIeTVFX2lfMmJEUkZwRDBJQTVQV3pBR0dIT2twcHQ2eXoxMzJ4NmtBWWE3U2JDNUFwX3EyQTVGZnVfTkR3cg?oc=5"
   data-title="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화"
-  data-publisher="heraldk.com"
+  data-publisher="헤럴드경제 미주판"
   data-group="한수원·한국수력원자력"
-  data-search="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화 heraldk.com 한수원·한국수력원자력"
+  data-search="한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화 헤럴드경제 미주판 한수원·한국수력원자력"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">heraldk.com</div>
+    <div class="publisher">헤럴드경제 미주판</div>
     <div class="headline">한수원, 필리핀 아보이티즈 파워와 원전사업 ‘맞손’…에너지 협력 강화</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1544,20 +1520,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTE82SldEYWtKdGd3T1Z0UThNVHVrSWdVWkU0djlPRmVzR1NBRmNxT2ZKUGNISElnVXdqY1hYaGRydTcwTFdfQ2IzS1h4dmFqMXk2aGYxLXdZb2JsazluemNuSnhwV01XWmU0SUtYVg?oc=5"
   data-title="새울원전, 소상공인 LED 조명 교체 지원"
-  data-publisher="에너지타임즈"
+  data-publisher="energytimes.kr"
   data-group="한수원·한국수력원자력"
-  data-search="새울원전, 소상공인 led 조명 교체 지원 에너지타임즈 한수원·한국수력원자력"
+  data-search="새울원전, 소상공인 led 조명 교체 지원 energytimes.kr 한수원·한국수력원자력"
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">에너지타임즈</div>
+    <div class="publisher">energytimes.kr</div>
     <div class="headline">새울원전, 소상공인 LED 조명 교체 지원</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1567,7 +1543,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1590,7 +1566,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1613,20 +1589,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiVEFVX3lxTE42cVctN1pYMTFKZ2Z0dEhrS3Vhc01jYWZhNW1rRlpNM1VtOVJiNEUyWDhVRXVBSEtZcXFjZHVDbUZpMlJRQ2tWMmE0UzJ0QnRBVi1Beg?oc=5"
   data-title="원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌"
-  data-publisher="dongascience.com"
+  data-publisher="동아사이언스"
   data-group="한수원·한국수력원자력"
-  data-search="원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌 dongascience.com 한수원·한국수력원자력"
+  data-search="원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌 동아사이언스 한수원·한국수력원자력"
   tabindex="0" role="link">
   <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">dongascience.com</div>
+    <div class="publisher">동아사이언스</div>
     <div class="headline">원전 계속운전 심사 속도 낸다…원전사고 은폐시 행위자까지 처벌</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1636,7 +1612,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1659,7 +1635,30 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE05ZlNSUF84eUQyd1JpUGJwbXhMcy0wdnRVT2xlbXlWWjRKeUUwZTZBSXF3RkdYOHoyU3RiY25fZXpvaWlWelBDMklNSVdtLVIxSXU5cDRPSFFlMlY0d3Ewb2Zyd3V5cGs?oc=5"
+  data-title="영덕군 신규 원전 미래에너지 전략사업 직무교육 시행"
+  data-publisher="경상투데이"
+  data-group="한수원·한국수력원자력"
+  data-search="영덕군 신규 원전 미래에너지 전략사업 직무교육 시행 경상투데이 한수원·한국수력원자력"
+  tabindex="0" role="link">
+  <div class="article-number">7</div>
+  <div class="preview-copy">
+    <div class="publisher">경상투데이</div>
+    <div class="headline"><span class="new-badge">NEW</span>영덕군 신규 원전 미래에너지 전략사업 직무교육 시행</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1670,7 +1669,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="한울본부, 2027년도 지원사업 공모…교육ㆍ복지 등 6개 분야 온라인 접수 인사이트n파워 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
     <div class="headline">한울본부, 2027년도 지원사업 공모…교육ㆍ복지 등 6개 분야 온라인 접수</div>
@@ -1682,7 +1681,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1693,7 +1692,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="[단독] 백중사리로 떠오른 가마미 &#x27;숨은 지뢰&#x27;…한빛원전 공사 잔재물 묵인 의혹 대한경제 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">대한경제</div>
     <div class="headline">[단독] 백중사리로 떠오른 가마미 &#x27;숨은 지뢰&#x27;…한빛원전 공사 잔재물 묵인 의혹</div>
@@ -1705,7 +1704,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1716,7 +1715,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="1조7508억원 포천양수발전소 본공사 착수 &#x27;2033년 준공&#x27; 목표 인사이트n파워 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
     <div class="headline">1조7508억원 포천양수발전소 본공사 착수 &#x27;2033년 준공&#x27; 목표</div>
@@ -1728,20 +1727,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiTEFVX3lxTE5LTTE1ZWw2TGJaMFRuQ2lpQlRKVU1OWDI2eDh5TkVPSkUzXzBRSE5VWXNsOWRyREFFYlN1bWFWNFl1RGFwdlZhTGh2V0c?oc=5"
   data-title="한울원자력본부, 울진군 부구천 산책로 조성 지원"
-  data-publisher="kbsecuritynews.com"
+  data-publisher="전국안전신문"
   data-group="한수원·한국수력원자력"
-  data-search="한울원자력본부, 울진군 부구천 산책로 조성 지원 kbsecuritynews.com 한수원·한국수력원자력"
+  data-search="한울원자력본부, 울진군 부구천 산책로 조성 지원 전국안전신문 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">kbsecuritynews.com</div>
+    <div class="publisher">전국안전신문</div>
     <div class="headline">한울원자력본부, 울진군 부구천 산책로 조성 지원</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1751,7 +1750,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1762,7 +1761,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="한수원·한국수력원자력"
   data-search="saeul nuclear power headquarters combats heatwave with ice, cooling buses 조선일보 한수원·한국수력원자력"
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">조선일보</div>
     <div class="headline">Saeul Nuclear Power Headquarters Combats Heatwave with Ice, Cooling Buses</div>
@@ -1774,7 +1773,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -1802,7 +1801,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -1830,7 +1829,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1853,7 +1852,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1876,7 +1875,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1899,7 +1898,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1922,7 +1921,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1945,20 +1944,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMib0FVX3lxTE0wTFpMUWVEOXhkbnZrX1BxY1pfRWZYUDFnYnlqUmF2d3lCc3pvR2RuOWxPbnZXeWVITU40bHJoSm00bGdlOVBESkRGVG40OGZtbk5Ec2ZNbHZJM2lObUVKeXZ3bGo3d1dTN1YzQWEySQ?oc=5"
   data-title="신규 원전 속도… 산업용 전기요금, 전국 4등급 나눠 차등화 시동"
-  data-publisher="서울신문"
+  data-publisher="seoul.co.kr"
   data-group="원전·원자력"
-  data-search="신규 원전 속도… 산업용 전기요금, 전국 4등급 나눠 차등화 시동 서울신문 원전·원자력"
+  data-search="신규 원전 속도… 산업용 전기요금, 전국 4등급 나눠 차등화 시동 seoul.co.kr 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">7</div>
   <div class="preview-copy">
-    <div class="publisher">서울신문</div>
+    <div class="publisher">seoul.co.kr</div>
     <div class="headline">신규 원전 속도… 산업용 전기요금, 전국 4등급 나눠 차등화 시동</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -1968,7 +1967,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -1991,20 +1990,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTE9HN1J1T0c2Vm1rQndTTUlITnhRREgwcFRoQmh1Y3FTaHRZdmZNUklpZ2xXRlgyZzM5eHI2Yk56T1RiTnUzWFBobTEtR3dyVnhXRDEzR0xuWkRKblJKT3JjYWxQelZWTWk4NDMyaA?oc=5"
   data-title="전기국가 구축 속도…원전·재생E·ESS‧전력망 확대 동시 추진"
-  data-publisher="에너지타임즈"
+  data-publisher="energytimes.kr"
   data-group="원전·원자력"
-  data-search="전기국가 구축 속도…원전·재생e·ess‧전력망 확대 동시 추진 에너지타임즈 원전·원자력"
+  data-search="전기국가 구축 속도…원전·재생e·ess‧전력망 확대 동시 추진 energytimes.kr 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">9</div>
   <div class="preview-copy">
-    <div class="publisher">에너지타임즈</div>
+    <div class="publisher">energytimes.kr</div>
     <div class="headline">전기국가 구축 속도…원전·재생E·ESS‧전력망 확대 동시 추진</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2014,20 +2013,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiW0FVX3lxTE0xc1lKVHhUbThPc2xZSjJEYk54bDNVaFpzR1p3VjdKSnRyYUlud3pJaS00ZDRBVVdmVDJvUHJWR2JLVG5mQnVtZk1UcEl0em1aWVFaTzNqZEtvSjg?oc=5"
   data-title="원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침"
-  data-publisher="newsasia.kr"
+  data-publisher="아시아통신"
   data-group="원전·원자력"
-  data-search="원안위, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침 newsasia.kr 원전·원자력"
+  data-search="원안위, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침 아시아통신 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">10</div>
   <div class="preview-copy">
-    <div class="publisher">newsasia.kr</div>
+    <div class="publisher">아시아통신</div>
     <div class="headline">원안위, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2037,7 +2036,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2060,11 +2059,11 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE9pMWg0WVlib1RUbGxyRlp2Rzd0WjE4Q2lyWkhVYWY2RHBvUE5KV3ZZTER4c2xSRXRablhzWkdKdDRuZ01JUS1YTUJfSEo2LWt2aWMtS0Z4cjNqNEQ2M2RabDA3QWhmeG9RdW5peGhR?oc=5"
   data-title="[위클리오늘] 영덕군 오늘(8. 4)"
   data-publisher="위클리오늘"
@@ -2074,7 +2073,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">위클리오늘</div>
-    <div class="headline"><span class="new-badge">NEW</span>[위클리오늘] 영덕군 오늘(8. 4)</div>
+    <div class="headline">[위클리오늘] 영덕군 오늘(8. 4)</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -2083,20 +2082,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMigAFBVV95cUxPZmJQWTA3aUl3X2F0aVpyTG9ibFNxelNxaTRLWUNERG45LVBPd2tfNDFzUGIycmxhMVVRNEpvN1BHdmJsdUdBckxVaXR3eVFtam5lV0xUaVlwZlBLcDNhVlNKNTZlRGVXNXVOWDkyWnQ3N202Wm9TOFBXeGFzRFE0MtIBlAFBVV95cUxNZWN4bFVvUW4zZ2tHVTIxanlUWHlmNGtQUDR5dVBTSjdtVzR1Y0toSGJXMFA1ZzdHR2stZ2RoZjRtcGMtOTJONmkzSFRlZGFBajFaZ1IwZVJJcVJ4M2NidzRWakpPTnE3ZUVuN0VtTXhoZllrZE41U2dkczd1emhhN21rVWN0emxiWlJYN1RYT09TU1Vh?oc=5"
   data-title="Korea advances Saeul 3 start, moves Saeul 4 license while tightening nuclear oversight - CHOSUNBIZ"
-  data-publisher="Chosunbiz"
+  data-publisher="biz.chosun.com"
   data-group="원전·원자력"
-  data-search="korea advances saeul 3 start, moves saeul 4 license while tightening nuclear oversight - chosunbiz chosunbiz 원전·원자력"
+  data-search="korea advances saeul 3 start, moves saeul 4 license while tightening nuclear oversight - chosunbiz biz.chosun.com 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">13</div>
   <div class="preview-copy">
-    <div class="publisher">Chosunbiz</div>
+    <div class="publisher">biz.chosun.com</div>
     <div class="headline">Korea advances Saeul 3 start, moves Saeul 4 license while tightening nuclear oversight - CHOSUNBIZ</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2106,7 +2105,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2129,20 +2128,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA3R1ZSN1VDQ0hjXzU0d0kzUmZVemk3VS00VDQ3bG4wa2ljRlhORXk0MTRsXzdLN0I1aE1rUVlTU3owa21tMlN2TG5qMWFocVkzYnY5Rng3RGRRZlFoMWk4SmN5Q0x3MVE?oc=5"
   data-title="Thailand Secures $43.6bn 1H 2026 Investment Surge"
-  data-publisher="코리아쉬핑가제트"
+  data-publisher="ksg.co.kr"
   data-group="원전·원자력"
-  data-search="thailand secures $43.6bn 1h 2026 investment surge 코리아쉬핑가제트 원전·원자력"
+  data-search="thailand secures $43.6bn 1h 2026 investment surge ksg.co.kr 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">15</div>
   <div class="preview-copy">
-    <div class="publisher">코리아쉬핑가제트</div>
+    <div class="publisher">ksg.co.kr</div>
     <div class="headline">Thailand Secures $43.6bn 1H 2026 Investment Surge</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2152,20 +2151,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1kS0RtdGs3Nm91dnhwVjM0c2tJcmZBR3Npb1N3MlFSUlV2UVRRa2Q2WGdFZWFkZ0VDQkhDWG14UFBCaGxqME55dDlnQkZqWnN0OE8zc21qMEpFZ3JRbTN2QXUxbGdYMWM?oc=5"
   data-title="OOCL Received Three Awards from the Hong Kong Marine Department"
-  data-publisher="코리아쉬핑가제트"
+  data-publisher="ksg.co.kr"
   data-group="원전·원자력"
-  data-search="oocl received three awards from the hong kong marine department 코리아쉬핑가제트 원전·원자력"
+  data-search="oocl received three awards from the hong kong marine department ksg.co.kr 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">16</div>
   <div class="preview-copy">
-    <div class="publisher">코리아쉬핑가제트</div>
+    <div class="publisher">ksg.co.kr</div>
     <div class="headline">OOCL Received Three Awards from the Hong Kong Marine Department</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2175,7 +2174,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -2203,7 +2202,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2226,11 +2225,11 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTFBMSTE3Nk02aTFrYy1sZDJxajdsc0loWXlZcVRxVjlGRUJLSjdvQkxSQ21Cajd1Ny1Ea2IwRmEzTzY2VjhCWnRodDgyTjBwSkFMU1d4QUh1algzMUszY2tRakhGamZiZHhSVC1uYnNR?oc=5"
   data-title="정부, 소형·초소형 원자로 국가전략기술 지정…경남도 &quot;환영“"
   data-publisher="newfilenews.com"
@@ -2240,7 +2239,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">newfilenews.com</div>
-    <div class="headline"><span class="new-badge">NEW</span>정부, 소형·초소형 원자로 국가전략기술 지정…경남도 &quot;환영“</div>
+    <div class="headline">정부, 소형·초소형 원자로 국가전략기술 지정…경남도 &quot;환영“</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -2249,20 +2248,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTFBXNDlGZVFpTVF3b2NzYWNYVzBnSlFQejI4NElqaHZ1N0pVRFBuTmtLVTBkTlRiN0x2ejlHQmtRcm5qYWg2ZWJILXphM0ZDY0RMc195UTVXcUpFMXcwZDFSdFlsTDNHcjBzTmlZaUp3?oc=5"
   data-title="‘SMR 특구 모델’ 모색하는 과기부…“산업화 플랫폼 구축 추진”"
-  data-publisher="asiatoday.co.kr"
+  data-publisher="아시아투데이"
   data-group="SMR"
-  data-search="‘smr 특구 모델’ 모색하는 과기부…“산업화 플랫폼 구축 추진” asiatoday.co.kr smr"
+  data-search="‘smr 특구 모델’ 모색하는 과기부…“산업화 플랫폼 구축 추진” 아시아투데이 smr"
   tabindex="0" role="link">
   <div class="article-number">4</div>
   <div class="preview-copy">
-    <div class="publisher">asiatoday.co.kr</div>
+    <div class="publisher">아시아투데이</div>
     <div class="headline">‘SMR 특구 모델’ 모색하는 과기부…“산업화 플랫폼 구축 추진”</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2272,7 +2271,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2295,7 +2294,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2318,7 +2317,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2341,7 +2340,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2364,7 +2363,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2387,11 +2386,11 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZkFVX3lxTE83djczRU5HNnlKWnM2elZqVC1LRER2T3h5X1lyZ0ZrYlpadENmbTgwU3hZc0xsaUNVaFNNVm9Fbl9qczFwNHpvTTBCaEZyTk5XV3dPeHhOcUdPWkJvQ2Uyam0yT3Y0UQ?oc=5"
   data-title="‘SMRㆍMMR’ 국가전략기술 지정…원전산업계 “글로벌 시장 선점 신호탄”"
   data-publisher="인사이트N파워"
@@ -2401,7 +2400,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">인사이트N파워</div>
-    <div class="headline"><span class="new-badge">NEW</span>‘SMRㆍMMR’ 국가전략기술 지정…원전산업계 “글로벌 시장 선점 신호탄”</div>
+    <div class="headline">‘SMRㆍMMR’ 국가전략기술 지정…원전산업계 “글로벌 시장 선점 신호탄”</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -2410,7 +2409,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2433,7 +2432,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2456,7 +2455,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2479,7 +2478,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2502,7 +2501,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2525,7 +2524,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2548,7 +2547,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2571,7 +2570,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2594,7 +2593,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2617,7 +2616,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2640,7 +2639,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2663,7 +2662,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2686,7 +2685,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2709,20 +2708,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMisAFBVV95cUxPeDJsdGltUDVGR2dzTG5zZmt5YXV1TGlFNWcxbzg4MHZ5eDA4dnlNVGt3OXJSSmh4aXlmYW9FNkU5OFJ4NG00V3NhQmpmNEEwazdweXNEQ2lSUUdhMllmalR2cU1PTElQVGNEd3JHdWN2MmpuU01DWXFUVGlQcGNvTjlLOG5UT1JWQ3QybU4zX0F0S1hFWU5pM2xnUHFBWmhpWWwxQnVNSzVYbXBkLW12ag?oc=5"
   data-title="McDermott and ULC-Energy Sign Cooperation Agreement to Advance Rolls-Royce SMR Projects"
-  data-publisher="DredgeWire"
+  data-publisher="dredgewire.com"
   data-group="SMR"
-  data-search="mcdermott and ulc-energy sign cooperation agreement to advance rolls-royce smr projects dredgewire smr"
+  data-search="mcdermott and ulc-energy sign cooperation agreement to advance rolls-royce smr projects dredgewire.com smr"
   tabindex="0" role="link">
   <div class="article-number">24</div>
   <div class="preview-copy">
-    <div class="publisher">DredgeWire</div>
+    <div class="publisher">dredgewire.com</div>
     <div class="headline">McDermott and ULC-Energy Sign Cooperation Agreement to Advance Rolls-Royce SMR Projects</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2732,7 +2731,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -2741,7 +2740,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <section class="news-group" data-group="Nuclear Power·Nuclear Energy">
   <div class="group-title"><span class="group-square"></span><span>Nuclear Power·Nuclear Energy</span><span class="group-count">12건</span></div>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTFBRYnhpLU1iRlRmSjdPUXBrdXBQR3BqVXF2dEJFOFVpdTNwYW04VzB0TVJ0ajVEOEE0cmktRXVxeWJhaHJpUnNPNFV4S1lvQmtJcERxV3dtQTFEU3ctSFBFQ2ZnVVQzalZHdGpyWg?oc=5"
   data-title="No Nukes – at Least Not Now – for Delaware"
   data-publisher="WGMD – The Talk of Delmarva"
@@ -2751,7 +2750,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">WGMD – The Talk of Delmarva</div>
-    <div class="headline"><span class="new-badge">NEW</span>No Nukes – at Least Not Now – for Delaware</div>
+    <div class="headline">No Nukes – at Least Not Now – for Delaware</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -2760,7 +2759,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2783,7 +2782,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2806,7 +2805,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2829,7 +2828,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2852,7 +2851,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2875,7 +2874,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2898,7 +2897,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2921,20 +2920,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiiwFBVV95cUxOa2FpTWRucmU1ZTZiczBaQ1R6Wmh3dzNvamJ2SVY1Zk1LWndJRC0xZmVyRFFaaXo4NFZsY2tsU3VpNThrX1FDdTB2RElGOGxSQjV5YjZ0c291VUV4aUctdzZJb09vN2wtaG5HMGxQZmhMS3FnM0NvU1VNaE5BZkEzR01tY0h5RFBSSXdv?oc=5"
   data-title="Europe&#x27;s heat wave fuels drought, wildfires and fears about energy supplies"
-  data-publisher="npr.org"
+  data-publisher="NPR"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="europe&#x27;s heat wave fuels drought, wildfires and fears about energy supplies npr.org nuclear power·nuclear energy"
+  data-search="europe&#x27;s heat wave fuels drought, wildfires and fears about energy supplies npr nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">9</div>
   <div class="preview-copy">
-    <div class="publisher">npr.org</div>
+    <div class="publisher">NPR</div>
     <div class="headline">Europe&#x27;s heat wave fuels drought, wildfires and fears about energy supplies</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -2944,7 +2943,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2967,7 +2966,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -2990,7 +2989,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3013,14 +3012,14 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
 </section>
 
 <section class="news-group" data-group="Holtec">
-  <div class="group-title"><span class="group-square"></span><span>Holtec</span><span class="group-count">3건</span></div>
+  <div class="group-title"><span class="group-square"></span><span>Holtec</span><span class="group-count">2건</span></div>
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9oOXdfaUZVNWYtSHZKdVJGOU1SYVVDemVHU3Zsb1dzRXRmVW85ZkxJR2xDYTdXa2lvTkxtUlRlcmNzSTBoWHdmNmZ2TFVqZlZiaUFoVkY5Y0t2VGUtUzMxMy1nSkU?oc=5"
@@ -3041,7 +3040,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3064,30 +3063,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMi3gFBVV95cUxPR09oRXlTVzcwLTFmbUZXWWtpSHpVVmE2a3ZTbHdyVzVla2ptUUk1Z0ZwY2RCV04zQ2lVbUx2eFdMNm5PUlJoeUdDTWFGbjZLd2ZmRXJ4RnNEM1hyUnE4b3pBYWZoY3FMZ1p4MlB3M21oSFVFMXYtaU5JbFFqSEtzNjVZaTFFYjBQWGx1QzFnRU9XcnBpRDNDbHl6ZWdVR2RsVGRvSl9ERURvVHVibjU2dkNYSUU0WVJZMkxYYnpRSkZ2QXlaVUk3RGxfQ0lma3RnRFN5Rkh4T1Y4LUZfa0E?oc=5"
-  data-title="Data Centres Shift Focus to Energy, Water Efficiency"
-  data-publisher="Indiatimes"
-  data-group="Holtec"
-  data-search="data centres shift focus to energy, water efficiency indiatimes holtec"
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">Indiatimes</div>
-    <div class="headline">Data Centres Shift Focus to Energy, Water Efficiency</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -3115,7 +3091,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3138,7 +3114,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3161,7 +3137,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -3175,24 +3151,24 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
     <strong>익일</strong>
     <span>2026. 8. 5. 06:00 ~ 2026. 8. 6. 06:00 (KST)</span>
   </div>
-  <div class="partial-note">현재 2026. 8. 5. 17:48까지 확인된 기사입니다. 30분마다 새 기사가 추가됩니다.</div>
+  <div class="partial-note">현재 2026. 8. 5. 17:56까지 확인된 기사입니다. 30분마다 새 기사가 추가됩니다.</div>
   <div class="language-section">
     <div class="language-title">뉴스기사</div>
     
 <section class="news-group" data-group="현대건설">
   <div class="group-title"><span class="group-square"></span><span>현대건설</span><span class="group-count">6건</span></div>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE5aWk1zX3A2cFJIZS10MEwxRUc0c3Q0MVBlVjFpbUpMOFZjcG5Mc0pLelFGWE5jRktmTGZtcG5JZXJsRmR3WV9VU3NZZFk3MUU0d3d6U0I4NnpqY1daVXFuYVZhbE0xSExLTDctNXdR?oc=5"
   data-title="“몸집 내주고 수익성 챙겨”…희비 엇갈린 대형 건설사 2분기 실적"
-  data-publisher="asiatoday.co.kr"
+  data-publisher="아시아투데이"
   data-group="현대건설"
-  data-search="“몸집 내주고 수익성 챙겨”…희비 엇갈린 대형 건설사 2분기 실적 asiatoday.co.kr 현대건설"
+  data-search="“몸집 내주고 수익성 챙겨”…희비 엇갈린 대형 건설사 2분기 실적 아시아투데이 현대건설"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">asiatoday.co.kr</div>
-    <div class="headline"><span class="new-badge">NEW</span>“몸집 내주고 수익성 챙겨”…희비 엇갈린 대형 건설사 2분기 실적</div>
+    <div class="publisher">아시아투데이</div>
+    <div class="headline">“몸집 내주고 수익성 챙겨”…희비 엇갈린 대형 건설사 2분기 실적</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -3201,7 +3177,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3224,7 +3200,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3247,7 +3223,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3270,7 +3246,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3293,7 +3269,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3316,7 +3292,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -3325,17 +3301,17 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <section class="news-group" data-group="한수원·한국수력원자력">
   <div class="group-title"><span class="group-square"></span><span>한수원·한국수력원자력</span><span class="group-count">9건</span></div>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTFBFa2IyN2FpQ3d3bU8wclNlN3VVVzJWdkxMSFRGTW9veURILS1BTFVTd0c2TDNXbGZvZUdjcTQ0cWFHTkk4ZUJoRkgxNHRjekRMU25DSkpxUVpsLTBQRmlUQTFFc1FyUExyRHJURA?oc=5"
-  data-title="한수원, 필리핀 아보이티즈파워와 원전 협력…예타·인력양성 공동 추진"
-  data-publisher="ER 이코노믹리뷰"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE1DM0tXTUw5WGdIOU1QaEpfdzVtZFhZVlFrZnhxR1YwR0piS2xyQS1xWXBDYTJpVVc0TDRFc3ZzZlZXV0ZFdkVYSXBTVmtxU3pzcXFWZm1WbTBxSnoxOWNUcHAxd2JwSGNIMnBEWHFn?oc=5"
+  data-title="한수원, 필리핀 아보이티즈 파워와 원전사업 맞손…에너지 전환 협력 본격화"
+  data-publisher="코리아포스트 한글판"
   data-group="한수원·한국수력원자력"
-  data-search="한수원, 필리핀 아보이티즈파워와 원전 협력…예타·인력양성 공동 추진 er 이코노믹리뷰 한수원·한국수력원자력"
+  data-search="한수원, 필리핀 아보이티즈 파워와 원전사업 맞손…에너지 전환 협력 본격화 코리아포스트 한글판 한수원·한국수력원자력"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">ER 이코노믹리뷰</div>
-    <div class="headline">한수원, 필리핀 아보이티즈파워와 원전 협력…예타·인력양성 공동 추진</div>
+    <div class="publisher">코리아포스트 한글판</div>
+    <div class="headline"><span class="new-badge">NEW</span>한수원, 필리핀 아보이티즈 파워와 원전사업 맞손…에너지 전환 협력 본격화</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -3344,7 +3320,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3367,7 +3343,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3390,7 +3366,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3413,7 +3389,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3436,7 +3412,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3459,7 +3435,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3482,7 +3458,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3505,7 +3481,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3528,7 +3504,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -3556,7 +3532,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -3584,7 +3560,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3607,7 +3583,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3630,20 +3606,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMic0FVX3lxTFB1eHlJQVRMbUtDSjZzcFdOX0U1VXR3Q2h1U1dnMG1zWjB3cEhkYTBfVzlTS3RvMmZsZEduWnpFRURhcHJ3bmRRQzNjenR5b010alBsZ1pYWGFmdF9NNmVRV0ZJUkdFSVNHbzRBc0t2WDRTZWs?oc=5"
   data-title="섭씨 40도 폭염 속 원자력·가스·풍력·태양광의 진짜 생존력은?"
-  data-publisher="esgbusinessreview.kr"
+  data-publisher="ESG비즈니스리뷰"
   data-group="원전·원자력"
-  data-search="섭씨 40도 폭염 속 원자력·가스·풍력·태양광의 진짜 생존력은? esgbusinessreview.kr 원전·원자력"
+  data-search="섭씨 40도 폭염 속 원자력·가스·풍력·태양광의 진짜 생존력은? esg비즈니스리뷰 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">4</div>
   <div class="preview-copy">
-    <div class="publisher">esgbusinessreview.kr</div>
+    <div class="publisher">ESG비즈니스리뷰</div>
     <div class="headline">섭씨 40도 폭염 속 원자력·가스·풍력·태양광의 진짜 생존력은?</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -3653,7 +3629,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3676,7 +3652,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3699,7 +3675,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3722,7 +3698,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3745,20 +3721,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMic0FVX3lxTE1yTjctcGhvQXlHcTB3S0NEVGhCcmJnLTdPOV9MQ2xFcU1QeWVKcVRjVWZJNk1JX1I2VUVnQzNpd01iaWZUbmgyNmhvTVd2UmZqOUZJSWVCQ1F0aFNFOTBnVjlVZUVoZGotQ1RzUGlkNXk1clk?oc=5"
   data-title="창원특례시, SMR 국가전략기술 확대 환영…원전산업 경쟁력 강화 기대"
-  data-publisher="koreaeaglenews.com"
+  data-publisher="코리아이글뉴스"
   data-group="원전·원자력"
-  data-search="창원특례시, smr 국가전략기술 확대 환영…원전산업 경쟁력 강화 기대 koreaeaglenews.com 원전·원자력"
+  data-search="창원특례시, smr 국가전략기술 확대 환영…원전산업 경쟁력 강화 기대 코리아이글뉴스 원전·원자력"
   tabindex="0" role="link">
   <div class="article-number">9</div>
   <div class="preview-copy">
-    <div class="publisher">koreaeaglenews.com</div>
+    <div class="publisher">코리아이글뉴스</div>
     <div class="headline">창원특례시, SMR 국가전략기술 확대 환영…원전산업 경쟁력 강화 기대</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -3768,7 +3744,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3791,7 +3767,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3814,7 +3790,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3837,7 +3813,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -3865,20 +3841,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTFA2V29NNWNiRHRzMEpLTmM4alFqZUZKekpKTmZkSUpsS0ZheWFZVE5KNjdJRnUzNmZSY2VWM1NzempOQkU5cUFzUnY5M2VZSGhEbTVoRHNlamN1MTZZWDUzZF9ha2U?oc=5"
   data-title="원자력안전위원회, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침한다"
-  data-publisher="epj.co.kr"
+  data-publisher="일렉트릭파워"
   data-group="SMR"
-  data-search="원자력안전위원회, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침한다 epj.co.kr smr"
+  data-search="원자력안전위원회, 빈틈없는 k-원자력안전으로 ‘대체불가 대한민국’ 뒷받침한다 일렉트릭파워 smr"
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">epj.co.kr</div>
+    <div class="publisher">일렉트릭파워</div>
     <div class="headline">원자력안전위원회, 빈틈없는 K-원자력안전으로 ‘대체불가 대한민국’ 뒷받침한다</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -3888,7 +3864,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3911,7 +3887,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3934,7 +3910,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3957,7 +3933,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -3980,7 +3956,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4003,7 +3979,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4026,7 +4002,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4049,7 +4025,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4072,7 +4048,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4095,7 +4071,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4118,7 +4094,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4141,7 +4117,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -4150,6 +4126,52 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
 <section class="news-group" data-group="Nuclear Power·Nuclear Energy">
   <div class="group-title"><span class="group-square"></span><span>Nuclear Power·Nuclear Energy</span><span class="group-count">12건</span></div>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMimAFBVV95cUxQRHN6ZFBJS0pMRDF0SV9ONHZ4R3RsVmY0RXNkTUR6SENIeVh2bUdZbkxsRUxJeVJnTklUWFlmUlVXQmprNnBIREFLbGhFVWFDdm51TW1qN280dU5iTDZJOHFkWWZNUTRyR1htYnhJcGVZTzI2YlB2azBJdnNxOWtTdk1jUUZKUHRkMmdmdzdsampQaGRubV8xdA?oc=5"
+  data-title="Hungary avoids nuclear shutdown by &#x27;millimetres&#x27; as Danube rises"
+  data-publisher="euractiv.com"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-search="hungary avoids nuclear shutdown by &#x27;millimetres&#x27; as danube rises euractiv.com nuclear power·nuclear energy"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">euractiv.com</div>
+    <div class="headline"><span class="new-badge">NEW</span>Hungary avoids nuclear shutdown by &#x27;millimetres&#x27; as Danube rises</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiZkFVX3lxTE93Ukg2YkJ1WGh5U211WHAzNFRiTVpjbUFMMXJJQnFZajNORF82R3FEYVJXbldFdnVHeVZmRFljaXZGQUZaazlmNHhpOC1ydHRVQmt2S1BGMnBaZHNEeEczallHdzJMdw?oc=5"
+  data-title="Taipingling Nuclear Power Project completes Phase I in Huizhou"
+  data-publisher="newsgd.com"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-search="taipingling nuclear power project completes phase i in huizhou newsgd.com nuclear power·nuclear energy"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">newsgd.com</div>
+    <div class="headline">Taipingling Nuclear Power Project completes Phase I in Huizhou</div>
+    <div class="status-line">
+      <span class="unread-label">미확인</span>
+      <span class="read-label">확인</span>
+      <span class="important-label">중요</span>
+    </div>
+  </div>
+  <div class="card-side">
+    <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMilwFBVV95cUxQVGhQc0VPT3BUR0J4Wi1BUy14Vk14eUhZOFUyN29rMlY0eGVHWS1xYUlrbUNHclhDTmtMd0VXYXp6WkQ4bU1QeHFyZzdaZi00QV9nbUM1cmJ4aTU5MnNCMk5XWmFkVDFjcmQzZkd2SlZ4YUtmRTU3U21FY2ZuSmtPWlV4WnQ4YWladUlkTWtTZTRVWWoxNHVv?oc=5"
   data-title="New logistics partnership to support Sizewell C nuclear site"
@@ -4157,7 +4179,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="Nuclear Power·Nuclear Energy"
   data-search="new logistics partnership to support sizewell c nuclear site enlit world nuclear power·nuclear energy"
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">Enlit World</div>
     <div class="headline">New logistics partnership to support Sizewell C nuclear site</div>
@@ -4169,7 +4191,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4180,7 +4202,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="Nuclear Power·Nuclear Energy"
   data-search="gov. bill lee, department of energy representative speak at knoxville nuclear summit wbir nuclear power·nuclear energy"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">WBIR</div>
     <div class="headline">Gov. Bill Lee, Department of Energy representative speak at Knoxville nuclear summit</div>
@@ -4192,7 +4214,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4203,7 +4225,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="Nuclear Power·Nuclear Energy"
   data-search="public meeting to explain nuclear ready process lewis county herald nuclear power·nuclear energy"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">Lewis County Herald</div>
     <div class="headline">Public meeting to explain Nuclear Ready process</div>
@@ -4215,43 +4237,20 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiZkFVX3lxTE93Ukg2YkJ1WGh5U211WHAzNFRiTVpjbUFMMXJJQnFZajNORF82R3FEYVJXbldFdnVHeVZmRFljaXZGQUZaazlmNHhpOC1ydHRVQmt2S1BGMnBaZHNEeEczallHdzJMdw?oc=5"
-  data-title="Taipingling Nuclear Power Project completes Phase I in Huizhou"
-  data-publisher="Guangdong News"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-search="taipingling nuclear power project completes phase i in huizhou guangdong news nuclear power·nuclear energy"
-  tabindex="0" role="link">
-  <div class="article-number">4</div>
-  <div class="preview-copy">
-    <div class="publisher">Guangdong News</div>
-    <div class="headline">Taipingling Nuclear Power Project completes Phase I in Huizhou</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMitAFBVV95cUxNMXd5ME84anZQdHpJTjkzY1V3RTBXdzJkbnhlLVhkZVF4ME51RjhFcjVvRVQ0SlgzYk5DRVBBaFlFcUlwdE8wd0tibThMOUJJZkhHUWlPbl96bVBFUVVGOElRZS1TNjFLMnJqdTBGb0dlai10MUFrcUd3MFVIanlNWXI4R0hKYlEybXAzQVptMHdvb1lrT094SGI4Y29EaERCbC1HY3VFeG5KU1R4bWh0RjVnVDc?oc=5"
   data-title="China Nuclear Power Projects Worth US$25 Billion Clear State Council Approval"
-  data-publisher="constructionreviewonline.com"
+  data-publisher="Construction Review"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="china nuclear power projects worth us$25 billion clear state council approval constructionreviewonline.com nuclear power·nuclear energy"
+  data-search="china nuclear power projects worth us$25 billion clear state council approval construction review nuclear power·nuclear energy"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
-    <div class="publisher">constructionreviewonline.com</div>
+    <div class="publisher">Construction Review</div>
     <div class="headline">China Nuclear Power Projects Worth US$25 Billion Clear State Council Approval</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
@@ -4261,7 +4260,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4272,7 +4271,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="Nuclear Power·Nuclear Energy"
   data-search="u.s. and paraguay sign civilian nuclear cooperation agreement 조선일보 nuclear power·nuclear energy"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">조선일보</div>
     <div class="headline">U.S. and Paraguay Sign Civilian Nuclear Cooperation Agreement</div>
@@ -4284,7 +4283,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4295,7 +4294,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   data-group="Nuclear Power·Nuclear Energy"
   data-search="europe looks to french fusion in race for unlimited clean energy euractiv.com nuclear power·nuclear energy"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">euractiv.com</div>
     <div class="headline">Europe looks to French fusion in race for unlimited clean energy</div>
@@ -4307,30 +4306,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMitAFBVV95cUxPSnJkSGhsMW4xQzB4MFRHREp2SENITFFLbnFYaldjVXQ2dWZ3Q3pJRXIyb1J2MVVzT1Njb2F3TjNLWnljUkhkeWc0OXJQMzhKNGpRTFM0Vk9taGl1bURnVWpWSE80c0dHeFd6UWJaMWdFS2liUzlXMlZwQjFnSDFUaDNQTHkxczdvLXAxaHFwM0RmYmcyWWhoemFTYi1DaVMyU3hYTTdjMVlRdVNUVm9ZWUxKdUU?oc=5"
-  data-title="A glimmer of hope for the disposal of nuclear waste at San Onofre? - San Diego Union-Tribune"
-  data-publisher="San Diego Union-Tribune"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-search="a glimmer of hope for the disposal of nuclear waste at san onofre? - san diego union-tribune san diego union-tribune nuclear power·nuclear energy"
-  tabindex="0" role="link">
-  <div class="article-number">8</div>
-  <div class="preview-copy">
-    <div class="publisher">San Diego Union-Tribune</div>
-    <div class="headline">A glimmer of hope for the disposal of nuclear waste at San Onofre? - San Diego Union-Tribune</div>
-    <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
-    </div>
-  </div>
-  <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4353,7 +4329,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4376,7 +4352,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -4399,21 +4375,21 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMinwFBVV95cUxOUzRBZncxVENSbXZ5NVNkRm9aNFlRN1NaYnBEXzNKX09EME1PS0pQeURuRzI5UDBlSEtBcDZzUnNGQXE1WVVSNGhaLTlpdU1IajRNaUFxSm4xY1I3eUI5eHlsRUJQQlNlNFRRaUV6YlhWc296aE5pbGhwWmhUVlVlTGM5OTNPVV9EVGNMdGpQNkFjRXVGa1ZIb0xMcC1EbDQ?oc=5"
-  data-title="Europe’s nuclear reactors strain as climate crises worsens"
-  data-publisher="The World from PRX"
+  data-url="https://news.google.com/rss/articles/CBMitAFBVV95cUxPSnJkSGhsMW4xQzB4MFRHREp2SENITFFLbnFYaldjVXQ2dWZ3Q3pJRXIyb1J2MVVzT1Njb2F3TjNLWnljUkhkeWc0OXJQMzhKNGpRTFM0Vk9taGl1bURnVWpWSE80c0dHeFd6UWJaMWdFS2liUzlXMlZwQjFnSDFUaDNQTHkxczdvLXAxaHFwM0RmYmcyWWhoemFTYi1DaVMyU3hYTTdjMVlRdVNUVm9ZWUxKdUU?oc=5"
+  data-title="A glimmer of hope for the disposal of nuclear waste at San Onofre?"
+  data-publisher="sandiegouniontribune.com"
   data-group="Nuclear Power·Nuclear Energy"
-  data-search="europe’s nuclear reactors strain as climate crises worsens the world from prx nuclear power·nuclear energy"
+  data-search="a glimmer of hope for the disposal of nuclear waste at san onofre? sandiegouniontribune.com nuclear power·nuclear energy"
   tabindex="0" role="link">
   <div class="article-number">12</div>
   <div class="preview-copy">
-    <div class="publisher">The World from PRX</div>
-    <div class="headline">Europe’s nuclear reactors strain as climate crises worsens</div>
+    <div class="publisher">sandiegouniontribune.com</div>
+    <div class="headline">A glimmer of hope for the disposal of nuclear waste at San Onofre?</div>
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -4422,7 +4398,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   </div>
   <div class="card-side">
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="preview-image"><div class="no-image"><span class="plant-icon">☢</span><span>NUCLEAR NEWS</span></div></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
