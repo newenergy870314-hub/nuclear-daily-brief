@@ -21,7 +21,20 @@ ARCHIVE_DAYS = 90
 BACKFILL_DATES_PER_RUN = 2
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
-ALWAYS_SHOW_GROUPS = {"TerraPower", "Fermi America"}
+ALWAYS_SHOW_GROUPS = {
+    "현대건설",
+    "타 건설사",
+    "한국수력원자력",
+    "한국전력",
+    "정부 관계부처",
+    "원자력",
+    "SMR",
+    "Nuclear Power·Nuclear Energy",
+    "Holtec",
+    "TerraPower",
+    "Westinghouse",
+    "Fermi America",
+}
 
 GROUPS = [
     ("현대건설", [
@@ -103,11 +116,11 @@ GROUPS = [
         '"Nuclear New Build"', '"New Nuclear Build"',
     ]),
     ("Holtec", [
-        "Holtec nuclear", '"Holtec International"', "SMR-300",
-        "Palisades nuclear", '"Oyster Creek" SMR',
+        "Holtec nuclear", '"Holtec International"', "홀텍",
+        "SMR-300", "Palisades nuclear", '"Oyster Creek" SMR',
     ]),
     ("TerraPower", [
-        "TerraPower", "Natrium reactor", "Natrium nuclear",
+        "TerraPower", "테라파워", "Natrium reactor", "Natrium nuclear",
         "Kemmerer nuclear", "TerraPower nuclear project",
     ]),
     ("Westinghouse", [
@@ -115,8 +128,13 @@ GROUPS = [
         "AP1000", "AP300", "AP1000 construction",
     ]),
     ("Fermi America", [
-        '"Fermi America"', '"Project Matador"', "HyperGrid nuclear",
-        '"Fermi America" AP1000', "Amarillo nuclear", '"Carson County" nuclear',
+        '"Fermi America"',
+        "페르미 아메리카", "페르미아메리카", "페르미",
+        "퍼미 아메리카", "퍼미아메리카", "퍼미",
+        '"Project Matador"', "프로젝트 마타도르",
+        "HyperGrid nuclear", "하이퍼그리드",
+        '"Fermi America" AP1000', "Amarillo nuclear", "애머릴로 원전",
+        '"Carson County" nuclear', "카슨 카운티 원전",
     ]),
 ]
 
@@ -764,13 +782,23 @@ OTHER_CONSTRUCTION_TERMS = {
 
 
 HOLTEC_TERMS = {
-    "holtec", "holtec international", "smr-300", "smr 300",
+    "holtec", "holtec international", "홀텍", "smr-300", "smr 300",
     "palisades smr", "palisades nuclear", "oyster creek smr",
 }
 
+TERRAPOWER_TERMS = {
+    "terrapower", "테라파워", "natrium reactor", "natrium nuclear",
+    "kemmerer nuclear", "케머러 원전",
+}
+
 FERMI_AMERICA_TERMS = {
-    "fermi america", "project matador", "hypergrid",
-    "amarillo nuclear", "carson county nuclear",
+    "fermi america",
+    "페르미 아메리카", "페르미아메리카", "페르미",
+    "퍼미 아메리카", "퍼미아메리카", "퍼미",
+    "project matador", "프로젝트 마타도르",
+    "hypergrid", "하이퍼그리드",
+    "amarillo nuclear", "애머릴로 원전",
+    "carson county nuclear", "카슨 카운티 원전",
 }
 
 
@@ -783,6 +811,9 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
 
     if any(term in haystack for term in HOLTEC_TERMS):
         return "Holtec"
+
+    if any(term in haystack for term in TERRAPOWER_TERMS):
+        return "TerraPower"
 
     if any(term in haystack for term in FERMI_AMERICA_TERMS):
         return "Fermi America"
@@ -1616,6 +1647,16 @@ filterArticles();renderFavorites();
 
 def main() -> int:
     now = datetime.now(KST)
+
+    # 실제 실행이 몇 분 늦더라도 화면의 최종 업데이트 시각은
+    # 30분 단위 기준시각으로 표시합니다.
+    # 예: 06:03 → 06:00, 06:34 → 06:30
+    display_updated_at = now.replace(
+        minute=0 if now.minute < 30 else 30,
+        second=0,
+        microsecond=0,
+    )
+
     periods = brief_periods(now)
     today_start, today_end = periods["금일"]
     print(
@@ -1633,7 +1674,7 @@ def main() -> int:
     archive = backfill_missing_archive_dates(archive, now)
     save_archive(archive)
     OUTPUT.write_text(
-        build_html(periods, articles_by_period, now, new_urls, archive),
+        build_html(periods, articles_by_period, display_updated_at, new_urls, archive),
         encoding="utf-8",
     )
     save_current_urls(current_urls, now)
