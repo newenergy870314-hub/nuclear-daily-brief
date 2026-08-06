@@ -94,7 +94,9 @@ GROUPS = [
         # 장관·차관급 이상 인사 및 정책 관련 기사
         '"산업통상부" 장관',
         '"산업통상부" 차관',
+        '"산업통상부" 통상교섭본부장',
         '"산업통상자원부" 장관',
+        '"산업통상자원부" 통상교섭본부장',
         '"산업통상자원부" 차관',
         '"기후에너지환경부" 장관',
         '"기후에너지환경부" 차관',
@@ -121,6 +123,18 @@ GROUPS = [
         '"Ministry of Trade, Industry and Energy" appointment',
         '"Ministry of Climate, Energy and Environment" appointment',
         '"Ministry of Science and ICT" appointment',
+        '"김정관" 장관',
+        '"문신학" 차관',
+        '"양기욱" 산업자원안보실장',
+        '"여한구" 통상교섭본부장',
+        '"강감찬" 무역투자실장',
+        '"김창희" 원전전략기획관',
+        '"김정관"',
+        '"문신학"',
+        '"양기욱"',
+        '"여한구"',
+        '"강감찬"',
+        '"김창희"',
     ]),
     ("원전 대미투자", [
         '"대미투자" 원전',
@@ -144,6 +158,11 @@ GROUPS = [
     ("원자력", [
         "원전", "원자력", "원자력발전", "원자력발전소",
         "대형원전", "신규 원전", "원전 건설", "원전 프로젝트", "원전 수출",
+        "신한울 원전", "신한울원전",
+        "신한울 1호기", "신한울 2호기",
+        "신한울 3호기", "신한울 4호기",
+        "신한울 1·2호기", "신한울 3·4호기",
+        "Shin Hanul nuclear", "Shin Hanul NPP",
     ]),
     ("SMR", [
         "SMR", "소형모듈원자로", '"Small Modular Reactor"',
@@ -856,6 +875,14 @@ OTHER_CONSTRUCTION_TERMS = {
 }
 
 
+SHIN_HANUL_TERMS = {
+    "신한울 원전", "신한울원전",
+    "신한울 1호기", "신한울 2호기",
+    "신한울 3호기", "신한울 4호기",
+    "신한울 1·2호기", "신한울 3·4호기",
+    "shin hanul nuclear", "shin hanul npp",
+}
+
 HOLTEC_TERMS = {
     "holtec", "holtec international", "홀텍", "smr-300", "smr 300",
     "palisades smr", "palisades nuclear", "oyster creek smr",
@@ -904,6 +931,9 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     )
     if has_nuclear_term and has_us_investment_term:
         return "원전 대미투자"
+
+    if any(term in haystack for term in SHIN_HANUL_TERMS):
+        return "원자력"
 
     if any(term in haystack for term in HOLTEC_TERMS):
         return "Holtec"
@@ -992,11 +1022,17 @@ GOVERNMENT_MINISTRY_TERMS = {
 
 GOVERNMENT_SENIOR_RANK_TERMS = {
     "장관", "차관", "1차관", "2차관", "제1차관", "제2차관",
-    "부총리", "대통령", "국무총리",
+    "부총리", "대통령", "국무총리", "통상교섭본부장",
+    "산업자원안보실장", "무역투자실장", "원전전략기획관",
     "minister", "vice minister", "deputy prime minister",
+    "minister for trade", "trade minister",
     "president", "prime minister",
 }
 
+
+GOVERNMENT_TRACKED_PEOPLE = {
+    "김정관", "문신학", "양기욱", "여한구", "강감찬", "김창희",
+}
 
 PERSONNEL_NEWS_TERMS = {
     "인사", "인사발령", "임명", "선임", "취임", "승진", "전보",
@@ -1016,7 +1052,12 @@ def is_government_senior_article(article: Article) -> bool:
     has_ministry = any(term in title for term in GOVERNMENT_MINISTRY_TERMS)
     has_senior_rank = any(term in title for term in GOVERNMENT_SENIOR_RANK_TERMS)
     has_personnel_news = any(term in title for term in PERSONNEL_NEWS_TERMS)
-    return has_ministry and (has_senior_rank or has_personnel_news)
+    has_tracked_person = any(term in title for term in GOVERNMENT_TRACKED_PEOPLE)
+
+    return (
+        has_tracked_person
+        or (has_ministry and (has_senior_rank or has_personnel_news))
+    )
 
 
 def collect(start: datetime, end: datetime) -> list[Article]:
