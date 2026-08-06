@@ -1,8 +1,8 @@
 name: Update Nuclear Daily Brief
 
 concurrency:
-  group: nuclear-daily-brief
-  cancel-in-progress: true
+  group: nuclear-daily-brief-update
+  cancel-in-progress: false
 
 on:
   workflow_dispatch:
@@ -18,10 +18,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
@@ -31,10 +33,20 @@ jobs:
       - name: Collect news and build page
         run: python collect_news.py
 
-      - name: Commit updated page and article state
+      - name: Commit and push updated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add index.html article_state.json news_archive.json
-          git diff --cached --quiet || git commit -m "Update nuclear daily brief"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update nuclear daily brief"
+
+          # 실행 중 원격 저장소가 변경됐을 경우 최신 변경사항을 먼저 반영
+          git pull --rebase origin main
+          git push origin main
