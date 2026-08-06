@@ -7,7 +7,7 @@ concurrency:
 on:
   workflow_dispatch:
   schedule:
-    - cron: "29,59 * * * *"
+    - cron: "29,59 * * * *" # 매시간 29분, 59분 자동 실행
 
 permissions:
   contents: write
@@ -46,7 +46,5 @@ jobs:
           fi
 
           git commit -m "Update nuclear daily brief"
-
-          # 실행 중 원격 저장소가 변경됐을 경우 최신 변경사항을 먼저 반영
           git pull --rebase origin main
           git push origin main
