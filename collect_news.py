@@ -20,7 +20,7 @@ STATE_FILE = Path("article_state.json")
 ARCHIVE_FILE = Path("news_archive.json")
 ARCHIVE_DAYS = 90
 BACKFILL_DATES_PER_RUN = 2
-SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "0") == "1"
+SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "1") == "1"
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
 ALWAYS_SHOW_GROUPS = {
@@ -1062,31 +1062,70 @@ def is_government_senior_article(article: Article) -> bool:
     )
 
 
-def collect(start: datetime, end: datetime) -> list[Article]:
-    all_selected: list[Article] = []
 
-    for group, queries in GROUPS:
+def fetch_articles(start: datetime, end: datetime) -> list[Article]:
+    """
+    Google News RSS를 주어진 전체 기간에 대해 딱 한 번씩 조회합니다.
+
+    핵심 개선:
+    - 예전 방식: 전일/금일/익일마다 동일 검색어를 다시 조회
+    - 개선 방식: 전체 기간을 한 번 조회한 뒤 날짜별로 나눔
+    """
+    fetched: list[Article] = []
+
+    for search_group, queries in GROUPS:
         for language in ("ko", "en"):
-            found: list[Article] = []
-
             for query in queries:
                 feed = feedparser.parse(google_news_url(query, language))
-                for entry in feed.entries:
-                    article = parse_entry(entry, language, group)
-                    if not article or not (start <= article.published < end):
-                        continue
-                    if group == "원전 관계부처" and not is_government_senior_article(article):
-                        continue
-                    found.append(article)
 
+                for entry in feed.entries:
+                    article = parse_entry(entry, language, search_group)
+                    if not article:
+                        continue
+                    if not (start <= article.published < end):
+                        continue
+                    if (
+                        search_group == "원전 관계부처"
+                        and not is_government_senior_article(article)
+                    ):
+                        continue
+
+                    fetched.append(article)
+
+    return fetched
+
+
+def select_articles_for_period(
+    fetched: list[Article],
+    start: datetime,
+    end: datetime,
+) -> list[Article]:
+    """
+    이미 한 번 수집한 기사 목록에서 해당 기간 기사만 골라
+    기존 그룹별/언어별 제한 및 중복 제거 규칙을 적용합니다.
+    """
+    period_articles = [
+        article
+        for article in fetched
+        if start <= article.published < end
+    ]
+
+    all_selected: list[Article] = []
+
+    for group, _queries in GROUPS:
+        for language in ("ko", "en"):
+            found = [
+                article
+                for article in period_articles
+                if article.group == group and article.language == language
+            ]
             found.sort(key=lambda article: -article.published.timestamp())
 
             selected_group: list[Article] = []
 
-            # 현대건설은 원전뿐 아니라 기술·안전·로봇·수주 등
-            # 회사 전체 동향을 보여주기 위해 기사 수를 더 넉넉하게 유지합니다.
             group_limit = (
-                20 if group in {"현대건설", "타 건설사", "원전 관계부처"}
+                20
+                if group in {"현대건설", "타 건설사", "원전 관계부처"}
                 else MAX_PER_GROUP_PER_LANGUAGE
             )
 
@@ -1100,6 +1139,15 @@ def collect(start: datetime, end: datetime) -> list[Article]:
             all_selected.extend(selected_group)
 
     return all_selected
+
+
+def collect(start: datetime, end: datetime) -> list[Article]:
+    """
+    단일 기간 수집용 호환 함수.
+    과거 날짜 수동 Backfill에서 사용합니다.
+    """
+    fetched = fetch_articles(start, end)
+    return select_articles_for_period(fetched, start, end)
 
 
 def escape(text: str) -> str:
@@ -1825,12 +1873,12 @@ filterArticles();renderFavorites();
 '''
 
 
+
 def main() -> int:
     now = datetime.now(KST)
 
-    # 실제 실행이 몇 분 늦더라도 화면의 최종 업데이트 시각은
-    # 30분 단위 기준시각으로 표시합니다.
-    # 예: 06:03 → 06:00, 06:34 → 06:30
+    # 실제 GitHub Actions가 정각보다 몇 분 늦게 시작돼도
+    # 화면에는 00분/30분 기준시각으로 표시합니다.
     display_updated_at = now.replace(
         minute=0 if now.minute < 30 else 30,
         second=0,
@@ -1839,34 +1887,74 @@ def main() -> int:
 
     periods = brief_periods(now)
     today_start, today_end = periods["금일"]
+
     print(
         "Current KST window:",
         f"{today_start:%Y-%m-%d %H:%M} ~ {today_end:%Y-%m-%d %H:%M}"
     )
+
     previous_urls = load_previous_urls()
+
+    # 전일/금일/익일 전체 범위를 한 번에 수집
+    overall_start = min(start for start, _end in periods.values())
+    overall_end = max(end for _start, end in periods.values())
+
+    print(
+        "Fetch once for all 3 periods:",
+        f"{overall_start:%Y-%m-%d %H:%M} ~ {overall_end:%Y-%m-%d %H:%M}"
+    )
+
+    fetched = fetch_articles(overall_start, overall_end)
+    print(f"Fetched raw articles: {len(fetched)}")
+
+    # 네트워크 재호출 없이 메모리에서 전일/금일/익일로 분리
     articles_by_period = {
-        label: collect(start, end)
+        label: select_articles_for_period(fetched, start, end)
         for label, (start, end) in periods.items()
     }
-    current_urls = {article.link for items in articles_by_period.values() for article in items}
-    new_urls = current_urls - previous_urls if previous_urls else set()
-    archive = update_archive(load_archive(), periods, articles_by_period, now)
 
+    current_urls = {
+        article.link
+        for items in articles_by_period.values()
+        for article in items
+    }
+    new_urls = current_urls - previous_urls if previous_urls else set()
+
+    archive = update_archive(
+        load_archive(),
+        periods,
+        articles_by_period,
+        now,
+    )
+
+    # 30분 예약 실행에서는 Backfill을 끄고,
+    # 필요할 때 수동 실행(workflow_dispatch)에서만 채웁니다.
     if SKIP_BACKFILL:
         print("SKIP_BACKFILL=1: historical archive backfill skipped")
     else:
         archive = backfill_missing_archive_dates(archive, now)
 
     save_archive(archive)
+
     OUTPUT.write_text(
-        build_html(periods, articles_by_period, display_updated_at, new_urls, archive),
+        build_html(
+            periods,
+            articles_by_period,
+            display_updated_at,
+            new_urls,
+            archive,
+        ),
         encoding="utf-8",
     )
-    save_current_urls(current_urls, now)
-    total = sum(len(items) for items in articles_by_period.values())
-    print(f"Generated {OUTPUT}: {total} news articles across 3 periods; {len(archive)} archive dates")
-    return 0
 
+    save_current_urls(current_urls, now)
+
+    total = sum(len(items) for items in articles_by_period.values())
+    print(
+        f"Generated {OUTPUT}: {total} news articles across 3 periods; "
+        f"{len(archive)} archive dates"
+    )
+    return 0
 
 if __name__ == "__main__":
     raise SystemExit(main())
