@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import re
 from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -19,6 +20,7 @@ STATE_FILE = Path("article_state.json")
 ARCHIVE_FILE = Path("news_archive.json")
 ARCHIVE_DAYS = 90
 BACKFILL_DATES_PER_RUN = 2
+SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "0") == "1"
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
 ALWAYS_SHOW_GROUPS = {
@@ -1849,7 +1851,12 @@ def main() -> int:
     current_urls = {article.link for items in articles_by_period.values() for article in items}
     new_urls = current_urls - previous_urls if previous_urls else set()
     archive = update_archive(load_archive(), periods, articles_by_period, now)
-    archive = backfill_missing_archive_dates(archive, now)
+
+    if SKIP_BACKFILL:
+        print("SKIP_BACKFILL=1: historical archive backfill skipped")
+    else:
+        archive = backfill_missing_archive_dates(archive, now)
+
     save_archive(archive)
     OUTPUT.write_text(
         build_html(periods, articles_by_period, display_updated_at, new_urls, archive),
