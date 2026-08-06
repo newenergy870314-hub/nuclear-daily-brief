@@ -33,9 +33,7 @@ jobs:
 
       - name: Collect news and build page
         env:
-          # 30분 예약 실행에서는 과거 기사 Backfill을 생략해 실행 시간을 줄임.
-          # Actions 화면에서 수동 실행할 때는 Backfill을 허용.
-          SKIP_BACKFILL: ${{ github.event_name == 'schedule' && '1' || '0' }}
+          SKIP_BACKFILL: "1"
         run: python collect_news.py
 
       - name: Commit and push updated files
@@ -51,7 +49,5 @@ jobs:
           fi
 
           git commit -m "Update nuclear daily brief"
-
-          # 실행 중 원격 저장소가 변경됐을 경우 최신 변경사항을 먼저 반영
           git pull --rebase origin main
           git push origin main
