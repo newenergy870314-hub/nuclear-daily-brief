@@ -7,7 +7,7 @@ concurrency:
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "15,45 * * * *"  # Runs at 15 and 45 minutes past every hour
 
 permissions:
   contents: write
