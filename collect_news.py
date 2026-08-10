@@ -2694,6 +2694,39 @@ def escape(text: str) -> str:
     return html.escape(text, quote=True)
 
 
+
+COUNTRY_RULES = [
+    ("BG", ("불가리아", "bulgaria", "kozloduy", "코즐로두이")),
+    ("UA", ("우크라이나", "ukraine", "kyiv", "키이우")),
+    ("AE", ("아랍에미리트", "uae", "barakah", "바라카", "emirates")),
+    ("GB", ("영국", "united kingdom", "great britain", "gbn", "great british nuclear")),
+    ("RO", ("루마니아", "romania", "cernavoda", "체르나보다")),
+    ("CZ", ("체코", "czech", "dukovany", "두코바니")),
+    ("PL", ("폴란드", "poland")),
+    ("SI", ("슬로베니아", "slovenia", "krško", "krsko")),
+    ("FI", ("핀란드", "finland")),
+    ("JP", ("일본", "japan", "tokyo")),
+    ("US", (
+        "미국", "united states", "u.s.", "usa", "texas", "michigan",
+        "palisades", "fermi america", "project matador", "amarillo",
+        "westinghouse", "nrc", "doe"
+    )),
+    ("KR", (
+        "한국", "대한민국", "south korea", "korea", "현대건설",
+        "한국수력원자력", "한수원", "한국전력", "한전", "산업통상"
+    )),
+]
+
+def detect_article_country(article: Article) -> str:
+    haystack = " ".join(
+        [article.title, article.publisher, article.group, article.description]
+    ).lower()
+    for code, terms in COUNTRY_RULES:
+        if any(term.lower() in haystack for term in terms):
+            return code
+    return "OTHER"
+
+
 def render_card(article: Article, number: int, is_new: bool = False) -> str:
     if article.image:
         image_html = (
@@ -2721,6 +2754,7 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   data-group="{escape(article.group)}"
   data-language="{escape(article.language)}"
   data-published="{article.published.timestamp():.0f}"
+  data-country="{detect_article_country(article)}"
   data-search="{escape(search_text)}"
   tabindex="0" role="link">
   <div class="article-number">{number}</div>
@@ -3103,6 +3137,35 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .date-input::-webkit-calendar-picker-indicator {{ margin: 0; padding: 2px; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
 .search-input {{ width: 100%; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
+
+.world-map-panel {{ margin: 0 12px 12px; padding: 9px 10px 10px; border: 1px solid rgba(35,57,93,.12); border-radius: 10px; background: rgba(255,255,255,.72); box-shadow: 0 1px 3px rgba(17,24,39,.07); }}
+.world-map-head {{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:7px; }}
+.world-map-title {{ color:#23395d; font-size:11px; font-weight:900; }}
+.world-map-all {{ border:0; border-radius:999px; padding:4px 9px; background:#23395d; color:#fff; font-size:9px; font-weight:800; cursor:pointer; }}
+.world-map-all.active {{ background:#fee500; color:#202124; }}
+.world-map-canvas {{ position:relative; width:100%; height:145px; overflow:hidden; border-radius:9px; background:#dfeaf1; }}
+.world-map-svg {{ position:absolute; inset:0; width:100%; height:100%; opacity:.9; }}
+.world-map-svg path {{ fill:#b9c9d3; stroke:#a8bac5; stroke-width:.7; }}
+.country-pin {{ position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:3px; min-height:25px; padding:3px 7px; border:1px solid rgba(35,57,93,.14); border-radius:999px; background:#fffdf8; color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.13); font-size:9px; font-weight:900; white-space:nowrap; cursor:pointer; }}
+.country-pin .flag {{ font-size:13px; line-height:1; }}
+.country-pin .country-count {{ color:#d92d20; font-weight:900; }}
+.country-pin.active {{ background:#fee500; color:#202124; border-color:rgba(35,57,93,.22); }}
+.country-pin[hidden] {{ display:none; }}
+.country-us {{ left:19%; top:43%; }}
+.country-kr {{ left:84%; top:43%; }}
+.country-gb {{ left:46%; top:30%; }}
+.country-bg {{ left:54%; top:43%; }}
+.country-ua {{ left:58%; top:34%; }}
+.country-ae {{ left:62%; top:61%; }}
+.country-filter-note {{ margin-top:6px; color:#667085; font-size:9px; text-align:center; }}
+@media (min-width: 700px) {{
+  .world-map-panel {{ margin:0 20px 16px; padding:12px 14px 13px; }}
+  .world-map-title {{ font-size:13px; }}
+  .world-map-canvas {{ height:205px; }}
+  .country-pin {{ min-height:29px; padding:4px 9px; font-size:10px; }}
+  .country-pin .flag {{ font-size:15px; }}
+}}
+
 .favorites-panel {{ margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,.82); border-radius: 9px; }}
 .favorites-panel[hidden] {{ display: none; }}
 .favorites-title {{ margin-bottom: 6px; font-size: 11px; font-weight: 800; }}
@@ -3324,6 +3387,30 @@ header,
       </div>
     </div>
   </header>
+  <section id="world-map-panel" class="world-map-panel">
+    <div class="world-map-head">
+      <div class="world-map-title">🌐 국가별 기사 지도</div>
+      <button id="country-all" class="world-map-all active" type="button">전체</button>
+    </div>
+    <div class="world-map-canvas" aria-label="국가별 기사 필터 지도">
+      <svg class="world-map-svg" viewBox="0 0 1000 430" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M75 95 L135 55 220 70 265 110 245 145 195 158 160 205 105 195 78 155 Z"/>
+        <path d="M245 205 L290 220 315 270 300 340 275 390 250 350 258 295 232 250 Z"/>
+        <path d="M430 75 L485 58 530 76 555 110 535 137 490 134 455 117 Z"/>
+        <path d="M465 145 L535 135 585 165 610 230 580 330 530 375 488 318 478 255 445 205 Z"/>
+        <path d="M545 70 L660 52 760 72 850 110 910 150 875 195 805 198 755 165 690 178 635 155 590 132 Z"/>
+        <path d="M825 292 L875 280 920 305 900 345 850 350 815 325 Z"/>
+        <path d="M680 205 L718 210 740 244 715 270 685 255 665 228 Z"/>
+      </svg>
+      <button class="country-pin country-us" data-country-filter="US" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-kr" data-country-filter="KR" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+    </div>
+    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 관련 기사만 표시됩니다.</div>
+  </section>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동하며, 읽음한 기사는 회색으로 표시됩니다.</footer>
 </div>
@@ -3526,6 +3613,60 @@ function renderFavorites(){{
   cards.forEach(card=>{{ const item=document.createElement("div"); item.className="favorite-item"; item.innerHTML=`<div><div class="favorite-publisher">${{card.dataset.publisher}}</div><div class="favorite-headline">${{card.dataset.title}}</div></div><button class="favorite-remove" type="button">★</button>`; item.addEventListener("click",e=>{{if(!e.target.closest(".favorite-remove"))openArticle(card)}}); item.querySelector(".favorite-remove").addEventListener("click",e=>{{e.preventDefault();e.stopPropagation();importantArticles.delete(card.dataset.url);saveState();document.querySelectorAll(".preview-card").forEach(cardItem=>{{if(cardItem.dataset.url===card.dataset.url)applyState(cardItem);}});renderFavorites();}}); list.appendChild(item); }});
   count.textContent=`${{cards.length}}건`; box.hidden=cards.length===0;
 }}
+
+let activeCountryFilter = "";
+
+function updateCountryMapCounts(){{
+  const panel=activePanel();
+  if(!panel)return;
+
+  const counts={{US:0,KR:0,GB:0,BG:0,UA:0,AE:0}};
+  panel.querySelectorAll(".preview-card").forEach(card=>{{
+    const code=card.dataset.country||"OTHER";
+    if(Object.prototype.hasOwnProperty.call(counts,code))counts[code]++;
+  }});
+
+  document.querySelectorAll("[data-country-filter]").forEach(button=>{{
+    const code=button.dataset.countryFilter;
+    const count=counts[code]||0;
+    const countNode=button.querySelector(".country-count");
+    if(countNode)countNode.textContent=`${{count}}건`;
+    button.hidden=count===0;
+    button.classList.toggle("active",activeCountryFilter===code);
+  }});
+
+  const allButton=document.getElementById("country-all");
+  if(allButton)allButton.classList.toggle("active",!activeCountryFilter);
+}}
+
+function setCountryFilter(code){{
+  activeCountryFilter=activeCountryFilter===code?"":code;
+  updateCountryMapCounts();
+  filterArticles();
+  const note=document.getElementById("country-filter-note");
+  if(note){{
+    const activeButton=document.querySelector(`[data-country-filter="${{activeCountryFilter}}"]`);
+    note.textContent=activeCountryFilter && activeButton
+      ? `${{activeButton.querySelector("span:nth-child(2)")?.textContent||""}} 관련 기사만 표시 중`
+      : "국가를 누르면 해당 국가 관련 기사만 표시됩니다.";
+  }}
+}}
+
+document.querySelectorAll("[data-country-filter]").forEach(button=>{{
+  button.addEventListener("click",()=>setCountryFilter(button.dataset.countryFilter));
+}});
+
+const countryAllButton=document.getElementById("country-all");
+if(countryAllButton){{
+  countryAllButton.addEventListener("click",()=>{{
+    activeCountryFilter="";
+    updateCountryMapCounts();
+    filterArticles();
+    const note=document.getElementById("country-filter-note");
+    if(note)note.textContent="국가를 누르면 해당 국가 관련 기사만 표시됩니다.";
+  }});
+}}
+
 function filterArticles(){{
   const q=document.getElementById("article-search").value.trim().toLowerCase();
   const panel=activePanel();
@@ -3541,7 +3682,7 @@ function filterArticles(){{
     let visible=[];
 
     cards.forEach(card=>{{
-      const show=!q||card.dataset.search.includes(q);
+      const matchesSearch=!q||card.dataset.search.includes(q); const matchesCountry=!activeCountryFilter||card.dataset.country===activeCountryFilter; const show=matchesSearch&&matchesCountry;
       card.style.display=show?"":"none";
       if(show){{
         visible.push(card);
@@ -3549,7 +3690,7 @@ function filterArticles(){{
       }}
     }});
 
-    if(q){{
+    if(q||activeCountryFilter){{
       visible.sort((a,b)=>Number(b.dataset.published||0)-Number(a.dataset.published||0));
       visible.forEach((card,index)=>{{
         stack.appendChild(card);
@@ -3562,12 +3703,12 @@ function filterArticles(){{
     }}
   }});
 
-  if(!q){{
+  if(!q&&!activeCountryFilter){{
     const currentOrder=languageOrderButton?.dataset.order||localStorage.getItem(languageOrderKey)||"ko-en";
     reorderLanguageArticles(currentOrder);
   }}
 
-  document.getElementById("no-results").style.display=q&&total===0?"block":"none";
+  document.getElementById("no-results").style.display=(q||activeCountryFilter)&&total===0?"block":"none";
 }}
 function activatePanel(panel, button=null){{
   document.querySelectorAll(".tab-button").forEach(x=>x.classList.remove("active"));
@@ -3575,6 +3716,7 @@ function activatePanel(panel, button=null){{
   if(button)button.classList.add("active");
   panel.classList.add("active");
   filterArticles();
+  updateCountryMapCounts();
   renderFavorites();
 }}
 document.querySelectorAll(".tab-button").forEach(button => {{
@@ -3594,6 +3736,7 @@ document.querySelectorAll(".tab-button").forEach(button => {{
     if(periodDate && archiveInput) archiveInput.value = periodDate;
 
     if(typeof filterArticles === "function") filterArticles();
+    if(typeof updateCountryMapCounts === "function") updateCountryMapCounts();
     if(typeof renderFavorites === "function") renderFavorites();
 
     window.scrollTo({{ top: 0, behavior: "smooth" }});
@@ -3628,6 +3771,7 @@ function openArchiveDate(value){{
 
   if(archiveInput) archiveInput.value=value;
   if(typeof filterArticles==="function") filterArticles();
+  if(typeof updateCountryMapCounts==="function") updateCountryMapCounts();
   if(typeof renderFavorites==="function") renderFavorites();
 
   panel.scrollIntoView({{behavior:"smooth", block:"start"}});
@@ -3650,6 +3794,7 @@ if(archiveInput){{
   }});
 }}
 document.getElementById("article-search").addEventListener("input",filterArticles);
+updateCountryMapCounts();
 
 filterArticles();renderFavorites();
 </script>
