@@ -27,47 +27,66 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
 .language-order-toggle { flex: 0 0 auto; min-width: 0; height: 26px; padding: 0 6px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 10.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }
 .language-order-toggle:active { transform: translateY(1px); }
 .date-picker-box { cursor: pointer; }
-.date-picker-box .date-input { cursor: pointer; }
-.date-input { flex: 1; min-width: 74px; width: 100%; height: 26px; padding: 0 18px 0 6px; border: 0; border-radius: 6px; background: #344054; color: #ffffff; font-size: 10.5px; font-weight: 800; text-align: center; box-sizing: border-box; cursor: pointer; }
-.date-input::-webkit-calendar-picker-indicator { margin: 0; padding: 1px; cursor: pointer; filter: invert(1); opacity: .92; }
+.date-control { position: relative; flex: 1; min-width: 90px; height: 26px; border-radius: 6px; background: #344054; color: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.date-display { width: 100%; padding: 0 17px 0 5px; box-sizing: border-box; color: #ffffff; font-size: 10.5px; font-weight: 800; line-height: 26px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -0.1px; }
+.date-calendar { position: absolute; right: 5px; top: 50%; transform: translateY(-52%); color: #ffffff; font-size: 10px; line-height: 1; pointer-events: none; opacity: .9; }
+.date-input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; }
+.date-input::-webkit-calendar-picker-indicator { width: 100%; height: 100%; margin: 0; padding: 0; cursor: pointer; }
 .search-wrap { position: relative; margin-top: 6px; }
 .search-input { width: 100%; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }
 
 .world-map-panel { margin: 0 12px 12px; padding: 9px 10px 10px; border: 1px solid rgba(35,57,93,.12); border-radius: 10px; background: rgba(255,255,255,.78); box-shadow: 0 1px 3px rgba(17,24,39,.07); }
-.world-map-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:7px; }
+.world-map-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:7px; }
 .world-map-title-wrap { min-width:0; }
 .world-map-title { color:#23395d; font-size:11px; font-weight:900; }
 .world-map-summary { margin-top:2px; color:#667085; font-size:8.5px; font-weight:700; }
-.world-map-all { flex:0 0 auto; border:0; border-radius:999px; padding:4px 9px; background:#23395d; color:#fff; font-size:9px; font-weight:800; cursor:pointer; }
-.world-map-all.active { background:#fee500; color:#202124; }
-.world-map-canvas { position:relative; width:100%; aspect-ratio:960/423; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); }
+.world-map-canvas { position:relative; width:100%; height:175px; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); }
 .world-map-image { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.92; }
-.country-pin { position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:2px; min-height:23px; padding:2px 6px; border:1px solid rgba(35,57,93,.16); border-radius:999px; background:rgba(255,253,248,.96); color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.15); font-size:8.5px; font-weight:900; white-space:nowrap; cursor:pointer; z-index:3; }
-.country-pin .flag { font-size:12px; line-height:1; }
+.country-pin { position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:2px; min-height:21px; padding:2px 5px; border:1px solid rgba(35,57,93,.16); border-radius:999px; background:rgba(255,253,248,.97); color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.14); font-size:8px; font-weight:900; white-space:nowrap; cursor:pointer; z-index:3; }
+.country-pin .flag { font-size:11px; line-height:1; }
 .country-pin .country-count { color:#d92d20; font-weight:900; }
-.country-pin.active { background:#fee500; color:#202124; border-color:rgba(35,57,93,.22); }
+.country-pin.active { background:#fee500; color:#202124; border-color:rgba(35,57,93,.24); }
 .country-pin[hidden] { display:none; }
-.country-us { left:18%; top:38%; }
-.country-kr { left:85%; top:39%; }
-.country-gb { left:47%; top:27%; }
-.country-bg { left:55%; top:39%; }
-.country-ua { left:58%; top:31%; }
-.country-ae { left:62%; top:53%; }
-.country-filter-list { display:flex; gap:5px; margin-top:7px; padding-bottom:1px; overflow-x:auto; scrollbar-width:thin; }
-.country-chip { flex:0 0 auto; border:1px solid rgba(35,57,93,.12); border-radius:999px; padding:4px 7px; background:#fffdf8; color:#344054; font-size:8.5px; font-weight:800; cursor:pointer; }
-.country-chip .chip-count { color:#d92d20; font-weight:900; }
-.country-chip.active { background:#fee500; color:#202124; }
-.country-chip[hidden] { display:none; }
+.country-pin.callout-right::after, .country-pin.callout-left::after, .country-pin.callout-up::after, .country-pin.callout-down::after { content:""; position:absolute; background:rgba(35,57,93,.42); }
+.country-pin.callout-right::after { left:100%; top:50%; width:10px; height:1px; }
+.country-pin.callout-left::after { right:100%; top:50%; width:10px; height:1px; }
+.country-pin.callout-up::after { left:50%; bottom:100%; width:1px; height:10px; }
+.country-pin.callout-down::after { left:50%; top:100%; width:1px; height:10px; }
+.country-pin.tight { font-size:7.4px; padding:2px 4px; }
+.country-ca { left:18%; top:24%; }
+.country-us { left:19%; top:43%; }
+.country-gb { left:44%; top:24%; }
+.country-fr { left:43%; top:39%; }
+.country-se { left:54%; top:14%; }
+.country-fi { left:62%; top:14%; }
+.country-pl { left:61%; top:26%; }
+.country-cz { left:54%; top:31%; }
+.country-ro { left:62%; top:35%; }
+.country-si { left:53%; top:39%; }
+.country-bg { left:62%; top:44%; }
+.country-ua { left:70%; top:29%; }
+.country-ae { left:66%; top:60%; }
+.country-kr { left:84%; top:40%; }
+.country-jp { left:93%; top:35%; }
+.country-other { left:89%; top:78%; }
 .country-filter-note { margin-top:5px; color:#667085; font-size:9px; text-align:center; }
 .world-map-credit { margin-top:3px; color:#98a2b3; font-size:7px; text-align:right; }
 @media (min-width: 700px) {
   .world-map-panel { margin:0 20px 16px; padding:12px 14px 13px; }
   .world-map-title { font-size:13px; }
   .world-map-summary { font-size:10px; }
+  .world-map-canvas { height:240px; }
+  .country-pin { min-height:26px; padding:3px 8px; font-size:10px; }
+  .country-pin .flag { font-size:15px; }
+  .country-pin.tight { font-size:9px; padding:3px 6px; }
+  .country-pin.callout-right::after, .country-pin.callout-left::after { width:14px; }
+  .country-pin.callout-up::after, .country-pin.callout-down::after { height:14px; }
+}
+  .world-map-title { font-size:13px; }
+  .world-map-summary { font-size:10px; }
   .country-pin { min-height:27px; padding:3px 8px; font-size:10px; }
   .country-pin .flag { font-size:15px; }
-  .country-chip { padding:5px 9px; font-size:10px; }
-}
+  }
   .world-map-title { font-size:13px; }
   .world-map-canvas { height:205px; }
   .country-pin { min-height:29px; padding:4px 9px; font-size:10px; }
@@ -148,10 +167,11 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   .tab-button { height: 38px; font-size: 13px; }
   .utility-row { grid-template-columns: repeat(2,minmax(0,1fr)); max-width: 600px; }
   .utility-box { height: 36px; padding: 0 10px; }
-  .utility-label, .language-order-toggle, .date-input { font-size: 12px; }
-  .language-order-toggle, .date-input { height: 28px; }
-  .language-order-toggle { min-width: 0; padding: 0 8px; font-size: 12px; }
-  .date-input { min-width: 112px; padding: 0 22px 0 8px; font-size: 12px; font-weight: 800; text-align: center; }
+  .utility-label, .language-order-toggle { font-size: 12px; }
+  .language-order-toggle { height: 28px; min-width: 0; padding: 0 8px; font-size: 12px; }
+  .date-control { min-width: 112px; height: 28px; }
+  .date-display { padding: 0 20px 0 7px; font-size: 12px; line-height: 28px; font-weight: 800; text-align: center; }
+  .date-calendar { right: 7px; font-size: 11px; }
   main { padding: 18px 20px 44px; }
   .favorites-panel { margin-bottom: 16px; padding: 16px; border-radius: 12px; }
   .favorites-title { margin-bottom: 12px; font-size: 16px; }
@@ -290,7 +310,11 @@ header,
         </div>
         <label class="utility-box date-picker-box" for="archive-date">
           <span class="utility-label">날짜 보기</span>
-          <input id="archive-date" class="date-input" type="date" aria-label="기사 날짜 선택">
+          <span class="date-control">
+            <span id="archive-date-display" class="date-display">0000.00.00</span>
+            <span class="date-calendar" aria-hidden="true">▾</span>
+            <input id="archive-date" class="date-input" type="date" aria-label="기사 날짜 선택">
+          </span>
         </label>
       </div>
     </div>
@@ -298,39 +322,30 @@ header,
   <section id="world-map-panel" class="world-map-panel">
     <div class="world-map-head">
       <div class="world-map-title-wrap">
-        <div class="world-map-title">🌐 국가별 기사 지도</div>
+        <div class="world-map-title">🌐 국가별 기사</div>
         <div id="world-map-summary" class="world-map-summary">현재 탭 전체 0건 · 국가 합계 0건</div>
       </div>
-      <button id="country-all" class="world-map-all active" type="button">전체</button>
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터 지도">
       <img class="world-map-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png" alt="세계지도" loading="lazy">
+      <button class="country-pin country-ca callout-down" data-country-filter="CA" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
       <button class="country-pin country-us" data-country-filter="US" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb callout-down" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fr tight callout-down" data-country-filter="FR" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-se tight callout-down" data-country-filter="SE" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fi tight callout-down" data-country-filter="FI" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pl tight callout-down" data-country-filter="PL" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cz tight callout-right" data-country-filter="CZ" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ro tight callout-right" data-country-filter="RO" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-si tight callout-left" data-country-filter="SI" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg callout-right" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua callout-left" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae callout-up" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
       <button class="country-pin country-kr" data-country-filter="KR" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-gb" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-bg" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ua" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ae" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-jp callout-left" data-country-filter="JP" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
-    <div class="country-filter-list" aria-label="국가별 기사 목록">
-      <button class="country-chip" data-country-filter="US" type="button">🇺🇸 미국 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="KR" type="button">🇰🇷 한국 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="GB" type="button">🇬🇧 영국 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="BG" type="button">🇧🇬 불가리아 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="UA" type="button">🇺🇦 우크라이나 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="AE" type="button">🇦🇪 UAE <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="RO" type="button">🇷🇴 루마니아 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="CZ" type="button">🇨🇿 체코 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="PL" type="button">🇵🇱 폴란드 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="SI" type="button">🇸🇮 슬로베니아 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="FI" type="button">🇫🇮 핀란드 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="JP" type="button">🇯🇵 일본 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="CA" type="button">🇨🇦 캐나다 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="FR" type="button">🇫🇷 프랑스 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="SE" type="button">🇸🇪 스웨덴 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="OTHER" type="button">🌐 기타 <span class="chip-count">0건</span></button>
-    </div>
-    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다.</div>
+    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다. 다시 누르면 해제됩니다.</div>
     <div class="world-map-credit">Map: Wikimedia Commons · CC0</div>
   </section>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
@@ -617,7 +632,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -646,35 +661,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5e8377ddd3b403852c512537.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260806000253"
-  data-title="김정관, “성과급, 주총 승인 거치도록 상법 개정”"
-  data-publisher="전자신문"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-published="1785992852"
-  data-country="KR"
-  data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
-    <div class="article-snippet">김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2957cdd158b2b5c17d05c085.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1261,7 +1247,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1321,35 +1307,6 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260807000021"
-  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
-  data-publisher="전자신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-published="1786060800"
-  data-country="KR"
-  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
-    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
 </div>
 </section>
 
@@ -1404,38 +1361,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.joongang.co.kr/article/25451997"
-  data-title="‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보"
-  data-publisher="중앙일보"
-  data-group="원자력"
-  data-language="ko"
-  data-published="1786288932"
-  data-country="GB"
-  data-search="‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보 중앙일보 원자력 유럽이 다가오는 일식에 긴장하고 있다. 폭염과 가뭄으로 전력난을 겪는 와중에 오는 12일(현지시간)로 예정된 일식으로 태양광 발전량마저 급감할 수 있어서다. 일식은 태양과 달, 지구가 일직선상에 배열되며 달이 태양을 가리는 현상이다. 파이낸셜타임스(ft)에 따르면 스페인 북부, 포르투갈 북동부에선 달이 태양을 전부 다 가리는 개기일식이, 영국과 프랑스, 이탈리아 북부에서는 태양의 90%가 가려지는 부분일식이 발생할 것으로 예측됐다."
-  tabindex="0" role="link">
-  <div class="article-number">1</div>
-  <div class="preview-copy">
-    <div class="publisher">중앙일보</div>
-    <div class="headline">‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보</div>
-    <div class="article-snippet">유럽이 다가오는 일식에 긴장하고 있다. 폭염과 가뭄으로 전력난을 겪는 와중에 오는 12일(현지시간)로 예정된 일식으로 태양광 발전량마저 급감할 수 있어서다. 일식은 태양과 달, 지구가 일직선상에 배열되며 달이 태양을 가리는 현상이다. 파이낸셜타임스(FT)에 따르면 스페인 북부, 포르투갈 북동부에선 달이 태양을 전부 다 가리는 개기일식이, 영국과 프랑스, 이탈리아 북부에서는 태양의 90%가 가려지는 부분일식이 발생할 것으로 예측됐다.</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/cb1eb760cfb102fa69e2c344.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70603"
   data-title="원자력공사 설립…당당히 행동에 나섭시다"
@@ -1446,7 +1374,7 @@ header,
   data-country="OTHER"
   data-search="원자력공사 설립…당당히 행동에 나섭시다 에너지타임즈 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">원자력공사 설립…당당히 행동에 나섭시다</div>
@@ -1475,7 +1403,7 @@ header,
   data-country="KR"
   data-search="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인 한국원자력신문 원자력 김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
@@ -1504,7 +1432,7 @@ header,
   data-country="KR"
   data-search="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행 한국원자력신문 원자력 한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
@@ -1523,7 +1451,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://apnews.com/article/japan-nagasaki-us-atomic-bomb-takaichi-security-79754e6066008e68c22681128c3c8068"
   data-title="Nagasaki marks 81st atomic bomb anniversary as mayor says nuclear deterrence only increases risk"
   data-publisher="Associated Press"
@@ -1533,10 +1461,10 @@ header,
   data-country="US"
   data-search="nagasaki marks 81st atomic bomb anniversary as mayor says nuclear deterrence only increases risk associated press 원자력 nagasaki has marked the 81st anniversary of the u.s. atomic bombing. the mayor called nuclear weapons &quot;absolute evil&quot; on sunday and denounced growing support for nuclear deterrence."
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">Associated Press</div>
-    <div class="headline"><span class="new-badge">NEW</span>Nagasaki marks 81st atomic bomb anniversary as mayor says nuclear deterrence only increases risk</div>
+    <div class="headline">Nagasaki marks 81st atomic bomb anniversary as mayor says nuclear deterrence only increases risk</div>
     <div class="article-snippet">Nagasaki has marked the 81st anniversary of the U.S. atomic bombing. The mayor called nuclear weapons &quot;absolute evil&quot; on Sunday and denounced growing support for nuclear deterrence.</div>
     <div class="status-line">
       <div class="status-text">
@@ -1562,7 +1490,7 @@ header,
   data-country="OTHER"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">Nikkei Asia</div>
     <div class="headline">India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
@@ -1591,7 +1519,7 @@ header,
   data-country="OTHER"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     <div class="headline">US collaboration to study used nuclear fuel recycling</div>
@@ -1958,35 +1886,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.dailian.co.kr/news/view/1676861/%EB%8C%80%EC%9A%B0%EA%B1%B4%EC%84%A4-%EB%AA%A9%EB%8F%998%EB%8B%A8%EC%A7%80-%EC%88%98%EC%A3%BC-%EC%A0%95%EC%A1%B0%EC%A4%80%E8%8B%B1-A-2026"
-  data-title="대우건설, 목동8단지 수주 정조준…英 ARUP과 협업"
-  data-publisher="데일리안"
-  data-group="타 건설사"
-  data-language="ko"
-  data-published="1786351920"
-  data-country="GB"
-  data-search="대우건설, 목동8단지 수주 정조준…英 arup과 협업 데일리안 타 건설사 대우건설이 글로벌 기업과 협업해 목동신시가지 8단지 재건축 수주에 나선다.대우건설은 서울 양천구 목동 8단지 재건축 정비사업 수주를 위해 세계적인 구조 설계 및 엔지니어링 기업인 아룹(arup)과 전략적 협업에 나선다고 10일 밝혔다.영국 런던에 본사를 둔 arup은 전 세계 100여 개국에서 활동하고 있는 글로벌 엔지니어링 기업이다. 초고층·대형 복합개발"
-  tabindex="0" role="link">
-  <div class="article-number">6</div>
-  <div class="preview-copy">
-    <div class="publisher">데일리안</div>
-    <div class="headline">대우건설, 목동8단지 수주 정조준…英 ARUP과 협업</div>
-    <div class="article-snippet">대우건설이 글로벌 기업과 협업해 목동신시가지 8단지 재건축 수주에 나선다.대우건설은 서울 양천구 목동 8단지 재건축 정비사업 수주를 위해 세계적인 구조 설계 및 엔지니어링 기업인 아룹(ARUP)과 전략적 협업에 나선다고 10일 밝혔다.영국 런던에 본사를 둔 ARUP은 전 세계 100여 개국에서 활동하고 있는 글로벌 엔지니어링 기업이다. 초고층·대형 복합개발</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a2f709468a0231be69a09fff.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.dt.co.kr/article/12077472"
   data-title="DL이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화”"
   data-publisher="디지털타임스"
@@ -1996,7 +1895,7 @@ header,
   data-country="OTHER"
   data-search="dl이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화” 디지털타임스 타 건설사 dl이앤씨가 전국 건설 현장의 혹서기 안전관리를 강화하고 근로자 건강 보호를 위한 현장 점검을 실시했다고 10일 밝혔다. 박상신 dl이앤씨 대표이사도 지난 1일 천안 성성 현장을 찾아 안전실태 점검을 실시하고 현장 관계자들에게 안전수칙을 철저히 준수해 근로자 안전 확"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">디지털타임스</div>
     <div class="headline">DL이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화”</div>
@@ -2025,7 +1924,7 @@ header,
   data-country="OTHER"
   data-search="[부동산 pf 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화 블로터 타 건설사 현대엔지니어링이 전액 연대보증한 &#x27;힐스테이트 과천 디센트로&#x27; 자산담보부대출 800억원의 만기가 11월 6일로 재연장됐다. 지난해 12월 실행된 908억원 가운데 첫 만기에 상환된 원금은 108억원에 그쳤고 남은 800억원은 지난 4월에 이어 다시 만기가 연장됐다. 과천 디센트로는 지난"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">블로터</div>
     <div class="headline">[부동산 PF 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화</div>
@@ -2054,7 +1953,7 @@ header,
   data-country="KR"
   data-search="한국토지신탁, &#x27;써밋 클라비온&#x27; 14일 견본주택 개관…176가구 일반공급 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = 한국토지신탁이 오는 14일 서울 영등포구 신길뉴타운에 들어서는 &#x27;써밋 클라비온&#x27; 견본주택을 개관하고 열고 분양에 나선다고 10일 밝혔다. 이 단지는 신길10재정비촉진구역 주택재건축정비사업으로 조성된다. 한국토지신탁이 시행을 맡고 대우건설이 시공한다. 지하 4층~지상 최고 29층, 8개 동, 총 812가구 규모로 이 가운데 전용면적 44~59㎡ 176가구가 일반분양 물량이다. 청약 일정은 오는 18일 특별공급을 시작으로 19일 해당지역 1순위, 20일 기타지역 1순위 순으로 진행된다. 당첨자 발표는 28일이다. 계약은 9월 8일부터 10"
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">한국토지신탁, &#x27;써밋 클라비온&#x27; 14일 견본주택 개관…176가구 일반공급</div>
@@ -2083,7 +1982,7 @@ header,
   data-country="OTHER"
   data-search="gs건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2 - 뉴스웨이 뉴스웨이 타 건설사 gs건설이 올해 상반기 도시정비사업 수주 목표 8조원 중 93%에 해당하는 7조4695억원을 달성했다. 하지만 성남 상대원2구역 시공사 지위와 관련된 법원 결정으로 실질 수주액은 5조5477억원까지 줄어들 수 있다. 하반기 목동·여의도 등 대형 사업지 수주 여부가 목표 달성의 핵심 변수가 될 전망이다."
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">뉴스웨이</div>
     <div class="headline">GS건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2 - 뉴스웨이</div>
@@ -2112,7 +2011,7 @@ header,
   data-country="OTHER"
   data-search="대우건설, ‘장위 푸르지오 마크원’ 10일 무순위 청약 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = 서울 장위뉴타운에서 공급 중인 ‘장위 푸르지오 마크원’이 기존 일반분양 물량의 96%를 계약한 데 이어 잔여 39가구에 대한 무순위"
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">건설타임즈</div>
     <div class="headline">대우건설, ‘장위 푸르지오 마크원’ 10일 무순위 청약 - 건설타임즈</div>
@@ -2128,6 +2027,35 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/cdcb1a7409335dd9c9989525.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260810_0003742180"
+  data-title="대우건설, 목동8단지에 글로벌 엔지니어링 &#x27;ARUP&#x27;과 협업"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-published="1786319143"
+  data-country="GB"
+  data-search="대우건설, 목동8단지에 글로벌 엔지니어링 &#x27;arup&#x27;과 협업 뉴시스 타 건설사 [서울=뉴시스]정유선 기자 = 대우건설이 서울 양천구 목동8단지 재건축정비사업 수주를 위해 세계적인 구조 설계·엔지니어링 기업인 arup(아룹)과 협업한다고 10일 밝혔다. 영국 런던에 본사를 둔 arup은 전 세계 100여 개국 이상에서 활동하는 글로벌 엔지니어링 기업이다. 말레이시아 &#x27;메르데카 118&#x27;(679m), 중국 &#x27;상하이 타워&#x27;(632m), 싱가포르 &#x27;마리나 베이 샌즈&#x27; 등 세계 주요 랜드마크 건축물의 구조 설계와 엔지니어링을 담당하며 기술력을 인정받았다. arup은 특히 고층 건축물에 필수적인 구조 시스템 최적화, 풍하중 분석, 성능 기반 내진 설계 등"
+  tabindex="0" role="link">
+  <div class="article-number">11</div>
+  <div class="preview-copy">
+    <div class="publisher">뉴시스</div>
+    <div class="headline"><span class="new-badge">NEW</span>대우건설, 목동8단지에 글로벌 엔지니어링 &#x27;ARUP&#x27;과 협업</div>
+    <div class="article-snippet">[서울=뉴시스]정유선 기자 = 대우건설이 서울 양천구 목동8단지 재건축정비사업 수주를 위해 세계적인 구조 설계·엔지니어링 기업인 ARUP(아룹)과 협업한다고 10일 밝혔다. 영국 런던에 본사를 둔 ARUP은 전 세계 100여 개국 이상에서 활동하는 글로벌 엔지니어링 기업이다. 말레이시아 &#x27;메르데카 118&#x27;(679m), 중국 &#x27;상하이 타워&#x27;(632m), 싱가포르 &#x27;마리나 베이 샌즈&#x27; 등 세계 주요 랜드마크 건축물의 구조 설계와 엔지니어링을 담당하며 기술력을 인정받았다. ARUP은 특히 고층 건축물에 필수적인 구조 시스템 최적화, 풍하중 분석, 성능 기반 내진 설계 등</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c619831307d7832f2db2fafe.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -2376,7 +2304,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2525,35 +2453,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.etnews.com/20260806000421"
-  data-title="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라"
-  data-publisher="전자신문"
-  data-group="원자력"
-  data-language="ko"
-  data-published="1786338000"
-  data-country="KR"
-  data-search="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라 전자신문 원자력 김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(gaas) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(leo) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물"
-  tabindex="0" role="link">
-  <div class="article-number">6</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라</div>
-    <div class="article-snippet">김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(GaAs) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(LEO) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/aeca00827199738225c41cb9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260810_0003742691"
   data-title="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향"
   data-publisher="뉴시스"
@@ -2563,7 +2462,7 @@ header,
   data-country="KR"
   data-search="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향 뉴시스 원자력 [세종=뉴시스]임하은 기자 = 지난해 결함 보상(리콜) 건수가 전년보다 4.7% 증가해 2600건대로 집계됐다. 해외리콜 제품의 국내 오픈마켓 유통이 늘어나면서 소비자기본법에 따른 판매 차단 조치가 적극 실시된 영향이다. 공정거래위원회는 10일 중앙행정기관과 지방자치단체, 한국소비자원의 지난해 리콜 실적을 분석해 발표했다. 지난해 리콜을 실시한 중앙행정기관은 국토교통부, 기후에너지환경부, 식품의약품안전처, 원자력안전위원회, 국가기술표준원 등 5곳이다. 지난해 리콜 건수는 2656건으로 전년 2537건보다 119건(4.7%) 증가했다. 전체 리콜 건수는 2022년 이후"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향</div>
@@ -2592,7 +2491,7 @@ header,
   data-country="OTHER"
   data-search="폭염과 ai 시대, 원전 더 지어야 하나? - 뉴스펭귄 뉴스펭귄 원자력 2.8gw와 비어 있는 처분장새로 지을 원전 2기의 설비용량은 2.8gw다. 이용률 85%를 적용하면 연간 21twh를 생산한다. 국내 데이터센터의 2038년 추"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">뉴스펭귄</div>
     <div class="headline">폭염과 AI 시대, 원전 더 지어야 하나? - 뉴스펭귄</div>
@@ -2621,7 +2520,7 @@ header,
   data-country="JP"
   data-search="nihon hidankyo renews call for world without nuclear weapons the japan times 원자력 the japan confederation of a- and h-bomb sufferers organizations, held a news conference in nagasaki on the 70th anniversary of the group’s establishment."
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">The Japan Times</div>
     <div class="headline">Nihon Hidankyo renews call for world without nuclear weapons</div>
@@ -3146,7 +3045,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3206,35 +3105,6 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260807000021"
-  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
-  data-publisher="전자신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-published="1786060800"
-  data-country="KR"
-  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
-    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
 </div>
 </section>
 
@@ -3289,38 +3159,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.joongang.co.kr/article/25451997"
-  data-title="‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보"
-  data-publisher="중앙일보"
-  data-group="원자력"
-  data-language="ko"
-  data-published="1786288932"
-  data-country="GB"
-  data-search="‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보 중앙일보 원자력 유럽이 다가오는 일식에 긴장하고 있다. 폭염과 가뭄으로 전력난을 겪는 와중에 오는 12일(현지시간)로 예정된 일식으로 태양광 발전량마저 급감할 수 있어서다. 일식은 태양과 달, 지구가 일직선상에 배열되며 달이 태양을 가리는 현상이다. 파이낸셜타임스(ft)에 따르면 스페인 북부, 포르투갈 북동부에선 달이 태양을 전부 다 가리는 개기일식이, 영국과 프랑스, 이탈리아 북부에서는 태양의 90%가 가려지는 부분일식이 발생할 것으로 예측됐다."
-  tabindex="0" role="link">
-  <div class="article-number">1</div>
-  <div class="preview-copy">
-    <div class="publisher">중앙일보</div>
-    <div class="headline">‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보</div>
-    <div class="article-snippet">유럽이 다가오는 일식에 긴장하고 있다. 폭염과 가뭄으로 전력난을 겪는 와중에 오는 12일(현지시간)로 예정된 일식으로 태양광 발전량마저 급감할 수 있어서다. 일식은 태양과 달, 지구가 일직선상에 배열되며 달이 태양을 가리는 현상이다. 파이낸셜타임스(FT)에 따르면 스페인 북부, 포르투갈 북동부에선 달이 태양을 전부 다 가리는 개기일식이, 영국과 프랑스, 이탈리아 북부에서는 태양의 90%가 가려지는 부분일식이 발생할 것으로 예측됐다.</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/cb1eb760cfb102fa69e2c344.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70603"
   data-title="원자력공사 설립…당당히 행동에 나섭시다"
@@ -3331,7 +3172,7 @@ header,
   data-country="OTHER"
   data-search="원자력공사 설립…당당히 행동에 나섭시다 에너지타임즈 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">원자력공사 설립…당당히 행동에 나섭시다</div>
@@ -3360,7 +3201,7 @@ header,
   data-country="KR"
   data-search="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인 한국원자력신문 원자력 김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
@@ -3389,7 +3230,7 @@ header,
   data-country="KR"
   data-search="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행 한국원자력신문 원자력 한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
@@ -3408,7 +3249,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://apnews.com/article/japan-nagasaki-us-atomic-bomb-takaichi-security-79754e6066008e68c22681128c3c8068"
   data-title="Nagasaki marks 81st atomic bomb anniversary as mayor says nuclear deterrence only increases risk"
   data-publisher="Associated Press"
@@ -3418,10 +3259,10 @@ header,
   data-country="US"
   data-search="nagasaki marks 81st atomic bomb anniversary as mayor says nuclear deterrence only increases risk associated press 원자력 nagasaki has marked the 81st anniversary of the u.s. atomic bombing. the mayor called nuclear weapons &quot;absolute evil&quot; on sunday and denounced growing support for nuclear deterrence."
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">Associated Press</div>
-    <div class="headline"><span class="new-badge">NEW</span>Nagasaki marks 81st atomic bomb anniversary as mayor says nuclear deterrence only increases risk</div>
+    <div class="headline">Nagasaki marks 81st atomic bomb anniversary as mayor says nuclear deterrence only increases risk</div>
     <div class="article-snippet">Nagasaki has marked the 81st anniversary of the U.S. atomic bombing. The mayor called nuclear weapons &quot;absolute evil&quot; on Sunday and denounced growing support for nuclear deterrence.</div>
     <div class="status-line">
       <div class="status-text">
@@ -3447,7 +3288,7 @@ header,
   data-country="OTHER"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">Nikkei Asia</div>
     <div class="headline">India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
@@ -3476,7 +3317,7 @@ header,
   data-country="OTHER"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     <div class="headline">US collaboration to study used nuclear fuel recycling</div>
@@ -3865,7 +3706,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3894,35 +3735,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5e8377ddd3b403852c512537.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260806000253"
-  data-title="김정관, “성과급, 주총 승인 거치도록 상법 개정”"
-  data-publisher="전자신문"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-published="1785992852"
-  data-country="KR"
-  data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
-    <div class="article-snippet">김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2957cdd158b2b5c17d05c085.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -46358,7 +46170,10 @@ document.querySelectorAll(".tab-button").forEach(button => {
     panel.classList.add("active");
 
     const periodDate = panel.getAttribute("data-report-date");
-    if(periodDate && archiveInput) archiveInput.value = periodDate;
+    if(periodDate && archiveInput){
+      archiveInput.value = periodDate;
+      updateArchiveDateDisplay(periodDate);
+    }
 
     if(typeof filterArticles === "function") filterArticles();
     if(typeof updateCountryMapCounts === "function") updateCountryMapCounts();
@@ -46373,11 +46188,22 @@ const archiveDates=[...document.querySelectorAll(".archive-panel")]
   .sort();
 
 const archiveInput=document.getElementById("archive-date");
+const archiveDateDisplay=document.getElementById("archive-date-display");
+
+function formatArchiveDateDisplay(value){
+  return value ? value.replaceAll("-", ".") : "";
+}
+
+function updateArchiveDateDisplay(value){
+  if(archiveDateDisplay) archiveDateDisplay.textContent=formatArchiveDateDisplay(value);
+}
+
 
 if(archiveInput && archiveDates.length){
   archiveInput.min=archiveDates[0];
   archiveInput.max=archiveDates[archiveDates.length-1];
   archiveInput.value=archiveDates[archiveDates.length-1];
+  updateArchiveDateDisplay(archiveInput.value);
 }
 
 function openArchiveDate(value){
@@ -46394,7 +46220,10 @@ function openArchiveDate(value){
 
   panel.classList.add("active");
 
-  if(archiveInput) archiveInput.value=value;
+  if(archiveInput){
+    archiveInput.value=value;
+    updateArchiveDateDisplay(value);
+  }
   if(typeof filterArticles==="function") filterArticles();
   if(typeof updateCountryMapCounts==="function") updateCountryMapCounts();
   if(typeof renderFavorites==="function") renderFavorites();
