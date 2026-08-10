@@ -2039,6 +2039,59 @@ OTHER_CONSTRUCTION_TERMS = {
     "두산에너빌리티", "doosan enerbility",
 }
 
+# 타 건설사는 원전·원자력 관련 기사만 노출합니다.
+# 현대건설은 당사이므로 이 제한을 적용하지 않습니다.
+GLOBAL_NUCLEAR_WEAPONS_EXCLUDE_TERMS = {
+    # Korean
+    "원자폭탄", "원폭", "핵폭탄", "핵무기", "핵탄두", "핵실험",
+    "핵공격", "핵전쟁", "핵억제", "핵보복", "핵개발",
+    "핵미사일", "핵 잠수함", "핵잠수함", "원자력 잠수함", "원자력잠수함",
+    # English
+    "atomic bomb", "nuclear bomb", "nuclear weapon", "nuclear weapons",
+    "nuclear warhead", "nuclear warheads", "warhead",
+    "nuclear test", "nuclear strike", "nuclear deterrence",
+    "nuclear retaliation", "nuclear warfare",
+    "nuclear missile", "ballistic missile", "icbm", "slbm",
+    "nuclear submarine",
+}
+
+OTHER_CONSTRUCTION_NUCLEAR_TERMS = {
+    "원전", "원자력", "원자로", "핵발전",
+    "원전 건설", "원전건설", "원전 사업", "원전사업",
+    "원전 수주", "원전수주", "원전 시공", "원전시공",
+    "원전 epc", "원전epc",
+    "원전 해체", "원전해체", "원자력 해체", "원자력해체",
+    "smr", "소형모듈원자로", "소형 모듈 원자로",
+    "차세대원자로", "차세대 원자로",
+    "nuclear", "reactor", "nuclear power", "nuclear energy",
+    "nuclear power plant", "nuclear project", "nuclear construction",
+    "nuclear new build", "new nuclear build",
+    "nuclear epc", "nuclear decommissioning",
+    "small modular reactor", "advanced reactor",
+    "ap1000", "ap300",
+}
+
+
+def is_excluded_military_nuclear_article(title: str, summary: str = "") -> bool:
+    """
+    원자폭탄/핵폭탄/핵무기/핵실험/핵잠수함 등
+    군사·무기성 핵 이슈는 전체 기사에서 제외합니다.
+    사용자는 원자력발전·원전·SMR 관련 기사만 보기를 원합니다.
+    """
+    haystack = html.unescape(f"{title} {summary}").lower()
+    return any(term in haystack for term in GLOBAL_NUCLEAR_WEAPONS_EXCLUDE_TERMS)
+
+
+def is_other_construction_nuclear_article(title: str, summary: str = "") -> bool:
+    """
+    타 건설사 기사에만 적용하는 원전·원자력 관련성 필터입니다.
+    일반 주택/토목/철도/도로/화력/가스발전 등은 제외하고,
+    원전·원자력·SMR·원전해체·원전 EPC 관련 기사만 남깁니다.
+    """
+    haystack = html.unescape(f"{title} {summary}").lower()
+    return any(term in haystack for term in OTHER_CONSTRUCTION_NUCLEAR_TERMS)
+
+
 
 SHIN_HANUL_TERMS = {
     "신한울 원전", "신한울원전",
@@ -2114,19 +2167,24 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
 
 def classify_construction_group(group: str, title: str, summary: str) -> str | None:
     """
-    타 건설사 검색 결과라도 제목이나 RSS 기사 요약에 현대건설이 포함되면
-    현대건설 항목으로 분류합니다.
+    건설사 분류 기준:
+    - 현대건설: 당사 관련 기사이므로 원전 여부와 관계없이 현대건설 항목에 유지
+    - 타 건설사: 원전·원자력·SMR·원전해체·원전 EPC 관련 기사만 유지
     """
     if group != "타 건설사":
         return group
 
     haystack = html.unescape(f"{title} {summary}").lower()
 
+    # 타 건설사 검색 결과 안에 현대건설이 함께 잡힌 경우에는
+    # 당사 기사로 재분류하며 원자력 관련성 제한을 적용하지 않습니다.
     if any(term in haystack for term in HYUNDAI_EC_TERMS):
         return "현대건설"
 
     if any(term in haystack for term in OTHER_CONSTRUCTION_TERMS):
-        return "타 건설사"
+        if is_other_construction_nuclear_article(title, summary):
+            return "타 건설사"
+        return None
 
     return None
 
@@ -2235,6 +2293,10 @@ def is_government_senior_article(article: Article) -> bool:
 def classify_direct_article(title: str, summary: str) -> str | None:
     """언론사 직접 수집 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
+
+    # 군사·무기성 핵 이슈는 전체에서 제외합니다.
+    if is_excluded_military_nuclear_article(title, summary):
+        return None
 
     # 기존 우선 분류 규칙을 먼저 적용합니다.
     priority_group = classify_priority_company_group("원자력", title, summary)
@@ -2736,40 +2798,250 @@ def escape(text: str) -> str:
 
 
 
-COUNTRY_RULES = [
-    ("BG", ("불가리아", "bulgaria", "kozloduy", "코즐로두이")),
-    ("UA", ("우크라이나", "ukraine", "kyiv", "키이우")),
-    ("AE", ("아랍에미리트", "uae", "barakah", "바라카", "emirates")),
-    ("GB", ("영국", "united kingdom", "great britain", "gbn", "great british nuclear")),
-    ("RO", ("루마니아", "romania", "cernavoda", "체르나보다")),
-    ("CZ", ("체코", "czech", "dukovany", "두코바니")),
-    ("PL", ("폴란드", "poland")),
-    ("SI", ("슬로베니아", "slovenia", "krško", "krsko")),
-    ("FI", ("핀란드", "finland")),
-    ("JP", ("일본", "japan", "tokyo", "도쿄")),
-    ("CA", ("캐나다", "canada", "ontario", "darlington")),
-    ("FR", ("프랑스", "france", "edf")),
-    ("SE", ("스웨덴", "sweden")),
-    ("US", (
-        "미국", "united states", "u.s.", "u.s.a.", "usa", "texas", "michigan",
-        "palisades", "fermi america", "project matador", "amarillo",
-        "westinghouse", "nrc", "doe", "department of energy"
-    )),
-    ("KR", (
-        "한국", "대한민국", "south korea", "korea", "현대건설",
-        "한국수력원자력", "한수원", "한국전력", "한전",
-        "산업통상", "기후에너지환경부", "과학기술정보통신부"
-    )),
-]
+COUNTRY_META = {
+    "US": ("🇺🇸", "미국"),
+    "KR": ("🇰🇷", "한국"),
+    "GB": ("🇬🇧", "영국"),
+    "BG": ("🇧🇬", "불가리아"),
+    "UA": ("🇺🇦", "우크라이나"),
+    "AE": ("🇦🇪", "UAE"),
+    "RO": ("🇷🇴", "루마니아"),
+    "CZ": ("🇨🇿", "체코"),
+    "PL": ("🇵🇱", "폴란드"),
+    "SI": ("🇸🇮", "슬로베니아"),
+    "FI": ("🇫🇮", "핀란드"),
+    "JP": ("🇯🇵", "일본"),
+    "CA": ("🇨🇦", "캐나다"),
+    "FR": ("🇫🇷", "프랑스"),
+    "SE": ("🇸🇪", "스웨덴"),
+    "CN": ("🇨🇳", "중국"),
+    "IN": ("🇮🇳", "인도"),
+    "AU": ("🇦🇺", "호주"),
+    "RU": ("🇷🇺", "러시아"),
+    "TR": ("🇹🇷", "튀르키예"),
+    "SA": ("🇸🇦", "사우디"),
+    "ZA": ("🇿🇦", "남아공"),
+    "NL": ("🇳🇱", "네덜란드"),
+    "BE": ("🇧🇪", "벨기에"),
+    "CH": ("🇨🇭", "스위스"),
+    "OTHER": ("🌐", "기타"),
+}
+
+# 1순위: 실제 프로젝트·사업·부지 위치
+COUNTRY_PROJECT_TERMS = {
+    "US": (
+        "palisades", "팰리세이즈", "fermi america", "project matador",
+        "matador", "amarillo", "아마릴로", "texas", "텍사스",
+        "michigan", "미시간",
+    ),
+    "KR": (
+        "신한울", "새울", "고리", "월성", "한빛", "한울",
+        "신고리", "울진", "울주",
+    ),
+    "GB": ("gbn", "great british nuclear", "sizewell", "hinkley point"),
+    "BG": ("kozloduy", "코즐로두이"),
+    "UA": ("khmelnytskyi", "흐멜니츠키", "rivnе", "리우네"),
+    "AE": ("barakah", "바라카"),
+    "RO": ("cernavoda", "체르나보다"),
+    "CZ": ("dukovany", "두코바니", "temelin", "테멜린"),
+    "PL": ("lubiatowo", "루비아토보", "pomerania", "포메라니아"),
+    "SI": ("krško", "krsko", "크르슈코"),
+    "FI": ("olkiluoto", "올킬루오토", "hanhikivi", "한히키비"),
+    "JP": ("fukushima", "후쿠시마", "kashiwazaki", "가시와자키"),
+    "CA": ("darlington", "달링턴", "ontario", "온타리오"),
+    "FR": ("flamanville", "플라망빌"),
+    "SE": ("ringhals", "링할스", "forsmark", "포스마르크"),
+    "CN": ("taishan", "타이산", "sanmen", "산먼", "haiyang", "하이양", "xudapu", "쉬다푸"),
+    "IN": ("kudankulam", "쿠단쿨람", "jaitapur", "자이타푸르", "kaiga", "카이가"),
+    "AU": ("australian nuclear", "호주 원전"),
+    "RU": ("kursk ii", "쿠르스크", "leningrad ii", "레닌그라드", "rosatom project"),
+    "TR": ("akkuyu", "아쿠유", "sinop nuclear", "시노프 원전"),
+    "SA": ("saudi nuclear", "사우디 원전", "king abdullah city for atomic and renewable energy"),
+    "ZA": ("koeberg", "쿠버그"),
+    "NL": ("borssele", "보르셀"),
+    "BE": ("doel", "두엘", "tihange", "티앙주"),
+    "CH": ("beznau", "베츠나우", "gösgen", "goesgen", "괴스겐", "leibstadt", "라이프슈타트"),
+}
+
+# 2순위: 정부·규제기관·정책이 발생한 국가
+COUNTRY_GOVERNMENT_TERMS = {
+    "US": (
+        "nrc", "u.s. nuclear regulatory commission", "us nuclear regulatory commission",
+        "department of energy", "u.s. doe", "us doe", "미 에너지부", "미 원자력규제위원회",
+    ),
+    "KR": (
+        "산업통상", "산업부", "기후에너지환경부", "과학기술정보통신부",
+        "과기정통부", "원자력안전위원회", "원안위", "대한민국 정부", "한국 정부",
+    ),
+    "GB": ("office for nuclear regulation", "onr", "영국 정부"),
+    "FR": ("asn", "프랑스 정부"),
+    "CA": ("canadian nuclear safety commission", "cnsc", "캐나다 정부"),
+    "JP": ("nuclear regulation authority", "일본 원자력규제위원회", "일본 정부"),
+}
+
+# 3순위: 국가 자체가 기사 사건·장소로 명시된 경우
+COUNTRY_EXPLICIT_TERMS = {
+    "US": ("미국", "united states", "u.s.", "u.s.a.", "usa"),
+    "KR": ("한국", "대한민국", "south korea", "republic of korea", "korea"),
+    "GB": ("영국", "united kingdom", "great britain", "britain"),
+    "BG": ("불가리아", "bulgaria"),
+    "UA": ("우크라이나", "ukraine", "kyiv", "키이우"),
+    "AE": ("아랍에미리트", "uae", "united arab emirates", "emirates"),
+    "RO": ("루마니아", "romania"),
+    "CZ": ("체코", "czech republic", "czechia", "czech"),
+    "PL": ("폴란드", "poland"),
+    "SI": ("슬로베니아", "slovenia"),
+    "FI": ("핀란드", "finland"),
+    "JP": ("일본", "japan", "tokyo", "도쿄"),
+    "CA": ("캐나다", "canada"),
+    "FR": ("프랑스", "france"),
+    "SE": ("스웨덴", "sweden"),
+    "CN": ("중국", "china", "chinese"),
+    "IN": ("인도", "india", "indian"),
+    "AU": ("호주", "australia", "australian"),
+    "RU": ("러시아", "russia", "russian"),
+    "TR": ("튀르키예", "터키", "turkey", "türkiye", "turkiye", "turkish"),
+    "SA": ("사우디", "사우디아라비아", "saudi arabia", "saudi"),
+    "ZA": ("남아공", "남아프리카공화국", "south africa", "south african"),
+    "NL": ("네덜란드", "netherlands", "dutch"),
+    "BE": ("벨기에", "belgium", "belgian"),
+    "CH": ("스위스", "switzerland", "swiss"),
+}
+
+# 4순위: 프로젝트/정책/장소가 불명확할 때만 기업·기관의 본국 사용
+COUNTRY_HOME_ENTITY_TERMS = {
+    "US": (
+        "westinghouse", "웨스팅하우스", "holtec", "홀텍",
+        "fermi america",
+    ),
+    "KR": (
+        "현대건설", "hdec", "한국수력원자력", "한수원", "khnp",
+        "한국전력", "한전", "kepco", "두산에너빌리티",
+    ),
+    "FR": ("edf", "framatome",),
+    "RU": ("rosatom",),
+    "CN": ("cnnc", "cgn", "china national nuclear corporation",),
+    "IN": ("npcil", "nuclear power corporation of india",),
+    "CA": ("candu energy", "atkinsréalis", "atkinsrealis",),
+}
+
+
+def _article_country_text(article: Article) -> tuple[str, str]:
+    title = article.title.lower()
+    full = " ".join(
+        [article.title, article.description, article.publisher, article.group]
+    ).lower()
+    return title, full
+
+
+def _matching_country_codes(text: str, rules: dict[str, tuple[str, ...]]) -> list[str]:
+    hits: list[str] = []
+    for code, terms in rules.items():
+        if any(term.lower() in text for term in terms):
+            hits.append(code)
+    return hits
+
+
+def _best_country_match(
+    title: str,
+    full: str,
+    rules: dict[str, tuple[str, ...]],
+) -> str | None:
+    """
+    같은 우선순위 안에서 여러 국가가 잡히면
+    1) 제목에 직접 등장한 국가
+    2) 제목에서 더 앞에 등장한 국가
+    3) 전체 기사에서 등장 횟수가 많은 국가
+    순으로 대표국가를 선택합니다.
+    """
+    candidates: list[tuple[int, int, int, str]] = []
+    for order, (code, terms) in enumerate(rules.items()):
+        title_positions = [
+            title.find(term.lower())
+            for term in terms
+            if term.lower() in title
+        ]
+        title_pos = min(title_positions) if title_positions else 10**9
+        full_count = sum(full.count(term.lower()) for term in terms)
+        if title_pos < 10**9 or full_count > 0:
+            in_title_rank = 0 if title_pos < 10**9 else 1
+            candidates.append((in_title_rank, title_pos, -full_count, code))
+    if not candidates:
+        return None
+    candidates.sort()
+    return candidates[0][3]
+
+
+def detect_related_countries(article: Article) -> list[str]:
+    """
+    기사에 실제로 관련된 국가를 모두 찾습니다.
+    지도 집계에는 사용하지 않고 기사 카드의 보조 정보로만 사용합니다.
+    """
+    title, full = _article_country_text(article)
+    found: list[str] = []
+
+    for rules in (
+        COUNTRY_PROJECT_TERMS,
+        COUNTRY_GOVERNMENT_TERMS,
+        COUNTRY_EXPLICIT_TERMS,
+        COUNTRY_HOME_ENTITY_TERMS,
+    ):
+        for code in _matching_country_codes(full, rules):
+            if code not in found:
+                found.append(code)
+
+    primary = detect_article_country(article)
+    if primary != "OTHER":
+        found = [primary] + [code for code in found if code != primary]
+    return found
+
 
 def detect_article_country(article: Article) -> str:
-    haystack = " ".join(
-        [article.title, article.publisher, article.group, article.description]
-    ).lower()
-    for code, terms in COUNTRY_RULES:
-        if any(term.lower() in haystack for term in terms):
+    """
+    대표국가 1개만 반환합니다.
+    지도 기사 수는 이 대표국가만 집계하므로 전체 기사 수와 국가별 합계가 일치합니다.
+
+    우선순위:
+    1) 프로젝트/사업 위치
+    2) 정부·규제기관/정책 국가
+    3) 사건·장소로 명시된 국가
+    4) 기업/기관 본국
+    5) 기타
+    """
+    title, full = _article_country_text(article)
+
+    for rules in (
+        COUNTRY_PROJECT_TERMS,
+        COUNTRY_GOVERNMENT_TERMS,
+        COUNTRY_EXPLICIT_TERMS,
+        COUNTRY_HOME_ENTITY_TERMS,
+    ):
+        code = _best_country_match(title, full, rules)
+        if code:
             return code
+
+    # 영문 기사도 언어 때문에 '기타'로 보내지 않습니다.
+    # 다만 국가/프로젝트를 실제로 특정할 근거가 없는 글로벌·국제기구 기사만 OTHER로 남깁니다.
     return "OTHER"
+
+
+def render_related_country_tags(article: Article) -> str:
+    related = detect_related_countries(article)
+    if len(related) < 2:
+        return ""
+
+    labels = []
+    for code in related[:4]:
+        flag, name = COUNTRY_META.get(code, ("🌐", code))
+        labels.append(f"{flag} {name}")
+
+    return (
+        '<div class="country-tags">'
+        '<span class="country-tags-label">관련국가</span>'
+        f'<span class="country-tags-value">{escape(" · ".join(labels))}</span>'
+        '</div>'
+    )
+
 
 
 def render_card(article: Article, number: int, is_new: bool = False) -> str:
@@ -2790,6 +3062,8 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
     search_text = ' '.join(
         [article.title, article.publisher, article.group, article.description]
     ).lower()
+    primary_country = detect_article_country(article)
+    related_country_tags = render_related_country_tags(article)
 
     return f"""
 <article class="preview-card{' new-article' if is_new else ''}"
@@ -2799,12 +3073,13 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   data-group="{escape(article.group)}"
   data-language="{escape(article.language)}"
   data-published="{article.published.timestamp():.0f}"
-  data-country="{detect_article_country(article)}"
+  data-country="{primary_country}"
   data-search="{escape(search_text)}"
   tabindex="0" role="link">
   <div class="article-number">{number}</div>
   <div class="preview-copy">
     <div class="publisher">{escape(article.publisher)}</div>
+    {related_country_tags}
     <div class="headline">{new_badge}{escape(article.title)}</div>
     {snippet_html}
     <div class="status-line">
@@ -2874,6 +3149,16 @@ def final_deduplicate_articles(articles: list[Article]) -> list[Article]:
     따라서 과거 news_archive.json에 이미 저장된 반복 기사도 숨겨집니다.
     최신 기사부터 검사하여 대표 기사 1건만 유지합니다.
     """
+    # 기존 archive에 저장된 과거 기사에도 동일 기준을 적용합니다.
+    articles = [
+        article for article in articles
+        if not is_excluded_military_nuclear_article(article.title, article.description)
+        and (
+            article.group != "타 건설사"
+            or is_other_construction_nuclear_article(article.title, article.description)
+        )
+    ]
+
     selected: list[Article] = []
     for article in sorted(
         articles,
@@ -3190,47 +3475,164 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .world-map-title-wrap {{ min-width:0; }}
 .world-map-title {{ color:#23395d; font-size:11px; font-weight:900; }}
 .world-map-summary {{ margin-top:2px; color:#667085; font-size:8.5px; font-weight:700; }}
-.world-map-canvas {{ position:relative; width:100%; height:175px; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); }}
+.world-map-canvas {{ position:relative; width:100%; height:210px; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); box-sizing:border-box; }}
 .world-map-image {{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.92; }}
-.country-pin {{ position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:2px; min-height:21px; padding:2px 5px; border:1px solid rgba(35,57,93,.16); border-radius:999px; background:rgba(255,253,248,.97); color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.14); font-size:8px; font-weight:900; white-space:nowrap; cursor:pointer; z-index:3; }}
+.country-pin {{
+  position:absolute;
+  display:flex;
+  align-items:center;
+  gap:2px;
+  min-height:21px;
+  padding:2px 5px;
+  border:1px solid rgba(35,57,93,.16);
+  border-radius:999px;
+  background:rgba(255,253,248,.98);
+  color:#1f4f8a;
+  box-shadow:0 2px 5px rgba(17,24,39,.14);
+  font-size:8px;
+  font-weight:900;
+  white-space:nowrap;
+  cursor:pointer;
+  z-index:4;
+  box-sizing:border-box;
+  max-width:118px;
+}}
 .country-pin .flag {{ font-size:11px; line-height:1; }}
 .country-pin .country-count {{ color:#d92d20; font-weight:900; }}
 .country-pin.active {{ background:#fee500; color:#202124; border-color:rgba(35,57,93,.24); }}
 .country-pin[hidden] {{ display:none; }}
-.country-pin.callout-right::after, .country-pin.callout-left::after, .country-pin.callout-up::after, .country-pin.callout-down::after {{ content:""; position:absolute; background:rgba(35,57,93,.42); }}
-.country-pin.callout-right::after {{ left:100%; top:50%; width:10px; height:1px; }}
-.country-pin.callout-left::after {{ right:100%; top:50%; width:10px; height:1px; }}
-.country-pin.callout-up::after {{ left:50%; bottom:100%; width:1px; height:10px; }}
-.country-pin.callout-down::after {{ left:50%; top:100%; width:1px; height:10px; }}
-.country-pin.tight {{ font-size:7.4px; padding:2px 4px; }}
-.country-ca {{ left:18%; top:24%; }}
-.country-us {{ left:19%; top:43%; }}
-.country-gb {{ left:44%; top:24%; }}
-.country-fr {{ left:43%; top:39%; }}
-.country-se {{ left:54%; top:14%; }}
-.country-fi {{ left:62%; top:14%; }}
-.country-pl {{ left:61%; top:26%; }}
-.country-cz {{ left:54%; top:31%; }}
-.country-ro {{ left:62%; top:35%; }}
-.country-si {{ left:53%; top:39%; }}
-.country-bg {{ left:62%; top:44%; }}
-.country-ua {{ left:70%; top:29%; }}
-.country-ae {{ left:66%; top:60%; }}
-.country-kr {{ left:84%; top:40%; }}
-.country-jp {{ left:93%; top:35%; }}
-.country-other {{ left:89%; top:78%; }}
+
+/* 지도 핀은 실제 국가 위에 겹쳐 쓰지 않고, 빈 공간으로 빼서 연결선으로 표시 */
+.country-pin::after {{
+  content:"";
+  position:absolute;
+  height:1px;
+  background:rgba(35,57,93,.48);
+  transform-origin:left center;
+  pointer-events:none;
+  z-index:-1;
+}}
+
+/* 북미 */
+.country-ca {{ left:7px; top:20px; transform:none; }}
+.country-ca::after {{ left:100%; top:70%; width:38px; transform:rotate(25deg); }}
+.country-us {{ left:7px; top:72px; transform:none; }}
+.country-us::after {{ left:100%; top:50%; width:42px; transform:rotate(-6deg); }}
+
+/* 유럽: 위쪽과 왼쪽 빈 공간에 분산 */
+.country-gb {{ left:31%; top:8px; transform:none; }}
+.country-gb::after {{ left:48%; top:100%; width:20px; transform:rotate(88deg); }}
+.country-se {{ left:46%; top:8px; transform:none; }}
+.country-se::after {{ left:48%; top:100%; width:20px; transform:rotate(82deg); }}
+.country-fi {{ left:61%; top:8px; transform:none; }}
+.country-fi::after {{ left:45%; top:100%; width:22px; transform:rotate(98deg); }}
+.country-fr {{ left:31%; top:40px; transform:none; }}
+.country-fr::after {{ left:100%; top:55%; width:18px; transform:rotate(12deg); }}
+.country-cz {{ left:43%; top:40px; transform:none; }}
+.country-cz::after {{ left:52%; top:100%; width:17px; transform:rotate(76deg); }}
+.country-pl {{ left:55%; top:40px; transform:none; }}
+.country-pl::after {{ left:48%; top:100%; width:16px; transform:rotate(82deg); }}
+.country-si {{ left:34%; top:70px; transform:none; }}
+.country-si::after {{ left:100%; top:50%; width:18px; transform:rotate(-8deg); }}
+.country-ro {{ left:49%; top:70px; transform:none; }}
+.country-ro::after {{ left:100%; top:52%; width:18px; transform:rotate(7deg); }}
+.country-bg {{ left:62%; top:70px; transform:none; }}
+.country-bg::after {{ left:48%; top:100%; width:17px; transform:rotate(92deg); }}
+.country-ua {{ left:68%; top:103px; transform:none; }}
+.country-ua::after {{ right:100%; left:auto; top:48%; width:22px; transform:rotate(8deg); transform-origin:right center; }}
+
+/* 중동 */
+.country-ae {{ left:58%; bottom:20px; top:auto; transform:none; }}
+.country-ae::after {{ left:50%; bottom:100%; top:auto; width:24px; transform:rotate(-72deg); }}
+
+/* 동아시아: 한국/일본을 오른쪽 안쪽 rail에 위아래로 분리 */
+.country-jp {{
+  right:7px;
+  top:42px;
+  left:auto;
+  transform:none;
+}}
+.country-jp::after {{
+  right:100%;
+  left:auto;
+  top:60%;
+  width:34px;
+  transform:rotate(168deg);
+  transform-origin:right center;
+}}
+.country-kr {{
+  right:7px;
+  top:82px;
+  left:auto;
+  transform:none;
+}}
+.country-kr::after {{
+  right:100%;
+  left:auto;
+  top:45%;
+  width:45px;
+  transform:rotate(184deg);
+  transform-origin:right center;
+}}
+
+/* 기타는 오른쪽 아래 안전 영역 */
+.country-other {{
+  right:7px;
+  bottom:8px;
+  left:auto;
+  top:auto;
+  transform:none;
+}}
+.country-other::after {{ display:none; }}
+
+/* 추가 국가: 기사 있을 때만 표시되는 안전영역 callout */
+.country-ru {{ left:68%; top:8px; transform:none; }}
+.country-ru::after {{ left:48%; top:100%; width:26px; transform:rotate(95deg); }}
+.country-tr {{ left:68%; top:70px; transform:none; }}
+.country-tr::after {{ left:45%; top:100%; width:18px; transform:rotate(100deg); }}
+.country-sa {{ left:66%; bottom:48px; top:auto; transform:none; }}
+.country-sa::after {{ left:40%; bottom:100%; top:auto; width:18px; transform:rotate(-70deg); }}
+.country-in {{ right:7px; top:122px; left:auto; transform:none; }}
+.country-in::after {{ right:100%; left:auto; top:45%; width:52px; transform:rotate(198deg); transform-origin:right center; }}
+.country-cn {{ right:7px; top:154px; left:auto; transform:none; }}
+.country-cn::after {{ right:100%; left:auto; top:42%; width:44px; transform:rotate(188deg); transform-origin:right center; }}
+.country-au {{ right:7px; bottom:42px; left:auto; top:auto; transform:none; }}
+.country-au::after {{ right:100%; left:auto; top:45%; width:36px; transform:rotate(160deg); transform-origin:right center; }}
+.country-za {{ left:42%; bottom:8px; top:auto; transform:none; }}
+.country-za::after {{ left:55%; bottom:100%; top:auto; width:24px; transform:rotate(-76deg); }}
+.country-nl {{ left:21%; top:103px; transform:none; }}
+.country-nl::after {{ left:100%; top:45%; width:22px; transform:rotate(-14deg); }}
+.country-be {{ left:31%; top:103px; transform:none; }}
+.country-be::after {{ left:100%; top:45%; width:18px; transform:rotate(-5deg); }}
+.country-ch {{ left:42%; top:103px; transform:none; }}
+.country-ch::after {{ left:100%; top:45%; width:17px; transform:rotate(4deg); }}
+
+@media (min-width: 700px) {{
+  .country-pin {{
+    min-height:26px;
+    padding:3px 8px;
+    font-size:10px;
+    max-width:150px;
+  }}
+  .country-pin .flag {{ font-size:15px; }}
+  .country-ca {{ left:12px; top:28px; }}
+  .country-us {{ left:12px; top:92px; }}
+  .country-jp {{ right:12px; top:54px; }}
+  .country-kr {{ right:12px; top:106px; }}
+  .country-other {{ right:12px; bottom:12px; }}
+}}
 .country-filter-note {{ margin-top:5px; color:#667085; font-size:9px; text-align:center; }}
 .world-map-credit {{ margin-top:3px; color:#98a2b3; font-size:7px; text-align:right; }}
 @media (min-width: 700px) {{
   .world-map-panel {{ margin:0 20px 16px; padding:12px 14px 13px; }}
   .world-map-title {{ font-size:13px; }}
   .world-map-summary {{ font-size:10px; }}
-  .world-map-canvas {{ height:240px; }}
+  .world-map-canvas {{ height:260px; }}
   .country-pin {{ min-height:26px; padding:3px 8px; font-size:10px; }}
   .country-pin .flag {{ font-size:15px; }}
   .country-pin.tight {{ font-size:9px; padding:3px 6px; }}
-  .country-pin.callout-right::after, .country-pin.callout-left::after {{ width:14px; }}
-  .country-pin.callout-up::after, .country-pin.callout-down::after {{ height:14px; }}
+  .country-pin.callout-right::after, .country-pin.callout-left::after {{ width:20px; }}
+  .country-pin.callout-up::after, .country-pin.callout-down::after {{ height:18px; }}
 }}
   .world-map-title {{ font-size:13px; }}
   .world-map-summary {{ font-size:10px; }}
@@ -3277,6 +3679,13 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.read {{ background: #e9edf1; opacity: .90; }}
 .preview-card.read .headline {{ color: #405a78; }}
 .preview-card.read .publisher {{ color: #596579; }}
+.country-tags {{ display:flex; align-items:center; gap:4px; margin-top:2px; margin-bottom:2px; min-width:0; color:#667085; font-size:7.5px; line-height:1.25; }}
+.country-tags-label {{ flex:0 0 auto; padding:1px 3px; border-radius:4px; background:#eef2f6; color:#475467; font-weight:800; }}
+.country-tags-value {{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:700; }}
+@media (min-width: 700px) {{
+  .country-tags {{ margin-top:3px; margin-bottom:3px; font-size:9.5px; gap:5px; }}
+  .country-tags-label {{ padding:1px 4px; }}
+}}
 .preview-card.read .article-snippet {{ color: #5f6670; }}
 
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
@@ -3478,21 +3887,31 @@ header,
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터 지도">
       <img class="world-map-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png" alt="세계지도" loading="lazy">
-      <button class="country-pin country-ca callout-down" data-country-filter="CA" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ca" data-country-filter="CA" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
       <button class="country-pin country-us" data-country-filter="US" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-gb callout-down" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fr tight callout-down" data-country-filter="FR" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-se tight callout-down" data-country-filter="SE" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fi tight callout-down" data-country-filter="FI" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-pl tight callout-down" data-country-filter="PL" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cz tight callout-right" data-country-filter="CZ" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ro tight callout-right" data-country-filter="RO" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-si tight callout-left" data-country-filter="SI" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-bg callout-right" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ua callout-left" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ae callout-up" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fr" data-country-filter="FR" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-se" data-country-filter="SE" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fi" data-country-filter="FI" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pl" data-country-filter="PL" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cz" data-country-filter="CZ" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ro" data-country-filter="RO" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-si" data-country-filter="SI" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
       <button class="country-pin country-kr" data-country-filter="KR" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-jp callout-left" data-country-filter="JP" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-jp" data-country-filter="JP" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ru" data-country-filter="RU" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-tr" data-country-filter="TR" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sa" data-country-filter="SA" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-in" data-country-filter="IN" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cn" data-country-filter="CN" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-au" data-country-filter="AU" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-za" data-country-filter="ZA" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-nl" data-country-filter="NL" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-be" data-country-filter="BE" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ch" data-country-filter="CH" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
       <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
     <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다. 다시 누르면 해제됩니다.</div>
@@ -3706,14 +4125,16 @@ let activeCountryFilter = "";
 const COUNTRY_NAMES = {{
   US:"미국", KR:"한국", GB:"영국", BG:"불가리아", UA:"우크라이나", AE:"UAE",
   RO:"루마니아", CZ:"체코", PL:"폴란드", SI:"슬로베니아", FI:"핀란드",
-  JP:"일본", CA:"캐나다", FR:"프랑스", SE:"스웨덴", OTHER:"기타"
+  JP:"일본", CA:"캐나다", FR:"프랑스", SE:"스웨덴",
+  CN:"중국", IN:"인도", AU:"호주", RU:"러시아", TR:"튀르키예", SA:"사우디",
+  ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스", OTHER:"기타"
 }};
 
 function updateCountryMapCounts(){{
   const panel=activePanel();
   if(!panel)return;
 
-  const counts={{US:0,KR:0,GB:0,BG:0,UA:0,AE:0,RO:0,CZ:0,PL:0,SI:0,FI:0,JP:0,CA:0,FR:0,SE:0,OTHER:0}};
+  const counts={{US:0,KR:0,GB:0,BG:0,UA:0,AE:0,RO:0,CZ:0,PL:0,SI:0,FI:0,JP:0,CA:0,FR:0,SE:0,CN:0,IN:0,AU:0,RU:0,TR:0,SA:0,ZA:0,NL:0,BE:0,CH:0,OTHER:0}};
   const cards=[...panel.querySelectorAll(".preview-card")];
 
   cards.forEach(card=>{{
