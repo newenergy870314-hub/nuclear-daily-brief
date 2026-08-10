@@ -3091,18 +3091,17 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
 .updated {{ margin-top: 5px; color: rgba(255,255,255,.72); font-size: 10px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
-.utility-row {{ display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: 7px; margin-top: 7px; }}
-.utility-box {{ min-width: 0; height: 34px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); display: flex; align-items: center; gap: 6px; }}
+.utility-row {{ display: grid; grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); gap: 7px; margin-top: 7px; }}
+.utility-box {{ min-width: 0; height: 34px; padding: 0 8px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); display: flex; align-items: center; gap: 4px; }}
 .utility-label {{ flex: 0 0 auto; color: #344054; font-size: 11px; font-weight: 800; white-space: nowrap; }}
 .language-order-toggle {{ flex: 1; min-width: 0; height: 26px; padding: 0 7px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
 .language-order-toggle:active {{ transform: translateY(1px); }}
 .date-picker-box {{ cursor: pointer; }}
 .date-picker-box .date-input {{ cursor: pointer; }}
-.date-input {{ flex: 1; min-width: 0; width: 100%; height: 26px; padding: 0 26px 0 4px; border: 0; background: transparent; color: #344054; font-size: 11px; box-sizing: border-box; }}
+.date-input {{ flex: 1; min-width: 112px; width: 100%; height: 26px; padding: 0 18px 0 4px; border: 0; background: transparent; color: #344054; font-size: 11px; box-sizing: border-box; }}
 .date-input::-webkit-calendar-picker-indicator {{ margin: 0; padding: 2px; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
-.search-input {{ width: 100%; height: 32px; padding: 0 32px 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
-.search-clear {{ position: absolute; right: 5px; top: 4px; width: 24px; height: 24px; border: 0; background: transparent; color: #667085; cursor: pointer; }}
+.search-input {{ width: 100%; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
 .favorites-panel {{ margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,.82); border-radius: 9px; }}
 .favorites-panel[hidden] {{ display: none; }}
 .favorites-title {{ margin-bottom: 6px; font-size: 11px; font-weight: 800; }}
@@ -3123,14 +3122,14 @@ main {{ padding: 12px 12px 34px; }}
 .language-section {{ margin-bottom: 30px; }}
 .group-nav-compact .group-nav-dense 
 .news-group {{ margin-bottom: 16px; }}
-.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 1px solid rgba(91,79,38,.10); background: #f5e8a6; color: #2c2922; border-radius: 7px; font: inherit; font-size: 11px; font-weight: 800; line-height: 1; text-align: left; box-shadow: 0 1px 2px rgba(62,52,42,.08); cursor: pointer; }}
+.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 1px solid rgba(91,79,38,.10); background: #f5e8a6; color: #1f4f8a; border-radius: 7px; font: inherit; font-size: 11px; font-weight: 800; line-height: 1; text-align: left; box-shadow: 0 1px 2px rgba(62,52,42,.08); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
 .group-name {{ display: inline-flex; align-items: center; height: 27px; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
-.group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #675f45; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
-.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #4d4737; font-size: 8px; line-height: 1; }}
+.group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
+.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 8px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 7px; margin-top: 5px; margin-bottom: 5px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; height: 126px; min-height: 126px; overflow: hidden; color: inherit; background: #fffefa; border: 1px solid rgba(62,52,42,.16); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 2px rgba(62,52,42,.10); transition: opacity .15s ease, background .15s ease; }}
@@ -3148,7 +3147,7 @@ main {{ padding: 12px 12px 34px; }}
 .status-line {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 3px; font-size: 9px; }}
 .status-text {{ min-width: 0; }}
 
-.unread-label {{ color: #0f5f9d; font-weight: 800; }}
+.unread-label {{ color: #d92d20; font-weight: 800; }}
 .read-label {{ display: none; color: #4f5968; font-weight: 800; }}
 .important-label {{ display: none; color: #b77900; font-weight: 800; }}
 .preview-card.read .unread-label {{ display: none; }}
@@ -3175,7 +3174,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .search-input {{ height: 40px; font-size: 13px; }}
   .tabs {{ grid-template-columns: repeat(3, 140px); justify-content: start; }}
   .tab-button {{ height: 38px; font-size: 13px; }}
-  .utility-row {{ grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); max-width: 580px; }}
+  .utility-row {{ grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); max-width: 600px; }}
   .utility-box {{ height: 36px; padding: 0 10px; }}
   .utility-label, .language-order-toggle, .date-input {{ font-size: 12px; }}
   .language-order-toggle, .date-input {{ height: 28px; }}
@@ -3308,7 +3307,7 @@ header,
     </div>
     <div class="header-controls" id="header-controls">
       <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
-      <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div>
+      <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"></div>
       <div class="tabs">{buttons}</div>
       <div class="utility-row">
         <div class="utility-box language-order-box">
@@ -3606,7 +3605,7 @@ if(archiveInput){{
   }});
 }}
 document.getElementById("article-search").addEventListener("input",filterArticles);
-document.getElementById("search-clear").addEventListener("click",()=>{{const input=document.getElementById("article-search");input.value="";input.focus();filterArticles();}});
+
 filterArticles();renderFavorites();
 </script>
 </body>
