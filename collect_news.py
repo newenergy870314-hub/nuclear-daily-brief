@@ -2041,18 +2041,36 @@ OTHER_CONSTRUCTION_TERMS = {
 
 # 타 건설사는 원전·원자력 관련 기사만 노출합니다.
 # 현대건설은 당사이므로 이 제한을 적용하지 않습니다.
-GLOBAL_NUCLEAR_WEAPONS_EXCLUDE_TERMS = {
-    # Korean
+BLOCKED_CAMPAIGN_SLOGAN_TERMS = {
+    "당당히 행동에 나섭시다",
+    "함께 행동에 나섭시다",
+}
+
+
+def is_blocked_campaign_slogan(title: str, summary: str = "") -> bool:
+    """
+    캠페인·구호성 문구가 '기사 제목 자체'에 들어간 경우만 제외합니다.
+    본문/요약에 인용된 경우까지 제외하면 정상 원전 기사가 과도하게 빠질 수 있으므로
+    summary는 판정에 사용하지 않습니다.
+    """
+    title_text = html.unescape(title).lower()
+    return any(term in title_text for term in BLOCKED_CAMPAIGN_SLOGAN_TERMS)
+
+
+GLOBAL_NUCLEAR_WEAPONS_STRONG_TERMS = {
+    # 명백한 핵무기/폭탄/군사 핵 이슈
     "원자폭탄", "원폭", "핵폭탄", "핵무기", "핵탄두", "핵실험",
-    "핵공격", "핵전쟁", "핵억제", "핵보복", "핵개발",
-    "핵미사일", "핵 잠수함", "핵잠수함", "원자력 잠수함", "원자력잠수함",
-    # English
+    "핵공격", "핵전쟁", "핵억제", "핵보복", "핵미사일",
     "atomic bomb", "nuclear bomb", "nuclear weapon", "nuclear weapons",
-    "nuclear warhead", "nuclear warheads", "warhead",
+    "nuclear warhead", "nuclear warheads",
     "nuclear test", "nuclear strike", "nuclear deterrence",
-    "nuclear retaliation", "nuclear warfare",
-    "nuclear missile", "ballistic missile", "icbm", "slbm",
-    "nuclear submarine",
+    "nuclear retaliation", "nuclear warfare", "nuclear missile",
+}
+
+GLOBAL_NUCLEAR_WEAPONS_TITLE_ONLY_TERMS = {
+    # 기사 요약에서 배경 설명으로 잠깐 등장할 수 있어 제목에 있을 때만 제외
+    "핵 잠수함", "핵잠수함", "원자력 잠수함", "원자력잠수함",
+    "ballistic missile", "icbm", "slbm", "nuclear submarine",
 }
 
 OTHER_CONSTRUCTION_NUCLEAR_TERMS = {
@@ -2074,12 +2092,18 @@ OTHER_CONSTRUCTION_NUCLEAR_TERMS = {
 
 def is_excluded_military_nuclear_article(title: str, summary: str = "") -> bool:
     """
-    원자폭탄/핵폭탄/핵무기/핵실험/핵잠수함 등
-    군사·무기성 핵 이슈는 전체 기사에서 제외합니다.
-    사용자는 원자력발전·원전·SMR 관련 기사만 보기를 원합니다.
+    군사·무기성 핵 이슈만 제외합니다.
+    - 명백한 핵무기 용어는 제목/요약에서 확인
+    - 잠수함·미사일류처럼 정상 원전 기사 배경 설명에 섞일 수 있는 용어는 제목에 있을 때만 제외
     """
-    haystack = html.unescape(f"{title} {summary}").lower()
-    return any(term in haystack for term in GLOBAL_NUCLEAR_WEAPONS_EXCLUDE_TERMS)
+    title_text = html.unescape(title).lower()
+    full_text = html.unescape(f"{title} {summary}").lower()
+
+    if any(term in full_text for term in GLOBAL_NUCLEAR_WEAPONS_STRONG_TERMS):
+        return True
+    if any(term in title_text for term in GLOBAL_NUCLEAR_WEAPONS_TITLE_ONLY_TERMS):
+        return True
+    return False
 
 
 def is_other_construction_nuclear_article(title: str, summary: str = "") -> bool:
@@ -2217,6 +2241,10 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
         or getattr(entry, "description", "")
         or ""
     )
+
+    if is_blocked_campaign_slogan(title, summary):
+        return None
+
     priority_group = classify_priority_company_group(group, title, summary)
     classified_group = classify_construction_group(priority_group, title, summary)
     if classified_group is None:
@@ -2294,7 +2322,9 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     """언론사 직접 수집 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
 
-    # 군사·무기성 핵 이슈는 전체에서 제외합니다.
+    # 캠페인·구호성 콘텐츠와 군사·무기성 핵 이슈는 전체에서 제외합니다.
+    if is_blocked_campaign_slogan(title, summary):
+        return None
     if is_excluded_military_nuclear_article(title, summary):
         return None
 
@@ -3152,7 +3182,8 @@ def final_deduplicate_articles(articles: list[Article]) -> list[Article]:
     # 기존 archive에 저장된 과거 기사에도 동일 기준을 적용합니다.
     articles = [
         article for article in articles
-        if not is_excluded_military_nuclear_article(article.title, article.description)
+        if not is_blocked_campaign_slogan(article.title, article.description)
+        and not is_excluded_military_nuclear_article(article.title, article.description)
         and (
             article.group != "타 건설사"
             or is_other_construction_nuclear_article(article.title, article.description)
