@@ -3177,47 +3177,66 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .language-order-toggle {{ flex: 0 0 auto; min-width: 0; height: 26px; padding: 0 6px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 10.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }}
 .language-order-toggle:active {{ transform: translateY(1px); }}
 .date-picker-box {{ cursor: pointer; }}
-.date-picker-box .date-input {{ cursor: pointer; }}
-.date-input {{ flex: 1; min-width: 74px; width: 100%; height: 26px; padding: 0 18px 0 6px; border: 0; border-radius: 6px; background: #344054; color: #ffffff; font-size: 10.5px; font-weight: 800; text-align: center; box-sizing: border-box; cursor: pointer; }}
-.date-input::-webkit-calendar-picker-indicator {{ margin: 0; padding: 1px; cursor: pointer; filter: invert(1); opacity: .92; }}
+.date-control {{ position: relative; flex: 1; min-width: 90px; height: 26px; border-radius: 6px; background: #344054; color: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; }}
+.date-display {{ width: 100%; padding: 0 17px 0 5px; box-sizing: border-box; color: #ffffff; font-size: 10.5px; font-weight: 800; line-height: 26px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -0.1px; }}
+.date-calendar {{ position: absolute; right: 5px; top: 50%; transform: translateY(-52%); color: #ffffff; font-size: 10px; line-height: 1; pointer-events: none; opacity: .9; }}
+.date-input {{ position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; }}
+.date-input::-webkit-calendar-picker-indicator {{ width: 100%; height: 100%; margin: 0; padding: 0; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
 .search-input {{ width: 100%; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
 
 .world-map-panel {{ margin: 0 12px 12px; padding: 9px 10px 10px; border: 1px solid rgba(35,57,93,.12); border-radius: 10px; background: rgba(255,255,255,.78); box-shadow: 0 1px 3px rgba(17,24,39,.07); }}
-.world-map-head {{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:7px; }}
+.world-map-head {{ display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:7px; }}
 .world-map-title-wrap {{ min-width:0; }}
 .world-map-title {{ color:#23395d; font-size:11px; font-weight:900; }}
 .world-map-summary {{ margin-top:2px; color:#667085; font-size:8.5px; font-weight:700; }}
-.world-map-all {{ flex:0 0 auto; border:0; border-radius:999px; padding:4px 9px; background:#23395d; color:#fff; font-size:9px; font-weight:800; cursor:pointer; }}
-.world-map-all.active {{ background:#fee500; color:#202124; }}
-.world-map-canvas {{ position:relative; width:100%; aspect-ratio:960/423; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); }}
+.world-map-canvas {{ position:relative; width:100%; height:175px; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); }}
 .world-map-image {{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.92; }}
-.country-pin {{ position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:2px; min-height:23px; padding:2px 6px; border:1px solid rgba(35,57,93,.16); border-radius:999px; background:rgba(255,253,248,.96); color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.15); font-size:8.5px; font-weight:900; white-space:nowrap; cursor:pointer; z-index:3; }}
-.country-pin .flag {{ font-size:12px; line-height:1; }}
+.country-pin {{ position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:2px; min-height:21px; padding:2px 5px; border:1px solid rgba(35,57,93,.16); border-radius:999px; background:rgba(255,253,248,.97); color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.14); font-size:8px; font-weight:900; white-space:nowrap; cursor:pointer; z-index:3; }}
+.country-pin .flag {{ font-size:11px; line-height:1; }}
 .country-pin .country-count {{ color:#d92d20; font-weight:900; }}
-.country-pin.active {{ background:#fee500; color:#202124; border-color:rgba(35,57,93,.22); }}
+.country-pin.active {{ background:#fee500; color:#202124; border-color:rgba(35,57,93,.24); }}
 .country-pin[hidden] {{ display:none; }}
-.country-us {{ left:18%; top:38%; }}
-.country-kr {{ left:85%; top:39%; }}
-.country-gb {{ left:47%; top:27%; }}
-.country-bg {{ left:55%; top:39%; }}
-.country-ua {{ left:58%; top:31%; }}
-.country-ae {{ left:62%; top:53%; }}
-.country-filter-list {{ display:flex; gap:5px; margin-top:7px; padding-bottom:1px; overflow-x:auto; scrollbar-width:thin; }}
-.country-chip {{ flex:0 0 auto; border:1px solid rgba(35,57,93,.12); border-radius:999px; padding:4px 7px; background:#fffdf8; color:#344054; font-size:8.5px; font-weight:800; cursor:pointer; }}
-.country-chip .chip-count {{ color:#d92d20; font-weight:900; }}
-.country-chip.active {{ background:#fee500; color:#202124; }}
-.country-chip[hidden] {{ display:none; }}
+.country-pin.callout-right::after, .country-pin.callout-left::after, .country-pin.callout-up::after, .country-pin.callout-down::after {{ content:""; position:absolute; background:rgba(35,57,93,.42); }}
+.country-pin.callout-right::after {{ left:100%; top:50%; width:10px; height:1px; }}
+.country-pin.callout-left::after {{ right:100%; top:50%; width:10px; height:1px; }}
+.country-pin.callout-up::after {{ left:50%; bottom:100%; width:1px; height:10px; }}
+.country-pin.callout-down::after {{ left:50%; top:100%; width:1px; height:10px; }}
+.country-pin.tight {{ font-size:7.4px; padding:2px 4px; }}
+.country-ca {{ left:18%; top:24%; }}
+.country-us {{ left:19%; top:43%; }}
+.country-gb {{ left:44%; top:24%; }}
+.country-fr {{ left:43%; top:39%; }}
+.country-se {{ left:54%; top:14%; }}
+.country-fi {{ left:62%; top:14%; }}
+.country-pl {{ left:61%; top:26%; }}
+.country-cz {{ left:54%; top:31%; }}
+.country-ro {{ left:62%; top:35%; }}
+.country-si {{ left:53%; top:39%; }}
+.country-bg {{ left:62%; top:44%; }}
+.country-ua {{ left:70%; top:29%; }}
+.country-ae {{ left:66%; top:60%; }}
+.country-kr {{ left:84%; top:40%; }}
+.country-jp {{ left:93%; top:35%; }}
+.country-other {{ left:89%; top:78%; }}
 .country-filter-note {{ margin-top:5px; color:#667085; font-size:9px; text-align:center; }}
 .world-map-credit {{ margin-top:3px; color:#98a2b3; font-size:7px; text-align:right; }}
 @media (min-width: 700px) {{
   .world-map-panel {{ margin:0 20px 16px; padding:12px 14px 13px; }}
   .world-map-title {{ font-size:13px; }}
   .world-map-summary {{ font-size:10px; }}
+  .world-map-canvas {{ height:240px; }}
+  .country-pin {{ min-height:26px; padding:3px 8px; font-size:10px; }}
+  .country-pin .flag {{ font-size:15px; }}
+  .country-pin.tight {{ font-size:9px; padding:3px 6px; }}
+  .country-pin.callout-right::after, .country-pin.callout-left::after {{ width:14px; }}
+  .country-pin.callout-up::after, .country-pin.callout-down::after {{ height:14px; }}
+}}
+  .world-map-title {{ font-size:13px; }}
+  .world-map-summary {{ font-size:10px; }}
   .country-pin {{ min-height:27px; padding:3px 8px; font-size:10px; }}
   .country-pin .flag {{ font-size:15px; }}
-  .country-chip {{ padding:5px 9px; font-size:10px; }}
-}}
+  }}
   .world-map-title {{ font-size:13px; }}
   .world-map-canvas {{ height:205px; }}
   .country-pin {{ min-height:29px; padding:4px 9px; font-size:10px; }}
@@ -3298,10 +3317,11 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .tab-button {{ height: 38px; font-size: 13px; }}
   .utility-row {{ grid-template-columns: repeat(2,minmax(0,1fr)); max-width: 600px; }}
   .utility-box {{ height: 36px; padding: 0 10px; }}
-  .utility-label, .language-order-toggle, .date-input {{ font-size: 12px; }}
-  .language-order-toggle, .date-input {{ height: 28px; }}
-  .language-order-toggle {{ min-width: 0; padding: 0 8px; font-size: 12px; }}
-  .date-input {{ min-width: 112px; padding: 0 22px 0 8px; font-size: 12px; font-weight: 800; text-align: center; }}
+  .utility-label, .language-order-toggle {{ font-size: 12px; }}
+  .language-order-toggle {{ height: 28px; min-width: 0; padding: 0 8px; font-size: 12px; }}
+  .date-control {{ min-width: 112px; height: 28px; }}
+  .date-display {{ padding: 0 20px 0 7px; font-size: 12px; line-height: 28px; font-weight: 800; text-align: center; }}
+  .date-calendar {{ right: 7px; font-size: 11px; }}
   main {{ padding: 18px 20px 44px; }}
   .favorites-panel {{ margin-bottom: 16px; padding: 16px; border-radius: 12px; }}
   .favorites-title {{ margin-bottom: 12px; font-size: 16px; }}
@@ -3440,7 +3460,11 @@ header,
         </div>
         <label class="utility-box date-picker-box" for="archive-date">
           <span class="utility-label">날짜 보기</span>
-          <input id="archive-date" class="date-input" type="date" aria-label="기사 날짜 선택">
+          <span class="date-control">
+            <span id="archive-date-display" class="date-display">0000.00.00</span>
+            <span class="date-calendar" aria-hidden="true">▾</span>
+            <input id="archive-date" class="date-input" type="date" aria-label="기사 날짜 선택">
+          </span>
         </label>
       </div>
     </div>
@@ -3448,39 +3472,30 @@ header,
   <section id="world-map-panel" class="world-map-panel">
     <div class="world-map-head">
       <div class="world-map-title-wrap">
-        <div class="world-map-title">🌐 국가별 기사 지도</div>
+        <div class="world-map-title">🌐 국가별 기사</div>
         <div id="world-map-summary" class="world-map-summary">현재 탭 전체 0건 · 국가 합계 0건</div>
       </div>
-      <button id="country-all" class="world-map-all active" type="button">전체</button>
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터 지도">
       <img class="world-map-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png" alt="세계지도" loading="lazy">
+      <button class="country-pin country-ca callout-down" data-country-filter="CA" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
       <button class="country-pin country-us" data-country-filter="US" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb callout-down" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fr tight callout-down" data-country-filter="FR" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-se tight callout-down" data-country-filter="SE" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fi tight callout-down" data-country-filter="FI" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pl tight callout-down" data-country-filter="PL" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cz tight callout-right" data-country-filter="CZ" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ro tight callout-right" data-country-filter="RO" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-si tight callout-left" data-country-filter="SI" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg callout-right" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua callout-left" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae callout-up" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
       <button class="country-pin country-kr" data-country-filter="KR" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-gb" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-bg" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ua" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ae" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-jp callout-left" data-country-filter="JP" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
-    <div class="country-filter-list" aria-label="국가별 기사 목록">
-      <button class="country-chip" data-country-filter="US" type="button">🇺🇸 미국 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="KR" type="button">🇰🇷 한국 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="GB" type="button">🇬🇧 영국 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="BG" type="button">🇧🇬 불가리아 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="UA" type="button">🇺🇦 우크라이나 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="AE" type="button">🇦🇪 UAE <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="RO" type="button">🇷🇴 루마니아 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="CZ" type="button">🇨🇿 체코 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="PL" type="button">🇵🇱 폴란드 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="SI" type="button">🇸🇮 슬로베니아 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="FI" type="button">🇫🇮 핀란드 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="JP" type="button">🇯🇵 일본 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="CA" type="button">🇨🇦 캐나다 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="FR" type="button">🇫🇷 프랑스 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="SE" type="button">🇸🇪 스웨덴 <span class="chip-count">0건</span></button>
-      <button class="country-chip" data-country-filter="OTHER" type="button">🌐 기타 <span class="chip-count">0건</span></button>
-    </div>
-    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다.</div>
+    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다. 다시 누르면 해제됩니다.</div>
     <div class="world-map-credit">Map: Wikimedia Commons · CC0</div>
   </section>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
@@ -3843,7 +3858,10 @@ document.querySelectorAll(".tab-button").forEach(button => {{
     panel.classList.add("active");
 
     const periodDate = panel.getAttribute("data-report-date");
-    if(periodDate && archiveInput) archiveInput.value = periodDate;
+    if(periodDate && archiveInput){{
+      archiveInput.value = periodDate;
+      updateArchiveDateDisplay(periodDate);
+    }}
 
     if(typeof filterArticles === "function") filterArticles();
     if(typeof updateCountryMapCounts === "function") updateCountryMapCounts();
@@ -3858,11 +3876,22 @@ const archiveDates=[...document.querySelectorAll(".archive-panel")]
   .sort();
 
 const archiveInput=document.getElementById("archive-date");
+const archiveDateDisplay=document.getElementById("archive-date-display");
+
+function formatArchiveDateDisplay(value){{
+  return value ? value.replaceAll("-", ".") : "";
+}}
+
+function updateArchiveDateDisplay(value){{
+  if(archiveDateDisplay) archiveDateDisplay.textContent=formatArchiveDateDisplay(value);
+}}
+
 
 if(archiveInput && archiveDates.length){{
   archiveInput.min=archiveDates[0];
   archiveInput.max=archiveDates[archiveDates.length-1];
   archiveInput.value=archiveDates[archiveDates.length-1];
+  updateArchiveDateDisplay(archiveInput.value);
 }}
 
 function openArchiveDate(value){{
@@ -3879,7 +3908,10 @@ function openArchiveDate(value){{
 
   panel.classList.add("active");
 
-  if(archiveInput) archiveInput.value=value;
+  if(archiveInput){{
+    archiveInput.value=value;
+    updateArchiveDateDisplay(value);
+  }}
   if(typeof filterArticles==="function") filterArticles();
   if(typeof updateCountryMapCounts==="function") updateCountryMapCounts();
   if(typeof renderFavorites==="function") renderFavorites();
