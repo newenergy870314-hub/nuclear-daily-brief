@@ -21,9 +21,9 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
 .topbar.collapsed .header-controls { max-height: 0; opacity: 0; margin: 0; pointer-events: none; }
 .updated { margin-top: 5px; color: rgba(255,255,255,.72); font-size: 10px; font-weight: 600; }
 .tabs { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }
-.date-picker-row { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px; margin-top: 7px; }
+.date-picker-row { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 7px; margin-top: 7px; align-items: center; }
 .language-order-row { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: 7px; }
-.language-order-label { color: rgba(255,255,255,.78); font-size: 10px; font-weight: 700; }
+.language-order-label { color: rgba(255,255,255,.78); font-size: 11px; font-weight: 800; }
 .language-order-toggle { flex: 1; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); color: #23395d; font-size: 11px; font-weight: 800; cursor: pointer; }
 .language-order-toggle:active { transform: translateY(1px); }
 
@@ -100,7 +100,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   .tab-button { height: 38px; font-size: 13px; }
   .language-order-row { justify-content: flex-start; }
   .language-order-toggle { flex: 0 0 160px; height: 36px; font-size: 12px; }
-  .date-picker-row { grid-template-columns: 190px 100px; justify-content: start; }
+  .date-picker-row { grid-template-columns: 100px 190px; justify-content: start; }
   .date-input, .date-button { height: 36px; font-size: 12px; }
   main { padding: 18px 20px 44px; }
   .favorites-panel { margin-bottom: 16px; padding: 16px; border-radius: 12px; }
@@ -168,13 +168,17 @@ header,
   box-shadow: none;
 }
 
-h1,
 .brand-title,
 .site-title {
   color: #202124;
   letter-spacing: -0.02em;
   font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
   font-weight: 700;
+}
+
+.topbar h1 {
+  font-family: Arial, "Malgun Gothic", sans-serif;
+  font-weight: 900;
 }
 
 .preview-card {
@@ -223,14 +227,14 @@ h1,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 10. 16:05 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 10. 16:15 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div>
       <div class="tabs"><button class="tab-button" data-tab="전일">전일</button><button class="tab-button active" data-tab="금일">금일</button><button class="tab-button" data-tab="익일">익일</button></div>
       <div class="language-order-row">
         <span class="language-order-label">기사 순서</span>
         <button id="language-order" class="language-order-toggle" type="button" aria-label="기사 언어 우선순위 변경">KOR → ENG</button>
       </div>
-      <div class="date-picker-row"><input id="archive-date" class="date-input" type="date"><button id="archive-open" class="date-button" type="button">날짜 보기</button></div>
+      <div class="date-picker-row"><button id="archive-open" class="date-button" type="button">날짜 보기</button><input id="archive-date" class="date-input" type="date"></div>
     </div>
   </header>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
@@ -342,6 +346,33 @@ h1,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9PZFQ2Wk5TWGJmTGRiLTF0cmZoNDBQSEpfWlVaQUM1b3Z4LXYtU29BVzc3QU90WEpmdFNpbGZEVldzU0pQb0U0Q05nTGt3UXRJb0RsVjRFcWxfbTRSMG1XdDgydzI?oc=5"
+  data-title="SK에코플랜트, 2025 지속가능경영보고서 발간 - m-i.kr"
+  data-publisher="m-i.kr"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="sk에코플랜트, 2025 지속가능경영보고서 발간 - m-i.kr m-i.kr 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">m-i.kr</div>
+    <div class="headline"><span class="new-badge">NEW</span>SK에코플랜트, 2025 지속가능경영보고서 발간 - m-i.kr</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5BWmFOdnBrZTdRY1REa191Tm5Nd0p6RGNZTGRZUktkUjRPWkRrNTlWYjVxVmJYNXhJX1UwTEh2T29idENRRG56ZGloY0dSRmNXeDZNcEdpMnNPUndhOThQZmtZVHNXVkxU?oc=5"
   data-title="DL이앤씨, AI로 건설현장 위험 사전 예측…근로자 보호 강화"
@@ -350,7 +381,7 @@ h1,
   data-language="ko"
   data-search="dl이앤씨, ai로 건설현장 위험 사전 예측…근로자 보호 강화 녹색경제신문 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">녹색경제신문</div>
     <div class="headline">DL이앤씨, AI로 건설현장 위험 사전 예측…근로자 보호 강화</div>
@@ -377,7 +408,7 @@ h1,
   data-language="ko"
   data-search="[건설브리핑] dl이앤씨, 건설현장에 ai기반 관리 시스템 도입 외 서울파이낸스 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">서울파이낸스</div>
     <div class="headline">[건설브리핑] DL이앤씨, 건설현장에 AI기반 관리 시스템 도입 외</div>
@@ -404,7 +435,7 @@ h1,
   data-language="ko"
   data-search="대형사 내실 챙겼는데… gs건설, 주택 부진에 수익 공백 우려 it조선 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">IT조선</div>
     <div class="headline">대형사 내실 챙겼는데… GS건설, 주택 부진에 수익 공백 우려</div>
@@ -431,7 +462,7 @@ h1,
   data-language="ko"
   data-search="대우건설, gh 민참 ‘고양창릉 s16블록’ 따내 대한경제 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">대한경제</div>
     <div class="headline">대우건설, GH 민참 ‘고양창릉 S16블록’ 따내</div>
@@ -458,7 +489,7 @@ h1,
   data-language="ko"
   data-search="폭염이 바꾼 산업현장···삼성물산·하이트진로도 선택한 케이웨더 &#x27;iot 폭염 관리&#x27; 스마트비즈 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">스마트비즈</div>
     <div class="headline">폭염이 바꾼 산업현장···삼성물산·하이트진로도 선택한 케이웨더 &#x27;IoT 폭염 관리&#x27;</div>
@@ -477,18 +508,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBibGpmYV9aN0g0dmlmUE5yVjNBNklpRFB1YlZGbmdNbHQxZElkTC00VDdMWU9UY0p3RnhFV0FxLXM2ZzVlendXRXlBR1pxLWNmdVZENEJrVlU4N3JVTjBmemx1TlEyRkU?oc=5"
   data-title="포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구"
-  data-publisher="팍스경제TV"
+  data-publisher="paxetv.com"
   data-group="타 건설사"
   data-language="ko"
-  data-search="포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구 팍스경제tv 타 건설사 "
+  data-search="포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구 paxetv.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
-    <div class="publisher">팍스경제TV</div>
-    <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구</div>
+    <div class="publisher">paxetv.com</div>
+    <div class="headline">포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -512,7 +543,7 @@ h1,
   data-language="ko"
   data-search="포스코이앤씨·우미건설, 여주·세종서 8월 신규 분양 본격화 뉴스투데이 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">뉴스투데이</div>
     <div class="headline">포스코이앤씨·우미건설, 여주·세종서 8월 신규 분양 본격화</div>
@@ -539,7 +570,7 @@ h1,
   data-language="ko"
   data-search="삼성물산이 픽한 &#x27;픽옷&#x27;…의류 수거 채널 확장 신아일보 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">신아일보</div>
     <div class="headline">삼성물산이 픽한 &#x27;픽옷&#x27;…의류 수거 채널 확장</div>
@@ -566,7 +597,7 @@ h1,
   data-language="ko"
   data-search="&#x27;오너가&#x27;에서 &#x27;대우맨&#x27;으로…대우건설, 리더십 교체 비즈워치 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">비즈워치</div>
     <div class="headline">&#x27;오너가&#x27;에서 &#x27;대우맨&#x27;으로…대우건설, 리더십 교체</div>
@@ -588,14 +619,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE93N0M0OVhDUEJySkJtY29YRjhnMG5wRkV0ZzZVcTJXeDRfU0hyRklCQVRyMnp6bEFURVlUUTJnNUcyeHFoUzVlMm53VzhoRno0VWxldlVzVHNNRi1tQ2ZuTTZzaEt4enM?oc=5"
   data-title="현대엔지니어링, 중진공과 ‘안전·품질 공제’ MOU…협력사 우수인력 확보 지원"
-  data-publisher="팍스경제TV"
+  data-publisher="paxetv.com"
   data-group="타 건설사"
   data-language="ko"
-  data-search="현대엔지니어링, 중진공과 ‘안전·품질 공제’ mou…협력사 우수인력 확보 지원 팍스경제tv 타 건설사 "
+  data-search="현대엔지니어링, 중진공과 ‘안전·품질 공제’ mou…협력사 우수인력 확보 지원 paxetv.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">12</div>
   <div class="preview-copy">
-    <div class="publisher">팍스경제TV</div>
+    <div class="publisher">paxetv.com</div>
     <div class="headline">현대엔지니어링, 중진공과 ‘안전·품질 공제’ MOU…협력사 우수인력 확보 지원</div>
     
     <div class="status-line">
@@ -620,7 +651,7 @@ h1,
   data-language="ko"
   data-search="현대엔지니어링, 건설업계 최초 정부 지원 연계 상생협력사업 추진…3년간 약 25.2억 지원 er 이코노믹리뷰 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">12</div>
+  <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">ER 이코노믹리뷰</div>
     <div class="headline">현대엔지니어링, 건설업계 최초 정부 지원 연계 상생협력사업 추진…3년간 약 25.2억 지원</div>
@@ -642,14 +673,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE41cnRsYXdYRmxjTkJqdW5oTUVOTjc4R1paVFJTRlE5ZU9ObDRrUXEtb2U1dUFXM09jNlJSMWlRaVBBcEhYYjhxYXJVS3Z6VlRXWmpDcHkzaXk2eG1VcGwzRjhPaHRtM25wYkE?oc=5"
   data-title="‘공사’보다 ‘사람’ 먼저… 롯데건설이 인권경영에 힘주는 이유"
-  data-publisher="천지일보"
+  data-publisher="newscj.com"
   data-group="타 건설사"
   data-language="ko"
-  data-search="‘공사’보다 ‘사람’ 먼저… 롯데건설이 인권경영에 힘주는 이유 천지일보 타 건설사 "
+  data-search="‘공사’보다 ‘사람’ 먼저… 롯데건설이 인권경영에 힘주는 이유 newscj.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">13</div>
+  <div class="article-number">14</div>
   <div class="preview-copy">
-    <div class="publisher">천지일보</div>
+    <div class="publisher">newscj.com</div>
     <div class="headline">‘공사’보다 ‘사람’ 먼저… 롯데건설이 인권경영에 힘주는 이유</div>
     
     <div class="status-line">
@@ -674,7 +705,7 @@ h1,
   data-language="ko"
   data-search="대우건설 신임 대표이사 후보에 이강석 상무 연합뉴스 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">14</div>
+  <div class="article-number">15</div>
   <div class="preview-copy">
     <div class="publisher">연합뉴스</div>
     <div class="headline">대우건설 신임 대표이사 후보에 이강석 상무</div>
@@ -693,18 +724,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiXEFVX3lxTE5RbXE2ODc3TVBhd0FCVUkwLWlsRjdQSlNJWWN1Y2JGQUlTVy1Kck1yeUFwVHVheDFBc3NGWUJDZTJxbXkxVnRhMFppdmdXOWxld0h6bV9jU0J1ejJG?oc=5"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiU0FVX3lxTFByQVVHTnBqUWVkdE1uelc4V3V4YlI2eEFDVjNIVzUwQ1MwTGhzWUZGVjJYUko0Q0YwVWFodld4alRtQ0hLbjE2RnJYYWpxQlFwTFpR?oc=5"
   data-title="[AI청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감"
-  data-publisher="뉴스핌"
+  data-publisher="네이트"
   data-group="타 건설사"
   data-language="ko"
-  data-search="[ai청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감 뉴스핌 타 건설사 "
+  data-search="[ai청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감 네이트 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">15</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
-    <div class="publisher">뉴스핌</div>
-    <div class="headline">[AI청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감</div>
+    <div class="publisher">네이트</div>
+    <div class="headline"><span class="new-badge">NEW</span>[AI청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -728,7 +759,7 @@ h1,
   data-language="ko"
   data-search="삼성물산 홈닉, 입주민 생활 관리 서비스 강화 폴리뉴스 polinews 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">16</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">폴리뉴스 Polinews</div>
     <div class="headline">삼성물산 홈닉, 입주민 생활 관리 서비스 강화</div>
@@ -755,7 +786,7 @@ h1,
   data-language="ko"
   data-search="gs건설, 검단 충격 딛고 ‘빅3’ 복귀 dealsite경제tv 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">17</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">DealSite경제TV</div>
     <div class="headline">GS건설, 검단 충격 딛고 ‘빅3’ 복귀</div>
@@ -782,7 +813,7 @@ h1,
   data-language="ko"
   data-search="현대엔지니어링, &#x27;내실경영&#x27;은 합격점···신규수주 확대 총력 뉴스웨이 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">19</div>
   <div class="preview-copy">
     <div class="publisher">뉴스웨이</div>
     <div class="headline">현대엔지니어링, &#x27;내실경영&#x27;은 합격점···신규수주 확대 총력</div>
@@ -804,42 +835,15 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiygFBVV95cUxOOWdiWFBvM0JNOVdMbHk0U2VhMU9WZHNIUnVxNXB4SU1BT0Rvd29jNGxqRFl0aHI3RUtsajgyWk1Oa3ozNlpOYlZXWWF6QkZiczBWdXluODFNbmRDdEo2cm5USXBVTmNPVVR4aTl5Si0wYzlPSlBtS29nbjY5RUVLZG0wZkpITzFPNjV5eGdrUmlXWUp0UHpHOFZtaUptOXc4aWtHSXRxMGNIaS1mSHNwU0JaclAxaVdFYUZYOU82LUdNMTBDOUM3dGpR?oc=5"
   data-title="두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약"
-  data-publisher="매일건설신문"
+  data-publisher="mcnews.co.kr"
   data-group="타 건설사"
   data-language="ko"
-  data-search="두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약 매일건설신문 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">19</div>
-  <div class="preview-copy">
-    <div class="publisher">매일건설신문</div>
-    <div class="headline">두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTFByOElJUWpRWWFLME9jZHh3aS05TE1IbHFzSXBSYU1PTkQ3TGxFUUl3TkREZzZfeDJORHFOckpSRG1TR08zWjhQaXpWXzdrWjNTUWY5WHh5ckdxbGQzZi10dnAyVUM?oc=5"
-  data-title="SK에코플랜트, 작년 온실가스 배출 33.18% 감소"
-  data-publisher="포쓰저널"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="sk에코플랜트, 작년 온실가스 배출 33.18% 감소 포쓰저널 타 건설사 "
+  data-search="두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약 mcnews.co.kr 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">20</div>
   <div class="preview-copy">
-    <div class="publisher">포쓰저널</div>
-    <div class="headline">SK에코플랜트, 작년 온실가스 배출 33.18% 감소</div>
+    <div class="publisher">mcnews.co.kr</div>
+    <div class="headline">두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -1314,6 +1318,33 @@ h1,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE1LRl9vLVd4Nmx5MkdkVzNna2NCS3ZtMjB1UTRGTUZOUTkyWVdMVjlMQXhwdzdxb3ptRzlqcmVfMWdDYmNKaEtCMEZydnkwV1Fva3RBWG53ZVBVQ282N1RpNHV4c3VzaWtrUnc?oc=5"
+  data-title="김정관 산업장관 &quot;美 과잉생산 조사 결과, 이달 말 발표 예상&quot;"
+  data-publisher="뉴스웨이"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-search="김정관 산업장관 &quot;美 과잉생산 조사 결과, 이달 말 발표 예상&quot; 뉴스웨이 원전 관계부처 "
+  tabindex="0" role="link">
+  <div class="article-number">6</div>
+  <div class="preview-copy">
+    <div class="publisher">뉴스웨이</div>
+    <div class="headline"><span class="new-badge">NEW</span>김정관 산업장관 &quot;美 과잉생산 조사 결과, 이달 말 발표 예상&quot;</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMic0FVX3lxTE5hN2Q1TlU4RHpUel9MMFRuRTBlWTB1V0VWWVVaalRtR21jLTQ4NUlXYk55bjNNZTRxaF9uVS1mU3FGdHNCZGd1NjRIUDZzVFM2Q01uWnpMRklyVmZ6RWVMczhobkU2M2VMYUplOGRfcEtnTmc?oc=5"
   data-title="김정관 &quot;주52시간 규제가 일하려는 의지 꺾어선 안돼&quot;"
@@ -1322,7 +1353,7 @@ h1,
   data-language="ko"
   data-search="김정관 &quot;주52시간 규제가 일하려는 의지 꺾어선 안돼&quot; 마켓인 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">마켓인</div>
     <div class="headline">김정관 &quot;주52시간 규제가 일하려는 의지 꺾어선 안돼&quot;</div>
@@ -1349,7 +1380,7 @@ h1,
   data-language="ko"
   data-search="김정관 “일하겠다는 의지, 제도가 막아선 안 돼” 주 52시간 근로제 손질 시사…노동계 반발 불가피 경향신문 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">경향신문</div>
     <div class="headline">김정관 “일하겠다는 의지, 제도가 막아선 안 돼” 주 52시간 근로제 손질 시사…노동계 반발 불가피</div>
@@ -1371,42 +1402,15 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTE10dkQ3aFNRUXFmZE4wYWxDRnlZUThYU3dtVkxyQmlIbVZodFVCaFZuYkVFNER3QV85OFhndjJYN3VFZ2ItU0VIenlscmlpQUlwREhFVHhid1hrczZTNU9Fd3JzUFlCMktxV1E40gFwQVVfeXFMTTB5SFQ3OTd2VXlxWGVmTFFvR083MkdsSXFKb0VteE5Vdmh3M2VWV1hZU2dmT1p1eWh0ZXNZdXVPYnctNXRnVlVMMUQ5MWE4X2pPOGNlWmxGREJKeEtTaHJNZWxkMWZaUUN6QUNGR3FfUw?oc=5"
   data-title="김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이"
-  data-publisher="mt.co.kr"
+  data-publisher="머니투데이"
   data-group="원전 관계부처"
   data-language="ko"
-  data-search="김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이 mt.co.kr 원전 관계부처 "
-  tabindex="0" role="link">
-  <div class="article-number">8</div>
-  <div class="preview-copy">
-    <div class="publisher">mt.co.kr</div>
-    <div class="headline">김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiVEFVX3lxTE5qTF84UkxMUWtiOWtQOThTWENHbWhWYmhxWWt3TVJoY0JaQk9sellVTUxGR054MjlTLV8xSlBFR3E4ZGdOXzgza2pzNHI1blkta3p5Zw?oc=5"
-  data-title="김정관 장관 &quot;美, 쿠팡 사태 오해 있어…한미 간 간극 좁히려 노력 중“"
-  data-publisher="v.daum.net"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="김정관 장관 &quot;美, 쿠팡 사태 오해 있어…한미 간 간극 좁히려 노력 중“ v.daum.net 원전 관계부처 "
+  data-search="김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이 머니투데이 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">9</div>
   <div class="preview-copy">
-    <div class="publisher">v.daum.net</div>
-    <div class="headline">김정관 장관 &quot;美, 쿠팡 사태 오해 있어…한미 간 간극 좁히려 노력 중“</div>
+    <div class="publisher">머니투데이</div>
+    <div class="headline">김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -1452,14 +1456,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMieEFVX3lxTE8zY19lTkxka01nY0MxQ2dTVmgwTWxtNk5zWGtzVGhjUGljQl84SEpMM3hUT2xrb053ZTdodXEtOW9wY2V4NzU4eVowdE54NENOY2ozcmV4WVRMbC1fVHJuX3BiTmp3aVROeHYtQWxsdHRqejZzNVpHcg?oc=5"
   data-title="`주52시간` 손보자는 김정관 `경쟁상대 중국은 `996`도 부족하다 해`"
-  data-publisher="busan.com"
+  data-publisher="부산일보"
   data-group="원전 관계부처"
   data-language="ko"
-  data-search="`주52시간` 손보자는 김정관 `경쟁상대 중국은 `996`도 부족하다 해` busan.com 원전 관계부처 "
+  data-search="`주52시간` 손보자는 김정관 `경쟁상대 중국은 `996`도 부족하다 해` 부산일보 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">busan.com</div>
+    <div class="publisher">부산일보</div>
     <div class="headline">`주52시간` 손보자는 김정관 `경쟁상대 중국은 `996`도 부족하다 해`</div>
     
     <div class="status-line">
@@ -1611,7 +1615,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMidEFVX3lxTE5uLVpuMEd2ZVNvTTUyVV9iVHhIV1NOa0NReWhlTVpCN19yd3FEb0ZacDVKNXRwcE9aeTBfdEktWEJqX1VDb0ZoRWdnNExqMlRaYVU3TTZDd0ktcXRKWmNkOXR2VU03QWpualQ3Zlc4b21PYnJZ0gF0QVVfeXFMUGs0QloxdkNydU1MV2lKblJJRUpWM2dndE9xc0JmNVA4bVgzVEg1aldIVHNRVjFpU19PeEljMktnVlVpMkRXYVNFb1FpbmFVMWhYV29HT2dvX25weGMzaVE1SlYyYjBnc3l2eURyVkVBVGxkY2o?oc=5"
   data-title="김정관 &quot;미국 정치권, 쿠팡 과민 반응 크다는 인상 받아&quot;"
   data-publisher="MBC 뉴스"
@@ -1622,7 +1626,7 @@ h1,
   <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">MBC 뉴스</div>
-    <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;미국 정치권, 쿠팡 과민 반응 크다는 인상 받아&quot;</div>
+    <div class="headline">김정관 &quot;미국 정치권, 쿠팡 과민 반응 크다는 인상 받아&quot;</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -2037,14 +2041,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiRkFVX3lxTE1ybW5wMTFERl9CdlJ4bFJXUTZONDFmX1NjYXBkYmx4VHpEM0luMGk0MjRUd2dvQTZrRU0tcWlyNHRnRnJSNEE?oc=5"
   data-title="영광소방서, 국가중요시설 한빛원자력본부 특별점검"
-  data-publisher="fpn119.co.kr"
+  data-publisher="소방방재신문"
   data-group="원자력"
   data-language="ko"
-  data-search="영광소방서, 국가중요시설 한빛원자력본부 특별점검 fpn119.co.kr 원자력 "
+  data-search="영광소방서, 국가중요시설 한빛원자력본부 특별점검 소방방재신문 원자력 "
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">fpn119.co.kr</div>
+    <div class="publisher">소방방재신문</div>
     <div class="headline">영광소방서, 국가중요시설 한빛원자력본부 특별점검</div>
     
     <div class="status-line">
@@ -2064,14 +2068,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE11ZEN3V3N0SUdFWDRnV2FySklnSE5Md2RYbTZyTDBwX04xdnJ6YVphT3FOaFhQS2FrQ19ILTlJdTgwWm1DN3lxaGlNYXNrdVpLYjAzQk9MNWtfNjdOMENubDhQOGZ3YWJnQ3fSAW9BVV95cUxQQlEtS3JobEdZcVF0QnVjb0NIX05Eck9fMFZaRV9TT2tGNE0xM3owWHktM1BiMWVLWUFzalVkLVNJbk5ONXc3T2dSLURyOUtLVURfRXJLYVNwcUhZRTNORW9YbVJnYjhfSHNmT2pWWHc?oc=5"
   data-title="고리원자력본부 내년 사업자 지원사업 공모 - 머니투데이"
-  data-publisher="mt.co.kr"
+  data-publisher="머니투데이"
   data-group="원자력"
   data-language="ko"
-  data-search="고리원자력본부 내년 사업자 지원사업 공모 - 머니투데이 mt.co.kr 원자력 "
+  data-search="고리원자력본부 내년 사업자 지원사업 공모 - 머니투데이 머니투데이 원자력 "
   tabindex="0" role="link">
   <div class="article-number">12</div>
   <div class="preview-copy">
-    <div class="publisher">mt.co.kr</div>
+    <div class="publisher">머니투데이</div>
     <div class="headline">고리원자력본부 내년 사업자 지원사업 공모 - 머니투데이</div>
     
     <div class="status-line">
@@ -2343,14 +2347,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMimAFBVV95cUxQcXNmc3YwUmVzalJQMzdfcVlLRXowU00xS1NMLVd4eWotNjkyRTZkZUhHd0E1Ykc1a0hyOWJYUFRmZXBqbXNPQTlGRDBQaTRlYndqWHZkNUdsY3diMzluS0EzR3duWGl0VGN3cHBXUjBWNG5uUUtxWklJOEItODFBQ3psanU4clYxX3NfZllTS0tuODVPdUYtaQ?oc=5"
   data-title="This Stock Could Be Your Ticket to Becoming a Millionaire"
-  data-publisher="The Motley Fool"
+  data-publisher="fool.com"
   data-group="SMR"
   data-language="en"
-  data-search="this stock could be your ticket to becoming a millionaire the motley fool smr "
+  data-search="this stock could be your ticket to becoming a millionaire fool.com smr "
   tabindex="0" role="link">
   <div class="article-number">9</div>
   <div class="preview-copy">
-    <div class="publisher">The Motley Fool</div>
+    <div class="publisher">fool.com</div>
     <div class="headline">This Stock Could Be Your Ticket to Becoming a Millionaire</div>
     
     <div class="status-line">
@@ -2370,14 +2374,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMimAFBVV95cUxNM2NjWFBtLXZRM3hqVU9SY0VYM0N6cE93bE1Xa2k1VmhWRGREMnlKUlcwU01pV0tFOV9xbzlWNC15b2xyU01HQm42X2FRMkQxZzd4TDlFcXdXeTREWm42OHI2Q0l5UU5DTFZoQUNYclI3ZE56c29DdkpjN2hDRzI3ZV8ybU00U0otLVBVYTB4VE1WRkZfbzJrbw?oc=5"
   data-title="SMR Q2 Earnings Call Focuses on TVA and Deployment Readiness"
-  data-publisher="Yahoo Finance"
+  data-publisher="finance.yahoo.com"
   data-group="SMR"
   data-language="en"
-  data-search="smr q2 earnings call focuses on tva and deployment readiness yahoo finance smr "
+  data-search="smr q2 earnings call focuses on tva and deployment readiness finance.yahoo.com smr "
   tabindex="0" role="link">
   <div class="article-number">10</div>
   <div class="preview-copy">
-    <div class="publisher">Yahoo Finance</div>
+    <div class="publisher">finance.yahoo.com</div>
     <div class="headline">SMR Q2 Earnings Call Focuses on TVA and Deployment Readiness</div>
     
     <div class="status-line">
@@ -2532,14 +2536,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMieEFVX3lxTE5wMmstNGtPbXlVMDBQT2R6aGg5OW44SEdIOThKTEk4WmpFUmxoRl85MTN6TlVHRWxBLVU0ZXFCLXlNVjhLSkdQbGhyd2N5YU9ua3NfSnRDZnZldGQtbGN5T1g1RDdrcllnMjN0Z3dXV1ZjSlhEZ2kySw?oc=5"
   data-title="SMR 10-Q &amp; SEC Filings"
-  data-publisher="Yahoo Finance"
+  data-publisher="finance.yahoo.com"
   data-group="SMR"
   data-language="en"
-  data-search="smr 10-q &amp; sec filings yahoo finance smr "
+  data-search="smr 10-q &amp; sec filings finance.yahoo.com smr "
   tabindex="0" role="link">
   <div class="article-number">16</div>
   <div class="preview-copy">
-    <div class="publisher">Yahoo Finance</div>
+    <div class="publisher">finance.yahoo.com</div>
     <div class="headline">SMR 10-Q &amp; SEC Filings</div>
     
     <div class="status-line">
@@ -2619,7 +2623,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMingFBVV95cUxOS0lQR1FILUp5bXlPeEducUpiSC1UU1ROUFJ0QmxrVi1Wd1dnclRWZUhDY1kxU3BudzlnVzZBdlpfbTh5QW1UUHozajNLVVh1THNyMVZ3bnVUa1hFeHh1RVdQeHFNLVEwRFVmRk12R1VCNkVDWktna0x5UkIzaFo1cW9NbmxZaXk5TG9DMDU3cXlSVzBRWmhRUE5yNDU3dw?oc=5"
   data-title="DOE outlines possible Oklahoma nuclear energy project in federal documents"
   data-publisher="News On 6"
@@ -2630,7 +2634,7 @@ h1,
   <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">News On 6</div>
-    <div class="headline"><span class="new-badge">NEW</span>DOE outlines possible Oklahoma nuclear energy project in federal documents</div>
+    <div class="headline">DOE outlines possible Oklahoma nuclear energy project in federal documents</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -2646,7 +2650,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiigFBVV95cUxNbDFWXzZuWGdSX2tva3pOVy1LQTd6Umh1SkJlell3UnVCSzhZcjJvQ1VnSVowNS1wdUY5bC1rY0RQekJ6VGM5aWJIemxsMGNVTmlwMmdoX0FBTEcteS1fOVJudGsyOTRUcTR1WmNTU19ZbTM5MTB0YVdqVVZ3UmE2dFBhTWU0RWpBZkE?oc=5"
   data-title="Letter: The nuclear promise of jobs, tax money and easy energy in Utah is a Faustian bargain"
   data-publisher="The Salt Lake Tribune"
@@ -2657,7 +2661,7 @@ h1,
   <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">The Salt Lake Tribune</div>
-    <div class="headline"><span class="new-badge">NEW</span>Letter: The nuclear promise of jobs, tax money and easy energy in Utah is a Faustian bargain</div>
+    <div class="headline">Letter: The nuclear promise of jobs, tax money and easy energy in Utah is a Faustian bargain</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -2889,7 +2893,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMisAFBVV95cUxNTmF3MVotYTFHaGN1NGtLVmctNEp2REVZWS1qekgxcFR3S1M5b2Nfb0VDNEcwV3FkZEpTSHNOMzhaM1liTU5RZ3ZJNWt5c0c1UVNZSTdaYnhEMWtuUllHa2thVWxkMFhXNmtkU3NhY1Jmc21wNDVLSTJRLWdSY2VNcFFGMU9kaVFMeU55aDJOZU5wcjctaWNyaXdPeUFvTEVkOE40QVlTYWc0b1ZmRi1XeQ?oc=5"
   data-title="Amid Push for Nuclear Reactor Construction, Illinois Is One Step Closer to Selecting a Site"
   data-publisher="WTTW"
@@ -2900,7 +2904,7 @@ h1,
   <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">WTTW</div>
-    <div class="headline"><span class="new-badge">NEW</span>Amid Push for Nuclear Reactor Construction, Illinois Is One Step Closer to Selecting a Site</div>
+    <div class="headline">Amid Push for Nuclear Reactor Construction, Illinois Is One Step Closer to Selecting a Site</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -2925,7 +2929,7 @@ h1,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMimwFBVV95cUxNN3Z4THo3RmFXQnlGd0RZM1FJaGM3UUZGcG9lZ3RIS3NtRzVWM3o1S1RMSTZvLUtkX0hIWUZOcUQtbVJtZHlhWlRGZV9JRVc2dk1xMkdqTUt5OGJ1RlNBVU1kYTZWRFh4a2lFNlZITmNsMjdkMnBoc0RsUXo2dFc5TTV0bnduRnk2cmhYbjcwWUtLcTY5QTFnVENHbw?oc=5"
   data-title="Holtec moves forward on Oyster Creek, looks to Gulf South - American Nuclear Society -- ANS"
   data-publisher="American Nuclear Society -- ANS"
@@ -2936,7 +2940,7 @@ h1,
   <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">American Nuclear Society -- ANS</div>
-    <div class="headline"><span class="new-badge">NEW</span>Holtec moves forward on Oyster Creek, looks to Gulf South - American Nuclear Society -- ANS</div>
+    <div class="headline">Holtec moves forward on Oyster Creek, looks to Gulf South - American Nuclear Society -- ANS</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -3029,18 +3033,18 @@ h1,
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTFBXMWVieWNWM1YybGIwb05CZEdJaVMzVEp0M3RUQ05MSFlBdUVjcnhnbjRheUYyc1phZDh5SXV5YnhaRmdrN1NKcHN5aTRLbXptenNHYnJFSmJJVDR5NW01NUduQnNtWE1POHJB0gFvQVVfeXFMT0JQNnBiR0JpT0RibmhTdnhqMzZNckhYZjBjWlBmN011c2RpZ0Z5S3RmRk9LeUF2U1V3U2FCTHNMWUdOeWMtR29RLVlrdkFjdFc3a3ZVUi0yNkRQUXNaNmRPZ0hYMWhFTXdDa2FsdDIw?oc=5"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMicEFVX3lxTE03NVc3a2pIQ2hXLVBOSXZYRVZjNl9SeFkyT0FBOTJvdGxndmVoME1PVGJOdU9XMUs1dUZkaWpxWXIyMGxsRnRYci1ZLW42RFF6N1pWZlcyN3pnTlBscVhxMXdfYkRLN3NiYmZmTFh0Mi3SAXRBVV95cUxQMnZ3UHhSa00wZVN0MnNVVzhCYXpzNWNWRE1nUm9maHZsZnlsbmRuZ1JHZ2dIbW11Z0hPWHhYVDRDWUhCYXFXdXVyYnFEdGR3aTF0amlDMUY1NEF2U21Zb1lQbUU2Z0M3ZE4wam9sZ2R3WUlpVQ?oc=5"
   data-title="현대건설·SK에코플랜트, &#x27;지속가능보고서&#x27; 통해 ESG 경영 실적 및 방향성 제시"
-  data-publisher="한국아이닷컴"
+  data-publisher="sports.hankooki.com"
   data-group="현대건설"
   data-language="ko"
-  data-search="현대건설·sk에코플랜트, &#x27;지속가능보고서&#x27; 통해 esg 경영 실적 및 방향성 제시 한국아이닷컴 현대건설 "
+  data-search="현대건설·sk에코플랜트, &#x27;지속가능보고서&#x27; 통해 esg 경영 실적 및 방향성 제시 sports.hankooki.com 현대건설 "
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">한국아이닷컴</div>
-    <div class="headline">현대건설·SK에코플랜트, &#x27;지속가능보고서&#x27; 통해 ESG 경영 실적 및 방향성 제시</div>
+    <div class="publisher">sports.hankooki.com</div>
+    <div class="headline"><span class="new-badge">NEW</span>현대건설·SK에코플랜트, &#x27;지속가능보고서&#x27; 통해 ESG 경영 실적 및 방향성 제시</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -3283,16 +3287,43 @@ h1,
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9reHo4eGNtS19CWG1hR21leHA3ckVwMEplTVgyU0VDOUdhSEF2S3pkUzNYeDIzd3p2MzNvcmVPbE82OTVnakF6c3d1M3B3SnoyY0gzODVseXdYQUszS283eHVCNEk?oc=5"
-  data-title="대우건설, 모잠비크 &#x27;Rovuma LNG 1단계’ 낙찰의향서 접수"
-  data-publisher="매일일보"
+  data-title="대우건설, 모잠비크 &#x27;Rovuma LNG 1단계’ 낙찰의향서 접수 - m-i.kr"
+  data-publisher="m-i.kr"
   data-group="타 건설사"
   data-language="ko"
-  data-search="대우건설, 모잠비크 &#x27;rovuma lng 1단계’ 낙찰의향서 접수 매일일보 타 건설사 "
+  data-search="대우건설, 모잠비크 &#x27;rovuma lng 1단계’ 낙찰의향서 접수 - m-i.kr m-i.kr 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">매일일보</div>
-    <div class="headline">대우건설, 모잠비크 &#x27;Rovuma LNG 1단계’ 낙찰의향서 접수</div>
+    <div class="publisher">m-i.kr</div>
+    <div class="headline">대우건설, 모잠비크 &#x27;Rovuma LNG 1단계’ 낙찰의향서 접수 - m-i.kr</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTE5PYTAtcWlZamhvaW03NVVHeHdJRkVxVm1wS2x6OXRSQkpBOF9fakMxYmplS3ZuTl9UMFZZU3NOaFNpZS1seGNiNERZQTc0cXFXUVp4OFBuSjhQTTFDdmVQaA?oc=5"
+  data-title="대우건설, 모잠비크 초대형 LNG플랜트 건설·운영 원청사 참여 파란불"
+  data-publisher="asiae.co.kr"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="대우건설, 모잠비크 초대형 lng플랜트 건설·운영 원청사 참여 파란불 asiae.co.kr 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">6</div>
+  <div class="preview-copy">
+    <div class="publisher">asiae.co.kr</div>
+    <div class="headline"><span class="new-badge">NEW</span>대우건설, 모잠비크 초대형 LNG플랜트 건설·운영 원청사 참여 파란불</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -3316,7 +3347,7 @@ h1,
   data-language="ko"
   data-search="소임 다하고 떠나는 김보현 사장…대우건설, 세대교체 속도 낼 듯 글로벌이코노믹 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">글로벌이코노믹</div>
     <div class="headline">소임 다하고 떠나는 김보현 사장…대우건설, 세대교체 속도 낼 듯</div>
@@ -3343,7 +3374,7 @@ h1,
   data-language="ko"
   data-search="울산 남구보건소, sk에코플랜트 라엘에스 건설현장에서 절주 캠페인 실시 &gt; 뉴스 더코리아 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">더코리아</div>
     <div class="headline">울산 남구보건소, SK에코플랜트 라엘에스 건설현장에서 절주 캠페인 실시 &gt; 뉴스</div>
@@ -3370,7 +3401,7 @@ h1,
   data-language="ko"
   data-search="[기자수첩] sk에코플랜트, &#x27;전수조사&#x27; 약속 전에 답해야 할 것들 투어코리아 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">투어코리아</div>
     <div class="headline">[기자수첩] SK에코플랜트, &#x27;전수조사&#x27; 약속 전에 답해야 할 것들</div>
@@ -3397,7 +3428,7 @@ h1,
   data-language="ko"
   data-search="현대엔지니어링, 중진공과 업무협약…협력사 안전·품질 역량 강화 나선다 gukjenews.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">gukjenews.com</div>
     <div class="headline">현대엔지니어링, 중진공과 업무협약…협력사 안전·품질 역량 강화 나선다</div>
@@ -3416,7 +3447,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="/news/articleView.html?idxno=32989"
   data-title="남부발전, 하동복합 1GW 건설 EPC 낙찰자로  두산에너빌리티 컨소시엄 선정"
   data-publisher="전력경제신문"
@@ -3424,10 +3455,10 @@ h1,
   data-language="ko"
   data-search="남부발전, 하동복합 1gw 건설 epc 낙찰자로  두산에너빌리티 컨소시엄 선정 전력경제신문 타 건설사 상세설계부터 시공까지 ‘일괄 계약’ 내년 1월 착공 후 ’29년 12월 준공 에너지전환 정책 이행 박차 가한다한국남부발전이 정부의 에너지 전환 정책에 맞춰 추진하는 하동복합 건설사업의 일괄 설치조건부 구매계약 낙찰자로 두산에너빌리티 컨소시엄을 선정했다고 7일 밝혔다.이번 사업은 정부의 에너지 전환 정책에 따라 노후 석탄화력발"
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">전력경제신문</div>
-    <div class="headline"><span class="new-badge">NEW</span>남부발전, 하동복합 1GW 건설 EPC 낙찰자로  두산에너빌리티 컨소시엄 선정</div>
+    <div class="headline">남부발전, 하동복합 1GW 건설 EPC 낙찰자로  두산에너빌리티 컨소시엄 선정</div>
     <div class="article-snippet">상세설계부터 시공까지 ‘일괄 계약’ 내년 1월 착공 후 ’29년 12월 준공 에너지전환 정책 이행 박차 가한다한국남부발전이 정부의 에너지 전환 정책에 맞춰 추진하는 하동복합 건설사업의 일괄 설치조건부 구매계약 낙찰자로 두산에너빌리티 컨소시엄을 선정했다고 7일 밝혔다.이번 사업은 정부의 에너지 전환 정책에 따라 노후 석탄화력발</div>
     <div class="status-line">
       <div class="status-text">
@@ -3451,7 +3482,7 @@ h1,
   data-language="ko"
   data-search="두산에너빌리티, 하동 lng 복합발전소 건설 epc 계약 수주 데일리한국 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">데일리한국</div>
     <div class="headline">두산에너빌리티, 하동 LNG 복합발전소 건설 EPC 계약 수주</div>
@@ -3478,7 +3509,7 @@ h1,
   data-language="ko"
   data-search="서울역 역세권 &#x27;서계통합구역&#x27; 수주전 예열...gs건설·삼성물산·대우건설 관심 더구루 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">12</div>
+  <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">더구루</div>
     <div class="headline">서울역 역세권 &#x27;서계통합구역&#x27; 수주전 예열...GS건설·삼성물산·대우건설 관심</div>
@@ -3505,7 +3536,7 @@ h1,
   data-language="ko"
   data-search="저마진 끝, 해외수주 시작…대우건설 필두 건설사 체질 바뀐다 v.daum.net 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">13</div>
+  <div class="article-number">14</div>
   <div class="preview-copy">
     <div class="publisher">v.daum.net</div>
     <div class="headline">저마진 끝, 해외수주 시작…대우건설 필두 건설사 체질 바뀐다</div>
@@ -3532,7 +3563,7 @@ h1,
   data-language="ko"
   data-search="롯데건설, 3000억 abs 연속 발행…재무 체질 개선 전략 본격화 폴리뉴스 polinews 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">14</div>
+  <div class="article-number">15</div>
   <div class="preview-copy">
     <div class="publisher">폴리뉴스 Polinews</div>
     <div class="headline">롯데건설, 3000억 ABS 연속 발행…재무 체질 개선 전략 본격화</div>
@@ -3559,7 +3590,7 @@ h1,
   data-language="ko"
   data-search="sk에코플랜트, 반도체·데이터센터 인프라 확대 전략 제시 폴리뉴스 polinews 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">15</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
     <div class="publisher">폴리뉴스 Polinews</div>
     <div class="headline">SK에코플랜트, 반도체·데이터센터 인프라 확대 전략 제시</div>
@@ -3581,14 +3612,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5kUlVmLU83OG1aMkxIVkJWUXlaZ2gzOUUzbTU0Tk9VM0dadnBNR0lSOGk0anlLSFhCN3BjRVBmUHdwRGQybEtpQTFDMk8xeG9TWWxONmV6eHVHX280Nm5hWl9CNHpzbXc?oc=5"
   data-title="[이슈] &#x27;목동8단지 재건축&#x27; 대우·GS·DL이앤씨·현산 경쟁?…&quot;대우건설 단독 입찰에 무게&quot;"
-  data-publisher="팍스경제TV"
+  data-publisher="paxetv.com"
   data-group="타 건설사"
   data-language="ko"
-  data-search="[이슈] &#x27;목동8단지 재건축&#x27; 대우·gs·dl이앤씨·현산 경쟁?…&quot;대우건설 단독 입찰에 무게&quot; 팍스경제tv 타 건설사 "
+  data-search="[이슈] &#x27;목동8단지 재건축&#x27; 대우·gs·dl이앤씨·현산 경쟁?…&quot;대우건설 단독 입찰에 무게&quot; paxetv.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">16</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
-    <div class="publisher">팍스경제TV</div>
+    <div class="publisher">paxetv.com</div>
     <div class="headline">[이슈] &#x27;목동8단지 재건축&#x27; 대우·GS·DL이앤씨·현산 경쟁?…&quot;대우건설 단독 입찰에 무게&quot;</div>
     
     <div class="status-line">
@@ -3613,7 +3644,7 @@ h1,
   data-language="ko"
   data-search="&quot;240명 수분양자 생존권 박탈&quot; 시민단체, 신한자산신탁·롯데건설 가야역 롯데스카이엘 기습 공매 철회 촉구 서울뉴스통신 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">17</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">서울뉴스통신</div>
     <div class="headline">&quot;240명 수분양자 생존권 박탈&quot; 시민단체, 신한자산신탁·롯데건설 가야역 롯데스카이엘 기습 공매 철회 촉구</div>
@@ -3640,7 +3671,7 @@ h1,
   data-language="ko"
   data-search="한화 건설부문, 사계절 신개념 놀이공간 &#x27;넥스트플로우&#x27; 개발 sr타임스 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">19</div>
   <div class="preview-copy">
     <div class="publisher">SR타임스</div>
     <div class="headline">한화 건설부문, 사계절 신개념 놀이공간 &#x27;넥스트플로우&#x27; 개발</div>
@@ -3660,44 +3691,17 @@ h1,
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiT0FVX3lxTE9OcFpQQmdjZ3JWM2dUVk5UaGRfbnpNNk5QSjhFQlBEOFZ5WllTbDU1aUNGZDA2M1Q1LTJaS0xtdlp2YTZBcVUxM2M2SEFxVEk?oc=5"
-  data-title="GS건설, 4082억 규모 부산 사직3구역 재개발 본계약"
-  data-publisher="v.daum.net"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="gs건설, 4082억 규모 부산 사직3구역 재개발 본계약 v.daum.net 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">19</div>
-  <div class="preview-copy">
-    <div class="publisher">v.daum.net</div>
-    <div class="headline">GS건설, 4082억 규모 부산 사직3구역 재개발 본계약</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
   data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9MNHZCWGFfWDlRSzNGazZXdUdueTlybjJ3V01OcHBWbHFqeldIdVJEYVlQdXIzclJRUk9wVzdxUlBaMDNmbDlQTWdMc01TSmJUczJEWFVIT1IxNkRiSy00enRrSjA?oc=5"
-  data-title="SK에코플랜트 시공 ‘송도 럭스 오션 SK뷰’ 외벽 테라스 구조물 추락"
-  data-publisher="매일일보"
+  data-title="SK에코플랜트 시공 ‘송도 럭스 오션 SK뷰’ 외벽 테라스 구조물 추락 - m-i.kr"
+  data-publisher="m-i.kr"
   data-group="타 건설사"
   data-language="ko"
-  data-search="sk에코플랜트 시공 ‘송도 럭스 오션 sk뷰’ 외벽 테라스 구조물 추락 매일일보 타 건설사 "
+  data-search="sk에코플랜트 시공 ‘송도 럭스 오션 sk뷰’ 외벽 테라스 구조물 추락 - m-i.kr m-i.kr 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">20</div>
   <div class="preview-copy">
-    <div class="publisher">매일일보</div>
-    <div class="headline"><span class="new-badge">NEW</span>SK에코플랜트 시공 ‘송도 럭스 오션 SK뷰’ 외벽 테라스 구조물 추락</div>
+    <div class="publisher">m-i.kr</div>
+    <div class="headline">SK에코플랜트 시공 ‘송도 럭스 오션 SK뷰’ 외벽 테라스 구조물 추락 - m-i.kr</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -3746,7 +3750,7 @@ h1,
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
     <span>한국수력원자력</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3806,14 +3810,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiVkFVX3lxTE1UV1B6MGFOOHJnMzRiMk84Q2FKX3o4clNfLU1wblJ1ck55SjRFaXU1MTlOcjJUOENlTGpRRUprT3JKU20wSTB4Z0N0ZWFXTFVDWmRBLWdn?oc=5"
   data-title="‘폭염’ 고리원전 찾은 김회천 한수원 사장 “안정적인 전력 공급 최선”"
-  data-publisher="헤럴드경제"
+  data-publisher="biz.heraldcorp.com"
   data-group="한국수력원자력"
   data-language="ko"
-  data-search="‘폭염’ 고리원전 찾은 김회천 한수원 사장 “안정적인 전력 공급 최선” 헤럴드경제 한국수력원자력 "
+  data-search="‘폭염’ 고리원전 찾은 김회천 한수원 사장 “안정적인 전력 공급 최선” biz.heraldcorp.com 한국수력원자력 "
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">헤럴드경제</div>
+    <div class="publisher">biz.heraldcorp.com</div>
     <div class="headline">‘폭염’ 고리원전 찾은 김회천 한수원 사장 “안정적인 전력 공급 최선”</div>
     
     <div class="status-line">
@@ -3884,33 +3888,6 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTFBNVU13UmNWZm5QS3R6RHAxamY4eTBiUzk0SnJDZlhfUUJlQm4tNl84SkItNk9FZzNmcEdJOElENGhqWlo1TzJQT3BxZW1PTk5teUxRdnFWaWtodjRKOUppNmV2VkFMc2RBMEVR0gFvQVVfeXFMTXh3Nkx4cEQ2TzBYc0ZST2tDREN6UGRNZDB3bE00S0EtTmZQUEVWTWFjMllzeFhhMWxpWUp5Y0F3MU9rODZvejZrZ0I4SzNJbGtYSVhyMS1iQlhhcGdHZDJ5QlR6Skx3RUVLNUs0clMw?oc=5"
-  data-title="“폭염發 전력난·산재 막자” 발전 공기업 CEO, 현장서 광폭 행보"
-  data-publisher="한국아이닷컴"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-search="“폭염發 전력난·산재 막자” 발전 공기업 ceo, 현장서 광폭 행보 한국아이닷컴 한국수력원자력 "
-  tabindex="0" role="link">
-  <div class="article-number">6</div>
-  <div class="preview-copy">
-    <div class="publisher">한국아이닷컴</div>
-    <div class="headline"><span class="new-badge">NEW</span>“폭염發 전력난·산재 막자” 발전 공기업 CEO, 현장서 광폭 행보</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiWkFVX3lxTE5UREU5Rk8taFFaMFdDdkZZSFdId0txNzRQSTNVdm56TGhrbV80dDBMUnQtQ2F4N0p4bUxDOHZuYzZqcE9vOTMtZ245aEVQbm1IU0k0VE1aMnlqQQ?oc=5"
   data-title="원전정비원 자격제도, 정부 인정 공식 취득…원전 정비 전문성 높인다"
@@ -3919,7 +3896,7 @@ h1,
   data-language="ko"
   data-search="원전정비원 자격제도, 정부 인정 공식 취득…원전 정비 전문성 높인다 경북매일 한국수력원자력 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">경북매일</div>
     <div class="headline">원전정비원 자격제도, 정부 인정 공식 취득…원전 정비 전문성 높인다</div>
@@ -3946,7 +3923,7 @@ h1,
   data-language="ko"
   data-search="원전 정비자격 정부 인정 시대 열렸다…원전현장인력양성원, 국가 공신력 확보 에너지데일리 한국수력원자력 "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">에너지데일리</div>
     <div class="headline">원전 정비자격 정부 인정 시대 열렸다…원전현장인력양성원, 국가 공신력 확보</div>
@@ -3973,7 +3950,7 @@ h1,
   data-language="ko"
   data-search="노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답 에너지타임즈 한국수력원자력 한수원노조 창립 25주년을 맞아 노조는 단순한 발전회사 틀을 넘어 ‘한국원자력공사’ 설립이란 목표를 제시했고, 사측은 큰 뜻을 품고 난관을 극복해 목표를 이룬다는 의미를 담은 사자성어인 ‘승풍파랑(乘風破浪)’으로 화답했다. 세계 에너지시장에서 한수원의 역할과 기능을 확대해 글로벌 경쟁력을 높여야 한다는 노사의 지향점은 같았다."
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답</div>
@@ -4000,7 +3977,7 @@ h1,
   data-language="ko"
   data-search="한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화 에너지타임즈 한국수력원자력 한국수력원자력(주) 한빛원자력본부(본부장 김현주)가 원전 주변 불법 드론 비행을 예방하기 위해 24시간 탐지체계를 운영하는 한편 원전과 인접한 해수욕장을 중심으로 집중적인 홍보하는 ‘드론 비행 금지 특별홍보 캠페인’을 지난 27일부터 28일까지 한빛원전과 인접한 가마미·구시포해수욕장에서 펼쳤다. 이 캠페인은 영광경찰서·고창경찰서·목포해양경찰서·부안해안경찰서·의용소방대를 비롯한 유관기관과 해수욕장 운영 관계자들이 함께 원전 주변 드론 비행 관련 규정과 주의 사항을 안내하는 것으로 진행됐다."
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
@@ -4027,7 +4004,7 @@ h1,
   data-language="ko"
   data-search="국가 에너지 안보 지킨 7인의 헌신, 대한민국 원전산업의 내일을 밝히다 에너지안전신문 한국수력원자력 "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">에너지안전신문</div>
     <div class="headline">국가 에너지 안보 지킨 7인의 헌신, 대한민국 원전산업의 내일을 밝히다</div>
@@ -4052,7 +4029,7 @@ h1,
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
     <span>한국전력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -4079,6 +4056,33 @@ h1,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000021"
+  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -4226,18 +4230,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiogFBVV95cUxPdi16U3U2T0FpUFN5TXVVYzBQcjlDazREQjIyQ0htSXh0bUp1YkNnNWZNYjJWdUt5bGJHS01ibnl6V0taU29KZnE4cVlLREpibndxMnNRUEhvMWJlX2M4UHJ4OU9KOTdGbjR0cWpha3d1b2hMRVk0S2NIay02NTRWOVJPSmJJcDNSQTJrZ0pWTnQ4OWphUk5fNS1wb25rcHptSVE?oc=5"
-  data-title="산업통상부 장관은 석유 및 가스 사업 운영의 3단계 관리 모델에 대해 설명했습니다."
-  data-publisher="Vietnam.vn"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE5JalFuNHZKR0wxcjBkdlZ0ZzNJYTJ2amFKWnpldUctd1RKTGlUblBMR2dMbTJrVEVXUWxDbDdoSW5NOFFVMjZlaDZ5ck15VkNqV3EzejU0UVczOUFYUDI1b3ZtME9hM3hhTm5GRUJR?oc=5"
+  data-title="[인사] 산업통상부"
+  data-publisher="아시아투데이"
   data-group="원전 관계부처"
   data-language="ko"
-  data-search="산업통상부 장관은 석유 및 가스 사업 운영의 3단계 관리 모델에 대해 설명했습니다. vietnam.vn 원전 관계부처 "
+  data-search="[인사] 산업통상부 아시아투데이 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">6</div>
   <div class="preview-copy">
-    <div class="publisher">Vietnam.vn</div>
-    <div class="headline">산업통상부 장관은 석유 및 가스 사업 운영의 3단계 관리 모델에 대해 설명했습니다.</div>
+    <div class="publisher">아시아투데이</div>
+    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -4470,60 +4474,6 @@ h1,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227323"
-  data-title="[인사] 산업통상부 (8월 10일자)"
-  data-publisher="에너지신문"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="[인사] 산업통상부 (8월 10일자) 에너지신문 원전 관계부처 "
-  tabindex="0" role="link">
-  <div class="article-number">15</div>
-  <div class="preview-copy">
-    <div class="publisher">에너지신문</div>
-    <div class="headline">[인사] 산업통상부 (8월 10일자)</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ac9f7f8a11eab81248f9a6e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMilgFBVV95cUxNOG1mX2FqMTFQOUhCQlR4SlpKUzlyd29BN1RaeWp4c3o0ZFRFVnpKMFAyM3pqS3lITFlBUU9TLUxESGtROTg3RmtLMGxILTQzdWluTUlIem90c3h6WmFBVVFDd2VnOG9ocWhCNFhpajV2eXc5enVRS1FNVFZaM0kwYlBMV1A0eC1LSEM3Ym0zR2hDbmFQNEE?oc=5"
-  data-title="응오 타이 찬 씨가 껀터시 산업통상부 부장으로 임명되었습니다."
-  data-publisher="Vietnam.vn"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="응오 타이 찬 씨가 껀터시 산업통상부 부장으로 임명되었습니다. vietnam.vn 원전 관계부처 "
-  tabindex="0" role="link">
-  <div class="article-number">16</div>
-  <div class="preview-copy">
-    <div class="publisher">Vietnam.vn</div>
-    <div class="headline">응오 타이 찬 씨가 껀터시 산업통상부 부장으로 임명되었습니다.</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMickFVX3lxTE5aNXNFRjU4U0ZFRjd3NkU4emlCSUNnaDhFWGVLUHJRT1hWT2RMeVktV0djdEFLb1pGcjJva1k0MG9weFJ2eFJjN2JEUnF4TV9oYzhZUklMRnVyU19yeXFRYm90NFRWMVQzb0R1bTdpWFZDQQ?oc=5"
   data-title="기후부 2차관, 폭염 취약계층 현장 점검…물길쉼터·에너지복지 연계 대응 강화"
   data-publisher="에너지데일리"
@@ -4531,7 +4481,7 @@ h1,
   data-language="ko"
   data-search="기후부 2차관, 폭염 취약계층 현장 점검…물길쉼터·에너지복지 연계 대응 강화 에너지데일리 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">17</div>
+  <div class="article-number">15</div>
   <div class="preview-copy">
     <div class="publisher">에너지데일리</div>
     <div class="headline">기후부 2차관, 폭염 취약계층 현장 점검…물길쉼터·에너지복지 연계 대응 강화</div>
@@ -4558,7 +4508,7 @@ h1,
   data-language="ko"
   data-search="반도체 성과급, &#x27;임금&#x27;인가 &#x27;이익배당&#x27;인가... 법리로 짚어본 김정관 발언 법률방송뉴스 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
     <div class="publisher">법률방송뉴스</div>
     <div class="headline">반도체 성과급, &#x27;임금&#x27;인가 &#x27;이익배당&#x27;인가... 법리로 짚어본 김정관 발언</div>
@@ -4585,7 +4535,7 @@ h1,
   data-language="ko"
   data-search="김정관 장관 &quot;영업이익 연동 성과급, 주총 의결 거쳐야&quot; 중소기업신문 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">19</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">중소기업신문</div>
     <div class="headline">김정관 장관 &quot;영업이익 연동 성과급, 주총 의결 거쳐야&quot;</div>
@@ -4612,10 +4562,64 @@ h1,
   data-language="ko"
   data-search="산업부, 英 통상장관에 철강 쿼터 확대 요청…&quot;합리적 배정 필요&quot; 페로타임즈 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">20</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">페로타임즈</div>
     <div class="headline">산업부, 英 통상장관에 철강 쿼터 확대 요청…&quot;합리적 배정 필요&quot;</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTE5VX0lJcXJCZlBQMGhlYmo2M3lQMm9IbzhJOVRGa0VVYk02dWZjUjBBSzlZY2R4bXo4amptTzBXMUsyblRLRXQ2Sl9UYTI0YW5rT3RqTmlUXzctMVYtdFRxRTBnLWd3WWRmZGIzVdIBcEFVX3lxTFAzbFZBeXZMT28wbmY0UUpsZjJ0aDdaRTNNc1dkU0dSWEhyeU1HMERUdlVCUFZsMUdoUURRY1FMSy1ocVJWd3dhdHZ2OGVkNGxrcTBVcmIzRWFwZ2VNTDFQdE0tMGgtRVVMOHhkUDZiUi0?oc=5"
+  data-title="[산업부·기후부 장차관 일정(2026년 8월 7일)]"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-search="[산업부·기후부 장차관 일정(2026년 8월 7일)] 에너지플랫폼뉴스 원전 관계부처 "
+  tabindex="0" role="link">
+  <div class="article-number">19</div>
+  <div class="preview-copy">
+    <div class="publisher">에너지플랫폼뉴스</div>
+    <div class="headline"><span class="new-badge">NEW</span>[산업부·기후부 장차관 일정(2026년 8월 7일)]</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE9lWV9OR0lfRmtXb05DOEhJX1JjUElOVGtJUWNNLXdOMjFtTnBBWlVEanBFc2dIY1lZMHRlNTJaMUREMldkUEtkSllvMlVQN18wQ19ORG1Cb0k3VkkzSDNWQVZ4V1hIQTRmMHc?oc=5"
+  data-title="김정관 산업장관 &quot;첨단산업 주 52시간 예외 필요&quot;…김영훈 노동장관과 정면 충돌"
+  data-publisher="데일리저널"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-search="김정관 산업장관 &quot;첨단산업 주 52시간 예외 필요&quot;…김영훈 노동장관과 정면 충돌 데일리저널 원전 관계부처 "
+  tabindex="0" role="link">
+  <div class="article-number">20</div>
+  <div class="preview-copy">
+    <div class="publisher">데일리저널</div>
+    <div class="headline"><span class="new-badge">NEW</span>김정관 산업장관 &quot;첨단산업 주 52시간 예외 필요&quot;…김영훈 노동장관과 정면 충돌</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -5036,18 +5040,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiQ0FVX3lxTE5mTWxaN3dzVFNBQV9mRlpVYk5LOFJ0YWRaWWJSMTk2T3F3RTlDTXNhbGFoN21PUVhBTTIwSUxjWWtLbFU?oc=5"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiSEFVX3lxTFBuTzFjRzNtaFllUFhwbXRIbW0ya2FQMzVWYk9KaVlsWmZmdzB6aDN2SXVOWW5Pc1FyZDhMUGc5TUV6OU1LY0JQYw?oc=5"
   data-title="트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 SMR 전략에 미칠 영향"
-  data-publisher="kcemedia.com"
+  data-publisher="얼리어답터뉴스"
   data-group="SMR"
   data-language="ko"
-  data-search="트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 smr 전략에 미칠 영향 kcemedia.com smr "
+  data-search="트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 smr 전략에 미칠 영향 얼리어답터뉴스 smr "
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">kcemedia.com</div>
-    <div class="headline">트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 SMR 전략에 미칠 영향</div>
+    <div class="publisher">얼리어답터뉴스</div>
+    <div class="headline"><span class="new-badge">NEW</span>트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 SMR 전략에 미칠 영향</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -5066,14 +5070,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiUEFVX3lxTFBIWWdBS0ZjOVpiSW5WcC1QazhUcXJ4SU1HR3RQTTYyVnpJRjFYSVo5cW1CUm9sdXN5Q2xDYUxPdGVnYlJTZC0yTllUU3FqanhY?oc=5"
   data-title="싱가포르 국무장관 “韓과 SMR협력… 아세안 파워그리드 구축”"
-  data-publisher="munhwa.com"
+  data-publisher="문화일보"
   data-group="SMR"
   data-language="ko"
-  data-search="싱가포르 국무장관 “韓과 smr협력… 아세안 파워그리드 구축” munhwa.com smr "
+  data-search="싱가포르 국무장관 “韓과 smr협력… 아세안 파워그리드 구축” 문화일보 smr "
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">munhwa.com</div>
+    <div class="publisher">문화일보</div>
     <div class="headline">싱가포르 국무장관 “韓과 SMR협력… 아세안 파워그리드 구축”</div>
     
     <div class="status-line">
@@ -5201,14 +5205,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMidEFVX3lxTFBNVUg4RzBjb3pfMG5UeGVrMUNCY1JzVnppWGFsNWRyWjFDQXR6VUJJNThRckw0OGpVTU4zRXp6MVFqUTZiQVhPWjZ2bkY2N0pnMWVsbE4xYldjQkNIQUtsdzA3WkhDdjJKVVNPVmJOTEhyZS1J?oc=5"
   data-title="Advanced Reactors Face Fuel Supply And Cost Challenges"
-  data-publisher="legis1.com"
+  data-publisher="Legis1"
   data-group="SMR"
   data-language="en"
-  data-search="advanced reactors face fuel supply and cost challenges legis1.com smr "
+  data-search="advanced reactors face fuel supply and cost challenges legis1 smr "
   tabindex="0" role="link">
   <div class="article-number">8</div>
   <div class="preview-copy">
-    <div class="publisher">legis1.com</div>
+    <div class="publisher">Legis1</div>
     <div class="headline">Advanced Reactors Face Fuel Supply And Cost Challenges</div>
     
     <div class="status-line">
@@ -5309,14 +5313,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMi5gFBVV95cUxNUzIycEZoWllOWXVmdncxWkRlSW1pbjA5YkxQbXhnSGN6QldZZk04aU81Mmh3MjdlZHlCWmZpYi1NVW11d3FJSzhPcjIyNjNneXFuUjBwTlRpbFhaaWlXRU9XTVpJTkNZQ2ZoRUtQYlRwRkdNTlVNMVk1Q3c0Xzh3R2tEanFVS0dQNWExXzc3emZ2V24wcGlNbVQyUXZBSkdWS2pmVkpjaWRfZ3JtYmtfeEZqMnNLLVZSWEs2TGNpekhHYktFX3dKbm9Vb0ttUUVNUk1KWVNtbEI4T2Zhel9qYVRPd202QQ?oc=5"
   data-title="Got $1,000? Here Are My Favorite Nuclear Stocks to Invest in Right Now."
-  data-publisher="The Globe and Mail"
+  data-publisher="theglobeandmail.com"
   data-group="SMR"
   data-language="en"
-  data-search="got $1,000? here are my favorite nuclear stocks to invest in right now. the globe and mail smr "
+  data-search="got $1,000? here are my favorite nuclear stocks to invest in right now. theglobeandmail.com smr "
   tabindex="0" role="link">
   <div class="article-number">12</div>
   <div class="preview-copy">
-    <div class="publisher">The Globe and Mail</div>
+    <div class="publisher">theglobeandmail.com</div>
     <div class="headline">Got $1,000? Here Are My Favorite Nuclear Stocks to Invest in Right Now.</div>
     
     <div class="status-line">
@@ -5750,14 +5754,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMirgFBVV95cUxPZE5oSGNDMlE3aGFwVnpzVmJySVlkMlNKWUJZanBaclg2YTZZMk5MaDRQVDRZOHk0Ry1VdThaQ05Sdm1OYUtLdGFkN2ctYTdXLThJcXVVYXl3WUV3Vnk4bU5DRzVYNVJET3lJTTVONmFLcDltdERNd2RUd2l2Z1IyYkJmc1FCQ3ZOR3RlMVIzc2VNSXk4eU1TSmlLZUhfUTc1SlVaN2w2T1MtXzJIN3c?oc=5"
   data-title="From Idaho to Mars: NASA chief celebrates INL&#x27;s role in the new space race"
-  data-publisher="ksl.com"
+  data-publisher="KSL News"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
-  data-search="from idaho to mars: nasa chief celebrates inl&#x27;s role in the new space race ksl.com nuclear power·nuclear energy "
+  data-search="from idaho to mars: nasa chief celebrates inl&#x27;s role in the new space race ksl news nuclear power·nuclear energy "
   tabindex="0" role="link">
   <div class="article-number">13</div>
   <div class="preview-copy">
-    <div class="publisher">ksl.com</div>
+    <div class="publisher">KSL News</div>
     <div class="headline">From Idaho to Mars: NASA chief celebrates INL&#x27;s role in the new space race</div>
     
     <div class="status-line">
@@ -6019,7 +6023,7 @@ h1,
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
     <span>현대건설</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -6050,17 +6054,71 @@ h1,
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMiXEFVX3lxTE9LelZnNXJvbmNtTWZ5Znk1ZTlKbXFBb29qWkpHSHd1OFNzaHhFZi10QVVkd2xOVkk0UTNydUptVlVWaUNTZ3dtNVFMTzJ2Mk5JYXBTZkdVN09VZml4?oc=5"
-  data-title="현대건설 주가 700원 상승 후 장마감"
-  data-publisher="아시아뉴스통신"
+  data-url="https://news.google.com/rss/articles/CBMiU0FVX3lxTE81TUdNMTVYSG94ekRVY0MzT1I3RTlXSmVfcERVbFkyemVhSzh0SXBSTjV3R1NrcDJsMnlPb0RHRGVyaFBycTE2OEZHWWpYelNDNmdR?oc=5"
+  data-title="성수3지구 재개발 시공사 삼성물산 유력…단독참여로 2차례 유찰"
+  data-publisher="네이트"
   data-group="현대건설"
   data-language="ko"
-  data-search="현대건설 주가 700원 상승 후 장마감 아시아뉴스통신 현대건설 "
+  data-search="성수3지구 재개발 시공사 삼성물산 유력…단독참여로 2차례 유찰 네이트 현대건설 "
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">아시아뉴스통신</div>
-    <div class="headline"><span class="new-badge">NEW</span>현대건설 주가 700원 상승 후 장마감</div>
+    <div class="publisher">네이트</div>
+    <div class="headline"><span class="new-badge">NEW</span>성수3지구 재개발 시공사 삼성물산 유력…단독참여로 2차례 유찰</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9ualNiLVRqMlp1cUstdkVVN2R2VFBfai1kel9oRzFwT0VfWTEtUVNoQzNEY2tHdGlhMjIwZ2s0cjBSMjczcEw0dGc0Mkwwb243VGQ1UEdGelhvd3Zjb2Z3Z0ExcVZEUXc?oc=5"
+  data-title="[이슈] 현대건설, 목동10단지 재건축 ‘수의계약’ 유력...1차 입찰 단독 참여"
+  data-publisher="paxetv.com"
+  data-group="현대건설"
+  data-language="ko"
+  data-search="[이슈] 현대건설, 목동10단지 재건축 ‘수의계약’ 유력...1차 입찰 단독 참여 paxetv.com 현대건설 "
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">paxetv.com</div>
+    <div class="headline"><span class="new-badge">NEW</span>[이슈] 현대건설, 목동10단지 재건축 ‘수의계약’ 유력...1차 입찰 단독 참여</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMib0FVX3lxTE9jYXFJWVpvVlljZ3lWUElzREVXWGFXN1VGeVBZcTI3MDVSQUVUT0loX3g2ZHhKV3RIcXJ5UjJfZ29oZVhwX1ptRkd3cmc1c1hiWk9DTFluRm9rMzFjdVZKNzByTFBMU1d4Rl9rcXlIZw?oc=5"
+  data-title="현대차그룹, 계열사별 전문성 결집한 &#x27;피지컬 AI&#x27; 생태계 구축에 속도"
+  data-publisher="이코리아"
+  data-group="현대건설"
+  data-language="ko"
+  data-search="현대차그룹, 계열사별 전문성 결집한 &#x27;피지컬 ai&#x27; 생태계 구축에 속도 이코리아 현대건설 "
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">이코리아</div>
+    <div class="headline"><span class="new-badge">NEW</span>현대차그룹, 계열사별 전문성 결집한 &#x27;피지컬 AI&#x27; 생태계 구축에 속도</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6084,7 +6142,7 @@ h1,
   data-language="ko"
   data-search="&quot;서울 공급, 정비사업이 해법&quot;…전문가들, 인허가·이주비·공사비 개선 촉구 뉴시스 현대건설 [서울=뉴시스]정진형 기자 = &quot;서울로 국한해 보면 주택 공급의 현실적인 대안은 정비사업밖에 없습니다.&quot;(박영국 현대건설 도시미래가치사업3팀장) 10일 국회의원회관에서 열린 &#x27;서울 주택가격 안정을 위한 정비사업 활성화 방안&#x27; 정책 세미나에 참석한 건설사와 건축사, 로펌 등 정비사업 전문가들은 인허가 병목현상부터 이주, 공사비 분쟁 등 재건축·재개발을 통한 도심 주택 공급 확대를 가로막는 제도 개선을 촉구했다. 이날 토론회는 이용선 더불어민주당 의원과 대한건축학회과 주최했다. 첫 발제자로 나선 한은철 나우동인건축사사무소 설계사업부문 부사장은 &#x27;신속 인허가 추진을 위한"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">&quot;서울 공급, 정비사업이 해법&quot;…전문가들, 인허가·이주비·공사비 개선 촉구</div>
@@ -6111,7 +6169,7 @@ h1,
   data-language="ko"
   data-search="차를 파는 현대차, 이젠 ‘주차면’을 만든다… 로봇으로 수용력 최대 50% ↑ s저널 현대건설 "
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">S저널</div>
     <div class="headline">차를 파는 현대차, 이젠 ‘주차면’을 만든다… 로봇으로 수용력 최대 50% ↑</div>
@@ -6138,7 +6196,7 @@ h1,
   data-language="ko"
   data-search="분양 앞둔 &#x27;반포 디에이치 클래스트&#x27; 주말 공사 근로자 사망…시공사 &quot;온열질환 가능성 낮아&quot; 네이트 현대건설 "
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">네이트</div>
     <div class="headline">분양 앞둔 &#x27;반포 디에이치 클래스트&#x27; 주말 공사 근로자 사망…시공사 &quot;온열질환 가능성 낮아&quot;</div>
@@ -6165,7 +6223,7 @@ h1,
   data-language="ko"
   data-search="대법 &quot;국내 기업 해외 사업장 손실, 타국에 나눠 법인세 부과해야&quot; 네이트 현대건설 "
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">네이트</div>
     <div class="headline">대법 &quot;국내 기업 해외 사업장 손실, 타국에 나눠 법인세 부과해야&quot;</div>
@@ -6192,7 +6250,7 @@ h1,
   data-language="ko"
   data-search="대법 “특정국가 결손금, 다른 나라 소득에도 나눠 반영” 대한경제 현대건설 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">대한경제</div>
     <div class="headline">대법 “특정국가 결손금, 다른 나라 소득에도 나눠 반영”</div>
@@ -6219,7 +6277,7 @@ h1,
   data-language="ko"
   data-search="매출 줄어도 이익↑…대형 건설사 상반기 수익성 회복세 신아일보 현대건설 "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">신아일보</div>
     <div class="headline">매출 줄어도 이익↑…대형 건설사 상반기 수익성 회복세</div>
@@ -6246,7 +6304,7 @@ h1,
   data-language="ko"
   data-search="ls證 “건설, 데이터센터로 붙이고 원전으로 연다⋯gs건설·대우건설 주목” 이투데이 현대건설 "
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">이투데이</div>
     <div class="headline">LS證 “건설, 데이터센터로 붙이고 원전으로 연다⋯GS건설·대우건설 주목”</div>
@@ -6266,6 +6324,33 @@ h1,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMinAFBVV95cUxNWk1ERVZGR3lYdFZxdjdyTm5MTUNQSjd5aWEzLVRhcTczdk9ManNISkk3Z2hCMHZGbEhhNzdkdi1TNUcxU2djUnE5d2NudF93VGZpRldWaGtFQzU0UUg3N0JBbE1ZdzhvS3c5R3ZvZHhRX3FVbDVlVWhvRFkydFRjNHdLQllGRzdld2hiXzlCbkhBM0JwRGh3SmM5dUnSAaIBQVVfeXFMUG1hdEw4Q3FDczBMRmM4VnlFbDJBSklzbHdQMHprNU1TLUp6Qkw2MC10ZEdib1JfUDUxcmY5NU1VeEJJMUZ6VG1WSHo3cU84cHpNcHZvM3lCMlBzZTVQSW5Hd1ZweXdrNWZ3b2dXYkNybWxnOFpNcFlYQm9sajJTR1pPTUdZOFNNekNXcVU2d0IwdU9uclU0QWZ3NENiSnJoS3hR?oc=5"
+  data-title="Deloitte Consulting Korea names new CEO"
+  data-publisher="The Korea Times"
+  data-group="현대건설"
+  data-language="en"
+  data-search="deloitte consulting korea names new ceo the korea times 현대건설 "
+  tabindex="0" role="link">
+  <div class="article-number">12</div>
+  <div class="preview-copy">
+    <div class="publisher">The Korea Times</div>
+    <div class="headline"><span class="new-badge">NEW</span>Deloitte Consulting Korea names new CEO</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTFB1U1ZlQWZNUWZJNW9LUm9SbDhFX2JMdE9XTEtxOEp5VV9SNS04Q3VMMXM5Y3lHOU05Vmp6UkZOYmlaNnBVQ1Fid3Z5MUFwakh3M1FiOHI5N1A5VU9Iam41Z3hlMW4?oc=5"
   data-title="Hyundai Motor Group to Resolve Residential &#x27;Parking Crisis&#x27; with Robots"
   data-publisher="아시아경제"
@@ -6273,10 +6358,10 @@ h1,
   data-language="en"
   data-search="hyundai motor group to resolve residential &#x27;parking crisis&#x27; with robots 아시아경제 현대건설 "
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">아시아경제</div>
-    <div class="headline"><span class="new-badge">NEW</span>Hyundai Motor Group to Resolve Residential &#x27;Parking Crisis&#x27; with Robots</div>
+    <div class="headline">Hyundai Motor Group to Resolve Residential &#x27;Parking Crisis&#x27; with Robots</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6383,18 +6468,18 @@ h1,
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260810_0003743190"
-  data-title="코스피, 개인·기관 &#x27;사자&#x27;에 6300선 코앞…코스닥 7% 급등"
-  data-publisher="뉴시스"
+  data-url="https://news.google.com/rss/articles/CBMiUkFVX3lxTE1tYTBvU1QwZDFOTUpDZXNSbEw5eVdUUTVqdE5hbmNweEt4NzkySUR6V3FldDMtVnpuaTlvQU9NZnJPRU5BNzJVdUU5ek92YW5odmfSAVNBVV95cUxQbk9ESmtHN2ZaODZHMjRWZkhaQ0xZazBuSFRCNk5iZ1VWV1BWOTNjaW93QVNKVDZnREpWS3piS2lfa0VJZHZEU3VEVXN4UDZQWlBGRQ?oc=5"
+  data-title="대우건설, 英 ARUP과 협업…목동8단지 초고층 구조 설계"
+  data-publisher="서울경제"
   data-group="타 건설사"
   data-language="ko"
-  data-search="코스피, 개인·기관 &#x27;사자&#x27;에 6300선 코앞…코스닥 7% 급등 뉴시스 타 건설사 [서울=뉴시스] 김경택 기자 = 코스피가 개인과 기관의 동반 순매수에 3거래일 만에 반등에 성공했다. 코스닥 지수는 7% 가까이 뛰며 올해 18번째 매수 사이드카(프로그램매수호가 일시효력정지)가 발동했다. 10일 코스피는 전일 대비 40.89포인트(0.65%) 오른 6299.66에 거래를 마쳤다. 지난 5일 이후 3거래일 만의 상승세로 장중에는 2% 넘게 올라 6400포인트에 근접하기도 했다. 이날 47.56포인트 상승 출발한 지수는 개장 10분여 만에 상승폭을 2% 가까이 확대하기도 했으나 외국인이 장중 매도세를 강화하면서 상승분을 반납했고 오전 중 1% 미만 상승"
+  data-search="대우건설, 英 arup과 협업…목동8단지 초고층 구조 설계 서울경제 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">4</div>
   <div class="preview-copy">
-    <div class="publisher">뉴시스</div>
-    <div class="headline"><span class="new-badge">NEW</span>코스피, 개인·기관 &#x27;사자&#x27;에 6300선 코앞…코스닥 7% 급등</div>
-    <div class="article-snippet">[서울=뉴시스] 김경택 기자 = 코스피가 개인과 기관의 동반 순매수에 3거래일 만에 반등에 성공했다. 코스닥 지수는 7% 가까이 뛰며 올해 18번째 매수 사이드카(프로그램매수호가 일시효력정지)가 발동했다. 10일 코스피는 전일 대비 40.89포인트(0.65%) 오른 6299.66에 거래를 마쳤다. 지난 5일 이후 3거래일 만의 상승세로 장중에는 2% 넘게 올라 6400포인트에 근접하기도 했다. 이날 47.56포인트 상승 출발한 지수는 개장 10분여 만에 상승폭을 2% 가까이 확대하기도 했으나 외국인이 장중 매도세를 강화하면서 상승분을 반납했고 오전 중 1% 미만 상승</div>
+    <div class="publisher">서울경제</div>
+    <div class="headline"><span class="new-badge">NEW</span>대우건설, 英 ARUP과 협업…목동8단지 초고층 구조 설계</div>
+    
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">미확인</span>
@@ -6405,22 +6490,22 @@ h1,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/6f01cc430f6a8f19383fc9c7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTFBNZ000TFEtYnd3ZlNWSXRVZm9mRUsyUXl3VThMYW84ckdNeEY5b0ZzZ2RuMjE1LUowbTJ4S3F2dTRlRU52WlVObVpnS25EV2lSR194eTBMMHpHa2VIclpLdTFUUHh2aXMwdTNvMg?oc=5"
-  data-title="DL이앤씨 ‘e편한세상 부천 어반스퀘어’ 가치 상승 기대감"
-  data-publisher="뉴스웰"
+  data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTFBJeC0zXzlOVGc4NEFwS29ZNGIya0FENWxtcS1qai1Ibjd1RHJ1VWk0SGJ1blk3LWplTThHNldRQ3MyTGRHd3BNLW9FcnRJbHZHajIxcG1nT1lsTFZiNUpiX2x4cm1KRGFVb0ZDYQ?oc=5"
+  data-title="대우건설, 글로벌 기업 아룹과 목동8단지 재건축 맞손"
+  data-publisher="페로타임즈"
   data-group="타 건설사"
   data-language="ko"
-  data-search="dl이앤씨 ‘e편한세상 부천 어반스퀘어’ 가치 상승 기대감 뉴스웰 타 건설사 "
+  data-search="대우건설, 글로벌 기업 아룹과 목동8단지 재건축 맞손 페로타임즈 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">뉴스웰</div>
-    <div class="headline"><span class="new-badge">NEW</span>DL이앤씨 ‘e편한세상 부천 어반스퀘어’ 가치 상승 기대감</div>
+    <div class="publisher">페로타임즈</div>
+    <div class="headline"><span class="new-badge">NEW</span>대우건설, 글로벌 기업 아룹과 목동8단지 재건축 맞손</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6437,17 +6522,17 @@ h1,
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMiS0FVX3lxTE40aUtxNlRhWk9GX2haQ2ZSQ1hFd1BWZzhMMFNvM2J5QkJGb0hEUTgyaHRIb0tUaVNqdXdUUEZmbF90STBIY1RRTTFvWQ?oc=5"
-  data-title="DL이앤씨 박상신 대표, 폭염 현장 점검…&quot;근로자 안전 최우선&quot;"
-  data-publisher="아이뉴스24"
+  data-url="https://news.google.com/rss/articles/CBMiWkFVX3lxTFAtSzRlUjRGbGpXRVZuaDNhb1BrZE9vbm9vZHNpbExxVldqS1BjWm9fSVdiY2JJWEZCbUZ0VUh4amlwYjR4cFppcE1CQ3lMbHhjcjBJemtEbnhBZw?oc=5"
+  data-title="오후 이슈 [원전] : 비에이치아이, GS건설, 한텍, 비엠티, 우리기술"
+  data-publisher="파이낸셜뉴스"
   data-group="타 건설사"
   data-language="ko"
-  data-search="dl이앤씨 박상신 대표, 폭염 현장 점검…&quot;근로자 안전 최우선&quot; 아이뉴스24 타 건설사 "
+  data-search="오후 이슈 [원전] : 비에이치아이, gs건설, 한텍, 비엠티, 우리기술 파이낸셜뉴스 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">6</div>
   <div class="preview-copy">
-    <div class="publisher">아이뉴스24</div>
-    <div class="headline"><span class="new-badge">NEW</span>DL이앤씨 박상신 대표, 폭염 현장 점검…&quot;근로자 안전 최우선&quot;</div>
+    <div class="publisher">파이낸셜뉴스</div>
+    <div class="headline"><span class="new-badge">NEW</span>오후 이슈 [원전] : 비에이치아이, GS건설, 한텍, 비엠티, 우리기술</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6464,17 +6549,17 @@ h1,
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMiS0FVX3lxTFBmeHQ3Mm5tRXNLcXFxNUtraVdUX1RBdVV5RGhXVVdVRURBd2JNQUNRWEF3U0lRT09qbVZyYzM0X0gydG5PNHRTcDdIWQ?oc=5"
-  data-title="대우건설, 목동8단지 수주전 참여…英 아룹과 협업"
-  data-publisher="아이뉴스24"
+  data-url="https://news.google.com/rss/articles/CBMieEFVX3lxTE5ldURXUDk4ZVZ5czdBLUV6a1FnRXNseHFUd3hzUHhUV3FINHd4VDhhazZkSGlxN19nX2F0anl5QmxmSS1ZNHFOcWg3TllqTU1aTFd2aV9SU3FOc0tVcHczQm9IUmtJNzM2cmF3ZVlvTkg1dENMRE5Faw?oc=5"
+  data-title="DL이앤씨, 폭염 대응 현장 근로자 안전 관리 총력"
+  data-publisher="네이트"
   data-group="타 건설사"
   data-language="ko"
-  data-search="대우건설, 목동8단지 수주전 참여…英 아룹과 협업 아이뉴스24 타 건설사 "
+  data-search="dl이앤씨, 폭염 대응 현장 근로자 안전 관리 총력 네이트 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">7</div>
   <div class="preview-copy">
-    <div class="publisher">아이뉴스24</div>
-    <div class="headline"><span class="new-badge">NEW</span>대우건설, 목동8단지 수주전 참여…英 아룹과 협업</div>
+    <div class="publisher">네이트</div>
+    <div class="headline"><span class="new-badge">NEW</span>DL이앤씨, 폭염 대응 현장 근로자 안전 관리 총력</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6491,71 +6576,17 @@ h1,
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMiaEFVX3lxTFBCT2diTnRfWGg5VTZDNmllV25fbHhzX21ZNnJJbkpQUllFV0N0VHZFMGs1MEpfZ0phUEF1a3JQdWJCUjRrOERZOHRCc2NnZWhGeGszdkRzeGZWWU9jZEVQRm51UWVLZHpa0gFsQVVfeXFMTzFBUnp1UlZSREhrRHVnSDVVZlZ5SmxoRDlMSU00blZDeVdnVDZTNHFZVTlaM0hCaUZ3SkRzTkt4VmYwczdRbVZLaGt4Sl9LVV9jT3ExNFFSRElELTVxWW1qT0tNbWFlU3dSV0U1?oc=5"
-  data-title="[부동산 PF 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화"
-  data-publisher="블로터"
+  data-url="https://news.google.com/rss/articles/CBMiWkFVX3lxTE9pbllNUHdnOTg3Zkx6YlEwWURSRlhlUmpDNS0wNkRTczJyd2lic2VRWmxoUE5pVW52Zm9xREtLVHVmb2N0SE1UeDV4ZTE3U2tCbFF4SkNhcEVKZ9IBWEFVX3lxTFBTdkpiVnRxYVFnVExuanhUaDBINVhac3hVdzlKRW04N3l4S1FXV25jQVAtZFFwY21DQVJ0azl3Snl5alYyaklGXzBWdDQ0QnF2VGViamVUQXQ?oc=5"
+  data-title="DL이앤씨 박상신 대표, 폭염 현장 점검…35도 넘으면 작업 멈춘다"
+  data-publisher="아주경제"
   data-group="타 건설사"
   data-language="ko"
-  data-search="[부동산 pf 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화 블로터 타 건설사 "
+  data-search="dl이앤씨 박상신 대표, 폭염 현장 점검…35도 넘으면 작업 멈춘다 아주경제 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">8</div>
   <div class="preview-copy">
-    <div class="publisher">블로터</div>
-    <div class="headline"><span class="new-badge">NEW</span>[부동산 PF 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9Fb2VQR1E2emVIdVRQYUxlR3FwMzNwVFdROEJMVlFpM2NILUJBcE9XbS1lbW1RZjJkalRiZFpIZ2dDYWZoQ1dCeU9CSm9kejYyUTZwRXJSbGRyWHM3dkdMRU9RZGY?oc=5"
-  data-title="DL이앤씨, 부천 소사역 앞 1649가구…잔여 물량 선착순 계약"
-  data-publisher="인더뉴스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="dl이앤씨, 부천 소사역 앞 1649가구…잔여 물량 선착순 계약 인더뉴스 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">9</div>
-  <div class="preview-copy">
-    <div class="publisher">인더뉴스</div>
-    <div class="headline">DL이앤씨, 부천 소사역 앞 1649가구…잔여 물량 선착순 계약</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMickFVX3lxTFBCMHV2OHBuN2xob0VwVDludXpLZjRDdnk3eEZPelhIVGtCV1czemNvbThnMzVRR1lxT3FubE1oRVVocnBTb2lHVnFGbDVESENYdFAybnlTXzlDX1hrR1Y3SUdsUFJ4N2M4RXBEblkzbTNZdw?oc=5"
-  data-title="DL이앤씨, 전국 현장 혹서기 안전관리 총력…스마트 시스템·이동형 보건버스 가동"
-  data-publisher="인더스트리뉴스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="dl이앤씨, 전국 현장 혹서기 안전관리 총력…스마트 시스템·이동형 보건버스 가동 인더스트리뉴스 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">10</div>
-  <div class="preview-copy">
-    <div class="publisher">인더스트리뉴스</div>
-    <div class="headline">DL이앤씨, 전국 현장 혹서기 안전관리 총력…스마트 시스템·이동형 보건버스 가동</div>
+    <div class="publisher">아주경제</div>
+    <div class="headline"><span class="new-badge">NEW</span>DL이앤씨 박상신 대표, 폭염 현장 점검…35도 넘으면 작업 멈춘다</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6579,10 +6610,172 @@ h1,
   data-language="ko"
   data-search="dl이앤씨·ipark현대산업개발, 혹서기 현장 안전점검 실시 통신일보 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">통신일보</div>
     <div class="headline">DL이앤씨·IPARK현대산업개발, 혹서기 현장 안전점검 실시</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260810_0003743190"
+  data-title="코스피, 개인·기관 &#x27;사자&#x27;에 6300선 코앞…코스닥 7% 급등"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="코스피, 개인·기관 &#x27;사자&#x27;에 6300선 코앞…코스닥 7% 급등 뉴시스 타 건설사 [서울=뉴시스] 김경택 기자 = 코스피가 개인과 기관의 동반 순매수에 3거래일 만에 반등에 성공했다. 코스닥 지수는 7% 가까이 뛰며 올해 18번째 매수 사이드카(프로그램매수호가 일시효력정지)가 발동했다. 10일 코스피는 전일 대비 40.89포인트(0.65%) 오른 6299.66에 거래를 마쳤다. 지난 5일 이후 3거래일 만의 상승세로 장중에는 2% 넘게 올라 6400포인트에 근접하기도 했다. 이날 47.56포인트 상승 출발한 지수는 개장 10분여 만에 상승폭을 2% 가까이 확대하기도 했으나 외국인이 장중 매도세를 강화하면서 상승분을 반납했고 오전 중 1% 미만 상승"
+  tabindex="0" role="link">
+  <div class="article-number">10</div>
+  <div class="preview-copy">
+    <div class="publisher">뉴시스</div>
+    <div class="headline">코스피, 개인·기관 &#x27;사자&#x27;에 6300선 코앞…코스닥 7% 급등</div>
+    <div class="article-snippet">[서울=뉴시스] 김경택 기자 = 코스피가 개인과 기관의 동반 순매수에 3거래일 만에 반등에 성공했다. 코스닥 지수는 7% 가까이 뛰며 올해 18번째 매수 사이드카(프로그램매수호가 일시효력정지)가 발동했다. 10일 코스피는 전일 대비 40.89포인트(0.65%) 오른 6299.66에 거래를 마쳤다. 지난 5일 이후 3거래일 만의 상승세로 장중에는 2% 넘게 올라 6400포인트에 근접하기도 했다. 이날 47.56포인트 상승 출발한 지수는 개장 10분여 만에 상승폭을 2% 가까이 확대하기도 했으나 외국인이 장중 매도세를 강화하면서 상승분을 반납했고 오전 중 1% 미만 상승</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6f01cc430f6a8f19383fc9c7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiaEFVX3lxTE50Y1Zmb3VBYnVWOGZjZ2lYcFBKYmVIR1RiWlVFWkNXbmJ2SzNEbGduQVBHNURlYUJzcFhGYWNJNmp2Z1lXQ3FmVHJwa3dlbjFDRWJETkN3MkxYVnFPS0Z0cDktRVgtWWFo?oc=5"
+  data-title="포스코이앤씨, 하안주공3·4단지 재건축 시공권 확보"
+  data-publisher="한국주택경제신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="포스코이앤씨, 하안주공3·4단지 재건축 시공권 확보 한국주택경제신문 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">11</div>
+  <div class="preview-copy">
+    <div class="publisher">한국주택경제신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨, 하안주공3·4단지 재건축 시공권 확보</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTFBNZ000TFEtYnd3ZlNWSXRVZm9mRUsyUXl3VThMYW84ckdNeEY5b0ZzZ2RuMjE1LUowbTJ4S3F2dTRlRU52WlVObVpnS25EV2lSR194eTBMMHpHa2VIclpLdTFUUHh2aXMwdTNvMg?oc=5"
+  data-title="DL이앤씨 ‘e편한세상 부천 어반스퀘어’ 가치 상승 기대감"
+  data-publisher="뉴스웰"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="dl이앤씨 ‘e편한세상 부천 어반스퀘어’ 가치 상승 기대감 뉴스웰 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">12</div>
+  <div class="preview-copy">
+    <div class="publisher">뉴스웰</div>
+    <div class="headline">DL이앤씨 ‘e편한세상 부천 어반스퀘어’ 가치 상승 기대감</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiSkFVX3lxTE5EYlNLTHNxUmFVWktQcC1GX1JOZklnMmRxZThRbjNEdmJ4dlowN3BVRGZ5anJaUjNHbnNuUEFMNmI5NVJMMDNjR0lB?oc=5"
+  data-title="[특징주] 대우건설, 장중 상승세 견인... 건설업종 전반 훈풍 기대감 확산 : 한국증시"
+  data-publisher="재경일보"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="[특징주] 대우건설, 장중 상승세 견인... 건설업종 전반 훈풍 기대감 확산 : 한국증시 재경일보 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">13</div>
+  <div class="preview-copy">
+    <div class="publisher">재경일보</div>
+    <div class="headline"><span class="new-badge">NEW</span>[특징주] 대우건설, 장중 상승세 견인... 건설업종 전반 훈풍 기대감 확산 : 한국증시</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiaEFVX3lxTFBCT2diTnRfWGg5VTZDNmllV25fbHhzX21ZNnJJbkpQUllFV0N0VHZFMGs1MEpfZ0phUEF1a3JQdWJCUjRrOERZOHRCc2NnZWhGeGszdkRzeGZWWU9jZEVQRm51UWVLZHpa0gFsQVVfeXFMTzFBUnp1UlZSREhrRHVnSDVVZlZ5SmxoRDlMSU00blZDeVdnVDZTNHFZVTlaM0hCaUZ3SkRzTkt4VmYwczdRbVZLaGt4Sl9LVV9jT3ExNFFSRElELTVxWW1qT0tNbWFlU3dSV0U1?oc=5"
+  data-title="[부동산 PF 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화"
+  data-publisher="블로터"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="[부동산 pf 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화 블로터 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">14</div>
+  <div class="preview-copy">
+    <div class="publisher">블로터</div>
+    <div class="headline">[부동산 PF 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9Fb2VQR1E2emVIdVRQYUxlR3FwMzNwVFdROEJMVlFpM2NILUJBcE9XbS1lbW1RZjJkalRiZFpIZ2dDYWZoQ1dCeU9CSm9kejYyUTZwRXJSbGRyWHM3dkdMRU9RZGY?oc=5"
+  data-title="DL이앤씨, 부천 소사역 앞 1649가구…잔여 물량 선착순 계약"
+  data-publisher="인더뉴스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="dl이앤씨, 부천 소사역 앞 1649가구…잔여 물량 선착순 계약 인더뉴스 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">15</div>
+  <div class="preview-copy">
+    <div class="publisher">인더뉴스</div>
+    <div class="headline">DL이앤씨, 부천 소사역 앞 1649가구…잔여 물량 선착순 계약</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6606,7 +6799,7 @@ h1,
   data-language="ko"
   data-search="가덕도신공항 공사비 급등…&quot;물가 상승분 반영 특례를&quot; 뉴시스 타 건설사 [부산=뉴시스]원동화 기자 = 가덕도신공항 부지조성공사 참여를 준비 중인 지역 건설업계가 최근 급등한 공사비를 계약에 반영할 수 있도록 입찰 전 물가상승 특례를 마련해야 한다고 한목소리로 촉구했다. 부산상공회의소는 10일 부산진구 부산상의 회관에서 &#x27;가덕도신공항 부지조성공사 지역 건설업계 현안 간담회&#x27;를 열고 부지조성공사 참여를 준비 중인 지역 건설업계의 애로사항을 청취했다. 간담회에는 양재생 부산상의 회장과 정임수 가덕도신공항건설공단 부이사장, 박재홍 부산시 신공항추진본부장, 정형열 대한건설협회 부산시회 회장, 강동국 대한건설협회 경남도회 회장, 대우건설 컨소시엄에"
   tabindex="0" role="link">
-  <div class="article-number">12</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">가덕도신공항 공사비 급등…&quot;물가 상승분 반영 특례를&quot;</div>
@@ -6633,7 +6826,7 @@ h1,
   data-language="ko"
   data-search="[분석] sk에코플랜트가 다시 그린 사업지도…ai 인프라 중심 재구성 조세금융신문 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">13</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">조세금융신문</div>
     <div class="headline">[분석] SK에코플랜트가 다시 그린 사업지도…AI 인프라 중심 재구성</div>
@@ -6660,7 +6853,7 @@ h1,
   data-language="ko"
   data-search="삼성물산, 호남권 첫 &#x27;래미안&#x27; 저울질 아시아타임즈 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">14</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">아시아타임즈</div>
     <div class="headline">삼성물산, 호남권 첫 &#x27;래미안&#x27; 저울질</div>
@@ -6687,7 +6880,7 @@ h1,
   data-language="ko"
   data-search="건설업 둔화에 새 먹거리 찾는 gs건설…친환경 에너지 키운다 뉴스저널리즘 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">15</div>
+  <div class="article-number">19</div>
   <div class="preview-copy">
     <div class="publisher">뉴스저널리즘</div>
     <div class="headline">건설업 둔화에 새 먹거리 찾는 GS건설…친환경 에너지 키운다</div>
@@ -6714,7 +6907,7 @@ h1,
   data-language="ko"
   data-search="한국토지신탁, &#x27;써밋 클라비온&#x27; 14일 견본주택 개관…176가구 일반공급 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = 한국토지신탁이 오는 14일 서울 영등포구 신길뉴타운에 들어서는 &#x27;써밋 클라비온&#x27; 견본주택을 개관하고 열고 분양에 나선다고 10일 밝혔다. 이 단지는 신길10재정비촉진구역 주택재건축정비사업으로 조성된다. 한국토지신탁이 시행을 맡고 대우건설이 시공한다. 지하 4층~지상 최고 29층, 8개 동, 총 812가구 규모로 이 가운데 전용면적 44~59㎡ 176가구가 일반분양 물량이다. 청약 일정은 오는 18일 특별공급을 시작으로 19일 해당지역 1순위, 20일 기타지역 1순위 순으로 진행된다. 당첨자 발표는 28일이다. 계약은 9월 8일부터 10"
   tabindex="0" role="link">
-  <div class="article-number">16</div>
+  <div class="article-number">20</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">한국토지신탁, &#x27;써밋 클라비온&#x27; 14일 견본주택 개관…176가구 일반공급</div>
@@ -6733,126 +6926,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMic0FVX3lxTE96NEhPTVhPY1hHZjRDd0ZudFhfbkRQUkVRcVVfUWdCal9KZ1lrZ0JWUGRhMV9ra2JUeGVNdkxiSnpPbGg4dDBuMGZqM3AteFMwU3U1ZDJCMW9UNmw4NGlVOVpCa09KcEh2SVVwZkk2VUhYelU?oc=5"
-  data-title="&#x27;실적 좋은 오너가 CEO&#x27; 대우건설 김보현, 왜 연임 뒤 단 4개월 만에 물러났나"
-  data-publisher="비즈니스포스트"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="&#x27;실적 좋은 오너가 ceo&#x27; 대우건설 김보현, 왜 연임 뒤 단 4개월 만에 물러났나 비즈니스포스트 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">17</div>
-  <div class="preview-copy">
-    <div class="publisher">비즈니스포스트</div>
-    <div class="headline">&#x27;실적 좋은 오너가 CEO&#x27; 대우건설 김보현, 왜 연임 뒤 단 4개월 만에 물러났나</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
 <article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTE8zRGJfMzlQblZDYVNjUFFKTlNKWjd1U0NFeDN5YVRCaFNlQ2pVbl9POTJxY3JXSUZFR0t5c1ItY0I0SUtoaUFNbmtpSFhQN2ZxMXRzYi1DY2gtOUFvUGRSOHJhcVJMMGcxWHNr?oc=5"
-  data-title="[건설 Pick] DL이앤씨·대우건설·LS일렉트릭, 안전과 기술력 강화로 차별화 경쟁력 확보"
-  data-publisher="라이센스뉴스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="[건설 pick] dl이앤씨·대우건설·ls일렉트릭, 안전과 기술력 강화로 차별화 경쟁력 확보 라이센스뉴스 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">18</div>
-  <div class="preview-copy">
-    <div class="publisher">라이센스뉴스</div>
-    <div class="headline"><span class="new-badge">NEW</span>[건설 Pick] DL이앤씨·대우건설·LS일렉트릭, 안전과 기술력 강화로 차별화 경쟁력 확보</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE8zOENoanRwOTJ6TUNZTXpRSC1TOG43WkVxbmoyek9XYlA0My1JV0VVdnl2dmNxbHM0ZTNzcEhxYlZNd082Nkw2Nm5PVE5odnhxbGRQcVZJdEI5OXdBcEU3VE9PQ1U?oc=5"
-  data-title="“체감온도 38도 넘으면 작업 멈춘다…DL이앤씨, 폭염 안전관리 강화”"
-  data-publisher="디지털데일리"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="“체감온도 38도 넘으면 작업 멈춘다…dl이앤씨, 폭염 안전관리 강화” 디지털데일리 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">19</div>
-  <div class="preview-copy">
-    <div class="publisher">디지털데일리</div>
-    <div class="headline">“체감온도 38도 넘으면 작업 멈춘다…DL이앤씨, 폭염 안전관리 강화”</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiT0FVX3lxTE9WWHBwTUJrUVdCLXY4MHp5NTdQRjNRZ2FSN0FDLW81NGJrNFpsekRXRWs5Z29ZOUQxTVNLY2ZZbXlFeWRPNmJ5bm9XcTFZeHc?oc=5"
-  data-title="GS건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2"
-  data-publisher="v.daum.net"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="gs건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2 v.daum.net 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">20</div>
-  <div class="preview-copy">
-    <div class="publisher">v.daum.net</div>
-    <div class="headline">GS건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMiVkFVX3lxTE1CcGlPZE9PZ3Y2TWJ1ekVyQWFubHVST0lKbU5ub25TcFV5R0pnOERqYUljZVdhU1ZjbFF0MmJyOWxoVU1McDUyRS1uaWxCeUpUZ3pBVE93?oc=5"
-  data-title="GS E&amp;C will join hands with LS Electric to strengthen its competitiveness in AI data center busi.."
-  data-publisher="매일경제"
+  data-url="https://news.google.com/rss/articles/CBMidkFVX3lxTE9GakI0Tkk5ZE0xdnp3eDN0c3N0VGFLOUN4a2ZnYU9lVFN2VmtWNlhUM25MeWh1TGxwY0NObzZVMmtnMjM5VFFraFNpZlViQ2d1OVlSOFlpcFNyWWhoMjk4eWY1YmptNGJ3bzJFb2hncDhDajliQUE?oc=5"
+  data-title="LS Electric and GS E&amp;C Partner on Next-Gen DC Power Distribution Tech to Boost AI Data Center Efficiency"
+  data-publisher="finance.biggo.com"
   data-group="타 건설사"
   data-language="en"
-  data-search="gs e&amp;c will join hands with ls electric to strengthen its competitiveness in ai data center busi.. 매일경제 타 건설사 "
+  data-search="ls electric and gs e&amp;c partner on next-gen dc power distribution tech to boost ai data center efficiency finance.biggo.com 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">21</div>
   <div class="preview-copy">
-    <div class="publisher">매일경제</div>
-    <div class="headline"><span class="new-badge">NEW</span>GS E&amp;C will join hands with LS Electric to strengthen its competitiveness in AI data center busi..</div>
+    <div class="publisher">finance.biggo.com</div>
+    <div class="headline"><span class="new-badge">NEW</span>LS Electric and GS E&amp;C Partner on Next-Gen DC Power Distribution Tech to Boost AI Data Center Efficiency</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6931,7 +7016,7 @@ h1,
     <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBjYXg3OGNSRXRJLVBtX0ZYWEVUOEUxUzlnNk5KY3dLX2xxb3BQTWlFak9Ta0tMLXotWDFNMmlZV2o4NHVlQXpJZWVuWFZIbmpxUnRnRGZXZWxHZEVLVTJOeDVkNA?oc=5"
   data-title="고리원자력본부, 지역주민에 최신 영화 상영"
   data-publisher="국토일보"
@@ -6942,7 +7027,7 @@ h1,
   <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">국토일보</div>
-    <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, 지역주민에 최신 영화 상영</div>
+    <div class="headline">고리원자력본부, 지역주민에 최신 영화 상영</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6958,7 +7043,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTE5jM3FMY05zMTVYNGNJaTRUN01MMDh3TXR2b0xaRkQ5N2E2MkR0ZUo2VEpucVM3bUptTXNZU0pmRnIzaURLZGJpamNtWEkxeTZMQlU2b01qT3R4S2tXU3lKUkJheUJFaXkxNDVIQg?oc=5"
   data-title="한수원, 포천양수발전소 주변지역 지원사업 공모…연 3.5억원 투입"
   data-publisher="ER 이코노믹리뷰"
@@ -6969,7 +7054,7 @@ h1,
   <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">ER 이코노믹리뷰</div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, 포천양수발전소 주변지역 지원사업 공모…연 3.5억원 투입</div>
+    <div class="headline">한수원, 포천양수발전소 주변지역 지원사업 공모…연 3.5억원 투입</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -6985,18 +7070,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTFA3TjVIWXJFdDZ2VEZFaUNXZlFTOWNLeFlWc0ZDQjFNWmxPNWdvLVhzVjV2TlJweDZ4WUFkOUx0cGJfVC1mODlwU0JtcTM0YllnQl9FQlhwNGZOZ1VNZU1LS2h1SDNTa1ZuYVJhQm9R0gFuQVVfeXFMUDdONUhZckV0NnZURkVpQ1dmUVM5Y0t4WVZzRkNCMU1abE81Z28tWHNWNXZOUnB4NnhZQWQ5THRwYl9ULWY4OXBTQm1xMzRiWWdCX0VCWHA0Zk5nVU1lTUtLaHVIM1NrVm5hUmFCb1E?oc=5"
   data-title="[더벨]우리기술, 한수원과 원전 VMI 협약 체결 - 머니투데이"
-  data-publisher="mt.co.kr"
+  data-publisher="머니투데이"
   data-group="한국수력원자력"
   data-language="ko"
-  data-search="[더벨]우리기술, 한수원과 원전 vmi 협약 체결 - 머니투데이 mt.co.kr 한국수력원자력 "
+  data-search="[더벨]우리기술, 한수원과 원전 vmi 협약 체결 - 머니투데이 머니투데이 한국수력원자력 "
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">mt.co.kr</div>
-    <div class="headline"><span class="new-badge">NEW</span>[더벨]우리기술, 한수원과 원전 VMI 협약 체결 - 머니투데이</div>
+    <div class="publisher">머니투데이</div>
+    <div class="headline">[더벨]우리기술, 한수원과 원전 VMI 협약 체결 - 머니투데이</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7012,7 +7097,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMic0FVX3lxTE1RQjVPRDdTRnRmWHhQX09qRnQ5dU9Na20zT0NQcjA1R2QxUlk4MXpDVEZGVWZ3MUFCSlg4THNSOHQyaW81aXFuak4tX1RhRzZPY01tV19YWDhiTzM5WkpJWGlib2trSmR6Y2Fmcl8ydU1XTjTSAXdBVV95cUxNdi1ocEgzWWRDQ3o4akU5TjA0ajhxdE9SVDgxeEkwVnV3VHdzbmJJOVptTTV2clBoVHdtY3B5S2NjV3dLNXZpbHdqVTNuS3QzWlR2aW4yb19pWGFBamZLSmZMZzdrUEY3dGtVRmFLVXBMZDhZZkliQQ?oc=5"
   data-title="한수원, 내년 착공 포천 양수발전소 인근 주민 지원 나선다"
   data-publisher="핀포인트뉴스"
@@ -7023,7 +7108,7 @@ h1,
   <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">핀포인트뉴스</div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, 내년 착공 포천 양수발전소 인근 주민 지원 나선다</div>
+    <div class="headline">한수원, 내년 착공 포천 양수발전소 인근 주민 지원 나선다</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7039,7 +7124,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTE5DUmNLckdjb0tpbEJIQnBCMjBpaW5ycnNWcTBIQmZYVGR3NXNpN3owSkdpdDNlOGJhdi1wU1Fqd0hMeks1anJJWEJpdC1OVDlsbWgwS2Jqd3lZb0FKaTF1UjZFeERZQ3ZUZXc5RA?oc=5"
   data-title="장성군, 한빛원자력·한전서 3천만원 기탁 받아"
   data-publisher="theleader.co.kr"
@@ -7050,7 +7135,7 @@ h1,
   <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">theleader.co.kr</div>
-    <div class="headline"><span class="new-badge">NEW</span>장성군, 한빛원자력·한전서 3천만원 기탁 받아</div>
+    <div class="headline">장성군, 한빛원자력·한전서 3천만원 기탁 받아</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7147,7 +7232,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiXkFVX3lxTE1NenRSUHlmbzR3amNrUlQ0bXRmRE5KMjNlZ2RiUkt5NWpXb3RicnZTSlVPTjJaYVowb2RONTdOcTBmMkgzckIyNk41X0V2aG9WWFpEVi1ScjNEVGlKWGc?oc=5"
   data-title="폭염 장기화에 김회천 사장, 현장 긴급 점검…“안정적 전력 생산” 당부"
   data-publisher="뉴스투데이"
@@ -7158,7 +7243,7 @@ h1,
   <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">뉴스투데이</div>
-    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 김회천 사장, 현장 긴급 점검…“안정적 전력 생산” 당부</div>
+    <div class="headline">폭염 장기화에 김회천 사장, 현장 긴급 점검…“안정적 전력 생산” 당부</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7246,18 +7331,18 @@ h1,
     <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMib0FVX3lxTE5FR0RVTVczOFdMTEpTYVJvMVVNZGF2ejRkVWJ2SjhPUGdPcDhWSmdCUlpPM1hFNzdvcFBIbHRvcnRheHBSX1QwbmtRWUxNdXJxRWEydWVqTmNwcnhkSjgyMjc2Ni1PbUlLb0NPeDlmcw?oc=5"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBmWHNJZ2U5Tnh2ejRHQXpCamd6LU5LWk5QYUFhWk9vLVRkNlJYVDJfMEI3ZHlBMEhzY1V1dExfalRKbTlZbk5YSlBjRjhwYVY5dU44aTUyVjhjQnhua2FYVDh5aFRHY3c?oc=5"
   data-title="파로호·소양호 활용 양수발전소 건립 가능성 본격 검토 오늘 기후에너지환경부 제2차관 만나 논의 시작"
-  data-publisher="ynyonhapnews.com"
+  data-publisher="hkilbo.kr"
   data-group="원전 관계부처"
   data-language="ko"
-  data-search="파로호·소양호 활용 양수발전소 건립 가능성 본격 검토 오늘 기후에너지환경부 제2차관 만나 논의 시작 ynyonhapnews.com 원전 관계부처 "
+  data-search="파로호·소양호 활용 양수발전소 건립 가능성 본격 검토 오늘 기후에너지환경부 제2차관 만나 논의 시작 hkilbo.kr 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">ynyonhapnews.com</div>
-    <div class="headline">파로호·소양호 활용 양수발전소 건립 가능성 본격 검토 오늘 기후에너지환경부 제2차관 만나 논의 시작</div>
+    <div class="publisher">hkilbo.kr</div>
+    <div class="headline"><span class="new-badge">NEW</span>파로호·소양호 활용 양수발전소 건립 가능성 본격 검토 오늘 기후에너지환경부 제2차관 만나 논의 시작</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7327,7 +7412,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMidkFVX3lxTFBLT05rTkd4bjZJMVJBMDBvOUQ3bzdkaFpudUl1TVZDV2xGbkJDdXBSOThPNmRpMThXWHhZVDUwbkJ2MUFJZkU1Q0xHVlVOSVhrSTU3M25icXBBXzlxRTdlNFN4Y3N3Sng0b1pFN0IyRWtZYlJDSnfSAXZBVV95cUxQS09Oa05HeG42STFSQTAwbzlEN283ZGhabnVJdU1WQ1dsRm5CQ3VwUjk4TzZkaTE4V1h4WVQ1MG5CdjFBSWZFNUNMR1ZVTklYa0k1NzNuYnFwQV85cUU3ZTRTeGNzd0p4NG9aRTdCMkVrWWJSQ0p3?oc=5"
   data-title="[기후부] 금한승 기후부 장관, 광주 제1하수처리장 찾아"
   data-publisher="워터저널"
@@ -7338,7 +7423,7 @@ h1,
   <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">워터저널</div>
-    <div class="headline"><span class="new-badge">NEW</span>[기후부] 금한승 기후부 장관, 광주 제1하수처리장 찾아</div>
+    <div class="headline">[기후부] 금한승 기후부 장관, 광주 제1하수처리장 찾아</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7381,7 +7466,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMib0FVX3lxTE9IaDZjQ1NvMUtZNUxXYTJJN0tZZktMSWgzNEh0R2RBNmJXcFE4a1NKRGlJOE16RmxuOUJISGFmbWdrREZTQnJrejJHZWpIcXZaWnlyVkp6RXNQSS1DRHhjRk1WNDJ2RXZ4eXIzUTAwWdIBb0FVX3lxTE9IaDZjQ1NvMUtZNUxXYTJJN0tZZktMSWgzNEh0R2RBNmJXcFE4a1NKRGlJOE16RmxuOUJISGFmbWdrREZTQnJrejJHZWpIcXZaWnlyVkp6RXNQSS1DRHhjRk1WNDJ2RXZ4eXIzUTAwWQ?oc=5"
   data-title="조국, 김정관 장관 &#x27;주52시간 예외&#x27; 발언 비판하며 &quot;민주당도 답변하라&quot;"
   data-publisher="펜앤마이크"
@@ -7392,7 +7477,7 @@ h1,
   <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">펜앤마이크</div>
-    <div class="headline"><span class="new-badge">NEW</span>조국, 김정관 장관 &#x27;주52시간 예외&#x27; 발언 비판하며 &quot;민주당도 답변하라&quot;</div>
+    <div class="headline">조국, 김정관 장관 &#x27;주52시간 예외&#x27; 발언 비판하며 &quot;민주당도 답변하라&quot;</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7495,7 +7580,7 @@ h1,
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
     <span>원전 대미투자</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -7524,19 +7609,28 @@ h1,
     <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
+</div>
+</section>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE1yUWpLVktLZ3JFQmpOZUV5SVJVaHNfR091MlFpRUZhX0V4N3ZhQjQ5RllZank0ai11NGVGLTlGN25RaHlDTFFCTDcySmhUNFdLN1dZV21LSzVXSmhQaGFleERFdWdoOVAtdEhCcWJR0gFwQVVfeXFMTVM3WHI3ZGxzdV9fY241SFVxekEyUnJJY2w0cG5KZjNETEVQUUkzQ2R5SXZmSnJHWV8zT0NIR3dCcFNmb0JsQUo2UVUzenh6ME5GSUFmZ0ppOGZCTV90SWJrcEh3Yi1WNHg5VTFVUXZyWg?oc=5"
-  data-title="iM 증권 “미국 발전설비 확대 추진…비에이치아이, 수주 가능성 높아”"
-  data-publisher="에너지플랫폼뉴스"
-  data-group="원전 대미투자"
+<section class="news-group" data-group="원자력">
+  <button class="group-title" type="button" aria-expanded="true">
+    <span class="group-arrow">▲</span>
+    <span>원자력</span>
+    <span class="group-count">12건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTE5hc3RDVWRGVWdxVzIwd3YzUzdWdUVaZFJrZ0FMSXN3ZW51ZUgxUmhWWTFka1FTUVlXVjZSTE8yWXJrMzB6cVJ1TmhQNlNQV0JVVHZFRFlRZE9QaGZaZ25scA?oc=5"
+  data-title="한국원자력의학원 원자력병원장에 송강현 박사"
+  data-publisher="네이트"
+  data-group="원자력"
   data-language="ko"
-  data-search="im 증권 “미국 발전설비 확대 추진…비에이치아이, 수주 가능성 높아” 에너지플랫폼뉴스 원전 대미투자 "
+  data-search="한국원자력의학원 원자력병원장에 송강현 박사 네이트 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">에너지플랫폼뉴스</div>
-    <div class="headline">iM 증권 “미국 발전설비 확대 추진…비에이치아이, 수주 가능성 높아”</div>
+    <div class="publisher">네이트</div>
+    <div class="headline"><span class="new-badge">NEW</span>한국원자력의학원 원자력병원장에 송강현 박사</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7551,17 +7645,35 @@ h1,
     <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
-</div>
-</section>
 
-<section class="news-group" data-group="원자력">
-  <button class="group-title" type="button" aria-expanded="true">
-    <span class="group-arrow">▲</span>
-    <span>원자력</span>
-    <span class="group-count">12건</span>
-  </button>
-  <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMidEFVX3lxTFBIdmhYN3Qwd0NocVJpRnFxbklkTENFbjBCTVRUMHpUVUh3Z3VBSXdpX0tpOVI2OEZ2M2hIU21tR1BxcEt0U0JTdzBTczlFY1JpeEZWdmtzRkJ2ZHJabWw3dGtGY2k4WVhYSDFBdUt2UXE1VWV2?oc=5"
+  data-title="스티펠, 스탠다드 뉴클리어 ’매수’ 의견 개시…원자력 연료 입지 주목"
+  data-publisher="Investing.com 한국어"
+  data-group="원자력"
+  data-language="ko"
+  data-search="스티펠, 스탠다드 뉴클리어 ’매수’ 의견 개시…원자력 연료 입지 주목 investing.com 한국어 원자력 "
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">Investing.com 한국어</div>
+    <div class="headline"><span class="new-badge">NEW</span>스티펠, 스탠다드 뉴클리어 ’매수’ 의견 개시…원자력 연료 입지 주목</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260810_0003743196"
   data-title="한미, UFS연습 17~27일 실시…대대급 야외훈련 17→14건 줄어(종합)"
   data-publisher="뉴시스"
@@ -7569,10 +7681,10 @@ h1,
   data-language="ko"
   data-search="한미, ufs연습 17~27일 실시…대대급 야외훈련 17→14건 줄어(종합) 뉴시스 원자력 [서울=뉴시스] 옥승욱 기자 = 합동참모본부는 한미가 연합방위태세 확립을 위해 이달 17일부터 27일까지 연합연습 &#x27;을지 자유의 방패&#x27;(ufs·ulchi freedom shield)&#x27;를 시행하기로 했다고 10일 밝혔다. 이번 ufs 연습은 한미가 연례적으로 실시하는 방어적 성격의 훈련이다. 한미는 최근 전쟁 양상을 통해 분석된 전훈 등 현실적인 위협을 연습 시나리오에 반영했다. 이번 훈련에 한국군은 지난해와 동일한 1만8000명 가량이 참가한다. 훈련 규모는 예년과 유사한 수준이다. 합참은 &quot;ufs 연습은 &#x27;연합·합동전영역작전&#x27;을 포함한 한미동맹의 연합방위태세를 강화"
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
-    <div class="headline"><span class="new-badge">NEW</span>한미, UFS연습 17~27일 실시…대대급 야외훈련 17→14건 줄어(종합)</div>
+    <div class="headline">한미, UFS연습 17~27일 실시…대대급 야외훈련 17→14건 줄어(종합)</div>
     <div class="article-snippet">[서울=뉴시스] 옥승욱 기자 = 합동참모본부는 한미가 연합방위태세 확립을 위해 이달 17일부터 27일까지 연합연습 &#x27;을지 자유의 방패&#x27;(UFS·Ulchi Freedom Shield)&#x27;를 시행하기로 했다고 10일 밝혔다. 이번 UFS 연습은 한미가 연례적으로 실시하는 방어적 성격의 훈련이다. 한미는 최근 전쟁 양상을 통해 분석된 전훈 등 현실적인 위협을 연습 시나리오에 반영했다. 이번 훈련에 한국군은 지난해와 동일한 1만8000명 가량이 참가한다. 훈련 규모는 예년과 유사한 수준이다. 합참은 &quot;UFS 연습은 &#x27;연합·합동전영역작전&#x27;을 포함한 한미동맹의 연합방위태세를 강화</div>
     <div class="status-line">
       <div class="status-text">
@@ -7588,7 +7700,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMieEFVX3lxTFAxTk10Zm9ETHA4YnZuaU9GSV84MlBfWE92TkhkZlUteDV6NVBESy1TeFl2RlRzZHcyS2ZfQk1vNER4ZWg4MDB0LWxzMnRnS3RFRGdDYnpZR1hjS2FOcTAyRGJ0VUhGekV3LWducTAwTkp5c3pMeUhuSQ?oc=5"
   data-title="[전문] 김성환 &quot;반도체용 원전 추가 건설, 10월까지 전문가·국민 여론 수렴할 것&quot;"
   data-publisher="네이트"
@@ -7596,10 +7708,10 @@ h1,
   data-language="ko"
   data-search="[전문] 김성환 &quot;반도체용 원전 추가 건설, 10월까지 전문가·국민 여론 수렴할 것&quot; 네이트 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">네이트</div>
-    <div class="headline"><span class="new-badge">NEW</span>[전문] 김성환 &quot;반도체용 원전 추가 건설, 10월까지 전문가·국민 여론 수렴할 것&quot;</div>
+    <div class="headline">[전문] 김성환 &quot;반도체용 원전 추가 건설, 10월까지 전문가·국민 여론 수렴할 것&quot;</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7623,7 +7735,7 @@ h1,
   data-language="ko"
   data-search="&quot;경주 지역인재 우대&quot;…원자력환경공단, 신입사원 31명 채용 gukjenews.com 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">gukjenews.com</div>
     <div class="headline">&quot;경주 지역인재 우대&quot;…원자력환경공단, 신입사원 31명 채용</div>
@@ -7642,7 +7754,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTFBNRTlLWG5rcU5lYXFEU1Nsbmg3aTZrc0JsNVdXV2NwcElETmF1bWJWUmh0REtycHNpQTdTMXdlVXU3cldOZmpXMVB0aWZ6aXZiOEIta0I4UkdfeDQ5Y3FPc2NCcTRMb3R1MUpCekJR0gFyQVVfeXFMTUFZOXpNRGt5TzlUYkFCTmlVU1B3YVJkVUFwajB4LTFQaUNBSlY5WVl3bWNiS2c4b25ta05qamNCMFc3YVY3Q0dDcXM3QmRKal9VTGh5QThERS1reHpOOUMyOTdtSVhGaWNxblhFbzVKV3R3?oc=5"
   data-title="해외건설 500억 달러 시대 겨냥…K건설, 중동 플랜트서 원전·전력 선회"
   data-publisher="폴리뉴스 Polinews"
@@ -7650,64 +7762,10 @@ h1,
   data-language="ko"
   data-search="해외건설 500억 달러 시대 겨냥…k건설, 중동 플랜트서 원전·전력 선회 폴리뉴스 polinews 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">4</div>
-  <div class="preview-copy">
-    <div class="publisher">폴리뉴스 Polinews</div>
-    <div class="headline"><span class="new-badge">NEW</span>해외건설 500억 달러 시대 겨냥…K건설, 중동 플랜트서 원전·전력 선회</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTE4zTUZuYWlLeE4zdWh4cWZySkY4QkZnZ2xnb3p5ZE4xSGt3SW1aeFZydUxqRHY3dTd6QVR4VDFRbjNCZ1hkRWZhVEt5WVE4RmRPZFNZRHVXOXNaeXpvTGQ4ZDBPeU5IUXNnd2Uw?oc=5"
-  data-title="[인사] 원자력병원장에 송강현 비뇨의학과주임과장 임명"
-  data-publisher="재활뉴스"
-  data-group="원자력"
-  data-language="ko"
-  data-search="[인사] 원자력병원장에 송강현 비뇨의학과주임과장 임명 재활뉴스 원자력 "
-  tabindex="0" role="link">
-  <div class="article-number">5</div>
-  <div class="preview-copy">
-    <div class="publisher">재활뉴스</div>
-    <div class="headline">[인사] 원자력병원장에 송강현 비뇨의학과주임과장 임명</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5tUU1tc0JDaWhrRE1SeVJhNUV0X01NUGZjUC1jVHg5VV9XREpWX09qRDc5M2F5NVNkcVQ3ZENPSVdoZDFkb2k2RzhDZWJYcGktTXNKcWFvNE1DbHVEaWg3ZUxNTVRMWW8?oc=5"
-  data-title="(인사)한국원자력의학원"
-  data-publisher="의약뉴스"
-  data-group="원자력"
-  data-language="ko"
-  data-search="(인사)한국원자력의학원 의약뉴스 원자력 "
-  tabindex="0" role="link">
   <div class="article-number">6</div>
   <div class="preview-copy">
-    <div class="publisher">의약뉴스</div>
-    <div class="headline">(인사)한국원자력의학원</div>
+    <div class="publisher">폴리뉴스 Polinews</div>
+    <div class="headline">해외건설 500억 달러 시대 겨냥…K건설, 중동 플랜트서 원전·전력 선회</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7777,7 +7835,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiU0FVX3lxTE1RRHJjc0lwOVJDX293Nm1pZkxJOG85YWRZY0lpd3JYT0FMM2xnaWxyWUpyeVhkcm40dHU5aUxucTJJTjFpWFI0cld2RDUyS0JGejRn?oc=5"
   data-title="기후장관 &quot;광주 하수 걸러 반도체 냉각 용수로…원전 추가 필요성&quot;"
   data-publisher="네이트"
@@ -7788,7 +7846,7 @@ h1,
   <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">네이트</div>
-    <div class="headline"><span class="new-badge">NEW</span>기후장관 &quot;광주 하수 걸러 반도체 냉각 용수로…원전 추가 필요성&quot;</div>
+    <div class="headline">기후장관 &quot;광주 하수 걸러 반도체 냉각 용수로…원전 추가 필요성&quot;</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -7804,6 +7862,33 @@ h1,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260806000421"
+  data-title="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라"
+  data-publisher="전자신문"
+  data-group="원자력"
+  data-language="ko"
+  data-search="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라 전자신문 원자력 김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(gaas) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(leo) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물"
+  tabindex="0" role="link">
+  <div class="article-number">10</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라</div>
+    <div class="article-snippet">김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(GaAs) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(LEO) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/aeca00827199738225c41cb9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTE1BRHYtcGNtYUZFdkNmUkc3VU03R0hzeG00MUdnMUxBM09TM3BTekFpNUhvSDhHeXRIRkVwdG9lZUl6UnZZWFpuWXdhdGlXTDl2c1FKZTNXNnBOUjFVd25qMVVZN3lwcExfZk1F?oc=5"
   data-title="원안위, 스웨덴과 방폐물·SMR 안전규제 협력 논의"
@@ -7812,7 +7897,7 @@ h1,
   data-language="ko"
   data-search="원안위, 스웨덴과 방폐물·smr 안전규제 협력 논의 서울뉴스통신 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">서울뉴스통신</div>
     <div class="headline">원안위, 스웨덴과 방폐물·SMR 안전규제 협력 논의</div>
@@ -7839,7 +7924,7 @@ h1,
   data-language="ko"
   data-search="[국제] 러시아 로사톰 ceo &quot;이란 부셰르 원전 2∙3호기 건설 계속되고 있어&quot; 내외뉴스통신 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">내외뉴스통신</div>
     <div class="headline">[국제] 러시아 로사톰 CEO &quot;이란 부셰르 원전 2∙3호기 건설 계속되고 있어&quot;</div>
@@ -7857,33 +7942,6 @@ h1,
     <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
-
-<article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260810_0003742691"
-  data-title="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향"
-  data-publisher="뉴시스"
-  data-group="원자력"
-  data-language="ko"
-  data-search="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향 뉴시스 원자력 [세종=뉴시스]임하은 기자 = 지난해 결함 보상(리콜) 건수가 전년보다 4.7% 증가해 2600건대로 집계됐다. 해외리콜 제품의 국내 오픈마켓 유통이 늘어나면서 소비자기본법에 따른 판매 차단 조치가 적극 실시된 영향이다. 공정거래위원회는 10일 중앙행정기관과 지방자치단체, 한국소비자원의 지난해 리콜 실적을 분석해 발표했다. 지난해 리콜을 실시한 중앙행정기관은 국토교통부, 기후에너지환경부, 식품의약품안전처, 원자력안전위원회, 국가기술표준원 등 5곳이다. 지난해 리콜 건수는 2656건으로 전년 2537건보다 119건(4.7%) 증가했다. 전체 리콜 건수는 2022년 이후"
-  tabindex="0" role="link">
-  <div class="article-number">12</div>
-  <div class="preview-copy">
-    <div class="publisher">뉴시스</div>
-    <div class="headline">작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향</div>
-    <div class="article-snippet">[세종=뉴시스]임하은 기자 = 지난해 결함 보상(리콜) 건수가 전년보다 4.7% 증가해 2600건대로 집계됐다. 해외리콜 제품의 국내 오픈마켓 유통이 늘어나면서 소비자기본법에 따른 판매 차단 조치가 적극 실시된 영향이다. 공정거래위원회는 10일 중앙행정기관과 지방자치단체, 한국소비자원의 지난해 리콜 실적을 분석해 발표했다. 지난해 리콜을 실시한 중앙행정기관은 국토교통부, 기후에너지환경부, 식품의약품안전처, 원자력안전위원회, 국가기술표준원 등 5곳이다. 지난해 리콜 건수는 2656건으로 전년 2537건보다 119건(4.7%) 증가했다. 전체 리콜 건수는 2022년 이후</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b6e42e9ee26a84a9825166c3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
 </div>
 </section>
 
@@ -7897,14 +7955,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiUEFVX3lxTE82SmlLMnk4R1BoV3VpME1vQUpZaGZlUEVGcmlqUHk0YUcyM2wzeFZ4eUNIMlVIRTI1QTI5LUlNaFZheFdVWER2VUoyeXg5bll4?oc=5"
   data-title="“에너지 문제, 아세안 시급 현안… SMR 구축이 해결책”"
-  data-publisher="munhwa.com"
+  data-publisher="문화일보"
   data-group="SMR"
   data-language="ko"
-  data-search="“에너지 문제, 아세안 시급 현안… smr 구축이 해결책” munhwa.com smr "
+  data-search="“에너지 문제, 아세안 시급 현안… smr 구축이 해결책” 문화일보 smr "
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">munhwa.com</div>
+    <div class="publisher">문화일보</div>
     <div class="headline">“에너지 문제, 아세안 시급 현안… SMR 구축이 해결책”</div>
     
     <div class="status-line">
@@ -8038,7 +8096,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMikAFBVV95cUxNM2wyb0hqMVFJaFdib0p1enViU0NtUm9aOXBqMHFId1dRMkwwX2VyZzYxM1kxbWtBeWlCVlJ6djJxcGZIeEJRbTlzTFJGU3VERlEwUDQ2QVlwQkZOSkZaemRIc25McmtwQ1VWTHFkNUU5SjlsdWlzRzNfYjAzM2hReWVCMUJzd3diX3FwNnJud0Q?oc=5"
   data-title="Cold Hydraulic Testing Begins At China’s Tianwan-8"
   data-publisher="NucNet"
@@ -8049,7 +8107,7 @@ h1,
   <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">NucNet</div>
-    <div class="headline"><span class="new-badge">NEW</span>Cold Hydraulic Testing Begins At China’s Tianwan-8</div>
+    <div class="headline">Cold Hydraulic Testing Begins At China’s Tianwan-8</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -8065,7 +8123,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMigAFBVV95cUxOQ3JwYjlxV1hSN0pGN3d0NjNtUjdIaEFkeXJtalZxYkp0enJNMGlKdzYtLTJ6N0lNZC1yUVVGbXhZb1F5dEQ1QlZua3oxeUFCTmNWSDJYOGVkU0J5dGt3RnBzMlZFWlZyRjhUXy1hU2lWZ08yYjZpMWI3NTZLZklyMA?oc=5"
   data-title="New Nuclear Gets Built When Governments Run Development &amp; Taxpayers Take The Risk"
   data-publisher="cleantechnica.com"
@@ -8076,7 +8134,7 @@ h1,
   <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">cleantechnica.com</div>
-    <div class="headline"><span class="new-badge">NEW</span>New Nuclear Gets Built When Governments Run Development &amp; Taxpayers Take The Risk</div>
+    <div class="headline">New Nuclear Gets Built When Governments Run Development &amp; Taxpayers Take The Risk</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -8263,18 +8321,18 @@ h1,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5GTkxld0NjUGQzeDBRMlpkLTBOSXFKdkJrX0o5bjFwd3FMRlUtWDQ0MjI4bFN1bFAwVFVxT3ZoTFlBeHBmcjg3eHFwcVpld21rZHFBX3FhVUhIUldrTVJTS0I2MVdqczRZ?oc=5"
-  data-title="차세대 2차원 반도체 이상 전기 흐름의 원인 규명"
-  data-publisher="2news.co.kr"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMib0FVX3lxTE9vQlJnYkRSZWNNSjhpT2wyaTR0ZGFGc2FRM2JSZVM2Mk55SHlFVU5Qbk5scVhhVXVqZmRac1l5aDFmNm1vWkxDWnNwa1VXekc5dzRxRWdUMEZQdVZhSG1ielZVajMzTkZPZzQxM3QwUdIBc0FVX3lxTE9qa05oNVpkNU80V0M2dUZkal9Ea0hDQl9KYW1SRHFXRUpxeGw3LWhLcmQ1Ukpkc2NwRXZBa1ZSZG9NV1d2WGVRS1lpY0g5dWEyYV9kYUljWWZVX3JUVVBQSnJOc01hOHRIelVuVTNnVkF5SnM?oc=5"
+  data-title="충남대·성균관대 공동연구팀, 2차원 반도체 ‘비페르미 액체’ 전도 원인 규명"
+  data-publisher="데일리한국"
   data-group="Fermi America"
   data-language="ko"
-  data-search="차세대 2차원 반도체 이상 전기 흐름의 원인 규명 2news.co.kr fermi america "
+  data-search="충남대·성균관대 공동연구팀, 2차원 반도체 ‘비페르미 액체’ 전도 원인 규명 데일리한국 fermi america "
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">2news.co.kr</div>
-    <div class="headline">차세대 2차원 반도체 이상 전기 흐름의 원인 규명</div>
+    <div class="publisher">데일리한국</div>
+    <div class="headline"><span class="new-badge">NEW</span>충남대·성균관대 공동연구팀, 2차원 반도체 ‘비페르미 액체’ 전도 원인 규명</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -8339,18 +8397,18 @@ h1,
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTFBXMWVieWNWM1YybGIwb05CZEdJaVMzVEp0M3RUQ05MSFlBdUVjcnhnbjRheUYyc1phZDh5SXV5YnhaRmdrN1NKcHN5aTRLbXptenNHYnJFSmJJVDR5NW01NUduQnNtWE1POHJB0gFvQVVfeXFMT0JQNnBiR0JpT0RibmhTdnhqMzZNckhYZjBjWlBmN011c2RpZ0Z5S3RmRk9LeUF2U1V3U2FCTHNMWUdOeWMtR29RLVlrdkFjdFc3a3ZVUi0yNkRQUXNaNmRPZ0hYMWhFTXdDa2FsdDIw?oc=5"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMicEFVX3lxTE03NVc3a2pIQ2hXLVBOSXZYRVZjNl9SeFkyT0FBOTJvdGxndmVoME1PVGJOdU9XMUs1dUZkaWpxWXIyMGxsRnRYci1ZLW42RFF6N1pWZlcyN3pnTlBscVhxMXdfYkRLN3NiYmZmTFh0Mi3SAXRBVV95cUxQMnZ3UHhSa00wZVN0MnNVVzhCYXpzNWNWRE1nUm9maHZsZnlsbmRuZ1JHZ2dIbW11Z0hPWHhYVDRDWUhCYXFXdXVyYnFEdGR3aTF0amlDMUY1NEF2U21Zb1lQbUU2Z0M3ZE4wam9sZ2R3WUlpVQ?oc=5"
   data-title="현대건설·SK에코플랜트, &#x27;지속가능보고서&#x27; 통해 ESG 경영 실적 및 방향성 제시"
-  data-publisher="한국아이닷컴"
+  data-publisher="sports.hankooki.com"
   data-group="현대건설"
   data-language="ko"
-  data-search="현대건설·sk에코플랜트, &#x27;지속가능보고서&#x27; 통해 esg 경영 실적 및 방향성 제시 한국아이닷컴 현대건설 "
+  data-search="현대건설·sk에코플랜트, &#x27;지속가능보고서&#x27; 통해 esg 경영 실적 및 방향성 제시 sports.hankooki.com 현대건설 "
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">한국아이닷컴</div>
-    <div class="headline">현대건설·SK에코플랜트, &#x27;지속가능보고서&#x27; 통해 ESG 경영 실적 및 방향성 제시</div>
+    <div class="publisher">sports.hankooki.com</div>
+    <div class="headline"><span class="new-badge">NEW</span>현대건설·SK에코플랜트, &#x27;지속가능보고서&#x27; 통해 ESG 경영 실적 및 방향성 제시</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -8593,16 +8651,43 @@ h1,
 
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9reHo4eGNtS19CWG1hR21leHA3ckVwMEplTVgyU0VDOUdhSEF2S3pkUzNYeDIzd3p2MzNvcmVPbE82OTVnakF6c3d1M3B3SnoyY0gzODVseXdYQUszS283eHVCNEk?oc=5"
-  data-title="대우건설, 모잠비크 &#x27;Rovuma LNG 1단계’ 낙찰의향서 접수"
-  data-publisher="매일일보"
+  data-title="대우건설, 모잠비크 &#x27;Rovuma LNG 1단계’ 낙찰의향서 접수 - m-i.kr"
+  data-publisher="m-i.kr"
   data-group="타 건설사"
   data-language="ko"
-  data-search="대우건설, 모잠비크 &#x27;rovuma lng 1단계’ 낙찰의향서 접수 매일일보 타 건설사 "
+  data-search="대우건설, 모잠비크 &#x27;rovuma lng 1단계’ 낙찰의향서 접수 - m-i.kr m-i.kr 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">매일일보</div>
-    <div class="headline">대우건설, 모잠비크 &#x27;Rovuma LNG 1단계’ 낙찰의향서 접수</div>
+    <div class="publisher">m-i.kr</div>
+    <div class="headline">대우건설, 모잠비크 &#x27;Rovuma LNG 1단계’ 낙찰의향서 접수 - m-i.kr</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTE5PYTAtcWlZamhvaW03NVVHeHdJRkVxVm1wS2x6OXRSQkpBOF9fakMxYmplS3ZuTl9UMFZZU3NOaFNpZS1seGNiNERZQTc0cXFXUVp4OFBuSjhQTTFDdmVQaA?oc=5"
+  data-title="대우건설, 모잠비크 초대형 LNG플랜트 건설·운영 원청사 참여 파란불"
+  data-publisher="asiae.co.kr"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="대우건설, 모잠비크 초대형 lng플랜트 건설·운영 원청사 참여 파란불 asiae.co.kr 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">6</div>
+  <div class="preview-copy">
+    <div class="publisher">asiae.co.kr</div>
+    <div class="headline"><span class="new-badge">NEW</span>대우건설, 모잠비크 초대형 LNG플랜트 건설·운영 원청사 참여 파란불</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -8626,7 +8711,7 @@ h1,
   data-language="ko"
   data-search="소임 다하고 떠나는 김보현 사장…대우건설, 세대교체 속도 낼 듯 글로벌이코노믹 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">글로벌이코노믹</div>
     <div class="headline">소임 다하고 떠나는 김보현 사장…대우건설, 세대교체 속도 낼 듯</div>
@@ -8653,7 +8738,7 @@ h1,
   data-language="ko"
   data-search="울산 남구보건소, sk에코플랜트 라엘에스 건설현장에서 절주 캠페인 실시 &gt; 뉴스 더코리아 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">더코리아</div>
     <div class="headline">울산 남구보건소, SK에코플랜트 라엘에스 건설현장에서 절주 캠페인 실시 &gt; 뉴스</div>
@@ -8680,7 +8765,7 @@ h1,
   data-language="ko"
   data-search="[기자수첩] sk에코플랜트, &#x27;전수조사&#x27; 약속 전에 답해야 할 것들 투어코리아 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">투어코리아</div>
     <div class="headline">[기자수첩] SK에코플랜트, &#x27;전수조사&#x27; 약속 전에 답해야 할 것들</div>
@@ -8707,7 +8792,7 @@ h1,
   data-language="ko"
   data-search="현대엔지니어링, 중진공과 업무협약…협력사 안전·품질 역량 강화 나선다 gukjenews.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">gukjenews.com</div>
     <div class="headline">현대엔지니어링, 중진공과 업무협약…협력사 안전·품질 역량 강화 나선다</div>
@@ -8726,7 +8811,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="/news/articleView.html?idxno=32989"
   data-title="남부발전, 하동복합 1GW 건설 EPC 낙찰자로  두산에너빌리티 컨소시엄 선정"
   data-publisher="전력경제신문"
@@ -8734,10 +8819,10 @@ h1,
   data-language="ko"
   data-search="남부발전, 하동복합 1gw 건설 epc 낙찰자로  두산에너빌리티 컨소시엄 선정 전력경제신문 타 건설사 상세설계부터 시공까지 ‘일괄 계약’ 내년 1월 착공 후 ’29년 12월 준공 에너지전환 정책 이행 박차 가한다한국남부발전이 정부의 에너지 전환 정책에 맞춰 추진하는 하동복합 건설사업의 일괄 설치조건부 구매계약 낙찰자로 두산에너빌리티 컨소시엄을 선정했다고 7일 밝혔다.이번 사업은 정부의 에너지 전환 정책에 따라 노후 석탄화력발"
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">전력경제신문</div>
-    <div class="headline"><span class="new-badge">NEW</span>남부발전, 하동복합 1GW 건설 EPC 낙찰자로  두산에너빌리티 컨소시엄 선정</div>
+    <div class="headline">남부발전, 하동복합 1GW 건설 EPC 낙찰자로  두산에너빌리티 컨소시엄 선정</div>
     <div class="article-snippet">상세설계부터 시공까지 ‘일괄 계약’ 내년 1월 착공 후 ’29년 12월 준공 에너지전환 정책 이행 박차 가한다한국남부발전이 정부의 에너지 전환 정책에 맞춰 추진하는 하동복합 건설사업의 일괄 설치조건부 구매계약 낙찰자로 두산에너빌리티 컨소시엄을 선정했다고 7일 밝혔다.이번 사업은 정부의 에너지 전환 정책에 따라 노후 석탄화력발</div>
     <div class="status-line">
       <div class="status-text">
@@ -8761,7 +8846,7 @@ h1,
   data-language="ko"
   data-search="두산에너빌리티, 하동 lng 복합발전소 건설 epc 계약 수주 데일리한국 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">데일리한국</div>
     <div class="headline">두산에너빌리티, 하동 LNG 복합발전소 건설 EPC 계약 수주</div>
@@ -8788,7 +8873,7 @@ h1,
   data-language="ko"
   data-search="서울역 역세권 &#x27;서계통합구역&#x27; 수주전 예열...gs건설·삼성물산·대우건설 관심 더구루 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">12</div>
+  <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">더구루</div>
     <div class="headline">서울역 역세권 &#x27;서계통합구역&#x27; 수주전 예열...GS건설·삼성물산·대우건설 관심</div>
@@ -8815,7 +8900,7 @@ h1,
   data-language="ko"
   data-search="저마진 끝, 해외수주 시작…대우건설 필두 건설사 체질 바뀐다 v.daum.net 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">13</div>
+  <div class="article-number">14</div>
   <div class="preview-copy">
     <div class="publisher">v.daum.net</div>
     <div class="headline">저마진 끝, 해외수주 시작…대우건설 필두 건설사 체질 바뀐다</div>
@@ -8842,7 +8927,7 @@ h1,
   data-language="ko"
   data-search="롯데건설, 3000억 abs 연속 발행…재무 체질 개선 전략 본격화 폴리뉴스 polinews 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">14</div>
+  <div class="article-number">15</div>
   <div class="preview-copy">
     <div class="publisher">폴리뉴스 Polinews</div>
     <div class="headline">롯데건설, 3000억 ABS 연속 발행…재무 체질 개선 전략 본격화</div>
@@ -8869,7 +8954,7 @@ h1,
   data-language="ko"
   data-search="sk에코플랜트, 반도체·데이터센터 인프라 확대 전략 제시 폴리뉴스 polinews 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">15</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
     <div class="publisher">폴리뉴스 Polinews</div>
     <div class="headline">SK에코플랜트, 반도체·데이터센터 인프라 확대 전략 제시</div>
@@ -8891,14 +8976,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5kUlVmLU83OG1aMkxIVkJWUXlaZ2gzOUUzbTU0Tk9VM0dadnBNR0lSOGk0anlLSFhCN3BjRVBmUHdwRGQybEtpQTFDMk8xeG9TWWxONmV6eHVHX280Nm5hWl9CNHpzbXc?oc=5"
   data-title="[이슈] &#x27;목동8단지 재건축&#x27; 대우·GS·DL이앤씨·현산 경쟁?…&quot;대우건설 단독 입찰에 무게&quot;"
-  data-publisher="팍스경제TV"
+  data-publisher="paxetv.com"
   data-group="타 건설사"
   data-language="ko"
-  data-search="[이슈] &#x27;목동8단지 재건축&#x27; 대우·gs·dl이앤씨·현산 경쟁?…&quot;대우건설 단독 입찰에 무게&quot; 팍스경제tv 타 건설사 "
+  data-search="[이슈] &#x27;목동8단지 재건축&#x27; 대우·gs·dl이앤씨·현산 경쟁?…&quot;대우건설 단독 입찰에 무게&quot; paxetv.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">16</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
-    <div class="publisher">팍스경제TV</div>
+    <div class="publisher">paxetv.com</div>
     <div class="headline">[이슈] &#x27;목동8단지 재건축&#x27; 대우·GS·DL이앤씨·현산 경쟁?…&quot;대우건설 단독 입찰에 무게&quot;</div>
     
     <div class="status-line">
@@ -8923,7 +9008,7 @@ h1,
   data-language="ko"
   data-search="&quot;240명 수분양자 생존권 박탈&quot; 시민단체, 신한자산신탁·롯데건설 가야역 롯데스카이엘 기습 공매 철회 촉구 서울뉴스통신 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">17</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">서울뉴스통신</div>
     <div class="headline">&quot;240명 수분양자 생존권 박탈&quot; 시민단체, 신한자산신탁·롯데건설 가야역 롯데스카이엘 기습 공매 철회 촉구</div>
@@ -8950,7 +9035,7 @@ h1,
   data-language="ko"
   data-search="한화 건설부문, 사계절 신개념 놀이공간 &#x27;넥스트플로우&#x27; 개발 sr타임스 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">19</div>
   <div class="preview-copy">
     <div class="publisher">SR타임스</div>
     <div class="headline">한화 건설부문, 사계절 신개념 놀이공간 &#x27;넥스트플로우&#x27; 개발</div>
@@ -8970,44 +9055,17 @@ h1,
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiT0FVX3lxTE9OcFpQQmdjZ3JWM2dUVk5UaGRfbnpNNk5QSjhFQlBEOFZ5WllTbDU1aUNGZDA2M1Q1LTJaS0xtdlp2YTZBcVUxM2M2SEFxVEk?oc=5"
-  data-title="GS건설, 4082억 규모 부산 사직3구역 재개발 본계약"
-  data-publisher="v.daum.net"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="gs건설, 4082억 규모 부산 사직3구역 재개발 본계약 v.daum.net 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">19</div>
-  <div class="preview-copy">
-    <div class="publisher">v.daum.net</div>
-    <div class="headline">GS건설, 4082억 규모 부산 사직3구역 재개발 본계약</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
   data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9MNHZCWGFfWDlRSzNGazZXdUdueTlybjJ3V01OcHBWbHFqeldIdVJEYVlQdXIzclJRUk9wVzdxUlBaMDNmbDlQTWdMc01TSmJUczJEWFVIT1IxNkRiSy00enRrSjA?oc=5"
-  data-title="SK에코플랜트 시공 ‘송도 럭스 오션 SK뷰’ 외벽 테라스 구조물 추락"
-  data-publisher="매일일보"
+  data-title="SK에코플랜트 시공 ‘송도 럭스 오션 SK뷰’ 외벽 테라스 구조물 추락 - m-i.kr"
+  data-publisher="m-i.kr"
   data-group="타 건설사"
   data-language="ko"
-  data-search="sk에코플랜트 시공 ‘송도 럭스 오션 sk뷰’ 외벽 테라스 구조물 추락 매일일보 타 건설사 "
+  data-search="sk에코플랜트 시공 ‘송도 럭스 오션 sk뷰’ 외벽 테라스 구조물 추락 - m-i.kr m-i.kr 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">20</div>
   <div class="preview-copy">
-    <div class="publisher">매일일보</div>
-    <div class="headline"><span class="new-badge">NEW</span>SK에코플랜트 시공 ‘송도 럭스 오션 SK뷰’ 외벽 테라스 구조물 추락</div>
+    <div class="publisher">m-i.kr</div>
+    <div class="headline">SK에코플랜트 시공 ‘송도 럭스 오션 SK뷰’ 외벽 테라스 구조물 추락 - m-i.kr</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -9056,7 +9114,7 @@ h1,
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
     <span>한국수력원자력</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -9116,14 +9174,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiVkFVX3lxTE1UV1B6MGFOOHJnMzRiMk84Q2FKX3o4clNfLU1wblJ1ck55SjRFaXU1MTlOcjJUOENlTGpRRUprT3JKU20wSTB4Z0N0ZWFXTFVDWmRBLWdn?oc=5"
   data-title="‘폭염’ 고리원전 찾은 김회천 한수원 사장 “안정적인 전력 공급 최선”"
-  data-publisher="헤럴드경제"
+  data-publisher="biz.heraldcorp.com"
   data-group="한국수력원자력"
   data-language="ko"
-  data-search="‘폭염’ 고리원전 찾은 김회천 한수원 사장 “안정적인 전력 공급 최선” 헤럴드경제 한국수력원자력 "
+  data-search="‘폭염’ 고리원전 찾은 김회천 한수원 사장 “안정적인 전력 공급 최선” biz.heraldcorp.com 한국수력원자력 "
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">헤럴드경제</div>
+    <div class="publisher">biz.heraldcorp.com</div>
     <div class="headline">‘폭염’ 고리원전 찾은 김회천 한수원 사장 “안정적인 전력 공급 최선”</div>
     
     <div class="status-line">
@@ -9194,33 +9252,6 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTFBNVU13UmNWZm5QS3R6RHAxamY4eTBiUzk0SnJDZlhfUUJlQm4tNl84SkItNk9FZzNmcEdJOElENGhqWlo1TzJQT3BxZW1PTk5teUxRdnFWaWtodjRKOUppNmV2VkFMc2RBMEVR0gFvQVVfeXFMTXh3Nkx4cEQ2TzBYc0ZST2tDREN6UGRNZDB3bE00S0EtTmZQUEVWTWFjMllzeFhhMWxpWUp5Y0F3MU9rODZvejZrZ0I4SzNJbGtYSVhyMS1iQlhhcGdHZDJ5QlR6Skx3RUVLNUs0clMw?oc=5"
-  data-title="“폭염發 전력난·산재 막자” 발전 공기업 CEO, 현장서 광폭 행보"
-  data-publisher="한국아이닷컴"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-search="“폭염發 전력난·산재 막자” 발전 공기업 ceo, 현장서 광폭 행보 한국아이닷컴 한국수력원자력 "
-  tabindex="0" role="link">
-  <div class="article-number">6</div>
-  <div class="preview-copy">
-    <div class="publisher">한국아이닷컴</div>
-    <div class="headline"><span class="new-badge">NEW</span>“폭염發 전력난·산재 막자” 발전 공기업 CEO, 현장서 광폭 행보</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiWkFVX3lxTE5UREU5Rk8taFFaMFdDdkZZSFdId0txNzRQSTNVdm56TGhrbV80dDBMUnQtQ2F4N0p4bUxDOHZuYzZqcE9vOTMtZ245aEVQbm1IU0k0VE1aMnlqQQ?oc=5"
   data-title="원전정비원 자격제도, 정부 인정 공식 취득…원전 정비 전문성 높인다"
@@ -9229,7 +9260,7 @@ h1,
   data-language="ko"
   data-search="원전정비원 자격제도, 정부 인정 공식 취득…원전 정비 전문성 높인다 경북매일 한국수력원자력 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">경북매일</div>
     <div class="headline">원전정비원 자격제도, 정부 인정 공식 취득…원전 정비 전문성 높인다</div>
@@ -9256,7 +9287,7 @@ h1,
   data-language="ko"
   data-search="원전 정비자격 정부 인정 시대 열렸다…원전현장인력양성원, 국가 공신력 확보 에너지데일리 한국수력원자력 "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">에너지데일리</div>
     <div class="headline">원전 정비자격 정부 인정 시대 열렸다…원전현장인력양성원, 국가 공신력 확보</div>
@@ -9283,7 +9314,7 @@ h1,
   data-language="ko"
   data-search="노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답 에너지타임즈 한국수력원자력 한수원노조 창립 25주년을 맞아 노조는 단순한 발전회사 틀을 넘어 ‘한국원자력공사’ 설립이란 목표를 제시했고, 사측은 큰 뜻을 품고 난관을 극복해 목표를 이룬다는 의미를 담은 사자성어인 ‘승풍파랑(乘風破浪)’으로 화답했다. 세계 에너지시장에서 한수원의 역할과 기능을 확대해 글로벌 경쟁력을 높여야 한다는 노사의 지향점은 같았다."
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답</div>
@@ -9310,7 +9341,7 @@ h1,
   data-language="ko"
   data-search="한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화 에너지타임즈 한국수력원자력 한국수력원자력(주) 한빛원자력본부(본부장 김현주)가 원전 주변 불법 드론 비행을 예방하기 위해 24시간 탐지체계를 운영하는 한편 원전과 인접한 해수욕장을 중심으로 집중적인 홍보하는 ‘드론 비행 금지 특별홍보 캠페인’을 지난 27일부터 28일까지 한빛원전과 인접한 가마미·구시포해수욕장에서 펼쳤다. 이 캠페인은 영광경찰서·고창경찰서·목포해양경찰서·부안해안경찰서·의용소방대를 비롯한 유관기관과 해수욕장 운영 관계자들이 함께 원전 주변 드론 비행 관련 규정과 주의 사항을 안내하는 것으로 진행됐다."
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
@@ -9337,7 +9368,7 @@ h1,
   data-language="ko"
   data-search="국가 에너지 안보 지킨 7인의 헌신, 대한민국 원전산업의 내일을 밝히다 에너지안전신문 한국수력원자력 "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">에너지안전신문</div>
     <div class="headline">국가 에너지 안보 지킨 7인의 헌신, 대한민국 원전산업의 내일을 밝히다</div>
@@ -9362,7 +9393,7 @@ h1,
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
     <span>한국전력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -9389,6 +9420,33 @@ h1,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000021"
+  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -9536,18 +9594,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiogFBVV95cUxPdi16U3U2T0FpUFN5TXVVYzBQcjlDazREQjIyQ0htSXh0bUp1YkNnNWZNYjJWdUt5bGJHS01ibnl6V0taU29KZnE4cVlLREpibndxMnNRUEhvMWJlX2M4UHJ4OU9KOTdGbjR0cWpha3d1b2hMRVk0S2NIay02NTRWOVJPSmJJcDNSQTJrZ0pWTnQ4OWphUk5fNS1wb25rcHptSVE?oc=5"
-  data-title="산업통상부 장관은 석유 및 가스 사업 운영의 3단계 관리 모델에 대해 설명했습니다."
-  data-publisher="Vietnam.vn"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMibkFVX3lxTE5JalFuNHZKR0wxcjBkdlZ0ZzNJYTJ2amFKWnpldUctd1RKTGlUblBMR2dMbTJrVEVXUWxDbDdoSW5NOFFVMjZlaDZ5ck15VkNqV3EzejU0UVczOUFYUDI1b3ZtME9hM3hhTm5GRUJR?oc=5"
+  data-title="[인사] 산업통상부"
+  data-publisher="아시아투데이"
   data-group="원전 관계부처"
   data-language="ko"
-  data-search="산업통상부 장관은 석유 및 가스 사업 운영의 3단계 관리 모델에 대해 설명했습니다. vietnam.vn 원전 관계부처 "
+  data-search="[인사] 산업통상부 아시아투데이 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">6</div>
   <div class="preview-copy">
-    <div class="publisher">Vietnam.vn</div>
-    <div class="headline">산업통상부 장관은 석유 및 가스 사업 운영의 3단계 관리 모델에 대해 설명했습니다.</div>
+    <div class="publisher">아시아투데이</div>
+    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -9780,60 +9838,6 @@ h1,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227323"
-  data-title="[인사] 산업통상부 (8월 10일자)"
-  data-publisher="에너지신문"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="[인사] 산업통상부 (8월 10일자) 에너지신문 원전 관계부처 "
-  tabindex="0" role="link">
-  <div class="article-number">15</div>
-  <div class="preview-copy">
-    <div class="publisher">에너지신문</div>
-    <div class="headline">[인사] 산업통상부 (8월 10일자)</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ac9f7f8a11eab81248f9a6e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMilgFBVV95cUxNOG1mX2FqMTFQOUhCQlR4SlpKUzlyd29BN1RaeWp4c3o0ZFRFVnpKMFAyM3pqS3lITFlBUU9TLUxESGtROTg3RmtLMGxILTQzdWluTUlIem90c3h6WmFBVVFDd2VnOG9ocWhCNFhpajV2eXc5enVRS1FNVFZaM0kwYlBMV1A0eC1LSEM3Ym0zR2hDbmFQNEE?oc=5"
-  data-title="응오 타이 찬 씨가 껀터시 산업통상부 부장으로 임명되었습니다."
-  data-publisher="Vietnam.vn"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="응오 타이 찬 씨가 껀터시 산업통상부 부장으로 임명되었습니다. vietnam.vn 원전 관계부처 "
-  tabindex="0" role="link">
-  <div class="article-number">16</div>
-  <div class="preview-copy">
-    <div class="publisher">Vietnam.vn</div>
-    <div class="headline">응오 타이 찬 씨가 껀터시 산업통상부 부장으로 임명되었습니다.</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMickFVX3lxTE5aNXNFRjU4U0ZFRjd3NkU4emlCSUNnaDhFWGVLUHJRT1hWT2RMeVktV0djdEFLb1pGcjJva1k0MG9weFJ2eFJjN2JEUnF4TV9oYzhZUklMRnVyU19yeXFRYm90NFRWMVQzb0R1bTdpWFZDQQ?oc=5"
   data-title="기후부 2차관, 폭염 취약계층 현장 점검…물길쉼터·에너지복지 연계 대응 강화"
   data-publisher="에너지데일리"
@@ -9841,7 +9845,7 @@ h1,
   data-language="ko"
   data-search="기후부 2차관, 폭염 취약계층 현장 점검…물길쉼터·에너지복지 연계 대응 강화 에너지데일리 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">17</div>
+  <div class="article-number">15</div>
   <div class="preview-copy">
     <div class="publisher">에너지데일리</div>
     <div class="headline">기후부 2차관, 폭염 취약계층 현장 점검…물길쉼터·에너지복지 연계 대응 강화</div>
@@ -9868,7 +9872,7 @@ h1,
   data-language="ko"
   data-search="반도체 성과급, &#x27;임금&#x27;인가 &#x27;이익배당&#x27;인가... 법리로 짚어본 김정관 발언 법률방송뉴스 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
     <div class="publisher">법률방송뉴스</div>
     <div class="headline">반도체 성과급, &#x27;임금&#x27;인가 &#x27;이익배당&#x27;인가... 법리로 짚어본 김정관 발언</div>
@@ -9895,7 +9899,7 @@ h1,
   data-language="ko"
   data-search="김정관 장관 &quot;영업이익 연동 성과급, 주총 의결 거쳐야&quot; 중소기업신문 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">19</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">중소기업신문</div>
     <div class="headline">김정관 장관 &quot;영업이익 연동 성과급, 주총 의결 거쳐야&quot;</div>
@@ -9922,10 +9926,64 @@ h1,
   data-language="ko"
   data-search="산업부, 英 통상장관에 철강 쿼터 확대 요청…&quot;합리적 배정 필요&quot; 페로타임즈 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">20</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">페로타임즈</div>
     <div class="headline">산업부, 英 통상장관에 철강 쿼터 확대 요청…&quot;합리적 배정 필요&quot;</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTE5VX0lJcXJCZlBQMGhlYmo2M3lQMm9IbzhJOVRGa0VVYk02dWZjUjBBSzlZY2R4bXo4amptTzBXMUsyblRLRXQ2Sl9UYTI0YW5rT3RqTmlUXzctMVYtdFRxRTBnLWd3WWRmZGIzVdIBcEFVX3lxTFAzbFZBeXZMT28wbmY0UUpsZjJ0aDdaRTNNc1dkU0dSWEhyeU1HMERUdlVCUFZsMUdoUURRY1FMSy1ocVJWd3dhdHZ2OGVkNGxrcTBVcmIzRWFwZ2VNTDFQdE0tMGgtRVVMOHhkUDZiUi0?oc=5"
+  data-title="[산업부·기후부 장차관 일정(2026년 8월 7일)]"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-search="[산업부·기후부 장차관 일정(2026년 8월 7일)] 에너지플랫폼뉴스 원전 관계부처 "
+  tabindex="0" role="link">
+  <div class="article-number">19</div>
+  <div class="preview-copy">
+    <div class="publisher">에너지플랫폼뉴스</div>
+    <div class="headline"><span class="new-badge">NEW</span>[산업부·기후부 장차관 일정(2026년 8월 7일)]</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE9lWV9OR0lfRmtXb05DOEhJX1JjUElOVGtJUWNNLXdOMjFtTnBBWlVEanBFc2dIY1lZMHRlNTJaMUREMldkUEtkSllvMlVQN18wQ19ORG1Cb0k3VkkzSDNWQVZ4V1hIQTRmMHc?oc=5"
+  data-title="김정관 산업장관 &quot;첨단산업 주 52시간 예외 필요&quot;…김영훈 노동장관과 정면 충돌"
+  data-publisher="데일리저널"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-search="김정관 산업장관 &quot;첨단산업 주 52시간 예외 필요&quot;…김영훈 노동장관과 정면 충돌 데일리저널 원전 관계부처 "
+  tabindex="0" role="link">
+  <div class="article-number">20</div>
+  <div class="preview-copy">
+    <div class="publisher">데일리저널</div>
+    <div class="headline"><span class="new-badge">NEW</span>김정관 산업장관 &quot;첨단산업 주 52시간 예외 필요&quot;…김영훈 노동장관과 정면 충돌</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -10346,18 +10404,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiQ0FVX3lxTE5mTWxaN3dzVFNBQV9mRlpVYk5LOFJ0YWRaWWJSMTk2T3F3RTlDTXNhbGFoN21PUVhBTTIwSUxjWWtLbFU?oc=5"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiSEFVX3lxTFBuTzFjRzNtaFllUFhwbXRIbW0ya2FQMzVWYk9KaVlsWmZmdzB6aDN2SXVOWW5Pc1FyZDhMUGc5TUV6OU1LY0JQYw?oc=5"
   data-title="트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 SMR 전략에 미칠 영향"
-  data-publisher="kcemedia.com"
+  data-publisher="얼리어답터뉴스"
   data-group="SMR"
   data-language="ko"
-  data-search="트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 smr 전략에 미칠 영향 kcemedia.com smr "
+  data-search="트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 smr 전략에 미칠 영향 얼리어답터뉴스 smr "
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">kcemedia.com</div>
-    <div class="headline">트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 SMR 전략에 미칠 영향</div>
+    <div class="publisher">얼리어답터뉴스</div>
+    <div class="headline"><span class="new-badge">NEW</span>트럼프 행정부, 미국 첨단 원자로 임계 목표 초과 달성…한국 SMR 전략에 미칠 영향</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -10376,14 +10434,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiUEFVX3lxTFBIWWdBS0ZjOVpiSW5WcC1QazhUcXJ4SU1HR3RQTTYyVnpJRjFYSVo5cW1CUm9sdXN5Q2xDYUxPdGVnYlJTZC0yTllUU3FqanhY?oc=5"
   data-title="싱가포르 국무장관 “韓과 SMR협력… 아세안 파워그리드 구축”"
-  data-publisher="munhwa.com"
+  data-publisher="문화일보"
   data-group="SMR"
   data-language="ko"
-  data-search="싱가포르 국무장관 “韓과 smr협력… 아세안 파워그리드 구축” munhwa.com smr "
+  data-search="싱가포르 국무장관 “韓과 smr협력… 아세안 파워그리드 구축” 문화일보 smr "
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">munhwa.com</div>
+    <div class="publisher">문화일보</div>
     <div class="headline">싱가포르 국무장관 “韓과 SMR협력… 아세안 파워그리드 구축”</div>
     
     <div class="status-line">
@@ -10511,14 +10569,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMidEFVX3lxTFBNVUg4RzBjb3pfMG5UeGVrMUNCY1JzVnppWGFsNWRyWjFDQXR6VUJJNThRckw0OGpVTU4zRXp6MVFqUTZiQVhPWjZ2bkY2N0pnMWVsbE4xYldjQkNIQUtsdzA3WkhDdjJKVVNPVmJOTEhyZS1J?oc=5"
   data-title="Advanced Reactors Face Fuel Supply And Cost Challenges"
-  data-publisher="legis1.com"
+  data-publisher="Legis1"
   data-group="SMR"
   data-language="en"
-  data-search="advanced reactors face fuel supply and cost challenges legis1.com smr "
+  data-search="advanced reactors face fuel supply and cost challenges legis1 smr "
   tabindex="0" role="link">
   <div class="article-number">8</div>
   <div class="preview-copy">
-    <div class="publisher">legis1.com</div>
+    <div class="publisher">Legis1</div>
     <div class="headline">Advanced Reactors Face Fuel Supply And Cost Challenges</div>
     
     <div class="status-line">
@@ -10619,14 +10677,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMi5gFBVV95cUxNUzIycEZoWllOWXVmdncxWkRlSW1pbjA5YkxQbXhnSGN6QldZZk04aU81Mmh3MjdlZHlCWmZpYi1NVW11d3FJSzhPcjIyNjNneXFuUjBwTlRpbFhaaWlXRU9XTVpJTkNZQ2ZoRUtQYlRwRkdNTlVNMVk1Q3c0Xzh3R2tEanFVS0dQNWExXzc3emZ2V24wcGlNbVQyUXZBSkdWS2pmVkpjaWRfZ3JtYmtfeEZqMnNLLVZSWEs2TGNpekhHYktFX3dKbm9Vb0ttUUVNUk1KWVNtbEI4T2Zhel9qYVRPd202QQ?oc=5"
   data-title="Got $1,000? Here Are My Favorite Nuclear Stocks to Invest in Right Now."
-  data-publisher="The Globe and Mail"
+  data-publisher="theglobeandmail.com"
   data-group="SMR"
   data-language="en"
-  data-search="got $1,000? here are my favorite nuclear stocks to invest in right now. the globe and mail smr "
+  data-search="got $1,000? here are my favorite nuclear stocks to invest in right now. theglobeandmail.com smr "
   tabindex="0" role="link">
   <div class="article-number">12</div>
   <div class="preview-copy">
-    <div class="publisher">The Globe and Mail</div>
+    <div class="publisher">theglobeandmail.com</div>
     <div class="headline">Got $1,000? Here Are My Favorite Nuclear Stocks to Invest in Right Now.</div>
     
     <div class="status-line">
@@ -11060,14 +11118,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMirgFBVV95cUxPZE5oSGNDMlE3aGFwVnpzVmJySVlkMlNKWUJZanBaclg2YTZZMk5MaDRQVDRZOHk0Ry1VdThaQ05Sdm1OYUtLdGFkN2ctYTdXLThJcXVVYXl3WUV3Vnk4bU5DRzVYNVJET3lJTTVONmFLcDltdERNd2RUd2l2Z1IyYkJmc1FCQ3ZOR3RlMVIzc2VNSXk4eU1TSmlLZUhfUTc1SlVaN2w2T1MtXzJIN3c?oc=5"
   data-title="From Idaho to Mars: NASA chief celebrates INL&#x27;s role in the new space race"
-  data-publisher="ksl.com"
+  data-publisher="KSL News"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
-  data-search="from idaho to mars: nasa chief celebrates inl&#x27;s role in the new space race ksl.com nuclear power·nuclear energy "
+  data-search="from idaho to mars: nasa chief celebrates inl&#x27;s role in the new space race ksl news nuclear power·nuclear energy "
   tabindex="0" role="link">
   <div class="article-number">13</div>
   <div class="preview-copy">
-    <div class="publisher">ksl.com</div>
+    <div class="publisher">KSL News</div>
     <div class="headline">From Idaho to Mars: NASA chief celebrates INL&#x27;s role in the new space race</div>
     
     <div class="status-line">
@@ -11421,6 +11479,33 @@ h1,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTE9PZFQ2Wk5TWGJmTGRiLTF0cmZoNDBQSEpfWlVaQUM1b3Z4LXYtU29BVzc3QU90WEpmdFNpbGZEVldzU0pQb0U0Q05nTGt3UXRJb0RsVjRFcWxfbTRSMG1XdDgydzI?oc=5"
+  data-title="SK에코플랜트, 2025 지속가능경영보고서 발간 - m-i.kr"
+  data-publisher="m-i.kr"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="sk에코플랜트, 2025 지속가능경영보고서 발간 - m-i.kr m-i.kr 타 건설사 "
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">m-i.kr</div>
+    <div class="headline"><span class="new-badge">NEW</span>SK에코플랜트, 2025 지속가능경영보고서 발간 - m-i.kr</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiaEFVX3lxTE5BWmFOdnBrZTdRY1REa191Tm5Nd0p6RGNZTGRZUktkUjRPWkRrNTlWYjVxVmJYNXhJX1UwTEh2T29idENRRG56ZGloY0dSRmNXeDZNcEdpMnNPUndhOThQZmtZVHNXVkxU?oc=5"
   data-title="DL이앤씨, AI로 건설현장 위험 사전 예측…근로자 보호 강화"
@@ -11429,7 +11514,7 @@ h1,
   data-language="ko"
   data-search="dl이앤씨, ai로 건설현장 위험 사전 예측…근로자 보호 강화 녹색경제신문 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">녹색경제신문</div>
     <div class="headline">DL이앤씨, AI로 건설현장 위험 사전 예측…근로자 보호 강화</div>
@@ -11456,7 +11541,7 @@ h1,
   data-language="ko"
   data-search="[건설브리핑] dl이앤씨, 건설현장에 ai기반 관리 시스템 도입 외 서울파이낸스 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">서울파이낸스</div>
     <div class="headline">[건설브리핑] DL이앤씨, 건설현장에 AI기반 관리 시스템 도입 외</div>
@@ -11483,7 +11568,7 @@ h1,
   data-language="ko"
   data-search="대형사 내실 챙겼는데… gs건설, 주택 부진에 수익 공백 우려 it조선 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">IT조선</div>
     <div class="headline">대형사 내실 챙겼는데… GS건설, 주택 부진에 수익 공백 우려</div>
@@ -11510,7 +11595,7 @@ h1,
   data-language="ko"
   data-search="대우건설, gh 민참 ‘고양창릉 s16블록’ 따내 대한경제 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">대한경제</div>
     <div class="headline">대우건설, GH 민참 ‘고양창릉 S16블록’ 따내</div>
@@ -11537,7 +11622,7 @@ h1,
   data-language="ko"
   data-search="폭염이 바꾼 산업현장···삼성물산·하이트진로도 선택한 케이웨더 &#x27;iot 폭염 관리&#x27; 스마트비즈 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">스마트비즈</div>
     <div class="headline">폭염이 바꾼 산업현장···삼성물산·하이트진로도 선택한 케이웨더 &#x27;IoT 폭염 관리&#x27;</div>
@@ -11556,18 +11641,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBibGpmYV9aN0g0dmlmUE5yVjNBNklpRFB1YlZGbmdNbHQxZElkTC00VDdMWU9UY0p3RnhFV0FxLXM2ZzVlendXRXlBR1pxLWNmdVZENEJrVlU4N3JVTjBmemx1TlEyRkU?oc=5"
   data-title="포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구"
-  data-publisher="팍스경제TV"
+  data-publisher="paxetv.com"
   data-group="타 건설사"
   data-language="ko"
-  data-search="포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구 팍스경제tv 타 건설사 "
+  data-search="포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구 paxetv.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
-    <div class="publisher">팍스경제TV</div>
-    <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구</div>
+    <div class="publisher">paxetv.com</div>
+    <div class="headline">포스코이앤씨, ‘더샵 여주역더퍼스트’ 이달 공급…총 696가구</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -11591,7 +11676,7 @@ h1,
   data-language="ko"
   data-search="포스코이앤씨·우미건설, 여주·세종서 8월 신규 분양 본격화 뉴스투데이 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">뉴스투데이</div>
     <div class="headline">포스코이앤씨·우미건설, 여주·세종서 8월 신규 분양 본격화</div>
@@ -11618,7 +11703,7 @@ h1,
   data-language="ko"
   data-search="삼성물산이 픽한 &#x27;픽옷&#x27;…의류 수거 채널 확장 신아일보 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">신아일보</div>
     <div class="headline">삼성물산이 픽한 &#x27;픽옷&#x27;…의류 수거 채널 확장</div>
@@ -11645,7 +11730,7 @@ h1,
   data-language="ko"
   data-search="&#x27;오너가&#x27;에서 &#x27;대우맨&#x27;으로…대우건설, 리더십 교체 비즈워치 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">비즈워치</div>
     <div class="headline">&#x27;오너가&#x27;에서 &#x27;대우맨&#x27;으로…대우건설, 리더십 교체</div>
@@ -11667,14 +11752,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE93N0M0OVhDUEJySkJtY29YRjhnMG5wRkV0ZzZVcTJXeDRfU0hyRklCQVRyMnp6bEFURVlUUTJnNUcyeHFoUzVlMm53VzhoRno0VWxldlVzVHNNRi1tQ2ZuTTZzaEt4enM?oc=5"
   data-title="현대엔지니어링, 중진공과 ‘안전·품질 공제’ MOU…협력사 우수인력 확보 지원"
-  data-publisher="팍스경제TV"
+  data-publisher="paxetv.com"
   data-group="타 건설사"
   data-language="ko"
-  data-search="현대엔지니어링, 중진공과 ‘안전·품질 공제’ mou…협력사 우수인력 확보 지원 팍스경제tv 타 건설사 "
+  data-search="현대엔지니어링, 중진공과 ‘안전·품질 공제’ mou…협력사 우수인력 확보 지원 paxetv.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">12</div>
   <div class="preview-copy">
-    <div class="publisher">팍스경제TV</div>
+    <div class="publisher">paxetv.com</div>
     <div class="headline">현대엔지니어링, 중진공과 ‘안전·품질 공제’ MOU…협력사 우수인력 확보 지원</div>
     
     <div class="status-line">
@@ -11699,7 +11784,7 @@ h1,
   data-language="ko"
   data-search="현대엔지니어링, 건설업계 최초 정부 지원 연계 상생협력사업 추진…3년간 약 25.2억 지원 er 이코노믹리뷰 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">12</div>
+  <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">ER 이코노믹리뷰</div>
     <div class="headline">현대엔지니어링, 건설업계 최초 정부 지원 연계 상생협력사업 추진…3년간 약 25.2억 지원</div>
@@ -11721,14 +11806,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE41cnRsYXdYRmxjTkJqdW5oTUVOTjc4R1paVFJTRlE5ZU9ObDRrUXEtb2U1dUFXM09jNlJSMWlRaVBBcEhYYjhxYXJVS3Z6VlRXWmpDcHkzaXk2eG1VcGwzRjhPaHRtM25wYkE?oc=5"
   data-title="‘공사’보다 ‘사람’ 먼저… 롯데건설이 인권경영에 힘주는 이유"
-  data-publisher="천지일보"
+  data-publisher="newscj.com"
   data-group="타 건설사"
   data-language="ko"
-  data-search="‘공사’보다 ‘사람’ 먼저… 롯데건설이 인권경영에 힘주는 이유 천지일보 타 건설사 "
+  data-search="‘공사’보다 ‘사람’ 먼저… 롯데건설이 인권경영에 힘주는 이유 newscj.com 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">13</div>
+  <div class="article-number">14</div>
   <div class="preview-copy">
-    <div class="publisher">천지일보</div>
+    <div class="publisher">newscj.com</div>
     <div class="headline">‘공사’보다 ‘사람’ 먼저… 롯데건설이 인권경영에 힘주는 이유</div>
     
     <div class="status-line">
@@ -11753,7 +11838,7 @@ h1,
   data-language="ko"
   data-search="대우건설 신임 대표이사 후보에 이강석 상무 연합뉴스 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">14</div>
+  <div class="article-number">15</div>
   <div class="preview-copy">
     <div class="publisher">연합뉴스</div>
     <div class="headline">대우건설 신임 대표이사 후보에 이강석 상무</div>
@@ -11772,18 +11857,18 @@ h1,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiXEFVX3lxTE5RbXE2ODc3TVBhd0FCVUkwLWlsRjdQSlNJWWN1Y2JGQUlTVy1Kck1yeUFwVHVheDFBc3NGWUJDZTJxbXkxVnRhMFppdmdXOWxld0h6bV9jU0J1ejJG?oc=5"
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiU0FVX3lxTFByQVVHTnBqUWVkdE1uelc4V3V4YlI2eEFDVjNIVzUwQ1MwTGhzWUZGVjJYUko0Q0YwVWFodld4alRtQ0hLbjE2RnJYYWpxQlFwTFpR?oc=5"
   data-title="[AI청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감"
-  data-publisher="뉴스핌"
+  data-publisher="네이트"
   data-group="타 건설사"
   data-language="ko"
-  data-search="[ai청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감 뉴스핌 타 건설사 "
+  data-search="[ai청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감 네이트 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">15</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
-    <div class="publisher">뉴스핌</div>
-    <div class="headline">[AI청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감</div>
+    <div class="publisher">네이트</div>
+    <div class="headline"><span class="new-badge">NEW</span>[AI청약 리서치] 포스코이앤씨 &#x27;더샵 트리센트&#x27;, 1순위 평균 18대 1 마감</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -11807,7 +11892,7 @@ h1,
   data-language="ko"
   data-search="삼성물산 홈닉, 입주민 생활 관리 서비스 강화 폴리뉴스 polinews 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">16</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">폴리뉴스 Polinews</div>
     <div class="headline">삼성물산 홈닉, 입주민 생활 관리 서비스 강화</div>
@@ -11834,7 +11919,7 @@ h1,
   data-language="ko"
   data-search="gs건설, 검단 충격 딛고 ‘빅3’ 복귀 dealsite경제tv 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">17</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">DealSite경제TV</div>
     <div class="headline">GS건설, 검단 충격 딛고 ‘빅3’ 복귀</div>
@@ -11861,7 +11946,7 @@ h1,
   data-language="ko"
   data-search="현대엔지니어링, &#x27;내실경영&#x27;은 합격점···신규수주 확대 총력 뉴스웨이 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">19</div>
   <div class="preview-copy">
     <div class="publisher">뉴스웨이</div>
     <div class="headline">현대엔지니어링, &#x27;내실경영&#x27;은 합격점···신규수주 확대 총력</div>
@@ -11883,42 +11968,15 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiygFBVV95cUxOOWdiWFBvM0JNOVdMbHk0U2VhMU9WZHNIUnVxNXB4SU1BT0Rvd29jNGxqRFl0aHI3RUtsajgyWk1Oa3ozNlpOYlZXWWF6QkZiczBWdXluODFNbmRDdEo2cm5USXBVTmNPVVR4aTl5Si0wYzlPSlBtS29nbjY5RUVLZG0wZkpITzFPNjV5eGdrUmlXWUp0UHpHOFZtaUptOXc4aWtHSXRxMGNIaS1mSHNwU0JaclAxaVdFYUZYOU82LUdNMTBDOUM3dGpR?oc=5"
   data-title="두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약"
-  data-publisher="매일건설신문"
+  data-publisher="mcnews.co.kr"
   data-group="타 건설사"
   data-language="ko"
-  data-search="두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약 매일건설신문 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">19</div>
-  <div class="preview-copy">
-    <div class="publisher">매일건설신문</div>
-    <div class="headline">두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiZEFVX3lxTFByOElJUWpRWWFLME9jZHh3aS05TE1IbHFzSXBSYU1PTkQ3TGxFUUl3TkREZzZfeDJORHFOckpSRG1TR08zWjhQaXpWXzdrWjNTUWY5WHh5ckdxbGQzZi10dnAyVUM?oc=5"
-  data-title="SK에코플랜트, 작년 온실가스 배출 33.18% 감소"
-  data-publisher="포쓰저널"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="sk에코플랜트, 작년 온실가스 배출 33.18% 감소 포쓰저널 타 건설사 "
+  data-search="두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약 mcnews.co.kr 타 건설사 "
   tabindex="0" role="link">
   <div class="article-number">20</div>
   <div class="preview-copy">
-    <div class="publisher">포쓰저널</div>
-    <div class="headline">SK에코플랜트, 작년 온실가스 배출 33.18% 감소</div>
+    <div class="publisher">mcnews.co.kr</div>
+    <div class="headline">두산에너빌리티, 두산스코다파워와 체코 원전 증기터빈 계약</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -12393,6 +12451,33 @@ h1,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE1LRl9vLVd4Nmx5MkdkVzNna2NCS3ZtMjB1UTRGTUZOUTkyWVdMVjlMQXhwdzdxb3ptRzlqcmVfMWdDYmNKaEtCMEZydnkwV1Fva3RBWG53ZVBVQ282N1RpNHV4c3VzaWtrUnc?oc=5"
+  data-title="김정관 산업장관 &quot;美 과잉생산 조사 결과, 이달 말 발표 예상&quot;"
+  data-publisher="뉴스웨이"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-search="김정관 산업장관 &quot;美 과잉생산 조사 결과, 이달 말 발표 예상&quot; 뉴스웨이 원전 관계부처 "
+  tabindex="0" role="link">
+  <div class="article-number">6</div>
+  <div class="preview-copy">
+    <div class="publisher">뉴스웨이</div>
+    <div class="headline"><span class="new-badge">NEW</span>김정관 산업장관 &quot;美 과잉생산 조사 결과, 이달 말 발표 예상&quot;</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMic0FVX3lxTE5hN2Q1TlU4RHpUel9MMFRuRTBlWTB1V0VWWVVaalRtR21jLTQ4NUlXYk55bjNNZTRxaF9uVS1mU3FGdHNCZGd1NjRIUDZzVFM2Q01uWnpMRklyVmZ6RWVMczhobkU2M2VMYUplOGRfcEtnTmc?oc=5"
   data-title="김정관 &quot;주52시간 규제가 일하려는 의지 꺾어선 안돼&quot;"
@@ -12401,7 +12486,7 @@ h1,
   data-language="ko"
   data-search="김정관 &quot;주52시간 규제가 일하려는 의지 꺾어선 안돼&quot; 마켓인 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">마켓인</div>
     <div class="headline">김정관 &quot;주52시간 규제가 일하려는 의지 꺾어선 안돼&quot;</div>
@@ -12428,7 +12513,7 @@ h1,
   data-language="ko"
   data-search="김정관 “일하겠다는 의지, 제도가 막아선 안 돼” 주 52시간 근로제 손질 시사…노동계 반발 불가피 경향신문 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">경향신문</div>
     <div class="headline">김정관 “일하겠다는 의지, 제도가 막아선 안 돼” 주 52시간 근로제 손질 시사…노동계 반발 불가피</div>
@@ -12450,42 +12535,15 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTE10dkQ3aFNRUXFmZE4wYWxDRnlZUThYU3dtVkxyQmlIbVZodFVCaFZuYkVFNER3QV85OFhndjJYN3VFZ2ItU0VIenlscmlpQUlwREhFVHhid1hrczZTNU9Fd3JzUFlCMktxV1E40gFwQVVfeXFMTTB5SFQ3OTd2VXlxWGVmTFFvR083MkdsSXFKb0VteE5Vdmh3M2VWV1hZU2dmT1p1eWh0ZXNZdXVPYnctNXRnVlVMMUQ5MWE4X2pPOGNlWmxGREJKeEtTaHJNZWxkMWZaUUN6QUNGR3FfUw?oc=5"
   data-title="김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이"
-  data-publisher="mt.co.kr"
+  data-publisher="머니투데이"
   data-group="원전 관계부처"
   data-language="ko"
-  data-search="김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이 mt.co.kr 원전 관계부처 "
-  tabindex="0" role="link">
-  <div class="article-number">8</div>
-  <div class="preview-copy">
-    <div class="publisher">mt.co.kr</div>
-    <div class="headline">김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiVEFVX3lxTE5qTF84UkxMUWtiOWtQOThTWENHbWhWYmhxWWt3TVJoY0JaQk9sellVTUxGR054MjlTLV8xSlBFR3E4ZGdOXzgza2pzNHI1blkta3p5Zw?oc=5"
-  data-title="김정관 장관 &quot;美, 쿠팡 사태 오해 있어…한미 간 간극 좁히려 노력 중“"
-  data-publisher="v.daum.net"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="김정관 장관 &quot;美, 쿠팡 사태 오해 있어…한미 간 간극 좁히려 노력 중“ v.daum.net 원전 관계부처 "
+  data-search="김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이 머니투데이 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">9</div>
   <div class="preview-copy">
-    <div class="publisher">v.daum.net</div>
-    <div class="headline">김정관 장관 &quot;美, 쿠팡 사태 오해 있어…한미 간 간극 좁히려 노력 중“</div>
+    <div class="publisher">머니투데이</div>
+    <div class="headline">김정관 산업장관 &quot;쿠팡사태, 美당국 본질 이해… 한미동맹 흔들 정도 아냐&quot; - 머니투데이</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -12531,14 +12589,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMieEFVX3lxTE8zY19lTkxka01nY0MxQ2dTVmgwTWxtNk5zWGtzVGhjUGljQl84SEpMM3hUT2xrb053ZTdodXEtOW9wY2V4NzU4eVowdE54NENOY2ozcmV4WVRMbC1fVHJuX3BiTmp3aVROeHYtQWxsdHRqejZzNVpHcg?oc=5"
   data-title="`주52시간` 손보자는 김정관 `경쟁상대 중국은 `996`도 부족하다 해`"
-  data-publisher="busan.com"
+  data-publisher="부산일보"
   data-group="원전 관계부처"
   data-language="ko"
-  data-search="`주52시간` 손보자는 김정관 `경쟁상대 중국은 `996`도 부족하다 해` busan.com 원전 관계부처 "
+  data-search="`주52시간` 손보자는 김정관 `경쟁상대 중국은 `996`도 부족하다 해` 부산일보 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">busan.com</div>
+    <div class="publisher">부산일보</div>
     <div class="headline">`주52시간` 손보자는 김정관 `경쟁상대 중국은 `996`도 부족하다 해`</div>
     
     <div class="status-line">
@@ -12690,7 +12748,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMidEFVX3lxTE5uLVpuMEd2ZVNvTTUyVV9iVHhIV1NOa0NReWhlTVpCN19yd3FEb0ZacDVKNXRwcE9aeTBfdEktWEJqX1VDb0ZoRWdnNExqMlRaYVU3TTZDd0ktcXRKWmNkOXR2VU03QWpualQ3Zlc4b21PYnJZ0gF0QVVfeXFMUGs0QloxdkNydU1MV2lKblJJRUpWM2dndE9xc0JmNVA4bVgzVEg1aldIVHNRVjFpU19PeEljMktnVlVpMkRXYVNFb1FpbmFVMWhYV29HT2dvX25weGMzaVE1SlYyYjBnc3l2eURyVkVBVGxkY2o?oc=5"
   data-title="김정관 &quot;미국 정치권, 쿠팡 과민 반응 크다는 인상 받아&quot;"
   data-publisher="MBC 뉴스"
@@ -12701,7 +12759,7 @@ h1,
   <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">MBC 뉴스</div>
-    <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;미국 정치권, 쿠팡 과민 반응 크다는 인상 받아&quot;</div>
+    <div class="headline">김정관 &quot;미국 정치권, 쿠팡 과민 반응 크다는 인상 받아&quot;</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -13116,14 +13174,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiRkFVX3lxTE1ybW5wMTFERl9CdlJ4bFJXUTZONDFmX1NjYXBkYmx4VHpEM0luMGk0MjRUd2dvQTZrRU0tcWlyNHRnRnJSNEE?oc=5"
   data-title="영광소방서, 국가중요시설 한빛원자력본부 특별점검"
-  data-publisher="fpn119.co.kr"
+  data-publisher="소방방재신문"
   data-group="원자력"
   data-language="ko"
-  data-search="영광소방서, 국가중요시설 한빛원자력본부 특별점검 fpn119.co.kr 원자력 "
+  data-search="영광소방서, 국가중요시설 한빛원자력본부 특별점검 소방방재신문 원자력 "
   tabindex="0" role="link">
   <div class="article-number">11</div>
   <div class="preview-copy">
-    <div class="publisher">fpn119.co.kr</div>
+    <div class="publisher">소방방재신문</div>
     <div class="headline">영광소방서, 국가중요시설 한빛원자력본부 특별점검</div>
     
     <div class="status-line">
@@ -13143,14 +13201,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE11ZEN3V3N0SUdFWDRnV2FySklnSE5Md2RYbTZyTDBwX04xdnJ6YVphT3FOaFhQS2FrQ19ILTlJdTgwWm1DN3lxaGlNYXNrdVpLYjAzQk9MNWtfNjdOMENubDhQOGZ3YWJnQ3fSAW9BVV95cUxQQlEtS3JobEdZcVF0QnVjb0NIX05Eck9fMFZaRV9TT2tGNE0xM3owWHktM1BiMWVLWUFzalVkLVNJbk5ONXc3T2dSLURyOUtLVURfRXJLYVNwcUhZRTNORW9YbVJnYjhfSHNmT2pWWHc?oc=5"
   data-title="고리원자력본부 내년 사업자 지원사업 공모 - 머니투데이"
-  data-publisher="mt.co.kr"
+  data-publisher="머니투데이"
   data-group="원자력"
   data-language="ko"
-  data-search="고리원자력본부 내년 사업자 지원사업 공모 - 머니투데이 mt.co.kr 원자력 "
+  data-search="고리원자력본부 내년 사업자 지원사업 공모 - 머니투데이 머니투데이 원자력 "
   tabindex="0" role="link">
   <div class="article-number">12</div>
   <div class="preview-copy">
-    <div class="publisher">mt.co.kr</div>
+    <div class="publisher">머니투데이</div>
     <div class="headline">고리원자력본부 내년 사업자 지원사업 공모 - 머니투데이</div>
     
     <div class="status-line">
@@ -13422,14 +13480,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMimAFBVV95cUxQcXNmc3YwUmVzalJQMzdfcVlLRXowU00xS1NMLVd4eWotNjkyRTZkZUhHd0E1Ykc1a0hyOWJYUFRmZXBqbXNPQTlGRDBQaTRlYndqWHZkNUdsY3diMzluS0EzR3duWGl0VGN3cHBXUjBWNG5uUUtxWklJOEItODFBQ3psanU4clYxX3NfZllTS0tuODVPdUYtaQ?oc=5"
   data-title="This Stock Could Be Your Ticket to Becoming a Millionaire"
-  data-publisher="The Motley Fool"
+  data-publisher="fool.com"
   data-group="SMR"
   data-language="en"
-  data-search="this stock could be your ticket to becoming a millionaire the motley fool smr "
+  data-search="this stock could be your ticket to becoming a millionaire fool.com smr "
   tabindex="0" role="link">
   <div class="article-number">9</div>
   <div class="preview-copy">
-    <div class="publisher">The Motley Fool</div>
+    <div class="publisher">fool.com</div>
     <div class="headline">This Stock Could Be Your Ticket to Becoming a Millionaire</div>
     
     <div class="status-line">
@@ -13449,14 +13507,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMimAFBVV95cUxNM2NjWFBtLXZRM3hqVU9SY0VYM0N6cE93bE1Xa2k1VmhWRGREMnlKUlcwU01pV0tFOV9xbzlWNC15b2xyU01HQm42X2FRMkQxZzd4TDlFcXdXeTREWm42OHI2Q0l5UU5DTFZoQUNYclI3ZE56c29DdkpjN2hDRzI3ZV8ybU00U0otLVBVYTB4VE1WRkZfbzJrbw?oc=5"
   data-title="SMR Q2 Earnings Call Focuses on TVA and Deployment Readiness"
-  data-publisher="Yahoo Finance"
+  data-publisher="finance.yahoo.com"
   data-group="SMR"
   data-language="en"
-  data-search="smr q2 earnings call focuses on tva and deployment readiness yahoo finance smr "
+  data-search="smr q2 earnings call focuses on tva and deployment readiness finance.yahoo.com smr "
   tabindex="0" role="link">
   <div class="article-number">10</div>
   <div class="preview-copy">
-    <div class="publisher">Yahoo Finance</div>
+    <div class="publisher">finance.yahoo.com</div>
     <div class="headline">SMR Q2 Earnings Call Focuses on TVA and Deployment Readiness</div>
     
     <div class="status-line">
@@ -13611,14 +13669,14 @@ h1,
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMieEFVX3lxTE5wMmstNGtPbXlVMDBQT2R6aGg5OW44SEdIOThKTEk4WmpFUmxoRl85MTN6TlVHRWxBLVU0ZXFCLXlNVjhLSkdQbGhyd2N5YU9ua3NfSnRDZnZldGQtbGN5T1g1RDdrcllnMjN0Z3dXV1ZjSlhEZ2kySw?oc=5"
   data-title="SMR 10-Q &amp; SEC Filings"
-  data-publisher="Yahoo Finance"
+  data-publisher="finance.yahoo.com"
   data-group="SMR"
   data-language="en"
-  data-search="smr 10-q &amp; sec filings yahoo finance smr "
+  data-search="smr 10-q &amp; sec filings finance.yahoo.com smr "
   tabindex="0" role="link">
   <div class="article-number">16</div>
   <div class="preview-copy">
-    <div class="publisher">Yahoo Finance</div>
+    <div class="publisher">finance.yahoo.com</div>
     <div class="headline">SMR 10-Q &amp; SEC Filings</div>
     
     <div class="status-line">
@@ -13698,7 +13756,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMingFBVV95cUxOS0lQR1FILUp5bXlPeEducUpiSC1UU1ROUFJ0QmxrVi1Wd1dnclRWZUhDY1kxU3BudzlnVzZBdlpfbTh5QW1UUHozajNLVVh1THNyMVZ3bnVUa1hFeHh1RVdQeHFNLVEwRFVmRk12R1VCNkVDWktna0x5UkIzaFo1cW9NbmxZaXk5TG9DMDU3cXlSVzBRWmhRUE5yNDU3dw?oc=5"
   data-title="DOE outlines possible Oklahoma nuclear energy project in federal documents"
   data-publisher="News On 6"
@@ -13709,7 +13767,7 @@ h1,
   <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">News On 6</div>
-    <div class="headline"><span class="new-badge">NEW</span>DOE outlines possible Oklahoma nuclear energy project in federal documents</div>
+    <div class="headline">DOE outlines possible Oklahoma nuclear energy project in federal documents</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -13725,7 +13783,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiigFBVV95cUxNbDFWXzZuWGdSX2tva3pOVy1LQTd6Umh1SkJlell3UnVCSzhZcjJvQ1VnSVowNS1wdUY5bC1rY0RQekJ6VGM5aWJIemxsMGNVTmlwMmdoX0FBTEcteS1fOVJudGsyOTRUcTR1WmNTU19ZbTM5MTB0YVdqVVZ3UmE2dFBhTWU0RWpBZkE?oc=5"
   data-title="Letter: The nuclear promise of jobs, tax money and easy energy in Utah is a Faustian bargain"
   data-publisher="The Salt Lake Tribune"
@@ -13736,7 +13794,7 @@ h1,
   <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">The Salt Lake Tribune</div>
-    <div class="headline"><span class="new-badge">NEW</span>Letter: The nuclear promise of jobs, tax money and easy energy in Utah is a Faustian bargain</div>
+    <div class="headline">Letter: The nuclear promise of jobs, tax money and easy energy in Utah is a Faustian bargain</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -13968,7 +14026,7 @@ h1,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMisAFBVV95cUxNTmF3MVotYTFHaGN1NGtLVmctNEp2REVZWS1qekgxcFR3S1M5b2Nfb0VDNEcwV3FkZEpTSHNOMzhaM1liTU5RZ3ZJNWt5c0c1UVNZSTdaYnhEMWtuUllHa2thVWxkMFhXNmtkU3NhY1Jmc21wNDVLSTJRLWdSY2VNcFFGMU9kaVFMeU55aDJOZU5wcjctaWNyaXdPeUFvTEVkOE40QVlTYWc0b1ZmRi1XeQ?oc=5"
   data-title="Amid Push for Nuclear Reactor Construction, Illinois Is One Step Closer to Selecting a Site"
   data-publisher="WTTW"
@@ -13979,7 +14037,7 @@ h1,
   <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">WTTW</div>
-    <div class="headline"><span class="new-badge">NEW</span>Amid Push for Nuclear Reactor Construction, Illinois Is One Step Closer to Selecting a Site</div>
+    <div class="headline">Amid Push for Nuclear Reactor Construction, Illinois Is One Step Closer to Selecting a Site</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -14004,7 +14062,7 @@ h1,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMimwFBVV95cUxNN3Z4THo3RmFXQnlGd0RZM1FJaGM3UUZGcG9lZ3RIS3NtRzVWM3o1S1RMSTZvLUtkX0hIWUZOcUQtbVJtZHlhWlRGZV9JRVc2dk1xMkdqTUt5OGJ1RlNBVU1kYTZWRFh4a2lFNlZITmNsMjdkMnBoc0RsUXo2dFc5TTV0bnduRnk2cmhYbjcwWUtLcTY5QTFnVENHbw?oc=5"
   data-title="Holtec moves forward on Oyster Creek, looks to Gulf South - American Nuclear Society -- ANS"
   data-publisher="American Nuclear Society -- ANS"
@@ -14015,7 +14073,7 @@ h1,
   <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">American Nuclear Society -- ANS</div>
-    <div class="headline"><span class="new-badge">NEW</span>Holtec moves forward on Oyster Creek, looks to Gulf South - American Nuclear Society -- ANS</div>
+    <div class="headline">Holtec moves forward on Oyster Creek, looks to Gulf South - American Nuclear Society -- ANS</div>
     
     <div class="status-line">
       <div class="status-text">
