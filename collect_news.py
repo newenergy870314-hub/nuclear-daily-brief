@@ -3688,11 +3688,11 @@ function renderFavorites(){{
 
 let activeCountryFilter = "";
 
-const COUNTRY_NAMES = {
+const COUNTRY_NAMES = {{
   US:"미국", KR:"한국", GB:"영국", BG:"불가리아", UA:"우크라이나", AE:"UAE",
   RO:"루마니아", CZ:"체코", PL:"폴란드", SI:"슬로베니아", FI:"핀란드",
   JP:"일본", CA:"캐나다", FR:"프랑스", SE:"스웨덴", OTHER:"기타"
-};
+}};
 
 function updateCountryMapCounts(){{
   const panel=activePanel();
