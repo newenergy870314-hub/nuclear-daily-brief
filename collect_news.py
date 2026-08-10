@@ -3121,13 +3121,13 @@ main {{ padding: 12px 12px 34px; }}
 .partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
 .language-section {{ margin-bottom: 30px; }}
 .group-nav-compact .group-nav-dense 
-.news-group {{ margin-bottom: 3px; }}
+.news-group {{ margin-bottom: 5px; }}
 .group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #fee500; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.10); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
-.group-count {{ margin-left: auto; color: #5f5200; font-size: 8px; line-height: 1; white-space: nowrap; }}
+.group-count {{ margin-left: 2px; color: #5f5200; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 10px; color: #111827; font-size: 8px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 7px; margin-top: 5px; margin-bottom: 5px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
@@ -3185,9 +3185,9 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .period-card strong {{ font-size: 16px; }}
   .group-master-button, .header-toggle {{ width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }}
       .group-nav-compact   .group-nav-dense 
-  .news-group {{ margin-bottom: 4px; }}
+  .news-group {{ margin-bottom: 6px; }}
   .group-title {{ height: 30px; padding: 0 11px; font-size: 12px; border-radius: 6px; }}
-  .group-count {{ font-size: 9px; }}
+  .group-count {{ font-size: 12px; }}
   .article-stack {{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }}
   .preview-card {{ grid-template-columns: 32px minmax(0,1fr) 124px; height: 142px; min-height: 142px; border-radius: 11px; }}
   .article-number {{ padding-top: 12px; font-size: 13px; }}
