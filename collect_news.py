@@ -12,7 +12,7 @@ import os
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from difflib import SequenceMatcher
 from html.parser import HTMLParser
 from pathlib import Path
@@ -32,10 +32,10 @@ BACKFILL_DATES_PER_RUN = 2
 SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "1") == "1"
 MAX_PER_GROUP_PER_LANGUAGE = 12
 
-# 보완 RSS는 Google News RSS 수집시간에 큰 영향을 주지 않도록 병렬로 조회합니다.
+# 언론사 직접 RSS는 여러 매체를 병렬로 조회합니다.
 # 개별 피드가 응답하지 않아도 전체 작업이 오래 멈추지 않도록 timeout을 둡니다.
-SUPPLEMENTAL_RSS_WORKERS = 8
-SUPPLEMENTAL_RSS_TIMEOUT_SECONDS = 8
+DIRECT_RSS_WORKERS = 10
+DIRECT_RSS_TIMEOUT_SECONDS = 10
 
 # 기사 카드에 대표 이미지와 본문 미리보기를 보완하기 위한 원문 메타데이터 조회 설정
 # 이미 RSS에 값이 있는 경우에는 추가 조회하지 않으며, 필요한 기사만 병렬 조회합니다.
@@ -225,35 +225,223 @@ GROUPS = [
     ]),
 ]
 
-# Google News RSS를 메인으로 사용하고, 아래 언론사 자체 RSS는 누락 보완용으로 사용합니다.
-# 보완 RSS는 병렬 조회되므로 기존 약 4분 실행시간 증가를 최소화하도록 구성했습니다.
-# 같은 기사가 양쪽에서 들어와도 기존 중복 제거 로직에서 1건만 남습니다.
-SUPPLEMENTAL_RSS_FEEDS = [
-    # 뉴시스: 원전/에너지 기사가 나올 가능성이 높은 주요 섹션
+# 기사 수집원: Google News RSS를 사용하지 않고 언론사 자체 RSS/공식 뉴스 페이지에서 직접 수집합니다.
+# RSS가 있는 언론사는 자체 RSS를 우선 사용하여 제목·원문 URL·description·대표이미지를 최대한 원형 그대로 확보합니다.
+DIRECT_RSS_FEEDS = [
+    # ─────────────────────────────────────────────
+    # 국내 통신·종합·경제·산업 매체의 공식 RSS
+    # ─────────────────────────────────────────────
     ("뉴시스", "https://www.newsis.com/RSS/sokbo.xml"),
     ("뉴시스", "https://www.newsis.com/RSS/politics.xml"),
     ("뉴시스", "https://www.newsis.com/RSS/economy.xml"),
     ("뉴시스", "https://www.newsis.com/RSS/industry.xml"),
     ("뉴시스", "https://www.newsis.com/RSS/international.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/society.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/country.xml"),
 
-    # 전자신문
     ("전자신문", "https://rss.etnews.com/Section901.xml"),
     ("전자신문", "https://rss.etnews.com/Section902.xml"),
     ("전자신문", "https://rss.etnews.com/02.xml"),
     ("전자신문", "https://rss.etnews.com/06065.xml"),
     ("전자신문", "https://rss.etnews.com/22210.xml"),
 
-    # 원전·전력·에너지 전문매체
+    # 공식 RSS가 확인되는 주요 경제·방송 매체
+    ("매일경제", "https://www.mk.co.kr/rss/40300001/"),
+    ("매일경제", "https://www.mk.co.kr/rss/30100041/"),
+    ("매일경제", "https://www.mk.co.kr/rss/50100032/"),
+    ("매일경제", "https://www.mk.co.kr/rss/30300018/"),
+    ("한국경제", "https://www.hankyung.com/feed/all-news"),
+    ("한국경제", "https://www.hankyung.com/feed/economy"),
+    ("한국경제", "https://www.hankyung.com/feed/it"),
+    ("한국경제", "https://www.hankyung.com/feed/international"),
+    ("MBN", "https://www.mbn.co.kr/rss/"),
+    ("MBN", "https://www.mbn.co.kr/rss/economy/"),
+    ("MBN", "https://www.mbn.co.kr/rss/politics/"),
+
+    # 국내 원전·전력·에너지 전문매체
     ("전기신문", "https://www.electimes.com/rss/allArticle.xml"),
     ("에너지신문", "https://www.energy-news.co.kr/rss/allArticle.xml"),
     ("에너지타임즈", "https://www.energytimes.kr/rss/allArticle.xml"),
     ("전력경제신문", "https://www.epetimes.com/rss/allArticle.xml"),
+
+    # 해외 원자력 전문매체
+    ("World Nuclear News", "https://www.world-nuclear-news.org/?rss=feed"),
 ]
 
-# 자체 RSS에서 기사 분류 시 너무 넓게 잡히지 않도록 핵심어를 사용합니다.
-SUPPLEMENTAL_GROUP_KEYWORDS = {
+# RSS가 없거나 RSS만으로는 누락 가능성이 있는 매체는 공식 뉴스 페이지를 직접 훑습니다.
+# 각 페이지에서 제목이 원전/에너지/현대건설/한전/한수원/관계부처 등 키워드에 걸리는 기사만
+# 상세 원문까지 들어가므로 일반 기사 전체를 다운로드하지 않습니다.
+DIRECT_NEWS_PAGES = [
+    # ─────────────────────────────────────────────
+    # 국내 통신·종합 일간지
+    # ─────────────────────────────────────────────
+    ("연합뉴스", "https://www.yna.co.kr/industry/all", "ko"),
+    ("연합뉴스", "https://www.yna.co.kr/economy/all", "ko"),
+    ("연합뉴스", "https://www.yna.co.kr/politics/all", "ko"),
+    ("뉴스1", "https://www.news1.kr/", "ko"),
+    ("조선일보", "https://www.chosun.com/", "ko"),
+    ("중앙일보", "https://www.joongang.co.kr/", "ko"),
+    ("동아일보", "https://www.donga.com/", "ko"),
+    ("한겨레", "https://www.hani.co.kr/", "ko"),
+    ("경향신문", "https://www.khan.co.kr/", "ko"),
+    ("한국일보", "https://www.hankookilbo.com/", "ko"),
+    ("국민일보", "https://www.kmib.co.kr/", "ko"),
+    ("서울신문", "https://www.seoul.co.kr/", "ko"),
+    ("세계일보", "https://www.segye.com/", "ko"),
+    ("문화일보", "https://www.munhwa.com/", "ko"),
+
+    # ─────────────────────────────────────────────
+    # 국내 경제·산업·비즈니스 매체
+    # ─────────────────────────────────────────────
+    ("서울경제", "https://www.sedaily.com/", "ko"),
+    ("머니투데이", "https://www.mt.co.kr/", "ko"),
+    ("이데일리", "https://www.edaily.co.kr/", "ko"),
+    ("아시아경제", "https://www.asiae.co.kr/", "ko"),
+    ("헤럴드경제", "https://biz.heraldcorp.com/", "ko"),
+    ("파이낸셜뉴스", "https://www.fnnews.com/", "ko"),
+    ("아주경제", "https://www.ajunews.com/", "ko"),
+    ("조선비즈", "https://biz.chosun.com/", "ko"),
+    ("비즈워치", "https://news.bizwatch.co.kr/", "ko"),
+    ("매일경제", "https://www.mk.co.kr/", "ko"),
+    ("한국경제", "https://www.hankyung.com/", "ko"),
+
+    # ─────────────────────────────────────────────
+    # 국내 방송·보도 채널
+    # ─────────────────────────────────────────────
+    ("KBS", "https://news.kbs.co.kr/", "ko"),
+    ("MBC", "https://imnews.imbc.com/", "ko"),
+    ("SBS", "https://news.sbs.co.kr/", "ko"),
+    ("YTN", "https://www.ytn.co.kr/", "ko"),
+    ("JTBC", "https://news.jtbc.co.kr/", "ko"),
+    ("MBN", "https://www.mbn.co.kr/news/", "ko"),
+    ("TV조선", "https://news.tvchosun.com/", "ko"),
+    ("채널A", "https://www.ichannela.com/news/main/news_main.do", "ko"),
+
+    # ─────────────────────────────────────────────
+    # 국내 IT·과학·산업 전문매체
+    # ─────────────────────────────────────────────
+    ("전자신문", "https://www.etnews.com/", "ko"),
+    ("디지털타임스", "https://www.dt.co.kr/", "ko"),
+    ("디지털데일리", "https://www.ddaily.co.kr/", "ko"),
+    ("ZDNet Korea", "https://zdnet.co.kr/", "ko"),
+    ("블로터", "https://www.bloter.net/", "ko"),
+    ("산업일보", "https://kidd.co.kr/", "ko"),
+
+    # ─────────────────────────────────────────────
+    # 국내 원전·전력·에너지 전문매체
+    # ─────────────────────────────────────────────
+    ("전기신문", "https://www.electimes.com/", "ko"),
+    ("에너지신문", "https://www.energy-news.co.kr/", "ko"),
+    ("에너지타임즈", "https://www.energytimes.kr/", "ko"),
+    ("전력경제신문", "https://www.epetimes.com/", "ko"),
+    ("투데이에너지", "https://www.todayenergy.kr/", "ko"),
+    ("에너지경제신문", "https://www.ekn.kr/", "ko"),
+    ("이투뉴스", "https://www.e2news.com/", "ko"),
+
+    # ─────────────────────────────────────────────
+    # 해외 글로벌 통신·경제·종합 언론
+    # ─────────────────────────────────────────────
+    ("Reuters", "https://www.reuters.com/business/energy/", "en"),
+    ("Reuters", "https://www.reuters.com/world/", "en"),
+    ("Associated Press", "https://apnews.com/hub/business", "en"),
+    ("BBC", "https://www.bbc.com/news/business", "en"),
+    ("Financial Times", "https://www.ft.com/energy", "en"),
+    ("Bloomberg", "https://www.bloomberg.com/energy", "en"),
+    ("The Wall Street Journal", "https://www.wsj.com/business/energy-oil", "en"),
+    ("CNBC", "https://www.cnbc.com/energy/", "en"),
+    ("CNN", "https://edition.cnn.com/business", "en"),
+    ("The Guardian", "https://www.theguardian.com/environment/energy", "en"),
+    ("POLITICO", "https://www.politico.com/energy-and-environment", "en"),
+    ("EURACTIV", "https://www.euractiv.com/sections/energy-environment/", "en"),
+
+    # ─────────────────────────────────────────────
+    # 해외 원자력·전력·에너지 전문매체
+    # ─────────────────────────────────────────────
+    ("World Nuclear News", "https://www.world-nuclear-news.org/", "en"),
+    ("Nuclear Newswire (ANS)", "https://www.ans.org/news/", "en"),
+    ("Nuclear Engineering International", "https://www.neimagazine.com/news/", "en"),
+    ("NucNet", "https://www.nucnet.org/search", "en"),
+    ("POWER Magazine", "https://www.powermag.com/", "en"),
+    ("Power Engineering", "https://www.power-eng.com/", "en"),
+    ("Utility Dive", "https://www.utilitydive.com/", "en"),
+    ("Energy Monitor", "https://www.energymonitor.ai/", "en"),
+    ("S&P Global Commodity Insights", "https://www.spglobal.com/commodity-insights/en/news-research/latest-news", "en"),
+    ("Argus Media", "https://www.argusmedia.com/en/news-and-insights", "en"),
+
+    # ─────────────────────────────────────────────
+    # 사용자 요청 추가 매체
+    # ─────────────────────────────────────────────
+    ("이투데이", "https://www.etoday.co.kr/", "ko"),
+    ("뉴스토마토", "https://www.newstomato.com/", "ko"),
+    ("데일리안", "https://www.dailian.co.kr/", "ko"),
+    ("뉴스웨이", "https://www.newsway.co.kr/", "ko"),
+    ("비즈니스포스트", "https://www.businesspost.co.kr/", "ko"),
+    ("시사저널", "https://www.sisajournal.com/", "ko"),
+    ("시사오늘", "https://www.sisaon.co.kr/", "ko"),
+    ("미디어오늘", "https://www.mediatoday.co.kr/", "ko"),
+    ("노컷뉴스", "https://www.nocutnews.co.kr/", "ko"),
+    ("더구루", "https://www.theguru.co.kr/", "ko"),
+    ("딜사이트", "https://dealsite.co.kr/", "ko"),
+    ("더벨", "https://www.thebell.co.kr/", "ko"),
+    ("한국원자력신문", "http://www.knpnews.com/", "ko"),
+    ("원자력신문", "https://www.atomicenergy.co.kr/", "ko"),
+    ("인더스트리뉴스", "https://www.industrynews.co.kr/", "ko"),
+    ("헬로티", "https://www.hellot.net/", "ko"),
+    ("대한경제", "https://www.daehannews.kr/", "ko"),
+    ("건설경제", "https://www.cnews.co.kr/", "ko"),
+    ("건설타임즈", "https://www.constimes.co.kr/", "ko"),
+    ("오피니언뉴스", "https://www.opinionnews.co.kr/", "ko"),
+    ("녹색경제신문", "https://www.greened.kr/", "ko"),
+    ("ESG경제", "https://www.esgeconomy.com/", "ko"),
+    ("뉴스펭귄", "https://www.newspenguin.com/", "ko"),
+    ("한국경제TV", "https://www.wowtv.co.kr/", "ko"),
+    ("서울경제TV", "https://www.sentv.co.kr/", "ko"),
+    ("포브스코리아", "https://www.forbes.com/sites/forbeskorea/", "ko"),
+    ("한경ESG", "https://www.hankyung.com/esg", "ko"),
+    ("인베스트조선", "https://www.investchosun.com/", "ko"),
+    ("머니S", "https://www.moneys.co.kr/", "ko"),
+    ("KBS 뉴스", "https://news.kbs.co.kr/", "ko"),
+    ("MBC 뉴스", "https://imnews.imbc.com/", "ko"),
+    ("SBS 뉴스", "https://news.sbs.co.kr/", "ko"),
+    ("연합뉴스TV", "https://www.yonhapnewstv.co.kr/", "ko"),
+    ("BBC 코리아", "https://www.bbc.com/korean/", "ko"),
+    ("부산일보", "https://www.busan.com/", "ko"),
+    ("국제신문", "https://www.kookje.co.kr/", "ko"),
+    ("매일신문", "https://www.imaeil.com/", "ko"),
+    ("경북일보", "https://www.kyongbuk.co.kr/", "ko"),
+    ("경북매일", "https://www.kbmaeil.com/", "ko"),
+    ("뉴스탑코리아", "https://www.newstopkorea.com/", "ko"),
+    ("데일리대구경북뉴스", "https://www.dailydgnews.com/", "ko"),
+    ("경기일보", "https://www.kyeonggi.com/", "ko"),
+    ("전북일보", "https://www.jjan.kr/", "ko"),
+    ("대전일보", "https://www.daejonilbo.com/", "ko"),
+    ("충청투데이", "https://www.cctoday.co.kr/", "ko"),
+    ("BBC News", "https://www.bbc.com/", "en"),
+    ("The New York Times", "https://www.nytimes.com/", "en"),
+    ("Nikkei Asia", "https://asia.nikkei.com/", "en"),
+    ("The Japan Times", "https://www.japantimes.co.jp/", "en"),
+    ("NHK WORLD-JAPAN", "https://www3.nhk.or.jp/nhkworld/", "en"),
+    ("Nuclear Newswire", "https://www.ans.org/news/", "en"),
+    ("Nuclear Energy Institute", "https://www.nei.org/news", "en"),
+    ("World Nuclear Association", "https://world-nuclear.org/news", "en"),
+    ("IAEA News", "https://www.iaea.org/newscenter/news", "en"),
+    ("NRC News", "https://www.nrc.gov/reading-rm/doc-collections/news/", "en"),
+    ("Power Engineering International", "https://www.powerengineeringint.com/", "en"),
+    ("Energy Intelligence", "https://www.energyintel.com/", "en"),
+    ("E&E News", "https://www.eenews.net/", "en"),
+    ("Nuclear Street", "https://nuclearstreet.com/", "en"),
+    ("Power Technology", "https://www.power-technology.com/", "en"),
+    ("World Energy News", "https://worldenergynews.com/", "en"),
+    ("The Engineer", "https://www.theengineer.co.uk/", "en"),
+    ("Engineering News-Record", "https://www.enr.com/", "en"),
+    ("Construction Dive", "https://www.constructiondive.com/", "en"),
+]
+
+# 매체 수가 늘어난 만큼 목록 페이지는 병렬 처리하되, 각 매체에서 관련 가능성이 있는 기사만 원문 조회합니다.
+DIRECT_PAGE_WORKERS = 16
+DIRECT_PAGE_TIMEOUT_SECONDS = 8
+DIRECT_PAGE_MAX_LINKS = 30
+
+# 언론사 직접 수집 기사 분류 시 너무 넓게 잡히지 않도록 핵심어를 사용합니다.
+DIRECT_GROUP_KEYWORDS = {
     "현대건설": [
         "현대건설", "hyundai e&c", "hyundai engineering & construction", "hdec",
     ],
@@ -314,7 +502,7 @@ SUPPLEMENTAL_GROUP_KEYWORDS = {
     ],
 }
 
-SUPPLEMENTAL_GROUP_PRIORITY = [
+DIRECT_GROUP_PRIORITY = [
     "원전 대미투자",
     "Fermi America",
     "Holtec",
@@ -371,7 +559,7 @@ BLOCKED_HARMFUL_KEYWORDS = {
     "불법 도박", "불법도박", "마약 판매", "해킹 판매",
     "adult site", "porn", "escort", "illegal gambling",
 
-    # 이번에 확인된 무관 기사
+    # 이번에 읽음된 무관 기사
     "세븐일레븐", "7-eleven", "7eleven",
 }
 
@@ -450,17 +638,6 @@ def brief_periods(now: datetime) -> dict[str, tuple[datetime, datetime]]:
         "익일": (today_end, today_end + timedelta(days=1)),
     }
 
-
-def google_news_url(query: str, language: str) -> str:
-    if language == "ko":
-        return (
-            "https://news.google.com/rss/search?"
-            f"q={quote_plus(query)}&hl=ko&gl=KR&ceid=KR:ko"
-        )
-    return (
-        "https://news.google.com/rss/search?"
-        f"q={quote_plus(query)}&hl=en-US&gl=US&ceid=US:en"
-    )
 
 
 def split_title_and_publisher(raw_title: str) -> tuple[str, str]:
@@ -594,7 +771,7 @@ def clean_description(raw: str, title: str = "", publisher: str = "") -> str:
     if not cleaned:
         return ""
 
-    # Google News RSS summary가 단순히 '기사제목 + 언론사'만 반복하는 경우 제외
+    # RSS summary가 단순히 '기사제목 + 언론사'만 반복하는 경우 제외
     normalized_cleaned = normalized(cleaned)
     normalized_title = normalized(title)
     normalized_publisher = normalized(publisher)
@@ -848,9 +1025,9 @@ def _fetch_article_metadata(article: Article) -> tuple[str, str]:
             final_url = response.geturl()
             payload = response.read(ARTICLE_META_MAX_BYTES)
 
-        # Google News 중간 페이지에서 멈춘 경우 Google 자체 대표이미지를 쓰지 않습니다.
+        # 검색 중간 페이지 등 원문이 아닌 호스트에서는 잘못된 대표이미지를 쓰지 않습니다.
         final_host = urlparse(final_url).netloc.lower()
-        if "google." in final_host or final_host.endswith("google.com"):
+        if not final_host:
             return article.image, article.description
 
         decoded = payload.decode("utf-8", errors="ignore")
@@ -1579,7 +1756,7 @@ def same_event_general(article: Article, existing: Article) -> bool:
     if len(shared_event) >= 4 and (full_ngram >= 0.34 or title_ngram >= 0.25):
         return True
 
-    # 4) 제목 핵심어 2개 + 제목/설명 유사도가 함께 확인되는 경우
+    # 4) 제목 핵심어 2개 + 제목/설명 유사도가 함께 읽음되는 경우
     if len(shared_title) >= 2 and (
         title_ngram >= 0.42
         or title_seq >= 0.56
@@ -1602,7 +1779,7 @@ def same_day_duplicate(article: Article, existing: Article) -> bool:
     판정 기준
     1) 의미 있는 핵심 단어가 2개 이상 일치
     2) 제목 문자 유사도가 높음
-    3) 동일 주체가 확인되고 핵심 단어 1개 이상 + 제목 유사도가 일정 수준 이상
+    3) 동일 주체가 읽음되고 핵심 단어 1개 이상 + 제목 유사도가 일정 수준 이상
     """
     article_day = article.published.astimezone(KST).date()
     existing_day = existing.published.astimezone(KST).date()
@@ -1625,7 +1802,7 @@ def same_day_duplicate(article: Article, existing: Article) -> bool:
     ).ratio()
 
     # 기사 누락을 줄이기 위해 단순 공통 키워드 2개만으로는 중복 처리하지 않습니다.
-    # 핵심 단어가 3개 이상 같거나, 2개가 같으면서 제목 유사도도 확인될 때만 중복 처리합니다.
+    # 핵심 단어가 3개 이상 같거나, 2개가 같으면서 제목 유사도도 읽음될 때만 중복 처리합니다.
     if len(shared_keywords) >= 3:
         return True
     if (
@@ -1997,8 +2174,8 @@ def is_government_senior_article(article: Article) -> bool:
 
 
 
-def classify_supplemental_article(title: str, summary: str) -> str | None:
-    """언론사 자체 RSS 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
+def classify_direct_article(title: str, summary: str) -> str | None:
+    """언론사 직접 수집 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
 
     # 기존 우선 분류 규칙을 먼저 적용합니다.
@@ -2006,8 +2183,8 @@ def classify_supplemental_article(title: str, summary: str) -> str | None:
     if priority_group != "원자력":
         return priority_group
 
-    for group in SUPPLEMENTAL_GROUP_PRIORITY:
-        terms = SUPPLEMENTAL_GROUP_KEYWORDS.get(group, [])
+    for group in DIRECT_GROUP_PRIORITY:
+        terms = DIRECT_GROUP_KEYWORDS.get(group, [])
         if any(term.lower() in haystack for term in terms):
             if group == "원전 관계부처":
                 # 관계부처는 기존 코드와 동일하게 고위급/인사 조건을 적용합니다.
@@ -2027,7 +2204,7 @@ def classify_supplemental_article(title: str, summary: str) -> str | None:
     return None
 
 
-def parse_supplemental_entry(entry, publisher: str, feed_url: str) -> Article | None:
+def parse_direct_rss_entry(entry, publisher: str, feed_url: str) -> Article | None:
     """언론사 자체 RSS 항목을 Article로 변환합니다."""
     raw_date = (
         getattr(entry, "published", None)
@@ -2053,7 +2230,7 @@ def parse_supplemental_entry(entry, publisher: str, feed_url: str) -> Article | 
     if not title or not link:
         return None
 
-    group = classify_supplemental_article(title, summary)
+    group = classify_direct_article(title, summary)
     if group is None:
         return None
 
@@ -2075,13 +2252,13 @@ def parse_supplemental_entry(entry, publisher: str, feed_url: str) -> Article | 
     )
 
 
-def _fetch_one_supplemental_feed(
+def _fetch_one_direct_rss_feed(
     publisher: str,
     feed_url: str,
     start: datetime,
     end: datetime,
 ) -> list[Article]:
-    """보완용 RSS 한 개를 timeout 내에서 읽고 필요한 기사만 반환합니다."""
+    """언론사 자체 RSS 한 개를 timeout 내에서 읽고 필요한 기사만 반환합니다."""
     try:
         request = Request(
             feed_url,
@@ -2092,17 +2269,17 @@ def _fetch_one_supplemental_feed(
                 )
             },
         )
-        with urlopen(request, timeout=SUPPLEMENTAL_RSS_TIMEOUT_SECONDS) as response:
+        with urlopen(request, timeout=DIRECT_RSS_TIMEOUT_SECONDS) as response:
             payload = response.read()
 
         feed = feedparser.parse(payload)
     except Exception:
-        # 서브 수집원 하나가 실패해도 Google News RSS 메인 수집은 계속 진행합니다.
+        # 개별 언론사 RSS 하나가 실패해도 나머지 직접 수집은 계속 진행합니다.
         return []
 
     articles: list[Article] = []
     for entry in getattr(feed, "entries", []):
-        article = parse_supplemental_entry(entry, publisher, feed_url)
+        article = parse_direct_rss_entry(entry, publisher, feed_url)
         if not article:
             continue
         if not (start <= article.published < end):
@@ -2112,78 +2289,334 @@ def _fetch_one_supplemental_feed(
     return articles
 
 
-def fetch_supplemental_rss(start: datetime, end: datetime) -> list[Article]:
+def fetch_direct_rss(start: datetime, end: datetime) -> list[Article]:
     """
-    Google News에서 빠질 수 있는 기사를 언론사 자체 RSS로 보완 수집합니다.
+    국내외 언론사 자체 RSS에서 직접 기사를 수집합니다.
 
     성능 원칙:
-    - Google News RSS가 메인입니다.
-    - 자체 RSS는 서브 수집원입니다.
-    - 여러 RSS를 순차 조회하지 않고 병렬 조회합니다.
-    - 피드별 timeout을 두어 응답이 느린 언론사 때문에 전체 작업이 지연되지 않게 합니다.
+    - 검색 포털 RSS를 사용하지 않습니다.
+    - 각 언론사 자체 RSS를 병렬 조회합니다.
+    - 피드별 timeout을 두어 느린 언론사 때문에 전체 작업이 지연되지 않게 합니다.
     """
-    if not SUPPLEMENTAL_RSS_FEEDS:
+    if not DIRECT_RSS_FEEDS:
         return []
 
     fetched: list[Article] = []
-    workers = min(SUPPLEMENTAL_RSS_WORKERS, len(SUPPLEMENTAL_RSS_FEEDS))
+    workers = min(DIRECT_RSS_WORKERS, len(DIRECT_RSS_FEEDS))
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = [
             executor.submit(
-                _fetch_one_supplemental_feed,
+                _fetch_one_direct_rss_feed,
                 publisher,
                 feed_url,
                 start,
                 end,
             )
-            for publisher, feed_url in SUPPLEMENTAL_RSS_FEEDS
+            for publisher, feed_url in DIRECT_RSS_FEEDS
         ]
 
         for future in as_completed(futures):
             try:
                 fetched.extend(future.result())
             except Exception:
-                # 개별 서브 피드 오류는 전체 수집 실패로 이어지지 않게 합니다.
+                # 개별 언론사 피드 오류는 전체 수집 실패로 이어지지 않게 합니다.
                 continue
 
     return fetched
 
 
-def fetch_articles(start: datetime, end: datetime) -> list[Article]:
-    """
-    Google News RSS를 주어진 전체 기간에 대해 딱 한 번씩 조회합니다.
 
-    핵심 개선:
-    - 예전 방식: 전일/금일/익일마다 동일 검색어를 다시 조회
-    - 개선 방식: 전체 기간을 한 번 조회한 뒤 날짜별로 나눔
-    """
+class _DirectLinkParser(HTMLParser):
+    """언론사 뉴스 목록 페이지에서 기사 후보 링크와 화면 제목을 수집합니다."""
+
+    def __init__(self, base_url: str):
+        super().__init__(convert_charrefs=True)
+        self.base_url = base_url
+        self.links: list[tuple[str, str]] = []
+        self._href = ""
+        self._chunks: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs):
+        if tag.lower() != "a":
+            return
+        attrs_map = {str(k).lower(): str(v) for k, v in attrs if k and v is not None}
+        href = attrs_map.get("href", "").strip()
+        if href:
+            self._href = urljoin(self.base_url, href)
+            self._chunks = []
+
+    def handle_data(self, data: str):
+        if self._href and data.strip():
+            self._chunks.append(data.strip())
+
+    def handle_endtag(self, tag: str):
+        if tag.lower() == "a" and self._href:
+            title = re.sub(r"\s+", " ", " ".join(self._chunks)).strip()
+            if title:
+                self.links.append((self._href, title))
+            self._href = ""
+            self._chunks = []
+
+
+def _looks_like_article_url(url: str, publisher: str) -> bool:
+    lower = url.lower()
+    blocked = (
+        "/login", "/search", "/tag/", "/author/", "/category/", "/privacy", "/terms",
+        "/subscribe", "/membership", "/event/", "/photo/", "/video/", "/sports/", "/entertainment/",
+        "javascript:", "mailto:", "#",
+    )
+    if any(token in lower for token in blocked):
+        return False
+
+    if publisher == "연합뉴스":
+        return "yna.co.kr/view/" in lower
+    if publisher == "Nuclear Newswire (ANS)":
+        return "ans.org/news/article-" in lower or "/news/article-" in lower
+    if publisher == "Nuclear Engineering International":
+        return "neimagazine.com/news/" in lower and lower.rstrip("/") != "https://www.neimagazine.com/news"
+    if publisher == "NucNet":
+        return "nucnet.org/news/" in lower
+    return True
+
+
+def _jsonld_date_published(decoded_html: str) -> str:
+    for match in re.finditer(
+        r'<script[^>]+type=["\\\']application/ld\\+json["\\\'][^>]*>(.*?)</script>',
+        decoded_html,
+        re.I | re.S,
+    ):
+        raw = html.unescape(match.group(1)).strip()
+        if not raw:
+            continue
+        try:
+            payload = json.loads(raw)
+        except Exception:
+            continue
+        queue = payload if isinstance(payload, list) else [payload]
+        while queue:
+            item = queue.pop(0)
+            if not isinstance(item, dict):
+                continue
+            value = item.get("datePublished") or item.get("dateCreated")
+            if value:
+                return str(value)
+            graph = item.get("@graph")
+            if isinstance(graph, list):
+                queue.extend(x for x in graph if isinstance(x, dict))
+    return ""
+
+
+def _fetch_direct_page_article(
+    publisher: str,
+    link: str,
+    title_hint: str,
+    language: str,
+    source_url: str,
+) -> Article | None:
+    """언론사 원문을 직접 열어 발행일·미리보기·대표이미지를 한 번에 확보합니다."""
+    try:
+        request = Request(
+            link,
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
+                "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+            },
+        )
+        with urlopen(request, timeout=DIRECT_PAGE_TIMEOUT_SECONDS) as response:
+            final_url = response.geturl()
+            payload = response.read(ARTICLE_META_MAX_BYTES)
+    except Exception:
+        return None
+
+    decoded = payload.decode("utf-8", errors="ignore")
+    parser = _MetaTagParser(final_url)
+    try:
+        parser.feed(decoded)
+    except Exception:
+        pass
+
+    title = (
+        parser.values.get("og:title")
+        or parser.values.get("twitter:title")
+        or title_hint
+        or ""
+    ).strip()
+    title = re.sub(r"\s+", " ", html.unescape(title)).strip()
+    if not title:
+        return None
+
+    # 제목 단계에서 먼저 관련 기사만 남겨 상세 처리를 줄입니다.
+    group = classify_direct_article(title, "")
+    if group is None:
+        return None
+    if group == "현대건설" and is_hyundai_volleyball_article(title, ""):
+        return None
+
+    raw_date = (
+        parser.values.get("article:published_time")
+        or parser.values.get("date")
+        or parser.values.get("datepublished")
+        or parser.values.get("pubdate")
+        or _jsonld_date_published(decoded)
+        or ""
+    )
+    if not raw_date:
+        # 최후 보완: 본문 HTML의 ISO 형태 날짜를 제한적으로 탐색
+        m = re.search(r"20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}(?:[T\s]\d{1,2}:\d{2}(?::\d{2})?)?", decoded)
+        raw_date = m.group(0) if m else ""
+    if not raw_date:
+        return None
+
+    try:
+        published = date_parser.parse(raw_date)
+        if published.tzinfo is None:
+            published = published.replace(tzinfo=KST if language == "ko" else timezone.utc)
+        published = published.astimezone(KST)
+    except Exception:
+        return None
+
+    description_raw = (
+        parser.values.get("og:description")
+        or parser.values.get("twitter:description")
+        or parser.values.get("description")
+        or ""
+    )
+    description = clean_description(description_raw, title, publisher)
+    if not description:
+        description = _best_paragraph_description(parser, title, publisher)
+
+    jsonld_images = _extract_jsonld_image_candidates(decoded, final_url)
+    image = (
+        parser.values.get("og:image")
+        or parser.values.get("twitter:image")
+        or parser.values.get("twitter:image:src")
+        or parser.values.get("image")
+        or _best_jsonld_image_candidate(jsonld_images)
+        or _best_html_image_candidate(parser)
+        or ""
+    ).strip()
+    if image:
+        image = urljoin(final_url, image)
+
+    # 본문까지 확보한 뒤 summary를 포함해 한 번 더 정확히 분류
+    group = classify_direct_article(title, description) or group
+    if group == "현대건설" and is_hyundai_volleyball_article(title, description):
+        return None
+
+    return Article(
+        title=title,
+        link=final_url,
+        published=published,
+        language=language,
+        group=group,
+        publisher=publisher,
+        image=image,
+        source_url=source_url,
+        description=description,
+    )
+
+
+def _fetch_one_direct_news_page(
+    publisher: str,
+    page_url: str,
+    language: str,
+    start: datetime,
+    end: datetime,
+) -> list[Article]:
+    try:
+        request = Request(
+            page_url,
+            headers={"User-Agent": "Mozilla/5.0 (compatible; NuclearDailyBrief/2.0)"},
+        )
+        with urlopen(request, timeout=DIRECT_PAGE_TIMEOUT_SECONDS) as response:
+            payload = response.read(1_500_000)
+            final_url = response.geturl()
+    except Exception:
+        return []
+
+    decoded = payload.decode("utf-8", errors="ignore")
+    parser = _DirectLinkParser(final_url)
+    try:
+        parser.feed(decoded)
+    except Exception:
+        return []
+
+    candidates: list[tuple[str, str]] = []
+    seen = set()
+    for link, title in parser.links:
+        if link in seen or not _looks_like_article_url(link, publisher):
+            continue
+        seen.add(link)
+        # 관련 가능성이 전혀 없는 짧은 메뉴 텍스트는 제거
+        if len(title) < 8:
+            continue
+        if classify_direct_article(title, "") is None:
+            continue
+        candidates.append((link, title))
+        if len(candidates) >= DIRECT_PAGE_MAX_LINKS:
+            break
+
+    if not candidates:
+        return []
+
+    articles: list[Article] = []
+    workers = min(DIRECT_PAGE_WORKERS, len(candidates))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [
+            executor.submit(
+                _fetch_direct_page_article,
+                publisher,
+                link,
+                title,
+                language,
+                page_url,
+            )
+            for link, title in candidates
+        ]
+        for future in as_completed(futures):
+            try:
+                article = future.result()
+            except Exception:
+                continue
+            if article and start <= article.published < end:
+                articles.append(article)
+    return articles
+
+
+def fetch_direct_news_pages(start: datetime, end: datetime) -> list[Article]:
+    """RSS가 없는 국내외 언론사의 공식 뉴스 목록 페이지를 병렬로 직접 수집합니다."""
+    if not DIRECT_NEWS_PAGES:
+        return []
     fetched: list[Article] = []
-
-    for search_group, queries in GROUPS:
-        for language in ("ko", "en"):
-            for query in queries:
-                feed = feedparser.parse(google_news_url(query, language))
-
-                for entry in feed.entries:
-                    article = parse_entry(entry, language, search_group)
-                    if not article:
-                        continue
-                    if not (start <= article.published < end):
-                        continue
-                    if (
-                        search_group == "원전 관계부처"
-                        and not is_government_senior_article(article)
-                    ):
-                        continue
-
-                    fetched.append(article)
-
-    # 메인은 Google News RSS, 자체 RSS는 누락 보완용으로 추가 수집합니다.
-    fetched.extend(fetch_supplemental_rss(start, end))
-
+    workers = min(DIRECT_PAGE_WORKERS, len(DIRECT_NEWS_PAGES))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [
+            executor.submit(_fetch_one_direct_news_page, publisher, page_url, language, start, end)
+            for publisher, page_url, language in DIRECT_NEWS_PAGES
+        ]
+        for future in as_completed(futures):
+            try:
+                fetched.extend(future.result())
+            except Exception:
+                continue
     return fetched
 
+def fetch_articles(start: datetime, end: datetime) -> list[Article]:
+    """
+    국내외 언론사에서 직접 기사를 수집합니다.
+
+    수집 구조:
+    1) 언론사 자체 RSS 직접 수집
+    2) RSS가 없거나 부족한 언론사는 공식 뉴스 페이지 직접 수집
+    3) 기존 분류·중복 제거·미리보기·썸네일 보완 로직 적용
+
+    검색 포털 RSS는 사용하지 않습니다.
+    """
+    fetched: list[Article] = []
+    fetched.extend(fetch_direct_rss(start, end))
+    fetched.extend(fetch_direct_news_pages(start, end))
+    return fetched
 
 def select_articles_for_period(
     fetched: list[Article],
@@ -2279,8 +2712,8 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
     {snippet_html}
     <div class="status-line">
       <div class="status-text">
-        <span class="unread-label">미확인</span>
-        <span class="read-label">확인</span>
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
         <span class="important-label">중요</span>
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
@@ -2629,14 +3062,14 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
 .updated {{ margin-top: 5px; color: rgba(255,255,255,.72); font-size: 10px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
-.date-picker-row {{ display: grid; grid-template-columns: auto minmax(0,1fr); gap: 7px; margin-top: 7px; align-items: center; }}
-.language-order-row {{ display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: 7px; }}
-.language-order-label {{ color: rgba(255,255,255,.78); font-size: 11px; font-weight: 800; }}
-.language-order-toggle {{ flex: 1; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); color: #23395d; font-size: 11px; font-weight: 800; cursor: pointer; }}
+.utility-row {{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; margin-top: 7px; }}
+.utility-box {{ min-width: 0; height: 34px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); display: flex; align-items: center; gap: 6px; }}
+.utility-label {{ flex: 0 0 auto; color: #344054; font-size: 11px; font-weight: 800; white-space: nowrap; }}
+.language-order-toggle {{ flex: 1; min-width: 0; height: 26px; padding: 0 7px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
 .language-order-toggle:active {{ transform: translateY(1px); }}
-
-.date-input {{ width: 100%; height: 34px; padding: 0 9px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); color: #344054; font-size: 11px; }}
-.date-button {{ height: 34px; padding: 0 12px; border: 0; border-radius: 8px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
+.date-picker-box {{ cursor: pointer; }}
+.date-input {{ flex: 1; min-width: 0; width: 100%; height: 26px; padding: 0 4px; border: 0; background: transparent; color: #344054; font-size: 11px; }}
+.date-button {{ flex: 0 0 auto; height: 26px; padding: 0 8px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
 .search-input {{ width: 100%; height: 32px; padding: 0 32px 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
 .search-clear {{ position: absolute; right: 5px; top: 4px; width: 24px; height: 24px; border: 0; background: transparent; color: #667085; cursor: pointer; }}
@@ -2706,10 +3139,10 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .search-input {{ height: 40px; font-size: 13px; }}
   .tabs {{ grid-template-columns: repeat(3, 140px); justify-content: start; }}
   .tab-button {{ height: 38px; font-size: 13px; }}
-  .language-order-row {{ justify-content: flex-start; }}
-  .language-order-toggle {{ flex: 0 0 160px; height: 36px; font-size: 12px; }}
-  .date-picker-row {{ grid-template-columns: 100px 190px; justify-content: start; }}
-  .date-input, .date-button {{ height: 36px; font-size: 12px; }}
+  .utility-row {{ grid-template-columns: repeat(2,minmax(0,1fr)); max-width: 560px; }}
+  .utility-box {{ height: 36px; padding: 0 10px; }}
+  .utility-label, .language-order-toggle, .date-input, .date-button {{ font-size: 12px; }}
+  .language-order-toggle, .date-input, .date-button {{ height: 28px; }}
   main {{ padding: 18px 20px 44px; }}
   .favorites-panel {{ margin-bottom: 16px; padding: 16px; border-radius: 12px; }}
   .favorites-title {{ margin-bottom: 12px; font-size: 16px; }}
@@ -2838,15 +3271,21 @@ header,
       <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div>
       <div class="tabs">{buttons}</div>
-      <div class="language-order-row">
-        <span class="language-order-label">기사 순서</span>
-        <button id="language-order" class="language-order-toggle" type="button" aria-label="기사 언어 우선순위 변경">KOR → ENG</button>
+      <div class="utility-row">
+        <div class="utility-box language-order-box">
+          <span class="utility-label">기사 순서</span>
+          <button id="language-order" class="language-order-toggle" type="button" aria-label="기사 언어 우선순위 변경">KOR → ENG</button>
+        </div>
+        <div class="utility-box date-picker-box">
+          <span class="utility-label">날짜 보기</span>
+          <input id="archive-date" class="date-input" type="date">
+          <button id="archive-open" class="date-button" type="button">보기</button>
+        </div>
       </div>
-      <div class="date-picker-row"><button id="archive-open" class="date-button" type="button">날짜 보기</button><input id="archive-date" class="date-input" type="date"></div>
     </div>
   </header>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
-  <footer>기사 카드를 누르면 원문으로 이동하며, 확인한 기사는 회색으로 표시됩니다.</footer>
+  <footer>기사 카드를 누르면 원문으로 이동하며, 읽음한 기사는 회색으로 표시됩니다.</footer>
 </div>
 <script>
 const readKey = "nuclearDailyBriefReadArticles";
