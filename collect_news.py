@@ -786,15 +786,54 @@ def period(now: datetime) -> tuple[datetime, datetime]:
     return report_start, report_end
 
 
-def brief_periods(now: datetime) -> dict[str, tuple[datetime, datetime]]:
-    """전일·금일·익일 구간을 반환합니다."""
-    today_start, today_end = period(now)
-    return {
-        "전일": (today_start - timedelta(days=1), today_start),
-        "금일": (today_start, today_end),
-        "익일": (today_end, today_end + timedelta(days=1)),
-    }
+def _previous_report_boundary(boundary: datetime) -> datetime:
+    """
+    직전 보고 기준시각(06:00)을 반환합니다.
+    월요일 06:00의 직전 기준시각은 금요일 06:00입니다.
+    """
+    previous = boundary - timedelta(days=1)
+    while previous.weekday() >= 5:  # 토(5), 일(6) 건너뜀
+        previous -= timedelta(days=1)
+    return previous
 
+
+def _next_report_boundary(boundary: datetime) -> datetime:
+    """
+    다음 보고 기준시각(06:00)을 반환합니다.
+    금요일 06:00의 다음 기준시각은 월요일 06:00입니다.
+    """
+    following = boundary + timedelta(days=1)
+    while following.weekday() >= 5:  # 토(5), 일(6) 건너뜀
+        following += timedelta(days=1)
+    return following
+
+
+def brief_periods(now: datetime) -> dict[str, tuple[datetime, datetime]]:
+    """
+    전일·금일·익일을 '보고구간' 기준으로 반환합니다.
+
+    예) 화요일:
+      전일 = 금요일 06:00 ~ 월요일 06:00
+      금일 = 월요일 06:00 ~ 화요일 06:00
+      익일 = 화요일 06:00 ~ 수요일 06:00
+
+    예) 금요일:
+      금일 = 목요일 06:00 ~ 금요일 06:00
+      익일 = 금요일 06:00 ~ 월요일 06:00
+    """
+    today_start, today_end = period(now)
+
+    previous_end = today_start
+    previous_start = _previous_report_boundary(previous_end)
+
+    next_start = today_end
+    next_end = _next_report_boundary(next_start)
+
+    return {
+        "전일": (previous_start, previous_end),
+        "금일": (today_start, today_end),
+        "익일": (next_start, next_end),
+    }
 
 
 def split_title_and_publisher(raw_title: str) -> tuple[str, str]:
@@ -3577,22 +3616,58 @@ def update_archive(
     articles_by_period: dict[str, list[Article]],
     generated_at: datetime,
 ) -> dict[str, dict]:
-    # 전일과 금일 구간을 날짜별로 저장합니다.
-    for label in ("전일", "금일"):
+    """
+    RAW 검토모드용 날짜별 누적 저장.
+    의미상 중복 제거는 하지 않고, 동일 URL 반복만 하나로 합칩니다.
+    """
+    for label in ("전일", "금일", "익일"):
         start, end = periods[label]
         key = end.strftime("%Y-%m-%d")
+
+        existing_items: list[Article] = []
+        existing_entry = archive.get(key, {})
+        for raw in existing_entry.get("articles", []):
+            article = article_from_dict(raw)
+            if article is not None and start <= article.published < end:
+                existing_items.append(article)
+
+        current_items = list(articles_by_period.get(label, []))
+        merged_by_url: dict[str, Article] = {}
+
+        for article in existing_items + current_items:
+            canonical = canonicalize_url(article.link) if article.link else ""
+            identity = canonical or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
+
+            previous = merged_by_url.get(identity)
+            if previous is None:
+                merged_by_url[identity] = article
+                continue
+
+            previous_score = int(bool(previous.image)) + int(bool(previous.description))
+            current_score = int(bool(article.image)) + int(bool(article.description))
+            if current_score >= previous_score:
+                merged_by_url[identity] = article
+
+        merged_items = sorted(
+            merged_by_url.values(),
+            key=lambda article: -article.published.timestamp(),
+        )
+
         archive[key] = {
             "label": key,
             "start": start.isoformat(),
             "end": end.isoformat(),
             "updated_at": generated_at.isoformat(),
-            "articles": [article_to_dict(a) for a in articles_by_period[label]],
+            "articles": [article_to_dict(article) for article in merged_items],
         }
 
-    # 최근 90개 날짜만 유지합니다.
+        print(
+            f"[ARCHIVE MERGE {label}] existing={len(existing_items)} "
+            f"/ current={len(current_items)} / merged={len(merged_items)}"
+        )
+
     keep_keys = sorted(archive.keys(), reverse=True)[:ARCHIVE_DAYS]
     return {key: archive[key] for key in sorted(keep_keys)}
-
 
 
 def archive_window_for_date(report_date) -> tuple[datetime, datetime]:
@@ -3930,9 +4005,9 @@ main {{ padding: 12px 12px 34px; }}
 .important-button {{ flex: 0 0 auto; width: 36px; height: 36px; border: 1px solid rgba(35,57,93,.10); border-radius: 50%; background: #f7f6f2; color: #94a3b8; font-size: 20px; line-height: 36px; text-align: center; cursor: pointer; box-shadow: none; overflow: visible; }}
 .important-button:hover {{ background: rgba(17,24,39,.05); }}
 .preview-card.important .important-button {{ color: #b77900; border-color: #f2c94c; background: #fff3b0; }}
-.preview-image {{ width: 92px; height: 100%; min-height: 136px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(35,57,93,.08); border-radius: 16px; background: #f4f6f8; }}
+.preview-image {{ width: 92px; height: 100%; min-height: 136px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(35,57,93,.08); border-radius: 0; background: #f4f6f8; }}
 .preview-image img {{ display: block; width: 100%; height: 100%; min-height: 100%; object-fit: cover; object-position: 50% 50%; }}
-.new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
+.new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 0; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
 .no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 100%; color: #6b7280; font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: #fffdf8; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
@@ -4762,6 +4837,13 @@ def main() -> int:
     periods = brief_periods(now)
     today_start, today_end = periods["금일"]
 
+    for label in ("전일", "금일", "익일"):
+        start, end = periods[label]
+        print(
+            f"[REPORT WINDOW {label}] "
+            f"{start:%Y-%m-%d %H:%M} ~ {end:%Y-%m-%d %H:%M}"
+        )
+
     print(
         "Current KST window:",
         f"{today_start:%Y-%m-%d %H:%M} ~ {today_end:%Y-%m-%d %H:%M}"
@@ -4776,6 +4858,16 @@ def main() -> int:
     print(
         "Fetch once for all 3 periods:",
         f"{overall_start:%Y-%m-%d %H:%M} ~ {overall_end:%Y-%m-%d %H:%M}"
+    )
+
+    next_start, next_end = periods["익일"]
+    elapsed_hours = max(
+        0.0,
+        (min(now, next_end) - next_start).total_seconds() / 3600,
+    )
+    print(
+        f"[익일 WINDOW] {next_start:%Y-%m-%d %H:%M} ~ "
+        f"{next_end:%Y-%m-%d %H:%M} / elapsed={elapsed_hours:.1f}h"
     )
 
     fetched = fetch_articles(overall_start, overall_end)
@@ -4798,6 +4890,27 @@ def main() -> int:
         print(
             f"[PERIOD {label}] total={len(items)} / ko={ko_count} / en={en_count} "
             f"/ country_other={other_count} / RAW=ON / dedup=OFF / limit=OFF"
+        )
+
+    # 과거 실행분 + 현재 수집분을 날짜별 archive에 먼저 누적
+    # 누적된 archive를 전일/금일/익일 탭에 다시 반영
+    for label in ("전일", "금일", "익일"):
+        start, end = periods[label]
+        archive_key = end.strftime("%Y-%m-%d")
+        merged_items: list[Article] = []
+
+        for raw in archive.get(archive_key, {}).get("articles", []):
+            article = article_from_dict(raw)
+            if article is not None and start <= article.published < end:
+                merged_items.append(article)
+
+        articles_by_period[label] = sorted(
+            merged_items,
+            key=lambda article: -article.published.timestamp(),
+        )
+
+        print(
+            f"[PERIOD ACCUMULATED {label}] total={len(articles_by_period[label])}"
         )
 
     # 실제 화면에 표시할 기사만 대상으로 원문 대표 이미지/설명을 병렬 보완
