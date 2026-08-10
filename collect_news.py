@@ -30,7 +30,7 @@ ARCHIVE_FILE = Path("news_archive.json")
 ARCHIVE_DAYS = 90
 BACKFILL_DATES_PER_RUN = 2
 SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "1") == "1"
-MAX_PER_GROUP_PER_LANGUAGE = 30
+MAX_PER_GROUP_PER_LANGUAGE = 50
 
 # 언론사 직접 RSS는 여러 매체를 병렬로 조회합니다.
 # 개별 피드가 응답하지 않아도 전체 작업이 오래 멈추지 않도록 timeout을 둡니다.
@@ -455,10 +455,53 @@ DIRECT_NEWS_PAGES = [
 # 매체 수가 늘어난 만큼 목록 페이지는 병렬 처리하되, 각 매체에서 관련 가능성이 있는 기사만 원문 조회합니다.
 DIRECT_PAGE_WORKERS = 16
 DIRECT_PAGE_TIMEOUT_SECONDS = 8
-DIRECT_PAGE_MAX_LINKS = 80
+DIRECT_PAGE_MAX_LINKS = 100
 
 # 영문 일반매체는 기사 제목에 아래 원전·원자력 후보어가 있으면 원문까지 확인합니다.
 # 최종 기사 포함 여부는 원문 description까지 읽은 뒤 classify_direct_article()에서 다시 판단합니다.
+PRIORITY_NUCLEAR_MARKET_TERMS = {
+    # 미국
+    "united states", "u.s.", "usa", "american nuclear",
+    "nrc", "department of energy", "doe",
+    "palisades", "fermi america", "project matador", "amarillo",
+    "vogtle", "diablo canyon", "three mile island",
+    "westinghouse", "holtec", "ap1000", "ap300",
+
+    # 영국
+    "united kingdom", "uk nuclear", "britain nuclear",
+    "great british nuclear", "gbn", "sizewell", "hinkley point",
+    "wylfa", "oldbury", "onr",
+
+    # 핀란드
+    "finland", "finnish nuclear", "olkiluoto", "loviisa",
+    "fennovoima", "tvo", "fortum nuclear",
+
+    # 불가리아
+    "bulgaria", "bulgarian nuclear", "kozloduy", "belene",
+
+    # 루마니아
+    "romania", "romanian nuclear", "cernavoda", "nuclearelectrica",
+
+    # 인도
+    "india", "indian nuclear", "kudankulam", "jaitapur",
+    "kaiga", "npcil",
+
+    # 주요 유럽 확장
+    "czech", "czechia", "dukovany", "temelin",
+    "poland nuclear", "lubiatowo",
+    "slovenia nuclear", "krsko",
+    "sweden nuclear", "ringhals", "forsmark",
+    "france nuclear", "flamanville", "edf", "framatome",
+}
+
+
+def is_priority_nuclear_market_candidate(title: str, summary: str = "") -> bool:
+    haystack = html.unescape(f"{title} {summary}").lower()
+    # 우선시장 국가/프로젝트 용어가 잡히고 원전 관련성이 있거나,
+    # 자체적으로 원전 프로젝트를 특정하는 고유명사인 경우 후보로 엽니다.
+    return any(term in haystack for term in PRIORITY_NUCLEAR_MARKET_TERMS)
+
+
 ENGLISH_NUCLEAR_CANDIDATE_TERMS = {
     "nuclear", "reactor", "smr", "small modular reactor",
     "advanced reactor", "microreactor", "atomic energy",
@@ -466,13 +509,46 @@ ENGLISH_NUCLEAR_CANDIDATE_TERMS = {
     "nuclear station", "nuclear project", "nuclear construction",
     "new nuclear", "new build", "decommissioning",
     "spent fuel", "nuclear fuel", "fuel cycle",
-    "uranium", "ap1000", "ap300", "natrium",
+    "uranium", "enrichment", "radioactive waste", "nuclear waste",
+    "waste repository", "life extension", "restart", "uprate",
+    "licensing", "regulator", "ap1000", "ap300", "natrium", "smr-300",
+    "bwr", "pwr", "vver", "epr", "candu",
     "westinghouse", "holtec", "terrapower", "fermi america",
     "palisades", "dukovany", "kozloduy", "barakah",
+    "rosatom", "framatome", "khnp", "iaea", "nrc",
+    "united states", "u.s.", "usa", "american nuclear",
+    "united kingdom", "uk nuclear", "great british nuclear", "gbn",
+    "finland", "finnish nuclear", "olkiluoto", "loviisa",
+    "bulgaria", "bulgarian nuclear", "kozloduy", "belene",
+    "romania", "romanian nuclear", "cernavoda", "nuclearelectrica",
+    "india", "indian nuclear", "kudankulam", "jaitapur", "npcil",
 }
 
 # 이 매체/기관은 원자력 전문 페이지이므로 제목이 짧거나 일반적인 표현이어도
 # 기사 URL처럼 보이면 원문을 열어 실제 내용을 확인합니다.
+ENGLISH_ENERGY_PAGE_HINTS = {
+    "/energy", "energy-", "/power", "power-", "commodity",
+    "utility", "nuclear", "engineering",
+}
+
+
+def _english_energy_page(page_url: str) -> bool:
+    lower = page_url.lower()
+    return any(hint in lower for hint in ENGLISH_ENERGY_PAGE_HINTS)
+
+
+def _looks_like_article_candidate_url(url: str) -> bool:
+    lower = url.lower()
+    return bool(
+        re.search(r"/20\\d{2}/\\d{1,2}/\\d{1,2}/", lower)
+        or re.search(r"/20\\d{2}/\\d{1,2}/", lower)
+        or any(token in lower for token in (
+            "/article/", "/articles/", "/news/", "/story/", "/stories/",
+            "/analysis/", "/features/", ".html",
+        ))
+    )
+
+
 NUCLEAR_SPECIALIST_PUBLISHERS = {
     "World Nuclear News",
     "Nuclear Newswire (ANS)",
@@ -548,6 +624,37 @@ DIRECT_GROUP_KEYWORDS = {
         "nuclear", "reactor",
     ],
 }
+
+CIVIL_NUCLEAR_RELEVANCE_TERMS = {
+    "원전", "원자력", "원자로", "원전건설", "원전 건설",
+    "원전해체", "원전 해체", "소형모듈원자로", "소형 모듈 원자로",
+    "차세대원자로", "차세대 원자로",
+    "nuclear power", "nuclear energy", "nuclear plant",
+    "nuclear power plant", "nuclear station", "nuclear reactor",
+    "reactor", "smr", "small modular reactor", "advanced reactor",
+    "microreactor", "new nuclear", "nuclear new build",
+    "nuclear construction", "nuclear project",
+    "핵연료", "사용후핵연료", "사용후 핵연료", "방사성폐기물",
+    "고준위폐기물", "고준위 폐기물", "원전 계속운전", "계속운전",
+    "수명연장", "원전 재가동",
+    "uranium", "uranium mining", "uranium enrichment",
+    "nuclear fuel", "fuel cycle", "spent fuel",
+    "radioactive waste", "nuclear waste", "waste repository",
+    "decommissioning", "nuclear decommissioning",
+    "life extension", "plant life extension",
+    "reactor restart", "nuclear restart", "capacity uprate",
+    "nuclear licensing", "reactor licensing", "nuclear regulator",
+    "ap1000", "ap300", "natrium", "smr-300",
+    "bwr", "pwr", "vver", "epr", "candu",
+    "westinghouse", "holtec", "terrapower", "rosatom",
+    "khnp", "edf", "framatome",
+}
+
+
+def is_civil_nuclear_relevant(title: str, summary: str = "") -> bool:
+    haystack = html.unescape(f"{title} {summary}").lower()
+    return any(term in haystack for term in CIVIL_NUCLEAR_RELEVANCE_TERMS)
+
 
 DIRECT_GROUP_PRIORITY = [
     "원전 대미투자",
@@ -1967,12 +2074,12 @@ def is_duplicate(article: Article, selected: list[Article]) -> bool:
             return True
 
         # 72시간 이내 보도는 핵심 내용이 65% 이상 겹치면 중복 처리
-        if time_gap <= 72 * 60 * 60 and score >= 0.65:
+        if time_gap <= 72 * 60 * 60 and score >= 0.72:
             common_keywords = (
                 keyword_set(article.title)
                 & keyword_set(existing.title)
             )
-            if len(common_keywords) >= 3:
+            if len(common_keywords) >= 4:
                 return True
 
     return False
@@ -2361,13 +2468,11 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     """언론사 직접 수집 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
 
-    # 캠페인·구호성 콘텐츠와 군사·무기성 핵 이슈는 전체에서 제외합니다.
     if is_blocked_campaign_slogan(title, summary):
         return None
     if is_excluded_military_nuclear_article(title, summary):
         return None
 
-    # 기존 우선 분류 규칙을 먼저 적용합니다.
     priority_group = classify_priority_company_group("원자력", title, summary)
     if priority_group != "원자력":
         return priority_group
@@ -2376,7 +2481,6 @@ def classify_direct_article(title: str, summary: str) -> str | None:
         terms = DIRECT_GROUP_KEYWORDS.get(group, [])
         if any(term.lower() in haystack for term in terms):
             if group == "원전 관계부처":
-                # 관계부처는 기존 코드와 동일하게 고위급/인사 조건을 적용합니다.
                 temp = Article(
                     title=title, link="", published=datetime.now(KST),
                     language="ko", group=group, publisher="", image="", source_url="",
@@ -2389,6 +2493,12 @@ def classify_direct_article(title: str, summary: str) -> str | None:
                     continue
                 return classified
             return group
+
+    # 기존 그룹 키워드에 딱 맞지 않아도 민수 원전/원자력 관련성이 있으면 유지
+    if is_civil_nuclear_relevant(title, summary):
+        if re.search(r"[가-힣]", f"{title} {summary}"):
+            return "원자력"
+        return "Nuclear Power·Nuclear Energy"
 
     return None
 
@@ -2830,6 +2940,8 @@ def _fetch_one_direct_news_page(
     candidates: list[tuple[str, str]] = []
     seen = set()
     is_nuclear_specialist = publisher in NUCLEAR_SPECIALIST_PUBLISHERS
+    is_english_energy_page = language == "en" and _english_energy_page(page_url)
+    blind_energy_candidates = 0
 
     for link, title in parser.links:
         if link in seen or not _looks_like_article_url(link, publisher):
@@ -2848,11 +2960,20 @@ def _fetch_one_direct_news_page(
             # 전문매체는 기사 URL이면 원문까지 확인하여 제목 선필터 누락을 방지
             candidate_ok = True
         elif language == "en":
-            # 일반 영문매체는 기존 상세 분류 또는 폭넓은 원전 후보어 중 하나면 원문 확인
             candidate_ok = (
                 classify_direct_article(title, "") is not None
                 or any(term in title_lower for term in ENGLISH_NUCLEAR_CANDIDATE_TERMS)
+                or is_priority_nuclear_market_candidate(title, "")
             )
+            if (
+                not candidate_ok
+                and is_english_energy_page
+                and blind_energy_candidates < 36
+                and len(title.strip()) >= 14
+                and _looks_like_article_candidate_url(link)
+            ):
+                candidate_ok = True
+                blind_energy_candidates += 1
         else:
             candidate_ok = classify_direct_article(title, "") is not None
 
@@ -2862,7 +2983,7 @@ def _fetch_one_direct_news_page(
         candidates.append((link, title))
 
         # 전문 원자력 매체는 더 많은 최신 링크를 확인
-        page_limit = 120 if is_nuclear_specialist else DIRECT_PAGE_MAX_LINKS
+        page_limit = 160 if is_nuclear_specialist else DIRECT_PAGE_MAX_LINKS
         if len(candidates) >= page_limit:
             break
 
@@ -2966,7 +3087,7 @@ def select_articles_for_period(
             selected_group: list[Article] = []
 
             group_limit = (
-                40
+                60
                 if group in {"현대건설", "타 건설사", "원전 관계부처"}
                 else MAX_PER_GROUP_PER_LANGUAGE
             )
@@ -2982,8 +3103,18 @@ def select_articles_for_period(
 
     selected_ko = sum(1 for article in all_selected if article.language == "ko")
     selected_en = sum(1 for article in all_selected if article.language == "en")
+    country_other = sum(
+        1 for article in all_selected
+        if detect_article_country(article) == "OTHER"
+    )
+    priority_codes = {"US", "GB", "FI", "BG", "RO", "IN"}
+    priority_market_count = sum(
+        1 for article in all_selected
+        if detect_article_country(article) in priority_codes
+    )
     print(
-        f"[SELECT] final={len(all_selected)} / ko={selected_ko} / en={selected_en}"
+        f"[SELECT] final={len(all_selected)} / ko={selected_ko} / en={selected_en} "
+        f"/ country_other={country_other} / priority_markets={priority_market_count}"
     )
     return all_selected
 
@@ -3043,20 +3174,20 @@ COUNTRY_PROJECT_TERMS = {
         "신고리", "울진", "울주",
     ),
     "GB": ("gbn", "great british nuclear", "sizewell", "hinkley point"),
-    "BG": ("kozloduy", "코즐로두이"),
+    "BG": ("kozloduy", "코즐로두이", "belene", "벨레네"),
     "UA": ("khmelnytskyi", "흐멜니츠키", "rivnе", "리우네"),
     "AE": ("barakah", "바라카"),
-    "RO": ("cernavoda", "체르나보다"),
+    "RO": ("cernavoda", "체르나보다", "nuclearelectrica"),
     "CZ": ("dukovany", "두코바니", "temelin", "테멜린"),
     "PL": ("lubiatowo", "루비아토보", "pomerania", "포메라니아"),
     "SI": ("krško", "krsko", "크르슈코"),
-    "FI": ("olkiluoto", "올킬루오토", "hanhikivi", "한히키비"),
+    "FI": ("olkiluoto", "올킬루오토", "hanhikivi", "한히키비", "loviisa", "fennovoima", "tvo"),
     "JP": ("fukushima", "후쿠시마", "kashiwazaki", "가시와자키"),
     "CA": ("darlington", "달링턴", "ontario", "온타리오"),
     "FR": ("flamanville", "플라망빌"),
     "SE": ("ringhals", "링할스", "forsmark", "포스마르크"),
     "CN": ("taishan", "타이산", "sanmen", "산먼", "haiyang", "하이양", "xudapu", "쉬다푸"),
-    "IN": ("kudankulam", "쿠단쿨람", "jaitapur", "자이타푸르", "kaiga", "카이가"),
+    "IN": ("kudankulam", "쿠단쿨람", "jaitapur", "자이타푸르", "kaiga", "카이가", "npcil"),
     "AU": ("australian nuclear", "호주 원전"),
     "RU": ("kursk ii", "쿠르스크", "leningrad ii", "레닌그라드", "rosatom project"),
     "TR": ("akkuyu", "아쿠유", "sinop nuclear", "시노프 원전"),
@@ -3668,7 +3799,7 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .language-order-toggle:active {{ transform: translateY(1px); }}
 .date-picker-box {{ cursor: pointer; }}
 .date-control {{ position: relative; flex: 1; min-width: 90px; height: 26px; border-radius: 6px; background: #344054; color: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; }}
-.date-display {{ width: 100%; padding: 0 17px 0 5px; box-sizing: border-box; color: #ffffff; font-size: 10.5px; font-weight: 800; line-height: 26px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -0.1px; }}
+.date-display {{ width: 100%; padding: 0 17px 0 5px; box-sizing: border-box; color: #ffffff; font-size:10.5px; font-weight:800; line-height: 26px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -0.1px; }}
 .date-calendar {{ position: absolute; right: 5px; top: 50%; transform: translateY(-52%); color: #ffffff; font-size: 10px; line-height: 1; pointer-events: none; opacity: .9; }}
 .date-input {{ position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; }}
 .date-input::-webkit-calendar-picker-indicator {{ width: 100%; height: 100%; margin: 0; padding: 0; cursor: pointer; }}
@@ -3904,7 +4035,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .utility-label, .language-order-toggle {{ font-size: 12px; }}
   .language-order-toggle {{ height: 28px; min-width: 0; padding: 0 8px; font-size: 12px; }}
   .date-control {{ min-width: 112px; height: 28px; }}
-  .date-display {{ padding: 0 20px 0 7px; font-size: 12px; line-height: 28px; font-weight: 800; text-align: center; }}
+  .date-display {{ padding: 0 20px 0 7px; font-size:12px; line-height: 28px; font-weight:800; text-align: center; }}
   .date-calendar {{ right: 7px; font-size: 11px; }}
   main {{ padding: 18px 20px 44px; }}
   .favorites-panel {{ margin-bottom: 16px; padding: 16px; border-radius: 12px; }}
@@ -4364,7 +4495,7 @@ function updateCountryMapCounts(){{
     const countNode=button.querySelector(".country-count")||button.querySelector(".chip-count");
     if(countNode)countNode.textContent=`${{count}}건`;
     // 한국은 국가별 기사 영역에서 항상 첫 번째로 표시합니다.
-    button.hidden=(code!=="KR" && count===0);
+    button.hidden=(!["KR","OTHER"].includes(code) && count===0);
     button.classList.toggle("active",activeCountryFilter===code);
   }});
 
