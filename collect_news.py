@@ -3758,17 +3758,15 @@ body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Mal
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
 .updated {{ margin-top: 7px; color: rgba(255,255,255,.72); font-size: 10.5px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 13px; }}
-.utility-row {{
-  align-items:center;
-  gap:12px; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; margin-top: 7px; }}
-.utility-box {{ min-width: 0; height: 34px; padding: 0 6px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); display: flex; align-items: center; gap: 3px; }}
-.utility-label {{ flex: 0 0 auto; color: #344054; font-size: 10.5px; font-weight: 800; white-space: nowrap; }}
-.language-order-toggle {{ flex: 0 0 auto; min-width: 0; height: 26px; padding: 0 6px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 10.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }}
+.utility-row {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:8px; align-items:stretch; }}
+.utility-box {{ min-width:0; height:40px; padding:0 7px; border:1px solid rgba(17,24,39,.14); border-radius:11px; background:rgba(255,255,255,.96); display:flex; align-items:center; gap:6px; box-shadow:0 1px 4px rgba(17,24,39,.06); }}
+.utility-label {{ flex:0 0 auto; color:#344054; font-size:10.5px; font-weight:800; white-space:nowrap; line-height:1; }}
+.language-order-toggle {{ flex:1 1 auto; min-width:0; height:28px; padding:0 8px; border:0; border-radius:8px; background:#344054; color:#ffffff; font-size:10.5px; font-weight:800; line-height:28px; text-align:center; white-space:nowrap; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(255,255,255,.05); }}
 .language-order-toggle:active {{ transform: translateY(1px); }}
 .date-picker-box {{ cursor: pointer; }}
-.date-control {{ position: relative; flex: 1; min-width: 90px; height: 26px; border-radius: 6px; background: #344054; color: #ffffff; display: flex; align-items: center; justify-content: center; overflow: hidden; }}
-.date-display {{ width: 100%; padding: 0 17px 0 5px; box-sizing: border-box; color: #ffffff; font-size:10.5px; font-weight:800; line-height: 26px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -0.1px; }}
-.date-calendar {{ position: absolute; right: 5px; top: 50%; transform: translateY(-52%); color: #ffffff; font-size: 10px; line-height: 1; pointer-events: none; opacity: .9; }}
+.date-control {{ position:relative; flex:1 1 auto; min-width:0; height:28px; border-radius:8px; background:#344054; color:#ffffff; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.05); }}
+.date-display {{ width:100%; padding:0 18px 0 6px; box-sizing:border-box; color:#ffffff; font-size:10.5px; font-weight:800; line-height:28px; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; letter-spacing:-0.1px; }}
+.date-calendar {{ position:absolute; right:6px; top:50%; transform:translateY(-52%); color:#ffffff; font-size:10px; line-height:1; pointer-events:none; opacity:.9; }}
 .date-input {{ position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; }}
 .date-input::-webkit-calendar-picker-indicator {{ width: 100%; height: 100%; margin: 0; padding: 0; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
@@ -3780,7 +3778,7 @@ body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Mal
 .world-map-title {{ color:#23395d; font-size:11px; font-weight:900; }}
 .world-map-summary {{ margin-top:2px; color:#667085; font-size:8.5px; font-weight:700; }}
 .world-map-canvas {{ position:relative; width:100%; height:210px; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); box-sizing:border-box; }}
-.world-map-image {{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.92; }}
+.world-map-image {{ position:absolute; inset:0; width:100%; height:100%; object-fit:fill; opacity:.92; }}
 .map-connectors {{
   position:absolute;
   inset:0;
@@ -3812,7 +3810,7 @@ body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Mal
   align-items:center;
   gap:2px;
   min-height:21px;
-  padding:2px 5px;
+  padding:2px 4px;
   border:1px solid rgba(35,57,93,.18);
   border-radius:999px;
   background:rgba(255,253,248,.98);
@@ -3824,76 +3822,32 @@ body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Mal
   cursor:pointer;
   z-index:4;
   box-sizing:border-box;
-  max-width:118px;
+  max-width:96px;
+  justify-content:center;
 }}
 .country-pin .flag {{ font-size:11px; line-height:1; }}
 .country-pin .country-count {{ color:#d92d20; font-weight:900; }}
 .country-pin.active {{ background:#fee500; color:#202124; border-color:rgba(35,57,93,.28); }}
 .country-pin[hidden] {{ display:none; }}
 
-/* 한국은 항상 첫 번째/최상위 표시 */
+/* 국가 라벨은 JS가 현재 표시되는 국가 수에 맞춰 3열로 자동 배치합니다.
+   고정 top/left 값을 사용하지 않아 기사 수가 달라져도 서로 겹치지 않습니다. */
 .country-kr {{
-  right:7px;
-  top:8px;
-  left:auto;
   z-index:8;
   border-color:rgba(217,45,32,.30);
   box-shadow:0 2px 6px rgba(217,45,32,.14);
 }}
-
-/* 북미 */
-.country-ca {{ left:7px; top:18px; }}
-.country-us {{ left:7px; top:50px; }}
-
-/* 유럽 라벨 rail: 실제 위치는 SVG 점으로 표시 */
-.country-gb {{ left:25%; top:8px; }}
-.country-fr {{ left:25%; top:38px; }}
-.country-nl {{ left:25%; top:68px; }}
-.country-be {{ left:25%; top:98px; }}
-.country-ch {{ left:25%; top:128px; }}
-
-.country-se {{ left:42%; top:8px; }}
-.country-fi {{ left:42%; top:38px; }}
-.country-pl {{ left:42%; top:68px; }}
-.country-cz {{ left:42%; top:98px; }}
-.country-si {{ left:42%; top:128px; }}
-
-.country-ro {{ left:57%; top:38px; }}
-.country-bg {{ left:57%; top:68px; }}
-.country-ua {{ left:57%; top:98px; }}
-.country-tr {{ left:57%; top:128px; }}
-.country-ru {{ left:57%; top:8px; }}
-
-/* 중동·아시아 */
-.country-ae {{ left:57%; bottom:10px; top:auto; }}
-.country-sa {{ left:43%; bottom:10px; top:auto; }}
-.country-in {{ right:7px; top:70px; left:auto; }}
-.country-cn {{ right:7px; top:100px; left:auto; }}
-.country-jp {{ right:7px; top:130px; left:auto; }}
-
-/* 남반구 */
-.country-au {{ right:7px; bottom:38px; left:auto; top:auto; }}
-.country-za {{ left:43%; bottom:40px; top:auto; }}
-
-/* 기타는 지도상 특정 위치가 없으므로 연결점 없음 */
-.country-other {{ right:7px; bottom:8px; left:auto; top:auto; }}
-
-@media (min-width: 700px) {{
+.country-other {{
+  opacity:.94;
+}}
+@media (min-width:700px) {{
   .country-pin {{
     min-height:26px;
-    padding:3px 8px;
+    padding:3px 7px;
     font-size:10px;
-    max-width:150px;
+    max-width:none;
   }}
-  .country-pin .flag {{ font-size:15px; }}
-  .country-kr {{ right:12px; top:10px; }}
-  .country-ca {{ left:12px; top:28px; }}
-  .country-us {{ left:12px; top:72px; }}
-  .country-in {{ right:12px; top:88px; }}
-  .country-cn {{ right:12px; top:124px; }}
-  .country-jp {{ right:12px; top:160px; }}
-  .country-au {{ right:12px; bottom:50px; }}
-  .country-other {{ right:12px; bottom:12px; }}
+  .country-pin .flag {{ font-size:14px; }}
 }}
 .country-filter-note {{ margin-top:5px; color:#667085; font-size:9px; text-align:center; }}
 .world-map-credit {{ margin-top:3px; color:#98a2b3; font-size:7px; text-align:right; }}
@@ -3950,19 +3904,19 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
-.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 92px; height: 126px; min-height: 126px; overflow: hidden; color: inherit; background: #fbfaf7; border: 1px solid rgba(35,57,93,.09); border-radius: 18px; text-decoration: none; box-shadow: 0 1px 2px rgba(62,52,42,.10); transition: opacity .15s ease, background .15s ease; }}
+.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 92px; gap: 12px; align-items: stretch; padding: 12px 12px 14px 12px; border-radius: 18px; background: #fbfaf7; border: 1px solid rgba(35,57,93,.09); box-shadow: 0 3px 10px rgba(15,23,42,.06); overflow: visible; transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
 .preview-card.read .headline {{ color: #405a78; }}
 .preview-card.read .publisher {{ color: #667085; }}
-.preview-card.read .article-snippet {{ color: #5b6472; }}
+.preview-card.read .article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 6px; color: #5b6472; font-size: 9.5px; line-height: 1.45; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
 
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; color: #344054; font-size: 14px; font-weight: 800; }}
-.preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 8px 8px 6px 0; }}
+.preview-copy {{ display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; min-height: 136px; padding: 8px 8px 8px 0; overflow: visible; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
 .headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
 .article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
-.status-line {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; padding-top: 3px; font-size: 9px; }}
+.status-line {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 8px; min-height: 36px; font-size: 9px; overflow: visible; }}
 .status-text {{ min-width: 0; }}
 
 .unread-label {{ color: #d92d20; font-weight: 800; }}
@@ -3972,14 +3926,14 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.read .read-label {{ display: inline; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
-.card-side {{ position: relative; align-self: center; width: 88px; height: 126px; min-height: 126px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.important-button {{ flex: 0 0 auto; width: 36px; height: 36px; padding: 0; border: 1px solid rgba(17,24,39,.12); border-radius: 50%; color: #98a2b3; background: transparent; font-size: 15px; line-height: 36px; text-align: center; cursor: pointer; box-shadow: none; }}
+.card-side {{ position: relative; align-self: stretch; width: 92px; min-width: 92px; display: flex; align-items: center; justify-content: center; overflow: visible; background: transparent; }}
+.important-button {{ flex: 0 0 auto; width: 36px; height: 36px; border: 1px solid rgba(35,57,93,.10); border-radius: 50%; background: #f7f6f2; color: #94a3b8; font-size: 20px; line-height: 36px; text-align: center; cursor: pointer; box-shadow: none; overflow: visible; }}
 .important-button:hover {{ background: rgba(17,24,39,.05); }}
 .preview-card.important .important-button {{ color: #b77900; border-color: #f2c94c; background: #fff3b0; }}
-.preview-image {{ width: 92px; height: 136px; min-height: 136px; box-sizing: border-box; overflow: hidden; border: 1px solid rgba(35,57,93,.08); border-radius: 16px; background: #f4f6f8; }}
-.preview-image img {{ display: block; width: 100%; height: 126px; min-height: 126px; object-fit: cover; object-position: 50% 50%; }}
+.preview-image {{ width: 92px; height: 100%; min-height: 136px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(35,57,93,.08); border-radius: 16px; background: #f4f6f8; }}
+.preview-image img {{ display: block; width: 100%; height: 100%; min-height: 100%; object-fit: cover; object-position: 50% 50%; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
-.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 126px; min-height: 126px; padding: 0 4px; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
+.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 100%; color: #6b7280; font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: #fffdf8; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (min-width: 768px) {{
@@ -4115,6 +4069,25 @@ header,
   body {{
     background-image: none;
   }}
+}}
+
+
+@media (min-width:768px) {{
+  .utility-row {{ gap:10px; max-width:620px; }}
+  .utility-box {{ height:42px; padding:0 9px; border-radius:12px; gap:7px; }}
+  .utility-label {{ font-size:12px; }}
+  .language-order-toggle, .date-control {{ height:30px; border-radius:9px; }}
+  .language-order-toggle {{ font-size:12px; line-height:30px; padding:0 10px; }}
+  .date-display {{ font-size:12px; line-height:30px; padding:0 20px 0 8px; }}
+  .date-calendar {{ right:7px; font-size:11px; }}
+}}
+
+@media (min-width: 768px) {{
+  .preview-card {{ grid-template-columns: 30px minmax(0,1fr) 104px; gap: 14px; padding: 14px 14px 16px 14px; }}
+  .preview-copy {{ min-height: 148px; padding: 8px 10px 8px 0; }}
+  .status-line {{ min-height: 38px; }}
+  .card-side {{ width: 104px; min-width: 104px; }}
+  .preview-image {{ width: 104px; min-height: 148px; }}
 }}
 
 </style>
@@ -4399,6 +4372,86 @@ const COUNTRY_NAMES = {{
   ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스", OTHER:"기타"
 }};
 
+function layoutCountryPins(){{
+  const canvas=document.querySelector(".world-map-canvas");
+  if(!canvas)return;
+
+  const visible=[...canvas.querySelectorAll(".country-pin")]
+    .filter(button=>!button.hidden);
+
+  const kr=visible.find(button=>button.dataset.countryFilter==="KR");
+  const other=visible.find(button=>button.dataset.countryFilter==="OTHER");
+  const normal=visible
+    .filter(button=>button!==kr && button!==other)
+    .sort((a,b)=>Number(a.dataset.anchorY||50)-Number(b.dataset.anchorY||50));
+
+  // 3개 안전 레일: 좌 / 중앙 / 우
+  const rails=[[],[],[]];
+
+  // 한국은 항상 우측 최상단
+  if(kr)rails[2].push(kr);
+
+  const railTargetX=[12,50,88];
+
+  normal.forEach(button=>{{
+    const anchorX=Number(button.dataset.anchorX||50);
+    let preferred=anchorX<36?0:(anchorX>66?2:1);
+
+    // 선호 레일을 우선하되, 한 열에 몰리면 가장 짧은 레일로 분산
+    const scores=rails.map((rail,index)=>
+      rail.length*42 + Math.abs(anchorX-railTargetX[index])
+      + (index===preferred?-10:0)
+    );
+    const chosen=scores.indexOf(Math.min(...scores));
+    rails[chosen].push(button);
+  }});
+
+  // 기타도 겹치지 않도록 현재 가장 짧은 레일의 마지막 슬롯에 배치
+  if(other){{
+    const lengths=rails.map(rail=>rail.length);
+    const chosen=lengths.indexOf(Math.min(...lengths));
+    rails[chosen].push(other);
+  }}
+
+  const isDesktop=canvas.clientWidth>=700;
+  const pinWidth=isDesktop?112:96;
+  const rowStep=isDesktop?31:25;
+  const topPad=isDesktop?10:8;
+  const pinHeight=isDesktop?26:21;
+  const maxRows=Math.max(1,...rails.map(rail=>rail.length));
+
+  // 표시 국가가 많아도 세로 슬롯 자체가 부족하지 않도록 지도 높이를 자동 확장
+  const minHeight=isDesktop?260:210;
+  const neededHeight=topPad+(maxRows-1)*rowStep+pinHeight+10;
+  canvas.style.height=`${{Math.max(minHeight,neededHeight)}}px`;
+
+  rails.forEach((rail,railIndex)=>{{
+    rail.forEach((button,rowIndex)=>{{
+      button.style.top=`${{topPad+rowIndex*rowStep}}px`;
+      button.style.bottom="auto";
+      button.style.width=`${{pinWidth}}px`;
+      button.style.maxWidth=`${{pinWidth}}px`;
+      button.style.transform="none";
+
+      if(railIndex===0){{
+        button.style.left=isDesktop?"10px":"5px";
+        button.style.right="auto";
+      }} else if(railIndex===1){{
+        button.style.left=`calc(50% - ${{pinWidth/2}}px)`;
+        button.style.right="auto";
+      }} else {{
+        button.style.left="auto";
+        button.style.right=isDesktop?"10px":"5px";
+      }}
+    }});
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  layoutCountryPins();
+  requestAnimationFrame(layoutAndRenderCountryMap);
+}}
+
 function renderCountryMapConnectors(){{
   const canvas=document.querySelector(".world-map-canvas");
   const svg=document.getElementById("map-connectors");
@@ -4469,7 +4522,7 @@ function updateCountryMapCounts(){{
   const allButton=document.getElementById("country-all");
   if(allButton)allButton.classList.toggle("active",!activeCountryFilter);
 
-  requestAnimationFrame(renderCountryMapConnectors);
+  requestAnimationFrame(layoutAndRenderCountryMap);
 }}
 
 function expandVisibleCountryGroups(){{
@@ -4567,14 +4620,19 @@ function filterArticles(){{
 
   document.getElementById("no-results").style.display=(q||activeCountryFilter)&&total===0?"block":"none";
 }}
+function refreshActivePeriodUI(){{
+  filterArticles();
+  updateCountryMapCounts();
+  renderFavorites();
+  requestAnimationFrame(layoutAndRenderCountryMap);
+}}
+
 function activatePanel(panel, button=null){{
   document.querySelectorAll(".tab-button").forEach(x=>x.classList.remove("active"));
   document.querySelectorAll(".tab-panel").forEach(x=>x.classList.remove("active"));
   if(button)button.classList.add("active");
   panel.classList.add("active");
-  filterArticles();
-  updateCountryMapCounts();
-  renderFavorites();
+  refreshActivePeriodUI();
 }}
 document.querySelectorAll(".tab-button").forEach(button => {{
   button.addEventListener("click", event => {{
@@ -4595,9 +4653,7 @@ document.querySelectorAll(".tab-button").forEach(button => {{
       updateArchiveDateDisplay(periodDate);
     }}
 
-    if(typeof filterArticles === "function") filterArticles();
-    if(typeof updateCountryMapCounts === "function") updateCountryMapCounts();
-    if(typeof renderFavorites === "function") renderFavorites();
+    if(typeof refreshActivePeriodUI === "function") refreshActivePeriodUI();
 
     window.scrollTo({{ top: 0, behavior: "smooth" }});
   }});
@@ -4644,9 +4700,7 @@ function openArchiveDate(value){{
     archiveInput.value=value;
     updateArchiveDateDisplay(value);
   }}
-  if(typeof filterArticles==="function") filterArticles();
-  if(typeof updateCountryMapCounts==="function") updateCountryMapCounts();
-  if(typeof renderFavorites==="function") renderFavorites();
+  if(typeof refreshActivePeriodUI==="function") refreshActivePeriodUI();
 
   panel.scrollIntoView({{behavior:"smooth", block:"start"}});
   return true;
@@ -4667,9 +4721,9 @@ if(archiveInput){{
     }}
   }});
 }}
-window.addEventListener("resize",()=>requestAnimationFrame(renderCountryMapConnectors));
+window.addEventListener("resize",()=>requestAnimationFrame(layoutAndRenderCountryMap));
 const worldMapImage=document.querySelector(".world-map-image");
-if(worldMapImage)worldMapImage.addEventListener("load",()=>requestAnimationFrame(renderCountryMapConnectors));
+if(worldMapImage)worldMapImage.addEventListener("load",()=>requestAnimationFrame(layoutAndRenderCountryMap));
 document.getElementById("article-search").addEventListener("input",filterArticles);
 updateCountryMapCounts();
 
@@ -4732,6 +4786,19 @@ def main() -> int:
         label: select_articles_for_period(fetched, start, end)
         for label, (start, end) in periods.items()
     }
+
+    for label in ("전일", "금일", "익일"):
+        items = articles_by_period.get(label, [])
+        ko_count = sum(1 for article in items if article.language == "ko")
+        en_count = sum(1 for article in items if article.language == "en")
+        other_count = sum(
+            1 for article in items
+            if detect_article_country(article) == "OTHER"
+        )
+        print(
+            f"[PERIOD {label}] total={len(items)} / ko={ko_count} / en={en_count} "
+            f"/ country_other={other_count} / RAW=ON / dedup=OFF / limit=OFF"
+        )
 
     # 실제 화면에 표시할 기사만 대상으로 원문 대표 이미지/설명을 병렬 보완
     enrich_article_metadata(articles_by_period)
