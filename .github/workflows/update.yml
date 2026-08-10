@@ -19,12 +19,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -41,8 +41,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add index.html article_state.json news_archive.json
-          git add -A assets/thumbnails
+          # Clean runner에서 생성/수정/삭제된 결과물을 모두 안전하게 stage
+          # assets/thumbnails 폴더가 없어도 오류가 발생하지 않음
+          git add -A
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
