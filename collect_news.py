@@ -2811,41 +2811,21 @@ def render_news_sections(articles: list[Article], new_urls: set[str] | None = No
     for article in articles:
         grouped[article.group].append(article)
 
-    visible_groups = [
-        group for group, _ in GROUPS
-        if grouped[group] or group in ALWAYS_SHOW_GROUPS
-    ]
-
-    nav_buttons = ''.join(
-        f'<button class="group-nav-button{" active" if index == 0 else ""}" '
-        f'type="button" data-target-group="{escape(group)}">'
-        f'{escape(GROUP_TAB_LABELS.get(group, group))}</button>'
-        for index, group in enumerate(visible_groups)
-    )
-
     sections = []
-    for index, group in enumerate(visible_groups):
+    for group, _ in GROUPS:
+        if not grouped[group] and group not in ALWAYS_SHOW_GROUPS:
+            continue
         section = render_group_unified(group, grouped[group], new_urls)
-        if index != 0:
-            section = section.replace(
-                'class="news-group group-tab-section"',
-                'class="news-group group-tab-section group-tab-hidden"',
-                1,
-            )
+        section = section.replace(
+            'class="news-group group-tab-section"',
+            'class="news-group collapsed"',
+            1,
+        )
+        section = section.replace('aria-expanded="true"', 'aria-expanded="false"', 1)
+        section = section.replace('<span class="group-arrow">▲</span>', '<span class="group-arrow">▼</span>', 1)
         sections.append(section)
 
-    group_count = max(1, len(visible_groups))
-    density_class = (
-        " group-nav-dense" if group_count >= 15
-        else " group-nav-compact" if group_count >= 12
-        else ""
-    )
-
-    return (
-        f'<div class="group-nav{density_class}" role="tablist" '
-        f'style="--group-count:{group_count}">{nav_buttons}</div>'
-        + ''.join(sections)
-    )
+    return ''.join(sections)
 
 
 def load_previous_urls() -> set[str]:
@@ -3041,7 +3021,7 @@ def archive_panels_html(archive: dict[str, dict], new_urls: set[str]) -> str:
   </div>
   <div class="language-section">
     <div class="group-master-control">
-      <button class="group-master-button" type="button" data-collapsed="false">전체 접기 ▲</button>
+      <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
     </div>
     {sections or '<div class="empty">해당 날짜에 저장된 뉴스 기사가 없습니다.</div>'}
   </div>
@@ -3079,7 +3059,7 @@ def build_html(
   {note}
   <div class="language-section">
     <div class="group-master-control">
-      <button class="group-master-button" type="button" data-collapsed="false">전체 접기 ▲</button>
+      <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
     </div>
     {sections or '<div class="empty">해당 기간에 수집된 뉴스 기사가 없습니다.</div>'}
   </div>
@@ -3117,8 +3097,8 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .language-order-toggle {{ flex: 1; min-width: 0; height: 26px; padding: 0 7px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
 .language-order-toggle:active {{ transform: translateY(1px); }}
 .date-picker-box {{ cursor: pointer; }}
+.date-picker-box .date-input {{ cursor: pointer; }}
 .date-input {{ flex: 1; min-width: 0; width: 100%; height: 26px; padding: 0 4px; border: 0; background: transparent; color: #344054; font-size: 11px; }}
-.date-button {{ flex: 0 0 auto; height: 26px; padding: 0 8px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
 .search-input {{ width: 100%; height: 32px; padding: 0 32px 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
 .search-clear {{ position: absolute; right: 5px; top: 4px; width: 24px; height: 24px; border: 0; background: transparent; color: #667085; cursor: pointer; }}
@@ -3140,22 +3120,16 @@ main {{ padding: 12px 12px 34px; }}
 .period-card strong {{ color: #111827; font-size: 14px; }}
 .partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
 .language-section {{ margin-bottom: 30px; }}
-.group-nav {{ display: grid; grid-template-columns: repeat(var(--group-count, 1),minmax(0,1fr)); gap: 2px; width: 100%; margin: 0 0 9px; }}
-.group-nav-button {{ min-width: 0; height: 27px; padding: 0 1px; overflow: hidden; border: 1px solid rgba(17,24,39,.12); border-radius: 5px; background: rgba(255,255,255,.88); color: #344054; font-family: Arial, "Malgun Gothic", sans-serif; font-size: 7.5px; font-weight: 800; letter-spacing: -.35px; line-height: 1; white-space: nowrap; text-overflow: clip; cursor: pointer; }}
-.group-nav-button.active {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.16); }}
-.group-nav-compact .group-nav-button {{ font-size: 7px; padding: 0; letter-spacing: -.45px; }}
-.group-nav-dense .group-nav-button {{ font-size: 6.2px; padding: 0; letter-spacing: -.55px; }}
-
-.group-tab-hidden {{ display: none; }}
-.news-group {{ margin-bottom: 12px; }}
-.group-title {{ display: flex; align-items: center; gap: 6px; width: 100%; max-width: 100%; box-sizing: border-box; margin: 0; padding: 8px 11px; border: 0; background: #fee500; color: #111827; border-radius: 4px 11px 11px 11px; font: inherit; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
+.group-nav-compact .group-nav-dense 
+.news-group {{ margin-bottom: 3px; }}
+.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #fee500; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.10); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
-.group-count {{ align-self: flex-end; margin-bottom: 1px; color: #5f5200; font-size: 9px; line-height: 1; white-space: nowrap; }}
-.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 13px; color: #111827; font-size: 11px; line-height: 1; }}
-.article-stack {{ display: grid; gap: 7px; margin-top: 8px; }}
+.group-count {{ margin-left: auto; color: #5f5200; font-size: 8px; line-height: 1; white-space: nowrap; }}
+.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 10px; color: #111827; font-size: 8px; line-height: 1; }}
+.article-stack {{ display: grid; gap: 7px; margin-top: 5px; margin-bottom: 5px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; height: 126px; min-height: 126px; overflow: hidden; color: inherit; background: #fffdf8; border: 1px solid rgba(62,52,42,.10); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 2px rgba(62,52,42,.08); transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #eef1f4; opacity: .72; }}
@@ -3179,10 +3153,10 @@ main {{ padding: 12px 12px 34px; }}
 .important-button {{ flex: 0 0 auto; width: 24px; height: 24px; padding: 0; border: 1px solid rgba(17,24,39,.12); border-radius: 50%; color: #98a2b3; background: transparent; font-size: 15px; line-height: 22px; text-align: center; cursor: pointer; box-shadow: none; }}
 .important-button:hover {{ background: rgba(17,24,39,.05); }}
 .preview-card.important .important-button {{ color: #b77900; border-color: #f2c94c; background: #fff3b0; }}
-.preview-image {{ width: 88px; height: 126px; min-height: 126px; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.preview-image {{ width: 88px; height: 126px; min-height: 126px; box-sizing: border-box; overflow: hidden; border: 1px solid rgba(52,64,84,.30); border-radius: 6px; background: linear-gradient(135deg,#173b67,#0b213d); }}
 .preview-image img {{ display: block; width: 100%; height: 126px; min-height: 126px; object-fit: cover; object-position: 50% 50%; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
-.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 126px; min-height: 126px; padding: 24px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
+.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 126px; min-height: 126px; padding: 0 4px; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: #fffdf8; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (min-width: 768px) {{
@@ -3197,8 +3171,8 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .tab-button {{ height: 38px; font-size: 13px; }}
   .utility-row {{ grid-template-columns: repeat(2,minmax(0,1fr)); max-width: 560px; }}
   .utility-box {{ height: 36px; padding: 0 10px; }}
-  .utility-label, .language-order-toggle, .date-input, .date-button {{ font-size: 12px; }}
-  .language-order-toggle, .date-input, .date-button {{ height: 28px; }}
+  .utility-label, .language-order-toggle, .date-input {{ font-size: 12px; }}
+  .language-order-toggle, .date-input {{ height: 28px; }}
   main {{ padding: 18px 20px 44px; }}
   .favorites-panel {{ margin-bottom: 16px; padding: 16px; border-radius: 12px; }}
   .favorites-title {{ margin-bottom: 12px; font-size: 16px; }}
@@ -3210,14 +3184,10 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .period-card {{ flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 12px; }}
   .period-card strong {{ font-size: 16px; }}
   .group-master-button, .header-toggle {{ width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }}
-  .group-nav {{ grid-template-columns: repeat(var(--group-count, 1),minmax(0,1fr)); gap: 4px; margin-bottom: 12px; }}
-  .group-nav-button {{ height: 32px; padding: 0 3px; font-size: 10px; border-radius: 6px; }}
-  .group-nav-compact .group-nav-button {{ font-size: 9px; padding: 0 2px; }}
-  .group-nav-dense .group-nav-button {{ font-size: 8px; padding: 0 1px; }}
-
-  .news-group {{ margin-bottom: 18px; }}
-  .group-title {{ padding: 10px 14px; font-size: 16px; border-radius: 5px 12px 12px 12px; }}
-  .group-count {{ font-size: 10px; }}
+      .group-nav-compact   .group-nav-dense 
+  .news-group {{ margin-bottom: 4px; }}
+  .group-title {{ height: 30px; padding: 0 11px; font-size: 12px; border-radius: 6px; }}
+  .group-count {{ font-size: 9px; }}
   .article-stack {{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }}
   .preview-card {{ grid-template-columns: 32px minmax(0,1fr) 124px; height: 142px; min-height: 142px; border-radius: 11px; }}
   .article-number {{ padding-top: 12px; font-size: 13px; }}
@@ -3337,11 +3307,10 @@ header,
           <span class="utility-label">기사 순서</span>
           <button id="language-order" class="language-order-toggle" type="button" aria-label="기사 언어 우선순위 변경">KOR → ENG</button>
         </div>
-        <div class="utility-box date-picker-box">
+        <label class="utility-box date-picker-box" for="archive-date">
           <span class="utility-label">날짜 보기</span>
-          <input id="archive-date" class="date-input" type="date">
-          <button id="archive-open" class="date-button" type="button">보기</button>
-        </div>
+          <input id="archive-date" class="date-input" type="date" aria-label="기사 날짜 선택">
+        </label>
       </div>
     </div>
   </header>
@@ -3350,30 +3319,6 @@ header,
 </div>
 <script>
 
-document.addEventListener('click', (event) => {{
-  const button = event.target.closest('.group-nav-button');
-  if (!button) return;
-
-  const panel = button.closest('.tab-panel');
-  if (!panel) return;
-
-  const targetGroup = button.dataset.targetGroup || '';
-
-  panel.querySelectorAll('.group-nav-button').forEach((item) => {{
-    item.classList.toggle('active', item === button);
-  }});
-
-  panel.querySelectorAll('.group-tab-section').forEach((section) => {{
-    section.classList.toggle(
-      'group-tab-hidden',
-      (section.dataset.group || '') !== targetGroup
-    );
-  }});
-}});
-const readKey = "nuclearDailyBriefReadArticles";
-const importantKey = "nuclearDailyBriefImportantArticles";
-const readArticles = new Set(JSON.parse(localStorage.getItem(readKey) || "[]"));
-const importantArticles = new Set(JSON.parse(localStorage.getItem(importantKey) || "[]"));
 const headerStateKey = "nuclearDailyBriefHeaderCollapsed";
 const topbar = document.getElementById("topbar");
 const headerToggle = document.getElementById("header-toggle");
@@ -3550,8 +3495,7 @@ if(archiveDates.length){{
   archiveInput.max=archiveDates[archiveDates.length-1];
   archiveInput.value=archiveDates[archiveDates.length-1];
 }}
-document.getElementById("archive-open").addEventListener("click",()=>{{
-  const value=archiveInput.value;
+function openArchiveDate(value){{
   if(!value)return;
   const panel=document.getElementById(`archive-${{value}}`);
   if(!panel){{
@@ -3560,8 +3504,8 @@ document.getElementById("archive-open").addEventListener("click",()=>{{
   }}
   activatePanel(panel);
   window.scrollTo({{top:0,behavior:"smooth"}});
-}});
-archiveInput.addEventListener("change",()=>document.getElementById("archive-open").click());
+}}
+archiveInput.addEventListener("change",()=>openArchiveDate(archiveInput.value));
 document.getElementById("article-search").addEventListener("input",filterArticles);
 document.getElementById("search-clear").addEventListener("click",()=>{{const input=document.getElementById("article-search");input.value="";input.focus();filterArticles();}});
 filterArticles();renderFavorites();
