@@ -52,15 +52,15 @@ main { padding: 12px 12px 34px; }
 .partial-note { margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }
 .language-section { margin-bottom: 30px; }
 .group-nav-compact .group-nav-dense 
-.news-group { margin-bottom: 11px; }
-.group-title { display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #23395d; color: #ffffff; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; line-height: 1; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }
+.news-group { margin-bottom: 16px; }
+.group-title { display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 1px solid rgba(91,79,38,.10); background: #f5e8a6; color: #2c2922; border-radius: 7px; font: inherit; font-size: 11px; font-weight: 800; line-height: 1; text-align: left; box-shadow: 0 1px 2px rgba(62,52,42,.08); cursor: pointer; }
 .group-title:active { transform: translateY(1px); }
 .group-master-control { display: flex; justify-content: flex-end; margin: 0 0 8px; }
 .group-master-button { width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }
 .group-master-button:active { transform: translateY(1px); }
 .group-name { display: inline-flex; align-items: center; height: 27px; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }
-.group-count { display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #ffffff; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }
-.group-arrow { display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #ffffff; font-size: 8px; line-height: 1; }
+.group-count { display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #675f45; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }
+.group-arrow { display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #4d4737; font-size: 8px; line-height: 1; }
 .article-stack { display: grid; gap: 7px; margin-top: 5px; margin-bottom: 5px; }
 .news-group.collapsed .article-stack { display: none; }
 .preview-card { position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; height: 126px; min-height: 126px; overflow: hidden; color: inherit; background: #fffefa; border: 1px solid rgba(62,52,42,.16); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 2px rgba(62,52,42,.10); transition: opacity .15s ease, background .15s ease; }
@@ -121,7 +121,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   .period-card strong { font-size: 16px; }
   .group-master-button, .header-toggle { width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }
       .group-nav-compact   .group-nav-dense 
-  .news-group { margin-bottom: 12px; }
+  .news-group { margin-bottom: 18px; }
   .group-title { height: 30px; padding: 0 11px; font-size: 12px; border-radius: 6px; }
   .group-name { height: 30px; font-size: 12px; }
   .group-count { height: 30px; font-size: 12px; }
@@ -520,7 +520,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -547,6 +547,33 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5e8377ddd3b403852c512537.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260806000253"
+  data-title="김정관, “성과급, 주총 승인 거치도록 상법 개정”"
+  data-publisher="전자신문"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
+    <div class="article-snippet">김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
@@ -835,18 +862,18 @@ header,
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
-  data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16320"
-  data-title="현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격"
-  data-publisher="ESG경제"
+  data-url="https://www.theguru.co.kr/news/article.html?no=105399"
+  data-title="[영상] 미국 AI 전력망 비상…두산·현대건설에 판 깔렸다"
+  data-publisher="더구루"
   data-group="현대건설"
   data-language="ko"
-  data-search="현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격 esg경제 현대건설 [esg경제신문=김대우 기자] 국내 건설업계 1위 자리를 둘러싼 경쟁 구도가 빠르게 변화하고 있다. 수년째 시공능력평가 1위를 유지해온 삼성물산이 건축·주택 부문의 성장 둔화와 선택적 수주 전략으로 외형 확대 속도가 다소 주춤한 사이, 현대건설이 토목·건축 분야 기성공사 실적에서 선두에 오르며 격차를 빠르게 좁히고 있다. 업계에서는 당장 올해 순위가 뒤바뀌지는 않더라도 향후 시공능력평가 1위 경쟁이 한층 치열해질 것이라는 전망이 나온다.특히 현대건설은 대형 원전과 해외 플랜트, 데이터센터, 도시정비사업 등에서 고른 실적을 내며 안정"
+  data-search="[영상] 미국 ai 전력망 비상…두산·현대건설에 판 깔렸다 더구루 현대건설 [더구루=진유진 기자] 빅테크 기업들이 미국 전역에 ai 데이터센터를 짓고 있지만, 정작 데이터센터를 돌릴 전기가 부족해 발을 동동 굴리고 있습니다. 기존 미국 전력망으로는 이 엄청난 전력 수요를 감당할 수 없어 일부 지역에선 전기가 연결될 때까지 몇 년씩 대기하는 상황인데요. 참다 못 한 미국 기업들이 결국 파격적인 선택을 하기 시작했습니다. &quot;"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">ESG경제</div>
-    <div class="headline"><span class="new-badge">NEW</span>현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격</div>
-    <div class="article-snippet">[ESG경제신문=김대우 기자] 국내 건설업계 1위 자리를 둘러싼 경쟁 구도가 빠르게 변화하고 있다. 수년째 시공능력평가 1위를 유지해온 삼성물산이 건축·주택 부문의 성장 둔화와 선택적 수주 전략으로 외형 확대 속도가 다소 주춤한 사이, 현대건설이 토목·건축 분야 기성공사 실적에서 선두에 오르며 격차를 빠르게 좁히고 있다. 업계에서는 당장 올해 순위가 뒤바뀌지는 않더라도 향후 시공능력평가 1위 경쟁이 한층 치열해질 것이라는 전망이 나온다.특히 현대건설은 대형 원전과 해외 플랜트, 데이터센터, 도시정비사업 등에서 고른 실적을 내며 안정</div>
+    <div class="publisher">더구루</div>
+    <div class="headline"><span class="new-badge">NEW</span>[영상] 미국 AI 전력망 비상…두산·현대건설에 판 깔렸다</div>
+    <div class="article-snippet">[더구루=진유진 기자] 빅테크 기업들이 미국 전역에 AI 데이터센터를 짓고 있지만, 정작 데이터센터를 돌릴 전기가 부족해 발을 동동 굴리고 있습니다. 기존 미국 전력망으로는 이 엄청난 전력 수요를 감당할 수 없어 일부 지역에선 전기가 연결될 때까지 몇 년씩 대기하는 상황인데요. 참다 못 한 미국 기업들이 결국 파격적인 선택을 하기 시작했습니다. &quot;</div>
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">안읽음</span>
@@ -857,7 +884,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b6830176e885a73904e34216.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/faacc4b0f43b5e7f33f1d60f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1155,7 +1182,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1209,6 +1236,33 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000021"
+  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1757,7 +1811,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1676861/%EB%8C%80%EC%9A%B0%EA%B1%B4%EC%84%A4-%EB%AA%A9%EB%8F%998%EB%8B%A8%EC%A7%80-%EC%88%98%EC%A3%BC-%EC%A0%95%EC%A1%B0%EC%A4%80%E8%8B%B1-A-2026"
   data-title="대우건설, 목동8단지 수주 정조준…英 ARUP과 협업"
   data-publisher="데일리안"
@@ -1768,7 +1822,7 @@ header,
   <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">데일리안</div>
-    <div class="headline"><span class="new-badge">NEW</span>대우건설, 목동8단지 수주 정조준…英 ARUP과 협업</div>
+    <div class="headline">대우건설, 목동8단지 수주 정조준…英 ARUP과 협업</div>
     <div class="article-snippet">대우건설이 글로벌 기업과 협업해 목동신시가지 8단지 재건축 수주에 나선다.대우건설은 서울 양천구 목동 8단지 재건축 정비사업 수주를 위해 세계적인 구조 설계 및 엔지니어링 기업인 아룹(ARUP)과 전략적 협업에 나선다고 10일 밝혔다.영국 런던에 본사를 둔 ARUP은 전 세계 100여 개국에서 활동하고 있는 글로벌 엔지니어링 기업이다. 초고층·대형 복합개발</div>
     <div class="status-line">
       <div class="status-text">
@@ -2096,7 +2150,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2234,6 +2288,33 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260806000421"
+  data-title="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라"
+  data-publisher="전자신문"
+  data-group="원자력"
+  data-language="ko"
+  data-search="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라 전자신문 원자력 김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(gaas) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(leo) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물"
+  tabindex="0" role="link">
+  <div class="article-number">6</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라</div>
+    <div class="article-snippet">김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(GaAs) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(LEO) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/aeca00827199738225c41cb9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260810_0003742691"
   data-title="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향"
@@ -2242,7 +2323,7 @@ header,
   data-language="ko"
   data-search="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향 뉴시스 원자력 [세종=뉴시스]임하은 기자 = 지난해 결함 보상(리콜) 건수가 전년보다 4.7% 증가해 2600건대로 집계됐다. 해외리콜 제품의 국내 오픈마켓 유통이 늘어나면서 소비자기본법에 따른 판매 차단 조치가 적극 실시된 영향이다. 공정거래위원회는 10일 중앙행정기관과 지방자치단체, 한국소비자원의 지난해 리콜 실적을 분석해 발표했다. 지난해 리콜을 실시한 중앙행정기관은 국토교통부, 기후에너지환경부, 식품의약품안전처, 원자력안전위원회, 국가기술표준원 등 5곳이다. 지난해 리콜 건수는 2656건으로 전년 2537건보다 119건(4.7%) 증가했다. 전체 리콜 건수는 2022년 이후"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향</div>
@@ -2269,7 +2350,7 @@ header,
   data-language="ko"
   data-search="폭염과 ai 시대, 원전 더 지어야 하나? - 뉴스펭귄 뉴스펭귄 원자력 2.8gw와 비어 있는 처분장새로 지을 원전 2기의 설비용량은 2.8gw다. 이용률 85%를 적용하면 연간 21twh를 생산한다. 국내 데이터센터의 2038년 추"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">뉴스펭귄</div>
     <div class="headline">폭염과 AI 시대, 원전 더 지어야 하나? - 뉴스펭귄</div>
@@ -2296,7 +2377,7 @@ header,
   data-language="en"
   data-search="nihon hidankyo renews call for world without nuclear weapons the japan times 원자력 the japan confederation of a- and h-bomb sufferers organizations, held a news conference in nagasaki on the 70th anniversary of the group’s establishment."
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">The Japan Times</div>
     <div class="headline">Nihon Hidankyo renews call for world without nuclear weapons</div>
@@ -2410,7 +2491,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a12a2df0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a16d0648&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -2500,18 +2581,18 @@ header,
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
-  data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16320"
-  data-title="현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격"
-  data-publisher="ESG경제"
+  data-url="https://www.theguru.co.kr/news/article.html?no=105399"
+  data-title="[영상] 미국 AI 전력망 비상…두산·현대건설에 판 깔렸다"
+  data-publisher="더구루"
   data-group="현대건설"
   data-language="ko"
-  data-search="현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격 esg경제 현대건설 [esg경제신문=김대우 기자] 국내 건설업계 1위 자리를 둘러싼 경쟁 구도가 빠르게 변화하고 있다. 수년째 시공능력평가 1위를 유지해온 삼성물산이 건축·주택 부문의 성장 둔화와 선택적 수주 전략으로 외형 확대 속도가 다소 주춤한 사이, 현대건설이 토목·건축 분야 기성공사 실적에서 선두에 오르며 격차를 빠르게 좁히고 있다. 업계에서는 당장 올해 순위가 뒤바뀌지는 않더라도 향후 시공능력평가 1위 경쟁이 한층 치열해질 것이라는 전망이 나온다.특히 현대건설은 대형 원전과 해외 플랜트, 데이터센터, 도시정비사업 등에서 고른 실적을 내며 안정"
+  data-search="[영상] 미국 ai 전력망 비상…두산·현대건설에 판 깔렸다 더구루 현대건설 [더구루=진유진 기자] 빅테크 기업들이 미국 전역에 ai 데이터센터를 짓고 있지만, 정작 데이터센터를 돌릴 전기가 부족해 발을 동동 굴리고 있습니다. 기존 미국 전력망으로는 이 엄청난 전력 수요를 감당할 수 없어 일부 지역에선 전기가 연결될 때까지 몇 년씩 대기하는 상황인데요. 참다 못 한 미국 기업들이 결국 파격적인 선택을 하기 시작했습니다. &quot;"
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">ESG경제</div>
-    <div class="headline"><span class="new-badge">NEW</span>현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격</div>
-    <div class="article-snippet">[ESG경제신문=김대우 기자] 국내 건설업계 1위 자리를 둘러싼 경쟁 구도가 빠르게 변화하고 있다. 수년째 시공능력평가 1위를 유지해온 삼성물산이 건축·주택 부문의 성장 둔화와 선택적 수주 전략으로 외형 확대 속도가 다소 주춤한 사이, 현대건설이 토목·건축 분야 기성공사 실적에서 선두에 오르며 격차를 빠르게 좁히고 있다. 업계에서는 당장 올해 순위가 뒤바뀌지는 않더라도 향후 시공능력평가 1위 경쟁이 한층 치열해질 것이라는 전망이 나온다.특히 현대건설은 대형 원전과 해외 플랜트, 데이터센터, 도시정비사업 등에서 고른 실적을 내며 안정</div>
+    <div class="publisher">더구루</div>
+    <div class="headline"><span class="new-badge">NEW</span>[영상] 미국 AI 전력망 비상…두산·현대건설에 판 깔렸다</div>
+    <div class="article-snippet">[더구루=진유진 기자] 빅테크 기업들이 미국 전역에 AI 데이터센터를 짓고 있지만, 정작 데이터센터를 돌릴 전기가 부족해 발을 동동 굴리고 있습니다. 기존 미국 전력망으로는 이 엄청난 전력 수요를 감당할 수 없어 일부 지역에선 전기가 연결될 때까지 몇 년씩 대기하는 상황인데요. 참다 못 한 미국 기업들이 결국 파격적인 선택을 하기 시작했습니다. &quot;</div>
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">안읽음</span>
@@ -2522,7 +2603,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b6830176e885a73904e34216.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/faacc4b0f43b5e7f33f1d60f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -2820,7 +2901,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2874,6 +2955,33 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000021"
+  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -3445,7 +3553,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3472,6 +3580,33 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5e8377ddd3b403852c512537.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260806000253"
+  data-title="김정관, “성과급, 주총 승인 거치도록 상법 개정”"
+  data-publisher="전자신문"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
+    <div class="article-snippet">김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 </div>
