@@ -4,11 +4,13 @@ import html
 import json
 import os
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.parse import quote_plus, urlparse
+from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 import feedparser
@@ -22,6 +24,11 @@ ARCHIVE_DAYS = 90
 BACKFILL_DATES_PER_RUN = 2
 SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "1") == "1"
 MAX_PER_GROUP_PER_LANGUAGE = 12
+
+# 보완 RSS는 Google News RSS 수집시간에 큰 영향을 주지 않도록 병렬로 조회합니다.
+# 개별 피드가 응답하지 않아도 전체 작업이 오래 멈추지 않도록 timeout을 둡니다.
+SUPPLEMENTAL_RSS_WORKERS = 8
+SUPPLEMENTAL_RSS_TIMEOUT_SECONDS = 8
 
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
@@ -196,6 +203,111 @@ GROUPS = [
         '"Fermi America" AP1000', "Amarillo nuclear", "애머릴로 원전",
         '"Carson County" nuclear', "카슨 카운티 원전",
     ]),
+]
+
+# Google News RSS를 메인으로 사용하고, 아래 언론사 자체 RSS는 누락 보완용으로 사용합니다.
+# 보완 RSS는 병렬 조회되므로 기존 약 4분 실행시간 증가를 최소화하도록 구성했습니다.
+# 같은 기사가 양쪽에서 들어와도 기존 중복 제거 로직에서 1건만 남습니다.
+SUPPLEMENTAL_RSS_FEEDS = [
+    # 뉴시스: 원전/에너지 기사가 나올 가능성이 높은 주요 섹션
+    ("뉴시스", "https://www.newsis.com/RSS/sokbo.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/politics.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/economy.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/industry.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/international.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/society.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/country.xml"),
+
+    # 전자신문
+    ("전자신문", "https://rss.etnews.com/Section901.xml"),
+    ("전자신문", "https://rss.etnews.com/Section902.xml"),
+    ("전자신문", "https://rss.etnews.com/02.xml"),
+    ("전자신문", "https://rss.etnews.com/06065.xml"),
+    ("전자신문", "https://rss.etnews.com/22210.xml"),
+
+    # 원전·전력·에너지 전문매체
+    ("전기신문", "https://www.electimes.com/rss/allArticle.xml"),
+    ("에너지신문", "https://www.energy-news.co.kr/rss/allArticle.xml"),
+    ("에너지타임즈", "https://www.energytimes.kr/rss/allArticle.xml"),
+    ("전력경제신문", "https://www.epetimes.com/rss/allArticle.xml"),
+]
+
+# 자체 RSS에서 기사 분류 시 너무 넓게 잡히지 않도록 핵심어를 사용합니다.
+SUPPLEMENTAL_GROUP_KEYWORDS = {
+    "현대건설": [
+        "현대건설", "hyundai e&c", "hyundai engineering & construction", "hdec",
+    ],
+    "타 건설사": [
+        "삼성물산 건설부문", "samsung c&t", "대우건설", "daewoo e&c",
+        "dl이앤씨", "dl e&c", "gs건설", "gs e&c", "sk에코플랜트",
+        "sk ecoplant", "포스코이앤씨", "posco e&c", "롯데건설",
+        "lotte e&c", "현대엔지니어링", "hyundai engineering",
+        "hdc현대산업개발", "hanwha construction", "한화 건설부문",
+        "두산에너빌리티", "doosan enerbility",
+    ],
+    "한국수력원자력": [
+        "한국수력원자력", "한수원", "khnp",
+    ],
+    "한국전력": [
+        "한국전력", "한전", "kepco",
+    ],
+    "원전 관계부처": [
+        "산업통상부", "산업통상자원부", "기후에너지환경부",
+        "과학기술정보통신부", "과기정통부", "김정관", "문신학",
+        "양기욱", "여한구", "강감찬", "김창희",
+    ],
+    "원전 대미투자": [
+        "대미투자", "대미 투자", "대미투자펀드", "대미 투자 펀드",
+        "한미 투자", "u.s. investment", "us investment",
+        "korea-us investment", "nuclear investment fund",
+    ],
+    "Holtec": [
+        "holtec", "홀텍", "smr-300", "palisades", "oyster creek",
+    ],
+    "TerraPower": [
+        "terrapower", "테라파워", "natrium", "kemmerer",
+    ],
+    "Westinghouse": [
+        "westinghouse", "웨스팅하우스", "ap1000", "ap300",
+    ],
+    "Fermi America": [
+        "fermi america", "페르미 아메리카", "페르미아메리카",
+        "퍼미 아메리카", "퍼미아메리카", "project matador",
+        "프로젝트 마타도르", "hypergrid", "하이퍼그리드",
+        "amarillo nuclear", "애머릴로 원전", "carson county nuclear",
+        "카슨 카운티 원전",
+    ],
+    "SMR": [
+        "smr", "소형모듈원자로", "소형 모듈 원자로",
+        "small modular reactor", "차세대원자로", "advanced reactor",
+        "microreactor",
+    ],
+    "Nuclear Power·Nuclear Energy": [
+        "nuclear power", "nuclear energy", "nuclear power plant",
+        "nuclear construction", "nuclear project", "nuclear new build",
+        "new nuclear build",
+    ],
+    "원자력": [
+        "원전", "원자력", "원자로", "핵발전", "신한울", "새울원전",
+        "새울원자력", "고리원전", "한빛원전", "한울원전", "월성원전",
+        "nuclear", "reactor",
+    ],
+}
+
+SUPPLEMENTAL_GROUP_PRIORITY = [
+    "원전 대미투자",
+    "Fermi America",
+    "Holtec",
+    "TerraPower",
+    "Westinghouse",
+    "현대건설",
+    "타 건설사",
+    "한국수력원자력",
+    "한국전력",
+    "원전 관계부처",
+    "SMR",
+    "Nuclear Power·Nuclear Energy",
+    "원자력",
 ]
 
 # 블로그·개인 게시물·커뮤니티성 출처 제외
@@ -698,8 +810,6 @@ def same_day_duplicate(article: Article, existing: Article) -> bool:
         meaningful_keywords(article.title)
         & meaningful_keywords(existing.title)
     )
-    if len(shared_keywords) >= 2:
-        return True
 
     ngram_score = character_ngram_similarity(
         article.title,
@@ -710,6 +820,16 @@ def same_day_duplicate(article: Article, existing: Article) -> bool:
         semantic_normalized(article.title),
         semantic_normalized(existing.title),
     ).ratio()
+
+    # 기사 누락을 줄이기 위해 단순 공통 키워드 2개만으로는 중복 처리하지 않습니다.
+    # 핵심 단어가 3개 이상 같거나, 2개가 같으면서 제목 유사도도 확인될 때만 중복 처리합니다.
+    if len(shared_keywords) >= 3:
+        return True
+    if (
+        len(shared_keywords) >= 2
+        and (ngram_score >= 0.45 or sequence_score >= 0.60)
+    ):
+        return True
 
     # 제목 표현만 조금 바뀐 동일 기사
     if ngram_score >= 0.58 or sequence_score >= 0.74:
@@ -1063,6 +1183,153 @@ def is_government_senior_article(article: Article) -> bool:
 
 
 
+def classify_supplemental_article(title: str, summary: str) -> str | None:
+    """언론사 자체 RSS 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    # 기존 우선 분류 규칙을 먼저 적용합니다.
+    priority_group = classify_priority_company_group("원자력", title, summary)
+    if priority_group != "원자력":
+        return priority_group
+
+    for group in SUPPLEMENTAL_GROUP_PRIORITY:
+        terms = SUPPLEMENTAL_GROUP_KEYWORDS.get(group, [])
+        if any(term.lower() in haystack for term in terms):
+            if group == "원전 관계부처":
+                # 관계부처는 기존 코드와 동일하게 고위급/인사 조건을 적용합니다.
+                temp = Article(
+                    title=title, link="", published=datetime.now(KST),
+                    language="ko", group=group, publisher="", image="", source_url="",
+                )
+                if not is_government_senior_article(temp):
+                    continue
+            if group == "타 건설사":
+                classified = classify_construction_group(group, title, summary)
+                if classified is None:
+                    continue
+                return classified
+            return group
+
+    return None
+
+
+def parse_supplemental_entry(entry, publisher: str, feed_url: str) -> Article | None:
+    """언론사 자체 RSS 항목을 Article로 변환합니다."""
+    raw_date = (
+        getattr(entry, "published", None)
+        or getattr(entry, "updated", None)
+        or getattr(entry, "created", None)
+    )
+    if not raw_date:
+        return None
+
+    try:
+        published = date_parser.parse(raw_date).astimezone(KST)
+    except Exception:
+        return None
+
+    title = html.unescape(getattr(entry, "title", "") or "").strip()
+    link = (getattr(entry, "link", "") or "").strip()
+    summary = (
+        getattr(entry, "summary", "")
+        or getattr(entry, "description", "")
+        or ""
+    )
+
+    if not title or not link:
+        return None
+
+    group = classify_supplemental_article(title, summary)
+    if group is None:
+        return None
+
+    return Article(
+        title=title,
+        link=link,
+        published=published,
+        language="en" if re.search(r"[A-Za-z]", title) and not re.search(r"[가-힣]", title) else "ko",
+        group=group,
+        publisher=publisher,
+        image=extract_image(entry),
+        source_url=feed_url,
+    )
+
+
+def _fetch_one_supplemental_feed(
+    publisher: str,
+    feed_url: str,
+    start: datetime,
+    end: datetime,
+) -> list[Article]:
+    """보완용 RSS 한 개를 timeout 내에서 읽고 필요한 기사만 반환합니다."""
+    try:
+        request = Request(
+            feed_url,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (compatible; NuclearDailyBrief/1.0; "
+                    "+https://github.com/newenergy870314-hub/nuclear-daily-brief)"
+                )
+            },
+        )
+        with urlopen(request, timeout=SUPPLEMENTAL_RSS_TIMEOUT_SECONDS) as response:
+            payload = response.read()
+
+        feed = feedparser.parse(payload)
+    except Exception:
+        # 서브 수집원 하나가 실패해도 Google News RSS 메인 수집은 계속 진행합니다.
+        return []
+
+    articles: list[Article] = []
+    for entry in getattr(feed, "entries", []):
+        article = parse_supplemental_entry(entry, publisher, feed_url)
+        if not article:
+            continue
+        if not (start <= article.published < end):
+            continue
+        articles.append(article)
+
+    return articles
+
+
+def fetch_supplemental_rss(start: datetime, end: datetime) -> list[Article]:
+    """
+    Google News에서 빠질 수 있는 기사를 언론사 자체 RSS로 보완 수집합니다.
+
+    성능 원칙:
+    - Google News RSS가 메인입니다.
+    - 자체 RSS는 서브 수집원입니다.
+    - 여러 RSS를 순차 조회하지 않고 병렬 조회합니다.
+    - 피드별 timeout을 두어 응답이 느린 언론사 때문에 전체 작업이 지연되지 않게 합니다.
+    """
+    if not SUPPLEMENTAL_RSS_FEEDS:
+        return []
+
+    fetched: list[Article] = []
+    workers = min(SUPPLEMENTAL_RSS_WORKERS, len(SUPPLEMENTAL_RSS_FEEDS))
+
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = [
+            executor.submit(
+                _fetch_one_supplemental_feed,
+                publisher,
+                feed_url,
+                start,
+                end,
+            )
+            for publisher, feed_url in SUPPLEMENTAL_RSS_FEEDS
+        ]
+
+        for future in as_completed(futures):
+            try:
+                fetched.extend(future.result())
+            except Exception:
+                # 개별 서브 피드 오류는 전체 수집 실패로 이어지지 않게 합니다.
+                continue
+
+    return fetched
+
+
 def fetch_articles(start: datetime, end: datetime) -> list[Article]:
     """
     Google News RSS를 주어진 전체 기간에 대해 딱 한 번씩 조회합니다.
@@ -1091,6 +1358,9 @@ def fetch_articles(start: datetime, end: datetime) -> list[Article]:
                         continue
 
                     fetched.append(article)
+
+    # 메인은 Google News RSS, 자체 RSS는 누락 보완용으로 추가 수집합니다.
+    fetched.extend(fetch_supplemental_rss(start, end))
 
     return fetched
 
@@ -1355,7 +1625,7 @@ def update_archive(
             "articles": [article_to_dict(a) for a in articles_by_period[label]],
         }
 
-    # 최근 30개 날짜만 유지합니다.
+    # 최근 90개 날짜만 유지합니다.
     keep_keys = sorted(archive.keys(), reverse=True)[:ARCHIVE_DAYS]
     return {key: archive[key] for key in sorted(keep_keys)}
 
@@ -1486,7 +1756,7 @@ def build_html(
             note = (
                 '<div class="partial-note">'
                 f'현재 {generated_at:%Y. %-m. %-d. %H:%M}까지 확인된 기사입니다. '
-                '30분마다 새 기사가 추가됩니다.'
+                '10분마다 새 기사가 추가됩니다.'
                 '</div>'
             )
 
@@ -1877,10 +2147,23 @@ filterArticles();renderFavorites();
 def main() -> int:
     now = datetime.now(KST)
 
-    # 실제 GitHub Actions가 정각보다 몇 분 늦게 시작돼도
-    # 화면에는 00분/30분 기준시각으로 표시합니다.
-    display_updated_at = now.replace(
-        minute=0 if now.minute < 30 else 30,
+    # 실제 GitHub Actions가 예약시각보다 몇 분 늦게 시작돼도
+    # 화면에는 05/15/25/35/45/55분 기준시각으로 표시합니다.
+    scheduled_minutes = (5, 15, 25, 35, 45, 55)
+    display_minute = max(
+        (minute for minute in scheduled_minutes if minute <= now.minute),
+        default=55,
+    )
+    display_hour = now.hour
+    display_date = now
+
+    if now.minute < 5:
+        display_date = now - timedelta(hours=1)
+        display_hour = display_date.hour
+
+    display_updated_at = display_date.replace(
+        hour=display_hour,
+        minute=display_minute,
         second=0,
         microsecond=0,
     )
@@ -1927,7 +2210,7 @@ def main() -> int:
         now,
     )
 
-    # 30분 예약 실행에서는 Backfill을 끄고,
+    # 10분 예약 실행에서는 Backfill을 끄고,
     # 필요할 때 수동 실행(workflow_dispatch)에서만 채웁니다.
     if SKIP_BACKFILL:
         print("SKIP_BACKFILL=1: historical archive backfill skipped")
