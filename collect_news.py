@@ -1,6 +1,12 @@
+# VERIFIED FINAL BUILD 2026-08-10
+# Includes Hyundai volleyball exclusion (배구/여자배구/김연경), same-event dedup,
+# article preview fallback, thumbnail caching/centering, newspaper-style UI,
+# and removes the old periodic-update notice from the UI.
+# Final media/dedup build v7 - 2026-08-10
 from __future__ import annotations
 
 import html
+import hashlib
 import json
 import os
 import re
@@ -8,8 +14,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
+from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import quote_plus, urlparse
+from urllib.parse import quote_plus, urljoin, urlparse
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
@@ -29,6 +36,19 @@ MAX_PER_GROUP_PER_LANGUAGE = 12
 # 개별 피드가 응답하지 않아도 전체 작업이 오래 멈추지 않도록 timeout을 둡니다.
 SUPPLEMENTAL_RSS_WORKERS = 8
 SUPPLEMENTAL_RSS_TIMEOUT_SECONDS = 8
+
+# 기사 카드에 대표 이미지와 본문 미리보기를 보완하기 위한 원문 메타데이터 조회 설정
+# 이미 RSS에 값이 있는 경우에는 추가 조회하지 않으며, 필요한 기사만 병렬 조회합니다.
+ARTICLE_META_WORKERS = 12
+ARTICLE_META_TIMEOUT_SECONDS = 4
+ARTICLE_META_MAX_BYTES = 800_000
+
+# 대표 이미지를 직접 저장해 외부 이미지 차단(hotlink) 문제를 줄입니다.
+THUMBNAIL_DIR = Path("assets/thumbnails")
+THUMBNAIL_KEEP_DAYS = 7
+THUMBNAIL_DOWNLOAD_WORKERS = 10
+THUMBNAIL_TIMEOUT_SECONDS = 5
+THUMBNAIL_MAX_BYTES = 5_000_000
 
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
@@ -387,6 +407,7 @@ class Article:
     publisher: str
     image: str
     source_url: str
+    description: str = ""
 
 
 def period(now: datetime) -> tuple[datetime, datetime]:
@@ -451,16 +472,517 @@ def split_title_and_publisher(raw_title: str) -> tuple[str, str]:
 
 
 def extract_image(entry) -> str:
+    """
+    RSS 단계에서 대표 이미지를 최대한 확보합니다.
+    우선순위:
+    1) media:content / media:thumbnail
+    2) enclosure
+    3) RSS link의 image enclosure
+    4) content/summary/description 내부 img(src, data-src, srcset)
+    """
+
+    # 1. Media RSS
     for field in ("media_content", "media_thumbnail"):
         values = getattr(entry, field, None)
-        if values:
-            for value in values:
-                if isinstance(value, dict) and value.get("url"):
-                    return value["url"]
+        if not values:
+            continue
+        for value in values:
+            if not isinstance(value, dict):
+                continue
+            url = (
+                value.get("url")
+                or value.get("href")
+                or value.get("src")
+                or ""
+            ).strip()
+            if url:
+                return html.unescape(url)
 
-    summary = getattr(entry, "summary", "") or getattr(entry, "description", "")
-    match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', summary, re.I)
-    return match.group(1) if match else ""
+    # 2. RSS enclosure
+    enclosures = getattr(entry, "enclosures", None) or []
+    for enclosure in enclosures:
+        if not isinstance(enclosure, dict):
+            continue
+        content_type = str(
+            enclosure.get("type")
+            or enclosure.get("medium")
+            or ""
+        ).lower()
+        url = (
+            enclosure.get("href")
+            or enclosure.get("url")
+            or ""
+        ).strip()
+        if url and (
+            content_type.startswith("image/")
+            or content_type == "image"
+            or re.search(r"\.(?:jpe?g|png|webp|gif)(?:\?|$)", url, re.I)
+        ):
+            return html.unescape(url)
+
+    # 3. feedparser가 links 배열로 제공하는 enclosure
+    for link_info in getattr(entry, "links", None) or []:
+        if not isinstance(link_info, dict):
+            continue
+        rel = str(link_info.get("rel", "")).lower()
+        content_type = str(link_info.get("type", "")).lower()
+        href = str(link_info.get("href", "")).strip()
+        if not href:
+            continue
+        if (
+            rel == "enclosure"
+            and (
+                content_type.startswith("image/")
+                or re.search(r"\.(?:jpe?g|png|webp|gif)(?:\?|$)", href, re.I)
+            )
+        ):
+            return html.unescape(href)
+
+    # 4. RSS content / summary / description HTML 내부 이미지
+    html_candidates: list[str] = []
+
+    content_values = getattr(entry, "content", None) or []
+    for content in content_values:
+        if isinstance(content, dict):
+            value = content.get("value", "")
+            if value:
+                html_candidates.append(str(value))
+
+    summary = (
+        getattr(entry, "summary", "")
+        or getattr(entry, "description", "")
+        or ""
+    )
+    if summary:
+        html_candidates.append(str(summary))
+
+    for raw_html in html_candidates:
+        match = re.search(
+            r'<img[^>]+(?:src|data-src|data-original|data-lazy-src)\s*=\s*["\']([^"\']+)["\']',
+            raw_html,
+            re.I,
+        )
+        if match:
+            return html.unescape(match.group(1).strip())
+
+        srcset_match = re.search(
+            r'<img[^>]+srcset\s*=\s*["\']([^"\']+)["\']',
+            raw_html,
+            re.I,
+        )
+        if srcset_match:
+            candidates = []
+            for part in srcset_match.group(1).split(","):
+                url = part.strip().split()[0] if part.strip() else ""
+                if url:
+                    candidates.append(url)
+            if candidates:
+                return html.unescape(candidates[-1])
+
+    return ""
+
+
+def clean_description(raw: str, title: str = "", publisher: str = "") -> str:
+    """RSS/HTML에서 가져온 설명을 카드용 짧은 문장으로 정리합니다."""
+    if not raw:
+        return ""
+
+    cleaned = re.sub(r"<[^>]+>", " ", raw)
+    cleaned = html.unescape(cleaned)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+
+    if not cleaned:
+        return ""
+
+    # Google News RSS summary가 단순히 '기사제목 + 언론사'만 반복하는 경우 제외
+    normalized_cleaned = normalized(cleaned)
+    normalized_title = normalized(title)
+    normalized_publisher = normalized(publisher)
+
+    if normalized_title and normalized_title in normalized_cleaned:
+        remainder = normalized_cleaned.replace(normalized_title, " ", 1).strip()
+        if not remainder or remainder == normalized_publisher:
+            return ""
+
+    # 너무 짧은 문자열은 기사 미리보기로 사용하지 않음
+    if len(cleaned) < 20:
+        return ""
+
+    # 카드에는 과도하게 긴 문장이 필요하지 않음
+    return cleaned[:320].rstrip()
+
+
+class _MetaTagParser(HTMLParser):
+    """원문 HTML에서 메타정보, 대표 이미지 후보, 본문 문단 후보를 추출합니다."""
+
+    def __init__(self, base_url: str = ""):
+        super().__init__(convert_charrefs=True)
+        self.values: dict[str, str] = {}
+        self.base_url = base_url
+        self.image_candidates: list[tuple[int, str]] = []
+        self.paragraphs: list[str] = []
+        self._in_p = False
+        self._p_chunks: list[str] = []
+
+    def handle_starttag(self, tag: str, attrs):
+        attr_map = {
+            str(key).lower(): str(value)
+            for key, value in attrs
+            if key and value is not None
+        }
+
+        if tag.lower() == "meta":
+            key = (
+                attr_map.get("property")
+                or attr_map.get("name")
+                or attr_map.get("itemprop")
+                or ""
+            ).lower()
+            content = attr_map.get("content", "").strip()
+            if key and content and key not in self.values:
+                self.values[key] = content
+            return
+
+        if tag.lower() == "img":
+            src = (
+                attr_map.get("src")
+                or attr_map.get("data-src")
+                or attr_map.get("data-original")
+                or attr_map.get("data-lazy-src")
+                or ""
+            ).strip()
+            if not src:
+                return
+
+            src_lower = src.lower()
+            blocked = (
+                "logo", "icon", "sprite", "avatar", "profile", "banner",
+                "advert", "ads.", "tracking", "pixel", "favicon",
+            )
+            if any(token in src_lower for token in blocked):
+                return
+
+            try:
+                width = int(re.sub(r"[^0-9]", "", attr_map.get("width", "")) or "0")
+            except Exception:
+                width = 0
+            try:
+                height = int(re.sub(r"[^0-9]", "", attr_map.get("height", "")) or "0")
+            except Exception:
+                height = 0
+
+            class_text = f"{attr_map.get('class', '')} {attr_map.get('id', '')}".lower()
+            score = width * height
+            if any(word in class_text for word in ("article", "news", "content", "photo", "image", "thumb")):
+                score += 500_000
+
+            self.image_candidates.append((score, urljoin(self.base_url, src)))
+            return
+
+        if tag.lower() == "p":
+            self._in_p = True
+            self._p_chunks = []
+
+    def handle_endtag(self, tag: str):
+        if tag.lower() == "p" and self._in_p:
+            paragraph = re.sub(r"\s+", " ", " ".join(self._p_chunks)).strip()
+            if paragraph:
+                self.paragraphs.append(paragraph)
+            self._in_p = False
+            self._p_chunks = []
+
+    def handle_data(self, data: str):
+        if self._in_p and data.strip():
+            self._p_chunks.append(data.strip())
+
+
+def _best_html_image_candidate(parser: _MetaTagParser) -> str:
+    if not parser.image_candidates:
+        return ""
+    parser.image_candidates.sort(key=lambda item: item[0], reverse=True)
+    return parser.image_candidates[0][1]
+
+
+def _best_paragraph_description(
+    parser: _MetaTagParser,
+    title: str,
+    publisher: str,
+) -> str:
+    """
+    메타 description이 없을 때 본문 첫 문단 중 기사다운 문장을 선택합니다.
+    메뉴/저작권/기자정보 같은 짧은 문장은 제외합니다.
+    """
+    blocked_terms = (
+        "무단전재", "재배포", "저작권", "기자", "입력", "수정",
+        "구독", "로그인", "copyright", "all rights reserved",
+    )
+    for paragraph in parser.paragraphs[:30]:
+        cleaned = clean_description(paragraph, title, publisher)
+        if not cleaned:
+            continue
+        lower = cleaned.lower()
+        if any(term in lower for term in blocked_terms):
+            continue
+        if len(cleaned) >= 35:
+            return cleaned
+    return ""
+
+
+def _fetch_article_metadata(article: Article) -> tuple[str, str]:
+    """
+    RSS에 이미지/설명이 부족한 경우 원문 페이지 메타태그에서 보완합니다.
+    원문 접근 실패는 빈 값으로 처리하여 전체 수집을 중단하지 않습니다.
+    """
+    if article.image and article.description:
+        return article.image, article.description
+
+    try:
+        request = Request(
+            article.link,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/131.0 Safari/537.36"
+                ),
+                "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+            },
+        )
+        with urlopen(request, timeout=ARTICLE_META_TIMEOUT_SECONDS) as response:
+            final_url = response.geturl()
+            payload = response.read(ARTICLE_META_MAX_BYTES)
+
+        # Google News 중간 페이지에서 멈춘 경우 Google 자체 대표이미지를 쓰지 않습니다.
+        final_host = urlparse(final_url).netloc.lower()
+        if "google." in final_host or final_host.endswith("google.com"):
+            return article.image, article.description
+
+        decoded = payload.decode("utf-8", errors="ignore")
+        parser = _MetaTagParser(final_url)
+        parser.feed(decoded)
+
+        image = article.image
+        if not image:
+            image = (
+                parser.values.get("og:image")
+                or parser.values.get("twitter:image")
+                or parser.values.get("twitter:image:src")
+                or parser.values.get("image")
+                or _best_html_image_candidate(parser)
+                or ""
+            ).strip()
+            if image:
+                image = urljoin(final_url, image)
+
+        description = article.description
+        if not description:
+            raw_description = (
+                parser.values.get("og:description")
+                or parser.values.get("twitter:description")
+                or parser.values.get("description")
+                or ""
+            )
+            description = clean_description(
+                raw_description,
+                article.title,
+                article.publisher,
+            )
+
+        # 메타 설명이 없으면 실제 본문 첫 문단에서 보완
+        if not description:
+            description = _best_paragraph_description(
+                parser,
+                article.title,
+                article.publisher,
+            )
+
+        return image, description
+    except Exception:
+        return article.image, article.description
+
+
+
+def _image_extension(content_type: str, url: str) -> str:
+    content_type = (content_type or "").split(";", 1)[0].strip().lower()
+    mapping = {
+        "image/jpeg": ".jpg",
+        "image/jpg": ".jpg",
+        "image/png": ".png",
+        "image/webp": ".webp",
+        "image/gif": ".gif",
+    }
+    if content_type in mapping:
+        return mapping[content_type]
+
+    suffix = Path(urlparse(url).path).suffix.lower()
+    if suffix in {".jpg", ".jpeg", ".png", ".webp", ".gif"}:
+        return ".jpg" if suffix == ".jpeg" else suffix
+    return ".jpg"
+
+
+def _download_thumbnail(image_url: str) -> str:
+    if not image_url:
+        return ""
+    if image_url.startswith("assets/thumbnails/"):
+        return image_url
+
+    THUMBNAIL_DIR.mkdir(parents=True, exist_ok=True)
+    digest = hashlib.sha1(
+        image_url.encode("utf-8", errors="ignore")
+    ).hexdigest()[:24]
+
+    for ext in (".jpg", ".png", ".webp", ".gif"):
+        existing = THUMBNAIL_DIR / f"{digest}{ext}"
+        if existing.exists() and existing.stat().st_size > 0:
+            return existing.as_posix()
+
+    try:
+        parsed = urlparse(image_url)
+        referer = f"{parsed.scheme}://{parsed.netloc}/" if parsed.scheme and parsed.netloc else image_url
+        request = Request(
+            image_url,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/131.0 Safari/537.36"
+                ),
+                "Referer": referer,
+                "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+            },
+        )
+        with urlopen(request, timeout=THUMBNAIL_TIMEOUT_SECONDS) as response:
+            content_type = response.headers.get("Content-Type", "")
+            if not content_type.lower().startswith("image/"):
+                return ""
+            payload = response.read(THUMBNAIL_MAX_BYTES + 1)
+
+        if not payload or len(payload) > THUMBNAIL_MAX_BYTES:
+            return ""
+
+        ext = _image_extension(content_type, image_url)
+        target = THUMBNAIL_DIR / f"{digest}{ext}"
+        target.write_bytes(payload)
+        return target.as_posix()
+    except Exception:
+        return ""
+
+
+def cache_article_thumbnails(
+    articles_by_period: dict[str, list[Article]],
+) -> None:
+    """표시될 기사 이미지만 병렬 다운로드하여 로컬 경로로 바꿉니다."""
+    by_image_url: dict[str, list[Article]] = {}
+
+    for articles in articles_by_period.values():
+        for article in articles:
+            if article.image:
+                by_image_url.setdefault(article.image, []).append(article)
+
+    if not by_image_url:
+        return
+
+    workers = min(THUMBNAIL_DOWNLOAD_WORKERS, len(by_image_url))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        future_map = {
+            executor.submit(_download_thumbnail, image_url): image_url
+            for image_url in by_image_url
+        }
+
+        for future in as_completed(future_map):
+            original_url = future_map[future]
+            try:
+                local_path = future.result()
+            except Exception:
+                continue
+            if not local_path:
+                continue
+
+            for article in by_image_url.get(original_url, []):
+                article.image = local_path
+
+
+def cleanup_old_thumbnails(now: datetime) -> None:
+    if not THUMBNAIL_DIR.exists():
+        return
+
+    cutoff = now.timestamp() - THUMBNAIL_KEEP_DAYS * 24 * 60 * 60
+    for path in THUMBNAIL_DIR.iterdir():
+        if not path.is_file():
+            continue
+        try:
+            if path.stat().st_mtime < cutoff:
+                path.unlink()
+        except Exception:
+            continue
+
+
+def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> None:
+    """
+    전일/금일/익일에서 실제 표시될 기사만 대상으로 대표 이미지와 설명을 보완합니다.
+    동일 URL은 한 번만 조회하고 결과를 모든 기간의 동일 기사에 재사용합니다.
+    """
+    articles_by_url: dict[str, list[Article]] = {}
+
+    for articles in articles_by_period.values():
+        for article in articles:
+            articles_by_url.setdefault(article.link, []).append(article)
+
+    targets = [
+        items[0]
+        for items in articles_by_url.values()
+        if not (items[0].image and items[0].description)
+    ]
+
+    if not targets:
+        return
+
+    workers = min(ARTICLE_META_WORKERS, len(targets))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        future_map = {
+            executor.submit(_fetch_article_metadata, article): article.link
+            for article in targets
+        }
+
+        for future in as_completed(future_map):
+            link = future_map[future]
+            try:
+                image, description = future.result()
+            except Exception:
+                continue
+
+            for article in articles_by_url.get(link, []):
+                if image and not article.image:
+                    article.image = image
+                if description and not article.description:
+                    article.description = description
+
+
+HYUNDAI_VOLLEYBALL_TERMS = {
+    # 종목/리그 직접 표현
+    "배구", "여자배구", "프로배구", "v리그", "v-리그",
+    "volleyball", "v-league", "v league", "배구단",
+
+    # 현대건설 배구단 관련 인물/경기 문맥
+    "김연경", "신인감독", "격돌", "맞대결",
+    "세트", "득점", "리시브", "블로킹", "스파이크",
+    "코트", "홈경기", "원정경기",
+}
+
+
+def is_hyundai_volleyball_article(title: str, summary: str = "") -> bool:
+    """현대건설 힐스테이트 배구단 관련 기사를 회사 뉴스에서 제외합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    # 명확한 배구 단서가 하나라도 있으면 제외
+    if any(term in haystack for term in HYUNDAI_VOLLEYBALL_TERMS):
+        return True
+
+    # '감독/선수/경기/승리/패배'는 일반 기사에도 나올 수 있으므로
+    # 스포츠 문맥 단서가 2개 이상 함께 있을 때만 제외
+    weak_terms = {"감독", "선수", "선수단", "경기", "승리", "패배"}
+    weak_hits = sum(1 for term in weak_terms if term in haystack)
+    return weak_hits >= 2
 
 
 def normalized(title: str) -> str:
@@ -505,6 +1027,41 @@ OBJECT_ALIASES = {
     "원자력 발전소": "원전",
     "원자력발전소": "원전",
 }
+
+# 언론사마다 같은 사건을 다른 표현으로 쓰는 경우를 일반화해 비교하기 위한 동의어 사전
+EVENT_PHRASE_ALIASES = {
+    "공동 주택": "공동주택",
+    "주거 단지": "공동주택",
+    "주택 단지": "공동주택",
+    "아파트": "공동주택",
+    "주차 난": "주차난",
+    "주차난": "주차문제",
+    "주차 공간": "주차공간",
+    "주차공간": "주차문제",
+    "주차 로봇": "주차로봇",
+    "로봇 주차": "주차로봇",
+    "실증 시작": "실증",
+    "실증 착수": "실증",
+    "시범 운영": "실증",
+    "시범운영": "실증",
+    "검증": "실증",
+    "테스트": "실증",
+    "투입": "도입",
+    "배치": "도입",
+    "적용": "도입",
+    "도입": "도입",
+    "협약 체결": "협약",
+    "업무 협약": "협약",
+    "양해 각서": "협약",
+    "양해각서": "협약",
+    "mou": "협약",
+    "착공": "건설시작",
+    "첫 삽": "건설시작",
+    "첫삽": "건설시작",
+    "준공": "건설완료",
+    "완공": "건설완료",
+}
+
 
 STOPWORDS = {
     "관련", "대한", "통해", "위해", "추진", "지원", "사업",
@@ -584,6 +1141,17 @@ EVENT_CONCEPTS = {
         "소방드론", "소방 드론", "water spraying drone",
         "firefighting drone", "water-spraying drone",
     },
+    "target:공동주택": {
+        "공동주택", "아파트", "주거단지", "주택단지",
+    },
+    "topic:주차로봇": {
+        "주차로봇", "주차 로봇", "주차난", "주차공간",
+        "주차 공간", "parking robot", "robot parking",
+    },
+    "action:실증": {
+        "실증", "실증시작", "실증 시작", "시범운영", "시범 운영",
+        "검증", "테스트", "pilot", "demonstration",
+    },
 }
 
 
@@ -609,6 +1177,8 @@ def semantic_normalized(title: str) -> str:
     for source, target in ACTION_ALIASES.items():
         text = text.replace(source, target)
     for source, target in OBJECT_ALIASES.items():
+        text = text.replace(source, target)
+    for source, target in EVENT_PHRASE_ALIASES.items():
         text = text.replace(source, target)
 
     tokens = [strip_korean_particle(token) for token in text.split()]
@@ -760,6 +1330,7 @@ def is_same_event(title_a: str, title_b: str) -> bool:
 
     has_entity = any(item.startswith("entity:") for item in shared)
     has_action = any(item.startswith("action:") for item in shared)
+    has_topic = any(item.startswith("topic:") for item in shared)
     has_subject_detail = any(
         item.startswith(("target:", "object:", "location:"))
         for item in shared
@@ -767,6 +1338,12 @@ def is_same_event(title_a: str, title_b: str) -> bool:
 
     # 주체 + 행위 + 대상/목적물/지역이 겹치면 같은 사건
     if has_entity and has_action and has_subject_detail and len(shared) >= 3:
+        return True
+
+    # 언론사마다 회사명을 생략하더라도
+    # '공동주택 + 주차로봇/주차난 + 실증'처럼 대상·주제·행위가 모두 같으면
+    # 동일 사건으로 처리합니다.
+    if has_action and has_topic and has_subject_detail and len(shared) >= 3:
         return True
 
     # 신규 원전 추진과 산업용 전기요금 차등화가 함께 언급된
@@ -786,6 +1363,134 @@ def is_same_event(title_a: str, title_b: str) -> bool:
 
     # 특정 개념이 4개 이상 겹치는 경우도 동일 사건
     if len(shared) >= 4:
+        return True
+
+    return False
+
+
+
+def article_event_text(article: Article) -> str:
+    """
+    중복 판정용 텍스트.
+    제목을 가장 중요하게 보고, 원문/RSS 미리보기는 보조 정보로 사용합니다.
+    """
+    description = (article.description or "").strip()
+    if description:
+        # 설명 전체를 쓰면 서로 다른 후속기사까지 합쳐질 수 있어 앞부분만 사용합니다.
+        return f"{article.title} {description[:220]}"
+    return article.title
+
+
+def event_signature_tokens(article: Article) -> set[str]:
+    """
+    일반적인 보도자료/동일 사건 판정을 위한 핵심 토큰 집합.
+    너무 흔한 단어는 제외하고 회사·대상·기술·지역·행위 표현을 남깁니다.
+    """
+    generic = {
+        "관련", "대한", "통해", "위해", "추진", "지원", "사업", "발표",
+        "밝혀", "나서", "진행", "계획", "예정", "이번", "제공", "실시",
+        "본격", "확대", "강화", "해결", "시작", "최대", "더", "한다",
+        "현대", "그룹", "기술", "건설", "회사", "기업", "업계",
+        "the", "a", "an", "and", "for", "to", "of", "in", "on",
+    }
+    tokens = keyword_set(article_event_text(article))
+    return {
+        token for token in tokens
+        if len(token) >= 2 and token not in generic
+    }
+
+
+def article_ngram_similarity(article: Article, existing: Article) -> float:
+    """
+    제목만 다르더라도 설명에 같은 사건 문구가 있으면 잡을 수 있도록
+    제목+설명 앞부분의 문자 2-gram 포함률을 계산합니다.
+    """
+    a = compact_title(article_event_text(article))
+    b = compact_title(article_event_text(existing))
+    if not a or not b:
+        return 0.0
+
+    def grams(value: str, size: int = 2) -> set[str]:
+        if len(value) < size:
+            return {value}
+        return {value[i:i + size] for i in range(len(value) - size + 1)}
+
+    ga, gb = grams(a), grams(b)
+    if not ga or not gb:
+        return 0.0
+    return len(ga & gb) / min(len(ga), len(gb))
+
+
+def same_event_general(article: Article, existing: Article) -> bool:
+    """
+    특정 기사명을 하드코딩하지 않고 같은 날의 동일 사건을 일반적으로 판정합니다.
+
+    - 제목 핵심어
+    - 제목+기사설명 핵심어
+    - 사건 개념(entity/target/object/topic/action/location)
+    - 문자 유사도
+    를 조합합니다.
+
+    기사 누락 방지를 위해 단일 조건 하나만으로는 삭제하지 않습니다.
+    """
+    article_day = article.published.astimezone(KST).date()
+    existing_day = existing.published.astimezone(KST).date()
+    if article_day != existing_day:
+        return False
+
+    title_keys_a = meaningful_keywords(article.title)
+    title_keys_b = meaningful_keywords(existing.title)
+    shared_title = title_keys_a & title_keys_b
+
+    event_keys_a = event_signature_tokens(article)
+    event_keys_b = event_signature_tokens(existing)
+    shared_event = event_keys_a & event_keys_b
+
+    title_ngram = character_ngram_similarity(article.title, existing.title)
+    full_ngram = article_ngram_similarity(article, existing)
+
+    title_seq = SequenceMatcher(
+        None,
+        semantic_normalized(article.title),
+        semantic_normalized(existing.title),
+    ).ratio()
+
+    concepts_a = event_concepts(article_event_text(article))
+    concepts_b = event_concepts(article_event_text(existing))
+    shared_concepts = concepts_a & concepts_b
+
+    shared_entity = any(x.startswith("entity:") for x in shared_concepts)
+    shared_action = any(x.startswith("action:") for x in shared_concepts)
+    shared_subject = any(
+        x.startswith(("target:", "object:", "topic:", "location:"))
+        for x in shared_concepts
+    )
+
+    # 1) 사건 구조가 명확히 동일: 주체/행위/대상 중 3축 이상
+    if len(shared_concepts) >= 3 and (
+        (shared_action and shared_subject)
+        or (shared_entity and shared_subject)
+    ):
+        return True
+
+    # 2) 제목의 핵심어가 3개 이상 같으면 동일 보도 가능성이 매우 높음
+    if len(shared_title) >= 3:
+        return True
+
+    # 3) 제목 공통어는 적어도, 설명까지 보면 같은 사건 핵심어가 충분히 겹침
+    if len(shared_event) >= 4 and (full_ngram >= 0.34 or title_ngram >= 0.25):
+        return True
+
+    # 4) 제목 핵심어 2개 + 제목/설명 유사도가 함께 확인되는 경우
+    if len(shared_title) >= 2 and (
+        title_ngram >= 0.42
+        or title_seq >= 0.56
+        or full_ngram >= 0.48
+    ):
+        return True
+
+    # 5) 제목은 크게 바뀌었지만 설명문까지 합치면 동일성이 매우 높은 경우
+    if len(shared_event) >= 3 and full_ngram >= 0.58:
         return True
 
     return False
@@ -864,6 +1569,11 @@ def is_duplicate(article: Article, selected: list[Article]) -> bool:
         # 같은 날 핵심 내용이 반복되면
         # 언론사가 달라도 동일 기사로 보고 최신 기사 1건만 유지
         if same_day_duplicate(article, existing):
+            return True
+
+        # 특정 사례 하드코딩이 아니라 제목+미리보기+사건개념을 함께 비교해
+        # 같은 날의 동일 사건을 일반적으로 중복 제거합니다.
+        if same_event_general(article, existing):
             return True
 
         # 동일 보도자료를 여러 언론사가 제목만 바꿔 보도한 경우
@@ -1121,6 +1831,11 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if classified_group is None:
         return None
 
+    if classified_group == "현대건설" and is_hyundai_volleyball_article(title, summary):
+        return None
+
+    description = clean_description(summary, title, publisher)
+
     return Article(
         title=title,
         link=link,
@@ -1130,6 +1845,7 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
         publisher=publisher,
         image=extract_image(entry),
         source_url=source_url,
+        description=description,
     )
 
 
@@ -1243,6 +1959,11 @@ def parse_supplemental_entry(entry, publisher: str, feed_url: str) -> Article | 
     if group is None:
         return None
 
+    if group == "현대건설" and is_hyundai_volleyball_article(title, summary):
+        return None
+
+    description = clean_description(summary, title, publisher)
+
     return Article(
         title=title,
         link=link,
@@ -1252,6 +1973,7 @@ def parse_supplemental_entry(entry, publisher: str, feed_url: str) -> Article | 
         publisher=publisher,
         image=extract_image(entry),
         source_url=feed_url,
+        description=description,
     )
 
 
@@ -1434,7 +2156,14 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
         image_html = '<div class="no-image">NUCLEAR<br>NEWS</div>'
 
     new_badge = '<span class="new-badge">NEW</span>' if is_new else ''
-    search_text = ' '.join([article.title, article.publisher, article.group]).lower()
+    snippet_html = (
+        f'<div class="article-snippet">{escape(article.description)}</div>'
+        if article.description
+        else ''
+    )
+    search_text = ' '.join(
+        [article.title, article.publisher, article.group, article.description]
+    ).lower()
 
     return f"""
 <article class="preview-card{' new-article' if is_new else ''}"
@@ -1449,14 +2178,17 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   <div class="preview-copy">
     <div class="publisher">{escape(article.publisher)}</div>
     <div class="headline">{new_badge}{escape(article.title)}</div>
+    {snippet_html}
     <div class="status-line">
-      <span class="unread-label">미확인</span>
-      <span class="read-label">확인</span>
-      <span class="important-label">중요</span>
+      <div class="status-text">
+        <span class="unread-label">미확인</span>
+        <span class="read-label">확인</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
   </div>
   <div class="card-side">
-    <button class="important-button" type="button" aria-label="중요 기사">★</button>
     <div class="preview-image">{image_html}</div>
   </div>
 </article>
@@ -1562,6 +2294,7 @@ def article_to_dict(article: Article) -> dict:
         "publisher": article.publisher,
         "image": article.image,
         "source_url": article.source_url,
+        "description": article.description,
     }
 
 
@@ -1583,6 +2316,9 @@ def article_from_dict(data: dict) -> Article | None:
             "정부 관계부처": "원전 관계부처",
         }.get(group_name, group_name)
 
+        if group_name == "현대건설" and is_hyundai_volleyball_article(title):
+            return None
+
         return Article(
             title=title,
             link=str(data.get("link", "")),
@@ -1592,6 +2328,7 @@ def article_from_dict(data: dict) -> Article | None:
             publisher=publisher,
             image=str(data.get("image", "")),
             source_url=source_url,
+            description=str(data.get("description", "")),
         )
     except Exception:
         return None
@@ -1752,13 +2489,6 @@ def build_html(
         panel_class = "tab-panel active" if label == "금일" else "tab-panel"
 
         note = ""
-        if label == "익일" and generated_at < end:
-            note = (
-                '<div class="partial-note">'
-                f'현재 {generated_at:%Y. %-m. %-d. %H:%M}까지 확인된 기사입니다. '
-                '10분마다 새 기사가 추가됩니다.'
-                '</div>'
-            )
 
         panels.append(f'''
 <section class="{panel_class}" id="tab-{escape(label)}">
@@ -1840,14 +2570,16 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 13px; color: #111827; font-size: 11px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 7px; margin-top: 8px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
-.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; height: 104px; min-height: 104px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
+.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; height: 126px; min-height: 126px; overflow: hidden; color: inherit; background: #fffdf8; border: 1px solid rgba(62,52,42,.10); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 2px rgba(62,52,42,.08); transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #eef1f4; opacity: .72; }}
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; color: #344054; font-size: 12px; font-weight: 800; }}
 .preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 8px 8px 6px 0; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
-.headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
-.status-line {{ margin-top: auto; margin-top: auto; padding-top: 3px; font-size: 9px; }}
+.headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
+.article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
+.status-line {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 3px; font-size: 9px; }}
+.status-text {{ min-width: 0; }}
 
 .unread-label {{ color: #17639f; font-weight: 700; }}
 .read-label {{ display: none; color: #667085; font-weight: 700; }}
@@ -1856,14 +2588,15 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.read .read-label {{ display: inline; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
-.card-side {{ position: relative; align-self: stretch; width: 82px; height: 104px; min-height: 104px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.important-button {{ position: absolute; z-index: 3; top: calc(42% - 6px); left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
-.preview-card.important .important-button {{ color: #111; background: #fee500; }}
-.preview-image {{ width: 82px; height: 104px; min-height: 104px; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.preview-image img {{ display: block; width: 100%; height: 104px; min-height: 104px; object-fit: cover; }}
+.card-side {{ position: relative; align-self: center; width: 88px; height: 126px; min-height: 126px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.important-button {{ flex: 0 0 auto; width: 24px; height: 24px; padding: 0; border: 1px solid rgba(17,24,39,.12); border-radius: 50%; color: #98a2b3; background: transparent; font-size: 15px; line-height: 22px; text-align: center; cursor: pointer; box-shadow: none; }}
+.important-button:hover {{ background: rgba(17,24,39,.05); }}
+.preview-card.important .important-button {{ color: #b77900; border-color: #f2c94c; background: #fff3b0; }}
+.preview-image {{ width: 88px; height: 126px; min-height: 126px; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.preview-image img {{ display: block; width: 100%; height: 126px; min-height: 126px; object-fit: cover; object-position: 50% 50%; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
-.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 104px; min-height: 104px; padding: 24px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
-.empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
+.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 126px; min-height: 126px; padding: 24px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
+.empty {{ padding: 22px 15px; background: #fffdf8; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (min-width: 768px) {{
   body {{ background: #d7e0e8; }}
@@ -1894,13 +2627,16 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .group-title {{ padding: 10px 14px; font-size: 16px; border-radius: 5px 12px 12px 12px; }}
   .group-count {{ font-size: 10px; }}
   .article-stack {{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }}
-  .preview-card {{ grid-template-columns: 32px minmax(0,1fr) 112px; height: 118px; min-height: 118px; border-radius: 11px; }}
+  .preview-card {{ grid-template-columns: 32px minmax(0,1fr) 124px; height: 142px; min-height: 142px; border-radius: 11px; }}
   .article-number {{ padding-top: 12px; font-size: 13px; }}
   .preview-copy {{ padding: 10px 11px 8px 0; }}
   .publisher {{ font-size: 11px; }}
-  .headline {{ margin-top: 5px; font-size: 14px; line-height: 1.38; -webkit-line-clamp: 3; }}
+  .headline {{ margin-top: 5px; font-size: 14px; line-height: 1.38; -webkit-line-clamp: 2; }}
+  .article-snippet {{ margin-top: 6px; font-size: 11.5px; line-height: 1.45; -webkit-line-clamp: 2; }}
   .status-line {{ font-size: 10px; }}
-  .card-side, .preview-image {{ width: 112px; height: 118px; min-height: 118px; }}
+  .card-side, .preview-image {{ width: 124px; height: 142px; min-height: 142px; }}
+  .card-side {{ align-self: center; }}
+  .preview-image img {{ height: 142px; min-height: 142px; }}
   footer {{ padding-bottom: 28px; font-size: 11px; }}
 }}
 
@@ -1913,11 +2649,80 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .favorite-publisher {{ font-size: 12px; }}
   .favorite-headline {{ font-size: 15px; line-height: 1.48; }}
   .article-stack {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }}
-  .preview-card {{ grid-template-columns: 30px minmax(0,1fr) 104px; }}
-  .card-side, .preview-image {{ width: 104px; }}
+  .preview-card {{ grid-template-columns: 30px minmax(0,1fr) 112px; }}
+  .card-side, .preview-image {{ width: 112px; }}
 }}
 
-@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .card-side, .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
+@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 76px; }} .card-side, .preview-image {{ width: 76px; }} .headline {{ font-size: 12px; }} .article-snippet {{ font-size: 10px; }} }}
+
+/* Newspaper-inspired visual refinement */
+body {{
+  background-color: #f5f3ee;
+  background-image:
+    linear-gradient(rgba(95, 82, 63, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(95, 82, 63, 0.012) 1px, transparent 1px);
+  background-size: 4px 4px;
+}}
+
+.page,
+.container,
+.main-wrap {{
+  background: transparent;
+}}
+
+header,
+.hero,
+.top-header {{
+  background: #faf8f2;
+  border-bottom: 1px solid rgba(62, 52, 42, .16);
+  box-shadow: none;
+}}
+
+h1,
+.brand-title,
+.site-title {{
+  color: #202124;
+  letter-spacing: -0.02em;
+  font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+  font-weight: 700;
+}}
+
+.preview-card {{
+  background: #fffdf8;
+  border-color: rgba(62, 52, 42, .11);
+  box-shadow: 0 1px 2px rgba(62, 52, 42, .07);
+}}
+
+.preview-card:hover {{
+  background: #fffaf0;
+  box-shadow: 0 2px 5px rgba(62, 52, 42, .10);
+}}
+
+.publisher {{
+  color: #6f655a;
+}}
+
+.headline {{
+  color: #0b57d0;
+}}
+
+.article-snippet {{
+  color: #6a665f;
+}}
+
+.section-title,
+.group-title,
+.tab-button,
+.period-tab {{
+  letter-spacing: -0.01em;
+}}
+
+@media (prefers-color-scheme: dark) {{
+  body {{
+    background-image: none;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -2195,6 +3000,13 @@ def main() -> int:
         label: select_articles_for_period(fetched, start, end)
         for label, (start, end) in periods.items()
     }
+
+    # 실제 화면에 표시할 기사만 대상으로 원문 대표 이미지/설명을 병렬 보완
+    enrich_article_metadata(articles_by_period)
+
+    # 대표 이미지를 로컬 파일로 저장해 외부 이미지 차단/로딩 실패를 줄입니다.
+    cache_article_thumbnails(articles_by_period)
+    cleanup_old_thumbnails(now)
 
     current_urls = {
         article.link
