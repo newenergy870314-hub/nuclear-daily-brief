@@ -225,6 +225,23 @@ GROUPS = [
     ]),
 ]
 
+GROUP_TAB_LABELS = {
+    "현대건설": "현대건설",
+    "타 건설사": "타건설사",
+    "한국수력원자력": "한수원",
+    "한국전력": "한전",
+    "원전 관계부처": "관계부처",
+    "원전 대미투자": "대미투자",
+    "원자력": "원자력",
+    "SMR": "SMR",
+    "Nuclear Power·Nuclear Energy": "Nuclear",
+    "Holtec": "Holtec",
+    "TerraPower": "Terra",
+    "Westinghouse": "WEC",
+    "Fermi America": "Fermi America",
+}
+
+
 # 기사 수집원: Google News RSS를 사용하지 않고 언론사 자체 RSS/공식 뉴스 페이지에서 직접 수집합니다.
 # RSS가 있는 언론사는 자체 RSS를 우선 사용하여 제목·원문 URL·description·대표이미지를 최대한 원형 그대로 확보합니다.
 DIRECT_RSS_FEEDS = [
@@ -2760,7 +2777,7 @@ def render_group_unified(
     if not cards:
         cards = '<div class="empty">해당 시간대에 수집된 기사가 없습니다.</div>'
     return f"""
-<section class="news-group" data-group="{escape(group)}">
+<section class="news-group group-tab-section" data-group="{escape(group)}">
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
     <span>{escape(group)}</span>
@@ -2793,9 +2810,41 @@ def render_news_sections(articles: list[Article], new_urls: set[str] | None = No
     grouped: dict[str, list[Article]] = {name: [] for name, _ in GROUPS}
     for article in articles:
         grouped[article.group].append(article)
-    return ''.join(
-        render_group_unified(group, grouped[group], new_urls)
-        for group, _ in GROUPS
+
+    visible_groups = [
+        group for group, _ in GROUPS
+        if grouped[group] or group in ALWAYS_SHOW_GROUPS
+    ]
+
+    nav_buttons = ''.join(
+        f'<button class="group-nav-button{" active" if index == 0 else ""}" '
+        f'type="button" data-target-group="{escape(group)}">'
+        f'{escape(GROUP_TAB_LABELS.get(group, group))}</button>'
+        for index, group in enumerate(visible_groups)
+    )
+
+    sections = []
+    for index, group in enumerate(visible_groups):
+        section = render_group_unified(group, grouped[group], new_urls)
+        if index != 0:
+            section = section.replace(
+                'class="news-group group-tab-section"',
+                'class="news-group group-tab-section group-tab-hidden"',
+                1,
+            )
+        sections.append(section)
+
+    group_count = max(1, len(visible_groups))
+    density_class = (
+        " group-nav-dense" if group_count >= 15
+        else " group-nav-compact" if group_count >= 12
+        else ""
+    )
+
+    return (
+        f'<div class="group-nav{density_class}" role="tablist" '
+        f'style="--group-count:{group_count}">{nav_buttons}</div>'
+        + ''.join(sections)
     )
 
 
@@ -3091,6 +3140,13 @@ main {{ padding: 12px 12px 34px; }}
 .period-card strong {{ color: #111827; font-size: 14px; }}
 .partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
 .language-section {{ margin-bottom: 30px; }}
+.group-nav {{ display: grid; grid-template-columns: repeat(var(--group-count, 1),minmax(0,1fr)); gap: 2px; width: 100%; margin: 0 0 9px; }}
+.group-nav-button {{ min-width: 0; height: 27px; padding: 0 1px; overflow: hidden; border: 1px solid rgba(17,24,39,.12); border-radius: 5px; background: rgba(255,255,255,.88); color: #344054; font-family: Arial, "Malgun Gothic", sans-serif; font-size: 7.5px; font-weight: 800; letter-spacing: -.35px; line-height: 1; white-space: nowrap; text-overflow: clip; cursor: pointer; }}
+.group-nav-button.active {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.16); }}
+.group-nav-compact .group-nav-button {{ font-size: 7px; padding: 0; letter-spacing: -.45px; }}
+.group-nav-dense .group-nav-button {{ font-size: 6.2px; padding: 0; letter-spacing: -.55px; }}
+
+.group-tab-hidden {{ display: none; }}
 .news-group {{ margin-bottom: 12px; }}
 .group-title {{ display: flex; align-items: center; gap: 6px; width: 100%; max-width: 100%; box-sizing: border-box; margin: 0; padding: 8px 11px; border: 0; background: #fee500; color: #111827; border-radius: 4px 11px 11px 11px; font: inherit; font-size: 14px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
@@ -3154,6 +3210,11 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .period-card {{ flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 12px; }}
   .period-card strong {{ font-size: 16px; }}
   .group-master-button, .header-toggle {{ width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }}
+  .group-nav {{ grid-template-columns: repeat(var(--group-count, 1),minmax(0,1fr)); gap: 4px; margin-bottom: 12px; }}
+  .group-nav-button {{ height: 32px; padding: 0 3px; font-size: 10px; border-radius: 6px; }}
+  .group-nav-compact .group-nav-button {{ font-size: 9px; padding: 0 2px; }}
+  .group-nav-dense .group-nav-button {{ font-size: 8px; padding: 0 1px; }}
+
   .news-group {{ margin-bottom: 18px; }}
   .group-title {{ padding: 10px 14px; font-size: 16px; border-radius: 5px 12px 12px 12px; }}
   .group-count {{ font-size: 10px; }}
@@ -3288,6 +3349,27 @@ header,
   <footer>기사 카드를 누르면 원문으로 이동하며, 읽음한 기사는 회색으로 표시됩니다.</footer>
 </div>
 <script>
+
+document.addEventListener('click', (event) => {{
+  const button = event.target.closest('.group-nav-button');
+  if (!button) return;
+
+  const panel = button.closest('.tab-panel');
+  if (!panel) return;
+
+  const targetGroup = button.dataset.targetGroup || '';
+
+  panel.querySelectorAll('.group-nav-button').forEach((item) => {{
+    item.classList.toggle('active', item === button);
+  }});
+
+  panel.querySelectorAll('.group-tab-section').forEach((section) => {{
+    section.classList.toggle(
+      'group-tab-hidden',
+      (section.dataset.group || '') !== targetGroup
+    );
+  }});
+}});
 const readKey = "nuclearDailyBriefReadArticles";
 const importantKey = "nuclearDailyBriefImportantArticles";
 const readArticles = new Set(JSON.parse(localStorage.getItem(readKey) || "[]"));
