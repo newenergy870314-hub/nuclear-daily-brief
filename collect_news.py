@@ -620,6 +620,7 @@ class _MetaTagParser(HTMLParser):
         self.values: dict[str, str] = {}
         self.base_url = base_url
         self.image_candidates: list[tuple[int, str]] = []
+        self.jsonld_image_candidates: list[str] = []
         self.paragraphs: list[str] = []
         self._in_p = False
         self._p_chunks: list[str] = []
@@ -643,7 +644,7 @@ class _MetaTagParser(HTMLParser):
                 self.values[key] = content
             return
 
-        if tag.lower() == "img":
+        if tag.lower() in ("img", "source"):
             src = (
                 attr_map.get("src")
                 or attr_map.get("data-src")
@@ -651,6 +652,25 @@ class _MetaTagParser(HTMLParser):
                 or attr_map.get("data-lazy-src")
                 or ""
             ).strip()
+
+            srcset = attr_map.get("srcset", "").strip()
+            if not src and srcset:
+                srcset_items = []
+                for part in srcset.split(","):
+                    token = part.strip()
+                    if not token:
+                        continue
+                    src_url = token.split()[0]
+                    descriptor = token.split()[1] if len(token.split()) > 1 else ""
+                    score_hint = 0
+                    match = re.search(r"(\d+)(w|x)", descriptor)
+                    if match:
+                        score_hint = int(match.group(1))
+                    srcset_items.append((score_hint, src_url))
+                if srcset_items:
+                    srcset_items.sort(key=lambda item: item[0], reverse=True)
+                    src = srcset_items[0][1]
+
             if not src:
                 return
 
@@ -671,9 +691,11 @@ class _MetaTagParser(HTMLParser):
             except Exception:
                 height = 0
 
-            class_text = f"{attr_map.get('class', '')} {attr_map.get('id', '')}".lower()
+            class_text = f"{attr_map.get('class', '')} {attr_map.get('id', '')} {attr_map.get('itemprop', '')}".lower()
             score = width * height
-            if any(word in class_text for word in ("article", "news", "content", "photo", "image", "thumb")):
+            if tag.lower() == "source":
+                score += 100_000
+            if any(word in class_text for word in ("article", "news", "content", "photo", "image", "thumb", "figure", "lead", "main")):
                 score += 500_000
 
             self.image_candidates.append((score, urljoin(self.base_url, src)))
@@ -694,6 +716,80 @@ class _MetaTagParser(HTMLParser):
     def handle_data(self, data: str):
         if self._in_p and data.strip():
             self._p_chunks.append(data.strip())
+
+
+
+def _extract_jsonld_image_candidates(decoded_html: str, base_url: str) -> list[str]:
+    """
+    기사 페이지 JSON-LD에 들어있는 image 필드를 별도로 추출합니다.
+    미리보기(description)와 무관하게 대표 이미지가 있는 경우가 많아
+    썸네일 확보율을 높이는 데 사용합니다.
+    """
+    results: list[str] = []
+
+    def add_candidate(value):
+        if not value:
+            return
+        if isinstance(value, str):
+            results.append(urljoin(base_url, value.strip()))
+            return
+        if isinstance(value, list):
+            for item in value:
+                add_candidate(item)
+            return
+        if isinstance(value, dict):
+            for key in ("url", "contentUrl", "thumbnailUrl"):
+                if value.get(key):
+                    results.append(urljoin(base_url, str(value[key]).strip()))
+            if value.get("image"):
+                add_candidate(value.get("image"))
+
+    for match in re.finditer(
+        r'<script[^>]+type=["\\\']application/ld\\+json["\\\'][^>]*>(.*?)</script>',
+        decoded_html,
+        re.I | re.S,
+    ):
+        raw_json = html.unescape(match.group(1)).strip()
+        if not raw_json:
+            continue
+        try:
+            payload = json.loads(raw_json)
+        except Exception:
+            continue
+
+        items = payload if isinstance(payload, list) else [payload]
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            if item.get("@graph") and isinstance(item["@graph"], list):
+                graph_items = [x for x in item["@graph"] if isinstance(x, dict)]
+            else:
+                graph_items = [item]
+
+            for graph_item in graph_items:
+                add_candidate(graph_item.get("image"))
+
+    # 중복 제거
+    unique: list[str] = []
+    seen = set()
+    for url in results:
+        normalized = url.strip()
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        unique.append(normalized)
+    return unique
+
+
+def _best_jsonld_image_candidate(candidates: list[str]) -> str:
+    blocked = ("logo", "icon", "sprite", "avatar", "profile", "banner", "pixel", "favicon")
+    for candidate in candidates:
+        lower = candidate.lower()
+        if any(token in lower for token in blocked):
+            continue
+        return candidate
+    return ""
+
 
 
 def _best_html_image_candidate(parser: _MetaTagParser) -> str:
@@ -760,6 +856,7 @@ def _fetch_article_metadata(article: Article) -> tuple[str, str]:
         decoded = payload.decode("utf-8", errors="ignore")
         parser = _MetaTagParser(final_url)
         parser.feed(decoded)
+        parser.jsonld_image_candidates = _extract_jsonld_image_candidates(decoded, final_url)
 
         image = article.image
         if not image:
@@ -768,6 +865,7 @@ def _fetch_article_metadata(article: Article) -> tuple[str, str]:
                 or parser.values.get("twitter:image")
                 or parser.values.get("twitter:image:src")
                 or parser.values.get("image")
+                or _best_jsonld_image_candidate(parser.jsonld_image_candidates)
                 or _best_html_image_candidate(parser)
                 or ""
             ).strip()
@@ -2531,9 +2629,9 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
 .updated {{ margin-top: 5px; color: rgba(255,255,255,.72); font-size: 10px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
-.date-picker-row {{ display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 7px; margin-top: 7px; }}
+.date-picker-row {{ display: grid; grid-template-columns: auto minmax(0,1fr); gap: 7px; margin-top: 7px; align-items: center; }}
 .language-order-row {{ display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-top: 7px; }}
-.language-order-label {{ color: rgba(255,255,255,.78); font-size: 10px; font-weight: 700; }}
+.language-order-label {{ color: rgba(255,255,255,.78); font-size: 11px; font-weight: 800; }}
 .language-order-toggle {{ flex: 1; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); color: #23395d; font-size: 11px; font-weight: 800; cursor: pointer; }}
 .language-order-toggle:active {{ transform: translateY(1px); }}
 
@@ -2610,7 +2708,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .tab-button {{ height: 38px; font-size: 13px; }}
   .language-order-row {{ justify-content: flex-start; }}
   .language-order-toggle {{ flex: 0 0 160px; height: 36px; font-size: 12px; }}
-  .date-picker-row {{ grid-template-columns: 190px 100px; justify-content: start; }}
+  .date-picker-row {{ grid-template-columns: 100px 190px; justify-content: start; }}
   .date-input, .date-button {{ height: 36px; font-size: 12px; }}
   main {{ padding: 18px 20px 44px; }}
   .favorites-panel {{ margin-bottom: 16px; padding: 16px; border-radius: 12px; }}
@@ -2678,13 +2776,17 @@ header,
   box-shadow: none;
 }}
 
-h1,
 .brand-title,
 .site-title {{
   color: #202124;
   letter-spacing: -0.02em;
   font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
   font-weight: 700;
+}}
+
+.topbar h1 {{
+  font-family: Arial, "Malgun Gothic", sans-serif;
+  font-weight: 900;
 }}
 
 .preview-card {{
@@ -2740,7 +2842,7 @@ h1,
         <span class="language-order-label">기사 순서</span>
         <button id="language-order" class="language-order-toggle" type="button" aria-label="기사 언어 우선순위 변경">KOR → ENG</button>
       </div>
-      <div class="date-picker-row"><input id="archive-date" class="date-input" type="date"><button id="archive-open" class="date-button" type="button">날짜 보기</button></div>
+      <div class="date-picker-row"><button id="archive-open" class="date-button" type="button">날짜 보기</button><input id="archive-date" class="date-input" type="date"></div>
     </div>
   </header>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
