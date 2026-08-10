@@ -3122,15 +3122,15 @@ main {{ padding: 12px 12px 34px; }}
 .partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
 .language-section {{ margin-bottom: 30px; }}
 .group-nav-compact .group-nav-dense 
-.news-group {{ margin-bottom: 11px; }}
-.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #23395d; color: #ffffff; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; line-height: 1; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.12); cursor: pointer; }}
+.news-group {{ margin-bottom: 16px; }}
+.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 1px solid rgba(91,79,38,.10); background: #f5e8a6; color: #2c2922; border-radius: 7px; font: inherit; font-size: 11px; font-weight: 800; line-height: 1; text-align: left; box-shadow: 0 1px 2px rgba(62,52,42,.08); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
 .group-name {{ display: inline-flex; align-items: center; height: 27px; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
-.group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #ffffff; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
-.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #ffffff; font-size: 8px; line-height: 1; }}
+.group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #675f45; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
+.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #4d4737; font-size: 8px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 7px; margin-top: 5px; margin-bottom: 5px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; height: 126px; min-height: 126px; overflow: hidden; color: inherit; background: #fffefa; border: 1px solid rgba(62,52,42,.16); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 2px rgba(62,52,42,.10); transition: opacity .15s ease, background .15s ease; }}
@@ -3191,7 +3191,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .period-card strong {{ font-size: 16px; }}
   .group-master-button, .header-toggle {{ width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }}
       .group-nav-compact   .group-nav-dense 
-  .news-group {{ margin-bottom: 12px; }}
+  .news-group {{ margin-bottom: 18px; }}
   .group-title {{ height: 30px; padding: 0 11px; font-size: 12px; border-radius: 6px; }}
   .group-name {{ height: 30px; font-size: 12px; }}
   .group-count {{ height: 30px; font-size: 12px; }}
