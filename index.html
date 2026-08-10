@@ -51,13 +51,13 @@ main { padding: 12px 12px 34px; }
 .partial-note { margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }
 .language-section { margin-bottom: 30px; }
 .group-nav-compact .group-nav-dense 
-.news-group { margin-bottom: 3px; }
+.news-group { margin-bottom: 5px; }
 .group-title { display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #fee500; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.10); cursor: pointer; }
 .group-title:active { transform: translateY(1px); }
 .group-master-control { display: flex; justify-content: flex-end; margin: 0 0 8px; }
 .group-master-button { width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }
 .group-master-button:active { transform: translateY(1px); }
-.group-count { margin-left: auto; color: #5f5200; font-size: 8px; line-height: 1; white-space: nowrap; }
+.group-count { margin-left: 2px; color: #5f5200; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }
 .group-arrow { display: inline-flex; align-items: center; justify-content: center; min-width: 10px; color: #111827; font-size: 8px; line-height: 1; }
 .article-stack { display: grid; gap: 7px; margin-top: 5px; margin-bottom: 5px; }
 .news-group.collapsed .article-stack { display: none; }
@@ -115,9 +115,9 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   .period-card strong { font-size: 16px; }
   .group-master-button, .header-toggle { width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }
       .group-nav-compact   .group-nav-dense 
-  .news-group { margin-bottom: 4px; }
+  .news-group { margin-bottom: 6px; }
   .group-title { height: 30px; padding: 0 11px; font-size: 12px; border-radius: 6px; }
-  .group-count { font-size: 9px; }
+  .group-count { font-size: 12px; }
   .article-stack { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
   .preview-card { grid-template-columns: 32px minmax(0,1fr) 124px; height: 142px; min-height: 142px; border-radius: 11px; }
   .article-number { padding-top: 12px; font-size: 13px; }
@@ -229,7 +229,7 @@ header,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 10. 17:25 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 10. 17:35 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div>
       <div class="tabs"><button class="tab-button" data-tab="전일">전일</button><button class="tab-button active" data-tab="금일">금일</button><button class="tab-button" data-tab="익일">익일</button></div>
       <div class="utility-row">
@@ -512,36 +512,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>원전 관계부처</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
-  data-url="https://www.youtube.com/watch?v=OXaiOKQRMSI"
-  data-title="김정관 &quot;일할 의지 꺾어선 안 돼…주52시간 손봐야&quot; [세종브리핑] / 한국경제TV뉴스"
-  data-publisher="한국경제TV"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="김정관 &quot;일할 의지 꺾어선 안 돼…주52시간 손봐야&quot; [세종브리핑] / 한국경제tv뉴스 한국경제tv 원전 관계부처 김정관 산업통상부 장관이 호남권 반도체 클러스터 등 &#x27;메가특구&#x27;에 주52시간제 예외가 필요하다고 강조했습니다. 김 장관은 산업 경쟁력을 높이기 위해 근로시간 규제를 유연하게 적용해야 한다는 입장입니다. 정치경제부 김다빈 기자입니다.#김정관 #반도체클러스터 #주52시간 [기사원문보기..."
-  tabindex="0" role="link">
-  <div class="article-number">1</div>
-  <div class="preview-copy">
-    <div class="publisher">한국경제TV</div>
-    <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;일할 의지 꺾어선 안 돼…주52시간 손봐야&quot; [세종브리핑] / 한국경제TV뉴스</div>
-    <div class="article-snippet">김정관 산업통상부 장관이 호남권 반도체 클러스터 등 &#x27;메가특구&#x27;에 주52시간제 예외가 필요하다고 강조했습니다. 김 장관은 산업 경쟁력을 높이기 위해 근로시간 규제를 유연하게 적용해야 한다는 입장입니다. 정치경제부 김다빈 기자입니다.#김정관 #반도체클러스터 #주52시간 [기사원문보기...</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/c227f3ea8dd03e613b576048.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371080"
   data-title="여한구 통상본부장, 英 통상장관 만나 대러 LNG 수입 제재 등 논의"
@@ -550,7 +523,7 @@ header,
   data-language="ko"
   data-search="여한구 통상본부장, 英 통상장관 만나 대러 lng 수입 제재 등 논의 전기신문 원전 관계부처 산업통상자원부는 여한구 통상교섭본부장이 6일 서울 대한상의에서 아나스 사왈(anas sarwar) 영국 신임 통상장관을 만나 취임을 축하하고 양국간 주요 통상 현안을 논의했다고 밝혔다.여 본부장은 영국의 러시아산 액화천연가스(lng)에 대한 해운·보험 등 서비스 전면 금지 조치와 관련해 기존 계약 이행에 따른 한국의 lng 수급 안정성과 에너지 안보상의 우려를 설명했다.이와 함께 최근 유럽연합(eu)이 발표한 제21차 대러 제재 패키지에도 한국의 러시아산 lng 도입에 대한 예외 규정이 포함됐음을 언급했다.향후 영국의 제재 조치 적"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">전기신문</div>
     <div class="headline">여한구 통상본부장, 英 통상장관 만나 대러 LNG 수입 제재 등 논의</div>
@@ -577,7 +550,7 @@ header,
   data-language="ko"
   data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">전자신문</div>
     <div class="headline">김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
@@ -1336,7 +1309,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1367,33 +1340,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.kyongbuk.co.kr/news/articleView.html?idxno=4080662"
-  data-title="사람 대신 로봇이 원전 오염 제거…플랜텍, ‘피지컬AI 제염로봇’ 개발"
-  data-publisher="경북일보"
-  data-group="원자력"
-  data-language="ko"
-  data-search="사람 대신 로봇이 원전 오염 제거…플랜텍, ‘피지컬ai 제염로봇’ 개발 경북일보 원자력 종합 엔지니어링 전문기업 플랜텍이 원전해체 현장 적용을 목표로 한 피지컬ai 제염로봇 기술개발에 나섰다.플랜텍은 지난 5일 포항테크노파크에서 지원하는 경상북도 원자력 선도기업 육성사업의 연구개발 과제에 선정됐다고 9일 밝혔다.이번 과제를 통해 플랜텍은 원전해체 과정에서 발생할 수 있는"
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">경북일보</div>
-    <div class="headline">사람 대신 로봇이 원전 오염 제거…플랜텍, ‘피지컬AI 제염로봇’ 개발</div>
-    <div class="article-snippet">종합 엔지니어링 전문기업 플랜텍이 원전해체 현장 적용을 목표로 한 피지컬AI 제염로봇 기술개발에 나섰다.플랜텍은 지난 5일 포항테크노파크에서 지원하는 경상북도 원자력 선도기업 육성사업의 연구개발 과제에 선정됐다고 9일 밝혔다.이번 과제를 통해 플랜텍은 원전해체 과정에서 발생할 수 있는</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9f2a277c47c5e65b0eefa5ae.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70603"
   data-title="원자력공사 설립…당당히 행동에 나섭시다"
   data-publisher="에너지타임즈"
@@ -1401,7 +1347,7 @@ header,
   data-language="ko"
   data-search="원자력공사 설립…당당히 행동에 나섭시다 에너지타임즈 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">원자력공사 설립…당당히 행동에 나섭시다</div>
@@ -1428,7 +1374,7 @@ header,
   data-language="ko"
   data-search="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인 한국원자력신문 원자력 김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
@@ -1455,7 +1401,7 @@ header,
   data-language="ko"
   data-search="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행 한국원자력신문 원자력 한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
@@ -1482,7 +1428,7 @@ header,
   data-language="en"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     <div class="headline">US collaboration to study used nuclear fuel recycling</div>
@@ -1509,7 +1455,7 @@ header,
   data-language="en"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">Nikkei Asia</div>
     <div class="headline">India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
@@ -1596,7 +1542,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007bcdd458e378&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007bcdcf76c528&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1686,19 +1632,19 @@ header,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260810_0003743324"
-  data-title="&#x27;2.6조&#x27; 목동10단지, 현대건설 단독 응찰…수의계약 가능성"
-  data-publisher="뉴시스"
+<article class="preview-card new-article"
+  data-url="https://www.etoday.co.kr/news/view/2612896?trc=ir_news"
+  data-title="성수3지구 삼성물산 수주 유력⋯목동10단지는 현대건설 단독 응찰"
+  data-publisher="이투데이"
   data-group="현대건설"
   data-language="ko"
-  data-search="&#x27;2.6조&#x27; 목동10단지, 현대건설 단독 응찰…수의계약 가능성 뉴시스 현대건설 [서울=뉴시스] 변해정 기자 = 서울 양천구 목동10단지 재건축 시공사 선정에 현대건설이 단독 참여해 유찰됐다. 10일 정비업계에 따르면 이날 오후 마감된 목동10단지 재건축 시공사 선정을 위한 1차 입찰에는 현대건설만 참여했다. 앞서 지난 6월 열린 현장설명회에 현대건설 외에 대우건설, 포스코이앤씨, 제일건설, 금호건설, ca이앤씨 등 6개사가 참석했지만 본입찰에는 나서지 않은 것이다. 입찰에 참여하려면 보증금 600억원을 납부해야 한다. 목동10단지 재건축 사업시행자인 한국토지신탁은 조만간 2차 입찰 절차에 들어간다. 만일 현대건설이 단독 입찰하면 2차례 유찰로"
+  data-search="성수3지구 삼성물산 수주 유력⋯목동10단지는 현대건설 단독 응찰 이투데이 현대건설 ▲성수3지구 항공 사진. (사진제공=삼성물산)서울 주요 정비사업장에서 대형 건설사의 단독 입찰이 이어지고 있다. 공사비 1조8000억원 규모의 성동구"
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">뉴시스</div>
-    <div class="headline">&#x27;2.6조&#x27; 목동10단지, 현대건설 단독 응찰…수의계약 가능성</div>
-    <div class="article-snippet">[서울=뉴시스] 변해정 기자 = 서울 양천구 목동10단지 재건축 시공사 선정에 현대건설이 단독 참여해 유찰됐다. 10일 정비업계에 따르면 이날 오후 마감된 목동10단지 재건축 시공사 선정을 위한 1차 입찰에는 현대건설만 참여했다. 앞서 지난 6월 열린 현장설명회에 현대건설 외에 대우건설, 포스코이앤씨, 제일건설, 금호건설, CA이앤씨 등 6개사가 참석했지만 본입찰에는 나서지 않은 것이다. 입찰에 참여하려면 보증금 600억원을 납부해야 한다. 목동10단지 재건축 사업시행자인 한국토지신탁은 조만간 2차 입찰 절차에 들어간다. 만일 현대건설이 단독 입찰하면 2차례 유찰로</div>
+    <div class="publisher">이투데이</div>
+    <div class="headline"><span class="new-badge">NEW</span>성수3지구 삼성물산 수주 유력⋯목동10단지는 현대건설 단독 응찰</div>
+    <div class="article-snippet">▲성수3지구 항공 사진. (사진제공=삼성물산)서울 주요 정비사업장에서 대형 건설사의 단독 입찰이 이어지고 있다. 공사비 1조8000억원 규모의 성동구</div>
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">안읽음</span>
@@ -1709,7 +1655,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/937c67e3f1b436347a691953.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/d551f7934c27e0bac3d87cff.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -1746,7 +1692,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>타 건설사</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1831,33 +1777,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.segyebiz.com/newsView/20260810507294"
-  data-title="대우건설, 마리나베이샌즈 설계한 ARUP와 협업... 목동8단지 수주 총력"
-  data-publisher="세계일보"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="대우건설, 마리나베이샌즈 설계한 arup와 협업... 목동8단지 수주 총력 세계일보 타 건설사 대우건설이 목동8단지 재건축정비사업(이하 목동8단지) 수주를 위해 글로벌 초고층 프로젝트에서 풍부한 경험을 쌓아온 설계 및 엔지니어링 기업 arup과 전략적 협업에 나선다고 10일 밝혔다. 영국 런던에 본사를 둔 arup은 전 세계 100여 개국 이상에서 활동하고 있는 글로..."
-  tabindex="0" role="link">
-  <div class="article-number">4</div>
-  <div class="preview-copy">
-    <div class="publisher">세계일보</div>
-    <div class="headline">대우건설, 마리나베이샌즈 설계한 ARUP와 협업... 목동8단지 수주 총력</div>
-    <div class="article-snippet">대우건설이 목동8단지 재건축정비사업(이하 목동8단지) 수주를 위해 글로벌 초고층 프로젝트에서 풍부한 경험을 쌓아온 설계 및 엔지니어링 기업 ARUP과 전략적 협업에 나선다고 10일 밝혔다. 영국 런던에 본사를 둔 ARUP은 전 세계 100여 개국 이상에서 활동하고 있는 글로...</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/716a65aae7ee1bd9e2b04c4a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.dt.co.kr/article/12077472"
   data-title="DL이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화”"
   data-publisher="디지털타임스"
@@ -1865,7 +1784,7 @@ header,
   data-language="ko"
   data-search="dl이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화” 디지털타임스 타 건설사 dl이앤씨가 전국 건설 현장의 혹서기 안전관리를 강화하고 근로자 건강 보호를 위한 현장 점검을 실시했다고 10일 밝혔다. 박상신 dl이앤씨 대표이사도 지난 1일 천안 성성 현장을 찾아 안전실태 점검을 실시하고 현장 관계자들에게 안전수칙을 철저히 준수해 근로자 안전 확"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">디지털타임스</div>
     <div class="headline">DL이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화”</div>
@@ -1884,19 +1803,19 @@ header,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.mk.co.kr/news/society/12122957"
-  data-title="가덕도신공항 참여 지역 건설업체 “공사비 올려달라”"
-  data-publisher="매일경제"
+<article class="preview-card new-article"
+  data-url="https://www.sedaily.com/article/20077697"
+  data-title="대우건설, 英 ARUP과 협업…목동8단지 초고층 구조 설계"
+  data-publisher="서울경제"
   data-group="타 건설사"
   data-language="ko"
-  data-search="가덕도신공항 참여 지역 건설업체 “공사비 올려달라” 매일경제 타 건설사 10일 오후 부산상의 간담회 개최 대우건설 컨소시엄 업체 함께 참여 “물가 상승분 충분비 반영해야” “정부 등 설득해 좋은 결과 노력”가덕도신공항에 참여하는 지역 건설 업체들이 중.."
+  data-search="대우건설, 英 arup과 협업…목동8단지 초고층 구조 설계 서울경제 타 건설사 목동8단지 재건축 수주전에 나선 대우건설(047040)이 말레이시아 ‘메르데카 118’과 싱가포르 ‘마리나 베이 샌즈’ 등 세계적인 초고층 빌딩 프로젝트에 참여했던 구조 설계 및 엔지니어링 기업인 arup과 손을 잡았다. 목동8단지가 최고 49층 높이의 초고층으로 지어"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
-    <div class="publisher">매일경제</div>
-    <div class="headline">가덕도신공항 참여 지역 건설업체 “공사비 올려달라”</div>
-    <div class="article-snippet">10일 오후 부산상의 간담회 개최 대우건설 컨소시엄 업체 함께 참여 “물가 상승분 충분비 반영해야” “정부 등 설득해 좋은 결과 노력”가덕도신공항에 참여하는 지역 건설 업체들이 중..</div>
+    <div class="publisher">서울경제</div>
+    <div class="headline"><span class="new-badge">NEW</span>대우건설, 英 ARUP과 협업…목동8단지 초고층 구조 설계</div>
+    <div class="article-snippet">목동8단지 재건축 수주전에 나선 대우건설(047040)이 말레이시아 ‘메르데카 118’과 싱가포르 ‘마리나 베이 샌즈’ 등 세계적인 초고층 빌딩 프로젝트에 참여했던 구조 설계 및 엔지니어링 기업인 ARUP과 손을 잡았다. 목동8단지가 최고 49층 높이의 초고층으로 지어</div>
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">안읽음</span>
@@ -1907,7 +1826,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/afc091ab7fb53ff6761cc394.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/4a680f0f58be493078990290.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -1919,7 +1838,7 @@ header,
   data-language="ko"
   data-search="[부동산 pf 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화 블로터 타 건설사 현대엔지니어링이 전액 연대보증한 &#x27;힐스테이트 과천 디센트로&#x27; 자산담보부대출 800억원의 만기가 11월 6일로 재연장됐다. 지난해 12월 실행된 908억원 가운데 첫 만기에 상환된 원금은 108억원에 그쳤고 남은 800억원은 지난 4월에 이어 다시 만기가 연장됐다. 과천 디센트로는 지난"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">블로터</div>
     <div class="headline">[부동산 PF 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화</div>
@@ -1946,7 +1865,7 @@ header,
   data-language="ko"
   data-search="한국토지신탁, &#x27;써밋 클라비온&#x27; 14일 견본주택 개관…176가구 일반공급 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = 한국토지신탁이 오는 14일 서울 영등포구 신길뉴타운에 들어서는 &#x27;써밋 클라비온&#x27; 견본주택을 개관하고 열고 분양에 나선다고 10일 밝혔다. 이 단지는 신길10재정비촉진구역 주택재건축정비사업으로 조성된다. 한국토지신탁이 시행을 맡고 대우건설이 시공한다. 지하 4층~지상 최고 29층, 8개 동, 총 812가구 규모로 이 가운데 전용면적 44~59㎡ 176가구가 일반분양 물량이다. 청약 일정은 오는 18일 특별공급을 시작으로 19일 해당지역 1순위, 20일 기타지역 1순위 순으로 진행된다. 당첨자 발표는 28일이다. 계약은 9월 8일부터 10"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">한국토지신탁, &#x27;써밋 클라비온&#x27; 14일 견본주택 개관…176가구 일반공급</div>
@@ -1973,7 +1892,7 @@ header,
   data-language="ko"
   data-search="gs건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2 - 뉴스웨이 뉴스웨이 타 건설사 gs건설이 올해 상반기 도시정비사업 수주 목표 8조원 중 93%에 해당하는 7조4695억원을 달성했다. 하지만 성남 상대원2구역 시공사 지위와 관련된 법원 결정으로 실질 수주액은 5조5477억원까지 줄어들 수 있다. 하반기 목동·여의도 등 대형 사업지 수주 여부가 목표 달성의 핵심 변수가 될 전망이다."
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">뉴스웨이</div>
     <div class="headline">GS건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2 - 뉴스웨이</div>
@@ -2000,7 +1919,7 @@ header,
   data-language="ko"
   data-search="대우건설, ‘장위 푸르지오 마크원’ 10일 무순위 청약 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = 서울 장위뉴타운에서 공급 중인 ‘장위 푸르지오 마크원’이 기존 일반분양 물량의 96%를 계약한 데 이어 잔여 39가구에 대한 무순위"
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">건설타임즈</div>
     <div class="headline">대우건설, ‘장위 푸르지오 마크원’ 10일 무순위 청약 - 건설타임즈</div>
@@ -2223,7 +2142,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2280,19 +2199,19 @@ header,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.mk.co.kr/news/society/12122993"
-  data-title="[인사] 문화체육관광부 / 방위사업청 / 한국원자력의학원"
-  data-publisher="매일경제"
+<article class="preview-card new-article"
+  data-url="https://www.daejonilbo.com/news/articleView.html?idxno=2293682"
+  data-title="[인사] 한국원자력의학원"
+  data-publisher="대전일보"
   data-group="원자력"
   data-language="ko"
-  data-search="[인사] 문화체육관광부 / 방위사업청 / 한국원자력의학원 매일경제 원자력 ■문화체육관광부 ◇과장급 전보 △기획조정실 양성평등정책담당관 배양희 △문화미디어산업실 저작권보호과장 이재순 ■방위사업청 ◇고위공무원 신규임용 △화력사업부장 이승호 ■한국원자력의학원.."
+  data-search="[인사] 한국원자력의학원 대전일보 원자력 "
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">매일경제</div>
-    <div class="headline">[인사] 문화체육관광부 / 방위사업청 / 한국원자력의학원</div>
-    <div class="article-snippet">■문화체육관광부 ◇과장급 전보 △기획조정실 양성평등정책담당관 배양희 △문화미디어산업실 저작권보호과장 이재순 ■방위사업청 ◇고위공무원 신규임용 △화력사업부장 이승호 ■한국원자력의학원..</div>
+    <div class="publisher">대전일보</div>
+    <div class="headline"><span class="new-badge">NEW</span>[인사] 한국원자력의학원</div>
+    
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">안읽음</span>
@@ -2303,7 +2222,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f22c67bae61372e1e2eb5f95.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/b1a5b6890d61c56caebfaac2.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -2439,6 +2358,33 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ddd215a8ac88bcea6ed3b89f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.japantimes.co.jp/news/2026/08/10/japan/hidankyo-seventy-years/"
+  data-title="Nihon Hidankyo renews call for world without nuclear weapons"
+  data-publisher="The Japan Times"
+  data-group="원자력"
+  data-language="en"
+  data-search="nihon hidankyo renews call for world without nuclear weapons the japan times 원자력 the japan confederation of a- and h-bomb sufferers organizations, held a news conference in nagasaki on the 70th anniversary of the group’s establishment."
+  tabindex="0" role="link">
+  <div class="article-number">9</div>
+  <div class="preview-copy">
+    <div class="publisher">The Japan Times</div>
+    <div class="headline"><span class="new-badge">NEW</span>Nihon Hidankyo renews call for world without nuclear weapons</div>
+    <div class="article-snippet">The Japan Confederation of A- and H-Bomb Sufferers Organizations, held a news conference in Nagasaki on the 70th anniversary of the group’s establishment.</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a69f9a25cc073ebc07ff40c6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -3055,7 +3001,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3086,33 +3032,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.kyongbuk.co.kr/news/articleView.html?idxno=4080662"
-  data-title="사람 대신 로봇이 원전 오염 제거…플랜텍, ‘피지컬AI 제염로봇’ 개발"
-  data-publisher="경북일보"
-  data-group="원자력"
-  data-language="ko"
-  data-search="사람 대신 로봇이 원전 오염 제거…플랜텍, ‘피지컬ai 제염로봇’ 개발 경북일보 원자력 종합 엔지니어링 전문기업 플랜텍이 원전해체 현장 적용을 목표로 한 피지컬ai 제염로봇 기술개발에 나섰다.플랜텍은 지난 5일 포항테크노파크에서 지원하는 경상북도 원자력 선도기업 육성사업의 연구개발 과제에 선정됐다고 9일 밝혔다.이번 과제를 통해 플랜텍은 원전해체 과정에서 발생할 수 있는"
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">경북일보</div>
-    <div class="headline">사람 대신 로봇이 원전 오염 제거…플랜텍, ‘피지컬AI 제염로봇’ 개발</div>
-    <div class="article-snippet">종합 엔지니어링 전문기업 플랜텍이 원전해체 현장 적용을 목표로 한 피지컬AI 제염로봇 기술개발에 나섰다.플랜텍은 지난 5일 포항테크노파크에서 지원하는 경상북도 원자력 선도기업 육성사업의 연구개발 과제에 선정됐다고 9일 밝혔다.이번 과제를 통해 플랜텍은 원전해체 과정에서 발생할 수 있는</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9f2a277c47c5e65b0eefa5ae.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70603"
   data-title="원자력공사 설립…당당히 행동에 나섭시다"
   data-publisher="에너지타임즈"
@@ -3120,7 +3039,7 @@ header,
   data-language="ko"
   data-search="원자력공사 설립…당당히 행동에 나섭시다 에너지타임즈 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">원자력공사 설립…당당히 행동에 나섭시다</div>
@@ -3147,7 +3066,7 @@ header,
   data-language="ko"
   data-search="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인 한국원자력신문 원자력 김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
@@ -3174,7 +3093,7 @@ header,
   data-language="ko"
   data-search="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행 한국원자력신문 원자력 한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
@@ -3201,7 +3120,7 @@ header,
   data-language="en"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     <div class="headline">US collaboration to study used nuclear fuel recycling</div>
@@ -3228,7 +3147,7 @@ header,
   data-language="en"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">Nikkei Asia</div>
     <div class="headline">India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
@@ -3315,7 +3234,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007bcdd458e378&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007bcdcf76c528&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -3626,36 +3545,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>원전 관계부처</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
-  data-url="https://www.youtube.com/watch?v=OXaiOKQRMSI"
-  data-title="김정관 &quot;일할 의지 꺾어선 안 돼…주52시간 손봐야&quot; [세종브리핑] / 한국경제TV뉴스"
-  data-publisher="한국경제TV"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="김정관 &quot;일할 의지 꺾어선 안 돼…주52시간 손봐야&quot; [세종브리핑] / 한국경제tv뉴스 한국경제tv 원전 관계부처 김정관 산업통상부 장관이 호남권 반도체 클러스터 등 &#x27;메가특구&#x27;에 주52시간제 예외가 필요하다고 강조했습니다. 김 장관은 산업 경쟁력을 높이기 위해 근로시간 규제를 유연하게 적용해야 한다는 입장입니다. 정치경제부 김다빈 기자입니다.#김정관 #반도체클러스터 #주52시간 [기사원문보기..."
-  tabindex="0" role="link">
-  <div class="article-number">1</div>
-  <div class="preview-copy">
-    <div class="publisher">한국경제TV</div>
-    <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;일할 의지 꺾어선 안 돼…주52시간 손봐야&quot; [세종브리핑] / 한국경제TV뉴스</div>
-    <div class="article-snippet">김정관 산업통상부 장관이 호남권 반도체 클러스터 등 &#x27;메가특구&#x27;에 주52시간제 예외가 필요하다고 강조했습니다. 김 장관은 산업 경쟁력을 높이기 위해 근로시간 규제를 유연하게 적용해야 한다는 입장입니다. 정치경제부 김다빈 기자입니다.#김정관 #반도체클러스터 #주52시간 [기사원문보기...</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/c227f3ea8dd03e613b576048.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371080"
   data-title="여한구 통상본부장, 英 통상장관 만나 대러 LNG 수입 제재 등 논의"
@@ -3664,7 +3556,7 @@ header,
   data-language="ko"
   data-search="여한구 통상본부장, 英 통상장관 만나 대러 lng 수입 제재 등 논의 전기신문 원전 관계부처 산업통상자원부는 여한구 통상교섭본부장이 6일 서울 대한상의에서 아나스 사왈(anas sarwar) 영국 신임 통상장관을 만나 취임을 축하하고 양국간 주요 통상 현안을 논의했다고 밝혔다.여 본부장은 영국의 러시아산 액화천연가스(lng)에 대한 해운·보험 등 서비스 전면 금지 조치와 관련해 기존 계약 이행에 따른 한국의 lng 수급 안정성과 에너지 안보상의 우려를 설명했다.이와 함께 최근 유럽연합(eu)이 발표한 제21차 대러 제재 패키지에도 한국의 러시아산 lng 도입에 대한 예외 규정이 포함됐음을 언급했다.향후 영국의 제재 조치 적"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">전기신문</div>
     <div class="headline">여한구 통상본부장, 英 통상장관 만나 대러 LNG 수입 제재 등 논의</div>
@@ -3691,7 +3583,7 @@ header,
   data-language="ko"
   data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">전자신문</div>
     <div class="headline">김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
