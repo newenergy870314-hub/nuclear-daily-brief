@@ -3038,7 +3038,7 @@ def build_html(
     archive: dict[str, dict],
 ) -> str:
     buttons = "".join(
-        f'<button class="tab-button{" active" if label == "금일" else ""}" data-tab="{escape(label)}">{escape(label)}</button>'
+        f'<button class="tab-button{" active" if label == "금일" else ""}" type="button" data-tab="{escape(label)}">{escape(label)}</button>'
         for label in ("전일", "금일", "익일")
     )
 
@@ -3082,7 +3082,7 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar {{ position: sticky; top: 0; z-index: 20; margin: 8px 8px 0; padding: 15px 16px 12px; background: #23395d; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; box-shadow: 0 1px 5px rgba(17,24,39,.16); backdrop-filter: blur(8px); }}
 .topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 10px; }}
 .topbar h1 {{ margin: 0; color: #ffffff; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; text-shadow: none; }}
-.header-toggle {{ flex: 0 0 96px; width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 10px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
+.header-toggle {{ flex: 0 0 96px; width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #f7e889; color: #111827; font-size: 10px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
 .header-toggle:hover {{ background: #f5d900; }}
 .header-toggle:active {{ transform: translateY(1px); }}
 .topbar.collapsed .header-toggle {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.14); box-shadow: none; }}
@@ -3121,8 +3121,8 @@ main {{ padding: 12px 12px 34px; }}
 .partial-note {{ margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }}
 .language-section {{ margin-bottom: 30px; }}
 .group-nav-compact .group-nav-dense 
-.news-group {{ margin-bottom: 5px; }}
-.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #fee500; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.10); cursor: pointer; }}
+.news-group {{ margin-bottom: 8px; }}
+.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #fee500; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.07); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
@@ -3185,7 +3185,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .period-card strong {{ font-size: 16px; }}
   .group-master-button, .header-toggle {{ width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }}
       .group-nav-compact   .group-nav-dense 
-  .news-group {{ margin-bottom: 6px; }}
+  .news-group {{ margin-bottom: 9px; }}
   .group-title {{ height: 30px; padding: 0 11px; font-size: 12px; border-radius: 6px; }}
   .group-count {{ font-size: 12px; }}
   .article-stack {{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }}
@@ -3484,28 +3484,78 @@ function activatePanel(panel, button=null){{
   filterArticles();
   renderFavorites();
 }}
-document.querySelectorAll(".tab-button").forEach(button=>button.addEventListener("click",()=>{{
-  const panel=document.getElementById(`tab-${{button.dataset.tab}}`);
-  if(panel)activatePanel(panel,button);
-}}));
-const archiveDates=[...document.querySelectorAll(".archive-panel")].map(x=>x.dataset.archiveDate).sort();
+document.querySelectorAll(".tab-button").forEach(button => {{
+  button.addEventListener("click", event => {{
+    event.preventDefault();
+    const label = button.getAttribute("data-tab");
+    const panel = document.getElementById("tab-" + label);
+    if(!panel) return;
+
+    document.querySelectorAll(".tab-button").forEach(item => item.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(item => item.classList.remove("active"));
+
+    button.classList.add("active");
+    panel.classList.add("active");
+
+    const periodDate = panel.getAttribute("data-report-date");
+    if(periodDate && archiveInput) archiveInput.value = periodDate;
+
+    if(typeof filterArticles === "function") filterArticles();
+    if(typeof renderFavorites === "function") renderFavorites();
+
+    window.scrollTo({{ top: 0, behavior: "smooth" }});
+  }});
+}});
+const archiveDates=[...document.querySelectorAll(".archive-panel")]
+  .map(x=>x.dataset.archiveDate)
+  .filter(Boolean)
+  .sort();
+
 const archiveInput=document.getElementById("archive-date");
-if(archiveDates.length){{
+
+if(archiveInput && archiveDates.length){{
   archiveInput.min=archiveDates[0];
   archiveInput.max=archiveDates[archiveDates.length-1];
   archiveInput.value=archiveDates[archiveDates.length-1];
 }}
+
 function openArchiveDate(value){{
-  if(!value)return;
-  const panel=document.getElementById(`archive-${{value}}`);
+  if(!value) return false;
+
+  const panel=document.getElementById("archive-" + value);
   if(!panel){{
-    alert("선택한 날짜의 기사가 아직 저장되지 않았습니다. GitHub Actions가 실행될 때마다 과거 날짜를 순차적으로 채웁니다.");
-    return;
+    alert("선택한 날짜의 저장된 기사가 없습니다.");
+    return false;
   }}
-  activatePanel(panel);
-  window.scrollTo({{top:0,behavior:"smooth"}});
+
+  document.querySelectorAll(".tab-button").forEach(item=>item.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(item=>item.classList.remove("active"));
+
+  panel.classList.add("active");
+
+  if(archiveInput) archiveInput.value=value;
+  if(typeof filterArticles==="function") filterArticles();
+  if(typeof renderFavorites==="function") renderFavorites();
+
+  panel.scrollIntoView({{behavior:"smooth", block:"start"}});
+  return true;
 }}
-archiveInput.addEventListener("change",()=>openArchiveDate(archiveInput.value));
+
+if(archiveInput){{
+  const handleArchiveSelection=()=>{{
+    const value=archiveInput.value;
+    if(value) openArchiveDate(value);
+  }};
+
+  archiveInput.addEventListener("input", handleArchiveSelection);
+  archiveInput.addEventListener("change", handleArchiveSelection);
+
+  archiveInput.addEventListener("click", ()=>{{
+    if(typeof archiveInput.showPicker==="function"){{
+      try{{ archiveInput.showPicker(); }}catch(_error){{}}
+    }}
+  }});
+}}
 document.getElementById("article-search").addEventListener("input",filterArticles);
 document.getElementById("search-clear").addEventListener("click",()=>{{const input=document.getElementById("article-search");input.value="";input.focus();filterArticles();}});
 filterArticles();renderFavorites();
