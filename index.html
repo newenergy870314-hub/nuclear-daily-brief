@@ -24,37 +24,50 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
 .utility-row { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; margin-top: 7px; }
 .utility-box { min-width: 0; height: 34px; padding: 0 6px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); display: flex; align-items: center; gap: 3px; }
 .utility-label { flex: 0 0 auto; color: #344054; font-size: 10.5px; font-weight: 800; white-space: nowrap; }
-.language-order-toggle { flex: 1; min-width: 74px; height: 26px; padding: 0 5px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 10.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+.language-order-toggle { flex: 0 0 auto; min-width: 0; height: 26px; padding: 0 6px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 10.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }
 .language-order-toggle:active { transform: translateY(1px); }
 .date-picker-box { cursor: pointer; }
 .date-picker-box .date-input { cursor: pointer; }
-.date-input { flex: 1; min-width: 0; width: 100%; height: 26px; padding: 0 16px 0 2px; border: 0; background: transparent; color: #344054; font-size: 10.5px; box-sizing: border-box; }
-.date-input::-webkit-calendar-picker-indicator { margin: 0; padding: 2px; cursor: pointer; }
+.date-input { flex: 1; min-width: 74px; width: 100%; height: 26px; padding: 0 18px 0 6px; border: 0; border-radius: 6px; background: #344054; color: #ffffff; font-size: 10.5px; font-weight: 800; text-align: center; box-sizing: border-box; cursor: pointer; }
+.date-input::-webkit-calendar-picker-indicator { margin: 0; padding: 1px; cursor: pointer; filter: invert(1); opacity: .92; }
 .search-wrap { position: relative; margin-top: 6px; }
 .search-input { width: 100%; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }
 
-.world-map-panel { margin: 0 12px 12px; padding: 9px 10px 10px; border: 1px solid rgba(35,57,93,.12); border-radius: 10px; background: rgba(255,255,255,.72); box-shadow: 0 1px 3px rgba(17,24,39,.07); }
+.world-map-panel { margin: 0 12px 12px; padding: 9px 10px 10px; border: 1px solid rgba(35,57,93,.12); border-radius: 10px; background: rgba(255,255,255,.78); box-shadow: 0 1px 3px rgba(17,24,39,.07); }
 .world-map-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:7px; }
+.world-map-title-wrap { min-width:0; }
 .world-map-title { color:#23395d; font-size:11px; font-weight:900; }
-.world-map-all { border:0; border-radius:999px; padding:4px 9px; background:#23395d; color:#fff; font-size:9px; font-weight:800; cursor:pointer; }
+.world-map-summary { margin-top:2px; color:#667085; font-size:8.5px; font-weight:700; }
+.world-map-all { flex:0 0 auto; border:0; border-radius:999px; padding:4px 9px; background:#23395d; color:#fff; font-size:9px; font-weight:800; cursor:pointer; }
 .world-map-all.active { background:#fee500; color:#202124; }
-.world-map-canvas { position:relative; width:100%; height:145px; overflow:hidden; border-radius:9px; background:#dfeaf1; }
-.world-map-svg { position:absolute; inset:0; width:100%; height:100%; opacity:.9; }
-.world-map-svg path { fill:#b9c9d3; stroke:#a8bac5; stroke-width:.7; }
-.country-pin { position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:3px; min-height:25px; padding:3px 7px; border:1px solid rgba(35,57,93,.14); border-radius:999px; background:#fffdf8; color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.13); font-size:9px; font-weight:900; white-space:nowrap; cursor:pointer; }
-.country-pin .flag { font-size:13px; line-height:1; }
+.world-map-canvas { position:relative; width:100%; aspect-ratio:960/423; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); }
+.world-map-image { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.92; }
+.country-pin { position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:2px; min-height:23px; padding:2px 6px; border:1px solid rgba(35,57,93,.16); border-radius:999px; background:rgba(255,253,248,.96); color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.15); font-size:8.5px; font-weight:900; white-space:nowrap; cursor:pointer; z-index:3; }
+.country-pin .flag { font-size:12px; line-height:1; }
 .country-pin .country-count { color:#d92d20; font-weight:900; }
 .country-pin.active { background:#fee500; color:#202124; border-color:rgba(35,57,93,.22); }
 .country-pin[hidden] { display:none; }
-.country-us { left:19%; top:43%; }
-.country-kr { left:84%; top:43%; }
-.country-gb { left:46%; top:30%; }
-.country-bg { left:54%; top:43%; }
-.country-ua { left:58%; top:34%; }
-.country-ae { left:62%; top:61%; }
-.country-filter-note { margin-top:6px; color:#667085; font-size:9px; text-align:center; }
+.country-us { left:18%; top:38%; }
+.country-kr { left:85%; top:39%; }
+.country-gb { left:47%; top:27%; }
+.country-bg { left:55%; top:39%; }
+.country-ua { left:58%; top:31%; }
+.country-ae { left:62%; top:53%; }
+.country-filter-list { display:flex; gap:5px; margin-top:7px; padding-bottom:1px; overflow-x:auto; scrollbar-width:thin; }
+.country-chip { flex:0 0 auto; border:1px solid rgba(35,57,93,.12); border-radius:999px; padding:4px 7px; background:#fffdf8; color:#344054; font-size:8.5px; font-weight:800; cursor:pointer; }
+.country-chip .chip-count { color:#d92d20; font-weight:900; }
+.country-chip.active { background:#fee500; color:#202124; }
+.country-chip[hidden] { display:none; }
+.country-filter-note { margin-top:5px; color:#667085; font-size:9px; text-align:center; }
+.world-map-credit { margin-top:3px; color:#98a2b3; font-size:7px; text-align:right; }
 @media (min-width: 700px) {
   .world-map-panel { margin:0 20px 16px; padding:12px 14px 13px; }
+  .world-map-title { font-size:13px; }
+  .world-map-summary { font-size:10px; }
+  .country-pin { min-height:27px; padding:3px 8px; font-size:10px; }
+  .country-pin .flag { font-size:15px; }
+  .country-chip { padding:5px 9px; font-size:10px; }
+}
   .world-map-title { font-size:13px; }
   .world-map-canvas { height:205px; }
   .country-pin { min-height:29px; padding:4px 9px; font-size:10px; }
@@ -137,8 +150,8 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   .utility-box { height: 36px; padding: 0 10px; }
   .utility-label, .language-order-toggle, .date-input { font-size: 12px; }
   .language-order-toggle, .date-input { height: 28px; }
-  .language-order-toggle { min-width: 92px; font-size: 12px; }
-  .date-input { min-width: 112px; padding-right: 18px; font-size: 12px; }
+  .language-order-toggle { min-width: 0; padding: 0 8px; font-size: 12px; }
+  .date-input { min-width: 112px; padding: 0 22px 0 8px; font-size: 12px; font-weight: 800; text-align: center; }
   main { padding: 18px 20px 44px; }
   .favorites-panel { margin-bottom: 16px; padding: 16px; border-radius: 12px; }
   .favorites-title { margin-bottom: 12px; font-size: 16px; }
@@ -267,7 +280,7 @@ header,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 10. 19:35 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 10. 20:05 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"></div>
       <div class="tabs"><button class="tab-button" type="button" data-tab="전일">전일</button><button class="tab-button active" type="button" data-tab="금일">금일</button><button class="tab-button" type="button" data-tab="익일">익일</button></div>
       <div class="utility-row">
@@ -284,19 +297,14 @@ header,
   </header>
   <section id="world-map-panel" class="world-map-panel">
     <div class="world-map-head">
-      <div class="world-map-title">🌐 국가별 기사 지도</div>
+      <div class="world-map-title-wrap">
+        <div class="world-map-title">🌐 국가별 기사 지도</div>
+        <div id="world-map-summary" class="world-map-summary">현재 탭 전체 0건 · 국가 합계 0건</div>
+      </div>
       <button id="country-all" class="world-map-all active" type="button">전체</button>
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터 지도">
-      <svg class="world-map-svg" viewBox="0 0 1000 430" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M75 95 L135 55 220 70 265 110 245 145 195 158 160 205 105 195 78 155 Z"/>
-        <path d="M245 205 L290 220 315 270 300 340 275 390 250 350 258 295 232 250 Z"/>
-        <path d="M430 75 L485 58 530 76 555 110 535 137 490 134 455 117 Z"/>
-        <path d="M465 145 L535 135 585 165 610 230 580 330 530 375 488 318 478 255 445 205 Z"/>
-        <path d="M545 70 L660 52 760 72 850 110 910 150 875 195 805 198 755 165 690 178 635 155 590 132 Z"/>
-        <path d="M825 292 L875 280 920 305 900 345 850 350 815 325 Z"/>
-        <path d="M680 205 L718 210 740 244 715 270 685 255 665 228 Z"/>
-      </svg>
+      <img class="world-map-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png" alt="세계지도" loading="lazy">
       <button class="country-pin country-us" data-country-filter="US" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
       <button class="country-pin country-kr" data-country-filter="KR" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
       <button class="country-pin country-gb" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
@@ -304,7 +312,26 @@ header,
       <button class="country-pin country-ua" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
       <button class="country-pin country-ae" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
     </div>
-    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 관련 기사만 표시됩니다.</div>
+    <div class="country-filter-list" aria-label="국가별 기사 목록">
+      <button class="country-chip" data-country-filter="US" type="button">🇺🇸 미국 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="KR" type="button">🇰🇷 한국 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="GB" type="button">🇬🇧 영국 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="BG" type="button">🇧🇬 불가리아 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="UA" type="button">🇺🇦 우크라이나 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="AE" type="button">🇦🇪 UAE <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="RO" type="button">🇷🇴 루마니아 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="CZ" type="button">🇨🇿 체코 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="PL" type="button">🇵🇱 폴란드 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="SI" type="button">🇸🇮 슬로베니아 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="FI" type="button">🇫🇮 핀란드 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="JP" type="button">🇯🇵 일본 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="CA" type="button">🇨🇦 캐나다 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="FR" type="button">🇫🇷 프랑스 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="SE" type="button">🇸🇪 스웨덴 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="OTHER" type="button">🌐 기타 <span class="chip-count">0건</span></button>
+    </div>
+    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다.</div>
+    <div class="world-map-credit">Map: Wikimedia Commons · CC0</div>
   </section>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
 <section class="tab-panel" id="tab-전일">
@@ -590,7 +617,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -619,6 +646,35 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5e8377ddd3b403852c512537.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260806000253"
+  data-title="김정관, “성과급, 주총 승인 거치도록 상법 개정”"
+  data-publisher="전자신문"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-published="1785992852"
+  data-country="KR"
+  data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
+    <div class="article-snippet">김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2957cdd158b2b5c17d05c085.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -926,7 +982,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">타 건설사</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1013,35 +1069,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/41587b1a7edddfc37a92d110.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.e2news.com/news/articleView.html?idxno=333035"
-  data-title="하동석탄火電 대체 가스발전소, 두산에너빌리티가 짓는다"
-  data-publisher="이투뉴스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-published="1786074441"
-  data-country="KR"
-  data-search="하동석탄火電 대체 가스발전소, 두산에너빌리티가 짓는다 이투뉴스 타 건설사 [이투뉴스] 두산에너빌리티가 한국남부발전(사장 김준동)이 500mw급 하동화력 2,3호기를 폐지하고 기존 부지에 새로 짓는 가스발전소(하동복합) 건설을 맡았다. 두산은 이 발전소에 투입되는 가스터빈 2기와 장기 부품공급도 담당한다. 남부발전은 하동복합 건설사업의 일괄 설치조건부 구매계"
-  tabindex="0" role="link">
-  <div class="article-number">4</div>
-  <div class="preview-copy">
-    <div class="publisher">이투뉴스</div>
-    <div class="headline">하동석탄火電 대체 가스발전소, 두산에너빌리티가 짓는다</div>
-    <div class="article-snippet">[이투뉴스] 두산에너빌리티가 한국남부발전(사장 김준동)이 500MW급 하동화력 2,3호기를 폐지하고 기존 부지에 새로 짓는 가스발전소(하동복합) 건설을 맡았다. 두산은 이 발전소에 투입되는 가스터빈 2기와 장기 부품공급도 담당한다. 남부발전은 하동복합 건설사업의 일괄 설치조건부 구매계</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f513798ce9e15d8c903e6d91.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1234,7 +1261,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1294,6 +1321,35 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000021"
+  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786060800"
+  data-country="KR"
+  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -1348,9 +1404,38 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.joongang.co.kr/article/25451997"
+  data-title="‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보"
+  data-publisher="중앙일보"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786288932"
+  data-country="GB"
+  data-search="‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보 중앙일보 원자력 유럽이 다가오는 일식에 긴장하고 있다. 폭염과 가뭄으로 전력난을 겪는 와중에 오는 12일(현지시간)로 예정된 일식으로 태양광 발전량마저 급감할 수 있어서다. 일식은 태양과 달, 지구가 일직선상에 배열되며 달이 태양을 가리는 현상이다. 파이낸셜타임스(ft)에 따르면 스페인 북부, 포르투갈 북동부에선 달이 태양을 전부 다 가리는 개기일식이, 영국과 프랑스, 이탈리아 북부에서는 태양의 90%가 가려지는 부분일식이 발생할 것으로 예측됐다."
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">중앙일보</div>
+    <div class="headline"><span class="new-badge">NEW</span>‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보</div>
+    <div class="article-snippet">유럽이 다가오는 일식에 긴장하고 있다. 폭염과 가뭄으로 전력난을 겪는 와중에 오는 12일(현지시간)로 예정된 일식으로 태양광 발전량마저 급감할 수 있어서다. 일식은 태양과 달, 지구가 일직선상에 배열되며 달이 태양을 가리는 현상이다. 파이낸셜타임스(FT)에 따르면 스페인 북부, 포르투갈 북동부에선 달이 태양을 전부 다 가리는 개기일식이, 영국과 프랑스, 이탈리아 북부에서는 태양의 90%가 가려지는 부분일식이 발생할 것으로 예측됐다.</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cb1eb760cfb102fa69e2c344.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70603"
   data-title="원자력공사 설립…당당히 행동에 나섭시다"
@@ -1361,7 +1446,7 @@ header,
   data-country="OTHER"
   data-search="원자력공사 설립…당당히 행동에 나섭시다 에너지타임즈 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">원자력공사 설립…당당히 행동에 나섭시다</div>
@@ -1390,7 +1475,7 @@ header,
   data-country="KR"
   data-search="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인 한국원자력신문 원자력 김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
@@ -1419,7 +1504,7 @@ header,
   data-country="KR"
   data-search="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행 한국원자력신문 원자력 한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
@@ -1448,7 +1533,7 @@ header,
   data-country="OTHER"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     <div class="headline">US collaboration to study used nuclear fuel recycling</div>
@@ -1477,7 +1562,7 @@ header,
   data-country="OTHER"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">Nikkei Asia</div>
     <div class="headline">India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
@@ -1843,7 +1928,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1676861/%EB%8C%80%EC%9A%B0%EA%B1%B4%EC%84%A4-%EB%AA%A9%EB%8F%998%EB%8B%A8%EC%A7%80-%EC%88%98%EC%A3%BC-%EC%A0%95%EC%A1%B0%EC%A4%80%E8%8B%B1-A-2026"
   data-title="대우건설, 목동8단지 수주 정조준…英 ARUP과 협업"
   data-publisher="데일리안"
@@ -1856,7 +1941,7 @@ header,
   <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">데일리안</div>
-    <div class="headline"><span class="new-badge">NEW</span>대우건설, 목동8단지 수주 정조준…英 ARUP과 협업</div>
+    <div class="headline">대우건설, 목동8단지 수주 정조준…英 ARUP과 협업</div>
     <div class="article-snippet">대우건설이 글로벌 기업과 협업해 목동신시가지 8단지 재건축 수주에 나선다.대우건설은 서울 양천구 목동 8단지 재건축 정비사업 수주를 위해 세계적인 구조 설계 및 엔지니어링 기업인 아룹(ARUP)과 전략적 협업에 나선다고 10일 밝혔다.영국 런던에 본사를 둔 ARUP은 전 세계 100여 개국에서 활동하고 있는 글로벌 엔지니어링 기업이다. 초고층·대형 복합개발</div>
     <div class="status-line">
       <div class="status-text">
@@ -2410,6 +2495,35 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260806000421"
+  data-title="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라"
+  data-publisher="전자신문"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786338000"
+  data-country="KR"
+  data-search="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라 전자신문 원자력 김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(gaas) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(leo) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물"
+  tabindex="0" role="link">
+  <div class="article-number">6</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라</div>
+    <div class="article-snippet">김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(GaAs) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(LEO) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/aeca00827199738225c41cb9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260810_0003742691"
   data-title="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향"
@@ -2420,7 +2534,7 @@ header,
   data-country="KR"
   data-search="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향 뉴시스 원자력 [세종=뉴시스]임하은 기자 = 지난해 결함 보상(리콜) 건수가 전년보다 4.7% 증가해 2600건대로 집계됐다. 해외리콜 제품의 국내 오픈마켓 유통이 늘어나면서 소비자기본법에 따른 판매 차단 조치가 적극 실시된 영향이다. 공정거래위원회는 10일 중앙행정기관과 지방자치단체, 한국소비자원의 지난해 리콜 실적을 분석해 발표했다. 지난해 리콜을 실시한 중앙행정기관은 국토교통부, 기후에너지환경부, 식품의약품안전처, 원자력안전위원회, 국가기술표준원 등 5곳이다. 지난해 리콜 건수는 2656건으로 전년 2537건보다 119건(4.7%) 증가했다. 전체 리콜 건수는 2022년 이후"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향</div>
@@ -2449,7 +2563,7 @@ header,
   data-country="OTHER"
   data-search="폭염과 ai 시대, 원전 더 지어야 하나? - 뉴스펭귄 뉴스펭귄 원자력 2.8gw와 비어 있는 처분장새로 지을 원전 2기의 설비용량은 2.8gw다. 이용률 85%를 적용하면 연간 21twh를 생산한다. 국내 데이터센터의 2038년 추"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">뉴스펭귄</div>
     <div class="headline">폭염과 AI 시대, 원전 더 지어야 하나? - 뉴스펭귄</div>
@@ -2478,7 +2592,7 @@ header,
   data-country="JP"
   data-search="nihon hidankyo renews call for world without nuclear weapons the japan times 원자력 the japan confederation of a- and h-bomb sufferers organizations, held a news conference in nagasaki on the 70th anniversary of the group’s establishment."
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">The Japan Times</div>
     <div class="headline">Nihon Hidankyo renews call for world without nuclear weapons</div>
@@ -2496,35 +2610,6 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/a69f9a25cc073ebc07ff40c6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
-
-<article class="preview-card new-article"
-  data-url="https://www.reuters.com/business/energy/romania-says-nuclear-reactor-can-run-nine-days-after-redirecting-danube-water-2026-08-10/"
-  data-title="Romania says nuclear reactor can run for nine days after redirecting Danube water"
-  data-publisher="Reuters"
-  data-group="원자력"
-  data-language="en"
-  data-published="1786348923"
-  data-country="RO"
-  data-search="romania says nuclear reactor can run for nine days after redirecting danube water reuters 원자력 romania said its only working nuclear reactor can operate ‌for a further nine days after it redirected the flow of the drought-hit danube river to supply the turbines with water."
-  tabindex="0" role="link">
-  <div class="article-number">9</div>
-  <div class="preview-copy">
-    <div class="publisher">Reuters</div>
-    <div class="headline"><span class="new-badge">NEW</span>Romania says nuclear reactor can run for nine days after redirecting Danube water</div>
-    <div class="article-snippet">Romania said its only working nuclear reactor can operate ‌for a further nine days after it redirected the flow of the drought-hit Danube river to supply the turbines with water.</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/c669150ba709ae730dfe9cb6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
 </div>
 </section>
 
@@ -2532,38 +2617,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.edaily.co.kr/News/Read?newsId=04749446645546008&amp;mediaCodeNo=257"
-  data-title="호실적 안주 안한다…미래 먹거리 FDC·SMR 띄우는 K조선"
-  data-publisher="이데일리"
-  data-group="SMR"
-  data-language="ko"
-  data-published="1786356667"
-  data-country="OTHER"
-  data-search="호실적 안주 안한다…미래 먹거리 fdc·smr 띄우는 k조선 이데일리 smr 삼성중공업 fdc 모형이 설치된 데이터센터월드 전시부스 (사진=삼성중공업) 국내 조선업계가 슈퍼사이클에 올라탄 가운데 장기 호황을 이어갈 미래 먹거리 확보에 속도를 내고 있다. 그동안 액화천연가스(lng) 운반선 등 고부가 선박을 앞세워 수익성을 끌어올렸다면, 앞으로는..."
-  tabindex="0" role="link">
-  <div class="article-number">1</div>
-  <div class="preview-copy">
-    <div class="publisher">이데일리</div>
-    <div class="headline">호실적 안주 안한다…미래 먹거리 FDC·SMR 띄우는 K조선</div>
-    <div class="article-snippet">삼성중공업 FDC 모형이 설치된 데이터센터월드 전시부스 (사진=삼성중공업) 국내 조선업계가 슈퍼사이클에 올라탄 가운데 장기 호황을 이어갈 미래 먹거리 확보에 속도를 내고 있다. 그동안 액화천연가스(LNG) 운반선 등 고부가 선박을 앞세워 수익성을 끌어올렸다면, 앞으로는...</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a6e3f3c312d820a335c2241e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260810_0003742268"
   data-title="원안위, 스웨덴과 방사성폐기물·SMR 안전 규제 논의"
@@ -2571,10 +2627,10 @@ header,
   data-group="SMR"
   data-language="ko"
   data-published="1786330800"
-  data-country="OTHER"
+  data-country="SE"
   data-search="원안위, 스웨덴과 방사성폐기물·smr 안전 규제 논의 뉴시스 smr [세종=뉴시스]손차민 기자 = 원자력안전위원회가 10일 서울에서 스웨덴 방사선안전청(ssm)과 양자회의를 개최하고 규제현안을 논의했다고 밝혔다. 이번 회의에서는 고준위방사성폐기물 관리 정책과 규제기준 등을 중점적으로 다뤘다. 아울러 본격화되는 소형모듈원자로(smr) 개발에 대응하기 위해 smr 규제 분야에 대해서도 논의했다. 스웨덴은 고준위방사성폐기물 처분과 관련해 최고 수준의 기술력을 갖추고 있는 방사성폐기물 관리 선도국이다. 또 가동원전 6기와 영구정지 원전 7기(6기 해체 중)를 보유하는 등 원전 건설·운영 경험도 풍부하다. 원안위와 스웨덴 방사선안전청(ssm)"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">1</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">원안위, 스웨덴과 방사성폐기물·SMR 안전 규제 논의</div>
@@ -2603,7 +2659,7 @@ header,
   data-country="KR"
   data-search="“8000억달러 규모 아세안 파워그리드, 韓과 전력망 협력  강화돼야” 매일경제 smr 까으 아세안 사무총장 기자간담 “smr도입 회원국에 유용한 대안 美 관세엔 加·中과 밀착해 대응”“글로벌 공급망 재편과 지정학 불확실성은 한국과 아세안의 협력을 강화하는 기회가.."
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">매일경제</div>
     <div class="headline">“8000억달러 규모 아세안 파워그리드, 韓과 전력망 협력  강화돼야”</div>
@@ -2632,20 +2688,20 @@ header,
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
-  data-url="https://www.nucnet.org/news/tagged/Advanced%20Reactors"
-  data-title="NucNet | Independent Nuclear News"
-  data-publisher="NucNet"
+  data-url="https://www.eenews.net/articles/gavin-newsom-says-he-wont-extend-operations-for-californias-sole-nuclear-power-plant/"
+  data-title="Gavin Newsom says he won’t extend operations for California’s sole nuclear power plant"
+  data-publisher="E&amp;E News"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
-  data-published="1786320000"
+  data-published="1786357394"
   data-country="OTHER"
-  data-search="nucnet | independent nuclear news nucnet nuclear power·nuclear energy visit nucnet for daily news about nuclear energy. nucnet is an independent news agency and information network for the global nuclear industry. nucnet operates a 24/7 service reporting world nuclear-related news. nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re"
+  data-search="gavin newsom says he won’t extend operations for california’s sole nuclear power plant e&amp;e news nuclear power·nuclear energy the governor&#x27;s remarks are a blow for supporters of the diablo canyon power plant."
   tabindex="0" role="link">
   <div class="article-number">1</div>
   <div class="preview-copy">
-    <div class="publisher">NucNet</div>
-    <div class="headline"><span class="new-badge">NEW</span>NucNet | Independent Nuclear News</div>
-    <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
+    <div class="publisher">E&amp;E News</div>
+    <div class="headline"><span class="new-badge">NEW</span>Gavin Newsom says he won’t extend operations for California’s sole nuclear power plant</div>
+    <div class="article-snippet">The governor&#x27;s remarks are a blow for supporters of the Diablo Canyon Power Plant.</div>
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">안읽음</span>
@@ -2656,7 +2712,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a12a0190&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/1913a56fef23c1a046e2a9d2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -2782,7 +2838,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">타 건설사</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2869,35 +2925,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/41587b1a7edddfc37a92d110.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.e2news.com/news/articleView.html?idxno=333035"
-  data-title="하동석탄火電 대체 가스발전소, 두산에너빌리티가 짓는다"
-  data-publisher="이투뉴스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-published="1786074441"
-  data-country="KR"
-  data-search="하동석탄火電 대체 가스발전소, 두산에너빌리티가 짓는다 이투뉴스 타 건설사 [이투뉴스] 두산에너빌리티가 한국남부발전(사장 김준동)이 500mw급 하동화력 2,3호기를 폐지하고 기존 부지에 새로 짓는 가스발전소(하동복합) 건설을 맡았다. 두산은 이 발전소에 투입되는 가스터빈 2기와 장기 부품공급도 담당한다. 남부발전은 하동복합 건설사업의 일괄 설치조건부 구매계"
-  tabindex="0" role="link">
-  <div class="article-number">4</div>
-  <div class="preview-copy">
-    <div class="publisher">이투뉴스</div>
-    <div class="headline">하동석탄火電 대체 가스발전소, 두산에너빌리티가 짓는다</div>
-    <div class="article-snippet">[이투뉴스] 두산에너빌리티가 한국남부발전(사장 김준동)이 500MW급 하동화력 2,3호기를 폐지하고 기존 부지에 새로 짓는 가스발전소(하동복합) 건설을 맡았다. 두산은 이 발전소에 투입되는 가스터빈 2기와 장기 부품공급도 담당한다. 남부발전은 하동복합 건설사업의 일괄 설치조건부 구매계</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f513798ce9e15d8c903e6d91.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -3090,7 +3117,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3150,6 +3177,35 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000021"
+  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786060800"
+  data-country="KR"
+  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -3204,9 +3260,38 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.joongang.co.kr/article/25451997"
+  data-title="‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보"
+  data-publisher="중앙일보"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786288932"
+  data-country="GB"
+  data-search="‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보 중앙일보 원자력 유럽이 다가오는 일식에 긴장하고 있다. 폭염과 가뭄으로 전력난을 겪는 와중에 오는 12일(현지시간)로 예정된 일식으로 태양광 발전량마저 급감할 수 있어서다. 일식은 태양과 달, 지구가 일직선상에 배열되며 달이 태양을 가리는 현상이다. 파이낸셜타임스(ft)에 따르면 스페인 북부, 포르투갈 북동부에선 달이 태양을 전부 다 가리는 개기일식이, 영국과 프랑스, 이탈리아 북부에서는 태양의 90%가 가려지는 부분일식이 발생할 것으로 예측됐다."
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">중앙일보</div>
+    <div class="headline"><span class="new-badge">NEW</span>‘개기일식 공포’ 덮쳤다…“원전 10기 멈추는 셈” 유럽 초비상 왜 | 중앙일보</div>
+    <div class="article-snippet">유럽이 다가오는 일식에 긴장하고 있다. 폭염과 가뭄으로 전력난을 겪는 와중에 오는 12일(현지시간)로 예정된 일식으로 태양광 발전량마저 급감할 수 있어서다. 일식은 태양과 달, 지구가 일직선상에 배열되며 달이 태양을 가리는 현상이다. 파이낸셜타임스(FT)에 따르면 스페인 북부, 포르투갈 북동부에선 달이 태양을 전부 다 가리는 개기일식이, 영국과 프랑스, 이탈리아 북부에서는 태양의 90%가 가려지는 부분일식이 발생할 것으로 예측됐다.</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cb1eb760cfb102fa69e2c344.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70603"
   data-title="원자력공사 설립…당당히 행동에 나섭시다"
@@ -3217,7 +3302,7 @@ header,
   data-country="OTHER"
   data-search="원자력공사 설립…당당히 행동에 나섭시다 에너지타임즈 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">에너지타임즈</div>
     <div class="headline">원자력공사 설립…당당히 행동에 나섭시다</div>
@@ -3246,7 +3331,7 @@ header,
   data-country="KR"
   data-search="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인 한국원자력신문 원자력 김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
@@ -3275,7 +3360,7 @@ header,
   data-country="KR"
   data-search="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행 한국원자력신문 원자력 한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복"
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">한국원자력신문</div>
     <div class="headline">[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
@@ -3304,7 +3389,7 @@ header,
   data-country="OTHER"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     <div class="headline">US collaboration to study used nuclear fuel recycling</div>
@@ -3333,7 +3418,7 @@ header,
   data-country="OTHER"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">Nikkei Asia</div>
     <div class="headline">India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
@@ -3722,7 +3807,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3751,6 +3836,35 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5e8377ddd3b403852c512537.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260806000253"
+  data-title="김정관, “성과급, 주총 승인 거치도록 상법 개정”"
+  data-publisher="전자신문"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-published="1785992852"
+  data-country="KR"
+  data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="publisher">전자신문</div>
+    <div class="headline"><span class="new-badge">NEW</span>김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
+    <div class="article-snippet">김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2957cdd158b2b5c17d05c085.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -5022,7 +5136,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1785914340"
-  data-country="OTHER"
+  data-country="KR"
   data-search="운문댐 점검하는 금한승 기후에너지환경부 차관 네이트 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">4</div>
@@ -5051,7 +5165,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1785912240"
-  data-country="OTHER"
+  data-country="KR"
   data-search="모두발언하는 김성환 기후에너지환경부 장관 네이트 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">5</div>
@@ -5774,7 +5888,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-published="1785901479"
-  data-country="OTHER"
+  data-country="CA"
   data-search="canada’s smr strategy creates dependence on foreign reactors and enriched uranium: winfield energi media smr "
   tabindex="0" role="link">
   <div class="article-number">9</div>
@@ -7327,7 +7441,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1785865365"
-  data-country="OTHER"
+  data-country="KR"
   data-search="김성환 기후에너지환경부 장관이 3일 오후 서울 종로구 ohmynews 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -7356,7 +7470,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1785826330"
-  data-country="OTHER"
+  data-country="KR"
   data-search="[인사] 기후에너지환경부(4.5급 이하 전보 등) 투데이에너지 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">2</div>
@@ -7472,7 +7586,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1785835350"
-  data-country="OTHER"
+  data-country="KR"
   data-search="배경훈 부총리 겸 과학기술정보통신부 장관이 3일 오전 ohmynews 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">6</div>
@@ -7780,7 +7894,7 @@ header,
   data-group="원자력"
   data-language="ko"
   data-published="1785876802"
-  data-country="KR"
+  data-country="CA"
   data-search="미·캐나다 원전 르네상스, 안전 전력망 핵심과 한국의 과제 에너지안전신문 원자력 "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -12244,7 +12358,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">19건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -12422,35 +12536,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiYEFVX3lxTE80UXkzdXBPVXFfS0xJQmozRlJxa1E2U2ctQ2dVWmo3bjA4aEhjdkR1YndEbGtZVGNnekxjeXRmc19HaXIyYTNaMlk5b2ZlTURCUC1qMTFaSGxzcEtoX0FCSA?oc=5"
-  data-title="두산에너빌리티, 원전·SMR·가스터빈이 경쟁력...해외 수주가 최대 변수"
-  data-publisher="증권일보"
-  data-group="SMR"
-  data-language="ko"
-  data-published="1785457800"
-  data-country="OTHER"
-  data-search="두산에너빌리티, 원전·smr·가스터빈이 경쟁력...해외 수주가 최대 변수 증권일보 smr "
-  tabindex="0" role="link">
-  <div class="article-number">7</div>
-  <div class="preview-copy">
-    <div class="publisher">증권일보</div>
-    <div class="headline">두산에너빌리티, 원전·SMR·가스터빈이 경쟁력...해외 수주가 최대 변수</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiakFVX3lxTE5aQy1zUEt1R054UjFCU0xKYTN4OC0tSEpfQzZVMXJyaVVIdXJUencwMU9OUXFuMlp0bjdxelMzU0FLTFJkczlHdnZDU09TVGdIZndRa2xNc2xDdVNJS3FaWEVvbEtCcU1xUGc?oc=5"
   data-title="건설 관리서 원전 개발까지···한미글로벌, 美 SMR 정조준"
   data-publisher="뉴스웨이"
@@ -12460,7 +12545,7 @@ header,
   data-country="OTHER"
   data-search="건설 관리서 원전 개발까지···한미글로벌, 美 smr 정조준 뉴스웨이 smr "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">뉴스웨이</div>
     <div class="headline">건설 관리서 원전 개발까지···한미글로벌, 美 SMR 정조준</div>
@@ -12489,7 +12574,7 @@ header,
   data-country="OTHER"
   data-search="smr stock sinks on huge revenue miss, but here’s why retail is still bullish stocktwits smr "
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">Stocktwits</div>
     <div class="headline">SMR Stock Sinks On Huge Revenue Miss, But Here’s Why Retail Is Still Bullish</div>
@@ -12518,7 +12603,7 @@ header,
   data-country="US"
   data-search="does tva’s 6 gw smr vision with entra1 reframe the bull case for nuscale power (smr)? simplywall.st smr "
   tabindex="0" role="link">
-  <div class="article-number">10</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">simplywall.st</div>
     <div class="headline">Does TVA’s 6 GW SMR Vision with ENTRA1 Reframe the Bull Case for NuScale Power (SMR)?</div>
@@ -12547,7 +12632,7 @@ header,
   data-country="OTHER"
   data-search="this historic 6-gigawatt smr program could be a game changer for nuscale stock the motley fool smr "
   tabindex="0" role="link">
-  <div class="article-number">11</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">The Motley Fool</div>
     <div class="headline">This Historic 6-Gigawatt SMR Program Could Be a Game Changer for NuScale Stock</div>
@@ -12576,7 +12661,7 @@ header,
   data-country="OTHER"
   data-search="us: strategic partnership could accelerate 100 mw smr deployment interesting engineering smr "
   tabindex="0" role="link">
-  <div class="article-number">12</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">Interesting Engineering</div>
     <div class="headline">US: Strategic partnership could accelerate 100 MW SMR deployment</div>
@@ -12605,7 +12690,7 @@ header,
   data-country="OTHER"
   data-search="arc partners with inl for first reactor deployment - american nuclear society -- ans american nuclear society -- ans smr "
   tabindex="0" role="link">
-  <div class="article-number">13</div>
+  <div class="article-number">12</div>
   <div class="preview-copy">
     <div class="publisher">American Nuclear Society -- ANS</div>
     <div class="headline">ARC partners with INL for first reactor deployment - American Nuclear Society -- ANS</div>
@@ -12634,7 +12719,7 @@ header,
   data-country="OTHER"
   data-search="smr stock powers ahead after best day in over a month: what’s behind the surge? stocktwits smr "
   tabindex="0" role="link">
-  <div class="article-number">14</div>
+  <div class="article-number">13</div>
   <div class="preview-copy">
     <div class="publisher">Stocktwits</div>
     <div class="headline">SMR Stock Powers Ahead After Best Day In Over A Month: What’s Behind The Surge?</div>
@@ -12663,7 +12748,7 @@ header,
   data-country="OTHER"
   data-search="nuclear microreactor clears criticality: crusoe plans ai factory data center test tech times smr "
   tabindex="0" role="link">
-  <div class="article-number">15</div>
+  <div class="article-number">14</div>
   <div class="preview-copy">
     <div class="publisher">Tech Times</div>
     <div class="headline">Nuclear Microreactor Clears Criticality: Crusoe Plans AI Factory Data Center Test</div>
@@ -12692,7 +12777,7 @@ header,
   data-country="US"
   data-search="nrc approves holtec’s oyster creek licence termination plan nucnet smr "
   tabindex="0" role="link">
-  <div class="article-number">16</div>
+  <div class="article-number">15</div>
   <div class="preview-copy">
     <div class="publisher">NucNet</div>
     <div class="headline">NRC Approves Holtec’s Oyster Creek Licence Termination Plan</div>
@@ -12721,7 +12806,7 @@ header,
   data-country="OTHER"
   data-search="first megawatt-class helium turbine for nuclear microreactors successfully tested in china interesting engineering smr "
   tabindex="0" role="link">
-  <div class="article-number">17</div>
+  <div class="article-number">16</div>
   <div class="preview-copy">
     <div class="publisher">Interesting Engineering</div>
     <div class="headline">First megawatt-class helium turbine for nuclear microreactors successfully tested in China</div>
@@ -12750,7 +12835,7 @@ header,
   data-country="US"
   data-search="oklo secures doe startup authorization for texas isotope reactor etf trends smr "
   tabindex="0" role="link">
-  <div class="article-number">18</div>
+  <div class="article-number">17</div>
   <div class="preview-copy">
     <div class="publisher">ETF Trends</div>
     <div class="headline">Oklo Secures DOE Startup Authorization for Texas Isotope Reactor</div>
@@ -12776,10 +12861,10 @@ header,
   data-group="SMR"
   data-language="en"
   data-published="1785506399"
-  data-country="OTHER"
+  data-country="FR"
   data-search="france&#x27;s edf looking to bring in investors for its smr project reuters smr "
   tabindex="0" role="link">
-  <div class="article-number">19</div>
+  <div class="article-number">18</div>
   <div class="preview-copy">
     <div class="publisher">Reuters</div>
     <div class="headline">France&#x27;s EDF looking to bring in investors for its SMR project</div>
@@ -14095,7 +14180,7 @@ header,
   data-group="SMR"
   data-language="ko"
   data-published="1785361975"
-  data-country="OTHER"
+  data-country="FR"
   data-search="&quot;기술력만으론 안 돼&quot; 프랑스 차세대 원전의 승부수… k-원전의 과제는? 에너지안전신문 smr "
   tabindex="0" role="link">
   <div class="article-number">5</div>
@@ -14269,7 +14354,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-published="1785384047"
-  data-country="OTHER"
+  data-country="FR"
   data-search="edf explores sale of stakes in modular reactor subsidiary financial times smr "
   tabindex="0" role="link">
   <div class="article-number">11</div>
@@ -15057,7 +15142,7 @@ header,
   data-group="원자력"
   data-language="ko"
   data-published="1785274207"
-  data-country="OTHER"
+  data-country="FR"
   data-search="프랑스 edf, 3년 늦어진 원전 건설 잡으려 &#x27;석유·가스 공룡&#x27; 불러들였다 에너지안전신문 원자력 "
   tabindex="0" role="link">
   <div class="article-number">6</div>
@@ -15412,7 +15497,7 @@ header,
   data-group="TerraPower"
   data-language="en"
   data-published="1785331592"
-  data-country="OTHER"
+  data-country="US"
   data-search="next-gen nuclear plant and jobs are coming to wyoming department of energy (.gov) terrapower "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -16438,7 +16523,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -16529,35 +16614,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiWkFVX3lxTE5GZ3BLbGJMc1VjcUZaUm5Jb1gxODhGOHlkd1Z6RWFIeGNWLTBKRFVMTDJiYkpYQ1Q2QTVORWN0bVE3SFJDTkRvWnRBMkhWdm5nOTlUMlZpX0pPZ9IBX0FVX3lxTE4zYVBrU2tUazkyQ1BaT0lTWnVoWUUzcVdwOHVCS3hQaDJLQzJqRGhGZTlTWXU5ZUM5VDEtQXYwb2RVLTI2c3RMaEN0Nmp3bkh4MmNuVXlQYWZ0QWFIM1dz?oc=5"
-  data-title="두산에너빌리티, 중국 원자력발전소 핵심소재 공급 계약"
-  data-publisher="경향신문"
-  data-group="원자력"
-  data-language="ko"
-  data-published="1785135600"
-  data-country="OTHER"
-  data-search="두산에너빌리티, 중국 원자력발전소 핵심소재 공급 계약 경향신문 원자력 "
-  tabindex="0" role="link">
-  <div class="article-number">4</div>
-  <div class="preview-copy">
-    <div class="publisher">경향신문</div>
-    <div class="headline">두산에너빌리티, 중국 원자력발전소 핵심소재 공급 계약</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiT0FVX3lxTE4wTG1GZ0VNYjlUSEM0b0ItbFN3MnNWbVhFdU5vY2gzMkdiTERmd0U4QTNtZkhydTRJcWpvaS1lZWNONWl1ZTZDVHhhSjU5eWM?oc=5"
   data-title="두산에너빌, 올 상반기 영업익 5478억...&quot;대형 원전·SMR로 안정적 성장&quot;"
   data-publisher="v.daum.net"
@@ -16567,7 +16623,7 @@ header,
   data-country="OTHER"
   data-search="두산에너빌, 올 상반기 영업익 5478억...&quot;대형 원전·smr로 안정적 성장&quot; v.daum.net 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">v.daum.net</div>
     <div class="headline">두산에너빌, 올 상반기 영업익 5478억...&quot;대형 원전·SMR로 안정적 성장&quot;</div>
@@ -16596,7 +16652,7 @@ header,
   data-country="OTHER"
   data-search="뉴욕주 탄소제로 전력망 구축시 최대 105gw 필요…&quot;원전 건설해야&quot; esg경제 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">ESG경제</div>
     <div class="headline">뉴욕주 탄소제로 전력망 구축시 최대 105GW 필요…&quot;원전 건설해야&quot;</div>
@@ -16625,7 +16681,7 @@ header,
   data-country="OTHER"
   data-search="[단독] “도심·산단에 소형원전”…에너지 공기업, smr 도입 검토 에너지경제신문 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">에너지경제신문</div>
     <div class="headline">[단독] “도심·산단에 소형원전”…에너지 공기업, SMR 도입 검토</div>
@@ -16654,7 +16710,7 @@ header,
   data-country="KR"
   data-search="[기고] 원전 생태계 혁신적인 복원을 통한 대한민국 메가프로젝트 성공 제언 전자신문 원자력 "
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">전자신문</div>
     <div class="headline">[기고] 원전 생태계 혁신적인 복원을 통한 대한민국 메가프로젝트 성공 제언</div>
@@ -16689,7 +16745,7 @@ header,
   data-group="SMR"
   data-language="ko"
   data-published="1785102403"
-  data-country="OTHER"
+  data-country="FR"
   data-search="프랑스 포스쉬르메르, 차세대 원전·ai 에너지허브 뜬다 에너지안전신문 smr "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -16776,7 +16832,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-published="1785101906"
-  data-country="OTHER"
+  data-country="US"
   data-search="em’s used fuel storage efforts support advanced reactor research in idaho department of energy (.gov) smr "
   tabindex="0" role="link">
   <div class="article-number">4</div>
@@ -16872,7 +16928,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-published="1785135600"
-  data-country="OTHER"
+  data-country="FR"
   data-search="technip energies and edf sign strategic framework agreement to support delivery of the epr2 program technip energies nuclear power·nuclear energy "
   tabindex="0" role="link">
   <div class="article-number">3</div>
@@ -19669,7 +19725,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-published="1784703600"
-  data-country="OTHER"
+  data-country="FR"
   data-search="edf and centrica to extend life of two uk nuclear power plants to 2030 reuters nuclear power·nuclear energy "
   tabindex="0" role="link">
   <div class="article-number">3</div>
@@ -20129,7 +20185,7 @@ header,
   data-group="원자력"
   data-language="ko"
   data-published="1784617200"
-  data-country="OTHER"
+  data-country="FR"
   data-search="폭염 속 빛난 원자력발전의 압도적 저력…프랑스 원전, 폭염에도 전력 지켰다 에너지안전신문 원자력 "
   tabindex="0" role="link">
   <div class="article-number">2</div>
@@ -21491,7 +21547,7 @@ header,
   data-group="원자력"
   data-language="ko"
   data-published="1784444400"
-  data-country="OTHER"
+  data-country="CA"
   data-search="캐나다 &#x27;100조&#x27; 원전 청사진 윤곽…2040년까지 최대 10기 더구루 원자력 "
   tabindex="0" role="link">
   <div class="article-number">3</div>
@@ -29501,7 +29557,7 @@ header,
   data-group="Holtec"
   data-language="en"
   data-published="1782827918"
-  data-country="OTHER"
+  data-country="FR"
   data-search="holtec and edf back cottam smrs nuclear engineering international holtec "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -30153,7 +30209,7 @@ header,
   data-group="Holtec"
   data-language="en"
   data-published="1782735331"
-  data-country="OTHER"
+  data-country="FR"
   data-search="holtec and edf submit proposal to deploy smr-300 at cottam, nottinghamshire - american nuclear society -- ans american nuclear society -- ans holtec "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -31153,7 +31209,7 @@ header,
   data-group="Holtec"
   data-language="en"
   data-published="1782630000"
-  data-country="OTHER"
+  data-country="FR"
   data-search="uk reaches major nuclear milestone with holtec, edf smr proposal interesting engineering holtec "
   tabindex="0" role="link">
   <div class="article-number">2</div>
@@ -32314,7 +32370,7 @@ header,
   data-group="원자력"
   data-language="ko"
   data-published="1782284400"
-  data-country="KR"
+  data-country="CA"
   data-search="캐나다, 대형 원전 최대 10기 건설 전략 발표…한국 원전수출 가능성은? 에너지안전신문 원자력 "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -32573,7 +32629,7 @@ header,
   data-group="Holtec"
   data-language="en"
   data-published="1782296308"
-  data-country="OTHER"
+  data-country="FR"
   data-search="holtec and edf submit proposal for up to four small modular reactors in uk nucnet holtec "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -34838,7 +34894,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">타 건설사</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34855,64 +34911,6 @@ header,
   <div class="preview-copy">
     <div class="publisher">businesspost.co.kr</div>
     <div class="headline">[오늘Who] 국내서도 첫 SMR 건설 본격화, 박지원 두산에너빌리티 수출 경쟁력 강화 기대 커져</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiSEFVX3lxTE1RbW5mTVpjRHM3cHoyYzdEMHZmOVJzZlJ4MlpCRnFjR3RxSzV3X1RrWTVBcUZoUVlFdk8weF94T0hYUzBGQkJ3dg?oc=5"
-  data-title="두산에너빌리티, 오만 두큼 가스복합발전소 건설 계약"
-  data-publisher="주간현대"
-  data-group="타 건설사"
-  data-language="ko"
-  data-published="1781766000"
-  data-country="OTHER"
-  data-search="두산에너빌리티, 오만 두큼 가스복합발전소 건설 계약 주간현대 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">주간현대</div>
-    <div class="headline">두산에너빌리티, 오만 두큼 가스복합발전소 건설 계약</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMiXEFVX3lxTFBtdjItM2pFTFByc053czY0UTJ1REkycVp6NEFhOHZnLW0xVEtManFEckJpRW1GYVFpSWQwdkQxZFJMN1A2Qk5ubEp0c2R5eGtwSnZTUkh0SzFLUjF6?oc=5"
-  data-title="두산에너빌리티(034020)저점에선 물량 모아둘 기회로 보이며 이후 전망 및 대응전략."
-  data-publisher="씽크풀 AI"
-  data-group="타 건설사"
-  data-language="ko"
-  data-published="1781737794"
-  data-country="OTHER"
-  data-search="두산에너빌리티(034020)저점에선 물량 모아둘 기회로 보이며 이후 전망 및 대응전략. 씽크풀 ai 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">씽크풀 AI</div>
-    <div class="headline">두산에너빌리티(034020)저점에선 물량 모아둘 기회로 보이며 이후 전망 및 대응전략.</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -35308,7 +35306,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-published="1781766000"
-  data-country="OTHER"
+  data-country="SE"
   data-search="a flurry of nuclear developments in sweden—state aid, smr selections, legislation - american nuclear society -- ans american nuclear society -- ans smr "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -35846,7 +35844,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1781679600"
-  data-country="OTHER"
+  data-country="CA"
   data-search="문신학 산업부 차관, 캐나다 앨버타주 에너지 광물부 장관 면담 연합뉴스 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">1</div>
@@ -36250,7 +36248,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-published="1781679600"
-  data-country="OTHER"
+  data-country="CA"
   data-search="montreal company plans to build a plant for small modular reactor parts east of toronto in supply chain deal yahoo! finance canada smr "
   tabindex="0" role="link">
   <div class="article-number">3</div>
@@ -36577,7 +36575,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">타 건설사</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36610,35 +36608,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMia0FVX3lxTE5CSmltYVUyUDMweFQtUWZZNzZuVGE3Ym8ySWlMY2FUaXpNWk1SZWtNMWdBQW4tV0ljT3dYVmMzNzVVa3RiUmFFcHQxN24wM0RUd19paHFkT0FaaERvU2ZaS0ZFRHZkLTBiYjYw?oc=5"
-  data-title="[산업 Pick] 두산에너빌리티·LS일렉트릭·가온전선, 글로벌 전력 인프라 영토 확장"
-  data-publisher="라이센스뉴스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-published="1781593200"
-  data-country="OTHER"
-  data-search="[산업 pick] 두산에너빌리티·ls일렉트릭·가온전선, 글로벌 전력 인프라 영토 확장 라이센스뉴스 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">라이센스뉴스</div>
-    <div class="headline">[산업 Pick] 두산에너빌리티·LS일렉트릭·가온전선, 글로벌 전력 인프라 영토 확장</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE81UW5BNjlkc21qeVVpbGF2ckpFOXBVS1NvUU90amhiUmlVdGJ5V3hTQW45THhpMG5aSkFZc096MHgtNkRnRXhTbFNPVzRJZjA3YmY3V0J0MkZtZjktdzU4enRfRzdpVEE?oc=5"
   data-title="Doosan Enerbility Wins 530 Billion-Won Oman Gas Power Plant Contract"
   data-publisher="thelec.net"
@@ -36648,7 +36617,7 @@ header,
   data-country="OTHER"
   data-search="doosan enerbility wins 530 billion-won oman gas power plant contract thelec.net 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">thelec.net</div>
     <div class="headline">Doosan Enerbility Wins 530 Billion-Won Oman Gas Power Plant Contract</div>
@@ -36677,7 +36646,7 @@ header,
   data-country="OTHER"
   data-search="in addition to the stable housing business, dl e&amp;c is attracting attention from the stock market.. 매일경제 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="publisher">매일경제</div>
     <div class="headline">In addition to the stable housing business, DL E&amp;C is attracting attention from the stock market..</div>
@@ -36706,7 +36675,7 @@ header,
   data-country="KR"
   data-search="dl e&amp;c opens mokdong 6 gallery, touts dual-river views and fast rebuild in korea - chosunbiz chosunbiz 타 건설사 "
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="publisher">Chosunbiz</div>
     <div class="headline">DL E&amp;C opens Mokdong 6 gallery, touts dual-river views and fast rebuild in Korea - CHOSUNBIZ</div>
@@ -37409,7 +37378,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-published="1781506800"
-  data-country="OTHER"
+  data-country="SE"
   data-search="rolls-royce smr selected to deliver sweden’s first new nuclear power for over 40 years - rolls-royce plc rolls-royce plc smr "
   tabindex="0" role="link">
   <div class="article-number">2</div>
@@ -38657,7 +38626,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1781161200"
-  data-country="OTHER"
+  data-country="KR"
   data-search="발언하는 금한승 기후에너지환경부 차관 뉴스1 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">3</div>
@@ -39280,7 +39249,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1781074800"
-  data-country="OTHER"
+  data-country="KR"
   data-search="[인사] 과학기술정보통신부 3급 승진 헬로디디 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">4</div>
@@ -39903,7 +39872,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1780988400"
-  data-country="OTHER"
+  data-country="KR"
   data-search="[인사] 기후에너지환경부 외 6월 9일자 알파경제 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">2</div>
@@ -39961,7 +39930,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1780988400"
-  data-country="OTHER"
+  data-country="KR"
   data-search="[포토] 인사말 하는 ​​​​​​​류제명 과학기술정보통신부 제2차관 아주경제 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">4</div>
@@ -40526,7 +40495,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1780902000"
-  data-country="OTHER"
+  data-country="KR"
   data-search="(인사) 기후에너지환경부 전기신문 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">5</div>
@@ -40880,7 +40849,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">타 건설사</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -40926,35 +40895,6 @@ header,
   <div class="preview-copy">
     <div class="publisher">에너지프로슈머</div>
     <div class="headline">두산에너빌리티, 8400억 규모 사우디 자푸라 열병합발전소 2단계 수주</div>
-    
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://news.google.com/rss/articles/CBMibEFVX3lxTE5COVRVWTdmMTVvXzNZdzZmQ081UmVMTk9URVEzaUhyWnFaVWpDMU1zSExLSW1Yd2I4ZEdQUEtkMWRuQTVJOTRySmFLX1Z6cno4RWYxX2M4UDg3anlYb2Z3V1ZaVGlJRGwzYmZsSw?oc=5"
-  data-title="[굿모닝! 5일 건설업계 소식] 두산에너빌리티·HUG·BS한양·DK아시아"
-  data-publisher="굿모닝경제"
-  data-group="타 건설사"
-  data-language="ko"
-  data-published="1780642800"
-  data-country="OTHER"
-  data-search="[굿모닝! 5일 건설업계 소식] 두산에너빌리티·hug·bs한양·dk아시아 굿모닝경제 타 건설사 "
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">굿모닝경제</div>
-    <div class="headline">[굿모닝! 5일 건설업계 소식] 두산에너빌리티·HUG·BS한양·DK아시아</div>
     
     <div class="status-line">
       <div class="status-text">
@@ -41236,7 +41176,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1780642800"
-  data-country="OTHER"
+  data-country="KR"
   data-search="[인사] 과학기술정보통신부 동아사이언스 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">5</div>
@@ -41350,7 +41290,7 @@ header,
   data-group="SMR"
   data-language="ko"
   data-published="1780642800"
-  data-country="OTHER"
+  data-country="FR"
   data-search="원자력과 ai의 만남… 프랑스 edf, 차세대 원전 epr2에 ai 도입한다 에너지안전신문 smr "
   tabindex="0" role="link">
   <div class="article-number">2</div>
@@ -41562,7 +41502,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-published="1780642800"
-  data-country="OTHER"
+  data-country="CA"
   data-search="north american construction is back—smaller and faster—at opg’s darlington ans.org nuclear power·nuclear energy "
   tabindex="0" role="link">
   <div class="article-number">2</div>
@@ -43076,7 +43016,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1780383600"
-  data-country="OTHER"
+  data-country="KR"
   data-search="[인사] 기후에너지환경부 이투뉴스 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">3</div>
@@ -43815,7 +43755,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1780297200"
-  data-country="OTHER"
+  data-country="KR"
   data-search="기조강연하는 배경훈 부총리 겸 과학기술정보통신부 장관 뉴스핌 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">3</div>
@@ -44612,7 +44552,7 @@ header,
   data-group="원전 관계부처"
   data-language="ko"
   data-published="1780038000"
-  data-country="OTHER"
+  data-country="KR"
   data-search="(인사) 기후에너지환경부 전기신문 원전 관계부처 "
   tabindex="0" role="link">
   <div class="article-number">7</div>
@@ -45025,7 +44965,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-published="1780038000"
-  data-country="OTHER"
+  data-country="FR"
   data-search="cavendish nuclear awarded strategic edf frameworks role nuclear industry association nuclear power·nuclear energy "
   tabindex="0" role="link">
   <div class="article-number">3</div>
@@ -46205,39 +46145,77 @@ function renderFavorites(){
 
 let activeCountryFilter = "";
 
+const COUNTRY_NAMES = {
+  US:"미국", KR:"한국", GB:"영국", BG:"불가리아", UA:"우크라이나", AE:"UAE",
+  RO:"루마니아", CZ:"체코", PL:"폴란드", SI:"슬로베니아", FI:"핀란드",
+  JP:"일본", CA:"캐나다", FR:"프랑스", SE:"스웨덴", OTHER:"기타"
+};
+
 function updateCountryMapCounts(){
   const panel=activePanel();
   if(!panel)return;
 
-  const counts={US:0,KR:0,GB:0,BG:0,UA:0,AE:0};
-  panel.querySelectorAll(".preview-card").forEach(card=>{
+  const counts={US:0,KR:0,GB:0,BG:0,UA:0,AE:0,RO:0,CZ:0,PL:0,SI:0,FI:0,JP:0,CA:0,FR:0,SE:0,OTHER:0};
+  const cards=[...panel.querySelectorAll(".preview-card")];
+
+  cards.forEach(card=>{
     const code=card.dataset.country||"OTHER";
-    if(Object.prototype.hasOwnProperty.call(counts,code))counts[code]++;
+    if(!Object.prototype.hasOwnProperty.call(counts,code))counts.OTHER++;
+    else counts[code]++;
   });
 
   document.querySelectorAll("[data-country-filter]").forEach(button=>{
     const code=button.dataset.countryFilter;
     const count=counts[code]||0;
-    const countNode=button.querySelector(".country-count");
+    const countNode=button.querySelector(".country-count")||button.querySelector(".chip-count");
     if(countNode)countNode.textContent=`${count}건`;
     button.hidden=count===0;
     button.classList.toggle("active",activeCountryFilter===code);
   });
 
+  const total=cards.length;
+  const countryTotal=Object.values(counts).reduce((sum,value)=>sum+value,0);
+  const summary=document.getElementById("world-map-summary");
+  if(summary)summary.textContent=`현재 탭 전체 ${total}건 · 국가 합계 ${countryTotal}건`;
+
   const allButton=document.getElementById("country-all");
   if(allButton)allButton.classList.toggle("active",!activeCountryFilter);
 }
 
+function expandVisibleCountryGroups(){
+  const panel=activePanel();
+  if(!panel)return null;
+
+  let firstVisibleCard=null;
+  panel.querySelectorAll(".news-group").forEach(group=>{
+    const visibleCards=[...group.querySelectorAll(".preview-card")].filter(card=>card.style.display!=="none");
+    if(visibleCards.length){
+      group.classList.remove("collapsed");
+      const title=group.querySelector(".group-title");
+      if(title)title.setAttribute("aria-expanded","true");
+      const arrow=group.querySelector(".group-arrow");
+      if(arrow)arrow.textContent="▲";
+      if(!firstVisibleCard)firstVisibleCard=visibleCards[0];
+    }
+  });
+  return firstVisibleCard;
+}
+
 function setCountryFilter(code){
   activeCountryFilter=activeCountryFilter===code?"":code;
-  updateCountryMapCounts();
   filterArticles();
+  updateCountryMapCounts();
+
   const note=document.getElementById("country-filter-note");
-  if(note){
-    const activeButton=document.querySelector(`[data-country-filter="${activeCountryFilter}"]`);
-    note.textContent=activeCountryFilter && activeButton
-      ? `${activeButton.querySelector("span:nth-child(2)")?.textContent||""} 관련 기사만 표시 중`
-      : "국가를 누르면 해당 국가 관련 기사만 표시됩니다.";
+  if(activeCountryFilter){
+    const name=COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
+    if(note)note.textContent=`${name} 관련 기사만 표시 중 · 기사 위치로 이동합니다.`;
+    const firstVisibleCard=expandVisibleCountryGroups();
+    if(firstVisibleCard){
+      setTimeout(()=>firstVisibleCard.scrollIntoView({behavior:"smooth",block:"center"}),80);
+    }
+  } else {
+    if(note)note.textContent="국가를 누르면 해당 국가 기사로 이동합니다.";
   }
 }
 
@@ -46249,10 +46227,10 @@ const countryAllButton=document.getElementById("country-all");
 if(countryAllButton){
   countryAllButton.addEventListener("click",()=>{
     activeCountryFilter="";
-    updateCountryMapCounts();
     filterArticles();
+    updateCountryMapCounts();
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="국가를 누르면 해당 국가 관련 기사만 표시됩니다.";
+    if(note)note.textContent="국가를 누르면 해당 국가 기사로 이동합니다.";
   });
 }
 
