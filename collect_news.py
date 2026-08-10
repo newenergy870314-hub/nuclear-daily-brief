@@ -2720,6 +2720,7 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   data-publisher="{escape(article.publisher)}"
   data-group="{escape(article.group)}"
   data-language="{escape(article.language)}"
+  data-published="{article.published.timestamp():.0f}"
   data-search="{escape(search_text)}"
   tabindex="0" role="link">
   <div class="article-number">{number}</div>
@@ -3091,14 +3092,14 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
 .updated {{ margin-top: 5px; color: rgba(255,255,255,.72); font-size: 10px; font-weight: 600; }}
 .tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-top: 11px; }}
-.utility-row {{ display: grid; grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); gap: 7px; margin-top: 7px; }}
-.utility-box {{ min-width: 0; height: 34px; padding: 0 8px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); display: flex; align-items: center; gap: 4px; }}
-.utility-label {{ flex: 0 0 auto; color: #344054; font-size: 11px; font-weight: 800; white-space: nowrap; }}
-.language-order-toggle {{ flex: 1; min-width: 0; height: 26px; padding: 0 7px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 11px; font-weight: 800; cursor: pointer; }}
+.utility-row {{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; margin-top: 7px; }}
+.utility-box {{ min-width: 0; height: 34px; padding: 0 6px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); display: flex; align-items: center; gap: 3px; }}
+.utility-label {{ flex: 0 0 auto; color: #344054; font-size: 10.5px; font-weight: 800; white-space: nowrap; }}
+.language-order-toggle {{ flex: 1; min-width: 74px; height: 26px; padding: 0 5px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 10.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }}
 .language-order-toggle:active {{ transform: translateY(1px); }}
 .date-picker-box {{ cursor: pointer; }}
 .date-picker-box .date-input {{ cursor: pointer; }}
-.date-input {{ flex: 1; min-width: 112px; width: 100%; height: 26px; padding: 0 18px 0 4px; border: 0; background: transparent; color: #344054; font-size: 11px; box-sizing: border-box; }}
+.date-input {{ flex: 1; min-width: 0; width: 100%; height: 26px; padding: 0 16px 0 2px; border: 0; background: transparent; color: #344054; font-size: 10.5px; box-sizing: border-box; }}
 .date-input::-webkit-calendar-picker-indicator {{ margin: 0; padding: 2px; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
 .search-input {{ width: 100%; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
@@ -3158,7 +3159,7 @@ main {{ padding: 12px 12px 34px; }}
 .important-button {{ flex: 0 0 auto; width: 24px; height: 24px; padding: 0; border: 1px solid rgba(17,24,39,.12); border-radius: 50%; color: #98a2b3; background: transparent; font-size: 15px; line-height: 22px; text-align: center; cursor: pointer; box-shadow: none; }}
 .important-button:hover {{ background: rgba(17,24,39,.05); }}
 .preview-card.important .important-button {{ color: #b77900; border-color: #f2c94c; background: #fff3b0; }}
-.preview-image {{ width: 88px; height: 126px; min-height: 126px; box-sizing: border-box; overflow: hidden; border: 1px solid rgba(52,64,84,.30); border-radius: 6px; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.preview-image {{ width: 88px; height: 126px; min-height: 126px; box-sizing: border-box; overflow: hidden; border: 1px solid rgba(52,64,84,.12); border-radius: 6px; background: linear-gradient(135deg,#173b67,#0b213d); }}
 .preview-image img {{ display: block; width: 100%; height: 126px; min-height: 126px; object-fit: cover; object-position: 50% 50%; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
 .no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 126px; min-height: 126px; padding: 0 4px; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
@@ -3174,10 +3175,12 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .search-input {{ height: 40px; font-size: 13px; }}
   .tabs {{ grid-template-columns: repeat(3, 140px); justify-content: start; }}
   .tab-button {{ height: 38px; font-size: 13px; }}
-  .utility-row {{ grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); max-width: 600px; }}
+  .utility-row {{ grid-template-columns: repeat(2,minmax(0,1fr)); max-width: 600px; }}
   .utility-box {{ height: 36px; padding: 0 10px; }}
   .utility-label, .language-order-toggle, .date-input {{ font-size: 12px; }}
   .language-order-toggle, .date-input {{ height: 28px; }}
+  .language-order-toggle {{ min-width: 92px; font-size: 12px; }}
+  .date-input {{ min-width: 112px; padding-right: 18px; font-size: 12px; }}
   main {{ padding: 18px 20px 44px; }}
   .favorites-panel {{ margin-bottom: 16px; padding: 16px; border-radius: 12px; }}
   .favorites-title {{ margin-bottom: 12px; font-size: 16px; }}
@@ -3523,7 +3526,49 @@ function renderFavorites(){{
   cards.forEach(card=>{{ const item=document.createElement("div"); item.className="favorite-item"; item.innerHTML=`<div><div class="favorite-publisher">${{card.dataset.publisher}}</div><div class="favorite-headline">${{card.dataset.title}}</div></div><button class="favorite-remove" type="button">★</button>`; item.addEventListener("click",e=>{{if(!e.target.closest(".favorite-remove"))openArticle(card)}}); item.querySelector(".favorite-remove").addEventListener("click",e=>{{e.preventDefault();e.stopPropagation();importantArticles.delete(card.dataset.url);saveState();document.querySelectorAll(".preview-card").forEach(cardItem=>{{if(cardItem.dataset.url===card.dataset.url)applyState(cardItem);}});renderFavorites();}}); list.appendChild(item); }});
   count.textContent=`${{cards.length}}건`; box.hidden=cards.length===0;
 }}
-function filterArticles(){{ const q=document.getElementById("article-search").value.trim().toLowerCase(), panel=activePanel(); if(!panel)return; let total=0; panel.querySelectorAll(".news-group").forEach(group=>{{let n=0;group.querySelectorAll(".preview-card").forEach(card=>{{const show=!q||card.dataset.search.includes(q);card.style.display=show?"":"none";if(show){{n++;total++;}}}});group.style.display=q?(n?"":"none"):"";}});document.getElementById("no-results").style.display=q&&total===0?"block":"none";}}
+function filterArticles(){{
+  const q=document.getElementById("article-search").value.trim().toLowerCase();
+  const panel=activePanel();
+  if(!panel)return;
+
+  let total=0;
+
+  panel.querySelectorAll(".news-group").forEach(group=>{{
+    const stack=group.querySelector(".article-stack");
+    if(!stack)return;
+
+    const cards=[...stack.querySelectorAll(".preview-card")];
+    let visible=[];
+
+    cards.forEach(card=>{{
+      const show=!q||card.dataset.search.includes(q);
+      card.style.display=show?"":"none";
+      if(show){{
+        visible.push(card);
+        total++;
+      }}
+    }});
+
+    if(q){{
+      visible.sort((a,b)=>Number(b.dataset.published||0)-Number(a.dataset.published||0));
+      visible.forEach((card,index)=>{{
+        stack.appendChild(card);
+        const number=card.querySelector(".article-number");
+        if(number)number.textContent=String(index+1);
+      }});
+      group.style.display=visible.length?"":"none";
+    }} else {{
+      group.style.display="";
+    }}
+  }});
+
+  if(!q){{
+    const currentOrder=languageOrderButton?.dataset.order||localStorage.getItem(languageOrderKey)||"ko-en";
+    reorderLanguageArticles(currentOrder);
+  }}
+
+  document.getElementById("no-results").style.display=q&&total===0?"block":"none";
+}}
 function activatePanel(panel, button=null){{
   document.querySelectorAll(".tab-button").forEach(x=>x.classList.remove("active"));
   document.querySelectorAll(".tab-panel").forEach(x=>x.classList.remove("active"));
