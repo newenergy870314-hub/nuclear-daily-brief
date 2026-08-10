@@ -42,6 +42,31 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
 .world-map-summary { margin-top:2px; color:#667085; font-size:8.5px; font-weight:700; }
 .world-map-canvas { position:relative; width:100%; height:210px; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); box-sizing:border-box; }
 .world-map-image { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.92; }
+.map-connectors {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:2;
+  overflow:visible;
+}
+.map-connector-line {
+  stroke:rgba(35,57,93,.58);
+  stroke-width:1.15;
+  vector-effect:non-scaling-stroke;
+}
+.map-anchor-dot {
+  fill:#1f4f8a;
+  stroke:#ffffff;
+  stroke-width:1.4;
+  vector-effect:non-scaling-stroke;
+}
+.map-anchor-dot.kr-anchor {
+  fill:#d92d20;
+  r:3.2;
+}
+
 .country-pin {
   position:absolute;
   display:flex;
@@ -49,7 +74,7 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
   gap:2px;
   min-height:21px;
   padding:2px 5px;
-  border:1px solid rgba(35,57,93,.16);
+  border:1px solid rgba(35,57,93,.18);
   border-radius:999px;
   background:rgba(255,253,248,.98);
   color:#1f4f8a;
@@ -64,113 +89,55 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
 }
 .country-pin .flag { font-size:11px; line-height:1; }
 .country-pin .country-count { color:#d92d20; font-weight:900; }
-.country-pin.active { background:#fee500; color:#202124; border-color:rgba(35,57,93,.24); }
+.country-pin.active { background:#fee500; color:#202124; border-color:rgba(35,57,93,.28); }
 .country-pin[hidden] { display:none; }
 
-/* 지도 핀은 실제 국가 위에 겹쳐 쓰지 않고, 빈 공간으로 빼서 연결선으로 표시 */
-.country-pin::after {
-  content:"";
-  position:absolute;
-  height:1px;
-  background:rgba(35,57,93,.48);
-  transform-origin:left center;
-  pointer-events:none;
-  z-index:-1;
+/* 한국은 항상 첫 번째/최상위 표시 */
+.country-kr {
+  right:7px;
+  top:8px;
+  left:auto;
+  z-index:8;
+  border-color:rgba(217,45,32,.30);
+  box-shadow:0 2px 6px rgba(217,45,32,.14);
 }
 
 /* 북미 */
-.country-ca { left:7px; top:20px; transform:none; }
-.country-ca::after { left:100%; top:70%; width:38px; transform:rotate(25deg); }
-.country-us { left:7px; top:72px; transform:none; }
-.country-us::after { left:100%; top:50%; width:42px; transform:rotate(-6deg); }
+.country-ca { left:7px; top:18px; }
+.country-us { left:7px; top:50px; }
 
-/* 유럽: 위쪽과 왼쪽 빈 공간에 분산 */
-.country-gb { left:31%; top:8px; transform:none; }
-.country-gb::after { left:48%; top:100%; width:20px; transform:rotate(88deg); }
-.country-se { left:46%; top:8px; transform:none; }
-.country-se::after { left:48%; top:100%; width:20px; transform:rotate(82deg); }
-.country-fi { left:61%; top:8px; transform:none; }
-.country-fi::after { left:45%; top:100%; width:22px; transform:rotate(98deg); }
-.country-fr { left:31%; top:40px; transform:none; }
-.country-fr::after { left:100%; top:55%; width:18px; transform:rotate(12deg); }
-.country-cz { left:43%; top:40px; transform:none; }
-.country-cz::after { left:52%; top:100%; width:17px; transform:rotate(76deg); }
-.country-pl { left:55%; top:40px; transform:none; }
-.country-pl::after { left:48%; top:100%; width:16px; transform:rotate(82deg); }
-.country-si { left:34%; top:70px; transform:none; }
-.country-si::after { left:100%; top:50%; width:18px; transform:rotate(-8deg); }
-.country-ro { left:49%; top:70px; transform:none; }
-.country-ro::after { left:100%; top:52%; width:18px; transform:rotate(7deg); }
-.country-bg { left:62%; top:70px; transform:none; }
-.country-bg::after { left:48%; top:100%; width:17px; transform:rotate(92deg); }
-.country-ua { left:68%; top:103px; transform:none; }
-.country-ua::after { right:100%; left:auto; top:48%; width:22px; transform:rotate(8deg); transform-origin:right center; }
+/* 유럽 라벨 rail: 실제 위치는 SVG 점으로 표시 */
+.country-gb { left:25%; top:8px; }
+.country-fr { left:25%; top:38px; }
+.country-nl { left:25%; top:68px; }
+.country-be { left:25%; top:98px; }
+.country-ch { left:25%; top:128px; }
 
-/* 중동 */
-.country-ae { left:58%; bottom:20px; top:auto; transform:none; }
-.country-ae::after { left:50%; bottom:100%; top:auto; width:24px; transform:rotate(-72deg); }
+.country-se { left:42%; top:8px; }
+.country-fi { left:42%; top:38px; }
+.country-pl { left:42%; top:68px; }
+.country-cz { left:42%; top:98px; }
+.country-si { left:42%; top:128px; }
 
-/* 동아시아: 한국/일본을 오른쪽 안쪽 rail에 위아래로 분리 */
-.country-jp {
-  right:7px;
-  top:42px;
-  left:auto;
-  transform:none;
-}
-.country-jp::after {
-  right:100%;
-  left:auto;
-  top:60%;
-  width:34px;
-  transform:rotate(168deg);
-  transform-origin:right center;
-}
-.country-kr {
-  right:7px;
-  top:82px;
-  left:auto;
-  transform:none;
-}
-.country-kr::after {
-  right:100%;
-  left:auto;
-  top:45%;
-  width:45px;
-  transform:rotate(184deg);
-  transform-origin:right center;
-}
+.country-ro { left:57%; top:38px; }
+.country-bg { left:57%; top:68px; }
+.country-ua { left:57%; top:98px; }
+.country-tr { left:57%; top:128px; }
+.country-ru { left:57%; top:8px; }
 
-/* 기타는 오른쪽 아래 안전 영역 */
-.country-other {
-  right:7px;
-  bottom:8px;
-  left:auto;
-  top:auto;
-  transform:none;
-}
-.country-other::after { display:none; }
+/* 중동·아시아 */
+.country-ae { left:57%; bottom:10px; top:auto; }
+.country-sa { left:43%; bottom:10px; top:auto; }
+.country-in { right:7px; top:70px; left:auto; }
+.country-cn { right:7px; top:100px; left:auto; }
+.country-jp { right:7px; top:130px; left:auto; }
 
-/* 추가 국가: 기사 있을 때만 표시되는 안전영역 callout */
-.country-ru { left:68%; top:8px; transform:none; }
-.country-ru::after { left:48%; top:100%; width:26px; transform:rotate(95deg); }
-.country-tr { left:68%; top:70px; transform:none; }
-.country-tr::after { left:45%; top:100%; width:18px; transform:rotate(100deg); }
-.country-sa { left:66%; bottom:48px; top:auto; transform:none; }
-.country-sa::after { left:40%; bottom:100%; top:auto; width:18px; transform:rotate(-70deg); }
-.country-in { right:7px; top:122px; left:auto; transform:none; }
-.country-in::after { right:100%; left:auto; top:45%; width:52px; transform:rotate(198deg); transform-origin:right center; }
-.country-cn { right:7px; top:154px; left:auto; transform:none; }
-.country-cn::after { right:100%; left:auto; top:42%; width:44px; transform:rotate(188deg); transform-origin:right center; }
-.country-au { right:7px; bottom:42px; left:auto; top:auto; transform:none; }
-.country-au::after { right:100%; left:auto; top:45%; width:36px; transform:rotate(160deg); transform-origin:right center; }
-.country-za { left:42%; bottom:8px; top:auto; transform:none; }
-.country-za::after { left:55%; bottom:100%; top:auto; width:24px; transform:rotate(-76deg); }
-.country-nl { left:21%; top:103px; transform:none; }
-.country-nl::after { left:100%; top:45%; width:22px; transform:rotate(-14deg); }
-.country-be { left:31%; top:103px; transform:none; }
-.country-be::after { left:100%; top:45%; width:18px; transform:rotate(-5deg); }
-.country-ch { left:42%; top:103px; transform:none; }
-.country-ch::after { left:100%; top:45%; width:17px; transform:rotate(4deg); }
+/* 남반구 */
+.country-au { right:7px; bottom:38px; left:auto; top:auto; }
+.country-za { left:43%; bottom:40px; top:auto; }
+
+/* 기타는 지도상 특정 위치가 없으므로 연결점 없음 */
+.country-other { right:7px; bottom:8px; left:auto; top:auto; }
 
 @media (min-width: 700px) {
   .country-pin {
@@ -180,10 +147,13 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
     max-width:150px;
   }
   .country-pin .flag { font-size:15px; }
+  .country-kr { right:12px; top:10px; }
   .country-ca { left:12px; top:28px; }
-  .country-us { left:12px; top:92px; }
-  .country-jp { right:12px; top:54px; }
-  .country-kr { right:12px; top:106px; }
+  .country-us { left:12px; top:72px; }
+  .country-in { right:12px; top:88px; }
+  .country-cn { right:12px; top:124px; }
+  .country-jp { right:12px; top:160px; }
+  .country-au { right:12px; bottom:50px; }
   .country-other { right:12px; bottom:12px; }
 }
 .country-filter-note { margin-top:5px; color:#667085; font-size:9px; text-align:center; }
@@ -424,7 +394,7 @@ header,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 10. 21:05 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 10. 21:15 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"></div>
       <div class="tabs"><button class="tab-button" type="button" data-tab="전일">전일</button><button class="tab-button active" type="button" data-tab="금일">금일</button><button class="tab-button" type="button" data-tab="익일">익일</button></div>
       <div class="utility-row">
@@ -452,31 +422,32 @@ header,
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터 지도">
       <img class="world-map-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png" alt="세계지도" loading="lazy">
-      <button class="country-pin country-ca" data-country-filter="CA" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-us" data-country-filter="US" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-gb" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fr" data-country-filter="FR" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-se" data-country-filter="SE" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fi" data-country-filter="FI" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-pl" data-country-filter="PL" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cz" data-country-filter="CZ" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ro" data-country-filter="RO" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-si" data-country-filter="SI" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-bg" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ua" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ae" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-kr" data-country-filter="KR" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-jp" data-country-filter="JP" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ru" data-country-filter="RU" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-tr" data-country-filter="TR" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sa" data-country-filter="SA" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-in" data-country-filter="IN" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cn" data-country-filter="CN" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-au" data-country-filter="AU" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-za" data-country-filter="ZA" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-nl" data-country-filter="NL" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-be" data-country-filter="BE" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ch" data-country-filter="CH" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
+      <svg id="map-connectors" class="map-connectors" aria-hidden="true"></svg>
+      <button class="country-pin country-kr" data-country-filter="KR" data-anchor-x="83.2" data-anchor-y="38.8" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ca" data-country-filter="CA" data-anchor-x="20.0" data-anchor-y="26.0" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-us" data-country-filter="US" data-anchor-x="22.0" data-anchor-y="39.5" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb" data-country-filter="GB" data-anchor-x="47.8" data-anchor-y="29.0" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fr" data-country-filter="FR" data-anchor-x="48.6" data-anchor-y="35.0" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-nl" data-country-filter="NL" data-anchor-x="49.2" data-anchor-y="31.3" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-be" data-country-filter="BE" data-anchor-x="49.0" data-anchor-y="33.1" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ch" data-country-filter="CH" data-anchor-x="49.9" data-anchor-y="35.8" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-se" data-country-filter="SE" data-anchor-x="52.8" data-anchor-y="24.5" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fi" data-country-filter="FI" data-anchor-x="56.4" data-anchor-y="24.0" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pl" data-country-filter="PL" data-anchor-x="54.0" data-anchor-y="32.0" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cz" data-country-filter="CZ" data-anchor-x="51.7" data-anchor-y="33.8" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-si" data-country-filter="SI" data-anchor-x="51.3" data-anchor-y="36.8" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ro" data-country-filter="RO" data-anchor-x="55.3" data-anchor-y="36.0" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg" data-country-filter="BG" data-anchor-x="55.6" data-anchor-y="39.2" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua" data-country-filter="UA" data-anchor-x="59.6" data-anchor-y="33.0" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ru" data-country-filter="RU" data-anchor-x="68.0" data-anchor-y="25.5" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-tr" data-country-filter="TR" data-anchor-x="57.3" data-anchor-y="41.4" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae" data-country-filter="AE" data-anchor-x="61.8" data-anchor-y="49.5" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sa" data-country-filter="SA" data-anchor-x="59.0" data-anchor-y="49.0" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-in" data-country-filter="IN" data-anchor-x="69.0" data-anchor-y="50.0" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cn" data-country-filter="CN" data-anchor-x="77.0" data-anchor-y="41.0" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-jp" data-country-filter="JP" data-anchor-x="88.0" data-anchor-y="40.5" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-au" data-country-filter="AU" data-anchor-x="84.0" data-anchor-y="69.0" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-za" data-country-filter="ZA" data-anchor-x="54.5" data-anchor-y="71.0" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
       <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
     <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다. 다시 누르면 해제됩니다.</div>
@@ -762,7 +733,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -854,6 +825,36 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/f0f7d15daef0b0f8ecfe5497.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ans.org/news/2026-08-06/article-8275/north-anna-power-plant-seeks-esp-renewal/"
+  data-title="North Anna power plant seeks ESP renewal"
+  data-publisher="Nuclear Newswire"
+  data-group="원자력"
+  data-language="en"
+  data-published="1786017600"
+  data-country="OTHER"
+  data-search="north anna power plant seeks esp renewal nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">Nuclear Newswire</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>North Anna power plant seeks ESP renewal</div>
+    <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f0fdb80eae9e59e145cf4416.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -895,36 +896,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.powermag.com/curio-nuscale-framatome-join-to-support-fuel-solution-for-advanced-reactors/"
-  data-title="Curio, NuScale, Framatome Join to Support Fuel Solution for Advanced Reactors"
-  data-publisher="POWER Magazine"
-  data-group="SMR"
-  data-language="en"
-  data-published="1786027076"
-  data-country="FR"
-  data-search="curio, nuscale, framatome join to support fuel solution for advanced reactors power magazine smr three companies at the forefront of nuclear energy technology have signed a memorandum of understanding (mou) to evaluate fuel technologies to support advancement of next-generation nuclear power."
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">POWER Magazine</div>
-    
-    <div class="headline">Curio, NuScale, Framatome Join to Support Fuel Solution for Advanced Reactors</div>
-    <div class="article-snippet">Three companies at the forefront of nuclear energy technology have signed a memorandum of understanding (MOU) to evaluate fuel technologies to support advancement of next-generation nuclear power.</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9c44b161ccd66bdb99a2494d.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.powermag.com/doe-approves-safety-design-of-deep-fissions-underground-smr/"
   data-title="DOE Approves Safety Design of Deep Fission&#x27;s Underground SMR"
   data-publisher="POWER Magazine"
@@ -934,7 +905,7 @@ header,
   data-country="OTHER"
   data-search="doe approves safety design of deep fission&#x27;s underground smr power magazine smr california-based deep fission said the doe signed off on the nuclear safety design agreement (nsda) for its gravity nuclear reactor. the group called it a major regulatory milestone that confirms deep fission&#x27;s reactor design warrants advancement under the doe reactor pilot program."
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">POWER Magazine</div>
     
@@ -951,6 +922,36 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/1e950c28e5e34ed6bb3ac64e.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.world-nuclear-news.org/articles/x-energy-and-centrus-sign-haleu-supply-agreement"
+  data-title="X-Energy and Centrus sign HALEU supply agreement"
+  data-publisher="World Nuclear News"
+  data-group="SMR"
+  data-language="en"
+  data-published="1786021778"
+  data-country="OTHER"
+  data-search="x-energy and centrus sign haleu supply agreement world nuclear news smr centrus energy corp and x-energy have signed an agreement for centrus to provide enrichment services for low-enriched uranium and high-assay low-enriched uranium to fuel xe-100 high-temperature gas-cooled small modular reactors. ;"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">World Nuclear News</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>X-Energy and Centrus sign HALEU supply agreement</div>
+    <div class="article-snippet">Centrus Energy Corp and X-Energy have signed an agreement for Centrus to provide enrichment services for low-enriched uranium and high-assay low-enriched uranium to fuel Xe-100 high-temperature gas-cooled small modular reactors. ;</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/de7473a4fe66b005e09987a9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1403,7 +1404,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1496,6 +1497,36 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ans.org/news/2026-08-07/article-8222/the-transformation-of-the-nrc-50-years-of-commissioners/"
+  data-title="The transformation of the NRC: 50 years of commissioners"
+  data-publisher="Nuclear Newswire"
+  data-group="원자력"
+  data-language="en"
+  data-published="1786104000"
+  data-country="US"
+  data-search="the transformation of the nrc: 50 years of commissioners nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">Nuclear Newswire</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>The transformation of the NRC: 50 years of commissioners</div>
+    <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.ans.org/file/24946/l/26 ANS quix_sm_07821 Cropped 2x1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/us-collaboration-to-study-used-nuclear-fuel-recycling"
   data-title="US collaboration to study used nuclear fuel recycling"
@@ -1506,7 +1537,7 @@ header,
   data-country="FR"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     
@@ -1536,7 +1567,7 @@ header,
   data-country="IN"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">Nikkei Asia</div>
     
@@ -1601,9 +1632,39 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.nucnet.org/news/tagged/Russia"
+  data-title="NucNet | Independent Nuclear News"
+  data-publisher="NucNet"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-published="1786104000"
+  data-country="OTHER"
+  data-search="nucnet | independent nuclear news nucnet nuclear power·nuclear energy visit nucnet for daily news about nuclear energy. nucnet is an independent news agency and information network for the global nuclear industry. nucnet operates a 24/7 service reporting world nuclear-related news. nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">NucNet</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>NucNet | Independent Nuclear News</div>
+    <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a1690070&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Holtec">
@@ -1660,7 +1721,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1720,36 +1781,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d551f7934c27e0bac3d87cff.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260810_0003742989"
-  data-title="&quot;서울 공급, 정비사업이 해법&quot;…전문가들, 인허가·이주비·공사비 개선 촉구"
-  data-publisher="뉴시스"
-  data-group="현대건설"
-  data-language="ko"
-  data-published="1786340849"
-  data-country="GB"
-  data-search="&quot;서울 공급, 정비사업이 해법&quot;…전문가들, 인허가·이주비·공사비 개선 촉구 뉴시스 현대건설 [서울=뉴시스]정진형 기자 = &quot;서울로 국한해 보면 주택 공급의 현실적인 대안은 정비사업밖에 없습니다.&quot;(박영국 현대건설 도시미래가치사업3팀장) 10일 국회의원회관에서 열린 &#x27;서울 주택가격 안정을 위한 정비사업 활성화 방안&#x27; 정책 세미나에 참석한 건설사와 건축사, 로펌 등 정비사업 전문가들은 인허가 병목현상부터 이주, 공사비 분쟁 등 재건축·재개발을 통한 도심 주택 공급 확대를 가로막는 제도 개선을 촉구했다. 이날 토론회는 이용선 더불어민주당 의원과 대한건축학회과 주최했다. 첫 발제자로 나선 한은철 나우동인건축사사무소 설계사업부문 부사장은 &#x27;신속 인허가 추진을 위한"
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">뉴시스</div>
-    <div class="country-tags"><span class="country-tags-label">관련국가</span><span class="country-tags-value">🇬🇧 영국 · 🇰🇷 한국</span></div>
-    <div class="headline">&quot;서울 공급, 정비사업이 해법&quot;…전문가들, 인허가·이주비·공사비 개선 촉구</div>
-    <div class="article-snippet">[서울=뉴시스]정진형 기자 = &quot;서울로 국한해 보면 주택 공급의 현실적인 대안은 정비사업밖에 없습니다.&quot;(박영국 현대건설 도시미래가치사업3팀장) 10일 국회의원회관에서 열린 &#x27;서울 주택가격 안정을 위한 정비사업 활성화 방안&#x27; 정책 세미나에 참석한 건설사와 건축사, 로펌 등 정비사업 전문가들은 인허가 병목현상부터 이주, 공사비 분쟁 등 재건축·재개발을 통한 도심 주택 공급 확대를 가로막는 제도 개선을 촉구했다. 이날 토론회는 이용선 더불어민주당 의원과 대한건축학회과 주최했다. 첫 발제자로 나선 한은철 나우동인건축사사무소 설계사업부문 부사장은 &#x27;신속 인허가 추진을 위한</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/63c0493f83f52caf643131b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -2044,7 +2075,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2288,20 +2319,80 @@ header,
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.ans.org/news/source-nuclearnews/"
-  data-title="Nuclear News"
+  data-url="https://www.ans.org/news/topic-envremediation/"
+  data-title="Environmental Remediation"
   data-publisher="Nuclear Newswire"
   data-group="원자력"
   data-language="en"
-  data-published="1786320000"
+  data-published="1786363200"
   data-country="OTHER"
-  data-search="nuclear news nuclear newswire 원자력 published since 1959, nuclear news is recognized worldwide as the flagship trade publication for the nuclear community. news reports cover plant operations, maintenance and security; policy and legislation; international developments; waste management and fuel; and business and contract award news."
+  data-search="environmental remediation nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
   <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">Nuclear Newswire</div>
     
-    <div class="headline"><span class="new-badge">NEW</span>Nuclear News</div>
+    <div class="headline"><span class="new-badge">NEW</span>Environmental Remediation</div>
+    <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/caad18b81937817c492e7063.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ans.org/news/source-cafe/"
+  data-title="ANS Nuclear Cafe"
+  data-publisher="Nuclear Newswire"
+  data-group="원자력"
+  data-language="en"
+  data-published="1786363200"
+  data-country="OTHER"
+  data-search="ans nuclear cafe nuclear newswire 원자력 the ans nuclear cafe is a blog owned and edited by the american nuclear society. information contained on the ans nuclear cafe has been provided by numerous sources. therefore, the american nuclear society assumes no responsibility or liability for the accuracy of information contained herein. disclaimer: the views exp"
+  tabindex="0" role="link">
+  <div class="article-number">10</div>
+  <div class="preview-copy">
+    <div class="publisher">Nuclear Newswire</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>ANS Nuclear Cafe</div>
+    <div class="article-snippet">The ANS Nuclear Cafe is a blog owned and edited by the American Nuclear Society. Information contained on the ANS Nuclear Cafe has been provided by numerous sources. Therefore, the American Nuclear Society assumes no responsibility or liability for the accuracy of information contained herein. DISCLAIMER: The views exp</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7bc0f325842ce0e5976ac454.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ans.org/news/source-nuclearnews/"
+  data-title="Nuclear News"
+  data-publisher="Nuclear Newswire"
+  data-group="원자력"
+  data-language="en"
+  data-published="1786363200"
+  data-country="OTHER"
+  data-search="nuclear news nuclear newswire 원자력 published since 1959, nuclear news is recognized worldwide as the flagship trade publication for the nuclear community. news reports cover plant operations, maintenance and security; policy and legislation; international developments; waste management and fuel; and business and contract award news."
+  tabindex="0" role="link">
+  <div class="article-number">11</div>
+  <div class="preview-copy">
+    <div class="publisher">Nuclear Newswire</div>
+    
+    <div class="headline">Nuclear News</div>
     <div class="article-snippet">Published since 1959, Nuclear News is recognized worldwide as the flagship trade publication for the nuclear community. News reports cover plant operations, maintenance and security; policy and legislation; international developments; waste management and fuel; and business and contract award news.</div>
     <div class="status-line">
       <div class="status-text">
@@ -2316,6 +2407,36 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/0d47cca598c14d241920ebf7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ans.org/news/share/article-8280/"
+  data-title="Email"
+  data-publisher="Nuclear Newswire"
+  data-group="원자력"
+  data-language="en"
+  data-published="1786363200"
+  data-country="OTHER"
+  data-search="email nuclear newswire 원자력 advancing nuclear science and technology for the benefit of humanity"
+  tabindex="0" role="link">
+  <div class="article-number">12</div>
+  <div class="preview-copy">
+    <div class="publisher">Nuclear Newswire</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>Email</div>
+    <div class="article-snippet">Advancing nuclear science and technology for the benefit of humanity</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/35f8a7e7d1ec3267d58a0e15.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -2323,7 +2444,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2383,36 +2504,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://pimg.mk.co.kr/news/cms/202608/10/news-p.v1.20260809.cb505b9d653a498db4df426bf26d5190_R.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.ans.org/news/topic-gen4/"
-  data-title="Advanced Reactors"
-  data-publisher="Nuclear Newswire"
-  data-group="SMR"
-  data-language="en"
-  data-published="1786320000"
-  data-country="OTHER"
-  data-search="advanced reactors nuclear newswire smr ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">Nuclear Newswire</div>
-    
-    <div class="headline"><span class="new-badge">NEW</span>Advanced Reactors</div>
-    <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a335169fa249a0569531106a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -2894,7 +2985,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2987,6 +3078,36 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ans.org/news/2026-08-07/article-8222/the-transformation-of-the-nrc-50-years-of-commissioners/"
+  data-title="The transformation of the NRC: 50 years of commissioners"
+  data-publisher="Nuclear Newswire"
+  data-group="원자력"
+  data-language="en"
+  data-published="1786104000"
+  data-country="US"
+  data-search="the transformation of the nrc: 50 years of commissioners nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">Nuclear Newswire</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>The transformation of the NRC: 50 years of commissioners</div>
+    <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.ans.org/file/24946/l/26 ANS quix_sm_07821 Cropped 2x1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/us-collaboration-to-study-used-nuclear-fuel-recycling"
   data-title="US collaboration to study used nuclear fuel recycling"
@@ -2997,7 +3118,7 @@ header,
   data-country="FR"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="publisher">World Nuclear News</div>
     
@@ -3027,7 +3148,7 @@ header,
   data-country="IN"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">Nikkei Asia</div>
     
@@ -3092,9 +3213,39 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.nucnet.org/news/tagged/Russia"
+  data-title="NucNet | Independent Nuclear News"
+  data-publisher="NucNet"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-published="1786104000"
+  data-country="OTHER"
+  data-search="nucnet | independent nuclear news nucnet nuclear power·nuclear energy visit nucnet for daily news about nuclear energy. nucnet is an independent news agency and information network for the global nuclear industry. nucnet operates a 24/7 service reporting world nuclear-related news. nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">NucNet</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>NucNet | Independent Nuclear News</div>
+    <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a1690070&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Holtec">
@@ -3414,7 +3565,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3506,6 +3657,36 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/f0f7d15daef0b0f8ecfe5497.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ans.org/news/2026-08-06/article-8275/north-anna-power-plant-seeks-esp-renewal/"
+  data-title="North Anna power plant seeks ESP renewal"
+  data-publisher="Nuclear Newswire"
+  data-group="원자력"
+  data-language="en"
+  data-published="1786017600"
+  data-country="OTHER"
+  data-search="north anna power plant seeks esp renewal nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">Nuclear Newswire</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>North Anna power plant seeks ESP renewal</div>
+    <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f0fdb80eae9e59e145cf4416.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -3547,36 +3728,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.powermag.com/curio-nuscale-framatome-join-to-support-fuel-solution-for-advanced-reactors/"
-  data-title="Curio, NuScale, Framatome Join to Support Fuel Solution for Advanced Reactors"
-  data-publisher="POWER Magazine"
-  data-group="SMR"
-  data-language="en"
-  data-published="1786027076"
-  data-country="FR"
-  data-search="curio, nuscale, framatome join to support fuel solution for advanced reactors power magazine smr three companies at the forefront of nuclear energy technology have signed a memorandum of understanding (mou) to evaluate fuel technologies to support advancement of next-generation nuclear power."
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">POWER Magazine</div>
-    
-    <div class="headline">Curio, NuScale, Framatome Join to Support Fuel Solution for Advanced Reactors</div>
-    <div class="article-snippet">Three companies at the forefront of nuclear energy technology have signed a memorandum of understanding (MOU) to evaluate fuel technologies to support advancement of next-generation nuclear power.</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9c44b161ccd66bdb99a2494d.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.powermag.com/doe-approves-safety-design-of-deep-fissions-underground-smr/"
   data-title="DOE Approves Safety Design of Deep Fission&#x27;s Underground SMR"
   data-publisher="POWER Magazine"
@@ -3586,7 +3737,7 @@ header,
   data-country="OTHER"
   data-search="doe approves safety design of deep fission&#x27;s underground smr power magazine smr california-based deep fission said the doe signed off on the nuclear safety design agreement (nsda) for its gravity nuclear reactor. the group called it a major regulatory milestone that confirms deep fission&#x27;s reactor design warrants advancement under the doe reactor pilot program."
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">POWER Magazine</div>
     
@@ -3603,6 +3754,36 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/1e950c28e5e34ed6bb3ac64e.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.world-nuclear-news.org/articles/x-energy-and-centrus-sign-haleu-supply-agreement"
+  data-title="X-Energy and Centrus sign HALEU supply agreement"
+  data-publisher="World Nuclear News"
+  data-group="SMR"
+  data-language="en"
+  data-published="1786021778"
+  data-country="OTHER"
+  data-search="x-energy and centrus sign haleu supply agreement world nuclear news smr centrus energy corp and x-energy have signed an agreement for centrus to provide enrichment services for low-enriched uranium and high-assay low-enriched uranium to fuel xe-100 high-temperature gas-cooled small modular reactors. ;"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="publisher">World Nuclear News</div>
+    
+    <div class="headline"><span class="new-badge">NEW</span>X-Energy and Centrus sign HALEU supply agreement</div>
+    <div class="article-snippet">Centrus Energy Corp and X-Energy have signed an agreement for Centrus to provide enrichment services for low-enriched uranium and high-assay low-enriched uranium to fuel Xe-100 high-temperature gas-cooled small modular reactors. ;</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/de7473a4fe66b005e09987a9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -13422,9 +13603,39 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMif0FVX3lxTFBGcXpVeDEyUV9uZnJoOEU2bFFSWHlaXzhieHJPUWF2Z1hjTFkwaDlpclhFMzlKb1hPZENjVWozSjFZUGZHRmRtNTI0U2FUb0xnWUJZV2R2TDJIbTBfODZDbXJDTnV5cGpsUE1kUFdhUVZLdmQxOU9rU0JUVXVuSEU?oc=5"
+  data-title="Video: 5 Fast Facts about Nuclear Energy"
+  data-publisher="Department of Energy (.gov)"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-published="1785331592"
+  data-country="US"
+  data-search="video: 5 fast facts about nuclear energy department of energy (.gov) nuclear power·nuclear energy "
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">Department of Energy (.gov)</div>
+    
+    <div class="headline">Video: 5 Fast Facts about Nuclear Energy</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://news.google.com/rss/articles/CBMiyAFBVV95cUxOR0JUa3JFTFFCVjlXTWRFRjJnb3RsZ1NOTmpFRG84MnFDX2t5WlE4czVCdlR0WWdWR21jcENCcnlMVmpGeFhGRjBPVnRMNTkyVlQtRkFYenFoRE5GVDF5ZWVETlVzMWpINnQtWVVfUTZoUXFzbGk0RWw2RVNyT1g4S0lqMXVEV0RaR3V2b19HTmo5c3l0Um5BTU1TUDNyTlo1a0doLURPbXpfNEs3NGdQY2EteEVFV053QlFaVEdhLTVxclpBUnFXQQ?oc=5"
   data-title="Massive federal nuclear project could land in Oklahoma"
@@ -13435,7 +13646,7 @@ header,
   data-country="OTHER"
   data-search="massive federal nuclear project could land in oklahoma oklahoman.com nuclear power·nuclear energy "
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">oklahoman.com</div>
     
@@ -21911,9 +22122,39 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Holtec</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://news.google.com/rss/articles/CBMipAFBVV95cUxQYjY3Vzl1ZDd0T2F6WFdIMEtrZWZjeWotVmdTemFELXJ1c1E3T2w3NmJvWGw3ODJpYmdQWE5GM2ZKWnE4SjN3UnoxYnU0WERzMlJQTl9JMHJpV3Bxb2c4VmRGSEt1YXhfcmNyWTktYVBURDRrbUdTdUFKZTQ5aXVPVTRIR3RwOVZ1MXItNF9LSHpnaFFCd3h6V3BCNE56bGFGXzhkdw?oc=5"
+  data-title="Company that owns Palisades files to be publicly traded"
+  data-publisher="Yahoo Finance"
+  data-group="Holtec"
+  data-language="en"
+  data-published="1784012400"
+  data-country="US"
+  data-search="company that owns palisades files to be publicly traded yahoo finance holtec "
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">Yahoo Finance</div>
+    
+    <div class="headline">Company that owns Palisades files to be publicly traded</div>
+    
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="TerraPower">
@@ -42378,6 +42619,45 @@ const COUNTRY_NAMES = {
   ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스", OTHER:"기타"
 };
 
+function renderCountryMapConnectors(){
+  const canvas=document.querySelector(".world-map-canvas");
+  const svg=document.getElementById("map-connectors");
+  if(!canvas||!svg)return;
+
+  const rect=canvas.getBoundingClientRect();
+  if(rect.width<=0||rect.height<=0)return;
+
+  svg.setAttribute("viewBox",`0 0 ${rect.width} ${rect.height}`);
+  svg.innerHTML="";
+
+  canvas.querySelectorAll(".country-pin[data-anchor-x][data-anchor-y]").forEach(button=>{
+    if(button.hidden)return;
+
+    const anchorX=rect.width*(Number(button.dataset.anchorX)/100);
+    const anchorY=rect.height*(Number(button.dataset.anchorY)/100);
+
+    const buttonRect=button.getBoundingClientRect();
+    const bx=buttonRect.left-rect.left+buttonRect.width/2;
+    const by=buttonRect.top-rect.top+buttonRect.height/2;
+
+    // 라벨 중심에서 국가 기준점까지 직접 연결합니다.
+    const line=document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1",String(bx));
+    line.setAttribute("y1",String(by));
+    line.setAttribute("x2",String(anchorX));
+    line.setAttribute("y2",String(anchorY));
+    line.setAttribute("class","map-connector-line");
+    svg.appendChild(line);
+
+    const dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
+    dot.setAttribute("cx",String(anchorX));
+    dot.setAttribute("cy",String(anchorY));
+    dot.setAttribute("r",button.dataset.countryFilter==="KR"?"3.2":"2.5");
+    dot.setAttribute("class",button.dataset.countryFilter==="KR"?"map-anchor-dot kr-anchor":"map-anchor-dot");
+    svg.appendChild(dot);
+  });
+}
+
 function updateCountryMapCounts(){
   const panel=activePanel();
   if(!panel)return;
@@ -42396,7 +42676,8 @@ function updateCountryMapCounts(){
     const count=counts[code]||0;
     const countNode=button.querySelector(".country-count")||button.querySelector(".chip-count");
     if(countNode)countNode.textContent=`${count}건`;
-    button.hidden=count===0;
+    // 한국은 국가별 기사 영역에서 항상 첫 번째로 표시합니다.
+    button.hidden=(code!=="KR" && count===0);
     button.classList.toggle("active",activeCountryFilter===code);
   });
 
@@ -42407,6 +42688,8 @@ function updateCountryMapCounts(){
 
   const allButton=document.getElementById("country-all");
   if(allButton)allButton.classList.toggle("active",!activeCountryFilter);
+
+  requestAnimationFrame(renderCountryMapConnectors);
 }
 
 function expandVisibleCountryGroups(){
@@ -42604,6 +42887,9 @@ if(archiveInput){
     }
   });
 }
+window.addEventListener("resize",()=>requestAnimationFrame(renderCountryMapConnectors));
+const worldMapImage=document.querySelector(".world-map-image");
+if(worldMapImage)worldMapImage.addEventListener("load",()=>requestAnimationFrame(renderCountryMapConnectors));
 document.getElementById("article-search").addEventListener("input",filterArticles);
 updateCountryMapCounts();
 
