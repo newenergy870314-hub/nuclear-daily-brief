@@ -30,7 +30,7 @@ ARCHIVE_FILE = Path("news_archive.json")
 ARCHIVE_DAYS = 90
 BACKFILL_DATES_PER_RUN = 2
 SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "1") == "1"
-MAX_PER_GROUP_PER_LANGUAGE = 12
+MAX_PER_GROUP_PER_LANGUAGE = 30
 
 # 언론사 직접 RSS는 여러 매체를 병렬로 조회합니다.
 # 개별 피드가 응답하지 않아도 전체 작업이 오래 멈추지 않도록 timeout을 둡니다.
@@ -455,7 +455,37 @@ DIRECT_NEWS_PAGES = [
 # 매체 수가 늘어난 만큼 목록 페이지는 병렬 처리하되, 각 매체에서 관련 가능성이 있는 기사만 원문 조회합니다.
 DIRECT_PAGE_WORKERS = 16
 DIRECT_PAGE_TIMEOUT_SECONDS = 8
-DIRECT_PAGE_MAX_LINKS = 30
+DIRECT_PAGE_MAX_LINKS = 80
+
+# 영문 일반매체는 기사 제목에 아래 원전·원자력 후보어가 있으면 원문까지 확인합니다.
+# 최종 기사 포함 여부는 원문 description까지 읽은 뒤 classify_direct_article()에서 다시 판단합니다.
+ENGLISH_NUCLEAR_CANDIDATE_TERMS = {
+    "nuclear", "reactor", "smr", "small modular reactor",
+    "advanced reactor", "microreactor", "atomic energy",
+    "nuclear power", "nuclear energy", "nuclear plant",
+    "nuclear station", "nuclear project", "nuclear construction",
+    "new nuclear", "new build", "decommissioning",
+    "spent fuel", "nuclear fuel", "fuel cycle",
+    "uranium", "ap1000", "ap300", "natrium",
+    "westinghouse", "holtec", "terrapower", "fermi america",
+    "palisades", "dukovany", "kozloduy", "barakah",
+}
+
+# 이 매체/기관은 원자력 전문 페이지이므로 제목이 짧거나 일반적인 표현이어도
+# 기사 URL처럼 보이면 원문을 열어 실제 내용을 확인합니다.
+NUCLEAR_SPECIALIST_PUBLISHERS = {
+    "World Nuclear News",
+    "Nuclear Newswire (ANS)",
+    "Nuclear Newswire",
+    "Nuclear Engineering International",
+    "NucNet",
+    "Nuclear Energy Institute",
+    "World Nuclear Association",
+    "IAEA News",
+    "NRC News",
+    "Nuclear Street",
+}
+
 
 # 언론사 직접 수집 기사 분류 시 너무 넓게 잡히지 않도록 핵심어를 사용합니다.
 DIRECT_GROUP_KEYWORDS = {
@@ -1806,8 +1836,14 @@ def same_event_general(article: Article, existing: Article) -> bool:
     if shared_entity and shared_location and shared_object:
         return True
 
-    # 2) 제목의 핵심어가 3개 이상 같으면 동일 보도 가능성이 매우 높음
-    if len(shared_title) >= 3:
+    # 2) 제목 핵심어 3개만 같다고 바로 중복으로 처리하지 않습니다.
+    # 같은 프로젝트의 서로 다른 후속 기사까지 삭제되는 것을 방지하기 위해
+    # 제목 유사도 또는 사건구조 일치가 함께 있어야 합니다.
+    if len(shared_title) >= 3 and (
+        title_ngram >= 0.30
+        or title_seq >= 0.52
+        or (shared_action and shared_subject)
+    ):
         return True
 
     # 3) 제목 공통어는 적어도, 설명까지 보면 같은 사건 핵심어가 충분히 겹침
@@ -1861,16 +1897,19 @@ def same_day_duplicate(article: Article, existing: Article) -> bool:
 
     # 기사 누락을 줄이기 위해 단순 공통 키워드 2개만으로는 중복 처리하지 않습니다.
     # 핵심 단어가 3개 이상 같거나, 2개가 같으면서 제목 유사도도 읽음될 때만 중복 처리합니다.
-    if len(shared_keywords) >= 3:
+    if (
+        len(shared_keywords) >= 3
+        and (ngram_score >= 0.34 or sequence_score >= 0.54)
+    ):
         return True
     if (
         len(shared_keywords) >= 2
-        and (ngram_score >= 0.45 or sequence_score >= 0.60)
+        and (ngram_score >= 0.50 or sequence_score >= 0.66)
     ):
         return True
 
     # 제목 표현만 조금 바뀐 동일 기사
-    if ngram_score >= 0.58 or sequence_score >= 0.74:
+    if ngram_score >= 0.66 or sequence_score >= 0.80:
         return True
 
     concepts_a = event_concepts(article.title)
@@ -1885,7 +1924,7 @@ def same_day_duplicate(article: Article, existing: Article) -> bool:
     if (
         shared_entity
         and len(shared_keywords) >= 1
-        and (ngram_score >= 0.38 or sequence_score >= 0.52)
+        and (ngram_score >= 0.46 or sequence_score >= 0.62)
     ):
         return True
 
@@ -2361,12 +2400,33 @@ def parse_direct_rss_entry(entry, publisher: str, feed_url: str) -> Article | No
         or getattr(entry, "updated", None)
         or getattr(entry, "created", None)
     )
-    if not raw_date:
-        return None
 
-    try:
-        published = date_parser.parse(raw_date).astimezone(KST)
-    except Exception:
+    published = None
+    if raw_date:
+        try:
+            parsed_date = date_parser.parse(raw_date)
+            if parsed_date.tzinfo is None:
+                parsed_date = parsed_date.replace(tzinfo=timezone.utc)
+            published = parsed_date.astimezone(KST)
+        except Exception:
+            published = None
+
+    if published is None:
+        parsed_struct = (
+            getattr(entry, "published_parsed", None)
+            or getattr(entry, "updated_parsed", None)
+            or getattr(entry, "created_parsed", None)
+        )
+        if parsed_struct:
+            try:
+                published = datetime(
+                    *parsed_struct[:6],
+                    tzinfo=timezone.utc,
+                ).astimezone(KST)
+            except Exception:
+                published = None
+
+    if published is None:
         return None
 
     title = html.unescape(getattr(entry, "title", "") or "").strip()
@@ -2436,6 +2496,8 @@ def _fetch_one_direct_rss_feed(
             continue
         articles.append(article)
 
+    if articles:
+        print(f"[RSS] {publisher}: {len(articles)} article(s)")
     return articles
 
 
@@ -2548,13 +2610,98 @@ def _jsonld_date_published(decoded_html: str) -> str:
             item = queue.pop(0)
             if not isinstance(item, dict):
                 continue
-            value = item.get("datePublished") or item.get("dateCreated")
+            value = (
+                item.get("datePublished")
+                or item.get("dateCreated")
+                or item.get("dateModified")
+                or item.get("uploadDate")
+            )
             if value:
                 return str(value)
             graph = item.get("@graph")
             if isinstance(graph, list):
                 queue.extend(x for x in graph if isinstance(x, dict))
     return ""
+
+
+def _extract_direct_article_date(
+    parser,
+    decoded_html: str,
+    final_url: str,
+    language: str,
+) -> datetime | None:
+    """
+    해외 기사에서 자주 쓰는 meta / JSON-LD / <time datetime> / URL 날짜를 순차 확인합니다.
+    발행일 형식 차이 때문에 정상 영문 기사가 통째로 빠지는 문제를 줄입니다.
+    """
+    raw_candidates = [
+        parser.values.get("article:published_time"),
+        parser.values.get("article:published"),
+        parser.values.get("og:published_time"),
+        parser.values.get("date"),
+        parser.values.get("datepublished"),
+        parser.values.get("datePublished"),
+        parser.values.get("pubdate"),
+        parser.values.get("publishdate"),
+        parser.values.get("publish-date"),
+        parser.values.get("dc.date"),
+        parser.values.get("dc.date.issued"),
+        _jsonld_date_published(decoded_html),
+    ]
+
+    time_matches = re.findall(
+        r'<time[^>]+datetime=["\\\']([^"\\\']+)["\\\']',
+        decoded_html,
+        re.I,
+    )
+    raw_candidates.extend(time_matches[:4])
+
+    # common inline JSON / data attributes
+    inline_patterns = [
+        r'["\\\']datePublished["\\\']\s*:\s*["\\\']([^"\\\']+)["\\\']',
+        r'["\\\']published[_-]?time["\\\']\s*:\s*["\\\']([^"\\\']+)["\\\']',
+        r'data-(?:publish|published)-date=["\\\']([^"\\\']+)["\\\']',
+    ]
+    for pattern in inline_patterns:
+        m = re.search(pattern, decoded_html, re.I)
+        if m:
+            raw_candidates.append(m.group(1))
+
+    # URL에 YYYY/MM/DD 또는 YYYY-MM-DD가 들어가는 언론사 보완
+    url_match = re.search(r'/((?:20)\d{2})[/-](\d{1,2})[/-](\d{1,2})(?:/|$)', final_url)
+    if url_match:
+        raw_candidates.append("-".join(url_match.groups()))
+
+    # 최후 보완: HTML에서 ISO 날짜 1건
+    m = re.search(
+        r'20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}(?:[T\s]\d{1,2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:?\d{2})?)?',
+        decoded_html,
+    )
+    if m:
+        raw_candidates.append(m.group(0))
+
+    for raw_date in raw_candidates:
+        if not raw_date:
+            continue
+        try:
+            published = date_parser.parse(str(raw_date))
+            if published.tzinfo is None:
+                # 영문 기사에 timezone이 없으면 UTC로 간주하되,
+                # 날짜만 있는 경우 정오를 사용해 경계시간 오분류를 줄입니다.
+                if (
+                    published.hour == 0
+                    and published.minute == 0
+                    and not re.search(r'\d{1,2}:\d{2}', str(raw_date))
+                ):
+                    published = published.replace(hour=12)
+                published = published.replace(
+                    tzinfo=KST if language == "ko" else timezone.utc
+                )
+            return published.astimezone(KST)
+        except Exception:
+            continue
+
+    return None
 
 
 def _fetch_direct_page_article(
@@ -2564,13 +2711,17 @@ def _fetch_direct_page_article(
     language: str,
     source_url: str,
 ) -> Article | None:
-    """언론사 원문을 직접 열어 발행일·미리보기·대표이미지를 한 번에 확보합니다."""
+    """
+    언론사 원문을 직접 열어 제목+description을 확보한 뒤 분류합니다.
+    과거에는 제목만으로 먼저 탈락시켜 영문 원전 기사가 누락될 수 있었습니다.
+    """
     try:
         request = Request(
             link,
             headers={
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
-                "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+                "Accept-Language": "en-US,en;q=0.9,ko-KR;q=0.7,ko;q=0.6" if language == "en"
+                else "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
             },
         )
         with urlopen(request, timeout=DIRECT_PAGE_TIMEOUT_SECONDS) as response:
@@ -2596,36 +2747,6 @@ def _fetch_direct_page_article(
     if not title:
         return None
 
-    # 제목 단계에서 먼저 관련 기사만 남겨 상세 처리를 줄입니다.
-    group = classify_direct_article(title, "")
-    if group is None:
-        return None
-    if group == "현대건설" and is_hyundai_volleyball_article(title, ""):
-        return None
-
-    raw_date = (
-        parser.values.get("article:published_time")
-        or parser.values.get("date")
-        or parser.values.get("datepublished")
-        or parser.values.get("pubdate")
-        or _jsonld_date_published(decoded)
-        or ""
-    )
-    if not raw_date:
-        # 최후 보완: 본문 HTML의 ISO 형태 날짜를 제한적으로 탐색
-        m = re.search(r"20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}(?:[T\s]\d{1,2}:\d{2}(?::\d{2})?)?", decoded)
-        raw_date = m.group(0) if m else ""
-    if not raw_date:
-        return None
-
-    try:
-        published = date_parser.parse(raw_date)
-        if published.tzinfo is None:
-            published = published.replace(tzinfo=KST if language == "ko" else timezone.utc)
-        published = published.astimezone(KST)
-    except Exception:
-        return None
-
     description_raw = (
         parser.values.get("og:description")
         or parser.values.get("twitter:description")
@@ -2635,6 +2756,22 @@ def _fetch_direct_page_article(
     description = clean_description(description_raw, title, publisher)
     if not description:
         description = _best_paragraph_description(parser, title, publisher)
+
+    # 제목만이 아니라 description까지 읽고 최종 분류
+    group = classify_direct_article(title, description)
+    if group is None:
+        return None
+    if group == "현대건설" and is_hyundai_volleyball_article(title, description):
+        return None
+
+    published = _extract_direct_article_date(
+        parser,
+        decoded,
+        final_url,
+        language,
+    )
+    if published is None:
+        return None
 
     jsonld_images = _extract_jsonld_image_candidates(decoded, final_url)
     image = (
@@ -2648,11 +2785,6 @@ def _fetch_direct_page_article(
     ).strip()
     if image:
         image = urljoin(final_url, image)
-
-    # 본문까지 확보한 뒤 summary를 포함해 한 번 더 정확히 분류
-    group = classify_direct_article(title, description) or group
-    if group == "현대건설" and is_hyundai_volleyball_article(title, description):
-        return None
 
     return Article(
         title=title,
@@ -2677,10 +2809,13 @@ def _fetch_one_direct_news_page(
     try:
         request = Request(
             page_url,
-            headers={"User-Agent": "Mozilla/5.0 (compatible; NuclearDailyBrief/2.0)"},
+            headers={
+                "User-Agent": "Mozilla/5.0 (compatible; NuclearDailyBrief/3.0)",
+                "Accept-Language": "en-US,en;q=0.9" if language == "en" else "ko-KR,ko;q=0.9,en;q=0.7",
+            },
         )
         with urlopen(request, timeout=DIRECT_PAGE_TIMEOUT_SECONDS) as response:
-            payload = response.read(1_500_000)
+            payload = response.read(2_500_000)
             final_url = response.geturl()
     except Exception:
         return []
@@ -2694,17 +2829,41 @@ def _fetch_one_direct_news_page(
 
     candidates: list[tuple[str, str]] = []
     seen = set()
+    is_nuclear_specialist = publisher in NUCLEAR_SPECIALIST_PUBLISHERS
+
     for link, title in parser.links:
         if link in seen or not _looks_like_article_url(link, publisher):
             continue
         seen.add(link)
-        # 관련 가능성이 전혀 없는 짧은 메뉴 텍스트는 제거
-        if len(title) < 8:
+
+        # 메뉴/버튼 수준의 너무 짧은 텍스트만 제거.
+        # 원자력 전문매체는 짧은 제목도 실제 기사일 수 있어 기준을 더 느슨하게 둡니다.
+        min_title_len = 4 if is_nuclear_specialist else 8
+        if len(title.strip()) < min_title_len:
             continue
-        if classify_direct_article(title, "") is None:
+
+        title_lower = html.unescape(title).lower()
+
+        if is_nuclear_specialist:
+            # 전문매체는 기사 URL이면 원문까지 확인하여 제목 선필터 누락을 방지
+            candidate_ok = True
+        elif language == "en":
+            # 일반 영문매체는 기존 상세 분류 또는 폭넓은 원전 후보어 중 하나면 원문 확인
+            candidate_ok = (
+                classify_direct_article(title, "") is not None
+                or any(term in title_lower for term in ENGLISH_NUCLEAR_CANDIDATE_TERMS)
+            )
+        else:
+            candidate_ok = classify_direct_article(title, "") is not None
+
+        if not candidate_ok:
             continue
+
         candidates.append((link, title))
-        if len(candidates) >= DIRECT_PAGE_MAX_LINKS:
+
+        # 전문 원자력 매체는 더 많은 최신 링크를 확인
+        page_limit = 120 if is_nuclear_specialist else DIRECT_PAGE_MAX_LINKS
+        if len(candidates) >= page_limit:
             break
 
     if not candidates:
@@ -2731,6 +2890,9 @@ def _fetch_one_direct_news_page(
                 continue
             if article and start <= article.published < end:
                 articles.append(article)
+
+    if articles:
+        print(f"[PAGE] {publisher}: {len(articles)} article(s)")
     return articles
 
 
@@ -2763,9 +2925,16 @@ def fetch_articles(start: datetime, end: datetime) -> list[Article]:
 
     검색 포털 RSS는 사용하지 않습니다.
     """
-    fetched: list[Article] = []
-    fetched.extend(fetch_direct_rss(start, end))
-    fetched.extend(fetch_direct_news_pages(start, end))
+    rss_articles = fetch_direct_rss(start, end)
+    page_articles = fetch_direct_news_pages(start, end)
+    fetched = rss_articles + page_articles
+
+    ko_count = sum(1 for article in fetched if article.language == "ko")
+    en_count = sum(1 for article in fetched if article.language == "en")
+    print(
+        f"[COLLECT] raw={len(fetched)} / ko={ko_count} / en={en_count} "
+        f"/ rss={len(rss_articles)} / pages={len(page_articles)}"
+    )
     return fetched
 
 def select_articles_for_period(
@@ -2797,7 +2966,7 @@ def select_articles_for_period(
             selected_group: list[Article] = []
 
             group_limit = (
-                20
+                40
                 if group in {"현대건설", "타 건설사", "원전 관계부처"}
                 else MAX_PER_GROUP_PER_LANGUAGE
             )
@@ -2811,6 +2980,11 @@ def select_articles_for_period(
 
             all_selected.extend(selected_group)
 
+    selected_ko = sum(1 for article in all_selected if article.language == "ko")
+    selected_en = sum(1 for article in all_selected if article.language == "en")
+    print(
+        f"[SELECT] final={len(all_selected)} / ko={selected_ko} / en={selected_en}"
+    )
     return all_selected
 
 
@@ -3508,6 +3682,31 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .world-map-summary {{ margin-top:2px; color:#667085; font-size:8.5px; font-weight:700; }}
 .world-map-canvas {{ position:relative; width:100%; height:210px; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); box-sizing:border-box; }}
 .world-map-image {{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.92; }}
+.map-connectors {{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:2;
+  overflow:visible;
+}}
+.map-connector-line {{
+  stroke:rgba(35,57,93,.58);
+  stroke-width:1.15;
+  vector-effect:non-scaling-stroke;
+}}
+.map-anchor-dot {{
+  fill:#1f4f8a;
+  stroke:#ffffff;
+  stroke-width:1.4;
+  vector-effect:non-scaling-stroke;
+}}
+.map-anchor-dot.kr-anchor {{
+  fill:#d92d20;
+  r:3.2;
+}}
+
 .country-pin {{
   position:absolute;
   display:flex;
@@ -3515,7 +3714,7 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
   gap:2px;
   min-height:21px;
   padding:2px 5px;
-  border:1px solid rgba(35,57,93,.16);
+  border:1px solid rgba(35,57,93,.18);
   border-radius:999px;
   background:rgba(255,253,248,.98);
   color:#1f4f8a;
@@ -3530,113 +3729,55 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 }}
 .country-pin .flag {{ font-size:11px; line-height:1; }}
 .country-pin .country-count {{ color:#d92d20; font-weight:900; }}
-.country-pin.active {{ background:#fee500; color:#202124; border-color:rgba(35,57,93,.24); }}
+.country-pin.active {{ background:#fee500; color:#202124; border-color:rgba(35,57,93,.28); }}
 .country-pin[hidden] {{ display:none; }}
 
-/* 지도 핀은 실제 국가 위에 겹쳐 쓰지 않고, 빈 공간으로 빼서 연결선으로 표시 */
-.country-pin::after {{
-  content:"";
-  position:absolute;
-  height:1px;
-  background:rgba(35,57,93,.48);
-  transform-origin:left center;
-  pointer-events:none;
-  z-index:-1;
+/* 한국은 항상 첫 번째/최상위 표시 */
+.country-kr {{
+  right:7px;
+  top:8px;
+  left:auto;
+  z-index:8;
+  border-color:rgba(217,45,32,.30);
+  box-shadow:0 2px 6px rgba(217,45,32,.14);
 }}
 
 /* 북미 */
-.country-ca {{ left:7px; top:20px; transform:none; }}
-.country-ca::after {{ left:100%; top:70%; width:38px; transform:rotate(25deg); }}
-.country-us {{ left:7px; top:72px; transform:none; }}
-.country-us::after {{ left:100%; top:50%; width:42px; transform:rotate(-6deg); }}
+.country-ca {{ left:7px; top:18px; }}
+.country-us {{ left:7px; top:50px; }}
 
-/* 유럽: 위쪽과 왼쪽 빈 공간에 분산 */
-.country-gb {{ left:31%; top:8px; transform:none; }}
-.country-gb::after {{ left:48%; top:100%; width:20px; transform:rotate(88deg); }}
-.country-se {{ left:46%; top:8px; transform:none; }}
-.country-se::after {{ left:48%; top:100%; width:20px; transform:rotate(82deg); }}
-.country-fi {{ left:61%; top:8px; transform:none; }}
-.country-fi::after {{ left:45%; top:100%; width:22px; transform:rotate(98deg); }}
-.country-fr {{ left:31%; top:40px; transform:none; }}
-.country-fr::after {{ left:100%; top:55%; width:18px; transform:rotate(12deg); }}
-.country-cz {{ left:43%; top:40px; transform:none; }}
-.country-cz::after {{ left:52%; top:100%; width:17px; transform:rotate(76deg); }}
-.country-pl {{ left:55%; top:40px; transform:none; }}
-.country-pl::after {{ left:48%; top:100%; width:16px; transform:rotate(82deg); }}
-.country-si {{ left:34%; top:70px; transform:none; }}
-.country-si::after {{ left:100%; top:50%; width:18px; transform:rotate(-8deg); }}
-.country-ro {{ left:49%; top:70px; transform:none; }}
-.country-ro::after {{ left:100%; top:52%; width:18px; transform:rotate(7deg); }}
-.country-bg {{ left:62%; top:70px; transform:none; }}
-.country-bg::after {{ left:48%; top:100%; width:17px; transform:rotate(92deg); }}
-.country-ua {{ left:68%; top:103px; transform:none; }}
-.country-ua::after {{ right:100%; left:auto; top:48%; width:22px; transform:rotate(8deg); transform-origin:right center; }}
+/* 유럽 라벨 rail: 실제 위치는 SVG 점으로 표시 */
+.country-gb {{ left:25%; top:8px; }}
+.country-fr {{ left:25%; top:38px; }}
+.country-nl {{ left:25%; top:68px; }}
+.country-be {{ left:25%; top:98px; }}
+.country-ch {{ left:25%; top:128px; }}
 
-/* 중동 */
-.country-ae {{ left:58%; bottom:20px; top:auto; transform:none; }}
-.country-ae::after {{ left:50%; bottom:100%; top:auto; width:24px; transform:rotate(-72deg); }}
+.country-se {{ left:42%; top:8px; }}
+.country-fi {{ left:42%; top:38px; }}
+.country-pl {{ left:42%; top:68px; }}
+.country-cz {{ left:42%; top:98px; }}
+.country-si {{ left:42%; top:128px; }}
 
-/* 동아시아: 한국/일본을 오른쪽 안쪽 rail에 위아래로 분리 */
-.country-jp {{
-  right:7px;
-  top:42px;
-  left:auto;
-  transform:none;
-}}
-.country-jp::after {{
-  right:100%;
-  left:auto;
-  top:60%;
-  width:34px;
-  transform:rotate(168deg);
-  transform-origin:right center;
-}}
-.country-kr {{
-  right:7px;
-  top:82px;
-  left:auto;
-  transform:none;
-}}
-.country-kr::after {{
-  right:100%;
-  left:auto;
-  top:45%;
-  width:45px;
-  transform:rotate(184deg);
-  transform-origin:right center;
-}}
+.country-ro {{ left:57%; top:38px; }}
+.country-bg {{ left:57%; top:68px; }}
+.country-ua {{ left:57%; top:98px; }}
+.country-tr {{ left:57%; top:128px; }}
+.country-ru {{ left:57%; top:8px; }}
 
-/* 기타는 오른쪽 아래 안전 영역 */
-.country-other {{
-  right:7px;
-  bottom:8px;
-  left:auto;
-  top:auto;
-  transform:none;
-}}
-.country-other::after {{ display:none; }}
+/* 중동·아시아 */
+.country-ae {{ left:57%; bottom:10px; top:auto; }}
+.country-sa {{ left:43%; bottom:10px; top:auto; }}
+.country-in {{ right:7px; top:70px; left:auto; }}
+.country-cn {{ right:7px; top:100px; left:auto; }}
+.country-jp {{ right:7px; top:130px; left:auto; }}
 
-/* 추가 국가: 기사 있을 때만 표시되는 안전영역 callout */
-.country-ru {{ left:68%; top:8px; transform:none; }}
-.country-ru::after {{ left:48%; top:100%; width:26px; transform:rotate(95deg); }}
-.country-tr {{ left:68%; top:70px; transform:none; }}
-.country-tr::after {{ left:45%; top:100%; width:18px; transform:rotate(100deg); }}
-.country-sa {{ left:66%; bottom:48px; top:auto; transform:none; }}
-.country-sa::after {{ left:40%; bottom:100%; top:auto; width:18px; transform:rotate(-70deg); }}
-.country-in {{ right:7px; top:122px; left:auto; transform:none; }}
-.country-in::after {{ right:100%; left:auto; top:45%; width:52px; transform:rotate(198deg); transform-origin:right center; }}
-.country-cn {{ right:7px; top:154px; left:auto; transform:none; }}
-.country-cn::after {{ right:100%; left:auto; top:42%; width:44px; transform:rotate(188deg); transform-origin:right center; }}
-.country-au {{ right:7px; bottom:42px; left:auto; top:auto; transform:none; }}
-.country-au::after {{ right:100%; left:auto; top:45%; width:36px; transform:rotate(160deg); transform-origin:right center; }}
-.country-za {{ left:42%; bottom:8px; top:auto; transform:none; }}
-.country-za::after {{ left:55%; bottom:100%; top:auto; width:24px; transform:rotate(-76deg); }}
-.country-nl {{ left:21%; top:103px; transform:none; }}
-.country-nl::after {{ left:100%; top:45%; width:22px; transform:rotate(-14deg); }}
-.country-be {{ left:31%; top:103px; transform:none; }}
-.country-be::after {{ left:100%; top:45%; width:18px; transform:rotate(-5deg); }}
-.country-ch {{ left:42%; top:103px; transform:none; }}
-.country-ch::after {{ left:100%; top:45%; width:17px; transform:rotate(4deg); }}
+/* 남반구 */
+.country-au {{ right:7px; bottom:38px; left:auto; top:auto; }}
+.country-za {{ left:43%; bottom:40px; top:auto; }}
+
+/* 기타는 지도상 특정 위치가 없으므로 연결점 없음 */
+.country-other {{ right:7px; bottom:8px; left:auto; top:auto; }}
 
 @media (min-width: 700px) {{
   .country-pin {{
@@ -3646,10 +3787,13 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
     max-width:150px;
   }}
   .country-pin .flag {{ font-size:15px; }}
+  .country-kr {{ right:12px; top:10px; }}
   .country-ca {{ left:12px; top:28px; }}
-  .country-us {{ left:12px; top:92px; }}
-  .country-jp {{ right:12px; top:54px; }}
-  .country-kr {{ right:12px; top:106px; }}
+  .country-us {{ left:12px; top:72px; }}
+  .country-in {{ right:12px; top:88px; }}
+  .country-cn {{ right:12px; top:124px; }}
+  .country-jp {{ right:12px; top:160px; }}
+  .country-au {{ right:12px; bottom:50px; }}
   .country-other {{ right:12px; bottom:12px; }}
 }}
 .country-filter-note {{ margin-top:5px; color:#667085; font-size:9px; text-align:center; }}
@@ -3918,31 +4062,32 @@ header,
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터 지도">
       <img class="world-map-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png" alt="세계지도" loading="lazy">
-      <button class="country-pin country-ca" data-country-filter="CA" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-us" data-country-filter="US" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-gb" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fr" data-country-filter="FR" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-se" data-country-filter="SE" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fi" data-country-filter="FI" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-pl" data-country-filter="PL" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cz" data-country-filter="CZ" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ro" data-country-filter="RO" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-si" data-country-filter="SI" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-bg" data-country-filter="BG" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ua" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ae" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-kr" data-country-filter="KR" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-jp" data-country-filter="JP" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ru" data-country-filter="RU" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-tr" data-country-filter="TR" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sa" data-country-filter="SA" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-in" data-country-filter="IN" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cn" data-country-filter="CN" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-au" data-country-filter="AU" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-za" data-country-filter="ZA" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-nl" data-country-filter="NL" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-be" data-country-filter="BE" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ch" data-country-filter="CH" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
+      <svg id="map-connectors" class="map-connectors" aria-hidden="true"></svg>
+      <button class="country-pin country-kr" data-country-filter="KR" data-anchor-x="83.2" data-anchor-y="38.8" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ca" data-country-filter="CA" data-anchor-x="20.0" data-anchor-y="26.0" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-us" data-country-filter="US" data-anchor-x="22.0" data-anchor-y="39.5" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb" data-country-filter="GB" data-anchor-x="47.8" data-anchor-y="29.0" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fr" data-country-filter="FR" data-anchor-x="48.6" data-anchor-y="35.0" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-nl" data-country-filter="NL" data-anchor-x="49.2" data-anchor-y="31.3" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-be" data-country-filter="BE" data-anchor-x="49.0" data-anchor-y="33.1" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ch" data-country-filter="CH" data-anchor-x="49.9" data-anchor-y="35.8" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-se" data-country-filter="SE" data-anchor-x="52.8" data-anchor-y="24.5" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fi" data-country-filter="FI" data-anchor-x="56.4" data-anchor-y="24.0" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pl" data-country-filter="PL" data-anchor-x="54.0" data-anchor-y="32.0" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cz" data-country-filter="CZ" data-anchor-x="51.7" data-anchor-y="33.8" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-si" data-country-filter="SI" data-anchor-x="51.3" data-anchor-y="36.8" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ro" data-country-filter="RO" data-anchor-x="55.3" data-anchor-y="36.0" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg" data-country-filter="BG" data-anchor-x="55.6" data-anchor-y="39.2" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua" data-country-filter="UA" data-anchor-x="59.6" data-anchor-y="33.0" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ru" data-country-filter="RU" data-anchor-x="68.0" data-anchor-y="25.5" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-tr" data-country-filter="TR" data-anchor-x="57.3" data-anchor-y="41.4" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae" data-country-filter="AE" data-anchor-x="61.8" data-anchor-y="49.5" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sa" data-country-filter="SA" data-anchor-x="59.0" data-anchor-y="49.0" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-in" data-country-filter="IN" data-anchor-x="69.0" data-anchor-y="50.0" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cn" data-country-filter="CN" data-anchor-x="77.0" data-anchor-y="41.0" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-jp" data-country-filter="JP" data-anchor-x="88.0" data-anchor-y="40.5" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-au" data-country-filter="AU" data-anchor-x="84.0" data-anchor-y="69.0" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-za" data-country-filter="ZA" data-anchor-x="54.5" data-anchor-y="71.0" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
       <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
     <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다. 다시 누르면 해제됩니다.</div>
@@ -4161,6 +4306,45 @@ const COUNTRY_NAMES = {{
   ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스", OTHER:"기타"
 }};
 
+function renderCountryMapConnectors(){{
+  const canvas=document.querySelector(".world-map-canvas");
+  const svg=document.getElementById("map-connectors");
+  if(!canvas||!svg)return;
+
+  const rect=canvas.getBoundingClientRect();
+  if(rect.width<=0||rect.height<=0)return;
+
+  svg.setAttribute("viewBox",`0 0 ${{rect.width}} ${{rect.height}}`);
+  svg.innerHTML="";
+
+  canvas.querySelectorAll(".country-pin[data-anchor-x][data-anchor-y]").forEach(button=>{{
+    if(button.hidden)return;
+
+    const anchorX=rect.width*(Number(button.dataset.anchorX)/100);
+    const anchorY=rect.height*(Number(button.dataset.anchorY)/100);
+
+    const buttonRect=button.getBoundingClientRect();
+    const bx=buttonRect.left-rect.left+buttonRect.width/2;
+    const by=buttonRect.top-rect.top+buttonRect.height/2;
+
+    // 라벨 중심에서 국가 기준점까지 직접 연결합니다.
+    const line=document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1",String(bx));
+    line.setAttribute("y1",String(by));
+    line.setAttribute("x2",String(anchorX));
+    line.setAttribute("y2",String(anchorY));
+    line.setAttribute("class","map-connector-line");
+    svg.appendChild(line);
+
+    const dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
+    dot.setAttribute("cx",String(anchorX));
+    dot.setAttribute("cy",String(anchorY));
+    dot.setAttribute("r",button.dataset.countryFilter==="KR"?"3.2":"2.5");
+    dot.setAttribute("class",button.dataset.countryFilter==="KR"?"map-anchor-dot kr-anchor":"map-anchor-dot");
+    svg.appendChild(dot);
+  }});
+}}
+
 function updateCountryMapCounts(){{
   const panel=activePanel();
   if(!panel)return;
@@ -4179,7 +4363,8 @@ function updateCountryMapCounts(){{
     const count=counts[code]||0;
     const countNode=button.querySelector(".country-count")||button.querySelector(".chip-count");
     if(countNode)countNode.textContent=`${{count}}건`;
-    button.hidden=count===0;
+    // 한국은 국가별 기사 영역에서 항상 첫 번째로 표시합니다.
+    button.hidden=(code!=="KR" && count===0);
     button.classList.toggle("active",activeCountryFilter===code);
   }});
 
@@ -4190,6 +4375,8 @@ function updateCountryMapCounts(){{
 
   const allButton=document.getElementById("country-all");
   if(allButton)allButton.classList.toggle("active",!activeCountryFilter);
+
+  requestAnimationFrame(renderCountryMapConnectors);
 }}
 
 function expandVisibleCountryGroups(){{
@@ -4387,6 +4574,9 @@ if(archiveInput){{
     }}
   }});
 }}
+window.addEventListener("resize",()=>requestAnimationFrame(renderCountryMapConnectors));
+const worldMapImage=document.querySelector(".world-map-image");
+if(worldMapImage)worldMapImage.addEventListener("load",()=>requestAnimationFrame(renderCountryMapConnectors));
 document.getElementById("article-search").addEventListener("input",filterArticles);
 updateCountryMapCounts();
 
