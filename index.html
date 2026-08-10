@@ -12,7 +12,7 @@ body { margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Malg
 .topbar { position: sticky; top: 0; z-index: 20; margin: 8px 8px 0; padding: 15px 16px 12px; background: #23395d; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; box-shadow: 0 1px 5px rgba(17,24,39,.16); backdrop-filter: blur(8px); }
 .topbar-title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .topbar h1 { margin: 0; color: #ffffff; font-size: 19px; line-height: 1.25; font-weight: 900; letter-spacing: -.35px; text-shadow: none; }
-.header-toggle { flex: 0 0 96px; width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #fee500; color: #111827; font-size: 10px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }
+.header-toggle { flex: 0 0 96px; width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.14); border-radius: 7px; background: #f7e889; color: #111827; font-size: 10px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }
 .header-toggle:hover { background: #f5d900; }
 .header-toggle:active { transform: translateY(1px); }
 .topbar.collapsed .header-toggle { background: #fee500; color: #111827; border-color: rgba(17,24,39,.14); box-shadow: none; }
@@ -51,8 +51,8 @@ main { padding: 12px 12px 34px; }
 .partial-note { margin-bottom: 10px; padding: 9px 11px; color: #475467; background: #fff7cc; border-radius: 8px; font-size: 10px; line-height: 1.45; }
 .language-section { margin-bottom: 30px; }
 .group-nav-compact .group-nav-dense 
-.news-group { margin-bottom: 5px; }
-.group-title { display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #fee500; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.10); cursor: pointer; }
+.news-group { margin-bottom: 8px; }
+.group-title { display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #fee500; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.07); cursor: pointer; }
 .group-title:active { transform: translateY(1px); }
 .group-master-control { display: flex; justify-content: flex-end; margin: 0 0 8px; }
 .group-master-button { width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }
@@ -115,7 +115,7 @@ footer { padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cent
   .period-card strong { font-size: 16px; }
   .group-master-button, .header-toggle { width: 106px; min-width: 106px; height: 34px; padding: 0 9px; font-size: 11px; }
       .group-nav-compact   .group-nav-dense 
-  .news-group { margin-bottom: 6px; }
+  .news-group { margin-bottom: 9px; }
   .group-title { height: 30px; padding: 0 11px; font-size: 12px; border-radius: 6px; }
   .group-count { font-size: 12px; }
   .article-stack { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
@@ -229,9 +229,9 @@ header,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 10. 17:35 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 10. 18:35 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"><button id="search-clear" class="search-clear" type="button">×</button></div>
-      <div class="tabs"><button class="tab-button" data-tab="전일">전일</button><button class="tab-button active" data-tab="금일">금일</button><button class="tab-button" data-tab="익일">익일</button></div>
+      <div class="tabs"><button class="tab-button" type="button" data-tab="전일">전일</button><button class="tab-button active" type="button" data-tab="금일">금일</button><button class="tab-button" type="button" data-tab="익일">익일</button></div>
       <div class="utility-row">
         <div class="utility-box language-order-box">
           <span class="utility-label">기사 순서</span>
@@ -512,7 +512,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>원전 관계부처</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -539,33 +539,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5e8377ddd3b403852c512537.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260806000253"
-  data-title="김정관, “성과급, 주총 승인 거치도록 상법 개정”"
-  data-publisher="전자신문"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
-    <div class="article-snippet">김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2957cdd158b2b5c17d05c085.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1174,7 +1147,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>한국전력</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1228,33 +1201,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260807000021"
-  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
-  data-publisher="전자신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
-    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1516,36 +1462,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">0건</span>
   </button>
-  <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.nucnet.org/news/tagged/Advanced%20Reactors"
-  data-title="NucNet | Independent Nuclear News"
-  data-publisher="NucNet"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-search="nucnet | independent nuclear news nucnet nuclear power·nuclear energy visit nucnet for daily news about nuclear energy. nucnet is an independent news agency and information network for the global nuclear industry. nucnet operates a 24/7 service reporting world nuclear-related news. nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re"
-  tabindex="0" role="link">
-  <div class="article-number">1</div>
-  <div class="preview-copy">
-    <div class="publisher">NucNet</div>
-    <div class="headline">NucNet | Independent Nuclear News</div>
-    <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007bcdcf76c528&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
 </section>
 
 <section class="news-group collapsed" data-group="Holtec">
@@ -1632,7 +1551,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etoday.co.kr/news/view/2612896?trc=ir_news"
   data-title="성수3지구 삼성물산 수주 유력⋯목동10단지는 현대건설 단독 응찰"
   data-publisher="이투데이"
@@ -1643,7 +1562,7 @@ header,
   <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="publisher">이투데이</div>
-    <div class="headline"><span class="new-badge">NEW</span>성수3지구 삼성물산 수주 유력⋯목동10단지는 현대건설 단독 응찰</div>
+    <div class="headline">성수3지구 삼성물산 수주 유력⋯목동10단지는 현대건설 단독 응찰</div>
     <div class="article-snippet">▲성수3지구 항공 사진. (사진제공=삼성물산)서울 주요 정비사업장에서 대형 건설사의 단독 입찰이 이어지고 있다. 공사비 1조8000억원 규모의 성동구</div>
     <div class="status-line">
       <div class="status-text">
@@ -1692,7 +1611,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>타 건설사</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1776,6 +1695,87 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/2026081050841"
+  data-title="박상신 DL이앤씨 대표, 폭염 현장점검"
+  data-publisher="한국경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="박상신 dl이앤씨 대표, 폭염 현장점검 한국경제 타 건설사 박상신 dl이앤씨 대표, 폭염 현장점검, 부동산"
+  tabindex="0" role="link">
+  <div class="article-number">4</div>
+  <div class="preview-copy">
+    <div class="publisher">한국경제</div>
+    <div class="headline"><span class="new-badge">NEW</span>박상신 DL이앤씨 대표, 폭염 현장점검</div>
+    <div class="article-snippet">박상신 DL이앤씨 대표, 폭염 현장점검, 부동산</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2eda3b6bca9073efed7113b3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260810_0003743466"
+  data-title="혹서기 취약한 독거 노인…&#x27;착한바람&#x27;으로 폭염 넘는다"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="혹서기 취약한 독거 노인…&#x27;착한바람&#x27;으로 폭염 넘는다 뉴시스 타 건설사 [서울=뉴시스] 구무서 기자 = 보건복지부는 10일 오후 서울가든호텔에서 폭염에 취약한 독거 고령층을 지원하기 위해 8개 후원 기업·단체들과 함께 2026 혹서기 착한바람 후원전달식을 개최했다. 복지부와 독거노인종합지원센터는 폭염에 취약한 노인에게 쿨매트 등 냉방용품 및 식생활용품 지원을 위한 모금 캠페인인 혹서기 착한바람 캠페인을 진행 중이다. 26개 기업·단체들이 지원한 약 25억원 규모의 후원금과 후원물품은 독거노인종합지원센터를 통해 전국 5만2000여명의 취약 독거 어르신들에게 전달될 예정이다. 이번 전달식에는 ▲한국수출입은행 ▲lg생활건강 ▲포스코이앤씨 ▲대"
+  tabindex="0" role="link">
+  <div class="article-number">5</div>
+  <div class="preview-copy">
+    <div class="publisher">뉴시스</div>
+    <div class="headline"><span class="new-badge">NEW</span>혹서기 취약한 독거 노인…&#x27;착한바람&#x27;으로 폭염 넘는다</div>
+    <div class="article-snippet">[서울=뉴시스] 구무서 기자 = 보건복지부는 10일 오후 서울가든호텔에서 폭염에 취약한 독거 고령층을 지원하기 위해 8개 후원 기업·단체들과 함께 2026 혹서기 착한바람 후원전달식을 개최했다. 복지부와 독거노인종합지원센터는 폭염에 취약한 노인에게 쿨매트 등 냉방용품 및 식생활용품 지원을 위한 모금 캠페인인 혹서기 착한바람 캠페인을 진행 중이다. 26개 기업·단체들이 지원한 약 25억원 규모의 후원금과 후원물품은 독거노인종합지원센터를 통해 전국 5만2000여명의 취약 독거 어르신들에게 전달될 예정이다. 이번 전달식에는 ▲한국수출입은행 ▲LG생활건강 ▲포스코이앤씨 ▲대</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/640590a406ffca127fed6f0b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1676861/%EB%8C%80%EC%9A%B0%EA%B1%B4%EC%84%A4-%EB%AA%A9%EB%8F%998%EB%8B%A8%EC%A7%80-%EC%88%98%EC%A3%BC-%EC%A0%95%EC%A1%B0%EC%A4%80%E8%8B%B1-A-2026"
+  data-title="대우건설, 목동8단지 수주 정조준…英 ARUP과 협업"
+  data-publisher="데일리안"
+  data-group="타 건설사"
+  data-language="ko"
+  data-search="대우건설, 목동8단지 수주 정조준…英 arup과 협업 데일리안 타 건설사 대우건설이 글로벌 기업과 협업해 목동신시가지 8단지 재건축 수주에 나선다.대우건설은 서울 양천구 목동 8단지 재건축 정비사업 수주를 위해 세계적인 구조 설계 및 엔지니어링 기업인 아룹(arup)과 전략적 협업에 나선다고 10일 밝혔다.영국 런던에 본사를 둔 arup은 전 세계 100여 개국에서 활동하고 있는 글로벌 엔지니어링 기업이다. 초고층·대형 복합개발"
+  tabindex="0" role="link">
+  <div class="article-number">6</div>
+  <div class="preview-copy">
+    <div class="publisher">데일리안</div>
+    <div class="headline"><span class="new-badge">NEW</span>대우건설, 목동8단지 수주 정조준…英 ARUP과 협업</div>
+    <div class="article-snippet">대우건설이 글로벌 기업과 협업해 목동신시가지 8단지 재건축 수주에 나선다.대우건설은 서울 양천구 목동 8단지 재건축 정비사업 수주를 위해 세계적인 구조 설계 및 엔지니어링 기업인 아룹(ARUP)과 전략적 협업에 나선다고 10일 밝혔다.영국 런던에 본사를 둔 ARUP은 전 세계 100여 개국에서 활동하고 있는 글로벌 엔지니어링 기업이다. 초고층·대형 복합개발</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a2f709468a0231be69a09fff.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.dt.co.kr/article/12077472"
   data-title="DL이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화”"
@@ -1784,7 +1784,7 @@ header,
   data-language="ko"
   data-search="dl이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화” 디지털타임스 타 건설사 dl이앤씨가 전국 건설 현장의 혹서기 안전관리를 강화하고 근로자 건강 보호를 위한 현장 점검을 실시했다고 10일 밝혔다. 박상신 dl이앤씨 대표이사도 지난 1일 천안 성성 현장을 찾아 안전실태 점검을 실시하고 현장 관계자들에게 안전수칙을 철저히 준수해 근로자 안전 확"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">디지털타임스</div>
     <div class="headline">DL이앤씨, 현장 휴게시설·보건버스 운영…“온열질환 예방 강화”</div>
@@ -1803,33 +1803,6 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://www.sedaily.com/article/20077697"
-  data-title="대우건설, 英 ARUP과 협업…목동8단지 초고층 구조 설계"
-  data-publisher="서울경제"
-  data-group="타 건설사"
-  data-language="ko"
-  data-search="대우건설, 英 arup과 협업…목동8단지 초고층 구조 설계 서울경제 타 건설사 목동8단지 재건축 수주전에 나선 대우건설(047040)이 말레이시아 ‘메르데카 118’과 싱가포르 ‘마리나 베이 샌즈’ 등 세계적인 초고층 빌딩 프로젝트에 참여했던 구조 설계 및 엔지니어링 기업인 arup과 손을 잡았다. 목동8단지가 최고 49층 높이의 초고층으로 지어"
-  tabindex="0" role="link">
-  <div class="article-number">5</div>
-  <div class="preview-copy">
-    <div class="publisher">서울경제</div>
-    <div class="headline"><span class="new-badge">NEW</span>대우건설, 英 ARUP과 협업…목동8단지 초고층 구조 설계</div>
-    <div class="article-snippet">목동8단지 재건축 수주전에 나선 대우건설(047040)이 말레이시아 ‘메르데카 118’과 싱가포르 ‘마리나 베이 샌즈’ 등 세계적인 초고층 빌딩 프로젝트에 참여했던 구조 설계 및 엔지니어링 기업인 ARUP과 손을 잡았다. 목동8단지가 최고 49층 높이의 초고층으로 지어</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4a680f0f58be493078990290.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=670521"
   data-title="[부동산 PF 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화"
@@ -1838,7 +1811,7 @@ header,
   data-language="ko"
   data-search="[부동산 pf 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화 블로터 타 건설사 현대엔지니어링이 전액 연대보증한 &#x27;힐스테이트 과천 디센트로&#x27; 자산담보부대출 800억원의 만기가 11월 6일로 재연장됐다. 지난해 12월 실행된 908억원 가운데 첫 만기에 상환된 원금은 108억원에 그쳤고 남은 800억원은 지난 4월에 이어 다시 만기가 연장됐다. 과천 디센트로는 지난"
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">블로터</div>
     <div class="headline">[부동산 PF 점검] 현대엔지니어링, &#x27;과천 디센트로&#x27; 보증 부담 장기화</div>
@@ -1865,7 +1838,7 @@ header,
   data-language="ko"
   data-search="한국토지신탁, &#x27;써밋 클라비온&#x27; 14일 견본주택 개관…176가구 일반공급 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = 한국토지신탁이 오는 14일 서울 영등포구 신길뉴타운에 들어서는 &#x27;써밋 클라비온&#x27; 견본주택을 개관하고 열고 분양에 나선다고 10일 밝혔다. 이 단지는 신길10재정비촉진구역 주택재건축정비사업으로 조성된다. 한국토지신탁이 시행을 맡고 대우건설이 시공한다. 지하 4층~지상 최고 29층, 8개 동, 총 812가구 규모로 이 가운데 전용면적 44~59㎡ 176가구가 일반분양 물량이다. 청약 일정은 오는 18일 특별공급을 시작으로 19일 해당지역 1순위, 20일 기타지역 1순위 순으로 진행된다. 당첨자 발표는 28일이다. 계약은 9월 8일부터 10"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">한국토지신탁, &#x27;써밋 클라비온&#x27; 14일 견본주택 개관…176가구 일반공급</div>
@@ -1892,7 +1865,7 @@ header,
   data-language="ko"
   data-search="gs건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2 - 뉴스웨이 뉴스웨이 타 건설사 gs건설이 올해 상반기 도시정비사업 수주 목표 8조원 중 93%에 해당하는 7조4695억원을 달성했다. 하지만 성남 상대원2구역 시공사 지위와 관련된 법원 결정으로 실질 수주액은 5조5477억원까지 줄어들 수 있다. 하반기 목동·여의도 등 대형 사업지 수주 여부가 목표 달성의 핵심 변수가 될 전망이다."
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">10</div>
   <div class="preview-copy">
     <div class="publisher">뉴스웨이</div>
     <div class="headline">GS건설, 도시정비 8조 목표 상반기만 90% 달성...목표달성 변수는 상대원2 - 뉴스웨이</div>
@@ -1919,7 +1892,7 @@ header,
   data-language="ko"
   data-search="대우건설, ‘장위 푸르지오 마크원’ 10일 무순위 청약 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = 서울 장위뉴타운에서 공급 중인 ‘장위 푸르지오 마크원’이 기존 일반분양 물량의 96%를 계약한 데 이어 잔여 39가구에 대한 무순위"
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">11</div>
   <div class="preview-copy">
     <div class="publisher">건설타임즈</div>
     <div class="headline">대우건설, ‘장위 푸르지오 마크원’ 10일 무순위 청약 - 건설타임즈</div>
@@ -2007,7 +1980,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>한국전력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2034,33 +2007,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4ab6eba747b5e42a379fae10.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260810_0003743290"
-  data-title="산림청, 국민투표로 전국 8곳 우수 가로수 순위 결정"
-  data-publisher="뉴시스"
-  data-group="한국전력"
-  data-language="ko"
-  data-search="산림청, 국민투표로 전국 8곳 우수 가로수 순위 결정 뉴시스 한국전력 [대전=뉴시스] 김양수 기자 = 산림청은 지방정부가 시행한 가로수 조성·관리 우수사례 8곳을 대상으로 11일부터 14일까지 국민투표를 진행해 최종 순위를 결정한다고 10일 밝혔다. 이번 투표는 지방정부의 가로수 조성·관리 우수사례를 국민이 직접 뽑아 지방 간 가로수 관리 격차를 줄이고 우수 모델을 발굴해 확산시키기 위해 마련됐다. 앞서 산림청은 전국 10개 시도에서 출품한 19건의 사례를 대상으로 조경·가로수 분야 전문가의 심사를 통해 최종 후보 8곳의 우수 사례를 선정했다. 최종 후보는 부산시, 세종시, 제주 서귀포시, 충북 청주시, 전남광주 순천시, 경북 경주시,"
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">뉴시스</div>
-    <div class="headline">산림청, 국민투표로 전국 8곳 우수 가로수 순위 결정</div>
-    <div class="article-snippet">[대전=뉴시스] 김양수 기자 = 산림청은 지방정부가 시행한 가로수 조성·관리 우수사례 8곳을 대상으로 11일부터 14일까지 국민투표를 진행해 최종 순위를 결정한다고 10일 밝혔다. 이번 투표는 지방정부의 가로수 조성·관리 우수사례를 국민이 직접 뽑아 지방 간 가로수 관리 격차를 줄이고 우수 모델을 발굴해 확산시키기 위해 마련됐다. 앞서 산림청은 전국 10개 시도에서 출품한 19건의 사례를 대상으로 조경·가로수 분야 전문가의 심사를 통해 최종 후보 8곳의 우수 사례를 선정했다. 최종 후보는 부산시, 세종시, 제주 서귀포시, 충북 청주시, 전남광주 순천시, 경북 경주시,</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/88fdc332ff7dc889251183cd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -2142,7 +2088,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>원자력</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2172,19 +2118,19 @@ header,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260810_0003743156"
-  data-title="원자력환경공단, 신입사원 31명 공채…&quot;18~25일 접수&quot;"
-  data-publisher="뉴시스"
+<article class="preview-card new-article"
+  data-url="https://www.kyongbuk.co.kr/news/articleView.html?idxno=4080772"
+  data-title="원자력환경공단, 올해 31명 공개채용…18일부터 접수"
+  data-publisher="경북일보"
   data-group="원자력"
   data-language="ko"
-  data-search="원자력환경공단, 신입사원 31명 공채…&quot;18~25일 접수&quot; 뉴시스 원자력 [경주=뉴시스] 이은희 기자 = 한국원자력환경공단은 정규직 25명을 포함해 신입사원 31명을 공개 채용한다고 10일 밝혔다. 정규 일반직은 방폐물관리, 환경방사선관리, 부지조사(지질), 설비계통(전기), 산업안전, 기록물관리(전문), 재무금융, 행정 분야에 1~4명씩, 총 21명을 뽑는다. 연구직은 공학적 방벽과 방폐물 특성평가 분야에서 각 1명, 공무직은 환경미화와 비서 각 1명을 모집한다. 비정규직은 휴직 대체근로자 1명과 장애인 청년인턴 5명을 선발한다. 공단은 사회 형평적 채용을 위해 일반직 7명을 보훈 및 장애인 전형으로 별도 모집한다. 또 장애인 청년인턴을"
+  data-search="원자력환경공단, 올해 31명 공개채용…18일부터 접수 경북일보 원자력 한국원자력환경공단이 2026년 정기채용을 통해 총 31명의 직원을 공개 채용한다.이번 채용은 방사성폐기물 관리 체계의 안전성을 강화하고 인프라 고도화를 이끌 인재를 적기에 확보하기 위해 추진된다.공단은 직무 중심의 공정한 채용 절차를 준수하는 동시에 사회형평적 채용과 지역 주민 가점"
   tabindex="0" role="link">
   <div class="article-number">2</div>
   <div class="preview-copy">
-    <div class="publisher">뉴시스</div>
-    <div class="headline">원자력환경공단, 신입사원 31명 공채…&quot;18~25일 접수&quot;</div>
-    <div class="article-snippet">[경주=뉴시스] 이은희 기자 = 한국원자력환경공단은 정규직 25명을 포함해 신입사원 31명을 공개 채용한다고 10일 밝혔다. 정규 일반직은 방폐물관리, 환경방사선관리, 부지조사(지질), 설비계통(전기), 산업안전, 기록물관리(전문), 재무금융, 행정 분야에 1~4명씩, 총 21명을 뽑는다. 연구직은 공학적 방벽과 방폐물 특성평가 분야에서 각 1명, 공무직은 환경미화와 비서 각 1명을 모집한다. 비정규직은 휴직 대체근로자 1명과 장애인 청년인턴 5명을 선발한다. 공단은 사회 형평적 채용을 위해 일반직 7명을 보훈 및 장애인 전형으로 별도 모집한다. 또 장애인 청년인턴을</div>
+    <div class="publisher">경북일보</div>
+    <div class="headline"><span class="new-badge">NEW</span>원자력환경공단, 올해 31명 공개채용…18일부터 접수</div>
+    <div class="article-snippet">한국원자력환경공단이 2026년 정기채용을 통해 총 31명의 직원을 공개 채용한다.이번 채용은 방사성폐기물 관리 체계의 안전성을 강화하고 인프라 고도화를 이끌 인재를 적기에 확보하기 위해 추진된다.공단은 직무 중심의 공정한 채용 절차를 준수하는 동시에 사회형평적 채용과 지역 주민 가점</div>
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">안읽음</span>
@@ -2195,23 +2141,23 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/29f476df175c169f9f71339a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/6a00af735b3a4f9e87c7c681.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.daejonilbo.com/news/articleView.html?idxno=2293682"
-  data-title="[인사] 한국원자력의학원"
-  data-publisher="대전일보"
+  data-url="https://www.hankyung.com/article/2026081051871"
+  data-title="[인사] 방위사업청 ; 한국원자력의학원"
+  data-publisher="한국경제"
   data-group="원자력"
   data-language="ko"
-  data-search="[인사] 한국원자력의학원 대전일보 원자력 "
+  data-search="[인사] 방위사업청 ; 한국원자력의학원 한국경제 원자력 [인사] 방위사업청 ; 한국원자력의학원, 사회"
   tabindex="0" role="link">
   <div class="article-number">3</div>
   <div class="preview-copy">
-    <div class="publisher">대전일보</div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 한국원자력의학원</div>
-    
+    <div class="publisher">한국경제</div>
+    <div class="headline"><span class="new-badge">NEW</span>[인사] 방위사업청 ; 한국원자력의학원</div>
+    <div class="article-snippet">[인사] 방위사업청 ; 한국원자력의학원, 사회</div>
     <div class="status-line">
       <div class="status-text">
         <span class="unread-label">안읽음</span>
@@ -2222,7 +2168,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b1a5b6890d61c56caebfaac2.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2eda3b6bca9073efed7113b3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -2281,33 +2227,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.etnews.com/20260806000421"
-  data-title="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라"
-  data-publisher="전자신문"
-  data-group="원자력"
-  data-language="ko"
-  data-search="국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라 전자신문 원자력 김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(gaas) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(leo) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물"
-  tabindex="0" role="link">
-  <div class="article-number">6</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">국립목포대, 전남광주 화합물반도체 거점 부상…차세대 연구 성과 잇따라</div>
-    <div class="article-snippet">김민수·황현준 반도체공학과 교수 연구팀은 한국원자력연구원 첨단방사선연구소, 웨이브트랙과의 공동 연구로 국내 최초로 차세대 우주·항공 및 국방 시스템의 핵심 소재인 &#x27;갈륨비소(GaAs) 화합물 반도체&#x27;의 방사선 환경 성능 열화 메커니즘을 정량적으로 규명하는 데 성공했다. 저궤도(LEO) 위성이나 우주 탐사선에 탑재되는 통신·전력 장비는 고에너지 방사선에 노출돼 쉽게 오작동을 일으킨다. 연구팀은 실리콘 대비 속도가 빠르고 전압 견딤이 뛰어난 화합물</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/aeca00827199738225c41cb9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260810_0003742691"
   data-title="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향"
   data-publisher="뉴시스"
@@ -2315,7 +2234,7 @@ header,
   data-language="ko"
   data-search="작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향 뉴시스 원자력 [세종=뉴시스]임하은 기자 = 지난해 결함 보상(리콜) 건수가 전년보다 4.7% 증가해 2600건대로 집계됐다. 해외리콜 제품의 국내 오픈마켓 유통이 늘어나면서 소비자기본법에 따른 판매 차단 조치가 적극 실시된 영향이다. 공정거래위원회는 10일 중앙행정기관과 지방자치단체, 한국소비자원의 지난해 리콜 실적을 분석해 발표했다. 지난해 리콜을 실시한 중앙행정기관은 국토교통부, 기후에너지환경부, 식품의약품안전처, 원자력안전위원회, 국가기술표준원 등 5곳이다. 지난해 리콜 건수는 2656건으로 전년 2537건보다 119건(4.7%) 증가했다. 전체 리콜 건수는 2022년 이후"
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="publisher">뉴시스</div>
     <div class="headline">작년 리콜 전년比 4.7% 증가…해외리콜 판매 차단 영향</div>
@@ -2342,7 +2261,7 @@ header,
   data-language="ko"
   data-search="폭염과 ai 시대, 원전 더 지어야 하나? - 뉴스펭귄 뉴스펭귄 원자력 2.8gw와 비어 있는 처분장새로 지을 원전 2기의 설비용량은 2.8gw다. 이용률 85%를 적용하면 연간 21twh를 생산한다. 국내 데이터센터의 2038년 추"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="publisher">뉴스펭귄</div>
     <div class="headline">폭염과 AI 시대, 원전 더 지어야 하나? - 뉴스펭귄</div>
@@ -2361,7 +2280,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.japantimes.co.jp/news/2026/08/10/japan/hidankyo-seventy-years/"
   data-title="Nihon Hidankyo renews call for world without nuclear weapons"
   data-publisher="The Japan Times"
@@ -2369,10 +2288,10 @@ header,
   data-language="en"
   data-search="nihon hidankyo renews call for world without nuclear weapons the japan times 원자력 the japan confederation of a- and h-bomb sufferers organizations, held a news conference in nagasaki on the 70th anniversary of the group’s establishment."
   tabindex="0" role="link">
-  <div class="article-number">9</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="publisher">The Japan Times</div>
-    <div class="headline"><span class="new-badge">NEW</span>Nihon Hidankyo renews call for world without nuclear weapons</div>
+    <div class="headline">Nihon Hidankyo renews call for world without nuclear weapons</div>
     <div class="article-snippet">The Japan Confederation of A- and H-Bomb Sufferers Organizations, held a news conference in Nagasaki on the 70th anniversary of the group’s establishment.</div>
     <div class="status-line">
       <div class="status-text">
@@ -2457,9 +2376,36 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.nucnet.org/news/tagged/Advanced%20Reactors"
+  data-title="NucNet | Independent Nuclear News"
+  data-publisher="NucNet"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-search="nucnet | independent nuclear news nucnet nuclear power·nuclear energy visit nucnet for daily news about nuclear energy. nucnet is an independent news agency and information network for the global nuclear industry. nucnet operates a 24/7 service reporting world nuclear-related news. nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="publisher">NucNet</div>
+    <div class="headline">NucNet | Independent Nuclear News</div>
+    <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
+    <div class="status-line">
+      <div class="status-text">
+        <span class="unread-label">안읽음</span>
+        <span class="read-label">읽음</span>
+        <span class="important-label">중요</span>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a8ee31f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Holtec">
@@ -2866,7 +2812,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>한국전력</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -2920,33 +2866,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/37b942510b1d3fb21ad3b7fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260807000021"
-  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
-  data-publisher="전자신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
-  tabindex="0" role="link">
-  <div class="article-number">3</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
-    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -3208,36 +3127,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">0건</span>
   </button>
-  <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.nucnet.org/news/tagged/Advanced%20Reactors"
-  data-title="NucNet | Independent Nuclear News"
-  data-publisher="NucNet"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-search="nucnet | independent nuclear news nucnet nuclear power·nuclear energy visit nucnet for daily news about nuclear energy. nucnet is an independent news agency and information network for the global nuclear industry. nucnet operates a 24/7 service reporting world nuclear-related news. nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re"
-  tabindex="0" role="link">
-  <div class="article-number">1</div>
-  <div class="preview-copy">
-    <div class="publisher">NucNet</div>
-    <div class="headline">NucNet | Independent Nuclear News</div>
-    <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007bcdcf76c528&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
 </section>
 
 <section class="news-group collapsed" data-group="Holtec">
@@ -3545,7 +3437,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span>원전 관계부처</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -3572,33 +3464,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5e8377ddd3b403852c512537.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260806000253"
-  data-title="김정관, “성과급, 주총 승인 거치도록 상법 개정”"
-  data-publisher="전자신문"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-search="김정관, “성과급, 주총 승인 거치도록 상법 개정” 전자신문 원전 관계부처 김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위"
-  tabindex="0" role="link">
-  <div class="article-number">2</div>
-  <div class="preview-copy">
-    <div class="publisher">전자신문</div>
-    <div class="headline">김정관, “성과급, 주총 승인 거치도록 상법 개정”</div>
-    <div class="article-snippet">김정관 산업통상부 장관이 반도체 업계 등에서 불거진 &#x27;영업이익 연동 성과급&#x27; 요구와 관련해 지급 시 주주총회 승인을 의무화하는 방향으로 상법 개정을 논의 중이라고 6일 밝혔다. 회사 주인인 주주와 투자자를 배제한 채 경영진과 노조가 막대한 수익을 나눠 갖는 구조로는 기업의 정상적인 투자 유치가 불가능하다는 지적이다. 김 장관은 이날 서울 프레스센터에서 열린 관훈토론회에서 “반도체 기업이 거둔 이익은 &#x27;공유&#x27;의 대상이 아니라 미래 시장 선점을 위</div>
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2957cdd158b2b5c17d05c085.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -43585,28 +43450,78 @@ function activatePanel(panel, button=null){
   filterArticles();
   renderFavorites();
 }
-document.querySelectorAll(".tab-button").forEach(button=>button.addEventListener("click",()=>{
-  const panel=document.getElementById(`tab-${button.dataset.tab}`);
-  if(panel)activatePanel(panel,button);
-}));
-const archiveDates=[...document.querySelectorAll(".archive-panel")].map(x=>x.dataset.archiveDate).sort();
+document.querySelectorAll(".tab-button").forEach(button => {
+  button.addEventListener("click", event => {
+    event.preventDefault();
+    const label = button.getAttribute("data-tab");
+    const panel = document.getElementById("tab-" + label);
+    if(!panel) return;
+
+    document.querySelectorAll(".tab-button").forEach(item => item.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(item => item.classList.remove("active"));
+
+    button.classList.add("active");
+    panel.classList.add("active");
+
+    const periodDate = panel.getAttribute("data-report-date");
+    if(periodDate && archiveInput) archiveInput.value = periodDate;
+
+    if(typeof filterArticles === "function") filterArticles();
+    if(typeof renderFavorites === "function") renderFavorites();
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+const archiveDates=[...document.querySelectorAll(".archive-panel")]
+  .map(x=>x.dataset.archiveDate)
+  .filter(Boolean)
+  .sort();
+
 const archiveInput=document.getElementById("archive-date");
-if(archiveDates.length){
+
+if(archiveInput && archiveDates.length){
   archiveInput.min=archiveDates[0];
   archiveInput.max=archiveDates[archiveDates.length-1];
   archiveInput.value=archiveDates[archiveDates.length-1];
 }
+
 function openArchiveDate(value){
-  if(!value)return;
-  const panel=document.getElementById(`archive-${value}`);
+  if(!value) return false;
+
+  const panel=document.getElementById("archive-" + value);
   if(!panel){
-    alert("선택한 날짜의 기사가 아직 저장되지 않았습니다. GitHub Actions가 실행될 때마다 과거 날짜를 순차적으로 채웁니다.");
-    return;
+    alert("선택한 날짜의 저장된 기사가 없습니다.");
+    return false;
   }
-  activatePanel(panel);
-  window.scrollTo({top:0,behavior:"smooth"});
+
+  document.querySelectorAll(".tab-button").forEach(item=>item.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(item=>item.classList.remove("active"));
+
+  panel.classList.add("active");
+
+  if(archiveInput) archiveInput.value=value;
+  if(typeof filterArticles==="function") filterArticles();
+  if(typeof renderFavorites==="function") renderFavorites();
+
+  panel.scrollIntoView({behavior:"smooth", block:"start"});
+  return true;
 }
-archiveInput.addEventListener("change",()=>openArchiveDate(archiveInput.value));
+
+if(archiveInput){
+  const handleArchiveSelection=()=>{
+    const value=archiveInput.value;
+    if(value) openArchiveDate(value);
+  };
+
+  archiveInput.addEventListener("input", handleArchiveSelection);
+  archiveInput.addEventListener("change", handleArchiveSelection);
+
+  archiveInput.addEventListener("click", ()=>{
+    if(typeof archiveInput.showPicker==="function"){
+      try{ archiveInput.showPicker(); }catch(_error){}
+    }
+  });
+}
 document.getElementById("article-search").addEventListener("input",filterArticles);
 document.getElementById("search-clear").addEventListener("click",()=>{const input=document.getElementById("article-search");input.value="";input.focus();filterArticles();});
 filterArticles();renderFavorites();
