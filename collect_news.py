@@ -8,7 +8,6 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
-from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote_plus, urlparse
 from urllib.request import Request, urlopen
@@ -30,12 +29,6 @@ MAX_PER_GROUP_PER_LANGUAGE = 12
 # 개별 피드가 응답하지 않아도 전체 작업이 오래 멈추지 않도록 timeout을 둡니다.
 SUPPLEMENTAL_RSS_WORKERS = 8
 SUPPLEMENTAL_RSS_TIMEOUT_SECONDS = 8
-
-# 기사 카드에 대표 이미지와 본문 미리보기를 보완하기 위한 원문 메타데이터 조회 설정
-# 이미 RSS에 값이 있는 경우에는 추가 조회하지 않으며, 필요한 기사만 병렬 조회합니다.
-ARTICLE_META_WORKERS = 12
-ARTICLE_META_TIMEOUT_SECONDS = 4
-ARTICLE_META_MAX_BYTES = 600_000
 
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
@@ -394,7 +387,6 @@ class Article:
     publisher: str
     image: str
     source_url: str
-    description: str = ""
 
 
 def period(now: datetime) -> tuple[datetime, datetime]:
@@ -469,180 +461,6 @@ def extract_image(entry) -> str:
     summary = getattr(entry, "summary", "") or getattr(entry, "description", "")
     match = re.search(r'<img[^>]+src=["\']([^"\']+)["\']', summary, re.I)
     return match.group(1) if match else ""
-
-
-
-def clean_description(raw: str, title: str = "", publisher: str = "") -> str:
-    """RSS/HTML에서 가져온 설명을 카드용 짧은 문장으로 정리합니다."""
-    if not raw:
-        return ""
-
-    cleaned = re.sub(r"<[^>]+>", " ", raw)
-    cleaned = html.unescape(cleaned)
-    cleaned = re.sub(r"\s+", " ", cleaned).strip()
-
-    if not cleaned:
-        return ""
-
-    # Google News RSS summary가 단순히 '기사제목 + 언론사'만 반복하는 경우 제외
-    normalized_cleaned = normalized(cleaned)
-    normalized_title = normalized(title)
-    normalized_publisher = normalized(publisher)
-
-    if normalized_title and normalized_title in normalized_cleaned:
-        remainder = normalized_cleaned.replace(normalized_title, " ", 1).strip()
-        if not remainder or remainder == normalized_publisher:
-            return ""
-
-    # 너무 짧은 문자열은 기사 미리보기로 사용하지 않음
-    if len(cleaned) < 20:
-        return ""
-
-    # 카드에는 과도하게 긴 문장이 필요하지 않음
-    return cleaned[:320].rstrip()
-
-
-class _MetaTagParser(HTMLParser):
-    """원문 HTML의 og:image / og:description / twitter 메타태그를 추출합니다."""
-
-    def __init__(self):
-        super().__init__(convert_charrefs=True)
-        self.values: dict[str, str] = {}
-
-    def handle_starttag(self, tag: str, attrs):
-        if tag.lower() != "meta":
-            return
-
-        attr_map = {
-            str(key).lower(): str(value)
-            for key, value in attrs
-            if key and value is not None
-        }
-        key = (
-            attr_map.get("property")
-            or attr_map.get("name")
-            or attr_map.get("itemprop")
-            or ""
-        ).lower()
-        content = attr_map.get("content", "").strip()
-
-        if key and content and key not in self.values:
-            self.values[key] = content
-
-
-def _fetch_article_metadata(article: Article) -> tuple[str, str]:
-    """
-    RSS에 이미지/설명이 부족한 경우 원문 페이지 메타태그에서 보완합니다.
-    원문 접근 실패는 빈 값으로 처리하여 전체 수집을 중단하지 않습니다.
-    """
-    if article.image and article.description:
-        return article.image, article.description
-
-    try:
-        request = Request(
-            article.link,
-            headers={
-                "User-Agent": (
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/131.0 Safari/537.36"
-                ),
-                "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
-            },
-        )
-        with urlopen(request, timeout=ARTICLE_META_TIMEOUT_SECONDS) as response:
-            final_url = response.geturl()
-            payload = response.read(ARTICLE_META_MAX_BYTES)
-
-        # Google News 중간 페이지에서 멈춘 경우 Google 자체 대표이미지를 쓰지 않습니다.
-        final_host = urlparse(final_url).netloc.lower()
-        if "google." in final_host or final_host.endswith("google.com"):
-            return article.image, article.description
-
-        decoded = payload.decode("utf-8", errors="ignore")
-        parser = _MetaTagParser()
-        parser.feed(decoded)
-
-        image = article.image
-        if not image:
-            image = (
-                parser.values.get("og:image")
-                or parser.values.get("twitter:image")
-                or parser.values.get("twitter:image:src")
-                or parser.values.get("image")
-                or ""
-            ).strip()
-
-        description = article.description
-        if not description:
-            raw_description = (
-                parser.values.get("og:description")
-                or parser.values.get("twitter:description")
-                or parser.values.get("description")
-                or ""
-            )
-            description = clean_description(
-                raw_description,
-                article.title,
-                article.publisher,
-            )
-
-        return image, description
-    except Exception:
-        return article.image, article.description
-
-
-def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> None:
-    """
-    전일/금일/익일에서 실제 표시될 기사만 대상으로 대표 이미지와 설명을 보완합니다.
-    동일 URL은 한 번만 조회하고 결과를 모든 기간의 동일 기사에 재사용합니다.
-    """
-    articles_by_url: dict[str, list[Article]] = {}
-
-    for articles in articles_by_period.values():
-        for article in articles:
-            articles_by_url.setdefault(article.link, []).append(article)
-
-    targets = [
-        items[0]
-        for items in articles_by_url.values()
-        if not (items[0].image and items[0].description)
-    ]
-
-    if not targets:
-        return
-
-    workers = min(ARTICLE_META_WORKERS, len(targets))
-    with ThreadPoolExecutor(max_workers=workers) as executor:
-        future_map = {
-            executor.submit(_fetch_article_metadata, article): article.link
-            for article in targets
-        }
-
-        for future in as_completed(future_map):
-            link = future_map[future]
-            try:
-                image, description = future.result()
-            except Exception:
-                continue
-
-            for article in articles_by_url.get(link, []):
-                if image and not article.image:
-                    article.image = image
-                if description and not article.description:
-                    article.description = description
-
-
-HYUNDAI_VOLLEYBALL_TERMS = {
-    "배구", "여자배구", "프로배구", "v리그", "v-리그",
-    "volleyball", "v-league", "v league",
-}
-
-
-def is_hyundai_volleyball_article(title: str, summary: str = "") -> bool:
-    """현대건설 검색 결과 중 현대건설 힐스테이트 배구단 관련 기사는 제외합니다."""
-    haystack = html.unescape(f"{title} {summary}").lower()
-    return any(term in haystack for term in HYUNDAI_VOLLEYBALL_TERMS)
 
 
 def normalized(title: str) -> str:
@@ -765,17 +583,6 @@ EVENT_CONCEPTS = {
         "살수드론", "살수 드론", "방수드론", "방수 드론",
         "소방드론", "소방 드론", "water spraying drone",
         "firefighting drone", "water-spraying drone",
-    },
-    "target:공동주택": {
-        "공동주택", "아파트", "주거단지", "주택단지",
-    },
-    "topic:주차로봇": {
-        "주차로봇", "주차 로봇", "주차난", "주차공간",
-        "주차 공간", "parking robot", "robot parking",
-    },
-    "action:실증": {
-        "실증", "실증시작", "실증 시작", "시범운영", "시범 운영",
-        "검증", "테스트", "pilot", "demonstration",
     },
 }
 
@@ -953,7 +760,6 @@ def is_same_event(title_a: str, title_b: str) -> bool:
 
     has_entity = any(item.startswith("entity:") for item in shared)
     has_action = any(item.startswith("action:") for item in shared)
-    has_topic = any(item.startswith("topic:") for item in shared)
     has_subject_detail = any(
         item.startswith(("target:", "object:", "location:"))
         for item in shared
@@ -961,12 +767,6 @@ def is_same_event(title_a: str, title_b: str) -> bool:
 
     # 주체 + 행위 + 대상/목적물/지역이 겹치면 같은 사건
     if has_entity and has_action and has_subject_detail and len(shared) >= 3:
-        return True
-
-    # 언론사마다 회사명을 생략하더라도
-    # '공동주택 + 주차로봇/주차난 + 실증'처럼 대상·주제·행위가 모두 같으면
-    # 동일 사건으로 처리합니다.
-    if has_action and has_topic and has_subject_detail and len(shared) >= 3:
         return True
 
     # 신규 원전 추진과 산업용 전기요금 차등화가 함께 언급된
@@ -1321,11 +1121,6 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if classified_group is None:
         return None
 
-    if classified_group == "현대건설" and is_hyundai_volleyball_article(title, summary):
-        return None
-
-    description = clean_description(summary, title, publisher)
-
     return Article(
         title=title,
         link=link,
@@ -1335,7 +1130,6 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
         publisher=publisher,
         image=extract_image(entry),
         source_url=source_url,
-        description=description,
     )
 
 
@@ -1449,11 +1243,6 @@ def parse_supplemental_entry(entry, publisher: str, feed_url: str) -> Article | 
     if group is None:
         return None
 
-    if group == "현대건설" and is_hyundai_volleyball_article(title, summary):
-        return None
-
-    description = clean_description(summary, title, publisher)
-
     return Article(
         title=title,
         link=link,
@@ -1463,7 +1252,6 @@ def parse_supplemental_entry(entry, publisher: str, feed_url: str) -> Article | 
         publisher=publisher,
         image=extract_image(entry),
         source_url=feed_url,
-        description=description,
     )
 
 
@@ -1646,14 +1434,7 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
         image_html = '<div class="no-image">NUCLEAR<br>NEWS</div>'
 
     new_badge = '<span class="new-badge">NEW</span>' if is_new else ''
-    snippet_html = (
-        f'<div class="article-snippet">{escape(article.description)}</div>'
-        if article.description
-        else ''
-    )
-    search_text = ' '.join(
-        [article.title, article.publisher, article.group, article.description]
-    ).lower()
+    search_text = ' '.join([article.title, article.publisher, article.group]).lower()
 
     return f"""
 <article class="preview-card{' new-article' if is_new else ''}"
@@ -1668,7 +1449,6 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   <div class="preview-copy">
     <div class="publisher">{escape(article.publisher)}</div>
     <div class="headline">{new_badge}{escape(article.title)}</div>
-    {snippet_html}
     <div class="status-line">
       <span class="unread-label">미확인</span>
       <span class="read-label">확인</span>
@@ -1782,7 +1562,6 @@ def article_to_dict(article: Article) -> dict:
         "publisher": article.publisher,
         "image": article.image,
         "source_url": article.source_url,
-        "description": article.description,
     }
 
 
@@ -1804,9 +1583,6 @@ def article_from_dict(data: dict) -> Article | None:
             "정부 관계부처": "원전 관계부처",
         }.get(group_name, group_name)
 
-        if group_name == "현대건설" and is_hyundai_volleyball_article(title):
-            return None
-
         return Article(
             title=title,
             link=str(data.get("link", "")),
@@ -1816,7 +1592,6 @@ def article_from_dict(data: dict) -> Article | None:
             publisher=publisher,
             image=str(data.get("image", "")),
             source_url=source_url,
-            description=str(data.get("description", "")),
         )
     except Exception:
         return None
@@ -1977,6 +1752,13 @@ def build_html(
         panel_class = "tab-panel active" if label == "금일" else "tab-panel"
 
         note = ""
+        if label == "익일" and generated_at < end:
+            note = (
+                '<div class="partial-note">'
+                f'현재 {generated_at:%Y. %-m. %-d. %H:%M}까지 확인된 기사입니다. '
+                '10분마다 새 기사가 추가됩니다.'
+                '</div>'
+            )
 
         panels.append(f'''
 <section class="{panel_class}" id="tab-{escape(label)}">
@@ -2058,14 +1840,13 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 13px; color: #111827; font-size: 11px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 7px; margin-top: 8px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
-.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; height: 126px; min-height: 126px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
+.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 82px; height: 104px; min-height: 104px; overflow: hidden; color: inherit; background: white; border: 1px solid rgba(17,24,39,.08); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 3px rgba(17,24,39,.15); transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #eef1f4; opacity: .72; }}
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; color: #344054; font-size: 12px; font-weight: 800; }}
 .preview-copy {{ display: flex; flex-direction: column; min-width: 0; padding: 8px 8px 6px 0; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
-.headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
-.article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
+.headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; overflow: hidden; color: #101828; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }}
 .status-line {{ margin-top: auto; margin-top: auto; padding-top: 3px; font-size: 9px; }}
 
 .unread-label {{ color: #17639f; font-weight: 700; }}
@@ -2078,8 +1859,8 @@ main {{ padding: 12px 12px 34px; }}
 .card-side {{ position: relative; align-self: stretch; width: 82px; height: 104px; min-height: 104px; overflow: hidden; background: linear-gradient(135deg,#173b67,#0b213d); }}
 .important-button {{ position: absolute; z-index: 3; top: calc(42% - 6px); left: 50%; transform: translate(-50%,-50%); width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: white; background: rgba(17,24,39,.62); font-size: 18px; line-height: 30px; text-align: center; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.28); }}
 .preview-card.important .important-button {{ color: #111; background: #fee500; }}
-.preview-image {{ width: 88px; height: 126px; min-height: 126px; background: linear-gradient(135deg,#173b67,#0b213d); }}
-.preview-image img {{ display: block; width: 100%; height: 126px; min-height: 126px; object-fit: cover; }}
+.preview-image {{ width: 82px; height: 104px; min-height: 104px; background: linear-gradient(135deg,#173b67,#0b213d); }}
+.preview-image img {{ display: block; width: 100%; height: 104px; min-height: 104px; object-fit: cover; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 4px; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
 .no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 104px; min-height: 104px; padding: 24px 4px 0; box-sizing: border-box; color: white; background: linear-gradient(135deg,#173b67,#0b213d); font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: white; border-radius: 10px; text-align: center; color: #667085; }}
@@ -2113,15 +1894,13 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .group-title {{ padding: 10px 14px; font-size: 16px; border-radius: 5px 12px 12px 12px; }}
   .group-count {{ font-size: 10px; }}
   .article-stack {{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }}
-  .preview-card {{ grid-template-columns: 32px minmax(0,1fr) 124px; height: 142px; min-height: 142px; border-radius: 11px; }}
+  .preview-card {{ grid-template-columns: 32px minmax(0,1fr) 112px; height: 118px; min-height: 118px; border-radius: 11px; }}
   .article-number {{ padding-top: 12px; font-size: 13px; }}
   .preview-copy {{ padding: 10px 11px 8px 0; }}
   .publisher {{ font-size: 11px; }}
-  .headline {{ margin-top: 5px; font-size: 14px; line-height: 1.38; -webkit-line-clamp: 2; }}
-  .article-snippet {{ margin-top: 6px; font-size: 11.5px; line-height: 1.45; -webkit-line-clamp: 2; }}
+  .headline {{ margin-top: 5px; font-size: 14px; line-height: 1.38; -webkit-line-clamp: 3; }}
   .status-line {{ font-size: 10px; }}
-  .card-side, .preview-image {{ width: 124px; height: 142px; min-height: 142px; }}
-  .preview-image img {{ height: 142px; min-height: 142px; }}
+  .card-side, .preview-image {{ width: 112px; height: 118px; min-height: 118px; }}
   footer {{ padding-bottom: 28px; font-size: 11px; }}
 }}
 
@@ -2134,11 +1913,11 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .favorite-publisher {{ font-size: 12px; }}
   .favorite-headline {{ font-size: 15px; line-height: 1.48; }}
   .article-stack {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }}
-  .preview-card {{ grid-template-columns: 30px minmax(0,1fr) 112px; }}
-  .card-side, .preview-image {{ width: 112px; }}
+  .preview-card {{ grid-template-columns: 30px minmax(0,1fr) 104px; }}
+  .card-side, .preview-image {{ width: 104px; }}
 }}
 
-@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 76px; }} .card-side, .preview-image {{ width: 76px; }} .headline {{ font-size: 12px; }} .article-snippet {{ font-size: 10px; }} }}
+@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 72px; }} .card-side, .preview-image {{ width: 72px; }} .headline {{ font-size: 12px; }} }}
 </style>
 </head>
 <body>
@@ -2416,9 +2195,6 @@ def main() -> int:
         label: select_articles_for_period(fetched, start, end)
         for label, (start, end) in periods.items()
     }
-
-    # 실제 화면에 표시할 기사만 대상으로 원문 대표 이미지/설명을 병렬 보완
-    enrich_article_metadata(articles_by_period)
 
     current_urls = {
         article.link
