@@ -1289,6 +1289,8 @@ ENTITY_ALIASES = {
     "한국 전력": "한전",
     "한국전력": "한전",
     "현대건설": "hdec",
+    "두산에너빌리티": "두산에너빌리티",
+    "두산 에너빌리티": "두산에너빌리티",
     "hyundai e c": "hdec",
     "hyundai engineering construction": "hdec",
 }
@@ -1307,6 +1309,14 @@ ACTION_ALIASES = {
     "착공": "건설시작",
     "첫 삽": "건설시작",
     "준공": "건설완료",
+    "epc 낙찰": "epc수주",
+    "epc 낙찰자 선정": "epc수주",
+    "낙찰자로 선정": "epc수주",
+    "낙찰자 선정": "epc수주",
+    "우선협상대상자 선정": "epc수주",
+    "사업자로 선정": "epc수주",
+    "시공사로 선정": "epc수주",
+    "짓는다": "epc수주",
 }
 
 OBJECT_ALIASES = {
@@ -1318,6 +1328,13 @@ OBJECT_ALIASES = {
     "small modular reactor": "smr",
     "원자력 발전소": "원전",
     "원자력발전소": "원전",
+    "하동복합": "하동복합발전",
+    "하동 복합": "하동복합발전",
+    "하동복합화력": "하동복합발전",
+    "하동 복합화력": "하동복합발전",
+    "하동 가스발전소": "하동복합발전",
+    "하동석탄 화력 대체 가스발전소": "하동복합발전",
+    "하동 석탄화력 대체 가스발전소": "하동복합발전",
 }
 
 # 언론사마다 같은 사건을 다른 표현으로 쓰는 경우를 일반화해 비교하기 위한 동의어 사전
@@ -1394,6 +1411,23 @@ EVENT_CONCEPTS = {
     },
     "action:건설완료": {
         "준공", "완공", "건설완료",
+    },
+    "entity:두산에너빌리티": {
+        "두산에너빌리티", "두산 에너빌리티",
+    },
+    "location:하동": {
+        "하동", "경남 하동", "하동군",
+    },
+    "object:하동복합발전": {
+        "하동복합", "하동 복합", "하동복합화력", "하동 복합화력",
+        "하동가스발전소", "하동 가스발전소",
+        "하동석탄화력대체가스발전소", "하동 석탄화력 대체 가스발전소",
+        "하동석탄 화력 대체 가스발전소",
+    },
+    "action:epc수주": {
+        "epc낙찰", "epc 낙찰", "낙찰자선정", "낙찰자 선정",
+        "낙찰자로선정", "낙찰자로 선정", "사업자로선정", "사업자로 선정",
+        "시공사선정", "시공사 선정", "짓는다",
     },
     "entity:현대건설": {
         "현대건설", "hdec", "hyundaie&c", "hyundaiengineeringconstruction",
@@ -1763,6 +1797,13 @@ def same_event_general(article: Article, existing: Article) -> bool:
         (shared_action and shared_subject)
         or (shared_entity and shared_subject)
     ):
+        return True
+
+    # 1-1) 동일 회사 + 동일 지역 + 동일 프로젝트/목적물이 명확하면
+    # 'EPC 낙찰자로 선정' / '짓는다'처럼 행위 표현이 달라도 같은 사건으로 처리
+    shared_location = any(x.startswith("location:") for x in shared_concepts)
+    shared_object = any(x.startswith("object:") for x in shared_concepts)
+    if shared_entity and shared_location and shared_object:
         return True
 
     # 2) 제목의 핵심어가 3개 이상 같으면 동일 보도 가능성이 매우 높음
@@ -2705,15 +2746,19 @@ COUNTRY_RULES = [
     ("PL", ("폴란드", "poland")),
     ("SI", ("슬로베니아", "slovenia", "krško", "krsko")),
     ("FI", ("핀란드", "finland")),
-    ("JP", ("일본", "japan", "tokyo")),
+    ("JP", ("일본", "japan", "tokyo", "도쿄")),
+    ("CA", ("캐나다", "canada", "ontario", "darlington")),
+    ("FR", ("프랑스", "france", "edf")),
+    ("SE", ("스웨덴", "sweden")),
     ("US", (
-        "미국", "united states", "u.s.", "usa", "texas", "michigan",
+        "미국", "united states", "u.s.", "u.s.a.", "usa", "texas", "michigan",
         "palisades", "fermi america", "project matador", "amarillo",
-        "westinghouse", "nrc", "doe"
+        "westinghouse", "nrc", "doe", "department of energy"
     )),
     ("KR", (
         "한국", "대한민국", "south korea", "korea", "현대건설",
-        "한국수력원자력", "한수원", "한국전력", "한전", "산업통상"
+        "한국수력원자력", "한수원", "한국전력", "한전",
+        "산업통상", "기후에너지환경부", "과학기술정보통신부"
     )),
 ]
 
@@ -3129,37 +3174,50 @@ body {{ margin: 0; background: #b2c7d9; color: #111827; font-family: Arial, "Mal
 .utility-row {{ display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 7px; margin-top: 7px; }}
 .utility-box {{ min-width: 0; height: 34px; padding: 0 6px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.94); display: flex; align-items: center; gap: 3px; }}
 .utility-label {{ flex: 0 0 auto; color: #344054; font-size: 10.5px; font-weight: 800; white-space: nowrap; }}
-.language-order-toggle {{ flex: 1; min-width: 74px; height: 26px; padding: 0 5px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 10.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }}
+.language-order-toggle {{ flex: 0 0 auto; min-width: 0; height: 26px; padding: 0 6px; border: 0; border-radius: 6px; background: #344054; color: white; font-size: 10.5px; font-weight: 800; white-space: nowrap; cursor: pointer; }}
 .language-order-toggle:active {{ transform: translateY(1px); }}
 .date-picker-box {{ cursor: pointer; }}
 .date-picker-box .date-input {{ cursor: pointer; }}
-.date-input {{ flex: 1; min-width: 0; width: 100%; height: 26px; padding: 0 16px 0 2px; border: 0; background: transparent; color: #344054; font-size: 10.5px; box-sizing: border-box; }}
-.date-input::-webkit-calendar-picker-indicator {{ margin: 0; padding: 2px; cursor: pointer; }}
+.date-input {{ flex: 1; min-width: 74px; width: 100%; height: 26px; padding: 0 18px 0 6px; border: 0; border-radius: 6px; background: #344054; color: #ffffff; font-size: 10.5px; font-weight: 800; text-align: center; box-sizing: border-box; cursor: pointer; }}
+.date-input::-webkit-calendar-picker-indicator {{ margin: 0; padding: 1px; cursor: pointer; filter: invert(1); opacity: .92; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
 .search-input {{ width: 100%; height: 32px; padding: 0 10px; border: 1px solid rgba(17,24,39,.13); border-radius: 8px; background: rgba(255,255,255,.9); font-size: 11px; }}
 
-.world-map-panel {{ margin: 0 12px 12px; padding: 9px 10px 10px; border: 1px solid rgba(35,57,93,.12); border-radius: 10px; background: rgba(255,255,255,.72); box-shadow: 0 1px 3px rgba(17,24,39,.07); }}
+.world-map-panel {{ margin: 0 12px 12px; padding: 9px 10px 10px; border: 1px solid rgba(35,57,93,.12); border-radius: 10px; background: rgba(255,255,255,.78); box-shadow: 0 1px 3px rgba(17,24,39,.07); }}
 .world-map-head {{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:7px; }}
+.world-map-title-wrap {{ min-width:0; }}
 .world-map-title {{ color:#23395d; font-size:11px; font-weight:900; }}
-.world-map-all {{ border:0; border-radius:999px; padding:4px 9px; background:#23395d; color:#fff; font-size:9px; font-weight:800; cursor:pointer; }}
+.world-map-summary {{ margin-top:2px; color:#667085; font-size:8.5px; font-weight:700; }}
+.world-map-all {{ flex:0 0 auto; border:0; border-radius:999px; padding:4px 9px; background:#23395d; color:#fff; font-size:9px; font-weight:800; cursor:pointer; }}
 .world-map-all.active {{ background:#fee500; color:#202124; }}
-.world-map-canvas {{ position:relative; width:100%; height:145px; overflow:hidden; border-radius:9px; background:#dfeaf1; }}
-.world-map-svg {{ position:absolute; inset:0; width:100%; height:100%; opacity:.9; }}
-.world-map-svg path {{ fill:#b9c9d3; stroke:#a8bac5; stroke-width:.7; }}
-.country-pin {{ position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:3px; min-height:25px; padding:3px 7px; border:1px solid rgba(35,57,93,.14); border-radius:999px; background:#fffdf8; color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.13); font-size:9px; font-weight:900; white-space:nowrap; cursor:pointer; }}
-.country-pin .flag {{ font-size:13px; line-height:1; }}
+.world-map-canvas {{ position:relative; width:100%; aspect-ratio:960/423; overflow:hidden; border-radius:9px; background:#f7fafc; border:1px solid rgba(35,57,93,.08); }}
+.world-map-image {{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:.92; }}
+.country-pin {{ position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; gap:2px; min-height:23px; padding:2px 6px; border:1px solid rgba(35,57,93,.16); border-radius:999px; background:rgba(255,253,248,.96); color:#1f4f8a; box-shadow:0 2px 5px rgba(17,24,39,.15); font-size:8.5px; font-weight:900; white-space:nowrap; cursor:pointer; z-index:3; }}
+.country-pin .flag {{ font-size:12px; line-height:1; }}
 .country-pin .country-count {{ color:#d92d20; font-weight:900; }}
 .country-pin.active {{ background:#fee500; color:#202124; border-color:rgba(35,57,93,.22); }}
 .country-pin[hidden] {{ display:none; }}
-.country-us {{ left:19%; top:43%; }}
-.country-kr {{ left:84%; top:43%; }}
-.country-gb {{ left:46%; top:30%; }}
-.country-bg {{ left:54%; top:43%; }}
-.country-ua {{ left:58%; top:34%; }}
-.country-ae {{ left:62%; top:61%; }}
-.country-filter-note {{ margin-top:6px; color:#667085; font-size:9px; text-align:center; }}
+.country-us {{ left:18%; top:38%; }}
+.country-kr {{ left:85%; top:39%; }}
+.country-gb {{ left:47%; top:27%; }}
+.country-bg {{ left:55%; top:39%; }}
+.country-ua {{ left:58%; top:31%; }}
+.country-ae {{ left:62%; top:53%; }}
+.country-filter-list {{ display:flex; gap:5px; margin-top:7px; padding-bottom:1px; overflow-x:auto; scrollbar-width:thin; }}
+.country-chip {{ flex:0 0 auto; border:1px solid rgba(35,57,93,.12); border-radius:999px; padding:4px 7px; background:#fffdf8; color:#344054; font-size:8.5px; font-weight:800; cursor:pointer; }}
+.country-chip .chip-count {{ color:#d92d20; font-weight:900; }}
+.country-chip.active {{ background:#fee500; color:#202124; }}
+.country-chip[hidden] {{ display:none; }}
+.country-filter-note {{ margin-top:5px; color:#667085; font-size:9px; text-align:center; }}
+.world-map-credit {{ margin-top:3px; color:#98a2b3; font-size:7px; text-align:right; }}
 @media (min-width: 700px) {{
   .world-map-panel {{ margin:0 20px 16px; padding:12px 14px 13px; }}
+  .world-map-title {{ font-size:13px; }}
+  .world-map-summary {{ font-size:10px; }}
+  .country-pin {{ min-height:27px; padding:3px 8px; font-size:10px; }}
+  .country-pin .flag {{ font-size:15px; }}
+  .country-chip {{ padding:5px 9px; font-size:10px; }}
+}}
   .world-map-title {{ font-size:13px; }}
   .world-map-canvas {{ height:205px; }}
   .country-pin {{ min-height:29px; padding:4px 9px; font-size:10px; }}
@@ -3242,8 +3300,8 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .utility-box {{ height: 36px; padding: 0 10px; }}
   .utility-label, .language-order-toggle, .date-input {{ font-size: 12px; }}
   .language-order-toggle, .date-input {{ height: 28px; }}
-  .language-order-toggle {{ min-width: 92px; font-size: 12px; }}
-  .date-input {{ min-width: 112px; padding-right: 18px; font-size: 12px; }}
+  .language-order-toggle {{ min-width: 0; padding: 0 8px; font-size: 12px; }}
+  .date-input {{ min-width: 112px; padding: 0 22px 0 8px; font-size: 12px; font-weight: 800; text-align: center; }}
   main {{ padding: 18px 20px 44px; }}
   .favorites-panel {{ margin-bottom: 16px; padding: 16px; border-radius: 12px; }}
   .favorites-title {{ margin-bottom: 12px; font-size: 16px; }}
@@ -3389,19 +3447,14 @@ header,
   </header>
   <section id="world-map-panel" class="world-map-panel">
     <div class="world-map-head">
-      <div class="world-map-title">🌐 국가별 기사 지도</div>
+      <div class="world-map-title-wrap">
+        <div class="world-map-title">🌐 국가별 기사 지도</div>
+        <div id="world-map-summary" class="world-map-summary">현재 탭 전체 0건 · 국가 합계 0건</div>
+      </div>
       <button id="country-all" class="world-map-all active" type="button">전체</button>
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터 지도">
-      <svg class="world-map-svg" viewBox="0 0 1000 430" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M75 95 L135 55 220 70 265 110 245 145 195 158 160 205 105 195 78 155 Z"/>
-        <path d="M245 205 L290 220 315 270 300 340 275 390 250 350 258 295 232 250 Z"/>
-        <path d="M430 75 L485 58 530 76 555 110 535 137 490 134 455 117 Z"/>
-        <path d="M465 145 L535 135 585 165 610 230 580 330 530 375 488 318 478 255 445 205 Z"/>
-        <path d="M545 70 L660 52 760 72 850 110 910 150 875 195 805 198 755 165 690 178 635 155 590 132 Z"/>
-        <path d="M825 292 L875 280 920 305 900 345 850 350 815 325 Z"/>
-        <path d="M680 205 L718 210 740 244 715 270 685 255 665 228 Z"/>
-      </svg>
+      <img class="world-map-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png" alt="세계지도" loading="lazy">
       <button class="country-pin country-us" data-country-filter="US" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
       <button class="country-pin country-kr" data-country-filter="KR" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
       <button class="country-pin country-gb" data-country-filter="GB" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
@@ -3409,7 +3462,26 @@ header,
       <button class="country-pin country-ua" data-country-filter="UA" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
       <button class="country-pin country-ae" data-country-filter="AE" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
     </div>
-    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 관련 기사만 표시됩니다.</div>
+    <div class="country-filter-list" aria-label="국가별 기사 목록">
+      <button class="country-chip" data-country-filter="US" type="button">🇺🇸 미국 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="KR" type="button">🇰🇷 한국 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="GB" type="button">🇬🇧 영국 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="BG" type="button">🇧🇬 불가리아 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="UA" type="button">🇺🇦 우크라이나 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="AE" type="button">🇦🇪 UAE <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="RO" type="button">🇷🇴 루마니아 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="CZ" type="button">🇨🇿 체코 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="PL" type="button">🇵🇱 폴란드 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="SI" type="button">🇸🇮 슬로베니아 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="FI" type="button">🇫🇮 핀란드 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="JP" type="button">🇯🇵 일본 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="CA" type="button">🇨🇦 캐나다 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="FR" type="button">🇫🇷 프랑스 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="SE" type="button">🇸🇪 스웨덴 <span class="chip-count">0건</span></button>
+      <button class="country-chip" data-country-filter="OTHER" type="button">🌐 기타 <span class="chip-count">0건</span></button>
+    </div>
+    <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다.</div>
+    <div class="world-map-credit">Map: Wikimedia Commons · CC0</div>
   </section>
   <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-title">★ 중요 기사 <span id="favorite-count"></span></div><div id="favorites-list" class="favorites-list"></div></section><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동하며, 읽음한 기사는 회색으로 표시됩니다.</footer>
@@ -3616,39 +3688,77 @@ function renderFavorites(){{
 
 let activeCountryFilter = "";
 
+const COUNTRY_NAMES = {
+  US:"미국", KR:"한국", GB:"영국", BG:"불가리아", UA:"우크라이나", AE:"UAE",
+  RO:"루마니아", CZ:"체코", PL:"폴란드", SI:"슬로베니아", FI:"핀란드",
+  JP:"일본", CA:"캐나다", FR:"프랑스", SE:"스웨덴", OTHER:"기타"
+};
+
 function updateCountryMapCounts(){{
   const panel=activePanel();
   if(!panel)return;
 
-  const counts={{US:0,KR:0,GB:0,BG:0,UA:0,AE:0}};
-  panel.querySelectorAll(".preview-card").forEach(card=>{{
+  const counts={{US:0,KR:0,GB:0,BG:0,UA:0,AE:0,RO:0,CZ:0,PL:0,SI:0,FI:0,JP:0,CA:0,FR:0,SE:0,OTHER:0}};
+  const cards=[...panel.querySelectorAll(".preview-card")];
+
+  cards.forEach(card=>{{
     const code=card.dataset.country||"OTHER";
-    if(Object.prototype.hasOwnProperty.call(counts,code))counts[code]++;
+    if(!Object.prototype.hasOwnProperty.call(counts,code))counts.OTHER++;
+    else counts[code]++;
   }});
 
   document.querySelectorAll("[data-country-filter]").forEach(button=>{{
     const code=button.dataset.countryFilter;
     const count=counts[code]||0;
-    const countNode=button.querySelector(".country-count");
+    const countNode=button.querySelector(".country-count")||button.querySelector(".chip-count");
     if(countNode)countNode.textContent=`${{count}}건`;
     button.hidden=count===0;
     button.classList.toggle("active",activeCountryFilter===code);
   }});
 
+  const total=cards.length;
+  const countryTotal=Object.values(counts).reduce((sum,value)=>sum+value,0);
+  const summary=document.getElementById("world-map-summary");
+  if(summary)summary.textContent=`현재 탭 전체 ${{total}}건 · 국가 합계 ${{countryTotal}}건`;
+
   const allButton=document.getElementById("country-all");
   if(allButton)allButton.classList.toggle("active",!activeCountryFilter);
 }}
 
+function expandVisibleCountryGroups(){{
+  const panel=activePanel();
+  if(!panel)return null;
+
+  let firstVisibleCard=null;
+  panel.querySelectorAll(".news-group").forEach(group=>{{
+    const visibleCards=[...group.querySelectorAll(".preview-card")].filter(card=>card.style.display!=="none");
+    if(visibleCards.length){{
+      group.classList.remove("collapsed");
+      const title=group.querySelector(".group-title");
+      if(title)title.setAttribute("aria-expanded","true");
+      const arrow=group.querySelector(".group-arrow");
+      if(arrow)arrow.textContent="▲";
+      if(!firstVisibleCard)firstVisibleCard=visibleCards[0];
+    }}
+  }});
+  return firstVisibleCard;
+}}
+
 function setCountryFilter(code){{
   activeCountryFilter=activeCountryFilter===code?"":code;
-  updateCountryMapCounts();
   filterArticles();
+  updateCountryMapCounts();
+
   const note=document.getElementById("country-filter-note");
-  if(note){{
-    const activeButton=document.querySelector(`[data-country-filter="${{activeCountryFilter}}"]`);
-    note.textContent=activeCountryFilter && activeButton
-      ? `${{activeButton.querySelector("span:nth-child(2)")?.textContent||""}} 관련 기사만 표시 중`
-      : "국가를 누르면 해당 국가 관련 기사만 표시됩니다.";
+  if(activeCountryFilter){{
+    const name=COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
+    if(note)note.textContent=`${{name}} 관련 기사만 표시 중 · 기사 위치로 이동합니다.`;
+    const firstVisibleCard=expandVisibleCountryGroups();
+    if(firstVisibleCard){{
+      setTimeout(()=>firstVisibleCard.scrollIntoView({{behavior:"smooth",block:"center"}}),80);
+    }}
+  }} else {{
+    if(note)note.textContent="국가를 누르면 해당 국가 기사로 이동합니다.";
   }}
 }}
 
@@ -3660,10 +3770,10 @@ const countryAllButton=document.getElementById("country-all");
 if(countryAllButton){{
   countryAllButton.addEventListener("click",()=>{{
     activeCountryFilter="";
-    updateCountryMapCounts();
     filterArticles();
+    updateCountryMapCounts();
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="국가를 누르면 해당 국가 관련 기사만 표시됩니다.";
+    if(note)note.textContent="국가를 누르면 해당 국가 기사로 이동합니다.";
   }});
 }}
 
