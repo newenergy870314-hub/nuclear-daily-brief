@@ -2780,7 +2780,7 @@ def render_group_unified(
 <section class="news-group group-tab-section" data-group="{escape(group)}">
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
-    <span>{escape(group)}</span>
+    <span class="group-name">{escape(group)}</span>
     <span class="group-count">{len(ordered_articles)}건</span>
   </button>
   <div class="article-stack">{cards}</div>
@@ -3122,13 +3122,14 @@ main {{ padding: 12px 12px 34px; }}
 .language-section {{ margin-bottom: 30px; }}
 .group-nav-compact .group-nav-dense 
 .news-group {{ margin-bottom: 8px; }}
-.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #fee500; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.07); cursor: pointer; }}
+.group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 9px; border: 0; background: #f7e889; color: #111827; border-radius: 5px; font: inherit; font-size: 11px; font-weight: 800; line-height: 1; text-align: left; box-shadow: 0 1px 2px rgba(17,24,39,.07); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
-.group-count {{ margin-left: 2px; color: #5f5200; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
-.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; min-width: 10px; color: #111827; font-size: 8px; line-height: 1; }}
+.group-name {{ display: inline-flex; align-items: center; height: 27px; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
+.group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #5f5200; font-size: 11px; font-weight: 800; line-height: 1; white-space: nowrap; }}
+.group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #111827; font-size: 8px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 7px; margin-top: 5px; margin-bottom: 5px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; height: 126px; min-height: 126px; overflow: hidden; color: inherit; background: #fffdf8; border: 1px solid rgba(62,52,42,.10); border-radius: 10px; text-decoration: none; box-shadow: 0 1px 2px rgba(62,52,42,.08); transition: opacity .15s ease, background .15s ease; }}
@@ -3187,7 +3188,9 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
       .group-nav-compact   .group-nav-dense 
   .news-group {{ margin-bottom: 9px; }}
   .group-title {{ height: 30px; padding: 0 11px; font-size: 12px; border-radius: 6px; }}
-  .group-count {{ font-size: 12px; }}
+  .group-name {{ height: 30px; font-size: 12px; }}
+  .group-count {{ height: 30px; font-size: 12px; }}
+  .group-arrow {{ height: 30px; }}
   .article-stack {{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }}
   .preview-card {{ grid-template-columns: 32px minmax(0,1fr) 124px; height: 142px; min-height: 142px; border-radius: 11px; }}
   .article-number {{ padding-top: 12px; font-size: 13px; }}
@@ -3414,7 +3417,27 @@ languageOrderButton.addEventListener("click", () => {{
   reorderLanguageArticles(nextOrder);
   renderFavorites();
 }});
-function saveState(){{ localStorage.setItem(readKey, JSON.stringify([...readArticles])); localStorage.setItem(importantKey, JSON.stringify([...importantArticles])); }}
+const readKey = "nuclearDailyBriefReadArticles";
+const importantKey = "nuclearDailyBriefImportantArticles";
+
+function loadStoredSet(key){{
+  try {{
+    const raw = JSON.parse(localStorage.getItem(key) || "[]");
+    return new Set(Array.isArray(raw) ? raw : []);
+  }} catch (_error) {{
+    return new Set();
+  }}
+}}
+
+const readArticles = loadStoredSet(readKey);
+const importantArticles = loadStoredSet(importantKey);
+
+function saveState(){{
+  try {{
+    localStorage.setItem(readKey, JSON.stringify([...readArticles]));
+    localStorage.setItem(importantKey, JSON.stringify([...importantArticles]));
+  }} catch (_error) {{}}
+}}
 function applyState(card){{
   const u=card.dataset.url;
   const isRead=readArticles.has(u);
@@ -3451,9 +3474,30 @@ document.querySelectorAll(".preview-card").forEach(card=>{{
   applyState(card);
   card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button")) openArticle(card); }});
   card.addEventListener("keydown",e=>{{ if(e.key==="Enter"||e.key===" "){{ e.preventDefault(); openArticle(card); }}}});
-  card.querySelector(".important-button").addEventListener("click",e=>{{
-    e.stopPropagation(); const u=card.dataset.url; importantArticles.has(u)?importantArticles.delete(u):importantArticles.add(u); saveState(); document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(u)}}"]`).forEach(applyState); renderFavorites();
-  }});
+  const importantButton = card.querySelector(".important-button");
+  if(importantButton){{
+    importantButton.addEventListener("click", e => {{
+      e.preventDefault();
+      e.stopPropagation();
+
+      const u = card.dataset.url;
+      if(!u) return;
+
+      if(importantArticles.has(u)){{
+        importantArticles.delete(u);
+      }} else {{
+        importantArticles.add(u);
+      }}
+
+      saveState();
+
+      document.querySelectorAll(".preview-card").forEach(cardItem => {{
+        if(cardItem.dataset.url === u) applyState(cardItem);
+      }});
+
+      renderFavorites();
+    }});
+  }}
 
   const translateButton = card.querySelector(".translate-button");
   if(translateButton){{
@@ -3472,7 +3516,7 @@ function renderFavorites(){{
   const panel=activePanel(), box=document.getElementById("favorites-panel"), list=document.getElementById("favorites-list"), count=document.getElementById("favorite-count"); list.innerHTML="";
   if(!panel){{box.hidden=true;return;}}
   const cards=[...panel.querySelectorAll(".preview-card")].filter(c=>importantArticles.has(c.dataset.url));
-  cards.forEach(card=>{{ const item=document.createElement("div"); item.className="favorite-item"; item.innerHTML=`<div><div class="favorite-publisher">${{card.dataset.publisher}}</div><div class="favorite-headline">${{card.dataset.title}}</div></div><button class="favorite-remove" type="button">★</button>`; item.addEventListener("click",e=>{{if(!e.target.closest(".favorite-remove"))openArticle(card)}}); item.querySelector(".favorite-remove").addEventListener("click",e=>{{e.stopPropagation();importantArticles.delete(card.dataset.url);saveState();document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(card.dataset.url)}}"]`).forEach(applyState);renderFavorites();}}); list.appendChild(item); }});
+  cards.forEach(card=>{{ const item=document.createElement("div"); item.className="favorite-item"; item.innerHTML=`<div><div class="favorite-publisher">${{card.dataset.publisher}}</div><div class="favorite-headline">${{card.dataset.title}}</div></div><button class="favorite-remove" type="button">★</button>`; item.addEventListener("click",e=>{{if(!e.target.closest(".favorite-remove"))openArticle(card)}}); item.querySelector(".favorite-remove").addEventListener("click",e=>{{e.preventDefault();e.stopPropagation();importantArticles.delete(card.dataset.url);saveState();document.querySelectorAll(".preview-card").forEach(cardItem=>{{if(cardItem.dataset.url===card.dataset.url)applyState(cardItem);}});renderFavorites();}}); list.appendChild(item); }});
   count.textContent=`${{cards.length}}건`; box.hidden=cards.length===0;
 }}
 function filterArticles(){{ const q=document.getElementById("article-search").value.trim().toLowerCase(), panel=activePanel(); if(!panel)return; let total=0; panel.querySelectorAll(".news-group").forEach(group=>{{let n=0;group.querySelectorAll(".preview-card").forEach(card=>{{const show=!q||card.dataset.search.includes(q);card.style.display=show?"":"none";if(show){{n++;total++;}}}});group.style.display=q?(n?"":"none"):"";}});document.getElementById("no-results").style.display=q&&total===0?"block":"none";}}
