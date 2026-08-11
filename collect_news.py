@@ -439,7 +439,6 @@ DIRECT_NEWS_PAGES = [
     ("Nikkei Asia", "https://asia.nikkei.com/", "en"),
     ("The Japan Times", "https://www.japantimes.co.jp/", "en"),
     ("NHK WORLD-JAPAN", "https://www3.nhk.or.jp/nhkworld/", "en"),
-    ("Nuclear Newswire", "https://www.ans.org/news/", "en"),
     ("Nuclear Energy Institute", "https://www.nei.org/news", "en"),
     ("World Nuclear Association", "https://world-nuclear.org/news", "en"),
     ("IAEA News", "https://www.iaea.org/newscenter/news", "en"),
@@ -569,7 +568,6 @@ def _looks_like_article_candidate_url(url: str) -> bool:
 NUCLEAR_SPECIALIST_PUBLISHERS = {
     "World Nuclear News",
     "Nuclear Newswire (ANS)",
-    "Nuclear Newswire",
     "Nuclear Engineering International",
     "NucNet",
     "Nuclear Energy Institute",
@@ -755,6 +753,8 @@ BLOCKED_STOCK_KEYWORDS = {
     "brokerage", "analyst report",
 }
 
+
+EXCLUDED_PUBLISHERS = {"Nuclear Newswire"}
 
 @dataclass
 class Article:
@@ -3130,6 +3130,7 @@ def select_articles_for_period(
         article
         for article in fetched
         if start <= article.published < end
+        and article.publisher not in EXCLUDED_PUBLISHERS
     ]
 
     all_selected: list[Article] = []
@@ -3788,6 +3789,9 @@ def article_from_dict(data: dict) -> Article | None:
         publisher = str(data.get("publisher", "")).strip()
         source_url = str(data.get("source_url", ""))
         link = str(data.get("link", ""))
+
+        if publisher in EXCLUDED_PUBLISHERS:
+            return None
 
         if not publisher:
             publisher = infer_publisher_from_url(link, source_url)
