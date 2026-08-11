@@ -167,15 +167,15 @@ main { padding: 12px 12px 34px; }
 .group-arrow { display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }
 .article-stack { display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }
 .news-group.collapsed .article-stack { display: none; }
-.preview-card { position:relative; display:grid; grid-template-columns:26px minmax(0,1fr) 88px; gap:10px; align-items:stretch; min-height:104px; padding:2px 10px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 3px 10px rgba(15,23,42,.06); overflow:visible; transition:opacity .15s ease, background .15s ease; }
+.preview-card { position:relative; display:grid; grid-template-columns:22px minmax(0,1fr) 88px; gap:8px; align-items:stretch; min-height:104px; padding:2px 4px 2px 8px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 3px 10px rgba(15,23,42,.06); overflow:visible; transition:opacity .15s ease, background .15s ease; }
 .preview-card.read { background: #ebeff3; opacity: .92; }
-.preview-card.read .headline { display:-webkit-box; overflow:hidden; margin-top:1px; color:#0b57d0; font-size:13px; font-weight:700; line-height:1.28; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
-.preview-card.read .publisher { color:#667085; font-size:9px; font-weight:800; line-height:1.15; white-space:nowrap; flex:0 0 auto; }
-.preview-card.read .article-snippet { display:-webkit-box; overflow:hidden; margin-top:3px; color:#5b6472; font-size:9.5px; line-height:1.38; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.preview-card.read .headline { display:-webkit-box; overflow:hidden; margin-top:0; color:#0b57d0; font-size:13px; font-weight:700; line-height:1.24; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.preview-card.read .publisher { color:#667085; font-size:9px; font-weight:800; line-height:1.1; white-space:nowrap; flex:0 0 auto; }
+.preview-card.read .article-snippet { display:-webkit-box; overflow:hidden; margin-top:2px; color:#5b6472; font-size:9.5px; line-height:1.32; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
 
 .preview-card.important { border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }
-.article-number { display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; color: #344054; font-size: 14px; font-weight: 800; }
-.preview-copy { display:flex; flex-direction:column; justify-content:flex-start; min-width:0; min-height:104px; padding:0 4px 0 0; overflow:visible; gap:0; }
+.article-number { display:flex; align-items:flex-start; justify-content:center; color:#23395d; font-size:12px; font-weight:900; line-height:1; padding-top:1px; }
+.preview-copy { display:flex; flex-direction:column; justify-content:flex-start; min-width:0; min-height:104px; padding:0 1px 0 0; overflow:visible; gap:0; }
 .publisher { overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .headline { display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .article-snippet { display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
@@ -189,11 +189,11 @@ main { padding: 12px 12px 34px; }
 .preview-card.read .read-label { display: inline; }
 .preview-card.important .unread-label, .preview-card.important .read-label { display: none; }
 .preview-card.important .important-label { display: inline; }
-.card-side { position: relative; align-self: stretch; width: 88px; min-width: 88px; display: flex; align-items: stretch; justify-content: center; overflow: visible; background: transparent; }
-.important-button { flex:0 0 auto; width:22px; height:22px; padding:0; border:0; border-radius:0; background:transparent; color:#98a2b3; font-size:14px; font-weight:800; line-height:22px; text-align:center; cursor:pointer; box-shadow:none; overflow:visible; margin-left:auto; }
+.card-side { position:relative; align-self:stretch; width:88px; min-width:88px; display:flex; align-items:stretch; justify-content:flex-end; overflow:visible; background:transparent; padding-right:0; }
+.important-button { flex:0 0 auto; width:24px; height:20px; padding:0; border:0; border-radius:0; background:transparent; color:#98a2b3; font-size:14px; font-weight:800; line-height:20px; text-align:center; cursor:pointer; box-shadow:none; overflow:visible; margin-left:auto; }
 .important-button:hover { background: rgba(17,24,39,.04); }
 .preview-card.important .important-button { color: #b77900; border: 0; background: transparent; }
-.preview-image { width:88px; height:104px; min-height:104px; align-self:stretch; display:flex; align-items:center; justify-content:center; overflow:hidden; border:1px solid rgba(35,57,93,.08); border-radius:0; background:#f4f6f8; }
+.preview-image { width:88px; height:104px; min-height:104px; align-self:stretch; display:flex; align-items:center; justify-content:center; overflow:hidden; border:1px solid rgba(35,57,93,.08); border-radius:0; background:#f4f6f8; margin-left:auto; }
 .preview-image img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: 50% 50%; }
 .new-badge { display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 0; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }
 .no-image { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 0; color: #6b7280; font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }
@@ -353,11 +353,11 @@ header,
   .preview-image { width: 104px; min-height: 148px; }
 }
 
-.meta-row { display:flex; align-items:center; justify-content:space-between; gap:5px; min-height:22px; margin:0 0 2px 0; }
+.meta-row { display:flex; align-items:center; justify-content:space-between; gap:4px; min-height:21px; margin:0 0 1px 0; }
 
-.meta-left { min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:5px; row-gap:1px; }
+.meta-left { min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:4px; row-gap:1px; }
 
-.status-inline { min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:4px; font-size:9px; line-height:1.15; }
+.status-inline { min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:3px; font-size:9px; line-height:1.1; }
 
 @media (min-width: 768px) {
   .preview-copy { min-height: 148px; gap: 8px; }
@@ -399,6 +399,20 @@ header,
   .preview-card { border-radius:0; }
 }
 
+@media (min-width:768px) {
+  .preview-card { grid-template-columns:24px minmax(0,1fr) 96px; gap:10px; min-height:112px; padding:3px 4px 3px 10px; border-radius:0; }
+  .preview-copy { min-height:112px; padding:0 1px 0 0; }
+  .meta-row { min-height:22px; margin-bottom:1px; gap:5px; }
+  .meta-left { gap:5px; }
+  .publisher, .status-inline { font-size:10px; line-height:1.12; }
+  .article-number { font-size:13px; }
+  .headline { line-height:1.25; }
+  .article-snippet { margin-top:3px; line-height:1.34; }
+  .important-button { width:26px; height:22px; font-size:15px; line-height:22px; }
+  .card-side { width:96px; min-width:96px; justify-content:flex-end; }
+  .preview-image { width:96px; height:112px; min-height:112px; margin-left:auto; }
+}
+
 </style>
 </head>
 <body>
@@ -409,7 +423,7 @@ header,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 11. 09:45 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 11. 09:55 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"></div>
       <div class="tabs"><button class="tab-button" type="button" data-tab="전일">전일</button><button class="tab-button active" type="button" data-tab="금일">금일</button><button class="tab-button" type="button" data-tab="익일">익일</button></div>
       <div class="utility-row">
@@ -1781,7 +1795,7 @@ header,
     <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105473"
   data-title="美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회"
   data-publisher="더구루"
@@ -1804,7 +1818,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회</div>
+    <div class="headline">美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회</div>
     <div class="article-snippet">[더구루=홍성환 기자] 도널드 트럼프 행정부가 원자력 발전 부흥을 위해 원전 기자재 조달에 대규모 자금을 빌려주기로 했다. 국내 원전 기자재 기업의 수혜가 기대된다. 9일 코트라에 따르면 미 에너지부(DOE) 산하 &#x27;에너지 지배력 금융 사무국(EDF)&#x27;는 지난달 최대 175억 달러(약 24조8400억원) 규모의 조건부 대출을 지원하는 &#x27;미국 원자력 공급망</div>
   </div>
   <div class="card-side">
@@ -2229,7 +2243,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a16aaf38&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c449f6f5030&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -3532,7 +3546,7 @@ header,
   data-language="en"
   data-published="1786386688"
   data-country="OTHER"
-  data-search="american nuclear society | linkedin nuclear newswire 원자력 american nuclear society | 54,142 followers on linkedin. empowering a strong, connected, and engaged nuclear professional community and unlocking the full potential of the atom. | founded in 1954, the american nuclear society is a not-for-profit dedicated to advancing the peaceful use of nuclear science and technology."
+  data-search="american nuclear society | linkedin nuclear newswire 원자력 american nuclear society | 54,143 followers on linkedin. empowering a strong, connected, and engaged nuclear professional community and unlocking the full potential of the atom. | founded in 1954, the american nuclear society is a not-for-profit dedicated to advancing the peaceful use of nuclear science and technology."
   tabindex="0" role="link">
   <div class="article-number">14</div>
   <div class="preview-copy">
@@ -3548,7 +3562,7 @@ header,
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
     <div class="headline">American Nuclear Society | LinkedIn</div>
-    <div class="article-snippet">American Nuclear Society | 54,142 followers on LinkedIn. Empowering a strong, connected, and engaged nuclear professional community and unlocking the full potential of the atom. | Founded in 1954, the American Nuclear Society is a not-for-profit dedicated to advancing the peaceful use of nuclear science and technology.</div>
+    <div class="article-snippet">American Nuclear Society | 54,143 followers on LinkedIn. Empowering a strong, connected, and engaged nuclear professional community and unlocking the full potential of the atom. | Founded in 1954, the American Nuclear Society is a not-for-profit dedicated to advancing the peaceful use of nuclear science and technology.</div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/6113c93a28b51280baecb4d9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
@@ -7134,7 +7148,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c449cbcf018&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c449f684d80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7165,7 +7179,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c449f7c3278&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c44a9a3c040&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7196,7 +7210,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a80c2178&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c449e89a940&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7686,9 +7700,40 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260811_0003743935"
+  data-title="李 &quot;전력 차질 없도록&quot; 주문에…호남 반도체 산단 전력망 1년 단축"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786410061"
+  data-country="KR"
+  data-search="李 &quot;전력 차질 없도록&quot; 주문에…호남 반도체 산단 전력망 1년 단축 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 기후에너지환경부가 호남 반도체 산단의 전력망 구축 일정을 계획보다 1년 앞당긴다. 광주 군공항 부지의 반도체 산단 활용 시점이 빨라지면서 팹 가동에 필요한 전력망도 조기에 구축하기로 했다. 11일 정부에 따르면 이재명 대통령은 지난 10일 &#x27;메가프로젝트 제2차 민관합동 점검회의&#x27;에서 &quot;국방부는 2028년 중순까지 광주 기지 기능을 다른 군공항으로 임시 배치해 광주 군공항 부지가 반도체 산업 단지로 조기 활용되도록 조치해달라&quot;며 &quot;전력·용수 공급 계획도 차질 없이 준비해야 한다&quot;고 지시했다. 이에 기후부는 1단계 공급선로를 조기에 구축해"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">뉴시스</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>李 &quot;전력 차질 없도록&quot; 주문에…호남 반도체 산단 전력망 1년 단축</div>
+    <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부가 호남 반도체 산단의 전력망 구축 일정을 계획보다 1년 앞당긴다. 광주 군공항 부지의 반도체 산단 활용 시점이 빨라지면서 팹 가동에 필요한 전력망도 조기에 구축하기로 했다. 11일 정부에 따르면 이재명 대통령은 지난 10일 &#x27;메가프로젝트 제2차 민관합동 점검회의&#x27;에서 &quot;국방부는 2028년 중순까지 광주 기지 기능을 다른 군공항으로 임시 배치해 광주 군공항 부지가 반도체 산업 단지로 조기 활용되도록 조치해달라&quot;며 &quot;전력·용수 공급 계획도 차질 없이 준비해야 한다&quot;고 지시했다. 이에 기후부는 1단계 공급선로를 조기에 구축해</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3f17f1379e61d210217b1a2d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260810000335"
   data-title="렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정"
@@ -7699,7 +7744,7 @@ header,
   data-country="KR"
   data-search="렉스이노베이션, aem 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정 전자신문 한국전력 렉스이노베이션(대표 임정민)은 음이온교환막(aem) 수전해용 비귀금속 촉매전극의 제조공정을 표준화해 수전해 핵심 소재·부품 사업화를 본격화한다고 11일 밝혔다. 이는 최근 한국전력공사가 추진하는 &#x27;2026년 대·중소기업 혁신 파트너십 지원사업&#x27; 생산혁신 분야에 선정된 데 따른 것이다. aem 수전해는 전기를 이용해 물을 수소와 산소로 나누는 기술이다. 이 과정에서 촉매전극은 물에서 수소를 효율적으로 생산할 수 있도록 반응을 돕는 핵심부품이다."
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -7730,7 +7775,7 @@ header,
   data-country="KR"
   data-search="변호사·의사·치과의사·회계사 뭉쳤다…단체 출범 뉴시스 한국전력 [서울=뉴시스] 류난영 기자 = 변호사와 의사, 치과의사, 회계사 등 4대 대표 전문직이 하나의 연합체로 뭉쳤다. 서로 다른 분야의 청년들이 대규모 연합조직을 꾸린 것은 국내에서 이번이 처음이다. 이들은 특정 직역의 이익보다 사회적 책임과 전문직 간 협력에 더 무게를 두겠다는 방침이다. 11일 관련 업계에 따르면 대한전문연합회(kps)는 지난 6일 변호사·의사·치과의사·회계사 네 개 전문직에서 약 150여 명의 청년 전문가가 첨석한 가운데 1기 발대식을 열고 공식 활동을 시작했다. 연합회에 따르면 네 개 대표 전문직의 청년들이 하나의 조직을 구성해 지속적인 교류와 사"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -7775,9 +7820,71 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.asiae.co.kr/article/2026081109560433276"
+  data-title="[인사] 한국원자력의학원"
+  data-publisher="아시아경제"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786409764"
+  data-country="KR"
+  data-search="[인사] 한국원자력의학원 아시아경제 원자력 [인사] 한국원자력의학원 ▲ 원자력병원장 송강현."
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">아시아경제</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>[인사] 한국원자력의학원</div>
+    <div class="article-snippet">[인사] 한국원자력의학원 ▲ 원자력병원장 송강현.</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3cc0fd951afb7dfbad09873b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.e2news.com/news/articleView.html?idxno=333114"
+  data-title="원자력환경공단, 이달 25일까지 신입사원 31명 채용 접수"
+  data-publisher="이투뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786409547"
+  data-country="KR"
+  data-search="원자력환경공단, 이달 25일까지 신입사원 31명 채용 접수 이투뉴스 원자력 [이투뉴스] 한국원자력환경공단(이사장 조성돈)은 2026년 정기채용을 통해 31명의 신입사원을 공개 채용하기로 하고 이달 25일까지 온라인 채용사이트(https://korad.scout.co.kr)를 통해 지원서를 접수한다.분야별 채용인원은 정규직인 일반직은 방폐물관리 2명, 환경방사"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">이투뉴스</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>원자력환경공단, 이달 25일까지 신입사원 31명 채용 접수</div>
+    <div class="article-snippet">[이투뉴스] 한국원자력환경공단(이사장 조성돈)은 2026년 정기채용을 통해 31명의 신입사원을 공개 채용하기로 하고 이달 25일까지 온라인 채용사이트(https://korad.scout.co.kr)를 통해 지원서를 접수한다.분야별 채용인원은 정규직인 일반직은 방폐물관리 2명, 환경방사</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fbae2dedd689a69077fc65ed.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260811_0003743856"
   data-title="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’"
@@ -7788,7 +7895,7 @@ header,
   data-country="CN"
   data-search="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’ 뉴시스 원자력 [서울=뉴시스] 구자룡 기자 = 일본 다카이치 사나에 총리의 지난해 11월 ‘대만 유사사태’ 발언 이후 중국과의 갈등이 계속되면서 올 상반기 중국의 대일 희토류 수출은 반토막났다. 중국 해관총서에 따르면 올해 상반기 중국의 7대 희토류의 일본 수출량이 전년 동기 대비 51% 감소했다. 특히 전기 자동차 모터, 고효율 자석, 방산 장비 등에 사용되는 디스프로슘과 테르븀은 올해 일본으로의 수출량이 ‘0’을 기록했다. 중국의 일본으로의 희토류 수출은 3월 이후 4개월 연속 감소했으며 6월의 경우 전년 동기 대비 81% 급감했다. 이트륨 수출량은 6월에 ‘0’으로 떨어졌다."
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -7940,9 +8047,40 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260811_0003743935"
+  data-title="李 &quot;전력 차질 없도록&quot; 주문에…호남 반도체 산단 전력망 1년 단축"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786410061"
+  data-country="KR"
+  data-search="李 &quot;전력 차질 없도록&quot; 주문에…호남 반도체 산단 전력망 1년 단축 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 기후에너지환경부가 호남 반도체 산단의 전력망 구축 일정을 계획보다 1년 앞당긴다. 광주 군공항 부지의 반도체 산단 활용 시점이 빨라지면서 팹 가동에 필요한 전력망도 조기에 구축하기로 했다. 11일 정부에 따르면 이재명 대통령은 지난 10일 &#x27;메가프로젝트 제2차 민관합동 점검회의&#x27;에서 &quot;국방부는 2028년 중순까지 광주 기지 기능을 다른 군공항으로 임시 배치해 광주 군공항 부지가 반도체 산업 단지로 조기 활용되도록 조치해달라&quot;며 &quot;전력·용수 공급 계획도 차질 없이 준비해야 한다&quot;고 지시했다. 이에 기후부는 1단계 공급선로를 조기에 구축해"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">뉴시스</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>李 &quot;전력 차질 없도록&quot; 주문에…호남 반도체 산단 전력망 1년 단축</div>
+    <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부가 호남 반도체 산단의 전력망 구축 일정을 계획보다 1년 앞당긴다. 광주 군공항 부지의 반도체 산단 활용 시점이 빨라지면서 팹 가동에 필요한 전력망도 조기에 구축하기로 했다. 11일 정부에 따르면 이재명 대통령은 지난 10일 &#x27;메가프로젝트 제2차 민관합동 점검회의&#x27;에서 &quot;국방부는 2028년 중순까지 광주 기지 기능을 다른 군공항으로 임시 배치해 광주 군공항 부지가 반도체 산업 단지로 조기 활용되도록 조치해달라&quot;며 &quot;전력·용수 공급 계획도 차질 없이 준비해야 한다&quot;고 지시했다. 이에 기후부는 1단계 공급선로를 조기에 구축해</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3f17f1379e61d210217b1a2d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260810000335"
   data-title="렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정"
@@ -7953,7 +8091,7 @@ header,
   data-country="KR"
   data-search="렉스이노베이션, aem 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정 전자신문 한국전력 렉스이노베이션(대표 임정민)은 음이온교환막(aem) 수전해용 비귀금속 촉매전극의 제조공정을 표준화해 수전해 핵심 소재·부품 사업화를 본격화한다고 11일 밝혔다. 이는 최근 한국전력공사가 추진하는 &#x27;2026년 대·중소기업 혁신 파트너십 지원사업&#x27; 생산혁신 분야에 선정된 데 따른 것이다. aem 수전해는 전기를 이용해 물을 수소와 산소로 나누는 기술이다. 이 과정에서 촉매전극은 물에서 수소를 효율적으로 생산할 수 있도록 반응을 돕는 핵심부품이다."
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -7984,7 +8122,7 @@ header,
   data-country="KR"
   data-search="변호사·의사·치과의사·회계사 뭉쳤다…단체 출범 뉴시스 한국전력 [서울=뉴시스] 류난영 기자 = 변호사와 의사, 치과의사, 회계사 등 4대 대표 전문직이 하나의 연합체로 뭉쳤다. 서로 다른 분야의 청년들이 대규모 연합조직을 꾸린 것은 국내에서 이번이 처음이다. 이들은 특정 직역의 이익보다 사회적 책임과 전문직 간 협력에 더 무게를 두겠다는 방침이다. 11일 관련 업계에 따르면 대한전문연합회(kps)는 지난 6일 변호사·의사·치과의사·회계사 네 개 전문직에서 약 150여 명의 청년 전문가가 첨석한 가운데 1기 발대식을 열고 공식 활동을 시작했다. 연합회에 따르면 네 개 대표 전문직의 청년들이 하나의 조직을 구성해 지속적인 교류와 사"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -8029,9 +8167,71 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.asiae.co.kr/article/2026081109560433276"
+  data-title="[인사] 한국원자력의학원"
+  data-publisher="아시아경제"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786409764"
+  data-country="KR"
+  data-search="[인사] 한국원자력의학원 아시아경제 원자력 [인사] 한국원자력의학원 ▲ 원자력병원장 송강현."
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">아시아경제</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>[인사] 한국원자력의학원</div>
+    <div class="article-snippet">[인사] 한국원자력의학원 ▲ 원자력병원장 송강현.</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3cc0fd951afb7dfbad09873b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.e2news.com/news/articleView.html?idxno=333114"
+  data-title="원자력환경공단, 이달 25일까지 신입사원 31명 채용 접수"
+  data-publisher="이투뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786409547"
+  data-country="KR"
+  data-search="원자력환경공단, 이달 25일까지 신입사원 31명 채용 접수 이투뉴스 원자력 [이투뉴스] 한국원자력환경공단(이사장 조성돈)은 2026년 정기채용을 통해 31명의 신입사원을 공개 채용하기로 하고 이달 25일까지 온라인 채용사이트(https://korad.scout.co.kr)를 통해 지원서를 접수한다.분야별 채용인원은 정규직인 일반직은 방폐물관리 2명, 환경방사"
+  tabindex="0" role="link">
+  <div class="article-number">2</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">이투뉴스</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>원자력환경공단, 이달 25일까지 신입사원 31명 채용 접수</div>
+    <div class="article-snippet">[이투뉴스] 한국원자력환경공단(이사장 조성돈)은 2026년 정기채용을 통해 31명의 신입사원을 공개 채용하기로 하고 이달 25일까지 온라인 채용사이트(https://korad.scout.co.kr)를 통해 지원서를 접수한다.분야별 채용인원은 정규직인 일반직은 방폐물관리 2명, 환경방사</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fbae2dedd689a69077fc65ed.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260811_0003743856"
   data-title="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’"
@@ -8042,7 +8242,7 @@ header,
   data-country="CN"
   data-search="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’ 뉴시스 원자력 [서울=뉴시스] 구자룡 기자 = 일본 다카이치 사나에 총리의 지난해 11월 ‘대만 유사사태’ 발언 이후 중국과의 갈등이 계속되면서 올 상반기 중국의 대일 희토류 수출은 반토막났다. 중국 해관총서에 따르면 올해 상반기 중국의 7대 희토류의 일본 수출량이 전년 동기 대비 51% 감소했다. 특히 전기 자동차 모터, 고효율 자석, 방산 장비 등에 사용되는 디스프로슘과 테르븀은 올해 일본으로의 수출량이 ‘0’을 기록했다. 중국의 일본으로의 희토류 수출은 3월 이후 4개월 연속 감소했으며 6월의 경우 전년 동기 대비 81% 급감했다. 이트륨 수출량은 6월에 ‘0’으로 떨어졌다."
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -9379,7 +9579,7 @@ header,
   data-language="en"
   data-published="1786386688"
   data-country="OTHER"
-  data-search="american nuclear society | linkedin nuclear newswire 원자력 american nuclear society | 54,142 followers on linkedin. empowering a strong, connected, and engaged nuclear professional community and unlocking the full potential of the atom. | founded in 1954, the american nuclear society is a not-for-profit dedicated to advancing the peaceful use of nuclear science and technology."
+  data-search="american nuclear society | linkedin nuclear newswire 원자력 american nuclear society | 54,143 followers on linkedin. empowering a strong, connected, and engaged nuclear professional community and unlocking the full potential of the atom. | founded in 1954, the american nuclear society is a not-for-profit dedicated to advancing the peaceful use of nuclear science and technology."
   tabindex="0" role="link">
   <div class="article-number">14</div>
   <div class="preview-copy">
@@ -9395,7 +9595,7 @@ header,
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
     <div class="headline">American Nuclear Society | LinkedIn</div>
-    <div class="article-snippet">American Nuclear Society | 54,142 followers on LinkedIn. Empowering a strong, connected, and engaged nuclear professional community and unlocking the full potential of the atom. | Founded in 1954, the American Nuclear Society is a not-for-profit dedicated to advancing the peaceful use of nuclear science and technology.</div>
+    <div class="article-snippet">American Nuclear Society | 54,143 followers on LinkedIn. Empowering a strong, connected, and engaged nuclear professional community and unlocking the full potential of the atom. | Founded in 1954, the American Nuclear Society is a not-for-profit dedicated to advancing the peaceful use of nuclear science and technology.</div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/6113c93a28b51280baecb4d9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
@@ -12981,7 +13181,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c449cbcf018&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c449f684d80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -13012,7 +13212,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c449f7c3278&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c44a9a3c040&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -13043,7 +13243,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a80c2178&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c449e89a940&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -14771,7 +14971,7 @@ header,
     <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105473"
   data-title="美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회"
   data-publisher="더구루"
@@ -14794,7 +14994,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회</div>
+    <div class="headline">美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회</div>
     <div class="article-snippet">[더구루=홍성환 기자] 도널드 트럼프 행정부가 원자력 발전 부흥을 위해 원전 기자재 조달에 대규모 자금을 빌려주기로 했다. 국내 원전 기자재 기업의 수혜가 기대된다. 9일 코트라에 따르면 미 에너지부(DOE) 산하 &#x27;에너지 지배력 금융 사무국(EDF)&#x27;는 지난달 최대 175억 달러(약 24조8400억원) 규모의 조건부 대출을 지원하는 &#x27;미국 원자력 공급망</div>
   </div>
   <div class="card-side">
@@ -15219,7 +15419,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a16aaf38&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c449f6f5030&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -62038,6 +62238,136 @@ header,
 
   </div>
 </section>
+
+<section class="tab-panel archive-panel" id="archive-2026-05-28" data-archive-date="2026-05-28">
+  <div class="period-card">
+    <strong>2026. 5. 28.</strong>
+    <span>2026. 5. 27. 06:00 ~ 2026. 5. 28. 06:00 (KST)</span>
+  </div>
+  <div class="language-section">
+    <div class="group-master-control">
+      <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    </div>
+    
+<section class="news-group collapsed" data-group="현대건설">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">현대건설</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="타 건설사">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">타 건설사</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="한국수력원자력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">한국수력원자력</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="한국전력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">한국전력</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="원전 관계부처">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원전 관계부처</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="원전 대미투자">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원전 대미투자</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="원자력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원자력</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="SMR">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">SMR</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Nuclear Power·Nuclear Energy</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Holtec">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Holtec</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="TerraPower">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">TerraPower</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Westinghouse">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Westinghouse</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Fermi America">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Fermi America</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+  </div>
+</section>
 </main>
   <footer>기사 카드를 누르면 원문으로 이동하며, 읽음한 기사는 회색으로 표시됩니다.</footer>
 </div>
@@ -62537,9 +62867,10 @@ document.querySelectorAll(".tab-button").forEach(button => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
+const archiveCutoff="2026-08-11";
 const archiveDates=[...document.querySelectorAll(".archive-panel")]
   .map(x=>x.dataset.archiveDate)
-  .filter(Boolean)
+  .filter(value=>value && value<=archiveCutoff)
   .sort();
 
 const archiveInput=document.getElementById("archive-date");
