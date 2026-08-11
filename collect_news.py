@@ -3425,17 +3425,19 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   tabindex="0" role="link">
   <div class="article-number">{number}</div>
   <div class="preview-copy">
-    <div class="publisher">{escape(article.publisher)}</div>
-    <div class="headline">{new_badge}{escape(article.title)}</div>
-    {snippet_html}
-    <div class="status-line">
-      <div class="status-text">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">{escape(article.publisher)}</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
+    <div class="headline">{new_badge}{escape(article.title)}</div>
+    {snippet_html}
   </div>
   <div class="card-side">
     <div class="preview-image">{image_html}</div>
@@ -3979,36 +3981,36 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
-.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 92px; gap: 12px; align-items: stretch; padding: 12px 12px 14px 12px; border-radius: 18px; background: #fbfaf7; border: 1px solid rgba(35,57,93,.09); box-shadow: 0 3px 10px rgba(15,23,42,.06); overflow: visible; transition: opacity .15s ease, background .15s ease; }}
+.preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; gap: 10px; align-items: stretch; min-height: 108px; padding: 9px 10px; border-radius: 18px; background: #fbfaf7; border: 1px solid rgba(35,57,93,.09); box-shadow: 0 3px 10px rgba(15,23,42,.06); overflow: visible; transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
 .preview-card.read .headline {{ color: #405a78; }}
-.preview-card.read .publisher {{ color: #667085; }}
+.preview-card.read .publisher {{ color: #667085; font-size: 9px; font-weight: 800; line-height: 1.2; white-space: nowrap; flex: 0 0 auto; }}
 .preview-card.read .article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 6px; color: #5b6472; font-size: 9.5px; line-height: 1.45; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
 
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; color: #344054; font-size: 14px; font-weight: 800; }}
-.preview-copy {{ display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; min-height: 136px; padding: 8px 8px 8px 0; overflow: visible; }}
+.preview-copy {{ display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; min-height: 108px; padding: 2px 4px 2px 0; overflow: visible; gap: 5px; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
 .headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
 .article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
-.status-line {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 8px; min-height: 36px; font-size: 9px; overflow: visible; }}
+.status-line {{ display: none; }}
 .status-text {{ min-width: 0; }}
 
-.unread-label {{ color: #d92d20; font-weight: 800; }}
-.read-label {{ display: none; color: #4f5968; font-weight: 800; }}
-.important-label {{ display: none; color: #b77900; font-weight: 800; }}
+.unread-label {{ color: #d92d20; font-weight: 800; white-space: nowrap; }}
+.read-label {{ display: none; color: #4f5968; font-weight: 800; white-space: nowrap; }}
+.important-label {{ display: none; color: #b77900; font-weight: 800; white-space: nowrap; }}
 .preview-card.read .unread-label {{ display: none; }}
 .preview-card.read .read-label {{ display: inline; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
-.card-side {{ position: relative; align-self: stretch; width: 92px; min-width: 92px; display: flex; align-items: center; justify-content: center; overflow: visible; background: transparent; }}
-.important-button {{ flex: 0 0 auto; width: 36px; height: 36px; border: 1px solid rgba(35,57,93,.10); border-radius: 50%; background: #f7f6f2; color: #94a3b8; font-size: 20px; line-height: 36px; text-align: center; cursor: pointer; box-shadow: none; overflow: visible; }}
-.important-button:hover {{ background: rgba(17,24,39,.05); }}
-.preview-card.important .important-button {{ color: #b77900; border-color: #f2c94c; background: #fff3b0; }}
-.preview-image {{ width: 92px; height: 100%; min-height: 136px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(35,57,93,.08); border-radius: 0; background: #f4f6f8; }}
-.preview-image img {{ display: block; width: 100%; height: 100%; min-height: 100%; object-fit: cover; object-position: 50% 50%; }}
+.card-side {{ position: relative; align-self: stretch; width: 88px; min-width: 88px; display: flex; align-items: stretch; justify-content: center; overflow: visible; background: transparent; }}
+.important-button {{ flex: 0 0 auto; width: 20px; height: 20px; padding: 0; border: 0; border-radius: 0; background: transparent; color: #98a2b3; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center; cursor: pointer; box-shadow: none; overflow: visible; margin-left: auto; }}
+.important-button:hover {{ background: rgba(17,24,39,.04); }}
+.preview-card.important .important-button {{ color: #b77900; border: 0; background: transparent; }}
+.preview-image {{ width: 88px; height: 108px; min-height: 108px; align-self: center; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(35,57,93,.08); border-radius: 0; background: #f4f6f8; }}
+.preview-image img {{ display: block; width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: 50% 50%; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 0; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
-.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 100%; color: #6b7280; font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
+.no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 0; color: #6b7280; font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
 .empty {{ padding: 22px 15px; background: #fffdf8; border-radius: 10px; text-align: center; color: #667085; }}
 footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: center; }}
 @media (min-width: 768px) {{
@@ -4163,6 +4165,33 @@ header,
   .status-line {{ min-height: 38px; }}
   .card-side {{ width: 104px; min-width: 104px; }}
   .preview-image {{ width: 104px; min-height: 148px; }}
+}}
+
+.meta-row {{ display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 22px; }}
+
+.meta-left {{ min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; row-gap: 2px; }}
+
+.status-inline {{ min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; font-size: 9px; line-height: 1.2; }}
+
+@media (min-width: 768px) {{
+  .preview-copy {{ min-height: 148px; gap: 8px; }}
+  .meta-row {{ min-height: 38px; }}
+  .publisher, .status-inline {{ font-size: 10px; }}
+  .important-button {{ width: 32px; height: 32px; font-size: 19px; line-height: 30px; }}
+}}
+
+@media (min-width: 768px) {{
+  .preview-card {{ grid-template-columns: 30px minmax(0,1fr) 96px; gap: 12px; min-height: 118px; padding: 10px 12px; }}
+  .preview-copy {{ min-height: 118px; padding: 3px 6px 3px 0; gap: 6px; }}
+  .meta-row {{ min-height: 30px; }}
+  .card-side {{ width: 96px; min-width: 96px; }}
+  .preview-image {{ width: 96px; height: 118px; min-height: 118px; }}
+  .important-button {{ width: 30px; height: 30px; font-size: 18px; line-height: 28px; }}
+}}
+
+@media (min-width: 768px) {{
+  .meta-row {{ min-height: 24px; }}
+  .important-button {{ width: 22px; height: 22px; font-size: 13px; line-height: 22px; }}
 }}
 
 </style>
