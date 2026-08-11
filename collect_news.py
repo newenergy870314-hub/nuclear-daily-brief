@@ -3637,8 +3637,8 @@ def update_archive(
         merged_by_url: dict[str, Article] = {}
 
         for article in existing_items + current_items:
-            canonical = canonicalize_url(article.link) if article.link else ""
-            identity = canonical or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
+            normalized_link = article.link.strip() if article.link else ""
+            identity = normalized_link or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
 
             previous = merged_by_url.get(identity)
             if previous is None:
