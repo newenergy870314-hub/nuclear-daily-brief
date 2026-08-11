@@ -3985,9 +3985,9 @@ main {{ padding: 12px 12px 34px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) 86px; gap:6px; align-items:stretch; min-height:98px; padding:3px 2px 3px 6px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 2px 7px rgba(15,23,42,.05); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
-.preview-card.read .headline {{ display:-webkit-box; overflow:hidden; margin:0; color:#0b57d0; font-size:12.8px; font-weight:750; line-height:1.27; letter-spacing:-0.08px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
+.preview-card.read .headline {{ display:-webkit-box; overflow:hidden; margin:0; padding-left:20px; color:#0b57d0; font-size:12.8px; font-weight:750; line-height:1.27; letter-spacing:-0.08px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
 .preview-card.read .publisher {{ flex:0 1 auto; min-width:0; max-width:48%; color:#475467; font-size:9.5px; font-weight:800; line-height:1.05; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
-.preview-card.read .article-snippet {{ display:-webkit-box; overflow:hidden; margin-top:2px; color:#5f6672; font-size:9.6px; line-height:1.34; letter-spacing:-0.03px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
+.preview-card.read .article-snippet {{ display:-webkit-box; overflow:hidden; margin-top:2px; padding-left:20px; color:#5f6672; font-size:9.6px; line-height:1.34; letter-spacing:-0.03px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
 
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display:none; }}
@@ -4256,6 +4256,10 @@ header,
   .article-snippet {{ margin-top:3px; font-size:10px; line-height:1.36; }}
   .card-side {{ width:96px; min-width:96px; }}
   .preview-image {{ width:96px; height:106px; min-height:106px; }}
+}}
+
+@media (min-width:768px) {{
+  .headline, .article-snippet {{ padding-left:24px; }}
 }}
 
 </style>
