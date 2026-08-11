@@ -4922,6 +4922,13 @@ def main() -> int:
         )
 
     # 과거 실행분 + 현재 수집분을 날짜별 archive에 먼저 누적
+    archive = update_archive(
+        load_archive(),
+        periods,
+        articles_by_period,
+        now,
+    )
+
     # 누적된 archive를 전일/금일/익일 탭에 다시 반영
     for label in ("전일", "금일", "익일"):
         start, end = periods[label]
@@ -4956,8 +4963,9 @@ def main() -> int:
     }
     new_urls = current_urls - previous_urls if previous_urls else set()
 
+    # 화면용으로 보완된 이미지/설명 정보도 누적 archive에 반영
     archive = update_archive(
-        load_archive(),
+        archive,
         periods,
         articles_by_period,
         now,
