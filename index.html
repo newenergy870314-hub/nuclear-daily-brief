@@ -28,9 +28,9 @@ body { margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Malg
 .language-order-toggle:active { transform: translateY(1px); }
 .date-picker-box { cursor: pointer; }
 .date-control { position:relative; flex:1 1 auto; min-width:0; height:28px; border-radius:8px; background:#344054; color:#ffffff; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.05); }
-.date-display { width:100%; padding:0 18px 0 6px; box-sizing:border-box; color:#ffffff; font-size:10.5px; font-weight:800; line-height:28px; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; letter-spacing:-0.1px; }
-.date-calendar { position:absolute; right:6px; top:50%; transform:translateY(-52%); color:#ffffff; font-size:10px; line-height:1; pointer-events:none; opacity:.9; }
-.date-input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; }
+.date-display { position:relative; z-index:1; width:100%; padding:0 18px 0 6px; box-sizing:border-box; color:#ffffff; font-size:10.5px; font-weight:800; line-height:28px; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; letter-spacing:-0.1px; pointer-events:none; }
+.date-calendar { position:absolute; z-index:1; right:6px; top:50%; transform:translateY(-52%); color:#ffffff; font-size:10px; line-height:1; pointer-events:none; opacity:.9; }
+.date-input { position:absolute; z-index:5; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; }
 .date-input::-webkit-calendar-picker-indicator { width: 100%; height: 100%; margin: 0; padding: 0; cursor: pointer; }
 .search-wrap { position: relative; margin-top: 6px; }
 .search-input { width: 100%; height: 34px; padding: 0 12px; border: 1px solid rgba(17,24,39,.13); border-radius: 12px; background: rgba(255,255,255,.94); font-size: 11px; }
@@ -167,7 +167,7 @@ main { padding: 12px 12px 34px; }
 .group-arrow { display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }
 .article-stack { display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }
 .news-group.collapsed .article-stack { display: none; }
-.preview-card { position:relative; display:grid; grid-template-columns:26px minmax(0,1fr) 88px; gap:10px; align-items:stretch; min-height:104px; padding:2px 10px; border-radius:18px; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 3px 10px rgba(15,23,42,.06); overflow:visible; transition:opacity .15s ease, background .15s ease; }
+.preview-card { position:relative; display:grid; grid-template-columns:26px minmax(0,1fr) 88px; gap:10px; align-items:stretch; min-height:104px; padding:2px 10px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 3px 10px rgba(15,23,42,.06); overflow:visible; transition:opacity .15s ease, background .15s ease; }
 .preview-card.read { background: #ebeff3; opacity: .92; }
 .preview-card.read .headline { display:-webkit-box; overflow:hidden; margin-top:1px; color:#0b57d0; font-size:13px; font-weight:700; line-height:1.28; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
 .preview-card.read .publisher { color:#667085; font-size:9px; font-weight:800; line-height:1.15; white-space:nowrap; flex:0 0 auto; }
@@ -395,6 +395,10 @@ header,
   .preview-image { height:112px; min-height:112px; align-self:stretch; }
 }
 
+@media (min-width:768px) {
+  .preview-card { border-radius:0; }
+}
+
 </style>
 </head>
 <body>
@@ -405,7 +409,7 @@ header,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 11. 09:35 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 11. 09:45 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"></div>
       <div class="tabs"><button class="tab-button" type="button" data-tab="전일">전일</button><button class="tab-button active" type="button" data-tab="금일">금일</button><button class="tab-button" type="button" data-tab="익일">익일</button></div>
       <div class="utility-row">
@@ -1533,7 +1537,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260807000011"
   data-title="특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범"
   data-publisher="전자신문"
@@ -1556,7 +1560,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범</div>
+    <div class="headline">특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범</div>
     <div class="article-snippet">한국전력이 보유한 8000여건의 특허를 민간에 개방해 에너지 분야 유니콘(거대신생기업) 육성에 나선다. 정부는 기술사업화 전담 플랫폼인 &#x27;한전기술지주&#x27;를 출범시키고 공공기술을 기반으로 사업기획부터 기술이전, 실증, 투자, 제품화, 해외 진출까지 지원하는 완결형 성장체계를 구축한다는 계획이다. 기후에너지환경부는 7일 한국전력 본사에서 김성환 기후부 장관이 참석한 가운데 &#x27;한전기술지주&#x27; 출범식을 개최했다고 밝혔다. 이번 출범식은 에너지 신산업을 이</div>
   </div>
   <div class="card-side">
@@ -1564,7 +1568,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260807000021"
   data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
   data-publisher="전자신문"
@@ -1587,7 +1591,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="headline">폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
     <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
   </div>
   <div class="card-side">
@@ -1666,7 +1670,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260807000308"
   data-title="[인사]산업통상부"
   data-publisher="전자신문"
@@ -1689,7 +1693,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사]산업통상부</div>
+    <div class="headline">[인사]산업통상부</div>
     <div class="article-snippet">한·인도 공학 석학 한자리에…&#x27;차세대 IT·창의적 컴퓨팅&#x27; 협력 모색</div>
   </div>
   <div class="card-side">
@@ -1774,9 +1778,40 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.theguru.co.kr/news/article.html?no=105473"
+  data-title="美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회"
+  data-publisher="더구루"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786201256"
+  data-country="US"
+  data-search="美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회 더구루 원자력 [더구루=홍성환 기자] 도널드 트럼프 행정부가 원자력 발전 부흥을 위해 원전 기자재 조달에 대규모 자금을 빌려주기로 했다. 국내 원전 기자재 기업의 수혜가 기대된다. 9일 코트라에 따르면 미 에너지부(doe) 산하 &#x27;에너지 지배력 금융 사무국(edf)&#x27;는 지난달 최대 175억 달러(약 24조8400억원) 규모의 조건부 대출을 지원하는 &#x27;미국 원자력 공급망"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">더구루</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회</div>
+    <div class="article-snippet">[더구루=홍성환 기자] 도널드 트럼프 행정부가 원자력 발전 부흥을 위해 원전 기자재 조달에 대규모 자금을 빌려주기로 했다. 국내 원전 기자재 기업의 수혜가 기대된다. 9일 코트라에 따르면 미 에너지부(DOE) 산하 &#x27;에너지 지배력 금융 사무국(EDF)&#x27;는 지난달 최대 175억 달러(약 24조8400억원) 규모의 조건부 대출을 지원하는 &#x27;미국 원자력 공급망</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f15e20cdbfed51d5c985b7a0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34260"
   data-title="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인"
@@ -1787,7 +1822,7 @@ header,
   data-country="KR"
   data-search="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인 한국원자력신문 원자력 김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운"
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -1818,7 +1853,7 @@ header,
   data-country="KR"
   data-search="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행 한국원자력신문 원자력 한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -1849,7 +1884,7 @@ header,
   data-country="US"
   data-search="the transformation of the nrc: 50 years of commissioners nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -1880,7 +1915,7 @@ header,
   data-country="FR"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -1911,7 +1946,7 @@ header,
   data-country="OTHER"
   data-search="centrus, x-energy sign enrichment contract as triso-x expands tx-1 campus nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -1942,7 +1977,7 @@ header,
   data-country="OTHER"
   data-search="undeclared uranium hitches a ride on cobalt exports from congo, study says nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -1973,7 +2008,7 @@ header,
   data-country="OTHER"
   data-search="ornl, rutherford energy ventures launch fusion partnership nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -2004,7 +2039,7 @@ header,
   data-country="IN"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -2194,7 +2229,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44aebf4b80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a16aaf38&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -7099,7 +7134,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44a0dc8118&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c449cbcf018&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7130,7 +7165,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c449f6f1160&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c449f7c3278&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7161,7 +7196,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a1669268&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a80c2178&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7654,7 +7689,7 @@ header,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260810000335"
   data-title="렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정"
   data-publisher="전자신문"
@@ -7677,7 +7712,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정</div>
+    <div class="headline">렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정</div>
     <div class="article-snippet">렉스이노베이션(대표 임정민)은 음이온교환막(AEM) 수전해용 비귀금속 촉매전극의 제조공정을 표준화해 수전해 핵심 소재·부품 사업화를 본격화한다고 11일 밝혔다. 이는 최근 한국전력공사가 추진하는 &#x27;2026년 대·중소기업 혁신 파트너십 지원사업&#x27; 생산혁신 분야에 선정된 데 따른 것이다. AEM 수전해는 전기를 이용해 물을 수소와 산소로 나누는 기술이다. 이 과정에서 촉매전극은 물에서 수소를 효율적으로 생산할 수 있도록 반응을 돕는 핵심부품이다.</div>
   </div>
   <div class="card-side">
@@ -7743,7 +7778,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260811_0003743856"
   data-title="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’"
   data-publisher="뉴시스"
@@ -7766,7 +7801,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’</div>
+    <div class="headline">中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’</div>
     <div class="article-snippet">[서울=뉴시스] 구자룡 기자 = 일본 다카이치 사나에 총리의 지난해 11월 ‘대만 유사사태’ 발언 이후 중국과의 갈등이 계속되면서 올 상반기 중국의 대일 희토류 수출은 반토막났다. 중국 해관총서에 따르면 올해 상반기 중국의 7대 희토류의 일본 수출량이 전년 동기 대비 51% 감소했다. 특히 전기 자동차 모터, 고효율 자석, 방산 장비 등에 사용되는 디스프로슘과 테르븀은 올해 일본으로의 수출량이 ‘0’을 기록했다. 중국의 일본으로의 희토류 수출은 3월 이후 4개월 연속 감소했으며 6월의 경우 전년 동기 대비 81% 급감했다. 이트륨 수출량은 6월에 ‘0’으로 떨어졌다.</div>
   </div>
   <div class="card-side">
@@ -7908,7 +7943,7 @@ header,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260810000335"
   data-title="렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정"
   data-publisher="전자신문"
@@ -7931,7 +7966,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정</div>
+    <div class="headline">렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정</div>
     <div class="article-snippet">렉스이노베이션(대표 임정민)은 음이온교환막(AEM) 수전해용 비귀금속 촉매전극의 제조공정을 표준화해 수전해 핵심 소재·부품 사업화를 본격화한다고 11일 밝혔다. 이는 최근 한국전력공사가 추진하는 &#x27;2026년 대·중소기업 혁신 파트너십 지원사업&#x27; 생산혁신 분야에 선정된 데 따른 것이다. AEM 수전해는 전기를 이용해 물을 수소와 산소로 나누는 기술이다. 이 과정에서 촉매전극은 물에서 수소를 효율적으로 생산할 수 있도록 반응을 돕는 핵심부품이다.</div>
   </div>
   <div class="card-side">
@@ -7997,7 +8032,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260811_0003743856"
   data-title="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’"
   data-publisher="뉴시스"
@@ -8020,7 +8055,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’</div>
+    <div class="headline">中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’</div>
     <div class="article-snippet">[서울=뉴시스] 구자룡 기자 = 일본 다카이치 사나에 총리의 지난해 11월 ‘대만 유사사태’ 발언 이후 중국과의 갈등이 계속되면서 올 상반기 중국의 대일 희토류 수출은 반토막났다. 중국 해관총서에 따르면 올해 상반기 중국의 7대 희토류의 일본 수출량이 전년 동기 대비 51% 감소했다. 특히 전기 자동차 모터, 고효율 자석, 방산 장비 등에 사용되는 디스프로슘과 테르븀은 올해 일본으로의 수출량이 ‘0’을 기록했다. 중국의 일본으로의 희토류 수출은 3월 이후 4개월 연속 감소했으며 6월의 경우 전년 동기 대비 81% 급감했다. 이트륨 수출량은 6월에 ‘0’으로 떨어졌다.</div>
   </div>
   <div class="card-side">
@@ -12946,7 +12981,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44a0dc8118&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c449cbcf018&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -12977,7 +13012,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c449f6f1160&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c449f7c3278&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -13008,7 +13043,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a1669268&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a80c2178&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -14492,7 +14527,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260807000011"
   data-title="특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범"
   data-publisher="전자신문"
@@ -14515,7 +14550,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범</div>
+    <div class="headline">특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범</div>
     <div class="article-snippet">한국전력이 보유한 8000여건의 특허를 민간에 개방해 에너지 분야 유니콘(거대신생기업) 육성에 나선다. 정부는 기술사업화 전담 플랫폼인 &#x27;한전기술지주&#x27;를 출범시키고 공공기술을 기반으로 사업기획부터 기술이전, 실증, 투자, 제품화, 해외 진출까지 지원하는 완결형 성장체계를 구축한다는 계획이다. 기후에너지환경부는 7일 한국전력 본사에서 김성환 기후부 장관이 참석한 가운데 &#x27;한전기술지주&#x27; 출범식을 개최했다고 밝혔다. 이번 출범식은 에너지 신산업을 이</div>
   </div>
   <div class="card-side">
@@ -14523,7 +14558,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260807000021"
   data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
   data-publisher="전자신문"
@@ -14546,7 +14581,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="headline">폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
     <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
   </div>
   <div class="card-side">
@@ -14625,7 +14660,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260807000308"
   data-title="[인사]산업통상부"
   data-publisher="전자신문"
@@ -14648,7 +14683,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사]산업통상부</div>
+    <div class="headline">[인사]산업통상부</div>
     <div class="article-snippet">한·인도 공학 석학 한자리에…&#x27;차세대 IT·창의적 컴퓨팅&#x27; 협력 모색</div>
   </div>
   <div class="card-side">
@@ -14733,9 +14768,40 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.theguru.co.kr/news/article.html?no=105473"
+  data-title="美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회"
+  data-publisher="더구루"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786201256"
+  data-country="US"
+  data-search="美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회 더구루 원자력 [더구루=홍성환 기자] 도널드 트럼프 행정부가 원자력 발전 부흥을 위해 원전 기자재 조달에 대규모 자금을 빌려주기로 했다. 국내 원전 기자재 기업의 수혜가 기대된다. 9일 코트라에 따르면 미 에너지부(doe) 산하 &#x27;에너지 지배력 금융 사무국(edf)&#x27;는 지난달 최대 175억 달러(약 24조8400억원) 규모의 조건부 대출을 지원하는 &#x27;미국 원자력 공급망"
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">더구루</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>美, 원전 기자재 조달에 24조원 대출…韓 기업 진출 기회</div>
+    <div class="article-snippet">[더구루=홍성환 기자] 도널드 트럼프 행정부가 원자력 발전 부흥을 위해 원전 기자재 조달에 대규모 자금을 빌려주기로 했다. 국내 원전 기자재 기업의 수혜가 기대된다. 9일 코트라에 따르면 미 에너지부(DOE) 산하 &#x27;에너지 지배력 금융 사무국(EDF)&#x27;는 지난달 최대 175억 달러(약 24조8400억원) 규모의 조건부 대출을 지원하는 &#x27;미국 원자력 공급망</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f15e20cdbfed51d5c985b7a0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34260"
   data-title="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인"
@@ -14746,7 +14812,7 @@ header,
   data-country="KR"
   data-search="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인 한국원자력신문 원자력 김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운"
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14777,7 +14843,7 @@ header,
   data-country="KR"
   data-search="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행 한국원자력신문 원자력 한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복"
   tabindex="0" role="link">
-  <div class="article-number">2</div>
+  <div class="article-number">3</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14808,7 +14874,7 @@ header,
   data-country="US"
   data-search="the transformation of the nrc: 50 years of commissioners nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14839,7 +14905,7 @@ header,
   data-country="FR"
   data-search="us collaboration to study used nuclear fuel recycling world nuclear news 원자력 us advanced nuclear recycling technologies firm curio has signed a memorandum of understanding with nuscale power and framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;"
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14870,7 +14936,7 @@ header,
   data-country="OTHER"
   data-search="centrus, x-energy sign enrichment contract as triso-x expands tx-1 campus nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
-  <div class="article-number">5</div>
+  <div class="article-number">6</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14901,7 +14967,7 @@ header,
   data-country="OTHER"
   data-search="undeclared uranium hitches a ride on cobalt exports from congo, study says nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
-  <div class="article-number">6</div>
+  <div class="article-number">7</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14932,7 +14998,7 @@ header,
   data-country="OTHER"
   data-search="ornl, rutherford energy ventures launch fusion partnership nuclear newswire 원자력 ageing nuclear assets don&#x27;t have to mean higher maintenance costs. discover how hvts® cladding helps extend the life of pwr secondary system components, reduce outage duration, support alara principles, and protect against fac, erosion-corrosion and other degradation mechanisms. learn more."
   tabindex="0" role="link">
-  <div class="article-number">7</div>
+  <div class="article-number">8</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14963,7 +15029,7 @@ header,
   data-country="IN"
   data-search="india&#x27;s nuclear-armed submarine accelerates arms race with pakistan nikkei asia 원자력 despite the hormuz strait crisis, global powers must tend to another flashpoint"
   tabindex="0" role="link">
-  <div class="article-number">8</div>
+  <div class="article-number">9</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -15153,7 +15219,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44aebf4b80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a16aaf38&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -62495,6 +62561,20 @@ if(archiveInput && archiveDates.length){
   updateArchiveDateDisplay(archiveInput.value);
 }
 
+const archiveDateControl=document.querySelector(".date-control");
+if(archiveDateControl && archiveInput){
+  archiveDateControl.addEventListener("click", (event)=>{
+    // input 자체의 기본 동작은 그대로 두고, 나머지 영역 클릭 시 picker를 엽니다.
+    if(event.target===archiveInput) return;
+    if(typeof archiveInput.showPicker==="function"){
+      try{ archiveInput.showPicker(); }catch(_error){ archiveInput.focus(); }
+    } else {
+      archiveInput.focus();
+      archiveInput.click();
+    }
+  });
+}
+
 function openArchiveDate(value){
   if(!value) return false;
 
@@ -62520,17 +62600,18 @@ function openArchiveDate(value){
 }
 
 if(archiveInput){
-  const handleArchiveSelection=()=>{
+  archiveInput.addEventListener("change", ()=>{
     const value=archiveInput.value;
-    if(value) openArchiveDate(value);
-  };
+    if(!value) return;
 
-  archiveInput.addEventListener("input", handleArchiveSelection);
-  archiveInput.addEventListener("change", handleArchiveSelection);
-
-  archiveInput.addEventListener("click", ()=>{
-    if(typeof archiveInput.showPicker==="function"){
-      try{ archiveInput.showPicker(); }catch(_error){}
+    const opened=openArchiveDate(value);
+    if(!opened){
+      // 선택한 날짜가 archive에 없으면 표시값은 선택 전 상태로 되돌립니다.
+      const activeArchive=document.querySelector(".archive-panel.active");
+      if(activeArchive && activeArchive.dataset.archiveDate){
+        archiveInput.value=activeArchive.dataset.archiveDate;
+        updateArchiveDateDisplay(archiveInput.value);
+      }
     }
   });
 }
