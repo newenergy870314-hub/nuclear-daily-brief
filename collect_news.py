@@ -3423,11 +3423,13 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   data-country="{primary_country}"
   data-search="{escape(search_text)}"
   tabindex="0" role="link">
-  <div class="article-number">{number}</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
+        <span class="article-order-inline">{number}</span>
+        <span class="meta-divider">·</span>
         <div class="publisher">{escape(article.publisher)}</div>
+        <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
@@ -3981,15 +3983,15 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
-.preview-card {{ position:relative; display:grid; grid-template-columns:22px minmax(0,1fr) 88px; gap:8px; align-items:stretch; min-height:104px; padding:2px 4px 2px 8px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 3px 10px rgba(15,23,42,.06); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
+.preview-card {{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) 86px; gap:6px; align-items:stretch; min-height:98px; padding:3px 2px 3px 6px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 2px 7px rgba(15,23,42,.05); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
-.preview-card.read .headline {{ display:-webkit-box; overflow:hidden; margin-top:0; color:#0b57d0; font-size:13px; font-weight:700; line-height:1.24; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
-.preview-card.read .publisher {{ color:#667085; font-size:9px; font-weight:800; line-height:1.1; white-space:nowrap; flex:0 0 auto; }}
-.preview-card.read .article-snippet {{ display:-webkit-box; overflow:hidden; margin-top:2px; color:#5b6472; font-size:9.5px; line-height:1.32; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
+.preview-card.read .headline {{ display:-webkit-box; overflow:hidden; margin:0; color:#0b57d0; font-size:12.8px; font-weight:750; line-height:1.27; letter-spacing:-0.08px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
+.preview-card.read .publisher {{ flex:0 1 auto; min-width:0; max-width:48%; color:#475467; font-size:9.5px; font-weight:800; line-height:1.05; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+.preview-card.read .article-snippet {{ display:-webkit-box; overflow:hidden; margin-top:2px; color:#5f6672; font-size:9.6px; line-height:1.34; letter-spacing:-0.03px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
 
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
-.article-number {{ display:flex; align-items:flex-start; justify-content:center; color:#23395d; font-size:12px; font-weight:900; line-height:1; padding-top:1px; }}
-.preview-copy {{ display:flex; flex-direction:column; justify-content:flex-start; min-width:0; min-height:104px; padding:0 1px 0 0; overflow:visible; gap:0; }}
+.article-number {{ display:none; }}
+.preview-copy {{ display:flex; flex-direction:column; justify-content:flex-start; min-width:0; min-height:98px; padding:2px 0 2px 0; overflow:visible; gap:0; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
 .headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
 .article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
@@ -4003,11 +4005,11 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.read .read-label {{ display: inline; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
-.card-side {{ position:relative; align-self:stretch; width:88px; min-width:88px; display:flex; align-items:stretch; justify-content:flex-end; overflow:visible; background:transparent; padding-right:0; }}
-.important-button {{ flex:0 0 auto; width:24px; height:20px; padding:0; border:0; border-radius:0; background:transparent; color:#98a2b3; font-size:14px; font-weight:800; line-height:20px; text-align:center; cursor:pointer; box-shadow:none; overflow:visible; margin-left:auto; }}
+.card-side {{ position:relative; align-self:stretch; width:86px; min-width:86px; display:flex; align-items:stretch; justify-content:flex-end; overflow:visible; background:transparent; padding:0; }}
+.important-button {{ flex:0 0 auto; width:20px; height:18px; padding:0; border:0; border-radius:0; background:transparent; color:#98a2b3; font-size:14px; font-weight:800; line-height:18px; text-align:center; cursor:pointer; box-shadow:none; overflow:visible; margin-left:2px; }}
 .important-button:hover {{ background: rgba(17,24,39,.04); }}
 .preview-card.important .important-button {{ color: #b77900; border: 0; background: transparent; }}
-.preview-image {{ width:88px; height:104px; min-height:104px; align-self:stretch; display:flex; align-items:center; justify-content:center; overflow:hidden; border:1px solid rgba(35,57,93,.08); border-radius:0; background:#f4f6f8; margin-left:auto; }}
+.preview-image {{ width:86px; height:98px; min-height:98px; align-self:stretch; display:flex; align-items:center; justify-content:center; overflow:hidden; border:0; border-radius:0; background:#f4f6f8; margin-left:auto; }}
 .preview-image img {{ display: block; width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: 50% 50%; }}
 .new-badge {{ display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 0; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }}
 .no-image {{ display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 0; color: #6b7280; font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }}
@@ -4167,11 +4169,11 @@ header,
   .preview-image {{ width: 104px; min-height: 148px; }}
 }}
 
-.meta-row {{ display:flex; align-items:center; justify-content:space-between; gap:4px; min-height:21px; margin:0 0 1px 0; }}
+.meta-row {{ display:flex; align-items:center; justify-content:space-between; gap:4px; min-height:18px; margin:0 0 2px 0; }}
 
-.meta-left {{ min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:4px; row-gap:1px; }}
+.meta-left {{ min-width:0; display:flex; align-items:center; gap:3px; flex-wrap:nowrap; overflow:hidden; }}
 
-.status-inline {{ min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:3px; font-size:9px; line-height:1.1; }}
+.status-inline {{ flex:0 0 auto; display:flex; align-items:center; gap:2px; font-size:9px; line-height:1; white-space:nowrap; }}
 
 @media (min-width: 768px) {{
   .preview-copy {{ min-height: 148px; gap: 8px; }}
@@ -4225,6 +4227,35 @@ header,
   .important-button {{ width:26px; height:22px; font-size:15px; line-height:22px; }}
   .card-side {{ width:96px; min-width:96px; justify-content:flex-end; }}
   .preview-image {{ width:96px; height:112px; min-height:112px; margin-left:auto; }}
+}}
+
+.publisher-row {{ display:contents; }}
+
+.article-order-inline {{ flex:0 0 auto; color:#667085; font-size:9px; font-weight:800; line-height:1; }}
+
+@media (min-width:768px) {{
+  .preview-card {{ grid-template-columns:minmax(0,1fr) 96px; gap:10px; min-height:112px; padding:3px 4px 3px 10px; border-radius:0; }}
+  .preview-copy {{ min-height:112px; padding:0 1px 0 0; }}
+  .meta-row {{ min-height:22px; margin-bottom:1px; gap:5px; }}
+  .publisher-row {{ gap:5px; }}
+  .article-order-inline {{ font-size:11px; }}
+  .publisher, .status-inline {{ font-size:10px; line-height:1.12; }}
+}}
+
+.meta-divider {{ flex:0 0 auto; color:#b0b7c3; font-size:9px; line-height:1; }}
+
+@media (min-width:768px) {{
+  .preview-card {{ grid-template-columns:minmax(0,1fr) 96px; gap:8px; min-height:106px; padding:4px 3px 4px 8px; }}
+  .preview-copy {{ min-height:106px; padding:2px 0; }}
+  .meta-row {{ min-height:20px; margin-bottom:2px; }}
+  .meta-left {{ gap:4px; }}
+  .article-order-inline, .meta-divider, .status-inline {{ font-size:10px; }}
+  .publisher {{ max-width:55%; font-size:10px; }}
+  .important-button {{ width:22px; height:20px; font-size:15px; line-height:20px; }}
+  .headline {{ font-size:13.5px; line-height:1.28; }}
+  .article-snippet {{ margin-top:3px; font-size:10px; line-height:1.36; }}
+  .card-side {{ width:96px; min-width:96px; }}
+  .preview-image {{ width:96px; height:106px; min-height:106px; }}
 }}
 
 </style>
