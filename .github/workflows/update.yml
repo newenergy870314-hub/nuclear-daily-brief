@@ -33,7 +33,7 @@ jobs:
 
       - name: Collect news and build page
         env:
-          SKIP_BACKFILL: "1"
+          SKIP_BACKFILL: "0"
         run: python collect_news.py
 
       - name: Commit and push updated files
