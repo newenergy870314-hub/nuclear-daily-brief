@@ -16,7 +16,7 @@ from datetime import datetime, timedelta, timezone
 from difflib import SequenceMatcher
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import quote_plus, urljoin, urlparse
+from urllib.parse import quote_plus, urljoin, urlparse, parse_qsl, urlunparse, urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
@@ -290,6 +290,8 @@ DIRECT_RSS_FEEDS = [
 # 각 페이지에서 제목이 원전/에너지/현대건설/한전/한수원/관계부처 등 키워드에 걸리는 기사만
 # 상세 원문까지 들어가므로 일반 기사 전체를 다운로드하지 않습니다.
 DIRECT_NEWS_PAGES = [
+    ("MTN 머니투데이방송", "https://news.mtn.co.kr/", "ko"),
+    ("뉴스필드", "https://www.newsfield.net/", "ko"),
     # ─────────────────────────────────────────────
     # 국내 통신·종합 일간지
     # ─────────────────────────────────────────────
@@ -3273,9 +3275,9 @@ def select_articles_for_period(
     print(
         f"[SELECT RAW] final={len(all_selected)} / ko={selected_ko} / en={selected_en} "
         f"/ country_other={country_other} / priority_markets={priority_market_count} "
-        f"/ dedup=OFF / limit=OFF"
+        f"/ dedup=ON / limit=OFF"
     )
-    return all_selected
+    return final_deduplicate_articles(all_selected)
 
 
 def collect(start: datetime, end: datetime) -> list[Article]:
@@ -3300,15 +3302,20 @@ COUNTRY_META = {
     "UA": ("🇺🇦", "우크라이나"),
     "AE": ("🇦🇪", "UAE"),
     "VN": ("🇻🇳", "베트남"),
+    "MY": ("🇲🇾", "말레이시아"),
+    "TH": ("🇹🇭", "태국"),
+    "SG": ("🇸🇬", "싱가포르"),
     "RO": ("🇷🇴", "루마니아"),
     "CZ": ("🇨🇿", "체코"),
     "PL": ("🇵🇱", "폴란드"),
     "SI": ("🇸🇮", "슬로베니아"),
+    "SK": ("🇸🇰", "슬로바키아"),
     "FI": ("🇫🇮", "핀란드"),
     "JP": ("🇯🇵", "일본"),
     "CA": ("🇨🇦", "캐나다"),
     "FR": ("🇫🇷", "프랑스"),
     "SE": ("🇸🇪", "스웨덴"),
+    "DK": ("🇩🇰", "덴마크"),
     "CN": ("🇨🇳", "중국"),
     "IN": ("🇮🇳", "인도"),
     "AU": ("🇦🇺", "호주"),
@@ -3376,6 +3383,11 @@ COUNTRY_PROJECT_TERMS = {
     "NL": ("borssele", "보르셀"),
     "BE": ("doel", "두엘", "tihange", "티앙주"),
     "CH": ("beznau", "베츠나우", "gösgen", "goesgen", "괴스겐", "leibstadt", "라이프슈타트"),
+    "SK": ("slovakia nuclear", "slovak nuclear", "슬로바키아 원전", "bohunice", "mochovce"),
+    "DK": ("denmark nuclear", "danish nuclear", "덴마크 원전", "seaborg", "copenhagen atomics"),
+    "MY": ("malaysia nuclear", "malaysian nuclear", "말레이시아 원전", "malaysian nuclear agency"),
+    "TH": ("thailand nuclear", "thai nuclear", "태국 원전", "office of atoms for peace"),
+    "SG": ("singapore nuclear", "singapore nuclear energy", "싱가포르 원전", "singapore nuclear"),
 }
 
 # 2순위: 정부·규제기관·정책이 발생한 국가
@@ -3410,6 +3422,11 @@ COUNTRY_GOVERNMENT_TERMS = {
     "FR": ("asn", "프랑스 정부"),
     "CA": ("canadian nuclear safety commission", "cnsc", "캐나다 정부"),
     "JP": ("nuclear regulation authority", "일본 원자력규제위원회", "일본 정부"),
+    "SK": ("slovak government", "slovak nuclear regulator", "újd sr", "ujd sr"),
+    "DK": ("danish government", "danish energy agency"),
+    "MY": ("malaysian government", "malaysian nuclear agency", "atom malaysia"),
+    "TH": ("thai government", "office of atoms for peace", "oap thailand"),
+    "SG": ("singapore government", "energy market authority singapore", "ema singapore"),
 }
 
 # 3순위: 국가 자체가 기사 사건·장소로 명시된 경우
@@ -3446,6 +3463,11 @@ COUNTRY_EXPLICIT_TERMS = {
     "NL": ("네덜란드", "netherlands", "dutch"),
     "BE": ("벨기에", "belgium", "belgian"),
     "CH": ("스위스", "switzerland", "swiss"),
+    "SK": ("슬로바키아", "slovakia", "slovak"),
+    "DK": ("덴마크", "denmark", "danish"),
+    "MY": ("말레이시아", "malaysia", "malaysian"),
+    "TH": ("태국", "thailand", "thai"),
+    "SG": ("싱가포르", "singapore", "singaporean"),
 }
 
 # 4순위: 프로젝트/정책/장소가 불명확할 때만 기업·기관의 본국 사용
@@ -3757,26 +3779,256 @@ def render_group_unified(
 """
 
 
-def final_deduplicate_articles(articles: list[Article]) -> list[Article]:
-    """
-    검토용 원본 모드에서는 중복 제거를 하지 않습니다.
-    기사량 확인 후 중복/불필요 기사 기준을 새로 적용할 예정입니다.
-    """
-    if RAW_REVIEW_MODE:
-        return sorted(
-            articles,
-            key=lambda item: -item.published.timestamp(),
-        )
 
-    selected: list[Article] = []
-    for article in sorted(
-        articles,
-        key=lambda item: -item.published.timestamp(),
-    ):
-        if is_duplicate(article, selected):
-            continue
-        selected.append(article)
-    return selected
+# ============================================================
+# FINAL DUPLICATE CONTROL
+# 1) exact duplicate: same canonical URL OR same publisher + normalized title
+# 2) same-event duplicate: different publishers but same core event
+# ============================================================
+
+DEDUP_ENABLED = True
+
+_DEDUP_STOPWORDS = {
+    # Korean news boilerplate / weak words
+    "단독", "속보", "종합", "영상", "포토", "사진", "인터뷰", "기고", "사설",
+    "관련", "대한", "위한", "통해", "이번", "올해", "지난", "오늘", "내일",
+    "밝혀", "밝혔다", "전망", "예정", "추진", "진행", "관련해",
+    # English news boilerplate / weak words
+    "the", "a", "an", "and", "or", "of", "to", "for", "in", "on", "at",
+    "with", "from", "by", "as", "is", "are", "be", "will", "says", "said",
+    "report", "reports", "news", "update",
+}
+
+_STRONG_EVENT_TERMS = (
+    # Nuclear/project identifiers
+    "ap1000", "ap300", "smr-300", "smr300", "natrium", "xe-100", "bwrx-300",
+    "kozloduy", "cernavoda", "sizewell", "hinkley", "ninh thuan", "ninh thuận",
+    "barakah", "palisades", "fermi", "matador", "vogtle", "dukovany",
+    "olkiluoto", "loviisa", "khmelnytskyi", "rivne",
+    # Korean site/project identifiers often shared across headlines
+    "목동10단지", "목동 10단지", "울진", "한울원전", "한울 원전",
+    "새울원전", "새울 원전", "신한울", "고리원전", "고리 원전",
+)
+
+_ACTION_EQUIVALENTS = {
+    "수주": {"수주", "수주했다", "따냈다", "품으로", "선정", "시공사", "낙찰"},
+    "입찰": {"입찰", "응찰", "단독응찰", "제안서", "bid", "tender"},
+    "계약": {"계약", "체결", "서명", "contract", "agreement", "signed"},
+    "승인": {"승인", "허가", "인가", "승인했다", "approved", "approval", "permit", "license", "licensing"},
+    "착공": {"착공", "공사착수", "첫삽", "construction start", "groundbreaking"},
+    "준공": {"준공", "완공", "상업운전", "commercial operation", "completed"},
+    "지원": {"지원", "기부", "후원", "개선", "교체", "무상", "지원사업"},
+    "협력": {"협력", "협약", "mou", "partnership", "cooperation", "협력체계"},
+    "투자": {"투자", "출자", "funding", "investment", "financing"},
+    "재가동": {"재가동", "restart", "reopen", "reopening"},
+    "해체": {"해체", "decommission", "decommissioning"},
+}
+
+def _canonical_news_url(url: str) -> str:
+    """Remove fragments and common tracking parameters for exact URL duplicate checks."""
+    if not url:
+        return ""
+    try:
+        parsed = urlparse(url.strip())
+        query_pairs = parse_qsl(parsed.query, keep_blank_values=True)
+        filtered = [
+            (k, v) for k, v in query_pairs
+            if k.lower() not in {
+                "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+                "gclid", "fbclid", "ref", "source", "output", "oc",
+            }
+        ]
+        path = re.sub(r"/+$", "", parsed.path or "")
+        host = (parsed.netloc or "").lower()
+        if host.startswith("www."):
+            host = host[4:]
+        return urlunparse((
+            (parsed.scheme or "https").lower(),
+            host,
+            path,
+            "",
+            urlencode(filtered, doseq=True),
+            "",
+        )).lower()
+    except Exception:
+        return url.strip().lower()
+
+def _normalize_dedup_title(title: str) -> str:
+    value = (title or "").lower()
+    value = re.sub(r"\[[^\]]+\]|\([^)]+\)", " ", value)
+    value = re.sub(r"[^0-9a-z가-힣]+", " ", value)
+    value = re.sub(r"\s+", " ", value).strip()
+    return value
+
+def _dedup_tokens(title: str) -> set[str]:
+    norm = _normalize_dedup_title(title)
+    tokens = {
+        tok for tok in norm.split()
+        if len(tok) >= 2 and tok not in _DEDUP_STOPWORDS
+    }
+    return tokens
+
+def _action_classes(text: str) -> set[str]:
+    lower = (text or "").lower()
+    result = set()
+    for action, variants in _ACTION_EQUIVALENTS.items():
+        if any(v.lower() in lower for v in variants):
+            result.add(action)
+    return result
+
+def _strong_event_terms(text: str) -> set[str]:
+    lower = (text or "").lower()
+    return {term for term in _STRONG_EVENT_TERMS if term.lower() in lower}
+
+def _publisher_key(article: Article) -> str:
+    return re.sub(r"\s+", "", (article.publisher or "").lower())
+
+def _same_exact_article(a: Article, b: Article) -> bool:
+    # Same canonical article URL always wins.
+    au = _canonical_news_url(a.link or a.source_url)
+    bu = _canonical_news_url(b.link or b.source_url)
+    if au and bu and au == bu:
+        return True
+
+    # Same publisher + exactly same normalized title.
+    at = _normalize_dedup_title(a.title)
+    bt = _normalize_dedup_title(b.title)
+    return bool(
+        at and bt
+        and at == bt
+        and _publisher_key(a) == _publisher_key(b)
+    )
+
+def _same_event_article(a: Article, b: Article) -> bool:
+    """
+    Conservative cross-publisher event clustering.
+    We only merge when the evidence is strong enough that the stories describe
+    the same underlying event, not merely the same broad topic.
+    """
+    if _same_exact_article(a, b):
+        return True
+
+    # Avoid collapsing separate follow-ups far apart in time.
+    try:
+        hours = abs((a.published - b.published).total_seconds()) / 3600
+        if hours > 48:
+            return False
+    except Exception:
+        pass
+
+    atitle = _normalize_dedup_title(a.title)
+    btitle = _normalize_dedup_title(b.title)
+    if not atitle or not btitle:
+        return False
+
+    # Identical title across different media => same event.
+    if atitle == btitle:
+        return True
+
+    atok = _dedup_tokens(a.title)
+    btok = _dedup_tokens(b.title)
+    if not atok or not btok:
+        return False
+
+    intersection = len(atok & btok)
+    union = len(atok | btok)
+    jaccard = intersection / union if union else 0.0
+    seq = SequenceMatcher(None, atitle, btitle).ratio()
+
+    astrong = _strong_event_terms(a.title + " " + (a.description or ""))
+    bstrong = _strong_event_terms(b.title + " " + (b.description or ""))
+    shared_strong = astrong & bstrong
+
+    aactions = _action_classes(a.title + " " + (a.description or ""))
+    bactions = _action_classes(b.title + " " + (b.description or ""))
+    shared_action = bool(aactions & bactions)
+
+    # Rule A: Very similar titles.
+    if seq >= 0.86 and intersection >= 3:
+        return True
+
+    # Rule B: Strong project/site identifier + same action + reasonable title overlap.
+    if shared_strong and shared_action and (jaccard >= 0.34 or intersection >= 3):
+        return True
+
+    # Rule C: Same action and high token overlap for rewrites of press releases.
+    if shared_action and intersection >= 4 and jaccard >= 0.50:
+        return True
+
+    # Rule D: Extremely high token overlap even when action dictionary misses wording.
+    if intersection >= 5 and jaccard >= 0.62:
+        return True
+
+    return False
+
+def _article_rep_score(article: Article) -> tuple:
+    """Choose the richest representative among duplicate/event-equivalent stories."""
+    description_len = len((article.description or "").strip())
+    image_bonus = 1 if (article.image_url or "").strip() else 0
+    publisher_bonus = 1 if (article.publisher or "").strip() and article.publisher != "출처 미확인" else 0
+    link_bonus = 1 if (article.link or "").strip() else 0
+    # Richness first; for ties prefer earlier publication as likely original report.
+    return (
+        description_len,
+        image_bonus,
+        publisher_bonus,
+        link_bonus,
+        -int(article.published.timestamp()) if article.published else 0,
+    )
+
+def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
+    """
+    Stage 1: exact duplicates
+    Stage 2: same-event duplicates across outlets
+    Returns only one representative card per duplicate/event cluster.
+    """
+    if not DEDUP_ENABLED:
+        return sorted(articles, key=lambda x: x.published, reverse=True)
+
+    sorted_articles = sorted(articles, key=lambda x: x.published, reverse=True)
+
+    # Stage 1: exact duplicates
+    exact_unique: list[Article] = []
+    exact_removed = 0
+    for article in sorted_articles:
+        matched_idx = None
+        for idx, kept in enumerate(exact_unique):
+            if _same_exact_article(article, kept):
+                matched_idx = idx
+                break
+        if matched_idx is None:
+            exact_unique.append(article)
+        else:
+            exact_removed += 1
+            if _article_rep_score(article) > _article_rep_score(exact_unique[matched_idx]):
+                exact_unique[matched_idx] = article
+
+    # Stage 2: same-event duplicates across publishers
+    event_unique: list[Article] = []
+    event_removed = 0
+    for article in exact_unique:
+        matched_idx = None
+        for idx, kept in enumerate(event_unique):
+            if _same_event_article(article, kept):
+                matched_idx = idx
+                break
+        if matched_idx is None:
+            event_unique.append(article)
+        else:
+            event_removed += 1
+            if _article_rep_score(article) > _article_rep_score(event_unique[matched_idx]):
+                event_unique[matched_idx] = article
+
+    result = sorted(event_unique, key=lambda x: x.published, reverse=True)
+    print(
+        f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
+        f"/ same_event_removed={event_removed} / final={len(result)}"
+    )
+    return result
+
+
+def final_deduplicate_articles(articles: list[Article]) -> list[Article]:
+    return deduplicate_articles_final(articles)
 
 
 def render_news_sections(articles: list[Article], new_urls: set[str] | None = None) -> str:
@@ -4875,6 +5127,11 @@ header,
       <button class="country-pin country-jp" data-country-filter="JP" data-anchor-x="88.0" data-anchor-y="40.5" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
       <button class="country-pin country-au" data-country-filter="AU" data-anchor-x="84.0" data-anchor-y="69.0" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
       <button class="country-pin country-za" data-country-filter="ZA" data-anchor-x="54.5" data-anchor-y="71.0" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sk" data-country-filter="SK" data-anchor-x="52.8" data-anchor-y="35.0" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-dk" data-country-filter="DK" data-anchor-x="48.8" data-anchor-y="25.0" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-my" data-country-filter="MY" data-anchor-x="76.5" data-anchor-y="63.0" type="button"><span class="flag">🇲🇾</span><span>말레이시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-th" data-country-filter="TH" data-anchor-x="77.5" data-anchor-y="57.0" type="button"><span class="flag">🇹🇭</span><span>태국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sg" data-country-filter="SG" data-anchor-x="78.0" data-anchor-y="65.0" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
       <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
     <div id="country-filter-note" class="country-filter-note">국가를 누르면 해당 국가 기사로 이동합니다. 다시 누르면 해제됩니다.</div>
@@ -5562,7 +5819,7 @@ def main() -> int:
         )
         print(
             f"[PERIOD {label}] total={len(items)} / ko={ko_count} / en={en_count} "
-            f"/ country_other={other_count} / RAW=ON / dedup=OFF / limit=OFF"
+            f"/ country_other={other_count} / RAW=ON / dedup=ON / limit=OFF"
         )
 
     # 과거 실행분 + 현재 수집분을 날짜별 archive에 먼저 누적
