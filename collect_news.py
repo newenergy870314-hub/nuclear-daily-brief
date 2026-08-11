@@ -489,6 +489,20 @@ PRIORITY_NUCLEAR_MARKET_TERMS = {
     "india", "indian nuclear", "kudankulam", "jaitapur",
     "kaiga", "npcil",
 
+    # 베트남
+    "vietnam", "vietnamese nuclear", "베트남 원전",
+    "ninh thuan", "ninh thuận", "ninh-thuan",
+    "닌투언", "닌투안", "evn", "vinatom", "vaea", "varans",
+
+    # UAE
+    "uae nuclear", "united arab emirates nuclear",
+    "barakah", "바라카", "enec", "nawah energy", "fanr",
+
+    # 사우디아라비아
+    "saudi nuclear", "saudi nuclear power", "사우디 원전",
+    "k.a.care", "kacare",
+    "king abdullah city for atomic and renewable energy",
+
     # 주요 유럽 확장
     "czech", "czechia", "dukovany", "temelin",
     "poland nuclear", "lubiatowo",
@@ -3136,7 +3150,7 @@ def select_articles_for_period(
         1 for article in all_selected
         if detect_article_country(article) == "OTHER"
     )
-    priority_codes = {"US", "GB", "FI", "BG", "RO", "IN"}
+    priority_codes = {"US", "GB", "FI", "BG", "RO", "IN", "VN", "AE", "SA"}
     priority_market_count = sum(
         1 for article in all_selected
         if detect_article_country(article) in priority_codes
@@ -3171,6 +3185,7 @@ COUNTRY_META = {
     "BG": ("🇧🇬", "불가리아"),
     "UA": ("🇺🇦", "우크라이나"),
     "AE": ("🇦🇪", "UAE"),
+    "VN": ("🇻🇳", "베트남"),
     "RO": ("🇷🇴", "루마니아"),
     "CZ": ("🇨🇿", "체코"),
     "PL": ("🇵🇱", "폴란드"),
@@ -3207,7 +3222,21 @@ COUNTRY_PROJECT_TERMS = {
     "GB": ("gbn", "great british nuclear", "sizewell", "hinkley point"),
     "BG": ("kozloduy", "코즐로두이", "belene", "벨레네"),
     "UA": ("khmelnytskyi", "흐멜니츠키", "rivnе", "리우네"),
-    "AE": ("barakah", "바라카"),
+    "AE": (
+        "barakah", "바라카", "barakah nuclear power plant",
+        "barakah nuclear energy plant", "braka", "براكة",
+        "enec", "emirates nuclear energy corporation", "nawah energy",
+    ),
+    "VN": (
+        "ninh thuan", "ninh thuận", "ninh-thuan",
+        "닌투언", "닌투안", "닌 투언", "닌 투안",
+        "ninh thuan 1", "ninh thuan 2",
+        "ninh thuận 1", "ninh thuận 2",
+        "ninh thuan nuclear power project",
+        "ninh thuận nuclear power project",
+        "vietnam nuclear power", "vietnamese nuclear power",
+        "베트남 원전", "베트남 원자력발전",
+    ),
     "RO": ("cernavoda", "체르나보다", "nuclearelectrica"),
     "CZ": ("dukovany", "두코바니", "temelin", "테멜린"),
     "PL": ("lubiatowo", "루비아토보", "pomerania", "포메라니아"),
@@ -3222,7 +3251,13 @@ COUNTRY_PROJECT_TERMS = {
     "AU": ("australian nuclear", "호주 원전"),
     "RU": ("kursk ii", "쿠르스크", "leningrad ii", "레닌그라드", "rosatom project"),
     "TR": ("akkuyu", "아쿠유", "sinop nuclear", "시노프 원전"),
-    "SA": ("saudi nuclear", "사우디 원전", "king abdullah city for atomic and renewable energy"),
+    "SA": (
+        "saudi nuclear", "saudi nuclear power", "사우디 원전", "사우디 원자력",
+        "king abdullah city for atomic and renewable energy",
+        "k.a.care", "kacare", "ka-care",
+        "saudi national atomic energy project",
+        "saudi nuclear energy project",
+    ),
     "ZA": ("koeberg", "쿠버그"),
     "NL": ("borssele", "보르셀"),
     "BE": ("doel", "두엘", "tihange", "티앙주"),
@@ -3240,6 +3275,24 @@ COUNTRY_GOVERNMENT_TERMS = {
         "과기정통부", "원자력안전위원회", "원안위", "대한민국 정부", "한국 정부",
     ),
     "GB": ("office for nuclear regulation", "onr", "영국 정부"),
+    "AE": (
+        "fanr", "federal authority for nuclear regulation",
+        "uae nuclear regulator", "uae government",
+        "아랍에미리트 정부", "uae 원자력규제",
+    ),
+    "VN": (
+        "vietnam atomic energy agency", "vaea",
+        "vietnam agency for radiation and nuclear safety", "varans",
+        "vietnam ministry of industry and trade",
+        "vietnam ministry of science and technology",
+        "베트남 정부", "베트남 원자력청",
+    ),
+    "SA": (
+        "k.a.care", "kacare",
+        "king abdullah city for atomic and renewable energy",
+        "saudi ministry of energy", "saudi government",
+        "사우디 정부", "사우디 에너지부",
+    ),
     "FR": ("asn", "프랑스 정부"),
     "CA": ("canadian nuclear safety commission", "cnsc", "캐나다 정부"),
     "JP": ("nuclear regulation authority", "일본 원자력규제위원회", "일본 정부"),
@@ -3247,12 +3300,19 @@ COUNTRY_GOVERNMENT_TERMS = {
 
 # 3순위: 국가 자체가 기사 사건·장소로 명시된 경우
 COUNTRY_EXPLICIT_TERMS = {
-    "US": ("미국", "united states", "u.s.", "u.s.a.", "usa"),
-    "KR": ("한국", "대한민국", "south korea", "republic of korea", "korea"),
-    "GB": ("영국", "united kingdom", "great britain", "britain"),
+    "US": ("미국", "미국원전", "미국원자력", "미국정부", "united states", "u.s.", "u.s.a.", "usa"),
+    "KR": ("한국", "한국원전", "한국원자력", "한국정부", "대한민국", "south korea", "republic of korea", "korea"),
+    "GB": ("영국", "영국원전", "영국원자력", "영국정부", "united kingdom", "great britain", "britain"),
     "BG": ("불가리아", "bulgaria"),
     "UA": ("우크라이나", "ukraine", "kyiv", "키이우"),
-    "AE": ("아랍에미리트", "uae", "united arab emirates", "emirates"),
+    "AE": (
+        "아랍에미리트", "아랍 에미리트", "uae",
+        "united arab emirates", "emirates", "emirati",
+    ),
+    "VN": (
+        "베트남", "vietnam", "vietnamese",
+        "ninh thuan", "ninh thuận", "닌투언", "닌투안",
+    ),
     "RO": ("루마니아", "romania"),
     "CZ": ("체코", "czech republic", "czechia", "czech"),
     "PL": ("폴란드", "poland"),
@@ -3289,6 +3349,18 @@ COUNTRY_HOME_ENTITY_TERMS = {
     "CN": ("cnnc", "cgn", "china national nuclear corporation",),
     "IN": ("npcil", "nuclear power corporation of india",),
     "CA": ("candu energy", "atkinsréalis", "atkinsrealis",),
+    "AE": (
+        "emirates nuclear energy corporation", "enec",
+        "nawah energy", "nawah energy company",
+    ),
+    "VN": (
+        "vietnam electricity", "evn",
+        "vietnam atomic energy institute", "vinatom",
+    ),
+    "SA": (
+        "king abdullah city for atomic and renewable energy",
+        "k.a.care", "kacare",
+    ),
 }
 
 
@@ -3300,10 +3372,84 @@ def _article_country_text(article: Article) -> tuple[str, str]:
     return title, full
 
 
+def _contains_country_term(text: str, term: str) -> bool:
+    """
+    국가 키워드 오탐 방지.
+    - 영문/숫자 용어는 영숫자 단어 내부 매치를 막습니다.
+    - 짧은 한글 국가명(예: 영국, 한국, 미국, 인도)은 사람 이름/일반 단어 내부 매치를 막습니다.
+      예: '박영국' -> 영국 아님.
+    - 조사/띄어쓰기/문장부호 뒤는 허용합니다.
+      예: '영국의 원전', '영국 정부' -> 영국.
+    """
+    if not text or not term:
+        return False
+
+    haystack = text.lower()
+    needle = term.lower()
+
+    # 한글이 들어간 키워드
+    if re.search(r"[가-힣]", needle):
+        # 단어 내부의 짧은 국가명 오탐을 특히 엄격하게 차단
+        if len(needle) <= 3 and re.fullmatch(r"[가-힣]+", needle):
+            # 앞쪽이 한글이면 사람 이름/복합명사 내부일 가능성이 높음
+            pattern = rf"(?<![가-힣]){re.escape(needle)}"
+            return re.search(pattern, haystack) is not None
+
+        return needle in haystack
+
+    # 영문/숫자 용어는 영숫자 단어 내부 매치 방지
+    pattern = rf"(?<![a-z0-9]){re.escape(needle)}(?![a-z0-9])"
+    return re.search(pattern, haystack, flags=re.I) is not None
+
+
+def _country_term_position(text: str, term: str) -> int:
+    """_contains_country_term과 같은 규칙으로 첫 등장 위치를 반환합니다."""
+    if not text or not term:
+        return -1
+
+    haystack = text.lower()
+    needle = term.lower()
+
+    if re.search(r"[가-힣]", needle):
+        if len(needle) <= 3 and re.fullmatch(r"[가-힣]+", needle):
+            m = re.search(rf"(?<![가-힣]){re.escape(needle)}", haystack)
+            return m.start() if m else -1
+        return haystack.find(needle)
+
+    m = re.search(
+        rf"(?<![a-z0-9]){re.escape(needle)}(?![a-z0-9])",
+        haystack,
+        flags=re.I,
+    )
+    return m.start() if m else -1
+
+
+def _country_term_count(text: str, term: str) -> int:
+    """국가 키워드 등장 횟수를 오탐 방지 규칙으로 계산합니다."""
+    if not text or not term:
+        return 0
+
+    haystack = text.lower()
+    needle = term.lower()
+
+    if re.search(r"[가-힣]", needle):
+        if len(needle) <= 3 and re.fullmatch(r"[가-힣]+", needle):
+            return len(re.findall(rf"(?<![가-힣]){re.escape(needle)}", haystack))
+        return haystack.count(needle)
+
+    return len(
+        re.findall(
+            rf"(?<![a-z0-9]){re.escape(needle)}(?![a-z0-9])",
+            haystack,
+            flags=re.I,
+        )
+    )
+
+
 def _matching_country_codes(text: str, rules: dict[str, tuple[str, ...]]) -> list[str]:
     hits: list[str] = []
     for code, terms in rules.items():
-        if any(term.lower() in text for term in terms):
+        if any(_contains_country_term(text, term) for term in terms):
             hits.append(code)
     return hits
 
@@ -3323,12 +3469,12 @@ def _best_country_match(
     candidates: list[tuple[int, int, int, str]] = []
     for order, (code, terms) in enumerate(rules.items()):
         title_positions = [
-            title.find(term.lower())
+            pos
             for term in terms
-            if term.lower() in title
+            if (pos := _country_term_position(title, term)) >= 0
         ]
         title_pos = min(title_positions) if title_positions else 10**9
-        full_count = sum(full.count(term.lower()) for term in terms)
+        full_count = sum(_country_term_count(full, term) for term in terms)
         if title_pos < 10**9 or full_count > 0:
             in_title_rank = 0 if title_pos < 10**9 else 1
             candidates.append((in_title_rank, title_pos, -full_count, code))
@@ -4605,6 +4751,7 @@ header,
       <button class="country-pin country-ru" data-country-filter="RU" data-anchor-x="68.0" data-anchor-y="25.5" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
       <button class="country-pin country-tr" data-country-filter="TR" data-anchor-x="57.3" data-anchor-y="41.4" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
       <button class="country-pin country-ae" data-country-filter="AE" data-anchor-x="61.8" data-anchor-y="49.5" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-vn" data-country-filter="VN" data-anchor-x="78.6" data-anchor-y="52.0" type="button"><span class="flag">🇻🇳</span><span>베트남</span><span class="country-count">0건</span></button>
       <button class="country-pin country-sa" data-country-filter="SA" data-anchor-x="59.0" data-anchor-y="49.0" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
       <button class="country-pin country-in" data-country-filter="IN" data-anchor-x="69.0" data-anchor-y="50.0" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
       <button class="country-pin country-cn" data-country-filter="CN" data-anchor-x="77.0" data-anchor-y="41.0" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
@@ -4952,7 +5099,15 @@ function updateCountryMapCounts(){{
   const panel=activePanel();
   if(!panel)return;
 
-  const counts={{US:0,KR:0,GB:0,BG:0,UA:0,AE:0,RO:0,CZ:0,PL:0,SI:0,FI:0,JP:0,CA:0,FR:0,SE:0,CN:0,IN:0,AU:0,RU:0,TR:0,SA:0,ZA:0,NL:0,BE:0,CH:0,OTHER:0}};
+  // 지도에 등록된 국가코드에서 집계표를 자동 생성합니다.
+  // 향후 국가를 추가해도 JS 국가목록을 따로 수정하지 않아도 됩니다.
+  const counts={{OTHER:0}};
+  document.querySelectorAll("[data-country-filter]").forEach(button=>{{
+    const code=button.dataset.countryFilter;
+    if(code && code!=="ALL" && !Object.prototype.hasOwnProperty.call(counts,code)){{
+      counts[code]=0;
+    }}
+  }});
   const cards=[...panel.querySelectorAll(".preview-card")];
 
   cards.forEach(card=>{{
@@ -4975,6 +5130,9 @@ function updateCountryMapCounts(){{
   const countryTotal=Object.values(counts).reduce((sum,value)=>sum+value,0);
   const summary=document.getElementById("world-map-summary");
   if(summary)summary.textContent=`현재 탭 전체 ${{total}}건 · 국가 합계 ${{countryTotal}}건`;
+  if(countryTotal!==total){{
+    console.warn("[COUNTRY COUNT MISMATCH]", {{total, countryTotal, counts}});
+  }}
 
   const allButton=document.getElementById("country-all");
   if(allButton)allButton.classList.toggle("active",!activeCountryFilter);
