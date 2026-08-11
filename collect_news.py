@@ -3842,9 +3842,9 @@ body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Mal
 .language-order-toggle:active {{ transform: translateY(1px); }}
 .date-picker-box {{ cursor: pointer; }}
 .date-control {{ position:relative; flex:1 1 auto; min-width:0; height:28px; border-radius:8px; background:#344054; color:#ffffff; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.05); }}
-.date-display {{ width:100%; padding:0 18px 0 6px; box-sizing:border-box; color:#ffffff; font-size:10.5px; font-weight:800; line-height:28px; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; letter-spacing:-0.1px; }}
-.date-calendar {{ position:absolute; right:6px; top:50%; transform:translateY(-52%); color:#ffffff; font-size:10px; line-height:1; pointer-events:none; opacity:.9; }}
-.date-input {{ position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; }}
+.date-display {{ position:relative; z-index:1; width:100%; padding:0 18px 0 6px; box-sizing:border-box; color:#ffffff; font-size:10.5px; font-weight:800; line-height:28px; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; letter-spacing:-0.1px; pointer-events:none; }}
+.date-calendar {{ position:absolute; z-index:1; right:6px; top:50%; transform:translateY(-52%); color:#ffffff; font-size:10px; line-height:1; pointer-events:none; opacity:.9; }}
+.date-input {{ position:absolute; z-index:5; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; }}
 .date-input::-webkit-calendar-picker-indicator {{ width: 100%; height: 100%; margin: 0; padding: 0; cursor: pointer; }}
 .search-wrap {{ position: relative; margin-top: 6px; }}
 .search-input {{ width: 100%; height: 34px; padding: 0 12px; border: 1px solid rgba(17,24,39,.13); border-radius: 12px; background: rgba(255,255,255,.94); font-size: 11px; }}
@@ -3981,7 +3981,7 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
-.preview-card {{ position:relative; display:grid; grid-template-columns:26px minmax(0,1fr) 88px; gap:10px; align-items:stretch; min-height:104px; padding:2px 10px; border-radius:18px; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 3px 10px rgba(15,23,42,.06); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
+.preview-card {{ position:relative; display:grid; grid-template-columns:26px minmax(0,1fr) 88px; gap:10px; align-items:stretch; min-height:104px; padding:2px 10px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 3px 10px rgba(15,23,42,.06); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
 .preview-card.read .headline {{ display:-webkit-box; overflow:hidden; margin-top:1px; color:#0b57d0; font-size:13px; font-weight:700; line-height:1.28; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
 .preview-card.read .publisher {{ color:#667085; font-size:9px; font-weight:800; line-height:1.15; white-space:nowrap; flex:0 0 auto; }}
@@ -4207,6 +4207,10 @@ header,
   .preview-card {{ min-height:112px; padding:3px 12px; }}
   .preview-copy {{ min-height:112px; padding:0 6px 0 0; }}
   .preview-image {{ height:112px; min-height:112px; align-self:stretch; }}
+}}
+
+@media (min-width:768px) {{
+  .preview-card {{ border-radius:0; }}
 }}
 
 </style>
@@ -4801,6 +4805,20 @@ if(archiveInput && archiveDates.length){{
   updateArchiveDateDisplay(archiveInput.value);
 }}
 
+const archiveDateControl=document.querySelector(".date-control");
+if(archiveDateControl && archiveInput){{
+  archiveDateControl.addEventListener("click", (event)=>{{
+    // input 자체의 기본 동작은 그대로 두고, 나머지 영역 클릭 시 picker를 엽니다.
+    if(event.target===archiveInput) return;
+    if(typeof archiveInput.showPicker==="function"){{
+      try{{ archiveInput.showPicker(); }}catch(_error){{ archiveInput.focus(); }}
+    }} else {{
+      archiveInput.focus();
+      archiveInput.click();
+    }}
+  }});
+}}
+
 function openArchiveDate(value){{
   if(!value) return false;
 
@@ -4826,17 +4844,18 @@ function openArchiveDate(value){{
 }}
 
 if(archiveInput){{
-  const handleArchiveSelection=()=>{{
+  archiveInput.addEventListener("change", ()=>{{
     const value=archiveInput.value;
-    if(value) openArchiveDate(value);
-  }};
+    if(!value) return;
 
-  archiveInput.addEventListener("input", handleArchiveSelection);
-  archiveInput.addEventListener("change", handleArchiveSelection);
-
-  archiveInput.addEventListener("click", ()=>{{
-    if(typeof archiveInput.showPicker==="function"){{
-      try{{ archiveInput.showPicker(); }}catch(_error){{}}
+    const opened=openArchiveDate(value);
+    if(!opened){{
+      // 선택한 날짜가 archive에 없으면 표시값은 선택 전 상태로 되돌립니다.
+      const activeArchive=document.querySelector(".archive-panel.active");
+      if(activeArchive && activeArchive.dataset.archiveDate){{
+        archiveInput.value=activeArchive.dataset.archiveDate;
+        updateArchiveDateDisplay(archiveInput.value);
+      }}
     }}
   }});
 }}
