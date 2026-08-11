@@ -3983,13 +3983,13 @@ main {{ padding: 12px 12px 34px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; gap: 10px; align-items: stretch; min-height: 108px; padding: 9px 10px; border-radius: 18px; background: #fbfaf7; border: 1px solid rgba(35,57,93,.09); box-shadow: 0 3px 10px rgba(15,23,42,.06); overflow: visible; transition: opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
-.preview-card.read .headline {{ color: #405a78; }}
-.preview-card.read .publisher {{ color: #667085; font-size: 9px; font-weight: 800; line-height: 1.2; white-space: nowrap; flex: 0 0 auto; }}
-.preview-card.read .article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 6px; color: #5b6472; font-size: 9.5px; line-height: 1.45; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
+.preview-card.read .headline {{ display:-webkit-box; overflow:hidden; margin-top:1px; color:#0b57d0; font-size:13px; font-weight:700; line-height:1.28; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
+.preview-card.read .publisher {{ color:#667085; font-size:9px; font-weight:800; line-height:1.15; white-space:nowrap; flex:0 0 auto; }}
+.preview-card.read .article-snippet {{ display:-webkit-box; overflow:hidden; margin-top:3px; color:#5b6472; font-size:9.5px; line-height:1.38; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
 
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; color: #344054; font-size: 14px; font-weight: 800; }}
-.preview-copy {{ display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; min-height: 108px; padding: 2px 4px 2px 0; overflow: visible; gap: 5px; }}
+.preview-copy {{ display:flex; flex-direction:column; justify-content:flex-start; min-width:0; min-height:108px; padding:2px 4px 2px 0; overflow:visible; gap:0; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
 .headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
 .article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
@@ -4004,7 +4004,7 @@ main {{ padding: 12px 12px 34px; }}
 .preview-card.important .unread-label, .preview-card.important .read-label {{ display: none; }}
 .preview-card.important .important-label {{ display: inline; }}
 .card-side {{ position: relative; align-self: stretch; width: 88px; min-width: 88px; display: flex; align-items: stretch; justify-content: center; overflow: visible; background: transparent; }}
-.important-button {{ flex: 0 0 auto; width: 20px; height: 20px; padding: 0; border: 0; border-radius: 0; background: transparent; color: #98a2b3; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center; cursor: pointer; box-shadow: none; overflow: visible; margin-left: auto; }}
+.important-button {{ flex:0 0 auto; width:22px; height:22px; padding:0; border:0; border-radius:0; background:transparent; color:#98a2b3; font-size:14px; font-weight:800; line-height:22px; text-align:center; cursor:pointer; box-shadow:none; overflow:visible; margin-left:auto; }}
 .important-button:hover {{ background: rgba(17,24,39,.04); }}
 .preview-card.important .important-button {{ color: #b77900; border: 0; background: transparent; }}
 .preview-image {{ width: 88px; height: 108px; min-height: 108px; align-self: center; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(35,57,93,.08); border-radius: 0; background: #f4f6f8; }}
@@ -4167,11 +4167,11 @@ header,
   .preview-image {{ width: 104px; min-height: 148px; }}
 }}
 
-.meta-row {{ display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 22px; }}
+.meta-row {{ display:flex; align-items:center; justify-content:space-between; gap:5px; min-height:22px; margin:0 0 2px 0; }}
 
-.meta-left {{ min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; row-gap: 2px; }}
+.meta-left {{ min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:5px; row-gap:1px; }}
 
-.status-inline {{ min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; font-size: 9px; line-height: 1.2; }}
+.status-inline {{ min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:4px; font-size:9px; line-height:1.15; }}
 
 @media (min-width: 768px) {{
   .preview-copy {{ min-height: 148px; gap: 8px; }}
@@ -4192,6 +4192,15 @@ header,
 @media (min-width: 768px) {{
   .meta-row {{ min-height: 24px; }}
   .important-button {{ width: 22px; height: 22px; font-size: 13px; line-height: 22px; }}
+}}
+
+@media (min-width:768px) {{
+  .preview-copy {{ gap:0; }}
+  .meta-row {{ min-height:24px; margin-bottom:2px; }}
+  .publisher, .status-inline {{ font-size:10px; }}
+  .important-button {{ width:24px; height:24px; font-size:15px; line-height:24px; }}
+  .headline {{ margin-top:1px; line-height:1.30; }}
+  .article-snippet {{ margin-top:4px; line-height:1.40; }}
 }}
 
 </style>
