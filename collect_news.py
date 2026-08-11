@@ -376,7 +376,6 @@ DIRECT_NEWS_PAGES = [
     # 해외 원자력·전력·에너지 전문매체
     # ─────────────────────────────────────────────
     ("World Nuclear News", "https://www.world-nuclear-news.org/", "en"),
-    ("Nuclear Newswire (ANS)", "https://www.ans.org/news/", "en"),
     ("Nuclear Engineering International", "https://www.neimagazine.com/news/", "en"),
     ("NucNet", "https://www.nucnet.org/search", "en"),
     ("POWER Magazine", "https://www.powermag.com/", "en"),
@@ -452,12 +451,99 @@ DIRECT_NEWS_PAGES = [
     ("The Engineer", "https://www.theengineer.co.uk/", "en"),
     ("Engineering News-Record", "https://www.enr.com/", "en"),
     ("Construction Dive", "https://www.constructiondive.com/", "en"),
+
+    # ─────────────────────────────────────────────
+    # 해외 통신사·종합 뉴스 추가
+    # ─────────────────────────────────────────────
+    ("Agence France-Presse", "https://www.afp.com/en/news-hub", "en"),
+    ("UPI", "https://www.upi.com/", "en"),
+    ("Anadolu Agency", "https://www.aa.com.tr/en/", "en"),
+    ("Xinhua", "https://english.news.cn/", "en"),
+    ("Kyodo News", "https://english.kyodonews.net/", "en"),
+
+    # ─────────────────────────────────────────────
+    # 미국 신문·방송·경제 매체
+    # ─────────────────────────────────────────────
+    ("The Washington Post", "https://www.washingtonpost.com/business/", "en"),
+    ("USA Today", "https://www.usatoday.com/news/", "en"),
+    ("Los Angeles Times", "https://www.latimes.com/business", "en"),
+    ("ABC News", "https://abcnews.go.com/Business", "en"),
+    ("CBS News", "https://www.cbsnews.com/moneywatch/", "en"),
+    ("NBC News", "https://www.nbcnews.com/business", "en"),
+    ("NPR", "https://www.npr.org/sections/business/", "en"),
+    ("Fox Business", "https://www.foxbusiness.com/energy", "en"),
+    ("Forbes", "https://www.forbes.com/energy/", "en"),
+    ("Fortune", "https://fortune.com/section/energy/", "en"),
+    ("Business Insider", "https://www.businessinsider.com/energy", "en"),
+
+    # ─────────────────────────────────────────────
+    # 영국·유럽 신문·방송
+    # ─────────────────────────────────────────────
+    ("Sky News", "https://news.sky.com/topic/nuclear-10137", "en"),
+    ("The Independent", "https://www.independent.co.uk/climate-change/news", "en"),
+    ("The Telegraph", "https://www.telegraph.co.uk/business/energy/", "en"),
+    ("Euronews", "https://www.euronews.com/green/energy", "en"),
+    ("Deutsche Welle", "https://www.dw.com/en/business/s-1431", "en"),
+    ("France 24", "https://www.france24.com/en/europe/", "en"),
+    ("POLITICO Europe", "https://www.politico.eu/policy-area/energy/", "en"),
+    ("Yle News", "https://yle.fi/t/18-209644/en", "en"),
+    ("Bulgarian News Agency", "https://www.bta.bg/en/news", "en"),
+    ("Romania Insider", "https://www.romania-insider.com/", "en"),
+    ("Radio Prague International", "https://english.radio.cz/", "en"),
+    ("Notes from Poland", "https://notesfrompoland.com/", "en"),
+    ("ERR News", "https://news.err.ee/", "en"),
+
+    # ─────────────────────────────────────────────
+    # 캐나다·호주
+    # ─────────────────────────────────────────────
+    ("CBC News", "https://www.cbc.ca/news/business", "en"),
+    ("CTV News", "https://www.ctvnews.ca/business", "en"),
+    ("Global News Canada", "https://globalnews.ca/business/", "en"),
+    ("The Globe and Mail", "https://www.theglobeandmail.com/business/", "en"),
+    ("ABC Australia", "https://www.abc.net.au/news/business/", "en"),
+    ("The Guardian Australia", "https://www.theguardian.com/australia-news", "en"),
+
+    # ─────────────────────────────────────────────
+    # 인도·일본·아시아
+    # ─────────────────────────────────────────────
+    ("The Hindu", "https://www.thehindu.com/business/", "en"),
+    ("The Indian Express", "https://indianexpress.com/section/business/", "en"),
+    ("The Times of India", "https://timesofindia.indiatimes.com/business", "en"),
+    ("The Economic Times", "https://economictimes.indiatimes.com/industry/energy", "en"),
+    ("Business Standard India", "https://www.business-standard.com/industry/news", "en"),
+    ("NDTV", "https://www.ndtv.com/business", "en"),
+    ("Hindustan Times", "https://www.hindustantimes.com/business", "en"),
+    ("VnExpress International", "https://e.vnexpress.net/nuclear-power/tag-760379.html", "en"),
+    ("Vietnam News", "https://vietnamnews.vn/", "en"),
+    ("VietnamPlus", "https://en.vietnamplus.vn/", "en"),
+    ("VietnamNet Global", "https://vietnamnet.vn/en", "en"),
+    ("Channel NewsAsia", "https://www.channelnewsasia.com/business", "en"),
+    ("The Straits Times", "https://www.straitstimes.com/business", "en"),
+
+    # ─────────────────────────────────────────────
+    # 중동: UAE·사우디 포함
+    # ─────────────────────────────────────────────
+    ("The National", "https://www.thenationalnews.com/tags/nuclear-energy/", "en"),
+    ("Gulf News", "https://gulfnews.com/business/energy", "en"),
+    ("Khaleej Times", "https://www.khaleejtimes.com/business/energy", "en"),
+    ("Arab News", "https://www.arabnews.com/tags/nuclear-energy", "en"),
+    ("Saudi Gazette", "https://saudigazette.com.sa/", "en"),
+    ("Al Arabiya English", "https://english.alarabiya.net/business/energy", "en"),
+    ("Al Jazeera", "https://www.aljazeera.com/economy/", "en"),
+
+    # ─────────────────────────────────────────────
+    # 유럽·글로벌 에너지/전력 전문매체 추가
+    # ─────────────────────────────────────────────
+    ("Energy Central", "https://www.energycentral.com/", "en"),
+    ("Energy Live News", "https://www.energylivenews.com/", "en"),
+    ("Montel News", "https://montelnews.com/", "en"),
+    ("Offshore Energy", "https://www.offshore-energy.biz/", "en"),
 ]
 
 # 매체 수가 늘어난 만큼 목록 페이지는 병렬 처리하되, 각 매체에서 관련 가능성이 있는 기사만 원문 조회합니다.
 DIRECT_PAGE_WORKERS = 16
 DIRECT_PAGE_TIMEOUT_SECONDS = 8
-DIRECT_PAGE_MAX_LINKS = 250
+DIRECT_PAGE_MAX_LINKS = 400
 
 # 영문 일반매체는 기사 제목에 아래 원전·원자력 후보어가 있으면 원문까지 확인합니다.
 # 최종 기사 포함 여부는 원문 description까지 읽은 뒤 classify_direct_article()에서 다시 판단합니다.
@@ -538,6 +624,12 @@ ENGLISH_NUCLEAR_CANDIDATE_TERMS = {
     "bulgaria", "bulgarian nuclear", "kozloduy", "belene",
     "romania", "romanian nuclear", "cernavoda", "nuclearelectrica",
     "india", "indian nuclear", "kudankulam", "jaitapur", "npcil",
+    "ninh thuan", "ninh thuận", "vietnam nuclear", "vietnamese nuclear",
+    "barakah", "enec", "fanr", "nawah",
+    "saudi nuclear", "k.a.care", "kacare",
+    "sizewell c", "hinkley point c", "wylfa",
+    "kozloduy 7", "kozloduy 8", "cernavoda 3", "cernavoda 4",
+    "dukovany ii", "olkiluoto", "loviisa", "darlington", "pickering",
 }
 
 # 이 매체/기관은 원자력 전문 페이지이므로 제목이 짧거나 일반적인 표현이어도
@@ -550,7 +642,15 @@ ENGLISH_ENERGY_PAGE_HINTS = {
 
 def _english_energy_page(page_url: str) -> bool:
     lower = page_url.lower()
-    return any(hint in lower for hint in ENGLISH_ENERGY_PAGE_HINTS)
+    dedicated_hosts_or_paths = (
+        "yle.fi/t/18-209644", "vnexpress.net/nuclear-power",
+        "thenationalnews.com/tags/nuclear-energy", "arabnews.com/tags/nuclear-energy",
+        "news.sky.com/topic/nuclear", "ans.org/news",
+    )
+    return (
+        any(hint in lower for hint in ENGLISH_ENERGY_PAGE_HINTS)
+        or any(token in lower for token in dedicated_hosts_or_paths)
+    )
 
 
 def _looks_like_article_candidate_url(url: str) -> bool:
@@ -567,7 +667,6 @@ def _looks_like_article_candidate_url(url: str) -> bool:
 
 NUCLEAR_SPECIALIST_PUBLISHERS = {
     "World Nuclear News",
-    "Nuclear Newswire (ANS)",
     "Nuclear Engineering International",
     "NucNet",
     "Nuclear Energy Institute",
@@ -754,7 +853,7 @@ BLOCKED_STOCK_KEYWORDS = {
 }
 
 
-EXCLUDED_PUBLISHERS = {"Nuclear Newswire"}
+EXCLUDED_PUBLISHERS = {"Nuclear Newswire", "Nuclear Newswire (ANS)"}
 
 @dataclass
 class Article:
@@ -2664,6 +2763,7 @@ def _fetch_one_direct_rss_feed(
 
     if articles:
         print(f"[RSS] {publisher}: {len(articles)} article(s)")
+    print(f"[SOURCE RSS] {publisher} | accepted={len(articles)} | url={feed_url}")
     return articles
 
 
@@ -2749,7 +2849,6 @@ def _looks_like_article_url(url: str, publisher: str) -> bool:
 
     if publisher == "연합뉴스":
         return "yna.co.kr/view/" in lower
-    if publisher == "Nuclear Newswire (ANS)":
         return "ans.org/news/article-" in lower or "/news/article-" in lower
     if publisher == "Nuclear Engineering International":
         return "neimagazine.com/news/" in lower and lower.rstrip("/") != "https://www.neimagazine.com/news"
@@ -2983,14 +3082,16 @@ def _fetch_one_direct_news_page(
         with urlopen(request, timeout=DIRECT_PAGE_TIMEOUT_SECONDS) as response:
             payload = response.read(2_500_000)
             final_url = response.geturl()
-    except Exception:
+    except Exception as exc:
+        print(f"[SOURCE PAGE] {publisher} | fetch_error={type(exc).__name__} | url={page_url}")
         return []
 
     decoded = payload.decode("utf-8", errors="ignore")
     parser = _DirectLinkParser(final_url)
     try:
         parser.feed(decoded)
-    except Exception:
+    except Exception as exc:
+        print(f"[SOURCE PAGE] {publisher} | parse_error={type(exc).__name__} | url={page_url}")
         return []
 
     candidates: list[tuple[str, str]] = []
@@ -3024,7 +3125,7 @@ def _fetch_one_direct_news_page(
             if (
                 not candidate_ok
                 and is_english_energy_page
-                and blind_energy_candidates < 100
+                and blind_energy_candidates < 160
                 and len(title.strip()) >= 14
                 and _looks_like_article_candidate_url(link)
             ):
@@ -3039,14 +3140,17 @@ def _fetch_one_direct_news_page(
         candidates.append((link, title))
 
         # 전문 원자력 매체는 더 많은 최신 링크를 확인
-        page_limit = 300 if is_nuclear_specialist else DIRECT_PAGE_MAX_LINKS
+        page_limit = 400 if is_nuclear_specialist else DIRECT_PAGE_MAX_LINKS
         if len(candidates) >= page_limit:
             break
 
     if not candidates:
+        print(f"[SOURCE PAGE] {publisher} | links={len(parser.links)} | candidates=0 | accepted=0 | url={page_url}")
         return []
 
     articles: list[Article] = []
+    opened = 0
+    article_errors = 0
     workers = min(DIRECT_PAGE_WORKERS, len(candidates))
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = [
@@ -3063,13 +3167,17 @@ def _fetch_one_direct_news_page(
         for future in as_completed(futures):
             try:
                 article = future.result()
+                opened += 1
             except Exception:
+                article_errors += 1
                 continue
             if article and start <= article.published < end:
                 articles.append(article)
 
-    if articles:
-        print(f"[PAGE] {publisher}: {len(articles)} article(s)")
+    print(
+        f"[SOURCE PAGE] {publisher} | links={len(parser.links)} | candidates={len(candidates)} "
+        f"| opened={opened} | errors={article_errors} | accepted={len(articles)} | url={page_url}"
+    )
     return articles
 
 
@@ -3108,9 +3216,14 @@ def fetch_articles(start: datetime, end: datetime) -> list[Article]:
 
     ko_count = sum(1 for article in fetched if article.language == "ko")
     en_count = sum(1 for article in fetched if article.language == "en")
+    overseas_publishers = sorted({article.publisher for article in fetched if article.language == "en"})
     print(
         f"[COLLECT] raw={len(fetched)} / ko={ko_count} / en={en_count} "
         f"/ rss={len(rss_articles)} / pages={len(page_articles)} / RAW_REVIEW_MODE=ON"
+    )
+    print(
+        f"[OVERSEAS COVERAGE] active_publishers={len(overseas_publishers)} / "
+        f"publishers={', '.join(overseas_publishers) if overseas_publishers else '-'}"
     )
     return fetched
 
