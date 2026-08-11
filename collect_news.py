@@ -3424,22 +3424,25 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   data-search="{escape(search_text)}"
   tabindex="0" role="link">
   <div class="preview-copy">
-    <div class="meta-row">
-      <div class="meta-left">
-        <span class="article-order-inline">{number}</span>
-        <span class="meta-divider">·</span>
-        <div class="publisher">{escape(article.publisher)}</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    <div class="article-order-column">
+      <span class="article-order-inline">{number}</span>
     </div>
-    <div class="headline">{new_badge}{escape(article.title)}</div>
-    {snippet_html}
+    <div class="article-text-column">
+      <div class="meta-row">
+        <div class="meta-left">
+          <div class="publisher">{escape(article.publisher)}</div>
+          <span class="meta-divider">·</span>
+          <div class="status-inline">
+            <span class="unread-label">안읽음</span>
+            <span class="read-label">읽음</span>
+            <span class="important-label">중요</span>
+          </div>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사">★</button>
+      </div>
+      <div class="headline">{new_badge}{escape(article.title)}</div>
+      {snippet_html}
+    </div>
   </div>
   <div class="card-side">
     <div class="preview-image">{image_html}</div>
@@ -3985,13 +3988,13 @@ main {{ padding: 12px 12px 34px; }}
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) 86px; gap:6px; align-items:stretch; min-height:98px; padding:3px 2px 3px 6px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 2px 7px rgba(15,23,42,.05); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
-.preview-card.read .headline {{ display:-webkit-box; overflow:hidden; margin:0; padding-left:20px; color:#0b57d0; font-size:12.8px; font-weight:750; line-height:1.27; letter-spacing:-0.08px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
-.preview-card.read .publisher {{ flex:0 1 auto; min-width:0; max-width:48%; color:#475467; font-size:9.5px; font-weight:800; line-height:1.05; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
-.preview-card.read .article-snippet {{ display:-webkit-box; overflow:hidden; margin-top:2px; padding-left:20px; color:#5f6672; font-size:9.6px; line-height:1.34; letter-spacing:-0.03px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
+.preview-card.read .headline {{ display:-webkit-box; overflow:hidden; margin:0; padding-left:0; color:#0b57d0; font-size:12.8px; font-weight:750; line-height:1.27; letter-spacing:-0.08px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
+.preview-card.read .publisher {{ flex:0 1 auto; min-width:0; color:#475467; font-size:9.5px; font-weight:800; line-height:1.05; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+.preview-card.read .article-snippet {{ display:-webkit-box; overflow:hidden; margin-top:2px; padding-left:0; color:#5f6672; font-size:9.6px; line-height:1.34; letter-spacing:-0.03px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }}
 
 .preview-card.important {{ border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }}
 .article-number {{ display:none; }}
-.preview-copy {{ display:flex; flex-direction:column; justify-content:flex-start; min-width:0; min-height:98px; padding:2px 0 2px 0; overflow:visible; gap:0; }}
+.preview-copy {{ display:grid; grid-template-columns:18px minmax(0,1fr); column-gap:4px; min-width:0; min-height:98px; padding:2px 0; overflow:visible; }}
 .publisher {{ overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }}
 .headline {{ display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
 .article-snippet {{ display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }}
@@ -4231,7 +4234,7 @@ header,
 
 .publisher-row {{ display:contents; }}
 
-.article-order-inline {{ flex:0 0 auto; color:#667085; font-size:9px; font-weight:800; line-height:1; }}
+.article-order-inline {{ display:block; color:#667085; font-size:9px; font-weight:800; line-height:1.1; white-space:nowrap; }}
 
 @media (min-width:768px) {{
   .preview-card {{ grid-template-columns:minmax(0,1fr) 96px; gap:10px; min-height:112px; padding:3px 4px 3px 10px; border-radius:0; }}
@@ -4260,6 +4263,17 @@ header,
 
 @media (min-width:768px) {{
   .headline, .article-snippet {{ padding-left:24px; }}
+}}
+
+.article-order-column {{ grid-column:1; display:flex; align-items:flex-start; justify-content:flex-start; padding-top:2px; min-width:0; }}
+
+.article-text-column {{ grid-column:2; min-width:0; display:flex; flex-direction:column; justify-content:flex-start; overflow:visible; }}
+
+@media (min-width:768px) {{
+  .preview-copy {{ grid-template-columns:20px minmax(0,1fr); column-gap:5px; }}
+  .article-order-column {{ padding-top:2px; }}
+  .article-order-inline {{ font-size:10px; }}
+  .headline, .article-snippet {{ padding-left:0 !important; }}
 }}
 
 </style>
