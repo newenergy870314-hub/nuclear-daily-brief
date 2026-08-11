@@ -3393,6 +3393,8 @@ def detect_article_country(article: Article) -> str:
 
 
 def render_card(article: Article, number: int, is_new: bool = False) -> str:
+    ensure_article_display_metadata(article)
+
     if article.image:
         image_html = (
             f'<img src="{escape(article.image)}" alt="" '
@@ -3402,10 +3404,11 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
         image_html = '<div class="no-image">NUCLEAR<br>NEWS</div>'
 
     new_badge = '<span class="new-badge">NEW</span>' if is_new else ''
+    snippet_text = article.description.strip()
     snippet_html = (
-        f'<div class="article-snippet">{escape(article.description)}</div>'
-        if article.description
-        else ''
+        f'<div class="article-snippet">{escape(snippet_text)}</div>'
+        if snippet_text
+        else '<div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>'
     )
     search_text = ' '.join(
         [article.title, article.publisher, article.group, article.description]
@@ -3427,18 +3430,20 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
     <div class="article-order-column">
       <span class="article-order-inline">{number}.</span>
     </div>
-    <div class="meta-content">
-      <div class="publisher">{escape(article.publisher)}</div>
-      <span class="meta-divider">·</span>
-      <div class="status-inline">
-        <span class="unread-label">안읽음</span>
-        <span class="read-label">읽음</span>
-        <span class="important-label">중요</span>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">{escape(article.publisher)}</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
       </div>
+      <div class="headline">{new_badge}{escape(article.title)}</div>
+      {snippet_html}
     </div>
     <button class="important-button" type="button" aria-label="중요 기사">★</button>
-    <div class="headline">{new_badge}{escape(article.title)}</div>
-    {snippet_html}
   </div>
   <div class="card-side">
     <div class="preview-image">{image_html}</div>
@@ -3567,11 +3572,81 @@ def article_to_dict(article: Article) -> dict:
     }
 
 
+
+def infer_publisher_from_url(*urls: str) -> str:
+    """기사/원본 URL의 호스트를 설정된 매체 목록과 대조해 언론사명을 복원합니다."""
+    configured_sources: list[tuple[str, str]] = []
+
+    try:
+        configured_sources.extend(
+            (publisher, url)
+            for publisher, url, _language in DIRECT_NEWS_PAGES
+        )
+    except Exception:
+        pass
+
+    try:
+        configured_sources.extend(
+            (publisher, url)
+            for publisher, url in DIRECT_RSS_FEEDS
+        )
+    except Exception:
+        pass
+
+    host_to_publisher: dict[str, str] = {}
+    for publisher, source in configured_sources:
+        host = urlparse(source).netloc.lower().split(":", 1)[0]
+        if host.startswith("www."):
+            host = host[4:]
+        if host and publisher:
+            host_to_publisher.setdefault(host, publisher)
+
+    for raw_url in urls:
+        if not raw_url:
+            continue
+        try:
+            host = urlparse(raw_url).netloc.lower().split(":", 1)[0]
+        except Exception:
+            continue
+        if host.startswith("www."):
+            host = host[4:]
+        if not host:
+            continue
+
+        if host in host_to_publisher:
+            return host_to_publisher[host]
+
+        # rss.example.com / news.example.com 같은 서브도메인도 동일 매체로 인식
+        for known_host, publisher in host_to_publisher.items():
+            if host.endswith("." + known_host) or known_host.endswith("." + host):
+                return publisher
+
+    return ""
+
+
+def ensure_article_display_metadata(article: Article) -> None:
+    """과거 archive 등에서 비어 있는 표시용 언론사명을 안전하게 복원합니다."""
+    if not article.publisher.strip():
+        article.publisher = infer_publisher_from_url(
+            article.link,
+            article.source_url,
+        )
+
+    if not article.publisher.strip():
+        article.publisher = "출처 미확인"
+
+
 def article_from_dict(data: dict) -> Article | None:
     try:
         title = str(data.get("title", ""))
-        publisher = str(data.get("publisher", ""))
+        publisher = str(data.get("publisher", "")).strip()
         source_url = str(data.get("source_url", ""))
+        link = str(data.get("link", ""))
+
+        if not publisher:
+            publisher = infer_publisher_from_url(link, source_url)
+        if not publisher:
+            publisher = "출처 미확인"
 
         # 과거 archive에 이미 저장된 무관·광고·유해 기사도 표시하지 않음
         if not is_news_source(publisher, source_url, title):
@@ -3590,7 +3665,7 @@ def article_from_dict(data: dict) -> Article | None:
 
         return Article(
             title=title,
-            link=str(data.get("link", "")),
+            link=link,
             published=date_parser.parse(str(data.get("published", ""))).astimezone(KST),
             language=str(data.get("language", "")),
             group=group_name,
@@ -4282,6 +4357,176 @@ header,
   .important-button {{ width:22px; height:20px; font-size:15px; line-height:20px; }}
   .headline {{ margin-top:2px; padding:0 !important; }}
   .article-snippet {{ margin-top:3px; padding:0 !important; }}
+}}
+
+
+/* === FINAL ARTICLE CARD ALIGNMENT ===
+   1열 번호 / 2열 본문 / 3열 즐겨찾기.
+   언론사·제목·미리보기는 모두 2열의 동일한 x축에서 시작합니다. */
+.preview-card {{
+  grid-template-columns:minmax(0,1fr) 86px;
+  gap:6px;
+  min-height:98px;
+  padding:3px 2px 3px 6px;
+  border-radius:0;
+}}
+.preview-copy {{
+  display:grid;
+  grid-template-columns:18px minmax(0,1fr) 20px;
+  column-gap:4px;
+  min-width:0;
+  min-height:98px;
+  padding:2px 0;
+  align-content:start;
+  overflow:visible;
+}}
+.article-order-column {{
+  grid-column:1;
+  grid-row:1;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-start;
+  padding-top:1px;
+  white-space:nowrap;
+}}
+.article-order-inline {{
+  color:#475467;
+  font-size:9.5px;
+  font-weight:800;
+  line-height:18px;
+}}
+.article-content-column {{
+  grid-column:2;
+  grid-row:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+}}
+.meta-row {{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  height:18px;
+  gap:3px;
+  margin:0 0 2px 0;
+  overflow:hidden;
+}}
+.publisher {{
+  flex:0 1 auto;
+  min-width:0;
+  color:#475467;
+  font-size:9.5px;
+  font-weight:800;
+  line-height:1.05;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}}
+.meta-divider {{
+  flex:0 0 auto;
+  color:#b0b7c3;
+  font-size:9px;
+}}
+.status-inline {{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  font-size:9px;
+  line-height:1;
+  white-space:nowrap;
+}}
+.important-button {{
+  grid-column:3;
+  grid-row:1;
+  align-self:start;
+  justify-self:end;
+  width:20px;
+  height:18px;
+  margin:0;
+  padding:0;
+  border:0;
+  background:transparent;
+  font-size:14px;
+  line-height:18px;
+}}
+.headline {{
+  display:-webkit-box;
+  margin:2px 0 0;
+  padding:0 !important;
+  color:#0b57d0;
+  font-size:12.8px;
+  font-weight:750;
+  line-height:1.27;
+  overflow:hidden;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}}
+.article-snippet {{
+  display:-webkit-box;
+  margin:2px 0 0;
+  padding:0 !important;
+  color:#5f6672;
+  font-size:9.6px;
+  line-height:1.34;
+  overflow:hidden;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}}
+.article-snippet-empty {{
+  color:#98a2b3;
+  font-style:normal;
+}}
+.card-side {{
+  width:86px;
+  min-width:86px;
+}}
+.preview-image {{
+  width:86px;
+  height:98px;
+  min-height:98px;
+  border-radius:0;
+}}
+
+@media (min-width:768px) {{
+  .preview-card {{
+    grid-template-columns:minmax(0,1fr) 96px;
+    gap:8px;
+    min-height:106px;
+    padding:4px 3px 4px 8px;
+  }}
+  .preview-copy {{
+    grid-template-columns:20px minmax(0,1fr) 22px;
+    column-gap:5px;
+    min-height:106px;
+  }}
+  .article-order-inline, .publisher, .status-inline {{
+    font-size:10px;
+  }}
+  .meta-row {{
+    height:20px;
+  }}
+  .important-button {{
+    width:22px;
+    height:20px;
+    font-size:15px;
+    line-height:20px;
+  }}
+  .headline {{
+    font-size:13.5px;
+  }}
+  .article-snippet {{
+    font-size:10px;
+  }}
+  .card-side {{
+    width:96px;
+    min-width:96px;
+  }}
+  .preview-image {{
+    width:96px;
+    height:106px;
+    min-height:106px;
+  }}
 }}
 
 </style>
@@ -5057,6 +5302,11 @@ def main() -> int:
 
     # 실제 화면에 표시할 기사만 대상으로 원문 대표 이미지/설명을 병렬 보완
     enrich_article_metadata(articles_by_period)
+
+    # 과거 archive에서 비어 있던 언론사명도 URL 기준으로 복원
+    for items in articles_by_period.values():
+        for article in items:
+            ensure_article_display_metadata(article)
 
     # 대표 이미지를 로컬 파일로 저장해 외부 이미지 차단/로딩 실패를 줄입니다.
     cache_article_thumbnails(articles_by_period)
