@@ -4529,6 +4529,24 @@ header,
   }}
 }}
 
+/* === FINAL PREVIEW TEXT SIZE === */
+.article-snippet {{
+  font-size:11px !important;
+  line-height:1.38 !important;
+  margin-top:3px !important;
+}}
+.article-snippet-empty {{
+  font-size:10.5px !important;
+}}
+
+@media (min-width:768px) {{
+  .article-snippet {{
+    font-size:11.5px !important;
+    line-height:1.40 !important;
+    margin-top:3px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
