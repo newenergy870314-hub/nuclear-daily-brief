@@ -169,9 +169,9 @@ main { padding: 12px 12px 34px; }
 .news-group.collapsed .article-stack { display: none; }
 .preview-card { position:relative; display:grid; grid-template-columns:minmax(0,1fr) 86px; gap:6px; align-items:stretch; min-height:98px; padding:3px 2px 3px 6px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 2px 7px rgba(15,23,42,.05); overflow:visible; transition:opacity .15s ease, background .15s ease; }
 .preview-card.read { background: #ebeff3; opacity: .92; }
-.preview-card.read .headline { display:-webkit-box; overflow:hidden; margin:0; color:#0b57d0; font-size:12.8px; font-weight:750; line-height:1.27; letter-spacing:-0.08px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.preview-card.read .headline { display:-webkit-box; overflow:hidden; margin:0; padding-left:20px; color:#0b57d0; font-size:12.8px; font-weight:750; line-height:1.27; letter-spacing:-0.08px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
 .preview-card.read .publisher { flex:0 1 auto; min-width:0; max-width:48%; color:#475467; font-size:9.5px; font-weight:800; line-height:1.05; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.preview-card.read .article-snippet { display:-webkit-box; overflow:hidden; margin-top:2px; color:#5f6672; font-size:9.6px; line-height:1.34; letter-spacing:-0.03px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.preview-card.read .article-snippet { display:-webkit-box; overflow:hidden; margin-top:2px; padding-left:20px; color:#5f6672; font-size:9.6px; line-height:1.34; letter-spacing:-0.03px; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
 
 .preview-card.important { border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }
 .article-number { display:none; }
@@ -442,6 +442,10 @@ header,
   .preview-image { width:96px; height:106px; min-height:106px; }
 }
 
+@media (min-width:768px) {
+  .headline, .article-snippet { padding-left:24px; }
+}
+
 </style>
 </head>
 <body>
@@ -452,7 +456,7 @@ header,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 11. 10:15 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 11. 10:35 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"></div>
       <div class="tabs"><button class="tab-button" type="button" data-tab="전일">전일</button><button class="tab-button active" type="button" data-tab="금일">금일</button><button class="tab-button" type="button" data-tab="익일">익일</button></div>
       <div class="utility-row">
@@ -2380,7 +2384,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a9a7a7a0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c449f7fafc0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -7593,7 +7597,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44a0d51568&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44aeafe1b8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7626,7 +7630,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c44ae28f6f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c44aaa34150&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7659,7 +7663,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a8835608&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a1292748&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -8118,7 +8122,7 @@ header,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.sentv.co.kr/article/view/sentv202608110045"
   data-title="삼성물산, 성수3지구 수의계약 코앞…목동10단지 현대건설 단독 응찰"
   data-publisher="서울경제TV"
@@ -8143,7 +8147,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>삼성물산, 성수3지구 수의계약 코앞…목동10단지 현대건설 단독 응찰</div>
+    <div class="headline">삼성물산, 성수3지구 수의계약 코앞…목동10단지 현대건설 단독 응찰</div>
     <div class="article-snippet">서울 주요 정비사업지인 성수3지구와 목동10단지 시공사 입찰에 각각 삼성물산과 현대건설이 단독 참여하면서 수주 가능성이 높아지고 있다. 11일 정</div>
   </div>
   <div class="card-side">
@@ -8202,7 +8206,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371132"
   data-title="전남·광주, 반도체 전력 대안 ‘SMR’ 주목…기장서 유치 노하우 청취"
   data-publisher="전기신문"
@@ -8227,7 +8231,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>전남·광주, 반도체 전력 대안 ‘SMR’ 주목…기장서 유치 노하우 청취</div>
+    <div class="headline">전남·광주, 반도체 전력 대안 ‘SMR’ 주목…기장서 유치 노하우 청취</div>
     <div class="article-snippet">호남권 반도체 산업의 전력 공급 대안으로 소형모듈원자로(SMR)을 살펴보기 위한 현장 간담회가 지난 7일 고리원자력본부 최인접 지역인 길천리 마을회관에서 열렸다.전남·광주지역에서 온 참석자들은 최근 혁신형 소형모듈원자로(i-SMR) 부지로 선정된 기장의 유치 과정과 주민 수용성 확보 경험을 들었다.이날 간담회에는 ‘전남광주 SMR-AI 에너지 포럼’ 회원 13명과 이창호 고리원자력안전협의회 위원장, 김형칠 장안읍이장협회의회 회장, 한국수력원자력 고리본부, 기장군 원전정책과 관계자 등이 참석했다.포럼 측이 기장을 찾은 배경에는 호남권 반도체 산업의 전력 문제가 있다.반</div>
   </div>
   <div class="card-side">
@@ -8436,7 +8440,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=259872"
   data-title="[데일리대구경북뉴스] 한울본부, 울진군 쾌적한 의료 인프라 조성 한걸음"
   data-publisher="데일리대구경북뉴스"
@@ -8461,7 +8465,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울본부, 울진군 쾌적한 의료 인프라 조성 한걸음</div>
+    <div class="headline">[데일리대구경북뉴스] 한울본부, 울진군 쾌적한 의료 인프라 조성 한걸음</div>
     <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희, 이하 한울본부)는 지난 7월 울진군의료원(원장 조영래)과 2026년도 ‘공공의료 환자 편의시설 확충 사업’을 위한 협약을 체결했다. 2026년도 ‘공공의료 환자 편의시설 확충 사업’은 2025년도 ‘울진군 공공의료 인프라 현대화 사업’과 연계하여 의료원 내 편의시설 확충 및 시설 개선을 통해 지</div>
   </div>
   <div class="card-side">
@@ -8508,9 +8512,42 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260811_0003744112"
+  data-title="이 대통령 &quot;첨단산업, 경제 대도약 씨앗…추가 발굴 노력 계속돼야&quot;"
+  data-publisher="뉴시스"
+  data-group="SMR"
+  data-language="ko"
+  data-published="1786411963"
+  data-country="KR"
+  data-search="이 대통령 &quot;첨단산업, 경제 대도약 씨앗…추가 발굴 노력 계속돼야&quot; 뉴시스 smr [서울=뉴시스]이인준 기자 = 이재명 대통령은 11일 &quot;균형 발전과 초격차 첨단산업의 과감한 육성을 통해서 국민과 함께 대체불가 대한민국을 만들어 갈 것&quot;이라고 말했다. 이 대통령은 이날 국무회의 모두발언에서 &quot;국토균형발전이 지속적 성장의 토양이라면 초격차 첨단산업 육성은 경제 대도약을 위한 씨앗&quot;이라며 이같이 밝혔다. 이 대통령은 전날 개최한 3대 메가프로젝트 민관합동점검회의와 관련 &quot;정부 수립 이후 최대 프로젝트이다 보니 현실적으로 개선해야 할 부분이 적지 않다&quot;고 했다. 이어 &quot;기존의 낡은 관행이나 불필요한 절차를 과감히 개선 또는 단축하고 조기 투자를 가로막는"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <span class="article-order-inline">1</span>
+        <span class="meta-divider">·</span>
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>이 대통령 &quot;첨단산업, 경제 대도약 씨앗…추가 발굴 노력 계속돼야&quot;</div>
+    <div class="article-snippet">[서울=뉴시스]이인준 기자 = 이재명 대통령은 11일 &quot;균형 발전과 초격차 첨단산업의 과감한 육성을 통해서 국민과 함께 대체불가 대한민국을 만들어 갈 것&quot;이라고 말했다. 이 대통령은 이날 국무회의 모두발언에서 &quot;국토균형발전이 지속적 성장의 토양이라면 초격차 첨단산업 육성은 경제 대도약을 위한 씨앗&quot;이라며 이같이 밝혔다. 이 대통령은 전날 개최한 3대 메가프로젝트 민관합동점검회의와 관련 &quot;정부 수립 이후 최대 프로젝트이다 보니 현실적으로 개선해야 할 부분이 적지 않다&quot;고 했다. 이어 &quot;기존의 낡은 관행이나 불필요한 절차를 과감히 개선 또는 단축하고 조기 투자를 가로막는</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bd939496459f9ae087620ff5.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
@@ -8578,7 +8615,7 @@ header,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.sentv.co.kr/article/view/sentv202608110045"
   data-title="삼성물산, 성수3지구 수의계약 코앞…목동10단지 현대건설 단독 응찰"
   data-publisher="서울경제TV"
@@ -8603,7 +8640,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>삼성물산, 성수3지구 수의계약 코앞…목동10단지 현대건설 단독 응찰</div>
+    <div class="headline">삼성물산, 성수3지구 수의계약 코앞…목동10단지 현대건설 단독 응찰</div>
     <div class="article-snippet">서울 주요 정비사업지인 성수3지구와 목동10단지 시공사 입찰에 각각 삼성물산과 현대건설이 단독 참여하면서 수주 가능성이 높아지고 있다. 11일 정</div>
   </div>
   <div class="card-side">
@@ -8662,7 +8699,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371132"
   data-title="전남·광주, 반도체 전력 대안 ‘SMR’ 주목…기장서 유치 노하우 청취"
   data-publisher="전기신문"
@@ -8687,7 +8724,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>전남·광주, 반도체 전력 대안 ‘SMR’ 주목…기장서 유치 노하우 청취</div>
+    <div class="headline">전남·광주, 반도체 전력 대안 ‘SMR’ 주목…기장서 유치 노하우 청취</div>
     <div class="article-snippet">호남권 반도체 산업의 전력 공급 대안으로 소형모듈원자로(SMR)을 살펴보기 위한 현장 간담회가 지난 7일 고리원자력본부 최인접 지역인 길천리 마을회관에서 열렸다.전남·광주지역에서 온 참석자들은 최근 혁신형 소형모듈원자로(i-SMR) 부지로 선정된 기장의 유치 과정과 주민 수용성 확보 경험을 들었다.이날 간담회에는 ‘전남광주 SMR-AI 에너지 포럼’ 회원 13명과 이창호 고리원자력안전협의회 위원장, 김형칠 장안읍이장협회의회 회장, 한국수력원자력 고리본부, 기장군 원전정책과 관계자 등이 참석했다.포럼 측이 기장을 찾은 배경에는 호남권 반도체 산업의 전력 문제가 있다.반</div>
   </div>
   <div class="card-side">
@@ -8896,7 +8933,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=259872"
   data-title="[데일리대구경북뉴스] 한울본부, 울진군 쾌적한 의료 인프라 조성 한걸음"
   data-publisher="데일리대구경북뉴스"
@@ -8921,7 +8958,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울본부, 울진군 쾌적한 의료 인프라 조성 한걸음</div>
+    <div class="headline">[데일리대구경북뉴스] 한울본부, 울진군 쾌적한 의료 인프라 조성 한걸음</div>
     <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희, 이하 한울본부)는 지난 7월 울진군의료원(원장 조영래)과 2026년도 ‘공공의료 환자 편의시설 확충 사업’을 위한 협약을 체결했다. 2026년도 ‘공공의료 환자 편의시설 확충 사업’은 2025년도 ‘울진군 공공의료 인프라 현대화 사업’과 연계하여 의료원 내 편의시설 확충 및 시설 개선을 통해 지</div>
   </div>
   <div class="card-side">
@@ -8968,9 +9005,42 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260811_0003744112"
+  data-title="이 대통령 &quot;첨단산업, 경제 대도약 씨앗…추가 발굴 노력 계속돼야&quot;"
+  data-publisher="뉴시스"
+  data-group="SMR"
+  data-language="ko"
+  data-published="1786411963"
+  data-country="KR"
+  data-search="이 대통령 &quot;첨단산업, 경제 대도약 씨앗…추가 발굴 노력 계속돼야&quot; 뉴시스 smr [서울=뉴시스]이인준 기자 = 이재명 대통령은 11일 &quot;균형 발전과 초격차 첨단산업의 과감한 육성을 통해서 국민과 함께 대체불가 대한민국을 만들어 갈 것&quot;이라고 말했다. 이 대통령은 이날 국무회의 모두발언에서 &quot;국토균형발전이 지속적 성장의 토양이라면 초격차 첨단산업 육성은 경제 대도약을 위한 씨앗&quot;이라며 이같이 밝혔다. 이 대통령은 전날 개최한 3대 메가프로젝트 민관합동점검회의와 관련 &quot;정부 수립 이후 최대 프로젝트이다 보니 현실적으로 개선해야 할 부분이 적지 않다&quot;고 했다. 이어 &quot;기존의 낡은 관행이나 불필요한 절차를 과감히 개선 또는 단축하고 조기 투자를 가로막는"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <span class="article-order-inline">1</span>
+        <span class="meta-divider">·</span>
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>이 대통령 &quot;첨단산업, 경제 대도약 씨앗…추가 발굴 노력 계속돼야&quot;</div>
+    <div class="article-snippet">[서울=뉴시스]이인준 기자 = 이재명 대통령은 11일 &quot;균형 발전과 초격차 첨단산업의 과감한 육성을 통해서 국민과 함께 대체불가 대한민국을 만들어 갈 것&quot;이라고 말했다. 이 대통령은 이날 국무회의 모두발언에서 &quot;국토균형발전이 지속적 성장의 토양이라면 초격차 첨단산업 육성은 경제 대도약을 위한 씨앗&quot;이라며 이같이 밝혔다. 이 대통령은 전날 개최한 3대 메가프로젝트 민관합동점검회의와 관련 &quot;정부 수립 이후 최대 프로젝트이다 보니 현실적으로 개선해야 할 부분이 적지 않다&quot;고 했다. 이어 &quot;기존의 낡은 관행이나 불필요한 절차를 과감히 개선 또는 단축하고 조기 투자를 가로막는</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bd939496459f9ae087620ff5.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
@@ -14188,7 +14258,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44a0d51568&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44aeafe1b8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -14221,7 +14291,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c44ae28f6f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c44aaa34150&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -14254,7 +14324,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a8835608&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a1292748&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -16562,7 +16632,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a9a7a7a0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c449f7fafc0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -66106,6 +66176,136 @@ header,
   <div class="period-card">
     <strong>2026. 5. 27.</strong>
     <span>2026. 5. 26. 06:00 ~ 2026. 5. 27. 06:00 (KST)</span>
+  </div>
+  <div class="language-section">
+    <div class="group-master-control">
+      <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    </div>
+    
+<section class="news-group collapsed" data-group="현대건설">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">현대건설</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="타 건설사">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">타 건설사</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="한국수력원자력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">한국수력원자력</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="한국전력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">한국전력</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="원전 관계부처">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원전 관계부처</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="원전 대미투자">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원전 대미투자</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="원자력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원자력</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="SMR">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">SMR</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Nuclear Power·Nuclear Energy</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Holtec">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Holtec</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="TerraPower">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">TerraPower</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Westinghouse">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Westinghouse</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Fermi America">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Fermi America</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+  </div>
+</section>
+
+<section class="tab-panel archive-panel" id="archive-2026-05-26" data-archive-date="2026-05-26">
+  <div class="period-card">
+    <strong>2026. 5. 26.</strong>
+    <span>2026. 5. 25. 06:00 ~ 2026. 5. 26. 06:00 (KST)</span>
   </div>
   <div class="language-section">
     <div class="group-master-control">
