@@ -167,15 +167,15 @@ main { padding: 12px 12px 34px; }
 .group-arrow { display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }
 .article-stack { display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }
 .news-group.collapsed .article-stack { display: none; }
-.preview-card { position: relative; display: grid; grid-template-columns: 26px minmax(0,1fr) 88px; gap: 10px; align-items: stretch; min-height: 108px; padding: 9px 10px; border-radius: 18px; background: #fbfaf7; border: 1px solid rgba(35,57,93,.09); box-shadow: 0 3px 10px rgba(15,23,42,.06); overflow: visible; transition: opacity .15s ease, background .15s ease; }
+.preview-card { position:relative; display:grid; grid-template-columns:26px minmax(0,1fr) 88px; gap:10px; align-items:stretch; min-height:104px; padding:2px 10px; border-radius:18px; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 3px 10px rgba(15,23,42,.06); overflow:visible; transition:opacity .15s ease, background .15s ease; }
 .preview-card.read { background: #ebeff3; opacity: .92; }
-.preview-card.read .headline { color: #405a78; }
-.preview-card.read .publisher { color: #667085; font-size: 9px; font-weight: 800; line-height: 1.2; white-space: nowrap; flex: 0 0 auto; }
-.preview-card.read .article-snippet { display: -webkit-box; overflow: hidden; margin-top: 6px; color: #5b6472; font-size: 9.5px; line-height: 1.45; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.preview-card.read .headline { display:-webkit-box; overflow:hidden; margin-top:1px; color:#0b57d0; font-size:13px; font-weight:700; line-height:1.28; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+.preview-card.read .publisher { color:#667085; font-size:9px; font-weight:800; line-height:1.15; white-space:nowrap; flex:0 0 auto; }
+.preview-card.read .article-snippet { display:-webkit-box; overflow:hidden; margin-top:3px; color:#5b6472; font-size:9.5px; line-height:1.38; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
 
 .preview-card.important { border: 2px solid #f2c94c; background: #fffdf3; opacity: 1; }
 .article-number { display: flex; align-items: flex-start; justify-content: center; padding-top: 10px; color: #344054; font-size: 14px; font-weight: 800; }
-.preview-copy { display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; min-height: 108px; padding: 2px 4px 2px 0; overflow: visible; gap: 5px; }
+.preview-copy { display:flex; flex-direction:column; justify-content:flex-start; min-width:0; min-height:104px; padding:0 4px 0 0; overflow:visible; gap:0; }
 .publisher { overflow: hidden; color: #667085; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
 .headline { display: -webkit-box; overflow: hidden; margin-top: 3px; color: #0b57d0; font-size: 13px; font-weight: 700; line-height: 1.32; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .article-snippet { display: -webkit-box; overflow: hidden; margin-top: 5px; color: #5f6368; font-size: 10.5px; font-weight: 400; line-height: 1.42; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
@@ -190,10 +190,10 @@ main { padding: 12px 12px 34px; }
 .preview-card.important .unread-label, .preview-card.important .read-label { display: none; }
 .preview-card.important .important-label { display: inline; }
 .card-side { position: relative; align-self: stretch; width: 88px; min-width: 88px; display: flex; align-items: stretch; justify-content: center; overflow: visible; background: transparent; }
-.important-button { flex: 0 0 auto; width: 20px; height: 20px; padding: 0; border: 0; border-radius: 0; background: transparent; color: #98a2b3; font-size: 12px; font-weight: 800; line-height: 20px; text-align: center; cursor: pointer; box-shadow: none; overflow: visible; margin-left: auto; }
+.important-button { flex:0 0 auto; width:22px; height:22px; padding:0; border:0; border-radius:0; background:transparent; color:#98a2b3; font-size:14px; font-weight:800; line-height:22px; text-align:center; cursor:pointer; box-shadow:none; overflow:visible; margin-left:auto; }
 .important-button:hover { background: rgba(17,24,39,.04); }
 .preview-card.important .important-button { color: #b77900; border: 0; background: transparent; }
-.preview-image { width: 88px; height: 108px; min-height: 108px; align-self: center; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid rgba(35,57,93,.08); border-radius: 0; background: #f4f6f8; }
+.preview-image { width:88px; height:104px; min-height:104px; align-self:stretch; display:flex; align-items:center; justify-content:center; overflow:hidden; border:1px solid rgba(35,57,93,.08); border-radius:0; background:#f4f6f8; }
 .preview-image img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: 50% 50%; }
 .new-badge { display: inline-block; margin-right: 4px; padding: 1px 4px; border-radius: 0; color: white; background: #e5484d; font-size: 8px; font-weight: 900; }
 .no-image { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: 0; color: #6b7280; font-size: 9px; font-weight: 800; line-height: 1.25; text-align: center; }
@@ -353,11 +353,11 @@ header,
   .preview-image { width: 104px; min-height: 148px; }
 }
 
-.meta-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; min-height: 22px; }
+.meta-row { display:flex; align-items:center; justify-content:space-between; gap:5px; min-height:22px; margin:0 0 2px 0; }
 
-.meta-left { min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; row-gap: 2px; }
+.meta-left { min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:5px; row-gap:1px; }
 
-.status-inline { min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 5px; font-size: 9px; line-height: 1.2; }
+.status-inline { min-width:0; display:flex; align-items:center; flex-wrap:wrap; gap:4px; font-size:9px; line-height:1.15; }
 
 @media (min-width: 768px) {
   .preview-copy { min-height: 148px; gap: 8px; }
@@ -380,6 +380,21 @@ header,
   .important-button { width: 22px; height: 22px; font-size: 13px; line-height: 22px; }
 }
 
+@media (min-width:768px) {
+  .preview-copy { gap:0; }
+  .meta-row { min-height:24px; margin-bottom:2px; }
+  .publisher, .status-inline { font-size:10px; }
+  .important-button { width:24px; height:24px; font-size:15px; line-height:24px; }
+  .headline { margin-top:1px; line-height:1.30; }
+  .article-snippet { margin-top:4px; line-height:1.40; }
+}
+
+@media (min-width:768px) {
+  .preview-card { min-height:112px; padding:3px 12px; }
+  .preview-copy { min-height:112px; padding:0 6px 0 0; }
+  .preview-image { height:112px; min-height:112px; align-self:stretch; }
+}
+
 </style>
 </head>
 <body>
@@ -390,7 +405,7 @@ header,
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: 2026. 8. 11. 09:25 (KST)</div>
+      <div class="updated">최종 업데이트: 2026. 8. 11. 09:35 (KST)</div>
       <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"></div>
       <div class="tabs"><button class="tab-button" type="button" data-tab="전일">전일</button><button class="tab-button active" type="button" data-tab="금일">금일</button><button class="tab-button" type="button" data-tab="익일">익일</button></div>
       <div class="utility-row">
@@ -499,7 +514,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16320"
   data-title="현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격"
   data-publisher="ESG경제"
@@ -522,7 +537,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격</div>
+    <div class="headline">현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격</div>
     <div class="article-snippet">[ESG경제신문=김대우 기자] 국내 건설업계 1위 자리를 둘러싼 경쟁 구도가 빠르게 변화하고 있다. 수년째 시공능력평가 1위를 유지해온 삼성물산이 건축·주택 부문의 성장 둔화와 선택적 수주 전략으로 외형 확대 속도가 다소 주춤한 사이, 현대건설이 토목·건축 분야 기성공사 실적에서 선두에 오르며 격차를 빠르게 좁히고 있다. 업계에서는 당장 올해 순위가 뒤바뀌지는 않더라도 향후 시공능력평가 1위 경쟁이 한층 치열해질 것이라는 전망이 나온다.특히 현대건설은 대형 원전과 해외 플랜트, 데이터센터, 도시정비사업 등에서 고른 실적을 내며 안정</div>
   </div>
   <div class="card-side">
@@ -734,7 +749,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70601"
   data-title="폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장"
   data-publisher="에너지타임즈"
@@ -757,7 +772,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장</div>
+    <div class="headline">폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장</div>
     <div class="article-snippet">한국수력원자력(주)(사장 김회천)이 장기화되는 폭염으로부터 현장 근로자를 보호하기 위해 산업안전보건 강조기간이 지난 1일 종료됐으나 최근 폭염이 장기화됨에 따라 자체적으로 강조기간을 오는 31일까지 연장해 운영한다고 밝혔다.이번 조치는 산업안전보건 강조기간 종료 이후 발생할 수 있는 현장 안전관리 공백을 막고 온열질환 예방체계를 지속적으로 유지하기 위한 것으로 김회천 한수원 사장 특별지시로 추진된 것으로 알려졌다.한수원은 연장기간 전사 임직원을 대상으로 안전 특별교육을 실시하고 사업소별 온열질환 예방 캠페인을 추진하</div>
   </div>
   <div class="card-side">
@@ -765,7 +780,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70607"
   data-title="한수원노조 창립 25주년 키워드는?"
   data-publisher="에너지타임즈"
@@ -788,7 +803,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원노조 창립 25주년 키워드는?</div>
+    <div class="headline">한수원노조 창립 25주년 키워드는?</div>
     
   </div>
   <div class="card-side">
@@ -796,7 +811,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70597"
   data-title="한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다"
   data-publisher="에너지타임즈"
@@ -819,7 +834,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다</div>
+    <div class="headline">한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다</div>
     <div class="article-snippet">한수원이 수력·양수발전 주변 초등학생에게 영상 콘텐츠를 직접 기획하고 제작하는 크리에이터 체험 기회를 제공하는 등 미래세대 꿈을 지원했다. 한국수력원자력(주)(사장 김회천)은 수력·양수발전 인근에 거</div>
   </div>
   <div class="card-side">
@@ -827,7 +842,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70601"
   data-title="폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장"
   data-publisher="에너지타임즈"
@@ -850,7 +865,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장</div>
+    <div class="headline">폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장</div>
     <div class="article-snippet">한국수력원자력(주)(사장 김회천)이 장기화되는 폭염으로부터 현장 근로자를 보호하기 위해 산업안전보건 강조기간이 지난 1일 종료됐으나 최근 폭염이 장기화됨에 따라 자체적으로 강조기간을 오는 31일까지 연장해 운영한다고 밝혔다.이번 조치는 산업안전보건 강조기간 종료 이후 발생할 수 있는 현장 안전관리 공백을 막고 온열질환 예방체계를 지속적으로 유지하기 위한 것으로 김회천 한수원 사장 특별지시로 추진된 것으로 알려졌다.한수원은 연장기간 전사 임직원을 대상으로 안전 특별교육을 실시하고 사업소별 온열질환 예방 캠페인을 추진하</div>
   </div>
   <div class="card-side">
@@ -858,7 +873,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34257"
   data-title="한수원, “수력·양수 지역 유소년 크리에이터 꿈 실현”"
   data-publisher="한국원자력신문"
@@ -881,7 +896,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, “수력·양수 지역 유소년 크리에이터 꿈 실현”</div>
+    <div class="headline">한수원, “수력·양수 지역 유소년 크리에이터 꿈 실현”</div>
     <div class="article-snippet">한국수력원자력(사장 김회천, 이하 한수원)이 문화 체험 기회를 접하기 힘든 수력ㆍ양수발전소 주변 지역 유소년들에게 영상 제작 및 편집 방법을 가르치는 ‘크리에이터 영상 제작 프로그램’을 개최해, 지역사회로부터 커다란 공감을 받고 있다.한국수력원자력(사장 김회천, 이하 한수원)은 5일부</div>
   </div>
   <div class="card-side">
@@ -889,7 +904,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70597"
   data-title="한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다"
   data-publisher="에너지타임즈"
@@ -912,7 +927,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다</div>
+    <div class="headline">한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다</div>
     <div class="article-snippet">한수원이 수력·양수발전 주변 초등학생에게 영상 콘텐츠를 직접 기획하고 제작하는 크리에이터 체험 기회를 제공하는 등 미래세대 꿈을 지원했다. 한국수력원자력(주)(사장 김회천)은 수력·양수발전 인근에 거</div>
   </div>
   <div class="card-side">
@@ -920,7 +935,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227302"
   data-title="산업통상자원부 공공기관 2026년 8월 브랜드평판... 한전, 가스공사, 한수원 順"
   data-publisher="에너지신문"
@@ -943,7 +958,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>산업통상자원부 공공기관 2026년 8월 브랜드평판... 한전, 가스공사, 한수원 順</div>
+    <div class="headline">산업통상자원부 공공기관 2026년 8월 브랜드평판... 한전, 가스공사, 한수원 順</div>
     <div class="article-snippet">[에너지신문] 산업통상자원부 공공기관 브랜드평판 2026년 8월 빅데이터 분석결과, 1위 한국전력공사 2위 한국가스공사 3위 한국수력원자력 순으로 분석됐다.한국기업평판연구소는 산업통상자원부 공공기관 41개 브랜드에 대해 2026년 7월 7일부터 2026년 8월 7일까지의 산업통상자원부 공공기관 브랜드 빅데이터 91,102,549개를 분석한 결과 지난 7월 산업통상자원부 공공기관 브랜드 빅데이터 88,893,823개와 비교하면 2.48% 증가했다고 밝혔다.산업통상자원부 공공기관 브랜드평판 1위를 기록한 한국전력공사 브랜드는 참여지수</div>
   </div>
   <div class="card-side">
@@ -951,7 +966,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34255"
   data-title="한수원노조, 창립 제25주년 기념식…‘한국원자력공사’ 설립 추진"
   data-publisher="한국원자력신문"
@@ -974,7 +989,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원노조, 창립 제25주년 기념식…‘한국원자력공사’ 설립 추진</div>
+    <div class="headline">한수원노조, 창립 제25주년 기념식…‘한국원자력공사’ 설립 추진</div>
     <div class="article-snippet">“단순한 발전회사의 틀을 넘어 명실상부한 &#x27;한국원자력공사&#x27; 설립을 향해 우리 모두가 &#x27;에너지 영웅&#x27;이 되어 당당히 행동에 나서겠다”“우리의 단결된 힘과 과감한 실천으로, 대한민국을 넘어 전 세계 청정에너지 시대를 개척하는 자랑스러운 퍼스트 무버(First Mover)가 되자”강창호 한</div>
   </div>
   <div class="card-side">
@@ -982,7 +997,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301369"
   data-title="한수원, 유소년 크리에이터 양성캠프 ʻ아이수(水)크림ʼ 개최"
   data-publisher="투데이에너지"
@@ -1005,7 +1020,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, 유소년 크리에이터 양성캠프 ʻ아이수(水)크림ʼ 개최</div>
+    <div class="headline">한수원, 유소년 크리에이터 양성캠프 ʻ아이수(水)크림ʼ 개최</div>
     <div class="article-snippet">[투데이에너지 이종수 기자] 한국수력원자력(사장 김회천, 이하 한수원)이 수력·양수발전소 주변 지역 유소년 대상 크리에이터 양성캠프인 ‘아이수(水)크림’을 개최했다.‘아이수(水)크림’은 문화 체험 기회가 상대적으로 적은 수력·양수발전소 주변 지역 학생들의 꿈을 지원하기 위해 마련된 사</div>
   </div>
   <div class="card-side">
@@ -1013,7 +1028,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227304"
   data-title="강창호 한수원노조위원장 &quot;원자력공사 설립 향해 나아가자&quot;"
   data-publisher="에너지신문"
@@ -1036,7 +1051,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>강창호 한수원노조위원장 &quot;원자력공사 설립 향해 나아가자&quot;</div>
+    <div class="headline">강창호 한수원노조위원장 &quot;원자력공사 설립 향해 나아가자&quot;</div>
     <div class="article-snippet">[에너지신문] 한국수력원자력노동조합이 창립 25주년을 맞아 조합원 권익 보호를 넘어 국내 원자력 산업의 미래 경쟁력 강화에 적극 나서겠다는 비전을 제시했다. 특히 강창호 위원장은 기존 발전사 체제를 넘어서는 &#x27;한국원자력공사&#x27; 설립 구상을 제안, 원자력 산업의 새로운 청사진을 제시했다.</div>
   </div>
   <div class="card-side">
@@ -1106,7 +1121,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70606"
   data-title="노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답"
   data-publisher="에너지타임즈"
@@ -1129,7 +1144,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답</div>
+    <div class="headline">노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답</div>
     <div class="article-snippet">한수원노조 창립 25주년을 맞아 노조는 단순한 발전회사 틀을 넘어 ‘한국원자력공사’ 설립이란 목표를 제시했고, 사측은 큰 뜻을 품고 난관을 극복해 목표를 이룬다는 의미를 담은 사자성어인 ‘승풍파랑(乘風破浪)’으로 화답했다. 세계 에너지시장에서 한수원의 역할과 기능을 확대해 글로벌 경쟁력을 높여야 한다는 노사의 지향점은 같았다.</div>
   </div>
   <div class="card-side">
@@ -1137,7 +1152,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70598"
   data-title="한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화"
   data-publisher="에너지타임즈"
@@ -1160,7 +1175,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
+    <div class="headline">한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
     <div class="article-snippet">한국수력원자력(주) 한빛원자력본부(본부장 김현주)가 원전 주변 불법 드론 비행을 예방하기 위해 24시간 탐지체계를 운영하는 한편 원전과 인접한 해수욕장을 중심으로 집중적인 홍보하는 ‘드론 비행 금지 특별홍보 캠페인’을 지난 27일부터 28일까지 한빛원전과 인접한 가마미·구시포해수욕장에서 펼쳤다. 이 캠페인은 영광경찰서·고창경찰서·목포해양경찰서·부안해안경찰서·의용소방대를 비롯한 유관기관과 해수욕장 운영 관계자들이 함께 원전 주변 드론 비행 관련 규정과 주의 사항을 안내하는 것으로 진행됐다.</div>
   </div>
   <div class="card-side">
@@ -1168,7 +1183,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70598"
   data-title="한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화"
   data-publisher="에너지타임즈"
@@ -1191,7 +1206,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
+    <div class="headline">한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
     <div class="article-snippet">한국수력원자력(주) 한빛원자력본부(본부장 김현주)가 원전 주변 불법 드론 비행을 예방하기 위해 24시간 탐지체계를 운영하는 한편 원전과 인접한 해수욕장을 중심으로 집중적인 홍보하는 ‘드론 비행 금지 특별홍보 캠페인’을 지난 27일부터 28일까지 한빛원전과 인접한 가마미·구시포해수욕장에서 펼쳤다. 이 캠페인은 영광경찰서·고창경찰서·목포해양경찰서·부안해안경찰서·의용소방대를 비롯한 유관기관과 해수욕장 운영 관계자들이 함께 원전 주변 드론 비행 관련 규정과 주의 사항을 안내하는 것으로 진행됐다.</div>
   </div>
   <div class="card-side">
@@ -1199,7 +1214,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371122"
   data-title="원전현장인력양성원,‘원전정비원자격제도’정부인정 공식 취득"
   data-publisher="전기신문"
@@ -1222,7 +1237,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>원전현장인력양성원,‘원전정비원자격제도’정부인정 공식 취득</div>
+    <div class="headline">원전현장인력양성원,‘원전정비원자격제도’정부인정 공식 취득</div>
     <div class="article-snippet">원전 현장실습 전문 교육기관인 (재)원전현장인력양성원(원장 이인식)은 한국수력원자력과 공동 운영하는 ‘원전정비원자격제도’가 지난 4일 고용노동부 산하 한국산업인력공단으로부터 정부인정을 공식 취득했다고 밝혔다.이번 정부인정으로 원전 정비분야 자격평가의 객관성과 공신력을 확보하고, 국내 원전 설비 운영과 정비의 신뢰성을 높일 수 있는 제도적 기반도 마련됐다.이번에 정부인정을 받은 자격제도는 그동안 원전 정비협력사별로 분산 운영되던 사내 자격제도를 하나로 통합한 최초의 표준화 모델이다. 양 기관은 현장 맞춤형 자격평가를 위해 지난 3년간</div>
   </div>
   <div class="card-side">
@@ -1230,7 +1245,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34252"
   data-title="고난도 원전 정비분야 ‘원전정비원자격제도’ 정부 인정 취득"
   data-publisher="한국원자력신문"
@@ -1253,7 +1268,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>고난도 원전 정비분야 ‘원전정비원자격제도’ 정부 인정 취득</div>
+    <div class="headline">고난도 원전 정비분야 ‘원전정비원자격제도’ 정부 인정 취득</div>
     <div class="article-snippet">고난도의 정비 기술과 역량이 요구되는 원전 정비 현장 종사자들의 ‘원전정비원자격제도’가 정식으로 정부로 부터 공식 인정받았다. 원전 현장실습 전문 교육기관인 (재)원전현장인력양성원(원장 이인식)이 한국수력원자력(주)와 공동 운영하는 ‘원전정비원자격제도’를 고용노동부 산하 한국산업인력공</div>
   </div>
   <div class="card-side">
@@ -1267,7 +1282,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -1332,7 +1347,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="/news/articleView.html?idxno=32990"
   data-title="한국전력, e신산업 이끌 ‘한전기술지주’ 공식 출범"
   data-publisher="전력경제신문"
@@ -1355,7 +1370,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한국전력, e신산업 이끌 ‘한전기술지주’ 공식 출범</div>
+    <div class="headline">한국전력, e신산업 이끌 ‘한전기술지주’ 공식 출범</div>
     <div class="article-snippet">“K-에너지 유니콘 반드시 키워낼 것” 한전 기술·인프라와 민간의 역량 융합기업 성장 디딤돌 완결형 플랫폼 구축2050년 31경 원 글로벌 e신시장 선도 한국전력이 에너지 신산업 생태계를 주도할 ‘한전기술지주’를 7일 공식 출범하고 본격적인 사업 추진에 나섰다.본사 비전홀에서 진행된 이날 행사에는 기후</div>
   </div>
   <div class="card-side">
@@ -1363,7 +1378,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34253"
   data-title="한전, 에너지기업 육성 전담 ‘한전기술지주’ 출범"
   data-publisher="한국원자력신문"
@@ -1386,7 +1401,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한전, 에너지기업 육성 전담 ‘한전기술지주’ 출범</div>
+    <div class="headline">한전, 에너지기업 육성 전담 ‘한전기술지주’ 출범</div>
     <div class="article-snippet">한국전력이 에너지 분야 벤처·스타트업의 기술 사업화와 시장 진출을 지원하는 ‘한전기술지주’를 공식 출범했다.한전은 7일 본사 비전홀에서 출범식을 열고 한전기술지주의 사업 추진 방향과 단계별 로드맵을 공개했다.행사에는 김성환 기후에너지환경부 장관과 더불어민주당 신정훈·정진욱 의원, 고광</div>
   </div>
   <div class="card-side">
@@ -1394,7 +1409,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=312843"
   data-title="한전 특허 8000여건 사업화…&#x27;한전기술지주&#x27; 공식 출범 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -1417,7 +1432,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한전 특허 8000여건 사업화…&#x27;한전기술지주&#x27; 공식 출범 - 건설타임즈</div>
+    <div class="headline">한전 특허 8000여건 사업화…&#x27;한전기술지주&#x27; 공식 출범 - 건설타임즈</div>
     <div class="article-snippet">(건설타임즈) 박상민 기자 = 한국전력이 에너지 공공기술을 민간 혁신기업과 연결하기 위한 전문 투자·사업화 플랫폼을 출범시킨다.한전이 100% 출자한 ‘한전기술지</div>
   </div>
   <div class="card-side">
@@ -1425,7 +1440,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301348"
   data-title="한전, 에너지 신산업 이끌 ‘ 한전기술지주’ 공식 출범"
   data-publisher="투데이에너지"
@@ -1448,7 +1463,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한전, 에너지 신산업 이끌 ‘ 한전기술지주’ 공식 출범</div>
+    <div class="headline">한전, 에너지 신산업 이끌 ‘ 한전기술지주’ 공식 출범</div>
     <div class="article-snippet">[투데이에너지 이종수 기자] 한국전력(사장 김동철, 이하 한전)이 7일 본사 비전홀에서 에너지 신산업 생태계를 주도할 ‘한전기술지주’를 공식 출범하고 본격적인 사업 추진에 나섰다.이날 행사에는 기후에너지환경부 김성환 장관, 더불어민주당 신정훈 의원과 정진욱 의원, 전남광주통합특별시 고</div>
   </div>
   <div class="card-side">
@@ -1456,7 +1471,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371053"
   data-title="전방위적으로 덮쳐오는 위기…한전 하반기 리스크는 무엇?"
   data-publisher="전기신문"
@@ -1479,7 +1494,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>전방위적으로 덮쳐오는 위기…한전 하반기 리스크는 무엇?</div>
+    <div class="headline">전방위적으로 덮쳐오는 위기…한전 하반기 리스크는 무엇?</div>
     <div class="article-snippet">계통한계가격(SMP)이 일평균 150원대에 올라서면서 한국전력의 하반기 적자 리스크가 수면 위로 떠올랐다. 여기에 유럽과의 가스 물량 확보 경쟁, 2027년 말 종료되는 사채발행한도 상향 조치까지 겹치며 한전의 경영 여건이 전방위적으로 압박받을 전망이다.전력거래소에 따르면 지난 3일 육지 기준 일평균 SMP는 kWh당 152.6원을 기록했다. 이 가격대가 유지되면 월평균 SMP가 150원을 넘어서는 것은 2023년 7월 이후 3년 1개월 만으로, 정부가 현 요금 수준에서 한전의 적자 마지노선으로 보는 140원대는 이미 넘어섰다.여름 피크는 아직 오지 않았다. 기후에너</div>
   </div>
   <div class="card-side">
@@ -1487,7 +1502,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371049"
   data-title="한전기술지주 닻 올렸다…‘K-에너지 유니콘 기업’ 육성 본격화"
   data-publisher="전기신문"
@@ -1510,11 +1525,73 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한전기술지주 닻 올렸다…‘K-에너지 유니콘 기업’ 육성 본격화</div>
+    <div class="headline">한전기술지주 닻 올렸다…‘K-에너지 유니콘 기업’ 육성 본격화</div>
     <div class="article-snippet">한국전력이 100% 출자해 설립하는 에너지 투자 전문 기업인 ‘한전기술지주’가 본격 출범했다. 한전기술을 통해 한전과 공공이 보유한 유망 에너지 신기술 및 특허를 민간 혁신 역량과 접목해 창업과 사업화를 지원, 2050년까지 K-에너지 유니콘 기업 10곳을 육성한다는 목표다.기후에너지환경부와 한전은 7일 전남 나주시 한전 본사에서 한전기술지주 출범식을 진행하고, 본격적인 사업에 나선다고 밝혔다. 본사는 나주시 한국전기산업진흥회 에너지밸리기업개발원에 위치한다.한전기술지주가 구축된 이유는 한전이 보유하고 있는 기술과 특허 등을 사업화해 경쟁력 있는 국내 기업을 창출하기</div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d80865a9e0a119c674153203.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000011"
+  data-title="특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786066200"
+  data-country="KR"
+  data-search="특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범 전자신문 한국전력 한국전력이 보유한 8000여건의 특허를 민간에 개방해 에너지 분야 유니콘(거대신생기업) 육성에 나선다. 정부는 기술사업화 전담 플랫폼인 &#x27;한전기술지주&#x27;를 출범시키고 공공기술을 기반으로 사업기획부터 기술이전, 실증, 투자, 제품화, 해외 진출까지 지원하는 완결형 성장체계를 구축한다는 계획이다. 기후에너지환경부는 7일 한국전력 본사에서 김성환 기후부 장관이 참석한 가운데 &#x27;한전기술지주&#x27; 출범식을 개최했다고 밝혔다. 이번 출범식은 에너지 신산업을 이"
+  tabindex="0" role="link">
+  <div class="article-number">9</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">전자신문</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범</div>
+    <div class="article-snippet">한국전력이 보유한 8000여건의 특허를 민간에 개방해 에너지 분야 유니콘(거대신생기업) 육성에 나선다. 정부는 기술사업화 전담 플랫폼인 &#x27;한전기술지주&#x27;를 출범시키고 공공기술을 기반으로 사업기획부터 기술이전, 실증, 투자, 제품화, 해외 진출까지 지원하는 완결형 성장체계를 구축한다는 계획이다. 기후에너지환경부는 7일 한국전력 본사에서 김성환 기후부 장관이 참석한 가운데 &#x27;한전기술지주&#x27; 출범식을 개최했다고 밝혔다. 이번 출범식은 에너지 신산업을 이</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8592fb3e6990f9470f73f5a9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000021"
+  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786060800"
+  data-country="KR"
+  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
+  tabindex="0" role="link">
+  <div class="article-number">10</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">전자신문</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -1524,10 +1601,10 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301370"
   data-title="[인사] 산업통상부 국장급"
   data-publisher="투데이에너지"
@@ -1550,7 +1627,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부 국장급</div>
+    <div class="headline">[인사] 산업통상부 국장급</div>
     <div class="article-snippet">[투데이에너지]■ 국장급 전보▲ 산업정책관(일반직 고위공무원) 남명우(8월 10일자)</div>
   </div>
   <div class="card-side">
@@ -1558,7 +1635,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e2news.com/news/articleView.html?idxno=333062"
   data-title="[인사] 산업통상부"
   data-publisher="이투뉴스"
@@ -1581,7 +1658,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부</div>
+    <div class="headline">[인사] 산업통상부</div>
     <div class="article-snippet">[이투뉴스] 산업통상부 인사◇국장급 전보▲산업정책관 남명우 (현 투자정책관)</div>
   </div>
   <div class="card-side">
@@ -1590,6 +1667,37 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000308"
+  data-title="[인사]산업통상부"
+  data-publisher="전자신문"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-published="1786093266"
+  data-country="KR"
+  data-search="[인사]산업통상부 전자신문 원전 관계부처 한·인도 공학 석학 한자리에…&#x27;차세대 it·창의적 컴퓨팅&#x27; 협력 모색"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">전자신문</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>[인사]산업통상부</div>
+    <div class="article-snippet">한·인도 공학 석학 한자리에…&#x27;차세대 IT·창의적 컴퓨팅&#x27; 협력 모색</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fe6e8eeac7c4a4563f5c2042.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://zdnet.co.kr/view/?no=20260807175817"
   data-title="[인사] 산업통상부"
   data-publisher="ZDNet Korea"
@@ -1599,7 +1707,7 @@ header,
   data-country="KR"
   data-search="[인사] 산업통상부 zdnet korea 원전 관계부처 ◇국장급 전보 ▲산업정책관 남명우..."
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -1612,7 +1720,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부</div>
+    <div class="headline">[인사] 산업통상부</div>
     <div class="article-snippet">◇국장급 전보 ▲산업정책관 남명우...</div>
   </div>
   <div class="card-side">
@@ -1620,7 +1728,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227323"
   data-title="[인사] 산업통상부 (8월 10일자)"
   data-publisher="에너지신문"
@@ -1630,7 +1738,7 @@ header,
   data-country="KR"
   data-search="[인사] 산업통상부 (8월 10일자) 에너지신문 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -1643,7 +1751,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부 (8월 10일자)</div>
+    <div class="headline">[인사] 산업통상부 (8월 10일자)</div>
     
   </div>
   <div class="card-side">
@@ -1669,7 +1777,7 @@ header,
     <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34260"
   data-title="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인"
   data-publisher="한국원자력신문"
@@ -1692,7 +1800,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
+    <div class="headline">김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
     <div class="article-snippet">김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운</div>
   </div>
   <div class="card-side">
@@ -1700,7 +1808,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34250"
   data-title="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행"
   data-publisher="한국원자력신문"
@@ -1723,7 +1831,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
+    <div class="headline">[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
     <div class="article-snippet">한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복</div>
   </div>
   <div class="card-side">
@@ -1731,7 +1839,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ans.org/news/2026-08-07/article-8222/the-transformation-of-the-nrc-50-years-of-commissioners/"
   data-title="The transformation of the NRC: 50 years of commissioners"
   data-publisher="Nuclear Newswire"
@@ -1754,7 +1862,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>The transformation of the NRC: 50 years of commissioners</div>
+    <div class="headline">The transformation of the NRC: 50 years of commissioners</div>
     <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
   </div>
   <div class="card-side">
@@ -1762,7 +1870,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/us-collaboration-to-study-used-nuclear-fuel-recycling"
   data-title="US collaboration to study used nuclear fuel recycling"
   data-publisher="World Nuclear News"
@@ -1785,7 +1893,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>US collaboration to study used nuclear fuel recycling</div>
+    <div class="headline">US collaboration to study used nuclear fuel recycling</div>
     <div class="article-snippet">US advanced nuclear recycling technologies firm Curio has signed a memorandum of understanding with NuScale Power and Framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;</div>
   </div>
   <div class="card-side">
@@ -1793,7 +1901,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ans.org/news/2026-08-07/article-8279/centrus-xenergy-sign-enrichment-contract-as-trisox-expands-tx1-campus/"
   data-title="Centrus, X-energy sign enrichment contract as TRISO-X expands TX-1 campus"
   data-publisher="Nuclear Newswire"
@@ -1816,7 +1924,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Centrus, X-energy sign enrichment contract as TRISO-X expands TX-1 campus</div>
+    <div class="headline">Centrus, X-energy sign enrichment contract as TRISO-X expands TX-1 campus</div>
     <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
   </div>
   <div class="card-side">
@@ -1824,7 +1932,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ans.org/news/2026-08-07/article-8278/undeclared-uranium-hitches-a-ride-on-cobalt-exports-from-congo-study-says/"
   data-title="Undeclared uranium hitches a ride on cobalt exports from Congo, study says"
   data-publisher="Nuclear Newswire"
@@ -1847,7 +1955,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Undeclared uranium hitches a ride on cobalt exports from Congo, study says</div>
+    <div class="headline">Undeclared uranium hitches a ride on cobalt exports from Congo, study says</div>
     <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
   </div>
   <div class="card-side">
@@ -1855,7 +1963,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ans.org/news/2026-08-07/article-8276/ornl-rutherford-energy-ventures-launch-fusion-partnership/"
   data-title="ORNL, Rutherford Energy Ventures launch fusion partnership"
   data-publisher="Nuclear Newswire"
@@ -1878,7 +1986,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>ORNL, Rutherford Energy Ventures launch fusion partnership</div>
+    <div class="headline">ORNL, Rutherford Energy Ventures launch fusion partnership</div>
     <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
   </div>
   <div class="card-side">
@@ -1886,7 +1994,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://asia.nikkei.com/opinion/india-s-nuclear-armed-submarine-accelerates-arms-race-with-pakistan"
   data-title="India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan"
   data-publisher="Nikkei Asia"
@@ -1909,7 +2017,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
+    <div class="headline">India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
     <div class="article-snippet">Despite the Hormuz Strait crisis, global powers must tend to another flashpoint</div>
   </div>
   <div class="card-side">
@@ -1926,7 +2034,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34259"
   data-title="[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자 기반 넓어져"
   data-publisher="한국원자력신문"
@@ -1949,7 +2057,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자 기반 넓어져</div>
+    <div class="headline">[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자 기반 넓어져</div>
     <div class="article-snippet">8월 3일부터 8일까지 원자력 산업에서는 소형모듈원자로(SMR) 세제지원 확대와 국내 공급망 강화, 해외 원전사업 진출이 주요 흐름으로 나타났다.국내에서는 SMR을 국가전략기술로 육성하기 위한 세제지원이 구체화되고 있으며, 창원을 중심으로 제조·시험·실증 기반을 갖추려는 움직임도 이어</div>
   </div>
   <div class="card-side">
@@ -1966,7 +2074,7 @@ header,
     <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energyintel.com/0000019f-dc2f-da40-a59f-dd2f00e00000"
   data-title="Saudi OSPs Reflect Market Repricing Mideast Supply Risk"
   data-publisher="Energy Intelligence"
@@ -1989,7 +2097,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Saudi OSPs Reflect Market Repricing Mideast Supply Risk</div>
+    <div class="headline">Saudi OSPs Reflect Market Repricing Mideast Supply Risk</div>
     <div class="article-snippet">Official selling prices for September-loading cargoes to Asia are the first to be released after the Mideast ceasefire collapsed last month.</div>
   </div>
   <div class="card-side">
@@ -1997,7 +2105,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/indian-parliamentarians-stress-urgency-for-uranium-projects"
   data-title="Indian parliamentarians stress urgency for uranium projects"
   data-publisher="World Nuclear News"
@@ -2020,7 +2128,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Indian parliamentarians stress urgency for uranium projects</div>
+    <div class="headline">Indian parliamentarians stress urgency for uranium projects</div>
     <div class="article-snippet">The expansion of uranium mining projects in India needs to be accelerated, a parliamentary committee has said. ;</div>
   </div>
   <div class="card-side">
@@ -2028,7 +2136,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/newcleo-sets-out-plan-for-licensing-of-us-mox-plant"
   data-title="Newcleo sets out plan for licensing of US MOX plant"
   data-publisher="World Nuclear News"
@@ -2051,7 +2159,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Newcleo sets out plan for licensing of US MOX plant</div>
+    <div class="headline">Newcleo sets out plan for licensing of US MOX plant</div>
     <div class="article-snippet">France-headquartered innovative nuclear energy company Newcleo has submitted a Regulatory Engagement Plan to the US Nuclear Regulatory Commission for its planned mixed-oxide fuel manufacturing facility in the USA. ;</div>
   </div>
   <div class="card-side">
@@ -2059,7 +2167,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.nucnet.org/news/tagged/Russia"
   data-title="NucNet | Independent Nuclear News"
   data-publisher="NucNet"
@@ -2082,11 +2190,11 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>NucNet | Independent Nuclear News</div>
+    <div class="headline">NucNet | Independent Nuclear News</div>
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a804ec00&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44aebf4b80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -6991,7 +7099,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44a2a23268&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44a0dc8118&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7022,7 +7130,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c44a887e1f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c449f6f1160&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7053,7 +7161,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44aa0238a0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a1669268&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7119,7 +7227,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://tradingeconomics.com/commodity/uranium"
   data-title="Trading Economics"
   data-publisher="Nuclear Newswire"
@@ -7142,7 +7250,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Trading Economics</div>
+    <div class="headline">Trading Economics</div>
     <div class="article-snippet">Uranium rose to 86.80 USD/Lbs on August 10, 2026, up 0.35% from the previous day. Over the past month, Uranium&#x27;s price has risen 1.40%, and is up 20.22% compared to the same time last year, according to trading on a contract for difference (CFD) that tracks the benchmark market for this commodity. Uranium - values, his</div>
   </div>
   <div class="card-side">
@@ -7488,7 +7596,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105633"
   data-title="&#x27;빅브랜드의 힘&#x27; 삼성물산·현대건설, 각각 성수·목동 정비사업 수의계약 앞둬"
   data-publisher="더구루"
@@ -7511,7 +7619,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>&#x27;빅브랜드의 힘&#x27; 삼성물산·현대건설, 각각 성수·목동 정비사업 수의계약 앞둬</div>
+    <div class="headline">&#x27;빅브랜드의 힘&#x27; 삼성물산·현대건설, 각각 성수·목동 정비사업 수의계약 앞둬</div>
     <div class="article-snippet">[더구루=김수현 기자] 서울 주요 정비사업지에서 대형 건설사 간 경쟁이 사라지고 있다. 중견 건설사들이 삼성물산과 현대건설 등 빅브랜드 건설사와의 경쟁을 피하면서 상위 건설사들만 &#x27;무혈입성&#x27;에 나서고 있다. 11일 정비업계에 따르면 전날 마감된 성동구 성수전략정비구역 제3지구(성수3지구) 재개발 입찰에 1차에 이어 2차 입찰에서도 삼성물산만 단독으로 참여했</div>
   </div>
   <div class="card-side">
@@ -7543,9 +7651,40 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260810000335"
+  data-title="렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786408200"
+  data-country="KR"
+  data-search="렉스이노베이션, aem 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정 전자신문 한국전력 렉스이노베이션(대표 임정민)은 음이온교환막(aem) 수전해용 비귀금속 촉매전극의 제조공정을 표준화해 수전해 핵심 소재·부품 사업화를 본격화한다고 11일 밝혔다. 이는 최근 한국전력공사가 추진하는 &#x27;2026년 대·중소기업 혁신 파트너십 지원사업&#x27; 생산혁신 분야에 선정된 데 따른 것이다. aem 수전해는 전기를 이용해 물을 수소와 산소로 나누는 기술이다. 이 과정에서 촉매전극은 물에서 수소를 효율적으로 생산할 수 있도록 반응을 돕는 핵심부품이다."
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">전자신문</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정</div>
+    <div class="article-snippet">렉스이노베이션(대표 임정민)은 음이온교환막(AEM) 수전해용 비귀금속 촉매전극의 제조공정을 표준화해 수전해 핵심 소재·부품 사업화를 본격화한다고 11일 밝혔다. 이는 최근 한국전력공사가 추진하는 &#x27;2026년 대·중소기업 혁신 파트너십 지원사업&#x27; 생산혁신 분야에 선정된 데 따른 것이다. AEM 수전해는 전기를 이용해 물을 수소와 산소로 나누는 기술이다. 이 과정에서 촉매전극은 물에서 수소를 효율적으로 생산할 수 있도록 반응을 돕는 핵심부품이다.</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f2cb4d79aca8710d81fb23c4.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260811_0003743782"
   data-title="변호사·의사·치과의사·회계사 뭉쳤다…단체 출범"
@@ -7556,7 +7695,7 @@ header,
   data-country="KR"
   data-search="변호사·의사·치과의사·회계사 뭉쳤다…단체 출범 뉴시스 한국전력 [서울=뉴시스] 류난영 기자 = 변호사와 의사, 치과의사, 회계사 등 4대 대표 전문직이 하나의 연합체로 뭉쳤다. 서로 다른 분야의 청년들이 대규모 연합조직을 꾸린 것은 국내에서 이번이 처음이다. 이들은 특정 직역의 이익보다 사회적 책임과 전문직 간 협력에 더 무게를 두겠다는 방침이다. 11일 관련 업계에 따르면 대한전문연합회(kps)는 지난 6일 변호사·의사·치과의사·회계사 네 개 전문직에서 약 150여 명의 청년 전문가가 첨석한 가운데 1기 발대식을 열고 공식 활동을 시작했다. 연합회에 따르면 네 개 대표 전문직의 청년들이 하나의 조직을 구성해 지속적인 교류와 사"
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -7601,9 +7740,40 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260811_0003743856"
+  data-title="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786408493"
+  data-country="CN"
+  data-search="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’ 뉴시스 원자력 [서울=뉴시스] 구자룡 기자 = 일본 다카이치 사나에 총리의 지난해 11월 ‘대만 유사사태’ 발언 이후 중국과의 갈등이 계속되면서 올 상반기 중국의 대일 희토류 수출은 반토막났다. 중국 해관총서에 따르면 올해 상반기 중국의 7대 희토류의 일본 수출량이 전년 동기 대비 51% 감소했다. 특히 전기 자동차 모터, 고효율 자석, 방산 장비 등에 사용되는 디스프로슘과 테르븀은 올해 일본으로의 수출량이 ‘0’을 기록했다. 중국의 일본으로의 희토류 수출은 3월 이후 4개월 연속 감소했으며 6월의 경우 전년 동기 대비 81% 급감했다. 이트륨 수출량은 6월에 ‘0’으로 떨어졌다."
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">뉴시스</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’</div>
+    <div class="article-snippet">[서울=뉴시스] 구자룡 기자 = 일본 다카이치 사나에 총리의 지난해 11월 ‘대만 유사사태’ 발언 이후 중국과의 갈등이 계속되면서 올 상반기 중국의 대일 희토류 수출은 반토막났다. 중국 해관총서에 따르면 올해 상반기 중국의 7대 희토류의 일본 수출량이 전년 동기 대비 51% 감소했다. 특히 전기 자동차 모터, 고효율 자석, 방산 장비 등에 사용되는 디스프로슘과 테르븀은 올해 일본으로의 수출량이 ‘0’을 기록했다. 중국의 일본으로의 희토류 수출은 3월 이후 4개월 연속 감소했으며 6월의 경우 전년 동기 대비 81% 급감했다. 이트륨 수출량은 6월에 ‘0’으로 떨어졌다.</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/db5f1c6faab296aeb6c3556b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="SMR">
@@ -7680,7 +7850,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105633"
   data-title="&#x27;빅브랜드의 힘&#x27; 삼성물산·현대건설, 각각 성수·목동 정비사업 수의계약 앞둬"
   data-publisher="더구루"
@@ -7703,7 +7873,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>&#x27;빅브랜드의 힘&#x27; 삼성물산·현대건설, 각각 성수·목동 정비사업 수의계약 앞둬</div>
+    <div class="headline">&#x27;빅브랜드의 힘&#x27; 삼성물산·현대건설, 각각 성수·목동 정비사업 수의계약 앞둬</div>
     <div class="article-snippet">[더구루=김수현 기자] 서울 주요 정비사업지에서 대형 건설사 간 경쟁이 사라지고 있다. 중견 건설사들이 삼성물산과 현대건설 등 빅브랜드 건설사와의 경쟁을 피하면서 상위 건설사들만 &#x27;무혈입성&#x27;에 나서고 있다. 11일 정비업계에 따르면 전날 마감된 성동구 성수전략정비구역 제3지구(성수3지구) 재개발 입찰에 1차에 이어 2차 입찰에서도 삼성물산만 단독으로 참여했</div>
   </div>
   <div class="card-side">
@@ -7735,9 +7905,40 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260810000335"
+  data-title="렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786408200"
+  data-country="KR"
+  data-search="렉스이노베이션, aem 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정 전자신문 한국전력 렉스이노베이션(대표 임정민)은 음이온교환막(aem) 수전해용 비귀금속 촉매전극의 제조공정을 표준화해 수전해 핵심 소재·부품 사업화를 본격화한다고 11일 밝혔다. 이는 최근 한국전력공사가 추진하는 &#x27;2026년 대·중소기업 혁신 파트너십 지원사업&#x27; 생산혁신 분야에 선정된 데 따른 것이다. aem 수전해는 전기를 이용해 물을 수소와 산소로 나누는 기술이다. 이 과정에서 촉매전극은 물에서 수소를 효율적으로 생산할 수 있도록 반응을 돕는 핵심부품이다."
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">전자신문</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>렉스이노베이션, AEM 수전해 비귀금속 촉매전극 사업화…&#x27;한전 혁신 파트너십&#x27; 선정</div>
+    <div class="article-snippet">렉스이노베이션(대표 임정민)은 음이온교환막(AEM) 수전해용 비귀금속 촉매전극의 제조공정을 표준화해 수전해 핵심 소재·부품 사업화를 본격화한다고 11일 밝혔다. 이는 최근 한국전력공사가 추진하는 &#x27;2026년 대·중소기업 혁신 파트너십 지원사업&#x27; 생산혁신 분야에 선정된 데 따른 것이다. AEM 수전해는 전기를 이용해 물을 수소와 산소로 나누는 기술이다. 이 과정에서 촉매전극은 물에서 수소를 효율적으로 생산할 수 있도록 반응을 돕는 핵심부품이다.</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f2cb4d79aca8710d81fb23c4.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260811_0003743782"
   data-title="변호사·의사·치과의사·회계사 뭉쳤다…단체 출범"
@@ -7748,7 +7949,7 @@ header,
   data-country="KR"
   data-search="변호사·의사·치과의사·회계사 뭉쳤다…단체 출범 뉴시스 한국전력 [서울=뉴시스] 류난영 기자 = 변호사와 의사, 치과의사, 회계사 등 4대 대표 전문직이 하나의 연합체로 뭉쳤다. 서로 다른 분야의 청년들이 대규모 연합조직을 꾸린 것은 국내에서 이번이 처음이다. 이들은 특정 직역의 이익보다 사회적 책임과 전문직 간 협력에 더 무게를 두겠다는 방침이다. 11일 관련 업계에 따르면 대한전문연합회(kps)는 지난 6일 변호사·의사·치과의사·회계사 네 개 전문직에서 약 150여 명의 청년 전문가가 첨석한 가운데 1기 발대식을 열고 공식 활동을 시작했다. 연합회에 따르면 네 개 대표 전문직의 청년들이 하나의 조직을 구성해 지속적인 교류와 사"
   tabindex="0" role="link">
-  <div class="article-number">1</div>
+  <div class="article-number">2</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -7793,9 +7994,40 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260811_0003743856"
+  data-title="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-published="1786408493"
+  data-country="CN"
+  data-search="中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’ 뉴시스 원자력 [서울=뉴시스] 구자룡 기자 = 일본 다카이치 사나에 총리의 지난해 11월 ‘대만 유사사태’ 발언 이후 중국과의 갈등이 계속되면서 올 상반기 중국의 대일 희토류 수출은 반토막났다. 중국 해관총서에 따르면 올해 상반기 중국의 7대 희토류의 일본 수출량이 전년 동기 대비 51% 감소했다. 특히 전기 자동차 모터, 고효율 자석, 방산 장비 등에 사용되는 디스프로슘과 테르븀은 올해 일본으로의 수출량이 ‘0’을 기록했다. 중국의 일본으로의 희토류 수출은 3월 이후 4개월 연속 감소했으며 6월의 경우 전년 동기 대비 81% 급감했다. 이트륨 수출량은 6월에 ‘0’으로 떨어졌다."
+  tabindex="0" role="link">
+  <div class="article-number">1</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">뉴시스</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>中 상반기 대일 희토류 수출 51%↓…디스프로슘·테르븀 ‘0’</div>
+    <div class="article-snippet">[서울=뉴시스] 구자룡 기자 = 일본 다카이치 사나에 총리의 지난해 11월 ‘대만 유사사태’ 발언 이후 중국과의 갈등이 계속되면서 올 상반기 중국의 대일 희토류 수출은 반토막났다. 중국 해관총서에 따르면 올해 상반기 중국의 7대 희토류의 일본 수출량이 전년 동기 대비 51% 감소했다. 특히 전기 자동차 모터, 고효율 자석, 방산 장비 등에 사용되는 디스프로슘과 테르븀은 올해 일본으로의 수출량이 ‘0’을 기록했다. 중국의 일본으로의 희토류 수출은 3월 이후 4개월 연속 감소했으며 6월의 경우 전년 동기 대비 81% 급감했다. 이트륨 수출량은 6월에 ‘0’으로 떨어졌다.</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/db5f1c6faab296aeb6c3556b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="SMR">
@@ -12714,7 +12946,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44a2a23268&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007c44a0dc8118&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -12745,7 +12977,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c44a887e1f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/China#&lt;ActiveStorage::Attached::One:0x00007c449f6f1160&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -12776,7 +13008,7 @@ header,
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44aa0238a0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Advanced%20Reactors#&lt;ActiveStorage::Attached::One:0x00007c44a1669268&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -12842,7 +13074,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://tradingeconomics.com/commodity/uranium"
   data-title="Trading Economics"
   data-publisher="Nuclear Newswire"
@@ -12865,7 +13097,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Trading Economics</div>
+    <div class="headline">Trading Economics</div>
     <div class="article-snippet">Uranium rose to 86.80 USD/Lbs on August 10, 2026, up 0.35% from the previous day. Over the past month, Uranium&#x27;s price has risen 1.40%, and is up 20.22% compared to the same time last year, according to trading on a contract for difference (CFD) that tracks the benchmark market for this commodity. Uranium - values, his</div>
   </div>
   <div class="card-side">
@@ -13241,7 +13473,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16320"
   data-title="현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격"
   data-publisher="ESG경제"
@@ -13264,7 +13496,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격</div>
+    <div class="headline">현대건설, 국내 1위 건설사 넘본다...삼성물산 맹추격</div>
     <div class="article-snippet">[ESG경제신문=김대우 기자] 국내 건설업계 1위 자리를 둘러싼 경쟁 구도가 빠르게 변화하고 있다. 수년째 시공능력평가 1위를 유지해온 삼성물산이 건축·주택 부문의 성장 둔화와 선택적 수주 전략으로 외형 확대 속도가 다소 주춤한 사이, 현대건설이 토목·건축 분야 기성공사 실적에서 선두에 오르며 격차를 빠르게 좁히고 있다. 업계에서는 당장 올해 순위가 뒤바뀌지는 않더라도 향후 시공능력평가 1위 경쟁이 한층 치열해질 것이라는 전망이 나온다.특히 현대건설은 대형 원전과 해외 플랜트, 데이터센터, 도시정비사업 등에서 고른 실적을 내며 안정</div>
   </div>
   <div class="card-side">
@@ -13476,7 +13708,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70601"
   data-title="폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장"
   data-publisher="에너지타임즈"
@@ -13499,7 +13731,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장</div>
+    <div class="headline">폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장</div>
     <div class="article-snippet">한국수력원자력(주)(사장 김회천)이 장기화되는 폭염으로부터 현장 근로자를 보호하기 위해 산업안전보건 강조기간이 지난 1일 종료됐으나 최근 폭염이 장기화됨에 따라 자체적으로 강조기간을 오는 31일까지 연장해 운영한다고 밝혔다.이번 조치는 산업안전보건 강조기간 종료 이후 발생할 수 있는 현장 안전관리 공백을 막고 온열질환 예방체계를 지속적으로 유지하기 위한 것으로 김회천 한수원 사장 특별지시로 추진된 것으로 알려졌다.한수원은 연장기간 전사 임직원을 대상으로 안전 특별교육을 실시하고 사업소별 온열질환 예방 캠페인을 추진하</div>
   </div>
   <div class="card-side">
@@ -13507,7 +13739,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70607"
   data-title="한수원노조 창립 25주년 키워드는?"
   data-publisher="에너지타임즈"
@@ -13530,7 +13762,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원노조 창립 25주년 키워드는?</div>
+    <div class="headline">한수원노조 창립 25주년 키워드는?</div>
     
   </div>
   <div class="card-side">
@@ -13538,7 +13770,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70597"
   data-title="한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다"
   data-publisher="에너지타임즈"
@@ -13561,7 +13793,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다</div>
+    <div class="headline">한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다</div>
     <div class="article-snippet">한수원이 수력·양수발전 주변 초등학생에게 영상 콘텐츠를 직접 기획하고 제작하는 크리에이터 체험 기회를 제공하는 등 미래세대 꿈을 지원했다. 한국수력원자력(주)(사장 김회천)은 수력·양수발전 인근에 거</div>
   </div>
   <div class="card-side">
@@ -13569,7 +13801,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70601"
   data-title="폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장"
   data-publisher="에너지타임즈"
@@ -13592,7 +13824,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장</div>
+    <div class="headline">폭염 끝날 때까지…한수원, 산업안전보건 강조기간 연장</div>
     <div class="article-snippet">한국수력원자력(주)(사장 김회천)이 장기화되는 폭염으로부터 현장 근로자를 보호하기 위해 산업안전보건 강조기간이 지난 1일 종료됐으나 최근 폭염이 장기화됨에 따라 자체적으로 강조기간을 오는 31일까지 연장해 운영한다고 밝혔다.이번 조치는 산업안전보건 강조기간 종료 이후 발생할 수 있는 현장 안전관리 공백을 막고 온열질환 예방체계를 지속적으로 유지하기 위한 것으로 김회천 한수원 사장 특별지시로 추진된 것으로 알려졌다.한수원은 연장기간 전사 임직원을 대상으로 안전 특별교육을 실시하고 사업소별 온열질환 예방 캠페인을 추진하</div>
   </div>
   <div class="card-side">
@@ -13600,7 +13832,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34257"
   data-title="한수원, “수력·양수 지역 유소년 크리에이터 꿈 실현”"
   data-publisher="한국원자력신문"
@@ -13623,7 +13855,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, “수력·양수 지역 유소년 크리에이터 꿈 실현”</div>
+    <div class="headline">한수원, “수력·양수 지역 유소년 크리에이터 꿈 실현”</div>
     <div class="article-snippet">한국수력원자력(사장 김회천, 이하 한수원)이 문화 체험 기회를 접하기 힘든 수력ㆍ양수발전소 주변 지역 유소년들에게 영상 제작 및 편집 방법을 가르치는 ‘크리에이터 영상 제작 프로그램’을 개최해, 지역사회로부터 커다란 공감을 받고 있다.한국수력원자력(사장 김회천, 이하 한수원)은 5일부</div>
   </div>
   <div class="card-side">
@@ -13631,7 +13863,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70597"
   data-title="한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다"
   data-publisher="에너지타임즈"
@@ -13654,7 +13886,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다</div>
+    <div class="headline">한수원, 수력·양수발전 주변 꿈나무 크리에이터 키운다</div>
     <div class="article-snippet">한수원이 수력·양수발전 주변 초등학생에게 영상 콘텐츠를 직접 기획하고 제작하는 크리에이터 체험 기회를 제공하는 등 미래세대 꿈을 지원했다. 한국수력원자력(주)(사장 김회천)은 수력·양수발전 인근에 거</div>
   </div>
   <div class="card-side">
@@ -13662,7 +13894,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227302"
   data-title="산업통상자원부 공공기관 2026년 8월 브랜드평판... 한전, 가스공사, 한수원 順"
   data-publisher="에너지신문"
@@ -13685,7 +13917,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>산업통상자원부 공공기관 2026년 8월 브랜드평판... 한전, 가스공사, 한수원 順</div>
+    <div class="headline">산업통상자원부 공공기관 2026년 8월 브랜드평판... 한전, 가스공사, 한수원 順</div>
     <div class="article-snippet">[에너지신문] 산업통상자원부 공공기관 브랜드평판 2026년 8월 빅데이터 분석결과, 1위 한국전력공사 2위 한국가스공사 3위 한국수력원자력 순으로 분석됐다.한국기업평판연구소는 산업통상자원부 공공기관 41개 브랜드에 대해 2026년 7월 7일부터 2026년 8월 7일까지의 산업통상자원부 공공기관 브랜드 빅데이터 91,102,549개를 분석한 결과 지난 7월 산업통상자원부 공공기관 브랜드 빅데이터 88,893,823개와 비교하면 2.48% 증가했다고 밝혔다.산업통상자원부 공공기관 브랜드평판 1위를 기록한 한국전력공사 브랜드는 참여지수</div>
   </div>
   <div class="card-side">
@@ -13693,7 +13925,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34255"
   data-title="한수원노조, 창립 제25주년 기념식…‘한국원자력공사’ 설립 추진"
   data-publisher="한국원자력신문"
@@ -13716,7 +13948,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원노조, 창립 제25주년 기념식…‘한국원자력공사’ 설립 추진</div>
+    <div class="headline">한수원노조, 창립 제25주년 기념식…‘한국원자력공사’ 설립 추진</div>
     <div class="article-snippet">“단순한 발전회사의 틀을 넘어 명실상부한 &#x27;한국원자력공사&#x27; 설립을 향해 우리 모두가 &#x27;에너지 영웅&#x27;이 되어 당당히 행동에 나서겠다”“우리의 단결된 힘과 과감한 실천으로, 대한민국을 넘어 전 세계 청정에너지 시대를 개척하는 자랑스러운 퍼스트 무버(First Mover)가 되자”강창호 한</div>
   </div>
   <div class="card-side">
@@ -13724,7 +13956,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301369"
   data-title="한수원, 유소년 크리에이터 양성캠프 ʻ아이수(水)크림ʼ 개최"
   data-publisher="투데이에너지"
@@ -13747,7 +13979,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한수원, 유소년 크리에이터 양성캠프 ʻ아이수(水)크림ʼ 개최</div>
+    <div class="headline">한수원, 유소년 크리에이터 양성캠프 ʻ아이수(水)크림ʼ 개최</div>
     <div class="article-snippet">[투데이에너지 이종수 기자] 한국수력원자력(사장 김회천, 이하 한수원)이 수력·양수발전소 주변 지역 유소년 대상 크리에이터 양성캠프인 ‘아이수(水)크림’을 개최했다.‘아이수(水)크림’은 문화 체험 기회가 상대적으로 적은 수력·양수발전소 주변 지역 학생들의 꿈을 지원하기 위해 마련된 사</div>
   </div>
   <div class="card-side">
@@ -13755,7 +13987,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227304"
   data-title="강창호 한수원노조위원장 &quot;원자력공사 설립 향해 나아가자&quot;"
   data-publisher="에너지신문"
@@ -13778,7 +14010,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>강창호 한수원노조위원장 &quot;원자력공사 설립 향해 나아가자&quot;</div>
+    <div class="headline">강창호 한수원노조위원장 &quot;원자력공사 설립 향해 나아가자&quot;</div>
     <div class="article-snippet">[에너지신문] 한국수력원자력노동조합이 창립 25주년을 맞아 조합원 권익 보호를 넘어 국내 원자력 산업의 미래 경쟁력 강화에 적극 나서겠다는 비전을 제시했다. 특히 강창호 위원장은 기존 발전사 체제를 넘어서는 &#x27;한국원자력공사&#x27; 설립 구상을 제안, 원자력 산업의 새로운 청사진을 제시했다.</div>
   </div>
   <div class="card-side">
@@ -13848,7 +14080,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70606"
   data-title="노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답"
   data-publisher="에너지타임즈"
@@ -13871,7 +14103,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답</div>
+    <div class="headline">노조는 ‘한국원자력공사’…사측은 ‘승풍파랑’ 화답</div>
     <div class="article-snippet">한수원노조 창립 25주년을 맞아 노조는 단순한 발전회사 틀을 넘어 ‘한국원자력공사’ 설립이란 목표를 제시했고, 사측은 큰 뜻을 품고 난관을 극복해 목표를 이룬다는 의미를 담은 사자성어인 ‘승풍파랑(乘風破浪)’으로 화답했다. 세계 에너지시장에서 한수원의 역할과 기능을 확대해 글로벌 경쟁력을 높여야 한다는 노사의 지향점은 같았다.</div>
   </div>
   <div class="card-side">
@@ -13879,7 +14111,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70598"
   data-title="한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화"
   data-publisher="에너지타임즈"
@@ -13902,7 +14134,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
+    <div class="headline">한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
     <div class="article-snippet">한국수력원자력(주) 한빛원자력본부(본부장 김현주)가 원전 주변 불법 드론 비행을 예방하기 위해 24시간 탐지체계를 운영하는 한편 원전과 인접한 해수욕장을 중심으로 집중적인 홍보하는 ‘드론 비행 금지 특별홍보 캠페인’을 지난 27일부터 28일까지 한빛원전과 인접한 가마미·구시포해수욕장에서 펼쳤다. 이 캠페인은 영광경찰서·고창경찰서·목포해양경찰서·부안해안경찰서·의용소방대를 비롯한 유관기관과 해수욕장 운영 관계자들이 함께 원전 주변 드론 비행 관련 규정과 주의 사항을 안내하는 것으로 진행됐다.</div>
   </div>
   <div class="card-side">
@@ -13910,7 +14142,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70598"
   data-title="한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화"
   data-publisher="에너지타임즈"
@@ -13933,7 +14165,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
+    <div class="headline">한빛원전, 불법 드론 24시간 감시…비행금지 홍보 강화</div>
     <div class="article-snippet">한국수력원자력(주) 한빛원자력본부(본부장 김현주)가 원전 주변 불법 드론 비행을 예방하기 위해 24시간 탐지체계를 운영하는 한편 원전과 인접한 해수욕장을 중심으로 집중적인 홍보하는 ‘드론 비행 금지 특별홍보 캠페인’을 지난 27일부터 28일까지 한빛원전과 인접한 가마미·구시포해수욕장에서 펼쳤다. 이 캠페인은 영광경찰서·고창경찰서·목포해양경찰서·부안해안경찰서·의용소방대를 비롯한 유관기관과 해수욕장 운영 관계자들이 함께 원전 주변 드론 비행 관련 규정과 주의 사항을 안내하는 것으로 진행됐다.</div>
   </div>
   <div class="card-side">
@@ -13941,7 +14173,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371122"
   data-title="원전현장인력양성원,‘원전정비원자격제도’정부인정 공식 취득"
   data-publisher="전기신문"
@@ -13964,7 +14196,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>원전현장인력양성원,‘원전정비원자격제도’정부인정 공식 취득</div>
+    <div class="headline">원전현장인력양성원,‘원전정비원자격제도’정부인정 공식 취득</div>
     <div class="article-snippet">원전 현장실습 전문 교육기관인 (재)원전현장인력양성원(원장 이인식)은 한국수력원자력과 공동 운영하는 ‘원전정비원자격제도’가 지난 4일 고용노동부 산하 한국산업인력공단으로부터 정부인정을 공식 취득했다고 밝혔다.이번 정부인정으로 원전 정비분야 자격평가의 객관성과 공신력을 확보하고, 국내 원전 설비 운영과 정비의 신뢰성을 높일 수 있는 제도적 기반도 마련됐다.이번에 정부인정을 받은 자격제도는 그동안 원전 정비협력사별로 분산 운영되던 사내 자격제도를 하나로 통합한 최초의 표준화 모델이다. 양 기관은 현장 맞춤형 자격평가를 위해 지난 3년간</div>
   </div>
   <div class="card-side">
@@ -13972,7 +14204,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34252"
   data-title="고난도 원전 정비분야 ‘원전정비원자격제도’ 정부 인정 취득"
   data-publisher="한국원자력신문"
@@ -13995,7 +14227,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>고난도 원전 정비분야 ‘원전정비원자격제도’ 정부 인정 취득</div>
+    <div class="headline">고난도 원전 정비분야 ‘원전정비원자격제도’ 정부 인정 취득</div>
     <div class="article-snippet">고난도의 정비 기술과 역량이 요구되는 원전 정비 현장 종사자들의 ‘원전정비원자격제도’가 정식으로 정부로 부터 공식 인정받았다. 원전 현장실습 전문 교육기관인 (재)원전현장인력양성원(원장 이인식)이 한국수력원자력(주)와 공동 운영하는 ‘원전정비원자격제도’를 고용노동부 산하 한국산업인력공</div>
   </div>
   <div class="card-side">
@@ -14009,7 +14241,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -14074,7 +14306,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="/news/articleView.html?idxno=32990"
   data-title="한국전력, e신산업 이끌 ‘한전기술지주’ 공식 출범"
   data-publisher="전력경제신문"
@@ -14097,7 +14329,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한국전력, e신산업 이끌 ‘한전기술지주’ 공식 출범</div>
+    <div class="headline">한국전력, e신산업 이끌 ‘한전기술지주’ 공식 출범</div>
     <div class="article-snippet">“K-에너지 유니콘 반드시 키워낼 것” 한전 기술·인프라와 민간의 역량 융합기업 성장 디딤돌 완결형 플랫폼 구축2050년 31경 원 글로벌 e신시장 선도 한국전력이 에너지 신산업 생태계를 주도할 ‘한전기술지주’를 7일 공식 출범하고 본격적인 사업 추진에 나섰다.본사 비전홀에서 진행된 이날 행사에는 기후</div>
   </div>
   <div class="card-side">
@@ -14105,7 +14337,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34253"
   data-title="한전, 에너지기업 육성 전담 ‘한전기술지주’ 출범"
   data-publisher="한국원자력신문"
@@ -14128,7 +14360,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한전, 에너지기업 육성 전담 ‘한전기술지주’ 출범</div>
+    <div class="headline">한전, 에너지기업 육성 전담 ‘한전기술지주’ 출범</div>
     <div class="article-snippet">한국전력이 에너지 분야 벤처·스타트업의 기술 사업화와 시장 진출을 지원하는 ‘한전기술지주’를 공식 출범했다.한전은 7일 본사 비전홀에서 출범식을 열고 한전기술지주의 사업 추진 방향과 단계별 로드맵을 공개했다.행사에는 김성환 기후에너지환경부 장관과 더불어민주당 신정훈·정진욱 의원, 고광</div>
   </div>
   <div class="card-side">
@@ -14136,7 +14368,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=312843"
   data-title="한전 특허 8000여건 사업화…&#x27;한전기술지주&#x27; 공식 출범 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -14159,7 +14391,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한전 특허 8000여건 사업화…&#x27;한전기술지주&#x27; 공식 출범 - 건설타임즈</div>
+    <div class="headline">한전 특허 8000여건 사업화…&#x27;한전기술지주&#x27; 공식 출범 - 건설타임즈</div>
     <div class="article-snippet">(건설타임즈) 박상민 기자 = 한국전력이 에너지 공공기술을 민간 혁신기업과 연결하기 위한 전문 투자·사업화 플랫폼을 출범시킨다.한전이 100% 출자한 ‘한전기술지</div>
   </div>
   <div class="card-side">
@@ -14167,7 +14399,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301348"
   data-title="한전, 에너지 신산업 이끌 ‘ 한전기술지주’ 공식 출범"
   data-publisher="투데이에너지"
@@ -14190,7 +14422,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한전, 에너지 신산업 이끌 ‘ 한전기술지주’ 공식 출범</div>
+    <div class="headline">한전, 에너지 신산업 이끌 ‘ 한전기술지주’ 공식 출범</div>
     <div class="article-snippet">[투데이에너지 이종수 기자] 한국전력(사장 김동철, 이하 한전)이 7일 본사 비전홀에서 에너지 신산업 생태계를 주도할 ‘한전기술지주’를 공식 출범하고 본격적인 사업 추진에 나섰다.이날 행사에는 기후에너지환경부 김성환 장관, 더불어민주당 신정훈 의원과 정진욱 의원, 전남광주통합특별시 고</div>
   </div>
   <div class="card-side">
@@ -14198,7 +14430,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371053"
   data-title="전방위적으로 덮쳐오는 위기…한전 하반기 리스크는 무엇?"
   data-publisher="전기신문"
@@ -14221,7 +14453,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>전방위적으로 덮쳐오는 위기…한전 하반기 리스크는 무엇?</div>
+    <div class="headline">전방위적으로 덮쳐오는 위기…한전 하반기 리스크는 무엇?</div>
     <div class="article-snippet">계통한계가격(SMP)이 일평균 150원대에 올라서면서 한국전력의 하반기 적자 리스크가 수면 위로 떠올랐다. 여기에 유럽과의 가스 물량 확보 경쟁, 2027년 말 종료되는 사채발행한도 상향 조치까지 겹치며 한전의 경영 여건이 전방위적으로 압박받을 전망이다.전력거래소에 따르면 지난 3일 육지 기준 일평균 SMP는 kWh당 152.6원을 기록했다. 이 가격대가 유지되면 월평균 SMP가 150원을 넘어서는 것은 2023년 7월 이후 3년 1개월 만으로, 정부가 현 요금 수준에서 한전의 적자 마지노선으로 보는 140원대는 이미 넘어섰다.여름 피크는 아직 오지 않았다. 기후에너</div>
   </div>
   <div class="card-side">
@@ -14229,7 +14461,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371049"
   data-title="한전기술지주 닻 올렸다…‘K-에너지 유니콘 기업’ 육성 본격화"
   data-publisher="전기신문"
@@ -14252,11 +14484,73 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>한전기술지주 닻 올렸다…‘K-에너지 유니콘 기업’ 육성 본격화</div>
+    <div class="headline">한전기술지주 닻 올렸다…‘K-에너지 유니콘 기업’ 육성 본격화</div>
     <div class="article-snippet">한국전력이 100% 출자해 설립하는 에너지 투자 전문 기업인 ‘한전기술지주’가 본격 출범했다. 한전기술을 통해 한전과 공공이 보유한 유망 에너지 신기술 및 특허를 민간 혁신 역량과 접목해 창업과 사업화를 지원, 2050년까지 K-에너지 유니콘 기업 10곳을 육성한다는 목표다.기후에너지환경부와 한전은 7일 전남 나주시 한전 본사에서 한전기술지주 출범식을 진행하고, 본격적인 사업에 나선다고 밝혔다. 본사는 나주시 한국전기산업진흥회 에너지밸리기업개발원에 위치한다.한전기술지주가 구축된 이유는 한전이 보유하고 있는 기술과 특허 등을 사업화해 경쟁력 있는 국내 기업을 창출하기</div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d80865a9e0a119c674153203.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000011"
+  data-title="특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786066200"
+  data-country="KR"
+  data-search="특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범 전자신문 한국전력 한국전력이 보유한 8000여건의 특허를 민간에 개방해 에너지 분야 유니콘(거대신생기업) 육성에 나선다. 정부는 기술사업화 전담 플랫폼인 &#x27;한전기술지주&#x27;를 출범시키고 공공기술을 기반으로 사업기획부터 기술이전, 실증, 투자, 제품화, 해외 진출까지 지원하는 완결형 성장체계를 구축한다는 계획이다. 기후에너지환경부는 7일 한국전력 본사에서 김성환 기후부 장관이 참석한 가운데 &#x27;한전기술지주&#x27; 출범식을 개최했다고 밝혔다. 이번 출범식은 에너지 신산업을 이"
+  tabindex="0" role="link">
+  <div class="article-number">9</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">전자신문</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>특허 8000건 풀어 &#x27;에너지 유니콘&#x27; 육성…한전기술지주 출범</div>
+    <div class="article-snippet">한국전력이 보유한 8000여건의 특허를 민간에 개방해 에너지 분야 유니콘(거대신생기업) 육성에 나선다. 정부는 기술사업화 전담 플랫폼인 &#x27;한전기술지주&#x27;를 출범시키고 공공기술을 기반으로 사업기획부터 기술이전, 실증, 투자, 제품화, 해외 진출까지 지원하는 완결형 성장체계를 구축한다는 계획이다. 기후에너지환경부는 7일 한국전력 본사에서 김성환 기후부 장관이 참석한 가운데 &#x27;한전기술지주&#x27; 출범식을 개최했다고 밝혔다. 이번 출범식은 에너지 신산업을 이</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8592fb3e6990f9470f73f5a9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000021"
+  data-title="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-published="1786060800"
+  data-country="KR"
+  data-search="폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1gw 경신 촉각…김성환 기후장관, 긴급 점검 전자신문 한국전력 기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1gw)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력"
+  tabindex="0" role="link">
+  <div class="article-number">10</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">전자신문</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>폭염 장기화에 전력수요 &#x27;역대 최대&#x27; 97.1GW 경신 촉각…김성환 기후장관, 긴급 점검</div>
+    <div class="article-snippet">기후에너지환경부가 전국적인 폭염과 열대야 장기화에 따른 전력수급 상황을 직접 점검하며 역대 최대 전력수요 경신 가능성에 대비한 현장 대응에 나선다. 최대전력수요가 기존 최고치(97.1GW)를 넘어설 가능성까지 열어두고 발전·송배전 설비와 추가 예비자원 확보 상황을 집중 점검한다. 기후부는 7일 오전 전남 나주 한국전력거래소에서 &#x27;여름철 전력수급 점검회의&#x27;를 개최한다고 밝혔다. 김성환 기후부 장관이 직접 주재하는 이번 회의에는 한국전력공사와 전력</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1b37f5c7f23e1efec6b10c4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -14266,10 +14560,10 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301370"
   data-title="[인사] 산업통상부 국장급"
   data-publisher="투데이에너지"
@@ -14292,7 +14586,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부 국장급</div>
+    <div class="headline">[인사] 산업통상부 국장급</div>
     <div class="article-snippet">[투데이에너지]■ 국장급 전보▲ 산업정책관(일반직 고위공무원) 남명우(8월 10일자)</div>
   </div>
   <div class="card-side">
@@ -14300,7 +14594,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e2news.com/news/articleView.html?idxno=333062"
   data-title="[인사] 산업통상부"
   data-publisher="이투뉴스"
@@ -14323,7 +14617,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부</div>
+    <div class="headline">[인사] 산업통상부</div>
     <div class="article-snippet">[이투뉴스] 산업통상부 인사◇국장급 전보▲산업정책관 남명우 (현 투자정책관)</div>
   </div>
   <div class="card-side">
@@ -14332,6 +14626,37 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260807000308"
+  data-title="[인사]산업통상부"
+  data-publisher="전자신문"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-published="1786093266"
+  data-country="KR"
+  data-search="[인사]산업통상부 전자신문 원전 관계부처 한·인도 공학 석학 한자리에…&#x27;차세대 it·창의적 컴퓨팅&#x27; 협력 모색"
+  tabindex="0" role="link">
+  <div class="article-number">3</div>
+  <div class="preview-copy">
+    <div class="meta-row">
+      <div class="meta-left">
+        <div class="publisher">전자신문</div>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <button class="important-button" type="button" aria-label="중요 기사">★</button>
+    </div>
+    <div class="headline"><span class="new-badge">NEW</span>[인사]산업통상부</div>
+    <div class="article-snippet">한·인도 공학 석학 한자리에…&#x27;차세대 IT·창의적 컴퓨팅&#x27; 협력 모색</div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fe6e8eeac7c4a4563f5c2042.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://zdnet.co.kr/view/?no=20260807175817"
   data-title="[인사] 산업통상부"
   data-publisher="ZDNet Korea"
@@ -14341,7 +14666,7 @@ header,
   data-country="KR"
   data-search="[인사] 산업통상부 zdnet korea 원전 관계부처 ◇국장급 전보 ▲산업정책관 남명우..."
   tabindex="0" role="link">
-  <div class="article-number">3</div>
+  <div class="article-number">4</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14354,7 +14679,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부</div>
+    <div class="headline">[인사] 산업통상부</div>
     <div class="article-snippet">◇국장급 전보 ▲산업정책관 남명우...</div>
   </div>
   <div class="card-side">
@@ -14362,7 +14687,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227323"
   data-title="[인사] 산업통상부 (8월 10일자)"
   data-publisher="에너지신문"
@@ -14372,7 +14697,7 @@ header,
   data-country="KR"
   data-search="[인사] 산업통상부 (8월 10일자) 에너지신문 원전 관계부처 "
   tabindex="0" role="link">
-  <div class="article-number">4</div>
+  <div class="article-number">5</div>
   <div class="preview-copy">
     <div class="meta-row">
       <div class="meta-left">
@@ -14385,7 +14710,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[인사] 산업통상부 (8월 10일자)</div>
+    <div class="headline">[인사] 산업통상부 (8월 10일자)</div>
     
   </div>
   <div class="card-side">
@@ -14411,7 +14736,7 @@ header,
     <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34260"
   data-title="김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인"
   data-publisher="한국원자력신문"
@@ -14434,7 +14759,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
+    <div class="headline">김성진 전력거래소 이사장, 한빛원전 안정적 전력공급 현장 확인</div>
     <div class="article-snippet">김성진 전력거래소 이사장이 전국적으로 가마솥 폭염 등으로 인한 여름철 전력수요가 급증하고 있는 가운데 안정적인 전력 공급에 기여하고 있는 원자력 발전소 현장을 직접 찾아 눈길을 끌고 있다.김성진 전력거래소 이사장는 지난 5일 여름철 전력수요 급증에 대비해 주요 원전 사업과 발전설비 운</div>
   </div>
   <div class="card-side">
@@ -14442,7 +14767,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34250"
   data-title="[속보] 한국원자력환경공단 이사장 후보자 재공모 진행"
   data-publisher="한국원자력신문"
@@ -14465,7 +14790,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
+    <div class="headline">[속보] 한국원자력환경공단 이사장 후보자 재공모 진행</div>
     <div class="article-snippet">한국원자력환경공단 임원추천위원회는 이사장 후보자 재공모 진행하다고 7일 밝혔다.원자력환경공단 임추위는 지난 6월 1일 방사성폐기물의 안전하고 효율적딘 관리로 국민생활 안전과 환경보전에 이바지하는 경영 역량과 전문성을 갖춘 이사장을 공개 모집 공고를 냈다.이번 이사장 후보자로는 이기복</div>
   </div>
   <div class="card-side">
@@ -14473,7 +14798,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ans.org/news/2026-08-07/article-8222/the-transformation-of-the-nrc-50-years-of-commissioners/"
   data-title="The transformation of the NRC: 50 years of commissioners"
   data-publisher="Nuclear Newswire"
@@ -14496,7 +14821,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>The transformation of the NRC: 50 years of commissioners</div>
+    <div class="headline">The transformation of the NRC: 50 years of commissioners</div>
     <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
   </div>
   <div class="card-side">
@@ -14504,7 +14829,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/us-collaboration-to-study-used-nuclear-fuel-recycling"
   data-title="US collaboration to study used nuclear fuel recycling"
   data-publisher="World Nuclear News"
@@ -14527,7 +14852,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>US collaboration to study used nuclear fuel recycling</div>
+    <div class="headline">US collaboration to study used nuclear fuel recycling</div>
     <div class="article-snippet">US advanced nuclear recycling technologies firm Curio has signed a memorandum of understanding with NuScale Power and Framatome to evaluate how recovered materials from used nuclear fuel can support future fuel and product streams. ;</div>
   </div>
   <div class="card-side">
@@ -14535,7 +14860,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ans.org/news/2026-08-07/article-8279/centrus-xenergy-sign-enrichment-contract-as-trisox-expands-tx1-campus/"
   data-title="Centrus, X-energy sign enrichment contract as TRISO-X expands TX-1 campus"
   data-publisher="Nuclear Newswire"
@@ -14558,7 +14883,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Centrus, X-energy sign enrichment contract as TRISO-X expands TX-1 campus</div>
+    <div class="headline">Centrus, X-energy sign enrichment contract as TRISO-X expands TX-1 campus</div>
     <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
   </div>
   <div class="card-side">
@@ -14566,7 +14891,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ans.org/news/2026-08-07/article-8278/undeclared-uranium-hitches-a-ride-on-cobalt-exports-from-congo-study-says/"
   data-title="Undeclared uranium hitches a ride on cobalt exports from Congo, study says"
   data-publisher="Nuclear Newswire"
@@ -14589,7 +14914,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Undeclared uranium hitches a ride on cobalt exports from Congo, study says</div>
+    <div class="headline">Undeclared uranium hitches a ride on cobalt exports from Congo, study says</div>
     <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
   </div>
   <div class="card-side">
@@ -14597,7 +14922,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ans.org/news/2026-08-07/article-8276/ornl-rutherford-energy-ventures-launch-fusion-partnership/"
   data-title="ORNL, Rutherford Energy Ventures launch fusion partnership"
   data-publisher="Nuclear Newswire"
@@ -14620,7 +14945,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>ORNL, Rutherford Energy Ventures launch fusion partnership</div>
+    <div class="headline">ORNL, Rutherford Energy Ventures launch fusion partnership</div>
     <div class="article-snippet">Ageing nuclear assets don&#x27;t have to mean higher maintenance costs. Discover how HVTS® cladding helps extend the life of PWR secondary system components, reduce outage duration, support ALARA principles, and protect against FAC, erosion-corrosion and other degradation mechanisms. Learn more.</div>
   </div>
   <div class="card-side">
@@ -14628,7 +14953,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://asia.nikkei.com/opinion/india-s-nuclear-armed-submarine-accelerates-arms-race-with-pakistan"
   data-title="India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan"
   data-publisher="Nikkei Asia"
@@ -14651,7 +14976,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
+    <div class="headline">India&#x27;s nuclear-armed submarine accelerates arms race with Pakistan</div>
     <div class="article-snippet">Despite the Hormuz Strait crisis, global powers must tend to another flashpoint</div>
   </div>
   <div class="card-side">
@@ -14668,7 +14993,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34259"
   data-title="[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자 기반 넓어져"
   data-publisher="한국원자력신문"
@@ -14691,7 +15016,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자 기반 넓어져</div>
+    <div class="headline">[주간 원자력] 8월 3~8일, SMR 세제지원·해외사업 확대…원전산업 투자 기반 넓어져</div>
     <div class="article-snippet">8월 3일부터 8일까지 원자력 산업에서는 소형모듈원자로(SMR) 세제지원 확대와 국내 공급망 강화, 해외 원전사업 진출이 주요 흐름으로 나타났다.국내에서는 SMR을 국가전략기술로 육성하기 위한 세제지원이 구체화되고 있으며, 창원을 중심으로 제조·시험·실증 기반을 갖추려는 움직임도 이어</div>
   </div>
   <div class="card-side">
@@ -14708,7 +15033,7 @@ header,
     <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energyintel.com/0000019f-dc2f-da40-a59f-dd2f00e00000"
   data-title="Saudi OSPs Reflect Market Repricing Mideast Supply Risk"
   data-publisher="Energy Intelligence"
@@ -14731,7 +15056,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Saudi OSPs Reflect Market Repricing Mideast Supply Risk</div>
+    <div class="headline">Saudi OSPs Reflect Market Repricing Mideast Supply Risk</div>
     <div class="article-snippet">Official selling prices for September-loading cargoes to Asia are the first to be released after the Mideast ceasefire collapsed last month.</div>
   </div>
   <div class="card-side">
@@ -14739,7 +15064,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/indian-parliamentarians-stress-urgency-for-uranium-projects"
   data-title="Indian parliamentarians stress urgency for uranium projects"
   data-publisher="World Nuclear News"
@@ -14762,7 +15087,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Indian parliamentarians stress urgency for uranium projects</div>
+    <div class="headline">Indian parliamentarians stress urgency for uranium projects</div>
     <div class="article-snippet">The expansion of uranium mining projects in India needs to be accelerated, a parliamentary committee has said. ;</div>
   </div>
   <div class="card-side">
@@ -14770,7 +15095,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/newcleo-sets-out-plan-for-licensing-of-us-mox-plant"
   data-title="Newcleo sets out plan for licensing of US MOX plant"
   data-publisher="World Nuclear News"
@@ -14793,7 +15118,7 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>Newcleo sets out plan for licensing of US MOX plant</div>
+    <div class="headline">Newcleo sets out plan for licensing of US MOX plant</div>
     <div class="article-snippet">France-headquartered innovative nuclear energy company Newcleo has submitted a Regulatory Engagement Plan to the US Nuclear Regulatory Commission for its planned mixed-oxide fuel manufacturing facility in the USA. ;</div>
   </div>
   <div class="card-side">
@@ -14801,7 +15126,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.nucnet.org/news/tagged/Russia"
   data-title="NucNet | Independent Nuclear News"
   data-publisher="NucNet"
@@ -14824,11 +15149,11 @@ header,
       </div>
       <button class="important-button" type="button" aria-label="중요 기사">★</button>
     </div>
-    <div class="headline"><span class="new-badge">NEW</span>NucNet | Independent Nuclear News</div>
+    <div class="headline">NucNet | Independent Nuclear News</div>
     <div class="article-snippet">Visit NucNet for daily news about nuclear energy. NucNet is an independent news agency and information network for the global nuclear industry. NucNet operates a 24/7 service reporting world nuclear-related news. Nuclear news topics include: nuclear power, nuclear power plants, reactors, nuclear waste, small modular re</div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44a804ec00&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/Russia#&lt;ActiveStorage::Attached::One:0x00007c44aebf4b80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
