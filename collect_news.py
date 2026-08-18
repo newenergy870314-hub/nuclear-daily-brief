@@ -17,7 +17,7 @@ from datetime import datetime, timedelta, timezone
 from difflib import SequenceMatcher
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import quote_plus, urljoin, urlparse, parse_qsl, urlunparse, urlencode
+from urllib.parse import urljoin, urlparse, parse_qsl, urlunparse, urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
@@ -34,48 +34,6 @@ SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "0") == "1"
 # 검토용 원본 수집 모드
 # 기사량을 먼저 확인하기 위해 개수 제한/중복 제거를 적용하지 않습니다.
 RAW_REVIEW_MODE = True
-
-# ============================================================
-# Google News: 기사 발견용 보완망
-# - 등록되지 않은 언론사도 Google News에서 기사 발견 가능
-# - 사진/미리보기는 원문 페이지에서 다시 보강
-# - 기존 공식 RSS + 직접수집은 그대로 유지
-# ============================================================
-GOOGLE_NEWS_DISCOVERY_ENABLED = True
-GOOGLE_NEWS_MAX_ENTRIES_PER_QUERY = 120
-GOOGLE_NEWS_TIMEOUT_SECONDS = 12
-GOOGLE_NEWS_QUERY_WORKERS = 8
-
-GOOGLE_NEWS_QUERIES = (
-    "현대건설",
-    "한국수력원자력 OR 한수원",
-    "한국전력 OR 한전",
-    "원전 OR 원자력발전",
-    "SMR 원전",
-    "nuclear power",
-    "small modular reactor",
-    "Westinghouse AP1000",
-    "Holtec SMR-300",
-    "TerraPower Natrium",
-    "Fermi America nuclear",
-    "Palisades nuclear",
-    "Kozloduy nuclear",
-    "Cernavoda nuclear",
-    "Sizewell C nuclear",
-    "Hinkley Point C nuclear",
-    "Ninh Thuan nuclear",
-    "Barakah nuclear",
-    "Saudi nuclear power",
-    "미국 원전",
-    "영국 원전",
-    "불가리아 원전",
-    "핀란드 원전",
-    "루마니아 원전",
-    "우크라이나 원전",
-    "베트남 원전",
-    "UAE 원전",
-    "사우디 원전",
-)
 
 MAX_PER_GROUP_PER_LANGUAGE = None
 
@@ -353,6 +311,35 @@ DIRECT_RSS_FEEDS = [
     ("전력경제신문", "https://www.epetimes.com/rss/allArticle.xml"),
 ]
 
+# ============================================================
+# SOURCE MASTER SAFEGUARD
+# Google News/RSS에 의존하지 않고 각 언론사 자체 RSS/공식 페이지에서 직접 수집합니다.
+# 핵심 언론사가 실수로 삭제되면 실행 로그에서 즉시 경고합니다.
+# ============================================================
+SOURCE_MASTER_REQUIRED_CORE = {
+    "연합뉴스", "뉴시스", "뉴스1", "조선일보", "중앙일보", "동아일보",
+    "한겨레", "경향신문", "한국일보", "국민일보", "서울신문", "세계일보",
+    "매일경제", "한국경제", "서울경제", "머니투데이", "이데일리",
+    "아시아경제", "아주경제", "글로벌이코노믹", "아시아투데이",
+    "뉴스핌", "아이뉴스24", "헤럴드경제", "파이낸셜뉴스", "조선비즈",
+    "SBS Biz", "연합인포맥스", "KBS", "MBC", "SBS", "YTN", "JTBC", "MBN",
+    "전기신문", "에너지신문", "에너지타임즈", "전력경제신문",
+    "투데이에너지", "에너지경제신문", "에너지데일리", "에너지안전신문",
+    "에너지플랫폼뉴스", "원자력신문", "한국원자력신문", "국토일보",
+    "대한경제", "한국건설신문", "건설타임즈",
+    "Reuters", "Associated Press", "Agence France-Presse", "BBC", "CNN", "CNBC",
+    "Bloomberg", "Financial Times", "The Wall Street Journal", "The New York Times",
+    "The Washington Post", "The Guardian", "World Nuclear News", "NucNet",
+    "Nuclear Engineering International", "Power Engineering", "POWER Magazine",
+    "Bulgarian News Agency", "The Sofia Globe", "Yle News", "Helsinki Times",
+    "Romania Insider", "AGERPRES English", "The Japan Times", "NHK WORLD-JAPAN",
+    "Business Standard India", "The Hindu", "The Economic Times",
+    "Vietnam News", "VietnamPlus", "VietnamNet Global", "VnExpress International",
+    "Arab News", "Saudi Gazette", "The National", "Gulf News", "Khaleej Times",
+    "The Korea Herald", "The Korea Times", "Korea JoongAng Daily",
+}
+
+
 
 # RSS가 없거나 RSS만으로는 누락 가능성이 있는 매체는 공식 뉴스 페이지를 직접 훑습니다.
 # 각 페이지에서 제목이 원전/에너지/현대건설/한전/한수원/관계부처 등 키워드에 걸리는 기사만
@@ -508,6 +495,12 @@ DIRECT_NEWS_PAGES = [
     ("광주일보", "https://www.kwangju.co.kr/", "ko"),
     ("전남일보", "https://www.jnilbo.com/", "ko"),
     ("강원일보", "https://www.kwnews.co.kr/", "ko"),
+
+    # ─────────────────────────────────────────────
+    # 국내 추가 보강: 경제·산업 주요매체
+    # ─────────────────────────────────────────────
+    ("SBS Biz", "https://biz.sbs.co.kr/news/list.html", "ko"),
+    ("연합인포맥스", "https://news.einfomax.co.kr/news/articleList.html", "ko"),
     ("Reuters", "https://www.reuters.com/business/energy/", "en"),
     ("Reuters", "https://www.reuters.com/world/", "en"),
     ("Associated Press", "https://apnews.com/hub/business", "en"),
@@ -687,6 +680,17 @@ DIRECT_NEWS_PAGES = [
     ("Energy Live News", "https://www.energylivenews.com/", "en"),
     ("Montel News", "https://montelnews.com/", "en"),
     ("Offshore Energy", "https://www.offshore-energy.biz/", "en"),
+
+    # ─────────────────────────────────────────────
+    # 해외 추가 보강: 한국 영문매체 + 우선국가 현지매체
+    # ─────────────────────────────────────────────
+    ("The Korea Herald", "https://www.koreaherald.com/", "en"),
+    ("The Korea Times", "https://www.koreatimes.co.kr/", "en"),
+    ("Korea JoongAng Daily", "https://www.koreajoongangdaily.com/", "en"),
+    ("AGERPRES English", "https://agerpres.ro/english/news", "en"),
+    ("The Sofia Globe", "https://sofiaglobe.com/category/business/", "en"),
+    ("The Sofia Globe", "https://sofiaglobe.com/category/bulgaria/", "en"),
+    ("Helsinki Times", "https://www.helsinkitimes.fi/", "en"),
 ]
 
 # 매체 수가 늘어난 만큼 목록 페이지는 병렬 처리하되, 각 매체에서 관련 가능성이 있는 기사만 원문 조회합니다.
@@ -1467,12 +1471,6 @@ def _fetch_article_metadata(article: Article) -> tuple[str, str]:
     if article.image and article.description:
         return article.image, article.description
 
-    # Google News에서 발견된 기사는 원문 URL을 다시 해석한 뒤
-    # og:image / og:description / 본문 첫 문단을 보강합니다.
-    if "news.google.com" in (article.link or "").lower():
-        resolved = _resolve_google_news_url(article.link)
-        if resolved and resolved != article.link:
-            article.link = resolved
 
     try:
         request = Request(
@@ -1675,12 +1673,6 @@ def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> Non
         if not (items[0].image and items[0].description)
     ]
 
-    google_targets = sum(
-        1
-        for article in targets
-        if "news.google.com" in (article.link or "").lower()
-    )
-
     if not targets:
         print("[META ENRICH] targets=0 / elapsed=0.0s")
         return
@@ -1701,8 +1693,6 @@ def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> Non
                 continue
 
             for article in articles_by_url.get(original_key, []):
-                # _fetch_article_metadata() may resolve a Google News URL
-                # on the representative article. Reuse that resolved URL.
                 representative = articles_by_url[original_key][0]
                 if representative.link and representative.link != original_key:
                     article.link = representative.link
@@ -1728,7 +1718,6 @@ def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> Non
 
     print(
         f"[META ENRICH] targets={len(targets)} "
-        f"/ google_targets={google_targets} "
         f"/ workers={workers} "
         f"/ images={filled_images} "
         f"/ descriptions={filled_descriptions} "
@@ -2926,273 +2915,6 @@ def _parse_feed_entry_datetime(entry) -> datetime | None:
     return None
 
 
-def _google_news_publisher(entry) -> str:
-    source = getattr(entry, "source", None)
-    if source:
-        try:
-            title = str(source.get("title", "") or "").strip()
-            if title:
-                return title
-        except Exception:
-            pass
-
-    title = str(getattr(entry, "title", "") or "").strip()
-    if " - " in title:
-        return title.rsplit(" - ", 1)[-1].strip() or "출처 미확인"
-    return "출처 미확인"
-
-
-def _strip_google_news_source_suffix(title: str, publisher: str) -> str:
-    value = (title or "").strip()
-    if publisher and publisher != "출처 미확인":
-        suffix = f" - {publisher}"
-        if value.endswith(suffix):
-            value = value[:-len(suffix)].strip()
-    return value
-
-
-def _extract_external_url_from_google_html(payload: bytes) -> str:
-    decoded = payload.decode("utf-8", errors="ignore")
-    candidates = re.findall(r'https?://[^"\'<>\s\\]+', decoded)
-
-    for candidate in candidates:
-        candidate = candidate.replace("\\u0026", "&").replace("\\/", "/")
-        host = urlparse(candidate).netloc.lower()
-        if not host:
-            continue
-        if any(
-            blocked in host
-            for blocked in (
-                "google.com", "googleusercontent.com", "gstatic.com",
-                "youtube.com", "doubleclick.net"
-            )
-        ):
-            continue
-        return candidate
-    return ""
-
-
-def _resolve_google_news_url(url: str) -> str:
-    if not url or "news.google.com" not in url.lower():
-        return url
-
-    try:
-        request = Request(
-            url,
-            headers={
-                "User-Agent": (
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/131.0 Safari/537.36"
-                ),
-                "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
-            },
-        )
-        with urlopen(request, timeout=GOOGLE_NEWS_TIMEOUT_SECONDS) as response:
-            final_url = response.geturl() or url
-            payload = response.read(350000)
-
-        if final_url and "news.google.com" not in final_url.lower():
-            return final_url
-
-        external = _extract_external_url_from_google_html(payload)
-        if external:
-            return external
-    except Exception:
-        pass
-
-    return url
-
-
-def _parse_google_news_entry(entry) -> Article | None:
-    publisher = _google_news_publisher(entry)
-    if publisher in EXCLUDED_PUBLISHERS:
-        return None
-
-    raw_title = html.unescape(
-        str(getattr(entry, "title", "") or "")
-    ).strip()
-    title = _strip_google_news_source_suffix(raw_title, publisher)
-    link = str(getattr(entry, "link", "") or "").strip()
-    published = _parse_feed_entry_datetime(entry)
-
-    if not title or not link or published is None:
-        return None
-
-    raw_description = str(
-        getattr(entry, "summary", "")
-        or getattr(entry, "description", "")
-        or ""
-    )
-    plain_summary = re.sub(r"<[^>]+>", " ", raw_description)
-    plain_summary = html.unescape(
-        re.sub(r"\s+", " ", plain_summary)
-    ).strip()
-
-    # 기존 직접수집과 동일한 분류 로직 적용
-    group = classify_direct_article(title, plain_summary)
-    if group is None:
-        return None
-
-    if group == "현대건설" and is_hyundai_volleyball_article(
-        title, plain_summary
-    ):
-        return None
-
-    description = clean_description(
-        plain_summary,
-        title,
-        publisher,
-    )
-
-    # 발견 단계에서는 원문 페이지를 열지 않습니다.
-    # Google News 링크를 그대로 유지하고, 최종 중복 제거 후 실제 표시 기사만
-    # metadata 단계에서 원문 URL/썸네일/미리보기를 보강합니다.
-    return Article(
-        title=title,
-        link=link,
-        published=published,
-        language=(
-            "en"
-            if re.search(r"[A-Za-z]", title)
-            and not re.search(r"[가-힣]", title)
-            else "ko"
-        ),
-        group=group,
-        publisher=publisher,
-        image="",
-        source_url=link,
-        description=description,
-    )
-
-
-def _fetch_one_google_news_query(
-    query: str,
-    start: datetime,
-    end: datetime,
-) -> tuple[str, int, list[Article], str]:
-    """Google News 검색어 하나를 RSS 1회 요청으로 읽습니다."""
-    rss_url = (
-        "https://news.google.com/rss/search?q="
-        + quote_plus(query)
-        + "&hl=ko&gl=KR&ceid=KR:ko"
-    )
-
-    try:
-        req = Request(
-            rss_url,
-            headers={
-                "User-Agent": "Mozilla/5.0 (compatible; NuclearDailyBrief/1.0)"
-            },
-        )
-        with urlopen(req, timeout=GOOGLE_NEWS_TIMEOUT_SECONDS) as response:
-            payload = response.read()
-
-        feed = feedparser.parse(payload)
-        entries = list(getattr(feed, "entries", []) or [])
-    except Exception as exc:
-        return query, 0, [], type(exc).__name__
-
-    accepted: list[Article] = []
-    for entry in entries[:GOOGLE_NEWS_MAX_ENTRIES_PER_QUERY]:
-        article = _parse_google_news_entry(entry)
-        if article is None:
-            continue
-        if not (start <= article.published < end):
-            continue
-        accepted.append(article)
-
-    return query, len(entries), accepted, ""
-
-
-def fetch_google_news_discovery(start: datetime, end: datetime) -> list[Article]:
-    """
-    Google News는 기사 '발견'만 수행합니다.
-
-    속도 최적화:
-    - 검색어별 RSS는 병렬 수집
-    - 발견 단계에서는 원문 기사 페이지를 열지 않음
-    - 동일 언론사 + 동일 제목은 먼저 제거
-    - 최종 표시 기사만 후속 metadata 단계에서 원문 접속
-    """
-    if not GOOGLE_NEWS_DISCOVERY_ENABLED:
-        return []
-
-    started = time.monotonic()
-    raw_discovered: list[Article] = []
-
-    workers = min(
-        GOOGLE_NEWS_QUERY_WORKERS,
-        max(1, len(GOOGLE_NEWS_QUERIES)),
-    )
-
-    with ThreadPoolExecutor(max_workers=workers) as executor:
-        future_map = {
-            executor.submit(
-                _fetch_one_google_news_query,
-                query,
-                start,
-                end,
-            ): query
-            for query in GOOGLE_NEWS_QUERIES
-        }
-
-        for future in as_completed(future_map):
-            query = future_map[future]
-            try:
-                result_query, feed_count, articles, error = future.result()
-            except Exception as exc:
-                print(
-                    f"[GOOGLE NEWS] query={query} "
-                    f"| FAIL={type(exc).__name__}"
-                )
-                continue
-
-            if error:
-                print(
-                    f"[GOOGLE NEWS] query={result_query} | FAIL={error}"
-                )
-                continue
-
-            raw_discovered.extend(articles)
-            print(
-                f"[GOOGLE NEWS] query={result_query} "
-                f"| feed_entries={feed_count} "
-                f"| accepted={len(articles)}"
-            )
-
-    # 같은 언론사에서 같은 제목이 여러 검색어에 반복 노출되면
-    # 원문 접속 전에 선제적으로 한 건만 유지합니다.
-    unique: list[Article] = []
-    seen: set[tuple[str, str]] = set()
-
-    for article in sorted(
-        raw_discovered,
-        key=lambda item: -item.published.timestamp(),
-    ):
-        publisher_key = normalize_text(article.publisher).lower()
-        title_key = normalize_text(article.title).lower()
-        key = (publisher_key, title_key)
-
-        if key in seen:
-            continue
-        seen.add(key)
-        unique.append(article)
-
-    elapsed = time.monotonic() - started
-    publishers = {a.publisher for a in unique if a.publisher}
-
-    print(
-        f"[GOOGLE NEWS TOTAL] raw={len(raw_discovered)} "
-        f"/ unique={len(unique)} "
-        f"/ duplicate_removed={len(raw_discovered) - len(unique)} "
-        f"/ active_publishers={len(publishers)} "
-        f"/ elapsed={elapsed:.1f}s "
-        f"/ original_page_opened=0"
-    )
-    return unique
-
-
 def _fetch_one_direct_rss_feed(
     publisher: str,
     feed_url: str,
@@ -3699,14 +3421,13 @@ def fetch_articles(start: datetime, end: datetime) -> list[Article]:
     """
     국내외 언론사에서 직접 기사를 수집합니다.
 
-    수집 구조:
-    1) 언론사 자체 RSS 직접 수집
-    2) RSS가 없거나 부족한 언론사는 공식 뉴스 페이지 직접 수집
-    3) 기존 분류·중복 제거·미리보기·썸네일 보완 로직 적용
-
-    Google News RSS는 기사 발견용 보완망으로 사용하고, 사진·미리보기는 원문에서 다시 보강합니다.
+    1) 언론사 자체 공식 RSS 직접 수집
+    2) RSS가 없거나 부족한 언론사는 공식 뉴스/섹션 페이지 직접 수집
+    3) Google News / Google News RSS는 사용하지 않음
+    4) 수집 후 기존 분류·중복 제거·미리보기·썸네일 보완 로직 적용
     """
     total_started = time.monotonic()
+    audit_source_master()
 
     rss_started = time.monotonic()
     rss_articles = fetch_direct_rss(start, end)
@@ -3716,97 +3437,56 @@ def fetch_articles(start: datetime, end: datetime) -> list[Article]:
     page_articles = fetch_direct_news_pages(start, end)
     pages_elapsed = time.monotonic() - pages_started
 
-    google_started = time.monotonic()
-    google_articles = fetch_google_news_discovery(start, end)
-    google_elapsed = time.monotonic() - google_started
-
-    fetched = rss_articles + page_articles + google_articles
+    fetched = rss_articles + page_articles
     total_elapsed = time.monotonic() - total_started
 
     ko_count = sum(1 for article in fetched if article.language == "ko")
     en_count = sum(1 for article in fetched if article.language == "en")
     overseas_publishers = sorted({article.publisher for article in fetched if article.language == "en"})
+
     print(
         f"[COLLECT] raw={len(fetched)} / ko={ko_count} / en={en_count} "
-        f"/ rss={len(rss_articles)} / pages={len(page_articles)} / google={len(google_articles)} / RAW_REVIEW_MODE=ON"
+        f"/ rss={len(rss_articles)} / pages={len(page_articles)} / google=0 / RAW_REVIEW_MODE=ON"
     )
     print(
         f"[OVERSEAS COVERAGE] active_publishers={len(overseas_publishers)} / "
         f"publishers={', '.join(overseas_publishers) if overseas_publishers else '-'}"
     )
     print(
-        f"[COLLECT TIME] rss={rss_elapsed:.1f}s "
-        f"/ direct_pages={pages_elapsed:.1f}s "
-        f"/ google={google_elapsed:.1f}s "
-        f"/ total={total_elapsed:.1f}s"
+        f"[COLLECT TIME] rss={rss_elapsed:.1f}s / direct_pages={pages_elapsed:.1f}s "
+        f"/ google=0.0s / total={total_elapsed:.1f}s"
     )
     return fetched
 
-def select_articles_for_period(
-    fetched: list[Article],
-    start: datetime,
-    end: datetime,
-) -> list[Article]:
-    """
-    검토용 원본 모드:
-    - 기간에 해당하는 기사를 모두 유지
-    - 그룹별/언어별 기사 수 제한 없음
-    - 중복 기사 제거 없음
-    먼저 실제 수집량을 확인한 뒤 필터 기준을 다시 설계합니다.
-    """
-    period_articles = [
-        article
-        for article in fetched
-        if start <= article.published < end
-        and article.publisher not in EXCLUDED_PUBLISHERS
-    ]
 
-    all_selected: list[Article] = []
-
-    for group, _queries in GROUPS:
-        for language in ("ko", "en"):
-            found = [
-                article
-                for article in period_articles
-                if article.group == group and article.language == language
-            ]
-            found.sort(key=lambda article: -article.published.timestamp())
-            all_selected.extend(found)
-
-    selected_ko = sum(1 for article in all_selected if article.language == "ko")
-    selected_en = sum(1 for article in all_selected if article.language == "en")
-    country_other = sum(
-        1 for article in all_selected
-        if detect_article_country(article) == "OTHER"
-    )
-    priority_codes = {"US", "GB", "FI", "BG", "RO", "IN", "VN", "AE", "SA"}
-    priority_market_count = sum(
-        1 for article in all_selected
-        if detect_article_country(article) in priority_codes
-    )
-
-    print(
-        f"[SELECT RAW] final={len(all_selected)} / ko={selected_ko} / en={selected_en} "
-        f"/ country_other={country_other} / priority_markets={priority_market_count} "
-        f"/ dedup=ON / limit=OFF"
-    )
-    return final_deduplicate_articles(all_selected)
-
-
-
-def _registered_source_summary() -> tuple[int, int, int]:
-    """등록된 직접수집 언론사 수(국내/해외/전체)를 반환합니다."""
+def _registered_source_summary() -> tuple[int, int, int, int]:
+    """직접수집 언론사 마스터 현황을 반환합니다."""
     ko = {publisher for publisher, _url, language in DIRECT_NEWS_PAGES if language == "ko"}
     en = {publisher for publisher, _url, language in DIRECT_NEWS_PAGES if language == "en"}
-    return len(ko), len(en), len(ko | en)
+    rss_publishers = {publisher for publisher, _url in DIRECT_RSS_FEEDS}
+    all_publishers = ko | en | rss_publishers
+    return len(ko), len(en), len(rss_publishers), len(all_publishers)
 
+
+def audit_source_master() -> None:
+    """핵심 언론사의 소스 마스터 누락 여부를 실행 때마다 점검합니다."""
+    page_publishers = {publisher for publisher, _url, _language in DIRECT_NEWS_PAGES}
+    rss_publishers = {publisher for publisher, _url in DIRECT_RSS_FEEDS}
+    registered = page_publishers | rss_publishers
+    missing = sorted(SOURCE_MASTER_REQUIRED_CORE - registered)
+    if missing:
+        print("[SOURCE MASTER MISSING] " + ", ".join(missing))
+    else:
+        print(f"[SOURCE MASTER AUDIT] required_core={len(SOURCE_MASTER_REQUIRED_CORE)} / missing=0 / status=OK")
 
 
 def collect(start: datetime, end: datetime) -> list[Article]:
-    ko_registered, en_registered, total_registered = _registered_source_summary()
+    ko_registered, en_registered, rss_publishers, total_registered = _registered_source_summary()
+    audit_source_master()
     print(
         f"[SOURCE MASTER] ko={ko_registered} / en={en_registered} "
-        f"/ total={total_registered} / rss_feeds={len(DIRECT_RSS_FEEDS)}"
+        f"/ rss_publishers={rss_publishers} / total={total_registered} "
+        f"/ rss_feeds={len(DIRECT_RSS_FEEDS)} / google=OFF"
     )
     """
     단일 기간 수집용 호환 함수.
