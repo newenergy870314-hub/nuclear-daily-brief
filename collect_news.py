@@ -309,6 +309,9 @@ DIRECT_RSS_FEEDS = [
     ("에너지신문", "https://www.energy-news.co.kr/rss/allArticle.xml"),
     ("에너지타임즈", "https://www.energytimes.kr/rss/allArticle.xml"),
     ("전력경제신문", "https://www.epetimes.com/rss/allArticle.xml"),
+
+    # 해외 원자력 전문매체 공식 RSS
+    ("Nuclear News Network", "https://www.nuclearnewsnetwork.com/feed.xml"),
 ]
 
 # ============================================================
@@ -339,6 +342,63 @@ SOURCE_MASTER_REQUIRED_CORE = {
     "The Korea Herald", "The Korea Times", "Korea JoongAng Daily",
 }
 
+SOURCE_MASTER_PDF_PRIORITY = {
+    'Nuclear News Network',
+    'SMR Intel',
+    'Politico',
+    'Axios',
+    'The Hill',
+    'The Economist',
+    'Le Monde',
+    'Les Echos',
+    'Handelsblatt',
+    'Der Spiegel',
+    'El País',
+    'National Post',
+    'The Statesman',
+    'China Daily',
+    'Global Times',
+    'South China Morning Post',
+    'Asahi Shimbun',
+    'Yomiuri Shimbun',
+    'Bangkok Post',
+    'The Star',
+    'The Jakarta Post',
+    'Daily Sabah',
+    'The Jerusalem Post',
+    'TASS',
+    'Kyiv Independent',
+    'The Africa Report',
+    'Engineering News',
+    'Daily Maverick',
+    'Inside Climate News',
+    'Canary Media',
+    'New Civil Engineer',
+    'Balkan Green Energy News',
+    'African Energy',
+    'Riviera Maritime Media',
+    'Interesting Engineering',
+    'Neutron Bytes',
+    'UA.NEWS',
+    'The Maritime Executive',
+    'TVP World',
+    'The Namibian',
+    'Asian Power',
+    'The Business Times',
+    'UNITED24 Media',
+    'pv magazine Global',
+    'CGTN',
+    'Utah News Dispatch',
+    'oEnergetice.cz',
+    'American Nuclear Society',
+    'International Atomic Energy Agency',
+    'U.S. DOE Office of Nuclear Energy',
+    'Qazinform',
+    'Anadolu Ajansı',
+    'PubAffairs Bruxelles',
+    'CairoScene',
+    'Press Information Bureau India',
+}
 
 
 # RSS가 없거나 RSS만으로는 누락 가능성이 있는 매체는 공식 뉴스 페이지를 직접 훑습니다.
@@ -691,6 +751,99 @@ DIRECT_NEWS_PAGES = [
     ("The Sofia Globe", "https://sofiaglobe.com/category/business/", "en"),
     ("The Sofia Globe", "https://sofiaglobe.com/category/bulgaria/", "en"),
     ("Helsinki Times", "https://www.helsinkitimes.fi/", "en"),
+
+    # ─────────────────────────────────────────────
+    # PDF 기반 해외 매체 마스터 추가 보강 (2026-08-18)
+    # 공식 RSS 미확인 매체는 RSS 주소를 추측하지 않고 공식 뉴스페이지 직접수집
+    # Nuclear Newswire / ANS Nuclear Newswire는 사용자 요청에 따라 제외
+    # ─────────────────────────────────────────────
+    ('Nuclear News Network', 'https://www.nuclearnewsnetwork.com/', 'en'),
+    ('SMR Intel', 'https://smrintel.com/news/', 'en'),
+    ('Nuclear Monitor', 'https://wiseinternational.org/nuclear-monitor/', 'en'),
+    ('Bellona Nuclear', 'https://bellona.org/', 'en'),
+    ('Nuclear Plant Journal', 'https://www.nuclearplantjournal.com/', 'en'),
+    ('Recharge News', 'https://www.rechargenews.com/', 'en'),
+    ('Utility Week', 'https://utilityweek.co.uk/', 'en'),
+    ('Atomic Insights', 'https://atomicinsights.com/', 'en'),
+    ('Inside Climate News', 'https://insideclimatenews.org/', 'en'),
+    ('Canary Media', 'https://www.canarymedia.com/', 'en'),
+    ('New Civil Engineer', 'https://www.newcivilengineer.com/', 'en'),
+    ('ENDS Report', 'https://www.endsreport.com/', 'en'),
+    ('Balkan Green Energy News', 'https://balkangreenenergynews.com/', 'en'),
+    ('African Energy', 'https://www.africa-energy.com/', 'en'),
+    ('Energy Capital & Power', 'https://energycapitalpower.com/', 'en'),
+    ('The Times', 'https://www.thetimes.com/', 'en'),
+    ('Politico', 'https://www.politico.com/news/energy-environment', 'en'),
+    ('Axios', 'https://www.axios.com/energy-climate/nuclear-energy', 'en'),
+    ('The Hill', 'https://thehill.com/policy/energy-environment/', 'en'),
+    ('TIME', 'https://time.com/tag/nuclear-energy/', 'en'),
+    ('The Economist', 'https://www.economist.com/', 'en'),
+    ('Le Monde', 'https://www.lemonde.fr/en/', 'en'),
+    ('Les Echos', 'https://www.lesechos.fr/', 'en'),
+    ('Le Figaro', 'https://www.lefigaro.fr/', 'en'),
+    ('La Tribune', 'https://www.latribune.fr/', 'en'),
+    ('Handelsblatt', 'https://www.handelsblatt.com/', 'en'),
+    ('Der Spiegel', 'https://www.spiegel.de/international/', 'en'),
+    ('Die Zeit', 'https://www.zeit.de/english/index', 'en'),
+    ('Süddeutsche Zeitung', 'https://www.sueddeutsche.de/', 'en'),
+    ('El País', 'https://english.elpais.com/', 'en'),
+    ('Expansión', 'https://www.expansion.com/', 'en'),
+    ('La Repubblica', 'https://www.repubblica.it/', 'en'),
+    ('Il Sole 24 Ore', 'https://www.ilsole24ore.com/', 'en'),
+    ('EUobserver', 'https://euobserver.com/', 'en'),
+    ('Emerging Europe', 'https://emerging-europe.com/', 'en'),
+    ('National Post', 'https://nationalpost.com/category/news/', 'en'),
+    ('The Statesman', 'https://www.thestatesman.com/', 'en'),
+    ('China Daily', 'https://www.chinadaily.com.cn/', 'en'),
+    ('Global Times', 'https://www.globaltimes.cn/', 'en'),
+    ('South China Morning Post', 'https://www.scmp.com/', 'en'),
+    ('Asahi Shimbun', 'https://www.asahi.com/ajw/', 'en'),
+    ('Yomiuri Shimbun', 'https://japannews.yomiuri.co.jp/', 'en'),
+    ('Bangkok Post', 'https://www.bangkokpost.com/business', 'en'),
+    ('The Star', 'https://www.thestar.com.my/news/nation', 'en'),
+    ('The Edge Malaysia', 'https://theedgemalaysia.com/', 'en'),
+    ('The Jakarta Post', 'https://www.thejakartapost.com/', 'en'),
+    ('The Manila Times', 'https://www.manilatimes.net/', 'en'),
+    ('Daily Sabah', 'https://www.dailysabah.com/business/energy', 'en'),
+    ('Hurriyet Daily News', 'https://www.hurriyetdailynews.com/', 'en'),
+    ('The Jerusalem Post', 'https://www.jpost.com/', 'en'),
+    ('The Moscow Times', 'https://www.themoscowtimes.com/', 'en'),
+    ('TASS', 'https://tass.com/', 'en'),
+    ('RT', 'https://www.rt.com/', 'en'),
+    ('Kyiv Independent', 'https://kyivindependent.com/', 'en'),
+    ('The Africa Report', 'https://www.theafricareport.com/', 'en'),
+    ('News24', 'https://www.news24.com/', 'en'),
+    ('Mail & Guardian', 'https://mg.co.za/', 'en'),
+    ('Engineering News', 'https://www.engineeringnews.co.za/', 'en'),
+    ('Daily Maverick', 'https://www.dailymaverick.co.za/', 'en'),
+
+    # ─────────────────────────────────────────────
+    # Google News 실검색 화면 기반 추가 보강 (2026-08-18)
+    # 언론사 + 원전 관련 공식기관 원문. 투자/광고성 전용 소스는 제외.
+    # ANS 일반 뉴스는 수집하되 Nuclear Newswire는 계속 제외.
+    # ─────────────────────────────────────────────
+    ('Riviera Maritime Media', 'https://www.rivieramm.com/', 'en'),
+    ('Interesting Engineering', 'https://interestingengineering.com/', 'en'),
+    ('Neutron Bytes', 'https://neutronbytes.com/', 'en'),
+    ('UA.NEWS', 'https://ua.news/en', 'en'),
+    ('The Maritime Executive', 'https://www.maritime-executive.com/', 'en'),
+    ('TVP World', 'https://tvpworld.com/', 'en'),
+    ('The Namibian', 'https://www.namibian.com.na/', 'en'),
+    ('Asian Power', 'https://asian-power.com/', 'en'),
+    ('The Business Times', 'https://www.businesstimes.com.sg/', 'en'),
+    ('UNITED24 Media', 'https://united24media.com/', 'en'),
+    ('pv magazine Global', 'https://www.pv-magazine.com/', 'en'),
+    ('CGTN', 'https://www.cgtn.com/', 'en'),
+    ('Utah News Dispatch', 'https://utahnewsdispatch.com/', 'en'),
+    ('oEnergetice.cz', 'https://oenergetice.cz/', 'en'),
+    ('American Nuclear Society', 'https://www.ans.org/news/', 'en'),
+    ('International Atomic Energy Agency', 'https://www.iaea.org/newscenter', 'en'),
+    ('U.S. DOE Office of Nuclear Energy', 'https://www.energy.gov/ne/office-nuclear-energy', 'en'),
+    ('Qazinform', 'https://qazinform.com/', 'en'),
+    ('Anadolu Ajansı', 'https://www.aa.com.tr/en/energy', 'en'),
+    ('PubAffairs Bruxelles', 'https://www.pubaffairsbruxelles.eu/', 'en'),
+    ('CairoScene', 'https://cairoscene.com/', 'en'),
+    ('Press Information Bureau India', 'https://www.pib.gov.in/', 'en'),
 ]
 
 # 매체 수가 늘어난 만큼 목록 페이지는 병렬 처리하되, 각 매체에서 관련 가능성이 있는 기사만 원문 조회합니다.
@@ -827,6 +980,15 @@ NUCLEAR_SPECIALIST_PUBLISHERS = {
     "IAEA News",
     "NRC News",
     "Nuclear Street",
+    "Nuclear News Network",
+    "SMR Intel",
+    "Nuclear Monitor",
+    "Bellona Nuclear",
+    "Nuclear Plant Journal",
+    "Neutron Bytes",
+    "American Nuclear Society",
+    "International Atomic Energy Agency",
+    "U.S. DOE Office of Nuclear Energy",
 }
 
 
@@ -3619,15 +3781,20 @@ def _registered_source_summary() -> tuple[int, int, int, int]:
 
 
 def audit_source_master() -> None:
-    """핵심 언론사의 소스 마스터 누락 여부를 실행 때마다 점검합니다."""
+    """핵심 언론사 + PDF 보강 우선매체의 소스 마스터 누락 여부를 실행 때마다 점검합니다."""
     page_publishers = {publisher for publisher, _url, _language in DIRECT_NEWS_PAGES}
     rss_publishers = {publisher for publisher, _url in DIRECT_RSS_FEEDS}
     registered = page_publishers | rss_publishers
-    missing = sorted(SOURCE_MASTER_REQUIRED_CORE - registered)
+    required = SOURCE_MASTER_REQUIRED_CORE | SOURCE_MASTER_PDF_PRIORITY
+    missing = sorted(required - registered)
     if missing:
         print("[SOURCE MASTER MISSING] " + ", ".join(missing))
     else:
-        print(f"[SOURCE MASTER AUDIT] required_core={len(SOURCE_MASTER_REQUIRED_CORE)} / missing=0 / status=OK")
+        print(
+            f"[SOURCE MASTER AUDIT] required_core={len(SOURCE_MASTER_REQUIRED_CORE)} "
+            f"/ pdf_priority={len(SOURCE_MASTER_PDF_PRIORITY)} "
+            f"/ total_required={len(required)} / missing=0 / status=OK"
+        )
 
 
 
@@ -6514,7 +6681,7 @@ header,
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
       <div class="topbar-actions">
-        <span class="updated updated-inline">업데이트 {generated_at:%-m.%-d %H:%M} KST</span>
+        <span class="updated updated-inline">업데이트됨 {generated_at:%-m.%-d %H:%M} KST</span>
         <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
     </div>
