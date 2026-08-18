@@ -4096,7 +4096,12 @@ def detect_article_country(article: Article) -> str:
 
 
 
-def render_card(article: Article, number: int, is_new: bool = False) -> str:
+def render_card(
+    article: Article,
+    number: int,
+    is_new: bool = False,
+    related_articles: list[Article] | None = None,
+) -> str:
     ensure_article_display_metadata(article)
 
     if article.image:
@@ -4114,10 +4119,48 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
         if snippet_text
         else '<div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>'
     )
+    related_articles = related_articles or []
+    related_search_parts = []
+    for related in related_articles:
+        related_search_parts.extend([
+            related.title,
+            related.publisher,
+            related.description,
+        ])
+
     search_text = ' '.join(
-        [article.title, article.publisher, article.group, article.description]
+        [
+            article.title,
+            article.publisher,
+            article.group,
+            article.description,
+            *related_search_parts,
+        ]
     ).lower()
     primary_country = detect_article_country(article)
+
+    related_items = ""
+    if related_articles:
+        related_rows = []
+        for related in related_articles:
+            ensure_article_display_metadata(related)
+            related_rows.append(
+                '<button class="related-article-link" type="button" '
+                f'data-related-url="{escape(related.link)}">'
+                f'<span class="related-publisher">{escape(related.publisher)}</span>'
+                f'<span class="related-title">{escape(related.title)}</span>'
+                '</button>'
+            )
+
+        related_items = (
+            '<div class="related-articles-wrap">'
+            f'<button class="related-toggle" type="button" aria-expanded="false">'
+            f'관련기사 {len(related_articles)}건 <span class="related-arrow">▾</span>'
+            '</button>'
+            '<div class="related-articles-list" hidden>'
+            + ''.join(related_rows)
+            + '</div></div>'
+        )
 
     return f"""
 <article class="preview-card{' new-article' if is_new else ''}"
@@ -4153,6 +4196,7 @@ def render_card(article: Article, number: int, is_new: bool = False) -> str:
   <div class="card-side">
     <div class="preview-image">{image_html}</div>
   </div>
+  {related_items}
 </article>
 """
 
@@ -4175,38 +4219,80 @@ def render_group(group: str, articles: list[Article]) -> str:
 
 def render_group_unified(
     group: str,
-    articles: list[Article],
+    article_clusters: list[tuple[Article, list[Article]]],
     new_urls: set[str] | None = None,
 ) -> str:
-    if not articles and group not in ALWAYS_SHOW_GROUPS:
+    if not article_clusters and group not in ALWAYS_SHOW_GROUPS:
         return ''
+
     new_urls = new_urls or set()
-    korean_articles = order_group_articles(
-        group,
-        [a for a in articles if a.language == 'ko'],
+
+    korean_clusters = [
+        item for item in article_clusters
+        if item[0].language == 'ko'
+    ]
+    english_clusters = [
+        item for item in article_clusters
+        if item[0].language == 'en'
+    ]
+
+    def order_clusters(
+        clusters: list[tuple[Article, list[Article]]],
+    ) -> list[tuple[Article, list[Article]]]:
+        if not clusters:
+            return []
+
+        buckets: dict[int, list[tuple[Article, list[Article]]]] = {
+            0: [], 1: [], 2: []
+        }
+        for item in clusters:
+            priority, _ = _group_article_priority(item[0], group)
+            buckets.setdefault(priority, []).append(item)
+
+        ordered: list[tuple[Article, list[Article]]] = []
+        for priority in (0, 1, 2):
+            bucket = sorted(
+                buckets.get(priority, []),
+                key=lambda item: item[0].published,
+                reverse=True,
+            )
+            ordered.extend(bucket)
+        return ordered
+
+    ordered_clusters = (
+        order_clusters(korean_clusters)
+        + order_clusters(english_clusters)
     )
-    english_articles = order_group_articles(
-        group,
-        [a for a in articles if a.language == 'en'],
-    )
-    ordered_articles = korean_articles + english_articles
+
     cards = ''.join(
-        render_card(article, index, article.link in new_urls)
-        for index, article in enumerate(ordered_articles, start=1)
+        render_card(
+            representative,
+            index,
+            representative.link in new_urls,
+            related_articles=related,
+        )
+        for index, (representative, related)
+        in enumerate(ordered_clusters, start=1)
     )
+
     if not cards:
         cards = '<div class="empty">해당 시간대에 수집된 기사가 없습니다.</div>'
+
+    article_total = sum(
+        1 + len(related)
+        for _, related in ordered_clusters
+    )
+
     return f"""
 <section class="news-group group-tab-section" data-group="{escape(group)}">
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
     <span class="group-name">{escape(group)}</span>
-    <span class="group-count">{len(ordered_articles)}건</span>
+    <span class="group-count">{article_total}건</span>
   </button>
   <div class="article-stack">{cards}</div>
 </section>
 """
-
 
 
 # ============================================================
@@ -4460,24 +4546,133 @@ def final_deduplicate_articles(articles: list[Article]) -> list[Article]:
     return deduplicate_articles_final(articles)
 
 
-def render_news_sections(articles: list[Article], new_urls: set[str] | None = None) -> str:
-    articles = final_deduplicate_articles(articles)
-    grouped: dict[str, list[Article]] = {name: [] for name, _ in GROUPS}
-    for article in articles:
-        grouped[article.group].append(article)
+def cluster_related_articles(
+    articles: list[Article],
+) -> list[tuple[Article, list[Article]]]:
+    """
+    기사 표시용 클러스터링.
+    - 동일 URL/동일 매체·동일 제목은 완전 중복이므로 한 건만 유지
+    - 서로 다른 언론사의 같은 사건 기사는 삭제하지 않고 대표기사 아래 관련기사로 묶음
+    - 단순히 같은 회사/프로젝트를 다룬 기사까지 합치지 않도록 기존의 보수적
+      _same_event_article() 판정을 그대로 사용
+    """
+    if not articles:
+        return []
+
+    sorted_articles = sorted(
+        articles,
+        key=lambda article: article.published,
+        reverse=True,
+    )
+
+    exact_unique: list[Article] = []
+    for article in sorted_articles:
+        matched_idx = None
+        for idx, kept in enumerate(exact_unique):
+            if _same_exact_article(article, kept):
+                matched_idx = idx
+                break
+
+        if matched_idx is None:
+            exact_unique.append(article)
+        elif _article_rep_score(article) > _article_rep_score(exact_unique[matched_idx]):
+            exact_unique[matched_idx] = article
+
+    clusters: list[list[Article]] = []
+    for article in exact_unique:
+        matched_cluster = None
+
+        for cluster in clusters:
+            if any(_same_event_article(article, member) for member in cluster):
+                matched_cluster = cluster
+                break
+
+        if matched_cluster is None:
+            clusters.append([article])
+        else:
+            matched_cluster.append(article)
+
+    result: list[tuple[Article, list[Article]]] = []
+    priority_index = {
+        group: idx for idx, group in enumerate(DIRECT_GROUP_PRIORITY)
+    }
+
+    for cluster in clusters:
+        cluster_group = min(
+            (article.group for article in cluster),
+            key=lambda group: priority_index.get(group, 999),
+        )
+
+        same_group_candidates = [
+            article for article in cluster
+            if article.group == cluster_group
+        ]
+        candidates = same_group_candidates or cluster
+        representative = max(candidates, key=_article_rep_score)
+        representative.group = cluster_group
+
+        related = [
+            article for article in cluster
+            if article is not representative
+        ]
+        related.sort(key=lambda article: article.published, reverse=True)
+
+        result.append((representative, related))
+
+    result.sort(
+        key=lambda item: item[0].published,
+        reverse=True,
+    )
+
+    grouped_count = sum(len(related) for _, related in result)
+    print(
+        f"[ARTICLE CLUSTERS] input={len(articles)} / "
+        f"clusters={len(result)} / related={grouped_count}"
+    )
+    return result
+
+
+def render_news_sections(
+    articles: list[Article],
+    new_urls: set[str] | None = None,
+) -> str:
+    clusters = cluster_related_articles(articles)
+
+    grouped: dict[
+        str,
+        list[tuple[Article, list[Article]]]
+    ] = {name: [] for name, _ in GROUPS}
+
+    for representative, related in clusters:
+        if representative.group not in grouped:
+            continue
+        grouped[representative.group].append((representative, related))
 
     sections = []
     for group, _ in GROUPS:
         if not grouped[group] and group not in ALWAYS_SHOW_GROUPS:
             continue
-        section = render_group_unified(group, grouped[group], new_urls)
+
+        section = render_group_unified(
+            group,
+            grouped[group],
+            new_urls,
+        )
         section = section.replace(
             'class="news-group group-tab-section"',
             'class="news-group collapsed"',
             1,
         )
-        section = section.replace('aria-expanded="true"', 'aria-expanded="false"', 1)
-        section = section.replace('<span class="group-arrow">▲</span>', '<span class="group-arrow">▼</span>', 1)
+        section = section.replace(
+            'aria-expanded="true"',
+            'aria-expanded="false"',
+            1,
+        )
+        section = section.replace(
+            '<span class="group-arrow">▲</span>',
+            '<span class="group-arrow">▼</span>',
+            1,
+        )
         sections.append(section)
 
     return ''.join(sections)
@@ -6237,6 +6432,80 @@ header,
   }}
 }}
 
+
+/* RELATED ARTICLE CLUSTERS */
+.preview-card:has(.related-articles-wrap) {{
+  padding-bottom:0;
+}}
+.related-articles-wrap {{
+  grid-column:1 / -1;
+  width:100%;
+  margin-top:2px;
+  border-top:1px solid rgba(35,57,93,.08);
+  background:#f7f8fa;
+}}
+.related-toggle {{
+  width:100%;
+  min-height:27px;
+  padding:0 8px;
+  border:0;
+  background:transparent;
+  color:#53657c;
+  font-size:9px;
+  font-weight:850;
+  line-height:27px;
+  text-align:left;
+  cursor:pointer;
+}}
+.related-arrow {{
+  display:inline-block;
+  margin-left:2px;
+  color:#8a94a3;
+}}
+.related-toggle[aria-expanded="true"] .related-arrow {{
+  transform:rotate(180deg);
+}}
+.related-articles-list {{
+  padding:0 7px 7px;
+}}
+.related-article-link {{
+  display:grid;
+  grid-template-columns:70px minmax(0,1fr);
+  align-items:start;
+  gap:6px;
+  width:100%;
+  padding:6px 4px;
+  border:0;
+  border-top:1px solid rgba(35,57,93,.06);
+  background:transparent;
+  text-align:left;
+  cursor:pointer;
+}}
+.related-publisher {{
+  color:#7a8493;
+  font-size:8px;
+  line-height:1.25;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}}
+.related-title {{
+  color:#345b8c;
+  font-size:9px;
+  line-height:1.3;
+  font-weight:750;
+}}
+.related-article-link:hover .related-title {{
+  text-decoration:underline;
+}}
+@media (min-width:768px) {{
+  .related-toggle {{ font-size:9px; }}
+  .related-article-link {{
+    grid-template-columns:70px minmax(0,1fr);
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -6245,7 +6514,7 @@ header,
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
       <div class="topbar-actions">
-        <span class="updated updated-inline">{generated_at:%-m.%-d %H:%M} KST</span>
+        <span class="updated updated-inline">업데이트 {generated_at:%-m.%-d %H:%M} KST</span>
         <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
     </div>
@@ -6519,7 +6788,34 @@ function showImportantToast(message){{
 
 document.querySelectorAll(".preview-card").forEach(card=>{{
   applyState(card);
-  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button")) openArticle(card); }});
+
+  const relatedToggle=card.querySelector(".related-toggle");
+  if(relatedToggle){{
+    relatedToggle.addEventListener("click",event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+
+      const list=card.querySelector(".related-articles-list");
+      const expanded=relatedToggle.getAttribute("aria-expanded")==="true";
+      relatedToggle.setAttribute("aria-expanded",String(!expanded));
+      if(list)list.hidden=expanded;
+    }});
+  }}
+
+  card.querySelectorAll(".related-article-link").forEach(button=>{{
+    button.addEventListener("click",event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+
+      const url=button.dataset.relatedUrl;
+      if(!url)return;
+
+      readArticles.add(url);
+      saveState();
+      window.open(url,"_blank","noopener");
+    }});
+  }});
+  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button, .related-toggle, .related-article-link")) openArticle(card); }});
   card.addEventListener("keydown",e=>{{ if(e.key==="Enter"||e.key===" "){{ e.preventDefault(); openArticle(card); }}}});
   const importantButton = card.querySelector(".important-button");
   if(importantButton){{
@@ -6779,13 +7075,19 @@ function updateCountryMapCounts(){{
     button.classList.toggle("active",activeCountryFilter===code);
   }});
 
-  const fixedRank={{KR:0,US:1,GB:2,OTHER:3}};
+  const fixedRank={{KR:0,US:1,GB:2}};
   countryButtons.sort((a,b)=>{{
     const codeA=a.dataset.countryFilter;
     const codeB=b.dataset.countryFilter;
+
+    // 기타는 기사 건수와 관계없이 항상 맨 마지막에 고정합니다.
+    if(codeA==="OTHER" && codeB!=="OTHER")return 1;
+    if(codeB==="OTHER" && codeA!=="OTHER")return -1;
+
     const countA=counts[codeA]||0;
     const countB=counts[codeB]||0;
     if(countA!==countB)return countB-countA;
+
     return (fixedRank[codeA]??99)-(fixedRank[codeB]??99);
   }});
   if(rail){{
