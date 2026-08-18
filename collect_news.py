@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import html
+import time
 import hashlib
 import json
 import os
@@ -43,6 +44,7 @@ RAW_REVIEW_MODE = True
 GOOGLE_NEWS_DISCOVERY_ENABLED = True
 GOOGLE_NEWS_MAX_ENTRIES_PER_QUERY = 120
 GOOGLE_NEWS_TIMEOUT_SECONDS = 12
+GOOGLE_NEWS_QUERY_WORKERS = 8
 
 GOOGLE_NEWS_QUERIES = (
     "현대건설",
@@ -1657,9 +1659,10 @@ def cleanup_old_thumbnails(now: datetime) -> None:
 
 def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> None:
     """
-    전일/금일/익일에서 실제 표시될 기사만 대상으로 대표 이미지와 설명을 보완합니다.
-    동일 URL은 한 번만 조회하고 결과를 모든 기간의 동일 기사에 재사용합니다.
+    전일/금일/익일에서 최종 표시될 기사만 대상으로 대표 이미지와 설명을 보완합니다.
+    동일 URL은 한 번만 조회하고, 원문 접근은 ThreadPool로 병렬 처리합니다.
     """
+    started = time.monotonic()
     articles_by_url: dict[str, list[Article]] = {}
 
     for articles in articles_by_period.values():
@@ -1672,10 +1675,18 @@ def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> Non
         if not (items[0].image and items[0].description)
     ]
 
+    google_targets = sum(
+        1
+        for article in targets
+        if "news.google.com" in (article.link or "").lower()
+    )
+
     if not targets:
+        print("[META ENRICH] targets=0 / elapsed=0.0s")
         return
 
     workers = min(ARTICLE_META_WORKERS, len(targets))
+
     with ThreadPoolExecutor(max_workers=workers) as executor:
         future_map = {
             executor.submit(_fetch_article_metadata, article): article.link
@@ -1683,17 +1694,46 @@ def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> Non
         }
 
         for future in as_completed(future_map):
-            link = future_map[future]
+            original_key = future_map[future]
             try:
                 image, description = future.result()
             except Exception:
                 continue
 
-            for article in articles_by_url.get(link, []):
+            for article in articles_by_url.get(original_key, []):
+                # _fetch_article_metadata() may resolve a Google News URL
+                # on the representative article. Reuse that resolved URL.
+                representative = articles_by_url[original_key][0]
+                if representative.link and representative.link != original_key:
+                    article.link = representative.link
+
                 if image and not article.image:
                     article.image = image
                 if description and not article.description:
                     article.description = description
+
+    elapsed = time.monotonic() - started
+    filled_images = sum(
+        1
+        for items in articles_by_period.values()
+        for article in items
+        if (article.image or "").strip()
+    )
+    filled_descriptions = sum(
+        1
+        for items in articles_by_period.values()
+        for article in items
+        if (article.description or "").strip()
+    )
+
+    print(
+        f"[META ENRICH] targets={len(targets)} "
+        f"/ google_targets={google_targets} "
+        f"/ workers={workers} "
+        f"/ images={filled_images} "
+        f"/ descriptions={filled_descriptions} "
+        f"/ elapsed={elapsed:.1f}s"
+    )
 
 
 HYUNDAI_VOLLEYBALL_TERMS = {
@@ -3005,11 +3045,12 @@ def _parse_google_news_entry(entry) -> Article | None:
         publisher,
     )
 
-    resolved_link = _resolve_google_news_url(link)
-
+    # 발견 단계에서는 원문 페이지를 열지 않습니다.
+    # Google News 링크를 그대로 유지하고, 최종 중복 제거 후 실제 표시 기사만
+    # metadata 단계에서 원문 URL/썸네일/미리보기를 보강합니다.
     return Article(
         title=title,
-        link=resolved_link,
+        link=link,
         published=published,
         language=(
             "en"
@@ -3025,57 +3066,131 @@ def _parse_google_news_entry(entry) -> Article | None:
     )
 
 
+def _fetch_one_google_news_query(
+    query: str,
+    start: datetime,
+    end: datetime,
+) -> tuple[str, int, list[Article], str]:
+    """Google News 검색어 하나를 RSS 1회 요청으로 읽습니다."""
+    rss_url = (
+        "https://news.google.com/rss/search?q="
+        + quote_plus(query)
+        + "&hl=ko&gl=KR&ceid=KR:ko"
+    )
+
+    try:
+        req = Request(
+            rss_url,
+            headers={
+                "User-Agent": "Mozilla/5.0 (compatible; NuclearDailyBrief/1.0)"
+            },
+        )
+        with urlopen(req, timeout=GOOGLE_NEWS_TIMEOUT_SECONDS) as response:
+            payload = response.read()
+
+        feed = feedparser.parse(payload)
+        entries = list(getattr(feed, "entries", []) or [])
+    except Exception as exc:
+        return query, 0, [], type(exc).__name__
+
+    accepted: list[Article] = []
+    for entry in entries[:GOOGLE_NEWS_MAX_ENTRIES_PER_QUERY]:
+        article = _parse_google_news_entry(entry)
+        if article is None:
+            continue
+        if not (start <= article.published < end):
+            continue
+        accepted.append(article)
+
+    return query, len(entries), accepted, ""
+
+
 def fetch_google_news_discovery(start: datetime, end: datetime) -> list[Article]:
+    """
+    Google News는 기사 '발견'만 수행합니다.
+
+    속도 최적화:
+    - 검색어별 RSS는 병렬 수집
+    - 발견 단계에서는 원문 기사 페이지를 열지 않음
+    - 동일 언론사 + 동일 제목은 먼저 제거
+    - 최종 표시 기사만 후속 metadata 단계에서 원문 접속
+    """
     if not GOOGLE_NEWS_DISCOVERY_ENABLED:
         return []
 
-    discovered: list[Article] = []
+    started = time.monotonic()
+    raw_discovered: list[Article] = []
 
-    for query in GOOGLE_NEWS_QUERIES:
-        rss_url = (
-            "https://news.google.com/rss/search?q="
-            + quote_plus(query)
-            + "&hl=ko&gl=KR&ceid=KR:ko"
-        )
-
-        try:
-            req = Request(
-                rss_url,
-                headers={
-                    "User-Agent": "Mozilla/5.0 (compatible; NuclearDailyBrief/1.0)"
-                },
-            )
-            with urlopen(req, timeout=GOOGLE_NEWS_TIMEOUT_SECONDS) as response:
-                payload = response.read()
-
-            feed = feedparser.parse(payload)
-            entries = list(getattr(feed, "entries", []) or [])
-        except Exception as exc:
-            print(f"[GOOGLE NEWS] query={query} | FAIL={type(exc).__name__}")
-            continue
-
-        accepted = 0
-        for entry in entries[:GOOGLE_NEWS_MAX_ENTRIES_PER_QUERY]:
-            article = _parse_google_news_entry(entry)
-            if not article:
-                continue
-            if not (start <= article.published < end):
-                continue
-            discovered.append(article)
-            accepted += 1
-
-        print(
-            f"[GOOGLE NEWS] query={query} | feed_entries={len(entries)} "
-            f"| accepted={accepted}"
-        )
-
-    publishers = {a.publisher for a in discovered if a.publisher}
-    print(
-        f"[GOOGLE NEWS TOTAL] discovered={len(discovered)} "
-        f"| active_publishers={len(publishers)}"
+    workers = min(
+        GOOGLE_NEWS_QUERY_WORKERS,
+        max(1, len(GOOGLE_NEWS_QUERIES)),
     )
-    return discovered
 
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        future_map = {
+            executor.submit(
+                _fetch_one_google_news_query,
+                query,
+                start,
+                end,
+            ): query
+            for query in GOOGLE_NEWS_QUERIES
+        }
+
+        for future in as_completed(future_map):
+            query = future_map[future]
+            try:
+                result_query, feed_count, articles, error = future.result()
+            except Exception as exc:
+                print(
+                    f"[GOOGLE NEWS] query={query} "
+                    f"| FAIL={type(exc).__name__}"
+                )
+                continue
+
+            if error:
+                print(
+                    f"[GOOGLE NEWS] query={result_query} | FAIL={error}"
+                )
+                continue
+
+            raw_discovered.extend(articles)
+            print(
+                f"[GOOGLE NEWS] query={result_query} "
+                f"| feed_entries={feed_count} "
+                f"| accepted={len(articles)}"
+            )
+
+    # 같은 언론사에서 같은 제목이 여러 검색어에 반복 노출되면
+    # 원문 접속 전에 선제적으로 한 건만 유지합니다.
+    unique: list[Article] = []
+    seen: set[tuple[str, str]] = set()
+
+    for article in sorted(
+        raw_discovered,
+        key=lambda item: -item.published.timestamp(),
+    ):
+        publisher_key = normalize_text(article.publisher).lower()
+        title_key = normalize_text(article.title).lower()
+        key = (publisher_key, title_key)
+
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(article)
+
+    elapsed = time.monotonic() - started
+    publishers = {a.publisher for a in unique if a.publisher}
+
+    print(
+        f"[GOOGLE NEWS TOTAL] raw={len(raw_discovered)} "
+        f"/ unique={len(unique)} "
+        f"/ duplicate_removed={len(raw_discovered) - len(unique)} "
+        f"/ active_publishers={len(publishers)} "
+        f"/ elapsed={elapsed:.1f}s "
+        f"/ original_page_opened=0"
+    )
+    return unique
 
 
 def _fetch_one_direct_rss_feed(
@@ -3591,10 +3706,22 @@ def fetch_articles(start: datetime, end: datetime) -> list[Article]:
 
     Google News RSS는 기사 발견용 보완망으로 사용하고, 사진·미리보기는 원문에서 다시 보강합니다.
     """
+    total_started = time.monotonic()
+
+    rss_started = time.monotonic()
     rss_articles = fetch_direct_rss(start, end)
+    rss_elapsed = time.monotonic() - rss_started
+
+    pages_started = time.monotonic()
     page_articles = fetch_direct_news_pages(start, end)
+    pages_elapsed = time.monotonic() - pages_started
+
+    google_started = time.monotonic()
     google_articles = fetch_google_news_discovery(start, end)
+    google_elapsed = time.monotonic() - google_started
+
     fetched = rss_articles + page_articles + google_articles
+    total_elapsed = time.monotonic() - total_started
 
     ko_count = sum(1 for article in fetched if article.language == "ko")
     en_count = sum(1 for article in fetched if article.language == "en")
@@ -3606,6 +3733,12 @@ def fetch_articles(start: datetime, end: datetime) -> list[Article]:
     print(
         f"[OVERSEAS COVERAGE] active_publishers={len(overseas_publishers)} / "
         f"publishers={', '.join(overseas_publishers) if overseas_publishers else '-'}"
+    )
+    print(
+        f"[COLLECT TIME] rss={rss_elapsed:.1f}s "
+        f"/ direct_pages={pages_elapsed:.1f}s "
+        f"/ google={google_elapsed:.1f}s "
+        f"/ total={total_elapsed:.1f}s"
     )
     return fetched
 
@@ -6135,6 +6268,7 @@ filterArticles();renderFavorites();
 
 
 def main() -> int:
+    run_started = time.monotonic()
     now = datetime.now(KST)
 
     # 실제 GitHub Actions가 예약시각보다 몇 분 늦게 시작돼도
@@ -6307,6 +6441,11 @@ def main() -> int:
     print(
         f"Generated {OUTPUT}: {total} news articles across 3 periods; "
         f"{len(archive)} archive dates"
+    )
+    run_elapsed = time.monotonic() - run_started
+    print(
+        f"[RUN TIME] total={run_elapsed:.1f}s "
+        f"({run_elapsed / 60:.1f} min)"
     )
     return 0
 
