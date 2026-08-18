@@ -2814,37 +2814,7 @@ def classify_direct_article(title: str, summary: str) -> str | None:
 
 def parse_direct_rss_entry(entry, publisher: str, feed_url: str) -> Article | None:
     """언론사 자체 RSS 항목을 Article로 변환합니다."""
-    raw_date = (
-        getattr(entry, "published", None)
-        or getattr(entry, "updated", None)
-        or getattr(entry, "created", None)
-    )
-
-    published = None
-    if raw_date:
-        try:
-            parsed_date = date_parser.parse(raw_date)
-            if parsed_date.tzinfo is None:
-                parsed_date = parsed_date.replace(tzinfo=timezone.utc)
-            published = parsed_date.astimezone(KST)
-        except Exception:
-            published = None
-
-    if published is None:
-        parsed_struct = (
-            getattr(entry, "published_parsed", None)
-            or getattr(entry, "updated_parsed", None)
-            or getattr(entry, "created_parsed", None)
-        )
-        if parsed_struct:
-            try:
-                published = datetime(
-                    *parsed_struct[:6],
-                    tzinfo=timezone.utc,
-                ).astimezone(KST)
-            except Exception:
-                published = None
-
+    published = _parse_feed_entry_datetime(entry)
     if published is None:
         return None
 
@@ -2880,6 +2850,40 @@ def parse_direct_rss_entry(entry, publisher: str, feed_url: str) -> Article | No
         description=description,
     )
 
+
+
+def _parse_feed_entry_datetime(entry) -> datetime | None:
+    """RSS/Atom entry의 발행시각을 KST aware datetime으로 변환합니다."""
+    raw_date = (
+        getattr(entry, "published", None)
+        or getattr(entry, "updated", None)
+        or getattr(entry, "created", None)
+    )
+
+    if raw_date:
+        try:
+            parsed_date = date_parser.parse(raw_date)
+            if parsed_date.tzinfo is None:
+                parsed_date = parsed_date.replace(tzinfo=timezone.utc)
+            return parsed_date.astimezone(KST)
+        except Exception:
+            pass
+
+    parsed_struct = (
+        getattr(entry, "published_parsed", None)
+        or getattr(entry, "updated_parsed", None)
+        or getattr(entry, "created_parsed", None)
+    )
+    if parsed_struct:
+        try:
+            return datetime(
+                *parsed_struct[:6],
+                tzinfo=timezone.utc,
+            ).astimezone(KST)
+        except Exception:
+            pass
+
+    return None
 
 
 def _google_news_publisher(entry) -> str:
@@ -2965,12 +2969,14 @@ def _parse_google_news_entry(entry) -> Article | None:
     if publisher in EXCLUDED_PUBLISHERS:
         return None
 
-    raw_title = str(getattr(entry, "title", "") or "").strip()
+    raw_title = html.unescape(
+        str(getattr(entry, "title", "") or "")
+    ).strip()
     title = _strip_google_news_source_suffix(raw_title, publisher)
     link = str(getattr(entry, "link", "") or "").strip()
-    published = parse_entry_datetime(entry)
+    published = _parse_feed_entry_datetime(entry)
 
-    if not title or not link or not published:
+    if not title or not link or published is None:
         return None
 
     raw_description = str(
@@ -2978,22 +2984,44 @@ def _parse_google_news_entry(entry) -> Article | None:
         or getattr(entry, "description", "")
         or ""
     )
-    description = re.sub(r"<[^>]+>", " ", raw_description)
-    description = re.sub(r"\s+", " ", description).strip()
-    if description == title or len(description) < 25:
-        description = ""
+    plain_summary = re.sub(r"<[^>]+>", " ", raw_description)
+    plain_summary = html.unescape(
+        re.sub(r"\s+", " ", plain_summary)
+    ).strip()
+
+    # 기존 직접수집과 동일한 분류 로직 적용
+    group = classify_direct_article(title, plain_summary)
+    if group is None:
+        return None
+
+    if group == "현대건설" and is_hyundai_volleyball_article(
+        title, plain_summary
+    ):
+        return None
+
+    description = clean_description(
+        plain_summary,
+        title,
+        publisher,
+    )
 
     resolved_link = _resolve_google_news_url(link)
 
     return Article(
         title=title,
-        publisher=publisher,
         link=resolved_link,
         published=published,
-        description=description,
-        language="ko" if re.search(r"[가-힣]", title) else "en",
-        source_url=link,
+        language=(
+            "en"
+            if re.search(r"[A-Za-z]", title)
+            and not re.search(r"[가-힣]", title)
+            else "ko"
+        ),
+        group=group,
+        publisher=publisher,
         image="",
+        source_url=link,
+        description=description,
     )
 
 
@@ -3033,9 +3061,6 @@ def fetch_google_news_discovery(start: datetime, end: datetime) -> list[Article]
                 continue
             if not (start <= article.published < end):
                 continue
-            if not is_relevant_article(article):
-                continue
-
             discovered.append(article)
             accepted += 1
 
