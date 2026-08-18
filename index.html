@@ -1328,6 +1328,81 @@ header,
   }
 }
 
+
+/* IMPORTANT AREA TOP POSITION */
+.favorites-panel-top {
+  margin:0 12px 9px;
+}
+.important-button {
+  align-self:start !important;
+  margin-top:0 !important;
+}
+@media (min-width:768px) {
+  .favorites-panel-top {
+    margin:0 12px 9px;
+  }
+  .important-button {
+    align-self:start !important;
+    margin-top:0 !important;
+  }
+}
+
+
+/* INLINE UPDATE TIME */
+.topbar-actions {
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:7px;
+  min-width:0;
+}
+.updated-inline {
+  margin:0;
+  color:rgba(255,255,255,.62);
+  font-size:8px;
+  line-height:1;
+  font-weight:700;
+  white-space:nowrap;
+}
+@media (max-width:380px) {
+  .topbar-actions {
+    gap:5px;
+  }
+  .updated-inline {
+    font-size:7.5px;
+  }
+  .header-toggle {
+    min-width:62px;
+    padding:0 7px;
+  }
+}
+@media (min-width:768px) {
+  .updated-inline {
+    font-size:8px;
+  }
+}
+
+
+/* COUNTRY FILTER HEADER: helper on the right */
+.world-map-head {
+  align-items:center;
+}
+.country-filter-note-inline {
+  flex:0 0 auto;
+  margin:0;
+  padding:0;
+  color:#98a2b3;
+  font-size:8px;
+  line-height:1;
+  text-align:right;
+  white-space:nowrap;
+}
+@media (max-width:380px) {
+  .country-filter-note-inline {
+    font-size:7.5px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1335,9 +1410,11 @@ header,
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
-      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
+      <div class="topbar-actions">
+        <span class="updated updated-inline">8.18 21:25 KST</span>
+        <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
+      </div>
     </div>
-    <div class="updated">업데이트 2026. 8. 18. 20:55 KST</div>
     <div class="search-wrap">
       <input id="article-search" class="search-input" type="search" placeholder="기사 · 언론사 · 기업 · 프로젝트 · 국가 검색" aria-label="기사 검색">
     </div>
@@ -1359,12 +1436,23 @@ header,
       </div>
     </div>
   </header>
+  <section id="favorites-panel" class="favorites-panel favorites-panel-top" hidden>
+    <div class="favorites-head">
+      <div>
+        <div class="favorites-title">중요 기사 <span id="favorite-count"></span></div>
+        <div class="favorites-help">중요로 표시한 기사만 모아봅니다.</div>
+      </div>
+    </div>
+    <div id="favorites-list" class="favorites-list"></div>
+  </section>
+  <div id="important-toast" class="important-toast" role="status" aria-live="polite"></div>
   <section id="world-map-panel" class="world-map-panel">
     <div class="world-map-head">
       <div class="world-map-title-wrap">
         <div class="world-map-title">국가 필터</div>
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
+      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">기사가 있는 국가만 표시됩니다.</div>
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
@@ -1403,9 +1491,8 @@ header,
       <button class="country-pin country-sg" data-country-filter="SG" data-anchor-x="78.0" data-anchor-y="65.0" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
       <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
-    <div id="country-filter-note" class="country-filter-note">기사가 있는 국가만 표시됩니다.</div>
   </section>
-  <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-head"><div><div class="favorites-title">중요 기사 <span id="favorite-count"></span></div><div class="favorites-help">중요로 표시한 기사만 모아봅니다.</div></div></div><div id="favorites-list" class="favorites-list"></div></section><div id="important-toast" class="important-toast" role="status" aria-live="polite"></div><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
+  <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
 <section class="tab-panel" id="tab-전일" data-report-date="2026-08-17">
   <div class="period-action-row">
     <div class="period-inline">
@@ -3049,7 +3136,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/european-nuclear-industry-welcomes-almaraz-decision-calls-for-spain-to-rethink-phaseout-plans-8-1-2026#&lt;ActiveStorage::Attached::One:0x0000748806c1e528&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/european-nuclear-industry-welcomes-almaraz-decision-calls-for-spain-to-rethink-phaseout-plans-8-1-2026#&lt;ActiveStorage::Attached::One:0x0000748806d2ab60&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -4135,7 +4222,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/552c0b2a7380a0f342d47b0c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/9a9cd06148ab3015756f7ed9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -4912,7 +4999,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -4982,6 +5069,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e04a6c45e3bb07f0777d330b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.fntimes.com/html/view.php?ud=202608142231276902dd55077bc2_18"
+  data-title="현대건설·현엔 5년 연속 성장…GS·롯데도 실적 확대 [2026 시평-공사실적] - 한국금융신문"
+  data-publisher="한국금융신문"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1786978800"
+  data-country="KR"
+  data-search="현대건설·현엔 5년 연속 성장…gs·롯데도 실적 확대 [2026 시평-공사실적] - 한국금융신문 한국금융신문 현대건설 건설사의 시공능력평가액은 공사실적평가액, 경영평가액, 기술능력평가액, 신인도평가액을 합해 계산된다. 시공능력평가 중 가장 많은 비중을 차지하는 평가 항목은 공사실적평가액으로 꼽힌다.한국금융신문이 최근 공사실적액 기준으로 상위 10대 건설사를 분석한 결과, 이들 기업의 공사실적액은 202"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국금융신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대건설·현엔 5년 연속 성장…GS·롯데도 실적 확대 [2026 시평-공사실적] - 한국금융신문</div>
+      <div class="article-snippet">건설사의 시공능력평가액은 공사실적평가액, 경영평가액, 기술능력평가액, 신인도평가액을 합해 계산된다. 시공능력평가 중 가장 많은 비중을 차지하는 평가 항목은 공사실적평가액으로 꼽힌다.한국금융신문이 최근 공사실적액 기준으로 상위 10대 건설사를 분석한 결과, 이들 기업의 공사실적액은 202</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/135eabea8d9c1709811b0f44.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -6492,7 +6614,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.eenews.net/articles/hungary-uses-sunken-barges-to-raise-danube-river-to-keep-nuclear-plant-on/"
   data-title="Hungary uses sunken barges to raise Danube River to keep nuclear plant on"
   data-publisher="E&amp;E News"
@@ -6517,7 +6639,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Hungary uses sunken barges to raise Danube River to keep nuclear plant on</div>
+      <div class="headline">Hungary uses sunken barges to raise Danube River to keep nuclear plant on</div>
       <div class="article-snippet">Europe’s summer of extreme heat has affected nuclear power production across the continent.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -6527,7 +6649,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.eenews.net/articles/doe-wants-congress-to-boost-a-nuclear-tax-credit-it-might-need-buy-in-from-house-democrats/"
   data-title="DOE wants Congress to boost a nuclear tax credit. It might need buy-in from House Democrats."
   data-publisher="E&amp;E News"
@@ -6552,7 +6674,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>DOE wants Congress to boost a nuclear tax credit. It might need buy-in from House Democrats.</div>
+      <div class="headline">DOE wants Congress to boost a nuclear tax credit. It might need buy-in from House Democrats.</div>
       <div class="article-snippet">Four years since its inception, a federal incentive for new nuclear projects hasn’t gotten much bite. The nuclear industry and Energy Department are looking</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -6751,7 +6873,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/956566e07539bfdd097be9e7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/887ef1e05c199ead0682ef47.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -7006,7 +7128,7 @@ header,
     <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.opinionnews.co.kr/news/articleView.html?idxno=143193"
   data-title="현대건설, 테라파워 ‘나트륨’ EPC 파트너 확정…후속 최대 8기 선점"
   data-publisher="오피니언뉴스"
@@ -7031,7 +7153,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대건설, 테라파워 ‘나트륨’ EPC 파트너 확정…후속 최대 8기 선점</div>
+      <div class="headline">현대건설, 테라파워 ‘나트륨’ EPC 파트너 확정…후속 최대 8기 선점</div>
       <div class="article-snippet">[오피니언뉴스=김기범 기자] 현대건설이 미국 테라파워의 차세대 원전 ‘나트륨’ 사업에 참여하며 글로벌 원전 시장 공략을 강화한다. 지난 5월 협력에 이어 후속 원전 최대 8개 호기의 EPC(설계·조달·시공)참여 기반도 확보했다.현대건설은 이한우 대표이사와 크리스 르베크 테라파워 최고경영자(CEO) 등 양사 주요 경영진이 참석한 가운데 나트륨 원전 사업 수행을 위한 기본협약을 체결했다고 18일 밝혔다.양사는 각사가 보유한 기술과 사업 역량을 결합해 원전 분야 협력을 확대하고 신규 사업 기회를 공동 발굴하기로 했다. 현대건설은 테라파워</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -7835,7 +7957,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">33건</span>
+    <span class="group-count">34건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -8125,7 +8247,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787054100"
+  data-published="1787056200"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -8153,6 +8275,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newscj.com/news/articleView.html?idxno=3426140"
+  data-title="한전KDN, AI 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입"
+  data-publisher="천지일보"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787053000"
+  data-country="KR"
+  data-search="한전kdn, ai 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입 천지일보 한국전력 [천지일보=천성현 기자] 한전kdn이 인공지능(ai) 해킹과 드론 테러 등 최근 고도화하는 안보 위협에 대응하기 위한 실전형 비상대비훈련에 돌입했다.에너지 ict 전문 공기업 한전kdn은 18일부터 오는 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 진행한"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">10.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">천지일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, AI 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입</div>
+      <div class="article-snippet">[천지일보=천성현 기자] 한전KDN이 인공지능(AI) 해킹과 드론 테러 등 최근 고도화하는 안보 위협에 대응하기 위한 실전형 비상대비훈련에 돌입했다.에너지 ICT 전문 공기업 한전KDN은 18일부터 오는 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 진행한</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4bd924e2f368859ae276aef8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104613"
   data-title="한전KDN, 을지연습 전개…에너지 ICT 비상 대응체계 ‘확립’"
@@ -8166,7 +8323,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8201,7 +8358,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8236,7 +8393,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8271,7 +8428,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8306,7 +8463,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8341,7 +8498,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8376,7 +8533,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8411,7 +8568,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8446,7 +8603,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8481,7 +8638,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8516,7 +8673,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8551,7 +8708,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8586,7 +8743,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8621,7 +8778,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8656,7 +8813,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8691,7 +8848,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8713,7 +8870,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.iusm.co.kr/news/articleView.html?idxno=1066809"
   data-title="사유지에 무단 설치된 전주… ‘더부살이’ 통신선로 철거·배상 두고 진통"
   data-publisher="울산매일"
@@ -8726,7 +8883,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8738,7 +8895,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>사유지에 무단 설치된 전주… ‘더부살이’ 통신선로 철거·배상 두고 진통</div>
+      <div class="headline">사유지에 무단 설치된 전주… ‘더부살이’ 통신선로 철거·배상 두고 진통</div>
       <div class="article-snippet">한국전력공사가 울산의 한 사유지에 무단으로 전주를 설치해 보상 절차를 밟고 있는 가운데 전주에 연결된 통신선로 처리 문제를 두고 토지주와 통신사 간 마찰을 빚고 있다.18일 해당 사유지의 대리인 A씨에 따르면 울주군 범서읍 구영리 산71번지 일대 사유지에 토지주의 동의 없이 한전 전주</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -8761,7 +8918,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8796,7 +8953,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8831,7 +8988,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8866,7 +9023,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8901,7 +9058,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8936,7 +9093,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -8971,7 +9128,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -9186,7 +9343,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5213234"
   data-title="이준석 &quot;&#x27;호텔경제학&#x27;을 대미 외교에…상대는 진짜 호텔 운영하던 트럼프&quot;"
   data-publisher="MBN"
@@ -9211,7 +9368,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이준석 &quot;&#x27;호텔경제학&#x27;을 대미 외교에…상대는 진짜 호텔 운영하던 트럼프&quot;</div>
+      <div class="headline">이준석 &quot;&#x27;호텔경제학&#x27;을 대미 외교에…상대는 진짜 호텔 운영하던 트럼프&quot;</div>
       <div class="article-snippet">미국의 대미 투자 이행 압박과 관련해 이준석 개혁신당 대표가 비판을 쏟아냈습니다.이 대표는 오늘(18일) 자신의 페이스북에 &quot;러트닉 미국 상무장관이 대미 투자 계획이 더 늦어지면 트럼프 대통령에게 보고하겠다는 압력을 넣고 있다&quot;면서 &quot;대한민국이 동맹국 미국과의 사이에서 어디에 앉아 있는지 체감하게 된다&quot;고 썼습니다.이어 &quot;지난 열 달 동안 정부는 국민에게 관세 확약을 미국으로부터 받았다고 선전했지만, 대미 투자 1호 사업은 감감무소식이었다&quot;면서 &quot;환율 등 여러 사정을 들어 대미 투자를 미뤄온 것과 (국내에) 호남 반도체를 발표한 것을 미국 정가에 설명할 방법이 없다&quot;</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -9606,7 +9763,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.sedaily.com/article/20080529"
   data-title="메모리 대미투자 압박 현실화 땐…韓美, 삼성과 합작사 만들 수도"
   data-publisher="서울경제"
@@ -9631,7 +9788,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>메모리 대미투자 압박 현실화 땐…韓美, 삼성과 합작사 만들 수도</div>
+      <div class="headline">메모리 대미투자 압박 현실화 땐…韓美, 삼성과 합작사 만들 수도</div>
       <div class="article-snippet">한국과 미국의 대미 투자 협상이 진통을 겪는 가운데 메모리반도체 투자가 또 다른 변수로 떠오르고 있다. 정부는 “대미 1호 투자 대상으로 반도체는 논의하지 않고 있다”는 입장이지만 중장기적으로 협상 가능성은 열려 있다는 시각이 우세하다. 18일 산업계에 따르면 미국은</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -10416,7 +10573,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7cead8b1cb096ea47e2a9c2d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/d348e909c90e0fdb6ecb1554.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -12013,7 +12170,7 @@ header,
     <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.aa.com.tr/en/eurasia/russia-to-build-small-nuclear-power-plant-in-myanmar-as-symbol-of-friendship/4030520"
   data-title="Russia to build small nuclear power plant in Myanmar as &#x27;symbol of friendship&#x27;"
   data-publisher="Anadolu Agency"
@@ -12038,7 +12195,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Russia to build small nuclear power plant in Myanmar as &#x27;symbol of friendship&#x27;</div>
+      <div class="headline">Russia to build small nuclear power plant in Myanmar as &#x27;symbol of friendship&#x27;</div>
       <div class="article-snippet">Prime minister says Moscow and Naypyidaw move forward on small nuclear plant project | Anadolu</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -12079,7 +12236,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000074880dd162d0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007488142808f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -12153,7 +12310,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.channelnewsasia.com/business/blind-egyptian-entrepreneurs-ai-app-helps-others-see-world-6325866"
   data-title="Blind Egyptian entrepreneur&#x27;s AI app helps others &#x27;see&#x27; the world"
   data-publisher="Channel NewsAsia"
@@ -12178,13 +12335,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Blind Egyptian entrepreneur&#x27;s AI app helps others &#x27;see&#x27; the world</div>
+      <div class="headline">Blind Egyptian entrepreneur&#x27;s AI app helps others &#x27;see&#x27; the world</div>
       <div class="article-snippet">CAIRO, Aug 18 : Karen Morad went blind five years ago, yet on holiday in Kenya in June, the 16-year-old Cairo schoolgirl felt like she could suddenly see again thanks to an app developed by her brother that described the safari in audiovisual.Using the AI-assisted app inserted into Meta glasses, Karen enjoyed</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/934f174abc91b7490d0fbd58.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/639c025e3aefabc1b62fbb81.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -13121,7 +13278,7 @@ header,
     <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.opinionnews.co.kr/news/articleView.html?idxno=143193"
   data-title="현대건설, 테라파워 ‘나트륨’ EPC 파트너 확정…후속 최대 8기 선점"
   data-publisher="오피니언뉴스"
@@ -13146,7 +13303,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대건설, 테라파워 ‘나트륨’ EPC 파트너 확정…후속 최대 8기 선점</div>
+      <div class="headline">현대건설, 테라파워 ‘나트륨’ EPC 파트너 확정…후속 최대 8기 선점</div>
       <div class="article-snippet">[오피니언뉴스=김기범 기자] 현대건설이 미국 테라파워의 차세대 원전 ‘나트륨’ 사업에 참여하며 글로벌 원전 시장 공략을 강화한다. 지난 5월 협력에 이어 후속 원전 최대 8개 호기의 EPC(설계·조달·시공)참여 기반도 확보했다.현대건설은 이한우 대표이사와 크리스 르베크 테라파워 최고경영자(CEO) 등 양사 주요 경영진이 참석한 가운데 나트륨 원전 사업 수행을 위한 기본협약을 체결했다고 18일 밝혔다.양사는 각사가 보유한 기술과 사업 역량을 결합해 원전 분야 협력을 확대하고 신규 사업 기회를 공동 발굴하기로 했다. 현대건설은 테라파워</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -13950,7 +14107,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">33건</span>
+    <span class="group-count">34건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -14240,7 +14397,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787054100"
+  data-published="1787056200"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -14268,6 +14425,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newscj.com/news/articleView.html?idxno=3426140"
+  data-title="한전KDN, AI 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입"
+  data-publisher="천지일보"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787053000"
+  data-country="KR"
+  data-search="한전kdn, ai 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입 천지일보 한국전력 [천지일보=천성현 기자] 한전kdn이 인공지능(ai) 해킹과 드론 테러 등 최근 고도화하는 안보 위협에 대응하기 위한 실전형 비상대비훈련에 돌입했다.에너지 ict 전문 공기업 한전kdn은 18일부터 오는 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 진행한"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">10.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">천지일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, AI 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입</div>
+      <div class="article-snippet">[천지일보=천성현 기자] 한전KDN이 인공지능(AI) 해킹과 드론 테러 등 최근 고도화하는 안보 위협에 대응하기 위한 실전형 비상대비훈련에 돌입했다.에너지 ICT 전문 공기업 한전KDN은 18일부터 오는 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 진행한</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4bd924e2f368859ae276aef8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104613"
   data-title="한전KDN, 을지연습 전개…에너지 ICT 비상 대응체계 ‘확립’"
@@ -14281,7 +14473,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14316,7 +14508,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14351,7 +14543,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14386,7 +14578,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14421,7 +14613,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14456,7 +14648,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14491,7 +14683,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14526,7 +14718,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14561,7 +14753,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14596,7 +14788,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14631,7 +14823,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14666,7 +14858,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14701,7 +14893,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14736,7 +14928,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14771,7 +14963,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14806,7 +14998,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14828,7 +15020,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.iusm.co.kr/news/articleView.html?idxno=1066809"
   data-title="사유지에 무단 설치된 전주… ‘더부살이’ 통신선로 철거·배상 두고 진통"
   data-publisher="울산매일"
@@ -14841,7 +15033,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14853,7 +15045,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>사유지에 무단 설치된 전주… ‘더부살이’ 통신선로 철거·배상 두고 진통</div>
+      <div class="headline">사유지에 무단 설치된 전주… ‘더부살이’ 통신선로 철거·배상 두고 진통</div>
       <div class="article-snippet">한국전력공사가 울산의 한 사유지에 무단으로 전주를 설치해 보상 절차를 밟고 있는 가운데 전주에 연결된 통신선로 처리 문제를 두고 토지주와 통신사 간 마찰을 빚고 있다.18일 해당 사유지의 대리인 A씨에 따르면 울주군 범서읍 구영리 산71번지 일대 사유지에 토지주의 동의 없이 한전 전주</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -14876,7 +15068,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14911,7 +15103,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14946,7 +15138,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14981,7 +15173,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -15016,7 +15208,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -15051,7 +15243,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -15086,7 +15278,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -15301,7 +15493,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5213234"
   data-title="이준석 &quot;&#x27;호텔경제학&#x27;을 대미 외교에…상대는 진짜 호텔 운영하던 트럼프&quot;"
   data-publisher="MBN"
@@ -15326,7 +15518,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이준석 &quot;&#x27;호텔경제학&#x27;을 대미 외교에…상대는 진짜 호텔 운영하던 트럼프&quot;</div>
+      <div class="headline">이준석 &quot;&#x27;호텔경제학&#x27;을 대미 외교에…상대는 진짜 호텔 운영하던 트럼프&quot;</div>
       <div class="article-snippet">미국의 대미 투자 이행 압박과 관련해 이준석 개혁신당 대표가 비판을 쏟아냈습니다.이 대표는 오늘(18일) 자신의 페이스북에 &quot;러트닉 미국 상무장관이 대미 투자 계획이 더 늦어지면 트럼프 대통령에게 보고하겠다는 압력을 넣고 있다&quot;면서 &quot;대한민국이 동맹국 미국과의 사이에서 어디에 앉아 있는지 체감하게 된다&quot;고 썼습니다.이어 &quot;지난 열 달 동안 정부는 국민에게 관세 확약을 미국으로부터 받았다고 선전했지만, 대미 투자 1호 사업은 감감무소식이었다&quot;면서 &quot;환율 등 여러 사정을 들어 대미 투자를 미뤄온 것과 (국내에) 호남 반도체를 발표한 것을 미국 정가에 설명할 방법이 없다&quot;</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -15721,7 +15913,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.sedaily.com/article/20080529"
   data-title="메모리 대미투자 압박 현실화 땐…韓美, 삼성과 합작사 만들 수도"
   data-publisher="서울경제"
@@ -15746,7 +15938,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>메모리 대미투자 압박 현실화 땐…韓美, 삼성과 합작사 만들 수도</div>
+      <div class="headline">메모리 대미투자 압박 현실화 땐…韓美, 삼성과 합작사 만들 수도</div>
       <div class="article-snippet">한국과 미국의 대미 투자 협상이 진통을 겪는 가운데 메모리반도체 투자가 또 다른 변수로 떠오르고 있다. 정부는 “대미 1호 투자 대상으로 반도체는 논의하지 않고 있다”는 입장이지만 중장기적으로 협상 가능성은 열려 있다는 시각이 우세하다. 18일 산업계에 따르면 미국은</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -16531,7 +16723,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7cead8b1cb096ea47e2a9c2d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/d348e909c90e0fdb6ecb1554.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -18128,7 +18320,7 @@ header,
     <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.aa.com.tr/en/eurasia/russia-to-build-small-nuclear-power-plant-in-myanmar-as-symbol-of-friendship/4030520"
   data-title="Russia to build small nuclear power plant in Myanmar as &#x27;symbol of friendship&#x27;"
   data-publisher="Anadolu Agency"
@@ -18153,7 +18345,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Russia to build small nuclear power plant in Myanmar as &#x27;symbol of friendship&#x27;</div>
+      <div class="headline">Russia to build small nuclear power plant in Myanmar as &#x27;symbol of friendship&#x27;</div>
       <div class="article-snippet">Prime minister says Moscow and Naypyidaw move forward on small nuclear plant project | Anadolu</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -18194,7 +18386,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000074880dd162d0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x00007488142808f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -18268,7 +18460,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.channelnewsasia.com/business/blind-egyptian-entrepreneurs-ai-app-helps-others-see-world-6325866"
   data-title="Blind Egyptian entrepreneur&#x27;s AI app helps others &#x27;see&#x27; the world"
   data-publisher="Channel NewsAsia"
@@ -18293,13 +18485,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Blind Egyptian entrepreneur&#x27;s AI app helps others &#x27;see&#x27; the world</div>
+      <div class="headline">Blind Egyptian entrepreneur&#x27;s AI app helps others &#x27;see&#x27; the world</div>
       <div class="article-snippet">CAIRO, Aug 18 : Karen Morad went blind five years ago, yet on holiday in Kenya in June, the 16-year-old Cairo schoolgirl felt like she could suddenly see again thanks to an app developed by her brother that described the safari in audiovisual.Using the AI-assisted app inserted into Meta glasses, Karen enjoyed</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/934f174abc91b7490d0fbd58.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/639c025e3aefabc1b62fbb81.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -19233,7 +19425,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -19303,6 +19495,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e04a6c45e3bb07f0777d330b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.fntimes.com/html/view.php?ud=202608142231276902dd55077bc2_18"
+  data-title="현대건설·현엔 5년 연속 성장…GS·롯데도 실적 확대 [2026 시평-공사실적] - 한국금융신문"
+  data-publisher="한국금융신문"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1786978800"
+  data-country="KR"
+  data-search="현대건설·현엔 5년 연속 성장…gs·롯데도 실적 확대 [2026 시평-공사실적] - 한국금융신문 한국금융신문 현대건설 건설사의 시공능력평가액은 공사실적평가액, 경영평가액, 기술능력평가액, 신인도평가액을 합해 계산된다. 시공능력평가 중 가장 많은 비중을 차지하는 평가 항목은 공사실적평가액으로 꼽힌다.한국금융신문이 최근 공사실적액 기준으로 상위 10대 건설사를 분석한 결과, 이들 기업의 공사실적액은 202"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국금융신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대건설·현엔 5년 연속 성장…GS·롯데도 실적 확대 [2026 시평-공사실적] - 한국금융신문</div>
+      <div class="article-snippet">건설사의 시공능력평가액은 공사실적평가액, 경영평가액, 기술능력평가액, 신인도평가액을 합해 계산된다. 시공능력평가 중 가장 많은 비중을 차지하는 평가 항목은 공사실적평가액으로 꼽힌다.한국금융신문이 최근 공사실적액 기준으로 상위 10대 건설사를 분석한 결과, 이들 기업의 공사실적액은 202</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/135eabea8d9c1709811b0f44.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -20813,7 +21040,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.eenews.net/articles/hungary-uses-sunken-barges-to-raise-danube-river-to-keep-nuclear-plant-on/"
   data-title="Hungary uses sunken barges to raise Danube River to keep nuclear plant on"
   data-publisher="E&amp;E News"
@@ -20838,7 +21065,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Hungary uses sunken barges to raise Danube River to keep nuclear plant on</div>
+      <div class="headline">Hungary uses sunken barges to raise Danube River to keep nuclear plant on</div>
       <div class="article-snippet">Europe’s summer of extreme heat has affected nuclear power production across the continent.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -20848,7 +21075,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.eenews.net/articles/doe-wants-congress-to-boost-a-nuclear-tax-credit-it-might-need-buy-in-from-house-democrats/"
   data-title="DOE wants Congress to boost a nuclear tax credit. It might need buy-in from House Democrats."
   data-publisher="E&amp;E News"
@@ -20873,7 +21100,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>DOE wants Congress to boost a nuclear tax credit. It might need buy-in from House Democrats.</div>
+      <div class="headline">DOE wants Congress to boost a nuclear tax credit. It might need buy-in from House Democrats.</div>
       <div class="article-snippet">Four years since its inception, a federal incentive for new nuclear projects hasn’t gotten much bite. The nuclear industry and Energy Department are looking</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -21072,7 +21299,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/956566e07539bfdd097be9e7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/887ef1e05c199ead0682ef47.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -22951,7 +23178,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/european-nuclear-industry-welcomes-almaraz-decision-calls-for-spain-to-rethink-phaseout-plans-8-1-2026#&lt;ActiveStorage::Attached::One:0x0000748806c1e528&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/european-nuclear-industry-welcomes-almaraz-decision-calls-for-spain-to-rethink-phaseout-plans-8-1-2026#&lt;ActiveStorage::Attached::One:0x0000748806d2ab60&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24037,7 +24264,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/552c0b2a7380a0f342d47b0c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/9a9cd06148ab3015756f7ed9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
