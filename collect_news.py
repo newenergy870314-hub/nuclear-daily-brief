@@ -6162,6 +6162,81 @@ header,
   }}
 }}
 
+
+/* IMPORTANT AREA TOP POSITION */
+.favorites-panel-top {{
+  margin:0 12px 9px;
+}}
+.important-button {{
+  align-self:start !important;
+  margin-top:0 !important;
+}}
+@media (min-width:768px) {{
+  .favorites-panel-top {{
+    margin:0 12px 9px;
+  }}
+  .important-button {{
+    align-self:start !important;
+    margin-top:0 !important;
+  }}
+}}
+
+
+/* INLINE UPDATE TIME */
+.topbar-actions {{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:7px;
+  min-width:0;
+}}
+.updated-inline {{
+  margin:0;
+  color:rgba(255,255,255,.62);
+  font-size:8px;
+  line-height:1;
+  font-weight:700;
+  white-space:nowrap;
+}}
+@media (max-width:380px) {{
+  .topbar-actions {{
+    gap:5px;
+  }}
+  .updated-inline {{
+    font-size:7.5px;
+  }}
+  .header-toggle {{
+    min-width:62px;
+    padding:0 7px;
+  }}
+}}
+@media (min-width:768px) {{
+  .updated-inline {{
+    font-size:8px;
+  }}
+}}
+
+
+/* COUNTRY FILTER HEADER: helper on the right */
+.world-map-head {{
+  align-items:center;
+}}
+.country-filter-note-inline {{
+  flex:0 0 auto;
+  margin:0;
+  padding:0;
+  color:#98a2b3;
+  font-size:8px;
+  line-height:1;
+  text-align:right;
+  white-space:nowrap;
+}}
+@media (max-width:380px) {{
+  .country-filter-note-inline {{
+    font-size:7.5px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -6169,9 +6244,11 @@ header,
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
-      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
+      <div class="topbar-actions">
+        <span class="updated updated-inline">{generated_at:%-m.%-d %H:%M} KST</span>
+        <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
+      </div>
     </div>
-    <div class="updated">업데이트 {generated_at:%Y. %-m. %-d. %H:%M} KST</div>
     <div class="search-wrap">
       <input id="article-search" class="search-input" type="search" placeholder="기사 · 언론사 · 기업 · 프로젝트 · 국가 검색" aria-label="기사 검색">
     </div>
@@ -6193,12 +6270,23 @@ header,
       </div>
     </div>
   </header>
+  <section id="favorites-panel" class="favorites-panel favorites-panel-top" hidden>
+    <div class="favorites-head">
+      <div>
+        <div class="favorites-title">중요 기사 <span id="favorite-count"></span></div>
+        <div class="favorites-help">중요로 표시한 기사만 모아봅니다.</div>
+      </div>
+    </div>
+    <div id="favorites-list" class="favorites-list"></div>
+  </section>
+  <div id="important-toast" class="important-toast" role="status" aria-live="polite"></div>
   <section id="world-map-panel" class="world-map-panel">
     <div class="world-map-head">
       <div class="world-map-title-wrap">
         <div class="world-map-title">국가 필터</div>
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
+      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">기사가 있는 국가만 표시됩니다.</div>
     </div>
     <div class="world-map-canvas" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
@@ -6237,9 +6325,8 @@ header,
       <button class="country-pin country-sg" data-country-filter="SG" data-anchor-x="78.0" data-anchor-y="65.0" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
       <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
-    <div id="country-filter-note" class="country-filter-note">기사가 있는 국가만 표시됩니다.</div>
   </section>
-  <main><section id="favorites-panel" class="favorites-panel" hidden><div class="favorites-head"><div><div class="favorites-title">중요 기사 <span id="favorite-count"></span></div><div class="favorites-help">중요로 표시한 기사만 모아봅니다.</div></div></div><div id="favorites-list" class="favorites-list"></div></section><div id="important-toast" class="important-toast" role="status" aria-live="polite"></div><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
+  <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
 </div>
 <script>
