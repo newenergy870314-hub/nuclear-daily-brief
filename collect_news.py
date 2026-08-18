@@ -33,6 +33,48 @@ SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "0") == "1"
 # 검토용 원본 수집 모드
 # 기사량을 먼저 확인하기 위해 개수 제한/중복 제거를 적용하지 않습니다.
 RAW_REVIEW_MODE = True
+
+# ============================================================
+# Google News: 기사 발견용 보완망
+# - 등록되지 않은 언론사도 Google News에서 기사 발견 가능
+# - 사진/미리보기는 원문 페이지에서 다시 보강
+# - 기존 공식 RSS + 직접수집은 그대로 유지
+# ============================================================
+GOOGLE_NEWS_DISCOVERY_ENABLED = True
+GOOGLE_NEWS_MAX_ENTRIES_PER_QUERY = 120
+GOOGLE_NEWS_TIMEOUT_SECONDS = 12
+
+GOOGLE_NEWS_QUERIES = (
+    "현대건설",
+    "한국수력원자력 OR 한수원",
+    "한국전력 OR 한전",
+    "원전 OR 원자력발전",
+    "SMR 원전",
+    "nuclear power",
+    "small modular reactor",
+    "Westinghouse AP1000",
+    "Holtec SMR-300",
+    "TerraPower Natrium",
+    "Fermi America nuclear",
+    "Palisades nuclear",
+    "Kozloduy nuclear",
+    "Cernavoda nuclear",
+    "Sizewell C nuclear",
+    "Hinkley Point C nuclear",
+    "Ninh Thuan nuclear",
+    "Barakah nuclear",
+    "Saudi nuclear power",
+    "미국 원전",
+    "영국 원전",
+    "불가리아 원전",
+    "핀란드 원전",
+    "루마니아 원전",
+    "우크라이나 원전",
+    "베트남 원전",
+    "UAE 원전",
+    "사우디 원전",
+)
+
 MAX_PER_GROUP_PER_LANGUAGE = None
 
 # 언론사 직접 RSS는 여러 매체를 병렬로 조회합니다.
@@ -248,43 +290,67 @@ GROUP_TAB_LABELS = {
 # 기사 수집원: Google News RSS를 사용하지 않고 언론사 자체 RSS/공식 뉴스 페이지에서 직접 수집합니다.
 # RSS가 있는 언론사는 자체 RSS를 우선 사용하여 제목·원문 URL·description·대표이미지를 최대한 원형 그대로 확보합니다.
 DIRECT_RSS_FEEDS = [
-    # ─────────────────────────────────────────────
-    # 국내 통신·종합·경제·산업 매체의 공식 RSS
-    # ─────────────────────────────────────────────
+    # ========================================================
+    # 공식 RSS 페이지에서 확인된 주소만 사용
+    # 미확인 매체는 RSS 주소를 추측하지 않고 DIRECT_NEWS_PAGES로 수집
+    # ========================================================
+
+    # 뉴시스 공식 RSS
     ("뉴시스", "https://www.newsis.com/RSS/sokbo.xml"),
     ("뉴시스", "https://www.newsis.com/RSS/politics.xml"),
     ("뉴시스", "https://www.newsis.com/RSS/economy.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/bank.xml"),
     ("뉴시스", "https://www.newsis.com/RSS/industry.xml"),
     ("뉴시스", "https://www.newsis.com/RSS/international.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/society.xml"),
+    ("뉴시스", "https://www.newsis.com/RSS/country.xml"),
 
+    # 전자신문 공식 RSS
     ("전자신문", "https://rss.etnews.com/Section901.xml"),
     ("전자신문", "https://rss.etnews.com/Section902.xml"),
     ("전자신문", "https://rss.etnews.com/02.xml"),
     ("전자신문", "https://rss.etnews.com/06065.xml"),
     ("전자신문", "https://rss.etnews.com/22210.xml"),
+    ("전자신문", "https://rss.etnews.com/12.xml"),
+    ("전자신문", "https://rss.etnews.com/25.xml"),
 
-    # 공식 RSS가 확인되는 주요 경제·방송 매체
+    # 매일경제 공식 RSS
     ("매일경제", "https://www.mk.co.kr/rss/40300001/"),
     ("매일경제", "https://www.mk.co.kr/rss/30100041/"),
     ("매일경제", "https://www.mk.co.kr/rss/50100032/"),
     ("매일경제", "https://www.mk.co.kr/rss/30300018/"),
+    ("매일경제", "https://www.mk.co.kr/rss/30200030/"),
+    ("매일경제", "https://www.mk.co.kr/rss/50400012/"),
+    ("매일경제", "https://www.mk.co.kr/rss/50300009/"),
+
+    # 한국경제 공식 RSS
     ("한국경제", "https://www.hankyung.com/feed/all-news"),
     ("한국경제", "https://www.hankyung.com/feed/economy"),
     ("한국경제", "https://www.hankyung.com/feed/it"),
     ("한국경제", "https://www.hankyung.com/feed/international"),
+    ("한국경제", "https://www.hankyung.com/feed/politics"),
+    ("한국경제", "https://www.hankyung.com/feed/realestate"),
+
+    # MBN 공식 RSS
     ("MBN", "https://www.mbn.co.kr/rss/"),
     ("MBN", "https://www.mbn.co.kr/rss/economy/"),
     ("MBN", "https://www.mbn.co.kr/rss/politics/"),
+    ("MBN", "https://www.mbn.co.kr/rss/international/"),
 
-    # 국내 원전·전력·에너지 전문매체
+    # 아주경제 공식 RSS
+    ("아주경제", "https://www.ajunews.com/rss/sokbo.xml"),
+    ("아주경제", "https://www.ajunews.com/rss/industry.xml"),
+    ("아주경제", "https://www.ajunews.com/rss/economy.xml"),
+    ("아주경제", "https://www.ajunews.com/rss/politics.xml"),
+    ("아주경제", "https://www.ajunews.com/rss/global.xml"),
+
+    # 국내 에너지·전력 전문매체: 공식 RSS 인덱스/실행 이력 확인
     ("전기신문", "https://www.electimes.com/rss/allArticle.xml"),
     ("에너지신문", "https://www.energy-news.co.kr/rss/allArticle.xml"),
     ("에너지타임즈", "https://www.energytimes.kr/rss/allArticle.xml"),
     ("전력경제신문", "https://www.epetimes.com/rss/allArticle.xml"),
-
-    # 해외 원자력 전문매체
-    ("World Nuclear News", "https://www.world-nuclear-news.org/?rss=feed"),
 ]
+
 
 # RSS가 없거나 RSS만으로는 누락 가능성이 있는 매체는 공식 뉴스 페이지를 직접 훑습니다.
 # 각 페이지에서 제목이 원전/에너지/현대건설/한전/한수원/관계부처 등 키워드에 걸리는 기사만
@@ -361,6 +427,85 @@ DIRECT_NEWS_PAGES = [
     # ─────────────────────────────────────────────
     # 해외 글로벌 통신·경제·종합 언론
     # ─────────────────────────────────────────────
+
+    # ─────────────────────────────────────────────
+    # 국내 언론 마스터 추가 보강
+    # ─────────────────────────────────────────────
+    ("아시아투데이", "https://www.asiatoday.co.kr/", "ko"),
+    ("오마이뉴스", "https://www.ohmynews.com/", "ko"),
+    ("프레시안", "https://www.pressian.com/", "ko"),
+    ("쿠키뉴스", "https://www.kukinews.com/", "ko"),
+    ("신아일보", "https://www.shinailbo.co.kr/", "ko"),
+    ("천지일보", "https://www.newscj.com/", "ko"),
+    ("더팩트", "https://news.tf.co.kr/", "ko"),
+    ("뉴데일리", "https://www.newdaily.co.kr/", "ko"),
+    ("UPI뉴스", "https://www.upinews.kr/", "ko"),
+    ("브레이크뉴스", "https://www.breaknews.com/", "ko"),
+    ("글로벌이코노믹", "https://www.g-enews.com/", "ko"),
+    ("뉴스핌", "https://www.newspim.com/", "ko"),
+    ("아이뉴스24", "https://www.inews24.com/", "ko"),
+    ("이코노믹리뷰", "https://www.econovill.com/", "ko"),
+    ("아시아타임즈", "https://www.asiatime.co.kr/main", "ko"),
+    ("CEO스코어데일리", "https://www.ceoscoredaily.com/", "ko"),
+    ("프라임경제", "https://www.newsprime.co.kr/", "ko"),
+    ("브릿지경제", "https://www.viva100.com/", "ko"),
+    ("메트로신문", "https://www.metroseoul.co.kr/", "ko"),
+    ("데일리한국", "https://daily.hankooki.com/", "ko"),
+    ("스트레이트뉴스", "https://www.straightnews.co.kr/", "ko"),
+    ("비즈트리뷴", "https://www.biztribune.co.kr/", "ko"),
+    ("시사위크", "https://www.sisaweek.com/", "ko"),
+    ("컨슈머타임스", "https://www.cstimes.com/", "ko"),
+    ("시장경제", "https://www.meconomynews.com/", "ko"),
+    ("이뉴스투데이", "https://www.enewstoday.co.kr/", "ko"),
+    ("SR타임스", "https://www.srtimes.kr/", "ko"),
+    ("FETV", "https://www.fetv.co.kr/", "ko"),
+    ("서울와이어", "https://www.seoulwire.com/", "ko"),
+    ("뉴스저널리즘", "https://www.ngetnews.com/", "ko"),
+    ("비즈한국", "https://www.bizhankook.com/", "ko"),
+    ("한국금융신문", "https://www.fntimes.com/", "ko"),
+    ("굿모닝경제", "https://www.goodkyung.com/", "ko"),
+    ("인사이트코리아", "https://www.insightkorea.co.kr/", "ko"),
+    ("알파경제", "https://www.alphabiz.co.kr/", "ko"),
+    ("핀포인트뉴스", "https://www.pinpointnews.co.kr/", "ko"),
+    ("더리포트", "https://www.thereport.co.kr/", "ko"),
+    ("국토일보", "https://www.ikld.kr/", "ko"),
+    ("국토매일", "https://www.pmnews.co.kr/", "ko"),
+    ("한국건설신문", "https://www.conslove.co.kr/", "ko"),
+    ("대한전문건설신문", "https://www.koscaj.com/", "ko"),
+    ("하우징헤럴드", "https://www.housingherald.co.kr/", "ko"),
+    ("에너지데일리", "https://www.energydaily.co.kr/", "ko"),
+    ("에너지플랫폼뉴스", "https://www.e-platform.net/", "ko"),
+    ("가스신문", "https://www.gasnews.com/", "ko"),
+    ("철강금속신문", "https://www.snmnews.com/", "ko"),
+    ("환경일보", "https://www.hkbs.co.kr/", "ko"),
+    ("그린포스트코리아", "https://www.greenpostkorea.co.kr/", "ko"),
+    ("IT조선", "https://it.chosun.com/", "ko"),
+    ("테크M", "https://www.techm.kr/", "ko"),
+
+    # ─────────────────────────────────────────────
+    # 국내 언론 마스터 2차 보강: 원전·에너지·경제·지역
+    # ─────────────────────────────────────────────
+    ("에너지안전신문", "https://www.esnews.kr/", "ko"),
+    ("EBN산업경제", "https://www.ebn.co.kr/", "ko"),
+    ("월간수소경제", "https://www.h2news.kr/", "ko"),
+    ("서울파이낸스", "https://www.seoulfn.com/", "ko"),
+    ("CNB뉴스", "https://www.cnbnews.com/", "ko"),
+    ("뉴스투데이", "https://www.news2day.co.kr/", "ko"),
+    ("매일일보", "https://www.m-i.kr/", "ko"),
+    ("스카이데일리", "https://www.skyedaily.com/", "ko"),
+    ("파이낸셜투데이", "https://www.ftoday.co.kr/", "ko"),
+    ("조세일보", "https://www.joseilbo.com/", "ko"),
+    ("경북도민일보", "https://www.hidomin.com/", "ko"),
+    ("울산매일", "https://www.iusm.co.kr/", "ko"),
+    ("울산신문", "https://www.ulsanpress.net/", "ko"),
+    ("경상일보", "https://www.ksilbo.co.kr/", "ko"),
+    ("경남신문", "https://www.knnews.co.kr/", "ko"),
+    ("경남도민일보", "https://www.idomin.com/", "ko"),
+    ("영남일보", "https://www.yeongnam.com/", "ko"),
+    ("대구신문", "https://www.idaegu.co.kr/", "ko"),
+    ("광주일보", "https://www.kwangju.co.kr/", "ko"),
+    ("전남일보", "https://www.jnilbo.com/", "ko"),
+    ("강원일보", "https://www.kwnews.co.kr/", "ko"),
     ("Reuters", "https://www.reuters.com/business/energy/", "en"),
     ("Reuters", "https://www.reuters.com/world/", "en"),
     ("Associated Press", "https://apnews.com/hub/business", "en"),
@@ -406,7 +551,7 @@ DIRECT_NEWS_PAGES = [
     ("원자력신문", "https://www.atomicenergy.co.kr/", "ko"),
     ("인더스트리뉴스", "https://www.industrynews.co.kr/", "ko"),
     ("헬로티", "https://www.hellot.net/", "ko"),
-    ("대한경제", "https://www.daehannews.kr/", "ko"),
+    ("대한경제", "https://dnews.co.kr/m_home/", "ko"),
     ("건설경제", "https://www.cnews.co.kr/", "ko"),
     ("건설타임즈", "https://www.constimes.co.kr/", "ko"),
     ("오피니언뉴스", "https://www.opinionnews.co.kr/", "ko"),
@@ -1319,6 +1464,13 @@ def _fetch_article_metadata(article: Article) -> tuple[str, str]:
     """
     if article.image and article.description:
         return article.image, article.description
+
+    # Google News에서 발견된 기사는 원문 URL을 다시 해석한 뒤
+    # og:image / og:description / 본문 첫 문단을 보강합니다.
+    if "news.google.com" in (article.link or "").lower():
+        resolved = _resolve_google_news_url(article.link)
+        if resolved and resolved != article.link:
+            article.link = resolved
 
     try:
         request = Request(
@@ -2729,13 +2881,189 @@ def parse_direct_rss_entry(entry, publisher: str, feed_url: str) -> Article | No
     )
 
 
+
+def _google_news_publisher(entry) -> str:
+    source = getattr(entry, "source", None)
+    if source:
+        try:
+            title = str(source.get("title", "") or "").strip()
+            if title:
+                return title
+        except Exception:
+            pass
+
+    title = str(getattr(entry, "title", "") or "").strip()
+    if " - " in title:
+        return title.rsplit(" - ", 1)[-1].strip() or "출처 미확인"
+    return "출처 미확인"
+
+
+def _strip_google_news_source_suffix(title: str, publisher: str) -> str:
+    value = (title or "").strip()
+    if publisher and publisher != "출처 미확인":
+        suffix = f" - {publisher}"
+        if value.endswith(suffix):
+            value = value[:-len(suffix)].strip()
+    return value
+
+
+def _extract_external_url_from_google_html(payload: bytes) -> str:
+    decoded = payload.decode("utf-8", errors="ignore")
+    candidates = re.findall(r'https?://[^"\'<>\s\\]+', decoded)
+
+    for candidate in candidates:
+        candidate = candidate.replace("\\u0026", "&").replace("\\/", "/")
+        host = urlparse(candidate).netloc.lower()
+        if not host:
+            continue
+        if any(
+            blocked in host
+            for blocked in (
+                "google.com", "googleusercontent.com", "gstatic.com",
+                "youtube.com", "doubleclick.net"
+            )
+        ):
+            continue
+        return candidate
+    return ""
+
+
+def _resolve_google_news_url(url: str) -> str:
+    if not url or "news.google.com" not in url.lower():
+        return url
+
+    try:
+        request = Request(
+            url,
+            headers={
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/131.0 Safari/537.36"
+                ),
+                "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+            },
+        )
+        with urlopen(request, timeout=GOOGLE_NEWS_TIMEOUT_SECONDS) as response:
+            final_url = response.geturl() or url
+            payload = response.read(350000)
+
+        if final_url and "news.google.com" not in final_url.lower():
+            return final_url
+
+        external = _extract_external_url_from_google_html(payload)
+        if external:
+            return external
+    except Exception:
+        pass
+
+    return url
+
+
+def _parse_google_news_entry(entry) -> Article | None:
+    publisher = _google_news_publisher(entry)
+    if publisher in EXCLUDED_PUBLISHERS:
+        return None
+
+    raw_title = str(getattr(entry, "title", "") or "").strip()
+    title = _strip_google_news_source_suffix(raw_title, publisher)
+    link = str(getattr(entry, "link", "") or "").strip()
+    published = parse_entry_datetime(entry)
+
+    if not title or not link or not published:
+        return None
+
+    raw_description = str(
+        getattr(entry, "summary", "")
+        or getattr(entry, "description", "")
+        or ""
+    )
+    description = re.sub(r"<[^>]+>", " ", raw_description)
+    description = re.sub(r"\s+", " ", description).strip()
+    if description == title or len(description) < 25:
+        description = ""
+
+    resolved_link = _resolve_google_news_url(link)
+
+    return Article(
+        title=title,
+        publisher=publisher,
+        link=resolved_link,
+        published=published,
+        description=description,
+        language="ko" if re.search(r"[가-힣]", title) else "en",
+        source_url=link,
+        image="",
+    )
+
+
+def fetch_google_news_discovery(start: datetime, end: datetime) -> list[Article]:
+    if not GOOGLE_NEWS_DISCOVERY_ENABLED:
+        return []
+
+    discovered: list[Article] = []
+
+    for query in GOOGLE_NEWS_QUERIES:
+        rss_url = (
+            "https://news.google.com/rss/search?q="
+            + quote_plus(query)
+            + "&hl=ko&gl=KR&ceid=KR:ko"
+        )
+
+        try:
+            req = Request(
+                rss_url,
+                headers={
+                    "User-Agent": "Mozilla/5.0 (compatible; NuclearDailyBrief/1.0)"
+                },
+            )
+            with urlopen(req, timeout=GOOGLE_NEWS_TIMEOUT_SECONDS) as response:
+                payload = response.read()
+
+            feed = feedparser.parse(payload)
+            entries = list(getattr(feed, "entries", []) or [])
+        except Exception as exc:
+            print(f"[GOOGLE NEWS] query={query} | FAIL={type(exc).__name__}")
+            continue
+
+        accepted = 0
+        for entry in entries[:GOOGLE_NEWS_MAX_ENTRIES_PER_QUERY]:
+            article = _parse_google_news_entry(entry)
+            if not article:
+                continue
+            if not (start <= article.published < end):
+                continue
+            if not is_relevant_article(article):
+                continue
+
+            discovered.append(article)
+            accepted += 1
+
+        print(
+            f"[GOOGLE NEWS] query={query} | feed_entries={len(entries)} "
+            f"| accepted={accepted}"
+        )
+
+    publishers = {a.publisher for a in discovered if a.publisher}
+    print(
+        f"[GOOGLE NEWS TOTAL] discovered={len(discovered)} "
+        f"| active_publishers={len(publishers)}"
+    )
+    return discovered
+
+
+
 def _fetch_one_direct_rss_feed(
     publisher: str,
     feed_url: str,
     start: datetime,
     end: datetime,
 ) -> list[Article]:
-    """언론사 자체 RSS 한 개를 timeout 내에서 읽고 필요한 기사만 반환합니다."""
+    """
+    공식 RSS 한 개를 읽고 필요한 기사만 반환합니다.
+    RSS 주소가 살아 있어도 HTML 오류페이지를 반환할 수 있으므로
+    HTTP 응답 + feedparser 파싱 결과 + 전체 entry 수를 로그로 검증합니다.
+    """
     try:
         request = Request(
             feed_url,
@@ -2748,14 +3076,38 @@ def _fetch_one_direct_rss_feed(
         )
         with urlopen(request, timeout=DIRECT_RSS_TIMEOUT_SECONDS) as response:
             payload = response.read()
+            content_type = (response.headers.get("Content-Type") or "").lower()
+            status = getattr(response, "status", 200)
 
         feed = feedparser.parse(payload)
-    except Exception:
-        # 개별 언론사 RSS 하나가 실패해도 나머지 직접 수집은 계속 진행합니다.
+    except Exception as exc:
+        print(
+            f"[RSS HEALTH] {publisher} | FAIL | "
+            f"{type(exc).__name__} | url={feed_url}"
+        )
+        return []
+
+    entries = list(getattr(feed, "entries", []) or [])
+    feed_title = str(getattr(getattr(feed, "feed", {}), "title", "") or "").strip()
+    bozo = int(bool(getattr(feed, "bozo", 0)))
+
+    # If it is clearly an HTML page and feedparser found nothing, treat as invalid RSS.
+    looks_html = (
+        "text/html" in content_type
+        and not entries
+        and b"<rss" not in payload[:5000].lower()
+        and b"<feed" not in payload[:5000].lower()
+    )
+
+    if looks_html:
+        print(
+            f"[RSS HEALTH] {publisher} | INVALID_HTML | status={status} "
+            f"| entries=0 | url={feed_url}"
+        )
         return []
 
     articles: list[Article] = []
-    for entry in getattr(feed, "entries", []):
+    for entry in entries:
         article = parse_direct_rss_entry(entry, publisher, feed_url)
         if not article:
             continue
@@ -2763,9 +3115,11 @@ def _fetch_one_direct_rss_feed(
             continue
         articles.append(article)
 
-    if articles:
-        print(f"[RSS] {publisher}: {len(articles)} article(s)")
-    print(f"[SOURCE RSS] {publisher} | accepted={len(articles)} | url={feed_url}")
+    print(
+        f"[RSS HEALTH] {publisher} | OK | status={status} | "
+        f"feed_entries={len(entries)} | accepted={len(articles)} | "
+        f"bozo={bozo} | title={feed_title[:40] or '-'} | url={feed_url}"
+    )
     return articles
 
 
@@ -3210,18 +3564,19 @@ def fetch_articles(start: datetime, end: datetime) -> list[Article]:
     2) RSS가 없거나 부족한 언론사는 공식 뉴스 페이지 직접 수집
     3) 기존 분류·중복 제거·미리보기·썸네일 보완 로직 적용
 
-    검색 포털 RSS는 사용하지 않습니다.
+    Google News RSS는 기사 발견용 보완망으로 사용하고, 사진·미리보기는 원문에서 다시 보강합니다.
     """
     rss_articles = fetch_direct_rss(start, end)
     page_articles = fetch_direct_news_pages(start, end)
-    fetched = rss_articles + page_articles
+    google_articles = fetch_google_news_discovery(start, end)
+    fetched = rss_articles + page_articles + google_articles
 
     ko_count = sum(1 for article in fetched if article.language == "ko")
     en_count = sum(1 for article in fetched if article.language == "en")
     overseas_publishers = sorted({article.publisher for article in fetched if article.language == "en"})
     print(
         f"[COLLECT] raw={len(fetched)} / ko={ko_count} / en={en_count} "
-        f"/ rss={len(rss_articles)} / pages={len(page_articles)} / RAW_REVIEW_MODE=ON"
+        f"/ rss={len(rss_articles)} / pages={len(page_articles)} / google={len(google_articles)} / RAW_REVIEW_MODE=ON"
     )
     print(
         f"[OVERSEAS COVERAGE] active_publishers={len(overseas_publishers)} / "
@@ -3280,7 +3635,21 @@ def select_articles_for_period(
     return final_deduplicate_articles(all_selected)
 
 
+
+def _registered_source_summary() -> tuple[int, int, int]:
+    """등록된 직접수집 언론사 수(국내/해외/전체)를 반환합니다."""
+    ko = {publisher for publisher, _url, language in DIRECT_NEWS_PAGES if language == "ko"}
+    en = {publisher for publisher, _url, language in DIRECT_NEWS_PAGES if language == "en"}
+    return len(ko), len(en), len(ko | en)
+
+
+
 def collect(start: datetime, end: datetime) -> list[Article]:
+    ko_registered, en_registered, total_registered = _registered_source_summary()
+    print(
+        f"[SOURCE MASTER] ko={ko_registered} / en={en_registered} "
+        f"/ total={total_registered} / rss_feeds={len(DIRECT_RSS_FEEDS)}"
+    )
     """
     단일 기간 수집용 호환 함수.
     과거 날짜 수동 Backfill에서 사용합니다.
