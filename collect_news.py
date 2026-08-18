@@ -3964,7 +3964,7 @@ def _same_event_article(a: Article, b: Article) -> bool:
 def _article_rep_score(article: Article) -> tuple:
     """Choose the richest representative among duplicate/event-equivalent stories."""
     description_len = len((article.description or "").strip())
-    image_bonus = 1 if (article.image_url or "").strip() else 0
+    image_bonus = 1 if (article.image or "").strip() else 0
     publisher_bonus = 1 if (article.publisher or "").strip() and article.publisher != "출처 미확인" else 0
     link_bonus = 1 if (article.link or "").strip() else 0
     # Richness first; for ties prefer earlier publication as likely original report.
