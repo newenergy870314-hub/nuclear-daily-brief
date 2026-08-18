@@ -924,12 +924,12 @@ def is_civil_nuclear_relevant(title: str, summary: str = "") -> bool:
 
 
 DIRECT_GROUP_PRIORITY = [
+    "현대건설",
     "원전 대미투자",
     "Fermi America",
     "Holtec",
     "TerraPower",
     "Westinghouse",
-    "현대건설",
     "타 건설사",
     "한국수력원자력",
     "한국전력",
@@ -2644,11 +2644,25 @@ FERMI_AMERICA_TERMS = {
 
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
-    원전 대미투자, Holtec, TerraPower 및 Fermi America 관련 기사는 검색된 원래 항목과 관계없이
-    각각의 전용 항목으로 분류합니다.
+    회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
+
+    최우선 원칙:
+    - 기사 제목 또는 본문에 현대건설(Hyundai E&C / Hyundai Engineering & Construction / HDEC)이
+      포함되면 다른 회사·프로젝트명이 함께 있어도 반드시 '현대건설'로 분류합니다.
+    - 예: '현대건설-테라파워 협력' -> 현대건설
+    - 예: '현대건설, Holtec SMR-300 사업 참여' -> 현대건설
+    - 예: 'Hyundai E&C and Westinghouse...' -> 현대건설
+
+    현대건설이 없는 기사에 대해서만 원전 대미투자, Holtec, TerraPower,
+    Fermi America 등 전용 그룹을 적용합니다.
     """
     haystack = html.unescape(f"{title} {summary}").lower()
 
+    # 1순위: 현대건설
+    if any(term in haystack for term in HYUNDAI_EC_TERMS):
+        return "현대건설"
+
+    # 2순위 이하: 현대건설이 없는 경우에만 적용
     has_nuclear_term = any(
         term in haystack for term in NUCLEAR_US_INVESTMENT_NUCLEAR_TERMS
     )
@@ -2810,6 +2824,11 @@ def classify_direct_article(title: str, summary: str) -> str | None:
         return None
     if is_excluded_military_nuclear_article(title, summary):
         return None
+
+    # 현대건설은 모든 회사/프로젝트 그룹보다 최우선입니다.
+    # 제목 또는 본문에 현대건설이 포함되면 다른 명칭이 함께 있어도 현대건설로 분류합니다.
+    if any(term in haystack for term in HYUNDAI_EC_TERMS):
+        return "현대건설"
 
     priority_group = classify_priority_company_group("원자력", title, summary)
     if priority_group != "원자력":
@@ -4686,32 +4705,47 @@ def build_html(
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
 .phone {{ width: min(100%, 520px); min-height: 100vh; margin: 0 auto; background: #c4d6e8; }}
-.topbar {{ position: sticky; top: 0; z-index: 20; margin: 10px 8px 14px; padding: 16px 16px 14px; background: #23395d; border: 1px solid rgba(255,255,255,.18); border-radius: 22px; box-shadow: 0 8px 20px rgba(17,24,39,.12); backdrop-filter: blur(8px); }}
-.topbar-title-row {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; }}
-.topbar h1 {{ margin: 0; color: #ffffff; font-size: 20px; line-height: 1.25; font-weight: 900; letter-spacing: -.4px; text-shadow: none; }}
-.header-toggle {{ flex: 0 0 96px; width: 100px; min-width: 100px; height: 42px; padding: 0 8px; border: 1px solid rgba(17,24,39,.14); border-radius: 16px; background: #f7e889; color: #111827; font-size: 10px; font-weight: 800; letter-spacing: -.2px; cursor: pointer; box-shadow: none; }}
-.header-toggle:hover {{ background: #f5d900; }}
-.header-toggle:active {{ transform: translateY(1px); }}
-.topbar.collapsed .header-toggle {{ background: #fee500; color: #111827; border-color: rgba(17,24,39,.14); box-shadow: none; }}
-.header-controls {{ overflow: hidden; max-height: 210px; opacity: 1; transition: max-height .2s ease, opacity .15s ease, margin .2s ease; }}
-.topbar.collapsed {{ padding-bottom: 9px; background: #23395d; }}
-.topbar.collapsed .header-controls {{ max-height: 0; opacity: 0; margin: 0; pointer-events: none; }}
-.updated {{ margin-top: 7px; color: rgba(255,255,255,.72); font-size: 10.5px; font-weight: 600; }}
-.tabs {{ display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 13px; }}
-.utility-row {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:8px; align-items:stretch; }}
-.utility-box {{ min-width:0; height:40px; padding:0 7px; border:1px solid rgba(17,24,39,.14); border-radius:11px; background:rgba(255,255,255,.96); display:flex; align-items:center; gap:6px; box-shadow:0 1px 4px rgba(17,24,39,.06); }}
-.utility-label {{ flex:0 0 auto; color:#344054; font-size:10.5px; font-weight:800; white-space:nowrap; line-height:1; }}
-.language-order-toggle {{ flex:1 1 auto; min-width:0; height:28px; padding:0 8px; border:0; border-radius:8px; background:#344054; color:#ffffff; font-size:10.5px; font-weight:800; line-height:28px; text-align:center; white-space:nowrap; cursor:pointer; box-shadow:inset 0 0 0 1px rgba(255,255,255,.05); }}
-.language-order-toggle:active {{ transform: translateY(1px); }}
-.date-picker-box {{ cursor: pointer; }}
-.date-control {{ position:relative; flex:1 1 auto; min-width:0; height:28px; border-radius:8px; background:#344054; color:#ffffff; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.05); }}
-.date-display {{ position:relative; z-index:1; width:100%; padding:0 18px 0 6px; box-sizing:border-box; color:#ffffff; font-size:10.5px; font-weight:800; line-height:28px; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; letter-spacing:-0.1px; pointer-events:none; }}
-.date-calendar {{ position:absolute; z-index:1; right:6px; top:50%; transform:translateY(-52%); color:#ffffff; font-size:10px; line-height:1; pointer-events:none; opacity:.9; }}
-.date-input {{ position:absolute; z-index:5; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; }}
-.date-input::-webkit-calendar-picker-indicator {{ width: 100%; height: 100%; margin: 0; padding: 0; cursor: pointer; }}
-.search-wrap {{ position: relative; margin-top: 6px; }}
-.search-input {{ width: 100%; height: 34px; padding: 0 12px; border: 1px solid rgba(17,24,39,.13); border-radius: 12px; background: rgba(255,255,255,.94); font-size: 11px; }}
+.topbar {{ position: sticky; top: 0; z-index: 20; margin: 7px 8px 10px; padding: 10px 12px 9px; background: #23395d; border: 1px solid rgba(255,255,255,.16); border-radius: 16px; box-shadow: 0 5px 14px rgba(17,24,39,.11); backdrop-filter: blur(8px); }}
+.topbar-title-row {{ display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:30px; }}
+.topbar h1 {{ margin:0; color:#ffffff; font-size:17px; line-height:1.2; font-weight:900; letter-spacing:-.35px; text-shadow:none; }}
+.header-toggle {{ flex:0 0 auto; min-width:68px; height:29px; padding:0 9px; border:1px solid rgba(17,24,39,.13); border-radius:9px; background:#f7e889; color:#111827; font-size:9.5px; font-weight:900; letter-spacing:-.15px; cursor:pointer; box-shadow:none; }}
+.header-toggle:hover {{ background:#f5d900; }}
+.header-toggle:active {{ transform:translateY(1px); }}
+.topbar.collapsed .header-toggle {{ background:#fee500; color:#111827; }}
+.updated {{ margin-top:2px; color:rgba(255,255,255,.64); font-size:8.5px; line-height:1.2; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
 
+/* 검색은 설정 접힘 여부와 관계없이 항상 사용 가능 */
+.search-wrap {{ position:relative; margin-top:5px; }}
+.search-input {{ width:100%; height:30px; padding:0 10px 0 11px; border:1px solid rgba(17,24,39,.12); border-radius:9px; outline:none; background:rgba(255,255,255,.97); color:#111827; font-size:10.5px; box-shadow:0 1px 2px rgba(17,24,39,.04); }}
+.search-input::placeholder {{ color:#7a8493; }}
+.search-input:focus {{ border-color:rgba(254,229,0,.85); box-shadow:0 0 0 2px rgba(254,229,0,.14); }}
+
+/* 펼쳐지는 영역은 옵션만 포함 */
+.header-controls {{ overflow:hidden; max-height:76px; opacity:1; margin-top:5px; transition:max-height .18s ease, opacity .14s ease, margin .18s ease; }}
+.topbar.collapsed {{ padding-bottom:9px; }}
+.topbar.collapsed .header-controls {{ max-height:0; opacity:0; margin-top:0; pointer-events:none; }}
+
+.tabs {{ display:grid; grid-template-columns:repeat(3,1fr); gap:5px; margin-top:0; }}
+.tab-button {{ height:28px; padding:0 4px; border:0; border-radius:7px; color:#344054; background:rgba(255,255,255,.70); font:inherit; font-size:11px; line-height:28px; font-weight:850; cursor:pointer; }}
+.tab-button.active {{ color:#111827; background:#fee500; box-shadow:0 1px 2px rgba(17,24,39,.15); }}
+
+.utility-row {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; margin-top:5px; align-items:stretch; }}
+.utility-box {{ min-width:0; height:29px; padding:0 5px; border:1px solid rgba(17,24,39,.11); border-radius:8px; background:rgba(255,255,255,.96); display:flex; align-items:center; gap:4px; box-shadow:none; }}
+.utility-label {{ flex:0 0 auto; color:#475467; font-size:8.8px; font-weight:850; white-space:nowrap; line-height:1; }}
+.language-order-toggle {{ flex:1 1 auto; min-width:0; height:21px; padding:0 5px; border:0; border-radius:6px; background:#344054; color:#ffffff; font-size:9px; font-weight:850; line-height:21px; text-align:center; white-space:nowrap; cursor:pointer; }}
+.language-order-toggle:active {{ transform:translateY(1px); }}
+.date-picker-box {{ cursor:pointer; }}
+.date-control {{ position:relative; flex:1 1 auto; min-width:0; height:21px; border-radius:6px; background:#344054; color:#ffffff; display:flex; align-items:center; justify-content:center; overflow:hidden; }}
+.date-display {{ position:relative; z-index:1; width:100%; padding:0 14px 0 4px; box-sizing:border-box; color:#ffffff; font-size:9px; font-weight:850; line-height:21px; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; letter-spacing:-.1px; pointer-events:none; }}
+.date-calendar {{ position:absolute; z-index:1; right:5px; top:50%; transform:translateY(-52%); color:#ffffff; font-size:8px; line-height:1; pointer-events:none; opacity:.88; }}
+.date-input {{ position:absolute; z-index:5; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; }}
+.date-input::-webkit-calendar-picker-indicator {{ width:100%; height:100%; margin:0; padding:0; cursor:pointer; }}
+
+@media (min-width:768px) {{
+  .topbar {{ padding:11px 13px 10px; }}
+  .topbar h1 {{ font-size:18px; }}
+  .search-input {{ font-size:11px; }}
+}}
 .world-map-panel {{ margin: 0 12px 14px; padding: 11px 12px 12px; border: 1px solid rgba(35,57,93,.12); border-radius: 20px; background: rgba(255,255,255,.80); box-shadow: 0 3px 10px rgba(17,24,39,.06); }}
 .world-map-head {{ display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:7px; }}
 .world-map-title-wrap {{ min-width:0; }}
@@ -5341,19 +5375,21 @@ header,
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
-      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 접기 ▲</button>
+      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
+    </div>
+    <div class="updated">업데이트 {generated_at:%Y. %-m. %-d. %H:%M} KST</div>
+    <div class="search-wrap">
+      <input id="article-search" class="search-input" type="search" placeholder="기사 · 언론사 · 기업 · 프로젝트 · 국가 검색" aria-label="기사 검색">
     </div>
     <div class="header-controls" id="header-controls">
-      <div class="updated">최종 업데이트: {generated_at:%Y. %-m. %-d. %H:%M} (KST)</div>
-      <div class="search-wrap"><input id="article-search" class="search-input" type="search" placeholder="기사·언론사·기업·프로젝트·국가 검색"></div>
       <div class="tabs">{buttons}</div>
       <div class="utility-row">
         <div class="utility-box language-order-box">
-          <span class="utility-label">기사 순서</span>
+          <span class="utility-label">순서</span>
           <button id="language-order" class="language-order-toggle" type="button" aria-label="기사 언어 우선순위 변경">한글 → 영어</button>
         </div>
         <label class="utility-box date-picker-box" for="archive-date">
-          <span class="utility-label">날짜 보기</span>
+          <span class="utility-label">날짜</span>
           <span class="date-control">
             <span id="archive-date-display" class="date-display">0000.00.00</span>
             <span class="date-calendar" aria-hidden="true">▾</span>
@@ -5419,8 +5455,9 @@ const topbar = document.getElementById("topbar");
 const headerToggle = document.getElementById("header-toggle");
 function setHeaderCollapsed(collapsed){{
   topbar.classList.toggle("collapsed", collapsed);
-  headerToggle.textContent = collapsed ? "설정 펼치기 ▼" : "설정 접기 ▲";
+  headerToggle.textContent = collapsed ? "설정 ▾" : "설정 ▴";
   headerToggle.setAttribute("aria-expanded", String(!collapsed));
+  headerToggle.setAttribute("aria-label", collapsed ? "설정 펼치기" : "설정 접기");
   localStorage.setItem(headerStateKey, collapsed ? "1" : "0");
 }}
 const savedHeaderState = localStorage.getItem(headerStateKey);
