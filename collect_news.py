@@ -3480,6 +3480,71 @@ def audit_source_master() -> None:
         print(f"[SOURCE MASTER AUDIT] required_core={len(SOURCE_MASTER_REQUIRED_CORE)} / missing=0 / status=OK")
 
 
+
+def select_articles_for_period(
+    fetched: list[Article],
+    start: datetime,
+    end: datetime,
+) -> list[Article]:
+    """
+    기간에 해당하는 기사를 모두 유지한 뒤 최종 중복 제거를 수행합니다.
+    그룹별/언어별 기사 수 제한은 두지 않습니다.
+    """
+    period_articles = [
+        article
+        for article in fetched
+        if start <= article.published < end
+        and article.publisher not in EXCLUDED_PUBLISHERS
+    ]
+
+    all_selected: list[Article] = []
+
+    for group, _queries in GROUPS:
+        for language in ("ko", "en"):
+            found = [
+                article
+                for article in period_articles
+                if article.group == group and article.language == language
+            ]
+            found.sort(key=lambda article: -article.published.timestamp())
+            all_selected.extend(found)
+
+    selected_ko = sum(
+        1 for article in all_selected
+        if article.language == "ko"
+    )
+    selected_en = sum(
+        1 for article in all_selected
+        if article.language == "en"
+    )
+    country_other = sum(
+        1 for article in all_selected
+        if detect_article_country(article) == "OTHER"
+    )
+
+    priority_codes = {
+        "US", "GB", "FI", "BG", "RO",
+        "IN", "VN", "AE", "SA",
+    }
+    priority_market_count = sum(
+        1 for article in all_selected
+        if detect_article_country(article) in priority_codes
+    )
+
+    deduped = final_deduplicate_articles(all_selected)
+
+    print(
+        f"[SELECT RAW] input={len(all_selected)} "
+        f"/ final={len(deduped)} "
+        f"/ ko={selected_ko} / en={selected_en} "
+        f"/ country_other={country_other} "
+        f"/ priority_markets={priority_market_count} "
+        f"/ dedup=ON / limit=OFF"
+    )
+    return deduped
+
+
+
 def collect(start: datetime, end: datetime) -> list[Article]:
     ko_registered, en_registered, rss_publishers, total_registered = _registered_source_summary()
     audit_source_master()
