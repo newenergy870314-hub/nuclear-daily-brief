@@ -7723,6 +7723,132 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   CLASSIC ANALOG WORLD CLOCKS
+   ============================================================ */
+.world-clock-rail {{
+  gap:11px;
+}}
+
+.mini-clock-label {{
+  font-size:10px;
+  color:#23395d;
+  font-weight:900;
+}}
+
+.mini-clock-sub {{
+  margin-top:-1px;
+  color:#8995a5;
+  font-size:7.5px;
+  line-height:1;
+  font-weight:800;
+  white-space:nowrap;
+}}
+
+.analog-clock {{
+  width:58px;
+  height:58px;
+  border:2px solid #7f8ea0;
+  background:
+    radial-gradient(circle at 50% 50%, #ffffff 0 72%, #f0f3f6 73% 100%);
+  box-shadow:
+    inset 0 0 0 2px #fff,
+    inset 0 0 0 3px #d9dfe6,
+    0 2px 5px rgba(31,53,87,.12);
+}}
+
+.clock-num {{
+  position:absolute;
+  width:12px;
+  height:10px;
+  color:#526176;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:6px;
+  font-weight:700;
+  line-height:10px;
+  text-align:center;
+  transform:translate(-50%,-50%);
+}}
+.n12{{left:50%;top:9%;}} .n1{{left:70%;top:14%;}} .n2{{left:85%;top:29%;}}
+.n3{{left:91%;top:50%;}} .n4{{left:85%;top:71%;}} .n5{{left:70%;top:86%;}}
+.n6{{left:50%;top:91%;}} .n7{{left:30%;top:86%;}} .n8{{left:15%;top:71%;}}
+.n9{{left:9%;top:50%;}} .n10{{left:15%;top:29%;}} .n11{{left:30%;top:14%;}}
+
+.hour-hand {{
+  width:4px;
+  height:15px;
+  margin-left:-2px;
+  background:#1d2f49;
+  border-radius:4px 4px 2px 2px;
+  z-index:4;
+}}
+
+.minute-hand {{
+  width:2px;
+  height:21px;
+  margin-left:-1px;
+  background:#5a6e87;
+  border-radius:3px;
+  z-index:3;
+}}
+
+.second-hand {{
+  width:1px;
+  height:22px;
+  margin-left:-.5px;
+  background:#b34747;
+  z-index:5;
+}}
+
+.clock-center {{
+  width:6px;
+  height:6px;
+  background:#1d2f49;
+  border:1px solid #fff;
+  z-index:6;
+}}
+
+.mini-clock-meta {{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}}
+
+.mini-clock-time {{
+  font-size:9px;
+}}
+
+.mini-clock-day {{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:23px;
+  height:14px;
+  padding:0 4px;
+  border-radius:999px;
+  background:#eef2f6;
+  color:#53677f;
+  font-size:7px;
+  line-height:1;
+  font-weight:900;
+  white-space:nowrap;
+}}
+
+@media (max-width:380px) {{
+  .analog-clock {{
+    width:52px;
+    height:52px;
+  }}
+  .clock-num {{
+    font-size:5.5px;
+  }}
+  .mini-clock-label {{
+    font-size:9px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -7778,32 +7904,44 @@ header,
     <div class="country-map-content">
       <aside class="world-clock-rail" aria-label="주요 지역 현재 시간">
         <div class="mini-world-clock" data-timezone="America/New_York">
-          <div class="mini-clock-label">미국 동부</div>
+          <div class="mini-clock-label">뉴욕</div>
+          <div class="mini-clock-sub">미국 동부</div>
           <div class="analog-clock" aria-hidden="true">
-            <span class="clock-mark mark-12"></span>
-            <span class="clock-mark mark-3"></span>
-            <span class="clock-mark mark-6"></span>
-            <span class="clock-mark mark-9"></span>
+            <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
+            <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
+            <span class="clock-num n4">4</span><span class="clock-num n5">5</span>
+            <span class="clock-num n6">6</span><span class="clock-num n7">7</span>
+            <span class="clock-num n8">8</span><span class="clock-num n9">9</span>
+            <span class="clock-num n10">10</span><span class="clock-num n11">11</span>
             <span class="clock-hand hour-hand"></span>
             <span class="clock-hand minute-hand"></span>
             <span class="clock-hand second-hand"></span>
             <span class="clock-center"></span>
           </div>
-          <div class="mini-clock-time">--:--</div>
+          <div class="mini-clock-meta">
+            <span class="mini-clock-time">--:--</span>
+            <span class="mini-clock-day">--</span>
+          </div>
         </div>
         <div class="mini-world-clock" data-timezone="Europe/Sofia">
-          <div class="mini-clock-label">불가리아</div>
+          <div class="mini-clock-label">소피아</div>
+          <div class="mini-clock-sub">불가리아</div>
           <div class="analog-clock" aria-hidden="true">
-            <span class="clock-mark mark-12"></span>
-            <span class="clock-mark mark-3"></span>
-            <span class="clock-mark mark-6"></span>
-            <span class="clock-mark mark-9"></span>
+            <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
+            <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
+            <span class="clock-num n4">4</span><span class="clock-num n5">5</span>
+            <span class="clock-num n6">6</span><span class="clock-num n7">7</span>
+            <span class="clock-num n8">8</span><span class="clock-num n9">9</span>
+            <span class="clock-num n10">10</span><span class="clock-num n11">11</span>
             <span class="clock-hand hour-hand"></span>
             <span class="clock-hand minute-hand"></span>
             <span class="clock-hand second-hand"></span>
             <span class="clock-center"></span>
           </div>
-          <div class="mini-clock-time">--:--</div>
+          <div class="mini-clock-meta">
+            <span class="mini-clock-time">--:--</span>
+            <span class="mini-clock-day">--</span>
+          </div>
         </div>
       </aside>
       <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
@@ -9012,6 +9150,9 @@ function layoutCountryPins(){{
 function getTimePartsForZone(timeZone, now=new Date()){{
   const parts=new Intl.DateTimeFormat("en-US",{{
     timeZone,
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit",
     hour:"2-digit",
     minute:"2-digit",
     second:"2-digit",
@@ -9024,14 +9165,29 @@ function getTimePartsForZone(timeZone, now=new Date()){{
   }});
 
   return {{
+    year:values.year,
+    month:values.month,
+    day:values.day,
     hour:values.hour%24,
     minute:values.minute,
     second:values.second
   }};
 }}
 
+function localDateSerial(parts){{
+  return Date.UTC(parts.year,parts.month-1,parts.day)/86400000;
+}}
+
+function dayRelationToKorea(parts,koreaParts){{
+  const diff=localDateSerial(parts)-localDateSerial(koreaParts);
+  if(diff<0)return "전일";
+  if(diff>0)return "익일";
+  return "동일";
+}}
+
 function updateWorldClocks(){{
   const now=new Date();
+  const koreaParts=getTimePartsForZone("Asia/Seoul",now);
 
   document.querySelectorAll(".mini-world-clock[data-timezone]").forEach(clock=>{{
     const timeZone=clock.dataset.timezone;
@@ -9045,6 +9201,7 @@ function updateWorldClocks(){{
     const minuteHand=clock.querySelector(".minute-hand");
     const secondHand=clock.querySelector(".second-hand");
     const digital=clock.querySelector(".mini-clock-time");
+    const dayBadge=clock.querySelector(".mini-clock-day");
 
     if(hourHand)hourHand.style.transform=`rotate(${{hourAngle}}deg)`;
     if(minuteHand)minuteHand.style.transform=`rotate(${{minuteAngle}}deg)`;
@@ -9054,6 +9211,9 @@ function updateWorldClocks(){{
       const hh=String(parts.hour).padStart(2,"0");
       const mm=String(parts.minute).padStart(2,"0");
       digital.textContent=`${{hh}}:${{mm}}`;
+    }}
+    if(dayBadge){{
+      dayBadge.textContent=dayRelationToKorea(parts,koreaParts);
     }}
   }});
 }}
