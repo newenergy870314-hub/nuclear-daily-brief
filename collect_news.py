@@ -7317,6 +7317,93 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   ACCESSIBLE LARGE MAP TOOLTIP — actual CSS pixels
+   ============================================================ */
+.country-map-html-tooltip {{
+  position:absolute;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:42px;
+  padding:8px 12px;
+  border:2px solid rgba(255,255,255,.92);
+  border-radius:11px;
+  background:#1f3557;
+  box-shadow:0 6px 18px rgba(17,24,39,.28);
+  color:#fff;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translate(-50%,calc(-100% - 18px));
+  transition:opacity .10s ease;
+  white-space:nowrap;
+}}
+
+.country-map-html-tooltip.visible {{
+  opacity:1;
+  visibility:visible;
+}}
+
+.country-map-html-tooltip.persistent {{
+  background:#173354;
+  box-shadow:0 7px 20px rgba(17,24,39,.34);
+}}
+
+.map-tooltip-flag {{
+  font-size:21px;
+  line-height:1;
+}}
+
+.map-tooltip-country,
+.map-tooltip-count {{
+  font-size:17px;
+  line-height:1.15;
+  font-weight:900;
+  letter-spacing:-.02em;
+}}
+
+.map-tooltip-separator {{
+  font-size:16px;
+  line-height:1;
+  font-weight:800;
+  opacity:.58;
+}}
+
+.country-map-svg-dot {{
+  stroke-width:5.5;
+}}
+
+.country-map-svg-point:hover .country-map-svg-dot,
+.country-map-svg-point:focus .country-map-svg-dot,
+.country-map-svg-point.active .country-map-svg-dot {{
+  stroke-width:6;
+}}
+
+.country-map-visual {{
+  height:210px;
+}}
+
+@media (max-width:380px) {{
+  .country-map-html-tooltip {{
+    min-height:40px;
+    padding:7px 10px;
+    gap:6px;
+  }}
+  .map-tooltip-flag {{
+    font-size:20px;
+  }}
+  .map-tooltip-country,
+  .map-tooltip-count {{
+    font-size:16px;
+  }}
+  .country-map-visual {{
+    height:198px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -8102,6 +8189,7 @@ header,
         </g>
               <g id="country-map-dots-svg" class="country-map-dots-svg"></g>
       </svg>
+      <div id="country-map-html-tooltip" class="country-map-html-tooltip" role="status" aria-live="polite"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
         기사가 있는 국가만 표시
@@ -8569,11 +8657,37 @@ function layoutCountryPins(){{
   }});
 }}
 
+function showCountryMapTooltip(x,y,flag,name,count,persistent=false){{
+  const tooltip=document.getElementById("country-map-html-tooltip");
+  if(!tooltip)return;
+
+  const px=Math.min(91,Math.max(9,(x/1000)*100));
+  const py=Math.min(84,Math.max(18,(y/500)*100));
+
+  tooltip.style.left=`${{px}}%`;
+  tooltip.style.top=`${{py}}%`;
+  tooltip.innerHTML=
+    `<span class="map-tooltip-flag">${{flag}}</span>`+
+    `<span class="map-tooltip-country">${{name}}</span>`+
+    `<span class="map-tooltip-separator">·</span>`+
+    `<span class="map-tooltip-count">${{count}}건</span>`;
+  tooltip.classList.add("visible");
+  tooltip.classList.toggle("persistent",persistent);
+}}
+
+function hideCountryMapTooltip(force=false){{
+  const tooltip=document.getElementById("country-map-html-tooltip");
+  if(!tooltip)return;
+  if(!force && tooltip.classList.contains("persistent"))return;
+  tooltip.classList.remove("visible","persistent");
+}}
+
 function layoutAndRenderCountryMap(){{
   const dotLayer=document.getElementById("country-map-dots-svg");
   if(!dotLayer)return;
 
   dotLayer.innerHTML="";
+  hideCountryMapTooltip(true);
 
   const chipButtons=[...document.querySelectorAll(
     "#country-chip-rail .country-pin[data-country-filter]"
@@ -8616,64 +8730,47 @@ function layoutAndRenderCountryMap(){{
     halo.setAttribute("class","country-map-svg-halo");
     halo.setAttribute("cx",String(x));
     halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=10?"34":count>=4?"29":"24");
+    halo.setAttribute("r",count>=10?"38":count>=4?"33":"28");
 
     const dot=document.createElementNS(SVG_NS,"circle");
     dot.setAttribute("class","country-map-svg-dot");
     dot.setAttribute("cx",String(x));
     dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=10?"20":count>=4?"17":"14");
-
-    // Visible hover/focus tooltip inside SVG.
-    const tooltip=document.createElementNS(SVG_NS,"g");
-    tooltip.setAttribute("class","country-map-svg-tooltip");
-    tooltip.setAttribute("pointer-events","none");
-
-    const label=`${{flag}} ${{name}} · ${{count}}건`;
-    const estimatedWidth=Math.max(170, 38 + label.length*18.0);
-    const tooltipX=Math.min(Math.max(x-estimatedWidth/2,6),1000-estimatedWidth-6);
-    const tooltipY=Math.max(8,y-74);
-
-    const rect=document.createElementNS(SVG_NS,"rect");
-    rect.setAttribute("x",String(tooltipX));
-    rect.setAttribute("y",String(tooltipY));
-    rect.setAttribute("width",String(estimatedWidth));
-    rect.setAttribute("height","52");
-    rect.setAttribute("rx","13");
-    rect.setAttribute("class","country-map-svg-tooltip-bg");
-
-    const labelText=document.createElementNS(SVG_NS,"text");
-    labelText.setAttribute("x",String(tooltipX+estimatedWidth/2));
-    labelText.setAttribute("y",String(tooltipY+33));
-    labelText.setAttribute("text-anchor","middle");
-    labelText.setAttribute("class","country-map-svg-tooltip-text");
-    labelText.textContent=label;
-
-    tooltip.appendChild(rect);
-    tooltip.appendChild(labelText);
+    dot.setAttribute("r",count>=10?"22":count>=4?"19":"16");
 
     const title=document.createElementNS(SVG_NS,"title");
-    title.textContent=label;
-
+    title.textContent=`${{flag}} ${{name}} · ${{count}}건`;
     group.appendChild(halo);
     group.appendChild(dot);
-    group.appendChild(tooltip);
     group.appendChild(title);
 
-    const activate=()=>setCountryFilter(code);
+    const show=(persistent=false)=>showCountryMapTooltip(x,y,flag,name,count,persistent);
+
+    group.addEventListener("mouseenter",()=>show(false));
+    group.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
+    group.addEventListener("focus",()=>show(false));
+    group.addEventListener("blur",()=>hideCountryMapTooltip(false));
+
     group.addEventListener("click",event=>{{
       event.preventDefault();
       event.stopPropagation();
-      activate();
+      setCountryFilter(code);
+      setTimeout(()=>show(activeCountryFilter===code),0);
     }});
+
     group.addEventListener("keydown",event=>{{
       if(event.key==="Enter"||event.key===" "){{
         event.preventDefault();
-        activate();
+        setCountryFilter(code);
+        setTimeout(()=>show(activeCountryFilter===code),0);
       }}
     }});
 
     dotLayer.appendChild(group);
+
+    if(activeCountryFilter===code){{
+      show(true);
+    }}
   }});
 }}
 function updateCountryMapCounts(){{
@@ -8981,18 +9078,14 @@ def main() -> int:
     now = datetime.now(KST)
 
     # 실제 GitHub Actions가 예약시각보다 몇 분 늦게 시작돼도
-    # 화면에는 05/15/25/35/45/55분 기준시각으로 표시합니다.
-    scheduled_minutes = (5, 15, 25, 35, 45, 55)
+    # 화면에는 00/05/10/.../55분의 5분 단위 기준시각으로 표시합니다.
+    scheduled_minutes = tuple(range(0, 60, 5))
     display_minute = max(
         (minute for minute in scheduled_minutes if minute <= now.minute),
         default=55,
     )
     display_hour = now.hour
     display_date = now
-
-    if now.minute < 5:
-        display_date = now - timedelta(hours=1)
-        display_hour = display_date.hour
 
     display_updated_at = display_date.replace(
         hour=display_hour,
