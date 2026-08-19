@@ -2,6 +2,7 @@
 # Overseas fix: EN articles → Nuclear Power·Nuclear Energy, URL date regex,
 # ANS URL filter, faster shard rotation (2), higher EN candidate limits.
 # Same-event UX: keep cross-publisher stories and cluster as 대표+관련기사.
+# Cluster tuning: same thumbnail / alias titles / softer overlap for rewrites.
 # Includes Hyundai volleyball exclusion (배구/여자배구/김연경), same-event dedup,
 # article preview fallback, thumbnail caching/centering, newspaper-style UI,
 # and removes the old periodic-update notice from the UI.
@@ -2315,6 +2316,14 @@ EVENT_CONCEPTS = {
     "entity:현대건설": {
         "현대건설", "hdec", "hyundaie&c", "hyundaiengineeringconstruction",
     },
+    "entity:hd건설기계": {
+        "현대건설기계", "hd건설기계", "hd현대건설기계",
+        "hyundai construction equipment",
+    },
+    "topic:북미시장": {
+        "북미시장", "북미 시장", "북미공략", "북미 공략", "북미확대", "북미 확대",
+        "미국건설사", "미국 건설사", "북미시장공략",
+    },
     "object:살수드론": {
         "살수드론", "살수 드론", "물뿌리는드론", "물 뿌리는 드론",
         "드론살수", "드론 살수",
@@ -3048,6 +3057,25 @@ HYUNDAI_EC_TERMS = {
     "hyundai engineering and construction", "hdec",
 }
 
+# '현대건설기계' 안에 '현대건설'이 들어 있어 오인되지 않게 먼저 제거합니다.
+_HYUNDAI_EC_FALSE_POSITIVE_MASKS = (
+    "현대건설기계",
+    "hd현대건설기계",
+    "hd 현대 건설기계",
+    "hyundai construction equipment",
+    "현대인프라코어",
+    "hd현대인프라코어",
+)
+
+
+def mentions_hyundai_ec(title: str, summary: str = "") -> bool:
+    """진짜 현대건설(E&C) 언급만 인식합니다. 건설기계 기사는 제외."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    cleaned = haystack
+    for mask in _HYUNDAI_EC_FALSE_POSITIVE_MASKS:
+        cleaned = cleaned.replace(mask, " ")
+    return any(term in cleaned for term in HYUNDAI_EC_TERMS)
+
 OTHER_CONSTRUCTION_TERMS = {
     "삼성물산", "samsung c&t",
     "대우건설", "daewoo e&c", "daewoo e c",
@@ -3197,8 +3225,8 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     """
     haystack = html.unescape(f"{title} {summary}").lower()
 
-    # 1순위: 현대건설
-    if any(term in haystack for term in HYUNDAI_EC_TERMS):
+    # 1순위: 현대건설 (건설기계 오탐 제외)
+    if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
     # 2순위 이하: 현대건설이 없는 경우에만 적용
@@ -3239,7 +3267,7 @@ def classify_construction_group(group: str, title: str, summary: str) -> str | N
 
     # 타 건설사 검색 결과 안에 현대건설이 함께 잡힌 경우에는
     # 기존 원칙대로 현대건설을 최우선으로 재분류합니다.
-    if any(term in haystack for term in HYUNDAI_EC_TERMS):
+    if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
     # 타 건설사명/영문명이 확인되면 원전 여부와 관계없이 유지합니다.
@@ -3365,7 +3393,8 @@ def classify_direct_article(title: str, summary: str) -> str | None:
 
     # 현대건설은 모든 회사/프로젝트 그룹보다 최우선입니다.
     # 제목 또는 본문에 현대건설이 포함되면 다른 명칭이 함께 있어도 현대건설로 분류합니다.
-    if any(term in haystack for term in HYUNDAI_EC_TERMS):
+    # 단, '현대건설기계'는 별도 회사이므로 현대건설로 오인하지 않습니다.
+    if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
     priority_group = classify_priority_company_group("원자력", title, summary)
@@ -3375,6 +3404,9 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     has_hangul = bool(re.search(r"[가-힣]", f"{title} {summary}"))
 
     for group in DIRECT_GROUP_PRIORITY:
+        # 현대건설은 위에서 별도 판정. 키워드 부분일치로 '현대건설기계'가 섞이지 않게 건너뜀.
+        if group == "현대건설":
+            continue
         terms = DIRECT_GROUP_KEYWORDS.get(group, [])
         if any(term.lower() in haystack for term in terms):
             if group == "원전 관계부처":
@@ -5147,9 +5179,16 @@ _STRONG_EVENT_TERMS = (
     "kozloduy", "cernavoda", "sizewell", "hinkley", "ninh thuan", "ninh thuận",
     "barakah", "palisades", "fermi", "matador", "vogtle", "dukovany",
     "olkiluoto", "loviisa", "khmelnytskyi", "rivne",
+    # Companies / orgs often shared across rewritten headlines
+    "terrapower", "테라파워", "holtec", "홀텍", "westinghouse", "웨스팅하우스",
+    "현대건설", "hyundai e&c", "hdec", "한수원", "khnp", "한전", "kepco",
+    "두산에너빌리티", "doosan enerbility", "삼성물산", "samsung c&t",
+    "iaea", "rosatom", "framatome", "edf",
+    "hd건설기계", "현대건설기계", "북미시장", "미국건설사",
     # Korean site/project identifiers often shared across headlines
     "목동10단지", "목동 10단지", "울진", "한울원전", "한울 원전",
     "새울원전", "새울 원전", "신한울", "고리원전", "고리 원전",
+    "한빛원전", "월성원전", "smr", "소형모듈원자로",
 )
 
 _ACTION_EQUIVALENTS = {
@@ -5160,11 +5199,32 @@ _ACTION_EQUIVALENTS = {
     "착공": {"착공", "공사착수", "첫삽", "construction start", "groundbreaking"},
     "준공": {"준공", "완공", "상업운전", "commercial operation", "completed"},
     "지원": {"지원", "기부", "후원", "개선", "교체", "무상", "지원사업"},
-    "협력": {"협력", "협약", "mou", "partnership", "cooperation", "협력체계"},
+    "협력": {
+        "협력", "협약", "mou", "partnership", "cooperation", "협력체계",
+        "손잡고", "맞손", "제휴", "업무협약", "파트너십", "동맹", "공략",
+    },
     "투자": {"투자", "출자", "funding", "investment", "financing"},
     "재가동": {"재가동", "restart", "reopen", "reopening"},
     "해체": {"해체", "decommission", "decommissioning"},
 }
+
+# 언론사마다 띄어쓰기·표기가 다른 회사/주제를 같은 토큰으로 맞춤
+_DEDUP_ALIAS_REPLACEMENTS = (
+    ("hd현대건설기계", "hd건설기계"),
+    ("현대건설기계", "hd건설기계"),
+    ("hyundai construction equipment", "hd건설기계"),
+    ("hd 현대 건설기계", "hd건설기계"),
+    ("hd현대 건설기계", "hd건설기계"),
+    ("북미 시장", "북미시장"),
+    ("북미시장 공략", "북미시장공략"),
+    ("미국 건설사", "미국건설사"),
+    ("테라 파워", "테라파워"),
+    ("terra power", "terrapower"),
+    ("소형 모듈 원자로", "smr"),
+    ("소형모듈원자로", "smr"),
+    ("hyundai e&c", "현대건설"),
+    ("hyundai engineering & construction", "현대건설"),
+)
 
 def _canonical_news_url(url: str) -> str:
     """Remove fragments and common tracking parameters for exact URL duplicate checks."""
@@ -5198,6 +5258,8 @@ def _canonical_news_url(url: str) -> str:
 def _normalize_dedup_title(title: str) -> str:
     value = (title or "").lower()
     value = re.sub(r"\[[^\]]+\]|\([^)]+\)", " ", value)
+    for source, target in _DEDUP_ALIAS_REPLACEMENTS:
+        value = value.replace(source, target)
     value = re.sub(r"[^0-9a-z가-힣]+", " ", value)
     value = re.sub(r"\s+", " ", value).strip()
     return value
@@ -5210,8 +5272,20 @@ def _dedup_tokens(title: str) -> set[str]:
     }
     return tokens
 
+def _compact_dedup_title(title: str) -> str:
+    return re.sub(r"\s+", "", _normalize_dedup_title(title))
+
+def _same_thumbnail(a: Article, b: Article) -> bool:
+    """같은 대표이미지면 보도자료 재배포일 가능성이 매우 높습니다."""
+    ai = (a.image or "").strip()
+    bi = (b.image or "").strip()
+    if not ai or not bi:
+        return False
+    # 로컬 캐시 경로도 원본 URL hash 기반이라 동일 이미지면 같은 파일명이 됩니다.
+    return _canonical_news_url(ai) == _canonical_news_url(bi) or Path(ai).name == Path(bi).name
+
 def _action_classes(text: str) -> set[str]:
-    lower = (text or "").lower()
+    lower = _normalize_dedup_title(text)
     result = set()
     for action, variants in _ACTION_EQUIVALENTS.items():
         if any(v.lower() in lower for v in variants):
@@ -5219,7 +5293,7 @@ def _action_classes(text: str) -> set[str]:
     return result
 
 def _strong_event_terms(text: str) -> set[str]:
-    lower = (text or "").lower()
+    lower = _normalize_dedup_title(text)
     return {term for term in _STRONG_EVENT_TERMS if term.lower() in lower}
 
 def _publisher_key(article: Article) -> str:
@@ -5243,62 +5317,101 @@ def _same_exact_article(a: Article, b: Article) -> bool:
 
 def _same_event_article(a: Article, b: Article) -> bool:
     """
-    Conservative cross-publisher event clustering.
-    We only merge when the evidence is strong enough that the stories describe
-    the same underlying event, not merely the same broad topic.
+    서로 다른 언론사의 같은 사건 기사를 묶습니다.
+    제목 표현이 달라도 같은 이미지·고유명사·핵심어가 겹치면 관련기사로 묶습니다.
     """
     if _same_exact_article(a, b):
         return True
 
-    # Avoid collapsing separate follow-ups far apart in time.
+    # 너무 멀리 떨어진 후속보도는 묶지 않음 (약 3일)
     try:
         hours = abs((a.published - b.published).total_seconds()) / 3600
-        if hours > 48:
+        if hours > 72:
             return False
     except Exception:
         pass
+
+    # 기존 개념/보도자료 판정
+    if is_same_event(a.title, b.title):
+        return True
+    if same_press_release_event(a.title, b.title):
+        return True
+    if same_event_general(a, b):
+        return True
 
     atitle = _normalize_dedup_title(a.title)
     btitle = _normalize_dedup_title(b.title)
     if not atitle or not btitle:
         return False
 
-    # Identical title across different media => same event.
     if atitle == btitle:
         return True
 
-    atok = _dedup_tokens(a.title)
-    btok = _dedup_tokens(b.title)
+    acompact = _compact_dedup_title(a.title)
+    bcompact = _compact_dedup_title(b.title)
+    compact_seq = SequenceMatcher(None, acompact, bcompact).ratio() if acompact and bcompact else 0.0
+
+    # 같은 대표이미지 = 보도자료 공유일 가능성 매우 높음
+    same_image = _same_thumbnail(a, b)
+
+    atext = f"{a.title} {(a.description or '')[:180]}"
+    btext = f"{b.title} {(b.description or '')[:180]}"
+
+    atok = _dedup_tokens(atext)
+    btok = _dedup_tokens(btext)
     if not atok or not btok:
         return False
 
-    intersection = len(atok & btok)
+    shared_tokens = atok & btok
+    intersection = len(shared_tokens)
     union = len(atok | btok)
     jaccard = intersection / union if union else 0.0
     seq = SequenceMatcher(None, atitle, btitle).ratio()
+    ngram = character_ngram_similarity(a.title, b.title)
 
-    astrong = _strong_event_terms(a.title + " " + (a.description or ""))
-    bstrong = _strong_event_terms(b.title + " " + (b.description or ""))
+    astrong = _strong_event_terms(atext)
+    bstrong = _strong_event_terms(btext)
     shared_strong = astrong & bstrong
 
-    aactions = _action_classes(a.title + " " + (a.description or ""))
-    bactions = _action_classes(b.title + " " + (b.description or ""))
+    aactions = _action_classes(atext)
+    bactions = _action_classes(btext)
     shared_action = bool(aactions & bactions)
+    same_group = (a.group or "") == (b.group or "") and bool(a.group)
 
-    # Rule A: Very similar titles.
-    if seq >= 0.86 and intersection >= 3:
+    # 0) 같은 썸네일 + (같은 그룹 또는 핵심어 1개 이상)
+    if same_image and (same_group or shared_strong or intersection >= 1):
         return True
 
-    # Rule B: Strong project/site identifier + same action + reasonable title overlap.
-    if shared_strong and shared_action and (jaccard >= 0.34 or intersection >= 3):
+    # A) 띄어쓰기만 다른/거의 같은 제목
+    if compact_seq >= 0.78 and intersection >= 1:
+        return True
+    if seq >= 0.68 and intersection >= 2:
+        return True
+    if ngram >= 0.48 and intersection >= 2:
         return True
 
-    # Rule C: Same action and high token overlap for rewrites of press releases.
-    if shared_action and intersection >= 4 and jaccard >= 0.50:
+    # B) 같은 회사/프로젝트 + 행위 또는 키워드
+    if shared_strong and shared_action and intersection >= 1:
+        return True
+    if len(shared_strong) >= 1 and intersection >= 2 and (shared_action or same_group):
+        return True
+    if len(shared_strong) >= 2 and intersection >= 1:
+        return True
+    if shared_strong and (jaccard >= 0.22 or intersection >= 2):
         return True
 
-    # Rule D: Extremely high token overlap even when action dictionary misses wording.
-    if intersection >= 5 and jaccard >= 0.62:
+    # C) 같은 그룹(예: 현대건설 칸) 안에서는 더 쉽게 묶음
+    if same_group and shared_action and intersection >= 2:
+        return True
+    if same_group and intersection >= 3:
+        return True
+    if same_group and compact_seq >= 0.62 and intersection >= 1:
+        return True
+
+    # D) 보도자료 재작성형
+    if shared_action and intersection >= 3 and jaccard >= 0.30:
+        return True
+    if intersection >= 4 and jaccard >= 0.38:
         return True
 
     return False
