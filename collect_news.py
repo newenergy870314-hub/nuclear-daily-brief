@@ -7287,6 +7287,36 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   MAP LABEL SIZE MATCHED TO TOP PERIOD TABS
+   ============================================================ */
+.country-map-svg-tooltip-text {{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-.02em;
+}}
+
+.country-map-svg-dot {{
+  stroke-width:5;
+}}
+
+.country-map-svg-point:hover .country-map-svg-dot,
+.country-map-svg-point:focus .country-map-svg-dot,
+.country-map-svg-point.active .country-map-svg-dot {{
+  stroke-width:5.5;
+}}
+
+.country-map-visual {{
+  height:198px;
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual {{
+    height:188px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -8586,13 +8616,13 @@ function layoutAndRenderCountryMap(){{
     halo.setAttribute("class","country-map-svg-halo");
     halo.setAttribute("cx",String(x));
     halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=10?"26":count>=4?"22":"18");
+    halo.setAttribute("r",count>=10?"34":count>=4?"29":"24");
 
     const dot=document.createElementNS(SVG_NS,"circle");
     dot.setAttribute("class","country-map-svg-dot");
     dot.setAttribute("cx",String(x));
     dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=10?"15":count>=4?"12.5":"10.5");
+    dot.setAttribute("r",count>=10?"20":count>=4?"17":"14");
 
     // Visible hover/focus tooltip inside SVG.
     const tooltip=document.createElementNS(SVG_NS,"g");
@@ -8600,21 +8630,21 @@ function layoutAndRenderCountryMap(){{
     tooltip.setAttribute("pointer-events","none");
 
     const label=`${{flag}} ${{name}} · ${{count}}건`;
-    const estimatedWidth=Math.max(126, 30 + label.length*14.0);
+    const estimatedWidth=Math.max(170, 38 + label.length*18.0);
     const tooltipX=Math.min(Math.max(x-estimatedWidth/2,6),1000-estimatedWidth-6);
-    const tooltipY=Math.max(8,y-62);
+    const tooltipY=Math.max(8,y-74);
 
     const rect=document.createElementNS(SVG_NS,"rect");
     rect.setAttribute("x",String(tooltipX));
     rect.setAttribute("y",String(tooltipY));
     rect.setAttribute("width",String(estimatedWidth));
-    rect.setAttribute("height","42");
-    rect.setAttribute("rx","11");
+    rect.setAttribute("height","52");
+    rect.setAttribute("rx","13");
     rect.setAttribute("class","country-map-svg-tooltip-bg");
 
     const labelText=document.createElementNS(SVG_NS,"text");
     labelText.setAttribute("x",String(tooltipX+estimatedWidth/2));
-    labelText.setAttribute("y",String(tooltipY+27));
+    labelText.setAttribute("y",String(tooltipY+33));
     labelText.setAttribute("text-anchor","middle");
     labelText.setAttribute("class","country-map-svg-tooltip-text");
     labelText.textContent=label;
