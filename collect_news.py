@@ -7156,6 +7156,94 @@ header,
   preserve-aspect-ratio:xMidYMid meet;
 }}
 
+
+/* ============================================================
+   MAP POINT SIZE + COUNTRY/ARTICLE TOOLTIP
+   ============================================================ */
+.country-map-svg-point {{
+  cursor:pointer;
+  outline:none;
+}}
+
+.country-map-svg-halo {{
+  fill:rgba(52,93,140,.17);
+  stroke:rgba(52,93,140,.10);
+  stroke-width:1;
+  vector-effect:non-scaling-stroke;
+}}
+
+.country-map-svg-dot {{
+  fill:#345d8c;
+  stroke:#ffffff;
+  stroke-width:3.2;
+  vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 2px 3px rgba(35,57,93,.28));
+}}
+
+.country-map-svg-point:hover .country-map-svg-dot,
+.country-map-svg-point:focus .country-map-svg-dot {{
+  fill:#173f70;
+  stroke-width:3.6;
+}}
+
+.country-map-svg-point:hover .country-map-svg-halo,
+.country-map-svg-point:focus .country-map-svg-halo {{
+  fill:rgba(52,93,140,.26);
+}}
+
+.country-map-svg-point.active .country-map-svg-dot {{
+  fill:#f5c84c;
+  stroke:#23395d;
+  stroke-width:3.6;
+}}
+
+.country-map-svg-point.active .country-map-svg-halo {{
+  fill:rgba(245,200,76,.32);
+  stroke:rgba(35,57,93,.20);
+}}
+
+.country-map-svg-tooltip {{
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .10s ease;
+}}
+
+.country-map-svg-point:hover .country-map-svg-tooltip,
+.country-map-svg-point:focus .country-map-svg-tooltip,
+.country-map-svg-point.active .country-map-svg-tooltip {{
+  opacity:1;
+  visibility:visible;
+}}
+
+.country-map-svg-tooltip-bg {{
+  fill:#1f3557;
+  stroke:rgba(255,255,255,.22);
+  stroke-width:1;
+  vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 3px 5px rgba(17,24,39,.20));
+}}
+
+.country-map-svg-tooltip-text {{
+  fill:#ffffff;
+  font-size:15px;
+  font-weight:800;
+  dominant-baseline:middle;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  pointer-events:none;
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual {{
+    height:150px;
+  }}
+}}
+
+@media (min-width:381px) {{
+  .country-map-visual {{
+    height:162px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -8430,8 +8518,7 @@ function layoutAndRenderCountryMap(){{
     const lat=Number(button.dataset.lat);
     if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
 
-    // Exact same projection used to build the SVG map:
-    // viewBox 1000×500, longitude -180..180, latitude -60..85.
+    // Same SVG coordinate system as the world map.
     const x=((lon+180)/360)*1000;
     const y=((85-lat)/145)*500;
 
@@ -8456,19 +8543,48 @@ function layoutAndRenderCountryMap(){{
     halo.setAttribute("class","country-map-svg-halo");
     halo.setAttribute("cx",String(x));
     halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=8?"12":count>=3?"10":"8");
+    halo.setAttribute("r",count>=10?"17":count>=4?"14":"12");
 
     const dot=document.createElementNS(SVG_NS,"circle");
     dot.setAttribute("class","country-map-svg-dot");
     dot.setAttribute("cx",String(x));
     dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=8?"7":count>=3?"6":"5");
+    dot.setAttribute("r",count>=10?"10":count>=4?"8.5":"7");
+
+    // Visible hover/focus tooltip inside SVG.
+    const tooltip=document.createElementNS(SVG_NS,"g");
+    tooltip.setAttribute("class","country-map-svg-tooltip");
+    tooltip.setAttribute("pointer-events","none");
+
+    const label=`${{flag}} ${{name}} · ${{count}}건`;
+    const estimatedWidth=Math.max(76, 18 + label.length*9.2);
+    const tooltipX=Math.min(Math.max(x-estimatedWidth/2,6),1000-estimatedWidth-6);
+    const tooltipY=Math.max(8,y-43);
+
+    const rect=document.createElementNS(SVG_NS,"rect");
+    rect.setAttribute("x",String(tooltipX));
+    rect.setAttribute("y",String(tooltipY));
+    rect.setAttribute("width",String(estimatedWidth));
+    rect.setAttribute("height","28");
+    rect.setAttribute("rx","8");
+    rect.setAttribute("class","country-map-svg-tooltip-bg");
+
+    const labelText=document.createElementNS(SVG_NS,"text");
+    labelText.setAttribute("x",String(tooltipX+estimatedWidth/2));
+    labelText.setAttribute("y",String(tooltipY+18));
+    labelText.setAttribute("text-anchor","middle");
+    labelText.setAttribute("class","country-map-svg-tooltip-text");
+    labelText.textContent=label;
+
+    tooltip.appendChild(rect);
+    tooltip.appendChild(labelText);
 
     const title=document.createElementNS(SVG_NS,"title");
-    title.textContent=`${{flag}} ${{name}} · ${{count}}건`;
+    title.textContent=label;
 
     group.appendChild(halo);
     group.appendChild(dot);
+    group.appendChild(tooltip);
     group.appendChild(title);
 
     const activate=()=>setCountryFilter(code);
