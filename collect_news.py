@@ -5376,6 +5376,25 @@ def _is_construction_recruiting_briefing_event(article: Article) -> bool:
     return has_construction_company and has_recruiting_briefing
 
 
+
+def _is_hyundai_macheon5_event(article: Article) -> bool:
+    """현대건설 + 마천5구역 관련 보도는 언론사가 달라도 동일 이슈로 간주합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_hyundai = (
+        "현대건설" in compact
+        or "hyundaie&c" in compact
+        or "hyundaiengineeringconstruction" in compact
+        or "hdec" in compact
+    )
+    has_macheon5 = (
+        "마천5구역" in compact
+        or ("마천" in compact and "5구역" in compact)
+    )
+    return has_hyundai and has_macheon5
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5513,14 +5532,35 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             recruiting_unique[recruiting_idx] = article
 
-    result = sorted(recruiting_unique, key=lambda x: x.published, reverse=True)
+    # 현대건설 + 마천5구역 동일이슈도 대표기사 1건만 유지
+    macheon5_unique: list[Article] = []
+    macheon5_idx: int | None = None
+    macheon5_removed = 0
+
+    for article in recruiting_unique:
+        if not _is_hyundai_macheon5_event(article):
+            macheon5_unique.append(article)
+            continue
+
+        if macheon5_idx is None:
+            macheon5_idx = len(macheon5_unique)
+            macheon5_unique.append(article)
+            continue
+
+        macheon5_removed += 1
+        kept = macheon5_unique[macheon5_idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            macheon5_unique[macheon5_idx] = article
+
+    result = sorted(macheon5_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ mokdong10_removed={event_removed} "
         f"/ proud_truck_removed={proud_truck_removed} "
         f"/ knf_safety_removed={knf_safety_removed} "
         f"/ lotte_bond_removed={lotte_bond_removed} "
-        f"/ recruiting_removed={recruiting_removed} / final={len(result)}"
+        f"/ recruiting_removed={recruiting_removed} "
+        f"/ macheon5_removed={macheon5_removed} / final={len(result)}"
     )
     return result
 
@@ -5764,10 +5804,9 @@ def update_archive(
             if current_score >= previous_score:
                 merged_by_url[identity] = article
 
-        merged_items = sorted(
-            merged_by_url.values(),
-            key=lambda article: -article.published.timestamp(),
-        )
+        # URL 기준 병합 후에도 최종 동일이슈 중복제거를 다시 적용합니다.
+        # 기존 archive에 남아 있던 목동10단지 등 중복도 다음 실행 시 정리됩니다.
+        merged_items = final_deduplicate_articles(list(merged_by_url.values()))
 
         archive[key] = {
             "label": key,
@@ -10522,10 +10561,8 @@ def main() -> int:
             if article is not None and start <= article.published < end:
                 merged_items.append(article)
 
-        articles_by_period[label] = sorted(
-            merged_items,
-            key=lambda article: -article.published.timestamp(),
-        )
+        # archive에서 화면으로 다시 불러올 때도 동일이슈 중복을 제거합니다.
+        articles_by_period[label] = final_deduplicate_articles(merged_items)
 
         print(
             f"[PERIOD ACCUMULATED {label}] total={len(articles_by_period[label])}"
