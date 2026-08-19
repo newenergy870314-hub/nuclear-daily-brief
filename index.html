@@ -1908,6 +1908,58 @@ header,
   }
 }
 
+
+/* ============================================================
+   SVG-NATIVE COUNTRY POINTS
+   Points now share the exact same coordinate system as the map.
+   ============================================================ */
+.country-map-dots {
+  display:none !important;
+}
+
+.country-map-dots-svg {
+  pointer-events:auto;
+}
+
+.country-map-svg-point {
+  cursor:pointer;
+  outline:none;
+}
+
+.country-map-svg-halo {
+  fill:rgba(52,93,140,.14);
+  stroke:none;
+  pointer-events:none;
+}
+
+.country-map-svg-dot {
+  fill:#345d8c;
+  stroke:#ffffff;
+  stroke-width:2.6;
+  vector-effect:non-scaling-stroke;
+  filter:drop-shadow(0 1px 2px rgba(35,57,93,.22));
+  transition:r .12s ease, fill .12s ease;
+}
+
+.country-map-svg-point:hover .country-map-svg-dot,
+.country-map-svg-point:focus .country-map-svg-dot {
+  fill:#1f4774;
+}
+
+.country-map-svg-point.active .country-map-svg-halo {
+  fill:rgba(245,200,76,.30);
+}
+
+.country-map-svg-point.active .country-map-svg-dot {
+  fill:#f5c84c;
+  stroke:#23395d;
+  stroke-width:3;
+}
+
+.country-map-visual .world-map-inline {
+  preserve-aspect-ratio:xMidYMid meet;
+}
+
 </style>
 </head>
 <body>
@@ -1916,7 +1968,7 @@ header,
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
       <div class="topbar-actions">
-        <span class="updated updated-inline">업데이트됨 8.19 09:25 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.19 09:45 KST</span>
         <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
     </div>
@@ -2691,8 +2743,8 @@ header,
           <path d="M488.4,242.6 L488.4,242.6 L489.2,241.3 L488.4,242.6"/>
           <path d="M502.1,240.2 L501.8,241.2 L502.1,240.2 L502.1,240.2"/>
         </g>
+              <g id="country-map-dots-svg" class="country-map-dots-svg"></g>
       </svg>
-      <div id="country-map-dots" class="country-map-dots" aria-hidden="false"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
         기사가 있는 국가만 표시
@@ -10820,7 +10872,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/97cdeaa50de7305b07a88b0e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2a218347c0bd4be299bb90e7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -17487,9 +17539,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Real-Estate/2026/08/202608190842387749ea13369bfa_1"
+  data-title="현대건설, 4세대 원전까지 영토 확장…글로벌 에너지 기업 ‘성큼’ - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787098158"
+  data-country="US"
+  data-search="현대건설, 4세대 원전까지 영토 확장…글로벌 에너지 기업 ‘성큼’ - 글로벌이코노믹 글로벌이코노믹 현대건설 현대건설이 미국 차세대 원전 기업 테라파워(terrapower)와 손잡고 글로벌 원전 시장 공략에 속도를 내고 있다. 대형원전에서 쌓은 시공 경험을 바탕으로 소형모듈원자로(smr), 원전 해체에 이어 4세대 원전까지 사업 영역을 넓히며 글로벌 에너지 기업으로의 도약을 본격화하는 모습이다"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대건설, 4세대 원전까지 영토 확장…글로벌 에너지 기업 ‘성큼’ - 글로벌이코노믹</div>
+      <div class="article-snippet">현대건설이 미국 차세대 원전 기업 테라파워(TerraPower)와 손잡고 글로벌 원전 시장 공략에 속도를 내고 있다. 대형원전에서 쌓은 시공 경험을 바탕으로 소형모듈원자로(SMR), 원전 해체에 이어 4세대 원전까지 사업 영역을 넓히며 글로벌 에너지 기업으로의 도약을 본격화하는 모습이다</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e0762524f8915c698bdac6ac.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105946"
   data-title="현대건설과 손 잡은 美 테라파워, 곧 두번째 원전 건설 계획 발표 예정"
@@ -17503,7 +17591,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17522,6 +17610,78 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/80da2baf327b6c12d331bc8c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260819_0003753736"
+  data-title="건설업계 청년인재 채용 한자리…&#x27;스마트건설 청년인재 채용설명회&#x27; 개최"
+  data-publisher="뉴시스"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787100095"
+  data-country="KR"
+  data-search="건설업계 청년인재 채용 한자리…&#x27;스마트건설 청년인재 채용설명회&#x27; 개최 뉴시스 현대건설 [서울=뉴시스] 박성환 기자 = 국내 주요 건설사와 공기업 등이 참여해 청년 구직자들에게 채용 정보와 직무 경험을 제공하는 채용설명회가 열린다. 대한건설협회와 건설산업사회공헌재단은 오는 25일 서울 강남구 건설회관에서 &#x27;2026 스마트건설 청년인재 채용설명회&#x27;를 개최한다고 19일 밝혔다. 이번 행사에는 현대건설, gs건설, 대우건설, dl이앤씨, 포스코이앤씨, 호반건설 등 주요 건설사와 인천국제공항공사, 한국도로공사, 국가철도공단 등 공기업·기관을 포함해 모두 25개 기업·기관이 참여한다. 참가자들은 기업 인사담당자와의 1대 1 채용상담을 비롯해 기업별 채용계획 발표"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>건설업계 청년인재 채용 한자리…&#x27;스마트건설 청년인재 채용설명회&#x27; 개최</div>
+      <div class="article-snippet">[서울=뉴시스] 박성환 기자 = 국내 주요 건설사와 공기업 등이 참여해 청년 구직자들에게 채용 정보와 직무 경험을 제공하는 채용설명회가 열린다. 대한건설협회와 건설산업사회공헌재단은 오는 25일 서울 강남구 건설회관에서 &#x27;2026 스마트건설 청년인재 채용설명회&#x27;를 개최한다고 19일 밝혔다. 이번 행사에는 현대건설, GS건설, 대우건설, DL이앤씨, 포스코이앤씨, 호반건설 등 주요 건설사와 인천국제공항공사, 한국도로공사, 국가철도공단 등 공기업·기관을 포함해 모두 25개 기업·기관이 참여한다. 참가자들은 기업 인사담당자와의 1대 1 채용상담을 비롯해 기업별 채용계획 발표</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/11a9fa31be0cffbb42681f25.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478507"
+  data-title="마천5구역 재개발, 공사비 올려 재입찰…현대건설 &#x27;무혈입성&#x27;하나"
+  data-publisher="핀포인트뉴스"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787099303"
+  data-country="KR"
+  data-search="마천5구역 재개발, 공사비 올려 재입찰…현대건설 &#x27;무혈입성&#x27;하나 핀포인트뉴스 현대건설 서울 송파구 마천5재정비촉진구역(마천5구역) 재개발 사업이 공사비를 올리고 입찰보증금을 낮추는 등 사업 조건을 조정해 시공사 선정 절차를 다시 시작했다. 새로 진행된 현장설명회에는 현대건설만 참석하면서 사실상 현대건설을 중심으로 수주전이 전개될 가능성이 커지고 있다.19일 도시정비업계에 따르면 마천5구역 재개발 조합은 전날인 18일 송파구 마천동 일대 조합 사무실에서 새 시공사 선정을 위한 현장설명회를 열었다. 이날 현설에는 현대건설이 단독으로 참석했다. 현설에 참석한 건설사에만 본입찰 참여 자격이 주어지는 만큼 이번 입찰도 일단"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">핀포인트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>마천5구역 재개발, 공사비 올려 재입찰…현대건설 &#x27;무혈입성&#x27;하나</div>
+      <div class="article-snippet">서울 송파구 마천5재정비촉진구역(마천5구역) 재개발 사업이 공사비를 올리고 입찰보증금을 낮추는 등 사업 조건을 조정해 시공사 선정 절차를 다시 시작했다. 새로 진행된 현장설명회에는 현대건설만 참석하면서 사실상 현대건설을 중심으로 수주전이 전개될 가능성이 커지고 있다.19일 도시정비업계에 따르면 마천5구역 재개발 조합은 전날인 18일 송파구 마천동 일대 조합 사무실에서 새 시공사 선정을 위한 현장설명회를 열었다. 이날 현설에는 현대건설이 단독으로 참석했다. 현설에 참석한 건설사에만 본입찰 참여 자격이 주어지는 만큼 이번 입찰도 일단</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b842f59654bfbcc8fc7b0dfc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -17632,7 +17792,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787099100"
+  data-published="1787100300"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -17784,10 +17944,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260819000243"
+  data-title="홍기원 &quot;대미투자, 국익 따져야…美 추가투자 요구 수용 현실적으로 쉽지 않아&quot;"
+  data-publisher="뉴스핌"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787100360"
+  data-country="US"
+  data-search="홍기원 &quot;대미투자, 국익 따져야…美 추가투자 요구 수용 현실적으로 쉽지 않아&quot; 뉴스핌 원전 대미투자 [서울=뉴스핌] 박서영 기자 = 국회 외교통일위원회 여당 간사인 홍기원 더불어민주당 의원이 19일 미국의 대미 투자 압박과 관련해 &quot;대미 투자는 우리에게도 이익이 되는지 따져야 한다. 국익과 상업적 합리성을 충분히 고려해 진행해야 한다&quot;고 강조했다.홍 의원은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>홍기원 &quot;대미투자, 국익 따져야…美 추가투자 요구 수용 현실적으로 쉽지 않아&quot;</div>
+      <div class="article-snippet">[서울=뉴스핌] 박서영 기자 = 국회 외교통일위원회 여당 간사인 홍기원 더불어민주당 의원이 19일 미국의 대미 투자 압박과 관련해 &quot;대미 투자는 우리에게도 이익이 되는지 따져야 한다. 국익과 상업적 합리성을 충분히 고려해 진행해야 한다&quot;고 강조했다.홍 의원은</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/035b2494b1112f2c8a83674f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.ekn.kr/web/view.php?key=20260819024393268"
   data-title="여한구 면직 속 산업장관 美서 담판…삼성·현대차·한화 ‘후속 투자’ 촉각"
   data-publisher="에너지경제신문"
@@ -17800,7 +17996,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17812,7 +18008,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>여한구 면직 속 산업장관 美서 담판…삼성·현대차·한화 ‘후속 투자’ 촉각</div>
+      <div class="headline">여한구 면직 속 산업장관 美서 담판…삼성·현대차·한화 ‘후속 투자’ 촉각</div>
       <div class="article-snippet">한미 간 3500억달러 규모 대미투자가 실행 단계에 들어선 가운데 통상 사령탑의 갑작스러운 공백을 김정관 산업통상부 장관이 직접 메우고 있다. 김 장관은 미국을 긴급 방문해 하워드..</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -17836,7 +18032,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17872,7 +18068,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17908,7 +18104,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18207,7 +18403,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -18282,6 +18478,42 @@ header,
   
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.cnbc.com/2026/08/18/democratic-representative-moskowitz-fends-off-challenge-in-florida-from-democratic-socialist.html"
+  data-title="In upset, democratic socialist Nixon defeats Vindman in Florida Democratic Senate primary"
+  data-publisher="CNBC"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787098041"
+  data-country="US"
+  data-search="in upset, democratic socialist nixon defeats vindman in florida democratic senate primary cnbc nuclear power·nuclear energy primary races on tuesday in florida and alaska were being closely watched for signs of possible republican or democratic dominance in the run-up to the november midterm elections that will decide control of the u.s. house of representatives and senate."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">CNBC</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>In upset, democratic socialist Nixon defeats Vindman in Florida Democratic Senate primary</div>
+      <div class="article-snippet">Primary races on Tuesday in Florida and Alaska were being closely watched for signs of possible Republican or Democratic dominance in the run-up to the November midterm elections that will decide control of the U.S. House of Representatives and Senate.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6820fb00b6a99d7ff2c8d463.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://economictimes.indiatimes.com/news/international/us/quote-of-the-day-by-entrepreneur-leila-hormozi-get-around-people-who-talk-about-future-you-get-away-from-people-who-talk-about-past-you-offers-life-lessons-on-human-nature-empathy-compassion-kindness-confidence-validation/articleshow/133334488.cms"
   data-title="Quote of the day by Entrepreneur Leila Hormozi, &#x27;Get around people who talk about future you. Get away from people who talk about past you&#x27; offers life lessons on human nature, empathy, compassion, kindness, confidence, validation"
@@ -18295,7 +18527,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18409,9 +18641,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Real-Estate/2026/08/202608190842387749ea13369bfa_1"
+  data-title="현대건설, 4세대 원전까지 영토 확장…글로벌 에너지 기업 ‘성큼’ - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787098158"
+  data-country="US"
+  data-search="현대건설, 4세대 원전까지 영토 확장…글로벌 에너지 기업 ‘성큼’ - 글로벌이코노믹 글로벌이코노믹 현대건설 현대건설이 미국 차세대 원전 기업 테라파워(terrapower)와 손잡고 글로벌 원전 시장 공략에 속도를 내고 있다. 대형원전에서 쌓은 시공 경험을 바탕으로 소형모듈원자로(smr), 원전 해체에 이어 4세대 원전까지 사업 영역을 넓히며 글로벌 에너지 기업으로의 도약을 본격화하는 모습이다"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대건설, 4세대 원전까지 영토 확장…글로벌 에너지 기업 ‘성큼’ - 글로벌이코노믹</div>
+      <div class="article-snippet">현대건설이 미국 차세대 원전 기업 테라파워(TerraPower)와 손잡고 글로벌 원전 시장 공략에 속도를 내고 있다. 대형원전에서 쌓은 시공 경험을 바탕으로 소형모듈원자로(SMR), 원전 해체에 이어 4세대 원전까지 사업 영역을 넓히며 글로벌 에너지 기업으로의 도약을 본격화하는 모습이다</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e0762524f8915c698bdac6ac.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105946"
   data-title="현대건설과 손 잡은 美 테라파워, 곧 두번째 원전 건설 계획 발표 예정"
@@ -18425,7 +18693,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18444,6 +18712,78 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/80da2baf327b6c12d331bc8c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260819_0003753736"
+  data-title="건설업계 청년인재 채용 한자리…&#x27;스마트건설 청년인재 채용설명회&#x27; 개최"
+  data-publisher="뉴시스"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787100095"
+  data-country="KR"
+  data-search="건설업계 청년인재 채용 한자리…&#x27;스마트건설 청년인재 채용설명회&#x27; 개최 뉴시스 현대건설 [서울=뉴시스] 박성환 기자 = 국내 주요 건설사와 공기업 등이 참여해 청년 구직자들에게 채용 정보와 직무 경험을 제공하는 채용설명회가 열린다. 대한건설협회와 건설산업사회공헌재단은 오는 25일 서울 강남구 건설회관에서 &#x27;2026 스마트건설 청년인재 채용설명회&#x27;를 개최한다고 19일 밝혔다. 이번 행사에는 현대건설, gs건설, 대우건설, dl이앤씨, 포스코이앤씨, 호반건설 등 주요 건설사와 인천국제공항공사, 한국도로공사, 국가철도공단 등 공기업·기관을 포함해 모두 25개 기업·기관이 참여한다. 참가자들은 기업 인사담당자와의 1대 1 채용상담을 비롯해 기업별 채용계획 발표"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>건설업계 청년인재 채용 한자리…&#x27;스마트건설 청년인재 채용설명회&#x27; 개최</div>
+      <div class="article-snippet">[서울=뉴시스] 박성환 기자 = 국내 주요 건설사와 공기업 등이 참여해 청년 구직자들에게 채용 정보와 직무 경험을 제공하는 채용설명회가 열린다. 대한건설협회와 건설산업사회공헌재단은 오는 25일 서울 강남구 건설회관에서 &#x27;2026 스마트건설 청년인재 채용설명회&#x27;를 개최한다고 19일 밝혔다. 이번 행사에는 현대건설, GS건설, 대우건설, DL이앤씨, 포스코이앤씨, 호반건설 등 주요 건설사와 인천국제공항공사, 한국도로공사, 국가철도공단 등 공기업·기관을 포함해 모두 25개 기업·기관이 참여한다. 참가자들은 기업 인사담당자와의 1대 1 채용상담을 비롯해 기업별 채용계획 발표</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/11a9fa31be0cffbb42681f25.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478507"
+  data-title="마천5구역 재개발, 공사비 올려 재입찰…현대건설 &#x27;무혈입성&#x27;하나"
+  data-publisher="핀포인트뉴스"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787099303"
+  data-country="KR"
+  data-search="마천5구역 재개발, 공사비 올려 재입찰…현대건설 &#x27;무혈입성&#x27;하나 핀포인트뉴스 현대건설 서울 송파구 마천5재정비촉진구역(마천5구역) 재개발 사업이 공사비를 올리고 입찰보증금을 낮추는 등 사업 조건을 조정해 시공사 선정 절차를 다시 시작했다. 새로 진행된 현장설명회에는 현대건설만 참석하면서 사실상 현대건설을 중심으로 수주전이 전개될 가능성이 커지고 있다.19일 도시정비업계에 따르면 마천5구역 재개발 조합은 전날인 18일 송파구 마천동 일대 조합 사무실에서 새 시공사 선정을 위한 현장설명회를 열었다. 이날 현설에는 현대건설이 단독으로 참석했다. 현설에 참석한 건설사에만 본입찰 참여 자격이 주어지는 만큼 이번 입찰도 일단"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">핀포인트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>마천5구역 재개발, 공사비 올려 재입찰…현대건설 &#x27;무혈입성&#x27;하나</div>
+      <div class="article-snippet">서울 송파구 마천5재정비촉진구역(마천5구역) 재개발 사업이 공사비를 올리고 입찰보증금을 낮추는 등 사업 조건을 조정해 시공사 선정 절차를 다시 시작했다. 새로 진행된 현장설명회에는 현대건설만 참석하면서 사실상 현대건설을 중심으로 수주전이 전개될 가능성이 커지고 있다.19일 도시정비업계에 따르면 마천5구역 재개발 조합은 전날인 18일 송파구 마천동 일대 조합 사무실에서 새 시공사 선정을 위한 현장설명회를 열었다. 이날 현설에는 현대건설이 단독으로 참석했다. 현설에 참석한 건설사에만 본입찰 참여 자격이 주어지는 만큼 이번 입찰도 일단</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b842f59654bfbcc8fc7b0dfc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -18554,7 +18894,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787099100"
+  data-published="1787100300"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -18706,10 +19046,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260819000243"
+  data-title="홍기원 &quot;대미투자, 국익 따져야…美 추가투자 요구 수용 현실적으로 쉽지 않아&quot;"
+  data-publisher="뉴스핌"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787100360"
+  data-country="US"
+  data-search="홍기원 &quot;대미투자, 국익 따져야…美 추가투자 요구 수용 현실적으로 쉽지 않아&quot; 뉴스핌 원전 대미투자 [서울=뉴스핌] 박서영 기자 = 국회 외교통일위원회 여당 간사인 홍기원 더불어민주당 의원이 19일 미국의 대미 투자 압박과 관련해 &quot;대미 투자는 우리에게도 이익이 되는지 따져야 한다. 국익과 상업적 합리성을 충분히 고려해 진행해야 한다&quot;고 강조했다.홍 의원은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>홍기원 &quot;대미투자, 국익 따져야…美 추가투자 요구 수용 현실적으로 쉽지 않아&quot;</div>
+      <div class="article-snippet">[서울=뉴스핌] 박서영 기자 = 국회 외교통일위원회 여당 간사인 홍기원 더불어민주당 의원이 19일 미국의 대미 투자 압박과 관련해 &quot;대미 투자는 우리에게도 이익이 되는지 따져야 한다. 국익과 상업적 합리성을 충분히 고려해 진행해야 한다&quot;고 강조했다.홍 의원은</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/035b2494b1112f2c8a83674f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.ekn.kr/web/view.php?key=20260819024393268"
   data-title="여한구 면직 속 산업장관 美서 담판…삼성·현대차·한화 ‘후속 투자’ 촉각"
   data-publisher="에너지경제신문"
@@ -18722,7 +19098,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18734,7 +19110,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>여한구 면직 속 산업장관 美서 담판…삼성·현대차·한화 ‘후속 투자’ 촉각</div>
+      <div class="headline">여한구 면직 속 산업장관 美서 담판…삼성·현대차·한화 ‘후속 투자’ 촉각</div>
       <div class="article-snippet">한미 간 3500억달러 규모 대미투자가 실행 단계에 들어선 가운데 통상 사령탑의 갑작스러운 공백을 김정관 산업통상부 장관이 직접 메우고 있다. 김 장관은 미국을 긴급 방문해 하워드..</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -18758,7 +19134,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18794,7 +19170,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18830,7 +19206,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19129,7 +19505,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -19204,6 +19580,42 @@ header,
   
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.cnbc.com/2026/08/18/democratic-representative-moskowitz-fends-off-challenge-in-florida-from-democratic-socialist.html"
+  data-title="In upset, democratic socialist Nixon defeats Vindman in Florida Democratic Senate primary"
+  data-publisher="CNBC"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787098041"
+  data-country="US"
+  data-search="in upset, democratic socialist nixon defeats vindman in florida democratic senate primary cnbc nuclear power·nuclear energy primary races on tuesday in florida and alaska were being closely watched for signs of possible republican or democratic dominance in the run-up to the november midterm elections that will decide control of the u.s. house of representatives and senate."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">CNBC</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>In upset, democratic socialist Nixon defeats Vindman in Florida Democratic Senate primary</div>
+      <div class="article-snippet">Primary races on Tuesday in Florida and Alaska were being closely watched for signs of possible Republican or Democratic dominance in the run-up to the November midterm elections that will decide control of the U.S. House of Representatives and Senate.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6820fb00b6a99d7ff2c8d463.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://economictimes.indiatimes.com/news/international/us/quote-of-the-day-by-entrepreneur-leila-hormozi-get-around-people-who-talk-about-future-you-get-away-from-people-who-talk-about-past-you-offers-life-lessons-on-human-nature-empathy-compassion-kindness-confidence-validation/articleshow/133334488.cms"
   data-title="Quote of the day by Entrepreneur Leila Hormozi, &#x27;Get around people who talk about future you. Get away from people who talk about past you&#x27; offers life lessons on human nature, empathy, compassion, kindness, confidence, validation"
@@ -19217,7 +19629,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -24495,7 +24907,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/97cdeaa50de7305b07a88b0e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2a218347c0bd4be299bb90e7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -101042,7 +101454,7 @@ function layoutCountryPins(){
 }
 
 function layoutAndRenderCountryMap(){
-  const dotLayer=document.getElementById("country-map-dots");
+  const dotLayer=document.getElementById("country-map-dots-svg");
   if(!dotLayer)return;
 
   dotLayer.innerHTML="";
@@ -101050,6 +101462,8 @@ function layoutAndRenderCountryMap(){
   const chipButtons=[...document.querySelectorAll(
     "#country-chip-rail .country-pin[data-country-filter]"
   )];
+
+  const SVG_NS="http://www.w3.org/2000/svg";
 
   chipButtons.forEach(button=>{
     if(button.hidden)return;
@@ -101061,10 +101475,10 @@ function layoutAndRenderCountryMap(){
     const lat=Number(button.dataset.lat);
     if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
 
-    // 지도 SVG와 동일한 equirectangular projection.
-    // lon: -180~180 / lat: -60~85
-    const x=((lon+180)/360)*100;
-    const y=((85-lat)/145)*100;
+    // Exact same projection used to build the SVG map:
+    // viewBox 1000×500, longitude -180..180, latitude -60..85.
+    const x=((lon+180)/360)*1000;
+    const y=((85-lat)/145)*500;
 
     const countNode=button.querySelector(".country-count");
     const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
@@ -101075,66 +101489,49 @@ function layoutAndRenderCountryMap(){
     const flag=button.querySelector(".flag")?.textContent||"";
     const name=nameNode?.textContent||COUNTRY_NAMES[code]||code;
 
-    const dot=document.createElement("button");
-    dot.type="button";
-    dot.className="country-map-dot";
-    dot.dataset.countryFilter=code;
-    dot.dataset.countLevel=count>=8?"3":count>=3?"2":"1";
-    dot.style.left=`${x}%`;
-    dot.style.top=`${y}%`;
-    dot.setAttribute("aria-label",`${name} 관련 기사 ${count}건`);
-    dot.classList.toggle("active",activeCountryFilter===code);
-    dot.innerHTML=`<span class="country-map-dot-label">${flag} ${name} · ${count}건</span>`;
+    const group=document.createElementNS(SVG_NS,"g");
+    group.setAttribute("class","country-map-svg-point");
+    group.setAttribute("data-country-filter",code);
+    group.setAttribute("tabindex","0");
+    group.setAttribute("role","button");
+    group.setAttribute("aria-label",`${name} 관련 기사 ${count}건`);
+    if(activeCountryFilter===code)group.classList.add("active");
 
-    dot.addEventListener("click",event=>{
+    const halo=document.createElementNS(SVG_NS,"circle");
+    halo.setAttribute("class","country-map-svg-halo");
+    halo.setAttribute("cx",String(x));
+    halo.setAttribute("cy",String(y));
+    halo.setAttribute("r",count>=8?"12":count>=3?"10":"8");
+
+    const dot=document.createElementNS(SVG_NS,"circle");
+    dot.setAttribute("class","country-map-svg-dot");
+    dot.setAttribute("cx",String(x));
+    dot.setAttribute("cy",String(y));
+    dot.setAttribute("r",count>=8?"7":count>=3?"6":"5");
+
+    const title=document.createElementNS(SVG_NS,"title");
+    title.textContent=`${flag} ${name} · ${count}건`;
+
+    group.appendChild(halo);
+    group.appendChild(dot);
+    group.appendChild(title);
+
+    const activate=()=>setCountryFilter(code);
+    group.addEventListener("click",event=>{
       event.preventDefault();
       event.stopPropagation();
-      setCountryFilter(code);
+      activate();
+    });
+    group.addEventListener("keydown",event=>{
+      if(event.key==="Enter"||event.key===" "){
+        event.preventDefault();
+        activate();
+      }
     });
 
-    dotLayer.appendChild(dot);
+    dotLayer.appendChild(group);
   });
 }
-
-function renderCountryMapConnectors(){
-  const canvas=document.querySelector(".world-map-canvas");
-  const svg=document.getElementById("map-connectors");
-  if(!canvas||!svg)return;
-
-  const rect=canvas.getBoundingClientRect();
-  if(rect.width<=0||rect.height<=0)return;
-
-  svg.setAttribute("viewBox",`0 0 ${rect.width} ${rect.height}`);
-  svg.innerHTML="";
-
-  canvas.querySelectorAll(".country-pin[data-anchor-x][data-anchor-y]").forEach(button=>{
-    if(button.hidden)return;
-
-    const anchorX=rect.width*(Number(button.dataset.anchorX)/100);
-    const anchorY=rect.height*(Number(button.dataset.anchorY)/100);
-
-    const buttonRect=button.getBoundingClientRect();
-    const bx=buttonRect.left-rect.left+buttonRect.width/2;
-    const by=buttonRect.top-rect.top+buttonRect.height/2;
-
-    // 라벨 중심에서 국가 기준점까지 직접 연결합니다.
-    const line=document.createElementNS("http://www.w3.org/2000/svg","line");
-    line.setAttribute("x1",String(bx));
-    line.setAttribute("y1",String(by));
-    line.setAttribute("x2",String(anchorX));
-    line.setAttribute("y2",String(anchorY));
-    line.setAttribute("class","map-connector-line");
-    svg.appendChild(line);
-
-    const dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
-    dot.setAttribute("cx",String(anchorX));
-    dot.setAttribute("cy",String(anchorY));
-    dot.setAttribute("r",button.dataset.countryFilter==="KR"?"3.2":"2.5");
-    dot.setAttribute("class",button.dataset.countryFilter==="KR"?"map-anchor-dot kr-anchor":"map-anchor-dot");
-    svg.appendChild(dot);
-  });
-}
-
 function updateCountryMapCounts(){
   const panel=activePanel();
   if(!panel)return;
