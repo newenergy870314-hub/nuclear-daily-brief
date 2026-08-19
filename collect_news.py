@@ -7849,6 +7849,118 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   CLOCK UI REFINEMENT — compact / contemporary / consistent
+   ============================================================ */
+.world-clock-rail {{
+  gap:12px;
+}}
+
+.mini-world-clock {{
+  gap:3px;
+}}
+
+.mini-clock-label {{
+  display:flex;
+  align-items:baseline;
+  justify-content:center;
+  gap:3px;
+  max-width:74px;
+  color:#23395d;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:9px;
+  line-height:1.05;
+  font-weight:900;
+  white-space:nowrap;
+}}
+
+.mini-clock-label span {{
+  color:#7f8b9a;
+  font-size:7.5px;
+  font-weight:800;
+}}
+
+.mini-clock-sub {{
+  display:none !important;
+}}
+
+.clock-num {{
+  color:#5a687a;
+  font-family:Arial, "Noto Sans KR", sans-serif !important;
+  font-size:6px;
+  font-weight:700;
+}}
+
+.mini-clock-meta {{
+  gap:4px;
+}}
+
+.mini-clock-day {{
+  min-width:23px;
+  background:#eef2f6;
+  color:#53677f;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:7px;
+  font-weight:900;
+}}
+
+.mini-clock-time {{
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:9px;
+  font-weight:900;
+}}
+
+/* ============================================================
+   MAP TOOLTIP — smaller and always above the pointer
+   ============================================================ */
+.country-map-html-tooltip {{
+  min-height:32px;
+  padding:5px 8px;
+  gap:5px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(17,24,39,.26);
+}}
+
+.map-tooltip-flag {{
+  font-size:16px !important;
+}}
+
+.map-tooltip-country,
+.map-tooltip-count {{
+  font-size:12px !important;
+  line-height:1.1;
+  font-weight:900;
+}}
+
+.map-tooltip-count {{
+  margin-left:1px;
+  padding-left:6px;
+  border-left:1px solid rgba(255,255,255,.30);
+}}
+
+@media (max-width:380px) {{
+  .mini-clock-label {{
+    max-width:64px;
+    font-size:8.5px;
+  }}
+  .mini-clock-label span {{
+    font-size:7px;
+  }}
+  .country-map-html-tooltip {{
+    min-height:30px;
+    padding:4px 7px;
+    gap:4px;
+  }}
+  .map-tooltip-flag {{
+    font-size:15px !important;
+  }}
+  .map-tooltip-country,
+  .map-tooltip-count {{
+    font-size:11.5px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -7904,8 +8016,7 @@ header,
     <div class="country-map-content">
       <aside class="world-clock-rail" aria-label="주요 지역 현재 시간">
         <div class="mini-world-clock" data-timezone="America/New_York">
-          <div class="mini-clock-label">뉴욕</div>
-          <div class="mini-clock-sub">미국 동부</div>
+          <div class="mini-clock-label">뉴욕 <span>· 미국 동부</span></div>
           <div class="analog-clock" aria-hidden="true">
             <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
             <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
@@ -7924,8 +8035,7 @@ header,
           </div>
         </div>
         <div class="mini-world-clock" data-timezone="Europe/Sofia">
-          <div class="mini-clock-label">소피아</div>
-          <div class="mini-clock-sub">불가리아</div>
+          <div class="mini-clock-label">소피아 <span>· 불가리아</span></div>
           <div class="analog-clock" aria-hidden="true">
             <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
             <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
@@ -9182,7 +9292,7 @@ function dayRelationToKorea(parts,koreaParts){{
   const diff=localDateSerial(parts)-localDateSerial(koreaParts);
   if(diff<0)return "전일";
   if(diff>0)return "익일";
-  return "동일";
+  return "당일";
 }}
 
 function updateWorldClocks(){{
@@ -9233,25 +9343,23 @@ function showCountryMapTooltip(x,y,flag,name,count,persistent=false){{
   tooltip.classList.add("visible");
   tooltip.classList.toggle("persistent",persistent);
 
-  // First place it at the geographic point, then measure the real HTML box.
   const visualRect=visual.getBoundingClientRect();
   const pointX=(x/1000)*visualRect.width;
   const pointY=(y/500)*visualRect.height;
 
   requestAnimationFrame(()=>{{
     const tipRect=tooltip.getBoundingClientRect();
-    const margin=8;
-    const gap=13;
+    const margin=7;
+    const gap=14;
 
-    // Horizontal: clamp inside the map so edge countries never cut off.
+    // Keep the tooltip horizontally inside the map.
     let left=pointX-tipRect.width/2;
     left=Math.max(margin,Math.min(left,visualRect.width-tipRect.width-margin));
 
-    // Vertical: prefer above the point; if near the top, show below it.
+    // Always prefer ABOVE the point/cursor.
+    // If the point is very close to the top edge, pin the tooltip to the top
+    // instead of flipping it underneath the cursor.
     let top=pointY-tipRect.height-gap;
-    if(top<margin){{
-      top=pointY+gap;
-    }}
     top=Math.max(margin,Math.min(top,visualRect.height-tipRect.height-margin));
 
     tooltip.style.left=`${{left}}px`;
