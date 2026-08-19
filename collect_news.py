@@ -5395,6 +5395,32 @@ def _is_hyundai_macheon5_event(article: Article) -> bool:
     return has_hyundai and has_macheon5
 
 
+
+def _same_exact_content_across_publishers(a: Article, b: Article) -> bool:
+    """
+    언론사가 달라도 기사 제목과 미리보기(description)가 모두 동일하면
+    동일 기사로 간주합니다.
+    """
+    if (a.publisher or "").strip() == (b.publisher or "").strip():
+        return False
+
+    title_a = normalized(a.title or "")
+    title_b = normalized(b.title or "")
+    desc_a = normalized(a.description or "")
+    desc_b = normalized(b.description or "")
+
+    if not title_a or not title_b:
+        return False
+    if title_a != title_b:
+        return False
+
+    # 사용자가 요청한 '제목 + 미리보기 완전 동일' 조건이므로
+    # description이 둘 다 존재하고 동일할 때만 합칩니다.
+    if not desc_a or not desc_b:
+        return False
+    return desc_a == desc_b
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5433,11 +5459,29 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
             if _article_rep_score(article) > _article_rep_score(exact_unique[matched_idx]):
                 exact_unique[matched_idx] = article
 
+    # 언론사가 달라도 제목 + 미리보기(description)가 완전히 같으면 대표기사 1건만 유지
+    content_unique: list[Article] = []
+    exact_content_removed = 0
+
+    for article in exact_unique:
+        matched_idx = None
+        for idx, kept in enumerate(content_unique):
+            if _same_exact_content_across_publishers(article, kept):
+                matched_idx = idx
+                break
+
+        if matched_idx is None:
+            content_unique.append(article)
+        else:
+            exact_content_removed += 1
+            if _article_rep_score(article) > _article_rep_score(content_unique[matched_idx]):
+                content_unique[matched_idx] = article
+
     event_unique: list[Article] = []
     mokdong10_idx: int | None = None
     event_removed = 0
 
-    for article in exact_unique:
+    for article in content_unique:
         if not _is_mokdong10_event(article):
             event_unique.append(article)
             continue
@@ -5555,6 +5599,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     result = sorted(macheon5_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
+        f"/ exact_content_removed={exact_content_removed} "
         f"/ mokdong10_removed={event_removed} "
         f"/ proud_truck_removed={proud_truck_removed} "
         f"/ knf_safety_removed={knf_safety_removed} "
