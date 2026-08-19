@@ -6673,6 +6673,256 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   MODERN COUNTRY MAP + FILTER
+   World map = overview / chips = precise filtering
+   ============================================================ */
+.world-map-panel {{
+  margin:0 12px 12px;
+  padding:10px;
+  border:1px solid rgba(35,57,93,.10);
+  border-radius:14px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 2px 8px rgba(17,24,39,.045);
+  overflow:hidden;
+}}
+
+.world-map-head {{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin:0 2px 7px;
+}}
+
+.world-map-title-wrap {{
+  display:flex;
+  align-items:baseline;
+  gap:7px;
+  min-width:0;
+}}
+
+.world-map-title {{
+  color:#1f3557;
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+  white-space:nowrap;
+}}
+
+.world-map-summary {{
+  color:#8a94a3;
+  font-size:8.5px;
+  font-weight:700;
+  line-height:1;
+  white-space:nowrap;
+}}
+
+.country-filter-note-inline {{
+  flex:0 0 auto;
+  margin:0;
+  color:#98a2b3;
+  font-size:7.8px;
+  font-weight:700;
+  line-height:1;
+  text-align:right;
+  white-space:nowrap;
+}}
+
+.country-map-visual {{
+  position:relative;
+  width:100%;
+  height:132px;
+  overflow:hidden;
+  border:1px solid #e7ebf0;
+  border-radius:11px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255,255,255,.96), rgba(244,247,250,.98));
+}}
+
+.country-map-visual .world-map-image {{
+  position:absolute;
+  inset:8px 8px 17px;
+  width:calc(100% - 16px);
+  height:calc(100% - 25px);
+  object-fit:fill;
+  opacity:.34;
+  filter:grayscale(1) contrast(.92);
+  pointer-events:none;
+}}
+
+.country-map-dots {{
+  position:absolute;
+  inset:8px 8px 17px;
+  z-index:2;
+}}
+
+.country-map-dot {{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:10px;
+  height:10px;
+  padding:0;
+  border:2px solid rgba(255,255,255,.95);
+  border-radius:50%;
+  background:#466b96;
+  box-shadow:0 1px 5px rgba(35,57,93,.30);
+  cursor:pointer;
+  transition:transform .12s ease, background .12s ease, box-shadow .12s ease;
+}}
+
+.country-map-dot:hover {{
+  transform:translate(-50%,-50%) scale(1.3);
+  box-shadow:0 2px 7px rgba(35,57,93,.38);
+}}
+
+.country-map-dot.active {{
+  width:13px;
+  height:13px;
+  background:#fee500;
+  border-color:#23395d;
+  box-shadow:0 0 0 3px rgba(254,229,0,.20);
+}}
+
+.country-map-dot[data-count-level="2"] {{
+  width:12px;
+  height:12px;
+}}
+.country-map-dot[data-count-level="3"] {{
+  width:14px;
+  height:14px;
+}}
+
+.country-map-dot-label {{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 5px);
+  transform:translateX(-50%);
+  display:none;
+  min-width:max-content;
+  padding:4px 6px;
+  border-radius:6px;
+  background:rgba(31,53,87,.94);
+  color:#fff;
+  font-size:7.5px;
+  font-weight:800;
+  line-height:1;
+  white-space:nowrap;
+  pointer-events:none;
+}}
+
+.country-map-dot:hover .country-map-dot-label,
+.country-map-dot:focus-visible .country-map-dot-label,
+.country-map-dot.active .country-map-dot-label {{
+  display:block;
+}}
+
+.country-map-caption {{
+  position:absolute;
+  left:8px;
+  bottom:5px;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  color:#98a2b3;
+  font-size:7.4px;
+  font-weight:700;
+  line-height:1;
+}}
+
+.country-map-caption-dot {{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#466b96;
+}}
+
+.country-chip-rail {{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  width:100%;
+  margin-top:7px;
+  padding:0 1px 2px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}}
+.country-chip-rail::-webkit-scrollbar {{ display:none; }}
+
+.country-chip-rail .country-pin {{
+  position:static !important;
+  inset:auto !important;
+  transform:none !important;
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  width:auto;
+  min-width:auto;
+  max-width:none;
+  height:27px;
+  min-height:27px;
+  padding:0 9px;
+  border:1px solid #e2e7ee;
+  border-radius:999px;
+  background:#f8fafc;
+  color:#4b5f78;
+  box-shadow:none;
+  font-size:9px;
+  font-weight:800;
+  line-height:1;
+  white-space:nowrap;
+  cursor:pointer;
+}}
+.country-chip-rail .country-pin::before,
+.country-chip-rail .country-pin::after {{
+  display:none !important;
+  content:none !important;
+}}
+.country-chip-rail .country-pin .flag {{
+  font-size:11px;
+  line-height:1;
+}}
+.country-chip-rail .country-pin .country-count {{
+  color:#98a2b3;
+  font-size:8px;
+  font-weight:800;
+}}
+.country-chip-rail .country-pin.active {{
+  border-color:#23395d;
+  background:#23395d;
+  color:#fff;
+}}
+.country-chip-rail .country-pin.active .country-count {{
+  color:rgba(255,255,255,.72);
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual {{
+    height:122px;
+  }}
+  .country-filter-note-inline {{
+    font-size:7.2px;
+  }}
+}}
+
+@media (min-width:768px) {{
+  .world-map-panel {{
+    margin:0 12px 12px;
+    padding:10px;
+  }}
+  .country-map-visual {{
+    height:132px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -6719,12 +6969,27 @@ header,
   <section id="world-map-panel" class="world-map-panel">
     <div class="world-map-head">
       <div class="world-map-title-wrap">
-        <div class="world-map-title">국가 필터</div>
+        <div class="world-map-title">국가별 기사</div>
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
-      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">기사가 있는 국가만 표시됩니다.</div>
+      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">기사 발생 국가를 지도에서 확인</div>
     </div>
-    <div class="world-map-canvas" aria-label="국가별 기사 필터">
+
+    <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
+      <img
+        class="world-map-image"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png"
+        alt="세계지도"
+        loading="lazy"
+        referrerpolicy="no-referrer">
+      <div id="country-map-dots" class="country-map-dots" aria-hidden="false"></div>
+      <div class="country-map-caption">
+        <span class="country-map-caption-dot"></span>
+        기사가 있는 국가만 표시
+      </div>
+    </div>
+
+    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
         <span>전체</span><span class="country-count">0건</span>
       </button>
@@ -7169,7 +7434,53 @@ function layoutCountryPins(){{
 }}
 
 function layoutAndRenderCountryMap(){{
-  // Compact country chips do not require map pin geometry.
+  const dotLayer=document.getElementById("country-map-dots");
+  if(!dotLayer)return;
+
+  dotLayer.innerHTML="";
+
+  const chipButtons=[...document.querySelectorAll(
+    "#country-chip-rail .country-pin[data-country-filter]"
+  )];
+
+  chipButtons.forEach(button=>{{
+    if(button.hidden)return;
+
+    const code=button.dataset.countryFilter;
+    if(!code || code==="OTHER")return;
+
+    const x=Number(button.dataset.anchorX);
+    const y=Number(button.dataset.anchorY);
+    if(!Number.isFinite(x)||!Number.isFinite(y))return;
+
+    const countNode=button.querySelector(".country-count");
+    const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
+    if(count<=0)return;
+
+    const nameNode=[...button.querySelectorAll("span")]
+      .find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
+    const flag=button.querySelector(".flag")?.textContent||"";
+    const name=nameNode?.textContent||COUNTRY_NAMES[code]||code;
+
+    const dot=document.createElement("button");
+    dot.type="button";
+    dot.className="country-map-dot";
+    dot.dataset.countryFilter=code;
+    dot.dataset.countLevel=count>=8?"3":count>=3?"2":"1";
+    dot.style.left=`${{x}}%`;
+    dot.style.top=`${{y}}%`;
+    dot.setAttribute("aria-label",`${{name}} 관련 기사 ${{count}}건`);
+    dot.classList.toggle("active",activeCountryFilter===code);
+    dot.innerHTML=`<span class="country-map-dot-label">${{flag}} ${{name}} · ${{count}}건</span>`;
+
+    dot.addEventListener("click",event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(code);
+    }});
+
+    dotLayer.appendChild(dot);
+  }});
 }}
 
 function renderCountryMapConnectors(){{
@@ -7216,7 +7527,7 @@ function updateCountryMapCounts(){{
   if(!panel)return;
 
   const counts={{OTHER:0}};
-  document.querySelectorAll("[data-country-filter]").forEach(button=>{{
+  document.querySelectorAll("#country-chip-rail [data-country-filter]").forEach(button=>{{
     const code=button.dataset.countryFilter;
     if(code && code!=="ALL" && !Object.prototype.hasOwnProperty.call(counts,code)){{
       counts[code]=0;
@@ -7230,8 +7541,8 @@ function updateCountryMapCounts(){{
     else counts[code]++;
   }});
 
-  const rail=document.querySelector(".world-map-canvas");
-  const countryButtons=[...document.querySelectorAll("[data-country-filter]")];
+  const rail=document.getElementById("country-chip-rail");
+  const countryButtons=[...document.querySelectorAll("#country-chip-rail [data-country-filter]")];
 
   countryButtons.forEach(button=>{{
     const code=button.dataset.countryFilter;
@@ -7277,6 +7588,8 @@ function updateCountryMapCounts(){{
   if(countryTotal!==total){{
     console.warn("[COUNTRY COUNT MISMATCH]", {{total,countryTotal,counts}});
   }}
+
+  requestAnimationFrame(layoutAndRenderCountryMap);
 }}
 
 function expandVisibleCountryGroups(){{
@@ -7306,17 +7619,17 @@ function setCountryFilter(code){{
   const note=document.getElementById("country-filter-note");
   if(activeCountryFilter){{
     const name=COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
-    if(note)note.textContent=`${{name}} 관련 기사만 표시 중 · 기사 위치로 이동합니다.`;
+    if(note)note.textContent=`${{name}} 기사만 표시 중`;
     const firstVisibleCard=expandVisibleCountryGroups();
     if(firstVisibleCard){{
       setTimeout(()=>firstVisibleCard.scrollIntoView({{behavior:"smooth",block:"center"}}),80);
     }}
   }} else {{
-    if(note)note.textContent="기사가 있는 국가만 표시됩니다.";
+    if(note)note.textContent="기사 발생 국가를 지도에서 확인";
   }}
 }}
 
-document.querySelectorAll("[data-country-filter]").forEach(button=>{{
+document.querySelectorAll("#country-chip-rail [data-country-filter]").forEach(button=>{{
   button.addEventListener("click",()=>setCountryFilter(button.dataset.countryFilter));
 }});
 
@@ -7327,7 +7640,7 @@ if(countryAllButton){{
     filterArticles();
     updateCountryMapCounts();
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="기사가 있는 국가만 표시됩니다.";
+    if(note)note.textContent="기사 발생 국가를 지도에서 확인";
   }});
 }}
 
