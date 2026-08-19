@@ -334,7 +334,7 @@ SOURCE_MASTER_REQUIRED_CORE = {
     "아시아경제", "아주경제", "글로벌이코노믹", "아시아투데이",
     "뉴스핌", "아이뉴스24", "헤럴드경제", "파이낸셜뉴스", "조선비즈",
     "SBS Biz", "연합인포맥스", "KBS", "MBC", "SBS", "YTN", "JTBC", "MBN",
-    "전기신문", "에너지신문", "에너지타임즈", "전력경제신문",
+    "전기신문", "에너지신문", "에너지타임즈", "전력경제신문", "인사이트N파워",
     "투데이에너지", "에너지경제신문", "에너지데일리", "에너지안전신문",
     "에너지플랫폼뉴스", "원자력신문", "한국원자력신문", "국토일보",
     "대한경제", "한국건설신문", "건설타임즈",
@@ -554,6 +554,7 @@ DIRECT_NEWS_PAGES = [
     ("에너지신문", "https://www.energy-news.co.kr/", "ko"),
     ("에너지타임즈", "https://www.energytimes.kr/", "ko"),
     ("전력경제신문", "https://www.epetimes.com/", "ko"),
+    ("인사이트N파워", "https://www.inpnews.kr/news/articleList.html", "ko"),
     ("투데이에너지", "https://www.todayenergy.kr/", "ko"),
     ("에너지경제신문", "https://www.ekn.kr/", "ko"),
     ("이투뉴스", "https://www.e2news.com/", "ko"),
@@ -728,7 +729,6 @@ DIRECT_NEWS_PAGES = [
     ("Nuclear Energy Institute", "https://www.nei.org/news", "en"),
     ("World Nuclear Association", "https://world-nuclear.org/news", "en"),
     ("IAEA News", "https://www.iaea.org/newscenter/news", "en"),
-    ("NRC News", "https://www.nrc.gov/reading-rm/doc-collections/news/", "en"),
     ("Power Engineering International", "https://www.powerengineeringint.com/", "en"),
     ("Energy Intelligence", "https://www.energyintel.com/", "en"),
     ("E&E News", "https://www.eenews.net/", "en"),
@@ -1043,6 +1043,7 @@ DIRECT_BLIND_ENERGY_LIMIT = 50
 
 # 매 5분 확인할 핵심 해외/원전 전문 매체. 나머지는 4개 shard 순환.
 DIRECT_ALWAYS_PUBLISHERS = {
+    "인사이트N파워",
     "World Nuclear News",
     "NucNet",
     "Nuclear Engineering International",
@@ -1209,13 +1210,13 @@ def _looks_like_article_candidate_url(url: str) -> bool:
 
 
 NUCLEAR_SPECIALIST_PUBLISHERS = {
+    "인사이트N파워",
     "World Nuclear News",
     "Nuclear Engineering International",
     "NucNet",
     "Nuclear Energy Institute",
     "World Nuclear Association",
     "IAEA News",
-    "NRC News",
     "Nuclear Street",
     "Nuclear News Network",
     "SMR Intel",
@@ -3632,6 +3633,8 @@ def _looks_like_article_url(url: str, publisher: str) -> bool:
         return "yna.co.kr/view/" in lower
     if publisher == "American Nuclear Society":
         return "ans.org/news/article-" in lower or "/news/article-" in lower
+    if publisher == "인사이트N파워":
+        return "inpnews.kr/news/articleview.html" in lower and "idxno=" in lower
     if publisher == "Nuclear Engineering International":
         return "neimagazine.com/news/" in lower and lower.rstrip("/") != "https://www.neimagazine.com/news"
     if publisher == "NucNet":
