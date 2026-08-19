@@ -352,6 +352,10 @@ SOURCE_MASTER_REQUIRED_CORE = {
 }
 
 SOURCE_MASTER_PDF_PRIORITY = {
+    'Tennessee Lookout',
+    'TechCrunch',
+    'TechXplore',
+    'Global Energy Monitor',
     'Nuclear News Network',
     'SMR Intel',
     'Politico',
@@ -383,6 +387,7 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'Inside Climate News',
     'Canary Media',
     'New Civil Engineer',
+    'Construction Review Online',
     'Balkan Green Energy News',
     'African Energy',
     'Riviera Maritime Media',
@@ -403,6 +408,7 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'U.S. DOE Office of Nuclear Energy',
     'Qazinform',
     'Anadolu Ajansı',
+    'AzerNews',
     'PubAffairs Bruxelles',
     'CairoScene',
     'Press Information Bureau India',
@@ -670,6 +676,7 @@ DIRECT_NEWS_PAGES = [
     ("Power Engineering", "https://www.power-eng.com/", "en"),
     ("Utility Dive", "https://www.utilitydive.com/", "en"),
     ("Energy Monitor", "https://www.energymonitor.ai/", "en"),
+    ("Global Energy Monitor", "https://globalenergymonitor.org/", "en"),
     ("S&P Global Commodity Insights", "https://www.spglobal.com/commodity-insights/en/news-research/latest-news", "en"),
     ("Argus Media", "https://www.argusmedia.com/en/news-and-insights", "en"),
 
@@ -738,6 +745,10 @@ DIRECT_NEWS_PAGES = [
     ("The Engineer", "https://www.theengineer.co.uk/", "en"),
     ("Engineering News-Record", "https://www.enr.com/", "en"),
     ("Construction Dive", "https://www.constructiondive.com/", "en"),
+    ("TechXplore", "https://techxplore.com/energy-green-tech-news/", "en"),
+    ("TechCrunch", "https://techcrunch.com/tag/nuclear-power/", "en"),
+    ("Tennessee Lookout", "https://tennesseelookout.com/category/environment/", "en"),
+    ("Construction Review Online", "https://constructionreviewonline.com/", "en"),
 
     # ─────────────────────────────────────────────
     # 해외 통신사·종합 뉴스 추가
@@ -745,6 +756,7 @@ DIRECT_NEWS_PAGES = [
     ("Agence France-Presse", "https://www.afp.com/en/news-hub", "en"),
     ("UPI", "https://www.upi.com/", "en"),
     ("Anadolu Agency", "https://www.aa.com.tr/en/", "en"),
+    ("AzerNews", "https://www.azernews.az/latest/", "en"),
     ("Xinhua", "https://english.news.cn/", "en"),
     ("Kyodo News", "https://english.kyodonews.net/", "en"),
 
@@ -1042,6 +1054,12 @@ DIRECT_BLIND_ENERGY_LIMIT = 50
 
 # 매 5분 확인할 핵심 해외/원전 전문 매체. 나머지는 4개 shard 순환.
 DIRECT_ALWAYS_PUBLISHERS = {
+    "Tennessee Lookout",
+    "TechCrunch",
+    "TechXplore",
+    "Global Energy Monitor",
+    "AzerNews",
+    "Construction Review Online",
     "인사이트N파워",
     "World Nuclear News",
     "NucNet",
@@ -1208,6 +1226,7 @@ def _looks_like_article_candidate_url(url: str) -> bool:
 
 
 NUCLEAR_SPECIALIST_PUBLISHERS = {
+    "Global Energy Monitor",
     "인사이트N파워",
     "World Nuclear News",
     "Nuclear Engineering International",
@@ -1438,6 +1457,9 @@ def is_excluded_source(
 ) -> bool:
     """NRC / Nuclear Newswire 등 제외 매체를 출판사명·URL로 판정합니다."""
     pub = (publisher or "").strip().lower()
+    # 과거 archive/state에 NucNet 태그 목록 URL이 남아 있어도 표시하지 않습니다.
+    if pub == "nucnet" and "/news/tagged/" in (link or "").lower():
+        return True
     pub_compact = pub.replace(" ", "").replace("-", "")
     excluded_names = {name.lower() for name in EXCLUDED_PUBLISHERS}
     if pub in excluded_names:
@@ -3243,6 +3265,17 @@ FERMI_AMERICA_TERMS = {
 }
 
 
+WESTINGHOUSE_AIR_BRAKE_TERMS = {
+    "westinghouse air brake",
+    "westinghouse air brake technologies",
+}
+
+def is_westinghouse_air_brake_article(title: str, summary: str = "") -> bool:
+    """원전 Westinghouse와 무관한 Westinghouse Air Brake 계열 기사를 제외합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    return any(term in haystack for term in WESTINGHOUSE_AIR_BRAKE_TERMS)
+
+
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
     회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
@@ -3420,6 +3453,8 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     """언론사 직접 수집 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
 
+    if is_westinghouse_air_brake_article(title, summary):
+        return None
     if is_blocked_campaign_slogan(title, summary):
         return None
     if is_excluded_military_nuclear_article(title, summary):
@@ -3703,7 +3738,11 @@ def _looks_like_article_url(url: str, publisher: str) -> bool:
     if publisher == "Nuclear Engineering International":
         return "neimagazine.com/news/" in lower and lower.rstrip("/") != "https://www.neimagazine.com/news"
     if publisher == "NucNet":
-        return "nucnet.org/news/" in lower
+        # /news/tagged/... 는 태그별 기사목록 페이지이므로 제외합니다.
+        # 실제 개별 기사 /news/<article-slug> 만 수집합니다.
+        if "nucnet.org/news/tagged/" in lower:
+            return False
+        return "nucnet.org/news/" in lower and lower.rstrip("/") != "https://www.nucnet.org/news"
     return True
 
 
@@ -4534,6 +4573,7 @@ def select_articles_for_period(
         for article in fetched
         if start <= article.published < end
         and not is_excluded_source(article.publisher, article.link, article.source_url)
+        and not is_westinghouse_air_brake_article(article.title, article.description)
     ]
 
     all_selected: list[Article] = []
@@ -5232,6 +5272,79 @@ def _article_rep_score(article: Article) -> tuple:
         -int(article.published.timestamp()) if article.published else 0,
     )
 
+
+def _is_hyundai_mokdong10_event(article: Article) -> bool:
+    """현대건설 + 목동10단지 보도는 동일 이슈로 간주합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+    has_hyundai = (
+        "현대건설" in compact
+        or "hyundaie&c" in compact
+        or "hyundaiengineeringconstruction" in compact
+        or "hdec" in compact
+    )
+    has_mokdong10 = (
+        "목동10단지" in compact
+        or ("목동" in compact and "10단지" in compact)
+    )
+    return has_hyundai and has_mokdong10
+
+
+
+def _is_daewoo_proud_truck_event(article: Article) -> bool:
+    """대우건설 + 뿌듯트럭 보도는 언론사가 달라도 동일 이슈로 간주합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_daewoo = (
+        "대우건설" in compact
+        or "daewooe&c" in compact
+        or "daewooec" in compact
+    )
+    has_proud_truck = (
+        "뿌듯트럭" in compact
+        or ("뿌듯" in compact and "트럭" in compact)
+    )
+    return has_daewoo and has_proud_truck
+
+
+
+def _is_knf_safety_event(article: Article) -> bool:
+    """한전원자력연료 + 안전도 관련 보도는 언론사가 달라도 동일 이슈로 간주합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_knf = (
+        "한전원자력연료" in compact
+        or "knf" in compact
+        or "kepconuclearfuel" in compact
+    )
+    has_safety = (
+        "안전도" in compact
+        or "안전성" in compact
+        or "안전평가" in compact
+    )
+    return has_knf and has_safety
+
+
+
+def _is_lotte_bond_event(article: Article) -> bool:
+    """롯데건설 + 회사채 관련 보도는 언론사가 달라도 동일 이슈로 간주합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+    has_lotte = (
+        "롯데건설" in compact
+        or "lottee&c" in compact
+        or "lotteec" in compact
+    )
+    has_bond = (
+        "회사채" in compact
+        or "공모채" in compact
+        or "corporatebond" in compact
+    )
+    return has_lotte and has_bond
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5239,6 +5352,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
             (
                 article for article in articles
                 if not is_excluded_source(article.publisher, article.link, article.source_url)
+            and not is_westinghouse_air_brake_article(article.title, article.description)
+                and not is_westinghouse_air_brake_article(article.title, article.description)
             ),
             key=lambda x: x.published,
             reverse=True,
@@ -5268,10 +5383,92 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
             if _article_rep_score(article) > _article_rep_score(exact_unique[matched_idx]):
                 exact_unique[matched_idx] = article
 
-    result = sorted(exact_unique, key=lambda x: x.published, reverse=True)
+    event_unique: list[Article] = []
+    mokdong10_idx: int | None = None
+    event_removed = 0
+
+    for article in exact_unique:
+        if not _is_hyundai_mokdong10_event(article):
+            event_unique.append(article)
+            continue
+
+        if mokdong10_idx is None:
+            mokdong10_idx = len(event_unique)
+            event_unique.append(article)
+            continue
+
+        event_removed += 1
+        kept = event_unique[mokdong10_idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            event_unique[mokdong10_idx] = article
+
+    # 대우건설 + 뿌듯트럭 동일이슈도 언론사가 달라도 대표기사 1건만 유지
+    final_unique: list[Article] = []
+    proud_truck_idx: int | None = None
+    proud_truck_removed = 0
+
+    for article in event_unique:
+        if not _is_daewoo_proud_truck_event(article):
+            final_unique.append(article)
+            continue
+
+        if proud_truck_idx is None:
+            proud_truck_idx = len(final_unique)
+            final_unique.append(article)
+            continue
+
+        proud_truck_removed += 1
+        kept = final_unique[proud_truck_idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            final_unique[proud_truck_idx] = article
+
+    # 한전원자력연료 + 안전도 동일이슈도 언론사가 달라도 대표기사 1건만 유지
+    knf_unique: list[Article] = []
+    knf_safety_idx: int | None = None
+    knf_safety_removed = 0
+
+    for article in final_unique:
+        if not _is_knf_safety_event(article):
+            knf_unique.append(article)
+            continue
+
+        if knf_safety_idx is None:
+            knf_safety_idx = len(knf_unique)
+            knf_unique.append(article)
+            continue
+
+        knf_safety_removed += 1
+        kept = knf_unique[knf_safety_idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            knf_unique[knf_safety_idx] = article
+
+    # 롯데건설 + 회사채 동일이슈도 언론사가 달라도 대표기사 1건만 유지
+    lotte_unique: list[Article] = []
+    lotte_bond_idx: int | None = None
+    lotte_bond_removed = 0
+
+    for article in knf_unique:
+        if not _is_lotte_bond_event(article):
+            lotte_unique.append(article)
+            continue
+
+        if lotte_bond_idx is None:
+            lotte_bond_idx = len(lotte_unique)
+            lotte_unique.append(article)
+            continue
+
+        lotte_bond_removed += 1
+        kept = lotte_unique[lotte_bond_idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            lotte_unique[lotte_bond_idx] = article
+
+    result = sorted(lotte_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
-        f"/ final={len(result)}"
+        f"/ mokdong10_removed={event_removed} "
+        f"/ proud_truck_removed={proud_truck_removed} "
+        f"/ knf_safety_removed={knf_safety_removed} "
+        f"/ lotte_bond_removed={lotte_bond_removed} / final={len(result)}"
     )
     return result
 
