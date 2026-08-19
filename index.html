@@ -2208,6 +2208,87 @@ header,
   }
 }
 
+
+/* ============================================================
+   MAP TOOLTIP — ALWAYS ABOVE ALL COUNTRY DOTS
+   Senior-friendly large text / clear hierarchy
+   ============================================================ */
+.country-map-visual {
+  position:relative;
+  isolation:isolate;
+  overflow:visible;
+}
+
+.country-map-visual .world-map-inline {
+  z-index:2 !important;
+}
+
+.country-map-html-tooltip {
+  z-index:9999 !important;
+  min-height:54px;
+  padding:11px 16px;
+  gap:10px;
+  border:2px solid #ffffff;
+  border-radius:13px;
+  background:#173354;
+  box-shadow:0 8px 24px rgba(17,24,39,.40);
+  transform:translate(-50%,calc(-100% - 20px));
+  pointer-events:none;
+}
+
+.country-map-html-tooltip.visible {
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+.map-tooltip-flag {
+  flex:0 0 auto;
+  font-size:30px !important;
+  line-height:1;
+}
+
+.map-tooltip-country {
+  flex:0 0 auto;
+  font-size:22px !important;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:-.03em;
+}
+
+.map-tooltip-count {
+  flex:0 0 auto;
+  margin-left:3px;
+  padding-left:10px;
+  border-left:2px solid rgba(255,255,255,.35);
+  font-size:22px !important;
+  line-height:1.1;
+  font-weight:900;
+}
+
+.map-tooltip-separator {
+  display:none !important;
+}
+
+.country-map-dots-svg {
+  position:relative;
+  z-index:3;
+}
+
+@media (max-width:380px) {
+  .country-map-html-tooltip {
+    min-height:50px;
+    padding:9px 13px;
+    gap:8px;
+  }
+  .map-tooltip-flag {
+    font-size:27px !important;
+  }
+  .map-tooltip-country,
+  .map-tooltip-count {
+    font-size:20px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2216,7 +2297,7 @@ header,
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
       <div class="topbar-actions">
-        <span class="updated updated-inline">업데이트됨 8.19 10:25 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.19 10:35 KST</span>
         <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
     </div>
@@ -2257,7 +2338,7 @@ header,
         <div class="world-map-title">국가별 기사</div>
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
-      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">기사 발생 국가를 지도에서 확인</div>
+      <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
     </div>
 
     <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
@@ -8630,7 +8711,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">38건</span>
+    <span class="group-count">39건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -9785,6 +9866,42 @@ header,
   
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.m-i.kr/news/articleView.html?idxno=1403059"
+  data-title="靑 &quot;대미투자 1호로 반도체 논의 사실 아냐&quot;…美 투자 압박 보도 부인"
+  data-publisher="매일일보"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787014726"
+  data-country="US"
+  data-search="靑 &quot;대미투자 1호로 반도체 논의 사실 아냐&quot;…美 투자 압박 보도 부인 매일일보 원전 대미투자 매일일보 = 김수빈 기자 | 청와대는 미국 측이 대미 전략투자 1호 사업으로 반도체 투자를 요구하고 있다는 보도에 대해 사실무근이라며 선을 그었다.18일 한 매체는 복수의 여권 소식통을 인용해 지난 13일 열린 청와대 비공개 통상회의에서 미국 측의 메모리 반도체 투자 요구가 핵심 논점으로 다뤄졌다고 보도했다.정부가 삼성전자와 sk하이닉스의 호남권 투자 계획을 발표한 상황에서 미국 측의 요구에 따라 메모리 반도체 추가 투자를 단행할 경우 투자 여력이 분산되고 국내 반도체 생태계 구축에도 영향을 미칠 수 있다는 우려가 제기됐다는 주장이"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">33.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>靑 &quot;대미투자 1호로 반도체 논의 사실 아냐&quot;…美 투자 압박 보도 부인</div>
+      <div class="article-snippet">매일일보 = 김수빈 기자 | 청와대는 미국 측이 대미 전략투자 1호 사업으로 반도체 투자를 요구하고 있다는 보도에 대해 사실무근이라며 선을 그었다.18일 한 매체는 복수의 여권 소식통을 인용해 지난 13일 열린 청와대 비공개 통상회의에서 미국 측의 메모리 반도체 투자 요구가 핵심 논점으로 다뤄졌다고 보도했다.정부가 삼성전자와 SK하이닉스의 호남권 투자 계획을 발표한 상황에서 미국 측의 요구에 따라 메모리 반도체 추가 투자를 단행할 경우 투자 여력이 분산되고 국내 반도체 생태계 구축에도 영향을 미칠 수 있다는 우려가 제기됐다는 주장이</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0f7713c306589dfc9f849fcc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260818_0003751806"
   data-title="靑 &quot;대미투자 1호 반도체 논의 보도는 사실과 달라&quot;"
@@ -9798,7 +9915,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -9834,7 +9951,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -9870,7 +9987,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -9906,7 +10023,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -9942,7 +10059,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10298,7 +10415,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70679"
   data-title="제12차 전력수급기본계획 최대 쟁점 신규원전"
   data-publisher="에너지타임즈"
@@ -10323,7 +10440,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>제12차 전력수급기본계획 최대 쟁점 신규원전</div>
+      <div class="headline">제12차 전력수급기본계획 최대 쟁점 신규원전</div>
       <div class="article-snippet">신규원전 건설 여부와 규모가 제12차 전력수급기본계획 최대 쟁점으로 떠오를 것으로 보인다. 정부는 신규원전을 건설할 것인지, 건설한다면 몇 기를 추가할 것인지에 대해 답을 정해놓지 않고 공론화를 거쳐 결정할 계획이다. 또 늘어난 전력수요를 반영해 수요예측을 다시 하고 석탄발전 폐지에 따른 대체 발전원과 재생에너지 확대, 에너지저장장치(ESS)·양수발전, 가스발전 등을 종합적으로 검토함으로써 2050년 탄소중립으로 이어지는 에너지믹스를 설계한다는 방향을 제시했다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -10334,7 +10451,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70678"
   data-title="김성환 장관, 계속운전 20년 하겠다고 한 적 없다"
   data-publisher="에너지타임즈"
@@ -10359,7 +10476,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김성환 장관, 계속운전 20년 하겠다고 한 적 없다</div>
+      <div class="headline">김성환 장관, 계속운전 20년 하겠다고 한 적 없다</div>
       <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -11193,7 +11310,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4a8f6696a0511bd4a07e996f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/3e1651145ab067be5e8d1a9a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -16251,7 +16368,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c540893398&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c53e5902d8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -17971,7 +18088,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260819101320058"
   data-title="건설협회, 주요 건설사·공기업 25곳 참여 채용설명회 개최"
   data-publisher="아주경제"
@@ -17996,7 +18113,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>건설협회, 주요 건설사·공기업 25곳 참여 채용설명회 개최</div>
+      <div class="headline">건설협회, 주요 건설사·공기업 25곳 참여 채용설명회 개최</div>
       <div class="article-snippet">[사진=대한건설협회] 현대건설과 GS건설, 대우건설 등 주요 건설사와 한국도로공사, 국가철도공단 등 공공기관이 참여하는 건설 분야 채용설명회가 열린다. &amp;nbsp; 대한건설협회와 건설산업사회공헌재단은 오는 25일 오전 10시부터 오후 5시까지 서울 강남구 건설회관에서 &amp;lsquo;2026 스마트건설 청년인재 채용설명회&amp;rsquo;를 개최한다고 19일 밝혔다. 국토교통부가 후원한다. &amp;nbsp; 이번 행사에는 건설사와 엔지니어링업체, 국토부 산하 공공기관 등 총 25개 기업&amp;middot;기관이 참여한다. &amp;nbsp; 건설업계에서는 현대건설과 GS건설, 대우건설, DL이</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -18097,7 +18214,7 @@ header,
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://biz.heraldcorp.com/article/10845037"
   data-title="한울 4호기 원자로 ‘자동정지’…“방사성물질 외부유출 없어”"
   data-publisher="헤럴드경제"
@@ -18122,7 +18239,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한울 4호기 원자로 ‘자동정지’…“방사성물질 외부유출 없어”</div>
+      <div class="headline">한울 4호기 원자로 ‘자동정지’…“방사성물질 외부유출 없어”</div>
       <div class="article-snippet">[헤럴드경제=구본혁 기자] 경북 울진 한울4호기 원자로가 자동정지해 원자력안전위원회가 사건조사에 착수했다. 원자력안전위원회는 19일 오전 8시 50분경 한국수력원자력</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -18133,7 +18250,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260819056700017?section=industry/all"
   data-title="한울원전 4호기 자동정지…원안위 조사 착수 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -18158,7 +18275,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한울원전 4호기 자동정지…원안위 조사 착수 | 연합뉴스</div>
+      <div class="headline">한울원전 4호기 자동정지…원안위 조사 착수 | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 조승한 기자 = 원자력안전위원회는 한국수력원자력으로부터 경북 울진 한울 4호기가 19일 오전 8시 50분경 자동 정지했다고 보...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -18257,7 +18374,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787102880"
+  data-published="1787103300"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -18286,7 +18403,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260819050700062?section=industry/all"
   data-title="&#x27;촘촘한 산불 감시망&#x27;…동해시·한전, 송전탑에 무인카메라 설치 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -18311,7 +18428,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;촘촘한 산불 감시망&#x27;…동해시·한전, 송전탑에 무인카메라 설치 | 연합뉴스</div>
+      <div class="headline">&#x27;촘촘한 산불 감시망&#x27;…동해시·한전, 송전탑에 무인카메라 설치 | 연합뉴스</div>
       <div class="article-snippet">(동해=연합뉴스) 유형재 기자 = 강원 동해시가 한국전력 강원본부와 손잡고 송전탑을 활용한 산불 무인감시카메라를 설치하는 등 ICT 기반의 촘촘...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -18436,10 +18553,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.yonhapnewstv.co.kr/news/AKR20260819103232D1B"
+  data-title="김정관, 러트닉·그리어 잇따라 회동…대미 전략투자 후보 사업 협의"
+  data-publisher="연합뉴스TV"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787103155"
+  data-country="KR"
+  data-search="김정관, 러트닉·그리어 잇따라 회동…대미 전략투자 후보 사업 협의 연합뉴스tv 원전 관계부처 미국을 방문 중인 김정관 산업통상부 장관이 대미전략투자 논의를 위해 잇따라 미 정부 인사를 만나고 있습니다. 산업부는 김 장관이 현지시간 17일과 18일, 하워드 러트닉 미국 상무부 장관을 만나 전략투자 후보 프로젝트의 주요 쟁점과 추진 일정을 논의했다고 밝혔습니다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관, 러트닉·그리어 잇따라 회동…대미 전략투자 후보 사업 협의</div>
+      <div class="article-snippet">미국을 방문 중인 김정관 산업통상부 장관이 대미전략투자 논의를 위해 잇따라 미 정부 인사를 만나고 있습니다. 산업부는 김 장관이 현지시간 17일과 18일, 하워드 러트닉 미국 상무부 장관을 만나 전략투자 후보 프로젝트의 주요 쟁점과 추진 일정을 논의했다고 밝혔습니다.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ebe75ce85cf7be5a6834b03a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.asiae.co.kr/article/2026081910274234290"
   data-title="김정관, 美러트닉 이틀 연속 회동…대미 전략투자 &#x27;막판 조율&#x27;"
   data-publisher="아시아경제"
@@ -18452,7 +18605,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18464,7 +18617,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관, 美러트닉 이틀 연속 회동…대미 전략투자 &#x27;막판 조율&#x27;</div>
+      <div class="headline">김정관, 美러트닉 이틀 연속 회동…대미 전략투자 &#x27;막판 조율&#x27;</div>
       <div class="article-snippet">김정관 산업통상부 장관이 미국 워싱턴DC에서 하워드 러트닉 미국 상무부 장관과 이틀 연속 만나 대미 전략투자 프로젝트를 집중 조율했다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -18475,20 +18628,20 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.donga.com/news/Economy/article/all/20260819/134501686/1"
   data-title="김정관, 美 상무장관 연쇄 면담…대미 전략투자·301조 조사 등 논의"
   data-publisher="동아일보"
   data-group="원전 관계부처"
   data-language="ko"
   data-priority="1"
-  data-published="1787102597"
+  data-published="1787102580"
   data-country="KR"
   data-search="김정관, 美 상무장관 연쇄 면담…대미 전략투자·301조 조사 등 논의 동아일보 원전 관계부처 방미 중인 김정관 산업통상부 장관이 17~18일(현지 시간) 이틀에 걸쳐 하워드 러트닉 미 상무장관과 면담하고 대미 전략투자 프로젝트 관련 협의를 진행했다. 이번 면담은 올해 7월 면담 이후 약 3주 만에 개최된 것이다. 산업통상부는 19일 “김 장관이 워싱턴을 방문…"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18500,13 +18653,49 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관, 美 상무장관 연쇄 면담…대미 전략투자·301조 조사 등 논의</div>
+      <div class="headline">김정관, 美 상무장관 연쇄 면담…대미 전략투자·301조 조사 등 논의</div>
       <div class="article-snippet">방미 중인 김정관 산업통상부 장관이 17~18일(현지 시간) 이틀에 걸쳐 하워드 러트닉 미 상무장관과 면담하고 대미 전략투자 프로젝트 관련 협의를 진행했다. 이번 면담은 올해 7월 면담 이후 약 3주 만에 개최된 것이다. 산업통상부는 19일 “김 장관이 워싱턴을 방문…</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1be95282a66a0843a7395b09.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/469010c71186c2ee3967ad0b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1720852"
+  data-title="김정관 산업부 장관 방미…전략투자·통상 현안 집중 논의 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787102547"
+  data-country="KR"
+  data-search="김정관 산업부 장관 방미…전략투자·통상 현안 집중 논의 - 이비엔(ebn)뉴스센터 ebn산업경제 원전 관계부처 김정관 산업통상부 장관이 미국 워싱턴 d.c.를 찾아 대미 전략투자 프로젝트와 통상 현안을 집중 논의했다. 한미 간 전략투자 후보 사업의 구체적인 쟁점과 추진 일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 산업부 장관 방미…전략투자·통상 현안 집중 논의 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 미국 워싱턴 D.C.를 찾아 대미 전략투자 프로젝트와 통상 현안을 집중 논의했다. 한미 간 전략투자 후보 사업의 구체적인 쟁점과 추진 일</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/25611b1f7d2ad9d3249734a7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -18517,9 +18706,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4430723"
+  data-title="&#x27;긴급 방미&#x27; 김정관, 러트닉 만나 대미 투자 집중 논의"
+  data-publisher="연합인포맥스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787102820"
+  data-country="KR"
+  data-search="&#x27;긴급 방미&#x27; 김정관, 러트닉 만나 대미 투자 집중 논의 연합인포맥스 원전 대미투자 방미 중인 김정관 산업통상부 장관이 하워드 러트닉 미 상무부 장관 등을 만나 대미 투자 프로젝트 추진 일정에 대해 집중적으로 논의했다.19일 산업부에 따르면, 김 장관은 16~19일(현지 시간) 미국 워싱턴 d.c.를 방문했다.이번 방미는 통상 현안을 논의하기 위해 긴급하게 성사된 것으로 알려졌다. 통상교섭본부장의 갑작스러운 경질 이후 진행된 것이기도 했다.김 장관은 먼저 지난 17~18일 러트닉 장관을 면담하고 대미 전략투자 프로젝트 관련 협의를 진행했다.이번 면담은 지난달 면담 이후 약 3주 만에 개최된 것이다. 양측은 대미"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합인포맥스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;긴급 방미&#x27; 김정관, 러트닉 만나 대미 투자 집중 논의</div>
+      <div class="article-snippet">방미 중인 김정관 산업통상부 장관이 하워드 러트닉 미 상무부 장관 등을 만나 대미 투자 프로젝트 추진 일정에 대해 집중적으로 논의했다.19일 산업부에 따르면, 김 장관은 16~19일(현지 시간) 미국 워싱턴 D.C.를 방문했다.이번 방미는 통상 현안을 논의하기 위해 긴급하게 성사된 것으로 알려졌다. 통상교섭본부장의 갑작스러운 경질 이후 진행된 것이기도 했다.김 장관은 먼저 지난 17~18일 러트닉 장관을 면담하고 대미 전략투자 프로젝트 관련 협의를 진행했다.이번 면담은 지난달 면담 이후 약 3주 만에 개최된 것이다. 양측은 대미</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/12698d6131c54f98335100d4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1679739/%E6%97%A5-%E2%80%985500%EC%96%B5%EB%8B%AC%EB%9F%AC-%EB%8C%80%EB%AF%B8%ED%88%AC%EC%9E%90%E2%80%99-%EC%A0%9C%EB%8F%99%E7%BE%8E-2026"
   data-title="日 ‘5500억달러 대미투자’ 제동…美법원, 텍사스 원유항 건설허가 취소"
@@ -18533,7 +18758,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18569,7 +18794,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18605,7 +18830,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18641,7 +18866,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18677,7 +18902,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18713,7 +18938,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18742,7 +18967,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -18817,7 +19042,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70679"
   data-title="제12차 전력수급기본계획 최대 쟁점 신규원전"
   data-publisher="에너지타임즈"
@@ -18842,7 +19067,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>제12차 전력수급기본계획 최대 쟁점 신규원전</div>
+      <div class="headline">제12차 전력수급기본계획 최대 쟁점 신규원전</div>
       <div class="article-snippet">신규원전 건설 여부와 규모가 제12차 전력수급기본계획 최대 쟁점으로 떠오를 것으로 보인다. 정부는 신규원전을 건설할 것인지, 건설한다면 몇 기를 추가할 것인지에 대해 답을 정해놓지 않고 공론화를 거쳐 결정할 계획이다. 또 늘어난 전력수요를 반영해 수요예측을 다시 하고 석탄발전 폐지에 따른 대체 발전원과 재생에너지 확대, 에너지저장장치(ESS)·양수발전, 가스발전 등을 종합적으로 검토함으로써 2050년 탄소중립으로 이어지는 에너지믹스를 설계한다는 방향을 제시했다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -18853,7 +19078,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70678"
   data-title="김성환 장관, 계속운전 20년 하겠다고 한 적 없다"
   data-publisher="에너지타임즈"
@@ -18878,7 +19103,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김성환 장관, 계속운전 20년 하겠다고 한 적 없다</div>
+      <div class="headline">김성환 장관, 계속운전 20년 하겠다고 한 적 없다</div>
       <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19105,6 +19330,42 @@ header,
   
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.repubblica.it/economia/2026/08/19/news/governo_meloni_nucleare_ecobonus_europa-425535245/"
+  data-title="Incentivi per le case green: il governo prepara il piano sull’energia. La spinta sul nucleare"
+  data-publisher="La Repubblica"
+  data-group="원자력"
+  data-language="en"
+  data-priority="0"
+  data-published="1787094000"
+  data-country="OTHER"
+  data-search="incentivi per le case green: il governo prepara il piano sull’energia. la spinta sul nucleare la repubblica 원자력 fi e lega vogliono finanziare i reattori con la flessibilità europea. si pensa a pannelli solari su scuole e ospedali"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">11.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">La Repubblica</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Incentivi per le case green: il governo prepara il piano sull’energia. La spinta sul nucleare</div>
+      <div class="article-snippet">FI e Lega vogliono finanziare i reattori con la flessibilità europea. Si pensa a pannelli solari su scuole e ospedali</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a5024c25e90d41be62a196f0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://interestingengineering.com/energy/thorium-fuel-aneel-candu-reactor-demonstration"
   data-title="Thorium fuel surpasses 60 GWd/MTU in major test ahead of reactor demo"
@@ -19118,7 +19379,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19150,7 +19411,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/202608199091i"
   data-title="AI가 띄운 SMR주 급락…상용화 장벽에 시총 303억달러 증발"
   data-publisher="한국경제"
@@ -19175,7 +19436,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>AI가 띄운 SMR주 급락…상용화 장벽에 시총 303억달러 증발</div>
+      <div class="headline">AI가 띄운 SMR주 급락…상용화 장벽에 시총 303억달러 증발</div>
       <div class="article-snippet">AI가 띄운 SMR주 급락…상용화 장벽에 시총 303억달러 증발, 매출 부재·긴 건설기간 부담 주목 공매도 투자자들 21억달러 &#x27;잭팟&#x27;</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19541,7 +19802,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260819101320058"
   data-title="건설협회, 주요 건설사·공기업 25곳 참여 채용설명회 개최"
   data-publisher="아주경제"
@@ -19566,7 +19827,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>건설협회, 주요 건설사·공기업 25곳 참여 채용설명회 개최</div>
+      <div class="headline">건설협회, 주요 건설사·공기업 25곳 참여 채용설명회 개최</div>
       <div class="article-snippet">[사진=대한건설협회] 현대건설과 GS건설, 대우건설 등 주요 건설사와 한국도로공사, 국가철도공단 등 공공기관이 참여하는 건설 분야 채용설명회가 열린다. &amp;nbsp; 대한건설협회와 건설산업사회공헌재단은 오는 25일 오전 10시부터 오후 5시까지 서울 강남구 건설회관에서 &amp;lsquo;2026 스마트건설 청년인재 채용설명회&amp;rsquo;를 개최한다고 19일 밝혔다. 국토교통부가 후원한다. &amp;nbsp; 이번 행사에는 건설사와 엔지니어링업체, 국토부 산하 공공기관 등 총 25개 기업&amp;middot;기관이 참여한다. &amp;nbsp; 건설업계에서는 현대건설과 GS건설, 대우건설, DL이</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19667,7 +19928,7 @@ header,
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://biz.heraldcorp.com/article/10845037"
   data-title="한울 4호기 원자로 ‘자동정지’…“방사성물질 외부유출 없어”"
   data-publisher="헤럴드경제"
@@ -19692,7 +19953,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한울 4호기 원자로 ‘자동정지’…“방사성물질 외부유출 없어”</div>
+      <div class="headline">한울 4호기 원자로 ‘자동정지’…“방사성물질 외부유출 없어”</div>
       <div class="article-snippet">[헤럴드경제=구본혁 기자] 경북 울진 한울4호기 원자로가 자동정지해 원자력안전위원회가 사건조사에 착수했다. 원자력안전위원회는 19일 오전 8시 50분경 한국수력원자력</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19703,7 +19964,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260819056700017?section=industry/all"
   data-title="한울원전 4호기 자동정지…원안위 조사 착수 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -19728,7 +19989,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한울원전 4호기 자동정지…원안위 조사 착수 | 연합뉴스</div>
+      <div class="headline">한울원전 4호기 자동정지…원안위 조사 착수 | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 조승한 기자 = 원자력안전위원회는 한국수력원자력으로부터 경북 울진 한울 4호기가 19일 오전 8시 50분경 자동 정지했다고 보...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19827,7 +20088,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787102880"
+  data-published="1787103300"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -19856,7 +20117,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260819050700062?section=industry/all"
   data-title="&#x27;촘촘한 산불 감시망&#x27;…동해시·한전, 송전탑에 무인카메라 설치 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -19881,7 +20142,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;촘촘한 산불 감시망&#x27;…동해시·한전, 송전탑에 무인카메라 설치 | 연합뉴스</div>
+      <div class="headline">&#x27;촘촘한 산불 감시망&#x27;…동해시·한전, 송전탑에 무인카메라 설치 | 연합뉴스</div>
       <div class="article-snippet">(동해=연합뉴스) 유형재 기자 = 강원 동해시가 한국전력 강원본부와 손잡고 송전탑을 활용한 산불 무인감시카메라를 설치하는 등 ICT 기반의 촘촘...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -20006,10 +20267,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.yonhapnewstv.co.kr/news/AKR20260819103232D1B"
+  data-title="김정관, 러트닉·그리어 잇따라 회동…대미 전략투자 후보 사업 협의"
+  data-publisher="연합뉴스TV"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787103155"
+  data-country="KR"
+  data-search="김정관, 러트닉·그리어 잇따라 회동…대미 전략투자 후보 사업 협의 연합뉴스tv 원전 관계부처 미국을 방문 중인 김정관 산업통상부 장관이 대미전략투자 논의를 위해 잇따라 미 정부 인사를 만나고 있습니다. 산업부는 김 장관이 현지시간 17일과 18일, 하워드 러트닉 미국 상무부 장관을 만나 전략투자 후보 프로젝트의 주요 쟁점과 추진 일정을 논의했다고 밝혔습니다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관, 러트닉·그리어 잇따라 회동…대미 전략투자 후보 사업 협의</div>
+      <div class="article-snippet">미국을 방문 중인 김정관 산업통상부 장관이 대미전략투자 논의를 위해 잇따라 미 정부 인사를 만나고 있습니다. 산업부는 김 장관이 현지시간 17일과 18일, 하워드 러트닉 미국 상무부 장관을 만나 전략투자 후보 프로젝트의 주요 쟁점과 추진 일정을 논의했다고 밝혔습니다.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ebe75ce85cf7be5a6834b03a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.asiae.co.kr/article/2026081910274234290"
   data-title="김정관, 美러트닉 이틀 연속 회동…대미 전략투자 &#x27;막판 조율&#x27;"
   data-publisher="아시아경제"
@@ -20022,7 +20319,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20034,7 +20331,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관, 美러트닉 이틀 연속 회동…대미 전략투자 &#x27;막판 조율&#x27;</div>
+      <div class="headline">김정관, 美러트닉 이틀 연속 회동…대미 전략투자 &#x27;막판 조율&#x27;</div>
       <div class="article-snippet">김정관 산업통상부 장관이 미국 워싱턴DC에서 하워드 러트닉 미국 상무부 장관과 이틀 연속 만나 대미 전략투자 프로젝트를 집중 조율했다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -20045,20 +20342,20 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.donga.com/news/Economy/article/all/20260819/134501686/1"
   data-title="김정관, 美 상무장관 연쇄 면담…대미 전략투자·301조 조사 등 논의"
   data-publisher="동아일보"
   data-group="원전 관계부처"
   data-language="ko"
   data-priority="1"
-  data-published="1787102597"
+  data-published="1787102580"
   data-country="KR"
   data-search="김정관, 美 상무장관 연쇄 면담…대미 전략투자·301조 조사 등 논의 동아일보 원전 관계부처 방미 중인 김정관 산업통상부 장관이 17~18일(현지 시간) 이틀에 걸쳐 하워드 러트닉 미 상무장관과 면담하고 대미 전략투자 프로젝트 관련 협의를 진행했다. 이번 면담은 올해 7월 면담 이후 약 3주 만에 개최된 것이다. 산업통상부는 19일 “김 장관이 워싱턴을 방문…"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20070,13 +20367,49 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관, 美 상무장관 연쇄 면담…대미 전략투자·301조 조사 등 논의</div>
+      <div class="headline">김정관, 美 상무장관 연쇄 면담…대미 전략투자·301조 조사 등 논의</div>
       <div class="article-snippet">방미 중인 김정관 산업통상부 장관이 17~18일(현지 시간) 이틀에 걸쳐 하워드 러트닉 미 상무장관과 면담하고 대미 전략투자 프로젝트 관련 협의를 진행했다. 이번 면담은 올해 7월 면담 이후 약 3주 만에 개최된 것이다. 산업통상부는 19일 “김 장관이 워싱턴을 방문…</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1be95282a66a0843a7395b09.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/469010c71186c2ee3967ad0b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1720852"
+  data-title="김정관 산업부 장관 방미…전략투자·통상 현안 집중 논의 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787102547"
+  data-country="KR"
+  data-search="김정관 산업부 장관 방미…전략투자·통상 현안 집중 논의 - 이비엔(ebn)뉴스센터 ebn산업경제 원전 관계부처 김정관 산업통상부 장관이 미국 워싱턴 d.c.를 찾아 대미 전략투자 프로젝트와 통상 현안을 집중 논의했다. 한미 간 전략투자 후보 사업의 구체적인 쟁점과 추진 일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 산업부 장관 방미…전략투자·통상 현안 집중 논의 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 미국 워싱턴 D.C.를 찾아 대미 전략투자 프로젝트와 통상 현안을 집중 논의했다. 한미 간 전략투자 후보 사업의 구체적인 쟁점과 추진 일</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/25611b1f7d2ad9d3249734a7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -20087,9 +20420,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4430723"
+  data-title="&#x27;긴급 방미&#x27; 김정관, 러트닉 만나 대미 투자 집중 논의"
+  data-publisher="연합인포맥스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787102820"
+  data-country="KR"
+  data-search="&#x27;긴급 방미&#x27; 김정관, 러트닉 만나 대미 투자 집중 논의 연합인포맥스 원전 대미투자 방미 중인 김정관 산업통상부 장관이 하워드 러트닉 미 상무부 장관 등을 만나 대미 투자 프로젝트 추진 일정에 대해 집중적으로 논의했다.19일 산업부에 따르면, 김 장관은 16~19일(현지 시간) 미국 워싱턴 d.c.를 방문했다.이번 방미는 통상 현안을 논의하기 위해 긴급하게 성사된 것으로 알려졌다. 통상교섭본부장의 갑작스러운 경질 이후 진행된 것이기도 했다.김 장관은 먼저 지난 17~18일 러트닉 장관을 면담하고 대미 전략투자 프로젝트 관련 협의를 진행했다.이번 면담은 지난달 면담 이후 약 3주 만에 개최된 것이다. 양측은 대미"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합인포맥스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;긴급 방미&#x27; 김정관, 러트닉 만나 대미 투자 집중 논의</div>
+      <div class="article-snippet">방미 중인 김정관 산업통상부 장관이 하워드 러트닉 미 상무부 장관 등을 만나 대미 투자 프로젝트 추진 일정에 대해 집중적으로 논의했다.19일 산업부에 따르면, 김 장관은 16~19일(현지 시간) 미국 워싱턴 D.C.를 방문했다.이번 방미는 통상 현안을 논의하기 위해 긴급하게 성사된 것으로 알려졌다. 통상교섭본부장의 갑작스러운 경질 이후 진행된 것이기도 했다.김 장관은 먼저 지난 17~18일 러트닉 장관을 면담하고 대미 전략투자 프로젝트 관련 협의를 진행했다.이번 면담은 지난달 면담 이후 약 3주 만에 개최된 것이다. 양측은 대미</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/12698d6131c54f98335100d4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1679739/%E6%97%A5-%E2%80%985500%EC%96%B5%EB%8B%AC%EB%9F%AC-%EB%8C%80%EB%AF%B8%ED%88%AC%EC%9E%90%E2%80%99-%EC%A0%9C%EB%8F%99%E7%BE%8E-2026"
   data-title="日 ‘5500억달러 대미투자’ 제동…美법원, 텍사스 원유항 건설허가 취소"
@@ -20103,7 +20472,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20139,7 +20508,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20175,7 +20544,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20211,7 +20580,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20247,7 +20616,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20283,7 +20652,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20312,7 +20681,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -20387,7 +20756,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70679"
   data-title="제12차 전력수급기본계획 최대 쟁점 신규원전"
   data-publisher="에너지타임즈"
@@ -20412,7 +20781,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>제12차 전력수급기본계획 최대 쟁점 신규원전</div>
+      <div class="headline">제12차 전력수급기본계획 최대 쟁점 신규원전</div>
       <div class="article-snippet">신규원전 건설 여부와 규모가 제12차 전력수급기본계획 최대 쟁점으로 떠오를 것으로 보인다. 정부는 신규원전을 건설할 것인지, 건설한다면 몇 기를 추가할 것인지에 대해 답을 정해놓지 않고 공론화를 거쳐 결정할 계획이다. 또 늘어난 전력수요를 반영해 수요예측을 다시 하고 석탄발전 폐지에 따른 대체 발전원과 재생에너지 확대, 에너지저장장치(ESS)·양수발전, 가스발전 등을 종합적으로 검토함으로써 2050년 탄소중립으로 이어지는 에너지믹스를 설계한다는 방향을 제시했다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -20423,7 +20792,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70678"
   data-title="김성환 장관, 계속운전 20년 하겠다고 한 적 없다"
   data-publisher="에너지타임즈"
@@ -20448,7 +20817,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김성환 장관, 계속운전 20년 하겠다고 한 적 없다</div>
+      <div class="headline">김성환 장관, 계속운전 20년 하겠다고 한 적 없다</div>
       <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -20675,6 +21044,42 @@ header,
   
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.repubblica.it/economia/2026/08/19/news/governo_meloni_nucleare_ecobonus_europa-425535245/"
+  data-title="Incentivi per le case green: il governo prepara il piano sull’energia. La spinta sul nucleare"
+  data-publisher="La Repubblica"
+  data-group="원자력"
+  data-language="en"
+  data-priority="0"
+  data-published="1787094000"
+  data-country="OTHER"
+  data-search="incentivi per le case green: il governo prepara il piano sull’energia. la spinta sul nucleare la repubblica 원자력 fi e lega vogliono finanziare i reattori con la flessibilità europea. si pensa a pannelli solari su scuole e ospedali"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">11.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">La Repubblica</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Incentivi per le case green: il governo prepara il piano sull’energia. La spinta sul nucleare</div>
+      <div class="article-snippet">FI e Lega vogliono finanziare i reattori con la flessibilità europea. Si pensa a pannelli solari su scuole e ospedali</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a5024c25e90d41be62a196f0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://interestingengineering.com/energy/thorium-fuel-aneel-candu-reactor-demonstration"
   data-title="Thorium fuel surpasses 60 GWd/MTU in major test ahead of reactor demo"
@@ -20688,7 +21093,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20720,7 +21125,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/202608199091i"
   data-title="AI가 띄운 SMR주 급락…상용화 장벽에 시총 303억달러 증발"
   data-publisher="한국경제"
@@ -20745,7 +21150,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>AI가 띄운 SMR주 급락…상용화 장벽에 시총 303억달러 증발</div>
+      <div class="headline">AI가 띄운 SMR주 급락…상용화 장벽에 시총 303억달러 증발</div>
       <div class="article-snippet">AI가 띄운 SMR주 급락…상용화 장벽에 시총 303억달러 증발, 매출 부재·긴 건설기간 부담 주목 공매도 투자자들 21억달러 &#x27;잭팟&#x27;</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -23709,7 +24114,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">38건</span>
+    <span class="group-count">39건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -24864,6 +25269,42 @@ header,
   
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.m-i.kr/news/articleView.html?idxno=1403059"
+  data-title="靑 &quot;대미투자 1호로 반도체 논의 사실 아냐&quot;…美 투자 압박 보도 부인"
+  data-publisher="매일일보"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787014726"
+  data-country="US"
+  data-search="靑 &quot;대미투자 1호로 반도체 논의 사실 아냐&quot;…美 투자 압박 보도 부인 매일일보 원전 대미투자 매일일보 = 김수빈 기자 | 청와대는 미국 측이 대미 전략투자 1호 사업으로 반도체 투자를 요구하고 있다는 보도에 대해 사실무근이라며 선을 그었다.18일 한 매체는 복수의 여권 소식통을 인용해 지난 13일 열린 청와대 비공개 통상회의에서 미국 측의 메모리 반도체 투자 요구가 핵심 논점으로 다뤄졌다고 보도했다.정부가 삼성전자와 sk하이닉스의 호남권 투자 계획을 발표한 상황에서 미국 측의 요구에 따라 메모리 반도체 추가 투자를 단행할 경우 투자 여력이 분산되고 국내 반도체 생태계 구축에도 영향을 미칠 수 있다는 우려가 제기됐다는 주장이"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">33.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>靑 &quot;대미투자 1호로 반도체 논의 사실 아냐&quot;…美 투자 압박 보도 부인</div>
+      <div class="article-snippet">매일일보 = 김수빈 기자 | 청와대는 미국 측이 대미 전략투자 1호 사업으로 반도체 투자를 요구하고 있다는 보도에 대해 사실무근이라며 선을 그었다.18일 한 매체는 복수의 여권 소식통을 인용해 지난 13일 열린 청와대 비공개 통상회의에서 미국 측의 메모리 반도체 투자 요구가 핵심 논점으로 다뤄졌다고 보도했다.정부가 삼성전자와 SK하이닉스의 호남권 투자 계획을 발표한 상황에서 미국 측의 요구에 따라 메모리 반도체 추가 투자를 단행할 경우 투자 여력이 분산되고 국내 반도체 생태계 구축에도 영향을 미칠 수 있다는 우려가 제기됐다는 주장이</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0f7713c306589dfc9f849fcc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260818_0003751806"
   data-title="靑 &quot;대미투자 1호 반도체 논의 보도는 사실과 달라&quot;"
@@ -24877,7 +25318,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -24913,7 +25354,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -24949,7 +25390,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -24985,7 +25426,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25021,7 +25462,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25377,7 +25818,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70679"
   data-title="제12차 전력수급기본계획 최대 쟁점 신규원전"
   data-publisher="에너지타임즈"
@@ -25402,7 +25843,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>제12차 전력수급기본계획 최대 쟁점 신규원전</div>
+      <div class="headline">제12차 전력수급기본계획 최대 쟁점 신규원전</div>
       <div class="article-snippet">신규원전 건설 여부와 규모가 제12차 전력수급기본계획 최대 쟁점으로 떠오를 것으로 보인다. 정부는 신규원전을 건설할 것인지, 건설한다면 몇 기를 추가할 것인지에 대해 답을 정해놓지 않고 공론화를 거쳐 결정할 계획이다. 또 늘어난 전력수요를 반영해 수요예측을 다시 하고 석탄발전 폐지에 따른 대체 발전원과 재생에너지 확대, 에너지저장장치(ESS)·양수발전, 가스발전 등을 종합적으로 검토함으로써 2050년 탄소중립으로 이어지는 에너지믹스를 설계한다는 방향을 제시했다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -25413,7 +25854,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70678"
   data-title="김성환 장관, 계속운전 20년 하겠다고 한 적 없다"
   data-publisher="에너지타임즈"
@@ -25438,7 +25879,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김성환 장관, 계속운전 20년 하겠다고 한 적 없다</div>
+      <div class="headline">김성환 장관, 계속운전 20년 하겠다고 한 적 없다</div>
       <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26272,7 +26713,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4a8f6696a0511bd4a07e996f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/3e1651145ab067be5e8d1a9a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -31330,7 +31771,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c540893398&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c53e5902d8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -102866,7 +103307,6 @@ function showCountryMapTooltip(x,y,flag,name,count,persistent=false){
   tooltip.innerHTML=
     `<span class="map-tooltip-flag">${flag}</span>`+
     `<span class="map-tooltip-country">${name}</span>`+
-    `<span class="map-tooltip-separator">·</span>`+
     `<span class="map-tooltip-count">${count}건</span>`;
   tooltip.classList.add("visible");
   tooltip.classList.toggle("persistent",persistent);
@@ -103073,7 +103513,7 @@ function setCountryFilter(code){
       setTimeout(()=>firstVisibleCard.scrollIntoView({behavior:"smooth",block:"center"}),80);
     }
   } else {
-    if(note)note.textContent="기사 발생 국가를 지도에서 확인";
+    if(note)note.textContent="";
   }
 }
 
@@ -103088,7 +103528,7 @@ if(countryAllButton){
     filterArticles();
     updateCountryMapCounts();
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="기사 발생 국가를 지도에서 확인";
+    if(note)note.textContent="";
   });
 }
 
