@@ -1415,7 +1415,36 @@ BLOCKED_STOCK_KEYWORDS = {
 }
 
 
-EXCLUDED_PUBLISHERS = {"Nuclear Newswire", "Nuclear Newswire (ANS)"}
+EXCLUDED_PUBLISHERS = {
+    "Nuclear Newswire",
+    "Nuclear Newswire (ANS)",
+    "NRC News",
+    "NRC",
+    "U.S. NRC",
+    "US NRC",
+    "Nuclear Regulatory Commission",
+}
+
+# 출처 URL에 아래 호스트가 있으면 표시/관련기사에서 제외합니다.
+EXCLUDED_HOST_KEYWORDS = {
+    "nrc.gov",
+}
+
+
+def is_excluded_source(
+    publisher: str = "",
+    link: str = "",
+    source_url: str = "",
+) -> bool:
+    """NRC News 등 제외 매체를 출판사명·URL로 판정합니다."""
+    pub = (publisher or "").strip().lower()
+    if pub in {name.lower() for name in EXCLUDED_PUBLISHERS}:
+        return True
+    if "nrc news" in pub:
+        return True
+
+    haystack = f"{link} {source_url}".lower()
+    return any(host in haystack for host in EXCLUDED_HOST_KEYWORDS)
 
 @dataclass
 class Article:
@@ -4501,7 +4530,7 @@ def select_articles_for_period(
         article
         for article in fetched
         if start <= article.published < end
-        and article.publisher not in EXCLUDED_PUBLISHERS
+        and not is_excluded_source(article.publisher, article.link, article.source_url)
     ]
 
     all_selected: list[Article] = []
@@ -5440,9 +5469,23 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     대표 1개 + 관련기사로 묶어서 보여줍니다.
     """
     if not DEDUP_ENABLED:
-        return sorted(articles, key=lambda x: x.published, reverse=True)
+        return sorted(
+            (
+                article for article in articles
+                if not is_excluded_source(article.publisher, article.link, article.source_url)
+            ),
+            key=lambda x: x.published,
+            reverse=True,
+        )
 
-    sorted_articles = sorted(articles, key=lambda x: x.published, reverse=True)
+    sorted_articles = sorted(
+        (
+            article for article in articles
+            if not is_excluded_source(article.publisher, article.link, article.source_url)
+        ),
+        key=lambda x: x.published,
+        reverse=True,
+    )
 
     # 완전 중복만 제거. 같은 사건(다른 언론사)은 관련기사 묶기를 위해 유지.
     exact_unique: list[Article] = []
@@ -5486,7 +5529,10 @@ def cluster_related_articles(
         return []
 
     sorted_articles = sorted(
-        articles,
+        (
+            article for article in articles
+            if not is_excluded_source(article.publisher, article.link, article.source_url)
+        ),
         key=lambda article: article.published,
         reverse=True,
     )
@@ -5540,6 +5586,7 @@ def cluster_related_articles(
         related = [
             article for article in cluster
             if article is not representative
+            and not is_excluded_source(article.publisher, article.link, article.source_url)
         ]
         related.sort(key=lambda article: article.published, reverse=True)
 
@@ -5706,6 +5753,8 @@ def article_from_dict(data: dict) -> Article | None:
         link = str(data.get("link", ""))
 
         if publisher in EXCLUDED_PUBLISHERS:
+            return None
+        if is_excluded_source(publisher, link, source_url):
             return None
 
         if not publisher:
@@ -8670,6 +8719,24 @@ header,
   font-weight:900;
 }}
 
+.mini-clock-format {{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:22px;
+  height:14px;
+  padding:0 4px;
+  border-radius:999px;
+  background:#23395d;
+  color:#fff;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.2px;
+  line-height:1;
+  white-space:nowrap;
+}}
+
 /* ============================================================
    MAP TOOLTIP — smaller and always above the pointer
    ============================================================ */
@@ -8773,7 +8840,7 @@ header,
     </div>
 
     <div class="country-map-content">
-      <aside class="world-clock-rail" aria-label="주요 지역 현재 시간">
+      <aside class="world-clock-rail" aria-label="주요 지역 현재 시간 (24시간제)">
         <div class="mini-world-clock" data-timezone="America/New_York">
           <div class="mini-clock-label">뉴욕 <span>· 미국 동부</span></div>
           <div class="analog-clock" aria-hidden="true">
@@ -8790,6 +8857,7 @@ header,
           </div>
           <div class="mini-clock-meta">
             <span class="mini-clock-time">--:--</span>
+            <span class="mini-clock-format" title="24시간제">24H</span>
             <span class="mini-clock-day">--</span>
           </div>
         </div>
@@ -8809,6 +8877,7 @@ header,
           </div>
           <div class="mini-clock-meta">
             <span class="mini-clock-time">--:--</span>
+            <span class="mini-clock-format" title="24시간제">24H</span>
             <span class="mini-clock-day">--</span>
           </div>
         </div>
@@ -10077,9 +10146,16 @@ function updateWorldClocks(){{
     if(secondHand)secondHand.style.transform=`rotate(${{secondAngle}}deg)`;
 
     if(digital){{
-      const hh=String(parts.hour).padStart(2,"0");
+      // 24시간제 표기 (예: 14:05). AM/PM 혼동 방지용.
+      const hh=String(parts.hour%24).padStart(2,"0");
       const mm=String(parts.minute).padStart(2,"0");
       digital.textContent=`${{hh}}:${{mm}}`;
+      digital.setAttribute("aria-label", `${{hh}}시 ${{mm}}분 24시간제`);
+    }}
+    const formatBadge=clock.querySelector(".mini-clock-format");
+    if(formatBadge){{
+      formatBadge.textContent="24H";
+      formatBadge.setAttribute("title","24시간제");
     }}
     if(dayBadge){{
       dayBadge.textContent=dayRelationToKorea(parts,koreaParts);
