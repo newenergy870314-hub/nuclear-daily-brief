@@ -5273,21 +5273,14 @@ def _article_rep_score(article: Article) -> tuple:
     )
 
 
-def _is_hyundai_mokdong10_event(article: Article) -> bool:
-    """현대건설 + 목동10단지 보도는 동일 이슈로 간주합니다."""
+def _is_mokdong10_event(article: Article) -> bool:
+    """목동10단지 관련 보도는 언론사가 달라도 동일 이슈로 간주합니다."""
     haystack = normalized(f"{article.title} {article.description}")
     compact = re.sub(r"\s+", "", haystack)
-    has_hyundai = (
-        "현대건설" in compact
-        or "hyundaie&c" in compact
-        or "hyundaiengineeringconstruction" in compact
-        or "hdec" in compact
-    )
-    has_mokdong10 = (
+    return (
         "목동10단지" in compact
         or ("목동" in compact and "10단지" in compact)
     )
-    return has_hyundai and has_mokdong10
 
 
 
@@ -5345,6 +5338,44 @@ def _is_lotte_bond_event(article: Article) -> bool:
     return has_lotte and has_bond
 
 
+
+def _is_construction_recruiting_briefing_event(article: Article) -> bool:
+    """현대건설 또는 타 건설사 + 채용설명회 관련 보도는 동일 이슈로 간주합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    construction_terms = (
+        "현대건설",
+        "삼성물산",
+        "대우건설",
+        "dl이앤씨",
+        "gs건설",
+        "sk에코플랜트",
+        "포스코이앤씨",
+        "롯데건설",
+        "현대엔지니어링",
+        "hdc현대산업개발",
+        "한화건설",
+        "두산에너빌리티",
+        "hyundaie&c",
+        "samsungc&t",
+        "daewooe&c",
+        "dle&c",
+        "gse&c",
+        "skecoplant",
+        "poscoe&c",
+        "lottee&c",
+        "hyundaiengineering",
+    )
+    has_construction_company = any(term in compact for term in construction_terms)
+    has_recruiting_briefing = (
+        "채용설명회" in compact
+        or "채용박람회" in compact
+        or "채용상담회" in compact
+    )
+    return has_construction_company and has_recruiting_briefing
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5388,7 +5419,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     event_removed = 0
 
     for article in exact_unique:
-        if not _is_hyundai_mokdong10_event(article):
+        if not _is_mokdong10_event(article):
             event_unique.append(article)
             continue
 
@@ -5462,13 +5493,34 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             lotte_unique[lotte_bond_idx] = article
 
-    result = sorted(lotte_unique, key=lambda x: x.published, reverse=True)
+    # 현대건설 또는 타 건설사 + 채용설명회 동일이슈도 대표기사 1건만 유지
+    recruiting_unique: list[Article] = []
+    recruiting_idx: int | None = None
+    recruiting_removed = 0
+
+    for article in lotte_unique:
+        if not _is_construction_recruiting_briefing_event(article):
+            recruiting_unique.append(article)
+            continue
+
+        if recruiting_idx is None:
+            recruiting_idx = len(recruiting_unique)
+            recruiting_unique.append(article)
+            continue
+
+        recruiting_removed += 1
+        kept = recruiting_unique[recruiting_idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            recruiting_unique[recruiting_idx] = article
+
+    result = sorted(recruiting_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ mokdong10_removed={event_removed} "
         f"/ proud_truck_removed={proud_truck_removed} "
         f"/ knf_safety_removed={knf_safety_removed} "
-        f"/ lotte_bond_removed={lotte_bond_removed} / final={len(result)}"
+        f"/ lotte_bond_removed={lotte_bond_removed} "
+        f"/ recruiting_removed={recruiting_removed} / final={len(result)}"
     )
     return result
 
