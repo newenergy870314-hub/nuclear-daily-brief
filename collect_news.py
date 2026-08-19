@@ -253,75 +253,50 @@ GROUP_TAB_LABELS = {
 # 기사 수집원: Google News RSS를 사용하지 않고 언론사 자체 RSS/공식 뉴스 페이지에서 직접 수집합니다.
 # RSS가 있는 언론사는 자체 RSS를 우선 사용하여 제목·원문 URL·description·대표이미지를 최대한 원형 그대로 확보합니다.
 DIRECT_RSS_FEEDS = [
-    # ========================================================
-    # 공식 RSS 페이지에서 확인된 주소만 사용
-    # 미확인 매체는 RSS 주소를 추측하지 않고 DIRECT_NEWS_PAGES로 수집
-    # ========================================================
-
-    # 뉴시스 공식 RSS
-    ("뉴시스", "https://www.newsis.com/RSS/sokbo.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/politics.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/economy.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/bank.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/industry.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/international.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/society.xml"),
-    ("뉴시스", "https://www.newsis.com/RSS/country.xml"),
-
-    # 전자신문 공식 RSS
-    ("전자신문", "https://rss.etnews.com/Section901.xml"),
-    ("전자신문", "https://rss.etnews.com/Section902.xml"),
-    ("전자신문", "https://rss.etnews.com/02.xml"),
-    ("전자신문", "https://rss.etnews.com/06065.xml"),
-    ("전자신문", "https://rss.etnews.com/22210.xml"),
-    ("전자신문", "https://rss.etnews.com/12.xml"),
-    ("전자신문", "https://rss.etnews.com/25.xml"),
-
-    # 매일경제 공식 RSS
-    ("매일경제", "https://www.mk.co.kr/rss/40300001/"),
-    ("매일경제", "https://www.mk.co.kr/rss/30100041/"),
-    ("매일경제", "https://www.mk.co.kr/rss/50100032/"),
-    ("매일경제", "https://www.mk.co.kr/rss/30300018/"),
-    ("매일경제", "https://www.mk.co.kr/rss/30200030/"),
-    ("매일경제", "https://www.mk.co.kr/rss/50400012/"),
-    ("매일경제", "https://www.mk.co.kr/rss/50300009/"),
-
-    # 한국경제 공식 RSS
-    ("한국경제", "https://www.hankyung.com/feed/all-news"),
-    ("한국경제", "https://www.hankyung.com/feed/economy"),
-    ("한국경제", "https://www.hankyung.com/feed/it"),
-    ("한국경제", "https://www.hankyung.com/feed/international"),
-    ("한국경제", "https://www.hankyung.com/feed/politics"),
-    ("한국경제", "https://www.hankyung.com/feed/realestate"),
-
-    # MBN 공식 RSS
-    ("MBN", "https://www.mbn.co.kr/rss/"),
-    ("MBN", "https://www.mbn.co.kr/rss/economy/"),
-    ("MBN", "https://www.mbn.co.kr/rss/politics/"),
-    ("MBN", "https://www.mbn.co.kr/rss/international/"),
-
-    # 아주경제 공식 RSS
-    ("아주경제", "https://www.ajunews.com/rss/sokbo.xml"),
-    ("아주경제", "https://www.ajunews.com/rss/industry.xml"),
-    ("아주경제", "https://www.ajunews.com/rss/economy.xml"),
-    ("아주경제", "https://www.ajunews.com/rss/politics.xml"),
-    ("아주경제", "https://www.ajunews.com/rss/global.xml"),
-
-    # 국내 에너지·전력 전문매체: 공식 RSS 인덱스/실행 이력 확인
-    ("전기신문", "https://www.electimes.com/rss/allArticle.xml"),
-    ("에너지신문", "https://www.energy-news.co.kr/rss/allArticle.xml"),
-    ("에너지타임즈", "https://www.energytimes.kr/rss/allArticle.xml"),
-    ("전력경제신문", "https://www.epetimes.com/rss/allArticle.xml"),
-
-    # 해외 원자력 전문매체 공식 RSS
-    ("Nuclear News Network", "https://www.nuclearnewsnetwork.com/feed.xml"),
-
-    # 해외 RSS 보강 — 공식 RSS 페이지/엔드포인트 확인 후 추가 (2026-08-19)
-    # 해외 매체는 DIRECT_NEWS_PAGES 병행 유지 + RSS 우선 보강
+    ('뉴시스', 'https://www.newsis.com/RSS/sokbo.xml'),
+    ('뉴시스', 'https://www.newsis.com/RSS/politics.xml'),
+    ('뉴시스', 'https://www.newsis.com/RSS/economy.xml'),
+    ('뉴시스', 'https://www.newsis.com/RSS/bank.xml'),
+    ('뉴시스', 'https://www.newsis.com/RSS/industry.xml'),
+    ('뉴시스', 'https://www.newsis.com/RSS/international.xml'),
+    ('뉴시스', 'https://www.newsis.com/RSS/society.xml'),
+    ('뉴시스', 'https://www.newsis.com/RSS/country.xml'),
+    ('전자신문', 'https://rss.etnews.com/Section901.xml'),
+    ('전자신문', 'https://rss.etnews.com/Section902.xml'),
+    ('전자신문', 'https://rss.etnews.com/02.xml'),
+    ('전자신문', 'https://rss.etnews.com/06065.xml'),
+    ('전자신문', 'https://rss.etnews.com/22210.xml'),
+    ('전자신문', 'https://rss.etnews.com/12.xml'),
+    ('전자신문', 'https://rss.etnews.com/25.xml'),
+    ('매일경제', 'https://www.mk.co.kr/rss/40300001/'),
+    ('매일경제', 'https://www.mk.co.kr/rss/30100041/'),
+    ('매일경제', 'https://www.mk.co.kr/rss/50100032/'),
+    ('매일경제', 'https://www.mk.co.kr/rss/30300018/'),
+    ('매일경제', 'https://www.mk.co.kr/rss/30200030/'),
+    ('매일경제', 'https://www.mk.co.kr/rss/50400012/'),
+    ('매일경제', 'https://www.mk.co.kr/rss/50300009/'),
+    ('한국경제', 'https://www.hankyung.com/feed/all-news'),
+    ('한국경제', 'https://www.hankyung.com/feed/economy'),
+    ('한국경제', 'https://www.hankyung.com/feed/it'),
+    ('한국경제', 'https://www.hankyung.com/feed/international'),
+    ('한국경제', 'https://www.hankyung.com/feed/politics'),
+    ('한국경제', 'https://www.hankyung.com/feed/realestate'),
+    ('MBN', 'https://www.mbn.co.kr/rss/'),
+    ('MBN', 'https://www.mbn.co.kr/rss/economy/'),
+    ('MBN', 'https://www.mbn.co.kr/rss/politics/'),
+    ('MBN', 'https://www.mbn.co.kr/rss/international/'),
+    ('아주경제', 'https://www.ajunews.com/rss/sokbo.xml'),
+    ('아주경제', 'https://www.ajunews.com/rss/industry.xml'),
+    ('아주경제', 'https://www.ajunews.com/rss/economy.xml'),
+    ('아주경제', 'https://www.ajunews.com/rss/politics.xml'),
+    ('아주경제', 'https://www.ajunews.com/rss/global.xml'),
+    ('전기신문', 'https://www.electimes.com/rss/allArticle.xml'),
+    ('에너지신문', 'https://www.energy-news.co.kr/rss/allArticle.xml'),
+    ('에너지타임즈', 'https://www.energytimes.kr/rss/allArticle.xml'),
+    ('전력경제신문', 'https://www.epetimes.com/rss/allArticle.xml'),
+    ('Nuclear News Network', 'https://www.nuclearnewsnetwork.com/feed.xml'),
     ('World Nuclear News', 'https://www.world-nuclear-news.org/?rss=feed'),
     ('International Atomic Energy Agency', 'https://www.iaea.org/feeds/news'),
-    ('U.S. Nuclear Regulatory Commission', 'https://www.nrc.gov/public-involve/rss?feed=news'),
-    ('U.S. Nuclear Regulatory Commission', 'https://www.nrc.gov/public-involve/rss?feed=event'),
     ('BBC News', 'https://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml'),
     ('BBC News', 'https://newsrss.bbc.co.uk/rss/newsonline_uk_edition/business/rss.xml'),
     ('The Guardian', 'https://www.theguardian.com/world/rss'),
@@ -332,8 +307,6 @@ DIRECT_RSS_FEEDS = [
     ('Euronews', 'https://www.euronews.com/rss?format=mrss&level=theme&name=news'),
     ('Euronews', 'https://www.euronews.com/rss?format=mrss&level=vertical&name=my-europe'),
     ('Euronews', 'https://www.euronews.com/rss?format=mrss&level=vertical&name=green'),
-
-    # 해외 RSS 2차 확대 — 공식 RSS 페이지에서 실제 피드 URL 확인 (2026-08-19)
     ('The Japan Times', 'https://www.japantimes.co.jp/feed/'),
     ('The Moscow Times', 'https://www.themoscowtimes.com/rss/news'),
     ('The Moscow Times', 'https://www.themoscowtimes.com/rss/opinion'),
@@ -1043,7 +1016,6 @@ OVERSEAS_RSS_PUBLISHERS = {
     "Nuclear News Network",
     "World Nuclear News",
     "International Atomic Energy Agency",
-    "U.S. Nuclear Regulatory Commission",
     "BBC News",
     "The Guardian",
     "Deutsche Welle",
@@ -1054,15 +1026,46 @@ OVERSEAS_RSS_PUBLISHERS = {
 
 # 직접수집은 '매체 병렬 x 기사 병렬'이 겹치면 수백 요청이 순간적으로 발생할 수 있으므로
 # 매체/기사 병렬도를 분리하고 전역 HTTP 동시접속 수도 제한합니다.
-DIRECT_SOURCE_WORKERS = 6
+DIRECT_SOURCE_WORKERS = 10
 DIRECT_ARTICLE_WORKERS = 6
-DIRECT_HTTP_MAX_CONCURRENCY = 12
-DIRECT_PAGE_TIMEOUT_SECONDS = 10
+DIRECT_HTTP_MAX_CONCURRENCY = 18
+DIRECT_PAGE_TIMEOUT_SECONDS = 7
 DIRECT_PAGE_MAX_LINKS = 400
-DIRECT_FETCH_RETRIES = 2
-DIRECT_RETRY_BACKOFF_SECONDS = 0.6
+# 5분마다 모든 직접수집 페이지를 깊게 재검사하면 시간이 급증하므로
+# 4개 shard로 나눠 20분 내 전체 1회 순환합니다. RSS는 매 실행 전체 수집합니다.
+DIRECT_ROTATION_SHARDS = 4
+DIRECT_FULL_SCAN = os.getenv("DIRECT_FULL_SCAN", "0") == "1"
+DIRECT_GENERAL_CANDIDATE_LIMIT = 45
+DIRECT_SPECIALIST_CANDIDATE_LIMIT = 80
+DIRECT_BLIND_ENERGY_LIMIT = 35
+
+# 매 5분 확인할 핵심 해외/원전 전문 매체. 나머지는 4개 shard 순환.
+DIRECT_ALWAYS_PUBLISHERS = {
+    "World Nuclear News",
+    "NucNet",
+    "Nuclear Engineering International",
+    "Nuclear News Network",
+    "SMR Intel",
+    "Nuclear Monitor",
+    "Bellona Nuclear",
+    "Power Engineering Magazine",
+    "POWER Magazine",
+    "Utility Dive",
+    "Reuters",
+    "Reuters Connect",
+    "Bloomberg",
+    "Bloomberg.com",
+    "The Guardian",
+    "BBC News",
+    "Euronews",
+    "Deutsche Welle",
+    "Al Jazeera",
+    "France 24",
+}
+DIRECT_FETCH_RETRIES = 1
+DIRECT_RETRY_BACKOFF_SECONDS = 0.35
 DIRECT_SITEMAP_MAX_BYTES = 1_500_000
-DIRECT_SITEMAP_MAX_URLS = 180
+DIRECT_SITEMAP_MAX_URLS = 60
 DIRECT_HTTP_SEMAPHORE = threading.BoundedSemaphore(DIRECT_HTTP_MAX_CONCURRENCY)
 
 # 하위 호환용: 기존 코드/로그에서 참조할 수 있어 유지
@@ -3038,8 +3041,8 @@ OTHER_CONSTRUCTION_TERMS = {
     "두산에너빌리티", "doosan enerbility",
 }
 
-# 타 건설사는 원전·원자력 관련 기사만 노출합니다.
-# 현대건설은 당사이므로 이 제한을 적용하지 않습니다.
+# 타 건설사 원전 관련성 필터는 해제했습니다.
+# 타 건설사명/영문명이 확인되면 일반 기사도 함께 노출합니다.
 BLOCKED_CAMPAIGN_SLOGAN_TERMS = {
     "당당히 행동에 나섭시다",
     "함께 행동에 나섭시다",
@@ -3205,8 +3208,8 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
 def classify_construction_group(group: str, title: str, summary: str) -> str | None:
     """
     건설사 분류 기준:
-    - 현대건설: 당사 관련 기사이므로 원전 여부와 관계없이 현대건설 항목에 유지
-    - 타 건설사: 원전·원자력·SMR·원전해체·원전 EPC 관련 기사만 유지
+    - 현대건설: 당사 관련 기사이므로 항상 현대건설 항목에 유지
+    - 타 건설사: 원전 관련성 필터를 해제하고 일반 기사까지 모두 유지
     """
     if group != "타 건설사":
         return group
@@ -3214,14 +3217,13 @@ def classify_construction_group(group: str, title: str, summary: str) -> str | N
     haystack = html.unescape(f"{title} {summary}").lower()
 
     # 타 건설사 검색 결과 안에 현대건설이 함께 잡힌 경우에는
-    # 당사 기사로 재분류하며 원자력 관련성 제한을 적용하지 않습니다.
+    # 기존 원칙대로 현대건설을 최우선으로 재분류합니다.
     if any(term in haystack for term in HYUNDAI_EC_TERMS):
         return "현대건설"
 
+    # 타 건설사명/영문명이 확인되면 원전 여부와 관계없이 유지합니다.
     if any(term in haystack for term in OTHER_CONSTRUCTION_TERMS):
-        if is_other_construction_nuclear_article(title, summary):
-            return "타 건설사"
-        return None
+        return "타 건설사"
 
     return None
 
@@ -4110,7 +4112,7 @@ def _fetch_one_direct_news_page(
             if (
                 not candidate_ok
                 and is_english_energy_page
-                and blind_energy_candidates < 160
+                and blind_energy_candidates < DIRECT_BLIND_ENERGY_LIMIT
                 and len(title.strip()) >= 14
                 and _looks_like_article_candidate_url(link)
             ):
@@ -4123,12 +4125,17 @@ def _fetch_one_direct_news_page(
             continue
 
         candidates.append((link, title))
-        page_limit = 400 if is_nuclear_specialist else DIRECT_PAGE_MAX_LINKS
+        page_limit = (
+            DIRECT_SPECIALIST_CANDIDATE_LIMIT
+            if is_nuclear_specialist
+            else DIRECT_GENERAL_CANDIDATE_LIMIT
+        )
         if len(candidates) >= page_limit:
             break
 
-    # HTML anchor가 없거나 후보가 너무 적은 해외/전문 페이지는 sitemap을 보조 사용
-    if language == "en" and len(candidates) < 3:
+    # HTML 페이지 접속은 성공했지만 후보가 거의 없을 때만 sitemap 보조 사용.
+    # 페이지 자체가 차단/timeout이면 sitemap 4개까지 추가 재시도하지 않아 실행시간 폭증을 방지합니다.
+    if language == "en" and not fetch_error and payload and len(candidates) < 3:
         sitemap_links = _sitemap_candidate_links(publisher, page_url, language)
         for link, title in sitemap_links:
             if link in seen:
@@ -4143,7 +4150,12 @@ def _fetch_one_direct_news_page(
             ):
                 candidates.append((link, title))
                 stats["sitemap_candidates"] = int(stats["sitemap_candidates"]) + 1
-            if len(candidates) >= DIRECT_PAGE_MAX_LINKS:
+            sitemap_cap = (
+                DIRECT_SPECIALIST_CANDIDATE_LIMIT
+                if is_nuclear_specialist
+                else DIRECT_GENERAL_CANDIDATE_LIMIT
+            )
+            if len(candidates) >= sitemap_cap:
                 break
 
     stats["candidates"] = len(candidates)
@@ -4219,18 +4231,75 @@ def _fetch_one_direct_news_page(
 
 
 
+
+def _stable_source_shard(publisher: str, page_url: str) -> int:
+    # Python hash()는 실행마다 달라질 수 있으므로 단순 안정 체크섬 사용
+    key = f"{publisher}|{page_url}".encode("utf-8", errors="ignore")
+    checksum = 0
+    for byte in key:
+        checksum = ((checksum * 33) + byte) & 0xFFFFFFFF
+    return checksum % DIRECT_ROTATION_SHARDS
+
+
+def _select_direct_pages_for_this_run() -> tuple[list[tuple[str, str, str]], int]:
+    """
+    RSS는 매 5분 전체 수집.
+    직접수집은 핵심 매체 + 현재 shard만 실행하여 20분 내 전체 페이지를 1회 순환.
+    DIRECT_FULL_SCAN=1이면 수동 전체검사 가능.
+    """
+    if DIRECT_FULL_SCAN or DIRECT_ROTATION_SHARDS <= 1:
+        return list(DIRECT_NEWS_PAGES), -1
+
+    now = datetime.now(KST)
+    five_min_slot = (now.hour * 12) + (now.minute // 5)
+    active_shard = five_min_slot % DIRECT_ROTATION_SHARDS
+
+    selected: list[tuple[str, str, str]] = []
+    seen: set[tuple[str, str, str]] = set()
+
+    for item in DIRECT_NEWS_PAGES:
+        publisher, page_url, language = item
+        always = (
+            publisher in DIRECT_ALWAYS_PUBLISHERS
+            or publisher in NUCLEAR_SPECIALIST_PUBLISHERS
+        )
+        if always or _stable_source_shard(publisher, page_url) == active_shard:
+            if item not in seen:
+                seen.add(item)
+                selected.append(item)
+
+    return selected, active_shard
+
+
 def fetch_direct_news_pages(start: datetime, end: datetime) -> list[Article]:
     """
     RSS가 없거나 RSS 보완이 필요한 국내외 언론사의 공식 페이지 직접수집.
+    핵심매체는 매 실행, 나머지는 4-shard 순환으로 20분 내 전체를 확인합니다.
     매체별 성공/실패 원인을 GitHub Actions 로그에 남깁니다.
     """
     if not DIRECT_NEWS_PAGES:
         return []
 
+    selected_pages, active_shard = _select_direct_pages_for_this_run()
+    if not selected_pages:
+        return []
+
+    if active_shard < 0:
+        print(
+            f"[DIRECT ROTATION] FULL_SCAN=1 | selected={len(selected_pages)} "
+            f"/ total={len(DIRECT_NEWS_PAGES)}"
+        )
+    else:
+        print(
+            f"[DIRECT ROTATION] shard={active_shard + 1}/{DIRECT_ROTATION_SHARDS} "
+            f"| selected={len(selected_pages)} / total={len(DIRECT_NEWS_PAGES)} "
+            f"| full_cycle={DIRECT_ROTATION_SHARDS * 5}min"
+        )
+
     fetched: list[Article] = []
     source_stats: list[dict[str, int | str]] = []
 
-    workers = min(DIRECT_SOURCE_WORKERS, len(DIRECT_NEWS_PAGES))
+    workers = min(DIRECT_SOURCE_WORKERS, len(selected_pages))
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = [
             executor.submit(
@@ -4241,7 +4310,7 @@ def fetch_direct_news_pages(start: datetime, end: datetime) -> list[Article]:
                 start,
                 end,
             )
-            for publisher, page_url, language in DIRECT_NEWS_PAGES
+            for publisher, page_url, language in selected_pages
         ]
 
         for future in as_completed(futures):
