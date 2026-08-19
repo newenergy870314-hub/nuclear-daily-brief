@@ -22,6 +22,9 @@ from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 import feedparser
+import threading
+import time
+from email.utils import parsedate_to_datetime
 from dateutil import parser as date_parser
 
 KST = ZoneInfo("Asia/Seoul")
@@ -312,6 +315,36 @@ DIRECT_RSS_FEEDS = [
 
     # 해외 원자력 전문매체 공식 RSS
     ("Nuclear News Network", "https://www.nuclearnewsnetwork.com/feed.xml"),
+
+    # 해외 RSS 보강 — 공식 RSS 페이지/엔드포인트 확인 후 추가 (2026-08-19)
+    # 해외 매체는 DIRECT_NEWS_PAGES 병행 유지 + RSS 우선 보강
+    ('World Nuclear News', 'https://www.world-nuclear-news.org/?rss=feed'),
+    ('International Atomic Energy Agency', 'https://www.iaea.org/feeds/news'),
+    ('U.S. Nuclear Regulatory Commission', 'https://www.nrc.gov/public-involve/rss?feed=news'),
+    ('U.S. Nuclear Regulatory Commission', 'https://www.nrc.gov/public-involve/rss?feed=event'),
+    ('BBC News', 'https://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml'),
+    ('BBC News', 'https://newsrss.bbc.co.uk/rss/newsonline_uk_edition/business/rss.xml'),
+    ('The Guardian', 'https://www.theguardian.com/world/rss'),
+    ('The Guardian', 'https://www.theguardian.com/environment/rss'),
+    ('Deutsche Welle', 'https://rss.dw.com/rdf/rss-en-all'),
+    ('Al Jazeera', 'https://www.aljazeera.com/xml/rss/all.xml'),
+    ('France 24', 'https://www.france24.com/en/rss'),
+    ('Euronews', 'https://www.euronews.com/rss?format=mrss&level=theme&name=news'),
+    ('Euronews', 'https://www.euronews.com/rss?format=mrss&level=vertical&name=my-europe'),
+    ('Euronews', 'https://www.euronews.com/rss?format=mrss&level=vertical&name=green'),
+
+    # 해외 RSS 2차 확대 — 공식 RSS 페이지에서 실제 피드 URL 확인 (2026-08-19)
+    ('The Japan Times', 'https://www.japantimes.co.jp/feed/'),
+    ('The Moscow Times', 'https://www.themoscowtimes.com/rss/news'),
+    ('The Moscow Times', 'https://www.themoscowtimes.com/rss/opinion'),
+    ('China Daily', 'http://www.chinadaily.com.cn/rss/china_rss.xml'),
+    ('China Daily', 'http://www.chinadaily.com.cn/rss/world_rss.xml'),
+    ('China Daily', 'http://www.chinadaily.com.cn/rss/bizchina_rss.xml'),
+    ('Arab News', 'https://www.arabnews.com/rss'),
+    ('U.S. DOE Office of Nuclear Energy', 'https://www.energy.gov/ne/listings/ne-press-releases?view=rss'),
+    ('U.S. Energy Information Administration', 'https://www.eia.gov/rss/todayinenergy.xml'),
+    ('U.S. Energy Information Administration', 'https://www.eia.gov/about/new/WNtest3.php'),
+    ('U.S. Energy Information Administration', 'https://www.eia.gov/rss/press_rss.xml'),
 ]
 
 # ============================================================
@@ -1006,9 +1039,34 @@ DIRECT_NEWS_PAGES = [
 ]
 
 # 매체 수가 늘어난 만큼 목록 페이지는 병렬 처리하되, 각 매체에서 관련 가능성이 있는 기사만 원문 조회합니다.
-DIRECT_PAGE_WORKERS = 16
-DIRECT_PAGE_TIMEOUT_SECONDS = 8
+OVERSEAS_RSS_PUBLISHERS = {
+    "Nuclear News Network",
+    "World Nuclear News",
+    "International Atomic Energy Agency",
+    "U.S. Nuclear Regulatory Commission",
+    "BBC News",
+    "The Guardian",
+    "Deutsche Welle",
+    "Al Jazeera",
+    "France 24",
+    "Euronews",    "The Japan Times",    "The Moscow Times",    "China Daily",    "Arab News",    "U.S. DOE Office of Nuclear Energy",    "U.S. Energy Information Administration",
+}
+
+# 직접수집은 '매체 병렬 x 기사 병렬'이 겹치면 수백 요청이 순간적으로 발생할 수 있으므로
+# 매체/기사 병렬도를 분리하고 전역 HTTP 동시접속 수도 제한합니다.
+DIRECT_SOURCE_WORKERS = 6
+DIRECT_ARTICLE_WORKERS = 6
+DIRECT_HTTP_MAX_CONCURRENCY = 12
+DIRECT_PAGE_TIMEOUT_SECONDS = 10
 DIRECT_PAGE_MAX_LINKS = 400
+DIRECT_FETCH_RETRIES = 2
+DIRECT_RETRY_BACKOFF_SECONDS = 0.6
+DIRECT_SITEMAP_MAX_BYTES = 1_500_000
+DIRECT_SITEMAP_MAX_URLS = 180
+DIRECT_HTTP_SEMAPHORE = threading.BoundedSemaphore(DIRECT_HTTP_MAX_CONCURRENCY)
+
+# 하위 호환용: 기존 코드/로그에서 참조할 수 있어 유지
+DIRECT_PAGE_WORKERS = DIRECT_SOURCE_WORKERS
 
 # 영문 일반매체는 기사 제목에 아래 원전·원자력 후보어가 있으면 원문까지 확인합니다.
 # 최종 기사 포함 여부는 원문 description까지 읽은 뒤 classify_direct_article()에서 다시 판단합니다.
@@ -3663,37 +3721,236 @@ def _extract_direct_article_date(
     return None
 
 
+
+def _direct_request_headers(language: str, referer: str = "") -> dict[str, str]:
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/131.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": (
+            "en-US,en;q=0.9,ko-KR;q=0.7,ko;q=0.6"
+            if language == "en"
+            else "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7"
+        ),
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
+    }
+    if referer:
+        headers["Referer"] = referer
+    return headers
+
+
+def _direct_http_get(
+    url: str,
+    language: str,
+    *,
+    max_bytes: int,
+    referer: str = "",
+) -> tuple[str, bytes, dict[str, str], str | None]:
+    """
+    직접수집 공통 HTTP GET.
+    - 전역 semaphore로 순간 요청 폭주 방지
+    - 일시적 네트워크 오류/429/5xx 재시도
+    - 최종 URL/응답 헤더도 반환해 날짜 보완에 사용
+    """
+    last_error: str | None = None
+
+    for attempt in range(DIRECT_FETCH_RETRIES + 1):
+        try:
+            request = Request(
+                url,
+                headers=_direct_request_headers(language, referer),
+            )
+            with DIRECT_HTTP_SEMAPHORE:
+                with urlopen(request, timeout=DIRECT_PAGE_TIMEOUT_SECONDS) as response:
+                    final_url = response.geturl()
+                    payload = response.read(max_bytes)
+                    headers = {k.lower(): v for k, v in response.headers.items()}
+            return final_url, payload, headers, None
+
+        except Exception as exc:
+            last_error = type(exc).__name__
+            if attempt < DIRECT_FETCH_RETRIES:
+                time.sleep(DIRECT_RETRY_BACKOFF_SECONDS * (attempt + 1))
+
+    return url, b"", {}, last_error
+
+
+def _date_from_http_last_modified(headers: dict[str, str]) -> datetime | None:
+    value = headers.get("last-modified", "").strip()
+    if not value:
+        return None
+    try:
+        dt = parsedate_to_datetime(value)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=KST)
+        return dt.astimezone(KST)
+    except Exception:
+        return None
+
+
+def _date_from_article_url(url: str) -> datetime | None:
+    """
+    메타/JSON-LD 발행일이 없는 사이트의 보조 수단.
+    URL에 명시된 YYYY/MM/DD, YYYY-MM-DD 날짜만 사용하며 임의의 '현재시각'은 넣지 않습니다.
+    """
+    patterns = (
+        r"/(20\d{2})/(\d{1,2})/(\d{1,2})(?:/|[-_.])",
+        r"/(20\d{2})-(\d{1,2})-(\d{1,2})(?:/|[-_.])",
+    )
+    for pattern in patterns:
+        m = re.search(pattern, url)
+        if not m:
+            continue
+        try:
+            return datetime(
+                int(m.group(1)),
+                int(m.group(2)),
+                int(m.group(3)),
+                12, 0,
+                tzinfo=KST,
+            )
+        except ValueError:
+            pass
+    return None
+
+
+def _source_origin(url: str) -> str:
+    parsed = urlparse(url)
+    return f"{parsed.scheme}://{parsed.netloc}" if parsed.scheme and parsed.netloc else ""
+
+
+def _extract_sitemap_urls(xml_text: str, base_url: str) -> list[str]:
+    urls: list[str] = []
+    seen: set[str] = set()
+    for raw in re.findall(r"<loc>\s*(.*?)\s*</loc>", xml_text, flags=re.I | re.S):
+        candidate = html.unescape(re.sub(r"\s+", "", raw)).strip()
+        if not candidate:
+            continue
+        candidate = urljoin(base_url, candidate)
+        if candidate in seen:
+            continue
+        seen.add(candidate)
+        urls.append(candidate)
+        if len(urls) >= DIRECT_SITEMAP_MAX_URLS:
+            break
+    return urls
+
+
+def _sitemap_candidate_links(
+    publisher: str,
+    page_url: str,
+    language: str,
+) -> list[tuple[str, str]]:
+    """
+    목록 HTML에서 기사 링크를 거의 못 찾는 매체를 위한 제한적 보조탐색.
+    대표 sitemap/news-sitemap 엔드포인트만 확인하며 전체 사이트 크롤링은 하지 않습니다.
+    """
+    origin = _source_origin(page_url)
+    if not origin:
+        return []
+
+    sitemap_urls = [
+        urljoin(origin, "/news-sitemap.xml"),
+        urljoin(origin, "/sitemap.xml"),
+        urljoin(origin, "/sitemap_index.xml"),
+        urljoin(origin, "/wp-sitemap.xml"),
+    ]
+
+    article_urls: list[str] = []
+    seen: set[str] = set()
+    child_sitemaps: list[str] = []
+
+    for sitemap_url in sitemap_urls:
+        final_url, payload, _, error = _direct_http_get(
+            sitemap_url,
+            language,
+            max_bytes=DIRECT_SITEMAP_MAX_BYTES,
+            referer=page_url,
+        )
+        if error or not payload:
+            continue
+
+        xml_text = payload.decode("utf-8", errors="ignore")
+        locs = _extract_sitemap_urls(xml_text, final_url)
+        for loc in locs:
+            lower = loc.lower()
+            if lower.endswith(".xml") or "sitemap" in lower:
+                if len(child_sitemaps) < 6:
+                    child_sitemaps.append(loc)
+                continue
+            if loc in seen:
+                continue
+            if _looks_like_article_candidate_url(loc) or _looks_like_article_url(loc, publisher):
+                seen.add(loc)
+                article_urls.append(loc)
+                if len(article_urls) >= DIRECT_SITEMAP_MAX_URLS:
+                    break
+        if article_urls:
+            break
+
+    # sitemap index만 나온 경우 최신 child sitemap 일부만 추가 확인
+    if not article_urls:
+        for child_url in child_sitemaps[:6]:
+            final_url, payload, _, error = _direct_http_get(
+                child_url,
+                language,
+                max_bytes=DIRECT_SITEMAP_MAX_BYTES,
+                referer=page_url,
+            )
+            if error or not payload:
+                continue
+            xml_text = payload.decode("utf-8", errors="ignore")
+            for loc in _extract_sitemap_urls(xml_text, final_url):
+                if loc in seen:
+                    continue
+                if _looks_like_article_candidate_url(loc) or _looks_like_article_url(loc, publisher):
+                    seen.add(loc)
+                    article_urls.append(loc)
+                    if len(article_urls) >= DIRECT_SITEMAP_MAX_URLS:
+                        break
+            if article_urls:
+                break
+
+    # sitemap에는 보통 anchor title이 없으므로 URL slug를 최소 hint로 사용.
+    result: list[tuple[str, str]] = []
+    for url in article_urls:
+        slug = unquote(urlparse(url).path.rstrip("/").split("/")[-1])
+        hint = re.sub(r"[-_]+", " ", slug)
+        hint = re.sub(r"\.[a-zA-Z0-9]{2,5}$", "", hint).strip()
+        result.append((url, hint))
+    return result
+
+
 def _fetch_direct_page_article(
     publisher: str,
     link: str,
     title_hint: str,
     language: str,
     source_url: str,
-) -> Article | None:
+) -> tuple[Article | None, str]:
     """
-    언론사 원문을 직접 열어 제목+description을 확보한 뒤 분류합니다.
-    과거에는 제목만으로 먼저 탈락시켜 영문 원전 기사가 누락될 수 있었습니다.
+    기사 원문을 직접 열어 분류.
+    반환 reason으로 매체별 실제 실패 원인을 집계할 수 있게 합니다.
     """
-    try:
-        request = Request(
-            link,
-            headers={
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/131.0 Safari/537.36",
-                "Accept-Language": "en-US,en;q=0.9,ko-KR;q=0.7,ko;q=0.6" if language == "en"
-                else "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
-            },
-        )
-        with urlopen(request, timeout=DIRECT_PAGE_TIMEOUT_SECONDS) as response:
-            final_url = response.geturl()
-            payload = response.read(ARTICLE_META_MAX_BYTES)
-    except Exception:
-        return None
+    final_url, payload, response_headers, fetch_error = _direct_http_get(
+        link,
+        language,
+        max_bytes=ARTICLE_META_MAX_BYTES,
+        referer=source_url,
+    )
+    if fetch_error or not payload:
+        return None, f"fetch:{fetch_error or 'empty'}"
 
     decoded = payload.decode("utf-8", errors="ignore")
     parser = _MetaTagParser(final_url)
     try:
         parser.feed(decoded)
     except Exception:
+        # 메타 파서가 일부 깨져도 title_hint/HTML 보조값으로 계속 시도
         pass
 
     title = (
@@ -3703,8 +3960,8 @@ def _fetch_direct_page_article(
         or ""
     ).strip()
     title = re.sub(r"\s+", " ", html.unescape(title)).strip()
-    if not title:
-        return None
+    if not title or len(title) < 4:
+        return None, "no_title"
 
     description_raw = (
         parser.values.get("og:description")
@@ -3716,12 +3973,11 @@ def _fetch_direct_page_article(
     if not description:
         description = _best_paragraph_description(parser, title, publisher)
 
-    # 제목만이 아니라 description까지 읽고 최종 분류
     group = classify_direct_article(title, description)
     if group is None:
-        return None
+        return None, "not_relevant"
     if group == "현대건설" and is_hyundai_volleyball_article(title, description):
-        return None
+        return None, "excluded"
 
     published = _extract_direct_article_date(
         parser,
@@ -3729,8 +3985,18 @@ def _fetch_direct_page_article(
         final_url,
         language,
     )
+    date_source = "meta"
+
+    # 일부 해외 사이트는 Article metadata에 발행일을 안 넣습니다.
+    # 이 경우 HTTP Last-Modified -> URL 내 명시적 날짜 순서로만 보완합니다.
     if published is None:
-        return None
+        published = _date_from_http_last_modified(response_headers)
+        date_source = "last_modified"
+    if published is None:
+        published = _date_from_article_url(final_url)
+        date_source = "url"
+    if published is None:
+        return None, "no_date"
 
     jsonld_images = _extract_jsonld_image_candidates(decoded, final_url)
     image = (
@@ -3755,7 +4021,8 @@ def _fetch_direct_page_article(
         image=image,
         source_url=source_url,
         description=description,
-    )
+    ), f"ok:{date_source}"
+
 
 
 def _fetch_one_direct_news_page(
@@ -3764,43 +4031,66 @@ def _fetch_one_direct_news_page(
     language: str,
     start: datetime,
     end: datetime,
-) -> list[Article]:
-    try:
-        request = Request(
-            page_url,
-            headers={
-                "User-Agent": "Mozilla/5.0 (compatible; NuclearDailyBrief/3.0)",
-                "Accept-Language": "en-US,en;q=0.9" if language == "en" else "ko-KR,ko;q=0.9,en;q=0.7",
-            },
-        )
-        with urlopen(request, timeout=DIRECT_PAGE_TIMEOUT_SECONDS) as response:
-            payload = response.read(2_500_000)
-            final_url = response.geturl()
-    except Exception as exc:
-        print(f"[SOURCE PAGE] {publisher} | fetch_error={type(exc).__name__} | url={page_url}")
-        return []
+) -> tuple[list[Article], dict[str, int | str]]:
+    final_url, payload, _, fetch_error = _direct_http_get(
+        page_url,
+        language,
+        max_bytes=2_500_000,
+    )
 
-    decoded = payload.decode("utf-8", errors="ignore")
-    parser = _DirectLinkParser(final_url)
-    try:
-        parser.feed(decoded)
-    except Exception as exc:
-        print(f"[SOURCE PAGE] {publisher} | parse_error={type(exc).__name__} | url={page_url}")
-        return []
+    stats: dict[str, int | str] = {
+        "publisher": publisher,
+        "page_url": page_url,
+        "links": 0,
+        "candidates": 0,
+        "sitemap_candidates": 0,
+        "opened": 0,
+        "accepted": 0,
+        "fetch_errors": 0,
+        "no_title": 0,
+        "not_relevant": 0,
+        "excluded": 0,
+        "no_date": 0,
+        "out_of_range": 0,
+        "ok_meta": 0,
+        "ok_last_modified": 0,
+        "ok_url": 0,
+    }
+
+    if fetch_error or not payload:
+        stats["fetch_errors"] = 1
+        print(
+            f"[SOURCE PAGE] {publisher} | page_fetch={fetch_error or 'empty'} "
+            f"| accepted=0 | url={page_url}"
+        )
+        # 페이지 자체가 막혀도 sitemap은 별도 엔드포인트일 수 있어 한 번 시도
+        parser_links: list[tuple[str, str]] = []
+    else:
+        decoded = payload.decode("utf-8", errors="ignore")
+        parser = _DirectLinkParser(final_url)
+        try:
+            parser.feed(decoded)
+            parser_links = parser.links
+        except Exception as exc:
+            parser_links = []
+            print(
+                f"[SOURCE PAGE] {publisher} | parse_error={type(exc).__name__} "
+                f"| url={page_url}"
+            )
+
+    stats["links"] = len(parser_links)
 
     candidates: list[tuple[str, str]] = []
-    seen = set()
+    seen: set[str] = set()
     is_nuclear_specialist = publisher in NUCLEAR_SPECIALIST_PUBLISHERS
     is_english_energy_page = language == "en" and _english_energy_page(page_url)
     blind_energy_candidates = 0
 
-    for link, title in parser.links:
+    for link, title in parser_links:
         if link in seen or not _looks_like_article_url(link, publisher):
             continue
         seen.add(link)
 
-        # 메뉴/버튼 수준의 너무 짧은 텍스트만 제거.
-        # 원자력 전문매체는 짧은 제목도 실제 기사일 수 있어 기준을 더 느슨하게 둡니다.
         min_title_len = 4 if is_nuclear_specialist else 8
         if len(title.strip()) < min_title_len:
             continue
@@ -3808,7 +4098,6 @@ def _fetch_one_direct_news_page(
         title_lower = html.unescape(title).lower()
 
         if is_nuclear_specialist:
-            # 전문매체는 기사 URL이면 원문까지 확인하여 제목 선필터 누락을 방지
             candidate_ok = True
         elif language == "en":
             candidate_ok = (
@@ -3816,6 +4105,8 @@ def _fetch_one_direct_news_page(
                 or any(term in title_lower for term in ENGLISH_NUCLEAR_CANDIDATE_TERMS)
                 or is_priority_nuclear_market_candidate(title, "")
             )
+            # 영문 에너지/전력 페이지는 제목 선필터를 통과하지 않아도
+            # 기사 URL 형태라면 제한적으로 원문을 확인합니다.
             if (
                 not candidate_ok
                 and is_english_energy_page
@@ -3832,20 +4123,40 @@ def _fetch_one_direct_news_page(
             continue
 
         candidates.append((link, title))
-
-        # 전문 원자력 매체는 더 많은 최신 링크를 확인
         page_limit = 400 if is_nuclear_specialist else DIRECT_PAGE_MAX_LINKS
         if len(candidates) >= page_limit:
             break
 
+    # HTML anchor가 없거나 후보가 너무 적은 해외/전문 페이지는 sitemap을 보조 사용
+    if language == "en" and len(candidates) < 3:
+        sitemap_links = _sitemap_candidate_links(publisher, page_url, language)
+        for link, title in sitemap_links:
+            if link in seen:
+                continue
+            seen.add(link)
+            # 전문매체는 전부 원문 확인, 일반매체는 URL/title에 원전 후보가 있는 것만 우선
+            lower = f"{link} {title}".lower()
+            if (
+                is_nuclear_specialist
+                or any(term in lower for term in ENGLISH_NUCLEAR_CANDIDATE_TERMS)
+                or is_priority_nuclear_market_candidate(title, link)
+            ):
+                candidates.append((link, title))
+                stats["sitemap_candidates"] = int(stats["sitemap_candidates"]) + 1
+            if len(candidates) >= DIRECT_PAGE_MAX_LINKS:
+                break
+
+    stats["candidates"] = len(candidates)
     if not candidates:
-        print(f"[SOURCE PAGE] {publisher} | links={len(parser.links)} | candidates=0 | accepted=0 | url={page_url}")
-        return []
+        print(
+            f"[SOURCE PAGE] {publisher} | links={stats['links']} | candidates=0 "
+            f"| sitemap=0 | accepted=0 | url={page_url}"
+        )
+        return [], stats
 
     articles: list[Article] = []
-    opened = 0
-    article_errors = 0
-    workers = min(DIRECT_PAGE_WORKERS, len(candidates))
+    workers = min(DIRECT_ARTICLE_WORKERS, len(candidates))
+
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = [
             executor.submit(
@@ -3858,40 +4169,122 @@ def _fetch_one_direct_news_page(
             )
             for link, title in candidates
         ]
+
         for future in as_completed(futures):
             try:
-                article = future.result()
-                opened += 1
+                article, reason = future.result()
             except Exception:
-                article_errors += 1
+                stats["fetch_errors"] = int(stats["fetch_errors"]) + 1
                 continue
-            if article and start <= article.published < end:
+
+            stats["opened"] = int(stats["opened"]) + 1
+
+            if reason.startswith("fetch:"):
+                stats["fetch_errors"] = int(stats["fetch_errors"]) + 1
+            elif reason == "no_title":
+                stats["no_title"] = int(stats["no_title"]) + 1
+            elif reason == "not_relevant":
+                stats["not_relevant"] = int(stats["not_relevant"]) + 1
+            elif reason == "excluded":
+                stats["excluded"] = int(stats["excluded"]) + 1
+            elif reason == "no_date":
+                stats["no_date"] = int(stats["no_date"]) + 1
+            elif reason == "ok:meta":
+                stats["ok_meta"] = int(stats["ok_meta"]) + 1
+            elif reason == "ok:last_modified":
+                stats["ok_last_modified"] = int(stats["ok_last_modified"]) + 1
+            elif reason == "ok:url":
+                stats["ok_url"] = int(stats["ok_url"]) + 1
+
+            if article is None:
+                continue
+
+            if start <= article.published < end:
                 articles.append(article)
+            else:
+                stats["out_of_range"] = int(stats["out_of_range"]) + 1
+
+    stats["accepted"] = len(articles)
 
     print(
-        f"[SOURCE PAGE] {publisher} | links={len(parser.links)} | candidates={len(candidates)} "
-        f"| opened={opened} | errors={article_errors} | accepted={len(articles)} | url={page_url}"
+        f"[SOURCE PAGE] {publisher} | links={stats['links']} "
+        f"| candidates={stats['candidates']} | sitemap={stats['sitemap_candidates']} "
+        f"| opened={stats['opened']} | accepted={stats['accepted']} "
+        f"| fetch_err={stats['fetch_errors']} | no_date={stats['no_date']} "
+        f"| irrelevant={stats['not_relevant']} | out_range={stats['out_of_range']} "
+        f"| date(meta/lm/url)={stats['ok_meta']}/{stats['ok_last_modified']}/{stats['ok_url']} "
+        f"| url={page_url}"
     )
-    return articles
+    return articles, stats
+
 
 
 def fetch_direct_news_pages(start: datetime, end: datetime) -> list[Article]:
-    """RSS가 없는 국내외 언론사의 공식 뉴스 목록 페이지를 병렬로 직접 수집합니다."""
+    """
+    RSS가 없거나 RSS 보완이 필요한 국내외 언론사의 공식 페이지 직접수집.
+    매체별 성공/실패 원인을 GitHub Actions 로그에 남깁니다.
+    """
     if not DIRECT_NEWS_PAGES:
         return []
+
     fetched: list[Article] = []
-    workers = min(DIRECT_PAGE_WORKERS, len(DIRECT_NEWS_PAGES))
+    source_stats: list[dict[str, int | str]] = []
+
+    workers = min(DIRECT_SOURCE_WORKERS, len(DIRECT_NEWS_PAGES))
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = [
-            executor.submit(_fetch_one_direct_news_page, publisher, page_url, language, start, end)
+            executor.submit(
+                _fetch_one_direct_news_page,
+                publisher,
+                page_url,
+                language,
+                start,
+                end,
+            )
             for publisher, page_url, language in DIRECT_NEWS_PAGES
         ]
+
         for future in as_completed(futures):
             try:
-                fetched.extend(future.result())
-            except Exception:
-                continue
+                articles, stats = future.result()
+                fetched.extend(articles)
+                source_stats.append(stats)
+            except Exception as exc:
+                print(f"[SOURCE PAGE] unhandled_error={type(exc).__name__}")
+
+    if source_stats:
+        source_count = len(source_stats)
+        successful_sources = sum(int(s.get("accepted", 0)) > 0 for s in source_stats)
+        zero_sources = source_count - successful_sources
+        blocked_or_fetch_failed = sum(int(s.get("fetch_errors", 0)) > 0 for s in source_stats)
+        no_candidate_sources = sum(int(s.get("candidates", 0)) == 0 for s in source_stats)
+        sitemap_helped = sum(int(s.get("sitemap_candidates", 0)) > 0 for s in source_stats)
+        total_opened = sum(int(s.get("opened", 0)) for s in source_stats)
+        total_no_date = sum(int(s.get("no_date", 0)) for s in source_stats)
+
+        print(
+            "[DIRECT SOURCE AUDIT] "
+            f"sources={source_count} | with_articles={successful_sources} "
+            f"| zero={zero_sources} | fetch_error_sources={blocked_or_fetch_failed} "
+            f"| candidates_zero={no_candidate_sources} | sitemap_helped={sitemap_helped} "
+            f"| article_pages_opened={total_opened} | no_date={total_no_date} "
+            f"| accepted={len(fetched)}"
+        )
+
+        # 실제 기사 0건인 매체를 별도 한 줄로 보여 디버깅하기 쉽게 함
+        zero_names = [
+            str(s.get("publisher", ""))
+            for s in source_stats
+            if int(s.get("accepted", 0)) == 0
+        ]
+        if zero_names:
+            preview = ", ".join(zero_names[:80])
+            suffix = f" ... +{len(zero_names)-80}" if len(zero_names) > 80 else ""
+            print(f"[DIRECT ZERO SOURCES] {preview}{suffix}")
+
     return fetched
+
+
 
 def fetch_articles(start: datetime, end: datetime) -> list[Article]:
     """
