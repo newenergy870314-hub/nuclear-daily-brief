@@ -7546,6 +7546,183 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   LIVE WORLD CLOCKS — independent from GitHub Actions
+   ============================================================ */
+.country-map-content {{
+  display:grid;
+  grid-template-columns:74px minmax(0,1fr);
+  gap:8px;
+  align-items:stretch;
+}}
+
+.world-clock-rail {{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:9px;
+  min-width:0;
+}}
+
+.mini-world-clock {{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+}}
+
+.mini-clock-label {{
+  color:#53677f;
+  font-size:9px;
+  line-height:1;
+  font-weight:900;
+  white-space:nowrap;
+}}
+
+.analog-clock {{
+  position:relative;
+  width:48px;
+  height:48px;
+  border:2px solid #9eabba;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:inset 0 0 0 2px #f3f6f9;
+}}
+
+.clock-mark {{
+  position:absolute;
+  background:#738398;
+  border-radius:2px;
+}}
+.mark-12,.mark-6 {{
+  left:50%;
+  width:2px;
+  height:5px;
+  transform:translateX(-50%);
+}}
+.mark-12 {{ top:3px; }}
+.mark-6 {{ bottom:3px; }}
+.mark-3,.mark-9 {{
+  top:50%;
+  width:5px;
+  height:2px;
+  transform:translateY(-50%);
+}}
+.mark-3 {{ right:3px; }}
+.mark-9 {{ left:3px; }}
+
+.clock-hand {{
+  position:absolute;
+  left:50%;
+  bottom:50%;
+  transform-origin:50% 100%;
+  border-radius:999px;
+}}
+.hour-hand {{
+  width:3px;
+  height:13px;
+  margin-left:-1.5px;
+  background:#23395d;
+}}
+.minute-hand {{
+  width:2px;
+  height:17px;
+  margin-left:-1px;
+  background:#405d7e;
+}}
+.second-hand {{
+  width:1px;
+  height:18px;
+  margin-left:-.5px;
+  background:#a64b4b;
+}}
+
+.clock-center {{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#23395d;
+  transform:translate(-50%,-50%);
+}}
+
+.mini-clock-time {{
+  color:#23395d;
+  font-size:9px;
+  line-height:1;
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+}}
+
+.country-map-content .country-map-visual {{
+  width:100%;
+  min-width:0;
+  height:190px;
+}}
+
+@media (max-width:380px) {{
+  .country-map-content {{
+    grid-template-columns:64px minmax(0,1fr);
+    gap:5px;
+  }}
+  .analog-clock {{
+    width:43px;
+    height:43px;
+  }}
+  .mini-clock-label,
+  .mini-clock-time {{
+    font-size:8px;
+  }}
+  .country-map-content .country-map-visual {{
+    height:184px;
+  }}
+}}
+
+
+/* ============================================================
+   MAP TOOLTIP — SLIGHTLY SMALLER / BALANCED
+   ============================================================ */
+.country-map-html-tooltip {{
+  min-height:36px;
+  padding:6px 9px;
+  gap:6px;
+  border-radius:9px;
+}}
+
+.map-tooltip-flag {{
+  font-size:19px !important;
+}}
+
+.map-tooltip-country,
+.map-tooltip-count {{
+  font-size:14px !important;
+  line-height:1.1;
+  font-weight:900;
+}}
+
+.map-tooltip-count {{
+  padding-left:7px;
+  margin-left:1px;
+}}
+
+@media (max-width:380px) {{
+  .country-map-html-tooltip {{
+    min-height:34px;
+    padding:5px 8px;
+    gap:5px;
+  }}
+  .map-tooltip-flag {{
+    font-size:18px !important;
+  }}
+  .map-tooltip-country,
+  .map-tooltip-count {{
+    font-size:13px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -7598,7 +7775,38 @@ header,
       <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
     </div>
 
-    <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
+    <div class="country-map-content">
+      <aside class="world-clock-rail" aria-label="주요 지역 현재 시간">
+        <div class="mini-world-clock" data-timezone="America/New_York">
+          <div class="mini-clock-label">미국 동부</div>
+          <div class="analog-clock" aria-hidden="true">
+            <span class="clock-mark mark-12"></span>
+            <span class="clock-mark mark-3"></span>
+            <span class="clock-mark mark-6"></span>
+            <span class="clock-mark mark-9"></span>
+            <span class="clock-hand hour-hand"></span>
+            <span class="clock-hand minute-hand"></span>
+            <span class="clock-hand second-hand"></span>
+            <span class="clock-center"></span>
+          </div>
+          <div class="mini-clock-time">--:--</div>
+        </div>
+        <div class="mini-world-clock" data-timezone="Europe/Sofia">
+          <div class="mini-clock-label">불가리아</div>
+          <div class="analog-clock" aria-hidden="true">
+            <span class="clock-mark mark-12"></span>
+            <span class="clock-mark mark-3"></span>
+            <span class="clock-mark mark-6"></span>
+            <span class="clock-mark mark-9"></span>
+            <span class="clock-hand hour-hand"></span>
+            <span class="clock-hand minute-hand"></span>
+            <span class="clock-hand second-hand"></span>
+            <span class="clock-center"></span>
+          </div>
+          <div class="mini-clock-time">--:--</div>
+        </div>
+      </aside>
+      <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
       <svg class="world-map-inline" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
           <path d="M0.0,55.2 L0.0,55.2 L13.2,59.8 L16.8,65.0 L14.9,61.9 L17.7,61.7 L23.1,62.3 L28.7,65.0 L26.2,66.9 L23.8,66.1 L24.9,67.4 L19.4,66.5 L22.0,67.3 L21.9,68.8 L18.9,69.8 L21.6,71.0 L19.0,71.6 L18.5,70.3 L17.6,71.3 L12.7,69.8 L9.7,67.1 L4.3,67.4 L4.3,64.3 L1.7,64.4 L2.0,67.1 L0.0,68.7 L0.0,55.2 Z"/>
@@ -8337,6 +8545,7 @@ header,
         기사가 있는 국가만 표시
       </div>
     </div>
+    </div>
 
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
@@ -8798,6 +9007,59 @@ function layoutCountryPins(){{
     }});
   }});
 }}
+
+
+function getTimePartsForZone(timeZone, now=new Date()){{
+  const parts=new Intl.DateTimeFormat("en-US",{{
+    timeZone,
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false
+  }}).formatToParts(now);
+
+  const values={{}};
+  parts.forEach(part=>{{
+    if(part.type!=="literal")values[part.type]=Number(part.value);
+  }});
+
+  return {{
+    hour:values.hour%24,
+    minute:values.minute,
+    second:values.second
+  }};
+}}
+
+function updateWorldClocks(){{
+  const now=new Date();
+
+  document.querySelectorAll(".mini-world-clock[data-timezone]").forEach(clock=>{{
+    const timeZone=clock.dataset.timezone;
+    const parts=getTimePartsForZone(timeZone,now);
+
+    const hourAngle=((parts.hour%12)+(parts.minute/60)+(parts.second/3600))*30;
+    const minuteAngle=(parts.minute+(parts.second/60))*6;
+    const secondAngle=parts.second*6;
+
+    const hourHand=clock.querySelector(".hour-hand");
+    const minuteHand=clock.querySelector(".minute-hand");
+    const secondHand=clock.querySelector(".second-hand");
+    const digital=clock.querySelector(".mini-clock-time");
+
+    if(hourHand)hourHand.style.transform=`rotate(${{hourAngle}}deg)`;
+    if(minuteHand)minuteHand.style.transform=`rotate(${{minuteAngle}}deg)`;
+    if(secondHand)secondHand.style.transform=`rotate(${{secondAngle}}deg)`;
+
+    if(digital){{
+      const hh=String(parts.hour).padStart(2,"0");
+      const mm=String(parts.minute).padStart(2,"0");
+      digital.textContent=`${{hh}}:${{mm}}`;
+    }}
+  }});
+}}
+
+updateWorldClocks();
+setInterval(updateWorldClocks,1000);
 
 function showCountryMapTooltip(x,y,flag,name,count,persistent=false){{
   const tooltip=document.getElementById("country-map-html-tooltip");
