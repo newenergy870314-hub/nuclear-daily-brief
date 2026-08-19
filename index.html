@@ -2653,6 +2653,118 @@ header,
   }
 }
 
+
+/* ============================================================
+   CLOCK UI REFINEMENT — compact / contemporary / consistent
+   ============================================================ */
+.world-clock-rail {
+  gap:12px;
+}
+
+.mini-world-clock {
+  gap:3px;
+}
+
+.mini-clock-label {
+  display:flex;
+  align-items:baseline;
+  justify-content:center;
+  gap:3px;
+  max-width:74px;
+  color:#23395d;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:9px;
+  line-height:1.05;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.mini-clock-label span {
+  color:#7f8b9a;
+  font-size:7.5px;
+  font-weight:800;
+}
+
+.mini-clock-sub {
+  display:none !important;
+}
+
+.clock-num {
+  color:#5a687a;
+  font-family:Arial, "Noto Sans KR", sans-serif !important;
+  font-size:6px;
+  font-weight:700;
+}
+
+.mini-clock-meta {
+  gap:4px;
+}
+
+.mini-clock-day {
+  min-width:23px;
+  background:#eef2f6;
+  color:#53677f;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:7px;
+  font-weight:900;
+}
+
+.mini-clock-time {
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:9px;
+  font-weight:900;
+}
+
+/* ============================================================
+   MAP TOOLTIP — smaller and always above the pointer
+   ============================================================ */
+.country-map-html-tooltip {
+  min-height:32px;
+  padding:5px 8px;
+  gap:5px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(17,24,39,.26);
+}
+
+.map-tooltip-flag {
+  font-size:16px !important;
+}
+
+.map-tooltip-country,
+.map-tooltip-count {
+  font-size:12px !important;
+  line-height:1.1;
+  font-weight:900;
+}
+
+.map-tooltip-count {
+  margin-left:1px;
+  padding-left:6px;
+  border-left:1px solid rgba(255,255,255,.30);
+}
+
+@media (max-width:380px) {
+  .mini-clock-label {
+    max-width:64px;
+    font-size:8.5px;
+  }
+  .mini-clock-label span {
+    font-size:7px;
+  }
+  .country-map-html-tooltip {
+    min-height:30px;
+    padding:4px 7px;
+    gap:4px;
+  }
+  .map-tooltip-flag {
+    font-size:15px !important;
+  }
+  .map-tooltip-country,
+  .map-tooltip-count {
+    font-size:11.5px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2661,7 +2773,7 @@ header,
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
       <div class="topbar-actions">
-        <span class="updated updated-inline">업데이트됨 8.19 11:00 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.19 11:10 KST</span>
         <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
     </div>
@@ -2708,8 +2820,7 @@ header,
     <div class="country-map-content">
       <aside class="world-clock-rail" aria-label="주요 지역 현재 시간">
         <div class="mini-world-clock" data-timezone="America/New_York">
-          <div class="mini-clock-label">뉴욕</div>
-          <div class="mini-clock-sub">미국 동부</div>
+          <div class="mini-clock-label">뉴욕 <span>· 미국 동부</span></div>
           <div class="analog-clock" aria-hidden="true">
             <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
             <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
@@ -2728,8 +2839,7 @@ header,
           </div>
         </div>
         <div class="mini-world-clock" data-timezone="Europe/Sofia">
-          <div class="mini-clock-label">소피아</div>
-          <div class="mini-clock-sub">불가리아</div>
+          <div class="mini-clock-label">소피아 <span>· 불가리아</span></div>
           <div class="analog-clock" aria-hidden="true">
             <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
             <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
@@ -11754,7 +11864,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/aeaac98659e5d2a046061c71.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/6df7d59117850551540bb742.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -16812,7 +16922,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c53e5902d8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c541332d80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -18619,10 +18729,82 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260819000472"
+  data-title="[속보] 한수원, 한울원전 4호기 원자로 자동정지"
+  data-publisher="뉴스핌"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787105340"
+  data-country="KR"
+  data-search="[속보] 한수원, 한울원전 4호기 원자로 자동정지 뉴스핌 한국수력원자력 [세종=뉴스핌] 최영수 선임기자 = 자세한 뉴스는 곧 전해드리겠습니다.dream@newspim.com"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[속보] 한수원, 한울원전 4호기 원자로 자동정지</div>
+      <div class="article-snippet">[세종=뉴스핌] 최영수 선임기자 = 자세한 뉴스는 곧 전해드리겠습니다.dream@newspim.com</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b1012b92d7066c262c86ed5c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hani.co.kr/arti/society/environment/1273531.html"
+  data-title="한울 원전 4호기 자동정지…계획예방정비 마친지 한 달 만"
+  data-publisher="한겨레"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787104800"
+  data-country="KR"
+  data-search="한울 원전 4호기 자동정지…계획예방정비 마친지 한 달 만 한겨레 한국수력원자력 경북 울진에 있는 한울핵발전(원전) 4호기가 계획예방정비를 마치고 재가동한 지 한달 만에 자동정지했다. 원자력안전위원회는 조사단을 파견해 정확한 원인을 조사할 예정이다. 원안위는 19일 오전 8시50분께 한국수력원자력(한수원)으로부터 한울4호기가 자동정지했다는 보고를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한겨레</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울 원전 4호기 자동정지…계획예방정비 마친지 한 달 만</div>
+      <div class="article-snippet">경북 울진에 있는 한울핵발전(원전) 4호기가 계획예방정비를 마치고 재가동한 지 한달 만에 자동정지했다. 원자력안전위원회는 조사단을 파견해 정확한 원인을 조사할 예정이다. 원안위는 19일 오전 8시50분께 한국수력원자력(한수원)으로부터 한울4호기가 자동정지했다는 보고를</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/19f2fc1c2b9435fa2ab2ef32.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=260556"
   data-title="[데일리대구경북뉴스] 한울4호기, 19일 오전 원자로 자동정지"
   data-publisher="데일리대구경북뉴스"
@@ -18635,7 +18817,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18647,13 +18829,49 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울4호기, 19일 오전 원자로 자동정지</div>
+      <div class="headline">[데일리대구경북뉴스] 한울4호기, 19일 오전 원자로 자동정지</div>
       <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)8월 19일 한국수력원자력(주) 한울원자력본부(본부장 이용희, 이하 한울본부)의 한울4호기(100만kW급) 원자로가 자동정지 됐다. 한울원자력본부에 따르면 한울4호기는 8월 19일 오전 8시 50분경 터빈발전기 보호신호로 터빈이 정지됐고, 이어 발전소 보호계통이 동작하여 원자로가 자동정지 된 것으로 파악됐다. 현재 한울원자력</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3e94d63a5635754c1e728c18.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5738"
+  data-title="원자력안전위원회, 한울 4호기 원자로 자동정지 사건조사 착수… 방사선 유출 없어 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787104272"
+  data-country="KR"
+  data-search="원자력안전위원회, 한울 4호기 원자로 자동정지 사건조사 착수… 방사선 유출 없어 - 에너지안전신문 에너지안전신문 한국수력원자력 19일 오전 경상북도 울진군에 위치한 한울 원자력발전소 4호기 원자로가 갑작스럽게 자동정지하는 사건이 발생해 규제당국이 긴급 조사에 나섰다.한국수력원자력(주) 한"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력안전위원회, 한울 4호기 원자로 자동정지 사건조사 착수… 방사선 유출 없어 - 에너지안전신문</div>
+      <div class="article-snippet">19일 오전 경상북도 울진군에 위치한 한울 원자력발전소 4호기 원자로가 갑작스럽게 자동정지하는 사건이 발생해 규제당국이 긴급 조사에 나섰다.한국수력원자력(주) 한</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/de72ff2d403f3b67ed88c4ef.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -18671,7 +18889,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18707,7 +18925,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18743,7 +18961,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18779,7 +18997,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18815,7 +19033,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18851,7 +19069,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18926,7 +19144,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787104800"
+  data-published="1787105400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -19027,7 +19245,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371411"
   data-title="한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련"
   data-publisher="전기신문"
@@ -19052,7 +19270,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련</div>
+      <div class="headline">한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련</div>
       <div class="article-snippet">한전KDN이 올해 을지연습으로 통해 에너지 ICT 분야의 비상사태 발생시 체계를 마련한다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19135,7 +19353,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371415"
   data-title="‘전력, 이제 안보의 영역’…선제적 입법지원 절실"
   data-publisher="전기신문"
@@ -19160,7 +19378,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘전력, 이제 안보의 영역’…선제적 입법지원 절실</div>
+      <div class="headline">‘전력, 이제 안보의 영역’…선제적 입법지원 절실</div>
       <div class="article-snippet">전력망 운영과 공급망 보완, 사이버 안보 등이 얽힌 복합과제 중 하나인 ‘전력안보’를 강화하려면 범정부 차원의 종합전략 마련과 입법적 지원이 필수적인 과제로 제시됐다.이를 위해 전력망 적기 확충을 위한 민간참여 제도화, SOC·전력망 공동건설 활성화, 공공주도 태양광 계획입지 활성화, 데이터센터 계통연계 및 기술기준 의무화, 분산형 무탄소 전원 및 ESS 결합형 데이터센터 육성법 등 법 제·개정이 요구됐다.국가안보전략연구원과 박선원 의원실은 19일 오전 국회에서 ‘전력안보와 산업발전을 위한 입법지원 방안 모색’ 세미나를 열어 전력안보 강화 방안을 모색했다.현재 국회에</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19216,7 +19434,7 @@ header,
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260819105134205"
   data-title="​​​​​​​김정관 산업장관, USTR 대표 면담…&amp;quot;통상관계 적극 대응&amp;quot;"
   data-publisher="아주경제"
@@ -19241,7 +19459,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>​​​​​​​김정관 산업장관, USTR 대표 면담…&amp;quot;통상관계 적극 대응&amp;quot;</div>
+      <div class="headline">​​​​​​​김정관 산업장관, USTR 대표 면담…&amp;quot;통상관계 적극 대응&amp;quot;</div>
       <div class="article-snippet">김정관 산업통상부 장관. [사진=연합뉴스] 여한구 산업통상부 통상교섭본부장의 경질로 통상 수장 자리에 공백이 발생한 가운데 김정관 산업부 장관이 미국에서 대미 전략투자와 관세 문제를 직접 챙기고 나섰다. 기존 카운터파트인 하워드 러트닉 미국 상무장관뿐만 아니라 제이미슨 그리어 미국 무역대표부(USTR) 대표와의 면담에 나서면서 사실상 대미 통상 협상 전면에 나선 모양새다. 19일 산업부에 따르면 김 장관은 지난 16일부터 19일까지 미국 워싱턴DC를 방문해 미 행정부 주요 인사들과 대미 전략투자 프로젝트를 비롯한 양국 산업&amp;middot;통상 현안을 협의하고 있다. 우</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19438,10 +19656,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://biz.chosun.com/policy/policy_sub/2026/08/19/QSNXOPD5ANGOLGZB2BN4OB3JGY/"
+  data-title="김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의"
+  data-publisher="조선비즈"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787105130"
+  data-country="KR"
+  data-search="김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의 조선비즈 원전 대미투자 김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의 그리어 ustr 대표와는 통상현안 논의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">조선비즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의</div>
+      <div class="article-snippet">김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의 그리어 USTR 대표와는 통상현안 논의</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/980011e3bfadc75d9c27829c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.inews24.com/view/1996180"
   data-title="한미연합훈련 축소에 日도 긴장?…방위비 분담, 대미투자 등 압박감"
   data-publisher="아이뉴스24"
@@ -19454,7 +19708,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19466,7 +19720,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한미연합훈련 축소에 日도 긴장?…방위비 분담, 대미투자 등 압박감</div>
+      <div class="headline">한미연합훈련 축소에 日도 긴장?…방위비 분담, 대미투자 등 압박감</div>
       <div class="article-snippet">美 중간선거 앞두고 요구 가능성…&quot;2018년 전례 떠올라&quot; 도널드 트럼프 미국 대통령이 한미연합훈련 축소를 지시한 가운데, 일본 정부 역시 미국의 대일 압력이 커질 가능성에 대비하고 있다. 일본에도 방위비 분담금 인상 등을 요구할 가능성이 있다. 19일 니혼게이자이신문(닛케이)에 따르면 각료 경험이 있는 집권 자민당의 한 관계자는 &quot;또 시작된 것 같다&quot;며 트럼프 1기 행정부 때였던 2018년 미국이 중간선거를 앞두고 안보와 경제 양면에서 동맹국에 압력을 가했던 전례를 상기했다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19477,7 +19731,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260819064300003?section=economy/all"
   data-title="김정관, 미 상무장관과 이틀간 면담…대미 투자 조율 집중 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -19490,7 +19744,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19502,7 +19756,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관, 미 상무장관과 이틀간 면담…대미 투자 조율 집중 | 연합뉴스</div>
+      <div class="headline">김정관, 미 상무장관과 이틀간 면담…대미 투자 조율 집중 | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 장보인 기자 = 미국을 방문 중인 김정관 산업통상부 장관이 지난 17∼18일 하워드 러트닉 미 상무장관과 면담해 대미 전략투자...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19526,7 +19780,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19562,7 +19816,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19598,7 +19852,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19634,7 +19888,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19670,7 +19924,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19706,7 +19960,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19742,7 +19996,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19778,7 +20032,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19814,7 +20068,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19843,10 +20097,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">15건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260819000467"
+  data-title="한울원전4호기 정상운전 중 원자로 자동정지…상세원인 조사 중"
+  data-publisher="뉴스핌"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787105220"
+  data-country="KR"
+  data-search="한울원전4호기 정상운전 중 원자로 자동정지…상세원인 조사 중 뉴스핌 원자력 [울진=뉴스핌] 남효선 기자 = 정상 운전 중이던 경북 울진의 한울원전 4호기가 원자로 자동 정지되면서 가동이 멈췄다. 한울원전 본부가 원인 조사에 들어갔다.19일 원자력안전위원회 한울지역사무소와 한울원전민간감시센터 등에 따르면 이날 오전 8시 50분쯤 한울원전 4호기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울원전4호기 정상운전 중 원자로 자동정지…상세원인 조사 중</div>
+      <div class="article-snippet">[울진=뉴스핌] 남효선 기자 = 정상 운전 중이던 경북 울진의 한울원전 4호기가 원자로 자동 정지되면서 가동이 멈췄다. 한울원전 본부가 원인 조사에 들어갔다.19일 원자력안전위원회 한울지역사무소와 한울원전민간감시센터 등에 따르면 이날 오전 8시 50분쯤 한울원전 4호기</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/542a62cb5d17695a0ebade52.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260819_0003753447"
   data-title="친환경차·내연기관차 검사기준 따로…국토부, 시행규칙 개정"
   data-publisher="뉴시스"
@@ -19859,7 +20149,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19871,7 +20161,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>친환경차·내연기관차 검사기준 따로…국토부, 시행규칙 개정</div>
+      <div class="headline">친환경차·내연기관차 검사기준 따로…국토부, 시행규칙 개정</div>
       <div class="article-snippet">[서울=뉴시스] 변해정 기자 = 친환경차와 내연기관차의 차량 특성에 맞게 검사 기준이 분리된다. 국토교통부는 이같은 내용의 자동차관리법 시행규칙 개정안을 입법예고 한다고 19일 밝혔다. 이 개정안은 친환경차 보급 확대 추세에 맞춰 차량 안전 관리를 강화하는 내용이 담겼다. 친환경차와 내연기관차에 대한 자동차 검사 기준을 별도로 규정하기로 했다. 구동 방식과 장치 등에 큰 차이가 있는데도 그동안 그 기준을 명확히 알 수 없었다. 친환경차는 고전원전기장치와 주행·제동장치 등 21개, 내연기관차는 원동기와 연료장치 등 24개 항목으로 구분해 규정하게 된다. 자동차 제작자</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -19895,7 +20185,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19931,7 +20221,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -19967,7 +20257,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20003,7 +20293,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20039,7 +20329,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20075,7 +20365,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20111,7 +20401,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20134,7 +20424,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260819094542895"
   data-title="전기차 검사 때 배터리 상태 확인 강화…&amp;quot;내연기관차와 기준 분리&amp;quot;"
   data-publisher="아주경제"
@@ -20147,7 +20437,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20159,7 +20449,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>전기차 검사 때 배터리 상태 확인 강화…&amp;quot;내연기관차와 기준 분리&amp;quot;</div>
+      <div class="headline">전기차 검사 때 배터리 상태 확인 강화…&amp;quot;내연기관차와 기준 분리&amp;quot;</div>
       <div class="article-snippet">국토교통부 세종청사 전경. [사진=연합뉴스] 전기차 등 친환경차의 자동차 검사기준이 내연기관차와 분리된다. 전기차 배터리 상태를 검사하는 데 필요한 진단정보의 범위와 제출 시기도 구체화된다. &amp;nbsp; 국토교통부는 이 같은 내용을 담은 &amp;lsquo;자동차관리법 시행규칙&amp;rsquo; 개정안을 오는 20일부터 다음 달 30일까지 입법예고한다고 19일 밝혔다. &amp;nbsp; 정부는 친환경차와 내연기관차의 구동방식과 주요 장치가 다른 점을 고려해 신규&amp;middot;정기검사 기준을 각각 마련한다. 내연기관차에는 원동기와 연료장치, 주행&amp;middot;제동장치 등 24개 검사항목</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -20183,7 +20473,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20219,7 +20509,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20255,7 +20545,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20291,7 +20581,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20327,7 +20617,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20359,7 +20649,7 @@ header,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.snmnews.com/news/articleView.html?idxno=573504"
   data-title="금속 적층제조, 원자력·우주항공 적용 확대 논의"
   data-publisher="철강금속신문"
@@ -20384,7 +20674,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>금속 적층제조, 원자력·우주항공 적용 확대 논의</div>
+      <div class="headline">금속 적층제조, 원자력·우주항공 적용 확대 논의</div>
       <div class="article-snippet">금속 적층제조 기술의 미세조직 제어와 산업 적용 방안을 논의하는 자리가 부산에서 열린다.대한용접·접합학회 용접야금연구위원회와 적층제조연구위원회, SMR 3D프린팅 제작지원센터는 오는 20일부터 21일까지 부산 호텔농심 대청홀에서 ‘금속 적층제조의 미세조직 제어와 산업 적용’을 주제로 2026 공동 심포지엄을 개최한다. 행사는 포스코가 후원한다.이번 심포지엄에서는 금속 적층제조 과정에서 형성되는 미세조직과 기계적 특성의 상관관계를 살펴보고 소재·공정·인공지능(AI)·전산해석 기술을 활용한 품질 향상 방안을 공유한다. 원자력과 우주항공</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -20599,9 +20889,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">TerraPower</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=371393"
+  data-title="테라파워에 HD현대가 왜?…4세대 SMR이 허문 장벽"
+  data-publisher="전기신문"
+  data-group="TerraPower"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787136636"
+  data-country="KR"
+  data-search="테라파워에 hd현대가 왜?…4세대 smr이 허문 장벽 전기신문 terrapower 한국에서 원전 주기기 제작은 오랫동안 두산에너빌리티의 몫이었다. 대형 단조설비와 까다로운 품질 기준 등 높은 진입장벽 탓에 새로운 사업자가 뛰어들기도 쉽지 않았다. 그런데 빌 게이츠가 설립한 미국 테라파워의 원전 공급망에 hd현대가 이름을 올렸다. 4세대 소형모듈원자로(smr)의 등장이 원전 제조업의 경계를 무너뜨린 장면이다.hd현대가 원자로 제작에 첫발을 디딜 수 있었던 것은 테라파워가 개발한 ‘나트륨(natrium)’ 원자로의 특성 때문이다. natrium은 물 대신 액체 나트륨을 냉각재로 사용해 낮은 압력에서 운전하는 소듐냉각고속로(sfr)다. sfr은 4세대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>테라파워에 HD현대가 왜?…4세대 SMR이 허문 장벽</div>
+      <div class="article-snippet">한국에서 원전 주기기 제작은 오랫동안 두산에너빌리티의 몫이었다. 대형 단조설비와 까다로운 품질 기준 등 높은 진입장벽 탓에 새로운 사업자가 뛰어들기도 쉽지 않았다. 그런데 빌 게이츠가 설립한 미국 테라파워의 원전 공급망에 HD현대가 이름을 올렸다. 4세대 소형모듈원자로(SMR)의 등장이 원전 제조업의 경계를 무너뜨린 장면이다.HD현대가 원자로 제작에 첫발을 디딜 수 있었던 것은 테라파워가 개발한 ‘나트륨(NATRIUM)’ 원자로의 특성 때문이다. NATRIUM은 물 대신 액체 나트륨을 냉각재로 사용해 낮은 압력에서 운전하는 소듐냉각고속로(SFR)다. SFR은 4세대</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8d86a0b3194361fce58b3cbd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.greened.kr/news/articleView.html?idxno=347912"
   data-title="빌 게이츠가 찜한 K원전…SMR ‘양산 체제’ 시동"
@@ -20615,7 +20941,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20651,7 +20977,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20909,10 +21235,82 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260819000472"
+  data-title="[속보] 한수원, 한울원전 4호기 원자로 자동정지"
+  data-publisher="뉴스핌"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787105340"
+  data-country="KR"
+  data-search="[속보] 한수원, 한울원전 4호기 원자로 자동정지 뉴스핌 한국수력원자력 [세종=뉴스핌] 최영수 선임기자 = 자세한 뉴스는 곧 전해드리겠습니다.dream@newspim.com"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[속보] 한수원, 한울원전 4호기 원자로 자동정지</div>
+      <div class="article-snippet">[세종=뉴스핌] 최영수 선임기자 = 자세한 뉴스는 곧 전해드리겠습니다.dream@newspim.com</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b1012b92d7066c262c86ed5c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hani.co.kr/arti/society/environment/1273531.html"
+  data-title="한울 원전 4호기 자동정지…계획예방정비 마친지 한 달 만"
+  data-publisher="한겨레"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787104800"
+  data-country="KR"
+  data-search="한울 원전 4호기 자동정지…계획예방정비 마친지 한 달 만 한겨레 한국수력원자력 경북 울진에 있는 한울핵발전(원전) 4호기가 계획예방정비를 마치고 재가동한 지 한달 만에 자동정지했다. 원자력안전위원회는 조사단을 파견해 정확한 원인을 조사할 예정이다. 원안위는 19일 오전 8시50분께 한국수력원자력(한수원)으로부터 한울4호기가 자동정지했다는 보고를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한겨레</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울 원전 4호기 자동정지…계획예방정비 마친지 한 달 만</div>
+      <div class="article-snippet">경북 울진에 있는 한울핵발전(원전) 4호기가 계획예방정비를 마치고 재가동한 지 한달 만에 자동정지했다. 원자력안전위원회는 조사단을 파견해 정확한 원인을 조사할 예정이다. 원안위는 19일 오전 8시50분께 한국수력원자력(한수원)으로부터 한울4호기가 자동정지했다는 보고를</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/19f2fc1c2b9435fa2ab2ef32.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=260556"
   data-title="[데일리대구경북뉴스] 한울4호기, 19일 오전 원자로 자동정지"
   data-publisher="데일리대구경북뉴스"
@@ -20925,7 +21323,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20937,13 +21335,49 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울4호기, 19일 오전 원자로 자동정지</div>
+      <div class="headline">[데일리대구경북뉴스] 한울4호기, 19일 오전 원자로 자동정지</div>
       <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)8월 19일 한국수력원자력(주) 한울원자력본부(본부장 이용희, 이하 한울본부)의 한울4호기(100만kW급) 원자로가 자동정지 됐다. 한울원자력본부에 따르면 한울4호기는 8월 19일 오전 8시 50분경 터빈발전기 보호신호로 터빈이 정지됐고, 이어 발전소 보호계통이 동작하여 원자로가 자동정지 된 것으로 파악됐다. 현재 한울원자력</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3e94d63a5635754c1e728c18.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5738"
+  data-title="원자력안전위원회, 한울 4호기 원자로 자동정지 사건조사 착수… 방사선 유출 없어 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787104272"
+  data-country="KR"
+  data-search="원자력안전위원회, 한울 4호기 원자로 자동정지 사건조사 착수… 방사선 유출 없어 - 에너지안전신문 에너지안전신문 한국수력원자력 19일 오전 경상북도 울진군에 위치한 한울 원자력발전소 4호기 원자로가 갑작스럽게 자동정지하는 사건이 발생해 규제당국이 긴급 조사에 나섰다.한국수력원자력(주) 한"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력안전위원회, 한울 4호기 원자로 자동정지 사건조사 착수… 방사선 유출 없어 - 에너지안전신문</div>
+      <div class="article-snippet">19일 오전 경상북도 울진군에 위치한 한울 원자력발전소 4호기 원자로가 갑작스럽게 자동정지하는 사건이 발생해 규제당국이 긴급 조사에 나섰다.한국수력원자력(주) 한</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/de72ff2d403f3b67ed88c4ef.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -20961,7 +21395,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20997,7 +21431,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21033,7 +21467,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21069,7 +21503,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21105,7 +21539,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21141,7 +21575,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21216,7 +21650,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787104800"
+  data-published="1787105400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -21317,7 +21751,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371411"
   data-title="한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련"
   data-publisher="전기신문"
@@ -21342,7 +21776,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련</div>
+      <div class="headline">한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련</div>
       <div class="article-snippet">한전KDN이 올해 을지연습으로 통해 에너지 ICT 분야의 비상사태 발생시 체계를 마련한다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -21425,7 +21859,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371415"
   data-title="‘전력, 이제 안보의 영역’…선제적 입법지원 절실"
   data-publisher="전기신문"
@@ -21450,7 +21884,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘전력, 이제 안보의 영역’…선제적 입법지원 절실</div>
+      <div class="headline">‘전력, 이제 안보의 영역’…선제적 입법지원 절실</div>
       <div class="article-snippet">전력망 운영과 공급망 보완, 사이버 안보 등이 얽힌 복합과제 중 하나인 ‘전력안보’를 강화하려면 범정부 차원의 종합전략 마련과 입법적 지원이 필수적인 과제로 제시됐다.이를 위해 전력망 적기 확충을 위한 민간참여 제도화, SOC·전력망 공동건설 활성화, 공공주도 태양광 계획입지 활성화, 데이터센터 계통연계 및 기술기준 의무화, 분산형 무탄소 전원 및 ESS 결합형 데이터센터 육성법 등 법 제·개정이 요구됐다.국가안보전략연구원과 박선원 의원실은 19일 오전 국회에서 ‘전력안보와 산업발전을 위한 입법지원 방안 모색’ 세미나를 열어 전력안보 강화 방안을 모색했다.현재 국회에</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -21506,7 +21940,7 @@ header,
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260819105134205"
   data-title="​​​​​​​김정관 산업장관, USTR 대표 면담…&amp;quot;통상관계 적극 대응&amp;quot;"
   data-publisher="아주경제"
@@ -21531,7 +21965,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>​​​​​​​김정관 산업장관, USTR 대표 면담…&amp;quot;통상관계 적극 대응&amp;quot;</div>
+      <div class="headline">​​​​​​​김정관 산업장관, USTR 대표 면담…&amp;quot;통상관계 적극 대응&amp;quot;</div>
       <div class="article-snippet">김정관 산업통상부 장관. [사진=연합뉴스] 여한구 산업통상부 통상교섭본부장의 경질로 통상 수장 자리에 공백이 발생한 가운데 김정관 산업부 장관이 미국에서 대미 전략투자와 관세 문제를 직접 챙기고 나섰다. 기존 카운터파트인 하워드 러트닉 미국 상무장관뿐만 아니라 제이미슨 그리어 미국 무역대표부(USTR) 대표와의 면담에 나서면서 사실상 대미 통상 협상 전면에 나선 모양새다. 19일 산업부에 따르면 김 장관은 지난 16일부터 19일까지 미국 워싱턴DC를 방문해 미 행정부 주요 인사들과 대미 전략투자 프로젝트를 비롯한 양국 산업&amp;middot;통상 현안을 협의하고 있다. 우</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -21728,10 +22162,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://biz.chosun.com/policy/policy_sub/2026/08/19/QSNXOPD5ANGOLGZB2BN4OB3JGY/"
+  data-title="김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의"
+  data-publisher="조선비즈"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787105130"
+  data-country="KR"
+  data-search="김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의 조선비즈 원전 대미투자 김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의 그리어 ustr 대표와는 통상현안 논의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">조선비즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의</div>
+      <div class="article-snippet">김정관 산업부 장관, 17~18일 이틀간 美 상무장관 만나 대미 투자 프로젝트 논의 그리어 USTR 대표와는 통상현안 논의</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/980011e3bfadc75d9c27829c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.inews24.com/view/1996180"
   data-title="한미연합훈련 축소에 日도 긴장?…방위비 분담, 대미투자 등 압박감"
   data-publisher="아이뉴스24"
@@ -21744,7 +22214,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21756,7 +22226,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한미연합훈련 축소에 日도 긴장?…방위비 분담, 대미투자 등 압박감</div>
+      <div class="headline">한미연합훈련 축소에 日도 긴장?…방위비 분담, 대미투자 등 압박감</div>
       <div class="article-snippet">美 중간선거 앞두고 요구 가능성…&quot;2018년 전례 떠올라&quot; 도널드 트럼프 미국 대통령이 한미연합훈련 축소를 지시한 가운데, 일본 정부 역시 미국의 대일 압력이 커질 가능성에 대비하고 있다. 일본에도 방위비 분담금 인상 등을 요구할 가능성이 있다. 19일 니혼게이자이신문(닛케이)에 따르면 각료 경험이 있는 집권 자민당의 한 관계자는 &quot;또 시작된 것 같다&quot;며 트럼프 1기 행정부 때였던 2018년 미국이 중간선거를 앞두고 안보와 경제 양면에서 동맹국에 압력을 가했던 전례를 상기했다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -21767,7 +22237,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260819064300003?section=economy/all"
   data-title="김정관, 미 상무장관과 이틀간 면담…대미 투자 조율 집중 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -21780,7 +22250,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21792,7 +22262,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관, 미 상무장관과 이틀간 면담…대미 투자 조율 집중 | 연합뉴스</div>
+      <div class="headline">김정관, 미 상무장관과 이틀간 면담…대미 투자 조율 집중 | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 장보인 기자 = 미국을 방문 중인 김정관 산업통상부 장관이 지난 17∼18일 하워드 러트닉 미 상무장관과 면담해 대미 전략투자...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -21816,7 +22286,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21852,7 +22322,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21888,7 +22358,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21924,7 +22394,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21960,7 +22430,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -21996,7 +22466,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22032,7 +22502,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22068,7 +22538,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22104,7 +22574,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22133,10 +22603,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">15건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260819000467"
+  data-title="한울원전4호기 정상운전 중 원자로 자동정지…상세원인 조사 중"
+  data-publisher="뉴스핌"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787105220"
+  data-country="KR"
+  data-search="한울원전4호기 정상운전 중 원자로 자동정지…상세원인 조사 중 뉴스핌 원자력 [울진=뉴스핌] 남효선 기자 = 정상 운전 중이던 경북 울진의 한울원전 4호기가 원자로 자동 정지되면서 가동이 멈췄다. 한울원전 본부가 원인 조사에 들어갔다.19일 원자력안전위원회 한울지역사무소와 한울원전민간감시센터 등에 따르면 이날 오전 8시 50분쯤 한울원전 4호기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울원전4호기 정상운전 중 원자로 자동정지…상세원인 조사 중</div>
+      <div class="article-snippet">[울진=뉴스핌] 남효선 기자 = 정상 운전 중이던 경북 울진의 한울원전 4호기가 원자로 자동 정지되면서 가동이 멈췄다. 한울원전 본부가 원인 조사에 들어갔다.19일 원자력안전위원회 한울지역사무소와 한울원전민간감시센터 등에 따르면 이날 오전 8시 50분쯤 한울원전 4호기</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/542a62cb5d17695a0ebade52.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260819_0003753447"
   data-title="친환경차·내연기관차 검사기준 따로…국토부, 시행규칙 개정"
   data-publisher="뉴시스"
@@ -22149,7 +22655,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22161,7 +22667,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>친환경차·내연기관차 검사기준 따로…국토부, 시행규칙 개정</div>
+      <div class="headline">친환경차·내연기관차 검사기준 따로…국토부, 시행규칙 개정</div>
       <div class="article-snippet">[서울=뉴시스] 변해정 기자 = 친환경차와 내연기관차의 차량 특성에 맞게 검사 기준이 분리된다. 국토교통부는 이같은 내용의 자동차관리법 시행규칙 개정안을 입법예고 한다고 19일 밝혔다. 이 개정안은 친환경차 보급 확대 추세에 맞춰 차량 안전 관리를 강화하는 내용이 담겼다. 친환경차와 내연기관차에 대한 자동차 검사 기준을 별도로 규정하기로 했다. 구동 방식과 장치 등에 큰 차이가 있는데도 그동안 그 기준을 명확히 알 수 없었다. 친환경차는 고전원전기장치와 주행·제동장치 등 21개, 내연기관차는 원동기와 연료장치 등 24개 항목으로 구분해 규정하게 된다. 자동차 제작자</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -22185,7 +22691,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22221,7 +22727,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22257,7 +22763,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22293,7 +22799,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22329,7 +22835,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22365,7 +22871,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22401,7 +22907,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22424,7 +22930,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260819094542895"
   data-title="전기차 검사 때 배터리 상태 확인 강화…&amp;quot;내연기관차와 기준 분리&amp;quot;"
   data-publisher="아주경제"
@@ -22437,7 +22943,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22449,7 +22955,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>전기차 검사 때 배터리 상태 확인 강화…&amp;quot;내연기관차와 기준 분리&amp;quot;</div>
+      <div class="headline">전기차 검사 때 배터리 상태 확인 강화…&amp;quot;내연기관차와 기준 분리&amp;quot;</div>
       <div class="article-snippet">국토교통부 세종청사 전경. [사진=연합뉴스] 전기차 등 친환경차의 자동차 검사기준이 내연기관차와 분리된다. 전기차 배터리 상태를 검사하는 데 필요한 진단정보의 범위와 제출 시기도 구체화된다. &amp;nbsp; 국토교통부는 이 같은 내용을 담은 &amp;lsquo;자동차관리법 시행규칙&amp;rsquo; 개정안을 오는 20일부터 다음 달 30일까지 입법예고한다고 19일 밝혔다. &amp;nbsp; 정부는 친환경차와 내연기관차의 구동방식과 주요 장치가 다른 점을 고려해 신규&amp;middot;정기검사 기준을 각각 마련한다. 내연기관차에는 원동기와 연료장치, 주행&amp;middot;제동장치 등 24개 검사항목</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -22473,7 +22979,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22509,7 +23015,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22545,7 +23051,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22581,7 +23087,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22617,7 +23123,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22649,7 +23155,7 @@ header,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.snmnews.com/news/articleView.html?idxno=573504"
   data-title="금속 적층제조, 원자력·우주항공 적용 확대 논의"
   data-publisher="철강금속신문"
@@ -22674,7 +23180,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>금속 적층제조, 원자력·우주항공 적용 확대 논의</div>
+      <div class="headline">금속 적층제조, 원자력·우주항공 적용 확대 논의</div>
       <div class="article-snippet">금속 적층제조 기술의 미세조직 제어와 산업 적용 방안을 논의하는 자리가 부산에서 열린다.대한용접·접합학회 용접야금연구위원회와 적층제조연구위원회, SMR 3D프린팅 제작지원센터는 오는 20일부터 21일까지 부산 호텔농심 대청홀에서 ‘금속 적층제조의 미세조직 제어와 산업 적용’을 주제로 2026 공동 심포지엄을 개최한다. 행사는 포스코가 후원한다.이번 심포지엄에서는 금속 적층제조 과정에서 형성되는 미세조직과 기계적 특성의 상관관계를 살펴보고 소재·공정·인공지능(AI)·전산해석 기술을 활용한 품질 향상 방안을 공유한다. 원자력과 우주항공</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -22889,9 +23395,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">TerraPower</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=371393"
+  data-title="테라파워에 HD현대가 왜?…4세대 SMR이 허문 장벽"
+  data-publisher="전기신문"
+  data-group="TerraPower"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787136636"
+  data-country="KR"
+  data-search="테라파워에 hd현대가 왜?…4세대 smr이 허문 장벽 전기신문 terrapower 한국에서 원전 주기기 제작은 오랫동안 두산에너빌리티의 몫이었다. 대형 단조설비와 까다로운 품질 기준 등 높은 진입장벽 탓에 새로운 사업자가 뛰어들기도 쉽지 않았다. 그런데 빌 게이츠가 설립한 미국 테라파워의 원전 공급망에 hd현대가 이름을 올렸다. 4세대 소형모듈원자로(smr)의 등장이 원전 제조업의 경계를 무너뜨린 장면이다.hd현대가 원자로 제작에 첫발을 디딜 수 있었던 것은 테라파워가 개발한 ‘나트륨(natrium)’ 원자로의 특성 때문이다. natrium은 물 대신 액체 나트륨을 냉각재로 사용해 낮은 압력에서 운전하는 소듐냉각고속로(sfr)다. sfr은 4세대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>테라파워에 HD현대가 왜?…4세대 SMR이 허문 장벽</div>
+      <div class="article-snippet">한국에서 원전 주기기 제작은 오랫동안 두산에너빌리티의 몫이었다. 대형 단조설비와 까다로운 품질 기준 등 높은 진입장벽 탓에 새로운 사업자가 뛰어들기도 쉽지 않았다. 그런데 빌 게이츠가 설립한 미국 테라파워의 원전 공급망에 HD현대가 이름을 올렸다. 4세대 소형모듈원자로(SMR)의 등장이 원전 제조업의 경계를 무너뜨린 장면이다.HD현대가 원자로 제작에 첫발을 디딜 수 있었던 것은 테라파워가 개발한 ‘나트륨(NATRIUM)’ 원자로의 특성 때문이다. NATRIUM은 물 대신 액체 나트륨을 냉각재로 사용해 낮은 압력에서 운전하는 소듐냉각고속로(SFR)다. SFR은 4세대</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8d86a0b3194361fce58b3cbd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.greened.kr/news/articleView.html?idxno=347912"
   data-title="빌 게이츠가 찜한 K원전…SMR ‘양산 체제’ 시동"
@@ -22905,7 +23447,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22941,7 +23483,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28309,7 +28851,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/aeaac98659e5d2a046061c71.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/6df7d59117850551540bb742.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -33367,7 +33909,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c53e5902d8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c541332d80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -104891,7 +105433,7 @@ function dayRelationToKorea(parts,koreaParts){
   const diff=localDateSerial(parts)-localDateSerial(koreaParts);
   if(diff<0)return "전일";
   if(diff>0)return "익일";
-  return "동일";
+  return "당일";
 }
 
 function updateWorldClocks(){
@@ -104942,25 +105484,23 @@ function showCountryMapTooltip(x,y,flag,name,count,persistent=false){
   tooltip.classList.add("visible");
   tooltip.classList.toggle("persistent",persistent);
 
-  // First place it at the geographic point, then measure the real HTML box.
   const visualRect=visual.getBoundingClientRect();
   const pointX=(x/1000)*visualRect.width;
   const pointY=(y/500)*visualRect.height;
 
   requestAnimationFrame(()=>{
     const tipRect=tooltip.getBoundingClientRect();
-    const margin=8;
-    const gap=13;
+    const margin=7;
+    const gap=14;
 
-    // Horizontal: clamp inside the map so edge countries never cut off.
+    // Keep the tooltip horizontally inside the map.
     let left=pointX-tipRect.width/2;
     left=Math.max(margin,Math.min(left,visualRect.width-tipRect.width-margin));
 
-    // Vertical: prefer above the point; if near the top, show below it.
+    // Always prefer ABOVE the point/cursor.
+    // If the point is very close to the top edge, pin the tooltip to the top
+    // instead of flipping it underneath the cursor.
     let top=pointY-tipRect.height-gap;
-    if(top<margin){
-      top=pointY+gap;
-    }
     top=Math.max(margin,Math.min(top,visualRect.height-tipRect.height-margin));
 
     tooltip.style.left=`${left}px`;
