@@ -1,8 +1,10 @@
-# VERIFIED FINAL BUILD 2026-08-10
+# VERIFIED FINAL BUILD 2026-08-19
+# Overseas fix: EN articles → Nuclear Power·Nuclear Energy, URL date regex,
+# ANS URL filter, faster shard rotation (2), higher EN candidate limits.
 # Includes Hyundai volleyball exclusion (배구/여자배구/김연경), same-event dedup,
 # article preview fallback, thumbnail caching/centering, newspaper-style UI,
 # and removes the old periodic-update notice from the UI.
-# Final media/dedup build v7 - 2026-08-10
+# Final media/dedup build v7 - 2026-08-10 / overseas patch 2026-08-19
 from __future__ import annotations
 
 import html
@@ -662,7 +664,7 @@ DIRECT_NEWS_PAGES = [
     # ─────────────────────────────────────────────
     ("World Nuclear News", "https://www.world-nuclear-news.org/", "en"),
     ("Nuclear Engineering International", "https://www.neimagazine.com/news/", "en"),
-    ("NucNet", "https://www.nucnet.org/search", "en"),
+    ("NucNet", "https://www.nucnet.org/news", "en"),
     ("POWER Magazine", "https://www.powermag.com/", "en"),
     ("Power Engineering", "https://www.power-eng.com/", "en"),
     ("Utility Dive", "https://www.utilitydive.com/", "en"),
@@ -1032,12 +1034,12 @@ DIRECT_HTTP_MAX_CONCURRENCY = 18
 DIRECT_PAGE_TIMEOUT_SECONDS = 7
 DIRECT_PAGE_MAX_LINKS = 400
 # 5분마다 모든 직접수집 페이지를 깊게 재검사하면 시간이 급증하므로
-# 4개 shard로 나눠 20분 내 전체 1회 순환합니다. RSS는 매 실행 전체 수집합니다.
-DIRECT_ROTATION_SHARDS = 4
+# 2개 shard로 나눠 약 10분 내 전체 1회 순환합니다. RSS는 매 실행 전체 수집합니다.
+DIRECT_ROTATION_SHARDS = 2
 DIRECT_FULL_SCAN = os.getenv("DIRECT_FULL_SCAN", "0") == "1"
-DIRECT_GENERAL_CANDIDATE_LIMIT = 45
-DIRECT_SPECIALIST_CANDIDATE_LIMIT = 80
-DIRECT_BLIND_ENERGY_LIMIT = 35
+DIRECT_GENERAL_CANDIDATE_LIMIT = 60
+DIRECT_SPECIALIST_CANDIDATE_LIMIT = 100
+DIRECT_BLIND_ENERGY_LIMIT = 50
 
 # 매 5분 확인할 핵심 해외/원전 전문 매체. 나머지는 4개 shard 순환.
 DIRECT_ALWAYS_PUBLISHERS = {
@@ -1061,6 +1063,20 @@ DIRECT_ALWAYS_PUBLISHERS = {
     "Deutsche Welle",
     "Al Jazeera",
     "France 24",
+    "The Japan Times",
+    "The Moscow Times",
+    "NucNet",
+    "Nuclear Engineering International",
+    "American Nuclear Society",
+    "oEnergetice.cz",
+    "Interesting Engineering",
+    "OilPrice.com",
+    "The Korea Herald",
+    "The Korea Times",
+    "Korea JoongAng Daily",
+    "Financial Times",
+    "CNBC",
+    "Axios",
 }
 DIRECT_FETCH_RETRIES = 1
 DIRECT_RETRY_BACKOFF_SECONDS = 0.35
@@ -1182,8 +1198,9 @@ def _english_energy_page(page_url: str) -> bool:
 def _looks_like_article_candidate_url(url: str) -> bool:
     lower = url.lower()
     return bool(
-        re.search(r"/20\\d{2}/\\d{1,2}/\\d{1,2}/", lower)
-        or re.search(r"/20\\d{2}/\\d{1,2}/", lower)
+        # 날짜형 URL: /2024/08/19/ 또는 /2024/08/
+        re.search(r"/20\d{2}/\d{1,2}/\d{1,2}/", lower)
+        or re.search(r"/20\d{2}/\d{1,2}/", lower)
         or any(token in lower for token in (
             "/article/", "/articles/", "/news/", "/story/", "/stories/",
             "/analysis/", "/features/", ".html",
@@ -1271,11 +1288,13 @@ DIRECT_GROUP_KEYWORDS = {
         "nuclear power", "nuclear energy", "nuclear power plant",
         "nuclear construction", "nuclear project", "nuclear new build",
         "new nuclear build",
+        # 영문 단독 nuclear/reactor는 해외 그룹으로 분류
+        "nuclear", "reactor",
     ],
     "원자력": [
+        # 한국어 원전 용어만 유지 (영문 nuclear/reactor는 해외 그룹으로)
         "원전", "원자력", "원자로", "핵발전", "신한울", "새울원전",
         "새울원자력", "고리원전", "한빛원전", "한울원전", "월성원전",
-        "nuclear", "reactor",
     ],
 }
 
@@ -2879,10 +2898,10 @@ GROUP_CORE_PRIORITY_TERMS = {
         "소형 모듈 원자로", "advanced reactor", "차세대원자로",
     },
     "원자력": {
-        "원전", "원자력", "원자로", "nuclear", "reactor",
+        "원전", "원자력", "원자로",
     },
     "Nuclear Power·Nuclear Energy": {
-        "nuclear power", "nuclear energy", "nuclear",
+        "nuclear power", "nuclear energy", "nuclear", "reactor",
     },
     "타 건설사": {
         "삼성물산", "대우건설", "dl이앤씨", "gs건설",
@@ -3351,6 +3370,8 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     if priority_group != "원자력":
         return priority_group
 
+    has_hangul = bool(re.search(r"[가-힣]", f"{title} {summary}"))
+
     for group in DIRECT_GROUP_PRIORITY:
         terms = DIRECT_GROUP_KEYWORDS.get(group, [])
         if any(term.lower() in haystack for term in terms):
@@ -3366,11 +3387,17 @@ def classify_direct_article(title: str, summary: str) -> str | None:
                 if classified is None:
                     continue
                 return classified
+            # 한글이 없는 기사는 한국어 '원자력' 칸으로 넣지 않음
+            if group == "원자력" and not has_hangul:
+                return "Nuclear Power·Nuclear Energy"
+            # 한글 기사인데 영문 Nuclear 그룹에만 걸리면 국내 원자력로 정리
+            if group == "Nuclear Power·Nuclear Energy" and has_hangul:
+                return "원자력"
             return group
 
     # 기존 그룹 키워드에 딱 맞지 않아도 민수 원전/원자력 관련성이 있으면 유지
     if is_civil_nuclear_relevant(title, summary):
-        if re.search(r"[가-힣]", f"{title} {summary}"):
+        if has_hangul:
             return "원자력"
         return "Nuclear Power·Nuclear Energy"
 
@@ -3603,6 +3630,7 @@ def _looks_like_article_url(url: str, publisher: str) -> bool:
 
     if publisher == "연합뉴스":
         return "yna.co.kr/view/" in lower
+    if publisher == "American Nuclear Society":
         return "ans.org/news/article-" in lower or "/news/article-" in lower
     if publisher == "Nuclear Engineering International":
         return "neimagazine.com/news/" in lower and lower.rstrip("/") != "https://www.neimagazine.com/news"
