@@ -2350,6 +2350,183 @@ header,
   }
 }
 
+
+/* ============================================================
+   LIVE WORLD CLOCKS — independent from GitHub Actions
+   ============================================================ */
+.country-map-content {
+  display:grid;
+  grid-template-columns:74px minmax(0,1fr);
+  gap:8px;
+  align-items:stretch;
+}
+
+.world-clock-rail {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:9px;
+  min-width:0;
+}
+
+.mini-world-clock {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+}
+
+.mini-clock-label {
+  color:#53677f;
+  font-size:9px;
+  line-height:1;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.analog-clock {
+  position:relative;
+  width:48px;
+  height:48px;
+  border:2px solid #9eabba;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:inset 0 0 0 2px #f3f6f9;
+}
+
+.clock-mark {
+  position:absolute;
+  background:#738398;
+  border-radius:2px;
+}
+.mark-12,.mark-6 {
+  left:50%;
+  width:2px;
+  height:5px;
+  transform:translateX(-50%);
+}
+.mark-12 { top:3px; }
+.mark-6 { bottom:3px; }
+.mark-3,.mark-9 {
+  top:50%;
+  width:5px;
+  height:2px;
+  transform:translateY(-50%);
+}
+.mark-3 { right:3px; }
+.mark-9 { left:3px; }
+
+.clock-hand {
+  position:absolute;
+  left:50%;
+  bottom:50%;
+  transform-origin:50% 100%;
+  border-radius:999px;
+}
+.hour-hand {
+  width:3px;
+  height:13px;
+  margin-left:-1.5px;
+  background:#23395d;
+}
+.minute-hand {
+  width:2px;
+  height:17px;
+  margin-left:-1px;
+  background:#405d7e;
+}
+.second-hand {
+  width:1px;
+  height:18px;
+  margin-left:-.5px;
+  background:#a64b4b;
+}
+
+.clock-center {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#23395d;
+  transform:translate(-50%,-50%);
+}
+
+.mini-clock-time {
+  color:#23395d;
+  font-size:9px;
+  line-height:1;
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+}
+
+.country-map-content .country-map-visual {
+  width:100%;
+  min-width:0;
+  height:190px;
+}
+
+@media (max-width:380px) {
+  .country-map-content {
+    grid-template-columns:64px minmax(0,1fr);
+    gap:5px;
+  }
+  .analog-clock {
+    width:43px;
+    height:43px;
+  }
+  .mini-clock-label,
+  .mini-clock-time {
+    font-size:8px;
+  }
+  .country-map-content .country-map-visual {
+    height:184px;
+  }
+}
+
+
+/* ============================================================
+   MAP TOOLTIP — SLIGHTLY SMALLER / BALANCED
+   ============================================================ */
+.country-map-html-tooltip {
+  min-height:36px;
+  padding:6px 9px;
+  gap:6px;
+  border-radius:9px;
+}
+
+.map-tooltip-flag {
+  font-size:19px !important;
+}
+
+.map-tooltip-country,
+.map-tooltip-count {
+  font-size:14px !important;
+  line-height:1.1;
+  font-weight:900;
+}
+
+.map-tooltip-count {
+  padding-left:7px;
+  margin-left:1px;
+}
+
+@media (max-width:380px) {
+  .country-map-html-tooltip {
+    min-height:34px;
+    padding:5px 8px;
+    gap:5px;
+  }
+  .map-tooltip-flag {
+    font-size:18px !important;
+  }
+  .map-tooltip-country,
+  .map-tooltip-count {
+    font-size:13px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2358,7 +2535,7 @@ header,
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
       <div class="topbar-actions">
-        <span class="updated updated-inline">업데이트됨 8.19 10:40 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.19 10:45 KST</span>
         <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
     </div>
@@ -2402,7 +2579,38 @@ header,
       <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
     </div>
 
-    <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
+    <div class="country-map-content">
+      <aside class="world-clock-rail" aria-label="주요 지역 현재 시간">
+        <div class="mini-world-clock" data-timezone="America/New_York">
+          <div class="mini-clock-label">미국 동부</div>
+          <div class="analog-clock" aria-hidden="true">
+            <span class="clock-mark mark-12"></span>
+            <span class="clock-mark mark-3"></span>
+            <span class="clock-mark mark-6"></span>
+            <span class="clock-mark mark-9"></span>
+            <span class="clock-hand hour-hand"></span>
+            <span class="clock-hand minute-hand"></span>
+            <span class="clock-hand second-hand"></span>
+            <span class="clock-center"></span>
+          </div>
+          <div class="mini-clock-time">--:--</div>
+        </div>
+        <div class="mini-world-clock" data-timezone="Europe/Sofia">
+          <div class="mini-clock-label">불가리아</div>
+          <div class="analog-clock" aria-hidden="true">
+            <span class="clock-mark mark-12"></span>
+            <span class="clock-mark mark-3"></span>
+            <span class="clock-mark mark-6"></span>
+            <span class="clock-mark mark-9"></span>
+            <span class="clock-hand hour-hand"></span>
+            <span class="clock-hand minute-hand"></span>
+            <span class="clock-hand second-hand"></span>
+            <span class="clock-center"></span>
+          </div>
+          <div class="mini-clock-time">--:--</div>
+        </div>
+      </aside>
+      <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
       <svg class="world-map-inline" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
           <path d="M0.0,55.2 L0.0,55.2 L13.2,59.8 L16.8,65.0 L14.9,61.9 L17.7,61.7 L23.1,62.3 L28.7,65.0 L26.2,66.9 L23.8,66.1 L24.9,67.4 L19.4,66.5 L22.0,67.3 L21.9,68.8 L18.9,69.8 L21.6,71.0 L19.0,71.6 L18.5,70.3 L17.6,71.3 L12.7,69.8 L9.7,67.1 L4.3,67.4 L4.3,64.3 L1.7,64.4 L2.0,67.1 L0.0,68.7 L0.0,55.2 Z"/>
@@ -3140,6 +3348,7 @@ header,
         <span class="country-map-caption-dot"></span>
         기사가 있는 국가만 표시
       </div>
+    </div>
     </div>
 
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
@@ -11371,7 +11580,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/3b6401090c6a881bce8bb022.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/fd4ebc7cd14e33861755baf7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -18272,10 +18481,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260819_0003753921"
+  data-title="원안위, 한울 4호기 &#x27;원자로 자동정지&#x27; 조사 착수…&quot;안정상태 유지&quot;"
+  data-publisher="뉴시스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787103672"
+  data-country="KR"
+  data-search="원안위, 한울 4호기 &#x27;원자로 자동정지&#x27; 조사 착수…&quot;안정상태 유지&quot; 뉴시스 한국수력원자력 [세종=뉴시스]손차민 기자 = 원자력안전위원회가 한울 4호기 원자로가 자동정지했다는 보고를 받고 사건 조사에 착수했다고 19일 밝혔다. 원안위는 한국수력원자력으로부터 이날 오전 8시 50분께 한울 4호기가 자동정지했다는 보고를 받았다. 현재 한울 4호기는 안정상태를 유지하고 있다. 원안위는 방사선감시기 이상 경보 및 외부 유출은 없는 것으로 파악하고 있다. 이어 원안위는 한울원전지역사무소에서 현장 안전성을 점검 중이다. 한국원자력안전기술원(kins) 전문가로 구성된 조사단도 현장에 파견할 예정이다. ◎공감언론 뉴시스 charming@newsis.com"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원안위, 한울 4호기 &#x27;원자로 자동정지&#x27; 조사 착수…&quot;안정상태 유지&quot;</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 원자력안전위원회가 한울 4호기 원자로가 자동정지했다는 보고를 받고 사건 조사에 착수했다고 19일 밝혔다. 원안위는 한국수력원자력으로부터 이날 오전 8시 50분께 한울 4호기가 자동정지했다는 보고를 받았다. 현재 한울 4호기는 안정상태를 유지하고 있다. 원안위는 방사선감시기 이상 경보 및 외부 유출은 없는 것으로 파악하고 있다. 이어 원안위는 한울원전지역사무소에서 현장 안전성을 점검 중이다. 한국원자력안전기술원(KINS) 전문가로 구성된 조사단도 현장에 파견할 예정이다. ◎공감언론 뉴시스 charming@newsis.com</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7a07e5e8895fe952d6281449.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202311"
   data-title="원안위, 한울 4호기 원자로 자동정지 사건조사 착수 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -18288,7 +18533,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18300,13 +18545,49 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, 한울 4호기 원자로 자동정지 사건조사 착수 - 에너지데일리</div>
+      <div class="headline">원안위, 한울 4호기 원자로 자동정지 사건조사 착수 - 에너지데일리</div>
       <div class="article-snippet">[에너지데일리 송병훈 기자] 원자력안전위원회(위원장 최원호)는 한국수력원자력으로부터 한울 4호기가 19일 오전 8시50분경 자동정지했다는 보고를 받았다고 밝혔다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/9f6177ad266ee5ac82c883d0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70680"
+  data-title="한울원전, 드론 공격 가정 통합방호훈련…무려 230명 참여"
+  data-publisher="에너지타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787103176"
+  data-country="KR"
+  data-search="한울원전, 드론 공격 가정 통합방호훈련…무려 230명 참여 에너지타임즈 한국수력원자력 한국수력원자력(주) 한울원자력본부(본부장 이용희)가 18일 신한울1발전소 일대에서 2026년도 을지연습 일환으로 민·관·군·경·소방 통합방호훈련을 실시했다. 미상의 드론이 침투해 건물을 타격하고 폭발·화재와 사상자가 발생하는 복합상황을 훈련시나리오로 진행된 이날 훈련은 통합방호 대비태세를 점검하는 한편 실제 상황 발생 시 현장 중심으로 작전을 종결할 수 있는 대응능력을 확보하기 위해 기획됐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울원전, 드론 공격 가정 통합방호훈련…무려 230명 참여</div>
+      <div class="article-snippet">한국수력원자력(주) 한울원자력본부(본부장 이용희)가 18일 신한울1발전소 일대에서 2026년도 을지연습 일환으로 민·관·군·경·소방 통합방호훈련을 실시했다. 미상의 드론이 침투해 건물을 타격하고 폭발·화재와 사상자가 발생하는 복합상황을 훈련시나리오로 진행된 이날 훈련은 통합방호 대비태세를 점검하는 한편 실제 상황 발생 시 현장 중심으로 작전을 종결할 수 있는 대응능력을 확보하기 위해 기획됐다.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6e54db880deffecb4a4ddf70.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -18324,7 +18605,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18360,7 +18641,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18396,7 +18677,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18471,7 +18752,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787103600"
+  data-published="1787103900"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -18500,7 +18781,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260819058600530?section=industry/all"
   data-title="&quot;한전, 30년전 화석연료 위험 경고받고도 석탄화력 발전 확대&quot; | 연합뉴스"
   data-publisher="연합뉴스"
@@ -18525,13 +18806,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;한전, 30년전 화석연료 위험 경고받고도 석탄화력 발전 확대&quot; | 연합뉴스</div>
+      <div class="headline">&quot;한전, 30년전 화석연료 위험 경고받고도 석탄화력 발전 확대&quot; | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 이재영 기자 = 한국전력이 &#x27;화석연료 중심 발전&#x27;을 지속할 수 없다는 점을 오래전 인식하고도 화석연료 발전 설비를 확대했다는 ...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5199b6d52df5fdbdfc18e721.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/d8ee207ac536bc89b795a16d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -18686,9 +18967,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1679759/%EA%B9%80%EC%A0%95%EA%B4%80-%EC%82%B0%EC%97%85%EB%B6%80-%EC%9E%A5%EA%B4%80-%EB%9F%AC%ED%8A%B8%EB%8B%89-%EC%83%81%EB%AC%B4%EB%B6%80-%EC%9E%A5-2026"
+  data-title="김정관 산업부 장관, 러트닉 상무부 장관·그리어 USTR 대표 등 면담"
+  data-publisher="데일리안"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787103840"
+  data-country="KR"
+  data-search="김정관 산업부 장관, 러트닉 상무부 장관·그리어 ustr 대표 등 면담 데일리안 원전 관계부처 김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉(howard lutnick) 미국 상무부 장관과 제이미슨 그리어(jamieson greer) 미국 무역대표부(ustr) 대표 등을 만나 대미 전략투자 프로젝트 등에 대해 집중 논의했다.19일 산업부에 따르면 김 장관은 16일부터 19일 일정(美 현지시간 기준)으로 워싱턴 d.c.를 방문, 미국 행정부 주"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 산업부 장관, 러트닉 상무부 장관·그리어 USTR 대표 등 면담</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉(Howard Lutnick) 미국 상무부 장관과 제이미슨 그리어(Jamieson Greer) 미국 무역대표부(USTR) 대표 등을 만나 대미 전략투자 프로젝트 등에 대해 집중 논의했다.19일 산업부에 따르면 김 장관은 16일부터 19일 일정(美 현지시간 기준)으로 워싱턴 D.C.를 방문, 미국 행정부 주</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e19c60be6e390f138e31f525.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.yonhapnewstv.co.kr/news/AKR20260819103232D1B"
   data-title="김정관, 러트닉·그리어 잇따라 회동…대미 전략투자 후보 사업 협의"
@@ -18702,7 +19019,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18738,7 +19055,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18774,7 +19091,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18796,6 +19113,42 @@ header,
   </div>
   
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etoday.co.kr/news/view/2615871?trc=main_top_sub"
+  data-title="김정관 장관, 러트닉 美상무장관 만나 &#x27;대미 전략투자&#x27; 조율"
+  data-publisher="이투데이"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787103180"
+  data-country="OTHER"
+  data-search="김정관 장관, 러트닉 美상무장관 만나 &#x27;대미 전략투자&#x27; 조율 이투데이 원전 관계부처 16~19일 워싱턴 d.c. 방문…미 행정부 경제·통상 핵심 인사 연쇄 회동상무장관과 3주 만에 재회…전략투자 프로젝트 쟁점 및 추진 일정 논의ustr 대표·o"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 장관, 러트닉 美상무장관 만나 &#x27;대미 전략투자&#x27; 조율</div>
+      <div class="article-snippet">16~19일 워싱턴 D.C. 방문…미 행정부 경제·통상 핵심 인사 연쇄 회동상무장관과 3주 만에 재회…전략투자 프로젝트 쟁점 및 추진 일정 논의USTR 대표·O</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/83c081e827837601811156e9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
 </div>
 </section>
 
@@ -18806,7 +19159,7 @@ header,
     <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260819010006082"
   data-title="김정관 산업장관, 美 상무장관 연쇄 면담…대미 투자 집중 논의"
   data-publisher="아시아투데이"
@@ -18831,7 +19184,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 산업장관, 美 상무장관 연쇄 면담…대미 투자 집중 논의</div>
+      <div class="headline">김정관 산업장관, 美 상무장관 연쇄 면담…대미 투자 집중 논의</div>
       <div class="article-snippet">김정관 산업통상부 장관이 미국 워싱턴 D.C.를 찾아 대미 전략투자 프로젝트와 통상 현안을 집중 논의했다. 한미 간 전략투자 후보 사업의 구체적인 쟁점과 추진 일정을 조율하는 동시에 미국의 무역법 301조 조사와 조선산업 협력 등 주요 현안에 대한 대응에도 나섰다.1..</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -20094,10 +20447,46 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260819_0003753921"
+  data-title="원안위, 한울 4호기 &#x27;원자로 자동정지&#x27; 조사 착수…&quot;안정상태 유지&quot;"
+  data-publisher="뉴시스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787103672"
+  data-country="KR"
+  data-search="원안위, 한울 4호기 &#x27;원자로 자동정지&#x27; 조사 착수…&quot;안정상태 유지&quot; 뉴시스 한국수력원자력 [세종=뉴시스]손차민 기자 = 원자력안전위원회가 한울 4호기 원자로가 자동정지했다는 보고를 받고 사건 조사에 착수했다고 19일 밝혔다. 원안위는 한국수력원자력으로부터 이날 오전 8시 50분께 한울 4호기가 자동정지했다는 보고를 받았다. 현재 한울 4호기는 안정상태를 유지하고 있다. 원안위는 방사선감시기 이상 경보 및 외부 유출은 없는 것으로 파악하고 있다. 이어 원안위는 한울원전지역사무소에서 현장 안전성을 점검 중이다. 한국원자력안전기술원(kins) 전문가로 구성된 조사단도 현장에 파견할 예정이다. ◎공감언론 뉴시스 charming@newsis.com"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원안위, 한울 4호기 &#x27;원자로 자동정지&#x27; 조사 착수…&quot;안정상태 유지&quot;</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 원자력안전위원회가 한울 4호기 원자로가 자동정지했다는 보고를 받고 사건 조사에 착수했다고 19일 밝혔다. 원안위는 한국수력원자력으로부터 이날 오전 8시 50분께 한울 4호기가 자동정지했다는 보고를 받았다. 현재 한울 4호기는 안정상태를 유지하고 있다. 원안위는 방사선감시기 이상 경보 및 외부 유출은 없는 것으로 파악하고 있다. 이어 원안위는 한울원전지역사무소에서 현장 안전성을 점검 중이다. 한국원자력안전기술원(KINS) 전문가로 구성된 조사단도 현장에 파견할 예정이다. ◎공감언론 뉴시스 charming@newsis.com</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7a07e5e8895fe952d6281449.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202311"
   data-title="원안위, 한울 4호기 원자로 자동정지 사건조사 착수 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -20110,7 +20499,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20122,13 +20511,49 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, 한울 4호기 원자로 자동정지 사건조사 착수 - 에너지데일리</div>
+      <div class="headline">원안위, 한울 4호기 원자로 자동정지 사건조사 착수 - 에너지데일리</div>
       <div class="article-snippet">[에너지데일리 송병훈 기자] 원자력안전위원회(위원장 최원호)는 한국수력원자력으로부터 한울 4호기가 19일 오전 8시50분경 자동정지했다는 보고를 받았다고 밝혔다.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/9f6177ad266ee5ac82c883d0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70680"
+  data-title="한울원전, 드론 공격 가정 통합방호훈련…무려 230명 참여"
+  data-publisher="에너지타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787103176"
+  data-country="KR"
+  data-search="한울원전, 드론 공격 가정 통합방호훈련…무려 230명 참여 에너지타임즈 한국수력원자력 한국수력원자력(주) 한울원자력본부(본부장 이용희)가 18일 신한울1발전소 일대에서 2026년도 을지연습 일환으로 민·관·군·경·소방 통합방호훈련을 실시했다. 미상의 드론이 침투해 건물을 타격하고 폭발·화재와 사상자가 발생하는 복합상황을 훈련시나리오로 진행된 이날 훈련은 통합방호 대비태세를 점검하는 한편 실제 상황 발생 시 현장 중심으로 작전을 종결할 수 있는 대응능력을 확보하기 위해 기획됐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울원전, 드론 공격 가정 통합방호훈련…무려 230명 참여</div>
+      <div class="article-snippet">한국수력원자력(주) 한울원자력본부(본부장 이용희)가 18일 신한울1발전소 일대에서 2026년도 을지연습 일환으로 민·관·군·경·소방 통합방호훈련을 실시했다. 미상의 드론이 침투해 건물을 타격하고 폭발·화재와 사상자가 발생하는 복합상황을 훈련시나리오로 진행된 이날 훈련은 통합방호 대비태세를 점검하는 한편 실제 상황 발생 시 현장 중심으로 작전을 종결할 수 있는 대응능력을 확보하기 위해 기획됐다.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6e54db880deffecb4a4ddf70.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -20146,7 +20571,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20182,7 +20607,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20218,7 +20643,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20293,7 +20718,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787103600"
+  data-published="1787103900"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -20322,7 +20747,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260819058600530?section=industry/all"
   data-title="&quot;한전, 30년전 화석연료 위험 경고받고도 석탄화력 발전 확대&quot; | 연합뉴스"
   data-publisher="연합뉴스"
@@ -20347,13 +20772,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;한전, 30년전 화석연료 위험 경고받고도 석탄화력 발전 확대&quot; | 연합뉴스</div>
+      <div class="headline">&quot;한전, 30년전 화석연료 위험 경고받고도 석탄화력 발전 확대&quot; | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 이재영 기자 = 한국전력이 &#x27;화석연료 중심 발전&#x27;을 지속할 수 없다는 점을 오래전 인식하고도 화석연료 발전 설비를 확대했다는 ...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5199b6d52df5fdbdfc18e721.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/d8ee207ac536bc89b795a16d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -20508,9 +20933,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1679759/%EA%B9%80%EC%A0%95%EA%B4%80-%EC%82%B0%EC%97%85%EB%B6%80-%EC%9E%A5%EA%B4%80-%EB%9F%AC%ED%8A%B8%EB%8B%89-%EC%83%81%EB%AC%B4%EB%B6%80-%EC%9E%A5-2026"
+  data-title="김정관 산업부 장관, 러트닉 상무부 장관·그리어 USTR 대표 등 면담"
+  data-publisher="데일리안"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787103840"
+  data-country="KR"
+  data-search="김정관 산업부 장관, 러트닉 상무부 장관·그리어 ustr 대표 등 면담 데일리안 원전 관계부처 김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉(howard lutnick) 미국 상무부 장관과 제이미슨 그리어(jamieson greer) 미국 무역대표부(ustr) 대표 등을 만나 대미 전략투자 프로젝트 등에 대해 집중 논의했다.19일 산업부에 따르면 김 장관은 16일부터 19일 일정(美 현지시간 기준)으로 워싱턴 d.c.를 방문, 미국 행정부 주"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 산업부 장관, 러트닉 상무부 장관·그리어 USTR 대표 등 면담</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉(Howard Lutnick) 미국 상무부 장관과 제이미슨 그리어(Jamieson Greer) 미국 무역대표부(USTR) 대표 등을 만나 대미 전략투자 프로젝트 등에 대해 집중 논의했다.19일 산업부에 따르면 김 장관은 16일부터 19일 일정(美 현지시간 기준)으로 워싱턴 D.C.를 방문, 미국 행정부 주</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e19c60be6e390f138e31f525.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
 <article class="preview-card"
   data-url="https://www.yonhapnewstv.co.kr/news/AKR20260819103232D1B"
   data-title="김정관, 러트닉·그리어 잇따라 회동…대미 전략투자 후보 사업 협의"
@@ -20524,7 +20985,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20560,7 +21021,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20596,7 +21057,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -20618,6 +21079,42 @@ header,
   </div>
   
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etoday.co.kr/news/view/2615871?trc=main_top_sub"
+  data-title="김정관 장관, 러트닉 美상무장관 만나 &#x27;대미 전략투자&#x27; 조율"
+  data-publisher="이투데이"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787103180"
+  data-country="OTHER"
+  data-search="김정관 장관, 러트닉 美상무장관 만나 &#x27;대미 전략투자&#x27; 조율 이투데이 원전 관계부처 16~19일 워싱턴 d.c. 방문…미 행정부 경제·통상 핵심 인사 연쇄 회동상무장관과 3주 만에 재회…전략투자 프로젝트 쟁점 및 추진 일정 논의ustr 대표·o"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 장관, 러트닉 美상무장관 만나 &#x27;대미 전략투자&#x27; 조율</div>
+      <div class="article-snippet">16~19일 워싱턴 D.C. 방문…미 행정부 경제·통상 핵심 인사 연쇄 회동상무장관과 3주 만에 재회…전략투자 프로젝트 쟁점 및 추진 일정 논의USTR 대표·O</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/83c081e827837601811156e9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
 </div>
 </section>
 
@@ -20628,7 +21125,7 @@ header,
     <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260819010006082"
   data-title="김정관 산업장관, 美 상무장관 연쇄 면담…대미 투자 집중 논의"
   data-publisher="아시아투데이"
@@ -20653,7 +21150,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 산업장관, 美 상무장관 연쇄 면담…대미 투자 집중 논의</div>
+      <div class="headline">김정관 산업장관, 美 상무장관 연쇄 면담…대미 투자 집중 논의</div>
       <div class="article-snippet">김정관 산업통상부 장관이 미국 워싱턴 D.C.를 찾아 대미 전략투자 프로젝트와 통상 현안을 집중 논의했다. 한미 간 전략투자 후보 사업의 구체적인 쟁점과 추진 일정을 조율하는 동시에 미국의 무역법 301조 조사와 조선산업 협력 등 주요 현안에 대한 대응에도 나섰다.1..</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26990,7 +27487,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/3b6401090c6a881bce8bb022.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/fd4ebc7cd14e33861755baf7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -103571,6 +104068,59 @@ function layoutCountryPins(){
     });
   });
 }
+
+
+function getTimePartsForZone(timeZone, now=new Date()){
+  const parts=new Intl.DateTimeFormat("en-US",{
+    timeZone,
+    hour:"2-digit",
+    minute:"2-digit",
+    second:"2-digit",
+    hour12:false
+  }).formatToParts(now);
+
+  const values={};
+  parts.forEach(part=>{
+    if(part.type!=="literal")values[part.type]=Number(part.value);
+  });
+
+  return {
+    hour:values.hour%24,
+    minute:values.minute,
+    second:values.second
+  };
+}
+
+function updateWorldClocks(){
+  const now=new Date();
+
+  document.querySelectorAll(".mini-world-clock[data-timezone]").forEach(clock=>{
+    const timeZone=clock.dataset.timezone;
+    const parts=getTimePartsForZone(timeZone,now);
+
+    const hourAngle=((parts.hour%12)+(parts.minute/60)+(parts.second/3600))*30;
+    const minuteAngle=(parts.minute+(parts.second/60))*6;
+    const secondAngle=parts.second*6;
+
+    const hourHand=clock.querySelector(".hour-hand");
+    const minuteHand=clock.querySelector(".minute-hand");
+    const secondHand=clock.querySelector(".second-hand");
+    const digital=clock.querySelector(".mini-clock-time");
+
+    if(hourHand)hourHand.style.transform=`rotate(${hourAngle}deg)`;
+    if(minuteHand)minuteHand.style.transform=`rotate(${minuteAngle}deg)`;
+    if(secondHand)secondHand.style.transform=`rotate(${secondAngle}deg)`;
+
+    if(digital){
+      const hh=String(parts.hour).padStart(2,"0");
+      const mm=String(parts.minute).padStart(2,"0");
+      digital.textContent=`${hh}:${mm}`;
+    }
+  });
+}
+
+updateWorldClocks();
+setInterval(updateWorldClocks,1000);
 
 function showCountryMapTooltip(x,y,flag,name,count,persistent=false){
   const tooltip=document.getElementById("country-map-html-tooltip");
