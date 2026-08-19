@@ -238,10 +238,10 @@ GROUPS = [
 
 GROUP_TAB_LABELS = {
     "현대건설": "현대건설",
-    "타 건설사": "타건설사",
+    "타 건설사": "他 건설사",
     "한국수력원자력": "한수원",
     "한국전력": "한전",
-    "원전 관계부처": "관계부처",
+    "원전 관계부처": "원전 관계부처(산업통상부·기후부·과기부)",
     "원전 대미투자": "대미투자",
     "원자력": "원자력",
     "SMR": "SMR",
@@ -4640,6 +4640,15 @@ def collect(start: datetime, end: datetime) -> list[Article]:
     return select_articles_for_period(fetched, start, end)
 
 
+
+KOREAN_WEEKDAYS = ("월", "화", "수", "목", "금", "토", "일")
+
+def format_korean_date_time(dt: datetime) -> str:
+    """날짜 범위를 M.D(요일) HH:MM 형식으로 표시합니다."""
+    local = dt.astimezone(KST)
+    return f"{local.month}.{local.day}({KOREAN_WEEKDAYS[local.weekday()]}) {local:%H:%M}"
+
+
 def escape(text: str) -> str:
     return html.escape(text, quote=True)
 
@@ -5162,12 +5171,18 @@ def render_group_unified(
         cards = '<div class="empty">해당 시간대에 수집된 기사가 없습니다.</div>'
 
     article_total = len(ordered_articles)
+    if group == "원전 관계부처":
+        display_group = "원전 관계부처(산업통상부·기후부·과기부)"
+    elif group == "타 건설사":
+        display_group = "他 건설사"
+    else:
+        display_group = group
 
     return f"""
 <section class="news-group group-tab-section" data-group="{escape(group)}">
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
-    <span class="group-name">{escape(group)}</span>
+    <span class="group-name">{escape(display_group)}</span>
     <span class="group-count">{article_total}건</span>
   </button>
   <div class="article-stack">{cards}</div>
@@ -5960,7 +5975,7 @@ def archive_panels_html(archive: dict[str, dict], new_urls: set[str]) -> str:
   <div class="period-action-row">
     <div class="period-inline">
       <span class="period-inline-label">{end:%-m.%-d}</span>
-      <span class="period-inline-range">{start:%-m.%-d %H:%M} → {end:%-m.%-d %H:%M}</span>
+      <span class="period-inline-range">{format_korean_date_time(start)} → {format_korean_date_time(end)}</span>
     </div>
     <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
@@ -5997,7 +6012,7 @@ def build_html(
   <div class="period-action-row">
     <div class="period-inline">
       <span class="period-inline-label">{escape(label)}</span>
-      <span class="period-inline-range">{start:%-m.%-d %H:%M} → {end:%-m.%-d %H:%M}</span>
+      <span class="period-inline-range">{format_korean_date_time(start)} → {format_korean_date_time(end)}</span>
     </div>
     <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
