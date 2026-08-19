@@ -7485,6 +7485,67 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   BALANCED + EDGE-SAFE MAP TOOLTIP
+   ============================================================ */
+.world-map-panel {{
+  overflow:visible;
+}}
+
+.country-map-visual {{
+  overflow:hidden;
+}}
+
+.country-map-html-tooltip {{
+  z-index:9999 !important;
+  min-height:40px;
+  padding:7px 11px;
+  gap:7px;
+  border:1.5px solid #ffffff;
+  border-radius:10px;
+  background:#173354;
+  box-shadow:0 5px 15px rgba(17,24,39,.30);
+  transform:none !important;
+  white-space:nowrap;
+}}
+
+.map-tooltip-flag {{
+  font-size:22px !important;
+  line-height:1;
+}}
+
+.map-tooltip-country {{
+  font-size:16px !important;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:-.02em;
+}}
+
+.map-tooltip-count {{
+  margin-left:2px;
+  padding-left:8px;
+  border-left:1.5px solid rgba(255,255,255,.34);
+  font-size:16px !important;
+  line-height:1.1;
+  font-weight:900;
+}}
+
+@media (max-width:380px) {{
+  .country-map-html-tooltip {{
+    min-height:38px;
+    padding:6px 9px;
+    gap:6px;
+  }}
+  .map-tooltip-flag {{
+    font-size:21px !important;
+  }}
+  .map-tooltip-country,
+  .map-tooltip-count {{
+    font-size:15px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -8740,21 +8801,42 @@ function layoutCountryPins(){{
 
 function showCountryMapTooltip(x,y,flag,name,count,persistent=false){{
   const tooltip=document.getElementById("country-map-html-tooltip");
-  if(!tooltip)return;
+  const visual=document.querySelector(".country-map-visual");
+  if(!tooltip||!visual)return;
 
-  const px=Math.min(91,Math.max(9,(x/1000)*100));
-  const py=Math.min(84,Math.max(18,(y/500)*100));
-
-  tooltip.style.left=`${{px}}%`;
-  tooltip.style.top=`${{py}}%`;
   tooltip.innerHTML=
     `<span class="map-tooltip-flag">${{flag}}</span>`+
     `<span class="map-tooltip-country">${{name}}</span>`+
     `<span class="map-tooltip-count">${{count}}건</span>`;
   tooltip.classList.add("visible");
   tooltip.classList.toggle("persistent",persistent);
-}}
 
+  // First place it at the geographic point, then measure the real HTML box.
+  const visualRect=visual.getBoundingClientRect();
+  const pointX=(x/1000)*visualRect.width;
+  const pointY=(y/500)*visualRect.height;
+
+  requestAnimationFrame(()=>{{
+    const tipRect=tooltip.getBoundingClientRect();
+    const margin=8;
+    const gap=13;
+
+    // Horizontal: clamp inside the map so edge countries never cut off.
+    let left=pointX-tipRect.width/2;
+    left=Math.max(margin,Math.min(left,visualRect.width-tipRect.width-margin));
+
+    // Vertical: prefer above the point; if near the top, show below it.
+    let top=pointY-tipRect.height-gap;
+    if(top<margin){{
+      top=pointY+gap;
+    }}
+    top=Math.max(margin,Math.min(top,visualRect.height-tipRect.height-margin));
+
+    tooltip.style.left=`${{left}}px`;
+    tooltip.style.top=`${{top}}px`;
+    tooltip.style.transform="none";
+  }});
+}}
 function hideCountryMapTooltip(force=false){{
   const tooltip=document.getElementById("country-map-html-tooltip");
   if(!tooltip)return;
