@@ -7404,6 +7404,87 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   MAP TOOLTIP — ALWAYS ABOVE ALL COUNTRY DOTS
+   Senior-friendly large text / clear hierarchy
+   ============================================================ */
+.country-map-visual {{
+  position:relative;
+  isolation:isolate;
+  overflow:visible;
+}}
+
+.country-map-visual .world-map-inline {{
+  z-index:2 !important;
+}}
+
+.country-map-html-tooltip {{
+  z-index:9999 !important;
+  min-height:54px;
+  padding:11px 16px;
+  gap:10px;
+  border:2px solid #ffffff;
+  border-radius:13px;
+  background:#173354;
+  box-shadow:0 8px 24px rgba(17,24,39,.40);
+  transform:translate(-50%,calc(-100% - 20px));
+  pointer-events:none;
+}}
+
+.country-map-html-tooltip.visible {{
+  opacity:1 !important;
+  visibility:visible !important;
+}}
+
+.map-tooltip-flag {{
+  flex:0 0 auto;
+  font-size:30px !important;
+  line-height:1;
+}}
+
+.map-tooltip-country {{
+  flex:0 0 auto;
+  font-size:22px !important;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:-.03em;
+}}
+
+.map-tooltip-count {{
+  flex:0 0 auto;
+  margin-left:3px;
+  padding-left:10px;
+  border-left:2px solid rgba(255,255,255,.35);
+  font-size:22px !important;
+  line-height:1.1;
+  font-weight:900;
+}}
+
+.map-tooltip-separator {{
+  display:none !important;
+}}
+
+.country-map-dots-svg {{
+  position:relative;
+  z-index:3;
+}}
+
+@media (max-width:380px) {{
+  .country-map-html-tooltip {{
+    min-height:50px;
+    padding:9px 13px;
+    gap:8px;
+  }}
+  .map-tooltip-flag {{
+    font-size:27px !important;
+  }}
+  .map-tooltip-country,
+  .map-tooltip-count {{
+    font-size:20px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -7453,7 +7534,7 @@ header,
         <div class="world-map-title">국가별 기사</div>
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
-      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">기사 발생 국가를 지도에서 확인</div>
+      <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
     </div>
 
     <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
@@ -8669,7 +8750,6 @@ function showCountryMapTooltip(x,y,flag,name,count,persistent=false){{
   tooltip.innerHTML=
     `<span class="map-tooltip-flag">${{flag}}</span>`+
     `<span class="map-tooltip-country">${{name}}</span>`+
-    `<span class="map-tooltip-separator">·</span>`+
     `<span class="map-tooltip-count">${{count}}건</span>`;
   tooltip.classList.add("visible");
   tooltip.classList.toggle("persistent",persistent);
@@ -8876,7 +8956,7 @@ function setCountryFilter(code){{
       setTimeout(()=>firstVisibleCard.scrollIntoView({{behavior:"smooth",block:"center"}}),80);
     }}
   }} else {{
-    if(note)note.textContent="기사 발생 국가를 지도에서 확인";
+    if(note)note.textContent="";
   }}
 }}
 
@@ -8891,7 +8971,7 @@ if(countryAllButton){{
     filterArticles();
     updateCountryMapCounts();
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="기사 발생 국가를 지도에서 확인";
+    if(note)note.textContent="";
   }});
 }}
 
