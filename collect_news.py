@@ -1,9 +1,8 @@
 # VERIFIED FINAL BUILD 2026-08-19
 # Overseas fix: EN articles → Nuclear Power·Nuclear Energy, URL date regex,
 # ANS URL filter, faster shard rotation (2), higher EN candidate limits.
-# Same-event UX: keep cross-publisher stories and cluster as 대표+관련기사.
-# Cluster tuning: same thumbnail / alias titles / softer overlap for rewrites.
-# Includes Hyundai volleyball exclusion (배구/여자배구/김연경), same-event dedup,
+# Related-article clustering removed: each article is shown as its own card.
+# Includes Hyundai volleyball exclusion (배구/여자배구/김연경), exact dedup,
 # article preview fallback, thumbnail caching/centering, newspaper-style UI,
 # and removes the old periodic-update notice from the UI.
 # Final media/dedup build v7 - 2026-08-10 / overseas patch 2026-08-19
@@ -400,7 +399,6 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'CGTN',
     'Utah News Dispatch',
     'oEnergetice.cz',
-    'American Nuclear Society',
     'International Atomic Energy Agency',
     'U.S. DOE Office of Nuclear Energy',
     'Qazinform',
@@ -907,7 +905,7 @@ DIRECT_NEWS_PAGES = [
     # ─────────────────────────────────────────────
     # Google News 실검색 화면 기반 추가 보강 (2026-08-18)
     # 언론사 + 원전 관련 공식기관 원문. 투자/광고성 전용 소스는 제외.
-    # ANS 일반 뉴스는 수집하되 Nuclear Newswire는 계속 제외.
+    # ANS / Nuclear Newswire(ans.org/news)는 사용자 요청으로 제외
     # ─────────────────────────────────────────────
     ('Riviera Maritime Media', 'https://www.rivieramm.com/', 'en'),
     ('Interesting Engineering', 'https://interestingengineering.com/', 'en'),
@@ -923,7 +921,6 @@ DIRECT_NEWS_PAGES = [
     ('CGTN', 'https://www.cgtn.com/', 'en'),
     ('Utah News Dispatch', 'https://utahnewsdispatch.com/', 'en'),
     ('oEnergetice.cz', 'https://oenergetice.cz/', 'en'),
-    ('American Nuclear Society', 'https://www.ans.org/news/', 'en'),
     ('International Atomic Energy Agency', 'https://www.iaea.org/newscenter', 'en'),
     ('U.S. DOE Office of Nuclear Energy', 'https://www.energy.gov/ne/office-nuclear-energy', 'en'),
     ('Qazinform', 'https://qazinform.com/', 'en'),
@@ -1070,7 +1067,6 @@ DIRECT_ALWAYS_PUBLISHERS = {
     "The Moscow Times",
     "NucNet",
     "Nuclear Engineering International",
-    "American Nuclear Society",
     "oEnergetice.cz",
     "Interesting Engineering",
     "OilPrice.com",
@@ -1190,7 +1186,7 @@ def _english_energy_page(page_url: str) -> bool:
     dedicated_hosts_or_paths = (
         "yle.fi/t/18-209644", "vnexpress.net/nuclear-power",
         "thenationalnews.com/tags/nuclear-energy", "arabnews.com/tags/nuclear-energy",
-        "news.sky.com/topic/nuclear", "ans.org/news",
+        "news.sky.com/topic/nuclear",
     )
     return (
         any(hint in lower for hint in ENGLISH_ENERGY_PAGE_HINTS)
@@ -1226,7 +1222,6 @@ NUCLEAR_SPECIALIST_PUBLISHERS = {
     "Bellona Nuclear",
     "Nuclear Plant Journal",
     "Neutron Bytes",
-    "American Nuclear Society",
     "International Atomic Energy Agency",
     "U.S. DOE Office of Nuclear Energy",
     'SightLine | U308',
@@ -1417,7 +1412,10 @@ BLOCKED_STOCK_KEYWORDS = {
 
 EXCLUDED_PUBLISHERS = {
     "Nuclear Newswire",
+    "NuclearNewswire",
     "Nuclear Newswire (ANS)",
+    "ANS Nuclear Newswire",
+    "American Nuclear Society",  # ans.org/news = Nuclear Newswire
     "NRC News",
     "NRC",
     "U.S. NRC",
@@ -1425,9 +1423,11 @@ EXCLUDED_PUBLISHERS = {
     "Nuclear Regulatory Commission",
 }
 
-# 출처 URL에 아래 호스트가 있으면 표시/관련기사에서 제외합니다.
+# 출처 URL에 아래 문자열이 있으면 표시/수집에서 제외합니다.
 EXCLUDED_HOST_KEYWORDS = {
     "nrc.gov",
+    "ans.org/news",
+    "nuclearnewswire",
 }
 
 
@@ -1436,11 +1436,16 @@ def is_excluded_source(
     link: str = "",
     source_url: str = "",
 ) -> bool:
-    """NRC News 등 제외 매체를 출판사명·URL로 판정합니다."""
+    """NRC / Nuclear Newswire 등 제외 매체를 출판사명·URL로 판정합니다."""
     pub = (publisher or "").strip().lower()
-    if pub in {name.lower() for name in EXCLUDED_PUBLISHERS}:
+    pub_compact = pub.replace(" ", "").replace("-", "")
+    excluded_names = {name.lower() for name in EXCLUDED_PUBLISHERS}
+    if pub in excluded_names:
         return True
     if "nrc news" in pub:
+        return True
+    # NuclearNewswire / Nuclear Newswire 표기 변형
+    if "nuclearnewswire" in pub_compact:
         return True
 
     haystack = f"{link} {source_url}".lower()
@@ -3693,8 +3698,6 @@ def _looks_like_article_url(url: str, publisher: str) -> bool:
 
     if publisher == "연합뉴스":
         return "yna.co.kr/view/" in lower
-    if publisher == "American Nuclear Society":
-        return "ans.org/news/article-" in lower or "/news/article-" in lower
     if publisher == "인사이트N파워":
         return "inpnews.kr/news/articleview.html" in lower and "idxno=" in lower
     if publisher == "Nuclear Engineering International":
@@ -4986,7 +4989,6 @@ def render_card(
     article: Article,
     number: int,
     is_new: bool = False,
-    related_articles: list[Article] | None = None,
 ) -> str:
     ensure_article_display_metadata(article)
 
@@ -5005,14 +5007,6 @@ def render_card(
         if snippet_text
         else '<div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>'
     )
-    related_articles = related_articles or []
-    related_search_parts = []
-    for related in related_articles:
-        related_search_parts.extend([
-            related.title,
-            related.publisher,
-            related.description,
-        ])
 
     search_text = ' '.join(
         [
@@ -5020,33 +5014,9 @@ def render_card(
             article.publisher,
             article.group,
             article.description,
-            *related_search_parts,
         ]
     ).lower()
     primary_country = detect_article_country(article)
-
-    related_items = ""
-    if related_articles:
-        related_rows = []
-        for related in related_articles:
-            ensure_article_display_metadata(related)
-            related_rows.append(
-                '<button class="related-article-link" type="button" '
-                f'data-related-url="{escape(related.link)}">'
-                f'<span class="related-publisher">{escape(related.publisher)}</span>'
-                f'<span class="related-title">{escape(related.title)}</span>'
-                '</button>'
-            )
-
-        related_items = (
-            '<div class="related-articles-wrap">'
-            f'<button class="related-toggle" type="button" aria-expanded="false">'
-            f'관련기사 {len(related_articles)}건 <span class="related-arrow">▾</span>'
-            '</button>'
-            '<div class="related-articles-list" hidden>'
-            + ''.join(related_rows)
-            + '</div></div>'
-        )
 
     return f"""
 <article class="preview-card{' new-article' if is_new else ''}"
@@ -5082,7 +5052,6 @@ def render_card(
   <div class="card-side">
     <div class="preview-image">{image_html}</div>
   </div>
-  {related_items}
 </article>
 """
 
@@ -5105,69 +5074,54 @@ def render_group(group: str, articles: list[Article]) -> str:
 
 def render_group_unified(
     group: str,
-    article_clusters: list[tuple[Article, list[Article]]],
+    articles: list[Article],
     new_urls: set[str] | None = None,
 ) -> str:
-    if not article_clusters and group not in ALWAYS_SHOW_GROUPS:
+    if not articles and group not in ALWAYS_SHOW_GROUPS:
         return ''
 
     new_urls = new_urls or set()
 
-    korean_clusters = [
-        item for item in article_clusters
-        if item[0].language == 'ko'
-    ]
-    english_clusters = [
-        item for item in article_clusters
-        if item[0].language == 'en'
-    ]
+    korean_articles = [item for item in articles if item.language == 'ko']
+    english_articles = [item for item in articles if item.language == 'en']
 
-    def order_clusters(
-        clusters: list[tuple[Article, list[Article]]],
-    ) -> list[tuple[Article, list[Article]]]:
-        if not clusters:
+    def order_articles(items: list[Article]) -> list[Article]:
+        if not items:
             return []
 
-        buckets: dict[int, list[tuple[Article, list[Article]]]] = {
-            0: [], 1: [], 2: []
-        }
-        for item in clusters:
-            priority, _ = _group_article_priority(item[0], group)
+        buckets: dict[int, list[Article]] = {0: [], 1: [], 2: []}
+        for item in items:
+            priority, _ = _group_article_priority(item, group)
             buckets.setdefault(priority, []).append(item)
 
-        ordered: list[tuple[Article, list[Article]]] = []
+        ordered: list[Article] = []
         for priority in (0, 1, 2):
             bucket = sorted(
                 buckets.get(priority, []),
-                key=lambda item: item[0].published,
+                key=lambda item: item.published,
                 reverse=True,
             )
             ordered.extend(bucket)
         return ordered
 
-    ordered_clusters = (
-        order_clusters(korean_clusters)
-        + order_clusters(english_clusters)
+    ordered_articles = (
+        order_articles(korean_articles)
+        + order_articles(english_articles)
     )
 
     cards = ''.join(
         render_card(
-            representative,
+            article,
             index,
-            representative.link in new_urls,
-            related_articles=related,
+            article.link in new_urls,
         )
-        for index, (representative, related)
-        in enumerate(ordered_clusters, start=1)
+        for index, article in enumerate(ordered_articles, start=1)
     )
 
     if not cards:
         cards = '<div class="empty">해당 시간대에 수집된 기사가 없습니다.</div>'
 
-    article_total = sum(
-        1 + len(related)
-        for _, related in ordered_clusters
-    )
+    article_total = len(ordered_articles)
 
     return f"""
 <section class="news-group group-tab-section" data-group="{escape(group)}">
@@ -5183,59 +5137,11 @@ def render_group_unified(
 
 # ============================================================
 # FINAL DUPLICATE CONTROL
-# 1) exact duplicate: same canonical URL OR same publisher + normalized title
-#    → 목록에서 완전 삭제
-# 2) same-event (다른 언론사, 같은 사실):
-#    → 삭제하지 않고 화면에서 대표 1개 + 관련기사로 묶음
+# exact duplicate: same canonical URL OR same publisher + normalized title
+# → 목록에서 완전 삭제
 # ============================================================
 
 DEDUP_ENABLED = True
-
-_DEDUP_STOPWORDS = {
-    # Korean news boilerplate / weak words
-    "단독", "속보", "종합", "영상", "포토", "사진", "인터뷰", "기고", "사설",
-    "관련", "대한", "위한", "통해", "이번", "올해", "지난", "오늘", "내일",
-    "밝혀", "밝혔다", "전망", "예정", "추진", "진행", "관련해",
-    # English news boilerplate / weak words
-    "the", "a", "an", "and", "or", "of", "to", "for", "in", "on", "at",
-    "with", "from", "by", "as", "is", "are", "be", "will", "says", "said",
-    "report", "reports", "news", "update",
-}
-
-_STRONG_EVENT_TERMS = (
-    # Nuclear/project identifiers
-    "ap1000", "ap300", "smr-300", "smr300", "natrium", "xe-100", "bwrx-300",
-    "kozloduy", "cernavoda", "sizewell", "hinkley", "ninh thuan", "ninh thuận",
-    "barakah", "palisades", "fermi", "matador", "vogtle", "dukovany",
-    "olkiluoto", "loviisa", "khmelnytskyi", "rivne",
-    # Companies / orgs often shared across rewritten headlines
-    "terrapower", "테라파워", "holtec", "홀텍", "westinghouse", "웨스팅하우스",
-    "현대건설", "hyundai e&c", "hdec", "한수원", "khnp", "한전", "kepco",
-    "두산에너빌리티", "doosan enerbility", "삼성물산", "samsung c&t",
-    "iaea", "rosatom", "framatome", "edf",
-    "hd건설기계", "현대건설기계", "북미시장", "미국건설사",
-    # Korean site/project identifiers often shared across headlines
-    "목동10단지", "목동 10단지", "울진", "한울원전", "한울 원전",
-    "새울원전", "새울 원전", "신한울", "고리원전", "고리 원전",
-    "한빛원전", "월성원전", "smr", "소형모듈원자로",
-)
-
-_ACTION_EQUIVALENTS = {
-    "수주": {"수주", "수주했다", "따냈다", "품으로", "선정", "시공사", "낙찰"},
-    "입찰": {"입찰", "응찰", "단독응찰", "제안서", "bid", "tender"},
-    "계약": {"계약", "체결", "서명", "contract", "agreement", "signed"},
-    "승인": {"승인", "허가", "인가", "승인했다", "approved", "approval", "permit", "license", "licensing"},
-    "착공": {"착공", "공사착수", "첫삽", "construction start", "groundbreaking"},
-    "준공": {"준공", "완공", "상업운전", "commercial operation", "completed"},
-    "지원": {"지원", "기부", "후원", "개선", "교체", "무상", "지원사업"},
-    "협력": {
-        "협력", "협약", "mou", "partnership", "cooperation", "협력체계",
-        "손잡고", "맞손", "제휴", "업무협약", "파트너십", "동맹", "공략",
-    },
-    "투자": {"투자", "출자", "funding", "investment", "financing"},
-    "재가동": {"재가동", "restart", "reopen", "reopening"},
-    "해체": {"해체", "decommission", "decommissioning"},
-}
 
 # 언론사마다 띄어쓰기·표기가 다른 회사/주제를 같은 토큰으로 맞춤
 _DEDUP_ALIAS_REPLACEMENTS = (
@@ -5293,38 +5199,6 @@ def _normalize_dedup_title(title: str) -> str:
     value = re.sub(r"\s+", " ", value).strip()
     return value
 
-def _dedup_tokens(title: str) -> set[str]:
-    norm = _normalize_dedup_title(title)
-    tokens = {
-        tok for tok in norm.split()
-        if len(tok) >= 2 and tok not in _DEDUP_STOPWORDS
-    }
-    return tokens
-
-def _compact_dedup_title(title: str) -> str:
-    return re.sub(r"\s+", "", _normalize_dedup_title(title))
-
-def _same_thumbnail(a: Article, b: Article) -> bool:
-    """같은 대표이미지면 보도자료 재배포일 가능성이 매우 높습니다."""
-    ai = (a.image or "").strip()
-    bi = (b.image or "").strip()
-    if not ai or not bi:
-        return False
-    # 로컬 캐시 경로도 원본 URL hash 기반이라 동일 이미지면 같은 파일명이 됩니다.
-    return _canonical_news_url(ai) == _canonical_news_url(bi) or Path(ai).name == Path(bi).name
-
-def _action_classes(text: str) -> set[str]:
-    lower = _normalize_dedup_title(text)
-    result = set()
-    for action, variants in _ACTION_EQUIVALENTS.items():
-        if any(v.lower() in lower for v in variants):
-            result.add(action)
-    return result
-
-def _strong_event_terms(text: str) -> set[str]:
-    lower = _normalize_dedup_title(text)
-    return {term for term in _STRONG_EVENT_TERMS if term.lower() in lower}
-
 def _publisher_key(article: Article) -> str:
     return re.sub(r"\s+", "", (article.publisher or "").lower())
 
@@ -5344,114 +5218,12 @@ def _same_exact_article(a: Article, b: Article) -> bool:
         and _publisher_key(a) == _publisher_key(b)
     )
 
-def _same_event_article(a: Article, b: Article) -> bool:
-    """
-    서로 다른 언론사의 같은 사건 기사를 묶습니다.
-    제목 표현이 달라도 같은 이미지·고유명사·핵심어가 겹치면 관련기사로 묶습니다.
-    """
-    if _same_exact_article(a, b):
-        return True
-
-    # 너무 멀리 떨어진 후속보도는 묶지 않음 (약 3일)
-    try:
-        hours = abs((a.published - b.published).total_seconds()) / 3600
-        if hours > 72:
-            return False
-    except Exception:
-        pass
-
-    # 기존 개념/보도자료 판정
-    if is_same_event(a.title, b.title):
-        return True
-    if same_press_release_event(a.title, b.title):
-        return True
-    if same_event_general(a, b):
-        return True
-
-    atitle = _normalize_dedup_title(a.title)
-    btitle = _normalize_dedup_title(b.title)
-    if not atitle or not btitle:
-        return False
-
-    if atitle == btitle:
-        return True
-
-    acompact = _compact_dedup_title(a.title)
-    bcompact = _compact_dedup_title(b.title)
-    compact_seq = SequenceMatcher(None, acompact, bcompact).ratio() if acompact and bcompact else 0.0
-
-    # 같은 대표이미지 = 보도자료 공유일 가능성 매우 높음
-    same_image = _same_thumbnail(a, b)
-
-    atext = f"{a.title} {(a.description or '')[:180]}"
-    btext = f"{b.title} {(b.description or '')[:180]}"
-
-    atok = _dedup_tokens(atext)
-    btok = _dedup_tokens(btext)
-    if not atok or not btok:
-        return False
-
-    shared_tokens = atok & btok
-    intersection = len(shared_tokens)
-    union = len(atok | btok)
-    jaccard = intersection / union if union else 0.0
-    seq = SequenceMatcher(None, atitle, btitle).ratio()
-    ngram = character_ngram_similarity(a.title, b.title)
-
-    astrong = _strong_event_terms(atext)
-    bstrong = _strong_event_terms(btext)
-    shared_strong = astrong & bstrong
-
-    aactions = _action_classes(atext)
-    bactions = _action_classes(btext)
-    shared_action = bool(aactions & bactions)
-    same_group = (a.group or "") == (b.group or "") and bool(a.group)
-
-    # 0) 같은 썸네일 + (같은 그룹 또는 핵심어 1개 이상)
-    if same_image and (same_group or shared_strong or intersection >= 1):
-        return True
-
-    # A) 띄어쓰기만 다른/거의 같은 제목
-    if compact_seq >= 0.78 and intersection >= 1:
-        return True
-    if seq >= 0.68 and intersection >= 2:
-        return True
-    if ngram >= 0.48 and intersection >= 2:
-        return True
-
-    # B) 같은 회사/프로젝트 + 행위 또는 키워드
-    if shared_strong and shared_action and intersection >= 1:
-        return True
-    if len(shared_strong) >= 1 and intersection >= 2 and (shared_action or same_group):
-        return True
-    if len(shared_strong) >= 2 and intersection >= 1:
-        return True
-    if shared_strong and (jaccard >= 0.22 or intersection >= 2):
-        return True
-
-    # C) 같은 그룹(예: 현대건설 칸) 안에서는 더 쉽게 묶음
-    if same_group and shared_action and intersection >= 2:
-        return True
-    if same_group and intersection >= 3:
-        return True
-    if same_group and compact_seq >= 0.62 and intersection >= 1:
-        return True
-
-    # D) 보도자료 재작성형
-    if shared_action and intersection >= 3 and jaccard >= 0.30:
-        return True
-    if intersection >= 4 and jaccard >= 0.38:
-        return True
-
-    return False
-
 def _article_rep_score(article: Article) -> tuple:
-    """Choose the richest representative among duplicate/event-equivalent stories."""
+    """완전 중복 중 더 풍부한 미리보기/이미지를 가진 쪽을 남깁니다."""
     description_len = len((article.description or "").strip())
     image_bonus = 1 if (article.image or "").strip() else 0
     publisher_bonus = 1 if (article.publisher or "").strip() and article.publisher != "출처 미확인" else 0
     link_bonus = 1 if (article.link or "").strip() else 0
-    # Richness first; for ties prefer earlier publication as likely original report.
     return (
         description_len,
         image_bonus,
@@ -5461,13 +5233,7 @@ def _article_rep_score(article: Article) -> tuple:
     )
 
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
-    """
-    완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다.
-
-    서로 다른 언론사의 '같은 사건' 기사는 여기서 지우지 않습니다.
-    화면 단계에서 cluster_related_articles()가
-    대표 1개 + 관련기사로 묶어서 보여줍니다.
-    """
+    """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
         return sorted(
             (
@@ -5487,7 +5253,6 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         reverse=True,
     )
 
-    # 완전 중복만 제거. 같은 사건(다른 언론사)은 관련기사 묶기를 위해 유지.
     exact_unique: list[Article] = []
     exact_removed = 0
     for article in sorted_articles:
@@ -5506,7 +5271,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     result = sorted(exact_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
-        f"/ same_event_removed=0(kept_for_related) / final={len(result)}"
+        f"/ final={len(result)}"
     )
     return result
 
@@ -5515,111 +5280,21 @@ def final_deduplicate_articles(articles: list[Article]) -> list[Article]:
     return deduplicate_articles_final(articles)
 
 
-def cluster_related_articles(
-    articles: list[Article],
-) -> list[tuple[Article, list[Article]]]:
-    """
-    기사 표시용 클러스터링.
-    - 동일 URL/동일 매체·동일 제목은 완전 중복이므로 한 건만 유지
-    - 서로 다른 언론사의 같은 사건 기사는 삭제하지 않고 대표기사 아래 관련기사로 묶음
-    - 단순히 같은 회사/프로젝트를 다룬 기사까지 합치지 않도록 기존의 보수적
-      _same_event_article() 판정을 그대로 사용
-    """
-    if not articles:
-        return []
-
-    sorted_articles = sorted(
-        (
-            article for article in articles
-            if not is_excluded_source(article.publisher, article.link, article.source_url)
-        ),
-        key=lambda article: article.published,
-        reverse=True,
-    )
-
-    exact_unique: list[Article] = []
-    for article in sorted_articles:
-        matched_idx = None
-        for idx, kept in enumerate(exact_unique):
-            if _same_exact_article(article, kept):
-                matched_idx = idx
-                break
-
-        if matched_idx is None:
-            exact_unique.append(article)
-        elif _article_rep_score(article) > _article_rep_score(exact_unique[matched_idx]):
-            exact_unique[matched_idx] = article
-
-    clusters: list[list[Article]] = []
-    for article in exact_unique:
-        matched_cluster = None
-
-        for cluster in clusters:
-            if any(_same_event_article(article, member) for member in cluster):
-                matched_cluster = cluster
-                break
-
-        if matched_cluster is None:
-            clusters.append([article])
-        else:
-            matched_cluster.append(article)
-
-    result: list[tuple[Article, list[Article]]] = []
-    priority_index = {
-        group: idx for idx, group in enumerate(DIRECT_GROUP_PRIORITY)
-    }
-
-    for cluster in clusters:
-        cluster_group = min(
-            (article.group for article in cluster),
-            key=lambda group: priority_index.get(group, 999),
-        )
-
-        same_group_candidates = [
-            article for article in cluster
-            if article.group == cluster_group
-        ]
-        candidates = same_group_candidates or cluster
-        representative = max(candidates, key=_article_rep_score)
-        representative.group = cluster_group
-
-        related = [
-            article for article in cluster
-            if article is not representative
-            and not is_excluded_source(article.publisher, article.link, article.source_url)
-        ]
-        related.sort(key=lambda article: article.published, reverse=True)
-
-        result.append((representative, related))
-
-    result.sort(
-        key=lambda item: item[0].published,
-        reverse=True,
-    )
-
-    grouped_count = sum(len(related) for _, related in result)
-    print(
-        f"[ARTICLE CLUSTERS] input={len(articles)} / "
-        f"clusters={len(result)} / related={grouped_count}"
-    )
-    return result
-
-
 def render_news_sections(
     articles: list[Article],
     new_urls: set[str] | None = None,
 ) -> str:
-    clusters = cluster_related_articles(articles)
+    # 관련기사 묶기 없음: 기사마다 개별 카드로 표시
+    visible = [
+        article for article in articles
+        if not is_excluded_source(article.publisher, article.link, article.source_url)
+    ]
 
-    grouped: dict[
-        str,
-        list[tuple[Article, list[Article]]]
-    ] = {name: [] for name, _ in GROUPS}
-
-    for representative, related in clusters:
-        if representative.group not in grouped:
+    grouped: dict[str, list[Article]] = {name: [] for name, _ in GROUPS}
+    for article in visible:
+        if article.group not in grouped:
             continue
-        grouped[representative.group].append((representative, related))
+        grouped[article.group].append(article)
 
     sections = []
     for group, _ in GROUPS:
@@ -7408,80 +7083,6 @@ header,
 }}
 
 
-/* RELATED ARTICLE CLUSTERS */
-.preview-card:has(.related-articles-wrap) {{
-  padding-bottom:0;
-}}
-.related-articles-wrap {{
-  grid-column:1 / -1;
-  width:100%;
-  margin-top:2px;
-  border-top:1px solid rgba(35,57,93,.08);
-  background:#f7f8fa;
-}}
-.related-toggle {{
-  width:100%;
-  min-height:27px;
-  padding:0 8px;
-  border:0;
-  background:transparent;
-  color:#53657c;
-  font-size:9px;
-  font-weight:850;
-  line-height:27px;
-  text-align:left;
-  cursor:pointer;
-}}
-.related-arrow {{
-  display:inline-block;
-  margin-left:2px;
-  color:#8a94a3;
-}}
-.related-toggle[aria-expanded="true"] .related-arrow {{
-  transform:rotate(180deg);
-}}
-.related-articles-list {{
-  padding:0 7px 7px;
-}}
-.related-article-link {{
-  display:grid;
-  grid-template-columns:70px minmax(0,1fr);
-  align-items:start;
-  gap:6px;
-  width:100%;
-  padding:6px 4px;
-  border:0;
-  border-top:1px solid rgba(35,57,93,.06);
-  background:transparent;
-  text-align:left;
-  cursor:pointer;
-}}
-.related-publisher {{
-  color:#7a8493;
-  font-size:8px;
-  line-height:1.25;
-  font-weight:800;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}}
-.related-title {{
-  color:#345b8c;
-  font-size:9px;
-  line-height:1.3;
-  font-weight:750;
-}}
-.related-article-link:hover .related-title {{
-  text-decoration:underline;
-}}
-@media (min-width:768px) {{
-  .related-toggle {{ font-size:9px; }}
-  .related-article-link {{
-    grid-template-columns:70px minmax(0,1fr);
-  }}
-}}
-
-
 /* ============================================================
    MODERN COUNTRY MAP + FILTER
    World map = overview / chips = precise filtering
@@ -8856,8 +8457,8 @@ header,
             <span class="clock-center"></span>
           </div>
           <div class="mini-clock-meta">
-            <span class="mini-clock-time">--:--</span>
             <span class="mini-clock-format" title="24시간제">24H</span>
+            <span class="mini-clock-time">--:--</span>
             <span class="mini-clock-day">--</span>
           </div>
         </div>
@@ -8876,8 +8477,8 @@ header,
             <span class="clock-center"></span>
           </div>
           <div class="mini-clock-meta">
-            <span class="mini-clock-time">--:--</span>
             <span class="mini-clock-format" title="24시간제">24H</span>
+            <span class="mini-clock-time">--:--</span>
             <span class="mini-clock-day">--</span>
           </div>
         </div>
@@ -9872,33 +9473,7 @@ function showImportantToast(message){{
 document.querySelectorAll(".preview-card").forEach(card=>{{
   applyState(card);
 
-  const relatedToggle=card.querySelector(".related-toggle");
-  if(relatedToggle){{
-    relatedToggle.addEventListener("click",event=>{{
-      event.preventDefault();
-      event.stopPropagation();
-
-      const list=card.querySelector(".related-articles-list");
-      const expanded=relatedToggle.getAttribute("aria-expanded")==="true";
-      relatedToggle.setAttribute("aria-expanded",String(!expanded));
-      if(list)list.hidden=expanded;
-    }});
-  }}
-
-  card.querySelectorAll(".related-article-link").forEach(button=>{{
-    button.addEventListener("click",event=>{{
-      event.preventDefault();
-      event.stopPropagation();
-
-      const url=button.dataset.relatedUrl;
-      if(!url)return;
-
-      readArticles.add(url);
-      saveState();
-      window.open(url,"_blank","noopener");
-    }});
-  }});
-  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button, .related-toggle, .related-article-link")) openArticle(card); }});
+  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button")) openArticle(card); }});
   card.addEventListener("keydown",e=>{{ if(e.key==="Enter"||e.key===" "){{ e.preventDefault(); openArticle(card); }}}});
   const importantButton = card.querySelector(".important-button");
   if(importantButton){{
