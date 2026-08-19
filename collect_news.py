@@ -5146,7 +5146,7 @@ def archive_panels_html(archive: dict[str, dict], new_urls: set[str]) -> str:
       <span class="period-inline-label">{end:%-m.%-d}</span>
       <span class="period-inline-range">{start:%-m.%-d %H:%M} → {end:%-m.%-d %H:%M}</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     {sections or '<div class="empty">해당 날짜에 저장된 뉴스 기사가 없습니다.</div>'}
@@ -5183,7 +5183,7 @@ def build_html(
       <span class="period-inline-label">{escape(label)}</span>
       <span class="period-inline-range">{start:%-m.%-d %H:%M} → {end:%-m.%-d %H:%M}</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   {note}
   <div class="language-section">
@@ -6923,6 +6923,65 @@ header,
   }}
 }}
 
+
+/* EMBEDDED WORLD MAP — no external image dependency */
+.country-map-visual .world-map-inline {{
+  position:absolute;
+  inset:8px 8px 17px;
+  width:calc(100% - 16px);
+  height:calc(100% - 25px);
+  display:block;
+  overflow:visible;
+  pointer-events:none;
+}}
+
+.world-map-land path {{
+  fill:#d7dee7;
+  stroke:#b8c3d1;
+  stroke-width:2;
+  vector-effect:non-scaling-stroke;
+  stroke-linejoin:round;
+}}
+
+.country-map-visual {{
+  background:
+    radial-gradient(circle at 48% 45%, rgba(255,255,255,.98), rgba(242,246,249,.98));
+}}
+
+.country-map-visual::before {{
+  content:"";
+  position:absolute;
+  inset:8px 8px 17px;
+  background:
+    linear-gradient(to right, transparent 24.8%, rgba(95,115,138,.055) 25%, transparent 25.2%,
+                              transparent 49.8%, rgba(95,115,138,.055) 50%, transparent 50.2%,
+                              transparent 74.8%, rgba(95,115,138,.055) 75%, transparent 75.2%),
+    linear-gradient(to bottom, transparent 32.8%, rgba(95,115,138,.05) 33%, transparent 33.2%,
+                                transparent 65.8%, rgba(95,115,138,.05) 66%, transparent 66.2%);
+  pointer-events:none;
+  z-index:0;
+}}
+
+.country-map-visual .world-map-image {{
+  display:none !important;
+}}
+
+
+/* MASTER EXPAND/COLLAPSE COUNT */
+.period-action-row .group-master-button {{
+  width:auto;
+  min-width:112px;
+  padding:0 8px;
+  white-space:nowrap;
+}}
+@media (max-width:380px) {{
+  .period-action-row .group-master-button {{
+    min-width:106px;
+    padding:0 6px;
+    font-size:9px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -6976,12 +7035,51 @@ header,
     </div>
 
     <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
-      <img
-        class="world-map-image"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png"
-        alt="세계지도"
-        loading="lazy"
-        referrerpolicy="no-referrer">
+      <svg class="world-map-inline" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
+        <g class="world-map-land">
+          <!-- Greenland -->
+          <path d="M288 58 L326 42 L358 55 L366 82 L345 105 L316 102 L294 84 Z"/>
+          <!-- North America -->
+          <path d="M80 112 L122 78 L184 68 L235 86 L275 115 L265 145 L233 159 L220 189
+                   L189 196 L168 220 L137 211 L119 183 L89 173 L62 146 Z"/>
+          <path d="M186 221 L213 219 L230 237 L220 253 L197 248 Z"/>
+          <!-- Central America -->
+          <path d="M215 249 L233 250 L248 266 L258 280 L247 289 L233 277 Z"/>
+          <!-- South America -->
+          <path d="M259 291 L296 279 L326 297 L343 335 L335 373 L320 409 L300 446
+                   L280 429 L271 393 L253 357 L245 319 Z"/>
+          <!-- Europe -->
+          <path d="M455 124 L483 108 L520 111 L545 126 L533 145 L506 151 L489 168
+                   L462 159 L443 142 Z"/>
+          <path d="M514 151 L531 157 L540 176 L525 188 L509 176 Z"/>
+          <!-- Africa -->
+          <path d="M466 185 L510 170 L552 182 L580 218 L568 264 L547 316 L520 355
+                   L492 342 L474 301 L456 250 L449 212 Z"/>
+          <path d="M557 332 L568 338 L565 364 L554 372 L548 351 Z"/>
+          <!-- Asia -->
+          <path d="M538 116 L584 92 L642 83 L697 89 L745 109 L786 132 L834 137
+                   L870 162 L857 188 L813 195 L784 211 L745 208 L713 225 L680 214
+                   L647 227 L618 211 L590 219 L558 197 L543 169 Z"/>
+          <!-- India / SE Asia -->
+          <path d="M635 219 L660 222 L675 254 L662 287 L647 271 L636 244 Z"/>
+          <path d="M704 231 L731 241 L746 268 L735 294 L719 280 L709 256 Z"/>
+          <!-- Japan -->
+          <path d="M843 195 L851 187 L858 199 L853 216 L846 212 Z"/>
+          <!-- Indonesia -->
+          <path d="M711 306 L742 302 L764 312 L792 309 L813 319 L800 330 L771 326 L742 331 Z"/>
+          <!-- Australia -->
+          <path d="M751 354 L795 336 L842 346 L869 375 L857 414 L823 435 L783 425
+                   L757 399 L744 374 Z"/>
+          <!-- New Zealand -->
+          <path d="M891 407 L900 420 L896 439 L887 429 Z"/>
+          <!-- UK / Ireland -->
+          <path d="M448 135 L454 126 L460 132 L457 146 Z"/>
+          <!-- Scandinavia -->
+          <path d="M505 84 L523 67 L537 74 L534 101 L519 118 L506 106 Z"/>
+          <!-- Madagascar -->
+          <path d="M583 318 L590 330 L587 356 L579 365 L575 343 Z"/>
+        </g>
+      </svg>
       <div id="country-map-dots" class="country-map-dots" aria-hidden="false"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
@@ -7058,6 +7156,23 @@ function setCategoryGroups(container, collapsed) {{
   }});
 }}
 
+function updateMasterButtonCount(panel){{
+  if(!panel)return;
+
+  const button=panel.querySelector(".group-master-button");
+  if(!button)return;
+
+  const cards=[...panel.querySelectorAll(".preview-card")];
+  const visibleCount=cards.filter(card=>card.style.display!=="none").length;
+
+  button.dataset.articleCount=String(visibleCount);
+
+  const collapsed=button.dataset.collapsed==="true";
+  button.textContent=collapsed
+    ? `전체 펼치기 · ${{visibleCount}}건 ▼`
+    : `전체 접기 · ${{visibleCount}}건 ▲`;
+}}
+
 document.addEventListener("click", event => {{
   const masterButton = event.target.closest(".group-master-button");
   if(masterButton) {{
@@ -7070,7 +7185,7 @@ document.addEventListener("click", event => {{
 
     setCategoryGroups(section, nextCollapsed);
     masterButton.dataset.collapsed = String(nextCollapsed);
-    masterButton.textContent = nextCollapsed ? "전체 펼치기 ▼" : "전체 접기 ▲";
+    updateMasterButtonCount(panel);
     return;
   }}
 
@@ -7691,6 +7806,7 @@ function filterArticles(){{
   }}
 
   document.getElementById("no-results").style.display=(q||activeCountryFilter)&&total===0?"block":"none";
+  updateMasterButtonCount(panel);
 }}
 function refreshActivePeriodUI(){{
   filterArticles();
@@ -7810,12 +7926,10 @@ if(archiveInput){{
   }});
 }}
 window.addEventListener("resize",()=>requestAnimationFrame(layoutAndRenderCountryMap));
-const worldMapImage=document.querySelector(".world-map-image");
-if(worldMapImage)worldMapImage.addEventListener("load",()=>requestAnimationFrame(layoutAndRenderCountryMap));
 document.getElementById("article-search").addEventListener("input",filterArticles);
 updateCountryMapCounts();
 
-filterArticles();renderFavorites();
+filterArticles();renderFavorites();updateMasterButtonCount(activePanel());
 </script>
 </body>
 </html>
