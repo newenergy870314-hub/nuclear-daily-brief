@@ -1727,6 +1727,65 @@ header,
   }
 }
 
+
+/* EMBEDDED WORLD MAP — no external image dependency */
+.country-map-visual .world-map-inline {
+  position:absolute;
+  inset:8px 8px 17px;
+  width:calc(100% - 16px);
+  height:calc(100% - 25px);
+  display:block;
+  overflow:visible;
+  pointer-events:none;
+}
+
+.world-map-land path {
+  fill:#d7dee7;
+  stroke:#b8c3d1;
+  stroke-width:2;
+  vector-effect:non-scaling-stroke;
+  stroke-linejoin:round;
+}
+
+.country-map-visual {
+  background:
+    radial-gradient(circle at 48% 45%, rgba(255,255,255,.98), rgba(242,246,249,.98));
+}
+
+.country-map-visual::before {
+  content:"";
+  position:absolute;
+  inset:8px 8px 17px;
+  background:
+    linear-gradient(to right, transparent 24.8%, rgba(95,115,138,.055) 25%, transparent 25.2%,
+                              transparent 49.8%, rgba(95,115,138,.055) 50%, transparent 50.2%,
+                              transparent 74.8%, rgba(95,115,138,.055) 75%, transparent 75.2%),
+    linear-gradient(to bottom, transparent 32.8%, rgba(95,115,138,.05) 33%, transparent 33.2%,
+                                transparent 65.8%, rgba(95,115,138,.05) 66%, transparent 66.2%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.country-map-visual .world-map-image {
+  display:none !important;
+}
+
+
+/* MASTER EXPAND/COLLAPSE COUNT */
+.period-action-row .group-master-button {
+  width:auto;
+  min-width:112px;
+  padding:0 8px;
+  white-space:nowrap;
+}
+@media (max-width:380px) {
+  .period-action-row .group-master-button {
+    min-width:106px;
+    padding:0 6px;
+    font-size:9px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1735,7 +1794,7 @@ header,
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
       <div class="topbar-actions">
-        <span class="updated updated-inline">업데이트됨 8.19 09:05 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.19 09:15 KST</span>
         <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
     </div>
@@ -1780,12 +1839,51 @@ header,
     </div>
 
     <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
-      <img
-        class="world-map-image"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Blank_world_map.svg/960px-Blank_world_map.svg.png"
-        alt="세계지도"
-        loading="lazy"
-        referrerpolicy="no-referrer">
+      <svg class="world-map-inline" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
+        <g class="world-map-land">
+          <!-- Greenland -->
+          <path d="M288 58 L326 42 L358 55 L366 82 L345 105 L316 102 L294 84 Z"/>
+          <!-- North America -->
+          <path d="M80 112 L122 78 L184 68 L235 86 L275 115 L265 145 L233 159 L220 189
+                   L189 196 L168 220 L137 211 L119 183 L89 173 L62 146 Z"/>
+          <path d="M186 221 L213 219 L230 237 L220 253 L197 248 Z"/>
+          <!-- Central America -->
+          <path d="M215 249 L233 250 L248 266 L258 280 L247 289 L233 277 Z"/>
+          <!-- South America -->
+          <path d="M259 291 L296 279 L326 297 L343 335 L335 373 L320 409 L300 446
+                   L280 429 L271 393 L253 357 L245 319 Z"/>
+          <!-- Europe -->
+          <path d="M455 124 L483 108 L520 111 L545 126 L533 145 L506 151 L489 168
+                   L462 159 L443 142 Z"/>
+          <path d="M514 151 L531 157 L540 176 L525 188 L509 176 Z"/>
+          <!-- Africa -->
+          <path d="M466 185 L510 170 L552 182 L580 218 L568 264 L547 316 L520 355
+                   L492 342 L474 301 L456 250 L449 212 Z"/>
+          <path d="M557 332 L568 338 L565 364 L554 372 L548 351 Z"/>
+          <!-- Asia -->
+          <path d="M538 116 L584 92 L642 83 L697 89 L745 109 L786 132 L834 137
+                   L870 162 L857 188 L813 195 L784 211 L745 208 L713 225 L680 214
+                   L647 227 L618 211 L590 219 L558 197 L543 169 Z"/>
+          <!-- India / SE Asia -->
+          <path d="M635 219 L660 222 L675 254 L662 287 L647 271 L636 244 Z"/>
+          <path d="M704 231 L731 241 L746 268 L735 294 L719 280 L709 256 Z"/>
+          <!-- Japan -->
+          <path d="M843 195 L851 187 L858 199 L853 216 L846 212 Z"/>
+          <!-- Indonesia -->
+          <path d="M711 306 L742 302 L764 312 L792 309 L813 319 L800 330 L771 326 L742 331 Z"/>
+          <!-- Australia -->
+          <path d="M751 354 L795 336 L842 346 L869 375 L857 414 L823 435 L783 425
+                   L757 399 L744 374 Z"/>
+          <!-- New Zealand -->
+          <path d="M891 407 L900 420 L896 439 L887 429 Z"/>
+          <!-- UK / Ireland -->
+          <path d="M448 135 L454 126 L460 132 L457 146 Z"/>
+          <!-- Scandinavia -->
+          <path d="M505 84 L523 67 L537 74 L534 101 L519 118 L506 106 Z"/>
+          <!-- Madagascar -->
+          <path d="M583 318 L590 330 L587 356 L579 365 L575 343 Z"/>
+        </g>
+      </svg>
       <div id="country-map-dots" class="country-map-dots" aria-hidden="false"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
@@ -1838,7 +1936,7 @@ header,
       <span class="period-inline-label">전일</span>
       <span class="period-inline-range">8.17 06:00 → 8.18 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   
   <div class="language-section">
@@ -4563,7 +4661,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/887ef1e05c199ead0682ef47.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/956566e07539bfdd097be9e7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -4741,7 +4839,7 @@ header,
       <span class="period-inline-label">금일</span>
       <span class="period-inline-range">8.18 06:00 → 8.19 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   
   <div class="language-section">
@@ -6337,7 +6435,7 @@ header,
   data-priority="1"
   data-published="1787066218"
   data-country="KR"
-  data-search="발전소 누비며 작업자 졸졸…한전kps, 피지컬ai 띄운다 전기신문 한국전력 한전kps가 작업자를 따라다니며 위험을 감지하고 정비 업무까지 돕는 피지컬ai 로봇의 발전소 현장 투입에 속도를 내고 있다.18일 한전kps(사장 김홍연)는 ai 탑재 로봇을 발전정비 현장에 투입하기 위한 기술개발에 박차를 가하고 있다고 밝혔다.한전kps는 올해 남부발전 자회사인 kospo영남파워에서 두 차례에 걸쳐 ‘피지컬ai 기반 밀착형 안전 어시스트 시스템’ 기술검증(poc) 시연회를 열고, 로보틱스와 생성형ai를 결합한 지능형 작업 안전관리 모델의 정비현장 적용 가능성을 검증했다.이번 실증은 기존 정비현장에 투입된 기기들이"
+  data-search="발전소 누비며 작업자 졸졸…한전kps, 피지컬ai 띄운다 전기신문 한국전력 한전kps가 작업자를 따라다니며 위험을 감지하고 정비 업무까지 돕는 피지컬ai 로봇의 발전소 현장 투입에 속도를 내고 있다.18일 한전kps(사장 김홍연)는 ai 탑재 로봇을 발전정비 현장에 투입하기 위한 기술개발에 박차를 가하고 있다고 밝혔다.한전kps는 올해 남부발전 자회사인 kospo영남파워에서 두 차례에 걸쳐 ‘피지컬ai 기반 밀착형 안전 어시스트 시스템’ 기술검증(poc) 시연회를 열고, 로보틱스와 생성형ai를 결합한 지능형 작업 안전관리 모델의 정비현장 적용 가능성을 검증했다.이번 실증은 기존 정비현장에 투입된 기기들이 cctv 수준의 단순 모니터링에 그쳤"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -6354,7 +6452,7 @@ header,
         </div>
       </div>
       <div class="headline">발전소 누비며 작업자 졸졸…한전KPS, 피지컬AI 띄운다</div>
-      <div class="article-snippet">한전KPS가 작업자를 따라다니며 위험을 감지하고 정비 업무까지 돕는 피지컬AI 로봇의 발전소 현장 투입에 속도를 내고 있다.18일 한전KPS(사장 김홍연)는 AI 탑재 로봇을 발전정비 현장에 투입하기 위한 기술개발에 박차를 가하고 있다고 밝혔다.한전KPS는 올해 남부발전 자회사인 KOSPO영남파워에서 두 차례에 걸쳐 ‘피지컬AI 기반 밀착형 안전 어시스트 시스템’ 기술검증(PoC) 시연회를 열고, 로보틱스와 생성형AI를 결합한 지능형 작업 안전관리 모델의 정비현장 적용 가능성을 검증했다.이번 실증은 기존 정비현장에 투입된 기기들이</div>
+      <div class="article-snippet">한전KPS가 작업자를 따라다니며 위험을 감지하고 정비 업무까지 돕는 피지컬AI 로봇의 발전소 현장 투입에 속도를 내고 있다.18일 한전KPS(사장 김홍연)는 AI 탑재 로봇을 발전정비 현장에 투입하기 위한 기술개발에 박차를 가하고 있다고 밝혔다.한전KPS는 올해 남부발전 자회사인 KOSPO영남파워에서 두 차례에 걸쳐 ‘피지컬AI 기반 밀착형 안전 어시스트 시스템’ 기술검증(PoC) 시연회를 열고, 로보틱스와 생성형AI를 결합한 지능형 작업 안전관리 모델의 정비현장 적용 가능성을 검증했다.이번 실증은 기존 정비현장에 투입된 기기들이 CCTV 수준의 단순 모니터링에 그쳤</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
@@ -9415,7 +9513,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=260501"
   data-title="[데일리대구경북뉴스] 한울본부, 국가중요시설 방호능력 향상 및 유관기관과 협조체계 구축"
   data-publisher="데일리대구경북뉴스"
@@ -9440,7 +9538,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울본부, 국가중요시설 방호능력 향상 및 유관기관과 협조체계 구축</div>
+      <div class="headline">[데일리대구경북뉴스] 한울본부, 국가중요시설 방호능력 향상 및 유관기관과 협조체계 구축</div>
       <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희)는 2026년도 을지연습 기간 중인 8월 18일 신한울1발전소 일대에서 통합방호 대비태세 완비와 현장 대응 위주 작전 종결 능력 구비를 위한 민ㆍ관ㆍ군ㆍ경ㆍ소방 통합방호훈련을 실시했다. 이번 훈련에는 한울본부 청원경찰과 특수경비대 및 자체 소방대를 포함하여 50사단 예하 부대, 울진군 경찰 및 해</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -9914,7 +10012,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/6f410f1a7825f73ed7270727.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/ba02899647db14863d895d72.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -14972,7 +15070,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c53e5170b8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c53fd0e2c0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -16572,7 +16670,7 @@ header,
       <span class="period-inline-label">익일</span>
       <span class="period-inline-range">8.19 06:00 → 8.20 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   
   <div class="language-section">
@@ -16584,7 +16682,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105946"
   data-title="현대건설과 손 잡은 美 테라파워, 곧 두번째 원전 건설 계획 발표 예정"
   data-publisher="더구루"
@@ -16609,7 +16707,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대건설과 손 잡은 美 테라파워, 곧 두번째 원전 건설 계획 발표 예정</div>
+      <div class="headline">현대건설과 손 잡은 美 테라파워, 곧 두번째 원전 건설 계획 발표 예정</div>
       <div class="article-snippet">[더구루=홍성환 기자] 마이크로소프트(MS) 창업자 빌 게이츠가 설립한 소형모듈원전(SMR) 기업 테라파워가 연내 두 번째 SMR 사업을 확정할 방침이다. 크리스 레베스크 테라파워 최고경영자(CEO)는 18일(현지시간) 블룸버그 통신과의 인터뷰에서 &quot;올해 차기 프로젝트 계획을 발표할 것&quot;이라며 &quot;예정대로 추진될 경우 내년 착공에</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -16762,7 +16860,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787097900"
+  data-published="1787098500"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -16878,7 +16976,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -16913,6 +17011,78 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/831c7c860b56259cfcb3f779.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260819_0003753677"
+  data-title="국힘, 트럼프 한미훈련 축소 지시에 &quot;정부, 동맹 균열 즉각 수습하라&quot;"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787098649"
+  data-country="US"
+  data-search="국힘, 트럼프 한미훈련 축소 지시에 &quot;정부, 동맹 균열 즉각 수습하라&quot; 뉴시스 원전 대미투자 [서울=뉴시스]한은진 기자 = 국민의힘은 19일 미국 트럼프 대통령이 한미 연합군사훈련을 대폭 축소하라고 지시했다고 밝히자 정부를 향해 &quot;국가의 안보를 걸고 하는 허세는 그만 부리고 흔들리는 동맹 균열부터 즉각 수습하라&quot;고 말했다. 박충권 수석대변인은 이날 논평을 내고 &quot;이재명 대통령이 어제 국무회의에서 세계 5위 군사력 등을 내세우며 스스로를 지킬 역량이 &#x27;차고 넘친다&#x27;고 자평했다&quot;며 &quot;미 항공모함이 태평양을 비우고 을지 자유의 방패(ufs) 등 한미훈련이 대폭 축소되는 초유의 안보 공백 상황에서 나온 발언&quot;이라고 주장했다. 박 수석대변인은 &quot;미군 지휘관이 국방부를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>국힘, 트럼프 한미훈련 축소 지시에 &quot;정부, 동맹 균열 즉각 수습하라&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]한은진 기자 = 국민의힘은 19일 미국 트럼프 대통령이 한미 연합군사훈련을 대폭 축소하라고 지시했다고 밝히자 정부를 향해 &quot;국가의 안보를 걸고 하는 허세는 그만 부리고 흔들리는 동맹 균열부터 즉각 수습하라&quot;고 말했다. 박충권 수석대변인은 이날 논평을 내고 &quot;이재명 대통령이 어제 국무회의에서 세계 5위 군사력 등을 내세우며 스스로를 지킬 역량이 &#x27;차고 넘친다&#x27;고 자평했다&quot;며 &quot;미 항공모함이 태평양을 비우고 을지 자유의 방패(UFS) 등 한미훈련이 대폭 축소되는 초유의 안보 공백 상황에서 나온 발언&quot;이라고 주장했다. 박 수석대변인은 &quot;미군 지휘관이 국방부를</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7279b0ef6005bb17bdae1840.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260819_0003753668"
+  data-title="與홍기원 &quot;&#x27;훈련 축소&#x27; 트럼프 SNS 발표는 비정상적…북미 대화 이어지길&quot;"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787098536"
+  data-country="US"
+  data-search="與홍기원 &quot;&#x27;훈련 축소&#x27; 트럼프 sns 발표는 비정상적…북미 대화 이어지길&quot; 뉴시스 원전 대미투자 [서울=뉴시스] 이창환 기자 = 홍기원 더불어민주당 의원은 19일 도널드 트럼프 미국 대통령의 한미연합훈련(을지 자유의 방패) 축소 지시 언급을 두고 &quot;국가 간의 관계나 외교의 세계에서는 상당히 이례적인 것&quot;이라고 했다. 국회 외교통일위원회 여당 간사인 홍 의원은 이날 오전 ytn 라디오 &#x27;장성철의 뉴스명당&#x27;에서 &quot;sns로 한미연합훈련의 실질적인 감축을 올리면서 우리가 그 의도를 어떻게 해석해야 되느냐 논의하고 있는데, 이 자체가 매우 비정상적&quot;이라고 했다. 그는 &quot;국가 간 문제는 공식적인 채널을 통해 &#x27;우리는 이러이러한 입장이다&#x27;, &#x27;뭐 이런 것에 불만이 있다&#x27; &#x27;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>與홍기원 &quot;&#x27;훈련 축소&#x27; 트럼프 SNS 발표는 비정상적…북미 대화 이어지길&quot;</div>
+      <div class="article-snippet">[서울=뉴시스] 이창환 기자 = 홍기원 더불어민주당 의원은 19일 도널드 트럼프 미국 대통령의 한미연합훈련(을지 자유의 방패) 축소 지시 언급을 두고 &quot;국가 간의 관계나 외교의 세계에서는 상당히 이례적인 것&quot;이라고 했다. 국회 외교통일위원회 여당 간사인 홍 의원은 이날 오전 YTN 라디오 &#x27;장성철의 뉴스명당&#x27;에서 &quot;SNS로 한미연합훈련의 실질적인 감축을 올리면서 우리가 그 의도를 어떻게 해석해야 되느냐 논의하고 있는데, 이 자체가 매우 비정상적&quot;이라고 했다. 그는 &quot;국가 간 문제는 공식적인 채널을 통해 &#x27;우리는 이러이러한 입장이다&#x27;, &#x27;뭐 이런 것에 불만이 있다&#x27; &#x27;</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6e719b638b1ad77b727f2a22.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -17387,7 +17557,7 @@ header,
       <span class="period-inline-label">8.20</span>
       <span class="period-inline-range">8.19 06:00 → 8.20 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -17398,7 +17568,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105946"
   data-title="현대건설과 손 잡은 美 테라파워, 곧 두번째 원전 건설 계획 발표 예정"
   data-publisher="더구루"
@@ -17423,7 +17593,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대건설과 손 잡은 美 테라파워, 곧 두번째 원전 건설 계획 발표 예정</div>
+      <div class="headline">현대건설과 손 잡은 美 테라파워, 곧 두번째 원전 건설 계획 발표 예정</div>
       <div class="article-snippet">[더구루=홍성환 기자] 마이크로소프트(MS) 창업자 빌 게이츠가 설립한 소형모듈원전(SMR) 기업 테라파워가 연내 두 번째 SMR 사업을 확정할 방침이다. 크리스 레베스크 테라파워 최고경영자(CEO)는 18일(현지시간) 블룸버그 통신과의 인터뷰에서 &quot;올해 차기 프로젝트 계획을 발표할 것&quot;이라며 &quot;예정대로 추진될 경우 내년 착공에</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -17576,7 +17746,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787097900"
+  data-published="1787098500"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -17692,7 +17862,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -17727,6 +17897,78 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/831c7c860b56259cfcb3f779.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260819_0003753677"
+  data-title="국힘, 트럼프 한미훈련 축소 지시에 &quot;정부, 동맹 균열 즉각 수습하라&quot;"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787098649"
+  data-country="US"
+  data-search="국힘, 트럼프 한미훈련 축소 지시에 &quot;정부, 동맹 균열 즉각 수습하라&quot; 뉴시스 원전 대미투자 [서울=뉴시스]한은진 기자 = 국민의힘은 19일 미국 트럼프 대통령이 한미 연합군사훈련을 대폭 축소하라고 지시했다고 밝히자 정부를 향해 &quot;국가의 안보를 걸고 하는 허세는 그만 부리고 흔들리는 동맹 균열부터 즉각 수습하라&quot;고 말했다. 박충권 수석대변인은 이날 논평을 내고 &quot;이재명 대통령이 어제 국무회의에서 세계 5위 군사력 등을 내세우며 스스로를 지킬 역량이 &#x27;차고 넘친다&#x27;고 자평했다&quot;며 &quot;미 항공모함이 태평양을 비우고 을지 자유의 방패(ufs) 등 한미훈련이 대폭 축소되는 초유의 안보 공백 상황에서 나온 발언&quot;이라고 주장했다. 박 수석대변인은 &quot;미군 지휘관이 국방부를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>국힘, 트럼프 한미훈련 축소 지시에 &quot;정부, 동맹 균열 즉각 수습하라&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]한은진 기자 = 국민의힘은 19일 미국 트럼프 대통령이 한미 연합군사훈련을 대폭 축소하라고 지시했다고 밝히자 정부를 향해 &quot;국가의 안보를 걸고 하는 허세는 그만 부리고 흔들리는 동맹 균열부터 즉각 수습하라&quot;고 말했다. 박충권 수석대변인은 이날 논평을 내고 &quot;이재명 대통령이 어제 국무회의에서 세계 5위 군사력 등을 내세우며 스스로를 지킬 역량이 &#x27;차고 넘친다&#x27;고 자평했다&quot;며 &quot;미 항공모함이 태평양을 비우고 을지 자유의 방패(UFS) 등 한미훈련이 대폭 축소되는 초유의 안보 공백 상황에서 나온 발언&quot;이라고 주장했다. 박 수석대변인은 &quot;미군 지휘관이 국방부를</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7279b0ef6005bb17bdae1840.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+  
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260819_0003753668"
+  data-title="與홍기원 &quot;&#x27;훈련 축소&#x27; 트럼프 SNS 발표는 비정상적…북미 대화 이어지길&quot;"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787098536"
+  data-country="US"
+  data-search="與홍기원 &quot;&#x27;훈련 축소&#x27; 트럼프 sns 발표는 비정상적…북미 대화 이어지길&quot; 뉴시스 원전 대미투자 [서울=뉴시스] 이창환 기자 = 홍기원 더불어민주당 의원은 19일 도널드 트럼프 미국 대통령의 한미연합훈련(을지 자유의 방패) 축소 지시 언급을 두고 &quot;국가 간의 관계나 외교의 세계에서는 상당히 이례적인 것&quot;이라고 했다. 국회 외교통일위원회 여당 간사인 홍 의원은 이날 오전 ytn 라디오 &#x27;장성철의 뉴스명당&#x27;에서 &quot;sns로 한미연합훈련의 실질적인 감축을 올리면서 우리가 그 의도를 어떻게 해석해야 되느냐 논의하고 있는데, 이 자체가 매우 비정상적&quot;이라고 했다. 그는 &quot;국가 간 문제는 공식적인 채널을 통해 &#x27;우리는 이러이러한 입장이다&#x27;, &#x27;뭐 이런 것에 불만이 있다&#x27; &#x27;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>與홍기원 &quot;&#x27;훈련 축소&#x27; 트럼프 SNS 발표는 비정상적…북미 대화 이어지길&quot;</div>
+      <div class="article-snippet">[서울=뉴시스] 이창환 기자 = 홍기원 더불어민주당 의원은 19일 도널드 트럼프 미국 대통령의 한미연합훈련(을지 자유의 방패) 축소 지시 언급을 두고 &quot;국가 간의 관계나 외교의 세계에서는 상당히 이례적인 것&quot;이라고 했다. 국회 외교통일위원회 여당 간사인 홍 의원은 이날 오전 YTN 라디오 &#x27;장성철의 뉴스명당&#x27;에서 &quot;SNS로 한미연합훈련의 실질적인 감축을 올리면서 우리가 그 의도를 어떻게 해석해야 되느냐 논의하고 있는데, 이 자체가 매우 비정상적&quot;이라고 했다. 그는 &quot;국가 간 문제는 공식적인 채널을 통해 &#x27;우리는 이러이러한 입장이다&#x27;, &#x27;뭐 이런 것에 불만이 있다&#x27; &#x27;</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6e719b638b1ad77b727f2a22.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -18201,7 +18443,7 @@ header,
       <span class="period-inline-label">8.19</span>
       <span class="period-inline-range">8.18 06:00 → 8.19 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -19796,7 +20038,7 @@ header,
   data-priority="1"
   data-published="1787066218"
   data-country="KR"
-  data-search="발전소 누비며 작업자 졸졸…한전kps, 피지컬ai 띄운다 전기신문 한국전력 한전kps가 작업자를 따라다니며 위험을 감지하고 정비 업무까지 돕는 피지컬ai 로봇의 발전소 현장 투입에 속도를 내고 있다.18일 한전kps(사장 김홍연)는 ai 탑재 로봇을 발전정비 현장에 투입하기 위한 기술개발에 박차를 가하고 있다고 밝혔다.한전kps는 올해 남부발전 자회사인 kospo영남파워에서 두 차례에 걸쳐 ‘피지컬ai 기반 밀착형 안전 어시스트 시스템’ 기술검증(poc) 시연회를 열고, 로보틱스와 생성형ai를 결합한 지능형 작업 안전관리 모델의 정비현장 적용 가능성을 검증했다.이번 실증은 기존 정비현장에 투입된 기기들이"
+  data-search="발전소 누비며 작업자 졸졸…한전kps, 피지컬ai 띄운다 전기신문 한국전력 한전kps가 작업자를 따라다니며 위험을 감지하고 정비 업무까지 돕는 피지컬ai 로봇의 발전소 현장 투입에 속도를 내고 있다.18일 한전kps(사장 김홍연)는 ai 탑재 로봇을 발전정비 현장에 투입하기 위한 기술개발에 박차를 가하고 있다고 밝혔다.한전kps는 올해 남부발전 자회사인 kospo영남파워에서 두 차례에 걸쳐 ‘피지컬ai 기반 밀착형 안전 어시스트 시스템’ 기술검증(poc) 시연회를 열고, 로보틱스와 생성형ai를 결합한 지능형 작업 안전관리 모델의 정비현장 적용 가능성을 검증했다.이번 실증은 기존 정비현장에 투입된 기기들이 cctv 수준의 단순 모니터링에 그쳤"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -19813,7 +20055,7 @@ header,
         </div>
       </div>
       <div class="headline">발전소 누비며 작업자 졸졸…한전KPS, 피지컬AI 띄운다</div>
-      <div class="article-snippet">한전KPS가 작업자를 따라다니며 위험을 감지하고 정비 업무까지 돕는 피지컬AI 로봇의 발전소 현장 투입에 속도를 내고 있다.18일 한전KPS(사장 김홍연)는 AI 탑재 로봇을 발전정비 현장에 투입하기 위한 기술개발에 박차를 가하고 있다고 밝혔다.한전KPS는 올해 남부발전 자회사인 KOSPO영남파워에서 두 차례에 걸쳐 ‘피지컬AI 기반 밀착형 안전 어시스트 시스템’ 기술검증(PoC) 시연회를 열고, 로보틱스와 생성형AI를 결합한 지능형 작업 안전관리 모델의 정비현장 적용 가능성을 검증했다.이번 실증은 기존 정비현장에 투입된 기기들이</div>
+      <div class="article-snippet">한전KPS가 작업자를 따라다니며 위험을 감지하고 정비 업무까지 돕는 피지컬AI 로봇의 발전소 현장 투입에 속도를 내고 있다.18일 한전KPS(사장 김홍연)는 AI 탑재 로봇을 발전정비 현장에 투입하기 위한 기술개발에 박차를 가하고 있다고 밝혔다.한전KPS는 올해 남부발전 자회사인 KOSPO영남파워에서 두 차례에 걸쳐 ‘피지컬AI 기반 밀착형 안전 어시스트 시스템’ 기술검증(PoC) 시연회를 열고, 로보틱스와 생성형AI를 결합한 지능형 작업 안전관리 모델의 정비현장 적용 가능성을 검증했다.이번 실증은 기존 정비현장에 투입된 기기들이 CCTV 수준의 단순 모니터링에 그쳤</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
@@ -22874,7 +23116,7 @@ header,
   
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=260501"
   data-title="[데일리대구경북뉴스] 한울본부, 국가중요시설 방호능력 향상 및 유관기관과 협조체계 구축"
   data-publisher="데일리대구경북뉴스"
@@ -22899,7 +23141,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울본부, 국가중요시설 방호능력 향상 및 유관기관과 협조체계 구축</div>
+      <div class="headline">[데일리대구경북뉴스] 한울본부, 국가중요시설 방호능력 향상 및 유관기관과 협조체계 구축</div>
       <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희)는 2026년도 을지연습 기간 중인 8월 18일 신한울1발전소 일대에서 통합방호 대비태세 완비와 현장 대응 위주 작전 종결 능력 구비를 위한 민ㆍ관ㆍ군ㆍ경ㆍ소방 통합방호훈련을 실시했다. 이번 훈련에는 한울본부 청원경찰과 특수경비대 및 자체 소방대를 포함하여 50사단 예하 부대, 울진군 경찰 및 해</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -23373,7 +23615,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/6f410f1a7825f73ed7270727.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/ba02899647db14863d895d72.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -28431,7 +28673,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c53e5170b8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/tagged/US,Canada#&lt;ActiveStorage::Attached::One:0x000077c53fd0e2c0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -30031,7 +30273,7 @@ header,
       <span class="period-inline-label">8.18</span>
       <span class="period-inline-range">8.17 06:00 → 8.18 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -32755,7 +32997,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/887ef1e05c199ead0682ef47.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/956566e07539bfdd097be9e7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
   
 </article>
@@ -32933,7 +33175,7 @@ header,
       <span class="period-inline-label">8.17</span>
       <span class="period-inline-range">8.14 06:00 → 8.17 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -36519,7 +36761,7 @@ header,
       <span class="period-inline-label">8.14</span>
       <span class="period-inline-range">8.13 06:00 → 8.14 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -37549,7 +37791,7 @@ header,
       <span class="period-inline-label">8.13</span>
       <span class="period-inline-range">8.12 06:00 → 8.13 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -38651,7 +38893,7 @@ header,
       <span class="period-inline-label">8.12</span>
       <span class="period-inline-range">8.11 06:00 → 8.12 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -41265,7 +41507,7 @@ header,
       <span class="period-inline-label">8.11</span>
       <span class="period-inline-range">8.10 06:00 → 8.11 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -43015,7 +43257,7 @@ header,
       <span class="period-inline-label">8.10</span>
       <span class="period-inline-range">8.7 06:00 → 8.10 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -44729,7 +44971,7 @@ header,
       <span class="period-inline-label">8.7</span>
       <span class="period-inline-range">8.6 06:00 → 8.7 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -45363,7 +45605,7 @@ header,
       <span class="period-inline-label">8.6</span>
       <span class="period-inline-range">8.5 06:00 → 8.6 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -48085,7 +48327,7 @@ header,
       <span class="period-inline-label">8.5</span>
       <span class="period-inline-range">8.4 06:00 → 8.5 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -51851,7 +52093,7 @@ header,
       <span class="period-inline-label">8.4</span>
       <span class="period-inline-range">8.3 06:00 → 8.4 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -54825,7 +55067,7 @@ header,
       <span class="period-inline-label">8.3</span>
       <span class="period-inline-range">7.31 06:00 → 8.3 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -57439,7 +57681,7 @@ header,
       <span class="period-inline-label">7.31</span>
       <span class="period-inline-range">7.30 06:00 → 7.31 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -58901,7 +59143,7 @@ header,
       <span class="period-inline-label">7.30</span>
       <span class="period-inline-range">7.29 06:00 → 7.30 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -60075,7 +60317,7 @@ header,
       <span class="period-inline-label">7.29</span>
       <span class="period-inline-range">7.28 06:00 → 7.29 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -60997,7 +61239,7 @@ header,
       <span class="period-inline-label">7.28</span>
       <span class="period-inline-range">7.27 06:00 → 7.28 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -61991,7 +62233,7 @@ header,
       <span class="period-inline-label">7.27</span>
       <span class="period-inline-range">7.24 06:00 → 7.27 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -63273,7 +63515,7 @@ header,
       <span class="period-inline-label">7.24</span>
       <span class="period-inline-range">7.23 06:00 → 7.24 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -64447,7 +64689,7 @@ header,
       <span class="period-inline-label">7.23</span>
       <span class="period-inline-range">7.22 06:00 → 7.23 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -65873,7 +66115,7 @@ header,
       <span class="period-inline-label">7.22</span>
       <span class="period-inline-range">7.21 06:00 → 7.22 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -66831,7 +67073,7 @@ header,
       <span class="period-inline-label">7.21</span>
       <span class="period-inline-range">7.20 06:00 → 7.21 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -67861,7 +68103,7 @@ header,
       <span class="period-inline-label">7.20</span>
       <span class="period-inline-range">7.17 06:00 → 7.20 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -68711,7 +68953,7 @@ header,
       <span class="period-inline-label">7.17</span>
       <span class="period-inline-range">7.16 06:00 → 7.17 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -69777,7 +70019,7 @@ header,
       <span class="period-inline-label">7.16</span>
       <span class="period-inline-range">7.15 06:00 → 7.16 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -70411,7 +70653,7 @@ header,
       <span class="period-inline-label">7.15</span>
       <span class="period-inline-range">7.14 06:00 → 7.15 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -70901,7 +71143,7 @@ header,
       <span class="period-inline-label">7.14</span>
       <span class="period-inline-range">7.13 06:00 → 7.14 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -71823,7 +72065,7 @@ header,
       <span class="period-inline-label">7.13</span>
       <span class="period-inline-range">7.10 06:00 → 7.13 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -72925,7 +73167,7 @@ header,
       <span class="period-inline-label">7.10</span>
       <span class="period-inline-range">7.9 06:00 → 7.10 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -73523,7 +73765,7 @@ header,
       <span class="period-inline-label">7.9</span>
       <span class="period-inline-range">7.8 06:00 → 7.9 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -74265,7 +74507,7 @@ header,
       <span class="period-inline-label">7.8</span>
       <span class="period-inline-range">7.7 06:00 → 7.8 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -74899,7 +75141,7 @@ header,
       <span class="period-inline-label">7.7</span>
       <span class="period-inline-range">7.6 06:00 → 7.7 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -75389,7 +75631,7 @@ header,
       <span class="period-inline-label">7.6</span>
       <span class="period-inline-range">7.3 06:00 → 7.6 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -76347,7 +76589,7 @@ header,
       <span class="period-inline-label">7.3</span>
       <span class="period-inline-range">7.2 06:00 → 7.3 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -76909,7 +77151,7 @@ header,
       <span class="period-inline-label">7.2</span>
       <span class="period-inline-range">7.1 06:00 → 7.2 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -77543,7 +77785,7 @@ header,
       <span class="period-inline-label">7.1</span>
       <span class="period-inline-range">6.30 06:00 → 7.1 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -78357,7 +78599,7 @@ header,
       <span class="period-inline-label">6.30</span>
       <span class="period-inline-range">6.29 06:00 → 6.30 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -79099,7 +79341,7 @@ header,
       <span class="period-inline-label">6.29</span>
       <span class="period-inline-range">6.26 06:00 → 6.29 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -80381,7 +80623,7 @@ header,
       <span class="period-inline-label">6.26</span>
       <span class="period-inline-range">6.25 06:00 → 6.26 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -81231,7 +81473,7 @@ header,
       <span class="period-inline-label">6.25</span>
       <span class="period-inline-range">6.24 06:00 → 6.25 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -82081,7 +82323,7 @@ header,
       <span class="period-inline-label">6.24</span>
       <span class="period-inline-range">6.23 06:00 → 6.24 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -82895,7 +83137,7 @@ header,
       <span class="period-inline-label">6.23</span>
       <span class="period-inline-range">6.22 06:00 → 6.23 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -83493,7 +83735,7 @@ header,
       <span class="period-inline-label">6.22</span>
       <span class="period-inline-range">6.19 06:00 → 6.22 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -84487,7 +84729,7 @@ header,
       <span class="period-inline-label">6.19</span>
       <span class="period-inline-range">6.18 06:00 → 6.19 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -85409,7 +85651,7 @@ header,
       <span class="period-inline-label">6.18</span>
       <span class="period-inline-range">6.17 06:00 → 6.18 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -86511,7 +86753,7 @@ header,
       <span class="period-inline-label">6.17</span>
       <span class="period-inline-range">6.16 06:00 → 6.17 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -87181,7 +87423,7 @@ header,
       <span class="period-inline-label">6.16</span>
       <span class="period-inline-range">6.15 06:00 → 6.16 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -87851,7 +88093,7 @@ header,
       <span class="period-inline-label">6.15</span>
       <span class="period-inline-range">6.12 06:00 → 6.15 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -88773,7 +89015,7 @@ header,
       <span class="period-inline-label">6.12</span>
       <span class="period-inline-range">6.11 06:00 → 6.12 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -89479,7 +89721,7 @@ header,
       <span class="period-inline-label">6.11</span>
       <span class="period-inline-range">6.10 06:00 → 6.11 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -90329,7 +90571,7 @@ header,
       <span class="period-inline-label">6.10</span>
       <span class="period-inline-range">6.9 06:00 → 6.10 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -90999,7 +91241,7 @@ header,
       <span class="period-inline-label">6.9</span>
       <span class="period-inline-range">6.8 06:00 → 6.9 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -91777,7 +92019,7 @@ header,
       <span class="period-inline-label">6.8</span>
       <span class="period-inline-range">6.5 06:00 → 6.8 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -92843,7 +93085,7 @@ header,
       <span class="period-inline-label">6.5</span>
       <span class="period-inline-range">6.4 06:00 → 6.5 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -93585,7 +93827,7 @@ header,
       <span class="period-inline-label">6.4</span>
       <span class="period-inline-range">6.3 06:00 → 6.4 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -94039,7 +94281,7 @@ header,
       <span class="period-inline-label">6.3</span>
       <span class="period-inline-range">6.2 06:00 → 6.3 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -94817,7 +95059,7 @@ header,
       <span class="period-inline-label">6.2</span>
       <span class="period-inline-range">6.1 06:00 → 6.2 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -95595,7 +95837,7 @@ header,
       <span class="period-inline-label">6.1</span>
       <span class="period-inline-range">5.29 06:00 → 6.1 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -97021,7 +97263,7 @@ header,
       <span class="period-inline-label">5.29</span>
       <span class="period-inline-range">5.28 06:00 → 5.29 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -97943,7 +98185,7 @@ header,
       <span class="period-inline-label">5.28</span>
       <span class="period-inline-range">5.27 06:00 → 5.28 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -98073,7 +98315,7 @@ header,
       <span class="period-inline-label">5.27</span>
       <span class="period-inline-range">5.26 06:00 → 5.27 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -98203,7 +98445,7 @@ header,
       <span class="period-inline-label">5.26</span>
       <span class="period-inline-range">5.25 06:00 → 5.26 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -98333,7 +98575,7 @@ header,
       <span class="period-inline-label">5.25</span>
       <span class="period-inline-range">5.22 06:00 → 5.25 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -98463,7 +98705,7 @@ header,
       <span class="period-inline-label">5.22</span>
       <span class="period-inline-range">5.21 06:00 → 5.22 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -98593,7 +98835,7 @@ header,
       <span class="period-inline-label">5.21</span>
       <span class="period-inline-range">5.20 06:00 → 5.21 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -98723,7 +98965,7 @@ header,
       <span class="period-inline-label">5.20</span>
       <span class="period-inline-range">5.19 06:00 → 5.20 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -98853,7 +99095,7 @@ header,
       <span class="period-inline-label">5.19</span>
       <span class="period-inline-range">5.18 06:00 → 5.19 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -98983,7 +99225,7 @@ header,
       <span class="period-inline-label">5.18</span>
       <span class="period-inline-range">5.15 06:00 → 5.18 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -99113,7 +99355,7 @@ header,
       <span class="period-inline-label">5.15</span>
       <span class="period-inline-range">5.14 06:00 → 5.15 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -99243,7 +99485,7 @@ header,
       <span class="period-inline-label">5.14</span>
       <span class="period-inline-range">5.13 06:00 → 5.14 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -99373,7 +99615,7 @@ header,
       <span class="period-inline-label">5.13</span>
       <span class="period-inline-range">5.12 06:00 → 5.13 06:00</span>
     </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 ▼</button>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
   </div>
   <div class="language-section">
     
@@ -99527,6 +99769,23 @@ function setCategoryGroups(container, collapsed) {
   });
 }
 
+function updateMasterButtonCount(panel){
+  if(!panel)return;
+
+  const button=panel.querySelector(".group-master-button");
+  if(!button)return;
+
+  const cards=[...panel.querySelectorAll(".preview-card")];
+  const visibleCount=cards.filter(card=>card.style.display!=="none").length;
+
+  button.dataset.articleCount=String(visibleCount);
+
+  const collapsed=button.dataset.collapsed==="true";
+  button.textContent=collapsed
+    ? `전체 펼치기 · ${visibleCount}건 ▼`
+    : `전체 접기 · ${visibleCount}건 ▲`;
+}
+
 document.addEventListener("click", event => {
   const masterButton = event.target.closest(".group-master-button");
   if(masterButton) {
@@ -99539,7 +99798,7 @@ document.addEventListener("click", event => {
 
     setCategoryGroups(section, nextCollapsed);
     masterButton.dataset.collapsed = String(nextCollapsed);
-    masterButton.textContent = nextCollapsed ? "전체 펼치기 ▼" : "전체 접기 ▲";
+    updateMasterButtonCount(panel);
     return;
   }
 
@@ -100160,6 +100419,7 @@ function filterArticles(){
   }
 
   document.getElementById("no-results").style.display=(q||activeCountryFilter)&&total===0?"block":"none";
+  updateMasterButtonCount(panel);
 }
 function refreshActivePeriodUI(){
   filterArticles();
@@ -100279,12 +100539,10 @@ if(archiveInput){
   });
 }
 window.addEventListener("resize",()=>requestAnimationFrame(layoutAndRenderCountryMap));
-const worldMapImage=document.querySelector(".world-map-image");
-if(worldMapImage)worldMapImage.addEventListener("load",()=>requestAnimationFrame(layoutAndRenderCountryMap));
 document.getElementById("article-search").addEventListener("input",filterArticles);
 updateCountryMapCounts();
 
-filterArticles();renderFavorites();
+filterArticles();renderFavorites();updateMasterButtonCount(activePanel());
 </script>
 </body>
 </html>
