@@ -1,6 +1,7 @@
 # VERIFIED FINAL BUILD 2026-08-19
 # Overseas fix: EN articles → Nuclear Power·Nuclear Energy, URL date regex,
 # ANS URL filter, faster shard rotation (2), higher EN candidate limits.
+# Same-event UX: keep cross-publisher stories and cluster as 대표+관련기사.
 # Includes Hyundai volleyball exclusion (배구/여자배구/김연경), same-event dedup,
 # article preview fallback, thumbnail caching/centering, newspaper-style UI,
 # and removes the old periodic-update notice from the UI.
@@ -5122,7 +5123,9 @@ def render_group_unified(
 # ============================================================
 # FINAL DUPLICATE CONTROL
 # 1) exact duplicate: same canonical URL OR same publisher + normalized title
-# 2) same-event duplicate: different publishers but same core event
+#    → 목록에서 완전 삭제
+# 2) same-event (다른 언론사, 같은 사실):
+#    → 삭제하지 않고 화면에서 대표 1개 + 관련기사로 묶음
 # ============================================================
 
 DEDUP_ENABLED = True
@@ -5317,16 +5320,18 @@ def _article_rep_score(article: Article) -> tuple:
 
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """
-    Stage 1: exact duplicates
-    Stage 2: same-event duplicates across outlets
-    Returns only one representative card per duplicate/event cluster.
+    완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다.
+
+    서로 다른 언론사의 '같은 사건' 기사는 여기서 지우지 않습니다.
+    화면 단계에서 cluster_related_articles()가
+    대표 1개 + 관련기사로 묶어서 보여줍니다.
     """
     if not DEDUP_ENABLED:
         return sorted(articles, key=lambda x: x.published, reverse=True)
 
     sorted_articles = sorted(articles, key=lambda x: x.published, reverse=True)
 
-    # Stage 1: exact duplicates
+    # 완전 중복만 제거. 같은 사건(다른 언론사)은 관련기사 묶기를 위해 유지.
     exact_unique: list[Article] = []
     exact_removed = 0
     for article in sorted_articles:
@@ -5342,26 +5347,10 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
             if _article_rep_score(article) > _article_rep_score(exact_unique[matched_idx]):
                 exact_unique[matched_idx] = article
 
-    # Stage 2: same-event duplicates across publishers
-    event_unique: list[Article] = []
-    event_removed = 0
-    for article in exact_unique:
-        matched_idx = None
-        for idx, kept in enumerate(event_unique):
-            if _same_event_article(article, kept):
-                matched_idx = idx
-                break
-        if matched_idx is None:
-            event_unique.append(article)
-        else:
-            event_removed += 1
-            if _article_rep_score(article) > _article_rep_score(event_unique[matched_idx]):
-                event_unique[matched_idx] = article
-
-    result = sorted(event_unique, key=lambda x: x.published, reverse=True)
+    result = sorted(exact_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
-        f"/ same_event_removed={event_removed} / final={len(result)}"
+        f"/ same_event_removed=0(kept_for_related) / final={len(result)}"
     )
     return result
 
