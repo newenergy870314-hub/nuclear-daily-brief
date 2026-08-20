@@ -3213,6 +3213,181 @@ header,
   }
 }
 
+
+/* ============================================================
+   COUNTRY CAROUSEL + SINGLE COUNTRY MAP
+   모바일: 좌우 스와이프 / 선택칩 자동 중앙정렬 / 지도에는 선택국가 1개만
+   ============================================================ */
+.country-map-visual {
+  min-height:178px !important;
+  height:clamp(178px,42vw,210px) !important;
+  overflow:hidden !important;
+}
+
+.country-map-label-layer {
+  pointer-events:none !important;
+}
+
+.country-map-label {
+  display:none !important;
+}
+
+/* 선택된 국가 라벨 하나만 지도에 표시 */
+.country-map-label.active {
+  display:inline-flex !important;
+  min-height:30px !important;
+  padding:5px 9px !important;
+  gap:4px !important;
+  border:1px solid #1f4f8a !important;
+  border-radius:999px !important;
+  background:rgba(31,79,138,.96) !important;
+  color:#fff !important;
+  box-shadow:0 4px 12px rgba(17,24,39,.22) !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+  pointer-events:auto !important;
+  z-index:10 !important;
+  backdrop-filter:blur(5px);
+}
+
+.country-map-label.active .map-label-flag {
+  font-size:14px !important;
+}
+
+.country-map-label.active .map-label-count {
+  color:#fee500 !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+}
+
+/* 선택한 국가 점 하나만 또렷하게 */
+.country-map-svg-halo {
+  opacity:.22 !important;
+}
+.country-map-svg-dot {
+  stroke-width:5px !important;
+}
+
+.country-map-caption {
+  max-width:calc(100% - 16px);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* 국가 필터를 중앙 선택형 carousel/picker로 변경 */
+#country-chip-rail.country-chip-rail {
+  position:relative;
+  display:flex !important;
+  align-items:center;
+  gap:7px !important;
+  width:100%;
+  min-height:46px !important;
+  margin:0 !important;
+  padding:5px calc(50% - 64px) 7px !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scroll-snap-type:x mandatory !important;
+  scroll-padding-inline:calc(50% - 64px);
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-x;
+  overscroll-behavior-inline:contain;
+  mask-image:linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+#country-chip-rail.country-chip-rail::-webkit-scrollbar {
+  display:none;
+}
+
+#country-chip-rail .country-pin {
+  flex:0 0 auto !important;
+  scroll-snap-align:center !important;
+  scroll-snap-stop:always;
+  min-height:34px !important;
+  height:34px !important;
+  padding:0 11px !important;
+  border:1px solid #dde4ec !important;
+  border-radius:999px !important;
+  background:#fff !important;
+  color:#53657a !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.05) !important;
+  font-size:9px !important;
+  font-weight:800 !important;
+  opacity:.58;
+  transform:scale(.92) !important;
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    background .18s ease,
+    border-color .18s ease,
+    color .18s ease,
+    box-shadow .18s ease !important;
+}
+
+#country-chip-rail .country-pin .flag {
+  font-size:13px !important;
+}
+
+#country-chip-rail .country-pin .country-count {
+  color:#8b96a5 !important;
+  font-size:8px !important;
+}
+
+/* 선택 칩은 중앙에서 크게 */
+#country-chip-rail .country-pin.active {
+  opacity:1 !important;
+  transform:scale(1.06) !important;
+  background:#1f4f8a !important;
+  border-color:#1f4f8a !important;
+  color:#fff !important;
+  box-shadow:0 4px 12px rgba(31,79,138,.22) !important;
+  z-index:3;
+}
+
+#country-chip-rail .country-pin.active .country-count {
+  color:#fee500 !important;
+}
+
+.country-chip-guide-bottom {
+  margin:8px 2px 2px !important;
+  color:#7f8b99 !important;
+  font-size:8px !important;
+  text-align:center !important;
+}
+
+@media (max-width:767px) {
+  .country-map-visual {
+    min-height:182px !important;
+    height:190px !important;
+  }
+  #country-chip-rail.country-chip-rail {
+    min-height:50px !important;
+    padding-top:6px !important;
+    padding-bottom:8px !important;
+  }
+  #country-chip-rail .country-pin {
+    min-height:36px !important;
+    height:36px !important;
+    padding:0 12px !important;
+    font-size:9.5px !important;
+  }
+  #country-chip-rail .country-pin .flag {
+    font-size:14px !important;
+  }
+  #country-chip-rail .country-pin .country-count {
+    font-size:8.5px !important;
+  }
+}
+
+@media (max-width:380px) {
+  .country-map-visual {
+    min-height:176px !important;
+    height:184px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3221,7 +3396,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 12:45 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 12:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -3262,7 +3437,7 @@ header,
         <div class="world-map-title">국가별 기사</div>
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
-      <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
+      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">국가를 누르면 해당 기사만 볼 수 있습니다</div>
     </div>
 
     <div class="country-map-content">
@@ -4045,12 +4220,12 @@ header,
       <div id="country-map-html-tooltip" class="country-map-html-tooltip" role="status" aria-live="polite"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
-        기사가 있는 국가만 표시
+        <span id="country-map-caption-text">아래 국가 필터에서 국가를 선택하세요</span>
       </div>
     </div>
     </div>
 
-    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가 필터를 누르면 해당 기사만 표시됩니다</div>
+    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">좌우로 넘겨 국가를 선택하세요 · 선택한 국가만 지도에 표시됩니다</div>
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
         <span>전체</span><span class="country-count">0건</span>
@@ -26308,7 +26483,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1680209/%E2%80%98%EB%AF%B8%EB%A7%A4%EA%B0%81%E2%80%99-%EC%B6%A9%EA%B2%A9-%ED%83%88%EC%B6%9C%EB%A1%AF%EB%8D%B0%EA%B1%B4%EC%84%A4-%ED%9A%8C%EC%82%AC%EC%B1%84-2026"
   data-title="‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보"
   data-publisher="데일리안"
@@ -26333,7 +26508,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보</div>
+      <div class="headline">‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보</div>
       <div class="article-snippet">롯데건설이 지난 19일 진행한 총 500억원 규모의 무보증 회사채 수요예측에서 예정액의 3배가 넘는 주문을 확보했다. 지난해 회사채 수요예측에서 전량 미매각을 겪었던 롯데건설은 1년여 만에 투자심리 회복을 확인했다.20일 투자은행(IB) 업계에 따르면 롯데건설은 전날 500억원 규모의 무보증사채 수요예측에서 1510억원의 주문을 받았다.만기별로는 300억원</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26676,7 +26851,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104673"
   data-title="한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색"
   data-publisher="에너지플랫폼뉴스"
@@ -26701,7 +26876,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
+      <div class="headline">한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전KDN은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26746,7 +26921,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=5762"
   data-title="한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문"
   data-publisher="에너지안전신문"
@@ -26771,7 +26946,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문</div>
+      <div class="headline">한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문</div>
       <div class="article-snippet">에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남 나주혁신도시 본사에서 ‘2026년 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론’</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27447,7 +27622,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104671"
   data-title="“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”"
   data-publisher="에너지플랫폼뉴스"
@@ -27472,7 +27647,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”</div>
+      <div class="headline">“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] “3대 메가프로젝트의 전력 수요 폭증 대응을 위해서는 선택할 수 있는 무탄소 전원이 별로 없다. 재생에너지만으로 한계가 있으므로 다양한 무탄소전원 옵션을 고려해야 한다”20일 기후에너지환경부가 개최한 ‘전기국가 대국민 정책 토론회’에서 에너지경제연구원 박우영 에너지전환정책연구본부장은 “리드타임이 긴 설비의 경우 증설에 대한 빠른 결정이 이뤄지지 않는다면 2035년에 활용 가능한 무탄소 전원은 줄어들 것”며 이같이 밝혔다.박우영 본부장의 발제에 따르면 정부는 ▲반도체 ▲피지컬 AI ▲AI 데이터센터 등</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27552,7 +27727,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=5761"
   data-title="원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문"
   data-publisher="에너지안전신문"
@@ -27577,7 +27752,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문</div>
+      <div class="headline">원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문</div>
       <div class="article-snippet">한국원자력의학원(원장 임일한)이 8월 18일부터 20일까지 사흘간 국가 을지연습을 실시하고, 병원과 같은 다중이용시설이 공격받아 환자를 대피시켜야 하는 상황에 대</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28338,7 +28513,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787197643"
+  data-published="1787198434"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -28445,7 +28620,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://simplywall.st/stocks/in/capital-goods/nse-kirloseng/kirloskar-oil-engines-shares/news/nuclear-energy-stocks-gaining-attention-as-india-builds-out"
   data-title="Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment"
   data-publisher="Simply Wall St"
@@ -28470,7 +28645,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment</div>
+      <div class="headline">Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment</div>
       <div class="article-snippet">Global bond markets are reacting to persistent inflation pressures and higher energy costs, with yields in several major economies now elevated as central banks hold a cautious line. That kind of backdrop puts reliable, low carbon baseload power in sharp focus for long term capital. This article looks at nuclear energy</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28481,54 +28656,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787197601"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787196120"
+  data-published="1787198387"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28547,6 +28687,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787197831"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29527,7 +29702,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1680209/%E2%80%98%EB%AF%B8%EB%A7%A4%EA%B0%81%E2%80%99-%EC%B6%A9%EA%B2%A9-%ED%83%88%EC%B6%9C%EB%A1%AF%EB%8D%B0%EA%B1%B4%EC%84%A4-%ED%9A%8C%EC%82%AC%EC%B1%84-2026"
   data-title="‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보"
   data-publisher="데일리안"
@@ -29552,7 +29727,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보</div>
+      <div class="headline">‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보</div>
       <div class="article-snippet">롯데건설이 지난 19일 진행한 총 500억원 규모의 무보증 회사채 수요예측에서 예정액의 3배가 넘는 주문을 확보했다. 지난해 회사채 수요예측에서 전량 미매각을 겪었던 롯데건설은 1년여 만에 투자심리 회복을 확인했다.20일 투자은행(IB) 업계에 따르면 롯데건설은 전날 500억원 규모의 무보증사채 수요예측에서 1510억원의 주문을 받았다.만기별로는 300억원</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29895,7 +30070,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104673"
   data-title="한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색"
   data-publisher="에너지플랫폼뉴스"
@@ -29920,7 +30095,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
+      <div class="headline">한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전KDN은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29965,7 +30140,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=5762"
   data-title="한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문"
   data-publisher="에너지안전신문"
@@ -29990,7 +30165,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문</div>
+      <div class="headline">한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문</div>
       <div class="article-snippet">에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남 나주혁신도시 본사에서 ‘2026년 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론’</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30666,7 +30841,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104671"
   data-title="“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”"
   data-publisher="에너지플랫폼뉴스"
@@ -30691,7 +30866,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”</div>
+      <div class="headline">“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] “3대 메가프로젝트의 전력 수요 폭증 대응을 위해서는 선택할 수 있는 무탄소 전원이 별로 없다. 재생에너지만으로 한계가 있으므로 다양한 무탄소전원 옵션을 고려해야 한다”20일 기후에너지환경부가 개최한 ‘전기국가 대국민 정책 토론회’에서 에너지경제연구원 박우영 에너지전환정책연구본부장은 “리드타임이 긴 설비의 경우 증설에 대한 빠른 결정이 이뤄지지 않는다면 2035년에 활용 가능한 무탄소 전원은 줄어들 것”며 이같이 밝혔다.박우영 본부장의 발제에 따르면 정부는 ▲반도체 ▲피지컬 AI ▲AI 데이터센터 등</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30771,7 +30946,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=5761"
   data-title="원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문"
   data-publisher="에너지안전신문"
@@ -30796,7 +30971,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문</div>
+      <div class="headline">원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문</div>
       <div class="article-snippet">한국원자력의학원(원장 임일한)이 8월 18일부터 20일까지 사흘간 국가 을지연습을 실시하고, 병원과 같은 다중이용시설이 공격받아 환자를 대피시켜야 하는 상황에 대</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31557,7 +31732,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787197643"
+  data-published="1787198434"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -31664,7 +31839,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://simplywall.st/stocks/in/capital-goods/nse-kirloseng/kirloskar-oil-engines-shares/news/nuclear-energy-stocks-gaining-attention-as-india-builds-out"
   data-title="Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment"
   data-publisher="Simply Wall St"
@@ -31689,7 +31864,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment</div>
+      <div class="headline">Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment</div>
       <div class="article-snippet">Global bond markets are reacting to persistent inflation pressures and higher energy costs, with yields in several major economies now elevated as central banks hold a cautious line. That kind of backdrop puts reliable, low carbon baseload power in sharp focus for long term capital. This article looks at nuclear energy</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31700,54 +31875,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787197601"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787196120"
+  data-published="1787198387"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31766,6 +31906,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787197831"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -125432,231 +125607,125 @@ function hideCountryMapTooltip(force=false){
 function layoutAndRenderCountryMap(){
   const dotLayer=document.getElementById("country-map-dots-svg");
   const labelLayer=document.getElementById("country-map-label-layer");
+  const caption=document.getElementById("country-map-caption-text");
   if(!dotLayer || !labelLayer)return;
 
   dotLayer.innerHTML="";
   labelLayer.innerHTML="";
   hideCountryMapTooltip(true);
 
-  const chipButtons=[...document.querySelectorAll(
-    "#country-chip-rail .country-pin[data-country-filter]"
-  )];
+  // 전체 상태에서는 복잡한 국가 점을 모두 숨기고 깨끗한 세계지도만 표시
+  if(!activeCountryFilter){
+    if(caption)caption.textContent="아래 국가 필터에서 국가를 선택하세요";
+    return;
+  }
 
-  const SVG_NS="http://www.w3.org/2000/svg";
-  const mapItems=[];
+  // 기타는 정확한 단일 위치를 찍을 수 없으므로 지도는 기본 상태로 유지
+  if(activeCountryFilter==="OTHER"){
+    if(caption)caption.textContent="기타 국가 기사만 표시 중";
+    return;
+  }
 
-  // 지도 상시 라벨은 기사 수 상위 5개 국가만 표시해 지도를 가리지 않도록 함
-  const featuredCodes=new Set(
-    chipButtons
-      .filter(button=>!button.hidden && button.dataset.countryFilter && button.dataset.countryFilter!=="OTHER")
-      .map(button=>{
-        const countNode=button.querySelector(".country-count");
-        const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
-        return {code:button.dataset.countryFilter,count};
-      })
-      .filter(item=>item.count>0)
-      .sort((a,b)=>b.count-a.count)
-      .slice(0,5)
-      .map(item=>item.code)
+  const button=document.querySelector(
+    `#country-chip-rail .country-pin[data-country-filter="${activeCountryFilter}"]`
   );
+  if(!button || button.hidden){
+    if(caption)caption.textContent="선택한 국가의 위치 정보가 없습니다";
+    return;
+  }
 
-  chipButtons.forEach(button=>{
-    if(button.hidden)return;
+  const lon=Number(button.dataset.lon);
+  const lat=Number(button.dataset.lat);
+  if(!Number.isFinite(lon)||!Number.isFinite(lat)){
+    if(caption)caption.textContent="선택한 국가의 위치 정보가 없습니다";
+    return;
+  }
 
-    const code=button.dataset.countryFilter;
-    if(!code || code==="OTHER")return;
+  const countNode=button.querySelector(".country-count");
+  const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
 
-    const lon=Number(button.dataset.lon);
-    const lat=Number(button.dataset.lat);
-    if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
+  const nameNode=[...button.querySelectorAll("span")]
+    .find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
+  const flag=button.querySelector(".flag")?.textContent||"";
+  const name=nameNode?.textContent||COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
 
-    const x=((lon+180)/360)*1000;
-    const y=((85-lat)/145)*500;
+  const x=((lon+180)/360)*1000;
+  const y=((85-lat)/145)*500;
+  const SVG_NS="http://www.w3.org/2000/svg";
 
-    const countNode=button.querySelector(".country-count");
-    const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
-    if(count<=0)return;
+  const group=document.createElementNS(SVG_NS,"g");
+  group.setAttribute("class","country-map-svg-point active");
+  group.setAttribute("data-country-filter",activeCountryFilter);
+  group.setAttribute("tabindex","0");
+  group.setAttribute("role","button");
+  group.setAttribute("aria-label",`${name} 관련 기사 ${count}건`);
 
-    const nameNode=[...button.querySelectorAll("span")]
-      .find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
-    const flag=button.querySelector(".flag")?.textContent||"";
-    const name=nameNode?.textContent||COUNTRY_NAMES[code]||code;
+  const halo=document.createElementNS(SVG_NS,"circle");
+  halo.setAttribute("class","country-map-svg-halo");
+  halo.setAttribute("cx",String(x));
+  halo.setAttribute("cy",String(y));
+  halo.setAttribute("r","34");
 
-    const group=document.createElementNS(SVG_NS,"g");
-    group.setAttribute("class","country-map-svg-point");
-    group.setAttribute("data-country-filter",code);
-    group.setAttribute("tabindex","0");
-    group.setAttribute("role","button");
-    group.setAttribute("aria-label",`${name} 관련 기사 ${count}건`);
-    if(activeCountryFilter===code)group.classList.add("active");
+  const dot=document.createElementNS(SVG_NS,"circle");
+  dot.setAttribute("class","country-map-svg-dot");
+  dot.setAttribute("cx",String(x));
+  dot.setAttribute("cy",String(y));
+  dot.setAttribute("r","19");
 
-    const halo=document.createElementNS(SVG_NS,"circle");
-    halo.setAttribute("class","country-map-svg-halo");
-    halo.setAttribute("cx",String(x));
-    halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=10?"38":count>=4?"33":"28");
+  const title=document.createElementNS(SVG_NS,"title");
+  title.textContent=`${flag} ${name} · ${count}건`;
 
-    const dot=document.createElementNS(SVG_NS,"circle");
-    dot.setAttribute("class","country-map-svg-dot");
-    dot.setAttribute("cx",String(x));
-    dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=10?"22":count>=4?"19":"16");
+  group.appendChild(halo);
+  group.appendChild(dot);
+  group.appendChild(title);
+  dotLayer.appendChild(group);
 
-    const title=document.createElementNS(SVG_NS,"title");
-    title.textContent=`${flag} ${name} · ${count}건`;
-    group.appendChild(halo);
-    group.appendChild(dot);
-    group.appendChild(title);
+  const show=()=>showCountryMapTooltip(x,y,flag,name,count,false);
+  group.addEventListener("mouseenter",show);
+  group.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
+  group.addEventListener("focus",show);
+  group.addEventListener("blur",()=>hideCountryMapTooltip(true));
 
-    const show=(persistent=false)=>showCountryMapTooltip(x,y,flag,name,count,persistent);
-
-    group.addEventListener("mouseenter",()=>show(false));
-    group.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
-    group.addEventListener("focus",()=>show(false));
-    group.addEventListener("blur",()=>hideCountryMapTooltip(false));
-    group.addEventListener("click",event=>{
-      event.preventDefault();
-      event.stopPropagation();
-      setCountryFilter(code);
-      setTimeout(()=>show(activeCountryFilter===code),0);
-    });
-    group.addEventListener("keydown",event=>{
-      if(event.key==="Enter"||event.key===" "){
-        event.preventDefault();
-        setCountryFilter(code);
-        setTimeout(()=>show(activeCountryFilter===code),0);
-      }
-    });
-    dotLayer.appendChild(group);
-
-    const label=document.createElement("button");
-    label.type="button";
-    label.className="country-map-label";
-    if(featuredCodes.has(code))label.classList.add("map-label-featured");
-    if(activeCountryFilter===code)label.classList.add("active");
-    label.dataset.countryFilter=code;
-    label.dataset.count=String(count);
-    label.setAttribute("aria-label",`${name} 기사 ${count}건 보기`);
-    label.innerHTML=`<span class="map-label-flag">${flag}</span><span>${name}</span><span class="map-label-count">${count}건</span>`;
-    label.style.left=`${(x/1000)*100}%`;
-    label.style.top=`${(y/500)*100}%`;
-
-    label.addEventListener("mouseenter",()=>show(false));
-    label.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
-    label.addEventListener("focus",()=>show(false));
-    label.addEventListener("blur",()=>hideCountryMapTooltip(false));
-    label.addEventListener("click",event=>{
-      event.preventDefault();
-      event.stopPropagation();
-      setCountryFilter(code);
-    });
-
-    labelLayer.appendChild(label);
-    if(featuredCodes.has(code) || activeCountryFilter===code){
-      mapItems.push({label,button,code,count,x,y});
-    }
-
-    if(activeCountryFilter===code)show(true);
-  });
+  // 선택 국가 라벨 하나만 지도에 표시
+  const label=document.createElement("button");
+  label.type="button";
+  label.className="country-map-label active";
+  label.dataset.countryFilter=activeCountryFilter;
+  label.setAttribute("aria-label",`${name} 기사 ${count}건`);
+  label.innerHTML=`<span class="map-label-flag">${flag}</span><span>${name}</span><span class="map-label-count">${count}건</span>`;
+  labelLayer.appendChild(label);
 
   requestAnimationFrame(()=>{
     const layerRect=labelLayer.getBoundingClientRect();
     if(!layerRect.width || !layerRect.height)return;
 
-    // 기사 수가 많은 국가를 먼저 배치하여 중요한 라벨 위치를 우선 확보
-    const ordered=[...mapItems].sort((a,b)=>b.count-a.count);
+    const anchorX=(x/1000)*layerRect.width;
+    const anchorY=(y/500)*layerRect.height;
+    const w=label.offsetWidth;
+    const h=label.offsetHeight;
+    const edge=6;
 
-    const placed=[];
-    const edge=4;
-    const gap=4;
+    // 국가 점을 최대한 가리지 않도록 위쪽 우선, 화면 밖이면 아래쪽으로 배치
+    let cx=anchorX;
+    let cy=anchorY-h-13;
 
-    const overlaps=(a,b)=>!(
-      a.right<=b.left || a.left>=b.right || a.bottom<=b.top || a.top>=b.bottom
-    );
+    cx=Math.max(w/2+edge,Math.min(cx,layerRect.width-w/2-edge));
+    if(cy<h/2+edge)cy=anchorY+h+13;
+    cy=Math.max(h/2+edge,Math.min(cy,layerRect.height-h/2-edge));
 
-    const clamp=(value,min,max)=>Math.max(min,Math.min(value,max));
+    label.style.left=`${cx}px`;
+    label.style.top=`${cy}px`;
 
-    const makeBox=(cx,cy,w,h)=>({
-      left:cx-w/2-gap,
-      right:cx+w/2+gap,
-      top:cy-h/2-gap,
-      bottom:cy+h/2+gap
-    });
-
-    ordered.forEach(item=>{
-      const label=item.label;
-      const w=label.offsetWidth;
-      const h=label.offsetHeight;
-
-      const anchorX=(item.x/1000)*layerRect.width;
-      const anchorY=(item.y/500)*layerRect.height;
-
-      const minX=w/2+edge;
-      const maxX=layerRect.width-w/2-edge;
-      const minY=h/2+edge;
-      const maxY=layerRect.height-h/2-edge;
-
-      // 기준 위치 → 주변 8방향 → 더 큰 원형 범위 순서로 후보 탐색
-      const candidates=[{dx:0,dy:0}];
-      const baseStep=Math.max(h+gap*2,32);
-      const rings=[1,1.45,1.95,2.55,3.2,4.0];
-
-      rings.forEach(r=>{
-        const ry=baseStep*r;
-        const rx=Math.max(w*.62,34)*r;
-        [
-          [0,-ry],[rx,-ry],[-rx,-ry],
-          [rx,0],[-rx,0],
-          [0,ry],[rx,ry],[-rx,ry],
-        ].forEach(([dx,dy])=>candidates.push({dx,dy}));
-      });
-
-      let best=null;
-      let bestPenalty=Infinity;
-
-      candidates.forEach(candidate=>{
-        const cx=clamp(anchorX+candidate.dx,minX,maxX);
-        const cy=clamp(anchorY+candidate.dy,minY,maxY);
-        const box=makeBox(cx,cy,w,h);
-
-        let collisions=0;
-        let overlapArea=0;
-        placed.forEach(p=>{
-          if(!overlaps(box,p.box))return;
-          collisions++;
-          const iw=Math.max(0,Math.min(box.right,p.box.right)-Math.max(box.left,p.box.left));
-          const ih=Math.max(0,Math.min(box.bottom,p.box.bottom)-Math.max(box.top,p.box.top));
-          overlapArea+=iw*ih;
-        });
-
-        const distance=Math.hypot(cx-anchorX,cy-anchorY);
-        const penalty=collisions*100000 + overlapArea*100 + distance;
-
-        if(penalty<bestPenalty){
-          bestPenalty=penalty;
-          best={cx,cy,box,collisions,distance};
-        }
-      });
-
-      if(!best)return;
-
-      label.style.left=`${best.cx}px`;
-      label.style.top=`${best.cy}px`;
-
-      placed.push({box:best.box,code:item.code});
-
-      // 원래 국가 점에서 라벨이 이동한 경우 연결선을 그려 위치 관계를 명확하게 표시
-      if(best.distance>12){
-        const line=document.createElementNS(SVG_NS,"line");
-        line.setAttribute("class","country-map-label-connector");
-        line.setAttribute("x1",String(item.x));
-        line.setAttribute("y1",String(item.y));
-        line.setAttribute("x2",String((best.cx/layerRect.width)*1000));
-        line.setAttribute("y2",String((best.cy/layerRect.height)*500));
-        dotLayer.insertBefore(line,dotLayer.firstChild);
-      }
-    });
+    const line=document.createElementNS(SVG_NS,"line");
+    line.setAttribute("class","country-map-label-connector");
+    line.setAttribute("x1",String(x));
+    line.setAttribute("y1",String(y));
+    line.setAttribute("x2",String((cx/layerRect.width)*1000));
+    line.setAttribute("y2",String((cy/layerRect.height)*500));
+    dotLayer.insertBefore(line,dotLayer.firstChild);
   });
+
+  if(caption)caption.textContent=`${flag} ${name} · ${count}건`;
 }
 
 
@@ -125679,6 +125748,18 @@ window.addEventListener("resize",scheduleCountryMapRelayout);
 if(window.visualViewport){
   window.visualViewport.addEventListener("resize",scheduleCountryMapRelayout);
   window.visualViewport.addEventListener("scroll",scheduleCountryMapRelayout);
+}
+
+
+function centerCountryChip(button, smooth=true){
+  const rail=document.getElementById("country-chip-rail");
+  if(!rail || !button || button.hidden)return;
+
+  const target=button.offsetLeft-(rail.clientWidth-button.offsetWidth)/2;
+  rail.scrollTo({
+    left:Math.max(0,target),
+    behavior:smooth?"smooth":"auto"
+  });
 }
 
 function updateCountryMapCounts(){
@@ -125711,7 +125792,7 @@ function updateCountryMapCounts(){
     button.hidden=count===0;
     button.classList.toggle("active",activeCountryFilter===code);
     if(activeCountryFilter===code && !button.hidden){
-      requestAnimationFrame(()=>button.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"}));
+      requestAnimationFrame(()=>centerCountryChip(button,true));
     }
   });
 
@@ -125787,12 +125868,15 @@ function setCountryFilter(code){
       setTimeout(()=>firstVisibleCard.scrollIntoView({behavior:"smooth",block:"center"}),80);
     }
   } else {
-    if(note)note.textContent="";
+    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
   }
 }
 
 document.querySelectorAll("#country-chip-rail [data-country-filter]").forEach(button=>{
-  button.addEventListener("click",()=>setCountryFilter(button.dataset.countryFilter));
+  button.addEventListener("click",()=>{
+    setCountryFilter(button.dataset.countryFilter);
+    requestAnimationFrame(()=>centerCountryChip(button,true));
+  });
 });
 
 const countryAllButton=document.getElementById("country-all");
@@ -125801,8 +125885,9 @@ if(countryAllButton){
     activeCountryFilter="";
     filterArticles();
     updateCountryMapCounts();
+    requestAnimationFrame(()=>centerCountryChip(countryAllButton,true));
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="";
+    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
   });
 }
 
