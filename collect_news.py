@@ -11627,11 +11627,11 @@ header,
   z-index:2;
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding-top:0;
+  padding:0 106px 0 14px;
 }}
 
 .globe-stage.dragging {{
@@ -11640,15 +11640,14 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:calc(184px * var(--globe-zoom, 1));
+  width:182px;
   max-width:none;
   aspect-ratio:1/1;
   border-radius:50%;
   overflow:visible;
   isolation:isolate;
-  transform:translateY(6px);
+  transform:translateY(4px);
   filter:drop-shadow(0 12px 16px rgba(35,57,93,.10));
-  transition:width .18s ease;
 }}
 
 .globe-canvas {{
@@ -11718,37 +11717,74 @@ header,
   pointer-events:none;
 }}
 
-.globe-label-column {{
+.globe-label-rail {{
   position:absolute;
-  top:34px;
-  bottom:43px;
-  width:86px;
+  top:28px;
+  right:8px;
+  bottom:18px;
+  width:100px;
   display:flex;
   flex-direction:column;
-  justify-content:center;
-  gap:5px;
-  pointer-events:none;
+  gap:6px;
+  pointer-events:auto;
 }}
 
-.globe-label-column.left {{ left:7px; }}
-.globe-label-column.right {{ right:7px; }}
+.globe-label-rail-header {{
+  flex:0 0 auto;
+  padding:5px 7px 4px;
+  border:1px solid rgba(148,218,255,.18);
+  border-radius:9px;
+  background:linear-gradient(180deg, rgba(8,18,34,.70) 0%, rgba(6,14,27,.58) 100%);
+  color:#e6f4ff;
+  font-size:7px;
+  font-weight:850;
+  letter-spacing:.01em;
+  text-align:left;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-shadow:0 3px 10px rgba(0,0,0,.14);
+}}
+
+.globe-label-scroll {{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  padding:1px 2px 2px 0;
+  touch-action:pan-y;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  scroll-snap-type:y proximity;
+}}
+
+.globe-label-scroll::-webkit-scrollbar {{
+  width:4px;
+}}
+
+.globe-label-scroll::-webkit-scrollbar-thumb {{
+  border-radius:999px;
+  background:rgba(137,207,255,.34);
+}}
 
 .globe-country-label {{
   position:relative;
-  width:86px;
-  min-height:29px;
-  padding:4px 6px;
-  border:1px solid rgba(141,214,255,.24);
+  width:100%;
+  min-height:31px;
+  padding:5px 6px;
+  border:1px solid rgba(141,214,255,.22);
   border-radius:8px;
-  background:rgba(7,18,34,.78);
+  background:rgba(7,18,34,.76);
   color:#eef7ff;
   box-shadow:0 3px 10px rgba(0,0,0,.13), inset 0 0 0 1px rgba(255,255,255,.025);
   display:grid;
-  grid-template-columns:16px minmax(0,1fr) auto;
+  grid-template-columns:15px minmax(0,1fr) auto;
   align-items:center;
   column-gap:4px;
   text-align:left;
-  font-size:7.9px;
+  font-size:7.8px;
   font-weight:790;
   line-height:1;
   white-space:nowrap;
@@ -11757,19 +11793,20 @@ header,
   backdrop-filter:blur(7px);
   -webkit-backdrop-filter:blur(7px);
   transition:border-color .12s ease, background .12s ease, box-shadow .12s ease, transform .12s ease;
+  scroll-snap-align:start;
 }}
 
 .globe-country-label:hover,
 .globe-country-label:focus-visible {{
-  border-color:rgba(170,226,255,.68);
-  background:rgba(11,27,49,.94);
+  border-color:rgba(170,226,255,.62);
+  background:rgba(11,27,49,.90);
   box-shadow:0 4px 12px rgba(0,0,0,.18), 0 0 0 1px rgba(126,208,255,.10);
   transform:translateY(-1px);
 }}
 
 .globe-country-label.active {{
   border-color:#fee500;
-  background:rgba(18,38,66,.96);
+  background:rgba(18,38,66,.94);
   box-shadow:0 4px 12px rgba(0,0,0,.18), 0 0 0 1px rgba(254,229,0,.12);
 }}
 
@@ -11793,77 +11830,29 @@ header,
 
 .globe-country-label.active .globe-country-count {{ color:#fee500; }}
 
-.globe-zoom-controls {{
-  position:absolute;
-  right:8px;
-  top:8px;
-  z-index:12;
-  display:flex;
-  flex-direction:column;
-  gap:3px;
-}}
-
-.globe-zoom-button {{
-  width:25px;
-  height:25px;
-  padding:0;
-  border:1px solid rgba(148,218,255,.24);
-  border-radius:7px;
-  background:rgba(6,14,27,.72);
-  color:#e8f6ff;
-  font-size:15px;
-  font-weight:850;
-  line-height:23px;
-  text-align:center;
-  cursor:pointer;
-  box-shadow:0 3px 8px rgba(0,0,0,.16);
-  backdrop-filter:blur(7px);
-  -webkit-backdrop-filter:blur(7px);
-}}
-
-.globe-zoom-button:hover,
-.globe-zoom-button:focus-visible {{
-  border-color:rgba(170,226,255,.58);
-  background:rgba(10,24,44,.90);
-}}
-
-.globe-zoom-button:disabled {{
-  opacity:.36;
-  cursor:default;
-}}
-
-.globe-zoom-level {{
-  min-width:25px;
-  padding:2px 3px;
-  border-radius:5px;
-  background:rgba(6,14,27,.58);
-  color:#9ed9ff;
-  font-size:6.5px;
-  font-weight:850;
-  line-height:1.1;
-  text-align:center;
-  pointer-events:none;
-}}
+.globe-zoom-controls {
+  display:none !important;
+}
 
 .globe-control-hint {{
   position:absolute;
-  left:50%;
+  left:12px;
   bottom:10px;
-  transform:translateX(-50%);
+  transform:none;
   z-index:7;
   display:flex !important;
   align-items:center;
   gap:8px;
-  max-width:calc(100% - 18px);
+  max-width:calc(100% - 124px);
   padding:6px 10px;
-  border:1px solid rgba(148,218,255,.22);
+  border:1px solid rgba(148,218,255,.18);
   border-radius:999px;
-  background:rgba(6,14,27,.62);
+  background:rgba(6,14,27,.56);
   color:#deefff;
   box-shadow:0 4px 10px rgba(0,0,0,.16);
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
-  font-size:7.2px;
+  font-size:7px;
   font-weight:760;
   line-height:1;
   white-space:nowrap;
@@ -11931,39 +11920,48 @@ header,
   .country-map-content .country-map-visual.globe-mode {{
     height:210px !important;
   }}
-  .globe-sphere {{
-    width:calc(170px * var(--globe-zoom, 1));
-    max-width:none;
-    transform:translateY(5px);
-  }}
-  .globe-label-column {{
-    top:32px;
-    bottom:42px;
-    width:79px;
+  .globe-stage {
+    padding:0 94px 0 10px;
+  }
+  .globe-sphere {
+    width:164px;
+    transform:translateY(4px);
+  }
+  .globe-label-rail {
+    top:26px;
+    right:6px;
+    bottom:16px;
+    width:88px;
+    gap:5px;
+  }
+  .globe-label-rail-header {
+    padding:4px 6px;
+    font-size:6.3px;
+  }
+  .globe-label-scroll {
     gap:4px;
-  }}
-  .globe-label-column.left {{ left:5px; }}
-  .globe-label-column.right {{ right:5px; }}
-  .globe-country-label {{
-    width:79px;
-    min-height:27px;
-    padding:3px 5px;
+  }
+  .globe-country-label {
+    min-height:28px;
+    padding:4px 5px;
     grid-template-columns:14px minmax(0,1fr) auto;
     column-gap:3px;
     font-size:7.2px;
-  }}
+  }
   .globe-country-flag {{
     font-size:10px;
   }}
   .globe-country-count {{
     font-size:7px;
   }}
-  .globe-control-hint {{
+  .globe-control-hint {
+    left:8px;
     bottom:8px;
-    padding:6px 8px;
-    font-size:6.6px;
-    gap:6px;
-  }}
+    max-width:calc(100% - 106px);
+    padding:5px 7px;
+    font-size:6.4px;
+    gap:5px;
+  }
   .country-map-caption {{
     display:inline-flex !important;
     font-size:6.7px !important;
@@ -11974,24 +11972,33 @@ header,
   .country-map-content .country-map-visual.globe-mode {{
     height:198px !important;
   }}
-  .globe-sphere {{
-    width:calc(156px * var(--globe-zoom, 1));
-    max-width:none;
+  .globe-stage {
+    padding:0 88px 0 8px;
+  }
+  .globe-sphere {
+    width:154px;
     transform:translateY(4px);
-  }}
-  .globe-label-column {{
-    width:73px;
+  }
+  .globe-label-rail {
+    top:24px;
+    right:4px;
+    bottom:14px;
+    width:82px;
+    gap:4px;
+  }
+  .globe-label-rail-header {
+    padding:3px 5px;
+    font-size:6px;
+  }
+  .globe-label-scroll {
     gap:3px;
-  }}
-  .globe-label-column.left {{ left:4px; }}
-  .globe-label-column.right {{ right:4px; }}
-  .globe-country-label {{
-    width:73px;
+  }
+  .globe-country-label {
     min-height:26px;
     padding:3px 4px;
     grid-template-columns:13px minmax(0,1fr) auto;
     font-size:6.8px;
-  }}
+  }
   .globe-country-flag {{ font-size:10px; }}
   .globe-country-count {{ font-size:6.5px; }}
 }}
@@ -12028,7 +12035,7 @@ header,
   grid-row:auto !important;
   align-self:center !important;
   justify-self:auto !important;
-  margin-left:4px !important;
+  margin-left:auto !important;
   flex:0 0 auto !important;
   width:auto !important;
   min-width:30px !important;
@@ -12061,19 +12068,20 @@ header,
 .card-side {{
   width:124px !important;
   min-width:124px !important;
-  height:100% !important;
+  height:80px !important;
   min-height:80px !important;
   display:flex !important;
-  align-items:stretch !important;
-  justify-content:stretch !important;
-  align-self:stretch !important;
+  align-items:center !important;
+  justify-content:center !important;
+  align-self:center !important;
 }}
 
 .preview-image {{
   width:124px !important;
-  height:100% !important;
+  height:80px !important;
   min-height:80px !important;
-  align-self:stretch !important;
+  max-height:80px !important;
+  align-self:center !important;
   border-radius:0 !important;
   overflow:hidden !important;
   background:#edf2f7 !important;
@@ -12083,6 +12091,8 @@ header,
 .preview-image svg {{
   width:100% !important;
   height:100% !important;
+  min-width:100% !important;
+  min-height:100% !important;
   object-fit:cover !important;
   object-position:50% 50% !important;
   display:block !important;
@@ -12106,7 +12116,7 @@ header,
     min-height:86px !important;
   }}
   .important-button {{
-    margin-left:3px !important;
+    margin-left:auto !important;
     min-width:28px !important;
     height:17px !important;
     padding:0 5px !important;
@@ -12122,12 +12132,16 @@ header,
   .card-side {{
     width:116px !important;
     min-width:116px !important;
+    height:78px !important;
     min-height:78px !important;
+    max-height:78px !important;
+    align-self:center !important;
   }}
   .preview-image {{
     width:116px !important;
-    height:100% !important;
+    height:78px !important;
     min-height:78px !important;
+    max-height:78px !important;
     border-radius:0 !important;
   }}
   .headline {{
@@ -12146,7 +12160,7 @@ header,
     min-height:82px !important;
   }}
   .important-button {{
-    margin-left:2px !important;
+    margin-left:auto !important;
     min-width:26px !important;
     height:16px !important;
     padding:0 5px !important;
@@ -12162,12 +12176,16 @@ header,
   .card-side {{
     width:106px !important;
     min-width:106px !important;
+    height:74px !important;
     min-height:74px !important;
+    max-height:74px !important;
+    align-self:center !important;
   }}
   .preview-image {{
     width:106px !important;
-    height:100% !important;
+    height:74px !important;
     min-height:74px !important;
+    max-height:74px !important;
     border-radius:0 !important;
   }}
   .headline {{
@@ -12281,12 +12299,7 @@ header,
           <div class="globe-shine" aria-hidden="true"></div>
         </div>
         <div id="globe-label-layer" class="globe-label-layer" aria-label="국가별 기사 바로가기"></div>
-        <div class="globe-zoom-controls" aria-label="지구본 확대 축소">
-          <button id="globe-zoom-in" class="globe-zoom-button" type="button" aria-label="지구본 확대">+</button>
-          <span id="globe-zoom-level" class="globe-zoom-level">100%</span>
-          <button id="globe-zoom-out" class="globe-zoom-button" type="button" aria-label="지구본 축소">−</button>
-        </div>
-        <div class="globe-control-hint"><span class="globe-guide-step" data-step="1">국가 클릭 → 이동·필터</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="2">드래그 회전</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="3">휠/+/− 확대</span></div>
+        <div class="globe-control-hint"><span class="globe-guide-step" data-step="1">오른쪽 목록 스크롤</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="2">국가 클릭 → 이동·필터</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="3">지구본 드래그 회전</span></div>
       </div>
       <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
@@ -14040,36 +14053,28 @@ function renderGlobeCanvas(){{
 }}
 
 function getStableGlobeLabelItems(){{
-  const sorted=[...globeState.items].sort((a,b)=>{{
+  return [...globeState.items].sort((a,b)=>{{
     if(b.count!==a.count)return b.count-a.count;
     return a.name.localeCompare(b.name,'ko');
   }});
-  const maxLabels=window.innerWidth<=430 ? 8 : 10;
-  const required=new Set([activeCountryFilter,'KR','JP'].filter(Boolean));
-  const selected=[];
-  sorted.forEach(item=>{{
-    if(selected.length<maxLabels || required.has(item.code)){{
-      if(!selected.some(v=>v.code===item.code))selected.push(item);
-    }}
-  }});
-  return selected.slice(0,maxLabels);
 }}
 
 function renderGlobeLabels(){{
   const layer=document.getElementById('globe-label-layer');
   if(!layer)return;
+
+  const previousScroll=layer.querySelector('.globe-label-scroll')?.scrollTop || 0;
   layer.innerHTML='';
 
-  const selected=getStableGlobeLabelItems();
-  const left=document.createElement('div');
-  const right=document.createElement('div');
-  left.className='globe-label-column left';
-  right.className='globe-label-column right';
-  layer.appendChild(left);
-  layer.appendChild(right);
+  const items=getStableGlobeLabelItems();
+  const activeName=activeCountryFilter ? (COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter) : '';
+  const rail=document.createElement('div');
+  rail.className='globe-label-rail';
+  rail.innerHTML=`<div class="globe-label-rail-header">국가별 기사<br><span style="font-size:6px;font-weight:720;color:#9ed9ff;">전체 ${{items.length}}개국 · 내림차순</span></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
+  const scroll=rail.querySelector('.globe-label-scroll');
+  layer.appendChild(rail);
 
-  selected.forEach((item,index)=>{{
-    const target=index%2===0 ? left : right;
+  items.forEach((item)=>{{
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='globe-country-label' + (activeCountryFilter===item.code?' active':'');
@@ -14102,8 +14107,14 @@ function renderGlobeLabels(){{
         renderGlobeFocusMarker();
       }},8000);
     }});
-    target.appendChild(btn);
+    scroll.appendChild(btn);
   }});
+
+  scroll.scrollTop=previousScroll;
+  const activeButton=scroll.querySelector('.globe-country-label.active');
+  if(activeButton){{
+    requestAnimationFrame(()=>activeButton.scrollIntoView({{block:'nearest',behavior:'smooth'}}));
+  }}
 }}
 
 function renderGlobeFocusMarker(){{
@@ -14202,6 +14213,7 @@ function bindGlobeZoomControls(){{
   if(stage && !stage.dataset.zoomWheelBound){{
     stage.dataset.zoomWheelBound='1';
     stage.addEventListener('wheel',event=>{{
+      if(event.target.closest('.globe-label-rail'))return;
       if(Math.abs(event.deltaY)<2)return;
       event.preventDefault();
       globeState.autoRotate=false;
@@ -14220,7 +14232,7 @@ function bindGlobeInteraction(){{
   globeState.bound=true;
 
   stage.addEventListener('pointerdown',event=>{{
-    if(event.target.closest('.globe-country-label'))return;
+    if(event.target.closest('.globe-country-label') || event.target.closest('.globe-label-rail'))return;
     globeState.dragging=true;
     globeState.autoRotate=false;
     globeState.targetLon=null;
@@ -14263,7 +14275,6 @@ function bindGlobeInteraction(){{
     globeState.rotationLon=127.8;
     globeState.targetLon=null;
     globeState.hoverCountry='';
-    applyGlobeZoom(1);
     globeState.autoRotate=true;
     renderGlobeFrame(true);
   }});
@@ -14298,7 +14309,6 @@ function layoutAndRenderCountryMap(){{
   if(!globeState.initialized){{
     globeState.initialized=true;
     bindGlobeInteraction();
-    bindGlobeZoomControls();
     prepareGlobeTexture();
     startGlobeAnimation();
   }}
@@ -14306,7 +14316,7 @@ function layoutAndRenderCountryMap(){{
   if(caption){{
     caption.textContent=activeCountryFilter
       ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시`
-      : '국가 버튼을 클릭하면 위치로 이동';
+      : '오른쪽 국가 목록에서 선택';
   }}
 
   renderGlobeLabels();
