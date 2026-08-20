@@ -10209,6 +10209,118 @@ header,
   .country-map-label .map-label-count {{ font-size:8px !important; }}
 }}
 
+
+/* ============================================================
+   MAP / FLAG VISUAL BALANCE — 지도 우선, 국기 배지는 보조 정보
+   ============================================================ */
+
+/* 지형선은 한 단계 또렷하게 */
+.world-map-land path {{
+  fill:#dce5ee !important;
+  stroke:#aab8c7 !important;
+  stroke-width:1.45 !important;
+  opacity:.96 !important;
+}}
+
+/* 지도 배경은 최대한 깨끗하게 */
+.country-map-visual {{
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255,255,255,.99), rgba(242,246,250,.99)) !important;
+}}
+
+/* 위치 점은 작고 차분하게 */
+.country-map-svg-halo {{
+  opacity:.10 !important;
+}}
+.country-map-svg-dot {{
+  stroke-width:3.2px !important;
+  opacity:.88 !important;
+}}
+.country-map-svg-point.active .country-map-svg-dot {{
+  opacity:1 !important;
+}}
+
+/* 평상시 국기+건수는 작은 보조 배지 */
+.country-map-label {{
+  min-height:18px !important;
+  height:18px !important;
+  padding:0 4px !important;
+  gap:2px !important;
+  border:1px solid rgba(73,96,122,.16) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.78) !important;
+  color:#52667d !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.06) !important;
+  opacity:.82 !important;
+  backdrop-filter:blur(2px);
+}}
+
+.country-map-label .map-label-flag {{
+  font-size:9px !important;
+  line-height:1 !important;
+}}
+
+.country-map-label .map-label-count {{
+  color:#52667d !important;
+  font-size:6.8px !important;
+  line-height:1 !important;
+  font-weight:850 !important;
+}}
+
+/* 선택한 국가만 선명하고 약간 크게 */
+.country-map-label.active {{
+  min-height:22px !important;
+  height:22px !important;
+  padding:0 6px !important;
+  gap:3px !important;
+  border-color:#1f4f8a !important;
+  background:rgba(31,79,138,.96) !important;
+  color:#fff !important;
+  box-shadow:0 3px 9px rgba(31,79,138,.20) !important;
+  opacity:1 !important;
+  z-index:12 !important;
+}}
+.country-map-label.active .map-label-flag {{
+  font-size:11px !important;
+}}
+.country-map-label.active .map-label-count {{
+  color:#fee500 !important;
+  font-size:8px !important;
+}}
+
+/* 연결선도 지도보다 튀지 않도록 최소화 */
+.country-map-label-connector {{
+  stroke:#71879e !important;
+  stroke-width:.8 !important;
+  opacity:.28 !important;
+}}
+
+/* 모바일에서도 배지가 커져 지도를 덮지 않게 동일한 시각 비율 유지 */
+@media (max-width:767px) {{
+  .country-map-label {{
+    min-height:19px !important;
+    height:19px !important;
+    padding:0 4px !important;
+  }}
+  .country-map-label .map-label-flag {{
+    font-size:9.5px !important;
+  }}
+  .country-map-label .map-label-count {{
+    font-size:7px !important;
+  }}
+  .country-map-label.active {{
+    min-height:23px !important;
+    height:23px !important;
+    padding:0 6px !important;
+  }}
+  .country-map-label.active .map-label-flag {{
+    font-size:11.5px !important;
+  }}
+  .country-map-label.active .map-label-count {{
+    font-size:8px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -11730,7 +11842,7 @@ function layoutAndRenderCountryMap(){{
       if(!best)return;
       label.style.left=`${{best.cx}}px`; label.style.top=`${{best.cy}}px`;
       placed.push({{box:best.box,code:item.code}});
-      if(best.distance>18){{
+      if(best.distance>26){{
         const line=document.createElementNS(SVG_NS,"line");
         line.setAttribute("class","country-map-label-connector");
         line.setAttribute("x1",String(item.x)); line.setAttribute("y1",String(item.y));
