@@ -11557,7 +11557,7 @@ header,
 
 
 /* ============================================================
-   FINAL 3D GLOBE — ROTATING COUNTRY FILTER
+   FINAL EARTH-STYLE 3D GLOBE — ROTATING COUNTRY FILTER
    ============================================================ */
 #country-continent-grid,
 #country-chip-rail,
@@ -11610,11 +11610,13 @@ header,
   width:100%;
   height:100%;
   border-radius:50%;
-  background:#eef3f8;
+  background:#0f6faa;
   box-shadow:
-    inset -17px -12px 24px rgba(41,64,91,.17),
-    inset 10px 8px 18px rgba(255,255,255,.74),
-    0 0 0 1px rgba(35,57,93,.12);
+    inset -14px -10px 22px rgba(6,34,66,.22),
+    inset 12px 8px 18px rgba(255,255,255,.10),
+    0 0 0 1px rgba(72,142,188,.24),
+    0 0 18px rgba(102,186,230,.16),
+    0 0 34px rgba(120,210,255,.10);
 }}
 
 .globe-shine {{
@@ -11624,9 +11626,13 @@ header,
   border-radius:50%;
   pointer-events:none;
   background:
-    radial-gradient(circle at 31% 24%, rgba(255,255,255,.46) 0 5%, rgba(255,255,255,.15) 17%, transparent 34%),
-    radial-gradient(circle at 73% 72%, transparent 0 52%, rgba(28,49,75,.13) 86%, rgba(28,49,75,.22) 100%);
-  box-shadow:inset -8px -6px 14px rgba(35,57,93,.10);
+    radial-gradient(circle at 28% 20%, rgba(255,255,255,.38) 0 4%, rgba(255,255,255,.12) 16%, transparent 34%),
+    radial-gradient(circle at 50% 50%, transparent 0 63%, rgba(113,203,255,.05) 82%, rgba(113,203,255,.10) 100%),
+    radial-gradient(circle at 73% 76%, transparent 0 50%, rgba(6,33,65,.08) 78%, rgba(3,22,45,.18) 100%);
+  box-shadow:
+    inset -7px -6px 14px rgba(2,27,56,.10),
+    inset 3px 3px 10px rgba(255,255,255,.06),
+    0 0 0 1px rgba(148,220,255,.16);
 }}
 
 .globe-marker-layer {{
@@ -11869,11 +11875,11 @@ header,
       <div class="country-map-visual globe-mode" aria-label="기사 발생 국가 3D 회전 지구본">
       <div id="globe-stage" class="globe-stage" aria-label="드래그하여 회전하는 3D 지구본">
         <div id="globe-sphere" class="globe-sphere">
-          <canvas id="globe-canvas" class="globe-canvas" width="360" height="360" aria-hidden="true"></canvas>
+          <canvas id="globe-canvas" class="globe-canvas" width="420" height="420" aria-hidden="true"></canvas>
           <div id="globe-marker-layer" class="globe-marker-layer" aria-label="국가별 기사 바로가기"></div>
           <div class="globe-shine" aria-hidden="true"></div>
         </div>
-        <div class="globe-control-hint">↔ 드래그하여 지구본 회전</div>
+        <div class="globe-control-hint">↔ 드래그하여 지구본 회전 · 국가 선택</div>
       </div>
       <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
@@ -13198,6 +13204,12 @@ const globeState={{
   textureReady:false,
   sourceCanvas:null,
   sourceCtx:null,
+  maskData:null,
+  textureCanvas:null,
+  textureCtx:null,
+  textureData:null,
+  textureWidth:1000,
+  textureHeight:500,
   rotationLon:127.8,
   autoRotate:true,
   dragging:false,
@@ -13259,6 +13271,17 @@ function prepareGlobeTexture(){{
       URL.revokeObjectURL(url);
       globeState.sourceCanvas=sourceCanvas;
       globeState.sourceCtx=sourceCtx;
+      try{{
+        globeState.maskData=sourceCtx.getImageData(0,0,1000,500).data;
+      }}catch(error){{
+        globeState.maskData=null;
+      }}
+      const textureInfo=buildSatelliteTexture(sourceCtx,1000,500);
+      globeState.textureCanvas=textureInfo.canvas;
+      globeState.textureCtx=textureInfo.ctx;
+      globeState.textureData=textureInfo.data;
+      globeState.textureWidth=textureInfo.width;
+      globeState.textureHeight=textureInfo.height;
       globeState.textureReady=true;
       globeState.texturePreparing=false;
       renderGlobeFrame(true);
@@ -13274,29 +13297,191 @@ function prepareGlobeTexture(){{
   }}
 }}
 
+function buildSatelliteTexture(maskCtx,width,height){{
+  const maskData=maskCtx.getImageData(0,0,width,height).data;
+  const canvas=document.createElement('canvas');
+  canvas.width=width;
+  canvas.height=height;
+  const ctx=canvas.getContext('2d',{{willReadFrequently:true}});
+  const image=ctx.createImageData(width,height);
+  const out=image.data;
+
+  const clamp01=v=>Math.max(0,Math.min(1,v));
+  const clamp255=v=>Math.max(0,Math.min(255,Math.round(v)));
+  const mix=(a,b,t)=>a+(b-a)*t;
+  const smoothstep=(a,b,x)=>{{
+    const t=clamp01((x-a)/(b-a||1));
+    return t*t*(3-2*t);
+  }};
+  const alphaAt=(x,y)=>{{
+    const sx=Math.max(0,Math.min(width-1,x));
+    const sy=Math.max(0,Math.min(height-1,y));
+    return maskData[(sy*width+sx)*4+3]/255;
+  }};
+  const noise=(x,y)=>{{
+    return (
+      Math.sin(x*0.017 + y*0.013) +
+      0.55*Math.sin(x*0.043 - y*0.021) +
+      0.28*Math.sin(x*0.091 + y*0.057) +
+      0.16*Math.sin(x*0.157 - y*0.123)
+    ) / 1.99;
+  }};
+  const ridge=(x,y)=>{{
+    const n1=Math.abs(Math.sin(x*0.038 - y*0.024));
+    const n2=Math.abs(Math.sin(x*0.093 + y*0.051));
+    return clamp01((n1*0.62 + n2*0.38 - 0.42) / 0.48);
+  }};
+
+  for(let sy=0; sy<height; sy++){{
+    const latDeg=85 - (sy/(height-1))*145;
+    const absLat=Math.abs(latDeg);
+    for(let sx=0; sx<width; sx++){{
+      const i=(sy*width+sx)*4;
+      const lonDeg=(sx/(width-1))*360 - 180;
+      const land=maskData[i+3]/255 > 0.1;
+      const n=noise(sx,sy);
+      const n2=noise(sx*0.55+41, sy*0.8+17);
+      const elev=ridge(sx,sy);
+
+      const coastSignal=(
+        alphaAt(sx-3,sy)+alphaAt(sx+3,sy)+alphaAt(sx,sy-3)+alphaAt(sx,sy+3)+
+        alphaAt(sx-6,sy)+alphaAt(sx+6,sy)+alphaAt(sx,sy-6)+alphaAt(sx,sy+6)
+      )/8;
+      const coastProximity=land ? 1-coastSignal : coastSignal;
+      const coast=clamp01((coastProximity-0.02)/0.58);
+
+      let r,g,b;
+      if(land){{
+        const equatorial=clamp01(1-absLat/42);
+        const boreal=clamp01((58-absLat)/28);
+        const desertBelt=smoothstep(8,22,absLat)*(1-smoothstep(22,38,absLat));
+        const desert=((0.42+0.36*n-0.22*n2) * desertBelt);
+        const vegetation=clamp01(0.58 + equatorial*0.34 - desert*0.65 - elev*0.12 + n*0.08);
+        const dry=clamp01(0.30 + desert*0.88 + (1-vegetation)*0.20);
+        const rock=clamp01(elev*0.74 + smoothstep(42,64,absLat)*0.18);
+        const snow=clamp01(smoothstep(58,77,absLat) + elev*0.35 - 0.08 + n2*0.05);
+
+        // base biome blend: lush vegetation -> dry scrub -> rocky highlands
+        r=mix(46,92,vegetation);
+        g=mix(68,128,vegetation);
+        b=mix(42,78,vegetation);
+
+        r=mix(r,169,dry*0.70);
+        g=mix(g,146,dry*0.70);
+        b=mix(b,95,dry*0.70);
+
+        r=mix(r,124,rock*0.55);
+        g=mix(g,112,rock*0.55);
+        b=mix(b,103,rock*0.55);
+
+        // tropical forest deepening
+        const rainforest=equatorial*clamp01(0.60 - desert + n*0.18);
+        r=mix(r,34,rainforest*0.40);
+        g=mix(g,101,rainforest*0.40);
+        b=mix(b,54,rainforest*0.40);
+
+        // coastlines become a touch brighter and greener
+        r=mix(r,124,coast*0.12);
+        g=mix(g,144,coast*0.18);
+        b=mix(b,96,coast*0.10);
+
+        // snowy high latitudes and mountains
+        r=mix(r,236,snow*0.92);
+        g=mix(g,240,snow*0.92);
+        b=mix(b,242,snow*0.92);
+
+        const relief=0.90 + n*0.10 + elev*0.11;
+        r*=relief; g*=relief; b*=relief;
+      }} else {{
+        const oceanBand=0.55 + 0.45*Math.sin((lonDeg+22)*0.055) * Math.cos((latDeg-8)*0.072);
+        const gyre=noise(sx*0.45+17, sy*0.35+8);
+        const deepness=clamp01(0.32 + (1-coast)*0.56 + (0.5-gyre)*0.10);
+        r=mix(10,19,coast*0.85);
+        g=mix(55,133,coast*0.85);
+        b=mix(106,188,coast*0.90);
+        r=mix(r,4,deepness*0.78);
+        g=mix(g,31,deepness*0.78);
+        b=mix(b,84,deepness*0.78);
+        r+=oceanBand*3;
+        g+=oceanBand*6;
+        b+=oceanBand*8;
+
+        // shallow coastal shelf
+        const shelf=coast*coast;
+        r=mix(r,42,shelf*0.40);
+        g=mix(g,151,shelf*0.46);
+        b=mix(b,186,shelf*0.55);
+
+        // polar sea ice hint
+        const seaIce=clamp01(smoothstep(67,81,absLat) - deepness*0.20 + n*0.05);
+        r=mix(r,214,seaIce*0.82);
+        g=mix(g,228,seaIce*0.82);
+        b=mix(b,236,seaIce*0.82);
+      }}
+
+      // Thin global cloud veil for a satellite-photo feel.
+      const cloudSignal=(
+        Math.sin((sx+71)*0.028 + (sy+9)*0.045) +
+        0.55*Math.sin((sx-15)*0.062 - (sy+24)*0.021) +
+        0.32*Math.sin((sx+140)*0.104 + (sy-33)*0.087)
+      );
+      const cloud=clamp01((cloudSignal-0.95)/0.78) * (0.18 + 0.10*clamp01(1-Math.abs(latDeg)/90));
+      r=mix(r,244,cloud);
+      g=mix(g,247,cloud);
+      b=mix(b,249,cloud);
+
+      out[i]=clamp255(r);
+      out[i+1]=clamp255(g);
+      out[i+2]=clamp255(b);
+      out[i+3]=255;
+    }}
+  }}
+
+  ctx.putImageData(image,0,0);
+  return {{canvas,ctx,data:out,width,height}};
+}}
+
 function drawFallbackGlobe(ctx,size){{
   const r=size/2;
   ctx.clearRect(0,0,size,size);
-  const grad=ctx.createRadialGradient(r*.72,r*.62,r*.08,r,r,r);
-  grad.addColorStop(0,'#fdfefe');
-  grad.addColorStop(.68,'#edf3f8');
-  grad.addColorStop(1,'#c9d5e1');
-  ctx.fillStyle=grad;
+  const ocean=ctx.createRadialGradient(r*.64,r*.56,r*.03,r,r,r);
+  ocean.addColorStop(0,'#4cb2e8');
+  ocean.addColorStop(.44,'#167ebf');
+  ocean.addColorStop(.78,'#0a5d98');
+  ocean.addColorStop(1,'#07385c');
+  ctx.fillStyle=ocean;
   ctx.beginPath();
   ctx.arc(r,r,r-2,0,Math.PI*2);
   ctx.fill();
-  ctx.strokeStyle='rgba(79,103,132,.16)';
-  ctx.lineWidth=1;
-  [0.28,0.55,0.78].forEach(scale=>{{
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(r,r,r-3,0,Math.PI*2);
+  ctx.clip();
+
+  const cloud=Math.max(14,Math.round(size*0.045));
+  for(let i=0;i<cloud;i++){{
+    const x=(Math.sin(i*2.7)*0.38+0.5)*size;
+    const y=(Math.cos(i*1.9)*0.34+0.5)*size;
+    const rr=size*(0.035 + (i%5)*0.007);
+    const grad=ctx.createRadialGradient(x,y,rr*0.08,x,y,rr);
+    grad.addColorStop(0,'rgba(255,255,255,.20)');
+    grad.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=grad;
     ctx.beginPath();
-    ctx.ellipse(r,r,r*scale,r*.96,0,0,Math.PI*2);
-    ctx.stroke();
-  }});
-  [-.55,0,.55].forEach(offset=>{{
-    ctx.beginPath();
-    ctx.ellipse(r,r+offset*r*.72,r*.95,r*.30,0,0,Math.PI*2);
-    ctx.stroke();
-  }});
+    ctx.arc(x,y,rr,0,Math.PI*2);
+    ctx.fill();
+  }}
+  ctx.restore();
+
+  const rim=ctx.createRadialGradient(r,r,r*.80,r,r,r);
+  rim.addColorStop(.82,'rgba(255,255,255,0)');
+  rim.addColorStop(.95,'rgba(110,203,255,.16)');
+  rim.addColorStop(1,'rgba(194,236,255,.42)');
+  ctx.fillStyle=rim;
+  ctx.beginPath();
+  ctx.arc(r,r,r-2,0,Math.PI*2);
+  ctx.fill();
 }}
 
 function renderGlobeCanvas(){{
@@ -13306,23 +13491,22 @@ function renderGlobeCanvas(){{
   const size=canvas.width;
   const radius=size/2;
 
-  if(!globeState.textureReady || !globeState.sourceCtx){{
+  if(!globeState.textureReady || !globeState.textureData || !globeState.maskData){{
     drawFallbackGlobe(ctx,size);
     return;
   }}
 
-  const srcCtx=globeState.sourceCtx;
-  let src;
-  try{{
-    src=srcCtx.getImageData(0,0,1000,500).data;
-  }}catch(error){{
-    drawFallbackGlobe(ctx,size);
-    return;
-  }}
+  const texture=globeState.textureData;
+  const mask=globeState.maskData;
+  const texW=globeState.textureWidth || 1000;
+  const texH=globeState.textureHeight || 500;
 
   const out=ctx.createImageData(size,size);
   const data=out.data;
   const rot=globeState.rotationLon*Math.PI/180;
+
+  const clamp255=v=>Math.max(0,Math.min(255,v));
+  const mix=(a,b,t)=>a+(b-a)*t;
 
   for(let py=0;py<size;py++){{
     const ny=(py-radius)/(radius-2);
@@ -13343,29 +13527,69 @@ function renderGlobeCanvas(){{
 
       const lonDeg=lon*180/Math.PI;
       const latDeg=lat*180/Math.PI;
-      let sx=Math.floor(((lonDeg+180)/360)*999);
-      let sy=Math.floor(((85-latDeg)/145)*499);
-      sx=Math.max(0,Math.min(999,sx));
-      sy=Math.max(0,Math.min(499,sy));
-      const si=(sy*1000+sx)*4;
+      let sx=Math.floor(((lonDeg+180)/360)*(texW-1));
+      let sy=Math.floor(((85-latDeg)/145)*(texH-1));
+      sx=Math.max(0,Math.min(texW-1,sx));
+      sy=Math.max(0,Math.min(texH-1,sy));
+      const si=(sy*texW+sx)*4;
 
-      const edge=Math.pow(Math.max(0,z),.30);
-      const light=.74 + .26*Math.max(0,(nx*-.28 + ny*-.12 + z*.95));
-      const shade=edge*light;
+      const isLand=mask[si+3]/255 > 0.10;
+      let r=texture[si];
+      let g=texture[si+1];
+      let b=texture[si+2];
 
-      data[di]=Math.min(255,src[si]*shade + 17*(1-shade));
-      data[di+1]=Math.min(255,src[si+1]*shade + 24*(1-shade));
-      data[di+2]=Math.min(255,src[si+2]*shade + 34*(1-shade));
+      // Physically inspired lighting for a Google-Earth-like spherical appearance.
+      const lightDirX=-.42, lightDirY=-.23, lightDirZ=.88;
+      const diffuse=Math.max(.14,nx*lightDirX+ny*lightDirY+z*lightDirZ);
+      const daylight=.44 + .66*diffuse;
+      r*=daylight; g*=daylight; b*=daylight;
+
+      // Relief shading gives land more photographic depth.
+      const reliefShade=Math.max(0,Math.min(1,0.64 + (z*.22) - nx*0.04 - ny*0.03));
+      if(isLand){{
+        r*=reliefShade;
+        g*=reliefShade;
+        b*=reliefShade;
+      }}
+
+      // Ocean glint and limb brightening.
+      if(!isLand){{
+        const spec=Math.pow(Math.max(0,nx*(-.26)+ny*(-.19)+z*.95),24);
+        r+=72*spec; g+=96*spec; b+=112*spec;
+      }}
+
+      // Subtle moving cloud highlight to keep the globe lively.
+      const cloudSignal=(
+        Math.sin((lonDeg+globeState.rotationLon*0.18)*0.22 + latDeg*0.37) +
+        0.58*Math.sin((lonDeg-globeState.rotationLon*0.10)*0.49 - latDeg*0.18) +
+        0.34*Math.sin(lonDeg*0.88 + latDeg*0.71)
+      );
+      const cloud=Math.max(0,Math.min(.22,(cloudSignal-1.12)*.19));
+      r=mix(r,247,cloud);
+      g=mix(g,249,cloud);
+      b=mix(b,251,cloud);
+
+      // Atmospheric scattering at the rim.
+      const rim=Math.pow(1-z,2.7);
+      r=mix(r,92,rim*.14);
+      g=mix(g,181,rim*.20);
+      b=mix(b,232,rim*.28);
+
+      data[di]=clamp255(r);
+      data[di+1]=clamp255(g);
+      data[di+2]=clamp255(b);
       data[di+3]=255;
     }}
   }}
 
   ctx.putImageData(out,0,0);
+
+  // soft atmospheric ring
   ctx.save();
   ctx.beginPath();
   ctx.arc(radius,radius,radius-2,0,Math.PI*2);
-  ctx.strokeStyle='rgba(35,57,93,.28)';
-  ctx.lineWidth=3;
+  ctx.strokeStyle='rgba(140,219,255,.62)';
+  ctx.lineWidth=2.4;
   ctx.stroke();
   ctx.restore();
 }}
