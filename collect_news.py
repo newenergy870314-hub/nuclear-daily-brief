@@ -76,6 +76,8 @@ ALWAYS_SHOW_GROUPS = {
     "TerraPower",
     "Westinghouse",
     "Fermi America",
+    "원자력 협회·학회",
+    "불가리아 코즐로두이 원전",
 }
 
 GROUPS = [
@@ -137,6 +139,8 @@ GROUPS = [
         '"KEPCO E&C"', '"KEPCO Engineering & Construction"', '"KEPCO-ENC"', '"KOPEC"',
         # 한전KPS
         '"한전KPS"', '"KEPCO KPS"', '"KEPCO-KPS"',
+        # 한전KDN
+        '"한전KDN"', '"KEPCO KDN"', '"KEPCO-KDN"',
         # 한전원자력연료
         '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
     ]),
@@ -224,6 +228,27 @@ GROUPS = [
         '"Nuclear Construction"', '"Nuclear Project"',
         '"Nuclear New Build"', '"New Nuclear Build"',
     ]),
+    ("원자력 협회·학회", [
+        # 국내외 원자력 관련 협회·학회
+        '"한국원자력산업협회"', '"KAIF" 원자력',
+        '"한국원전수출산업협회"', '"Korea Nuclear Association"',
+        '"한국원자력학회"', '"Korean Nuclear Society"',
+        '"한국방사성폐기물학회"', '"Korean Radioactive Waste Society"',
+        '"대한방사선방어학회"', '"Korean Association for Radiation Protection"',
+        '"세계원자력협회"', '"World Nuclear Association"',
+    ]),
+    ("불가리아 코즐로두이 원전", [
+        # 코즐로두이 원전 및 7·8호기 프로젝트
+        '"Kozloduy Nuclear Power Plant"', '"Kozloduy NPP"',
+        '"Kozloduy" nuclear', '"Kozloduy" reactor',
+        '"Kozloduy 7"', '"Kozloduy 8"',
+        '"Kozloduy Unit 7"', '"Kozloduy Unit 8"',
+        '"Kozloduy 7 and 8"', '"Kozloduy 7&8"',
+        '"코즐로두이 원전"', '"코즐로두이 원자력발전소"',
+        '"코즐로두이 7호기"', '"코즐로두이 8호기"',
+        '"코즐로두이 7·8호기"', '"코즐로두이 7,8호기"',
+        '"АЕЦ Козлодуй"', '"Козлодуй" атомна',
+    ]),
     ("Holtec", [
         "Holtec nuclear", '"Holtec International"', "홀텍",
         "SMR-300", "Palisades nuclear", '"Oyster Creek" SMR',
@@ -262,6 +287,8 @@ GROUP_TAB_LABELS = {
     "TerraPower": "Terra",
     "Westinghouse": "WEC",
     "Fermi America": "Fermi America",
+    "원자력 협회·학회": "원자력 협회·학회",
+    "불가리아 코즐로두이 원전": "코즐로두이 원전",
 }
 
 
@@ -1282,6 +1309,12 @@ DIRECT_GROUP_KEYWORDS = {
     "한국전력": [
         "한국전력", "한전", "kepco",
     ],
+    "한전 계열사": [
+        "한국전력기술", "kepco e&c", "kepco engineering & construction",
+        "한전kps", "kepco kps", "kepco-kps",
+        "한전kdn", "kepco kdn", "kepco-kdn",
+        "한전원자력연료", "kepco nuclear fuel",
+    ],
     "원전 관계부처": [
         "산업통상부", "산업통상자원부", "기후에너지환경부",
         "과학기술정보통신부", "과기정통부", "김정관", "문신학",
@@ -1291,6 +1324,22 @@ DIRECT_GROUP_KEYWORDS = {
         "대미투자", "대미 투자", "대미투자펀드", "대미 투자 펀드",
         "한미 투자", "u.s. investment", "us investment",
         "korea-us investment", "nuclear investment fund",
+    ],
+    "원자력 협회·학회": [
+        "한국원자력산업협회", "korean atomic industrial forum",
+        "한국원전수출산업협회", "korea nuclear association",
+        "한국원자력학회", "korean nuclear society",
+        "한국방사성폐기물학회", "korean radioactive waste society",
+        "대한방사선방어학회", "korean association for radiation protection",
+        "세계원자력협회", "world nuclear association",
+    ],
+    "불가리아 코즐로두이 원전": [
+        "kozloduy nuclear power plant", "kozloduy npp",
+        "kozloduy 7", "kozloduy 8", "kozloduy unit 7", "kozloduy unit 8",
+        "kozloduy 7 and 8", "kozloduy 7&8",
+        "코즐로두이 원전", "코즐로두이 원자력발전소",
+        "코즐로두이 7호기", "코즐로두이 8호기", "코즐로두이 7·8호기",
+        "аец козлодуй", "козлодуй",
     ],
     "Holtec": [
         "holtec", "홀텍", "smr-300", "palisades", "oyster creek",
@@ -1365,6 +1414,8 @@ DIRECT_GROUP_PRIORITY = [
     "Holtec",
     "TerraPower",
     "Westinghouse",
+    "원자력 협회·학회",
+    "불가리아 코즐로두이 원전",
     "타 건설사",
     "한국수력원자력",
     "한국전력",
@@ -3385,6 +3436,12 @@ KEPCO_AFFILIATE_ALIASES = {
         "kepco kps",
         "kepco-kps",
     ),
+    "한전KDN": (
+        "한전kdn",
+        "한전 kdn",
+        "kepco kdn",
+        "kepco-kdn",
+    ),
     "한전원자력연료": (
         "한전원자력연료",
         "kepco nuclear fuel",
@@ -3411,6 +3468,17 @@ def _mentions_kepco_affiliate(title: str, summary: str = "") -> bool:
 
 
 
+def _mentions_kepco_kdn(title: str, summary: str = "") -> bool:
+    """한전KDN이 명시된 기사는 한국전력 본체가 아닌 한전 계열사로 분류합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+    return (
+        "한전kdn" in compact
+        or "kepcokdn" in compact
+        or "kepco-kdn" in haystack
+    )
+
+
 def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
     """한국전력 본체가 기사에 직접 명시되었는지 판별합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
@@ -3431,6 +3499,8 @@ def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
         "kepco engineering & construction",
         "kepco engineering and construction",
         "kepco nuclear fuel",
+        "kepco kdn",
+        "kepco-kdn",
     )
     parent_haystack = haystack
     for phrase in affiliate_phrases:
@@ -3443,6 +3513,69 @@ def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
         or "koreaelectricpowercorporation" in parent_compact
         or re.search(r"(?<![a-z0-9])kepco(?![a-z0-9])", parent_haystack) is not None
     )
+
+
+WESTINGHOUSE_EXPLICIT_TERMS = {
+    "westinghouse",
+    "westinghouse electric company",
+    "웨스팅하우스",
+}
+
+NUCLEAR_ASSOCIATION_SOCIETY_TERMS = {
+    "한국원자력산업협회",
+    "korean atomic industrial forum",
+    "한국원전수출산업협회",
+    "korea nuclear association",
+    "한국원자력학회",
+    "korean nuclear society",
+    "한국방사성폐기물학회",
+    "korean radioactive waste society",
+    "대한방사선방어학회",
+    "korean association for radiation protection",
+    "세계원자력협회",
+    "world nuclear association",
+}
+
+KOZLODUY_PROJECT_TERMS = {
+    "kozloduy nuclear power plant",
+    "kozloduy npp",
+    "kozloduy 7",
+    "kozloduy 8",
+    "kozloduy unit 7",
+    "kozloduy unit 8",
+    "kozloduy 7 and 8",
+    "kozloduy 7&8",
+    "코즐로두이 원전",
+    "코즐로두이 원자력발전소",
+    "코즐로두이 7호기",
+    "코즐로두이 8호기",
+    "코즐로두이 7·8호기",
+    "코즐로두이 7,8호기",
+    "аец козлодуй",
+}
+
+def _mentions_westinghouse_explicit(title: str, summary: str = "") -> bool:
+    """Westinghouse 회사명이 직접 언급된 경우만 WEC 그룹 우선."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    return any(term in haystack for term in WESTINGHOUSE_EXPLICIT_TERMS)
+
+def _mentions_nuclear_association_society(title: str, summary: str = "") -> bool:
+    """원자력 관련 협회·학회가 명시된 기사를 식별합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    return any(term in haystack for term in NUCLEAR_ASSOCIATION_SOCIETY_TERMS)
+
+def _mentions_kozloduy_project(title: str, summary: str = "") -> bool:
+    """불가리아 코즐로두이 원전 및 7·8호기 프로젝트 기사를 식별합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    if any(term in haystack for term in KOZLODUY_PROJECT_TERMS):
+        return True
+    if ("kozloduy" in haystack or "козлодуй" in haystack or "코즐로두이" in haystack):
+        nuclear_context = (
+            "nuclear", "reactor", "npp", "unit 7", "unit 8", "ap1000",
+            "원전", "원자력", "원자로", "7호기", "8호기",
+        )
+        return any(term in haystack for term in nuclear_context)
+    return False
 
 
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
@@ -3465,13 +3598,22 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
-    # 한국전력 본체와 계열사가 함께 언급되면 한국전력 탭을 우선
+    # 한전KDN은 기사에 한국전력이 함께 언급되어도 '한전 계열사'로 고정
+    if _mentions_kepco_kdn(title, summary):
+        return "한전 계열사"
+
+    # 그 외에는 한국전력 본체와 계열사가 함께 언급되면 한국전력 탭을 우선
     if _mentions_kepco_parent(title, summary):
         return "한국전력"
 
     # 계열사만 언급된 경우 한전 계열사 탭
     if _mentions_kepco_affiliate(title, summary):
         return "한전 계열사"
+
+    # Westinghouse 회사명이 직접 언급되면 WEC 탭 우선
+    # AP1000만 언급된 코즐로두이 프로젝트 기사는 코즐로두이 탭으로 분류 가능
+    if _mentions_westinghouse_explicit(title, summary):
+        return "Westinghouse"
 
     # 2순위 이하: 현대건설이 없는 경우에만 적용
     has_nuclear_term = any(
@@ -3494,6 +3636,13 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
 
     if any(term in haystack for term in FERMI_AMERICA_TERMS):
         return "Fermi America"
+
+    if _mentions_nuclear_association_society(title, summary):
+        return "원자력 협회·학회"
+
+    # 현대건설/WEC 등 회사 우선 분류에 걸리지 않은 프로젝트 기사만 코즐로두이 탭
+    if _mentions_kozloduy_project(title, summary):
+        return "불가리아 코즐로두이 원전"
 
     return group
 
@@ -5344,9 +5493,6 @@ def render_group_unified(
     articles: list[Article],
     new_urls: set[str] | None = None,
 ) -> str:
-    if not articles and group not in ALWAYS_SHOW_GROUPS:
-        return ''
-
     new_urls = new_urls or set()
 
     korean_articles = [item for item in articles if item.language == 'ko']
@@ -6166,6 +6312,9 @@ def is_company_sports_article(article: Article) -> bool:
         "한전kps",
         "kepco kps",
         "kepco-kps",
+        "한전kdn",
+        "kepco kdn",
+        "kepco-kdn",
         "한국전력기술",
         "kepco e&c",
         "한전원자력연료",
@@ -6865,9 +7014,7 @@ def render_news_sections(
 
     sections = []
     for group, _ in GROUPS:
-        if not grouped[group] and group not in ALWAYS_SHOW_GROUPS:
-            continue
-
+        # 등록된 기사 탭은 기사 수가 0건이어도 항상 표시합니다.
         section = render_group_unified(
             group,
             grouped[group],
@@ -13000,6 +13147,448 @@ header,
   overflow:hidden !important;
 }}
 
+
+/* ============================================================
+   FINAL OVERRIDE — 2D CONTINENT MAP (REPLACES 3D GLOBE)
+   ============================================================ */
+.country-map-visual.globe-mode {{
+  position:relative !important;
+  height:236px !important;
+  border:none !important;
+  border-radius:20px !important;
+  overflow:hidden !important;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.90) 0%, rgba(246,250,253,.82) 28%, rgba(237,244,249,.58) 66%, rgba(232,240,246,.34) 100%),
+    linear-gradient(180deg, rgba(248,251,254,.98) 0%, rgba(241,247,251,.94) 100%) !important;
+  box-shadow: inset 0 0 0 1px rgba(176,196,213,.18) !important;
+}}
+.country-map-visual.globe-mode::before,
+.country-map-visual.globe-mode::after,
+.country-map-visual .globe-stage {{
+  display:none !important;
+}}
+.country-map-visual .world-map-inline.globe-texture-source {{
+  display:block !important;
+  position:absolute !important;
+  left:10px !important;
+  top:12px !important;
+  right:130px !important;
+  bottom:12px !important;
+  width:auto !important;
+  height:auto !important;
+  opacity:.98 !important;
+  z-index:1 !important;
+  filter: saturate(1.04) contrast(1.02) drop-shadow(0 2px 8px rgba(61,103,135,.08)) !important;
+}}
+#country-map-dots-svg {{ display:none !important; }}
+.country-map-caption {{
+  top:10px !important;
+  left:12px !important;
+  z-index:4 !important;
+  max-width:180px !important;
+  background:rgba(255,255,255,.92) !important;
+  border:1px solid rgba(152,188,212,.20) !important;
+  box-shadow:0 3px 8px rgba(51,93,128,.06) !important;
+}}
+.country-map-caption-dot {{ background:#44a8e8 !important; }}
+#country-map-label-layer.country-map-label-layer {{
+  position:absolute !important;
+  left:10px !important;
+  top:12px !important;
+  right:130px !important;
+  bottom:12px !important;
+  z-index:3 !important;
+  pointer-events:none !important;
+}}
+.map-country-node {{
+  position:absolute !important;
+  pointer-events:none !important;
+}}
+.map-country-node::before {{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#1a9bea;
+  border:2px solid #ffffff;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 0 2px rgba(58,135,193,.14), 0 2px 5px rgba(37,86,121,.16);
+}}
+.map-country-node::after {{
+  content:"";
+  position:absolute;
+  top:0;
+  width:12px;
+  border-top:1.5px solid rgba(62,119,158,.34);
+}}
+.map-country-node.side-right::after {{
+  left:4px;
+  transform:translateY(-50%);
+}}
+.map-country-node.side-left::after {{
+  right:4px;
+  transform:translateY(-50%);
+}}
+.map-country-card {{
+  position:absolute !important;
+  top:0;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:4px !important;
+  min-height:22px !important;
+  padding:3px 7px !important;
+  border-radius:999px !important;
+  border:1px solid rgba(159,189,209,.36) !important;
+  background:rgba(255,255,255,.95) !important;
+  box-shadow:0 4px 10px rgba(42,86,121,.08) !important;
+  color:#23435f !important;
+  font-size:10.2px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  pointer-events:auto !important;
+  cursor:pointer !important;
+}}
+.map-country-node.side-right .map-country-card {{
+  left:12px;
+  transform:translateY(-50%);
+}}
+.map-country-node.side-left .map-country-card {{
+  right:12px;
+  transform:translateY(-50%);
+}}
+.map-country-card .flag {{ font-size:12px !important; line-height:1; }}
+.map-country-card .count {{ color:#1e88c9 !important; font-weight:900 !important; }}
+.map-country-card.active {{
+  border-color:#9ec5de !important;
+  background:#fff6c8 !important;
+  color:#173956 !important;
+}}
+.map-country-card.active .count {{ color:#d92d20 !important; }}
+#continent-rail {{
+  position:absolute !important;
+  top:12px !important;
+  right:10px !important;
+  bottom:12px !important;
+  width:112px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:8px !important;
+  padding:10px 8px !important;
+  border-radius:16px !important;
+  border:1px solid rgba(152,188,212,.22) !important;
+  background:linear-gradient(180deg, rgba(255,255,255,.95) 0%, rgba(247,250,253,.92) 100%) !important;
+  box-shadow:0 4px 12px rgba(60,94,126,.06) !important;
+  z-index:4 !important;
+}}
+.continent-rail-head {{
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:space-between !important;
+  gap:6px !important;
+  padding:0 2px 2px !important;
+  border-bottom:1px solid rgba(182,200,214,.34) !important;
+}}
+.continent-rail-title {{ font-size:11px !important; font-weight:900 !important; color:#173956 !important; line-height:1.15 !important; }}
+.continent-rail-sub {{ font-size:8.4px !important; color:#6d7d8f !important; font-weight:800 !important; line-height:1.15 !important; margin-top:2px !important; }}
+.continent-all-button {{
+  flex:0 0 auto !important;
+  padding:0 9px !important;
+  height:27px !important;
+  border-radius:999px !important;
+  border:1px solid #8fc7e7 !important;
+  background:#f8fcff !important;
+  color:#1f547b !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+}}
+.continent-all-button.active {{ background:#eef9ff !important; color:#17628d !important; }}
+.continent-rail-scroll {{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:7px !important;
+  overflow:auto !important;
+  padding-right:1px !important;
+}}
+.continent-rail-scroll::-webkit-scrollbar {{ width:4px; }}
+.continent-rail-scroll::-webkit-scrollbar-thumb {{ background:rgba(107,181,223,.36); border-radius:999px; }}
+.continent-button {{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:6px !important;
+  min-height:38px !important;
+  padding:6px 8px !important;
+  border-radius:14px !important;
+  border:1px solid rgba(195,209,220,.54) !important;
+  background:#fff !important;
+  color:#244865 !important;
+  box-shadow:0 1px 4px rgba(68,97,124,.05) !important;
+  text-align:left !important;
+}}
+.continent-button:hover,
+.continent-button:focus-visible {{
+  border-color:#97c9e7 !important;
+  box-shadow:0 2px 8px rgba(84,140,181,.10) !important;
+}}
+.continent-button.active {{
+  border-color:#8ec4e4 !important;
+  background:#eef8ff !important;
+}}
+.continent-button-name {{ display:block !important; font-size:10.2px !important; font-weight:900 !important; line-height:1.15 !important; }}
+.continent-button-meta {{ display:block !important; margin-top:2px !important; font-size:8px !important; font-weight:800 !important; color:#74879a !important; line-height:1.1 !important; }}
+.continent-button-count {{ flex:0 0 auto !important; font-size:10.6px !important; font-weight:900 !important; color:#2284c1 !important; }}
+.continent-button.active .continent-button-count {{ color:#d92d20 !important; }}
+
+@media (max-width:430px) {{
+  .country-map-visual.globe-mode {{ height:228px !important; }}
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {{
+    left:8px !important;
+    top:12px !important;
+    right:108px !important;
+    bottom:10px !important;
+  }}
+  #continent-rail {{ width:96px !important; right:8px !important; top:12px !important; bottom:10px !important; padding:8px 7px !important; }}
+  .continent-rail-title {{ font-size:10px !important; }}
+  .continent-rail-sub {{ font-size:7.6px !important; }}
+  .continent-all-button {{ height:25px !important; padding:0 8px !important; font-size:9.3px !important; }}
+  .continent-button {{ min-height:35px !important; padding:6px 7px !important; border-radius:12px !important; }}
+  .continent-button-name {{ font-size:9.5px !important; }}
+  .continent-button-meta {{ font-size:7.4px !important; }}
+  .continent-button-count {{ font-size:10px !important; }}
+  .map-country-card {{ font-size:9.1px !important; padding:3px 6px !important; min-height:20px !important; }}
+  .map-country-card .flag {{ font-size:11px !important; }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual.globe-mode {{ height:220px !important; }}
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {{ right:100px !important; }}
+  #continent-rail {{ width:90px !important; padding:7px 6px !important; }}
+  .map-country-card {{ font-size:8.6px !important; padding:2px 5px !important; }}
+  .map-country-card .name {{ display:none !important; }}
+}}
+
+
+/* ============================================================
+   FINAL 2D MAP — NO CLOCKS / CONTINENT + RANKED COUNTRY LIST
+   ============================================================ */
+.country-map-content {{
+  display:block !important;
+  width:100% !important;
+}}
+.world-clock-rail {{
+  display:none !important;
+}}
+.country-map-visual.globe-mode {{
+  width:100% !important;
+  height:244px !important;
+  min-height:244px !important;
+  border-radius:18px !important;
+}}
+.country-map-visual .world-map-inline.globe-texture-source {{
+  left:10px !important;
+  top:10px !important;
+  right:126px !important;
+  bottom:10px !important;
+  opacity:.96 !important;
+}}
+#country-map-label-layer.country-map-label-layer {{
+  left:10px !important;
+  top:10px !important;
+  right:126px !important;
+  bottom:10px !important;
+}}
+.map-country-node::before {{
+  width:9px !important;
+  height:9px !important;
+  background:#208fce !important;
+  border:2px solid #fff !important;
+  box-shadow:0 0 0 3px rgba(32,143,206,.13), 0 2px 5px rgba(24,76,109,.18) !important;
+}}
+.map-country-node.active::before {{
+  background:#d84b4b !important;
+  box-shadow:0 0 0 3px rgba(216,75,75,.14), 0 2px 5px rgba(120,55,55,.16) !important;
+}}
+.map-country-node::after,
+.map-country-card {{
+  display:none !important;
+}}
+#continent-rail {{
+  top:10px !important;
+  right:8px !important;
+  bottom:10px !important;
+  width:112px !important;
+  padding:9px 8px !important;
+  border-radius:15px !important;
+}}
+.continent-button {{
+  min-height:36px !important;
+  padding:6px 8px !important;
+}}
+#continent-country-ranking {{
+  position:absolute !important;
+  z-index:4 !important;
+  width:118px !important;
+  max-height:162px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:5px !important;
+  padding:8px !important;
+  border:1px solid rgba(160,187,207,.24) !important;
+  border-radius:14px !important;
+  background:rgba(255,255,255,.91) !important;
+  box-shadow:0 5px 16px rgba(53,91,120,.08) !important;
+  backdrop-filter:blur(3px) !important;
+  overflow:hidden !important;
+}}
+#continent-country-ranking.rank-left {{
+  left:13px !important;
+  top:48px !important;
+  right:auto !important;
+}}
+#continent-country-ranking.rank-right {{
+  right:130px !important;
+  top:48px !important;
+  left:auto !important;
+}}
+.continent-country-ranking-head {{
+  display:flex !important;
+  align-items:baseline !important;
+  justify-content:space-between !important;
+  gap:6px !important;
+  padding:0 2px 3px !important;
+  border-bottom:1px solid rgba(181,199,213,.34) !important;
+}}
+.continent-country-ranking-title {{
+  color:#173956 !important;
+  font-size:9.8px !important;
+  font-weight:900 !important;
+  line-height:1.1 !important;
+}}
+.continent-country-ranking-sub {{
+  color:#7c8c9c !important;
+  font-size:7px !important;
+  font-weight:800 !important;
+  white-space:nowrap !important;
+}}
+.continent-country-ranking-list {{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:4px !important;
+  min-height:0 !important;
+  overflow:auto !important;
+  scrollbar-width:none !important;
+}}
+.continent-country-ranking-list::-webkit-scrollbar {{ display:none !important; }}
+.continent-country-rank-row {{
+  display:grid !important;
+  grid-template-columns:15px minmax(0,1fr) auto !important;
+  align-items:center !important;
+  gap:4px !important;
+  width:100% !important;
+  min-height:23px !important;
+  padding:3px 5px !important;
+  border:0 !important;
+  border-radius:8px !important;
+  background:rgba(247,250,252,.88) !important;
+  color:#294a65 !important;
+  cursor:pointer !important;
+  text-align:left !important;
+}}
+.continent-country-rank-row:hover,
+.continent-country-rank-row:focus-visible {{
+  background:#eef7fd !important;
+}}
+.continent-country-rank-row.active {{
+  background:#fff3c6 !important;
+}}
+.continent-country-rank-index {{
+  color:#8b99a7 !important;
+  font-size:7.2px !important;
+  font-weight:900 !important;
+  text-align:center !important;
+}}
+.continent-country-rank-name {{
+  min-width:0 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  font-size:8.7px !important;
+  font-weight:850 !important;
+}}
+.continent-country-rank-count {{
+  color:#2284c1 !important;
+  font-size:8.8px !important;
+  font-weight:900 !important;
+  white-space:nowrap !important;
+}}
+.continent-country-rank-row.active .continent-country-rank-count {{
+  color:#d84b4b !important;
+}}
+.country-map-caption {{
+  top:10px !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+  max-width:160px !important;
+}}
+
+@media (max-width:430px) {{
+  .country-map-visual.globe-mode {{
+    height:232px !important;
+    min-height:232px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {{
+    left:7px !important;
+    top:9px !important;
+    right:105px !important;
+    bottom:9px !important;
+  }}
+  #continent-rail {{
+    width:94px !important;
+    right:6px !important;
+    top:9px !important;
+    bottom:9px !important;
+    padding:7px 6px !important;
+  }}
+  #continent-country-ranking {{
+    width:104px !important;
+    max-height:150px !important;
+    padding:6px !important;
+  }}
+  #continent-country-ranking.rank-left {{ left:8px !important; top:46px !important; }}
+  #continent-country-ranking.rank-right {{ right:108px !important; top:46px !important; }}
+  .continent-country-rank-row {{
+    grid-template-columns:13px minmax(0,1fr) auto !important;
+    min-height:21px !important;
+    padding:3px 4px !important;
+    gap:3px !important;
+  }}
+  .continent-country-rank-name,
+  .continent-country-rank-count {{ font-size:8px !important; }}
+  .continent-country-ranking-title {{ font-size:9px !important; }}
+  .continent-country-ranking-sub {{ font-size:6.5px !important; }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual.globe-mode {{
+    height:222px !important;
+    min-height:222px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {{ right:98px !important; }}
+  #continent-rail {{ width:88px !important; }}
+  #continent-country-ranking {{ width:96px !important; max-height:142px !important; }}
+  #continent-country-ranking.rank-right {{ right:101px !important; }}
+  .continent-country-rank-name {{ font-size:7.5px !important; }}
+  .continent-country-rank-count {{ font-size:7.7px !important; }}
+}}
+
 </style>
 </head>
 <body>
@@ -13049,52 +13638,12 @@ header,
         <div class="world-map-title">국가별 기사</div>
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
-      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">국가를 누르면 해당 기사만 볼 수 있습니다</div>
+      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">대륙을 선택하면 해당 국가를 지도에 표시합니다</div>
     </div>
 
     <div class="country-map-content">
-      <aside class="world-clock-rail" aria-label="주요 지역 현재 시간 (24시간제)">
-        <div class="mini-world-clock" data-timezone="Asia/Seoul">
-          <div class="mini-clock-label"><span class="mini-clock-flag">🇰🇷</span><span class="mini-clock-city">서울</span><span class="mini-clock-country">· 대한민국</span></div>
-          <div class="analog-clock" aria-hidden="true">
-            <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
-            <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
-            <span class="clock-num n4">4</span><span class="clock-num n5">5</span>
-            <span class="clock-num n6">6</span><span class="clock-num n7">7</span>
-            <span class="clock-num n8">8</span><span class="clock-num n9">9</span>
-            <span class="clock-num n10">10</span><span class="clock-num n11">11</span>
-            <span class="clock-hand hour-hand"></span>
-            <span class="clock-hand minute-hand"></span>
-            <span class="clock-hand second-hand"></span>
-            <span class="clock-center"></span>
-          </div>
-          <div class="mini-clock-meta">
-            <span class="mini-clock-time">--:--</span>
-            <span class="mini-clock-day">--</span>
-          </div>
-        </div>
-        <div class="mini-world-clock" data-role="selected-country" data-country-code="BG" data-timezone="Europe/Sofia">
-          <div class="mini-clock-label"><span class="mini-clock-flag">🇧🇬</span><span class="mini-clock-city">소피아</span><span class="mini-clock-country">· 불가리아</span></div>
-          <div class="analog-clock" aria-hidden="true">
-            <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
-            <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
-            <span class="clock-num n4">4</span><span class="clock-num n5">5</span>
-            <span class="clock-num n6">6</span><span class="clock-num n7">7</span>
-            <span class="clock-num n8">8</span><span class="clock-num n9">9</span>
-            <span class="clock-num n10">10</span><span class="clock-num n11">11</span>
-            <span class="clock-hand hour-hand"></span>
-            <span class="clock-hand minute-hand"></span>
-            <span class="clock-hand second-hand"></span>
-            <span class="clock-center"></span>
-          </div>
-          <div class="mini-clock-meta">
-            <span class="mini-clock-time">--:--</span>
-            <span class="mini-clock-day">--</span>
-          </div>
-        </div>
-      </aside>
-      <div class="country-map-visual globe-mode" aria-label="기사 발생 국가 3D 회전 지구본">
-      <div id="globe-stage" class="globe-stage" aria-label="드래그하여 회전하는 3D 지구본">
+      <div class="country-map-visual globe-mode" aria-label="대륙별 국가 기사 2D 세계지도">
+      <div id="globe-stage" class="globe-stage" aria-label="대륙 선택형 2D 세계지도">
         <div id="globe-sphere" class="globe-sphere">
           <canvas id="globe-canvas" class="globe-canvas" width="420" height="420" aria-hidden="true"></canvas>
           <div id="globe-marker-layer" class="globe-marker-layer" aria-hidden="true"></div>
@@ -13838,7 +14387,7 @@ header,
       <div id="country-map-html-tooltip" class="country-map-html-tooltip" role="status" aria-live="polite"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
-        <span id="country-map-caption-text">오른쪽 목록에서 국가를 선택하세요</span>
+        <span id="country-map-caption-text">오른쪽에서 대륙을 선택하세요</span>
       </div>
     </div>
     </div>
@@ -15409,7 +15958,7 @@ if(countryClearFilterButton){{
     updateCountryMapCounts();
     updateCountrySelectionBar();
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
+    if(note)note.textContent="대륙을 선택하면 해당 국가를 지도에 표시합니다";
   }});
 }}
 
@@ -15423,7 +15972,7 @@ if(countryAllButton){{
     updateCountryMapCounts();
     updateCountrySelectionBar();
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
+    if(note)note.textContent="대륙을 선택하면 해당 국가를 지도에 표시합니다";
   }});
 }}
 
@@ -15607,6 +16156,281 @@ document.getElementById("article-search").addEventListener("input",filterArticle
 updateCountryMapCounts();
 
 filterArticles();renderFavorites();updateMasterButtonCount(activePanel());
+
+
+/* ============================================================
+   FINAL OVERRIDE — 2D CONTINENT MAP INTERACTION
+   ============================================================ */
+let activeContinentFilter = 'ALL';
+
+const CONTINENT_META = {{
+  ALL: {{ name:'전체' }},
+  NA: {{ name:'북미' }},
+  EU: {{ name:'유럽' }},
+  AS: {{ name:'아시아' }},
+  MEA: {{ name:'중동·아프리카' }},
+  OC: {{ name:'오세아니아' }}
+}};
+
+const COUNTRY_CONTINENT_META = {{
+  KR:'AS', JP:'AS', CN:'AS', IN:'AS', VN:'AS', SG:'AS', MY:'AS', TH:'AS',
+  US:'NA', CA:'NA',
+  GB:'EU', FR:'EU', NL:'EU', BE:'EU', CH:'EU', SE:'EU', FI:'EU', PL:'EU', CZ:'EU', SI:'EU', RO:'EU', BG:'EU', UA:'EU', RU:'EU', TR:'EU', SK:'EU', DK:'EU',
+  AE:'MEA', SA:'MEA', ZA:'MEA',
+  AU:'OC'
+}};
+
+function getCountryContinent(code){{
+  return COUNTRY_CONTINENT_META[code] || 'AS';
+}}
+
+function ensure2DContinentRail(){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  if(!visual)return null;
+  visual.classList.add('two-d-mode');
+  let rail=document.getElementById('continent-rail');
+  if(!rail){{
+    rail=document.createElement('div');
+    rail.id='continent-rail';
+    visual.appendChild(rail);
+  }}
+  return rail;
+}}
+
+function collect2DCountryItems(){{
+  syncCountryPinMeta();
+  const items=[];
+  document.querySelectorAll('#country-chip-rail .country-pin[data-country-filter]').forEach(button=>{{
+    if(button.hidden)return;
+    const code=button.dataset.countryFilter;
+    if(!code || code==='OTHER')return;
+    const meta=COUNTRY_GLOBE_META[code] || {{}};
+    const count=Number((button.querySelector('.country-count')?.textContent||'0').replace(/[^0-9]/g,''))||0;
+    if(count<=0)return;
+    items.push({{
+      code,
+      name: meta.name || COUNTRY_NAMES[code] || code,
+      flag: meta.flag || button.querySelector('.flag')?.textContent || '🌐',
+      lon: Number.isFinite(meta.lon) ? meta.lon : Number(button.dataset.lon),
+      lat: Number.isFinite(meta.lat) ? meta.lat : Number(button.dataset.lat),
+      count,
+      continent: getCountryContinent(code)
+    }});
+  }});
+  return items.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
+}}
+
+function project2DPoint(lon, lat){{
+  return {{
+    x: ((lon + 180) / 360) * 100,
+    y: ((90 - lat) / 180) * 100
+  }};
+}}
+
+function getContinentCounts(items){{
+  const counts={{ ALL:0 }};
+  Object.keys(CONTINENT_META).forEach(key=>{{ if(key!=='ALL') counts[key]=0; }});
+  const countryCounts={{}};
+  items.forEach(item=>{{
+    counts.ALL += item.count;
+    counts[item.continent] = (counts[item.continent]||0) + item.count;
+    countryCounts[item.continent] = (countryCounts[item.continent]||0) + 1;
+  }});
+  return {{ articleCounts:counts, countryCounts }};
+}}
+
+function maybeInitializeContinentFilter(items){{
+  if(activeContinentFilter !== 'ALL')return;
+  const {{ articleCounts }} = getContinentCounts(items);
+  const ranked = Object.entries(articleCounts)
+    .filter(([key,value])=>key!=='ALL' && value>0)
+    .sort((a,b)=>b[1]-a[1]);
+  if(ranked.length)activeContinentFilter = ranked[0][0];
+}}
+
+function renderContinentRail2D(items){{
+  const rail=ensure2DContinentRail();
+  if(!rail)return;
+  const {{ articleCounts, countryCounts }} = getContinentCounts(items);
+  const order=['NA','EU','AS','MEA','OC'];
+  const activeMeta = CONTINENT_META[activeContinentFilter] || CONTINENT_META.ALL;
+  rail.innerHTML = `
+    <div class="continent-rail-head">
+      <div>
+        <div class="continent-rail-title">대륙별</div>
+        <div class="continent-rail-sub">${{activeMeta.name}} 선택</div>
+      </div>
+      <button type="button" class="continent-all-button${{activeContinentFilter==='ALL' ? ' active' : ''}}" aria-label="전체 국가 보기">전체</button>
+    </div>
+    <div class="continent-rail-scroll" aria-label="대륙 선택"></div>
+  `;
+  const allButton=rail.querySelector('.continent-all-button');
+  if(allButton){{
+    allButton.addEventListener('click',()=>{{
+      activeContinentFilter='ALL';
+      layoutAndRenderCountryMap();
+    }});
+  }}
+  const scroll=rail.querySelector('.continent-rail-scroll');
+  order.forEach(code=>{{
+    if((articleCounts[code]||0)<=0)return;
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='continent-button' + (activeContinentFilter===code ? ' active' : '');
+    button.innerHTML=`<span><span class="continent-button-name">${{CONTINENT_META[code].name}}</span><span class="continent-button-meta">${{countryCounts[code]||0}}개국</span></span><span class="continent-button-count">${{articleCounts[code]||0}}건</span>`;
+    button.addEventListener('click',()=>{{
+      activeContinentFilter=code;
+      layoutAndRenderCountryMap();
+    }});
+    scroll.appendChild(button);
+  }});
+}}
+
+function computeMapLabelPlacements(items, mapRect){{
+  const sorted=[...items].sort((a,b)=>a.lat-b.lat || a.lon-b.lon);
+  const placements=[];
+  const sideHistory={{ left:[], right:[] }};
+  sorted.forEach((item, index)=>{{
+    const p=project2DPoint(item.lon,item.lat);
+    const xPx=(p.x/100)*mapRect.width;
+    const yPx=(p.y/100)*mapRect.height;
+    let side='right';
+    if(p.x>72)side='left';
+    else if(p.x>40 && p.x<72)side = (index % 2 === 0 ? 'right' : 'left');
+    let dy=0;
+    const history=sideHistory[side];
+    history.forEach(prev=>{{
+      if(Math.abs(prev.x - xPx) < 52 && Math.abs((prev.y + prev.dy) - (yPx + dy)) < 20){{
+        dy = prev.dy + 18;
+      }}
+    }});
+    history.push({{ x:xPx, y:yPx, dy }});
+    placements.push({{ ...item, x:p.x, y:p.y, side, dy }});
+  }});
+  return placements;
+}}
+
+function getRankingPlacement(continentCode){{
+  // 선택 대륙 반대편의 여백을 우선 사용합니다.
+  if(continentCode==='NA')return 'right';
+  return 'left';
+}}
+
+function render2DMapLabels(items){{
+  const layer=document.getElementById('country-map-label-layer');
+  if(!layer)return;
+  layer.innerHTML='';
+
+  const filtered = activeContinentFilter==='ALL'
+    ? []
+    : items.filter(item=>item.continent===activeContinentFilter);
+
+  filtered.forEach(item=>{{
+    const p=project2DPoint(item.lon,item.lat);
+    const node=document.createElement('button');
+    node.type='button';
+    node.className='map-country-node' + (activeCountryFilter===item.code ? ' active' : '');
+    node.style.left=`${{p.x}}%`;
+    node.style.top=`${{p.y}}%`;
+    node.setAttribute('aria-label',`${{item.name}} ${{item.count}}건`);
+    node.title=`${{item.flag}} ${{item.name}} · ${{item.count}}건`;
+    node.addEventListener('click',(event)=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    }});
+    layer.appendChild(node);
+  }});
+}}
+
+function renderContinentCountryRanking(items){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  if(!visual)return;
+  let panel=document.getElementById('continent-country-ranking');
+  if(!panel){{
+    panel=document.createElement('div');
+    panel.id='continent-country-ranking';
+    visual.appendChild(panel);
+  }}
+
+  if(activeContinentFilter==='ALL'){{
+    panel.hidden=true;
+    panel.innerHTML='';
+    return;
+  }}
+
+  const current=CONTINENT_META[activeContinentFilter] || CONTINENT_META.ALL;
+  const countries=items
+    .filter(item=>item.continent===activeContinentFilter)
+    .sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
+
+  panel.hidden=countries.length===0;
+  panel.className=`rank-${{getRankingPlacement(activeContinentFilter)}}`;
+  if(!countries.length){{
+    panel.innerHTML='';
+    return;
+  }}
+
+  panel.innerHTML=`
+    <div class="continent-country-ranking-head">
+      <span class="continent-country-ranking-title">${{current.name}} 국가</span>
+      <span class="continent-country-ranking-sub">기사순</span>
+    </div>
+    <div class="continent-country-ranking-list"></div>
+  `;
+  const list=panel.querySelector('.continent-country-ranking-list');
+  countries.forEach((item,index)=>{{
+    const row=document.createElement('button');
+    row.type='button';
+    row.className='continent-country-rank-row' + (activeCountryFilter===item.code ? ' active' : '');
+    row.innerHTML=`<span class="continent-country-rank-index">${{index+1}}</span><span class="continent-country-rank-name">${{item.flag}} ${{item.name}}</span><span class="continent-country-rank-count">${{item.count}}건</span>`;
+    row.setAttribute('aria-label',`${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    row.addEventListener('click',()=>setCountryFilter(item.code));
+    list.appendChild(row);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items=collect2DCountryItems();
+  maybeInitializeContinentFilter(items);
+  renderContinentRail2D(items);
+  render2DMapLabels(items);
+  renderContinentCountryRanking(items);
+  const caption=document.getElementById('country-map-caption-text');
+  if(caption){{
+    const currentContinent = CONTINENT_META[activeContinentFilter] || CONTINENT_META.ALL;
+    if(activeCountryFilter){{
+      const selectedItem = items.find(item=>item.code===activeCountryFilter);
+      if(selectedItem) caption.textContent = `${{selectedItem.flag}} ${{selectedItem.name}} · ${{selectedItem.count}}건`;
+      else caption.textContent = `${{currentContinent.name}} 지도 보기`;
+    }} else if(activeContinentFilter==='ALL') {{
+      caption.textContent = '오른쪽에서 대륙을 선택하세요';
+    }} else {{
+      const countryCount = items.filter(item=>item.continent===activeContinentFilter).length;
+      caption.textContent = `${{currentContinent.name}} · ${{countryCount}}개국`;
+    }}
+  }}
+  const note=document.getElementById('country-filter-note');
+  if(note)note.textContent='대륙을 선택하면 해당 국가를 지도에 표시합니다';
+}}
+
+function renderGlobeLabels(){{
+  layoutAndRenderCountryMap();
+}}
+
+function renderGlobeFocusMarker(){{}}
+function renderGlobeFrame(force=false){{}}
+
+function setCountryFilter(code){{
+  const nextCode = activeCountryFilter===code ? '' : code;
+  activeCountryFilter = nextCode;
+  if(nextCode) activeContinentFilter = getCountryContinent(nextCode);
+  updateSelectedCountryClock(activeCountryFilter);
+  updateWorldClocks();
+  filterArticles();
+  updateCountryMapCounts();
+}}
+
 </script>
 </body>
 </html>
