@@ -9366,6 +9366,113 @@ header,
   margin-left:0 !important;
 }}
 
+
+/* ============================================================
+   COUNTRY QUICK FILTER — mobile-first, touch-friendly
+   기사 있는 국가만 지도 위에 표시 / 가로 스크롤 / 큰 터치 영역
+   ============================================================ */
+.country-chip-guide {{
+  margin: 1px 2px 6px;
+  color: #7a8797;
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.2;
+}}
+
+#country-chip-rail.country-chip-rail {{
+  position: relative;
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 38px;
+  margin: 0 0 8px;
+  padding: 2px 1px 5px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  touch-action: pan-x;
+}}
+#country-chip-rail.country-chip-rail::-webkit-scrollbar {{
+  display: none;
+}}
+
+#country-chip-rail .country-pin {{
+  position: static !important;
+  inset: auto !important;
+  transform: none !important;
+  flex: 0 0 auto !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  max-width: none !important;
+  min-height: 34px !important;
+  height: 34px;
+  padding: 0 11px !important;
+  border: 1px solid #dce3eb;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #344b67;
+  box-shadow: 0 1px 3px rgba(17,24,39,.07);
+  font-size: 10px !important;
+  font-weight: 850;
+  line-height: 1;
+  white-space: nowrap;
+  scroll-snap-align: start;
+  -webkit-tap-highlight-color: transparent;
+}}
+#country-chip-rail .country-pin .flag {{
+  font-size: 15px !important;
+}}
+#country-chip-rail .country-pin .country-count {{
+  color: #667085;
+  font-size: 9px !important;
+  font-weight: 800;
+}}
+#country-chip-rail .country-pin.active {{
+  border-color: #23395d;
+  background: #23395d;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(35,57,93,.18);
+}}
+#country-chip-rail .country-pin.active .country-count {{
+  color: rgba(255,255,255,.82);
+}}
+#country-chip-rail .country-pin:active {{
+  transform: scale(.97) !important;
+}}
+#country-chip-rail .country-pin[hidden] {{
+  display: none !important;
+}}
+
+/* 선택된 국가 칩은 모바일에서도 보이도록 자동으로 화면 안으로 이동 */
+@media (max-width: 767px) {{
+  .country-chip-guide {{
+    font-size: 8.5px;
+    margin-bottom: 5px;
+  }}
+  #country-chip-rail.country-chip-rail {{
+    margin-bottom: 7px;
+    padding-bottom: 4px;
+  }}
+  #country-chip-rail .country-pin {{
+    min-height: 36px !important;
+    height: 36px;
+    padding: 0 12px !important;
+    font-size: 10.5px !important;
+  }}
+  #country-chip-rail .country-pin .flag {{
+    font-size: 16px !important;
+  }}
+  #country-chip-rail .country-pin .country-count {{
+    font-size: 9.5px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -9416,6 +9523,45 @@ header,
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
       <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
+    </div>
+
+    <div class="country-chip-guide" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
+    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
+      <button id="country-all" class="country-pin country-all active" type="button">
+        <span>전체</span><span class="country-count">0건</span>
+      </button>
+      <button class="country-pin country-kr" data-country-filter="KR" data-lon="127.8" data-lat="36.4" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ca" data-country-filter="CA" data-lon="-106.3" data-lat="56.1" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-us" data-country-filter="US" data-lon="-98.6" data-lat="39.8" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb" data-country-filter="GB" data-lon="-3.4" data-lat="55.4" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fr" data-country-filter="FR" data-lon="2.2" data-lat="46.2" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-nl" data-country-filter="NL" data-lon="5.3" data-lat="52.1" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-be" data-country-filter="BE" data-lon="4.7" data-lat="50.6" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ch" data-country-filter="CH" data-lon="8.2" data-lat="46.8" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-se" data-country-filter="SE" data-lon="16.0" data-lat="62.0" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fi" data-country-filter="FI" data-lon="26.0" data-lat="64.5" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pl" data-country-filter="PL" data-lon="19.1" data-lat="51.9" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cz" data-country-filter="CZ" data-lon="15.5" data-lat="49.8" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-si" data-country-filter="SI" data-lon="15.0" data-lat="46.2" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ro" data-country-filter="RO" data-lon="25.0" data-lat="45.9" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg" data-country-filter="BG" data-lon="25.5" data-lat="42.7" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua" data-country-filter="UA" data-lon="31.2" data-lat="48.4" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ru" data-country-filter="RU" data-lon="90.0" data-lat="60.0" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-tr" data-country-filter="TR" data-lon="35.2" data-lat="39.0" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae" data-country-filter="AE" data-lon="53.8" data-lat="23.4" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-vn" data-country-filter="VN" data-lon="108.3" data-lat="14.1" type="button"><span class="flag">🇻🇳</span><span>베트남</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sa" data-country-filter="SA" data-lon="45.1" data-lat="23.9" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-in" data-country-filter="IN" data-lon="79.0" data-lat="20.6" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cn" data-country-filter="CN" data-lon="104.2" data-lat="35.9" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-jp" data-country-filter="JP" data-lon="138.3" data-lat="36.2" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-au" data-country-filter="AU" data-lon="133.8" data-lat="-25.3" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-za" data-country-filter="ZA" data-lon="22.9" data-lat="-30.6" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sk" data-country-filter="SK" data-lon="19.7" data-lat="48.7" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-dk" data-country-filter="DK" data-lon="9.5" data-lat="56.3" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-my" data-country-filter="MY" data-lon="102.0" data-lat="4.2" type="button"><span class="flag">🇲🇾</span><span>말레이시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-th" data-country-filter="TH" data-lon="101.0" data-lat="15.9" type="button"><span class="flag">🇹🇭</span><span>태국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sg" data-country-filter="SG" data-lon="103.8" data-lat="1.35" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
 
     <div class="country-map-content">
@@ -10202,43 +10348,6 @@ header,
     </div>
     </div>
 
-    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
-      <button id="country-all" class="country-pin country-all active" type="button">
-        <span>전체</span><span class="country-count">0건</span>
-      </button>
-      <button class="country-pin country-kr" data-country-filter="KR" data-lon="127.8" data-lat="36.4" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ca" data-country-filter="CA" data-lon="-106.3" data-lat="56.1" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-us" data-country-filter="US" data-lon="-98.6" data-lat="39.8" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-gb" data-country-filter="GB" data-lon="-3.4" data-lat="55.4" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fr" data-country-filter="FR" data-lon="2.2" data-lat="46.2" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-nl" data-country-filter="NL" data-lon="5.3" data-lat="52.1" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-be" data-country-filter="BE" data-lon="4.7" data-lat="50.6" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ch" data-country-filter="CH" data-lon="8.2" data-lat="46.8" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-se" data-country-filter="SE" data-lon="16.0" data-lat="62.0" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fi" data-country-filter="FI" data-lon="26.0" data-lat="64.5" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-pl" data-country-filter="PL" data-lon="19.1" data-lat="51.9" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cz" data-country-filter="CZ" data-lon="15.5" data-lat="49.8" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-si" data-country-filter="SI" data-lon="15.0" data-lat="46.2" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ro" data-country-filter="RO" data-lon="25.0" data-lat="45.9" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-bg" data-country-filter="BG" data-lon="25.5" data-lat="42.7" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ua" data-country-filter="UA" data-lon="31.2" data-lat="48.4" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ru" data-country-filter="RU" data-lon="90.0" data-lat="60.0" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-tr" data-country-filter="TR" data-lon="35.2" data-lat="39.0" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ae" data-country-filter="AE" data-lon="53.8" data-lat="23.4" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-vn" data-country-filter="VN" data-lon="108.3" data-lat="14.1" type="button"><span class="flag">🇻🇳</span><span>베트남</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sa" data-country-filter="SA" data-lon="45.1" data-lat="23.9" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-in" data-country-filter="IN" data-lon="79.0" data-lat="20.6" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cn" data-country-filter="CN" data-lon="104.2" data-lat="35.9" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-jp" data-country-filter="JP" data-lon="138.3" data-lat="36.2" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-au" data-country-filter="AU" data-lon="133.8" data-lat="-25.3" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-za" data-country-filter="ZA" data-lon="22.9" data-lat="-30.6" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sk" data-country-filter="SK" data-lon="19.7" data-lat="48.7" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-dk" data-country-filter="DK" data-lon="9.5" data-lat="56.3" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-my" data-country-filter="MY" data-lon="102.0" data-lat="4.2" type="button"><span class="flag">🇲🇾</span><span>말레이시아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-th" data-country-filter="TH" data-lon="101.0" data-lat="15.9" type="button"><span class="flag">🇹🇭</span><span>태국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sg" data-country-filter="SG" data-lon="103.8" data-lat="1.35" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
-    </div>
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
@@ -10882,6 +10991,9 @@ function updateCountryMapCounts(){{
     if(countNode)countNode.textContent=`${{count}}건`;
     button.hidden=count===0;
     button.classList.toggle("active",activeCountryFilter===code);
+    if(activeCountryFilter===code && !button.hidden){{
+      requestAnimationFrame(()=>button.scrollIntoView({{behavior:"smooth",block:"nearest",inline:"center"}}));
+    }}
   }});
 
   const fixedRank={{KR:0,US:1,GB:2}};
