@@ -3062,6 +3062,157 @@ header,
   margin-bottom:0 !important;
 }
 
+
+/* ============================================================
+   COUNTRY MAP — progressive disclosure / decluttered mobile UI
+   지도는 지도답게, 국가 선택은 하단 필터 중심으로 구성
+   ============================================================ */
+.country-map-visual {
+  min-height:170px !important;
+  height:clamp(170px,40vw,210px) !important;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255,255,255,.98), rgba(244,247,250,.98)) !important;
+}
+
+.country-map-label-layer {
+  pointer-events:none !important;
+}
+
+.country-map-label {
+  display:none !important;
+}
+
+/* 상위 주요국만 작은 라벨로 노출 */
+.country-map-label.map-label-featured,
+.country-map-label.active {
+  display:inline-flex !important;
+  min-height:24px !important;
+  padding:3px 6px !important;
+  gap:3px !important;
+  border:1px solid rgba(35,57,93,.18) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.94) !important;
+  color:#243b5a !important;
+  box-shadow:0 2px 7px rgba(17,24,39,.10) !important;
+  font-size:7.8px !important;
+  font-weight:850 !important;
+  pointer-events:auto !important;
+  backdrop-filter:blur(5px);
+}
+
+.country-map-label.map-label-featured .map-label-flag,
+.country-map-label.active .map-label-flag {
+  font-size:11px !important;
+}
+
+.country-map-label.map-label-featured .map-label-count,
+.country-map-label.active .map-label-count {
+  color:#d92d20 !important;
+  font-size:7.8px !important;
+}
+
+.country-map-label.active {
+  border-color:#1f4f8a !important;
+  background:#1f4f8a !important;
+  color:#fff !important;
+  z-index:10 !important;
+}
+
+.country-map-label.active .map-label-count {
+  color:#fee500 !important;
+}
+
+/* 큰 고정 말풍선은 선택 순간만 쓰고, 평소 지도는 가리지 않도록 축소 */
+.country-map-html-tooltip {
+  min-height:38px !important;
+  padding:7px 10px !important;
+  gap:6px !important;
+  border-radius:10px !important;
+  box-shadow:0 5px 16px rgba(17,24,39,.26) !important;
+}
+.map-tooltip-flag {
+  font-size:19px !important;
+}
+.map-tooltip-country,
+.map-tooltip-count {
+  font-size:14px !important;
+}
+
+/* 지도 점은 조금 작게 해 실제 지형을 더 잘 보이게 */
+.country-map-svg-halo {
+  opacity:.22 !important;
+}
+.country-map-svg-dot {
+  stroke-width:4.5 !important;
+}
+.country-map-svg-point {
+  cursor:pointer;
+}
+
+/* 하단 국가필터: 한 줄 가로스크롤, 선택 상태만 강하게 */
+.country-chip-guide-bottom {
+  margin:7px 2px 4px !important;
+  font-size:7.8px !important;
+  color:#8a94a3 !important;
+}
+#country-chip-rail.country-chip-rail {
+  gap:5px !important;
+  min-height:34px !important;
+  padding:1px 1px 3px !important;
+  margin:0 !important;
+}
+#country-chip-rail .country-pin {
+  min-height:31px !important;
+  height:31px !important;
+  padding:0 9px !important;
+  border-color:#e1e6ed !important;
+  background:#fff !important;
+  color:#40546e !important;
+  box-shadow:0 1px 2px rgba(17,24,39,.04) !important;
+  font-size:9px !important;
+}
+#country-chip-rail .country-pin .flag {
+  font-size:13px !important;
+}
+#country-chip-rail .country-pin .country-count {
+  font-size:8px !important;
+  color:#8b96a5 !important;
+}
+#country-chip-rail .country-pin.active {
+  background:#1f4f8a !important;
+  border-color:#1f4f8a !important;
+  color:#fff !important;
+  box-shadow:0 2px 5px rgba(31,79,138,.18) !important;
+}
+#country-chip-rail .country-pin.active .country-count {
+  color:#fee500 !important;
+}
+
+@media (max-width:767px) {
+  .country-map-visual {
+    min-height:178px !important;
+    height:188px !important;
+  }
+  .country-map-label.map-label-featured,
+  .country-map-label.active {
+    min-height:25px !important;
+    padding:3px 6px !important;
+    font-size:8px !important;
+  }
+  #country-chip-rail .country-pin {
+    min-height:33px !important;
+    height:33px !important;
+    padding:0 10px !important;
+  }
+}
+
+@media (max-width:380px) {
+  .country-map-visual {
+    min-height:172px !important;
+    height:180px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3070,7 +3221,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 12:10 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 12:45 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -3899,7 +4050,7 @@ header,
     </div>
     </div>
 
-    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
+    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가 필터를 누르면 해당 기사만 표시됩니다</div>
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
         <span>전체</span><span class="country-count">0건</span>
@@ -25804,10 +25955,10 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">14건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227547"
   data-title="기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順"
   data-publisher="에너지신문"
@@ -25832,7 +25983,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順</div>
+      <div class="headline">기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順</div>
       <div class="article-snippet">[에너지신문] 기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석결과, 1위 두산에너빌리티 2위 레인보우로보틱스 3위 현대로템 순으로 분석됐다.한국기업평판연구소는 기계 상장기업 70개 브랜드에 대해 2026년 7월 20일부터 2026년 8월 20일까지의 기계 상장기업 브랜드 빅데이터 33,289,966개를 분석한 결과 지난 7월 기계 상장기업 브랜드 빅데이터 45,014,266개와 비교하면 26.05% 줄어들었다고 밝혔다.기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석 30위 순위는 두산에너빌리티, 레인보우로보틱스, 현대</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -25947,7 +26098,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397480"
   data-title="창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;"
   data-publisher="데일리한국"
@@ -25972,7 +26123,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;</div>
+      <div class="headline">창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;</div>
       <div class="article-snippet">[데일리한국 전준형 기자] 대우건설 노사가 노동조합 창립 39주년을 맞아 상호 신뢰를 바탕으로 소통을 강화하고 협력적인 조직문화를 만들어가기로 뜻을 모았다.전국건설기업노동조합 대우건설지부는 지난 19일 서울 중구 대우건설 본사 푸르지오 아트홀에서 창립 39주년 기념식을 개최했다.행사에는 심상철 대우건설지부 위원장과 이강석 대우건설 대표이사 직무대행을 비롯해 김남근·김현정·이용우 더불어민주당 의원, 노동계 관계자, 회사 경영진 및 조합원 등이 참석했다.심상철 위원장은 기념사에서 최근 경영진 인사와 관련해 노사 간 충분한 소통의 필요성</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26157,6 +26308,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1680209/%E2%80%98%EB%AF%B8%EB%A7%A4%EA%B0%81%E2%80%99-%EC%B6%A9%EA%B2%A9-%ED%83%88%EC%B6%9C%EB%A1%AF%EB%8D%B0%EA%B1%B4%EC%84%A4-%ED%9A%8C%EC%82%AC%EC%B1%84-2026"
+  data-title="‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보"
+  data-publisher="데일리안"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787193480"
+  data-country="OTHER"
+  data-search="‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보 데일리안 타 건설사 롯데건설이 지난 19일 진행한 총 500억원 규모의 무보증 회사채 수요예측에서 예정액의 3배가 넘는 주문을 확보했다. 지난해 회사채 수요예측에서 전량 미매각을 겪었던 롯데건설은 1년여 만에 투자심리 회복을 확인했다.20일 투자은행(ib) 업계에 따르면 롯데건설은 전날 500억원 규모의 무보증사채 수요예측에서 1510억원의 주문을 받았다.만기별로는 300억원"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">11.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보</div>
+      <div class="article-snippet">롯데건설이 지난 19일 진행한 총 500억원 규모의 무보증 회사채 수요예측에서 예정액의 3배가 넘는 주문을 확보했다. 지난해 회사채 수요예측에서 전량 미매각을 겪었던 롯데건설은 1년여 만에 투자심리 회복을 확인했다.20일 투자은행(IB) 업계에 따르면 롯데건설은 전날 500억원 규모의 무보증사채 수요예측에서 1510억원의 주문을 받았다.만기별로는 300억원</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/41bf831b5ca70cdebbb8f62c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260817010005113&amp;ref=main_midtop&amp;ref=section_topnews"
   data-title="[마켓파워] 롯데건설, 뚜렷한 수익 반등세... 선제적 PF 관리로 재무안정성 속도"
@@ -26170,7 +26356,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26205,7 +26391,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26240,7 +26426,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26452,7 +26638,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">15건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26490,6 +26676,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104673"
+  data-title="한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787196867"
+  data-country="KR"
+  data-search="한전kdn 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색 에너지플랫폼뉴스 한국전력 [에너지플랫폼뉴스 박병인 기자] 한전kdn 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ict 전문 공기업 한전kdn(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전kdn은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전KDN은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bbca0db08cccbcf752729f75.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
   data-title="대한전문건설신문"
@@ -26503,7 +26724,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26526,6 +26747,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5762"
+  data-title="한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787194673"
+  data-country="KR"
+  data-search="한전kdn, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문 에너지안전신문 한국전력 에너지ict 전문 공기업 한전kdn(사장 박상형)이 19일 전남 나주혁신도시 본사에서 ‘2026년 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론’"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문</div>
+      <div class="article-snippet">에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남 나주혁신도시 본사에서 ‘2026년 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론’</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d0632177fe9ad2a65847d46f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478981"
   data-title="한전KDN, 상반기 실적 점검해 수익성 해법 모색"
   data-publisher="핀포인트뉴스"
@@ -26538,7 +26794,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26550,7 +26806,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
+      <div class="headline">한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
       <div class="article-snippet">한전KDN이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전KDN은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26573,7 +26829,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26608,7 +26864,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26643,7 +26899,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26678,7 +26934,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26713,7 +26969,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26748,7 +27004,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26783,7 +27039,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26818,7 +27074,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26853,7 +27109,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26888,7 +27144,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27153,7 +27409,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">21건</span>
+    <span class="group-count">23건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27192,6 +27448,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104671"
+  data-title="“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787196138"
+  data-country="KR"
+  data-search="“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야” 에너지플랫폼뉴스 원자력 [에너지플랫폼뉴스 박병인 기자] “3대 메가프로젝트의 전력 수요 폭증 대응을 위해서는 선택할 수 있는 무탄소 전원이 별로 없다. 재생에너지만으로 한계가 있으므로 다양한 무탄소전원 옵션을 고려해야 한다”20일 기후에너지환경부가 개최한 ‘전기국가 대국민 정책 토론회’에서 에너지경제연구원 박우영 에너지전환정책연구본부장은 “리드타임이 긴 설비의 경우 증설에 대한 빠른 결정이 이뤄지지 않는다면 2035년에 활용 가능한 무탄소 전원은 줄어들 것”며 이같이 밝혔다.박우영 본부장의 발제에 따르면 정부는 ▲반도체 ▲피지컬 ai ▲ai 데이터센터 등"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] “3대 메가프로젝트의 전력 수요 폭증 대응을 위해서는 선택할 수 있는 무탄소 전원이 별로 없다. 재생에너지만으로 한계가 있으므로 다양한 무탄소전원 옵션을 고려해야 한다”20일 기후에너지환경부가 개최한 ‘전기국가 대국민 정책 토론회’에서 에너지경제연구원 박우영 에너지전환정책연구본부장은 “리드타임이 긴 설비의 경우 증설에 대한 빠른 결정이 이뤄지지 않는다면 2035년에 활용 가능한 무탄소 전원은 줄어들 것”며 이같이 밝혔다.박우영 본부장의 발제에 따르면 정부는 ▲반도체 ▲피지컬 AI ▲AI 데이터센터 등</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d03b1773edab4df3e56132b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755381"
   data-title="고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동"
   data-publisher="뉴시스"
@@ -27204,7 +27495,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27216,7 +27507,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동</div>
+      <div class="headline">고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동</div>
       <div class="article-snippet">[세종=뉴시스]이수정 기자 = 고준위 방사성폐기물 관리 정책의 전문성을 뒷받침할 분야별 전문위원회가 본격 가동된다. 고준위방사성폐기물관리위원회는 분야별 전문위원회를 구성하고 오는 21일 오후 서울 중구 상연재에서 &#x27;제1차 분야별 전문위원회&#x27;를 개최한다고 20일 밝혔다. 분야별 전문위원회는 &#x27;고준위 방사성폐기물 관리에 관한 특별법&#x27;에 따라 고준위위원회 산하에 설치·운영되는 전문가 심의기구다. 전문위원회는 부지, 저장·운반, 처분, 소통 등 4개 분야로 구성됐다. 고준위위원회는 지난 6월 말부터 관련 협회·학회와 연구기관, 시민사회 등 25개 기관으로부터 후보자를 추천받</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27226,7 +27517,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260820000189"
   data-title="메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”"
   data-publisher="전자신문"
@@ -27239,7 +27530,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27251,7 +27542,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”</div>
+      <div class="headline">메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”</div>
       <div class="article-snippet">반도체와 인공지능(AI) 데이터센터 등 3대 메가프로젝트 추진으로 향후 약 38GW, 연간 260TWh 규모의 신규 전력수요가 발생할 것으로 전망됐다. 지난해 국내 총발전량의 40%를 웃도는 규모다. 정부는 AI 시대 전력 공급능력을 국가 경쟁력을 좌우하는 전략자산으로 보고 제12차 전력수급기본계획에 재생에너지·원전 등 무탄소 전원과 전력망 확충 방안을 종합적으로 담기로 했다. 기후에너지환경부와 제12차 전력수급기본계획 수립 총괄위원회는 20일</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27262,6 +27553,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5761"
+  data-title="원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787194396"
+  data-country="KR"
+  data-search="원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문 에너지안전신문 원자력 한국원자력의학원(원장 임일한)이 8월 18일부터 20일까지 사흘간 국가 을지연습을 실시하고, 병원과 같은 다중이용시설이 공격받아 환자를 대피시켜야 하는 상황에 대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문</div>
+      <div class="article-snippet">한국원자력의학원(원장 임일한)이 8월 18일부터 20일까지 사흘간 국가 을지연습을 실시하고, 병원과 같은 다중이용시설이 공격받아 환자를 대피시켜야 하는 상황에 대</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cf2526a543e16a81b59ff25e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755755"
   data-title="국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진"
   data-publisher="뉴시스"
@@ -27274,7 +27600,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27286,7 +27612,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진</div>
+      <div class="headline">국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진</div>
       <div class="article-snippet">[서울=뉴시스] 옥승욱 기자 = 국방부가 올해를 전시작전통제권(전작권) 전환의 원년으로 삼고 전환 로드맵을 완성하는 등 우리 군 주도의 연합방위체제 구축에 속도를 낸다. 핵추진잠수함 건조를 위한 특별법 제정과 미국과의 핵연료 협의도 본격 추진한다. 국방부는 20일 국회 국방위원회 전체회의 업무보고에서 이같은 내용의 2026년 국방정책 방향과 주요 국방 현안을 보고했다. 국방부는 굳건한 한미동맹을 바탕으로 북한의 핵·미사일 위협에 대한 대응태세를 강화하는 한편 전작권 전환을 체계적·안정적으로 추진한다는 방침이다. 무엇보다 올해 전작권 전환 가속화를 위한 로드맵을 완성하</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27296,7 +27622,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=260681"
   data-title="[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!"
   data-publisher="데일리대구경북뉴스"
@@ -27309,7 +27635,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27321,7 +27647,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!</div>
+      <div class="headline">[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!</div>
       <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 점심 도시락과 간식을 지원하는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다. 이번 사업은 한울본부 노·사와 울진교육지원청 및 관내 12개 초등학교와 협력하여 방학 기간 급식 공백을 보완하고 맞벌이 가정 등의</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27344,7 +27670,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27379,7 +27705,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27401,7 +27727,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820092350158"
   data-title="고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토"
   data-publisher="아주경제"
@@ -27414,7 +27740,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27426,7 +27752,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토</div>
+      <div class="headline">고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토</div>
       <div class="article-snippet">[사진=아주경제DB] 고준위 방사성폐기물 관리 정책을 전문적으로 검토할 분야별 전문위원회가 본격적인 활동에 들어간다. 전문위원회는 첫 회의에서 제3차 고준위 방폐물 관리 기본계획 초안과 처분시설 부적합지역 배제기준안을 살펴볼 예정이다. 고준위방사성폐기물관리위원회는 오는 21일 서울 중구 상연재에서 &amp;#39;제1차 분야별 전문위원회&amp;#39;를 개최한다고 20일 밝혔다. 전문위원회는 고준위 방사성폐기물 관리 정책에 필요한 조사&amp;middot;연구와 전문적인 검토를 담당하는 고준위위원회 산하 전문가 심의기구다. &amp;#39;고준위 방사성폐기물 관리에 관한 특별법&amp;#39;에 근거</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27449,7 +27775,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27484,7 +27810,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27519,7 +27845,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27554,7 +27880,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27589,7 +27915,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27624,7 +27950,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27659,7 +27985,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27694,7 +28020,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27729,7 +28055,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27764,7 +28090,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27799,7 +28125,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27834,7 +28160,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27869,7 +28195,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28012,7 +28338,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787195582"
+  data-published="1787197643"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -28046,7 +28372,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">18건</span>
+    <span class="group-count">19건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28119,16 +28445,16 @@ header,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
+<article class="preview-card new-article"
+  data-url="https://simplywall.st/stocks/in/capital-goods/nse-kirloseng/kirloskar-oil-engines-shares/news/nuclear-energy-stocks-gaining-attention-as-india-builds-out"
+  data-title="Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment"
+  data-publisher="Simply Wall St"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787195542"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  data-published="1787227200"
+  data-country="IN"
+  data-search="nuclear energy stocks gaining attention as india builds out critical power equipment simply wall st nuclear power·nuclear energy global bond markets are reacting to persistent inflation pressures and higher energy costs, with yields in several major economies now elevated as central banks hold a cautious line. that kind of backdrop puts reliable, low carbon baseload power in sharp focus for long term capital. this article looks at nuclear energy"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -28136,7 +28462,7 @@ header,
     </div>
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
+        <div class="publisher">Simply Wall St</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -28144,13 +28470,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+      <div class="headline"><span class="new-badge">NEW</span>Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment</div>
+      <div class="article-snippet">Global bond markets are reacting to persistent inflation pressures and higher energy costs, with yields in several major economies now elevated as central banks hold a cautious line. That kind of backdrop puts reliable, low carbon baseload power in sharp focus for long term capital. This article looks at nuclear energy</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/5e8f3fc9ebfa9cdcfe336549.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28161,7 +28487,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787195040"
+  data-published="1787197601"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -28190,6 +28516,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787196120"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://legis1.com/news/us-extended-deterrence-allies-1-nuclear-umbrella"
   data-title="U.S. Nuclear Umbrella Reassures 30+ Allies Worldwide | Legis1"
   data-publisher="Legis1"
@@ -28202,7 +28563,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28237,7 +28598,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28272,7 +28633,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28307,7 +28668,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28342,7 +28703,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28377,7 +28738,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28412,7 +28773,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28434,7 +28795,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-giat-cap-8-o-phia-dong-dao-hai-nam-trung-quoc"
   data-title="Tropical depression, with gusts up to level 8, located east of Hainan Island (China)."
   data-publisher="Vietnam.vn"
@@ -28447,7 +28808,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28459,7 +28820,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Tropical depression, with gusts up to level 8, located east of Hainan Island (China).</div>
+      <div class="headline">Tropical depression, with gusts up to level 8, located east of Hainan Island (China).</div>
       <div class="article-snippet">According to the National Center for Hydro-Meteorological Forecasting, at 7:00 AM on August 20th, the center of the tropical depression was located at approximately 19.6 degrees North latitude and 111.3 degrees East longitude, over the sea east of Hainan Island (China).</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28482,7 +28843,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28517,7 +28878,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28552,7 +28913,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28587,7 +28948,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28622,7 +28983,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28657,7 +29018,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28813,10 +29174,10 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">14건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227547"
   data-title="기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順"
   data-publisher="에너지신문"
@@ -28841,7 +29202,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順</div>
+      <div class="headline">기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順</div>
       <div class="article-snippet">[에너지신문] 기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석결과, 1위 두산에너빌리티 2위 레인보우로보틱스 3위 현대로템 순으로 분석됐다.한국기업평판연구소는 기계 상장기업 70개 브랜드에 대해 2026년 7월 20일부터 2026년 8월 20일까지의 기계 상장기업 브랜드 빅데이터 33,289,966개를 분석한 결과 지난 7월 기계 상장기업 브랜드 빅데이터 45,014,266개와 비교하면 26.05% 줄어들었다고 밝혔다.기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석 30위 순위는 두산에너빌리티, 레인보우로보틱스, 현대</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28956,7 +29317,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397480"
   data-title="창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;"
   data-publisher="데일리한국"
@@ -28981,7 +29342,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;</div>
+      <div class="headline">창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;</div>
       <div class="article-snippet">[데일리한국 전준형 기자] 대우건설 노사가 노동조합 창립 39주년을 맞아 상호 신뢰를 바탕으로 소통을 강화하고 협력적인 조직문화를 만들어가기로 뜻을 모았다.전국건설기업노동조합 대우건설지부는 지난 19일 서울 중구 대우건설 본사 푸르지오 아트홀에서 창립 39주년 기념식을 개최했다.행사에는 심상철 대우건설지부 위원장과 이강석 대우건설 대표이사 직무대행을 비롯해 김남근·김현정·이용우 더불어민주당 의원, 노동계 관계자, 회사 경영진 및 조합원 등이 참석했다.심상철 위원장은 기념사에서 최근 경영진 인사와 관련해 노사 간 충분한 소통의 필요성</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29166,6 +29527,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1680209/%E2%80%98%EB%AF%B8%EB%A7%A4%EA%B0%81%E2%80%99-%EC%B6%A9%EA%B2%A9-%ED%83%88%EC%B6%9C%EB%A1%AF%EB%8D%B0%EA%B1%B4%EC%84%A4-%ED%9A%8C%EC%82%AC%EC%B1%84-2026"
+  data-title="‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보"
+  data-publisher="데일리안"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787193480"
+  data-country="OTHER"
+  data-search="‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보 데일리안 타 건설사 롯데건설이 지난 19일 진행한 총 500억원 규모의 무보증 회사채 수요예측에서 예정액의 3배가 넘는 주문을 확보했다. 지난해 회사채 수요예측에서 전량 미매각을 겪었던 롯데건설은 1년여 만에 투자심리 회복을 확인했다.20일 투자은행(ib) 업계에 따르면 롯데건설은 전날 500억원 규모의 무보증사채 수요예측에서 1510억원의 주문을 받았다.만기별로는 300억원"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">11.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>‘미매각’ 충격 탈출…롯데건설, 회사채 수요예측서 모집액 3배 확보</div>
+      <div class="article-snippet">롯데건설이 지난 19일 진행한 총 500억원 규모의 무보증 회사채 수요예측에서 예정액의 3배가 넘는 주문을 확보했다. 지난해 회사채 수요예측에서 전량 미매각을 겪었던 롯데건설은 1년여 만에 투자심리 회복을 확인했다.20일 투자은행(IB) 업계에 따르면 롯데건설은 전날 500억원 규모의 무보증사채 수요예측에서 1510억원의 주문을 받았다.만기별로는 300억원</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/41bf831b5ca70cdebbb8f62c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260817010005113&amp;ref=main_midtop&amp;ref=section_topnews"
   data-title="[마켓파워] 롯데건설, 뚜렷한 수익 반등세... 선제적 PF 관리로 재무안정성 속도"
@@ -29179,7 +29575,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29214,7 +29610,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29249,7 +29645,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29461,7 +29857,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">15건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29499,6 +29895,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104673"
+  data-title="한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787196867"
+  data-country="KR"
+  data-search="한전kdn 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색 에너지플랫폼뉴스 한국전력 [에너지플랫폼뉴스 박병인 기자] 한전kdn 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ict 전문 공기업 한전kdn(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전kdn은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전KDN은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bbca0db08cccbcf752729f75.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
   data-title="대한전문건설신문"
@@ -29512,7 +29943,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29535,6 +29966,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5762"
+  data-title="한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787194673"
+  data-country="KR"
+  data-search="한전kdn, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문 에너지안전신문 한국전력 에너지ict 전문 공기업 한전kdn(사장 박상형)이 19일 전남 나주혁신도시 본사에서 ‘2026년 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론’"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문</div>
+      <div class="article-snippet">에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남 나주혁신도시 본사에서 ‘2026년 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론’</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d0632177fe9ad2a65847d46f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478981"
   data-title="한전KDN, 상반기 실적 점검해 수익성 해법 모색"
   data-publisher="핀포인트뉴스"
@@ -29547,7 +30013,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29559,7 +30025,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
+      <div class="headline">한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
       <div class="article-snippet">한전KDN이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전KDN은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29582,7 +30048,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29617,7 +30083,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29652,7 +30118,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29687,7 +30153,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29722,7 +30188,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29757,7 +30223,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29792,7 +30258,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29827,7 +30293,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29862,7 +30328,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29897,7 +30363,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30162,7 +30628,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">21건</span>
+    <span class="group-count">23건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30201,6 +30667,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104671"
+  data-title="“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787196138"
+  data-country="KR"
+  data-search="“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야” 에너지플랫폼뉴스 원자력 [에너지플랫폼뉴스 박병인 기자] “3대 메가프로젝트의 전력 수요 폭증 대응을 위해서는 선택할 수 있는 무탄소 전원이 별로 없다. 재생에너지만으로 한계가 있으므로 다양한 무탄소전원 옵션을 고려해야 한다”20일 기후에너지환경부가 개최한 ‘전기국가 대국민 정책 토론회’에서 에너지경제연구원 박우영 에너지전환정책연구본부장은 “리드타임이 긴 설비의 경우 증설에 대한 빠른 결정이 이뤄지지 않는다면 2035년에 활용 가능한 무탄소 전원은 줄어들 것”며 이같이 밝혔다.박우영 본부장의 발제에 따르면 정부는 ▲반도체 ▲피지컬 ai ▲ai 데이터센터 등"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>“3대 메가프로젝트의 전력 수요 폭증 대응, 원전·양수 등 다양한 무탄소전원 고려돼야”</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] “3대 메가프로젝트의 전력 수요 폭증 대응을 위해서는 선택할 수 있는 무탄소 전원이 별로 없다. 재생에너지만으로 한계가 있으므로 다양한 무탄소전원 옵션을 고려해야 한다”20일 기후에너지환경부가 개최한 ‘전기국가 대국민 정책 토론회’에서 에너지경제연구원 박우영 에너지전환정책연구본부장은 “리드타임이 긴 설비의 경우 증설에 대한 빠른 결정이 이뤄지지 않는다면 2035년에 활용 가능한 무탄소 전원은 줄어들 것”며 이같이 밝혔다.박우영 본부장의 발제에 따르면 정부는 ▲반도체 ▲피지컬 AI ▲AI 데이터센터 등</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d03b1773edab4df3e56132b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755381"
   data-title="고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동"
   data-publisher="뉴시스"
@@ -30213,7 +30714,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30225,7 +30726,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동</div>
+      <div class="headline">고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동</div>
       <div class="article-snippet">[세종=뉴시스]이수정 기자 = 고준위 방사성폐기물 관리 정책의 전문성을 뒷받침할 분야별 전문위원회가 본격 가동된다. 고준위방사성폐기물관리위원회는 분야별 전문위원회를 구성하고 오는 21일 오후 서울 중구 상연재에서 &#x27;제1차 분야별 전문위원회&#x27;를 개최한다고 20일 밝혔다. 분야별 전문위원회는 &#x27;고준위 방사성폐기물 관리에 관한 특별법&#x27;에 따라 고준위위원회 산하에 설치·운영되는 전문가 심의기구다. 전문위원회는 부지, 저장·운반, 처분, 소통 등 4개 분야로 구성됐다. 고준위위원회는 지난 6월 말부터 관련 협회·학회와 연구기관, 시민사회 등 25개 기관으로부터 후보자를 추천받</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30235,7 +30736,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260820000189"
   data-title="메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”"
   data-publisher="전자신문"
@@ -30248,7 +30749,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30260,7 +30761,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”</div>
+      <div class="headline">메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”</div>
       <div class="article-snippet">반도체와 인공지능(AI) 데이터센터 등 3대 메가프로젝트 추진으로 향후 약 38GW, 연간 260TWh 규모의 신규 전력수요가 발생할 것으로 전망됐다. 지난해 국내 총발전량의 40%를 웃도는 규모다. 정부는 AI 시대 전력 공급능력을 국가 경쟁력을 좌우하는 전략자산으로 보고 제12차 전력수급기본계획에 재생에너지·원전 등 무탄소 전원과 전력망 확충 방안을 종합적으로 담기로 했다. 기후에너지환경부와 제12차 전력수급기본계획 수립 총괄위원회는 20일</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30271,6 +30772,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5761"
+  data-title="원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787194396"
+  data-country="KR"
+  data-search="원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문 에너지안전신문 원자력 한국원자력의학원(원장 임일한)이 8월 18일부터 20일까지 사흘간 국가 을지연습을 실시하고, 병원과 같은 다중이용시설이 공격받아 환자를 대피시켜야 하는 상황에 대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력의학원, 을지연습서 방사선재난 대응훈련 실시 - 에너지안전신문</div>
+      <div class="article-snippet">한국원자력의학원(원장 임일한)이 8월 18일부터 20일까지 사흘간 국가 을지연습을 실시하고, 병원과 같은 다중이용시설이 공격받아 환자를 대피시켜야 하는 상황에 대</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cf2526a543e16a81b59ff25e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755755"
   data-title="국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진"
   data-publisher="뉴시스"
@@ -30283,7 +30819,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30295,7 +30831,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진</div>
+      <div class="headline">국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진</div>
       <div class="article-snippet">[서울=뉴시스] 옥승욱 기자 = 국방부가 올해를 전시작전통제권(전작권) 전환의 원년으로 삼고 전환 로드맵을 완성하는 등 우리 군 주도의 연합방위체제 구축에 속도를 낸다. 핵추진잠수함 건조를 위한 특별법 제정과 미국과의 핵연료 협의도 본격 추진한다. 국방부는 20일 국회 국방위원회 전체회의 업무보고에서 이같은 내용의 2026년 국방정책 방향과 주요 국방 현안을 보고했다. 국방부는 굳건한 한미동맹을 바탕으로 북한의 핵·미사일 위협에 대한 대응태세를 강화하는 한편 전작권 전환을 체계적·안정적으로 추진한다는 방침이다. 무엇보다 올해 전작권 전환 가속화를 위한 로드맵을 완성하</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30305,7 +30841,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=260681"
   data-title="[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!"
   data-publisher="데일리대구경북뉴스"
@@ -30318,7 +30854,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30330,7 +30866,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!</div>
+      <div class="headline">[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!</div>
       <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 점심 도시락과 간식을 지원하는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다. 이번 사업은 한울본부 노·사와 울진교육지원청 및 관내 12개 초등학교와 협력하여 방학 기간 급식 공백을 보완하고 맞벌이 가정 등의</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30353,7 +30889,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30388,7 +30924,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30410,7 +30946,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820092350158"
   data-title="고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토"
   data-publisher="아주경제"
@@ -30423,7 +30959,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30435,7 +30971,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토</div>
+      <div class="headline">고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토</div>
       <div class="article-snippet">[사진=아주경제DB] 고준위 방사성폐기물 관리 정책을 전문적으로 검토할 분야별 전문위원회가 본격적인 활동에 들어간다. 전문위원회는 첫 회의에서 제3차 고준위 방폐물 관리 기본계획 초안과 처분시설 부적합지역 배제기준안을 살펴볼 예정이다. 고준위방사성폐기물관리위원회는 오는 21일 서울 중구 상연재에서 &amp;#39;제1차 분야별 전문위원회&amp;#39;를 개최한다고 20일 밝혔다. 전문위원회는 고준위 방사성폐기물 관리 정책에 필요한 조사&amp;middot;연구와 전문적인 검토를 담당하는 고준위위원회 산하 전문가 심의기구다. &amp;#39;고준위 방사성폐기물 관리에 관한 특별법&amp;#39;에 근거</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30458,7 +30994,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30493,7 +31029,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30528,7 +31064,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30563,7 +31099,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30598,7 +31134,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30633,7 +31169,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30668,7 +31204,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30703,7 +31239,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30738,7 +31274,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30773,7 +31309,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30808,7 +31344,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30843,7 +31379,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30878,7 +31414,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31021,7 +31557,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787195582"
+  data-published="1787197643"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -31055,7 +31591,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">18건</span>
+    <span class="group-count">19건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31128,16 +31664,16 @@ header,
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
+<article class="preview-card new-article"
+  data-url="https://simplywall.st/stocks/in/capital-goods/nse-kirloseng/kirloskar-oil-engines-shares/news/nuclear-energy-stocks-gaining-attention-as-india-builds-out"
+  data-title="Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment"
+  data-publisher="Simply Wall St"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787195542"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  data-published="1787227200"
+  data-country="IN"
+  data-search="nuclear energy stocks gaining attention as india builds out critical power equipment simply wall st nuclear power·nuclear energy global bond markets are reacting to persistent inflation pressures and higher energy costs, with yields in several major economies now elevated as central banks hold a cautious line. that kind of backdrop puts reliable, low carbon baseload power in sharp focus for long term capital. this article looks at nuclear energy"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -31145,7 +31681,7 @@ header,
     </div>
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
+        <div class="publisher">Simply Wall St</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -31153,13 +31689,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+      <div class="headline"><span class="new-badge">NEW</span>Nuclear Energy Stocks Gaining Attention As India Builds Out Critical Power Equipment</div>
+      <div class="article-snippet">Global bond markets are reacting to persistent inflation pressures and higher energy costs, with yields in several major economies now elevated as central banks hold a cautious line. That kind of backdrop puts reliable, low carbon baseload power in sharp focus for long term capital. This article looks at nuclear energy</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/5e8f3fc9ebfa9cdcfe336549.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31170,7 +31706,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787195040"
+  data-published="1787197601"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -31199,6 +31735,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787196120"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://legis1.com/news/us-extended-deterrence-allies-1-nuclear-umbrella"
   data-title="U.S. Nuclear Umbrella Reassures 30+ Allies Worldwide | Legis1"
   data-publisher="Legis1"
@@ -31211,7 +31782,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31246,7 +31817,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31281,7 +31852,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31316,7 +31887,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31351,7 +31922,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31386,7 +31957,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31421,7 +31992,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31443,7 +32014,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-giat-cap-8-o-phia-dong-dao-hai-nam-trung-quoc"
   data-title="Tropical depression, with gusts up to level 8, located east of Hainan Island (China)."
   data-publisher="Vietnam.vn"
@@ -31456,7 +32027,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31468,7 +32039,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Tropical depression, with gusts up to level 8, located east of Hainan Island (China).</div>
+      <div class="headline">Tropical depression, with gusts up to level 8, located east of Hainan Island (China).</div>
       <div class="article-snippet">According to the National Center for Hydro-Meteorological Forecasting, at 7:00 AM on August 20th, the center of the tropical depression was located at approximately 19.6 degrees North latitude and 111.3 degrees East longitude, over the sea east of Hainan Island (China).</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31491,7 +32062,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31526,7 +32097,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31561,7 +32132,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31596,7 +32167,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31631,7 +32202,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31666,7 +32237,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -124874,6 +125445,21 @@ function layoutAndRenderCountryMap(){
   const SVG_NS="http://www.w3.org/2000/svg";
   const mapItems=[];
 
+  // 지도 상시 라벨은 기사 수 상위 5개 국가만 표시해 지도를 가리지 않도록 함
+  const featuredCodes=new Set(
+    chipButtons
+      .filter(button=>!button.hidden && button.dataset.countryFilter && button.dataset.countryFilter!=="OTHER")
+      .map(button=>{
+        const countNode=button.querySelector(".country-count");
+        const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
+        return {code:button.dataset.countryFilter,count};
+      })
+      .filter(item=>item.count>0)
+      .sort((a,b)=>b.count-a.count)
+      .slice(0,5)
+      .map(item=>item.code)
+  );
+
   chipButtons.forEach(button=>{
     if(button.hidden)return;
 
@@ -124946,6 +125532,7 @@ function layoutAndRenderCountryMap(){
     const label=document.createElement("button");
     label.type="button";
     label.className="country-map-label";
+    if(featuredCodes.has(code))label.classList.add("map-label-featured");
     if(activeCountryFilter===code)label.classList.add("active");
     label.dataset.countryFilter=code;
     label.dataset.count=String(count);
@@ -124965,7 +125552,9 @@ function layoutAndRenderCountryMap(){
     });
 
     labelLayer.appendChild(label);
-    mapItems.push({label,button,code,count,x,y});
+    if(featuredCodes.has(code) || activeCountryFilter===code){
+      mapItems.push({label,button,code,count,x,y});
+    }
 
     if(activeCountryFilter===code)show(true);
   });
