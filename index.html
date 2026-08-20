@@ -3388,6 +3388,114 @@ header,
   }
 }
 
+
+/* ============================================================
+   COUNTRY FILTER — 일반 가로형 필터로 복원
+   MAP BADGE — 지도에는 국기 + 기사건수만 작게 표시
+   ============================================================ */
+#country-chip-rail.country-chip-rail {
+  position:relative;
+  display:flex !important;
+  align-items:center;
+  gap:6px !important;
+  width:100%;
+  min-height:38px !important;
+  margin:0 !important;
+  padding:2px 1px 5px !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity !important;
+  scroll-padding-inline:0 !important;
+  touch-action:pan-x;
+  overscroll-behavior-inline:contain;
+  mask-image:none !important;
+  -webkit-mask-image:none !important;
+}
+#country-chip-rail.country-chip-rail::-webkit-scrollbar { display:none; }
+#country-chip-rail .country-pin {
+  position:static !important;
+  inset:auto !important;
+  transform:none !important;
+  flex:0 0 auto !important;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  min-width:0;
+  max-width:none !important;
+  min-height:34px !important;
+  height:34px !important;
+  padding:0 11px !important;
+  border:1px solid #dce3eb !important;
+  border-radius:999px !important;
+  background:#fff !important;
+  color:#344b67 !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.07) !important;
+  font-size:10px !important;
+  line-height:1;
+  font-weight:850 !important;
+  opacity:1 !important;
+  white-space:nowrap;
+  scroll-snap-align:start !important;
+  scroll-snap-stop:normal !important;
+}
+#country-chip-rail .country-pin .flag { font-size:15px !important; }
+#country-chip-rail .country-pin .country-count { color:#667085 !important; font-size:9px !important; font-weight:800 !important; }
+#country-chip-rail .country-pin.active {
+  transform:none !important;
+  border-color:#23395d !important;
+  background:#23395d !important;
+  color:#fff !important;
+  box-shadow:0 2px 6px rgba(35,57,93,.18) !important;
+}
+#country-chip-rail .country-pin.active .country-count { color:rgba(255,255,255,.82) !important; }
+#country-chip-rail .country-pin[hidden] { display:none !important; }
+.country-chip-guide-bottom { margin:8px 2px 5px !important; color:#7f8b99 !important; font-size:8px !important; text-align:left !important; }
+
+.country-map-label {
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:3px !important;
+  min-height:22px !important;
+  padding:2px 5px !important;
+  border:1px solid rgba(35,57,93,.18) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.94) !important;
+  color:#243b5a !important;
+  box-shadow:0 2px 6px rgba(17,24,39,.10) !important;
+  font-size:7.5px !important;
+  font-weight:900 !important;
+  pointer-events:auto !important;
+  white-space:nowrap;
+  backdrop-filter:blur(4px);
+}
+.country-map-label .map-label-flag { font-size:11px !important; line-height:1; }
+.country-map-label .map-label-name { display:none !important; }
+.country-map-label .map-label-count { color:#d92d20 !important; font-size:7.5px !important; font-weight:900 !important; }
+.country-map-label.active {
+  min-height:24px !important;
+  padding:3px 6px !important;
+  border-color:#1f4f8a !important;
+  background:#1f4f8a !important;
+  color:#fff !important;
+  box-shadow:0 3px 9px rgba(31,79,138,.22) !important;
+  z-index:10 !important;
+}
+.country-map-label.active .map-label-count { color:#fee500 !important; }
+.country-map-svg-halo { opacity:.18 !important; }
+.country-map-svg-dot { stroke-width:4.5px !important; }
+@media (max-width:767px) {
+  #country-chip-rail .country-pin { min-height:36px !important; height:36px !important; padding:0 12px !important; font-size:10.5px !important; }
+  #country-chip-rail .country-pin .flag { font-size:16px !important; }
+  #country-chip-rail .country-pin .country-count { font-size:9.5px !important; }
+  .country-map-label { min-height:23px !important; padding:2px 5px !important; }
+  .country-map-label .map-label-flag { font-size:12px !important; }
+  .country-map-label .map-label-count { font-size:8px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -3396,7 +3504,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 14:05 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 14:30 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -4225,7 +4333,7 @@ header,
     </div>
     </div>
 
-    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">좌우로 넘겨 국가를 선택하세요 · 선택한 국가만 지도에 표시됩니다</div>
+    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
         <span>전체</span><span class="country-count">0건</span>
@@ -18929,7 +19037,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -22136,7 +22244,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.nuclea.energy/technology"
   data-title="Morpheus microreactor"
   data-publisher="Neutron Bytes"
@@ -22161,7 +22269,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Morpheus microreactor</div>
+      <div class="headline">Morpheus microreactor</div>
       <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26165,7 +26273,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">19건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26308,6 +26416,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://it.chosun.com/news/articleView.html?idxno=2023092168499"
+  data-title="대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색"
+  data-publisher="IT조선"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787200314"
+  data-country="US"
+  data-search="대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색 it조선 타 건설사 대우건설이 추진하는 미국 뉴저지 주거개발사업과 관련해 기존에 계획한 합작법인(jv) 추진이 무산된 것으로 확인됐다. 대우건설은 해당 사업부지를 단독 매입했고 새 파트너사를 물색 중이다.20일 대우건설에 따르면 대우건설의 미국 투자법인 dusai(daewoo e&amp;c usa investm"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">IT조선</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색</div>
+      <div class="article-snippet">대우건설이 추진하는 미국 뉴저지 주거개발사업과 관련해 기존에 계획한 합작법인(JV) 추진이 무산된 것으로 확인됐다. 대우건설은 해당 사업부지를 단독 매입했고 새 파트너사를 물색 중이다.20일 대우건설에 따르면 대우건설의 미국 투자법인 DUSAI(Daewoo E&amp;C USA Investm</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3e7267846d1a718db797b969.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397480"
   data-title="창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;"
@@ -26321,7 +26464,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26356,7 +26499,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26378,7 +26521,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.econovill.com/news/articleView.html?idxno=748458"
   data-title="BS한양, 1597억원 규모 광양항 묘도수도 항로 직선화 사업 수주"
   data-publisher="이코노믹리뷰"
@@ -26391,7 +26534,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26403,7 +26546,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>BS한양, 1597억원 규모 광양항 묘도수도 항로 직선화 사업 수주</div>
+      <div class="headline">BS한양, 1597억원 규모 광양항 묘도수도 항로 직선화 사업 수주</div>
       <div class="article-snippet">항만 특화 기술력 인정 받은 BS한양이 여수 광양(여천)항 일대의 혼잡한 뱃길 개선에 나선다.BS한양 컨소시엄(BS한양, 태영건설, 대우건설, 동부건설, HJ중공업)은 해양수산부(여수지방해양수산청)가 발주한 &#x27;광양(여천)항 묘도수도 항로 직선화사업&#x27; 실시설계적격자로 최종 선정됐다고 20일 밝혔다.실시설계적격은 일괄입찰·기술제안입찰 등에서 실시설계서나 기술제안서의 적격 여부와 설계점수를 심사해 실시설계적격자를 정하는 절차이다. 국가계약에서는 국가계약법 시행령 제106조, 지방계약에서는 지방계약법 시행령 제131조·제98조 등이 근거가</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26426,7 +26569,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26461,7 +26604,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26483,7 +26626,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.cnbnews.com/news/articleView.html?idxno=1011907"
   data-title="[미니사사(社史)⑪] 대한민국 현대사를 짓다···&#x27;SINCE 1939’ DL이앤씨 - CNB뉴스"
   data-publisher="CNB뉴스"
@@ -26496,7 +26639,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26508,13 +26651,48 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[미니사사(社史)⑪] 대한민국 현대사를 짓다···&#x27;SINCE 1939’ DL이앤씨 - CNB뉴스</div>
+      <div class="headline">[미니사사(社史)⑪] 대한민국 현대사를 짓다···&#x27;SINCE 1939’ DL이앤씨 - CNB뉴스</div>
       <div class="article-snippet">급변하는 경제환경 속에서도 꿋꿋이 한길을 걸어온 기업들이 있다. 이에 CNB뉴스가 국내 대표적 장수(長壽) 기업들의 태동기부터 현재에 이르는 과정을 짚어보고 미래</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/271ba82922817bad81d43c11.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Real-Estate/2026/08/20260820132245507214b1077807_1"
+  data-title="GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787200810"
+  data-country="AU"
+  data-search="gs건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹 글로벌이코노믹 타 건설사 gs건설이 호주 퀸즐랜드주가 추진하는 대형 철도 인프라 사업의 최종 사업자 선정을 앞두고 있다. gs건설 호주법인이 참여한 컨소시엄은 프랑스 빈치(vinci)가 포함된 경쟁 컨소시엄과 사업권을 놓고 2파전을 벌이고 있다.21일 호주 정부에 따르면 ‘더 웨이브(the wave)’ 2단계"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">12.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹</div>
+      <div class="article-snippet">GS건설이 호주 퀸즐랜드주가 추진하는 대형 철도 인프라 사업의 최종 사업자 선정을 앞두고 있다. GS건설 호주법인이 참여한 컨소시엄은 프랑스 빈치(VINCI)가 포함된 경쟁 컨소시엄과 사업권을 놓고 2파전을 벌이고 있다.21일 호주 정부에 따르면 ‘더 웨이브(The Wave)’ 2단계</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c1bda774573b3581d945caf0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26531,7 +26709,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26566,7 +26744,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26588,7 +26766,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16445"
   data-title="포스코이앤씨, 2600억원대 ‘고의파산’ 의혹...K건설 신뢰 추락"
   data-publisher="ESG경제"
@@ -26601,7 +26779,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26613,7 +26791,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨, 2600억원대 ‘고의파산’ 의혹...K건설 신뢰 추락</div>
+      <div class="headline">포스코이앤씨, 2600억원대 ‘고의파산’ 의혹...K건설 신뢰 추락</div>
       <div class="article-snippet">[ESG경제신문=김대우 기자] 포스코이앤씨가 브라질에서 시공한 해외 플랜트 사업과 관련해 2600억원대 채권 회수 문제가 불거지면서 이른바 ‘고의파산’ 의혹이 제기되고 있다. 막대한 부채를 남긴 채 자회사를 파산시키는 꼬리자르기식 행태로 브라질 채권단이 경제협력개발기구(OECD)에 포스코 본사를 제소하는 사태까지 벌어졌다.해외 발주처와 현지 법인을 둘러싼 복잡한 법적 분쟁이 이어지는 가운데 국내 대표 건설사인 포스코이앤씨의 책임론까지 확산되면서 K건설의 대외 신뢰도에 적지 않은 타격이 예상된다.20일 업계에 따르면 약 54억 달러(</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26636,7 +26814,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26671,7 +26849,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26706,7 +26884,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26741,7 +26919,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26769,10 +26947,10 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755893"
   data-title="코레일, 철도 인프라 활용 &#x27;태양광 발전사업&#x27; 속도…사업자 대상 설명회"
   data-publisher="뉴시스"
@@ -26797,7 +26975,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>코레일, 철도 인프라 활용 &#x27;태양광 발전사업&#x27; 속도…사업자 대상 설명회</div>
+      <div class="headline">코레일, 철도 인프라 활용 &#x27;태양광 발전사업&#x27; 속도…사업자 대상 설명회</div>
       <div class="article-snippet">[서울=뉴시스] 홍찬선 기자 = 한국철도공사(코레일)가 철도 인프라를 활용한 태양광 발전으로 재생에너지 생산을 확대한다. 코레일은 오는 26일 오후 대전 본사에서 ‘태양광 발전사업 공개 설명회’를 열고 사업 대상지와 추진 방향에 대해 발표한다고 20일 밝혔다. 참석기관은 국토교통부와 경기도청, 한국수력원자력, 한국에너지공단, 한국산업단지공단, 국가철도공단 등과 태양광 발전 사업자를 대상으로 한다. 코레일 태양광 발전사업은 철도 유휴공간에 발전설비를 설치해 재생에너지를 생산한다. 코레일이 발전사업자에게 부지를 임대하면 사업자가 발전설비를 설치·운영하고, 생산된 전력은</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26842,6 +27020,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.biztribune.co.kr/news/articleView.html?idxno=357641"
+  data-title="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세"
+  data-publisher="비즈트리뷴"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787188800"
+  data-country="KR"
+  data-search="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세 비즈트리뷴 한국수력원자력 우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(pms) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">비즈트리뷴</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세</div>
+      <div class="article-snippet">우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(PMS) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/199fbc73144df512a146fa6e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755486"
   data-title="우리기술, 85억 규모 원전 PMS 설비개선용 자재 공급계약"
@@ -26855,7 +27068,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26890,7 +27103,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26925,7 +27138,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26960,7 +27173,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27026,7 +27239,42 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
+  data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
+  data-title="대한전문건설신문"
+  data-publisher="대한전문건설신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787203800"
+  data-country="KR"
+  data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">대한전문건설신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">대한전문건설신문</div>
+      <div class="article-snippet">건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820135036796"
   data-title="12차 전기본 재생에너지 전망 내주 공개…2040년 태양광·풍력 보급 규모 제시"
   data-publisher="아주경제"
@@ -27036,41 +27284,6 @@ header,
   data-published="1787201883"
   data-country="KR"
   data-search="12차 전기본 재생에너지 전망 내주 공개…2040년 태양광·풍력 보급 규모 제시 아주경제 한국전력 제12차 전기본 제6차 공개 토론회 개최 홍보 포스터 [사진=기후에너지환경부] 정부가 제12차 전력수급기본계획(전기본)에 반영할 2040년까지의 재생에너지 보급 전망을 다음 주 공개한다. 태양광과 풍력 등 재생에너지 원별 보급 규모와 전망의 실현 가능성을 높이기 위한 정책 방안이 논의될 예정이다. 기후에너지환경부와 제12차 전기본 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부에서 &amp;#39;재생에너지 보급 전망&amp;#39;을 주제로 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회와 분과회의 논의를 거쳐"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">아주경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>12차 전기본 재생에너지 전망 내주 공개…2040년 태양광·풍력 보급 규모 제시</div>
-      <div class="article-snippet">제12차 전기본 제6차 공개 토론회 개최 홍보 포스터 [사진=기후에너지환경부] 정부가 제12차 전력수급기본계획(전기본)에 반영할 2040년까지의 재생에너지 보급 전망을 다음 주 공개한다. 태양광과 풍력 등 재생에너지 원별 보급 규모와 전망의 실현 가능성을 높이기 위한 정책 방안이 논의될 예정이다. 기후에너지환경부와 제12차 전기본 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부에서 &amp;#39;재생에너지 보급 전망&amp;#39;을 주제로 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회와 분과회의 논의를 거쳐</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2a7a02d221f02134cfcb050b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.ajunews.com/view/20260820134830790"
-  data-title="한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot;"
-  data-publisher="아주경제"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787201761"
-  data-country="KR"
-  data-search="한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot; 아주경제 한국전력 새만금-신서산 송전선로 후보 경과지(양화)[사진=부여군] 한국전력공사가 &amp;lsquo;345㎸ 새만금-신서산 송전선로 건설사업&amp;rsquo;의 후보 경과지를 공개하자 부여지역 주민들이 선정 근거와 평가 자료를 공개하라며 반발하고 나섰다. 기존 송전시설이 지나는 지역에 부담이 다시 집중되고, 지자체 경계를 따라 제시된 후보안이 인접 지역 간 갈등을 불러올 수 있다는 주장이다. &amp;nbsp; 이번 후보 경과지는 전북 김제시에서 만경강을 건너 군산시와 익산시를 거친 뒤 충남 부여군과 보령시, 홍성군을 지나 서산시 운산면으로 이어진다. &amp;nbsp; 부여지역에서 논란이 되는 곳은"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -27086,7 +27299,42 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot;</div>
+      <div class="headline">12차 전기본 재생에너지 전망 내주 공개…2040년 태양광·풍력 보급 규모 제시</div>
+      <div class="article-snippet">제12차 전기본 제6차 공개 토론회 개최 홍보 포스터 [사진=기후에너지환경부] 정부가 제12차 전력수급기본계획(전기본)에 반영할 2040년까지의 재생에너지 보급 전망을 다음 주 공개한다. 태양광과 풍력 등 재생에너지 원별 보급 규모와 전망의 실현 가능성을 높이기 위한 정책 방안이 논의될 예정이다. 기후에너지환경부와 제12차 전기본 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부에서 &amp;#39;재생에너지 보급 전망&amp;#39;을 주제로 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회와 분과회의 논의를 거쳐</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2a7a02d221f02134cfcb050b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260820134830790"
+  data-title="한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot;"
+  data-publisher="아주경제"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787201761"
+  data-country="KR"
+  data-search="한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot; 아주경제 한국전력 새만금-신서산 송전선로 후보 경과지(양화)[사진=부여군] 한국전력공사가 &amp;lsquo;345㎸ 새만금-신서산 송전선로 건설사업&amp;rsquo;의 후보 경과지를 공개하자 부여지역 주민들이 선정 근거와 평가 자료를 공개하라며 반발하고 나섰다. 기존 송전시설이 지나는 지역에 부담이 다시 집중되고, 지자체 경계를 따라 제시된 후보안이 인접 지역 간 갈등을 불러올 수 있다는 주장이다. &amp;nbsp; 이번 후보 경과지는 전북 김제시에서 만경강을 건너 군산시와 익산시를 거친 뒤 충남 부여군과 보령시, 홍성군을 지나 서산시 운산면으로 이어진다. &amp;nbsp; 부여지역에서 논란이 되는 곳은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot;</div>
       <div class="article-snippet">새만금-신서산 송전선로 후보 경과지(양화)[사진=부여군] 한국전력공사가 &amp;lsquo;345㎸ 새만금-신서산 송전선로 건설사업&amp;rsquo;의 후보 경과지를 공개하자 부여지역 주민들이 선정 근거와 평가 자료를 공개하라며 반발하고 나섰다. 기존 송전시설이 지나는 지역에 부담이 다시 집중되고, 지자체 경계를 따라 제시된 후보안이 인접 지역 간 갈등을 불러올 수 있다는 주장이다. &amp;nbsp; 이번 후보 경과지는 전북 김제시에서 만경강을 건너 군산시와 익산시를 거친 뒤 충남 부여군과 보령시, 홍성군을 지나 서산시 운산면으로 이어진다. &amp;nbsp; 부여지역에서 논란이 되는 곳은</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27096,7 +27344,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755921"
   data-title="[창녕소식]군, 을지연습 &#x27;실전 방불 훈련&#x27; 마무리 등"
   data-publisher="뉴시스"
@@ -27106,41 +27354,6 @@ header,
   data-published="1787199917"
   data-country="KR"
   data-search="[창녕소식]군, 을지연습 &#x27;실전 방불 훈련&#x27; 마무리 등 뉴시스 한국전력 [창녕=뉴시스] 안지율 기자 = 경남 창녕군은 대합면 우포곤충나라에서 국가 비상대비태세 확립을 위한 올해 을지연습 실제훈련을 성공적으로 실시했다고 20일 밝혔다. 이번 훈련은 폭탄 테러와 대형 화재, 인질극 등 복합 재난 상황을 가정해 민·관·군·경·소방의 대응 역량을 점검하기 위해 마련됐다. 훈련에는 군을 비롯해 육군 제5870부대 2대대, 경찰서, 소방서, 한국전력공사 창녕지사, kt 밀양(창녕)지사, 여성민방위기동대 등 7개 기관·단체에서 150여 명이 참여했다. 군 작전 차량과 소방차, 구급차, 드론 등 20여 대의 특수차량과 전문 장비가 투입돼 실전을 방불케"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>[창녕소식]군, 을지연습 &#x27;실전 방불 훈련&#x27; 마무리 등</div>
-      <div class="article-snippet">[창녕=뉴시스] 안지율 기자 = 경남 창녕군은 대합면 우포곤충나라에서 국가 비상대비태세 확립을 위한 올해 을지연습 실제훈련을 성공적으로 실시했다고 20일 밝혔다. 이번 훈련은 폭탄 테러와 대형 화재, 인질극 등 복합 재난 상황을 가정해 민·관·군·경·소방의 대응 역량을 점검하기 위해 마련됐다. 훈련에는 군을 비롯해 육군 제5870부대 2대대, 경찰서, 소방서, 한국전력공사 창녕지사, KT 밀양(창녕)지사, 여성민방위기동대 등 7개 기관·단체에서 150여 명이 참여했다. 군 작전 차량과 소방차, 구급차, 드론 등 20여 대의 특수차량과 전문 장비가 투입돼 실전을 방불케</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/10b9d5007115da03685c6270.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260820_0003755915"
-  data-title="2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최"
-  data-publisher="뉴시스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787199852"
-  data-country="KR"
-  data-search="2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 기후에너지환경부가 2040년까지의 재생에너지 보급 전망을 위해 전문가들과 토론회를 연다. 기후부와 제12차 전력수급기본계획 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부 강당에서 &#x27;재생에너지 보급 전망&#x27;을 주제로 제12차 전기본 수립을 위한 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회 및 분과회의 논의를 거쳐 산출된 2040년까지의 태양광, 풍력 등 재생에너지 원별 보급 전망 잠정안이 공개된다. 기후부와 제12차 전기본 총괄위원회는 계획 수립 과정에서의 투명성을"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -27156,26 +27369,26 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최</div>
-      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부가 2040년까지의 재생에너지 보급 전망을 위해 전문가들과 토론회를 연다. 기후부와 제12차 전력수급기본계획 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부 강당에서 &#x27;재생에너지 보급 전망&#x27;을 주제로 제12차 전기본 수립을 위한 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회 및 분과회의 논의를 거쳐 산출된 2040년까지의 태양광, 풍력 등 재생에너지 원별 보급 전망 잠정안이 공개된다. 기후부와 제12차 전기본 총괄위원회는 계획 수립 과정에서의 투명성을</div>
+      <div class="headline">[창녕소식]군, 을지연습 &#x27;실전 방불 훈련&#x27; 마무리 등</div>
+      <div class="article-snippet">[창녕=뉴시스] 안지율 기자 = 경남 창녕군은 대합면 우포곤충나라에서 국가 비상대비태세 확립을 위한 올해 을지연습 실제훈련을 성공적으로 실시했다고 20일 밝혔다. 이번 훈련은 폭탄 테러와 대형 화재, 인질극 등 복합 재난 상황을 가정해 민·관·군·경·소방의 대응 역량을 점검하기 위해 마련됐다. 훈련에는 군을 비롯해 육군 제5870부대 2대대, 경찰서, 소방서, 한국전력공사 창녕지사, KT 밀양(창녕)지사, 여성민방위기동대 등 7개 기관·단체에서 150여 명이 참여했다. 군 작전 차량과 소방차, 구급차, 드론 등 20여 대의 특수차량과 전문 장비가 투입돼 실전을 방불케</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/fabe822b224f46e9c82cd999.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/10b9d5007115da03685c6270.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260820_0003755878"
-  data-title="[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등"
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755915"
+  data-title="2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최"
   data-publisher="뉴시스"
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787199441"
+  data-published="1787199852"
   data-country="KR"
-  data-search="[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등 뉴시스 한국전력 [시흥=뉴시스] 박석희 기자 = 경기 시흥시인재양성재단은 지난 19일 정기이사회 및 장학기금 기탁식을 열고, 군자농협·북시흥농협·안산농협·대한전문건설협회 시흥시협의회·시흥시쌀연구회영농조합 등으로 부터 총 2000여만원의 장학기금을 전달받았다고 20일 밝혔다. 이날 기탁 기관들은 지역 학생들이 경제적 부담 없이 학업에 전념할 수 있도록 지속적인 나눔을 약속했으며, 전달된 기금은 시흥 지역 학생들의 꿈을 지원하고 미래 인재를 육성하는 장학사업에 전액 사용될 예정이다. 이어 진행된 정기이사회에서는 기부금 사용계획안과 2026년도 장학생 선발 및 장학금 지급 결정안 등 총"
+  data-search="2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 기후에너지환경부가 2040년까지의 재생에너지 보급 전망을 위해 전문가들과 토론회를 연다. 기후부와 제12차 전력수급기본계획 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부 강당에서 &#x27;재생에너지 보급 전망&#x27;을 주제로 제12차 전기본 수립을 위한 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회 및 분과회의 논의를 거쳐 산출된 2040년까지의 태양광, 풍력 등 재생에너지 원별 보급 전망 잠정안이 공개된다. 기후부와 제12차 전기본 총괄위원회는 계획 수립 과정에서의 투명성을"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -27191,7 +27404,42 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등</div>
+      <div class="headline">2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부가 2040년까지의 재생에너지 보급 전망을 위해 전문가들과 토론회를 연다. 기후부와 제12차 전력수급기본계획 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부 강당에서 &#x27;재생에너지 보급 전망&#x27;을 주제로 제12차 전기본 수립을 위한 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회 및 분과회의 논의를 거쳐 산출된 2040년까지의 태양광, 풍력 등 재생에너지 원별 보급 전망 잠정안이 공개된다. 기후부와 제12차 전기본 총괄위원회는 계획 수립 과정에서의 투명성을</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fabe822b224f46e9c82cd999.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755878"
+  data-title="[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787199441"
+  data-country="KR"
+  data-search="[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등 뉴시스 한국전력 [시흥=뉴시스] 박석희 기자 = 경기 시흥시인재양성재단은 지난 19일 정기이사회 및 장학기금 기탁식을 열고, 군자농협·북시흥농협·안산농협·대한전문건설협회 시흥시협의회·시흥시쌀연구회영농조합 등으로 부터 총 2000여만원의 장학기금을 전달받았다고 20일 밝혔다. 이날 기탁 기관들은 지역 학생들이 경제적 부담 없이 학업에 전념할 수 있도록 지속적인 나눔을 약속했으며, 전달된 기금은 시흥 지역 학생들의 꿈을 지원하고 미래 인재를 육성하는 장학사업에 전액 사용될 예정이다. 이어 진행된 정기이사회에서는 기부금 사용계획안과 2026년도 장학생 선발 및 장학금 지급 결정안 등 총"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">7.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등</div>
       <div class="article-snippet">[시흥=뉴시스] 박석희 기자 = 경기 시흥시인재양성재단은 지난 19일 정기이사회 및 장학기금 기탁식을 열고, 군자농협·북시흥농협·안산농협·대한전문건설협회 시흥시협의회·시흥시쌀연구회영농조합 등으로 부터 총 2000여만원의 장학기금을 전달받았다고 20일 밝혔다. 이날 기탁 기관들은 지역 학생들이 경제적 부담 없이 학업에 전념할 수 있도록 지속적인 나눔을 약속했으며, 전달된 기금은 시흥 지역 학생들의 꿈을 지원하고 미래 인재를 육성하는 장학사업에 전액 사용될 예정이다. 이어 진행된 정기이사회에서는 기부금 사용계획안과 2026년도 장학생 선발 및 장학금 지급 결정안 등 총</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27201,7 +27449,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371477"
   data-title="한전 서울본부-에공단-서울교통공사, 공덕역서 에너지절약 캠페인 펼쳐"
   data-publisher="전기신문"
@@ -27214,7 +27462,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27226,7 +27474,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전 서울본부-에공단-서울교통공사, 공덕역서 에너지절약 캠페인 펼쳐</div>
+      <div class="headline">한전 서울본부-에공단-서울교통공사, 공덕역서 에너지절약 캠페인 펼쳐</div>
       <div class="article-snippet">한국전력 서울본부(본부장 이재호)는 19일 지하철 공덕역에서 서울교통공사(사장 김태균), 한국에너지공단 서울지역본부(본부장 장재학)와 합동으로 대국민 에너지절약 캠페인을 펼쳤다고 전했다.이번 캠페인은 8월 22일 ‘에너지의 날’을 기념해 국민들의 에너지 절약에 대한 인식을 새로이 하고 실천 요령을 널리 알리기 위해 마련됐다.한전 등 3개 기관은 지하철 이용 승객과 역사 내 상가 고객들에게 실내 적정 온도 지키기, 냉방시 선풍기 함께 사용하기, 안쓰는 플러그 뽑기 등 생활속 에너지 절약 정보를 안내하고 주택용 에너지 캐시백 제도 가입</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27249,7 +27497,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27268,41 +27516,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/bbca0db08cccbcf752729f75.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
-  data-title="대한전문건설신문"
-  data-publisher="대한전문건설신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787195400"
-  data-country="KR"
-  data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">대한전문건설신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전문건설신문</div>
-      <div class="article-snippet">건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27741,9 +27954,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4431006"
+  data-title="김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;"
+  data-publisher="연합인포맥스"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787201930"
+  data-country="KR"
+  data-search="김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 ai 움직여야&quot; 연합인포맥스 원전 관계부처 김성환 기후에너지환경부 장관이 재생에너지를 중심으로 원전을 함께 인공지능(ai)의 전원으로 사용해야 한다고 재차 언급했다.김 장관은 20일 12차 전력수급기본계획(전기본) 수립을 위한 전기국가 대국민 정책 토론회에서 &quot;석탄과 석유가 아닌 재생에너지를 중심으로 일부 원전을 섞어 깨끗한 에너지원으로 ai 데이터센터와 로봇을 움직이면서, 그 혜택으로 인류가 더 평등하고 행복하게 살아갈 수 있는 사회를 만들어 갈 것&quot;이라고 언급했다.그는 ai 혁명으로 전기 수요가 폭발적으로 늘었다면서, 한국이야말로 철강, 반도체, 전력을 모두 갖춘 유일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합인포맥스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;</div>
+      <div class="article-snippet">김성환 기후에너지환경부 장관이 재생에너지를 중심으로 원전을 함께 인공지능(AI)의 전원으로 사용해야 한다고 재차 언급했다.김 장관은 20일 12차 전력수급기본계획(전기본) 수립을 위한 전기국가 대국민 정책 토론회에서 &quot;석탄과 석유가 아닌 재생에너지를 중심으로 일부 원전을 섞어 깨끗한 에너지원으로 AI 데이터센터와 로봇을 움직이면서, 그 혜택으로 인류가 더 평등하고 행복하게 살아갈 수 있는 사회를 만들어 갈 것&quot;이라고 언급했다.그는 AI 혁명으로 전기 수요가 폭발적으로 늘었다면서, 한국이야말로 철강, 반도체, 전력을 모두 갖춘 유일</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/769498368b0dbf15faa91999.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=173365"
   data-title="[인사] 과학기술정보통신부 외 8월 20일자 - 알파경제"
@@ -27757,7 +28005,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27792,7 +28040,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27820,9 +28068,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ytn.co.kr/_ln/0102_202608201235565822"
+  data-title="&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?"
+  data-publisher="YTN"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787196900"
+  data-country="KR"
+  data-search="&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는? ytn 원전 대미투자 연일 미국 트럼프 행정부 핵심 관계자들을 만난 김정관 산업통상부 장관이 오늘(20일) 귀국합니다.대미 투자 압박과 추가 관세 가능성이 있는 상황에서 어떤 논의가 오갔..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">YTN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?</div>
+      <div class="article-snippet">연일 미국 트럼프 행정부 핵심 관계자들을 만난 김정관 산업통상부 장관이 오늘(20일) 귀국합니다.대미 투자 압박과 추가 관세 가능성이 있는 상황에서 어떤 논의가 오갔...</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/92e971fb6f20745bfe5a5852.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5213582"
   data-title="장동혁 &quot;이 대통령 혼자 페이스메이커…트럼프·김정은 &#x27;노땡스&#x27;할 것&quot;"
@@ -27836,7 +28119,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27871,7 +28154,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27906,7 +28189,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27941,7 +28224,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27969,7 +28252,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">28건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28008,6 +28291,76 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260820110800530?section=industry/all"
+  data-title="&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787203208"
+  data-country="OTHER"
+  data-search="&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27gw↑, &#x27;원전 19기 용량&#x27; | 연합뉴스 연합뉴스 원자력 (서울=연합뉴스) 이재영 기자 = 3대 메가프로젝트 수요를 반영한 결과 2040년 연중 전기를 가장 많이 필요할 때 수요가 대형 원자력발전소 1..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스</div>
+      <div class="article-snippet">(서울=연합뉴스) 이재영 기자 = 3대 메가프로젝트 수요를 반영한 결과 2040년 연중 전기를 가장 많이 필요할 때 수요가 대형 원자력발전소 1...</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fe66aeeb571b2129bf3d2c13.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755992"
+  data-title="AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787202903"
+  data-country="KR"
+  data-search="ai·반도체 전력수요 260twh 전망…원전 놓고 이견도(종합) 뉴시스 원자력 [세종=뉴시스]이수정 기자 = 인공지능(ai) 데이터센터와 반도체 클러스터 등 정부가 추진하는 &#x27;3대 메가프로젝트&#x27;로 향후 연간 약 260테라와트시(twh)의 추가 전력수요가 발생할 수 있다는 전망이 나왔다. 정부가 2030년까지 재생에너지 설비 100기가와트(gw) 보급을 추진하고 있지만, 예상 발전량은 약 150twh에 그치는 만큼 늘어나는 전력 수요에 대응하려면 다양한 무탄소 전원과 전력망, 에너지저장장치(ess) 등 전력 인프라를 함께 확보해야 한다는 분석이다. 기후에너지환경부가 20일 오전 국회 의원회관 제3세미나실에서 개최한 제12차 전력수급기본계획 수립을"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)</div>
+      <div class="article-snippet">[세종=뉴시스]이수정 기자 = 인공지능(AI) 데이터센터와 반도체 클러스터 등 정부가 추진하는 &#x27;3대 메가프로젝트&#x27;로 향후 연간 약 260테라와트시(TWh)의 추가 전력수요가 발생할 수 있다는 전망이 나왔다. 정부가 2030년까지 재생에너지 설비 100기가와트(GW) 보급을 추진하고 있지만, 예상 발전량은 약 150TWh에 그치는 만큼 늘어나는 전력 수요에 대응하려면 다양한 무탄소 전원과 전력망, 에너지저장장치(ESS) 등 전력 인프라를 함께 확보해야 한다는 분석이다. 기후에너지환경부가 20일 오전 국회 의원회관 제3세미나실에서 개최한 제12차 전력수급기본계획 수립을</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/42195197a1fd7067f8bab8d6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755991"
   data-title="한빛원전 드론 침투 대응…영광군, 을지연습 실전역량 강화"
   data-publisher="뉴시스"
@@ -28020,7 +28373,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28032,7 +28385,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한빛원전 드론 침투 대응…영광군, 을지연습 실전역량 강화</div>
+      <div class="headline">한빛원전 드론 침투 대응…영광군, 을지연습 실전역량 강화</div>
       <div class="article-snippet">[영광=뉴시스]이창우 기자 = 전남광주특별시 영광군이 한빛원자력발전소 내 드론 공격과 지상 침투 상황을 가정한 실전훈련을 통해 국가중요시설에 대한 통합 대응 역량을 높였다. 20일 영광군에 따르면 전날 한빛원전에서 &#x27;2026년 을지연습 실제 훈련&#x27;을 통해 전시 상황에서 발생할 수 있는 적 침투와 시설물 폭파·화재, 인명피해 등에 대비한 대응체계를 점검했다. 훈련에는 한빛원전, 제31사단, 제11공수특전여단, 전남경찰청, 전남소방본부 등 9개 기관 150여명이 참여했다. 훈련은 한빛원전 방호 작전 설명을 시작으로 드론 대응 장비를 활용한 격추 시범, 지상에 침투한 적</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28043,6 +28396,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.dailydgnews.com/news/article.html?no=260699"
+  data-title="[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급"
+  data-publisher="데일리대구경북뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787201684"
+  data-country="KR"
+  data-search="[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 a등급 데일리대구경북뉴스 원자력 (데일리대구경북뉴스=황지현 기자)한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(kins)이 주관한 2026년 방사능분석능력평가에서 전 항목 a등급을 획득했다. 방사능분석능력평가는 한국원자력안전기술원 주관으로 국내 방사능 분석기관들의 분석 능력과 분석 자료의 신뢰성, 품질관리 등을 검증하기 위해 1997년부터 매년 시행되는 평가다. 이번 평가에는 지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리대구경북뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급</div>
+      <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(KINS)이 주관한 2026년 방사능분석능력평가에서 전 항목 A등급을 획득했다. 방사능분석능력평가는 한국원자력안전기술원 주관으로 국내 방사능 분석기관들의 분석 능력과 분석 자료의 신뢰성, 품질관리 등을 검증하기 위해 1997년부터 매년 시행되는 평가다. 이번 평가에는 지</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c1bfca2ea28464f59da8db06.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.econovill.com/news/articleView.html?idxno=748479"
   data-title="중동 정세에 해외건설 ‘멈칫’...“플랜트·원전 계약 물꼬 터져야”"
   data-publisher="이코노믹리뷰"
@@ -28055,7 +28443,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28067,7 +28455,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>중동 정세에 해외건설 ‘멈칫’...“플랜트·원전 계약 물꼬 터져야”</div>
+      <div class="headline">중동 정세에 해외건설 ‘멈칫’...“플랜트·원전 계약 물꼬 터져야”</div>
       <div class="article-snippet">해외 건설 수주 성적표에 적신호가 켜졌다. 그동안 국내 주요 건설사들의 곳간을 채워주는 효자 노릇을 톡톡히 해냈지만, 올해 상반기 들어 수주 열기는 급속하게 냉각됐다.이는 중동 지정학적 불안 요인의 장기화와 발주 지연, 글로벌 경기 둔화에 따른 것으로, 국내 건설업계의 해외 진출 전략에 금이 간 모양새다.20일 해외건설협회와 한국건설산업연구원(CERIK) 등에 따르면, 2026년 상반기 국내 건설 업계가 해외에서 거둬들인 수주 총액은 112억8000만 달러(약 15조3000억원)에 그쳤다.이는 초대형 해외 계약이 단기간에 집중됐던</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28090,7 +28478,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28112,7 +28500,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/society/environment/1273774.html"
   data-title="3대 메가프로젝트 위해… 수명 다한 9기 핵발전소 모두 연장 가능성"
   data-publisher="한겨레"
@@ -28125,7 +28513,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28137,7 +28525,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>3대 메가프로젝트 위해… 수명 다한 9기 핵발전소 모두 연장 가능성</div>
+      <div class="headline">3대 메가프로젝트 위해… 수명 다한 9기 핵발전소 모두 연장 가능성</div>
       <div class="article-snippet">이재명 정부의 3대 메가프로젝트에 따라 2041년까지 추가로 필요한 전력 수요를 감당하기 위해 2030년까지 수명을 다하는 9기의 핵발전소(원전)가 모두 연장 운전될 가능성이 커졌다. 정부가 20일 연 12차 전력수급기본계획(전기본) 토론회에서 원전 수명 연장(계속운전</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28160,7 +28548,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28195,7 +28583,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28230,7 +28618,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28265,7 +28653,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28300,7 +28688,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28335,7 +28723,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28370,7 +28758,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28405,7 +28793,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28440,7 +28828,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28475,7 +28863,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28510,7 +28898,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28545,7 +28933,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28580,7 +28968,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28615,7 +29003,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28650,7 +29038,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28685,7 +29073,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28720,7 +29108,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28755,7 +29143,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28790,7 +29178,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28825,7 +29213,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28968,7 +29356,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787202481"
+  data-published="1787203885"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -29117,7 +29505,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787202108"
+  data-published="1787203849"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -29152,7 +29540,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787201659"
+  data-published="1787203696"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -29320,7 +29708,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://air-cosmos.latribune.fr/article/defense/41512605797006/lus-army-commande-10-lakota-supplementaires-a-airbus"
   data-title="L&#x27;US Army commande 10 Lakota supplémentaires à Airbus"
   data-publisher="La Tribune"
@@ -29345,7 +29733,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>L&#x27;US Army commande 10 Lakota supplémentaires à Airbus</div>
+      <div class="headline">L&#x27;US Army commande 10 Lakota supplémentaires à Airbus</div>
       <div class="article-snippet">L&#x27;US Army, au profit de la Garde nationale américaine, a commandé 10 UH-72B auprès d&#x27;Airbus. Aujourd&#x27;hui, la flotte de Lakota représente la troisième flotte de voilures tournantes au sein de l&#x27;US Army.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29355,7 +29743,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://ekonomickydenik.cz/dotovani-vodiku-cenu-zemniho-plynu-nezvysi/"
   data-title="Změna plánu. Podpora vodíku cenu zemního plynu nezvýší, slibuje ministerstvo"
   data-publisher="oEnergetice.cz"
@@ -29380,7 +29768,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Změna plánu. Podpora vodíku cenu zemního plynu nezvýší, slibuje ministerstvo</div>
+      <div class="headline">Změna plánu. Podpora vodíku cenu zemního plynu nezvýší, slibuje ministerstvo</div>
       <div class="article-snippet">Ministerstvo už v novele energetického zákona nepočítá s tím, že by spotřebitelé zemního plynu platili rozvoj přepravní sítě pro vodík.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29790,10 +30178,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">TerraPower</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.goodkyung.com/news/articleView.html?idxno=290449"
+  data-title="[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제"
+  data-publisher="굿모닝경제"
+  data-group="TerraPower"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787201168"
+  data-country="KR"
+  data-search="[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제 굿모닝경제 terrapower 한국수출입은행이 금융을 앞세워 k-원전의 글로벌 시장 진출을 지원하고 있다. 막대한 사업비가 투입되고 사업 기간도 긴 원전 프로젝트 특성상 기술과 시공 능력뿐 아"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">굿모닝경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제</div>
+      <div class="article-snippet">한국수출입은행이 금융을 앞세워 K-원전의 글로벌 시장 진출을 지원하고 있다. 막대한 사업비가 투입되고 사업 기간도 긴 원전 프로젝트 특성상 기술과 시공 능력뿐 아</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7a3e053b0281e9c8e3c1195c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755766"
   data-title="SK그룹, 中법인 지분 정리로 9000억 조달…최태원號 &#x27;AI 풀스택&#x27; 투자 가속"
   data-publisher="뉴시스"
@@ -29806,7 +30229,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29818,7 +30241,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>SK그룹, 中법인 지분 정리로 9000억 조달…최태원號 &#x27;AI 풀스택&#x27; 투자 가속</div>
+      <div class="headline">SK그룹, 中법인 지분 정리로 9000억 조달…최태원號 &#x27;AI 풀스택&#x27; 투자 가속</div>
       <div class="article-snippet">[서울=뉴시스]박현준 기자 = 최태원 SK그룹 회장이 인공지능(AI) 밸류체인 전반의 경쟁력을 확보하는 &#x27;AI 풀스택&#x27; 전략에 속도를 내는 가운데, SK가 중국 사업 투자금 일부를 회수해 에너지·전력 분야의 미래 성장동력 확보에 나선다. 20일 최근 공시된 SK그룹 계열사의 반기보고서에 따르면 SK이노베이션과 SK에너지, SK지오센트릭, SK온은 지난달 각각 이사회 결의 등을 거쳐 보유 중인 SK차이나 지분의 불균등 유상감자에 참여하기로 했다. SK차이나는 SK그룹의 중국 사업을 총괄하는 컨트롤타워 역할을 맡고 있다. 감자가 완료되면 SK이노베이션 계열의 SK차이나</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29909,7 +30332,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">19건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30052,6 +30475,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://it.chosun.com/news/articleView.html?idxno=2023092168499"
+  data-title="대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색"
+  data-publisher="IT조선"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787200314"
+  data-country="US"
+  data-search="대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색 it조선 타 건설사 대우건설이 추진하는 미국 뉴저지 주거개발사업과 관련해 기존에 계획한 합작법인(jv) 추진이 무산된 것으로 확인됐다. 대우건설은 해당 사업부지를 단독 매입했고 새 파트너사를 물색 중이다.20일 대우건설에 따르면 대우건설의 미국 투자법인 dusai(daewoo e&amp;c usa investm"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">IT조선</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색</div>
+      <div class="article-snippet">대우건설이 추진하는 미국 뉴저지 주거개발사업과 관련해 기존에 계획한 합작법인(JV) 추진이 무산된 것으로 확인됐다. 대우건설은 해당 사업부지를 단독 매입했고 새 파트너사를 물색 중이다.20일 대우건설에 따르면 대우건설의 미국 투자법인 DUSAI(Daewoo E&amp;C USA Investm</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3e7267846d1a718db797b969.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397480"
   data-title="창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;"
@@ -30065,7 +30523,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30100,7 +30558,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30122,7 +30580,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.econovill.com/news/articleView.html?idxno=748458"
   data-title="BS한양, 1597억원 규모 광양항 묘도수도 항로 직선화 사업 수주"
   data-publisher="이코노믹리뷰"
@@ -30135,7 +30593,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30147,7 +30605,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>BS한양, 1597억원 규모 광양항 묘도수도 항로 직선화 사업 수주</div>
+      <div class="headline">BS한양, 1597억원 규모 광양항 묘도수도 항로 직선화 사업 수주</div>
       <div class="article-snippet">항만 특화 기술력 인정 받은 BS한양이 여수 광양(여천)항 일대의 혼잡한 뱃길 개선에 나선다.BS한양 컨소시엄(BS한양, 태영건설, 대우건설, 동부건설, HJ중공업)은 해양수산부(여수지방해양수산청)가 발주한 &#x27;광양(여천)항 묘도수도 항로 직선화사업&#x27; 실시설계적격자로 최종 선정됐다고 20일 밝혔다.실시설계적격은 일괄입찰·기술제안입찰 등에서 실시설계서나 기술제안서의 적격 여부와 설계점수를 심사해 실시설계적격자를 정하는 절차이다. 국가계약에서는 국가계약법 시행령 제106조, 지방계약에서는 지방계약법 시행령 제131조·제98조 등이 근거가</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30170,7 +30628,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30205,7 +30663,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30227,7 +30685,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.cnbnews.com/news/articleView.html?idxno=1011907"
   data-title="[미니사사(社史)⑪] 대한민국 현대사를 짓다···&#x27;SINCE 1939’ DL이앤씨 - CNB뉴스"
   data-publisher="CNB뉴스"
@@ -30240,7 +30698,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30252,13 +30710,48 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[미니사사(社史)⑪] 대한민국 현대사를 짓다···&#x27;SINCE 1939’ DL이앤씨 - CNB뉴스</div>
+      <div class="headline">[미니사사(社史)⑪] 대한민국 현대사를 짓다···&#x27;SINCE 1939’ DL이앤씨 - CNB뉴스</div>
       <div class="article-snippet">급변하는 경제환경 속에서도 꿋꿋이 한길을 걸어온 기업들이 있다. 이에 CNB뉴스가 국내 대표적 장수(長壽) 기업들의 태동기부터 현재에 이르는 과정을 짚어보고 미래</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/271ba82922817bad81d43c11.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Real-Estate/2026/08/20260820132245507214b1077807_1"
+  data-title="GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787200810"
+  data-country="AU"
+  data-search="gs건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹 글로벌이코노믹 타 건설사 gs건설이 호주 퀸즐랜드주가 추진하는 대형 철도 인프라 사업의 최종 사업자 선정을 앞두고 있다. gs건설 호주법인이 참여한 컨소시엄은 프랑스 빈치(vinci)가 포함된 경쟁 컨소시엄과 사업권을 놓고 2파전을 벌이고 있다.21일 호주 정부에 따르면 ‘더 웨이브(the wave)’ 2단계"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">12.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹</div>
+      <div class="article-snippet">GS건설이 호주 퀸즐랜드주가 추진하는 대형 철도 인프라 사업의 최종 사업자 선정을 앞두고 있다. GS건설 호주법인이 참여한 컨소시엄은 프랑스 빈치(VINCI)가 포함된 경쟁 컨소시엄과 사업권을 놓고 2파전을 벌이고 있다.21일 호주 정부에 따르면 ‘더 웨이브(The Wave)’ 2단계</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c1bda774573b3581d945caf0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30275,7 +30768,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30310,7 +30803,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30332,7 +30825,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16445"
   data-title="포스코이앤씨, 2600억원대 ‘고의파산’ 의혹...K건설 신뢰 추락"
   data-publisher="ESG경제"
@@ -30345,7 +30838,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30357,7 +30850,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨, 2600억원대 ‘고의파산’ 의혹...K건설 신뢰 추락</div>
+      <div class="headline">포스코이앤씨, 2600억원대 ‘고의파산’ 의혹...K건설 신뢰 추락</div>
       <div class="article-snippet">[ESG경제신문=김대우 기자] 포스코이앤씨가 브라질에서 시공한 해외 플랜트 사업과 관련해 2600억원대 채권 회수 문제가 불거지면서 이른바 ‘고의파산’ 의혹이 제기되고 있다. 막대한 부채를 남긴 채 자회사를 파산시키는 꼬리자르기식 행태로 브라질 채권단이 경제협력개발기구(OECD)에 포스코 본사를 제소하는 사태까지 벌어졌다.해외 발주처와 현지 법인을 둘러싼 복잡한 법적 분쟁이 이어지는 가운데 국내 대표 건설사인 포스코이앤씨의 책임론까지 확산되면서 K건설의 대외 신뢰도에 적지 않은 타격이 예상된다.20일 업계에 따르면 약 54억 달러(</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30380,7 +30873,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30415,7 +30908,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30450,7 +30943,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30485,7 +30978,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30513,10 +31006,10 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755893"
   data-title="코레일, 철도 인프라 활용 &#x27;태양광 발전사업&#x27; 속도…사업자 대상 설명회"
   data-publisher="뉴시스"
@@ -30541,7 +31034,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>코레일, 철도 인프라 활용 &#x27;태양광 발전사업&#x27; 속도…사업자 대상 설명회</div>
+      <div class="headline">코레일, 철도 인프라 활용 &#x27;태양광 발전사업&#x27; 속도…사업자 대상 설명회</div>
       <div class="article-snippet">[서울=뉴시스] 홍찬선 기자 = 한국철도공사(코레일)가 철도 인프라를 활용한 태양광 발전으로 재생에너지 생산을 확대한다. 코레일은 오는 26일 오후 대전 본사에서 ‘태양광 발전사업 공개 설명회’를 열고 사업 대상지와 추진 방향에 대해 발표한다고 20일 밝혔다. 참석기관은 국토교통부와 경기도청, 한국수력원자력, 한국에너지공단, 한국산업단지공단, 국가철도공단 등과 태양광 발전 사업자를 대상으로 한다. 코레일 태양광 발전사업은 철도 유휴공간에 발전설비를 설치해 재생에너지를 생산한다. 코레일이 발전사업자에게 부지를 임대하면 사업자가 발전설비를 설치·운영하고, 생산된 전력은</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30586,6 +31079,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.biztribune.co.kr/news/articleView.html?idxno=357641"
+  data-title="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세"
+  data-publisher="비즈트리뷴"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787188800"
+  data-country="KR"
+  data-search="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세 비즈트리뷴 한국수력원자력 우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(pms) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">비즈트리뷴</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세</div>
+      <div class="article-snippet">우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(PMS) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/199fbc73144df512a146fa6e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755486"
   data-title="우리기술, 85억 규모 원전 PMS 설비개선용 자재 공급계약"
@@ -30599,7 +31127,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30634,7 +31162,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30669,7 +31197,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30704,7 +31232,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30770,7 +31298,42 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
+  data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
+  data-title="대한전문건설신문"
+  data-publisher="대한전문건설신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787203800"
+  data-country="KR"
+  data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">대한전문건설신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">대한전문건설신문</div>
+      <div class="article-snippet">건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820135036796"
   data-title="12차 전기본 재생에너지 전망 내주 공개…2040년 태양광·풍력 보급 규모 제시"
   data-publisher="아주경제"
@@ -30780,41 +31343,6 @@ header,
   data-published="1787201883"
   data-country="KR"
   data-search="12차 전기본 재생에너지 전망 내주 공개…2040년 태양광·풍력 보급 규모 제시 아주경제 한국전력 제12차 전기본 제6차 공개 토론회 개최 홍보 포스터 [사진=기후에너지환경부] 정부가 제12차 전력수급기본계획(전기본)에 반영할 2040년까지의 재생에너지 보급 전망을 다음 주 공개한다. 태양광과 풍력 등 재생에너지 원별 보급 규모와 전망의 실현 가능성을 높이기 위한 정책 방안이 논의될 예정이다. 기후에너지환경부와 제12차 전기본 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부에서 &amp;#39;재생에너지 보급 전망&amp;#39;을 주제로 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회와 분과회의 논의를 거쳐"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">아주경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>12차 전기본 재생에너지 전망 내주 공개…2040년 태양광·풍력 보급 규모 제시</div>
-      <div class="article-snippet">제12차 전기본 제6차 공개 토론회 개최 홍보 포스터 [사진=기후에너지환경부] 정부가 제12차 전력수급기본계획(전기본)에 반영할 2040년까지의 재생에너지 보급 전망을 다음 주 공개한다. 태양광과 풍력 등 재생에너지 원별 보급 규모와 전망의 실현 가능성을 높이기 위한 정책 방안이 논의될 예정이다. 기후에너지환경부와 제12차 전기본 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부에서 &amp;#39;재생에너지 보급 전망&amp;#39;을 주제로 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회와 분과회의 논의를 거쳐</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2a7a02d221f02134cfcb050b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.ajunews.com/view/20260820134830790"
-  data-title="한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot;"
-  data-publisher="아주경제"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787201761"
-  data-country="KR"
-  data-search="한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot; 아주경제 한국전력 새만금-신서산 송전선로 후보 경과지(양화)[사진=부여군] 한국전력공사가 &amp;lsquo;345㎸ 새만금-신서산 송전선로 건설사업&amp;rsquo;의 후보 경과지를 공개하자 부여지역 주민들이 선정 근거와 평가 자료를 공개하라며 반발하고 나섰다. 기존 송전시설이 지나는 지역에 부담이 다시 집중되고, 지자체 경계를 따라 제시된 후보안이 인접 지역 간 갈등을 불러올 수 있다는 주장이다. &amp;nbsp; 이번 후보 경과지는 전북 김제시에서 만경강을 건너 군산시와 익산시를 거친 뒤 충남 부여군과 보령시, 홍성군을 지나 서산시 운산면으로 이어진다. &amp;nbsp; 부여지역에서 논란이 되는 곳은"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -30830,7 +31358,42 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot;</div>
+      <div class="headline">12차 전기본 재생에너지 전망 내주 공개…2040년 태양광·풍력 보급 규모 제시</div>
+      <div class="article-snippet">제12차 전기본 제6차 공개 토론회 개최 홍보 포스터 [사진=기후에너지환경부] 정부가 제12차 전력수급기본계획(전기본)에 반영할 2040년까지의 재생에너지 보급 전망을 다음 주 공개한다. 태양광과 풍력 등 재생에너지 원별 보급 규모와 전망의 실현 가능성을 높이기 위한 정책 방안이 논의될 예정이다. 기후에너지환경부와 제12차 전기본 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부에서 &amp;#39;재생에너지 보급 전망&amp;#39;을 주제로 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회와 분과회의 논의를 거쳐</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2a7a02d221f02134cfcb050b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260820134830790"
+  data-title="한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot;"
+  data-publisher="아주경제"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787201761"
+  data-country="KR"
+  data-search="한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot; 아주경제 한국전력 새만금-신서산 송전선로 후보 경과지(양화)[사진=부여군] 한국전력공사가 &amp;lsquo;345㎸ 새만금-신서산 송전선로 건설사업&amp;rsquo;의 후보 경과지를 공개하자 부여지역 주민들이 선정 근거와 평가 자료를 공개하라며 반발하고 나섰다. 기존 송전시설이 지나는 지역에 부담이 다시 집중되고, 지자체 경계를 따라 제시된 후보안이 인접 지역 간 갈등을 불러올 수 있다는 주장이다. &amp;nbsp; 이번 후보 경과지는 전북 김제시에서 만경강을 건너 군산시와 익산시를 거친 뒤 충남 부여군과 보령시, 홍성군을 지나 서산시 운산면으로 이어진다. &amp;nbsp; 부여지역에서 논란이 되는 곳은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">한전 &#x27;새만금-신서산&#x27; 후보 경과지 공개…부여군 주민 &amp;quot;선정 근거 밝혀야&amp;quot;</div>
       <div class="article-snippet">새만금-신서산 송전선로 후보 경과지(양화)[사진=부여군] 한국전력공사가 &amp;lsquo;345㎸ 새만금-신서산 송전선로 건설사업&amp;rsquo;의 후보 경과지를 공개하자 부여지역 주민들이 선정 근거와 평가 자료를 공개하라며 반발하고 나섰다. 기존 송전시설이 지나는 지역에 부담이 다시 집중되고, 지자체 경계를 따라 제시된 후보안이 인접 지역 간 갈등을 불러올 수 있다는 주장이다. &amp;nbsp; 이번 후보 경과지는 전북 김제시에서 만경강을 건너 군산시와 익산시를 거친 뒤 충남 부여군과 보령시, 홍성군을 지나 서산시 운산면으로 이어진다. &amp;nbsp; 부여지역에서 논란이 되는 곳은</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30840,7 +31403,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755921"
   data-title="[창녕소식]군, 을지연습 &#x27;실전 방불 훈련&#x27; 마무리 등"
   data-publisher="뉴시스"
@@ -30850,41 +31413,6 @@ header,
   data-published="1787199917"
   data-country="KR"
   data-search="[창녕소식]군, 을지연습 &#x27;실전 방불 훈련&#x27; 마무리 등 뉴시스 한국전력 [창녕=뉴시스] 안지율 기자 = 경남 창녕군은 대합면 우포곤충나라에서 국가 비상대비태세 확립을 위한 올해 을지연습 실제훈련을 성공적으로 실시했다고 20일 밝혔다. 이번 훈련은 폭탄 테러와 대형 화재, 인질극 등 복합 재난 상황을 가정해 민·관·군·경·소방의 대응 역량을 점검하기 위해 마련됐다. 훈련에는 군을 비롯해 육군 제5870부대 2대대, 경찰서, 소방서, 한국전력공사 창녕지사, kt 밀양(창녕)지사, 여성민방위기동대 등 7개 기관·단체에서 150여 명이 참여했다. 군 작전 차량과 소방차, 구급차, 드론 등 20여 대의 특수차량과 전문 장비가 투입돼 실전을 방불케"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>[창녕소식]군, 을지연습 &#x27;실전 방불 훈련&#x27; 마무리 등</div>
-      <div class="article-snippet">[창녕=뉴시스] 안지율 기자 = 경남 창녕군은 대합면 우포곤충나라에서 국가 비상대비태세 확립을 위한 올해 을지연습 실제훈련을 성공적으로 실시했다고 20일 밝혔다. 이번 훈련은 폭탄 테러와 대형 화재, 인질극 등 복합 재난 상황을 가정해 민·관·군·경·소방의 대응 역량을 점검하기 위해 마련됐다. 훈련에는 군을 비롯해 육군 제5870부대 2대대, 경찰서, 소방서, 한국전력공사 창녕지사, KT 밀양(창녕)지사, 여성민방위기동대 등 7개 기관·단체에서 150여 명이 참여했다. 군 작전 차량과 소방차, 구급차, 드론 등 20여 대의 특수차량과 전문 장비가 투입돼 실전을 방불케</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/10b9d5007115da03685c6270.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260820_0003755915"
-  data-title="2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최"
-  data-publisher="뉴시스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787199852"
-  data-country="KR"
-  data-search="2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 기후에너지환경부가 2040년까지의 재생에너지 보급 전망을 위해 전문가들과 토론회를 연다. 기후부와 제12차 전력수급기본계획 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부 강당에서 &#x27;재생에너지 보급 전망&#x27;을 주제로 제12차 전기본 수립을 위한 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회 및 분과회의 논의를 거쳐 산출된 2040년까지의 태양광, 풍력 등 재생에너지 원별 보급 전망 잠정안이 공개된다. 기후부와 제12차 전기본 총괄위원회는 계획 수립 과정에서의 투명성을"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -30900,26 +31428,26 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최</div>
-      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부가 2040년까지의 재생에너지 보급 전망을 위해 전문가들과 토론회를 연다. 기후부와 제12차 전력수급기본계획 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부 강당에서 &#x27;재생에너지 보급 전망&#x27;을 주제로 제12차 전기본 수립을 위한 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회 및 분과회의 논의를 거쳐 산출된 2040년까지의 태양광, 풍력 등 재생에너지 원별 보급 전망 잠정안이 공개된다. 기후부와 제12차 전기본 총괄위원회는 계획 수립 과정에서의 투명성을</div>
+      <div class="headline">[창녕소식]군, 을지연습 &#x27;실전 방불 훈련&#x27; 마무리 등</div>
+      <div class="article-snippet">[창녕=뉴시스] 안지율 기자 = 경남 창녕군은 대합면 우포곤충나라에서 국가 비상대비태세 확립을 위한 올해 을지연습 실제훈련을 성공적으로 실시했다고 20일 밝혔다. 이번 훈련은 폭탄 테러와 대형 화재, 인질극 등 복합 재난 상황을 가정해 민·관·군·경·소방의 대응 역량을 점검하기 위해 마련됐다. 훈련에는 군을 비롯해 육군 제5870부대 2대대, 경찰서, 소방서, 한국전력공사 창녕지사, KT 밀양(창녕)지사, 여성민방위기동대 등 7개 기관·단체에서 150여 명이 참여했다. 군 작전 차량과 소방차, 구급차, 드론 등 20여 대의 특수차량과 전문 장비가 투입돼 실전을 방불케</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/fabe822b224f46e9c82cd999.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/10b9d5007115da03685c6270.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260820_0003755878"
-  data-title="[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등"
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755915"
+  data-title="2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최"
   data-publisher="뉴시스"
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787199441"
+  data-published="1787199852"
   data-country="KR"
-  data-search="[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등 뉴시스 한국전력 [시흥=뉴시스] 박석희 기자 = 경기 시흥시인재양성재단은 지난 19일 정기이사회 및 장학기금 기탁식을 열고, 군자농협·북시흥농협·안산농협·대한전문건설협회 시흥시협의회·시흥시쌀연구회영농조합 등으로 부터 총 2000여만원의 장학기금을 전달받았다고 20일 밝혔다. 이날 기탁 기관들은 지역 학생들이 경제적 부담 없이 학업에 전념할 수 있도록 지속적인 나눔을 약속했으며, 전달된 기금은 시흥 지역 학생들의 꿈을 지원하고 미래 인재를 육성하는 장학사업에 전액 사용될 예정이다. 이어 진행된 정기이사회에서는 기부금 사용계획안과 2026년도 장학생 선발 및 장학금 지급 결정안 등 총"
+  data-search="2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 기후에너지환경부가 2040년까지의 재생에너지 보급 전망을 위해 전문가들과 토론회를 연다. 기후부와 제12차 전력수급기본계획 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부 강당에서 &#x27;재생에너지 보급 전망&#x27;을 주제로 제12차 전기본 수립을 위한 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회 및 분과회의 논의를 거쳐 산출된 2040년까지의 태양광, 풍력 등 재생에너지 원별 보급 전망 잠정안이 공개된다. 기후부와 제12차 전기본 총괄위원회는 계획 수립 과정에서의 투명성을"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -30935,7 +31463,42 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등</div>
+      <div class="headline">2040년 태양광·풍력 보급 전망은…내주 12차 전기본 토론회 개최</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부가 2040년까지의 재생에너지 보급 전망을 위해 전문가들과 토론회를 연다. 기후부와 제12차 전력수급기본계획 수립 총괄위원회는 오는 26일 서울 영등포구 한국전력공사 남서울본부 강당에서 &#x27;재생에너지 보급 전망&#x27;을 주제로 제12차 전기본 수립을 위한 제6차 대국민 정책토론회를 개최한다고 20일 밝혔다. 이번 토론회에서는 제12차 전기본 총괄위원회 및 분과회의 논의를 거쳐 산출된 2040년까지의 태양광, 풍력 등 재생에너지 원별 보급 전망 잠정안이 공개된다. 기후부와 제12차 전기본 총괄위원회는 계획 수립 과정에서의 투명성을</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fabe822b224f46e9c82cd999.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755878"
+  data-title="[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787199441"
+  data-country="KR"
+  data-search="[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등 뉴시스 한국전력 [시흥=뉴시스] 박석희 기자 = 경기 시흥시인재양성재단은 지난 19일 정기이사회 및 장학기금 기탁식을 열고, 군자농협·북시흥농협·안산농협·대한전문건설협회 시흥시협의회·시흥시쌀연구회영농조합 등으로 부터 총 2000여만원의 장학기금을 전달받았다고 20일 밝혔다. 이날 기탁 기관들은 지역 학생들이 경제적 부담 없이 학업에 전념할 수 있도록 지속적인 나눔을 약속했으며, 전달된 기금은 시흥 지역 학생들의 꿈을 지원하고 미래 인재를 육성하는 장학사업에 전액 사용될 예정이다. 이어 진행된 정기이사회에서는 기부금 사용계획안과 2026년도 장학생 선발 및 장학금 지급 결정안 등 총"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">7.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">[시흥소식] 인재양성재단, 2000만원 장학기금 기탁받아 등</div>
       <div class="article-snippet">[시흥=뉴시스] 박석희 기자 = 경기 시흥시인재양성재단은 지난 19일 정기이사회 및 장학기금 기탁식을 열고, 군자농협·북시흥농협·안산농협·대한전문건설협회 시흥시협의회·시흥시쌀연구회영농조합 등으로 부터 총 2000여만원의 장학기금을 전달받았다고 20일 밝혔다. 이날 기탁 기관들은 지역 학생들이 경제적 부담 없이 학업에 전념할 수 있도록 지속적인 나눔을 약속했으며, 전달된 기금은 시흥 지역 학생들의 꿈을 지원하고 미래 인재를 육성하는 장학사업에 전액 사용될 예정이다. 이어 진행된 정기이사회에서는 기부금 사용계획안과 2026년도 장학생 선발 및 장학금 지급 결정안 등 총</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30945,7 +31508,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371477"
   data-title="한전 서울본부-에공단-서울교통공사, 공덕역서 에너지절약 캠페인 펼쳐"
   data-publisher="전기신문"
@@ -30958,7 +31521,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30970,7 +31533,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전 서울본부-에공단-서울교통공사, 공덕역서 에너지절약 캠페인 펼쳐</div>
+      <div class="headline">한전 서울본부-에공단-서울교통공사, 공덕역서 에너지절약 캠페인 펼쳐</div>
       <div class="article-snippet">한국전력 서울본부(본부장 이재호)는 19일 지하철 공덕역에서 서울교통공사(사장 김태균), 한국에너지공단 서울지역본부(본부장 장재학)와 합동으로 대국민 에너지절약 캠페인을 펼쳤다고 전했다.이번 캠페인은 8월 22일 ‘에너지의 날’을 기념해 국민들의 에너지 절약에 대한 인식을 새로이 하고 실천 요령을 널리 알리기 위해 마련됐다.한전 등 3개 기관은 지하철 이용 승객과 역사 내 상가 고객들에게 실내 적정 온도 지키기, 냉방시 선풍기 함께 사용하기, 안쓰는 플러그 뽑기 등 생활속 에너지 절약 정보를 안내하고 주택용 에너지 캐시백 제도 가입</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30993,7 +31556,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31012,41 +31575,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/bbca0db08cccbcf752729f75.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
-  data-title="대한전문건설신문"
-  data-publisher="대한전문건설신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787195400"
-  data-country="KR"
-  data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">대한전문건설신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전문건설신문</div>
-      <div class="article-snippet">건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31485,9 +32013,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4431006"
+  data-title="김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;"
+  data-publisher="연합인포맥스"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787201930"
+  data-country="KR"
+  data-search="김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 ai 움직여야&quot; 연합인포맥스 원전 관계부처 김성환 기후에너지환경부 장관이 재생에너지를 중심으로 원전을 함께 인공지능(ai)의 전원으로 사용해야 한다고 재차 언급했다.김 장관은 20일 12차 전력수급기본계획(전기본) 수립을 위한 전기국가 대국민 정책 토론회에서 &quot;석탄과 석유가 아닌 재생에너지를 중심으로 일부 원전을 섞어 깨끗한 에너지원으로 ai 데이터센터와 로봇을 움직이면서, 그 혜택으로 인류가 더 평등하고 행복하게 살아갈 수 있는 사회를 만들어 갈 것&quot;이라고 언급했다.그는 ai 혁명으로 전기 수요가 폭발적으로 늘었다면서, 한국이야말로 철강, 반도체, 전력을 모두 갖춘 유일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합인포맥스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;</div>
+      <div class="article-snippet">김성환 기후에너지환경부 장관이 재생에너지를 중심으로 원전을 함께 인공지능(AI)의 전원으로 사용해야 한다고 재차 언급했다.김 장관은 20일 12차 전력수급기본계획(전기본) 수립을 위한 전기국가 대국민 정책 토론회에서 &quot;석탄과 석유가 아닌 재생에너지를 중심으로 일부 원전을 섞어 깨끗한 에너지원으로 AI 데이터센터와 로봇을 움직이면서, 그 혜택으로 인류가 더 평등하고 행복하게 살아갈 수 있는 사회를 만들어 갈 것&quot;이라고 언급했다.그는 AI 혁명으로 전기 수요가 폭발적으로 늘었다면서, 한국이야말로 철강, 반도체, 전력을 모두 갖춘 유일</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/769498368b0dbf15faa91999.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=173365"
   data-title="[인사] 과학기술정보통신부 외 8월 20일자 - 알파경제"
@@ -31501,7 +32064,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31536,7 +32099,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31564,9 +32127,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ytn.co.kr/_ln/0102_202608201235565822"
+  data-title="&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?"
+  data-publisher="YTN"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787196900"
+  data-country="KR"
+  data-search="&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는? ytn 원전 대미투자 연일 미국 트럼프 행정부 핵심 관계자들을 만난 김정관 산업통상부 장관이 오늘(20일) 귀국합니다.대미 투자 압박과 추가 관세 가능성이 있는 상황에서 어떤 논의가 오갔..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">YTN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?</div>
+      <div class="article-snippet">연일 미국 트럼프 행정부 핵심 관계자들을 만난 김정관 산업통상부 장관이 오늘(20일) 귀국합니다.대미 투자 압박과 추가 관세 가능성이 있는 상황에서 어떤 논의가 오갔...</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/92e971fb6f20745bfe5a5852.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5213582"
   data-title="장동혁 &quot;이 대통령 혼자 페이스메이커…트럼프·김정은 &#x27;노땡스&#x27;할 것&quot;"
@@ -31580,7 +32178,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31615,7 +32213,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31650,7 +32248,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31685,7 +32283,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31713,7 +32311,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">28건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31752,6 +32350,76 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260820110800530?section=industry/all"
+  data-title="&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787203208"
+  data-country="OTHER"
+  data-search="&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27gw↑, &#x27;원전 19기 용량&#x27; | 연합뉴스 연합뉴스 원자력 (서울=연합뉴스) 이재영 기자 = 3대 메가프로젝트 수요를 반영한 결과 2040년 연중 전기를 가장 많이 필요할 때 수요가 대형 원자력발전소 1..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스</div>
+      <div class="article-snippet">(서울=연합뉴스) 이재영 기자 = 3대 메가프로젝트 수요를 반영한 결과 2040년 연중 전기를 가장 많이 필요할 때 수요가 대형 원자력발전소 1...</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fe66aeeb571b2129bf3d2c13.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755992"
+  data-title="AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787202903"
+  data-country="KR"
+  data-search="ai·반도체 전력수요 260twh 전망…원전 놓고 이견도(종합) 뉴시스 원자력 [세종=뉴시스]이수정 기자 = 인공지능(ai) 데이터센터와 반도체 클러스터 등 정부가 추진하는 &#x27;3대 메가프로젝트&#x27;로 향후 연간 약 260테라와트시(twh)의 추가 전력수요가 발생할 수 있다는 전망이 나왔다. 정부가 2030년까지 재생에너지 설비 100기가와트(gw) 보급을 추진하고 있지만, 예상 발전량은 약 150twh에 그치는 만큼 늘어나는 전력 수요에 대응하려면 다양한 무탄소 전원과 전력망, 에너지저장장치(ess) 등 전력 인프라를 함께 확보해야 한다는 분석이다. 기후에너지환경부가 20일 오전 국회 의원회관 제3세미나실에서 개최한 제12차 전력수급기본계획 수립을"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)</div>
+      <div class="article-snippet">[세종=뉴시스]이수정 기자 = 인공지능(AI) 데이터센터와 반도체 클러스터 등 정부가 추진하는 &#x27;3대 메가프로젝트&#x27;로 향후 연간 약 260테라와트시(TWh)의 추가 전력수요가 발생할 수 있다는 전망이 나왔다. 정부가 2030년까지 재생에너지 설비 100기가와트(GW) 보급을 추진하고 있지만, 예상 발전량은 약 150TWh에 그치는 만큼 늘어나는 전력 수요에 대응하려면 다양한 무탄소 전원과 전력망, 에너지저장장치(ESS) 등 전력 인프라를 함께 확보해야 한다는 분석이다. 기후에너지환경부가 20일 오전 국회 의원회관 제3세미나실에서 개최한 제12차 전력수급기본계획 수립을</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/42195197a1fd7067f8bab8d6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755991"
   data-title="한빛원전 드론 침투 대응…영광군, 을지연습 실전역량 강화"
   data-publisher="뉴시스"
@@ -31764,7 +32432,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31776,7 +32444,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한빛원전 드론 침투 대응…영광군, 을지연습 실전역량 강화</div>
+      <div class="headline">한빛원전 드론 침투 대응…영광군, 을지연습 실전역량 강화</div>
       <div class="article-snippet">[영광=뉴시스]이창우 기자 = 전남광주특별시 영광군이 한빛원자력발전소 내 드론 공격과 지상 침투 상황을 가정한 실전훈련을 통해 국가중요시설에 대한 통합 대응 역량을 높였다. 20일 영광군에 따르면 전날 한빛원전에서 &#x27;2026년 을지연습 실제 훈련&#x27;을 통해 전시 상황에서 발생할 수 있는 적 침투와 시설물 폭파·화재, 인명피해 등에 대비한 대응체계를 점검했다. 훈련에는 한빛원전, 제31사단, 제11공수특전여단, 전남경찰청, 전남소방본부 등 9개 기관 150여명이 참여했다. 훈련은 한빛원전 방호 작전 설명을 시작으로 드론 대응 장비를 활용한 격추 시범, 지상에 침투한 적</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31787,6 +32455,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.dailydgnews.com/news/article.html?no=260699"
+  data-title="[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급"
+  data-publisher="데일리대구경북뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787201684"
+  data-country="KR"
+  data-search="[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 a등급 데일리대구경북뉴스 원자력 (데일리대구경북뉴스=황지현 기자)한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(kins)이 주관한 2026년 방사능분석능력평가에서 전 항목 a등급을 획득했다. 방사능분석능력평가는 한국원자력안전기술원 주관으로 국내 방사능 분석기관들의 분석 능력과 분석 자료의 신뢰성, 품질관리 등을 검증하기 위해 1997년부터 매년 시행되는 평가다. 이번 평가에는 지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리대구경북뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급</div>
+      <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(KINS)이 주관한 2026년 방사능분석능력평가에서 전 항목 A등급을 획득했다. 방사능분석능력평가는 한국원자력안전기술원 주관으로 국내 방사능 분석기관들의 분석 능력과 분석 자료의 신뢰성, 품질관리 등을 검증하기 위해 1997년부터 매년 시행되는 평가다. 이번 평가에는 지</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c1bfca2ea28464f59da8db06.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.econovill.com/news/articleView.html?idxno=748479"
   data-title="중동 정세에 해외건설 ‘멈칫’...“플랜트·원전 계약 물꼬 터져야”"
   data-publisher="이코노믹리뷰"
@@ -31799,7 +32502,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31811,7 +32514,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>중동 정세에 해외건설 ‘멈칫’...“플랜트·원전 계약 물꼬 터져야”</div>
+      <div class="headline">중동 정세에 해외건설 ‘멈칫’...“플랜트·원전 계약 물꼬 터져야”</div>
       <div class="article-snippet">해외 건설 수주 성적표에 적신호가 켜졌다. 그동안 국내 주요 건설사들의 곳간을 채워주는 효자 노릇을 톡톡히 해냈지만, 올해 상반기 들어 수주 열기는 급속하게 냉각됐다.이는 중동 지정학적 불안 요인의 장기화와 발주 지연, 글로벌 경기 둔화에 따른 것으로, 국내 건설업계의 해외 진출 전략에 금이 간 모양새다.20일 해외건설협회와 한국건설산업연구원(CERIK) 등에 따르면, 2026년 상반기 국내 건설 업계가 해외에서 거둬들인 수주 총액은 112억8000만 달러(약 15조3000억원)에 그쳤다.이는 초대형 해외 계약이 단기간에 집중됐던</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31834,7 +32537,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31856,7 +32559,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/society/environment/1273774.html"
   data-title="3대 메가프로젝트 위해… 수명 다한 9기 핵발전소 모두 연장 가능성"
   data-publisher="한겨레"
@@ -31869,7 +32572,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31881,7 +32584,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>3대 메가프로젝트 위해… 수명 다한 9기 핵발전소 모두 연장 가능성</div>
+      <div class="headline">3대 메가프로젝트 위해… 수명 다한 9기 핵발전소 모두 연장 가능성</div>
       <div class="article-snippet">이재명 정부의 3대 메가프로젝트에 따라 2041년까지 추가로 필요한 전력 수요를 감당하기 위해 2030년까지 수명을 다하는 9기의 핵발전소(원전)가 모두 연장 운전될 가능성이 커졌다. 정부가 20일 연 12차 전력수급기본계획(전기본) 토론회에서 원전 수명 연장(계속운전</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31904,7 +32607,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31939,7 +32642,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31974,7 +32677,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32009,7 +32712,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32044,7 +32747,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32079,7 +32782,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32114,7 +32817,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32149,7 +32852,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32184,7 +32887,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32219,7 +32922,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32254,7 +32957,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32289,7 +32992,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32324,7 +33027,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32359,7 +33062,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32394,7 +33097,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32429,7 +33132,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32464,7 +33167,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32499,7 +33202,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32534,7 +33237,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32569,7 +33272,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32712,7 +33415,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787202481"
+  data-published="1787203885"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -32861,7 +33564,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787202108"
+  data-published="1787203849"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -32896,7 +33599,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787201659"
+  data-published="1787203696"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -33064,7 +33767,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://air-cosmos.latribune.fr/article/defense/41512605797006/lus-army-commande-10-lakota-supplementaires-a-airbus"
   data-title="L&#x27;US Army commande 10 Lakota supplémentaires à Airbus"
   data-publisher="La Tribune"
@@ -33089,7 +33792,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>L&#x27;US Army commande 10 Lakota supplémentaires à Airbus</div>
+      <div class="headline">L&#x27;US Army commande 10 Lakota supplémentaires à Airbus</div>
       <div class="article-snippet">L&#x27;US Army, au profit de la Garde nationale américaine, a commandé 10 UH-72B auprès d&#x27;Airbus. Aujourd&#x27;hui, la flotte de Lakota représente la troisième flotte de voilures tournantes au sein de l&#x27;US Army.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -33099,7 +33802,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://ekonomickydenik.cz/dotovani-vodiku-cenu-zemniho-plynu-nezvysi/"
   data-title="Změna plánu. Podpora vodíku cenu zemního plynu nezvýší, slibuje ministerstvo"
   data-publisher="oEnergetice.cz"
@@ -33124,7 +33827,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Změna plánu. Podpora vodíku cenu zemního plynu nezvýší, slibuje ministerstvo</div>
+      <div class="headline">Změna plánu. Podpora vodíku cenu zemního plynu nezvýší, slibuje ministerstvo</div>
       <div class="article-snippet">Ministerstvo už v novele energetického zákona nepočítá s tím, že by spotřebitelé zemního plynu platili rozvoj přepravní sítě pro vodík.</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -33534,10 +34237,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">TerraPower</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.goodkyung.com/news/articleView.html?idxno=290449"
+  data-title="[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제"
+  data-publisher="굿모닝경제"
+  data-group="TerraPower"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787201168"
+  data-country="KR"
+  data-search="[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제 굿모닝경제 terrapower 한국수출입은행이 금융을 앞세워 k-원전의 글로벌 시장 진출을 지원하고 있다. 막대한 사업비가 투입되고 사업 기간도 긴 원전 프로젝트 특성상 기술과 시공 능력뿐 아"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">굿모닝경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제</div>
+      <div class="article-snippet">한국수출입은행이 금융을 앞세워 K-원전의 글로벌 시장 진출을 지원하고 있다. 막대한 사업비가 투입되고 사업 기간도 긴 원전 프로젝트 특성상 기술과 시공 능력뿐 아</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7a3e053b0281e9c8e3c1195c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755766"
   data-title="SK그룹, 中법인 지분 정리로 9000억 조달…최태원號 &#x27;AI 풀스택&#x27; 투자 가속"
   data-publisher="뉴시스"
@@ -33550,7 +34288,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33562,7 +34300,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>SK그룹, 中법인 지분 정리로 9000억 조달…최태원號 &#x27;AI 풀스택&#x27; 투자 가속</div>
+      <div class="headline">SK그룹, 中법인 지분 정리로 9000억 조달…최태원號 &#x27;AI 풀스택&#x27; 투자 가속</div>
       <div class="article-snippet">[서울=뉴시스]박현준 기자 = 최태원 SK그룹 회장이 인공지능(AI) 밸류체인 전반의 경쟁력을 확보하는 &#x27;AI 풀스택&#x27; 전략에 속도를 내는 가운데, SK가 중국 사업 투자금 일부를 회수해 에너지·전력 분야의 미래 성장동력 확보에 나선다. 20일 최근 공시된 SK그룹 계열사의 반기보고서에 따르면 SK이노베이션과 SK에너지, SK지오센트릭, SK온은 지난달 각각 이사회 결의 등을 거쳐 보유 중인 SK차이나 지분의 불균등 유상감자에 참여하기로 했다. SK차이나는 SK그룹의 중국 사업을 총괄하는 컨트롤타워 역할을 맡고 있다. 감자가 완료되면 SK이노베이션 계열의 SK차이나</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -37547,7 +38285,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -40754,7 +41492,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.nuclea.energy/technology"
   data-title="Morpheus microreactor"
   data-publisher="Neutron Bytes"
@@ -40779,7 +41517,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Morpheus microreactor</div>
+      <div class="headline">Morpheus microreactor</div>
       <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -126734,118 +127472,128 @@ function layoutAndRenderCountryMap(){
   labelLayer.innerHTML="";
   hideCountryMapTooltip(true);
 
-  // 전체 상태에서는 복잡한 국가 점을 모두 숨기고 깨끗한 세계지도만 표시
-  if(!activeCountryFilter){
-    if(caption)caption.textContent="아래 국가 필터에서 국가를 선택하세요";
-    return;
-  }
-
-  // 기타는 정확한 단일 위치를 찍을 수 없으므로 지도는 기본 상태로 유지
-  if(activeCountryFilter==="OTHER"){
-    if(caption)caption.textContent="기타 국가 기사만 표시 중";
-    return;
-  }
-
-  const button=document.querySelector(
-    `#country-chip-rail .country-pin[data-country-filter="${activeCountryFilter}"]`
-  );
-  if(!button || button.hidden){
-    if(caption)caption.textContent="선택한 국가의 위치 정보가 없습니다";
-    return;
-  }
-
-  const lon=Number(button.dataset.lon);
-  const lat=Number(button.dataset.lat);
-  if(!Number.isFinite(lon)||!Number.isFinite(lat)){
-    if(caption)caption.textContent="선택한 국가의 위치 정보가 없습니다";
-    return;
-  }
-
-  const countNode=button.querySelector(".country-count");
-  const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
-
-  const nameNode=[...button.querySelectorAll("span")]
-    .find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
-  const flag=button.querySelector(".flag")?.textContent||"";
-  const name=nameNode?.textContent||COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
-
-  const x=((lon+180)/360)*1000;
-  const y=((85-lat)/145)*500;
+  const chipButtons=[...document.querySelectorAll("#country-chip-rail .country-pin[data-country-filter]")];
   const SVG_NS="http://www.w3.org/2000/svg";
+  const mapItems=[];
 
-  const group=document.createElementNS(SVG_NS,"g");
-  group.setAttribute("class","country-map-svg-point active");
-  group.setAttribute("data-country-filter",activeCountryFilter);
-  group.setAttribute("tabindex","0");
-  group.setAttribute("role","button");
-  group.setAttribute("aria-label",`${name} 관련 기사 ${count}건`);
+  chipButtons.forEach(button=>{
+    if(button.hidden)return;
+    const code=button.dataset.countryFilter;
+    if(!code || code==="OTHER")return;
 
-  const halo=document.createElementNS(SVG_NS,"circle");
-  halo.setAttribute("class","country-map-svg-halo");
-  halo.setAttribute("cx",String(x));
-  halo.setAttribute("cy",String(y));
-  halo.setAttribute("r","34");
+    const lon=Number(button.dataset.lon);
+    const lat=Number(button.dataset.lat);
+    if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
 
-  const dot=document.createElementNS(SVG_NS,"circle");
-  dot.setAttribute("class","country-map-svg-dot");
-  dot.setAttribute("cx",String(x));
-  dot.setAttribute("cy",String(y));
-  dot.setAttribute("r","19");
+    const countNode=button.querySelector(".country-count");
+    const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
+    if(count<=0)return;
 
-  const title=document.createElementNS(SVG_NS,"title");
-  title.textContent=`${flag} ${name} · ${count}건`;
+    const nameNode=[...button.querySelectorAll("span")].find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
+    const flag=button.querySelector(".flag")?.textContent||"";
+    const name=nameNode?.textContent||COUNTRY_NAMES[code]||code;
+    const x=((lon+180)/360)*1000;
+    const y=((85-lat)/145)*500;
 
-  group.appendChild(halo);
-  group.appendChild(dot);
-  group.appendChild(title);
-  dotLayer.appendChild(group);
+    const group=document.createElementNS(SVG_NS,"g");
+    group.setAttribute("class","country-map-svg-point");
+    group.setAttribute("data-country-filter",code);
+    group.setAttribute("tabindex","0");
+    group.setAttribute("role","button");
+    group.setAttribute("aria-label",`${name} 관련 기사 ${count}건`);
+    if(activeCountryFilter===code)group.classList.add("active");
 
-  const show=()=>showCountryMapTooltip(x,y,flag,name,count,false);
-  group.addEventListener("mouseenter",show);
-  group.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
-  group.addEventListener("focus",show);
-  group.addEventListener("blur",()=>hideCountryMapTooltip(true));
+    const halo=document.createElementNS(SVG_NS,"circle");
+    halo.setAttribute("class","country-map-svg-halo");
+    halo.setAttribute("cx",String(x)); halo.setAttribute("cy",String(y));
+    halo.setAttribute("r",count>=10?"30":count>=4?"26":"22");
 
-  // 선택 국가 라벨 하나만 지도에 표시
-  const label=document.createElement("button");
-  label.type="button";
-  label.className="country-map-label active";
-  label.dataset.countryFilter=activeCountryFilter;
-  label.setAttribute("aria-label",`${name} 기사 ${count}건`);
-  label.innerHTML=`<span class="map-label-flag">${flag}</span><span>${name}</span><span class="map-label-count">${count}건</span>`;
-  labelLayer.appendChild(label);
+    const dot=document.createElementNS(SVG_NS,"circle");
+    dot.setAttribute("class","country-map-svg-dot");
+    dot.setAttribute("cx",String(x)); dot.setAttribute("cy",String(y));
+    dot.setAttribute("r",count>=10?"16":count>=4?"14":"12");
+
+    const title=document.createElementNS(SVG_NS,"title");
+    title.textContent=`${flag} ${name} · ${count}건`;
+    group.appendChild(halo); group.appendChild(dot); group.appendChild(title);
+    dotLayer.appendChild(group);
+
+    const show=()=>showCountryMapTooltip(x,y,flag,name,count,false);
+    group.addEventListener("mouseenter",show);
+    group.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
+    group.addEventListener("focus",show);
+    group.addEventListener("blur",()=>hideCountryMapTooltip(true));
+    group.addEventListener("click",event=>{ event.preventDefault(); event.stopPropagation(); setCountryFilter(code); });
+    group.addEventListener("keydown",event=>{ if(event.key==="Enter"||event.key===" "){ event.preventDefault(); setCountryFilter(code); } });
+
+    const label=document.createElement("button");
+    label.type="button";
+    label.className="country-map-label";
+    if(activeCountryFilter===code)label.classList.add("active");
+    label.dataset.countryFilter=code;
+    label.setAttribute("aria-label",`${name} 기사 ${count}건 보기`);
+    label.innerHTML=`<span class="map-label-flag">${flag}</span><span class="map-label-name">${name}</span><span class="map-label-count">${count}건</span>`;
+    label.addEventListener("mouseenter",show);
+    label.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
+    label.addEventListener("focus",show);
+    label.addEventListener("blur",()=>hideCountryMapTooltip(true));
+    label.addEventListener("click",event=>{ event.preventDefault(); event.stopPropagation(); setCountryFilter(code); });
+    labelLayer.appendChild(label);
+    mapItems.push({label,button,code,count,x,y});
+  });
+
+  if(caption)caption.textContent=activeCountryFilter ? `${COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter} 기사만 표시 중` : "기사 있는 국가 · 국기와 건수 표시";
 
   requestAnimationFrame(()=>{
     const layerRect=labelLayer.getBoundingClientRect();
     if(!layerRect.width || !layerRect.height)return;
+    const ordered=[...mapItems].sort((a,b)=>b.count-a.count);
+    const placed=[];
+    const edge=3, gap=2;
+    const overlaps=(a,b)=>!(a.right<=b.left || a.left>=b.right || a.bottom<=b.top || a.top>=b.bottom);
+    const clamp=(v,min,max)=>Math.max(min,Math.min(v,max));
+    const makeBox=(cx,cy,w,h)=>({left:cx-w/2-gap,right:cx+w/2+gap,top:cy-h/2-gap,bottom:cy+h/2+gap});
 
-    const anchorX=(x/1000)*layerRect.width;
-    const anchorY=(y/500)*layerRect.height;
-    const w=label.offsetWidth;
-    const h=label.offsetHeight;
-    const edge=6;
-
-    // 국가 점을 최대한 가리지 않도록 위쪽 우선, 화면 밖이면 아래쪽으로 배치
-    let cx=anchorX;
-    let cy=anchorY-h-13;
-
-    cx=Math.max(w/2+edge,Math.min(cx,layerRect.width-w/2-edge));
-    if(cy<h/2+edge)cy=anchorY+h+13;
-    cy=Math.max(h/2+edge,Math.min(cy,layerRect.height-h/2-edge));
-
-    label.style.left=`${cx}px`;
-    label.style.top=`${cy}px`;
-
-    const line=document.createElementNS(SVG_NS,"line");
-    line.setAttribute("class","country-map-label-connector");
-    line.setAttribute("x1",String(x));
-    line.setAttribute("y1",String(y));
-    line.setAttribute("x2",String((cx/layerRect.width)*1000));
-    line.setAttribute("y2",String((cy/layerRect.height)*500));
-    dotLayer.insertBefore(line,dotLayer.firstChild);
+    ordered.forEach(item=>{
+      const label=item.label, w=label.offsetWidth, h=label.offsetHeight;
+      const anchorX=(item.x/1000)*layerRect.width;
+      const anchorY=(item.y/500)*layerRect.height;
+      const minX=w/2+edge, maxX=layerRect.width-w/2-edge;
+      const minY=h/2+edge, maxY=layerRect.height-h/2-edge;
+      const candidates=[{dx:0,dy:-h*.8}];
+      const step=Math.max(h+4,24), horizontal=Math.max(w*.7,24);
+      [1,1.4,1.9,2.5,3.2].forEach(r=>{
+        [[0,-step*r],[horizontal*r,-step*r],[-horizontal*r,-step*r],[horizontal*r,0],[-horizontal*r,0],[0,step*r],[horizontal*r,step*r],[-horizontal*r,step*r]].forEach(([dx,dy])=>candidates.push({dx,dy}));
+      });
+      let best=null, bestPenalty=Infinity;
+      candidates.forEach(c=>{
+        const cx=clamp(anchorX+c.dx,minX,maxX), cy=clamp(anchorY+c.dy,minY,maxY);
+        const box=makeBox(cx,cy,w,h);
+        let collisions=0, overlapArea=0;
+        placed.forEach(p=>{
+          if(!overlaps(box,p.box))return;
+          collisions++;
+          const iw=Math.max(0,Math.min(box.right,p.box.right)-Math.max(box.left,p.box.left));
+          const ih=Math.max(0,Math.min(box.bottom,p.box.bottom)-Math.max(box.top,p.box.top));
+          overlapArea+=iw*ih;
+        });
+        const distance=Math.hypot(cx-anchorX,cy-anchorY);
+        const penalty=collisions*100000+overlapArea*100+distance;
+        if(penalty<bestPenalty){ bestPenalty=penalty; best={cx,cy,box,distance}; }
+      });
+      if(!best)return;
+      label.style.left=`${best.cx}px`; label.style.top=`${best.cy}px`;
+      placed.push({box:best.box,code:item.code});
+      if(best.distance>18){
+        const line=document.createElementNS(SVG_NS,"line");
+        line.setAttribute("class","country-map-label-connector");
+        line.setAttribute("x1",String(item.x)); line.setAttribute("y1",String(item.y));
+        line.setAttribute("x2",String((best.cx/layerRect.width)*1000));
+        line.setAttribute("y2",String((best.cy/layerRect.height)*500));
+        dotLayer.insertBefore(line,dotLayer.firstChild);
+      }
+    });
   });
-
-  if(caption)caption.textContent=`${flag} ${name} · ${count}건`;
 }
 
 
@@ -126870,17 +127618,6 @@ if(window.visualViewport){
   window.visualViewport.addEventListener("scroll",scheduleCountryMapRelayout);
 }
 
-
-function centerCountryChip(button, smooth=true){
-  const rail=document.getElementById("country-chip-rail");
-  if(!rail || !button || button.hidden)return;
-
-  const target=button.offsetLeft-(rail.clientWidth-button.offsetWidth)/2;
-  rail.scrollTo({
-    left:Math.max(0,target),
-    behavior:smooth?"smooth":"auto"
-  });
-}
 
 function updateCountryMapCounts(){
   const panel=activePanel();
@@ -126912,7 +127649,6 @@ function updateCountryMapCounts(){
     button.hidden=count===0;
     button.classList.toggle("active",activeCountryFilter===code);
     if(activeCountryFilter===code && !button.hidden){
-      requestAnimationFrame(()=>centerCountryChip(button,true));
     }
   });
 
@@ -126993,10 +127729,7 @@ function setCountryFilter(code){
 }
 
 document.querySelectorAll("#country-chip-rail [data-country-filter]").forEach(button=>{
-  button.addEventListener("click",()=>{
-    setCountryFilter(button.dataset.countryFilter);
-    requestAnimationFrame(()=>centerCountryChip(button,true));
-  });
+  button.addEventListener("click",()=>setCountryFilter(button.dataset.countryFilter));
 });
 
 const countryAllButton=document.getElementById("country-all");
@@ -127005,7 +127738,6 @@ if(countryAllButton){
     activeCountryFilter="";
     filterArticles();
     updateCountryMapCounts();
-    requestAnimationFrame(()=>centerCountryChip(countryAllButton,true));
     const note=document.getElementById("country-filter-note");
     if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
   });
