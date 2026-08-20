@@ -3368,6 +3368,41 @@ def _mentions_kepco_affiliate(title: str, summary: str = "") -> bool:
     return False
 
 
+
+def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
+    """한국전력 본체가 기사에 직접 명시되었는지 판별합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    parent_terms = (
+        "한국전력",
+        "한국전력공사",
+        "kepco",
+        "korea electric power corporation",
+    )
+
+    # 계열사 영문명 속 KEPCO는 한국전력 본체 언급으로 오인하지 않도록 제거
+    affiliate_phrases = (
+        "kepco kps",
+        "kepco-kps",
+        "kepco e&c",
+        "kepco engineering & construction",
+        "kepco engineering and construction",
+        "kepco nuclear fuel",
+    )
+    parent_haystack = haystack
+    for phrase in affiliate_phrases:
+        parent_haystack = parent_haystack.replace(phrase, " ")
+    parent_compact = re.sub(r"\s+", "", parent_haystack)
+
+    return (
+        "한국전력" in compact
+        or "한국전력공사" in compact
+        or "koreaelectricpowercorporation" in parent_compact
+        or re.search(r"(?<![a-z0-9])kepco(?![a-z0-9])", parent_haystack) is not None
+    )
+
+
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
     회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
@@ -3388,7 +3423,11 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
-    # 한전 계열사는 한국전력 본체와 분리
+    # 한국전력 본체와 계열사가 함께 언급되면 한국전력 탭을 우선
+    if _mentions_kepco_parent(title, summary):
+        return "한국전력"
+
+    # 계열사만 언급된 경우 한전 계열사 탭
     if _mentions_kepco_affiliate(title, summary):
         return "한전 계열사"
 
@@ -5863,6 +5902,39 @@ def is_khnp_elementary_article(article: Article) -> bool:
     return has_khnp and has_elementary
 
 
+
+def _taihan_hvdc_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 대한전선 + HVDC 관련 보도는 언론사가 달라도 대표기사 1건만 유지합니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    company_terms = (
+        "대한전선",
+        "taihan cable & solution",
+        "taihan cable and solution",
+        "taihan cable",
+        "taihan",
+    )
+    hvdc_terms = (
+        "hvdc",
+        "초고압직류송전",
+        "초고압 직류송전",
+        "고압직류송전",
+        "고압 직류송전",
+        "high voltage direct current",
+    )
+
+    has_company = any(term.replace(" ", "") in compact for term in company_terms)
+    has_hvdc = any(term.replace(" ", "") in compact for term in hvdc_terms)
+
+    if not (has_company and has_hvdc):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -6195,7 +6267,29 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             auto_shutdown_unique[idx] = article
 
-    result = sorted(auto_shutdown_unique, key=lambda x: x.published, reverse=True)
+    # 같은 날짜 + 대한전선 + HVDC 관련 보도는 대표기사 1건만 유지
+    taihan_hvdc_unique: list[Article] = []
+    taihan_hvdc_key_to_idx: dict[str, int] = {}
+    taihan_hvdc_removed = 0
+
+    for article in auto_shutdown_unique:
+        event_key = _taihan_hvdc_event_key(article)
+        if event_key is None:
+            taihan_hvdc_unique.append(article)
+            continue
+
+        if event_key not in taihan_hvdc_key_to_idx:
+            taihan_hvdc_key_to_idx[event_key] = len(taihan_hvdc_unique)
+            taihan_hvdc_unique.append(article)
+            continue
+
+        taihan_hvdc_removed += 1
+        idx = taihan_hvdc_key_to_idx[event_key]
+        kept = taihan_hvdc_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            taihan_hvdc_unique[idx] = article
+
+    result = sorted(taihan_hvdc_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ exact_content_removed={exact_content_removed} "
@@ -6211,7 +6305,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ planned_maintenance_removed={planned_maintenance_removed} "
         f"/ nuclear_training_removed={nuclear_training_removed} "
         f"/ nuclear_movie_removed={nuclear_movie_removed} "
-        f"/ auto_shutdown_removed={auto_shutdown_removed} / final={len(result)}"
+        f"/ auto_shutdown_removed={auto_shutdown_removed} "
+        f"/ taihan_hvdc_removed={taihan_hvdc_removed} / final={len(result)}"
     )
     return result
 
