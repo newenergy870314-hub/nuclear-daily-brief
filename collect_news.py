@@ -6484,7 +6484,8 @@ main {{ padding: 12px 12px 34px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
 .group-name {{ display: inline-flex; align-items: center; height: 27px; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
-.group-name.company-equal-width {{ width: 54px; min-width: 54px; flex: 0 0 54px; }}
+.group-name.company-equal-width {{ width: 72px; min-width: 72px; flex: 0 0 72px; justify-content: flex-start; text-align: left; letter-spacing: 0; }}
+.group-name.company-equal-width + .group-count {{ margin-left: 4px; flex: 0 0 auto; }}
 .group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
