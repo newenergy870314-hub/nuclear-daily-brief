@@ -9775,6 +9775,157 @@ header,
   margin-bottom:0 !important;
 }}
 
+
+/* ============================================================
+   COUNTRY MAP — progressive disclosure / decluttered mobile UI
+   지도는 지도답게, 국가 선택은 하단 필터 중심으로 구성
+   ============================================================ */
+.country-map-visual {{
+  min-height:170px !important;
+  height:clamp(170px,40vw,210px) !important;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255,255,255,.98), rgba(244,247,250,.98)) !important;
+}}
+
+.country-map-label-layer {{
+  pointer-events:none !important;
+}}
+
+.country-map-label {{
+  display:none !important;
+}}
+
+/* 상위 주요국만 작은 라벨로 노출 */
+.country-map-label.map-label-featured,
+.country-map-label.active {{
+  display:inline-flex !important;
+  min-height:24px !important;
+  padding:3px 6px !important;
+  gap:3px !important;
+  border:1px solid rgba(35,57,93,.18) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.94) !important;
+  color:#243b5a !important;
+  box-shadow:0 2px 7px rgba(17,24,39,.10) !important;
+  font-size:7.8px !important;
+  font-weight:850 !important;
+  pointer-events:auto !important;
+  backdrop-filter:blur(5px);
+}}
+
+.country-map-label.map-label-featured .map-label-flag,
+.country-map-label.active .map-label-flag {{
+  font-size:11px !important;
+}}
+
+.country-map-label.map-label-featured .map-label-count,
+.country-map-label.active .map-label-count {{
+  color:#d92d20 !important;
+  font-size:7.8px !important;
+}}
+
+.country-map-label.active {{
+  border-color:#1f4f8a !important;
+  background:#1f4f8a !important;
+  color:#fff !important;
+  z-index:10 !important;
+}}
+
+.country-map-label.active .map-label-count {{
+  color:#fee500 !important;
+}}
+
+/* 큰 고정 말풍선은 선택 순간만 쓰고, 평소 지도는 가리지 않도록 축소 */
+.country-map-html-tooltip {{
+  min-height:38px !important;
+  padding:7px 10px !important;
+  gap:6px !important;
+  border-radius:10px !important;
+  box-shadow:0 5px 16px rgba(17,24,39,.26) !important;
+}}
+.map-tooltip-flag {{
+  font-size:19px !important;
+}}
+.map-tooltip-country,
+.map-tooltip-count {{
+  font-size:14px !important;
+}}
+
+/* 지도 점은 조금 작게 해 실제 지형을 더 잘 보이게 */
+.country-map-svg-halo {{
+  opacity:.22 !important;
+}}
+.country-map-svg-dot {{
+  stroke-width:4.5 !important;
+}}
+.country-map-svg-point {{
+  cursor:pointer;
+}}
+
+/* 하단 국가필터: 한 줄 가로스크롤, 선택 상태만 강하게 */
+.country-chip-guide-bottom {{
+  margin:7px 2px 4px !important;
+  font-size:7.8px !important;
+  color:#8a94a3 !important;
+}}
+#country-chip-rail.country-chip-rail {{
+  gap:5px !important;
+  min-height:34px !important;
+  padding:1px 1px 3px !important;
+  margin:0 !important;
+}}
+#country-chip-rail .country-pin {{
+  min-height:31px !important;
+  height:31px !important;
+  padding:0 9px !important;
+  border-color:#e1e6ed !important;
+  background:#fff !important;
+  color:#40546e !important;
+  box-shadow:0 1px 2px rgba(17,24,39,.04) !important;
+  font-size:9px !important;
+}}
+#country-chip-rail .country-pin .flag {{
+  font-size:13px !important;
+}}
+#country-chip-rail .country-pin .country-count {{
+  font-size:8px !important;
+  color:#8b96a5 !important;
+}}
+#country-chip-rail .country-pin.active {{
+  background:#1f4f8a !important;
+  border-color:#1f4f8a !important;
+  color:#fff !important;
+  box-shadow:0 2px 5px rgba(31,79,138,.18) !important;
+}}
+#country-chip-rail .country-pin.active .country-count {{
+  color:#fee500 !important;
+}}
+
+@media (max-width:767px) {{
+  .country-map-visual {{
+    min-height:178px !important;
+    height:188px !important;
+  }}
+  .country-map-label.map-label-featured,
+  .country-map-label.active {{
+    min-height:25px !important;
+    padding:3px 6px !important;
+    font-size:8px !important;
+  }}
+  #country-chip-rail .country-pin {{
+    min-height:33px !important;
+    height:33px !important;
+    padding:0 10px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual {{
+    min-height:172px !important;
+    height:180px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -10612,7 +10763,7 @@ header,
     </div>
     </div>
 
-    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
+    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가 필터를 누르면 해당 기사만 표시됩니다</div>
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
         <span>전체</span><span class="country-count">0건</span>
@@ -11190,6 +11341,21 @@ function layoutAndRenderCountryMap(){{
   const SVG_NS="http://www.w3.org/2000/svg";
   const mapItems=[];
 
+  // 지도 상시 라벨은 기사 수 상위 5개 국가만 표시해 지도를 가리지 않도록 함
+  const featuredCodes=new Set(
+    chipButtons
+      .filter(button=>!button.hidden && button.dataset.countryFilter && button.dataset.countryFilter!=="OTHER")
+      .map(button=>{{
+        const countNode=button.querySelector(".country-count");
+        const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
+        return {{code:button.dataset.countryFilter,count}};
+      }})
+      .filter(item=>item.count>0)
+      .sort((a,b)=>b.count-a.count)
+      .slice(0,5)
+      .map(item=>item.code)
+  );
+
   chipButtons.forEach(button=>{{
     if(button.hidden)return;
 
@@ -11262,6 +11428,7 @@ function layoutAndRenderCountryMap(){{
     const label=document.createElement("button");
     label.type="button";
     label.className="country-map-label";
+    if(featuredCodes.has(code))label.classList.add("map-label-featured");
     if(activeCountryFilter===code)label.classList.add("active");
     label.dataset.countryFilter=code;
     label.dataset.count=String(count);
@@ -11281,7 +11448,9 @@ function layoutAndRenderCountryMap(){{
     }});
 
     labelLayer.appendChild(label);
-    mapItems.push({{label,button,code,count,x,y}});
+    if(featuredCodes.has(code) || activeCountryFilter===code){{
+      mapItems.push({{label,button,code,count,x,y}});
+    }}
 
     if(activeCountryFilter===code)show(true);
   }});
