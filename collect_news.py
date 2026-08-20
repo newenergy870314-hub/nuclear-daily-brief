@@ -3290,6 +3290,20 @@ HOLTEC_TERMS = {
 }
 
 
+def is_pacific_palisades_non_nuclear_article(title: str, summary: str = "") -> bool:
+    """LA Pacific Palisades 화재·범죄 등 비원자력 기사 오탐을 전역에서 제외합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    if "pacific palisades" not in haystack:
+        return False
+
+    non_nuclear_terms = (
+        "suspect", "franco-américain", "franco-americain", "franco american",
+        "incendie", "fire", "wildfire", "meurtrier", "plaide", "coupable",
+        "arson", "los angeles", "la fire", "palisades fire",
+    )
+    return any(term in haystack for term in non_nuclear_terms)
+
+
 def is_valid_holtec_article(title: str, summary: str = "") -> bool:
     """Holtec 검색 결과의 지명 오탐(Pacific Palisades 등)을 제거합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
@@ -3544,8 +3558,11 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if classified_group is None:
         return None
 
+    # LA Pacific Palisades 화재·범죄 기사 등은 어느 검색 그룹에서 들어와도 제외합니다.
+    if is_pacific_palisades_non_nuclear_article(title, summary):
+        return None
+
     # Holtec 전용 검색 결과는 실제 Holtec/원전 관련성이 확인되는 기사만 유지합니다.
-    # 예: "Pacific Palisades" 산불/사건 기사는 Palisades 지명 오탐이므로 제외.
     if group == "Holtec" and classified_group == "Holtec" and not is_valid_holtec_article(title, summary):
         return None
 
@@ -9529,8 +9546,8 @@ header,
   align-items:center;
   justify-content:flex-start;
   gap:5px;
-  min-height:106px;
-  padding:18px 7px 8px;
+  min-height:98px;
+  padding:9px 7px 8px;
   border:1px solid rgba(141,178,208,.22);
   border-radius:15px;
   background:linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(246,250,253,.95) 100%);
@@ -9832,23 +9849,8 @@ header,
 }}
 
 .mini-world-clock::before {{
-  position:absolute;
-  top:6px;
-  right:6px;
-  left:auto;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:24px;
-  height:13px;
-  padding:0 6px;
-  border-radius:999px;
-  font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:6.1px;
-  font-weight:900;
-  line-height:1;
-  letter-spacing:.1px;
-  box-shadow:0 1px 4px rgba(60,94,126,.08);
+  display:none !important;
+  content:none !important;
 }}
 
 .world-clock-rail .mini-world-clock:first-child {{
@@ -9857,9 +9859,8 @@ header,
 }}
 
 .world-clock-rail .mini-world-clock:first-child::before {{
-  content:"기준";
-  background:#2f6ea6;
-  color:#ffffff;
+  display:none !important;
+  content:none !important;
 }}
 
 .world-clock-rail .mini-world-clock:first-child .analog-clock {{
@@ -9881,9 +9882,8 @@ header,
 }}
 
 .mini-world-clock[data-role="selected-country"]::before {{
-  content:"선택";
-  background:#d06a5b;
-  color:#ffffff;
+  display:none !important;
+  content:none !important;
 }}
 
 .mini-world-clock[data-role="selected-country"] .analog-clock {{
@@ -12559,7 +12559,8 @@ header,
 }}
 
 .mini-world-clock::before {{
-  z-index:2;
+  display:none !important;
+  content:none !important;
 }}
 
 .mini-world-clock .analog-clock {{
@@ -12572,15 +12573,15 @@ header,
 
 @media (max-width:430px) {{
   .mini-world-clock {{
-    min-height:102px;
-    padding:17px 6px 8px;
+    min-height:96px;
+    padding:9px 6px 8px;
   }}
 }}
 
 @media (max-width:380px) {{
   .mini-world-clock {{
-    min-height:98px;
-    padding:16px 5px 7px;
+    min-height:92px;
+    padding:8px 5px 7px;
   }}
   .mini-world-clock::before {{
     top:5px;
@@ -12594,6 +12595,179 @@ header,
   }}
   .mini-clock-country {{
     font-size:6.5px;
+  }}
+}}
+
+/* ============================================================
+   FINAL SIMPLIFIED COUNTRY UI — BORDERLESS / HARMONIZED
+   ============================================================ */
+.country-map-content {{
+  grid-template-columns:88px minmax(0,1fr) !important;
+  gap:10px !important;
+  align-items:center !important;
+}}
+
+.world-clock-rail {{
+  align-self:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+}}
+
+.mini-world-clock {{
+  min-height:92px !important;
+  padding:7px 6px 7px !important;
+  border:none !important;
+  border-radius:13px !important;
+  box-shadow:none !important;
+}}
+
+.world-clock-rail .mini-world-clock:first-child {{
+  background:linear-gradient(180deg, rgba(244,249,253,.86) 0%, rgba(238,246,252,.70) 100%) !important;
+}}
+
+.mini-world-clock[data-role="selected-country"] {{
+  background:linear-gradient(180deg, rgba(253,249,246,.88) 0%, rgba(250,244,240,.70) 100%) !important;
+}}
+
+.analog-clock {{
+  width:54px !important;
+  height:54px !important;
+  box-shadow:inset 0 0 0 2px #fff, inset 0 0 0 3px #e1e6eb, 0 1px 3px rgba(31,53,87,.08) !important;
+}}
+
+.world-clock-rail .mini-world-clock:first-child .analog-clock {{
+  border-color:#a7bdd0 !important;
+  box-shadow:inset 0 0 0 2px #f8fbfd, inset 0 0 0 3px #e1e9ef, 0 1px 3px rgba(47,110,166,.08) !important;
+}}
+
+.mini-world-clock[data-role="selected-country"] .analog-clock {{
+  border-color:#cdb6ae !important;
+  box-shadow:inset 0 0 0 2px #fffaf8, inset 0 0 0 3px #eee2de, 0 1px 3px rgba(140,88,72,.07) !important;
+}}
+
+.mini-clock-label {{
+  font-size:8.6px !important;
+  margin-top:0 !important;
+}}
+
+.mini-clock-meta {{
+  padding:0 5px !important;
+}}
+
+.country-map-content .country-map-visual.globe-mode {{
+  height:216px !important;
+  border:none !important;
+  border-radius:0 !important;
+  background:
+    radial-gradient(circle at 34% 42%, rgba(255,255,255,.96) 0%, rgba(249,252,254,.78) 34%, rgba(239,247,252,.48) 66%, transparent 84%),
+    linear-gradient(180deg, rgba(248,251,254,.70) 0%, rgba(239,246,251,.48) 100%) !important;
+  box-shadow:none !important;
+}}
+
+.country-map-content .country-map-visual.globe-mode::before {{
+  opacity:.38 !important;
+}}
+
+.country-map-content .country-map-visual.globe-mode::after {{
+  opacity:.45 !important;
+}}
+
+.globe-stage {{
+  padding:0 130px 0 16px !important;
+}}
+
+.globe-sphere {{
+  width:158px !important;
+  transform:translateY(2px) !important;
+  filter:drop-shadow(0 9px 13px rgba(35,57,93,.09)) !important;
+}}
+
+.globe-label-rail {{
+  top:10px !important;
+  right:8px !important;
+  bottom:10px !important;
+  width:112px !important;
+  padding:9px 9px 8px !important;
+  border:1px solid rgba(141,178,208,.24) !important;
+  border-radius:14px !important;
+  background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(247,250,253,.91) 100%) !important;
+  box-shadow:0 4px 12px rgba(60,94,126,.055) !important;
+}}
+
+.country-map-caption {{
+  top:10px !important;
+  left:10px !important;
+  max-width:146px !important;
+  border-color:rgba(148,190,216,.14) !important;
+  background:rgba(255,255,255,.88) !important;
+  box-shadow:0 1px 5px rgba(44,94,132,.05) !important;
+}}
+
+@media (max-width:430px) {{
+  .country-map-content {{
+    grid-template-columns:76px minmax(0,1fr) !important;
+    gap:8px !important;
+  }}
+  .mini-world-clock {{
+    min-height:88px !important;
+    padding:6px 5px !important;
+  }}
+  .analog-clock {{
+    width:50px !important;
+    height:50px !important;
+  }}
+  .country-map-content .country-map-visual.globe-mode {{
+    height:204px !important;
+  }}
+  .globe-stage {{
+    padding:0 118px 0 8px !important;
+  }}
+  .globe-sphere {{
+    width:148px !important;
+  }}
+  .globe-label-rail {{
+    top:9px !important;
+    right:6px !important;
+    bottom:9px !important;
+    width:96px !important;
+    padding:8px 7px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-content {{
+    grid-template-columns:70px minmax(0,1fr) !important;
+    gap:7px !important;
+  }}
+  .mini-world-clock {{
+    min-height:84px !important;
+    padding:5px 4px !important;
+  }}
+  .analog-clock {{
+    width:46px !important;
+    height:46px !important;
+  }}
+  .mini-clock-label {{
+    font-size:7.8px !important;
+  }}
+  .mini-clock-country {{
+    font-size:6.3px !important;
+  }}
+  .country-map-content .country-map-visual.globe-mode {{
+    height:194px !important;
+  }}
+  .globe-stage {{
+    padding:0 108px 0 7px !important;
+  }}
+  .globe-sphere {{
+    width:140px !important;
+  }}
+  .globe-label-rail {{
+    top:8px !important;
+    right:5px !important;
+    bottom:8px !important;
+    width:88px !important;
+    padding:7px 6px !important;
   }}
 }}
 
