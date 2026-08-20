@@ -5782,6 +5782,86 @@ def _same_day_win_win_company_event_key(article: Article) -> str | None:
     return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
+HANUL_CLIMATE_VULNERABLE_WELFARE_TERMS = (
+    "기후약자",
+    "기후 약자",
+    "복지시설",
+    "복지 시설",
+)
+
+
+def _hanul_climate_vulnerable_welfare_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 '한울원자력본부 + 기후약자 + 복지시설' 보도는
+    언론사와 제목 표현이 달라도 동일 이슈로 보고 대표기사 1건만 유지합니다.
+    """
+    haystack = html.unescape(f"{article.title} {article.description}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_hanul = any(term in compact for term in (
+        "한울원자력본부",
+        "한울원전본부",
+        "한울원전",
+        "한울본부",
+    ))
+    if not has_hanul:
+        return None
+
+    has_climate_vulnerable = "기후약자" in compact
+    has_welfare_facility = "복지시설" in compact
+    if not (has_climate_vulnerable and has_welfare_facility):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
+KORAIL_SOLAR_INFRA_TERMS = (
+    "철도인프라",
+    "철도 인프라",
+    "태양광발전사업",
+    "태양광 발전사업",
+    "태양광사업",
+    "태양광 사업",
+    "사업자대상설명회",
+    "사업자 대상 설명회",
+)
+
+
+def _korail_railway_solar_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 '코레일 + 철도 인프라 활용 + 태양광 발전사업' 보도는
+    언론사와 제목 표현이 달라도 동일 이슈로 보고 대표기사 1건만 유지합니다.
+    """
+    haystack = html.unescape(f"{article.title} {article.description}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_korail = any(term in compact for term in (
+        "코레일",
+        "한국철도공사",
+        "korail",
+    ))
+    if not has_korail:
+        return None
+
+    has_railway_infra = any(term.replace(" ", "") in compact for term in (
+        "철도 인프라",
+        "철도인프라",
+        "철도 부지",
+        "철도부지",
+    ))
+    has_solar_project = any(term.replace(" ", "") in compact for term in (
+        "태양광 발전사업",
+        "태양광발전사업",
+        "태양광 사업",
+        "태양광사업",
+    ))
+
+    if not (has_railway_infra and has_solar_project):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
 
 NUCLEAR_SITE_ALIASES = {
     "한울": ("한울", "hanul"),
@@ -6498,12 +6578,56 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             win_win_unique[idx] = article
 
+    # 같은 날짜 + 한울원자력본부 + 기후약자 + 복지시설 보도는 대표기사 1건만 유지
+    hanul_welfare_unique: list[Article] = []
+    hanul_welfare_key_to_idx: dict[str, int] = {}
+    hanul_welfare_removed = 0
+
+    for article in win_win_unique:
+        event_key = _hanul_climate_vulnerable_welfare_event_key(article)
+        if event_key is None:
+            hanul_welfare_unique.append(article)
+            continue
+
+        if event_key not in hanul_welfare_key_to_idx:
+            hanul_welfare_key_to_idx[event_key] = len(hanul_welfare_unique)
+            hanul_welfare_unique.append(article)
+            continue
+
+        hanul_welfare_removed += 1
+        idx = hanul_welfare_key_to_idx[event_key]
+        kept = hanul_welfare_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            hanul_welfare_unique[idx] = article
+
+    # 같은 날짜 + 코레일 + 철도 인프라 활용 + 태양광 발전사업 보도는 대표기사 1건만 유지
+    korail_solar_unique: list[Article] = []
+    korail_solar_key_to_idx: dict[str, int] = {}
+    korail_solar_removed = 0
+
+    for article in hanul_welfare_unique:
+        event_key = _korail_railway_solar_event_key(article)
+        if event_key is None:
+            korail_solar_unique.append(article)
+            continue
+
+        if event_key not in korail_solar_key_to_idx:
+            korail_solar_key_to_idx[event_key] = len(korail_solar_unique)
+            korail_solar_unique.append(article)
+            continue
+
+        korail_solar_removed += 1
+        idx = korail_solar_key_to_idx[event_key]
+        kept = korail_solar_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            korail_solar_unique[idx] = article
+
     # 같은 날짜 + 같은 원전본부/원전 + 동일 호기 + 원자로 관련 보도는 대표기사 1건만 유지
     site_reactor_unique: list[Article] = []
     site_reactor_key_to_idx: dict[tuple[str, str], int] = {}
     site_reactor_removed = 0
 
-    for article in win_win_unique:
+    for article in korail_solar_unique:
         event_key = _nuclear_site_unit_reactor_event_key(article)
         if event_key is None:
             site_reactor_unique.append(article)
@@ -6687,6 +6811,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ construction_award_removed={construction_award_removed} "
         f"/ construction_union_removed={construction_union_removed} "
         f"/ win_win_company_removed={win_win_company_removed} "
+        f"/ hanul_welfare_removed={hanul_welfare_removed} "
+        f"/ korail_solar_removed={korail_solar_removed} "
         f"/ site_reactor_removed={site_reactor_removed} "
         f"/ daewoo_lee_removed={daewoo_lee_removed} "
         f"/ planned_maintenance_removed={planned_maintenance_removed} "
