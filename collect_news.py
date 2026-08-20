@@ -7144,7 +7144,7 @@ footer {{ padding: 0 12px 28px; color: #475467; font-size: 10px; text-align: cen
   .card-side, .preview-image {{ width: 112px; }}
 }}
 
-@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 76px; }} .card-side, .preview-image {{ width: 76px; }} .headline {{ font-size: 12px; }} .article-snippet {{ font-size: 10px; }} }}
+@media (max-width: 380px) {{ .preview-card {{ grid-template-columns: 24px minmax(0,1fr) 82px; }} .card-side, .preview-image {{ width: 82px; }} .headline {{ font-size: 12px; }} .article-snippet {{ font-size: 10px; }} }}
 
 /* Newspaper-inspired visual refinement */
 body {{
@@ -7754,7 +7754,7 @@ header,
     margin-bottom:7px;
   }}
   .preview-card {{
-    grid-template-columns:minmax(0,1fr) 86px;
+    grid-template-columns:minmax(0,1fr) 96px;
     gap:6px;
     min-height:98px;
     height:auto;
@@ -7811,11 +7811,11 @@ header,
     line-height:1.34 !important;
   }}
   .card-side {{
-    width:86px;
-    min-width:86px;
+    width:96px;
+    min-width:96px;
   }}
   .preview-image {{
-    width:86px;
+    width:96px;
     height:98px;
     min-height:98px;
   }}
@@ -11317,6 +11317,243 @@ header,
   }}
 }}
 
+
+
+/* ============================================================
+   FINAL OVERRIDE — MAP VISUAL + CONTINENT-GROUPED COUNTRY LIST
+   ============================================================ */
+#country-chip-rail,
+.country-chip-guide,
+#country-map-label-layer {{
+  display:none !important;
+}}
+
+.country-map-visual {{
+  height:176px !important;
+  border:1px solid #dbe4ee !important;
+  border-radius:14px !important;
+  background:radial-gradient(circle at 50% 42%, #ffffff 0%, #f6f8fb 62%, #eef2f7 100%) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8) !important;
+}}
+
+.country-map-visual .world-map-inline {{
+  inset:8px 8px 22px !important;
+  width:calc(100% - 16px) !important;
+  height:calc(100% - 30px) !important;
+}}
+
+.world-map-land path {{
+  fill:#e7edf4 !important;
+}}
+
+.world-map-country-lines path {{
+  stroke:#cad4df !important;
+}}
+
+.world-map-coast-lines path {{
+  stroke:#b6c2cf !important;
+}}
+
+.country-map-dots {{
+  inset:8px 8px 22px !important;
+}}
+
+.country-map-caption {{
+  left:10px !important;
+  bottom:7px !important;
+  font-size:8px !important;
+  color:#7b8797 !important;
+}}
+
+.country-map-caption-dot {{
+  width:7px !important;
+  height:7px !important;
+  background:#355f8d !important;
+}}
+
+.country-continent-grid {{
+  margin-top:10px;
+}}
+
+.country-continent-toolbar {{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+}}
+
+.continent-all-button {{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-height:36px;
+  padding:0 14px;
+  border:1px solid #d6deea;
+  border-radius:999px;
+  background:#23395d;
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+  box-shadow:0 2px 8px rgba(35,57,93,.08);
+}}
+
+.continent-all-button .continent-all-count {{
+  color:rgba(255,255,255,.76);
+  font-size:10px;
+  font-weight:800;
+}}
+
+.continent-all-button.active {{
+  background:#23395d;
+  border-color:#23395d;
+  color:#fff;
+}}
+
+.continent-all-button:not(.active) {{
+  background:#f8fafc;
+  color:#43556e;
+}}
+
+.continent-all-button:not(.active) .continent-all-count {{
+  color:#7f8b9b;
+}}
+
+.country-continent-cards {{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+}}
+
+.continent-card {{
+  border:1px solid #e1e7ef;
+  border-radius:14px;
+  background:#fbfcfe;
+  box-shadow:0 2px 8px rgba(17,24,39,.03);
+  overflow:hidden;
+}}
+
+.continent-card-header {{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:10px 12px 8px;
+}}
+
+.continent-card-title {{
+  color:#23395d;
+  font-size:11px;
+  font-weight:900;
+  line-height:1.1;
+}}
+
+.continent-card-count {{
+  color:#8a94a3;
+  font-size:9px;
+  font-weight:800;
+  line-height:1;
+  white-space:nowrap;
+}}
+
+.continent-country-list {{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:7px;
+  padding:0 10px 10px;
+}}
+
+.continent-country-button {{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-width:0;
+  min-height:38px;
+  padding:0 10px;
+  border:1px solid #e2e8f0;
+  border-radius:11px;
+  background:#fff;
+  color:#3e536f;
+  box-shadow:0 1px 3px rgba(35,57,93,.03);
+  font-size:9.5px;
+  font-weight:800;
+  line-height:1;
+  text-align:left;
+}}
+
+.continent-country-left {{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+  flex:1 1 auto;
+}}
+
+.continent-country-flag {{
+  flex:0 0 auto;
+  font-size:13px;
+  line-height:1;
+}}
+
+.continent-country-name {{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}}
+
+.continent-country-count {{
+  flex:0 0 auto;
+  color:#d92d20;
+  font-size:9px;
+  font-weight:900;
+  white-space:nowrap;
+}}
+
+.continent-country-button:hover,
+.continent-country-button:focus-visible {{
+  border-color:#c8d3e0;
+  background:#f8fbff;
+}}
+
+.continent-country-button.active {{
+  border-color:#23395d;
+  background:#23395d;
+  color:#fff;
+  box-shadow:0 4px 10px rgba(35,57,93,.14);
+}}
+
+.continent-country-button.active .continent-country-count {{
+  color:#fee500;
+}}
+
+@media (min-width:720px) {{
+  .country-continent-cards {{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }}
+}}
+
+@media (max-width:430px) {{
+  .country-map-visual {{
+    height:168px !important;
+  }}
+  .continent-country-list {{
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+  }}
+  .continent-country-button {{
+    min-height:36px;
+    padding:0 8px;
+    font-size:9px;
+  }}
+  .continent-country-flag {{
+    font-size:12px;
+  }}
+  .continent-country-count {{
+    font-size:8.5px;
+  }}
+}}
 </style>
 </head>
 <body>
@@ -12154,8 +12391,10 @@ header,
     </div>
     </div>
 
+    <div id="country-continent-grid" class="country-continent-grid" aria-label="대륙별 국가 기사 필터"></div>
+
     <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true"></div>
-    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
+    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터" hidden>
       <button id="country-all" class="country-pin country-all active" type="button">
         <span>전체</span><span class="country-count">0건</span>
       </button>
@@ -12733,10 +12972,10 @@ function layoutAndRenderCountryMap(){{
   const dotLayer=document.getElementById("country-map-dots-svg");
   const labelLayer=document.getElementById("country-map-label-layer");
   const caption=document.getElementById("country-map-caption-text");
-  if(!dotLayer || !labelLayer)return;
+  if(!dotLayer)return;
 
   dotLayer.innerHTML="";
-  labelLayer.innerHTML="";
+  if(labelLayer)labelLayer.innerHTML="";
   hideCountryMapTooltip(true);
 
   const chipButtons=[...document.querySelectorAll(
@@ -12756,16 +12995,17 @@ function layoutAndRenderCountryMap(){{
     AU:"OCE", NZ:"OCE"
   }};
 
-  const REGION_META={{
-    NA:    {{ title:"북미",         x:0.03, y:0.18, maxPerCol:4 }},
-    SA:    {{ title:"남미",         x:0.12, y:0.68, maxPerCol:3 }},
-    EU:    {{ title:"유럽",         x:0.34, y:0.08, maxPerCol:4 }},
-    CIS:   {{ title:"동유럽·CIS",   x:0.54, y:0.08, maxPerCol:3 }},
-    MEA:   {{ title:"중동·아프리카", x:0.40, y:0.72, maxPerCol:4 }},
-    SASIA: {{ title:"남아시아",     x:0.66, y:0.36, maxPerCol:3 }},
-    EASIA: {{ title:"동아시아",     x:0.76, y:0.18, maxPerCol:4 }},
-    SEA:   {{ title:"동남아",       x:0.77, y:0.56, maxPerCol:3 }},
-    OCE:   {{ title:"오세아니아",   x:0.72, y:0.82, maxPerCol:3 }}
+  const CONTINENT_META={{
+    NA:    {{ title:"북미" }},
+    SA:    {{ title:"남미" }},
+    EU:    {{ title:"유럽" }},
+    CIS:   {{ title:"동유럽·CIS" }},
+    EASIA: {{ title:"동아시아" }},
+    SEA:   {{ title:"동남아" }},
+    SASIA: {{ title:"남아시아" }},
+    MEA:   {{ title:"중동·아프리카" }},
+    OCE:   {{ title:"오세아니아" }},
+    OTHER: {{ title:"기타" }}
   }};
 
   function getRegion(code, lon, lat){{
@@ -12779,11 +13019,10 @@ function layoutAndRenderCountryMap(){{
     if(lon>=60 && lon<95 && lat>=5)return "SASIA";
     if(lon>=110 && lat<-10)return "OCE";
     if(lon>=20 && lon<70 && lat<35)return "MEA";
-    return "MEA";
+    return "OTHER";
   }}
 
-  const regionBuckets={{}};
-  const allItems=[];
+  const items=[];
 
   chipButtons.forEach(button=>{{
     if(button.hidden)return;
@@ -12821,13 +13060,13 @@ function layoutAndRenderCountryMap(){{
     halo.setAttribute("class","country-map-svg-halo");
     halo.setAttribute("cx",String(x));
     halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=10?"20":count>=4?"16":"14");
+    halo.setAttribute("r",count>=15?"22":count>=5?"18":"15");
 
     const dot=document.createElementNS(SVG_NS,"circle");
     dot.setAttribute("class","country-map-svg-dot");
     dot.setAttribute("cx",String(x));
     dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=10?"8.2":count>=4?"7":"6.2");
+    dot.setAttribute("r",count>=15?"8.4":count>=5?"7.2":"6.3");
 
     const title=document.createElementNS(SVG_NS,"title");
     title.textContent=`${{flag}} ${{name}} · ${{count}}건`;
@@ -12837,10 +13076,7 @@ function layoutAndRenderCountryMap(){{
     group.appendChild(title);
     dotLayer.appendChild(group);
 
-    const item={{ code, flag, name, count, lon, lat, x, y, region, pointEl:group, labelEl:null }};
-    if(!regionBuckets[region])regionBuckets[region]=[];
-    regionBuckets[region].push(item);
-    allItems.push(item);
+    items.push({{ code, flag, name, count, lon, lat, x, y, region, pointEl:group }});
 
     const show=()=>showCountryMapTooltip(x,y,flag,name,count,false);
     group.addEventListener("mouseenter",show);
@@ -12860,113 +13096,108 @@ function layoutAndRenderCountryMap(){{
     }});
   }});
 
-  Object.keys(regionBuckets).forEach(region=>{{
-    regionBuckets[region].sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,"ko"));
-  }});
-
   if(caption){{
     caption.textContent=activeCountryFilter
-      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중 · 다시 누르면 전체`
-      : "지도의 국기 라벨을 누르면 해당 기사만 표시";
+      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중 · 아래 목록에서 다시 선택 가능`
+      : "지도는 기사 분포, 아래 대륙별 목록은 국가 필터입니다";
   }}
 
-  const groups=[];
-  Object.entries(REGION_META).forEach(([region, meta])=>{{
-    const items=regionBuckets[region]||[];
-    if(!items.length)return;
-
-    const wrap=document.createElement("div");
-    wrap.className="country-map-continent-group";
-    wrap.dataset.region=region;
-    wrap.style.left=`${{meta.x*100}}%`;
-    wrap.style.top=`${{meta.y*100}}%`;
-
-    const title=document.createElement("div");
-    title.className="country-map-continent-title";
-    title.textContent=meta.title;
-    wrap.appendChild(title);
-
-    const colsWrap=document.createElement("div");
-    colsWrap.className="country-map-continent-columns";
-    wrap.appendChild(colsWrap);
-
-    const perCol=meta.maxPerCol || 4;
-    for(let i=0; i<items.length; i+=perCol){{
-      const col=document.createElement("div");
-      col.className="country-map-continent-col";
-      items.slice(i, i+perCol).forEach(item=>{{
-        const btn=document.createElement("button");
-        btn.type="button";
-        btn.className="country-map-label";
-        if(activeCountryFilter===item.code)btn.classList.add("active");
-        btn.dataset.countryFilter=item.code;
-        btn.setAttribute("aria-label",`${{item.name}} 기사 ${{item.count}}건 보기`);
-        btn.innerHTML=
-          `<span class="map-label-flag">${{item.flag}}</span>`+
-          `<span class="map-label-name">${{item.name}}</span>`+
-          `<span class="map-label-count">${{item.count}}건</span>`;
-        const show=()=>showCountryMapTooltip(item.x,item.y,item.flag,item.name,item.count,false);
-        btn.addEventListener("mouseenter",show);
-        btn.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
-        btn.addEventListener("focus",show);
-        btn.addEventListener("blur",()=>hideCountryMapTooltip(true));
-        btn.addEventListener("click",event=>{{
-          event.preventDefault();
-          event.stopPropagation();
-          setCountryFilter(item.code);
-        }});
-        item.labelEl=btn;
-        col.appendChild(btn);
-      }});
-      colsWrap.appendChild(col);
-    }}
-
-    labelLayer.appendChild(wrap);
-    groups.push({{wrap, meta}});
-  }});
-
-  requestAnimationFrame(()=>{{
-    const rect=labelLayer.getBoundingClientRect();
-    if(!rect.width || !rect.height)return;
-    const clamp=(v,min,max)=>Math.max(min,Math.min(v,max));
-
-    groups.forEach(group=>{{
-      const wrap=group.wrap;
-      const box=wrap.getBoundingClientRect();
-      const maxLeft=rect.width - box.width - 6;
-      const maxTop=rect.height - box.height - 6;
-      let left=parseFloat(wrap.style.left)/100*rect.width;
-      let top=parseFloat(wrap.style.top)/100*rect.height;
-      left=clamp(left, 6, Math.max(6, maxLeft));
-      top=clamp(top, 6, Math.max(6, maxTop));
-      wrap.style.left=`${{left}}px`;
-      wrap.style.top=`${{top}}px`;
-    }});
-
-    allItems.forEach(item=>{{
-      if(!item.labelEl)return;
-      const labelRect=item.labelEl.getBoundingClientRect();
-      const layerRect=labelLayer.getBoundingClientRect();
-      const pointPxX=(item.x/1000)*layerRect.width;
-      const pointPxY=(item.y/500)*layerRect.height;
-      const left=labelRect.left-layerRect.left;
-      const right=labelRect.right-layerRect.left;
-      const top=labelRect.top-layerRect.top;
-      const bottom=labelRect.bottom-layerRect.top;
-      const targetX=clamp(pointPxX, left, right);
-      const targetY=clamp(pointPxY, top, bottom);
-
-      const line=document.createElementNS(SVG_NS,"line");
-      line.setAttribute("class","country-map-label-connector");
-      line.setAttribute("x1",String(item.x));
-      line.setAttribute("y1",String(item.y));
-      line.setAttribute("x2",String((targetX/layerRect.width)*1000));
-      line.setAttribute("y2",String((targetY/layerRect.height)*500));
-      dotLayer.insertBefore(line, dotLayer.firstChild);
-    }});
-  }});
+  renderContinentCountryGrid(items, CONTINENT_META);
 }}
 
+function renderContinentCountryGrid(items, continentMeta){{
+  const grid=document.getElementById("country-continent-grid");
+  const allButton=document.getElementById("country-all");
+  if(!grid)return;
+
+  const totalText=allButton?.querySelector(".country-count")?.textContent || "0건";
+  const totalCount=Number(totalText.replace(/[^0-9]/g,""))||0;
+
+  const REGION_ORDER=["NA","EU","CIS","EASIA","SEA","SASIA","MEA","OCE","SA","OTHER"];
+  const buckets={{}};
+  items.forEach(item=>{{
+    const region=item.region || "OTHER";
+    if(!buckets[region])buckets[region]=[];
+    buckets[region].push(item);
+  }});
+  Object.keys(buckets).forEach(region=>{{
+    buckets[region].sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,"ko"));
+  }});
+
+  grid.innerHTML="";
+
+  const toolbar=document.createElement("div");
+  toolbar.className="country-continent-toolbar";
+  const all=document.createElement("button");
+  all.type="button";
+  all.className="continent-all-button" + (!activeCountryFilter ? " active" : "");
+  all.innerHTML=`<span class="continent-all-label">전체</span><span class="continent-all-count">${{totalCount}}건</span>`;
+  all.addEventListener("click",()=>{{
+    activeCountryFilter="";
+    filterArticles();
+    updateCountryMapCounts();
+    updateCountrySelectionBar();
+  }});
+  toolbar.appendChild(all);
+  grid.appendChild(toolbar);
+
+  const cardsWrap=document.createElement("div");
+  cardsWrap.className="country-continent-cards";
+  grid.appendChild(cardsWrap);
+
+  REGION_ORDER.forEach(region=>{{
+    const regionItems=buckets[region]||[];
+    if(!regionItems.length)return;
+
+    const card=document.createElement("section");
+    card.className="continent-card";
+    card.dataset.region=region;
+
+    const header=document.createElement("div");
+    header.className="continent-card-header";
+    const title=document.createElement("div");
+    title.className="continent-card-title";
+    title.textContent=(continentMeta[region]&&continentMeta[region].title) || region;
+    const sum=document.createElement("div");
+    sum.className="continent-card-count";
+    sum.textContent=`${{regionItems.reduce((acc,item)=>acc+item.count,0)}}건`;
+    header.appendChild(title);
+    header.appendChild(sum);
+    card.appendChild(header);
+
+    const list=document.createElement("div");
+    list.className="continent-country-list";
+
+    regionItems.forEach(item=>{{
+      const btn=document.createElement("button");
+      btn.type="button";
+      btn.className="continent-country-button" + (activeCountryFilter===item.code ? " active" : "");
+      btn.dataset.countryFilter=item.code;
+      btn.setAttribute("aria-label",`${{title.textContent}} · ${{item.name}} 기사 ${{item.count}}건 보기`);
+      btn.innerHTML=
+        `<span class="continent-country-left">`+
+          `<span class="continent-country-flag">${{item.flag}}</span>`+
+          `<span class="continent-country-name">${{item.name}}</span>`+
+        `</span>`+
+        `<span class="continent-country-count">${{item.count}}건</span>`;
+
+      const show=()=>showCountryMapTooltip(item.x,item.y,item.flag,item.name,item.count,false);
+      btn.addEventListener("mouseenter",show);
+      btn.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
+      btn.addEventListener("focus",show);
+      btn.addEventListener("blur",()=>hideCountryMapTooltip(true));
+      btn.addEventListener("click",event=>{{
+        event.preventDefault();
+        event.stopPropagation();
+        setCountryFilter(item.code);
+      }});
+      list.appendChild(btn);
+    }});
+
+    card.appendChild(list);
+    cardsWrap.appendChild(card);
+  }});
+}}
 
 let countryMapRelayoutTimer=null;
 function scheduleCountryMapRelayout(){{
@@ -13009,9 +13240,7 @@ function updateCountryMapCounts(){{
     else counts[code]++;
   }});
 
-  const rail=document.getElementById("country-chip-rail");
   const countryButtons=[...document.querySelectorAll("#country-chip-rail [data-country-filter]")];
-
   countryButtons.forEach(button=>{{
     const code=button.dataset.countryFilter;
     const count=counts[code]||0;
@@ -13019,28 +13248,7 @@ function updateCountryMapCounts(){{
     if(countNode)countNode.textContent=`${{count}}건`;
     button.hidden=count===0;
     button.classList.toggle("active",activeCountryFilter===code);
-    if(activeCountryFilter===code && !button.hidden){{
-    }}
   }});
-
-  const fixedRank={{KR:0,US:1,GB:2}};
-  countryButtons.sort((a,b)=>{{
-    const codeA=a.dataset.countryFilter;
-    const codeB=b.dataset.countryFilter;
-
-    // 기타는 기사 건수와 관계없이 항상 맨 마지막에 고정합니다.
-    if(codeA==="OTHER" && codeB!=="OTHER")return 1;
-    if(codeB==="OTHER" && codeA!=="OTHER")return -1;
-
-    const countA=counts[codeA]||0;
-    const countB=counts[codeB]||0;
-    if(countA!==countB)return countB-countA;
-
-    return (fixedRank[codeA]??99)-(fixedRank[codeB]??99);
-  }});
-  if(rail){{
-    countryButtons.forEach(button=>rail.appendChild(button));
-  }}
 
   const total=cards.length;
   const countryTotal=Object.values(counts).reduce((sum,value)=>sum+value,0);
@@ -13059,9 +13267,11 @@ function updateCountryMapCounts(){{
     console.warn("[COUNTRY COUNT MISMATCH]", {{total,countryTotal,counts}});
   }}
 
-  requestAnimationFrame(layoutAndRenderCountryMap);
+  requestAnimationFrame(()=>{{
+    layoutAndRenderCountryMap();
+    updateCountrySelectionBar();
+  }});
 }}
-
 
 function updateCountrySelectionBar(){{
   const bar=document.getElementById("country-selection-bar");
