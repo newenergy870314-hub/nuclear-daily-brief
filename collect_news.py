@@ -11568,11 +11568,11 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {{
   position:relative;
-  height:198px !important;
+  height:202px !important;
   overflow:hidden !important;
-  border:1px solid #dce4ed !important;
+  border:1px solid #d9e3ee !important;
   border-radius:14px !important;
-  background:radial-gradient(circle at 54% 43%, #ffffff 0%, #f7f9fc 58%, #eef2f7 100%) !important;
+  background:linear-gradient(180deg, #fafdff 0%, #f4f8fc 52%, #edf3f8 100%) !important;
 }}
 
 .globe-texture-source {{
@@ -11588,6 +11588,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
+  padding-top:2px;
 }}
 
 .globe-stage.dragging {{
@@ -11596,12 +11597,13 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:min(174px, 90%);
+  width:min(182px, 92%);
   aspect-ratio:1/1;
   border-radius:50%;
   overflow:visible;
   isolation:isolate;
-  filter:drop-shadow(0 7px 10px rgba(35,57,93,.16));
+  transform:translateY(-10px);
+  filter:drop-shadow(0 8px 12px rgba(35,57,93,.12));
 }}
 
 .globe-canvas {{
@@ -11645,21 +11647,21 @@ header,
 
 .globe-country-label {{
   position:absolute;
-  transform:translate(-50%,-50%) scale(calc(.88 + var(--globe-depth, .7) * .16));
+  transform:translate(-50%,-50%) scale(calc(.90 + var(--globe-depth, .7) * .15));
   transform-origin:center;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:3px;
-  min-height:23px;
-  max-width:112px;
-  padding:3px 6px;
-  border:1px solid rgba(35,57,93,.18);
+  gap:4px;
+  min-height:24px;
+  max-width:124px;
+  padding:3px 7px;
+  border:1px solid rgba(35,57,93,.16);
   border-radius:8px;
-  background:rgba(255,255,255,.94);
-  color:#344963;
-  box-shadow:0 2px 6px rgba(25,45,70,.14);
-  font-size:8px;
+  background:rgba(255,255,255,.97);
+  color:#30465f;
+  box-shadow:0 3px 8px rgba(25,45,70,.14);
+  font-size:8.2px;
   font-weight:850;
   line-height:1;
   white-space:nowrap;
@@ -11695,6 +11697,7 @@ header,
   min-width:0;
   overflow:hidden;
   text-overflow:ellipsis;
+  text-shadow:0 1px 0 rgba(255,255,255,.35);
 }}
 
 .globe-country-count {{
@@ -11710,28 +11713,35 @@ header,
 
 .globe-control-hint {{
   position:absolute;
-  right:7px;
-  bottom:6px;
+  top:8px;
+  right:8px;
+  bottom:auto;
   z-index:8;
-  color:#8b96a5;
-  font-size:7.2px;
-  font-weight:750;
+  padding:4px 6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.82);
+  color:#758295;
+  font-size:6.9px;
+  font-weight:800;
   line-height:1;
+  box-shadow:0 1px 4px rgba(35,57,93,.08);
   pointer-events:none;
 }}
 
 .country-map-caption {{
-  left:7px !important;
-  bottom:6px !important;
+  left:8px !important;
+  top:8px !important;
+  bottom:auto !important;
   z-index:9 !important;
-  max-width:63%;
-  padding:3px 5px;
-  border-radius:6px;
-  background:rgba(255,255,255,.76);
+  max-width:44%;
+  padding:4px 6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.84);
   backdrop-filter:blur(3px);
   -webkit-backdrop-filter:blur(3px);
-  color:#7d8998 !important;
-  font-size:7px !important;
+  color:#6f7d8e !important;
+  font-size:6.9px !important;
+  box-shadow:0 1px 4px rgba(35,57,93,.08);
 }}
 
 .country-map-caption-dot {{
@@ -11742,14 +11752,15 @@ header,
 
 @media (max-width:430px) {{
   .country-map-content .country-map-visual.globe-mode {{
-    height:188px !important;
+    height:192px !important;
   }}
   .globe-sphere {{
-    width:min(164px, 92%);
+    width:min(170px, 93%);
+    transform:translateY(-9px);
   }}
   .globe-country-label {{
     min-height:21px;
-    max-width:102px;
+    max-width:108px;
     padding:2px 5px;
     font-size:7.5px;
   }}
@@ -11760,19 +11771,27 @@ header,
     font-size:7px;
   }}
   .globe-control-hint {{
-    font-size:6.7px;
+    top:7px;
+    right:7px;
+    font-size:6.5px;
+  }}
+  .country-map-caption {{
+    top:7px !important;
+    left:7px !important;
+    max-width:42%;
   }}
 }}
 
 @media (max-width:380px) {{
   .country-map-content .country-map-visual.globe-mode {{
-    height:180px !important;
+    height:184px !important;
   }}
   .globe-sphere {{
-    width:min(154px, 93%);
+    width:min(160px, 94%);
+    transform:translateY(-8px);
   }}
   .globe-country-label {{
-    max-width:94px;
+    max-width:96px;
     min-height:20px;
     font-size:7px;
   }}
@@ -11879,7 +11898,7 @@ header,
           <div id="globe-marker-layer" class="globe-marker-layer" aria-label="국가별 기사 바로가기"></div>
           <div class="globe-shine" aria-hidden="true"></div>
         </div>
-        <div class="globe-control-hint">↔ 드래그하여 지구본 회전 · 국가 선택</div>
+        <div class="globe-control-hint">↔ 드래그 회전</div>
       </div>
       <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
@@ -13353,82 +13372,75 @@ function buildSatelliteTexture(maskCtx,width,height){{
       let r,g,b;
       if(land){{
         const equatorial=clamp01(1-absLat/42);
-        const boreal=clamp01((58-absLat)/28);
-        const desertBelt=smoothstep(8,22,absLat)*(1-smoothstep(22,38,absLat));
-        const desert=((0.42+0.36*n-0.22*n2) * desertBelt);
-        const vegetation=clamp01(0.58 + equatorial*0.34 - desert*0.65 - elev*0.12 + n*0.08);
-        const dry=clamp01(0.30 + desert*0.88 + (1-vegetation)*0.20);
-        const rock=clamp01(elev*0.74 + smoothstep(42,64,absLat)*0.18);
-        const snow=clamp01(smoothstep(58,77,absLat) + elev*0.35 - 0.08 + n2*0.05);
+        const desertBelt=smoothstep(8,22,absLat)*(1-smoothstep(22,39,absLat));
+        const desert=((0.44+0.34*n-0.18*n2) * desertBelt);
+        const vegetation=clamp01(0.62 + equatorial*0.30 - desert*0.62 - elev*0.10 + n*0.08);
+        const dry=clamp01(0.26 + desert*0.92 + (1-vegetation)*0.18);
+        const rock=clamp01(elev*0.72 + smoothstep(42,66,absLat)*0.16);
+        const snow=clamp01(smoothstep(56,76,absLat) + elev*0.34 - 0.05 + n2*0.05);
 
-        // base biome blend: lush vegetation -> dry scrub -> rocky highlands
-        r=mix(46,92,vegetation);
-        g=mix(68,128,vegetation);
-        b=mix(42,78,vegetation);
+        r=mix(54,100,vegetation);
+        g=mix(78,148,vegetation);
+        b=mix(48,92,vegetation);
 
-        r=mix(r,169,dry*0.70);
-        g=mix(g,146,dry*0.70);
-        b=mix(b,95,dry*0.70);
+        r=mix(r,188,dry*0.64);
+        g=mix(g,164,dry*0.64);
+        b=mix(b,108,dry*0.64);
 
-        r=mix(r,124,rock*0.55);
-        g=mix(g,112,rock*0.55);
-        b=mix(b,103,rock*0.55);
+        r=mix(r,130,rock*0.52);
+        g=mix(g,118,rock*0.52);
+        b=mix(b,108,rock*0.52);
 
-        // tropical forest deepening
-        const rainforest=equatorial*clamp01(0.60 - desert + n*0.18);
-        r=mix(r,34,rainforest*0.40);
-        g=mix(g,101,rainforest*0.40);
-        b=mix(b,54,rainforest*0.40);
+        const rainforest=equatorial*clamp01(0.62 - desert + n*0.18);
+        r=mix(r,40,rainforest*0.34);
+        g=mix(g,114,rainforest*0.34);
+        b=mix(b,58,rainforest*0.34);
 
-        // coastlines become a touch brighter and greener
-        r=mix(r,124,coast*0.12);
-        g=mix(g,144,coast*0.18);
-        b=mix(b,96,coast*0.10);
+        const coastBright=coast*0.34;
+        r=mix(r,174,coastBright*0.30);
+        g=mix(g,176,coastBright*0.34);
+        b=mix(b,120,coastBright*0.22);
 
-        // snowy high latitudes and mountains
-        r=mix(r,236,snow*0.92);
-        g=mix(g,240,snow*0.92);
-        b=mix(b,242,snow*0.92);
+        r=mix(r,238,snow*0.90);
+        g=mix(g,241,snow*0.90);
+        b=mix(b,244,snow*0.92);
 
-        const relief=0.90 + n*0.10 + elev*0.11;
+        const relief=0.96 + n*0.08 + elev*0.09;
         r*=relief; g*=relief; b*=relief;
       }} else {{
         const oceanBand=0.55 + 0.45*Math.sin((lonDeg+22)*0.055) * Math.cos((latDeg-8)*0.072);
         const gyre=noise(sx*0.45+17, sy*0.35+8);
-        const deepness=clamp01(0.32 + (1-coast)*0.56 + (0.5-gyre)*0.10);
-        r=mix(10,19,coast*0.85);
-        g=mix(55,133,coast*0.85);
-        b=mix(106,188,coast*0.90);
-        r=mix(r,4,deepness*0.78);
-        g=mix(g,31,deepness*0.78);
-        b=mix(b,84,deepness*0.78);
-        r+=oceanBand*3;
-        g+=oceanBand*6;
-        b+=oceanBand*8;
+        const deepness=clamp01(0.28 + (1-coast)*0.52 + (0.5-gyre)*0.08);
+        r=mix(20,42,coast*0.85);
+        g=mix(92,165,coast*0.85);
+        b=mix(150,212,coast*0.90);
+        r=mix(r,7,deepness*0.74);
+        g=mix(g,48,deepness*0.74);
+        b=mix(b,112,deepness*0.74);
+        r+=oceanBand*4;
+        g+=oceanBand*7;
+        b+=oceanBand*9;
 
-        // shallow coastal shelf
         const shelf=coast*coast;
-        r=mix(r,42,shelf*0.40);
-        g=mix(g,151,shelf*0.46);
-        b=mix(b,186,shelf*0.55);
+        r=mix(r,66,shelf*0.34);
+        g=mix(g,180,shelf*0.38);
+        b=mix(b,214,shelf*0.46);
 
-        // polar sea ice hint
         const seaIce=clamp01(smoothstep(67,81,absLat) - deepness*0.20 + n*0.05);
-        r=mix(r,214,seaIce*0.82);
-        g=mix(g,228,seaIce*0.82);
-        b=mix(b,236,seaIce*0.82);
+        r=mix(r,216,seaIce*0.78);
+        g=mix(g,229,seaIce*0.80);
+        b=mix(b,238,seaIce*0.82);
       }}
 
-      // Thin global cloud veil for a satellite-photo feel.
       const cloudSignal=(
         Math.sin((sx+71)*0.028 + (sy+9)*0.045) +
         0.55*Math.sin((sx-15)*0.062 - (sy+24)*0.021) +
         0.32*Math.sin((sx+140)*0.104 + (sy-33)*0.087)
       );
-      const cloud=clamp01((cloudSignal-0.95)/0.78) * (0.18 + 0.10*clamp01(1-Math.abs(latDeg)/90));
-      r=mix(r,244,cloud);
-      g=mix(g,247,cloud);
-      b=mix(b,249,cloud);
+      const cloud=clamp01((cloudSignal-0.98)/0.82) * (0.15 + 0.08*clamp01(1-Math.abs(latDeg)/90));
+      r=mix(r,246,cloud);
+      g=mix(g,248,cloud);
+      b=mix(b,250,cloud);
 
       out[i]=clamp255(r);
       out[i+1]=clamp255(g);
@@ -13538,42 +13550,37 @@ function renderGlobeCanvas(){{
       let g=texture[si+1];
       let b=texture[si+2];
 
-      // Physically inspired lighting for a Google-Earth-like spherical appearance.
-      const lightDirX=-.42, lightDirY=-.23, lightDirZ=.88;
-      const diffuse=Math.max(.14,nx*lightDirX+ny*lightDirY+z*lightDirZ);
-      const daylight=.44 + .66*diffuse;
+      const lightDirX=-.40, lightDirY=-.18, lightDirZ=.90;
+      const diffuse=Math.max(.24,nx*lightDirX+ny*lightDirY+z*lightDirZ);
+      const daylight=.62 + .40*diffuse;
       r*=daylight; g*=daylight; b*=daylight;
 
-      // Relief shading gives land more photographic depth.
-      const reliefShade=Math.max(0,Math.min(1,0.64 + (z*.22) - nx*0.04 - ny*0.03));
+      const reliefShade=Math.max(0,Math.min(1,0.92 + (z*.08) - nx*0.018 - ny*0.010));
       if(isLand){{
         r*=reliefShade;
         g*=reliefShade;
         b*=reliefShade;
       }}
 
-      // Ocean glint and limb brightening.
       if(!isLand){{
-        const spec=Math.pow(Math.max(0,nx*(-.26)+ny*(-.19)+z*.95),24);
-        r+=72*spec; g+=96*spec; b+=112*spec;
+        const spec=Math.pow(Math.max(0,nx*(-.24)+ny*(-.16)+z*.95),22);
+        r+=58*spec; g+=84*spec; b+=102*spec;
       }}
 
-      // Subtle moving cloud highlight to keep the globe lively.
       const cloudSignal=(
         Math.sin((lonDeg+globeState.rotationLon*0.18)*0.22 + latDeg*0.37) +
         0.58*Math.sin((lonDeg-globeState.rotationLon*0.10)*0.49 - latDeg*0.18) +
         0.34*Math.sin(lonDeg*0.88 + latDeg*0.71)
       );
-      const cloud=Math.max(0,Math.min(.22,(cloudSignal-1.12)*.19));
-      r=mix(r,247,cloud);
+      const cloud=Math.max(0,Math.min(.17,(cloudSignal-1.18)*.19));
+      r=mix(r,248,cloud);
       g=mix(g,249,cloud);
       b=mix(b,251,cloud);
 
-      // Atmospheric scattering at the rim.
-      const rim=Math.pow(1-z,2.7);
-      r=mix(r,92,rim*.14);
-      g=mix(g,181,rim*.20);
-      b=mix(b,232,rim*.28);
+      const rim=Math.pow(1-z,2.55);
+      r=mix(r,104,rim*.10);
+      g=mix(g,190,rim*.15);
+      b=mix(b,236,rim*.20);
 
       data[di]=clamp255(r);
       data[di+1]=clamp255(g);
@@ -13584,12 +13591,11 @@ function renderGlobeCanvas(){{
 
   ctx.putImageData(out,0,0);
 
-  // soft atmospheric ring
   ctx.save();
   ctx.beginPath();
   ctx.arc(radius,radius,radius-2,0,Math.PI*2);
-  ctx.strokeStyle='rgba(140,219,255,.62)';
-  ctx.lineWidth=2.4;
+  ctx.strokeStyle='rgba(155,226,255,.58)';
+  ctx.lineWidth=2.2;
   ctx.stroke();
   ctx.restore();
 }}
@@ -13604,31 +13610,68 @@ function renderGlobeMarkers(){{
     .filter(item=>item.projection.visible)
     .sort((a,b)=>b.count-a.count);
 
-  const placed=[];
+  const layerRect=layer.getBoundingClientRect();
+  const labelMaxWidth=window.innerWidth<=430 ? 108 : 124;
+  const labelHeight=24;
+  const reserved=[
+    {{left:6, top:6, right:Math.min(layerRect.width*0.46, 122), bottom:34}},
+    {{left:Math.max(0, layerRect.width-128), top:6, right:layerRect.width-6, bottom:34}}
+  ];
+  const placed=[...reserved];
+
+  const defaultOffsets=[
+    [0,-28],[0,28],[26,-18],[-26,-18],[30,10],[-30,10],[34,-30],[-34,-30],[38,24],[-38,24],[0,-44],[0,44]
+  ];
+  const preferredOffsets={{
+    KR:[[-40,-16],[-42,8],[-28,-32],[-20,24]],
+    JP:[[40,-10],[42,12],[26,-30],[22,26]],
+    CN:[[-36,10],[-34,-16],[-18,28]],
+    TW:[[26,16],[30,-14],[-22,16]],
+    US:[[0,-30],[26,-14],[-26,-14]],
+    GB:[[-26,-12],[-20,18],[24,-10]],
+    FR:[[-28,12],[-18,-18],[26,8]],
+    RU:[[0,-28],[-30,-16],[30,-16]]
+  }};
+
   projected.forEach((item,index)=>{{
     const p=item.projection;
-    const important=item.count>=10 || item.code===activeCountryFilter;
-    const maxLabels=window.innerWidth<=430 ? 7 : 10;
+    const important=item.count>=10 || item.code===activeCountryFilter || item.code==='KR' || item.code==='JP';
+    const maxLabels=window.innerWidth<=430 ? 8 : 11;
     if(index>=maxLabels && !important)return;
 
-    const approxWidth=Math.min(112,52+item.name.length*7+(String(item.count).length*6));
-    const approxHeight=25;
-    const xPct=p.x;
-    const yPct=p.y;
-    const layerRect=layer.getBoundingClientRect();
-    const x=(xPct/100)*layerRect.width;
-    const y=(yPct/100)*layerRect.height;
-    const rect={{left:x-approxWidth/2,right:x+approxWidth/2,top:y-approxHeight/2,bottom:y+approxHeight/2}};
-    const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
-    if(overlaps && !important)return;
-    placed.push(rect);
+    const approxWidth=Math.min(labelMaxWidth,58+item.name.length*7+(String(item.count).length*6));
+    const baseX=(p.x/100)*layerRect.width;
+    const baseY=(p.y/100)*layerRect.height;
+    const candidateOffsets=[...(preferredOffsets[item.code]||[]), ...defaultOffsets];
+
+    let chosen=null;
+    for(const [dx,dy] of candidateOffsets){{
+      const cx=Math.max(approxWidth/2 + 6, Math.min(layerRect.width - approxWidth/2 - 6, baseX + dx));
+      const cy=Math.max(labelHeight/2 + 38, Math.min(layerRect.height - labelHeight/2 - 10, baseY + dy));
+      const rect={{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}};
+      const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
+      if(!overlaps){{
+        chosen={{x:cx,y:cy}};
+        placed.push(rect);
+        break;
+      }}
+    }}
+
+    if(!chosen){{
+      if(!important)return;
+      const cx=Math.max(approxWidth/2 + 6, Math.min(layerRect.width - approxWidth/2 - 6, baseX));
+      const cy=Math.max(labelHeight/2 + 38, Math.min(layerRect.height - labelHeight/2 - 10, baseY - 28));
+      const rect={{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}};
+      placed.push(rect);
+      chosen={{x:cx,y:cy}};
+    }}
 
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='globe-country-label' + (activeCountryFilter===item.code?' active':'');
     btn.dataset.countryFilter=item.code;
-    btn.style.left=`${{xPct}}%`;
-    btn.style.top=`${{yPct}}%`;
+    btn.style.left=`${{chosen.x}}px`;
+    btn.style.top=`${{chosen.y}}px`;
     btn.style.setProperty('--globe-depth',String(Math.max(.45,p.z)));
     btn.innerHTML=`<span class="globe-country-flag">${{item.flag}}</span><span class="globe-country-name">${{item.name}}</span><span class="globe-country-count">${{item.count}}건</span>`;
     btn.setAttribute('aria-label',`${{item.name}} 기사 ${{item.count}}건 보기`);
@@ -13742,8 +13785,8 @@ function layoutAndRenderCountryMap(){{
 
   if(caption){{
     caption.textContent=activeCountryFilter
-      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중 · 국가 라벨을 다시 누르면 전체`
-      : '지구본을 돌리고 국가 라벨을 누르면 해당 기사만 표시';
+      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}}만 표시`
+      : '국가 라벨 선택';
   }}
 
   renderGlobeFrame(true);
