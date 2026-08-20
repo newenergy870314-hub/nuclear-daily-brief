@@ -274,7 +274,7 @@ GROUPS = [
 
 GROUP_TAB_LABELS = {
     "현대건설": "현대건설",
-    "타 건설사": "他 건설사",
+    "타 건설사": "주요 건설사",
     "한국수력원자력": "한수원",
     "한국전력": "한전",
     "한전 계열사": "한전 계열사",
@@ -5472,7 +5472,7 @@ OTHER_CONSTRUCTION_COMPANY_ORDER = [
 
 def _other_construction_company_rank(article: Article) -> tuple[int, str]:
     """
-    他 건설사 탭에서 같은 회사 기사끼리 붙도록 회사별 정렬 키를 반환합니다.
+    주요 건설사 탭에서 같은 회사 기사끼리 붙도록 회사별 정렬 키를 반환합니다.
     회사 내부에서는 최신 기사 순으로 정렬됩니다.
     """
     haystack = normalized(f"{article.title} {article.description} {article.publisher}")
@@ -5502,7 +5502,7 @@ def render_group_unified(
         if not items:
             return []
 
-        # 他 건설사 탭은 같은 회사 기사끼리 묶고, 회사 내부는 최신순으로 정렬
+        # 주요 건설사 탭은 같은 회사 기사끼리 묶고, 회사 내부는 최신순으로 정렬
         if group == "타 건설사":
             return sorted(
                 items,
@@ -5548,7 +5548,7 @@ def render_group_unified(
     if group == "원전 관계부처":
         display_group = "원전 관계부처(산업통상부·기후부·과기부)"
     elif group == "타 건설사":
-        display_group = "他 건설사"
+        display_group = "주요 건설사"
     else:
         display_group = group
 
@@ -13386,22 +13386,23 @@ header,
 }}
 .country-map-visual.globe-mode {{
   width:100% !important;
-  height:244px !important;
-  min-height:244px !important;
+  height:252px !important;
+  min-height:252px !important;
   border-radius:18px !important;
 }}
 .country-map-visual .world-map-inline.globe-texture-source {{
-  left:10px !important;
-  top:10px !important;
-  right:126px !important;
-  bottom:10px !important;
-  opacity:.96 !important;
+  left:12px !important;
+  top:12px !important;
+  right:136px !important;
+  bottom:12px !important;
+  opacity:1 !important;
+  filter:contrast(1.06) saturate(1.02) !important;
 }}
 #country-map-label-layer.country-map-label-layer {{
-  left:10px !important;
-  top:10px !important;
-  right:126px !important;
-  bottom:10px !important;
+  left:12px !important;
+  top:12px !important;
+  right:136px !important;
+  bottom:12px !important;
 }}
 .map-country-node::before {{
   width:9px !important;
@@ -13419,60 +13420,74 @@ header,
   display:none !important;
 }}
 #continent-rail {{
-  top:10px !important;
-  right:8px !important;
-  bottom:10px !important;
-  width:112px !important;
-  padding:9px 8px !important;
-  border-radius:15px !important;
+  top:12px !important;
+  right:10px !important;
+  bottom:12px !important;
+  width:122px !important;
+  padding:10px 9px !important;
+  border-radius:16px !important;
 }}
 .continent-button {{
-  min-height:36px !important;
-  padding:6px 8px !important;
+  min-height:38px !important;
+  padding:7px 9px !important;
 }}
 #continent-country-ranking {{
   position:absolute !important;
   z-index:4 !important;
-  width:118px !important;
-  max-height:162px !important;
+  width:108px !important;
+  max-height:150px !important;
   display:flex !important;
   flex-direction:column !important;
-  gap:5px !important;
-  padding:8px !important;
-  border:1px solid rgba(160,187,207,.24) !important;
-  border-radius:14px !important;
-  background:rgba(255,255,255,.91) !important;
-  box-shadow:0 5px 16px rgba(53,91,120,.08) !important;
-  backdrop-filter:blur(3px) !important;
+  gap:4px !important;
+  padding:7px !important;
+  border:1px solid rgba(160,187,207,.18) !important;
+  border-radius:13px !important;
+  background:rgba(255,255,255,.86) !important;
+  box-shadow:0 4px 12px rgba(53,91,120,.06) !important;
+  backdrop-filter:blur(2px) !important;
   overflow:hidden !important;
 }}
-#continent-country-ranking.rank-left {{
-  left:13px !important;
-  top:48px !important;
+#continent-country-ranking.rank-left-top {{
+  left:22px !important;
+  top:58px !important;
+  right:auto !important;
+  bottom:auto !important;
+}}
+#continent-country-ranking.rank-left-bottom {{
+  left:22px !important;
+  top:auto !important;
+  bottom:22px !important;
   right:auto !important;
 }}
-#continent-country-ranking.rank-right {{
-  right:130px !important;
-  top:48px !important;
+#continent-country-ranking.rank-right-top {{
+  right:144px !important;
+  top:58px !important;
+  left:auto !important;
+  bottom:auto !important;
+}}
+#continent-country-ranking.rank-right-bottom {{
+  right:144px !important;
+  top:auto !important;
+  bottom:22px !important;
   left:auto !important;
 }}
 .continent-country-ranking-head {{
   display:flex !important;
-  align-items:baseline !important;
+  align-items:flex-end !important;
   justify-content:space-between !important;
-  gap:6px !important;
-  padding:0 2px 3px !important;
-  border-bottom:1px solid rgba(181,199,213,.34) !important;
+  gap:4px !important;
+  padding:0 1px 3px !important;
+  border-bottom:1px solid rgba(181,199,213,.26) !important;
 }}
 .continent-country-ranking-title {{
   color:#173956 !important;
-  font-size:9.8px !important;
+  font-size:9.2px !important;
   font-weight:900 !important;
   line-height:1.1 !important;
 }}
 .continent-country-ranking-sub {{
   color:#7c8c9c !important;
-  font-size:7px !important;
+  font-size:6.5px !important;
   font-weight:800 !important;
   white-space:nowrap !important;
 }}
@@ -13487,12 +13502,12 @@ header,
 .continent-country-ranking-list::-webkit-scrollbar {{ display:none !important; }}
 .continent-country-rank-row {{
   display:grid !important;
-  grid-template-columns:15px minmax(0,1fr) auto !important;
+  grid-template-columns:14px minmax(0,1fr) auto !important;
   align-items:center !important;
   gap:4px !important;
   width:100% !important;
-  min-height:23px !important;
-  padding:3px 5px !important;
+  min-height:22px !important;
+  padding:3px 4px !important;
   border:0 !important;
   border-radius:8px !important;
   background:rgba(247,250,252,.88) !important;
@@ -13518,12 +13533,12 @@ header,
   overflow:hidden !important;
   text-overflow:ellipsis !important;
   white-space:nowrap !important;
-  font-size:8.7px !important;
+  font-size:8.2px !important;
   font-weight:850 !important;
 }}
 .continent-country-rank-count {{
   color:#2284c1 !important;
-  font-size:8.8px !important;
+  font-size:8.3px !important;
   font-weight:900 !important;
   white-space:nowrap !important;
 }}
@@ -13534,35 +13549,39 @@ header,
   top:10px !important;
   left:50% !important;
   transform:translateX(-50%) !important;
-  max-width:160px !important;
+  max-width:132px !important;
+  min-height:24px !important;
+  padding:4px 9px !important;
 }}
 
 @media (max-width:430px) {{
   .country-map-visual.globe-mode {{
-    height:232px !important;
-    min-height:232px !important;
+    height:242px !important;
+    min-height:242px !important;
   }}
   .country-map-visual .world-map-inline.globe-texture-source,
   #country-map-label-layer.country-map-label-layer {{
-    left:7px !important;
-    top:9px !important;
-    right:105px !important;
-    bottom:9px !important;
+    left:8px !important;
+    top:10px !important;
+    right:118px !important;
+    bottom:10px !important;
   }}
   #continent-rail {{
-    width:94px !important;
+    width:104px !important;
     right:6px !important;
-    top:9px !important;
-    bottom:9px !important;
-    padding:7px 6px !important;
+    top:10px !important;
+    bottom:10px !important;
+    padding:8px 7px !important;
   }}
   #continent-country-ranking {{
-    width:104px !important;
-    max-height:150px !important;
+    width:96px !important;
+    max-height:138px !important;
     padding:6px !important;
   }}
-  #continent-country-ranking.rank-left {{ left:8px !important; top:46px !important; }}
-  #continent-country-ranking.rank-right {{ right:108px !important; top:46px !important; }}
+  #continent-country-ranking.rank-left-top {{ left:12px !important; top:52px !important; }}
+  #continent-country-ranking.rank-left-bottom {{ left:12px !important; bottom:18px !important; }}
+  #continent-country-ranking.rank-right-top {{ right:118px !important; top:52px !important; }}
+  #continent-country-ranking.rank-right-bottom {{ right:118px !important; bottom:18px !important; }}
   .continent-country-rank-row {{
     grid-template-columns:13px minmax(0,1fr) auto !important;
     min-height:21px !important;
@@ -13577,14 +13596,15 @@ header,
 
 @media (max-width:380px) {{
   .country-map-visual.globe-mode {{
-    height:222px !important;
-    min-height:222px !important;
+    height:230px !important;
+    min-height:230px !important;
   }}
   .country-map-visual .world-map-inline.globe-texture-source,
-  #country-map-label-layer.country-map-label-layer {{ right:98px !important; }}
-  #continent-rail {{ width:88px !important; }}
-  #continent-country-ranking {{ width:96px !important; max-height:142px !important; }}
-  #continent-country-ranking.rank-right {{ right:101px !important; }}
+  #country-map-label-layer.country-map-label-layer {{ right:104px !important; }}
+  #continent-rail {{ width:92px !important; }}
+  #continent-country-ranking {{ width:90px !important; max-height:132px !important; }}
+  #continent-country-ranking.rank-right-top {{ right:106px !important; }}
+  #continent-country-ranking.rank-right-bottom {{ right:106px !important; }}
   .continent-country-rank-name {{ font-size:7.5px !important; }}
   .continent-country-rank-count {{ font-size:7.7px !important; }}
 }}
@@ -16404,14 +16424,14 @@ function layoutAndRenderCountryMap(){{
       if(selectedItem) caption.textContent = `${{selectedItem.flag}} ${{selectedItem.name}} · ${{selectedItem.count}}건`;
       else caption.textContent = `${{currentContinent.name}} 지도 보기`;
     }} else if(activeContinentFilter==='ALL') {{
-      caption.textContent = '오른쪽에서 대륙을 선택하세요';
+      caption.textContent = '대륙 선택';
     }} else {{
       const countryCount = items.filter(item=>item.continent===activeContinentFilter).length;
       caption.textContent = `${{currentContinent.name}} · ${{countryCount}}개국`;
     }}
   }}
   const note=document.getElementById('country-filter-note');
-  if(note)note.textContent='대륙을 선택하면 해당 국가를 지도에 표시합니다';
+  if(note)note.textContent='대륙을 선택하면 지도 위 점과 국가 순위가 함께 바뀝니다';
 }}
 
 function renderGlobeLabels(){{
