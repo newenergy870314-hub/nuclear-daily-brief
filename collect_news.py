@@ -10753,6 +10753,26 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   CONTINENT VERTICAL RAILS — 모든 대륙 세로 정렬
+   ============================================================ */
+.country-map-label {{
+  min-width:28px !important;
+  justify-content:center !important;
+}}
+
+.country-map-label-connector {{
+  opacity:.26 !important;
+}}
+
+/* 세로 레일이 지도보다 강하게 보이지 않도록 배지 크기 유지 */
+@media (max-width:767px) {{
+  .country-map-label {{
+    min-width:29px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -12325,71 +12345,49 @@ function layoutAndRenderCountryMap(){{
     }};
     mapItems.forEach(item=>byRegion[item.region].push(item));
 
-    // 실제 지도 위치 순서대로 정렬 → 연결선 교차 최소화
+    // 모든 대륙을 위→아래 세로 정렬.
+    // 실제 위도 순서대로 배치해 연결선 교차를 최소화합니다.
     byRegion.AMERICAS.sort((a,b)=>a.y-b.y);
-    byRegion.EUROPE.sort((a,b)=>a.x-b.x);
+    byRegion.EUROPE.sort((a,b)=>a.y-b.y);
     byRegion.ASIA_PACIFIC.sort((a,b)=>a.y-b.y);
-    byRegion.MENA_AFRICA.sort((a,b)=>a.x-b.x);
+    byRegion.MENA_AFRICA.sort((a,b)=>a.y-b.y);
 
     const positions=new Map();
     const edge=4;
 
-    function distributeVertical(items,side,yStartRatio,yEndRatio){{
+    function distributeVerticalRail(items,side,xRatio,yStartRatio,yEndRatio){{
       if(!items.length)return;
+
       const yStart=rect.height*yStartRatio;
       const yEnd=rect.height*yEndRatio;
+      const available=Math.max(1,yEnd-yStart);
 
-      // 국가가 많으면 2열로 확장하되 지도 가장자리에서만 사용
-      const maxPerColumn=Math.max(4,Math.floor((yEnd-yStart)/22));
-      const columns=Math.max(1,Math.ceil(items.length/maxPerColumn));
-      const perColumn=Math.ceil(items.length/columns);
+      // 세로 간격을 유지하기 위해 국가가 많으면 지도 높이를 기준으로 촘촘하게 분배
+      const itemHeights=items.map(item=>Math.max(18,item.label.offsetHeight));
+      const minStep=Math.max(19,Math.min(24,available/Math.max(1,items.length-1)));
 
       items.forEach((item,index)=>{{
-        const col=Math.floor(index/perColumn);
-        const posInCol=index%perColumn;
-        const colItems=Math.min(perColumn,items.length-col*perColumn);
-        const t=colItems<=1?0.5:posInCol/(colItems-1);
-        const y=yStart+(yEnd-yStart)*t;
-
+        const t=items.length<=1?0.5:index/(items.length-1);
+        const y=yStart+available*t;
         const w=item.label.offsetWidth;
-        const inward=col*34;
-        const x=side==="left"
-          ? w/2+edge+inward
-          : rect.width-w/2-edge-inward;
+
+        let x=rect.width*xRatio;
+        if(side==="left"){{
+          x=Math.max(w/2+edge,x);
+        }}else{{
+          x=Math.min(rect.width-w/2-edge,x);
+        }}
 
         positions.set(item.code,{{x,y}});
       }});
     }}
 
-    function distributeHorizontal(items,side,xStartRatio,xEndRatio){{
-      if(!items.length)return;
-
-      // 한 줄 최대 5개. 많으면 2~3행으로 확장.
-      const maxPerRow=Math.max(3,Math.min(5,Math.floor(rect.width/68)));
-      const rows=Math.max(1,Math.ceil(items.length/maxPerRow));
-      const perRow=Math.ceil(items.length/rows);
-
-      items.forEach((item,index)=>{{
-        const row=Math.floor(index/perRow);
-        const posInRow=index%perRow;
-        const rowItems=Math.min(perRow,items.length-row*perRow);
-        const t=rowItems<=1?0.5:posInRow/(rowItems-1);
-
-        const x=rect.width*(xStartRatio+(xEndRatio-xStartRatio)*t);
-        const h=item.label.offsetHeight;
-        const y=side==="top"
-          ? h/2+edge+row*21
-          : rect.height-h/2-edge-row*21;
-
-        positions.set(item.code,{{x,y}});
-      }});
-    }}
-
-    // 미주 왼쪽 / 유럽 위쪽 / 아시아·태평양 오른쪽 / 중동·아프리카 아래쪽
-    distributeVertical(byRegion.AMERICAS,"left",0.22,0.78);
-    distributeHorizontal(byRegion.EUROPE,"top",0.24,0.82);
-    distributeVertical(byRegion.ASIA_PACIFIC,"right",0.24,0.82);
-    distributeHorizontal(byRegion.MENA_AFRICA,"bottom",0.30,0.76);
+    // 4개의 세로 레일:
+    // 왼쪽 바깥=미주 / 왼쪽 안쪽=유럽 / 오른쪽 안쪽=아시아·태평양 / 오른쪽 바깥=중동·아프리카
+    distributeVerticalRail(byRegion.AMERICAS,"left",0.07,0.18,0.82);
+    distributeVerticalRail(byRegion.EUROPE,"left",0.23,0.10,0.90);
+    distributeVerticalRail(byRegion.ASIA_PACIFIC,"right",0.77,0.10,0.90);
+    distributeVerticalRail(byRegion.MENA_AFRICA,"right",0.93,0.18,0.82);
 
     mapItems.forEach(item=>{{
       const pos=positions.get(item.code);
