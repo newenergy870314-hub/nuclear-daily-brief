@@ -10625,6 +10625,134 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   CONTINENT EDGE RAILS — 대륙별 지도 가장자리 정렬
+   미주=왼쪽 / 유럽=위 / 아시아·태평양=오른쪽 / 중동·아프리카=아래
+   ============================================================ */
+.country-map-label-layer {{
+  position:absolute;
+  inset:8px 8px 17px;
+  z-index:8;
+  overflow:visible;
+  pointer-events:none;
+}}
+
+.country-map-label {{
+  position:absolute;
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:2px !important;
+  min-height:18px !important;
+  height:18px !important;
+  padding:0 4px !important;
+  border:1px solid rgba(74,96,120,.16) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.88) !important;
+  color:#53667b !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.05) !important;
+  opacity:1 !important;
+  white-space:nowrap;
+  pointer-events:auto !important;
+  transform:translate(-50%,-50%) !important;
+  backdrop-filter:blur(2px);
+  z-index:4;
+}}
+
+.country-map-label .map-label-flag {{
+  font-size:10px !important;
+  line-height:1 !important;
+  opacity:1 !important;
+  filter:none !important;
+}}
+
+.country-map-label .map-label-name {{
+  display:none !important;
+}}
+
+.country-map-label .map-label-count {{
+  color:#5e7187 !important;
+  font-size:6.8px !important;
+  line-height:1 !important;
+  font-weight:850 !important;
+  opacity:1 !important;
+}}
+
+.country-map-label.active {{
+  min-height:21px !important;
+  height:21px !important;
+  padding:0 5px !important;
+  border-color:#1f4f8a !important;
+  background:#1f4f8a !important;
+  color:#fff !important;
+  box-shadow:0 2px 7px rgba(31,79,138,.18) !important;
+  z-index:12 !important;
+}}
+.country-map-label.active .map-label-flag {{
+  font-size:10.5px !important;
+}}
+.country-map-label.active .map-label-count {{
+  color:#fee500 !important;
+  font-size:7.2px !important;
+}}
+
+/* actual country point: small and calm */
+.country-map-svg-halo {{
+  opacity:.08 !important;
+}}
+.country-map-svg-dot {{
+  stroke-width:3px !important;
+  opacity:.88 !important;
+}}
+.country-map-svg-point.active .country-map-svg-dot {{
+  opacity:1 !important;
+}}
+
+/* leader lines: subtle but readable */
+.country-map-label-connector {{
+  stroke:#74889d !important;
+  stroke-width:.8 !important;
+  stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+  opacity:.32 !important;
+  pointer-events:none;
+}}
+
+/* 지도 자체가 국기보다 먼저 보이도록 지형 대비 강화 */
+.world-map-land path {{
+  fill:#dce5ee !important;
+  stroke:#aebdca !important;
+  stroke-width:1.35 !important;
+  opacity:.97 !important;
+}}
+
+.country-map-caption {{
+  color:#8a96a5 !important;
+}}
+
+@media (max-width:767px) {{
+  .country-map-visual {{
+    min-height:188px !important;
+    height:198px !important;
+  }}
+  .country-map-label {{
+    min-height:19px !important;
+    height:19px !important;
+    padding:0 4px !important;
+  }}
+  .country-map-label .map-label-flag {{
+    font-size:10px !important;
+  }}
+  .country-map-label .map-label-count {{
+    font-size:7px !important;
+  }}
+  .country-map-label.active {{
+    min-height:22px !important;
+    height:22px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -12047,12 +12175,43 @@ function layoutAndRenderCountryMap(){{
   labelLayer.innerHTML="";
   hideCountryMapTooltip(true);
 
-  const chipButtons=[...document.querySelectorAll("#country-chip-rail .country-pin[data-country-filter]")];
+  const chipButtons=[...document.querySelectorAll(
+    "#country-chip-rail .country-pin[data-country-filter]"
+  )];
+
   const SVG_NS="http://www.w3.org/2000/svg";
   const mapItems=[];
 
+  const REGION_BY_COUNTRY={{
+    // Americas
+    US:"AMERICAS", CA:"AMERICAS",
+
+    // Europe
+    GB:"EUROPE", FR:"EUROPE", NL:"EUROPE", BE:"EUROPE", CH:"EUROPE",
+    SE:"EUROPE", FI:"EUROPE", PL:"EUROPE", CZ:"EUROPE", SI:"EUROPE",
+    RO:"EUROPE", BG:"EUROPE", UA:"EUROPE", RU:"EUROPE", SK:"EUROPE",
+    DK:"EUROPE",
+
+    // Asia-Pacific
+    KR:"ASIA_PACIFIC", JP:"ASIA_PACIFIC", CN:"ASIA_PACIFIC",
+    IN:"ASIA_PACIFIC", VN:"ASIA_PACIFIC", MY:"ASIA_PACIFIC",
+    TH:"ASIA_PACIFIC", SG:"ASIA_PACIFIC", AU:"ASIA_PACIFIC",
+
+    // Middle East / Africa
+    TR:"MENA_AFRICA", AE:"MENA_AFRICA", SA:"MENA_AFRICA", ZA:"MENA_AFRICA"
+  }};
+
+  function mapRegion(code,lon){{
+    if(REGION_BY_COUNTRY[code])return REGION_BY_COUNTRY[code];
+    if(lon<-30)return "AMERICAS";
+    if(lon<35)return "EUROPE";
+    if(lon<75)return "MENA_AFRICA";
+    return "ASIA_PACIFIC";
+  }}
+
   chipButtons.forEach(button=>{{
     if(button.hidden)return;
+
     const code=button.dataset.countryFilter;
     if(!code || code==="OTHER")return;
 
@@ -12064,12 +12223,16 @@ function layoutAndRenderCountryMap(){{
     const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
     if(count<=0)return;
 
-    const nameNode=[...button.querySelectorAll("span")].find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
+    const nameNode=[...button.querySelectorAll("span")]
+      .find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
     const flag=button.querySelector(".flag")?.textContent||"";
     const name=nameNode?.textContent||COUNTRY_NAMES[code]||code;
+
     const x=((lon+180)/360)*1000;
     const y=((85-lat)/145)*500;
+    const region=mapRegion(code,lon);
 
+    // 실제 국가 위치는 작은 점으로만 표시
     const group=document.createElementNS(SVG_NS,"g");
     group.setAttribute("class","country-map-svg-point");
     group.setAttribute("data-country-filter",code);
@@ -12080,17 +12243,22 @@ function layoutAndRenderCountryMap(){{
 
     const halo=document.createElementNS(SVG_NS,"circle");
     halo.setAttribute("class","country-map-svg-halo");
-    halo.setAttribute("cx",String(x)); halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=10?"30":count>=4?"26":"22");
+    halo.setAttribute("cx",String(x));
+    halo.setAttribute("cy",String(y));
+    halo.setAttribute("r",count>=10?"26":count>=4?"22":"19");
 
     const dot=document.createElementNS(SVG_NS,"circle");
     dot.setAttribute("class","country-map-svg-dot");
-    dot.setAttribute("cx",String(x)); dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=10?"16":count>=4?"14":"12");
+    dot.setAttribute("cx",String(x));
+    dot.setAttribute("cy",String(y));
+    dot.setAttribute("r",count>=10?"13":count>=4?"11":"9");
 
     const title=document.createElementNS(SVG_NS,"title");
     title.textContent=`${{flag}} ${{name}} · ${{count}}건`;
-    group.appendChild(halo); group.appendChild(dot); group.appendChild(title);
+
+    group.appendChild(halo);
+    group.appendChild(dot);
+    group.appendChild(title);
     dotLayer.appendChild(group);
 
     const show=()=>showCountryMapTooltip(x,y,flag,name,count,false);
@@ -12098,75 +12266,146 @@ function layoutAndRenderCountryMap(){{
     group.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
     group.addEventListener("focus",show);
     group.addEventListener("blur",()=>hideCountryMapTooltip(true));
-    group.addEventListener("click",event=>{{ event.preventDefault(); event.stopPropagation(); setCountryFilter(code); }});
-    group.addEventListener("keydown",event=>{{ if(event.key==="Enter"||event.key===" "){{ event.preventDefault(); setCountryFilter(code); }} }});
+    group.addEventListener("click",event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(code);
+    }});
+    group.addEventListener("keydown",event=>{{
+      if(event.key==="Enter"||event.key===" "){{
+        event.preventDefault();
+        setCountryFilter(code);
+      }}
+    }});
 
+    // 가장자리 대륙 레일용 국기 + 기사건수
     const label=document.createElement("button");
     label.type="button";
     label.className="country-map-label";
     if(activeCountryFilter===code)label.classList.add("active");
     label.dataset.countryFilter=code;
+    label.dataset.region=region;
     label.setAttribute("aria-label",`${{name}} 기사 ${{count}}건 보기`);
-    label.innerHTML=`<span class="map-label-flag">${{flag}}</span><span class="map-label-name">${{name}}</span><span class="map-label-count">${{count}}건</span>`;
+    label.innerHTML=
+      `<span class="map-label-flag">${{flag}}</span>`+
+      `<span class="map-label-name">${{name}}</span>`+
+      `<span class="map-label-count">${{count}}건</span>`;
+
     label.addEventListener("mouseenter",show);
     label.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
     label.addEventListener("focus",show);
     label.addEventListener("blur",()=>hideCountryMapTooltip(true));
-    label.addEventListener("click",event=>{{ event.preventDefault(); event.stopPropagation(); setCountryFilter(code); }});
+    label.addEventListener("click",event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(code);
+    }});
+
     labelLayer.appendChild(label);
-    mapItems.push({{label,button,code,count,x,y}});
+    mapItems.push({{
+      label,button,code,count,x,y,lon,lat,region
+    }});
   }});
 
-  if(caption)caption.textContent=activeCountryFilter ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중` : "기사 있는 국가 · 국기와 건수 표시";
+  if(caption){{
+    caption.textContent=activeCountryFilter
+      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중`
+      : "기사 있는 국가 · 대륙별 정렬";
+  }}
 
   requestAnimationFrame(()=>{{
-    const layerRect=labelLayer.getBoundingClientRect();
-    if(!layerRect.width || !layerRect.height)return;
-    const ordered=[...mapItems].sort((a,b)=>b.count-a.count);
-    const placed=[];
-    const edge=3, gap=2;
-    const overlaps=(a,b)=>!(a.right<=b.left || a.left>=b.right || a.bottom<=b.top || a.top>=b.bottom);
-    const clamp=(v,min,max)=>Math.max(min,Math.min(v,max));
-    const makeBox=(cx,cy,w,h)=>({{left:cx-w/2-gap,right:cx+w/2+gap,top:cy-h/2-gap,bottom:cy+h/2+gap}});
+    const rect=labelLayer.getBoundingClientRect();
+    if(!rect.width || !rect.height)return;
 
-    ordered.forEach(item=>{{
-      const label=item.label, w=label.offsetWidth, h=label.offsetHeight;
-      const anchorX=(item.x/1000)*layerRect.width;
-      const anchorY=(item.y/500)*layerRect.height;
-      const minX=w/2+edge, maxX=layerRect.width-w/2-edge;
-      const minY=h/2+edge, maxY=layerRect.height-h/2-edge;
-      const candidates=[{{dx:0,dy:-h*.8}}];
-      const step=Math.max(h+4,24), horizontal=Math.max(w*.7,24);
-      [1,1.4,1.9,2.5,3.2].forEach(r=>{{
-        [[0,-step*r],[horizontal*r,-step*r],[-horizontal*r,-step*r],[horizontal*r,0],[-horizontal*r,0],[0,step*r],[horizontal*r,step*r],[-horizontal*r,step*r]].forEach(([dx,dy])=>candidates.push({{dx,dy}}));
+    const byRegion={{
+      AMERICAS:[],
+      EUROPE:[],
+      ASIA_PACIFIC:[],
+      MENA_AFRICA:[]
+    }};
+    mapItems.forEach(item=>byRegion[item.region].push(item));
+
+    // 실제 지도 위치 순서대로 정렬 → 연결선 교차 최소화
+    byRegion.AMERICAS.sort((a,b)=>a.y-b.y);
+    byRegion.EUROPE.sort((a,b)=>a.x-b.x);
+    byRegion.ASIA_PACIFIC.sort((a,b)=>a.y-b.y);
+    byRegion.MENA_AFRICA.sort((a,b)=>a.x-b.x);
+
+    const positions=new Map();
+    const edge=4;
+
+    function distributeVertical(items,side,yStartRatio,yEndRatio){{
+      if(!items.length)return;
+      const yStart=rect.height*yStartRatio;
+      const yEnd=rect.height*yEndRatio;
+
+      // 국가가 많으면 2열로 확장하되 지도 가장자리에서만 사용
+      const maxPerColumn=Math.max(4,Math.floor((yEnd-yStart)/22));
+      const columns=Math.max(1,Math.ceil(items.length/maxPerColumn));
+      const perColumn=Math.ceil(items.length/columns);
+
+      items.forEach((item,index)=>{{
+        const col=Math.floor(index/perColumn);
+        const posInCol=index%perColumn;
+        const colItems=Math.min(perColumn,items.length-col*perColumn);
+        const t=colItems<=1?0.5:posInCol/(colItems-1);
+        const y=yStart+(yEnd-yStart)*t;
+
+        const w=item.label.offsetWidth;
+        const inward=col*34;
+        const x=side==="left"
+          ? w/2+edge+inward
+          : rect.width-w/2-edge-inward;
+
+        positions.set(item.code,{{x,y}});
       }});
-      let best=null, bestPenalty=Infinity;
-      candidates.forEach(c=>{{
-        const cx=clamp(anchorX+c.dx,minX,maxX), cy=clamp(anchorY+c.dy,minY,maxY);
-        const box=makeBox(cx,cy,w,h);
-        let collisions=0, overlapArea=0;
-        placed.forEach(p=>{{
-          if(!overlaps(box,p.box))return;
-          collisions++;
-          const iw=Math.max(0,Math.min(box.right,p.box.right)-Math.max(box.left,p.box.left));
-          const ih=Math.max(0,Math.min(box.bottom,p.box.bottom)-Math.max(box.top,p.box.top));
-          overlapArea+=iw*ih;
-        }});
-        const distance=Math.hypot(cx-anchorX,cy-anchorY);
-        const penalty=collisions*100000+overlapArea*100+distance;
-        if(penalty<bestPenalty){{ bestPenalty=penalty; best={{cx,cy,box,distance}}; }}
+    }}
+
+    function distributeHorizontal(items,side,xStartRatio,xEndRatio){{
+      if(!items.length)return;
+
+      // 한 줄 최대 5개. 많으면 2~3행으로 확장.
+      const maxPerRow=Math.max(3,Math.min(5,Math.floor(rect.width/68)));
+      const rows=Math.max(1,Math.ceil(items.length/maxPerRow));
+      const perRow=Math.ceil(items.length/rows);
+
+      items.forEach((item,index)=>{{
+        const row=Math.floor(index/perRow);
+        const posInRow=index%perRow;
+        const rowItems=Math.min(perRow,items.length-row*perRow);
+        const t=rowItems<=1?0.5:posInRow/(rowItems-1);
+
+        const x=rect.width*(xStartRatio+(xEndRatio-xStartRatio)*t);
+        const h=item.label.offsetHeight;
+        const y=side==="top"
+          ? h/2+edge+row*21
+          : rect.height-h/2-edge-row*21;
+
+        positions.set(item.code,{{x,y}});
       }});
-      if(!best)return;
-      label.style.left=`${{best.cx}}px`; label.style.top=`${{best.cy}}px`;
-      placed.push({{box:best.box,code:item.code}});
-      if(best.distance>26){{
-        const line=document.createElementNS(SVG_NS,"line");
-        line.setAttribute("class","country-map-label-connector");
-        line.setAttribute("x1",String(item.x)); line.setAttribute("y1",String(item.y));
-        line.setAttribute("x2",String((best.cx/layerRect.width)*1000));
-        line.setAttribute("y2",String((best.cy/layerRect.height)*500));
-        dotLayer.insertBefore(line,dotLayer.firstChild);
-      }}
+    }}
+
+    // 미주 왼쪽 / 유럽 위쪽 / 아시아·태평양 오른쪽 / 중동·아프리카 아래쪽
+    distributeVertical(byRegion.AMERICAS,"left",0.22,0.78);
+    distributeHorizontal(byRegion.EUROPE,"top",0.24,0.82);
+    distributeVertical(byRegion.ASIA_PACIFIC,"right",0.24,0.82);
+    distributeHorizontal(byRegion.MENA_AFRICA,"bottom",0.30,0.76);
+
+    mapItems.forEach(item=>{{
+      const pos=positions.get(item.code);
+      if(!pos)return;
+
+      item.label.style.left=`${{pos.x}}px`;
+      item.label.style.top=`${{pos.y}}px`;
+
+      // 실제 위치 점 → 대륙별 정렬 국기 배지 연결
+      const line=document.createElementNS(SVG_NS,"line");
+      line.setAttribute("class","country-map-label-connector");
+      line.setAttribute("x1",String(item.x));
+      line.setAttribute("y1",String(item.y));
+      line.setAttribute("x2",String((pos.x/rect.width)*1000));
+      line.setAttribute("y2",String((pos.y/rect.height)*500));
+      dotLayer.insertBefore(line,dotLayer.firstChild);
     }});
   }});
 }}
