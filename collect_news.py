@@ -5227,11 +5227,11 @@ def render_card(
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">{new_badge}{escape(article.title)}</div>
       {snippet_html}
     </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image">{image_html}</div>
@@ -11842,23 +11842,74 @@ header,
 
 
 /* ============================================================
-   FINAL OVERRIDE — LANDSCAPE THUMBNAILS
+   FINAL OVERRIDE — IMPORTANT BUTTON LEFT + LANDSCAPE THUMBNAILS
    ============================================================ */
+.preview-copy {{
+  grid-template-columns:18px minmax(0,1fr) !important;
+  column-gap:4px !important;
+  min-height:86px !important;
+}}
+
+.article-content-column {{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  min-width:0 !important;
+}}
+
+.meta-row {{
+  display:flex !important;
+  align-items:center !important;
+  gap:3px !important;
+  min-width:0 !important;
+  height:18px !important;
+  margin:0 0 2px 0 !important;
+  overflow:hidden !important;
+}}
+
+.important-button {{
+  position:static !important;
+  grid-column:auto !important;
+  grid-row:auto !important;
+  align-self:center !important;
+  justify-self:auto !important;
+  margin-left:4px !important;
+  flex:0 0 auto !important;
+  width:auto !important;
+  min-width:30px !important;
+  height:18px !important;
+  padding:0 6px !important;
+  border:1px solid #d7dde6 !important;
+  border-radius:999px !important;
+  background:#f7f9fb !important;
+  color:#667085 !important;
+  font-size:8.2px !important;
+  font-weight:850 !important;
+  line-height:16px !important;
+  text-align:center !important;
+  white-space:nowrap !important;
+}}
+
+.preview-card.important .important-button {{
+  border-color:#d6b746 !important;
+  background:#fff1a8 !important;
+  color:#6d5600 !important;
+}}
+
 .preview-card {{
-  grid-template-columns:minmax(0,1fr) 124px !important;
+  grid-template-columns:minmax(0,1fr) 128px !important;
   gap:10px !important;
   min-height:86px !important;
   padding:5px 4px 5px 10px !important;
 }}
 
 .card-side {{
-  width:124px !important;
-  min-width:124px !important;
+  width:128px !important;
+  min-width:128px !important;
   align-self:center !important;
 }}
 
 .preview-image {{
-  width:124px !important;
+  width:128px !important;
   height:74px !important;
   min-height:74px !important;
   align-self:center !important;
@@ -11875,36 +11926,60 @@ header,
 }}
 
 @media (max-width:430px) {{
+  .preview-copy {{
+    min-height:84px !important;
+  }}
+  .important-button {{
+    margin-left:3px !important;
+    min-width:28px !important;
+    height:17px !important;
+    padding:0 5px !important;
+    font-size:7.9px !important;
+    line-height:15px !important;
+  }}
   .preview-card {{
-    grid-template-columns:minmax(0,1fr) 114px !important;
+    grid-template-columns:minmax(0,1fr) 118px !important;
     gap:9px !important;
     min-height:84px !important;
     padding:5px 4px 5px 9px !important;
   }}
   .card-side {{
-    width:114px !important;
-    min-width:114px !important;
+    width:118px !important;
+    min-width:118px !important;
   }}
   .preview-image {{
-    width:114px !important;
+    width:118px !important;
     height:70px !important;
     min-height:70px !important;
   }}
 }}
 
 @media (max-width:380px) {{
+  .preview-copy {{
+    grid-template-columns:16px minmax(0,1fr) !important;
+    column-gap:4px !important;
+    min-height:80px !important;
+  }}
+  .important-button {{
+    margin-left:2px !important;
+    min-width:26px !important;
+    height:16px !important;
+    padding:0 5px !important;
+    font-size:7.6px !important;
+    line-height:14px !important;
+  }}
   .preview-card {{
-    grid-template-columns:minmax(0,1fr) 104px !important;
+    grid-template-columns:minmax(0,1fr) 108px !important;
     gap:8px !important;
     min-height:80px !important;
     padding:4px 3px 4px 8px !important;
   }}
   .card-side {{
-    width:104px !important;
-    min-width:104px !important;
+    width:108px !important;
+    min-width:108px !important;
   }}
   .preview-image {{
-    width:104px !important;
+    width:108px !important;
     height:66px !important;
     min-height:66px !important;
   }}
