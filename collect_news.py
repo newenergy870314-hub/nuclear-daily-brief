@@ -10773,6 +10773,120 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   COUNTRY AREA COMPACT MODE
+   시계+지도를 메인으로 유지하고 하단 국가 UI는 최소 높이로 정리
+   ============================================================ */
+
+/* 지도 아래 중복 안내문 제거 — 상단 우측 안내만 유지 */
+.country-chip-guide-bottom {{
+  display:none !important;
+}}
+
+/* 국가 필터: 한 줄 얇은 스트립 */
+#country-chip-rail.country-chip-rail {{
+  min-height:31px !important;
+  height:31px !important;
+  gap:4px !important;
+  margin:6px 0 0 !important;
+  padding:1px 1px 2px !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}}
+#country-chip-rail.country-chip-rail::-webkit-scrollbar {{
+  display:none;
+}}
+
+#country-chip-rail .country-pin {{
+  min-height:27px !important;
+  height:27px !important;
+  padding:0 8px !important;
+  gap:3px !important;
+  border-radius:999px !important;
+  font-size:8.5px !important;
+  box-shadow:none !important;
+}}
+#country-chip-rail .country-pin .flag {{
+  font-size:12px !important;
+}}
+#country-chip-rail .country-pin .country-count {{
+  font-size:7.5px !important;
+}}
+#country-chip-rail .country-pin.active {{
+  box-shadow:0 1px 4px rgba(31,79,138,.14) !important;
+}}
+
+/* 국가 선택 상태: 큰 카드가 아니라 얇은 인라인 툴바 */
+.country-selection-bar {{
+  min-height:30px !important;
+  height:30px !important;
+  margin:4px 0 0 !important;
+  padding:2px 3px 2px 7px !important;
+  border:0 !important;
+  border-top:1px solid rgba(31,79,138,.10) !important;
+  border-radius:0 !important;
+  background:transparent !important;
+}}
+
+.country-selection-summary {{
+  gap:3px !important;
+  font-size:8.5px !important;
+}}
+.country-selection-flag {{
+  font-size:13px !important;
+}}
+.country-selection-count {{
+  font-size:7.8px !important;
+}}
+.country-selection-actions {{
+  gap:3px !important;
+}}
+
+.country-selection-primary,
+.country-selection-clear {{
+  height:24px !important;
+  min-height:24px !important;
+  padding:0 7px !important;
+  border-radius:7px !important;
+  font-size:7.8px !important;
+}}
+
+.country-selection-primary {{
+  box-shadow:none !important;
+}}
+.country-selection-clear {{
+  background:transparent !important;
+}}
+
+/* 패널 하단 여백도 줄여 기사 영역이 더 빨리 시작되도록 */
+.world-map-panel {{
+  padding-bottom:7px !important;
+}}
+
+@media (max-width:767px) {{
+  #country-chip-rail.country-chip-rail {{
+    min-height:32px !important;
+    height:32px !important;
+    margin-top:5px !important;
+  }}
+  #country-chip-rail .country-pin {{
+    min-height:28px !important;
+    height:28px !important;
+    padding:0 8px !important;
+    font-size:8.7px !important;
+  }}
+  #country-chip-rail .country-pin .flag {{
+    font-size:12.5px !important;
+  }}
+  .country-selection-bar {{
+    min-height:31px !important;
+    height:31px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -11610,7 +11724,7 @@ header,
     </div>
     </div>
 
-    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
+    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true"></div>
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
         <span>전체</span><span class="country-count">0건</span>
@@ -11657,7 +11771,7 @@ header,
         <span id="country-selection-count" class="country-selection-count"></span>
       </div>
       <div class="country-selection-actions">
-        <button id="country-view-articles" class="country-selection-primary" type="button">기사 보기</button>
+        <button id="country-view-articles" class="country-selection-primary" type="button">보기</button>
         <button id="country-clear-filter" class="country-selection-clear" type="button" aria-label="국가 필터 해제">해제</button>
       </div>
     </div>
