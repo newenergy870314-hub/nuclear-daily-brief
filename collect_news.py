@@ -10887,6 +10887,142 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   MAP-ONLY COUNTRY UX
+   시계 + 지도만 메인으로 표시, 국가 필터 UI는 숨김
+   ============================================================ */
+.country-chip-guide-bottom,
+#country-chip-rail,
+.country-selection-bar,
+.country-filter-note-inline {{
+  display:none !important;
+}}
+
+/* 국가별 기사 패널은 시계+지도에 집중 */
+.world-map-panel {{
+  padding-bottom:9px !important;
+}}
+
+/* 첨부 예시처럼 지도 위 실제 위치 근처에 국기+국가명+건수 표시 */
+.country-map-label {{
+  position:absolute;
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:flex-start;
+  gap:3px !important;
+  min-height:20px !important;
+  height:20px !important;
+  padding:1px 5px 1px 3px !important;
+  border:0 !important;
+  border-radius:5px !important;
+  background:rgba(255,255,255,.86) !important;
+  color:#24364c !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.08) !important;
+  opacity:1 !important;
+  white-space:nowrap;
+  pointer-events:auto !important;
+  transform:translate(-50%,-50%) !important;
+  backdrop-filter:blur(2px);
+  z-index:6;
+}}
+
+.country-map-label .map-label-flag {{
+  font-size:12px !important;
+  line-height:1 !important;
+  opacity:1 !important;
+  filter:none !important;
+}}
+
+.country-map-label .map-label-name {{
+  display:inline !important;
+  font-size:7.5px !important;
+  line-height:1 !important;
+  font-weight:850 !important;
+}}
+
+.country-map-label .map-label-count {{
+  color:#667085 !important;
+  font-size:6.8px !important;
+  line-height:1 !important;
+  font-weight:800 !important;
+}}
+
+.country-map-label.active {{
+  min-height:22px !important;
+  height:22px !important;
+  padding:1px 6px 1px 4px !important;
+  background:#1f4f8a !important;
+  color:#fff !important;
+  box-shadow:0 2px 7px rgba(31,79,138,.20) !important;
+  z-index:12 !important;
+}}
+.country-map-label.active .map-label-name {{
+  color:#fff !important;
+}}
+.country-map-label.active .map-label-count {{
+  color:#fee500 !important;
+}}
+
+/* 지도 점은 국기 라벨보다 작게 */
+.country-map-svg-halo {{
+  opacity:.06 !important;
+}}
+.country-map-svg-dot {{
+  stroke-width:2.8px !important;
+  opacity:.88 !important;
+}}
+
+/* 연결선은 짧고 얇게 */
+.country-map-label-connector {{
+  stroke:#72879c !important;
+  stroke-width:.75 !important;
+  opacity:.28 !important;
+  stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+}}
+
+/* 지도 자체는 조금 더 선명하게 */
+.world-map-land path {{
+  fill:#dce5ee !important;
+  stroke:#aebdca !important;
+  stroke-width:1.35 !important;
+  opacity:.98 !important;
+}}
+
+/* 하단 캡션은 최소 안내만 */
+.country-map-caption {{
+  left:7px !important;
+  bottom:4px !important;
+  font-size:6.8px !important;
+  color:#98a2b3 !important;
+}}
+.country-map-caption-dot {{
+  width:5px !important;
+  height:5px !important;
+}}
+
+@media (max-width:767px) {{
+  .country-map-visual {{
+    min-height:198px !important;
+    height:205px !important;
+  }}
+  .country-map-label {{
+    min-height:21px !important;
+    height:21px !important;
+    padding:1px 5px 1px 3px !important;
+  }}
+  .country-map-label .map-label-flag {{
+    font-size:12.5px !important;
+  }}
+  .country-map-label .map-label-name {{
+    font-size:7.7px !important;
+  }}
+  .country-map-label .map-label-count {{
+    font-size:7px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -12312,36 +12448,8 @@ function layoutAndRenderCountryMap(){{
   const chipButtons=[...document.querySelectorAll(
     "#country-chip-rail .country-pin[data-country-filter]"
   )];
-
   const SVG_NS="http://www.w3.org/2000/svg";
   const mapItems=[];
-
-  const REGION_BY_COUNTRY={{
-    // Americas
-    US:"AMERICAS", CA:"AMERICAS",
-
-    // Europe
-    GB:"EUROPE", FR:"EUROPE", NL:"EUROPE", BE:"EUROPE", CH:"EUROPE",
-    SE:"EUROPE", FI:"EUROPE", PL:"EUROPE", CZ:"EUROPE", SI:"EUROPE",
-    RO:"EUROPE", BG:"EUROPE", UA:"EUROPE", RU:"EUROPE", SK:"EUROPE",
-    DK:"EUROPE",
-
-    // Asia-Pacific
-    KR:"ASIA_PACIFIC", JP:"ASIA_PACIFIC", CN:"ASIA_PACIFIC",
-    IN:"ASIA_PACIFIC", VN:"ASIA_PACIFIC", MY:"ASIA_PACIFIC",
-    TH:"ASIA_PACIFIC", SG:"ASIA_PACIFIC", AU:"ASIA_PACIFIC",
-
-    // Middle East / Africa
-    TR:"MENA_AFRICA", AE:"MENA_AFRICA", SA:"MENA_AFRICA", ZA:"MENA_AFRICA"
-  }};
-
-  function mapRegion(code,lon){{
-    if(REGION_BY_COUNTRY[code])return REGION_BY_COUNTRY[code];
-    if(lon<-30)return "AMERICAS";
-    if(lon<35)return "EUROPE";
-    if(lon<75)return "MENA_AFRICA";
-    return "ASIA_PACIFIC";
-  }}
 
   chipButtons.forEach(button=>{{
     if(button.hidden)return;
@@ -12364,9 +12472,7 @@ function layoutAndRenderCountryMap(){{
 
     const x=((lon+180)/360)*1000;
     const y=((85-lat)/145)*500;
-    const region=mapRegion(code,lon);
 
-    // 실제 국가 위치는 작은 점으로만 표시
     const group=document.createElementNS(SVG_NS,"g");
     group.setAttribute("class","country-map-svg-point");
     group.setAttribute("data-country-filter",code);
@@ -12379,13 +12485,13 @@ function layoutAndRenderCountryMap(){{
     halo.setAttribute("class","country-map-svg-halo");
     halo.setAttribute("cx",String(x));
     halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=10?"26":count>=4?"22":"19");
+    halo.setAttribute("r",count>=10?"24":count>=4?"20":"17");
 
     const dot=document.createElementNS(SVG_NS,"circle");
     dot.setAttribute("class","country-map-svg-dot");
     dot.setAttribute("cx",String(x));
     dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=10?"13":count>=4?"11":"9");
+    dot.setAttribute("r",count>=10?"11":count>=4?"9":"8");
 
     const title=document.createElementNS(SVG_NS,"title");
     title.textContent=`${{flag}} ${{name}} · ${{count}}건`;
@@ -12412,13 +12518,11 @@ function layoutAndRenderCountryMap(){{
       }}
     }});
 
-    // 가장자리 대륙 레일용 국기 + 기사건수
     const label=document.createElement("button");
     label.type="button";
     label.className="country-map-label";
     if(activeCountryFilter===code)label.classList.add("active");
     label.dataset.countryFilter=code;
-    label.dataset.region=region;
     label.setAttribute("aria-label",`${{name}} 기사 ${{count}}건 보기`);
     label.innerHTML=
       `<span class="map-label-flag">${{flag}}</span>`+
@@ -12436,88 +12540,105 @@ function layoutAndRenderCountryMap(){{
     }});
 
     labelLayer.appendChild(label);
-    mapItems.push({{
-      label,button,code,count,x,y,lon,lat,region
-    }});
+    mapItems.push({{label,code,count,x,y}});
   }});
 
   if(caption){{
     caption.textContent=activeCountryFilter
-      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중`
-      : "기사 있는 국가 · 대륙별 정렬";
+      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중 · 다시 누르면 전체`
+      : "국가를 누르면 해당 기사만 표시";
   }}
 
   requestAnimationFrame(()=>{{
     const rect=labelLayer.getBoundingClientRect();
     if(!rect.width || !rect.height)return;
 
-    const byRegion={{
-      AMERICAS:[],
-      EUROPE:[],
-      ASIA_PACIFIC:[],
-      MENA_AFRICA:[]
-    }};
-    mapItems.forEach(item=>byRegion[item.region].push(item));
+    const ordered=[...mapItems].sort((a,b)=>b.count-a.count);
+    const placed=[];
+    const edge=3;
+    const gap=2;
 
-    // 모든 대륙을 위→아래 세로 정렬.
-    // 실제 위도 순서대로 배치해 연결선 교차를 최소화합니다.
-    byRegion.AMERICAS.sort((a,b)=>a.y-b.y);
-    byRegion.EUROPE.sort((a,b)=>a.y-b.y);
-    byRegion.ASIA_PACIFIC.sort((a,b)=>a.y-b.y);
-    byRegion.MENA_AFRICA.sort((a,b)=>a.y-b.y);
+    const overlaps=(a,b)=>!(
+      a.right<=b.left || a.left>=b.right ||
+      a.bottom<=b.top || a.top>=b.bottom
+    );
+    const clamp=(v,min,max)=>Math.max(min,Math.min(v,max));
 
-    const positions=new Map();
-    const edge=4;
+    ordered.forEach(item=>{{
+      const label=item.label;
+      const w=label.offsetWidth;
+      const h=label.offsetHeight;
 
-    function distributeVerticalRail(items,side,xRatio,yStartRatio,yEndRatio){{
-      if(!items.length)return;
+      const anchorX=(item.x/1000)*rect.width;
+      const anchorY=(item.y/500)*rect.height;
 
-      const yStart=rect.height*yStartRatio;
-      const yEnd=rect.height*yEndRatio;
-      const available=Math.max(1,yEnd-yStart);
+      const minX=w/2+edge;
+      const maxX=rect.width-w/2-edge;
+      const minY=h/2+edge;
+      const maxY=rect.height-h/2-edge;
 
-      // 세로 간격을 유지하기 위해 국가가 많으면 지도 높이를 기준으로 촘촘하게 분배
-      const itemHeights=items.map(item=>Math.max(18,item.label.offsetHeight));
-      const minStep=Math.max(19,Math.min(24,available/Math.max(1,items.length-1)));
+      // reference-image style:
+      // label sits close to country point, preferring right side.
+      const candidates=[
+        {{dx:w*.70+5,dy:-h*.45}},
+        {{dx:w*.70+5,dy:h*.45}},
+        {{dx:-w*.70-5,dy:-h*.45}},
+        {{dx:-w*.70-5,dy:h*.45}},
+        {{dx:0,dy:-h-6}},
+        {{dx:0,dy:h+6}},
+        {{dx:w+8,dy:0}},
+        {{dx:-w-8,dy:0}},
+      ];
 
-      items.forEach((item,index)=>{{
-        const t=items.length<=1?0.5:index/(items.length-1);
-        const y=yStart+available*t;
-        const w=item.label.offsetWidth;
+      let best=null;
+      let bestPenalty=Infinity;
 
-        let x=rect.width*xRatio;
-        if(side==="left"){{
-          x=Math.max(w/2+edge,x);
-        }}else{{
-          x=Math.min(rect.width-w/2-edge,x);
+      candidates.forEach(c=>{{
+        const cx=clamp(anchorX+c.dx,minX,maxX);
+        const cy=clamp(anchorY+c.dy,minY,maxY);
+
+        const box={{
+          left:cx-w/2-gap,
+          right:cx+w/2+gap,
+          top:cy-h/2-gap,
+          bottom:cy+h/2+gap
+        }};
+
+        let collisions=0;
+        let overlapArea=0;
+        placed.forEach(p=>{{
+          if(!overlaps(box,p.box))return;
+          collisions++;
+          const iw=Math.max(0,Math.min(box.right,p.box.right)-Math.max(box.left,p.box.left));
+          const ih=Math.max(0,Math.min(box.bottom,p.box.bottom)-Math.max(box.top,p.box.top));
+          overlapArea+=iw*ih;
+        }});
+
+        const distance=Math.hypot(cx-anchorX,cy-anchorY);
+        const penalty=collisions*100000+overlapArea*100+distance;
+
+        if(penalty<bestPenalty){{
+          bestPenalty=penalty;
+          best={{cx,cy,box,distance}};
         }}
-
-        positions.set(item.code,{{x,y}});
       }});
-    }}
 
-    // 4개의 세로 레일:
-    // 왼쪽 바깥=미주 / 왼쪽 안쪽=유럽 / 오른쪽 안쪽=아시아·태평양 / 오른쪽 바깥=중동·아프리카
-    distributeVerticalRail(byRegion.AMERICAS,"left",0.07,0.18,0.82);
-    distributeVerticalRail(byRegion.EUROPE,"left",0.23,0.10,0.90);
-    distributeVerticalRail(byRegion.ASIA_PACIFIC,"right",0.77,0.10,0.90);
-    distributeVerticalRail(byRegion.MENA_AFRICA,"right",0.93,0.18,0.82);
+      if(!best)return;
 
-    mapItems.forEach(item=>{{
-      const pos=positions.get(item.code);
-      if(!pos)return;
+      label.style.left=`${{best.cx}}px`;
+      label.style.top=`${{best.cy}}px`;
+      placed.push({{box:best.box,code:item.code}});
 
-      item.label.style.left=`${{pos.x}}px`;
-      item.label.style.top=`${{pos.y}}px`;
-
-      // 실제 위치 점 → 대륙별 정렬 국기 배지 연결
-      const line=document.createElementNS(SVG_NS,"line");
-      line.setAttribute("class","country-map-label-connector");
-      line.setAttribute("x1",String(item.x));
-      line.setAttribute("y1",String(item.y));
-      line.setAttribute("x2",String((pos.x/rect.width)*1000));
-      line.setAttribute("y2",String((pos.y/rect.height)*500));
-      dotLayer.insertBefore(line,dotLayer.firstChild);
+      // short leader line from country point to nearby label
+      if(best.distance>10){{
+        const line=document.createElementNS(SVG_NS,"line");
+        line.setAttribute("class","country-map-label-connector");
+        line.setAttribute("x1",String(item.x));
+        line.setAttribute("y1",String(item.y));
+        line.setAttribute("x2",String((best.cx/rect.width)*1000));
+        line.setAttribute("y2",String((best.cy/rect.height)*500));
+        dotLayer.insertBefore(line,dotLayer.firstChild);
+      }}
     }});
   }});
 }}
@@ -12672,10 +12793,6 @@ function setCountryFilter(code){{
   activeCountryFilter=activeCountryFilter===code?"":code;
   filterArticles();
   updateCountryMapCounts();
-  updateCountrySelectionBar();
-
-  const note=document.getElementById("country-filter-note");
-  if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
 }}
 
 document.querySelectorAll("#country-chip-rail [data-country-filter]").forEach(button=>{{
