@@ -11990,7 +11990,7 @@ header,
   font-weight:900;
 }}
 
-.globe-country-label.active .globe-country-count {{ color:#2e7eae; }}
+.globe-country-label.active .globe-country-count {{ color:#d84b4b; }}
 
 .globe-zoom-controls {{
   display:none !important;
@@ -12332,6 +12332,67 @@ header,
     line-height:1.31 !important;
   }}
 }}
+
+/* FINAL CLEANUP — keep only bottom ALL button */
+.country-chip-guide.country-chip-guide-bottom,
+.country-chip-guide-bottom {{
+  display:none !important;
+}}
+
+#country-chip-rail.country-chip-rail,
+#country-chip-rail {{
+  display:flex !important;
+  visibility:visible !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:0 !important;
+  min-height:auto !important;
+  max-height:none !important;
+  height:auto !important;
+  margin:8px 0 0 !important;
+  padding:0 !important;
+  border:0 !important;
+  overflow:visible !important;
+  background:transparent !important;
+}}
+
+#country-chip-rail .country-pin {{
+  display:none !important;
+}}
+
+#country-chip-rail #country-all {{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:6px !important;
+  min-height:32px !important;
+  padding:0 12px !important;
+  border:1px solid rgba(141,178,208,.26) !important;
+  border-radius:999px !important;
+  background:#ffffff !important;
+  color:#4b6275 !important;
+  box-shadow:0 1px 4px rgba(39,78,109,.06) !important;
+  font-size:10px !important;
+  font-weight:800 !important;
+  white-space:nowrap !important;
+}}
+
+#country-chip-rail #country-all .country-count {{
+  color:#5f85a3 !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+}}
+
+#country-chip-rail #country-all.active {{
+  border-color:#70b4dd !important;
+  background:#eaf5fc !important;
+  color:#35556d !important;
+}}
+
+#country-chip-rail #country-all.active .country-count {{
+  color:#d84b4b !important;
+}}
+
 </style>
 </head>
 <body>
@@ -12386,8 +12447,8 @@ header,
 
     <div class="country-map-content">
       <aside class="world-clock-rail" aria-label="주요 지역 현재 시간 (24시간제)">
-        <div class="mini-world-clock" data-timezone="America/New_York">
-          <div class="mini-clock-label">뉴욕 <span>· 미국 동부</span></div>
+        <div class="mini-world-clock" data-timezone="Asia/Seoul">
+          <div class="mini-clock-label">서울 <span>· 대한민국</span></div>
           <div class="analog-clock" aria-hidden="true">
             <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
             <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
@@ -12406,7 +12467,7 @@ header,
             <span class="mini-clock-day">--</span>
           </div>
         </div>
-        <div class="mini-world-clock" data-timezone="Europe/Sofia">
+        <div class="mini-world-clock" data-role="selected-country" data-country-code="BG" data-timezone="Europe/Sofia">
           <div class="mini-clock-label">소피아 <span>· 불가리아</span></div>
           <div class="analog-clock" aria-hidden="true">
             <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
@@ -13172,7 +13233,7 @@ header,
       <div id="country-map-html-tooltip" class="country-map-html-tooltip" role="status" aria-live="polite"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
-        <span id="country-map-caption-text">아래 국가 필터에서 국가를 선택하세요</span>
+        <span id="country-map-caption-text">오른쪽 목록에서 국가를 선택하세요</span>
       </div>
     </div>
     </div>
@@ -13554,6 +13615,34 @@ const COUNTRY_NAMES = {{
   ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스", OTHER:"기타"
 }};
 
+const COUNTRY_CLOCK_META = {{
+  KR: {{ timeZone:"Asia/Seoul", city:"서울", sub:"대한민국" }},
+  US: {{ timeZone:"America/New_York", city:"뉴욕", sub:"미국 동부" }},
+  CA: {{ timeZone:"America/Toronto", city:"토론토", sub:"캐나다" }},
+  GB: {{ timeZone:"Europe/London", city:"런던", sub:"영국" }},
+  BG: {{ timeZone:"Europe/Sofia", city:"소피아", sub:"불가리아" }},
+  UA: {{ timeZone:"Europe/Kyiv", city:"키이우", sub:"우크라이나" }},
+  AE: {{ timeZone:"Asia/Dubai", city:"두바이", sub:"UAE" }},
+  RO: {{ timeZone:"Europe/Bucharest", city:"부쿠레슈티", sub:"루마니아" }},
+  CZ: {{ timeZone:"Europe/Prague", city:"프라하", sub:"체코" }},
+  PL: {{ timeZone:"Europe/Warsaw", city:"바르샤바", sub:"폴란드" }},
+  SI: {{ timeZone:"Europe/Ljubljana", city:"류블랴나", sub:"슬로베니아" }},
+  FI: {{ timeZone:"Europe/Helsinki", city:"헬싱키", sub:"핀란드" }},
+  JP: {{ timeZone:"Asia/Tokyo", city:"도쿄", sub:"일본" }},
+  FR: {{ timeZone:"Europe/Paris", city:"파리", sub:"프랑스" }},
+  SE: {{ timeZone:"Europe/Stockholm", city:"스톡홀름", sub:"스웨덴" }},
+  CN: {{ timeZone:"Asia/Shanghai", city:"베이징", sub:"중국" }},
+  IN: {{ timeZone:"Asia/Kolkata", city:"뉴델리", sub:"인도" }},
+  AU: {{ timeZone:"Australia/Sydney", city:"시드니", sub:"호주" }},
+  RU: {{ timeZone:"Europe/Moscow", city:"모스크바", sub:"러시아" }},
+  TR: {{ timeZone:"Europe/Istanbul", city:"이스탄불", sub:"튀르키예" }},
+  SA: {{ timeZone:"Asia/Riyadh", city:"리야드", sub:"사우디" }},
+  ZA: {{ timeZone:"Africa/Johannesburg", city:"요하네스버그", sub:"남아공" }},
+  NL: {{ timeZone:"Europe/Amsterdam", city:"암스테르담", sub:"네덜란드" }},
+  BE: {{ timeZone:"Europe/Brussels", city:"브뤼셀", sub:"벨기에" }},
+  CH: {{ timeZone:"Europe/Zurich", city:"취리히", sub:"스위스" }}
+}};
+
 function layoutCountryPins(){{
   const canvas=document.querySelector(".world-map-canvas");
   if(!canvas)return;
@@ -13668,6 +13757,22 @@ function dayRelationToKorea(parts,koreaParts){{
   return "당일";
 }}
 
+function setMiniClockLabel(clock, info){{
+  if(!clock || !info)return;
+  clock.dataset.timezone=info.timeZone;
+  if(info.code)clock.dataset.countryCode=info.code;
+  const label=clock.querySelector('.mini-clock-label');
+  if(label)label.innerHTML=`${{info.city}} <span>· ${{info.sub}}</span>`;
+}}
+
+function updateSelectedCountryClock(code=activeCountryFilter){{
+  const clock=document.querySelector('.mini-world-clock[data-role="selected-country"]');
+  if(!clock)return;
+  const nextCode = code && COUNTRY_CLOCK_META[code] ? code : 'BG';
+  const info = COUNTRY_CLOCK_META[nextCode] || COUNTRY_CLOCK_META.BG;
+  setMiniClockLabel(clock, {{...info, code:nextCode}});
+}}
+
 function updateWorldClocks(){{
   const now=new Date();
   const koreaParts=getTimePartsForZone("Asia/Seoul",now);
@@ -13708,6 +13813,7 @@ function updateWorldClocks(){{
   }});
 }}
 
+updateSelectedCountryClock();
 updateWorldClocks();
 setInterval(updateWorldClocks,1000);
 
@@ -14584,6 +14690,8 @@ function expandVisibleCountryGroups(){{
 
 function setCountryFilter(code){{
   activeCountryFilter=activeCountryFilter===code?"":code;
+  updateSelectedCountryClock(activeCountryFilter);
+  updateWorldClocks();
   filterArticles();
   updateCountryMapCounts();
   renderGlobeLabels();
@@ -14610,6 +14718,8 @@ const countryClearFilterButton=document.getElementById("country-clear-filter");
 if(countryClearFilterButton){{
   countryClearFilterButton.addEventListener("click",()=>{{
     activeCountryFilter="";
+    updateSelectedCountryClock(activeCountryFilter);
+    updateWorldClocks();
     filterArticles();
     updateCountryMapCounts();
     updateCountrySelectionBar();
@@ -14622,6 +14732,8 @@ const countryAllButton=document.getElementById("country-all");
 if(countryAllButton){{
   countryAllButton.addEventListener("click",()=>{{
     activeCountryFilter="";
+    updateSelectedCountryClock(activeCountryFilter);
+    updateWorldClocks();
     filterArticles();
     updateCountryMapCounts();
     updateCountrySelectionBar();
