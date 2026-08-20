@@ -9329,8 +9329,8 @@ header,
    ============================================================ */
 .country-map-content {{
   display:grid;
-  grid-template-columns:74px minmax(0,1fr);
-  gap:8px;
+  grid-template-columns:82px minmax(0,1fr);
+  gap:12px;
   align-items:stretch;
 }}
 
@@ -9338,7 +9338,7 @@ header,
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:9px;
+  gap:10px;
   min-width:0;
 }}
 
@@ -9346,7 +9346,12 @@ header,
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:3px;
+  gap:4px;
+  padding:8px 6px;
+  border:1px solid rgba(141,178,208,.26);
+  border-radius:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(245,250,253,.92) 100%);
+  box-shadow:0 3px 10px rgba(60,94,126,.06);
 }}
 
 .mini-clock-label {{
@@ -9643,11 +9648,11 @@ header,
   align-items:baseline;
   justify-content:center;
   gap:3px;
-  max-width:74px;
+  max-width:78px;
   color:#23395d;
   font-family:Arial, "Noto Sans KR", sans-serif;
   font-size:9px;
-  line-height:1.05;
+  line-height:1.08;
   font-weight:900;
   white-space:nowrap;
 }}
@@ -11746,14 +11751,14 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {{
   position:relative;
-  height:228px !important;
+  height:232px !important;
   overflow:hidden !important;
-  border:1px solid rgba(124,154,184,.44) !important;
-  border-radius:16px !important;
+  border:1px solid rgba(124,154,184,.40) !important;
+  border-radius:18px !important;
   background:
-    radial-gradient(circle at 34% 38%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.84) 28%, rgba(238,246,252,.80) 58%, transparent 78%),
+    radial-gradient(circle at 34% 38%, rgba(255,255,255,.99) 0%, rgba(255,255,255,.86) 28%, rgba(238,246,252,.82) 58%, transparent 78%),
     linear-gradient(180deg, #f8fbfe 0%, #f3f8fc 54%, #eaf2f8 100%) !important;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.58), 0 4px 14px rgba(66,92,122,.08) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.62), 0 6px 18px rgba(66,92,122,.08) !important;
 }}
 
 .globe-texture-source {{
@@ -11789,7 +11794,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding:0 128px 0 14px;
+  padding:0 140px 0 16px;
 }}
 
 .globe-stage.dragging {{
@@ -11798,7 +11803,7 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:172px;
+  width:166px;
   max-width:none;
   aspect-ratio:1/1;
   border-radius:50%;
@@ -11877,36 +11882,83 @@ header,
 
 .globe-label-rail {{
   position:absolute;
-  top:18px;
-  right:10px;
-  bottom:16px;
-  width:96px;
+  top:14px;
+  right:12px;
+  bottom:14px;
+  width:112px;
   display:flex;
   flex-direction:column;
-  gap:6px;
-  padding:8px 8px 8px 8px;
-  border:1px solid rgba(141,178,208,.34);
-  border-radius:14px;
-  background:linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(245,250,253,.84) 100%);
-  box-shadow:0 6px 14px rgba(60,94,126,.08);
+  gap:7px;
+  padding:10px 9px 9px;
+  border:1px solid rgba(141,178,208,.30);
+  border-radius:15px;
+  background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(246,250,253,.92) 100%);
+  box-shadow:0 7px 18px rgba(60,94,126,.08);
   pointer-events:auto;
 }}
 
 .globe-label-rail-header {{
   flex:0 0 auto;
-  padding:1px 1px 4px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:0 0 6px;
   border:none;
   border-bottom:1px solid rgba(141,178,208,.22);
   border-radius:0;
   background:transparent;
   color:#2e4b63;
-  font-size:7px;
-  font-weight:860;
-  letter-spacing:.01em;
-  line-height:1.18;
   text-align:left;
   white-space:normal;
   box-shadow:none;
+}}
+
+.globe-label-rail-headcopy {{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+}}
+
+.globe-label-rail-title {{
+  color:#2e4b63;
+  font-size:11px;
+  line-height:1.05;
+  font-weight:880;
+}}
+
+.globe-label-rail-sub {{
+  color:#7b91a6;
+  font-size:6.2px;
+  line-height:1.1;
+  font-weight:760;
+}}
+
+.globe-all-reset {{
+  flex:0 0 auto;
+  min-height:22px;
+  padding:0 9px;
+  border:1px solid rgba(125,167,198,.30);
+  border-radius:999px;
+  background:#ffffff;
+  color:#557187;
+  font-size:7px;
+  font-weight:860;
+  cursor:pointer;
+  box-shadow:0 1px 4px rgba(60,94,126,.06);
+}}
+
+.globe-all-reset:hover,
+.globe-all-reset:focus-visible {{
+  border-color:rgba(112,180,221,.55);
+  background:#f2f8fc;
+}}
+
+.globe-all-reset.active {{
+  border-color:#70b4dd;
+  background:#eaf5fc;
+  color:#35556d;
 }}
 
 .globe-label-scroll {{
@@ -11936,22 +11988,22 @@ header,
 .globe-country-label {{
   position:relative;
   width:100%;
-  min-height:27px;
-  padding:4px 6px;
-  border:1px solid rgba(141,178,208,.24);
+  min-height:29px;
+  padding:4px 7px;
+  border:1px solid rgba(141,178,208,.22);
   border-radius:10px;
-  background:rgba(255,255,255,.96);
+  background:rgba(255,255,255,.97);
   color:#344b5e;
-  box-shadow:0 1px 4px rgba(39,78,109,.06), inset 0 0 0 1px rgba(255,255,255,.60);
+  box-shadow:0 1px 4px rgba(39,78,109,.05), inset 0 0 0 1px rgba(255,255,255,.62);
   display:grid;
   grid-template-columns:14px minmax(0,1fr) auto;
   align-items:center;
   column-gap:4px;
   text-align:left;
-  font-size:7.2px;
+  font-size:7px;
   font-weight:780;
-  line-height:1;
-  white-space:nowrap;
+  line-height:1.05;
+  white-space:normal;
   pointer-events:auto;
   cursor:pointer;
   transition:border-color .12s ease, background .12s ease, box-shadow .12s ease, transform .12s ease;
@@ -11980,8 +12032,10 @@ header,
 
 .globe-country-name {{
   min-width:0;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  overflow:visible;
+  text-overflow:clip;
+  white-space:normal;
+  word-break:keep-all;
 }}
 
 .globe-country-count {{
@@ -12029,18 +12083,18 @@ header,
 
 .country-map-caption {{
   position:absolute !important;
-  top:10px !important;
-  left:10px !important;
+  top:12px !important;
+  left:14px !important;
   bottom:auto !important;
   z-index:6 !important;
   display:inline-flex !important;
   align-items:center;
   gap:5px;
-  max-width:118px;
-  padding:4px 9px;
+  max-width:128px;
+  padding:4px 10px;
   border:1px solid rgba(148,218,255,.16);
   border-radius:999px;
-  background:rgba(255,255,255,.90);
+  background:rgba(255,255,255,.92);
   color:#476579 !important;
   font-size:7px !important;
   font-weight:740 !important;
@@ -12055,76 +12109,97 @@ header,
 }}
 
 @media (max-width:430px) {{
+  .country-map-content {{
+    grid-template-columns:76px minmax(0,1fr);
+    gap:10px;
+  }}
   .country-map-content .country-map-visual.globe-mode {{
-    height:206px !important;
+    height:210px !important;
   }}
   .globe-stage {{
-    padding:0 110px 0 8px;
+    padding:0 126px 0 10px;
   }}
   .globe-sphere {{
-    width:158px;
+    width:154px;
     transform:translateY(4px);
   }}
   .globe-label-rail {{
-    top:16px;
-    right:6px;
+    top:12px;
+    right:8px;
     bottom:12px;
-    width:88px;
-    gap:5px;
-    padding:7px 7px 7px 7px;
-    border-radius:13px;
+    width:102px;
+    gap:6px;
+    padding:9px 8px;
+    border-radius:14px;
   }}
-  .globe-label-rail-header {{
-    padding:1px 1px 4px;
-    font-size:6.3px;
-    line-height:1.18;
+  .globe-label-rail-title {{
+    font-size:10px;
+  }}
+  .globe-label-rail-sub {{
+    font-size:5.8px;
+  }}
+  .globe-all-reset {{
+    min-height:21px;
+    padding:0 8px;
+    font-size:6.7px;
   }}
   .globe-label-scroll {{
     gap:5px;
   }}
   .globe-country-label {{
-    min-height:26px;
+    min-height:27px;
     padding:4px 5px;
     grid-template-columns:13px minmax(0,1fr) auto;
     column-gap:3px;
-    font-size:6.9px;
+    font-size:6.8px;
   }}
   .globe-country-flag {{
     font-size:10px;
   }}
   .globe-country-count {{
-    font-size:6.4px;
+    font-size:6.2px;
   }}
   .country-map-caption {{
     display:inline-flex !important;
-    max-width:106px;
+    max-width:112px;
     font-size:6.6px !important;
   }}
 }}
 
 @media (max-width:380px) {{
+  .country-map-content {{
+    grid-template-columns:72px minmax(0,1fr);
+    gap:8px;
+  }}
   .country-map-content .country-map-visual.globe-mode {{
-    height:194px !important;
+    height:196px !important;
   }}
   .globe-stage {{
-    padding:0 102px 0 6px;
+    padding:0 112px 0 8px;
   }}
   .globe-sphere {{
-    width:150px;
+    width:146px;
     transform:translateY(4px);
   }}
   .globe-label-rail {{
-    top:14px;
-    right:4px;
+    top:12px;
+    right:6px;
     bottom:10px;
-    width:84px;
-    gap:4px;
-    padding:6px;
-    border-radius:12px;
+    width:92px;
+    gap:5px;
+    padding:8px 7px;
+    border-radius:13px;
   }}
-  .globe-label-rail-header {{
-    padding:1px 1px 3px;
-    font-size:5.8px;
+  .globe-label-rail-title {{
+    font-size:9px;
+  }}
+  .globe-label-rail-sub {{
+    font-size:5.5px;
+  }}
+  .globe-all-reset {{
+    min-height:20px;
+    padding:0 7px;
+    font-size:6.4px;
   }}
   .globe-label-scroll {{
     gap:4px;
@@ -12133,10 +12208,10 @@ header,
     min-height:25px;
     padding:3px 4px;
     grid-template-columns:12px minmax(0,1fr) auto;
-    font-size:6.5px;
+    font-size:6.4px;
   }}
   .globe-country-flag {{ font-size:9px; }}
-  .globe-country-count {{ font-size:6.1px; }}
+  .globe-country-count {{ font-size:5.9px; }}
 }}
 
 
@@ -12333,64 +12408,20 @@ header,
   }}
 }}
 
-/* FINAL CLEANUP — keep only bottom ALL button */
+/* FINAL CLEANUP — bottom country strip hidden, reset handled in right panel */
 .country-chip-guide.country-chip-guide-bottom,
-.country-chip-guide-bottom {{
-  display:none !important;
-}}
-
+.country-chip-guide-bottom,
 #country-chip-rail.country-chip-rail,
 #country-chip-rail {{
-  display:flex !important;
-  visibility:visible !important;
-  align-items:center !important;
-  justify-content:flex-start !important;
-  gap:0 !important;
-  min-height:auto !important;
-  max-height:none !important;
-  height:auto !important;
-  margin:8px 0 0 !important;
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  min-height:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
   padding:0 !important;
   border:0 !important;
-  overflow:visible !important;
-  background:transparent !important;
-}}
-
-#country-chip-rail .country-pin {{
-  display:none !important;
-}}
-
-#country-chip-rail #country-all {{
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  gap:6px !important;
-  min-height:32px !important;
-  padding:0 12px !important;
-  border:1px solid rgba(141,178,208,.26) !important;
-  border-radius:999px !important;
-  background:#ffffff !important;
-  color:#4b6275 !important;
-  box-shadow:0 1px 4px rgba(39,78,109,.06) !important;
-  font-size:10px !important;
-  font-weight:800 !important;
-  white-space:nowrap !important;
-}}
-
-#country-chip-rail #country-all .country-count {{
-  color:#5f85a3 !important;
-  font-size:9px !important;
-  font-weight:900 !important;
-}}
-
-#country-chip-rail #country-all.active {{
-  border-color:#70b4dd !important;
-  background:#eaf5fc !important;
-  color:#35556d !important;
-}}
-
-#country-chip-rail #country-all.active .country-count {{
-  color:#d84b4b !important;
+  overflow:hidden !important;
 }}
 
 </style>
@@ -14311,8 +14342,24 @@ function renderGlobeLabels(){{
   const activeName=activeCountryFilter ? (COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter) : '';
   const rail=document.createElement('div');
   rail.className='globe-label-rail';
-  rail.innerHTML=`<div class="globe-label-rail-header">국가별 기사<br><span style="font-size:6px;font-weight:720;color:#5f85a3;">${{items.length}}개국 · 기사순</span></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
+  rail.innerHTML=`<div class="globe-label-rail-header"><div class="globe-label-rail-headcopy"><div class="globe-label-rail-title">${{items.length}}개국</div><div class="globe-label-rail-sub">${{activeName ? activeName + ' 선택중' : '전체 보기'}}</div></div><button type="button" class="globe-all-reset${{activeName ? '' : ' active'}}" aria-label="전체 기사 보기">전체</button></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
   const scroll=rail.querySelector('.globe-label-scroll');
+  const resetButton=rail.querySelector('.globe-all-reset');
+  if(resetButton){{
+    resetButton.addEventListener('click',event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      globeState.hoverCountry='';
+      globeState.targetLon=null;
+      activeCountryFilter='';
+      updateSelectedCountryClock(activeCountryFilter);
+      updateWorldClocks();
+      filterArticles();
+      updateCountryMapCounts();
+      renderGlobeLabels();
+      renderGlobeFocusMarker();
+    }});
+  }}
   layer.appendChild(rail);
 
   items.forEach((item)=>{{
