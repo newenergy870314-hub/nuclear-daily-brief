@@ -9017,17 +9017,61 @@ header,
   }}
 }}
 
+
+/* 금일/전일/익일 라벨과 날짜 범위를 같은 크기·굵기로 표시 */
+.period-inline-label {{
+  font-size: 10.5px !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+}}
+.period-inline-range {{
+  font-size: 10.5px !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+}}
+
+
+/* 제목 바로 오른쪽에 업데이트 시간 배치 + 설정 버튼은 맨 오른쪽 */
+.topbar-title-row {{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  min-height:30px !important;
+}}
+.title-meta {{
+  flex:1 1 auto;
+  min-width:0;
+  display:flex;
+  flex-direction:row;
+  align-items:baseline;
+  justify-content:flex-start;
+  gap:8px;
+}}
+.title-meta h1 {{
+  margin:0 !important;
+  flex:0 0 auto;
+}}
+.title-meta .updated-inline {{
+  margin:0 !important;
+  flex:0 0 auto;
+  white-space:nowrap;
+}}
+.header-toggle {{
+  flex:0 0 auto !important;
+}}
+
 </style>
 </head>
 <body>
 <div class="phone">
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
-      <h1>원자력 주요기사</h1>
-      <div class="topbar-actions">
+      <div class="title-meta">
+        <h1>원자력 주요기사</h1>
         <span class="updated updated-inline">업데이트됨 {format_korean_date_time(generated_at)} KST</span>
-        <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
+      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
     <div class="search-wrap">
       <input id="article-search" class="search-input" type="search" placeholder="기사 · 언론사 · 기업 · 프로젝트 · 국가 검색" aria-label="기사 검색">
