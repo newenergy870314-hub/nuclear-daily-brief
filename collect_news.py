@@ -11640,13 +11640,15 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:min(184px, 88%);
+  width:calc(184px * var(--globe-zoom, 1));
+  max-width:none;
   aspect-ratio:1/1;
   border-radius:50%;
   overflow:visible;
   isolation:isolate;
   transform:translateY(6px);
   filter:drop-shadow(0 12px 16px rgba(35,57,93,.10));
+  transition:width .18s ease;
 }}
 
 .globe-canvas {{
@@ -11705,9 +11707,9 @@ header,
   height:1.6px;
   transform-origin:0 50%;
   border-radius:999px;
-  background:linear-gradient(90deg, rgba(255,255,255,.72) 0%, rgba(126,208,255,.78) 55%, rgba(126,208,255,.16) 100%);
+  background:linear-gradient(90deg, rgba(255,255,255,.78) 0%, rgba(126,208,255,.82) 55%, rgba(126,208,255,.20) 100%);
   box-shadow:0 0 8px rgba(126,208,255,.20);
-  opacity:.86;
+  opacity:.88;
   pointer-events:none;
 }}
 
@@ -11725,18 +11727,18 @@ header,
 
 .globe-country-label {{
   position:absolute;
-  transform:translate(-50%,-50%) scale(calc(.92 + var(--globe-depth, .7) * .10));
+  transform:translate(-50%,-50%);
   transform-origin:center;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:5px;
   min-height:24px;
-  max-width:132px;
+  max-width:134px;
   padding:4px 10px;
   border:1px solid rgba(141,214,255,.28);
   border-radius:999px;
-  background:linear-gradient(180deg, rgba(10,24,44,.78) 0%, rgba(7,18,34,.72) 100%);
+  background:linear-gradient(180deg, rgba(10,24,44,.80) 0%, rgba(7,18,34,.74) 100%);
   color:#eef7ff;
   box-shadow:0 5px 14px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.03);
   font-size:8.2px;
@@ -11754,8 +11756,7 @@ header,
 .globe-country-label:focus-visible {{
   z-index:20;
   border-color:rgba(170,226,255,.72);
-  background:rgba(10,24,44,.84);
-  transform:translate(-50%,-50%) scale(1.05);
+  background:rgba(10,24,44,.86);
 }}
 
 .globe-country-label.active {{
@@ -11771,6 +11772,14 @@ header,
   background:rgba(20,42,72,.90);
   color:#fff;
   box-shadow:0 5px 14px rgba(14,29,53,.22), 0 0 0 1px rgba(254,229,0,.12);
+}}
+
+.globe-country-label.label-left {{
+  justify-content:flex-start;
+}}
+
+.globe-country-label.label-right {{
+  justify-content:flex-end;
 }}
 
 .globe-country-flag {{
@@ -11796,6 +11805,59 @@ header,
 .globe-country-label.active .globe-country-count,
 .globe-country-label.orbit-focus .globe-country-count {{
   color:#fee500;
+}}
+
+
+.globe-zoom-controls {{
+  position:absolute;
+  right:8px;
+  top:8px;
+  z-index:12;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}}
+
+.globe-zoom-button {{
+  width:25px;
+  height:25px;
+  padding:0;
+  border:1px solid rgba(148,218,255,.24);
+  border-radius:7px;
+  background:rgba(6,14,27,.72);
+  color:#e8f6ff;
+  font-size:15px;
+  font-weight:850;
+  line-height:23px;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 3px 8px rgba(0,0,0,.16);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+}}
+
+.globe-zoom-button:hover,
+.globe-zoom-button:focus-visible {{
+  border-color:rgba(170,226,255,.58);
+  background:rgba(10,24,44,.90);
+}}
+
+.globe-zoom-button:disabled {{
+  opacity:.36;
+  cursor:default;
+}}
+
+.globe-zoom-level {{
+  min-width:25px;
+  padding:2px 3px;
+  border-radius:5px;
+  background:rgba(6,14,27,.58);
+  color:#9ed9ff;
+  font-size:6.5px;
+  font-weight:850;
+  line-height:1.1;
+  text-align:center;
+  pointer-events:none;
 }}
 
 .globe-control-hint {{
@@ -11885,7 +11947,8 @@ header,
     height:210px !important;
   }}
   .globe-sphere {{
-    width:min(170px, 86%);
+    width:calc(170px * var(--globe-zoom, 1));
+    max-width:none;
     transform:translateY(5px);
   }}
   .globe-country-label {{
@@ -11917,7 +11980,8 @@ header,
     height:198px !important;
   }}
   .globe-sphere {{
-    width:min(156px, 86%);
+    width:calc(156px * var(--globe-zoom, 1));
+    max-width:none;
     transform:translateY(4px);
   }}
   .globe-country-label {{
@@ -12204,7 +12268,12 @@ header,
           <div id="globe-marker-layer" class="globe-marker-layer" aria-label="국가별 기사 바로가기"></div>
           <div class="globe-shine" aria-hidden="true"></div>
         </div>
-        <div class="globe-control-hint"><span class="globe-guide-step" data-step="1">드래그 회전</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="2">국가 라벨 클릭</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="3">더블클릭 초기화</span></div>
+        <div class="globe-zoom-controls" aria-label="지구본 확대 축소">
+          <button id="globe-zoom-in" class="globe-zoom-button" type="button" aria-label="지구본 확대">+</button>
+          <span id="globe-zoom-level" class="globe-zoom-level">100%</span>
+          <button id="globe-zoom-out" class="globe-zoom-button" type="button" aria-label="지구본 축소">−</button>
+        </div>
+        <div class="globe-control-hint"><span class="globe-guide-step" data-step="1">마우스 올리면 정지</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="2">드래그 회전</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="3">+/− 확대</span></div>
       </div>
       <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
@@ -13537,6 +13606,9 @@ const globeState={{
   textureWidth:1000,
   textureHeight:500,
   rotationLon:127.8,
+  zoom:1,
+  minZoom:1,
+  maxZoom:1.34,
   autoRotate:true,
   dragging:false,
   pointerId:null,
@@ -13957,124 +14029,101 @@ function renderGlobeMarkers(){{
   if(!layer)return;
   layer.innerHTML='';
 
-  const projected=globeState.items
+  const visibleItems=globeState.items
     .map(item=>({{...item,projection:projectGlobePoint(item.lon,item.lat,globeState.rotationLon)}}))
-    .filter(item=>item.projection.visible)
+    .filter(item=>item.projection.z>0.08)
     .sort((a,b)=>b.count-a.count);
-  if(!projected.length)return;
-
-  const focusItem=projected.reduce((best,item)=>!best || item.projection.z>best.projection.z ? item : best,null);
-  const focusCode=focusItem?.code || '';
+  if(!visibleItems.length)return;
 
   const layerRect=layer.getBoundingClientRect();
-  const centerX=layerRect.width/2;
-  const centerY=layerRect.height/2;
-  const labelMaxWidth=window.innerWidth<=430 ? 112 : 132;
-  const labelHeight=22;
-  const placed=[];
+  const width=layerRect.width;
+  const height=layerRect.height;
+  const labelMaxWidth=window.innerWidth<=430 ? 112 : 134;
+  const topPad=24;
+  const bottomPad=40;
+  const maxLabels=window.innerWidth<=430 ? 7 : 10;
 
-  const specialOffsets={{
-    KR:[[-16,-10],[-20,12],[-10,-26],[-26,-2]],
-    JP:[[16,-10],[20,12],[10,-26],[26,-2]],
-    CN:[[-24,8],[-18,-16],[-10,22]],
-    US:[[14,-10],[-14,-10],[0,18]],
-    GB:[[-10,-8],[10,8]],
-    FR:[[-12,8],[12,-8]],
-    RU:[[0,-14],[16,10],[-16,10]]
+  const mustHave=new Set([activeCountryFilter,'KR','JP'].filter(Boolean));
+  const selected=[];
+  visibleItems.forEach(item=>{{
+    if(selected.length<maxLabels || mustHave.has(item.code)){{
+      if(!selected.some(v=>v.code===item.code))selected.push(item);
+    }}
+  }});
+
+  const focusItem=selected.reduce((best,item)=>!best || item.projection.z>best.projection.z ? item : best,null);
+  const focusCode=focusItem?.code || '';
+
+  const left=[];
+  const right=[];
+  selected.forEach(item=>{{
+    const x=(item.projection.x/100)*width;
+    const side=(x<width/2)?'left':'right';
+    if(side==='left')left.push(item); else right.push(item);
+  }});
+  if(!left.length && right.length>1)left.push(right.pop());
+  if(!right.length && left.length>1)right.push(left.pop());
+
+  const renderSide=(items,side)=>{{
+    if(!items.length)return;
+    items.sort((a,b)=>a.projection.y-b.projection.y);
+    const usableTop=topPad;
+    const usableBottom=height-bottomPad;
+    const slotGap=items.length===1 ? 0 : (usableBottom-usableTop)/(items.length-1);
+
+    items.forEach((item,index)=>{{
+      const p=item.projection;
+      const baseX=(p.x/100)*width;
+      const baseY=(p.y/100)*height;
+      const approxWidth=Math.min(labelMaxWidth,58+item.name.length*6.5+(String(item.count).length*6));
+      const labelCenterX = side==='left'
+        ? approxWidth/2 + 8
+        : width - approxWidth/2 - 8;
+      const naturalY=baseY;
+      const stackedY=items.length===1 ? naturalY : usableTop + slotGap*index;
+      const labelCenterY=Math.max(usableTop, Math.min(usableBottom, items.length===1 ? naturalY : stackedY));
+
+      const anchor=document.createElement('div');
+      anchor.className='globe-country-anchor' + (item.code===focusCode ? ' orbit-focus' : '');
+      anchor.style.left=`${{baseX}}px`;
+      anchor.style.top=`${{baseY}}px`;
+      layer.appendChild(anchor);
+
+      const connector=document.createElement('div');
+      connector.className='globe-country-connector' + (item.code===focusCode ? ' orbit-focus' : '');
+      const targetX = side==='left' ? labelCenterX + approxWidth/2 - 10 : labelCenterX - approxWidth/2 + 10;
+      const dx=targetX-baseX;
+      const dy=labelCenterY-baseY;
+      const distance=Math.max(10, Math.hypot(dx,dy));
+      const angle=Math.atan2(dy,dx)*180/Math.PI;
+      connector.style.left=`${{baseX}}px`;
+      connector.style.top=`${{baseY}}px`;
+      connector.style.width=`${{distance}}px`;
+      connector.style.transform=`translateY(-50%) rotate(${{angle}}deg)`;
+      layer.appendChild(connector);
+
+      const btn=document.createElement('button');
+      btn.type='button';
+      btn.className='globe-country-label label-' + side + (activeCountryFilter===item.code?' active':'') + (item.code===focusCode ? ' orbit-focus' : '');
+      btn.dataset.countryFilter=item.code;
+      btn.style.left=`${{labelCenterX}}px`;
+      btn.style.top=`${{labelCenterY}}px`;
+      btn.innerHTML=`<span class="globe-country-flag">${{item.flag}}</span><span class="globe-country-name">${{item.name}}</span><span class="globe-country-count">${{item.count}}건</span>`;
+      btn.setAttribute('aria-label',`${{item.name}} 기사 ${{item.count}}건 보기`);
+      btn.addEventListener('click',event=>{{
+        event.preventDefault();
+        event.stopPropagation();
+        globeState.autoRotate=false;
+        clearTimeout(globeState.resumeTimer);
+        globeState.resumeTimer=setTimeout(()=>{{globeState.autoRotate=true;}},7000);
+        setCountryFilter(item.code);
+      }});
+      layer.appendChild(btn);
+    }});
   }};
 
-  projected.forEach((item,index)=>{{
-    const p=item.projection;
-    const important=item.count>=10 || item.code===activeCountryFilter || item.code==='KR' || item.code==='JP' || item.code===focusCode;
-    const maxLabels=window.innerWidth<=430 ? 8 : 12;
-    if(index>=maxLabels && !important)return;
-
-    const baseX=(p.x/100)*layerRect.width;
-    const baseY=(p.y/100)*layerRect.height;
-
-    const anchor=document.createElement('div');
-    anchor.className='globe-country-anchor' + (item.code===focusCode ? ' orbit-focus' : '');
-    anchor.style.left=`${{baseX}}px`;
-    anchor.style.top=`${{baseY}}px`;
-    layer.appendChild(anchor);
-
-    const approxWidth=Math.min(labelMaxWidth,58+item.name.length*6.5+(String(item.count).length*6));
-    let vx=baseX-centerX;
-    let vy=baseY-centerY;
-    const len=Math.hypot(vx,vy) || 1;
-    vx/=len; vy/=len;
-
-    // steer labels outward and slightly to the side to keep the globe visible
-    if(Math.abs(vx)<0.32){{
-      vx = baseX>=centerX ? 0.96 : -0.96;
-      vy *= 0.34;
-    }}
-    const perpX=-vy;
-    const perpY=vx;
-    const radialBase=item.code==='KR' || item.code==='JP' ? 58 : 50;
-    const focusBoost=item.code===focusCode ? 10 : 0;
-    const candidates=[];
-    const pushCandidate=(ox,oy)=>candidates.push([ox,oy]);
-    pushCandidate(vx*(radialBase+focusBoost), vy*(radialBase+focusBoost));
-    pushCandidate(vx*(radialBase+16)+perpX*12, vy*(radialBase+16)+perpY*12);
-    pushCandidate(vx*(radialBase+16)-perpX*12, vy*(radialBase+16)-perpY*12);
-    pushCandidate(vx*(radialBase+24), vy*(radialBase+24));
-    pushCandidate(vx*(radialBase+24)+perpX*18, vy*(radialBase+24)+perpY*18);
-    pushCandidate(vx*(radialBase+24)-perpX*18, vy*(radialBase+24)-perpY*18);
-    (specialOffsets[item.code]||[]).forEach(([dx,dy])=>pushCandidate(vx*radialBase+dx, vy*radialBase+dy));
-
-    let chosen=null;
-    for(const [dx,dy] of candidates){{
-      const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + dx));
-      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 28, baseY + dy));
-      const rect={{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}};
-      const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
-      if(!overlaps){{
-        chosen={{x:cx,y:cy}};
-        placed.push(rect);
-        break;
-      }}
-    }}
-
-    if(!chosen){{
-      if(!important)return;
-      const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + vx*(radialBase+28)));
-      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 28, baseY + vy*(radialBase+20)));
-      placed.push({{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}});
-      chosen={{x:cx,y:cy}};
-    }}
-
-    const dx=chosen.x-baseX;
-    const dy=chosen.y-baseY;
-    const distance=Math.max(10, Math.hypot(dx,dy)-approxWidth*0.35);
-    const angle=Math.atan2(dy,dx)*180/Math.PI;
-    const connector=document.createElement('div');
-    connector.className='globe-country-connector' + (item.code===focusCode ? ' orbit-focus' : '');
-    connector.style.left=`${{baseX}}px`;
-    connector.style.top=`${{baseY}}px`;
-    connector.style.width=`${{distance}}px`;
-    connector.style.transform=`translateY(-50%) rotate(${{angle}}deg)`;
-    layer.appendChild(connector);
-
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='globe-country-label' + (activeCountryFilter===item.code?' active':'') + (item.code===focusCode ? ' orbit-focus' : '');
-    btn.dataset.countryFilter=item.code;
-    btn.style.left=`${{chosen.x}}px`;
-    btn.style.top=`${{chosen.y}}px`;
-    btn.style.setProperty('--globe-depth',String(Math.max(.45,p.z)));
-    btn.innerHTML=`<span class="globe-country-flag">${{item.flag}}</span><span class="globe-country-name">${{item.name}}</span><span class="globe-country-count">${{item.count}}건</span>`;
-    btn.setAttribute('aria-label',`${{item.name}} 기사 ${{item.count}}건 보기`);
-    btn.addEventListener('click',event=>{{
-      event.preventDefault();
-      event.stopPropagation();
-      globeState.autoRotate=false;
-      clearTimeout(globeState.resumeTimer);
-      globeState.resumeTimer=setTimeout(()=>{{globeState.autoRotate=true;}},6000);
-      setCountryFilter(item.code);
-    }});
-    layer.appendChild(btn);
-  }});
+  renderSide(left,'left');
+  renderSide(right,'right');
 }}
 
 function renderGlobeFrame(force=false){{
@@ -14090,12 +14139,66 @@ function startGlobeAnimation(){{
     const delta=Math.min(40,now-globeState.lastFrame);
     globeState.lastFrame=now;
     if(globeState.autoRotate && !globeState.dragging){{
-      globeState.rotationLon=normalizeGlobeLon(globeState.rotationLon + delta*0.0034);
+      globeState.rotationLon=normalizeGlobeLon(globeState.rotationLon + delta*0.0021);
       renderGlobeFrame();
     }}
     globeState.frameId=requestAnimationFrame(tick);
   }};
   globeState.frameId=requestAnimationFrame(tick);
+}}
+
+function applyGlobeZoom(nextZoom){{
+  const sphere=document.getElementById('globe-sphere');
+  if(!sphere)return;
+  globeState.zoom=Math.max(globeState.minZoom,Math.min(globeState.maxZoom,nextZoom));
+  sphere.style.setProperty('--globe-zoom',globeState.zoom.toFixed(3));
+  const level=document.getElementById('globe-zoom-level');
+  if(level)level.textContent=`${{Math.round(globeState.zoom*100)}}%`;
+  const zoomIn=document.getElementById('globe-zoom-in');
+  const zoomOut=document.getElementById('globe-zoom-out');
+  if(zoomIn)zoomIn.disabled=globeState.zoom>=globeState.maxZoom-0.001;
+  if(zoomOut)zoomOut.disabled=globeState.zoom<=globeState.minZoom+0.001;
+  requestAnimationFrame(()=>renderGlobeFrame(true));
+}}
+
+function bindGlobeZoomControls(){{
+  const zoomIn=document.getElementById('globe-zoom-in');
+  const zoomOut=document.getElementById('globe-zoom-out');
+  const stage=document.getElementById('globe-stage');
+  if(zoomIn && !zoomIn.dataset.bound){{
+    zoomIn.dataset.bound='1';
+    zoomIn.addEventListener('click',event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      globeState.autoRotate=false;
+      applyGlobeZoom(globeState.zoom+0.10);
+      clearTimeout(globeState.resumeTimer);
+      globeState.resumeTimer=setTimeout(()=>{{globeState.autoRotate=true;}},3000);
+    }});
+  }}
+  if(zoomOut && !zoomOut.dataset.bound){{
+    zoomOut.dataset.bound='1';
+    zoomOut.addEventListener('click',event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      globeState.autoRotate=false;
+      applyGlobeZoom(globeState.zoom-0.10);
+      clearTimeout(globeState.resumeTimer);
+      globeState.resumeTimer=setTimeout(()=>{{globeState.autoRotate=true;}},3000);
+    }});
+  }}
+  if(stage && !stage.dataset.zoomWheelBound){{
+    stage.dataset.zoomWheelBound='1';
+    stage.addEventListener('wheel',event=>{{
+      if(Math.abs(event.deltaY)<2)return;
+      event.preventDefault();
+      globeState.autoRotate=false;
+      applyGlobeZoom(globeState.zoom + (event.deltaY<0 ? 0.08 : -0.08));
+      clearTimeout(globeState.resumeTimer);
+      globeState.resumeTimer=setTimeout(()=>{{globeState.autoRotate=true;}},2600);
+    }},{{passive:false}});
+  }}
+  applyGlobeZoom(globeState.zoom);
 }}
 
 function bindGlobeInteraction(){{
@@ -14119,7 +14222,7 @@ function bindGlobeInteraction(){{
   stage.addEventListener('pointermove',event=>{{
     if(!globeState.dragging || event.pointerId!==globeState.pointerId)return;
     const dx=event.clientX-globeState.dragStartX;
-    globeState.rotationLon=normalizeGlobeLon(globeState.dragStartLon-dx*.65);
+    globeState.rotationLon=normalizeGlobeLon(globeState.dragStartLon-dx*.52);
     renderGlobeFrame();
   }});
 
@@ -14133,8 +14236,19 @@ function bindGlobeInteraction(){{
   }};
   stage.addEventListener('pointerup',finish);
   stage.addEventListener('pointercancel',finish);
+  stage.addEventListener('mouseenter',()=>{{
+    if(globeState.dragging)return;
+    globeState.autoRotate=false;
+    clearTimeout(globeState.resumeTimer);
+  }});
+  stage.addEventListener('mouseleave',()=>{{
+    if(globeState.dragging)return;
+    clearTimeout(globeState.resumeTimer);
+    globeState.resumeTimer=setTimeout(()=>{{globeState.autoRotate=true;}},1200);
+  }});
   stage.addEventListener('dblclick',()=>{{
     globeState.rotationLon=127.8;
+    applyGlobeZoom(1);
     globeState.autoRotate=true;
     renderGlobeFrame(true);
   }});
@@ -14169,6 +14283,7 @@ function layoutAndRenderCountryMap(){{
   if(!globeState.initialized){{
     globeState.initialized=true;
     bindGlobeInteraction();
+    bindGlobeZoomControls();
     prepareGlobeTexture();
     startGlobeAnimation();
   }}
