@@ -2284,14 +2284,15 @@ header,
   display:grid;
   grid-template-columns:84px minmax(0,1fr);
   gap:12px;
-  align-items:stretch;
+  align-items:center;
 }
 
 .world-clock-rail {
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:10px;
+  align-self:center;
+  gap:8px;
   min-width:0;
 }
 
@@ -2299,12 +2300,14 @@ header,
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:4px;
-  padding:8px 7px;
-  border:1px solid rgba(141,178,208,.24);
+  justify-content:flex-start;
+  gap:5px;
+  min-height:106px;
+  padding:18px 7px 8px;
+  border:1px solid rgba(141,178,208,.22);
   border-radius:15px;
-  background:linear-gradient(180deg, rgba(255,255,255,.97) 0%, rgba(245,250,253,.94) 100%);
-  box-shadow:0 4px 10px rgba(60,94,126,.06);
+  background:linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(246,250,253,.95) 100%);
+  box-shadow:0 4px 10px rgba(60,94,126,.05);
 }
 
 .mini-clock-label {
@@ -2593,22 +2596,7 @@ header,
 }
 
 .world-clock-format-common {
-  align-self:center;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:20px;
-  padding:0 10px;
-  border:1px solid rgba(83,113,143,.16);
-  border-radius:999px;
-  background:#eef4f8;
-  color:#53677f;
-  font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:7px;
-  font-weight:900;
-  line-height:1;
-  white-space:nowrap;
-  box-shadow:0 1px 4px rgba(60,94,126,.05);
+  display:none !important;
 }
 
 .mini-world-clock {
@@ -2619,19 +2607,20 @@ header,
 .mini-world-clock::before {
   position:absolute;
   top:6px;
-  left:6px;
+  right:6px;
+  left:auto;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:26px;
-  height:14px;
+  min-width:24px;
+  height:13px;
   padding:0 6px;
   border-radius:999px;
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:6.4px;
+  font-size:6.1px;
   font-weight:900;
   line-height:1;
-  letter-spacing:.15px;
+  letter-spacing:.1px;
   box-shadow:0 1px 4px rgba(60,94,126,.08);
 }
 
@@ -2660,27 +2649,27 @@ header,
 }
 
 .mini-world-clock[data-role="selected-country"] {
-  border-color:rgba(216,75,75,.24);
-  background:linear-gradient(180deg, rgba(255,251,251,.98) 0%, rgba(253,244,244,.94) 100%);
+  border-color:rgba(201,103,90,.22);
+  background:linear-gradient(180deg, rgba(255,252,249,.98) 0%, rgba(253,247,243,.95) 100%);
 }
 
 .mini-world-clock[data-role="selected-country"]::before {
   content:"선택";
-  background:#d84b4b;
+  background:#d06a5b;
   color:#ffffff;
 }
 
 .mini-world-clock[data-role="selected-country"] .analog-clock {
-  border-color:#d6a2a2;
-  box-shadow:inset 0 0 0 2px #fff6f6, 0 0 0 3px rgba(216,75,75,.07);
+  border-color:#d4b0a5;
+  box-shadow:inset 0 0 0 2px #fff9f6, 0 0 0 3px rgba(208,106,91,.06);
 }
 
 .mini-world-clock[data-role="selected-country"] .mini-clock-label {
-  color:#7d3434;
+  color:#7c4a40;
 }
 
-.mini-world-clock[data-role="selected-country"] .mini-clock-label span {
-  color:#b07070;
+.mini-world-clock[data-role="selected-country"] .mini-clock-country {
+  color:#a07b73;
 }
 
 .mini-world-clock[data-role="selected-country"] .mini-clock-format {
@@ -2723,11 +2712,11 @@ header,
   max-width:100%;
   color:#23395d;
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:8.8px;
+  font-size:8.6px;
   line-height:1.08;
   font-weight:900;
   white-space:nowrap;
-  margin-top:10px;
+  margin-top:0;
 }
 
 .mini-clock-flag {
@@ -2758,7 +2747,8 @@ header,
   grid-template-columns:1fr auto;
   align-items:center;
   gap:4px;
-  padding:0 4px;
+  padding:0 3px;
+  margin-top:auto;
 }
 
 .mini-clock-day {
@@ -2768,14 +2758,14 @@ header,
   background:#eef2f6;
   color:#53677f;
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:6.7px;
+  font-size:6.5px;
   font-weight:900;
   justify-self:end;
 }
 
 .mini-clock-time {
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:8.5px;
+  font-size:8.3px;
   font-weight:900;
   justify-self:center;
   min-width:34px;
@@ -4863,7 +4853,7 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {
   position:relative;
-  height:232px !important;
+  height:228px !important;
   overflow:hidden !important;
   border:1px solid rgba(124,154,184,.36) !important;
   border-radius:18px !important;
@@ -4906,7 +4896,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding:0 138px 0 18px;
+  padding:0 136px 0 16px;
 }
 
 .globe-stage.dragging {
@@ -4915,7 +4905,7 @@ header,
 
 .globe-sphere {
   position:relative;
-  width:164px;
+  width:160px;
   max-width:none;
   aspect-ratio:1/1;
   border-radius:50%;
@@ -5223,14 +5213,15 @@ header,
 
 @media (max-width:430px) {
   .country-map-content {
-    grid-template-columns:76px minmax(0,1fr);
+    grid-template-columns:74px minmax(0,1fr);
     gap:10px;
+    align-items:center;
   }
   .country-map-content .country-map-visual.globe-mode {
     height:210px !important;
   }
   .globe-stage {
-    padding:0 128px 0 10px;
+    padding:0 126px 0 10px;
   }
   .globe-sphere {
     width:154px;
@@ -5240,7 +5231,7 @@ header,
     top:12px;
     right:8px;
     bottom:12px;
-    width:104px;
+    width:102px;
     gap:6px;
     padding:9px 8px;
     border-radius:14px;
@@ -5281,14 +5272,15 @@ header,
 
 @media (max-width:380px) {
   .country-map-content {
-    grid-template-columns:72px minmax(0,1fr);
+    grid-template-columns:70px minmax(0,1fr);
     gap:8px;
+    align-items:center;
   }
   .country-map-content .country-map-visual.globe-mode {
     height:196px !important;
   }
   .globe-stage {
-    padding:0 114px 0 8px;
+    padding:0 112px 0 8px;
   }
   .globe-sphere {
     width:146px;
@@ -5298,7 +5290,7 @@ header,
     top:12px;
     right:6px;
     bottom:10px;
-    width:94px;
+    width:92px;
     gap:5px;
     padding:8px 7px;
     border-radius:13px;
@@ -5327,6 +5319,56 @@ header,
   .globe-country-count { font-size:5.9px; }
 }
 
+
+/* ============================================================
+   FINAL POLISH — CLOCK / GLOBE / PANEL BALANCE
+   ============================================================ */
+.world-clock-format-common {
+  display:none !important;
+}
+
+.world-clock-rail {
+  margin:0;
+}
+
+.mini-world-clock::before {
+  z-index:2;
+}
+
+.mini-world-clock .analog-clock {
+  flex:0 0 auto;
+}
+
+.mini-world-clock[data-role="selected-country"] {
+  transform:none;
+}
+
+@media (max-width:430px) {
+  .mini-world-clock {
+    min-height:102px;
+    padding:17px 6px 8px;
+  }
+}
+
+@media (max-width:380px) {
+  .mini-world-clock {
+    min-height:98px;
+    padding:16px 5px 7px;
+  }
+  .mini-world-clock::before {
+    top:5px;
+    right:5px;
+    min-width:22px;
+    height:12px;
+    font-size:5.8px;
+  }
+  .mini-clock-label {
+    font-size:8px;
+  }
+  .mini-clock-country {
+    font-size:6.5px;
+  }
+}
 
 /* ============================================================
    FINAL OVERRIDE — IMPORTANT BUTTON LEFT + LANDSCAPE THUMBNAILS
@@ -5545,7 +5587,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 20:40 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 20:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -5591,7 +5633,6 @@ header,
 
     <div class="country-map-content">
       <aside class="world-clock-rail" aria-label="주요 지역 현재 시간 (24시간제)">
-        <div class="world-clock-format-common">24H · 24시간제</div>
         <div class="mini-world-clock" data-timezone="Asia/Seoul">
           <div class="mini-clock-label"><span class="mini-clock-flag">🇰🇷</span><span class="mini-clock-city">서울</span><span class="mini-clock-country">· 대한민국</span></div>
           <div class="analog-clock" aria-hidden="true">
@@ -14687,7 +14728,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/europe-facing-challenges-over-continued-reliance-on-russia-for-nuclear-fuel-supply-says-sprott-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f174a8a55f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/europe-facing-challenges-over-continued-reliance-on-russia-for-nuclear-fuel-supply-says-sprott-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f174aff1398&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24662,7 +24703,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f174aeabe70&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f173467a3e8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29000,7 +29041,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/87752422b2bd44b02960ccf0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/40bb85d42dcf18db07b7ac49.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29805,7 +29846,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7f3130747ed6be5d3520405d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/62d176e0d56c4a193781961c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30289,7 +30330,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787226000"
+  data-published="1787227200"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -30488,7 +30529,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32269,7 +32310,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.econovill.com/news/articleView.html?idxno=748528"
   data-title="산업장관 &quot;대미 투자 협상 상당한 진전…내달중 1호 프로젝트 발표&quot;"
   data-publisher="이코노믹리뷰"
@@ -32295,7 +32336,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>산업장관 &quot;대미 투자 협상 상당한 진전…내달중 1호 프로젝트 발표&quot;</div>
+      <div class="headline">산업장관 &quot;대미 투자 협상 상당한 진전…내달중 1호 프로젝트 발표&quot;</div>
       <div class="article-snippet">김정관 산업통상부 장관이 미국과 진행 중인 대미 투자 협상과 관련해 &quot;상당히 의미 있는 진전이 있었다&quot;고 밝혔다.당초 8월 말 또는 9월 초로 예상됐던 대미 투자 1호 프로젝트 발표 시점은 9월 중으로 다소 늦춰질 전망이다.김 장관은 20일 오후 미국 방문을 마치고 인천국제공항으로 귀국한 뒤 기자들과 만나 이같이 말했다.김 장관은 하워드 러트닉 미국 상무장관과 이틀간 협의한 결과에 대해 &quot;이틀에 걸쳐 하워드 러트닉 미 상무장관과 회의했는데, 굉장히 많은 부분에서 해결했다고 생각한다&quot;고 했다.이번 방미는 대미 투자 1호 프로젝트를 둘</div>
     </div>
   </div>
@@ -33365,14 +33406,14 @@ header,
 
 <article class="preview-card"
   data-url="https://www.mk.co.kr/news/economy/12132502"
-  data-title="메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요"
+  data-title="메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요 - 매일경제"
   data-publisher="매일경제"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
   data-published="1787215931"
   data-country="OTHER"
-  data-search="메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요 매일경제 원자력 서남권 반도체 클러스터, 인공지능(ai) 데이터센터와 같은 &#x27;메가프로젝트&#x27;가 잇달아 추진되면서, 2040년 전력 수요가 기존 전망치 대비 27.5% 급증한 것으로 나타났다. 태양광.."
+  data-search="메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요 - 매일경제 매일경제 원자력 정부 12차 전력수급기본계획 수요 전망 수정치 공개2040년 전력 수요 전망치지난 4월 초안대비 28% 급증호남 반도체·ai 데이터센터최대전력 수요 60gw 늘어재생에너지만으로 충당 불가원전·lng 모든 발전원 활용에너지믹스 짜야 감당 가능해"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -33389,8 +33430,8 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요</div>
-      <div class="article-snippet">서남권 반도체 클러스터, 인공지능(AI) 데이터센터와 같은 &#x27;메가프로젝트&#x27;가 잇달아 추진되면서, 2040년 전력 수요가 기존 전망치 대비 27.5% 급증한 것으로 나타났다. 태양광..</div>
+      <div class="headline">메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요 - 매일경제</div>
+      <div class="article-snippet">정부 12차 전력수급기본계획 수요 전망 수정치 공개2040년 전력 수요 전망치지난 4월 초안대비 28% 급증호남 반도체·AI 데이터센터최대전력 수요 60GW 늘어재생에너지만으로 충당 불가원전·LNG 모든 발전원 활용에너지믹스 짜야 감당 가능해</div>
     </div>
   </div>
   <div class="card-side">
@@ -33540,14 +33581,14 @@ header,
 
 <article class="preview-card"
   data-url="https://www.donga.com/news/Economy/article/all/20260820/134512713/1"
-  data-title="3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요"
+  data-title="반도체 속도전에 ‘원전 19기’ 전력 필요…재생에너지로 될까?"
   data-publisher="동아일보"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
   data-published="1787213700"
   data-country="OTHER"
-  data-search="3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요 동아일보 원자력 반도체 산업단지와 인공지능(ai) 데이터센터 등 3대 메가 프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kw로 전망됐다. 올 4월에 내놨던 전망보다 2680만 kw 늘어난 것으로, 3대 메가 프로젝트 가동에 대형 원전 19기 설비용량에 달하는 전력이 필…"
+  data-search="반도체 속도전에 ‘원전 19기’ 전력 필요…재생에너지로 될까? 동아일보 원자력 반도체 산업단지와 인공지능(ai) 데이터센터 등 3대 메가 프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kw로 전망됐다. 올 4월에 내놨던 전망보다 2680만 kw 늘어난 것으로, 3대 메가 프로젝트 가동에 대형 원전 19기 설비용량에 달하는 전력이 필…"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -33564,7 +33605,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요</div>
+      <div class="headline">반도체 속도전에 ‘원전 19기’ 전력 필요…재생에너지로 될까?</div>
       <div class="article-snippet">반도체 산업단지와 인공지능(AI) 데이터센터 등 3대 메가 프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kW로 전망됐다. 올 4월에 내놨던 전망보다 2680만 kW 늘어난 것으로, 3대 메가 프로젝트 가동에 대형 원전 19기 설비용량에 달하는 전력이 필…</div>
     </div>
   </div>
@@ -35514,7 +35555,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787226379"
+  data-published="1787227277"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -35622,6 +35663,41 @@ header,
   </button>
   <div class="article-stack">
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787227235"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.asahi.com/ajw/special/nuclear_hibakusha/"
   data-title="Nuclear Threat &amp; Hibakusha | The Asahi Shimbun: Breaking News, Japan News and Analysis"
   data-publisher="Asahi Shimbun"
@@ -35634,7 +35710,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35669,7 +35745,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35704,7 +35780,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35727,19 +35803,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
+  data-url="https://globalenergymonitor.org/projects/global-oil-gas-extraction-tracker"
+  data-title="Global Oil and Gas Extraction Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787225879"
+  data-published="1787226807"
   data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35752,12 +35828,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+      <div class="headline">Global Oil and Gas Extraction Tracker</div>
+      <div class="article-snippet">Covering oil and gas fields from discovery to decommissioning, GOGET provides data on the location, ownership, production, and reserves of oil and gas extraction projects.</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35774,7 +35850,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35809,7 +35885,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35844,7 +35920,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35879,7 +35955,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35898,41 +35974,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://rubryka.com/wp-content/uploads/ogimages/en_896022_1787220793j6idqz-c16x9x50px50p-b9a5961acc1c2d565d3766c3e7daa008-1200x630-c-1.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-oil-gas-extraction-tracker"
-  data-title="Global Oil and Gas Extraction Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787214324"
-  data-country="OTHER"
-  data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Oil and Gas Extraction Tracker</div>
-      <div class="article-snippet">Covering oil and gas fields from discovery to decommissioning, GOGET provides data on the location, ownership, production, and reserves of oil and gas extraction projects.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36286,7 +36327,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://simplywall.st/stocks/au/materials/asx-evn/evolution-mining-shares/news/evolution-mining-asxevn-shares-ride-record-margins-and-cash"
   data-title="Evolution Mining (ASX:EVN) Shares Ride Record Margins And Cash Flow"
   data-publisher="Simply Wall St"
@@ -36312,7 +36353,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Evolution Mining (ASX:EVN) Shares Ride Record Margins And Cash Flow</div>
+      <div class="headline">Evolution Mining (ASX:EVN) Shares Ride Record Margins And Cash Flow</div>
       <div class="article-snippet">Evolution Mining stock came into today on a strong run, up about 38% over the past month and closing at A$15.07, yet the real story sits in the earnings power behind that move. The latest results headline is clear. Record underlying earnings and cash flow, with group earnings before interest, tax, depreciation and amor</div>
     </div>
   </div>
@@ -36321,7 +36362,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bta.bg/en/news/bulgaria/1188814-human-rights-watchdog-warns-against-replacing-delayed-reform-of-juvenile-justice"
   data-title="Human Rights Watchdog Warns against Replacing Delayed Reform of Juvenile Justice with Repression"
   data-publisher="Bulgarian News Agency"
@@ -36347,7 +36388,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Human Rights Watchdog Warns against Replacing Delayed Reform of Juvenile Justice with Repression</div>
+      <div class="headline">Human Rights Watchdog Warns against Replacing Delayed Reform of Juvenile Justice with Repression</div>
       <div class="article-snippet">The Bulgarian Helsinki Committee (BHC) said on Thursday that the country&#x27;s legislation governing what happens to children in conflict with the law was adopted way back in 1958. &quot;Reform is decades overdue, yet instead of pursuing it, those in power</div>
     </div>
   </div>
@@ -36426,7 +36467,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.thehindu.com/news/international/lawyerwho-represented-mehul-choksicharged-with-sexual-assaultin-london/article71368754.ece"
   data-title="Lawyer who represented Mehul Choksi charged with sexual assault in London"
   data-publisher="The Hindu"
@@ -36452,7 +36493,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Lawyer who represented Mehul Choksi charged with sexual assault in London</div>
+      <div class="headline">Lawyer who represented Mehul Choksi charged with sexual assault in London</div>
       <div class="article-snippet">Criminal lawyer Vijay Aggarwal, representing Mehul Choksi, faces sexual assault charges in London following his recent arrest.</div>
     </div>
   </div>
@@ -36672,6 +36713,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.bbc.com/future/article/20260819-the-medications-that-can-make-the-heat-harder-to-handle"
+  data-title="Why certain meds can make heatwaves harder to handle"
+  data-publisher="BBC News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787220000"
+  data-country="OTHER"
+  data-search="why certain meds can make heatwaves harder to handle bbc news nuclear power·nuclear energy some of the most prescribed medications, including those used to treat depression, adhd and high blood pressure, can increase the risk of dehydration and other heat-related conditions."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">31.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">BBC News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Why certain meds can make heatwaves harder to handle</div>
+      <div class="article-snippet">Some of the most prescribed medications, including those used to treat depression, ADHD and high blood pressure, can increase the risk of dehydration and other heat-related conditions.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4aa2c970eeedf9dd9020d378.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.tradingview.com/news/urn:summary_document_transcript:quartr.com:4038373:0-ntg-q2-2026-revenue-rose-7-year-over-year-but-margins-fell-on-higher-energy-and-depreciation-costs/"
   data-title="NTG: Q2 2026 revenue rose 7% year-over-year, but margins fell on higher energy and depreciation costs"
   data-publisher="TradingView"
@@ -36684,7 +36760,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36719,7 +36795,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36738,41 +36814,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/b1865e13575b14cd400b269b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.bbc.com/future/article/20260819-the-medications-that-can-make-the-heat-harder-to-handle"
-  data-title="Why certain meds can make heatwaves harder to handle"
-  data-publisher="BBC News"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="2"
-  data-published="1787216481"
-  data-country="OTHER"
-  data-search="why certain meds can make heatwaves harder to handle bbc news nuclear power·nuclear energy some of the most prescribed medications, including those used to treat depression, adhd and high blood pressure, can increase the risk of dehydration and other heat-related conditions."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">BBC News</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Why certain meds can make heatwaves harder to handle</div>
-      <div class="article-snippet">Some of the most prescribed medications, including those used to treat depression, ADHD and high blood pressure, can increase the risk of dehydration and other heat-related conditions.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4aa2c970eeedf9dd9020d378.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38939,7 +38980,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/87752422b2bd44b02960ccf0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/40bb85d42dcf18db07b7ac49.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39744,7 +39785,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7f3130747ed6be5d3520405d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/62d176e0d56c4a193781961c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -40228,7 +40269,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787226000"
+  data-published="1787227200"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -40427,7 +40468,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -42208,7 +42249,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.econovill.com/news/articleView.html?idxno=748528"
   data-title="산업장관 &quot;대미 투자 협상 상당한 진전…내달중 1호 프로젝트 발표&quot;"
   data-publisher="이코노믹리뷰"
@@ -42234,7 +42275,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>산업장관 &quot;대미 투자 협상 상당한 진전…내달중 1호 프로젝트 발표&quot;</div>
+      <div class="headline">산업장관 &quot;대미 투자 협상 상당한 진전…내달중 1호 프로젝트 발표&quot;</div>
       <div class="article-snippet">김정관 산업통상부 장관이 미국과 진행 중인 대미 투자 협상과 관련해 &quot;상당히 의미 있는 진전이 있었다&quot;고 밝혔다.당초 8월 말 또는 9월 초로 예상됐던 대미 투자 1호 프로젝트 발표 시점은 9월 중으로 다소 늦춰질 전망이다.김 장관은 20일 오후 미국 방문을 마치고 인천국제공항으로 귀국한 뒤 기자들과 만나 이같이 말했다.김 장관은 하워드 러트닉 미국 상무장관과 이틀간 협의한 결과에 대해 &quot;이틀에 걸쳐 하워드 러트닉 미 상무장관과 회의했는데, 굉장히 많은 부분에서 해결했다고 생각한다&quot;고 했다.이번 방미는 대미 투자 1호 프로젝트를 둘</div>
     </div>
   </div>
@@ -43304,14 +43345,14 @@ header,
 
 <article class="preview-card"
   data-url="https://www.mk.co.kr/news/economy/12132502"
-  data-title="메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요"
+  data-title="메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요 - 매일경제"
   data-publisher="매일경제"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
   data-published="1787215931"
   data-country="OTHER"
-  data-search="메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요 매일경제 원자력 서남권 반도체 클러스터, 인공지능(ai) 데이터센터와 같은 &#x27;메가프로젝트&#x27;가 잇달아 추진되면서, 2040년 전력 수요가 기존 전망치 대비 27.5% 급증한 것으로 나타났다. 태양광.."
+  data-search="메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요 - 매일경제 매일경제 원자력 정부 12차 전력수급기본계획 수요 전망 수정치 공개2040년 전력 수요 전망치지난 4월 초안대비 28% 급증호남 반도체·ai 데이터센터최대전력 수요 60gw 늘어재생에너지만으로 충당 불가원전·lng 모든 발전원 활용에너지믹스 짜야 감당 가능해"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -43328,8 +43369,8 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요</div>
-      <div class="article-snippet">서남권 반도체 클러스터, 인공지능(AI) 데이터센터와 같은 &#x27;메가프로젝트&#x27;가 잇달아 추진되면서, 2040년 전력 수요가 기존 전망치 대비 27.5% 급증한 것으로 나타났다. 태양광..</div>
+      <div class="headline">메가특구發 전력수요 급증 … 원전 19기 생산량 추가로 필요 - 매일경제</div>
+      <div class="article-snippet">정부 12차 전력수급기본계획 수요 전망 수정치 공개2040년 전력 수요 전망치지난 4월 초안대비 28% 급증호남 반도체·AI 데이터센터최대전력 수요 60GW 늘어재생에너지만으로 충당 불가원전·LNG 모든 발전원 활용에너지믹스 짜야 감당 가능해</div>
     </div>
   </div>
   <div class="card-side">
@@ -43479,14 +43520,14 @@ header,
 
 <article class="preview-card"
   data-url="https://www.donga.com/news/Economy/article/all/20260820/134512713/1"
-  data-title="3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요"
+  data-title="반도체 속도전에 ‘원전 19기’ 전력 필요…재생에너지로 될까?"
   data-publisher="동아일보"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
   data-published="1787213700"
   data-country="OTHER"
-  data-search="3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요 동아일보 원자력 반도체 산업단지와 인공지능(ai) 데이터센터 등 3대 메가 프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kw로 전망됐다. 올 4월에 내놨던 전망보다 2680만 kw 늘어난 것으로, 3대 메가 프로젝트 가동에 대형 원전 19기 설비용량에 달하는 전력이 필…"
+  data-search="반도체 속도전에 ‘원전 19기’ 전력 필요…재생에너지로 될까? 동아일보 원자력 반도체 산업단지와 인공지능(ai) 데이터센터 등 3대 메가 프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kw로 전망됐다. 올 4월에 내놨던 전망보다 2680만 kw 늘어난 것으로, 3대 메가 프로젝트 가동에 대형 원전 19기 설비용량에 달하는 전력이 필…"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -43503,7 +43544,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요</div>
+      <div class="headline">반도체 속도전에 ‘원전 19기’ 전력 필요…재생에너지로 될까?</div>
       <div class="article-snippet">반도체 산업단지와 인공지능(AI) 데이터센터 등 3대 메가 프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kW로 전망됐다. 올 4월에 내놨던 전망보다 2680만 kW 늘어난 것으로, 3대 메가 프로젝트 가동에 대형 원전 19기 설비용량에 달하는 전력이 필…</div>
     </div>
   </div>
@@ -45453,7 +45494,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787226379"
+  data-published="1787227277"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -45561,6 +45602,41 @@ header,
   </button>
   <div class="article-stack">
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787227235"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.asahi.com/ajw/special/nuclear_hibakusha/"
   data-title="Nuclear Threat &amp; Hibakusha | The Asahi Shimbun: Breaking News, Japan News and Analysis"
   data-publisher="Asahi Shimbun"
@@ -45573,7 +45649,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45608,7 +45684,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45643,7 +45719,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45666,19 +45742,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
+  data-url="https://globalenergymonitor.org/projects/global-oil-gas-extraction-tracker"
+  data-title="Global Oil and Gas Extraction Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787225879"
+  data-published="1787226807"
   data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45691,12 +45767,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+      <div class="headline">Global Oil and Gas Extraction Tracker</div>
+      <div class="article-snippet">Covering oil and gas fields from discovery to decommissioning, GOGET provides data on the location, ownership, production, and reserves of oil and gas extraction projects.</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -45713,7 +45789,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45748,7 +45824,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45783,7 +45859,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45818,7 +45894,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45837,41 +45913,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://rubryka.com/wp-content/uploads/ogimages/en_896022_1787220793j6idqz-c16x9x50px50p-b9a5961acc1c2d565d3766c3e7daa008-1200x630-c-1.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-oil-gas-extraction-tracker"
-  data-title="Global Oil and Gas Extraction Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787214324"
-  data-country="OTHER"
-  data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Oil and Gas Extraction Tracker</div>
-      <div class="article-snippet">Covering oil and gas fields from discovery to decommissioning, GOGET provides data on the location, ownership, production, and reserves of oil and gas extraction projects.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -46225,7 +46266,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://simplywall.st/stocks/au/materials/asx-evn/evolution-mining-shares/news/evolution-mining-asxevn-shares-ride-record-margins-and-cash"
   data-title="Evolution Mining (ASX:EVN) Shares Ride Record Margins And Cash Flow"
   data-publisher="Simply Wall St"
@@ -46251,7 +46292,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Evolution Mining (ASX:EVN) Shares Ride Record Margins And Cash Flow</div>
+      <div class="headline">Evolution Mining (ASX:EVN) Shares Ride Record Margins And Cash Flow</div>
       <div class="article-snippet">Evolution Mining stock came into today on a strong run, up about 38% over the past month and closing at A$15.07, yet the real story sits in the earnings power behind that move. The latest results headline is clear. Record underlying earnings and cash flow, with group earnings before interest, tax, depreciation and amor</div>
     </div>
   </div>
@@ -46260,7 +46301,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bta.bg/en/news/bulgaria/1188814-human-rights-watchdog-warns-against-replacing-delayed-reform-of-juvenile-justice"
   data-title="Human Rights Watchdog Warns against Replacing Delayed Reform of Juvenile Justice with Repression"
   data-publisher="Bulgarian News Agency"
@@ -46286,7 +46327,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Human Rights Watchdog Warns against Replacing Delayed Reform of Juvenile Justice with Repression</div>
+      <div class="headline">Human Rights Watchdog Warns against Replacing Delayed Reform of Juvenile Justice with Repression</div>
       <div class="article-snippet">The Bulgarian Helsinki Committee (BHC) said on Thursday that the country&#x27;s legislation governing what happens to children in conflict with the law was adopted way back in 1958. &quot;Reform is decades overdue, yet instead of pursuing it, those in power</div>
     </div>
   </div>
@@ -46365,7 +46406,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.thehindu.com/news/international/lawyerwho-represented-mehul-choksicharged-with-sexual-assaultin-london/article71368754.ece"
   data-title="Lawyer who represented Mehul Choksi charged with sexual assault in London"
   data-publisher="The Hindu"
@@ -46391,7 +46432,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Lawyer who represented Mehul Choksi charged with sexual assault in London</div>
+      <div class="headline">Lawyer who represented Mehul Choksi charged with sexual assault in London</div>
       <div class="article-snippet">Criminal lawyer Vijay Aggarwal, representing Mehul Choksi, faces sexual assault charges in London following his recent arrest.</div>
     </div>
   </div>
@@ -46611,6 +46652,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.bbc.com/future/article/20260819-the-medications-that-can-make-the-heat-harder-to-handle"
+  data-title="Why certain meds can make heatwaves harder to handle"
+  data-publisher="BBC News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787220000"
+  data-country="OTHER"
+  data-search="why certain meds can make heatwaves harder to handle bbc news nuclear power·nuclear energy some of the most prescribed medications, including those used to treat depression, adhd and high blood pressure, can increase the risk of dehydration and other heat-related conditions."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">31.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">BBC News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Why certain meds can make heatwaves harder to handle</div>
+      <div class="article-snippet">Some of the most prescribed medications, including those used to treat depression, ADHD and high blood pressure, can increase the risk of dehydration and other heat-related conditions.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4aa2c970eeedf9dd9020d378.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.tradingview.com/news/urn:summary_document_transcript:quartr.com:4038373:0-ntg-q2-2026-revenue-rose-7-year-over-year-but-margins-fell-on-higher-energy-and-depreciation-costs/"
   data-title="NTG: Q2 2026 revenue rose 7% year-over-year, but margins fell on higher energy and depreciation costs"
   data-publisher="TradingView"
@@ -46623,7 +46699,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46658,7 +46734,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46677,41 +46753,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/b1865e13575b14cd400b269b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.bbc.com/future/article/20260819-the-medications-that-can-make-the-heat-harder-to-handle"
-  data-title="Why certain meds can make heatwaves harder to handle"
-  data-publisher="BBC News"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="2"
-  data-published="1787216481"
-  data-country="OTHER"
-  data-search="why certain meds can make heatwaves harder to handle bbc news nuclear power·nuclear energy some of the most prescribed medications, including those used to treat depression, adhd and high blood pressure, can increase the risk of dehydration and other heat-related conditions."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">BBC News</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Why certain meds can make heatwaves harder to handle</div>
-      <div class="article-snippet">Some of the most prescribed medications, including those used to treat depression, ADHD and high blood pressure, can increase the risk of dehydration and other heat-related conditions.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4aa2c970eeedf9dd9020d378.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -55215,7 +55256,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f174aeabe70&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f173467a3e8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -66554,7 +66595,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/europe-facing-challenges-over-continued-reliance-on-russia-for-nuclear-fuel-supply-says-sprott-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f174a8a55f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/europe-facing-challenges-over-continued-reliance-on-russia-for-nuclear-fuel-supply-says-sprott-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f174aff1398&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
