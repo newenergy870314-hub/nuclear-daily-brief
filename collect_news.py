@@ -1464,10 +1464,10 @@ EXCLUDED_HOST_KEYWORDS = {
 
 
 
-def is_nuclear_movie_community_article(article: Article) -> bool:
+def _nuclear_movie_event_key(article: Article) -> str | None:
     """
-    원자력 기관/본부의 지역주민 대상 영화상영 등 문화행사성 기사를 제외합니다.
-    원자력 관련 표현과 영화 관련 표현이 함께 있을 때만 제외합니다.
+    같은 날짜의 한수원/원전/원자력/원자력본부 + 영화 관련 보도는
+    띄어쓰기·표현 차이와 관계없이 동일 이슈로 묶습니다.
     """
     haystack = normalized(f"{article.title} {article.description}")
     compact = re.sub(r"\s+", "", haystack)
@@ -1480,21 +1480,26 @@ def is_nuclear_movie_community_article(article: Article) -> bool:
         "원자력본부",
         "원전본부",
         "nuclear",
+        "khnp",
     )
     movie_terms = (
         "영화",
         "영화상영",
         "무료영화",
         "영화관람",
-        "영화 관람",
+        "무비",
         "movie",
-        "film screening",
-        "movie screening",
+        "moviescreening",
+        "filmscreening",
     )
 
-    has_nuclear = any(term in haystack or term.replace(" ", "") in compact for term in nuclear_terms)
-    has_movie = any(term in haystack or term.replace(" ", "") in compact for term in movie_terms)
-    return has_nuclear and has_movie
+    has_nuclear = any(term.replace(" ", "") in compact for term in nuclear_terms)
+    has_movie = any(term.replace(" ", "") in compact for term in movie_terms)
+
+    if not (has_nuclear and has_movie):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
 def is_excluded_source(
@@ -5789,6 +5794,48 @@ def _nuclear_training_event_key(article: Article) -> str | None:
     return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
+
+def _nuclear_auto_shutdown_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 원전/원자력 + 자동정지 관련 보도는
+    띄어쓰기·표현 차이와 관계없이 동일 이슈로 묶습니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    nuclear_terms = (
+        "원전",
+        "원자력",
+        "원자로",
+        "한국수력원자력",
+        "한수원",
+        "원자력본부",
+        "원전본부",
+        "nuclear",
+        "reactor",
+        "khnp",
+    )
+    shutdown_terms = (
+        "자동정지",
+        "원자로자동정지",
+        "발전소자동정지",
+        "원전자동정지",
+        "원자력발전소자동정지",
+        "automaticshutdown",
+        "automatictrip",
+        "reactortrip",
+        "reactorshutdown",
+    )
+
+    has_nuclear = any(term.replace(" ", "") in compact for term in nuclear_terms)
+    has_auto_shutdown = any(term.replace(" ", "") in compact for term in shutdown_terms)
+
+    if not (has_nuclear and has_auto_shutdown):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5811,9 +5858,6 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         key=lambda x: x.published,
         reverse=True,
     )
-
-    # 원자력 + 영화상영 등 지역 문화행사성 기사는 최종 목록/아카이브에서도 제외
-    articles = [a for a in articles if not is_nuclear_movie_community_article(a)]
 
     exact_unique: list[Article] = []
     exact_removed = 0
@@ -6077,7 +6121,51 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             nuclear_training_unique[idx] = article
 
-    result = sorted(nuclear_training_unique, key=lambda x: x.published, reverse=True)
+    # 같은 날짜 + 한수원/원전/원자력/원자력본부 + 영화 관련 보도는 대표기사 1건만 유지
+    nuclear_movie_unique: list[Article] = []
+    nuclear_movie_key_to_idx: dict[str, int] = {}
+    nuclear_movie_removed = 0
+
+    for article in nuclear_training_unique:
+        event_key = _nuclear_movie_event_key(article)
+        if event_key is None:
+            nuclear_movie_unique.append(article)
+            continue
+
+        if event_key not in nuclear_movie_key_to_idx:
+            nuclear_movie_key_to_idx[event_key] = len(nuclear_movie_unique)
+            nuclear_movie_unique.append(article)
+            continue
+
+        nuclear_movie_removed += 1
+        idx = nuclear_movie_key_to_idx[event_key]
+        kept = nuclear_movie_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            nuclear_movie_unique[idx] = article
+
+    # 같은 날짜 + 원전/원자력 + 자동정지 관련 보도는 대표기사 1건만 유지
+    auto_shutdown_unique: list[Article] = []
+    auto_shutdown_key_to_idx: dict[str, int] = {}
+    auto_shutdown_removed = 0
+
+    for article in nuclear_movie_unique:
+        event_key = _nuclear_auto_shutdown_event_key(article)
+        if event_key is None:
+            auto_shutdown_unique.append(article)
+            continue
+
+        if event_key not in auto_shutdown_key_to_idx:
+            auto_shutdown_key_to_idx[event_key] = len(auto_shutdown_unique)
+            auto_shutdown_unique.append(article)
+            continue
+
+        auto_shutdown_removed += 1
+        idx = auto_shutdown_key_to_idx[event_key]
+        kept = auto_shutdown_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            auto_shutdown_unique[idx] = article
+
+    result = sorted(auto_shutdown_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ exact_content_removed={exact_content_removed} "
@@ -6091,7 +6179,9 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ site_reactor_removed={site_reactor_removed} "
         f"/ daewoo_lee_removed={daewoo_lee_removed} "
         f"/ planned_maintenance_removed={planned_maintenance_removed} "
-        f"/ nuclear_training_removed={nuclear_training_removed} / final={len(result)}"
+        f"/ nuclear_training_removed={nuclear_training_removed} "
+        f"/ nuclear_movie_removed={nuclear_movie_removed} "
+        f"/ auto_shutdown_removed={auto_shutdown_removed} / final={len(result)}"
     )
     return result
 
