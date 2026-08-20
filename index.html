@@ -2282,8 +2282,8 @@ header,
    ============================================================ */
 .country-map-content {
   display:grid;
-  grid-template-columns:74px minmax(0,1fr);
-  gap:8px;
+  grid-template-columns:82px minmax(0,1fr);
+  gap:12px;
   align-items:stretch;
 }
 
@@ -2291,7 +2291,7 @@ header,
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:9px;
+  gap:10px;
   min-width:0;
 }
 
@@ -2299,7 +2299,12 @@ header,
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:3px;
+  gap:4px;
+  padding:8px 6px;
+  border:1px solid rgba(141,178,208,.26);
+  border-radius:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(245,250,253,.92) 100%);
+  box-shadow:0 3px 10px rgba(60,94,126,.06);
 }
 
 .mini-clock-label {
@@ -2596,11 +2601,11 @@ header,
   align-items:baseline;
   justify-content:center;
   gap:3px;
-  max-width:74px;
+  max-width:78px;
   color:#23395d;
   font-family:Arial, "Noto Sans KR", sans-serif;
   font-size:9px;
-  line-height:1.05;
+  line-height:1.08;
   font-weight:900;
   white-space:nowrap;
 }
@@ -4699,14 +4704,14 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {
   position:relative;
-  height:228px !important;
+  height:232px !important;
   overflow:hidden !important;
-  border:1px solid rgba(124,154,184,.44) !important;
-  border-radius:16px !important;
+  border:1px solid rgba(124,154,184,.40) !important;
+  border-radius:18px !important;
   background:
-    radial-gradient(circle at 34% 38%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.84) 28%, rgba(238,246,252,.80) 58%, transparent 78%),
+    radial-gradient(circle at 34% 38%, rgba(255,255,255,.99) 0%, rgba(255,255,255,.86) 28%, rgba(238,246,252,.82) 58%, transparent 78%),
     linear-gradient(180deg, #f8fbfe 0%, #f3f8fc 54%, #eaf2f8 100%) !important;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.58), 0 4px 14px rgba(66,92,122,.08) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.62), 0 6px 18px rgba(66,92,122,.08) !important;
 }
 
 .globe-texture-source {
@@ -4742,7 +4747,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding:0 128px 0 14px;
+  padding:0 140px 0 16px;
 }
 
 .globe-stage.dragging {
@@ -4751,7 +4756,7 @@ header,
 
 .globe-sphere {
   position:relative;
-  width:172px;
+  width:166px;
   max-width:none;
   aspect-ratio:1/1;
   border-radius:50%;
@@ -4830,36 +4835,83 @@ header,
 
 .globe-label-rail {
   position:absolute;
-  top:18px;
-  right:10px;
-  bottom:16px;
-  width:96px;
+  top:14px;
+  right:12px;
+  bottom:14px;
+  width:112px;
   display:flex;
   flex-direction:column;
-  gap:6px;
-  padding:8px 8px 8px 8px;
-  border:1px solid rgba(141,178,208,.34);
-  border-radius:14px;
-  background:linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(245,250,253,.84) 100%);
-  box-shadow:0 6px 14px rgba(60,94,126,.08);
+  gap:7px;
+  padding:10px 9px 9px;
+  border:1px solid rgba(141,178,208,.30);
+  border-radius:15px;
+  background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(246,250,253,.92) 100%);
+  box-shadow:0 7px 18px rgba(60,94,126,.08);
   pointer-events:auto;
 }
 
 .globe-label-rail-header {
   flex:0 0 auto;
-  padding:1px 1px 4px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:0 0 6px;
   border:none;
   border-bottom:1px solid rgba(141,178,208,.22);
   border-radius:0;
   background:transparent;
   color:#2e4b63;
-  font-size:7px;
-  font-weight:860;
-  letter-spacing:.01em;
-  line-height:1.18;
   text-align:left;
   white-space:normal;
   box-shadow:none;
+}
+
+.globe-label-rail-headcopy {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+}
+
+.globe-label-rail-title {
+  color:#2e4b63;
+  font-size:11px;
+  line-height:1.05;
+  font-weight:880;
+}
+
+.globe-label-rail-sub {
+  color:#7b91a6;
+  font-size:6.2px;
+  line-height:1.1;
+  font-weight:760;
+}
+
+.globe-all-reset {
+  flex:0 0 auto;
+  min-height:22px;
+  padding:0 9px;
+  border:1px solid rgba(125,167,198,.30);
+  border-radius:999px;
+  background:#ffffff;
+  color:#557187;
+  font-size:7px;
+  font-weight:860;
+  cursor:pointer;
+  box-shadow:0 1px 4px rgba(60,94,126,.06);
+}
+
+.globe-all-reset:hover,
+.globe-all-reset:focus-visible {
+  border-color:rgba(112,180,221,.55);
+  background:#f2f8fc;
+}
+
+.globe-all-reset.active {
+  border-color:#70b4dd;
+  background:#eaf5fc;
+  color:#35556d;
 }
 
 .globe-label-scroll {
@@ -4889,22 +4941,22 @@ header,
 .globe-country-label {
   position:relative;
   width:100%;
-  min-height:27px;
-  padding:4px 6px;
-  border:1px solid rgba(141,178,208,.24);
+  min-height:29px;
+  padding:4px 7px;
+  border:1px solid rgba(141,178,208,.22);
   border-radius:10px;
-  background:rgba(255,255,255,.96);
+  background:rgba(255,255,255,.97);
   color:#344b5e;
-  box-shadow:0 1px 4px rgba(39,78,109,.06), inset 0 0 0 1px rgba(255,255,255,.60);
+  box-shadow:0 1px 4px rgba(39,78,109,.05), inset 0 0 0 1px rgba(255,255,255,.62);
   display:grid;
   grid-template-columns:14px minmax(0,1fr) auto;
   align-items:center;
   column-gap:4px;
   text-align:left;
-  font-size:7.2px;
+  font-size:7px;
   font-weight:780;
-  line-height:1;
-  white-space:nowrap;
+  line-height:1.05;
+  white-space:normal;
   pointer-events:auto;
   cursor:pointer;
   transition:border-color .12s ease, background .12s ease, box-shadow .12s ease, transform .12s ease;
@@ -4933,8 +4985,10 @@ header,
 
 .globe-country-name {
   min-width:0;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  overflow:visible;
+  text-overflow:clip;
+  white-space:normal;
+  word-break:keep-all;
 }
 
 .globe-country-count {
@@ -4982,18 +5036,18 @@ header,
 
 .country-map-caption {
   position:absolute !important;
-  top:10px !important;
-  left:10px !important;
+  top:12px !important;
+  left:14px !important;
   bottom:auto !important;
   z-index:6 !important;
   display:inline-flex !important;
   align-items:center;
   gap:5px;
-  max-width:118px;
-  padding:4px 9px;
+  max-width:128px;
+  padding:4px 10px;
   border:1px solid rgba(148,218,255,.16);
   border-radius:999px;
-  background:rgba(255,255,255,.90);
+  background:rgba(255,255,255,.92);
   color:#476579 !important;
   font-size:7px !important;
   font-weight:740 !important;
@@ -5008,76 +5062,97 @@ header,
 }
 
 @media (max-width:430px) {
+  .country-map-content {
+    grid-template-columns:76px minmax(0,1fr);
+    gap:10px;
+  }
   .country-map-content .country-map-visual.globe-mode {
-    height:206px !important;
+    height:210px !important;
   }
   .globe-stage {
-    padding:0 110px 0 8px;
+    padding:0 126px 0 10px;
   }
   .globe-sphere {
-    width:158px;
+    width:154px;
     transform:translateY(4px);
   }
   .globe-label-rail {
-    top:16px;
-    right:6px;
+    top:12px;
+    right:8px;
     bottom:12px;
-    width:88px;
-    gap:5px;
-    padding:7px 7px 7px 7px;
-    border-radius:13px;
+    width:102px;
+    gap:6px;
+    padding:9px 8px;
+    border-radius:14px;
   }
-  .globe-label-rail-header {
-    padding:1px 1px 4px;
-    font-size:6.3px;
-    line-height:1.18;
+  .globe-label-rail-title {
+    font-size:10px;
+  }
+  .globe-label-rail-sub {
+    font-size:5.8px;
+  }
+  .globe-all-reset {
+    min-height:21px;
+    padding:0 8px;
+    font-size:6.7px;
   }
   .globe-label-scroll {
     gap:5px;
   }
   .globe-country-label {
-    min-height:26px;
+    min-height:27px;
     padding:4px 5px;
     grid-template-columns:13px minmax(0,1fr) auto;
     column-gap:3px;
-    font-size:6.9px;
+    font-size:6.8px;
   }
   .globe-country-flag {
     font-size:10px;
   }
   .globe-country-count {
-    font-size:6.4px;
+    font-size:6.2px;
   }
   .country-map-caption {
     display:inline-flex !important;
-    max-width:106px;
+    max-width:112px;
     font-size:6.6px !important;
   }
 }
 
 @media (max-width:380px) {
+  .country-map-content {
+    grid-template-columns:72px minmax(0,1fr);
+    gap:8px;
+  }
   .country-map-content .country-map-visual.globe-mode {
-    height:194px !important;
+    height:196px !important;
   }
   .globe-stage {
-    padding:0 102px 0 6px;
+    padding:0 112px 0 8px;
   }
   .globe-sphere {
-    width:150px;
+    width:146px;
     transform:translateY(4px);
   }
   .globe-label-rail {
-    top:14px;
-    right:4px;
+    top:12px;
+    right:6px;
     bottom:10px;
-    width:84px;
-    gap:4px;
-    padding:6px;
-    border-radius:12px;
+    width:92px;
+    gap:5px;
+    padding:8px 7px;
+    border-radius:13px;
   }
-  .globe-label-rail-header {
-    padding:1px 1px 3px;
-    font-size:5.8px;
+  .globe-label-rail-title {
+    font-size:9px;
+  }
+  .globe-label-rail-sub {
+    font-size:5.5px;
+  }
+  .globe-all-reset {
+    min-height:20px;
+    padding:0 7px;
+    font-size:6.4px;
   }
   .globe-label-scroll {
     gap:4px;
@@ -5086,10 +5161,10 @@ header,
     min-height:25px;
     padding:3px 4px;
     grid-template-columns:12px minmax(0,1fr) auto;
-    font-size:6.5px;
+    font-size:6.4px;
   }
   .globe-country-flag { font-size:9px; }
-  .globe-country-count { font-size:6.1px; }
+  .globe-country-count { font-size:5.9px; }
 }
 
 
@@ -5286,64 +5361,20 @@ header,
   }
 }
 
-/* FINAL CLEANUP — keep only bottom ALL button */
+/* FINAL CLEANUP — bottom country strip hidden, reset handled in right panel */
 .country-chip-guide.country-chip-guide-bottom,
-.country-chip-guide-bottom {
-  display:none !important;
-}
-
+.country-chip-guide-bottom,
 #country-chip-rail.country-chip-rail,
 #country-chip-rail {
-  display:flex !important;
-  visibility:visible !important;
-  align-items:center !important;
-  justify-content:flex-start !important;
-  gap:0 !important;
-  min-height:auto !important;
-  max-height:none !important;
-  height:auto !important;
-  margin:8px 0 0 !important;
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  min-height:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
   padding:0 !important;
   border:0 !important;
-  overflow:visible !important;
-  background:transparent !important;
-}
-
-#country-chip-rail .country-pin {
-  display:none !important;
-}
-
-#country-chip-rail #country-all {
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  gap:6px !important;
-  min-height:32px !important;
-  padding:0 12px !important;
-  border:1px solid rgba(141,178,208,.26) !important;
-  border-radius:999px !important;
-  background:#ffffff !important;
-  color:#4b6275 !important;
-  box-shadow:0 1px 4px rgba(39,78,109,.06) !important;
-  font-size:10px !important;
-  font-weight:800 !important;
-  white-space:nowrap !important;
-}
-
-#country-chip-rail #country-all .country-count {
-  color:#5f85a3 !important;
-  font-size:9px !important;
-  font-weight:900 !important;
-}
-
-#country-chip-rail #country-all.active {
-  border-color:#70b4dd !important;
-  background:#eaf5fc !important;
-  color:#35556d !important;
-}
-
-#country-chip-rail #country-all.active .country-count {
-  color:#d84b4b !important;
+  overflow:hidden !important;
 }
 
 </style>
@@ -5354,7 +5385,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 19:50 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 20:00 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -14497,7 +14528,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/europe-facing-challenges-over-continued-reliance-on-russia-for-nuclear-fuel-supply-says-sprott-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f174ac86280&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/europe-facing-challenges-over-continued-reliance-on-russia-for-nuclear-fuel-supply-says-sprott-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f1734645710&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24472,7 +24503,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f173474cca8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f1732878520&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28845,7 +28876,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/cfbe3cf75f30c1004c430e59.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2399ec8a5834e59a0782e2f0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29650,7 +29681,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7c2d65b38d4c9f92e836bd2c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2aa7211376886e8eae0043d5.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29864,7 +29895,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/further-chinese-order-for-doosan-enerbility-forgings"
   data-title="Further Chinese order for Doosan Enerbility forgings"
   data-publisher="World Nuclear News"
@@ -29890,7 +29921,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Further Chinese order for Doosan Enerbility forgings</div>
+      <div class="headline">Further Chinese order for Doosan Enerbility forgings</div>
       <div class="article-snippet">South Korea&#x27;s Doosan Enerbility recently signed a contract to supply ultra-large forged components for steam generators at units 5 and 6 of the Laiyang nuclear power plant in China&#x27;s Shandong Province. ;</div>
     </div>
   </div>
@@ -30239,7 +30270,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787223000"
+  data-published="1787223600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -31831,10 +31862,80 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">27건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026082032501"
+  data-title="김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;"
+  data-publisher="한국경제TV"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787255416"
+  data-country="KR"
+  data-search="김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot; 한국경제tv 원전 대미투자 미국 정부의 관세 인상 압박 속에서 방미 일정을 마치고 돌아온 김정관 산업통상부 장관이 오는 9월 안에 에너지 분야 사업을 대미 투자 1호 프로젝트로 선정하겠다고 밝혔다. 반도체 공장을 자국에 지으라는 미국의 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;</div>
+      <div class="article-snippet">미국 정부의 관세 인상 압박 속에서 방미 일정을 마치고 돌아온 김정관 산업통상부 장관이 오는 9월 안에 에너지 분야 사업을 대미 투자 1호 프로젝트로 선정하겠다고 밝혔다. 반도체 공장을 자국에 지으라는 미국의 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d3db3dc3f7556d1eec69b934.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/2026082032501"
+  data-title="김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;"
+  data-publisher="한국경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787223016"
+  data-country="KR"
+  data-search="김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot; 한국경제 원전 대미투자 김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;, 에너지 분야 투자 재확인 반도체로 변경 가능성 일축"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;</div>
+      <div class="article-snippet">김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;, 에너지 분야 투자 재확인 반도체로 변경 가능성 일축</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c10ffa200f67997408149fda.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4431068"
   data-title="미국 다녀온 김정관 &quot;대미 투자, 의미 있는 진전&quot;…9월 중 확정"
   data-publisher="연합인포맥스"
@@ -31847,7 +31948,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31860,7 +31961,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>미국 다녀온 김정관 &quot;대미 투자, 의미 있는 진전&quot;…9월 중 확정</div>
+      <div class="headline">미국 다녀온 김정관 &quot;대미 투자, 의미 있는 진전&quot;…9월 중 확정</div>
       <div class="article-snippet">&#x27;긴급 방미&#x27; 후 귀국한 김정관 산업통상부 장관이 대미 투자 프로젝트와 관련해 한미 간 의미 있는 진전이 있었다고 밝혔다.김 장관은 20일 인천공항을 통해 귀국한 직후 기자들과 만나 이같이 말했다.그는 &quot;이번 방미의 목적은 실무자 간 해결되지 않은 쟁점들이 여러 개가 있었다. 장관급에서 일종의 담판을 짓자는 의견들이 서로 오갔다&quot;면서 &quot;그런 측면에서 이번에 가서 상당히 의미 있는 진전이 있었다&quot;고 말했다.특히 하워드 러트닉 미 상무부 장관과의 회의를 통해 많은 부분을 해결했다고 생각한다고 강조했다.대미 투자 1호 프로젝트는 내달</div>
     </div>
   </div>
@@ -31869,7 +31970,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.shinailbo.co.kr/news/articleView.html?idxno=5053365"
   data-title="귀국 산업부 김정관 &quot;대미투자 상당한 진전&quot;…1호 프로젝트 9월 발표 - 신아일보"
   data-publisher="신아일보"
@@ -31882,7 +31983,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31895,7 +31996,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>귀국 산업부 김정관 &quot;대미투자 상당한 진전&quot;…1호 프로젝트 9월 발표 - 신아일보</div>
+      <div class="headline">귀국 산업부 김정관 &quot;대미투자 상당한 진전&quot;…1호 프로젝트 9월 발표 - 신아일보</div>
       <div class="article-snippet">김정관 산업통상부 장관이 미국과의 대미 투자 협상에서 상당한 진전을 이뤘다면서 1호 프로젝트 발표 시점을 9월로 내다봤다.김정관 장관은 20일 오후 미국 방문을</div>
     </div>
   </div>
@@ -31917,7 +32018,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31952,7 +32053,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31987,7 +32088,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32022,7 +32123,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32057,7 +32158,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32092,7 +32193,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32127,7 +32228,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32162,7 +32263,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32197,7 +32298,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32232,7 +32333,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32267,7 +32368,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32302,7 +32403,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32337,7 +32438,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32372,7 +32473,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32407,7 +32508,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32442,7 +32543,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32477,7 +32578,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32512,7 +32613,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32547,7 +32648,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32582,7 +32683,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32617,7 +32718,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32652,7 +32753,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32687,7 +32788,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35184,7 +35285,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787223158"
+  data-published="1787223881"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -35288,7 +35389,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">45건</span>
+    <span class="group-count">46건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35396,41 +35497,6 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://www.world-nuclear-news.org/articles/atomic-canyon-launches-virtual-assistant-for-us-nuclear-fleet"
-  data-title="Atomic Canyon launches virtual assistant for US nuclear fleet"
-  data-publisher="World Nuclear News"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787223644"
-  data-country="OTHER"
-  data-search="atomic canyon launches virtual assistant for us nuclear fleet world nuclear news nuclear power·nuclear energy the company says niva - for nuclear industry virtual assistant - is the first ai platform of its kind available to commercial nuclear plants belonging to organisations including the institute of nuclear power operations, epri, and the nuclear energy institute that have collaborated in its development. ;"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">World Nuclear News</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Atomic Canyon launches virtual assistant for US nuclear fleet</div>
-      <div class="article-snippet">The company says NIVA - for Nuclear Industry Virtual Assistant - is the first AI platform of its kind available to commercial nuclear plants belonging to organisations including the Institute of Nuclear Power Operations, EPRI, and the Nuclear Energy Institute that have collaborated in its development. ;</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a11baec991380c208d891e3e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
@@ -35438,13 +35504,13 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787223122"
+  data-published="1787223835"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35467,13 +35533,48 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.world-nuclear-news.org/articles/atomic-canyon-launches-virtual-assistant-for-us-nuclear-fleet"
+  data-title="Atomic Canyon launches virtual assistant for US nuclear fleet"
+  data-publisher="World Nuclear News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787223644"
+  data-country="OTHER"
+  data-search="atomic canyon launches virtual assistant for us nuclear fleet world nuclear news nuclear power·nuclear energy the company says niva - for nuclear industry virtual assistant - is the first ai platform of its kind available to commercial nuclear plants belonging to organisations including the institute of nuclear power operations, epri, and the nuclear energy institute that have collaborated in its development. ;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">World Nuclear News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Atomic Canyon launches virtual assistant for US nuclear fleet</div>
+      <div class="article-snippet">The company says NIVA - for Nuclear Industry Virtual Assistant - is the first AI platform of its kind available to commercial nuclear plants belonging to organisations including the Institute of Nuclear Power Operations, EPRI, and the Nuclear Energy Institute that have collaborated in its development. ;</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a11baec991380c208d891e3e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
   data-title="Global Nuclear Power Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787220955"
+  data-published="1787223611"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -35921,6 +36022,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.theguardian.com/politics/live/2026/aug/20/andy-burnham-illegal-waste-dumps-labour-reform-conservatives-latest-news-updates"
+  data-title="Burnham announces plans to clean up illegal waste dumps – UK politics live"
+  data-publisher="The Guardian"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787223243"
+  data-country="OTHER"
+  data-search="burnham announces plans to clean up illegal waste dumps – uk politics live the guardian nuclear power·nuclear energy the prime minister has promised a crackdown on criminal gangs making money from dumping waste home secretary shabana mahmood said she wants a “fair spread” of accommodation to house asylum seekers. prime minister andy burnham said last week the country “cannot have a situation where it’s only the poorest communities in"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">19.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Guardian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Burnham announces plans to clean up illegal waste dumps – UK politics live</div>
+      <div class="article-snippet">The prime minister has promised a crackdown on criminal gangs making money from dumping waste Home secretary Shabana Mahmood said she wants a “fair spread” of accommodation to house asylum seekers. Prime minister Andy Burnham said last week the country “cannot have a situation where it’s only the poorest communities in</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fd1f7377981d6f8670eb2bf3.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.theguardian.com/education/live/2026/aug/20/gcse-results-exams-schools-education-england-wales-northern-ireland-live-latest-updates"
   data-title="GCSE results: girls still ahead but gender gap narrows as hundreds of thousands of pupils receive grades – latest updates"
@@ -35934,7 +36070,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35969,7 +36105,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36004,7 +36140,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36039,7 +36175,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36074,7 +36210,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36109,7 +36245,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36144,7 +36280,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36179,7 +36315,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36214,7 +36350,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36249,7 +36385,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36284,7 +36420,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36319,7 +36455,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36354,7 +36490,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36389,7 +36525,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36424,7 +36560,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36459,7 +36595,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36494,7 +36630,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36529,7 +36665,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36564,7 +36700,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36599,7 +36735,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36634,7 +36770,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36669,7 +36805,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36704,7 +36840,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36739,7 +36875,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36774,7 +36910,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36809,7 +36945,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36844,7 +36980,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38294,7 +38430,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/cfbe3cf75f30c1004c430e59.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2399ec8a5834e59a0782e2f0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39099,7 +39235,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7c2d65b38d4c9f92e836bd2c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2aa7211376886e8eae0043d5.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39313,7 +39449,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/further-chinese-order-for-doosan-enerbility-forgings"
   data-title="Further Chinese order for Doosan Enerbility forgings"
   data-publisher="World Nuclear News"
@@ -39339,7 +39475,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Further Chinese order for Doosan Enerbility forgings</div>
+      <div class="headline">Further Chinese order for Doosan Enerbility forgings</div>
       <div class="article-snippet">South Korea&#x27;s Doosan Enerbility recently signed a contract to supply ultra-large forged components for steam generators at units 5 and 6 of the Laiyang nuclear power plant in China&#x27;s Shandong Province. ;</div>
     </div>
   </div>
@@ -39688,7 +39824,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787223000"
+  data-published="1787223600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -41280,10 +41416,80 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">27건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026082032501"
+  data-title="김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;"
+  data-publisher="한국경제TV"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787255416"
+  data-country="KR"
+  data-search="김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot; 한국경제tv 원전 대미투자 미국 정부의 관세 인상 압박 속에서 방미 일정을 마치고 돌아온 김정관 산업통상부 장관이 오는 9월 안에 에너지 분야 사업을 대미 투자 1호 프로젝트로 선정하겠다고 밝혔다. 반도체 공장을 자국에 지으라는 미국의 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;</div>
+      <div class="article-snippet">미국 정부의 관세 인상 압박 속에서 방미 일정을 마치고 돌아온 김정관 산업통상부 장관이 오는 9월 안에 에너지 분야 사업을 대미 투자 1호 프로젝트로 선정하겠다고 밝혔다. 반도체 공장을 자국에 지으라는 미국의 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d3db3dc3f7556d1eec69b934.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/2026082032501"
+  data-title="김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;"
+  data-publisher="한국경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787223016"
+  data-country="KR"
+  data-search="김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot; 한국경제 원전 대미투자 김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;, 에너지 분야 투자 재확인 반도체로 변경 가능성 일축"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;</div>
+      <div class="article-snippet">김정관 &quot;내달 대미투자 1호 발표…관세 15% 유지 공감대&quot;, 에너지 분야 투자 재확인 반도체로 변경 가능성 일축</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c10ffa200f67997408149fda.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4431068"
   data-title="미국 다녀온 김정관 &quot;대미 투자, 의미 있는 진전&quot;…9월 중 확정"
   data-publisher="연합인포맥스"
@@ -41296,7 +41502,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41309,7 +41515,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>미국 다녀온 김정관 &quot;대미 투자, 의미 있는 진전&quot;…9월 중 확정</div>
+      <div class="headline">미국 다녀온 김정관 &quot;대미 투자, 의미 있는 진전&quot;…9월 중 확정</div>
       <div class="article-snippet">&#x27;긴급 방미&#x27; 후 귀국한 김정관 산업통상부 장관이 대미 투자 프로젝트와 관련해 한미 간 의미 있는 진전이 있었다고 밝혔다.김 장관은 20일 인천공항을 통해 귀국한 직후 기자들과 만나 이같이 말했다.그는 &quot;이번 방미의 목적은 실무자 간 해결되지 않은 쟁점들이 여러 개가 있었다. 장관급에서 일종의 담판을 짓자는 의견들이 서로 오갔다&quot;면서 &quot;그런 측면에서 이번에 가서 상당히 의미 있는 진전이 있었다&quot;고 말했다.특히 하워드 러트닉 미 상무부 장관과의 회의를 통해 많은 부분을 해결했다고 생각한다고 강조했다.대미 투자 1호 프로젝트는 내달</div>
     </div>
   </div>
@@ -41318,7 +41524,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.shinailbo.co.kr/news/articleView.html?idxno=5053365"
   data-title="귀국 산업부 김정관 &quot;대미투자 상당한 진전&quot;…1호 프로젝트 9월 발표 - 신아일보"
   data-publisher="신아일보"
@@ -41331,7 +41537,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41344,7 +41550,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>귀국 산업부 김정관 &quot;대미투자 상당한 진전&quot;…1호 프로젝트 9월 발표 - 신아일보</div>
+      <div class="headline">귀국 산업부 김정관 &quot;대미투자 상당한 진전&quot;…1호 프로젝트 9월 발표 - 신아일보</div>
       <div class="article-snippet">김정관 산업통상부 장관이 미국과의 대미 투자 협상에서 상당한 진전을 이뤘다면서 1호 프로젝트 발표 시점을 9월로 내다봤다.김정관 장관은 20일 오후 미국 방문을</div>
     </div>
   </div>
@@ -41366,7 +41572,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41401,7 +41607,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41436,7 +41642,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41471,7 +41677,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41506,7 +41712,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41541,7 +41747,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41576,7 +41782,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41611,7 +41817,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41646,7 +41852,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41681,7 +41887,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41716,7 +41922,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41751,7 +41957,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41786,7 +41992,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41821,7 +42027,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41856,7 +42062,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41891,7 +42097,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41926,7 +42132,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41961,7 +42167,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41996,7 +42202,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -42031,7 +42237,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -42066,7 +42272,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -42101,7 +42307,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -42136,7 +42342,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -44633,7 +44839,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787223158"
+  data-published="1787223881"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -44737,7 +44943,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">45건</span>
+    <span class="group-count">46건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -44845,41 +45051,6 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://www.world-nuclear-news.org/articles/atomic-canyon-launches-virtual-assistant-for-us-nuclear-fleet"
-  data-title="Atomic Canyon launches virtual assistant for US nuclear fleet"
-  data-publisher="World Nuclear News"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787223644"
-  data-country="OTHER"
-  data-search="atomic canyon launches virtual assistant for us nuclear fleet world nuclear news nuclear power·nuclear energy the company says niva - for nuclear industry virtual assistant - is the first ai platform of its kind available to commercial nuclear plants belonging to organisations including the institute of nuclear power operations, epri, and the nuclear energy institute that have collaborated in its development. ;"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">World Nuclear News</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Atomic Canyon launches virtual assistant for US nuclear fleet</div>
-      <div class="article-snippet">The company says NIVA - for Nuclear Industry Virtual Assistant - is the first AI platform of its kind available to commercial nuclear plants belonging to organisations including the Institute of Nuclear Power Operations, EPRI, and the Nuclear Energy Institute that have collaborated in its development. ;</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a11baec991380c208d891e3e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
@@ -44887,13 +45058,13 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787223122"
+  data-published="1787223835"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -44916,13 +45087,48 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.world-nuclear-news.org/articles/atomic-canyon-launches-virtual-assistant-for-us-nuclear-fleet"
+  data-title="Atomic Canyon launches virtual assistant for US nuclear fleet"
+  data-publisher="World Nuclear News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787223644"
+  data-country="OTHER"
+  data-search="atomic canyon launches virtual assistant for us nuclear fleet world nuclear news nuclear power·nuclear energy the company says niva - for nuclear industry virtual assistant - is the first ai platform of its kind available to commercial nuclear plants belonging to organisations including the institute of nuclear power operations, epri, and the nuclear energy institute that have collaborated in its development. ;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">World Nuclear News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Atomic Canyon launches virtual assistant for US nuclear fleet</div>
+      <div class="article-snippet">The company says NIVA - for Nuclear Industry Virtual Assistant - is the first AI platform of its kind available to commercial nuclear plants belonging to organisations including the Institute of Nuclear Power Operations, EPRI, and the Nuclear Energy Institute that have collaborated in its development. ;</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a11baec991380c208d891e3e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
   data-title="Global Nuclear Power Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787220955"
+  data-published="1787223611"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -45370,6 +45576,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.theguardian.com/politics/live/2026/aug/20/andy-burnham-illegal-waste-dumps-labour-reform-conservatives-latest-news-updates"
+  data-title="Burnham announces plans to clean up illegal waste dumps – UK politics live"
+  data-publisher="The Guardian"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787223243"
+  data-country="OTHER"
+  data-search="burnham announces plans to clean up illegal waste dumps – uk politics live the guardian nuclear power·nuclear energy the prime minister has promised a crackdown on criminal gangs making money from dumping waste home secretary shabana mahmood said she wants a “fair spread” of accommodation to house asylum seekers. prime minister andy burnham said last week the country “cannot have a situation where it’s only the poorest communities in"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">19.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Guardian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Burnham announces plans to clean up illegal waste dumps – UK politics live</div>
+      <div class="article-snippet">The prime minister has promised a crackdown on criminal gangs making money from dumping waste Home secretary Shabana Mahmood said she wants a “fair spread” of accommodation to house asylum seekers. Prime minister Andy Burnham said last week the country “cannot have a situation where it’s only the poorest communities in</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fd1f7377981d6f8670eb2bf3.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.theguardian.com/education/live/2026/aug/20/gcse-results-exams-schools-education-england-wales-northern-ireland-live-latest-updates"
   data-title="GCSE results: girls still ahead but gender gap narrows as hundreds of thousands of pupils receive grades – latest updates"
@@ -45383,7 +45624,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45418,7 +45659,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45453,7 +45694,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45488,7 +45729,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45523,7 +45764,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45558,7 +45799,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45593,7 +45834,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45628,7 +45869,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45663,7 +45904,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45698,7 +45939,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45733,7 +45974,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45768,7 +46009,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45803,7 +46044,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45838,7 +46079,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45873,7 +46114,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45908,7 +46149,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45943,7 +46184,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45978,7 +46219,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46013,7 +46254,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46048,7 +46289,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46083,7 +46324,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46118,7 +46359,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46153,7 +46394,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46188,7 +46429,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46223,7 +46464,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46258,7 +46499,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46293,7 +46534,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -54045,7 +54286,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f173474cca8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f1732878520&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -65384,7 +65625,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/europe-facing-challenges-over-continued-reliance-on-russia-for-nuclear-fuel-supply-says-sprott-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f174ac86280&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/europe-facing-challenges-over-continued-reliance-on-russia-for-nuclear-fuel-supply-says-sprott-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007f1734645710&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -139561,8 +139802,24 @@ function renderGlobeLabels(){
   const activeName=activeCountryFilter ? (COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter) : '';
   const rail=document.createElement('div');
   rail.className='globe-label-rail';
-  rail.innerHTML=`<div class="globe-label-rail-header">국가별 기사<br><span style="font-size:6px;font-weight:720;color:#5f85a3;">${items.length}개국 · 기사순</span></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
+  rail.innerHTML=`<div class="globe-label-rail-header"><div class="globe-label-rail-headcopy"><div class="globe-label-rail-title">${items.length}개국</div><div class="globe-label-rail-sub">${activeName ? activeName + ' 선택중' : '전체 보기'}</div></div><button type="button" class="globe-all-reset${activeName ? '' : ' active'}" aria-label="전체 기사 보기">전체</button></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
   const scroll=rail.querySelector('.globe-label-scroll');
+  const resetButton=rail.querySelector('.globe-all-reset');
+  if(resetButton){
+    resetButton.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      globeState.hoverCountry='';
+      globeState.targetLon=null;
+      activeCountryFilter='';
+      updateSelectedCountryClock(activeCountryFilter);
+      updateWorldClocks();
+      filterArticles();
+      updateCountryMapCounts();
+      renderGlobeLabels();
+      renderGlobeFocusMarker();
+    });
+  }
   layer.appendChild(rail);
 
   items.forEach((item)=>{
