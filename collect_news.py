@@ -6205,6 +6205,25 @@ def is_general_sports_article(article: Article) -> bool:
     return any(term.replace(" ", "") in compact for term in explicit_sports_terms)
 
 
+
+def is_namyangju_mayor_article(article: Article) -> bool:
+    """남양주시장 관련 기사는 최종 기사 목록과 archive에서 제외합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    blocked_terms = (
+        "남양주시장",
+        "남양주 시장",
+    )
+
+    return any(term.replace(" ", "") in compact for term in blocked_terms)
+
+def is_health_food_article(article: Article) -> bool:
+    """'건강식' 관련 기사는 최종 기사 목록과 archive에서 제외합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+    return "건강식" in compact
+
 def _woori_tech_khnp_event_key(article: Article) -> str | None:
     """
     같은 날짜의 우리기술 + 한수원/한국수력원자력 관련 보도는
@@ -6248,6 +6267,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_general_sports_article(article)
         and not is_danal_investment_partners_article(article)
         and not is_movie_entertainment_article(article)
+        and not is_namyangju_mayor_article(article)
+        and not is_health_food_article(article)
     ]
 
     if not DEDUP_ENABLED:
