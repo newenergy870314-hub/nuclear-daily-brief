@@ -6366,6 +6366,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_movie_entertainment_article(article)
         and not is_namyangju_mayor_article(article)
         and not is_health_food_article(article)
+        and not is_pacific_palisades_non_nuclear_article(article.title, article.description)
     ]
 
     if not DEDUP_ENABLED:
@@ -12650,6 +12651,18 @@ header,
   margin-top:0 !important;
 }}
 
+.mini-clock-flag {{
+  display:inline-grid !important;
+  place-items:center !important;
+  width:14px !important;
+  min-width:14px !important;
+  height:10px !important;
+  font-size:10px !important;
+  line-height:1 !important;
+  flex:0 0 14px !important;
+  overflow:hidden !important;
+}}
+
 .mini-clock-meta {{
   padding:0 5px !important;
 }}
@@ -12749,6 +12762,13 @@ header,
   }}
   .mini-clock-label {{
     font-size:7.8px !important;
+  }}
+  .mini-clock-flag {{
+    width:13px !important;
+    min-width:13px !important;
+    height:9px !important;
+    font-size:9px !important;
+    flex-basis:13px !important;
   }}
   .mini-clock-country {{
     font-size:6.3px !important;
