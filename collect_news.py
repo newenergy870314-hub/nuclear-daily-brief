@@ -5312,13 +5312,11 @@ def render_group_unified(
     else:
         display_group = group
 
-    equal_width_class = " company-equal-width" if group in {"현대건설", "타 건설사"} else ""
-
     return f"""
 <section class="news-group group-tab-section" data-group="{escape(group)}">
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
-    <span class="group-name{equal_width_class}">{escape(display_group)}</span>
+    <span class="group-name">{escape(display_group)}</span>
     <span class="group-count">{article_total}건</span>
   </button>
   <div class="article-stack">{cards}</div>
@@ -6678,8 +6676,6 @@ main {{ padding: 12px 12px 34px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
 .group-name {{ display: inline-flex; align-items: center; height: 27px; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
-.group-name.company-equal-width {{ width: 72px; min-width: 72px; flex: 0 0 72px; justify-content: flex-start; text-align: left; letter-spacing: 0; }}
-.group-name.company-equal-width + .group-count {{ margin-left: 4px; flex: 0 0 auto; }}
 .group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
@@ -9253,6 +9249,31 @@ header,
 }}
 .header-toggle {{
   flex:0 0 auto !important;
+}}
+
+
+/* 모든 기사탭을 동일한 기준선으로 정렬 */
+.group-title {{
+  display:grid !important;
+  grid-template-columns: 12px max-content max-content 1fr;
+  align-items:center !important;
+  column-gap:5px !important;
+}}
+.group-arrow {{
+  grid-column:1;
+  justify-self:start;
+}}
+.group-name {{
+  grid-column:2;
+  justify-self:start;
+  width:auto !important;
+  min-width:0 !important;
+  flex:none !important;
+}}
+.group-count {{
+  grid-column:3;
+  justify-self:start;
+  margin-left:0 !important;
 }}
 
 </style>
