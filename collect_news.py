@@ -11830,9 +11830,9 @@ header,
 
 .globe-country-label.active .globe-country-count {{ color:#fee500; }}
 
-.globe-zoom-controls {
+.globe-zoom-controls {{
   display:none !important;
-}
+}}
 
 .globe-control-hint {{
   position:absolute;
@@ -11920,48 +11920,48 @@ header,
   .country-map-content .country-map-visual.globe-mode {{
     height:210px !important;
   }}
-  .globe-stage {
+  .globe-stage {{
     padding:0 94px 0 10px;
-  }
-  .globe-sphere {
+  }}
+  .globe-sphere {{
     width:164px;
     transform:translateY(4px);
-  }
-  .globe-label-rail {
+  }}
+  .globe-label-rail {{
     top:26px;
     right:6px;
     bottom:16px;
     width:88px;
     gap:5px;
-  }
-  .globe-label-rail-header {
+  }}
+  .globe-label-rail-header {{
     padding:4px 6px;
     font-size:6.3px;
-  }
-  .globe-label-scroll {
+  }}
+  .globe-label-scroll {{
     gap:4px;
-  }
-  .globe-country-label {
+  }}
+  .globe-country-label {{
     min-height:28px;
     padding:4px 5px;
     grid-template-columns:14px minmax(0,1fr) auto;
     column-gap:3px;
     font-size:7.2px;
-  }
+  }}
   .globe-country-flag {{
     font-size:10px;
   }}
   .globe-country-count {{
     font-size:7px;
   }}
-  .globe-control-hint {
+  .globe-control-hint {{
     left:8px;
     bottom:8px;
     max-width:calc(100% - 106px);
     padding:5px 7px;
     font-size:6.4px;
     gap:5px;
-  }
+  }}
   .country-map-caption {{
     display:inline-flex !important;
     font-size:6.7px !important;
@@ -11972,33 +11972,33 @@ header,
   .country-map-content .country-map-visual.globe-mode {{
     height:198px !important;
   }}
-  .globe-stage {
+  .globe-stage {{
     padding:0 88px 0 8px;
-  }
-  .globe-sphere {
+  }}
+  .globe-sphere {{
     width:154px;
     transform:translateY(4px);
-  }
-  .globe-label-rail {
+  }}
+  .globe-label-rail {{
     top:24px;
     right:4px;
     bottom:14px;
     width:82px;
     gap:4px;
-  }
-  .globe-label-rail-header {
+  }}
+  .globe-label-rail-header {{
     padding:3px 5px;
     font-size:6px;
-  }
-  .globe-label-scroll {
+  }}
+  .globe-label-scroll {{
     gap:3px;
-  }
-  .globe-country-label {
+  }}
+  .globe-country-label {{
     min-height:26px;
     padding:3px 4px;
     grid-template-columns:13px minmax(0,1fr) auto;
     font-size:6.8px;
-  }
+  }}
   .globe-country-flag {{ font-size:10px; }}
   .globe-country-count {{ font-size:6.5px; }}
 }}
