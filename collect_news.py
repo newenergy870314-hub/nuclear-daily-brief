@@ -12000,7 +12000,7 @@ header,
   height:72px !important;
   min-height:72px !important;
   align-self:center !important;
-  border-radius:8px !important;
+  border-radius:0 !important;
   overflow:hidden !important;
   background:#edf2f7 !important;
 }}
@@ -12012,6 +12012,19 @@ header,
   object-fit:cover !important;
   object-position:50% 50% !important;
   display:block !important;
+}}
+
+.headline {{
+  margin:1px 0 3px !important;
+  font-size:12.9px !important;
+  line-height:1.28 !important;
+}}
+
+.article-snippet {{
+  margin-top:0 !important;
+  font-size:10.1px !important;
+  line-height:1.34 !important;
+  color:#6a7585 !important;
 }}
 
 @media (max-width:430px) {{
@@ -12040,6 +12053,14 @@ header,
     width:116px !important;
     height:68px !important;
     min-height:68px !important;
+    border-radius:0 !important;
+  }}
+  .headline {{
+    font-size:12.6px !important;
+  }}
+  .article-snippet {{
+    font-size:9.9px !important;
+    line-height:1.33 !important;
   }}
 }}
 
@@ -12071,6 +12092,14 @@ header,
     width:106px !important;
     height:64px !important;
     min-height:64px !important;
+    border-radius:0 !important;
+  }}
+  .headline {{
+    font-size:12.2px !important;
+  }}
+  .article-snippet {{
+    font-size:9.6px !important;
+    line-height:1.31 !important;
   }}
 }}
 </style>
