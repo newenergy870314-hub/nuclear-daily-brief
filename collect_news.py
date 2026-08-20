@@ -5935,6 +5935,136 @@ def _taihan_hvdc_event_key(article: Article) -> str | None:
     return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
+
+def is_company_sports_article(article: Article) -> bool:
+    """
+    현대건설/한국전력/한전 계열사 등 회사명이 포함되더라도
+    스포츠팀·선수·경기 중심 기사면 최종 기사 목록에서 제외합니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    company_terms = (
+        # 현대건설
+        "현대건설",
+        "hyundai e&c",
+        "hyundai engineering & construction",
+        "hdec",
+        # 한국전력
+        "한국전력",
+        "한국전력공사",
+        "한전",
+        "kepco",
+        # 한전 계열사
+        "한전kps",
+        "kepco kps",
+        "kepco-kps",
+        "한국전력기술",
+        "kepco e&c",
+        "한전원자력연료",
+        "kepco nuclear fuel",
+        # 기타 주요 회사
+        "대우건설",
+        "삼성물산",
+        "두산에너빌리티",
+        "gs건설",
+        "dl이앤씨",
+        "롯데건설",
+        "포스코이앤씨",
+        "sk에코플랜트",
+        "현대엔지니어링",
+    )
+
+    sports_terms = (
+        # 종목
+        "축구",
+        "배구",
+        "농구",
+        "야구",
+        "골프",
+        "테니스",
+        "탁구",
+        "배드민턴",
+        "핸드볼",
+        "럭비",
+        "풋살",
+        "e스포츠",
+        "esports",
+        "volleyball",
+        "football",
+        "soccer",
+        "basketball",
+        "baseball",
+        "golf",
+        "tennis",
+        # 스포츠 기사에서 자주 쓰이는 표현
+        "선수",
+        "감독",
+        "코치",
+        "구단",
+        "프로팀",
+        "스포츠단",
+        "체육단",
+        "경기",
+        "리그",
+        "시즌",
+        "플레이오프",
+        "챔피언결정전",
+        "우승",
+        "준우승",
+        "득점",
+        "세트스코어",
+        "연승",
+        "연패",
+        "홈경기",
+        "원정경기",
+        "player",
+        "coach",
+        "league",
+        "playoff",
+        "championship",
+        "match",
+        "game",
+        "season",
+    )
+
+    has_company = any(term.replace(" ", "") in compact for term in company_terms)
+    has_sports = any(term.replace(" ", "") in compact for term in sports_terms)
+
+    return has_company and has_sports
+
+
+
+def _woori_tech_khnp_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 우리기술 + 한수원/한국수력원자력 관련 보도는
+    언론사가 달라도 동일 이슈로 보고 대표기사 1건만 유지합니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    woori_terms = (
+        "우리기술",
+        "woori technology",
+        "woori tech",
+    )
+    khnp_terms = (
+        "한수원",
+        "한국수력원자력",
+        "khnp",
+        "korea hydro & nuclear power",
+        "korea hydro and nuclear power",
+    )
+
+    has_woori = any(term.replace(" ", "") in compact for term in woori_terms)
+    has_khnp = any(term.replace(" ", "") in compact for term in khnp_terms)
+
+    if not (has_woori and has_khnp):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5960,6 +6090,9 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
 
     # 한수원/한국수력원자력 + 초등/초등학교 관련 기사는 최종 목록과 archive에서 제외
     articles = [a for a in articles if not is_khnp_elementary_article(a)]
+
+    # 회사명이 포함되어도 축구·배구 등 스포츠팀/경기 기사면 최종 목록과 archive에서 제외
+    articles = [a for a in articles if not is_company_sports_article(a)]
 
     exact_unique: list[Article] = []
     exact_removed = 0
@@ -6289,7 +6422,29 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             taihan_hvdc_unique[idx] = article
 
-    result = sorted(taihan_hvdc_unique, key=lambda x: x.published, reverse=True)
+    # 같은 날짜 + 우리기술 + 한수원/한국수력원자력 관련 보도는 대표기사 1건만 유지
+    woori_khnp_unique: list[Article] = []
+    woori_khnp_key_to_idx: dict[str, int] = {}
+    woori_khnp_removed = 0
+
+    for article in taihan_hvdc_unique:
+        event_key = _woori_tech_khnp_event_key(article)
+        if event_key is None:
+            woori_khnp_unique.append(article)
+            continue
+
+        if event_key not in woori_khnp_key_to_idx:
+            woori_khnp_key_to_idx[event_key] = len(woori_khnp_unique)
+            woori_khnp_unique.append(article)
+            continue
+
+        woori_khnp_removed += 1
+        idx = woori_khnp_key_to_idx[event_key]
+        kept = woori_khnp_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            woori_khnp_unique[idx] = article
+
+    result = sorted(woori_khnp_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ exact_content_removed={exact_content_removed} "
@@ -6306,7 +6461,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ nuclear_training_removed={nuclear_training_removed} "
         f"/ nuclear_movie_removed={nuclear_movie_removed} "
         f"/ auto_shutdown_removed={auto_shutdown_removed} "
-        f"/ taihan_hvdc_removed={taihan_hvdc_removed} / final={len(result)}"
+        f"/ taihan_hvdc_removed={taihan_hvdc_removed} "
+        f"/ woori_khnp_removed={woori_khnp_removed} / final={len(result)}"
     )
     return result
 
@@ -10321,6 +10477,154 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   COUNTRY SELECTION UX — 선택 후 갑자기 기사로 이동하지 않음
+   한 줄 상태표시 + 기사 보기 / 해제만 제공
+   ============================================================ */
+.country-selection-bar {{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-height:38px;
+  margin:5px 1px 0;
+  padding:5px 6px 5px 9px;
+  border:1px solid rgba(31,79,138,.14);
+  border-radius:10px;
+  background:#f7f9fc;
+  box-sizing:border-box;
+}}
+.country-selection-bar[hidden] {{
+  display:none !important;
+}}
+.country-selection-summary {{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  color:#2f435c;
+  font-size:9.5px;
+  font-weight:850;
+  white-space:nowrap;
+  overflow:hidden;
+}}
+.country-selection-flag {{
+  flex:0 0 auto;
+  font-size:15px;
+  line-height:1;
+}}
+.country-selection-name {{
+  overflow:hidden;
+  text-overflow:ellipsis;
+}}
+.country-selection-separator {{
+  color:#98a2b3;
+}}
+.country-selection-count {{
+  flex:0 0 auto;
+  color:#667085;
+  font-size:8.5px;
+  font-weight:800;
+}}
+.country-selection-actions {{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}}
+.country-selection-primary,
+.country-selection-clear {{
+  height:28px;
+  padding:0 9px;
+  border-radius:8px;
+  font-family:inherit;
+  font-size:8.5px;
+  font-weight:850;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}}
+.country-selection-primary {{
+  border:1px solid #1f4f8a;
+  background:#1f4f8a;
+  color:#fff;
+}}
+.country-selection-clear {{
+  border:1px solid #dce3eb;
+  background:#fff;
+  color:#667085;
+}}
+.country-selection-primary:active,
+.country-selection-clear:active {{
+  transform:scale(.97);
+}}
+
+@media (max-width:767px) {{
+  .country-selection-bar {{
+    min-height:40px;
+    margin-top:6px;
+  }}
+  .country-selection-summary {{
+    font-size:10px;
+  }}
+  .country-selection-flag {{
+    font-size:16px;
+  }}
+  .country-selection-count {{
+    font-size:9px;
+  }}
+  .country-selection-primary,
+  .country-selection-clear {{
+    height:30px;
+    padding:0 10px;
+    font-size:9px;
+  }}
+}}
+
+
+/* ============================================================
+   MAP FLAG CONSISTENCY — 모든 국기는 동일한 선명도로 표시
+   배경만 연하게, 국기 자체에는 opacity를 적용하지 않음
+   ============================================================ */
+.country-map-label {{
+  opacity:1 !important;
+  background:rgba(255,255,255,.76) !important;
+  border-color:rgba(73,96,122,.14) !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.05) !important;
+}}
+
+.country-map-label .map-label-flag {{
+  opacity:1 !important;
+  filter:none !important;
+  text-shadow:none !important;
+}}
+
+.country-map-label .map-label-count {{
+  opacity:1 !important;
+}}
+
+.country-map-label.active {{
+  opacity:1 !important;
+}}
+
+.country-map-label.active .map-label-flag {{
+  opacity:1 !important;
+  filter:none !important;
+}}
+
+/* 선택/비선택 국기의 크기 차이도 최소화 */
+.country-map-label .map-label-flag,
+.country-map-label.active .map-label-flag {{
+  font-size:10px !important;
+}}
+
+@media (max-width:767px) {{
+  .country-map-label .map-label-flag,
+  .country-map-label.active .map-label-flag {{
+    font-size:10.5px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -11197,6 +11501,19 @@ header,
       <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
 
+    <div id="country-selection-bar" class="country-selection-bar" hidden aria-live="polite">
+      <div class="country-selection-summary">
+        <span id="country-selection-flag" class="country-selection-flag"></span>
+        <span id="country-selection-name" class="country-selection-name"></span>
+        <span class="country-selection-separator">·</span>
+        <span id="country-selection-count" class="country-selection-count"></span>
+      </div>
+      <div class="country-selection-actions">
+        <button id="country-view-articles" class="country-selection-primary" type="button">기사 보기</button>
+        <button id="country-clear-filter" class="country-selection-clear" type="button" aria-label="국가 필터 해제">해제</button>
+      </div>
+    </div>
+
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
   <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
@@ -11949,6 +12266,38 @@ function updateCountryMapCounts(){{
   requestAnimationFrame(layoutAndRenderCountryMap);
 }}
 
+
+function updateCountrySelectionBar(){{
+  const bar=document.getElementById("country-selection-bar");
+  if(!bar)return;
+
+  if(!activeCountryFilter){{
+    bar.hidden=true;
+    return;
+  }}
+
+  const chip=document.querySelector(
+    `#country-chip-rail .country-pin[data-country-filter="${{activeCountryFilter}}"]`
+  );
+  const flag=chip?.querySelector(".flag")?.textContent||"🌐";
+  const nameNode=chip
+    ? [...chip.querySelectorAll("span")].find(
+        node=>!node.classList.contains("flag")&&!node.classList.contains("country-count")
+      )
+    : null;
+  const name=nameNode?.textContent||COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
+  const count=chip?.querySelector(".country-count")?.textContent||"0건";
+
+  const flagNode=document.getElementById("country-selection-flag");
+  const nameOut=document.getElementById("country-selection-name");
+  const countOut=document.getElementById("country-selection-count");
+
+  if(flagNode)flagNode.textContent=flag;
+  if(nameOut)nameOut.textContent=name;
+  if(countOut)countOut.textContent=count;
+  bar.hidden=false;
+}}
+
 function expandVisibleCountryGroups(){{
   const panel=activePanel();
   if(!panel)return null;
@@ -11972,23 +12321,39 @@ function setCountryFilter(code){{
   activeCountryFilter=activeCountryFilter===code?"":code;
   filterArticles();
   updateCountryMapCounts();
+  updateCountrySelectionBar();
 
   const note=document.getElementById("country-filter-note");
-  if(activeCountryFilter){{
-    const name=COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
-    if(note)note.textContent=`${{name}} 기사만 표시 중`;
-    const firstVisibleCard=expandVisibleCountryGroups();
-    if(firstVisibleCard){{
-      setTimeout(()=>firstVisibleCard.scrollIntoView({{behavior:"smooth",block:"center"}}),80);
-    }}
-  }} else {{
-    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
-  }}
+  if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
 }}
 
 document.querySelectorAll("#country-chip-rail [data-country-filter]").forEach(button=>{{
   button.addEventListener("click",()=>setCountryFilter(button.dataset.countryFilter));
 }});
+
+
+const countryViewArticlesButton=document.getElementById("country-view-articles");
+if(countryViewArticlesButton){{
+  countryViewArticlesButton.addEventListener("click",()=>{{
+    if(!activeCountryFilter)return;
+    const firstVisibleCard=expandVisibleCountryGroups();
+    if(firstVisibleCard){{
+      firstVisibleCard.scrollIntoView({{behavior:"smooth",block:"start"}});
+    }}
+  }});
+}}
+
+const countryClearFilterButton=document.getElementById("country-clear-filter");
+if(countryClearFilterButton){{
+  countryClearFilterButton.addEventListener("click",()=>{{
+    activeCountryFilter="";
+    filterArticles();
+    updateCountryMapCounts();
+    updateCountrySelectionBar();
+    const note=document.getElementById("country-filter-note");
+    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
+  }});
+}}
 
 const countryAllButton=document.getElementById("country-all");
 if(countryAllButton){{
@@ -11996,6 +12361,7 @@ if(countryAllButton){{
     activeCountryFilter="";
     filterArticles();
     updateCountryMapCounts();
+    updateCountrySelectionBar();
     const note=document.getElementById("country-filter-note");
     if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
   }});
@@ -12053,6 +12419,7 @@ function filterArticles(){{
 function refreshActivePeriodUI(){{
   filterArticles();
   updateCountryMapCounts();
+  updateCountrySelectionBar();
   renderFavorites();
   requestAnimationFrame(layoutAndRenderCountryMap);
 }}
