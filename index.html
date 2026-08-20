@@ -178,7 +178,8 @@ main { padding: 12px 12px 34px; }
 .group-master-button { width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }
 .group-master-button:active { transform: translateY(1px); }
 .group-name { display: inline-flex; align-items: center; height: 27px; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }
-.group-name.company-equal-width { width: 54px; min-width: 54px; flex: 0 0 54px; }
+.group-name.company-equal-width { width: 72px; min-width: 72px; flex: 0 0 72px; justify-content: flex-start; text-align: left; letter-spacing: 0; }
+.group-name.company-equal-width + .group-count { margin-left: 4px; flex: 0 0 auto; }
 .group-count { display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }
 .group-arrow { display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }
 .article-stack { display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }
@@ -2710,17 +2711,61 @@ header,
   }
 }
 
+
+/* 금일/전일/익일 라벨과 날짜 범위를 같은 크기·굵기로 표시 */
+.period-inline-label {
+  font-size: 10.5px !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+}
+.period-inline-range {
+  font-size: 10.5px !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+}
+
+
+/* 제목 바로 오른쪽에 업데이트 시간 배치 + 설정 버튼은 맨 오른쪽 */
+.topbar-title-row {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:10px !important;
+  min-height:30px !important;
+}
+.title-meta {
+  flex:1 1 auto;
+  min-width:0;
+  display:flex;
+  flex-direction:row;
+  align-items:baseline;
+  justify-content:flex-start;
+  gap:8px;
+}
+.title-meta h1 {
+  margin:0 !important;
+  flex:0 0 auto;
+}
+.title-meta .updated-inline {
+  margin:0 !important;
+  flex:0 0 auto;
+  white-space:nowrap;
+}
+.header-toggle {
+  flex:0 0 auto !important;
+}
+
 </style>
 </head>
 <body>
 <div class="phone">
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
-      <h1>원자력 주요기사</h1>
-      <div class="topbar-actions">
-        <span class="updated updated-inline">업데이트됨 8.20(목) 10:30 KST</span>
-        <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
+      <div class="title-meta">
+        <h1>원자력 주요기사</h1>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 10:50 KST</span>
       </div>
+      <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
     <div class="search-wrap">
       <input id="article-search" class="search-input" type="search" placeholder="기사 · 언론사 · 기업 · 프로젝트 · 국가 검색" aria-label="기사 검색">
@@ -22002,7 +22047,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/13ffdb33c056c0f054ac3b6f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2dc3f5000a1ed757c21e435b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25819,7 +25864,7 @@ header,
     <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=671355"
   data-title="마키나락스 &#x27;어텐션2026&#x27; 개최…삼성·HD현대 피지컬AI 사례 공유"
   data-publisher="블로터"
@@ -25844,7 +25889,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>마키나락스 &#x27;어텐션2026&#x27; 개최…삼성·HD현대 피지컬AI 사례 공유</div>
+      <div class="headline">마키나락스 &#x27;어텐션2026&#x27; 개최…삼성·HD현대 피지컬AI 사례 공유</div>
       <div class="article-snippet">피지컬 인공지능(AI) 전문기업 마키나락스가 삼성전자와 HD현대, 두산에너빌리티 등과 함께 제조·에너지·국방 현장의 AI 적용 사례를 공유한다. 마키나락스는 다음 달 3일 서울 강남구 웨스틴서울파르나스에서 AI 콘퍼런스 &#x27;어텐션2026&#x27;을 개최한다.마키나락스는 제조·에너지·국방 등 산</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26099,7 +26144,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755525"
   data-title="인천 발코니 붕괴 아파트 사조위 구성…내일 착수 회의"
   data-publisher="뉴시스"
@@ -26124,7 +26169,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>인천 발코니 붕괴 아파트 사조위 구성…내일 착수 회의</div>
+      <div class="headline">인천 발코니 붕괴 아파트 사조위 구성…내일 착수 회의</div>
       <div class="article-snippet">[인천=뉴시스] 전예준 기자 = 인천 송도국제도시에서 발생한 아파트 발코니 붕괴 사고 원인 규명이 본격화된다. 20일 인천시에 따르면 전날 국토교통부와 시는 인천 송도 아파트 발코니 붕괴사고 공동 사고조사위원회를 구성했다. 사조위는 국토부 추천 6명, 인천시 추천 4명 등 건축 구조, 시공 전문가 10명으로 구성됐다. 위원장은 지난 2023년 인천 검단 아파트 지하주차장 붕괴사고 건설사고조사위원장이던 홍건호 한국콘크리트학회장이 맡았다. 이들은 이달 21일 인천시청에서 착수 회의를 열고 24일께 현장 조사에 나설 예정이다. 사조위가 구성되면서 송도 아파트 발코니 붕괴</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26175,9 +26220,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Securities/2026/08/20260820103516609444093b5d4e_1"
+  data-title="[공시] 우리기술, 한수원과 85억원 PMS DAS 공급계약 체결 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787190174"
+  data-country="KR"
+  data-search="[공시] 우리기술, 한수원과 85억원 pms das 공급계약 체결 - 글로벌이코노믹 글로벌이코노믹 한국수력원자력 우리기술은 20일 한국수력원자력(한수원)과 85억원 규모 고리 3·4호기 pms(주전산기) das(자료취득장치) 공급계약을 체결했다고 공시했다. 이는 지난해 매출액 대비 9.27%에 해당하는 규모다. 계약기간은 오는 2028년 2월 21일까지다.이번 계약으로 우리기술은 원자력발전소 감시"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[공시] 우리기술, 한수원과 85억원 PMS DAS 공급계약 체결 - 글로벌이코노믹</div>
+      <div class="article-snippet">우리기술은 20일 한국수력원자력(한수원)과 85억원 규모 고리 3·4호기 PMS(주전산기) DAS(자료취득장치) 공급계약을 체결했다고 공시했다. 이는 지난해 매출액 대비 9.27%에 해당하는 규모다. 계약기간은 오는 2028년 2월 21일까지다.이번 계약으로 우리기술은 원자력발전소 감시</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2cf138c8f29aa02cf39475f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755486"
   data-title="우리기술, 85억 규모 원전 PMS 설비개선용 자재 공급계약"
@@ -26191,7 +26271,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26213,7 +26293,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/2026082015226"
   data-title="우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결"
   data-publisher="한국경제"
@@ -26226,7 +26306,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26238,7 +26318,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결</div>
+      <div class="headline">우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결</div>
       <div class="article-snippet">우리기술, 한수원과 85억 규모 고리 3·4호기 PMS DAS 공급계약, 한경우 기자, 증권</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26261,7 +26341,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26296,7 +26376,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26324,7 +26404,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">20건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26439,7 +26519,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787189700"
+  data-published="1787190600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -26468,6 +26548,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2461040"
+  data-title="한전, 드론 공격 가정 신영주변전소 긴급복구 훈련"
+  data-publisher="이뉴스투데이"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787189400"
+  data-country="KR"
+  data-search="한전, 드론 공격 가정 신영주변전소 긴급복구 훈련 이뉴스투데이 한국전력 [이뉴스투데이 노태하 기자] 한국전력이 드론 공격 등 복합적인 비상상황에 대비해 전력설비 긴급복구 역량 점검에 나섰다.한국전력은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 20일 밝혔다.이번 훈련에는 한국전력을 비롯해 기후"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전, 드론 공격 가정 신영주변전소 긴급복구 훈련</div>
+      <div class="article-snippet">[이뉴스투데이 노태하 기자] 한국전력이 드론 공격 등 복합적인 비상상황에 대비해 전력설비 긴급복구 역량 점검에 나섰다.한국전력은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 20일 밝혔다.이번 훈련에는 한국전력을 비롯해 기후</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/718d7269231b4237d8bd9088.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.etnews.com/20260820000111"
   data-title="대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;"
   data-publisher="전자신문"
@@ -26480,7 +26595,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26492,7 +26607,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;</div>
+      <div class="headline">대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;</div>
       <div class="article-snippet">대한전선이 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(HVDC) 해저케이블 원격조종 수중로봇(ROV) 국산화&#x27;를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다. 해상풍력 내·외부망뿐만 아니라 장거리 계통연계, HVDC 해저케이블에 투입할 수 있는 고성능 매설 ROV와 운용 시스템을 공동 개발하는 게 골자다. 양사는 해저케이블 매설·보호 기술을 실증하고 사업화를 추진할 계획이다. 이번 협약은 서해안 에너지 고속도로 등 대</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26502,7 +26617,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755403"
   data-title="한전, &#x27;드론 테러&#x27; 안보위협 대비 2026년도 을지연습 실제훈련 실시"
   data-publisher="뉴시스"
@@ -26515,7 +26630,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26527,7 +26642,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전, &#x27;드론 테러&#x27; 안보위협 대비 2026년도 을지연습 실제훈련 실시</div>
+      <div class="headline">한전, &#x27;드론 테러&#x27; 안보위협 대비 2026년도 을지연습 실제훈련 실시</div>
       <div class="article-snippet">[세종=뉴시스]손차민 기자 = 한국전력공사가 지난 19일 경북 영주시에 위치한 신영주변전소에서 &#x27;2026년도 을지연습 전력설비 긴급복구 실제훈련&#x27;을 실시했다고 20일 밝혔다. 이번 훈련에는 한전을 비롯해 기후에너지환경부, 육군 제50사단, 영주시, 영주경찰서, 영주소방서 등 유관기관 관계자 160여명이 참가했다. 훈련은 적 특작부대와 드론이 신영주변전소를 공격해 변전소 설비와 인명 피해가 발생하는 전시 상황을 가정해 진행했다. 특히 드론과 사이버테러 등 첨단 기술을 활용한 복합도발 양상이 두드러지는 최근 안보 환경을 시나리오에 반영했다. 아울러 인명구조와 부상자 응급</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26550,7 +26665,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26585,7 +26700,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26607,7 +26722,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202349"
   data-title="대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -26620,7 +26735,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26632,7 +26747,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리</div>
+      <div class="headline">대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리</div>
       <div class="article-snippet">[에너지데일리 송병훈 기자] 국내 해저케이블 산업이 생산설비 확대를 넘어 핵심 시공장비 국산화 단계로 진입하고 있다. 대한전선이 원격조종 수중로봇(ROV) 개발에</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26655,7 +26770,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26690,7 +26805,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26725,7 +26840,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26760,7 +26875,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26795,7 +26910,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26830,7 +26945,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26865,7 +26980,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26900,7 +27015,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26935,7 +27050,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26970,7 +27085,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27005,7 +27120,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27150,7 +27265,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://economictimes.indiatimes.com/markets/stocks/news/sebi-bars-two-entities-for-manipulating-cas-in-financial-market-oversight/articleshow/133361415.cms"
   data-title="Sebi bars two entities for &#x27;manipulating&#x27; CAS"
   data-publisher="The Economic Times"
@@ -27175,7 +27290,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Sebi bars two entities for &#x27;manipulating&#x27; CAS</div>
+      <div class="headline">Sebi bars two entities for &#x27;manipulating&#x27; CAS</div>
       <div class="article-snippet">Sebi barred Copthall Mauritius Investment and Mansi Share and Stock Broking from securities market access. The regulator alleged manipulation of the Sensex during the new closing auction session. Sharp and unusual movements were detected in the index on August 13 expiry day. These actions aimed to benefit from outstand</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27191,7 +27306,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27474,6 +27589,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755598"
+  data-title="김성환 &quot;AI시대 전력은 전략과제…12차 전기본에 &#x27;전기국가&#x27; 담겠다&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787190467"
+  data-country="KR"
+  data-search="김성환 &quot;ai시대 전력은 전략과제…12차 전기본에 &#x27;전기국가&#x27; 담겠다&quot; 뉴시스 원자력 [세종=뉴시스]이수정 기자 = 김성환 기후에너지환경부 장관이 인공지능(ai) 혁명으로 전력 수요가 폭발적으로 늘어나는 상황에서 전력을 단순한 보조수단이 아닌 전략과제로 삼고 안보자산화해야 한다고 강조했다. 김 장관은 20일 오전 국회 의원회관 제3세미나실에서 열린 &#x27;제12차 전력수급기본계획 수립을 위한 제4차 대국민 정책토론회&#x27;에서 &quot;칩이나 ai데이터센터를 준비하는 과정은 마음 먹으면 2~3년이면 할 수 있지만, 전력을 준비하는 일은 훨씬 더 오래 걸린다&quot;며 이같이 밝혔다. 김 장관은 기후위기와 ai 혁명이 동시에 진행되면서 탈탄소와 늘어나는 전력 수요에 함께 대응해"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">9.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김성환 &quot;AI시대 전력은 전략과제…12차 전기본에 &#x27;전기국가&#x27; 담겠다&quot;</div>
+      <div class="article-snippet">[세종=뉴시스]이수정 기자 = 김성환 기후에너지환경부 장관이 인공지능(AI) 혁명으로 전력 수요가 폭발적으로 늘어나는 상황에서 전력을 단순한 보조수단이 아닌 전략과제로 삼고 안보자산화해야 한다고 강조했다. 김 장관은 20일 오전 국회 의원회관 제3세미나실에서 열린 &#x27;제12차 전력수급기본계획 수립을 위한 제4차 대국민 정책토론회&#x27;에서 &quot;칩이나 AI데이터센터를 준비하는 과정은 마음 먹으면 2~3년이면 할 수 있지만, 전력을 준비하는 일은 훨씬 더 오래 걸린다&quot;며 이같이 밝혔다. 김 장관은 기후위기와 AI 혁명이 동시에 진행되면서 탈탄소와 늘어나는 전력 수요에 함께 대응해</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/91b4bb0111f1c3561f14706c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755373"
   data-title="국립대구과학관, 9월1일 &#x27;AI 산업기술관&#x27; 공개한다"
@@ -27487,7 +27637,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27522,7 +27672,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27553,7 +27703,7 @@ header,
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7525"
   data-title="AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’"
   data-publisher="인사이트N파워"
@@ -27578,7 +27728,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’</div>
+      <div class="headline">AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’</div>
       <div class="article-snippet">정부가 대한민국을 먹여 살릴 차세대 성장동력에 소형모듈원자로(SMR)와 핵융합, 차세대 재생에너지를 전면 배치했다. 반도체와 피지컬 AI, AI 데이터센터를 중심으로 한 ‘3대 메가 프로젝트’에 이어 아직 시장이 본격적으로 형성되지 않은 첨단기술에 선제적으로 투자해 미래 산업의 주도권을 확보하겠다는 구상이다.과학기술정보통신부는 관계부처 합동으로 지난 12일 청와대 충무실에서 ‘미래성장동력 7대 SEED 보고회’를 열고 ▲SMR ▲핵융합 ▲한계돌파형 재생에너지 ▲양자 ▲우주·항공 ▲첨단바이오 ▲첨단 공급망 등 7개 프로젝트의 추진 방</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27630,7 +27780,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787189772"
+  data-published="1787190706"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -27744,7 +27894,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787189735"
+  data-published="1787190671"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -27877,7 +28027,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://economictimes.indiatimes.com/news/india/india-calls-for-urgent-unsc-reforms-greater-global-south-representation-at-un-debate/articleshow/133361614.cms"
   data-title="India calls for urgent UNSC reforms, greater Global South representation at UN debate"
   data-publisher="The Economic Times"
@@ -27902,13 +28052,48 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>India calls for urgent UNSC reforms, greater Global South representation at UN debate</div>
+      <div class="headline">India calls for urgent UNSC reforms, greater Global South representation at UN debate</div>
       <div class="article-snippet">India advocates for urgent UN Security Council reforms to reflect current global realities. The nation seeks expanded membership, especially for developing countries in the Global South. Discussions on working methods must integrate broader reform clusters and the veto issue. Transparency and equal access to informatio</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e56c1f5c7645b50aedd0d1ec.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.theguardian.com/us-news/live/2026/aug/19/mary-peltola-dan-sullivan-alaska-primary-election-us-senate-florida-california-wyoming--donald-trump-us-politics-latest"
+  data-title="Republicans reportedly fear datacenter backlash could cost them Ohio Senate seat – US politics live"
+  data-publisher="The Guardian"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787189541"
+  data-country="OTHER"
+  data-search="republicans reportedly fear datacenter backlash could cost them ohio senate seat – us politics live the guardian nuclear power·nuclear energy jon husted campaign reportedly concerned that rival sherrod brown successfully channelling outrage over energy-guzzling facilities sign up for the us breaking news email those unfamiliar with alaska politics are likely raising an eyebrow at some repeated names. no, we’re not talking about dan s sullivan and dan j sulli"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Guardian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">Republicans reportedly fear datacenter backlash could cost them Ohio Senate seat – US politics live</div>
+      <div class="article-snippet">Jon Husted campaign reportedly concerned that rival Sherrod Brown successfully channelling outrage over energy-guzzling facilities Sign up for the US Breaking News email Those unfamiliar with Alaska politics are likely raising an eyebrow at some repeated names. No, we’re not talking about Dan S Sullivan and Dan J Sulli</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9ed90d030de885ef187d91ab.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27925,7 +28110,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27960,7 +28145,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27995,7 +28180,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28030,7 +28215,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28052,7 +28237,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-tren-bien-dong-rat-kho-luong"
   data-title="Tropical depressions in the South China Sea are very unpredictable."
   data-publisher="Vietnam.vn"
@@ -28065,7 +28250,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28077,48 +28262,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Tropical depressions in the South China Sea are very unpredictable.</div>
+      <div class="headline">Tropical depressions in the South China Sea are very unpredictable.</div>
       <div class="article-snippet">TPO - Early this morning (August 20), a tropical depression approached Hainan Island in China with an intensity of level 6, gusting to level 8. It is forecast that the tropical depression will enter the Gulf of Tonkin on the night of August 21, then move very slowly, affecting the Gulf of Tonkin for an extended period,</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ef79f8193b99c7d348f3db2f.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.theguardian.com/us-news/live/2026/aug/19/mary-peltola-dan-sullivan-alaska-primary-election-us-senate-florida-california-wyoming--donald-trump-us-politics-latest"
-  data-title="Republicans reportedly fear datacenter backlash could cost them Ohio Senate seat – US politics live"
-  data-publisher="The Guardian"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="2"
-  data-published="1787182181"
-  data-country="OTHER"
-  data-search="republicans reportedly fear datacenter backlash could cost them ohio senate seat – us politics live the guardian nuclear power·nuclear energy jon husted campaign reportedly concerned that rival sherrod brown successfully channelling outrage over energy-guzzling facilities sign up for the us breaking news email those unfamiliar with alaska politics are likely raising an eyebrow at some repeated names. no, we’re not talking about dan s sullivan and dan j sulli"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">The Guardian</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">Republicans reportedly fear datacenter backlash could cost them Ohio Senate seat – US politics live</div>
-      <div class="article-snippet">Jon Husted campaign reportedly concerned that rival Sherrod Brown successfully channelling outrage over energy-guzzling facilities Sign up for the US Breaking News email Those unfamiliar with Alaska politics are likely raising an eyebrow at some repeated names. No, we’re not talking about Dan S Sullivan and Dan J Sulli</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9ed90d030de885ef187d91ab.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28294,7 +28444,7 @@ header,
     <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=671355"
   data-title="마키나락스 &#x27;어텐션2026&#x27; 개최…삼성·HD현대 피지컬AI 사례 공유"
   data-publisher="블로터"
@@ -28319,7 +28469,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>마키나락스 &#x27;어텐션2026&#x27; 개최…삼성·HD현대 피지컬AI 사례 공유</div>
+      <div class="headline">마키나락스 &#x27;어텐션2026&#x27; 개최…삼성·HD현대 피지컬AI 사례 공유</div>
       <div class="article-snippet">피지컬 인공지능(AI) 전문기업 마키나락스가 삼성전자와 HD현대, 두산에너빌리티 등과 함께 제조·에너지·국방 현장의 AI 적용 사례를 공유한다. 마키나락스는 다음 달 3일 서울 강남구 웨스틴서울파르나스에서 AI 콘퍼런스 &#x27;어텐션2026&#x27;을 개최한다.마키나락스는 제조·에너지·국방 등 산</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28574,7 +28724,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755525"
   data-title="인천 발코니 붕괴 아파트 사조위 구성…내일 착수 회의"
   data-publisher="뉴시스"
@@ -28599,7 +28749,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>인천 발코니 붕괴 아파트 사조위 구성…내일 착수 회의</div>
+      <div class="headline">인천 발코니 붕괴 아파트 사조위 구성…내일 착수 회의</div>
       <div class="article-snippet">[인천=뉴시스] 전예준 기자 = 인천 송도국제도시에서 발생한 아파트 발코니 붕괴 사고 원인 규명이 본격화된다. 20일 인천시에 따르면 전날 국토교통부와 시는 인천 송도 아파트 발코니 붕괴사고 공동 사고조사위원회를 구성했다. 사조위는 국토부 추천 6명, 인천시 추천 4명 등 건축 구조, 시공 전문가 10명으로 구성됐다. 위원장은 지난 2023년 인천 검단 아파트 지하주차장 붕괴사고 건설사고조사위원장이던 홍건호 한국콘크리트학회장이 맡았다. 이들은 이달 21일 인천시청에서 착수 회의를 열고 24일께 현장 조사에 나설 예정이다. 사조위가 구성되면서 송도 아파트 발코니 붕괴</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28650,9 +28800,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Securities/2026/08/20260820103516609444093b5d4e_1"
+  data-title="[공시] 우리기술, 한수원과 85억원 PMS DAS 공급계약 체결 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787190174"
+  data-country="KR"
+  data-search="[공시] 우리기술, 한수원과 85억원 pms das 공급계약 체결 - 글로벌이코노믹 글로벌이코노믹 한국수력원자력 우리기술은 20일 한국수력원자력(한수원)과 85억원 규모 고리 3·4호기 pms(주전산기) das(자료취득장치) 공급계약을 체결했다고 공시했다. 이는 지난해 매출액 대비 9.27%에 해당하는 규모다. 계약기간은 오는 2028년 2월 21일까지다.이번 계약으로 우리기술은 원자력발전소 감시"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[공시] 우리기술, 한수원과 85억원 PMS DAS 공급계약 체결 - 글로벌이코노믹</div>
+      <div class="article-snippet">우리기술은 20일 한국수력원자력(한수원)과 85억원 규모 고리 3·4호기 PMS(주전산기) DAS(자료취득장치) 공급계약을 체결했다고 공시했다. 이는 지난해 매출액 대비 9.27%에 해당하는 규모다. 계약기간은 오는 2028년 2월 21일까지다.이번 계약으로 우리기술은 원자력발전소 감시</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2cf138c8f29aa02cf39475f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755486"
   data-title="우리기술, 85억 규모 원전 PMS 설비개선용 자재 공급계약"
@@ -28666,7 +28851,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28688,7 +28873,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/2026082015226"
   data-title="우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결"
   data-publisher="한국경제"
@@ -28701,7 +28886,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28713,7 +28898,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결</div>
+      <div class="headline">우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결</div>
       <div class="article-snippet">우리기술, 한수원과 85억 규모 고리 3·4호기 PMS DAS 공급계약, 한경우 기자, 증권</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28736,7 +28921,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28771,7 +28956,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28799,7 +28984,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">20건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28914,7 +29099,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787189700"
+  data-published="1787190600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -28943,6 +29128,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2461040"
+  data-title="한전, 드론 공격 가정 신영주변전소 긴급복구 훈련"
+  data-publisher="이뉴스투데이"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787189400"
+  data-country="KR"
+  data-search="한전, 드론 공격 가정 신영주변전소 긴급복구 훈련 이뉴스투데이 한국전력 [이뉴스투데이 노태하 기자] 한국전력이 드론 공격 등 복합적인 비상상황에 대비해 전력설비 긴급복구 역량 점검에 나섰다.한국전력은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 20일 밝혔다.이번 훈련에는 한국전력을 비롯해 기후"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전, 드론 공격 가정 신영주변전소 긴급복구 훈련</div>
+      <div class="article-snippet">[이뉴스투데이 노태하 기자] 한국전력이 드론 공격 등 복합적인 비상상황에 대비해 전력설비 긴급복구 역량 점검에 나섰다.한국전력은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 20일 밝혔다.이번 훈련에는 한국전력을 비롯해 기후</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/718d7269231b4237d8bd9088.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.etnews.com/20260820000111"
   data-title="대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;"
   data-publisher="전자신문"
@@ -28955,7 +29175,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28967,7 +29187,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;</div>
+      <div class="headline">대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;</div>
       <div class="article-snippet">대한전선이 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(HVDC) 해저케이블 원격조종 수중로봇(ROV) 국산화&#x27;를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다. 해상풍력 내·외부망뿐만 아니라 장거리 계통연계, HVDC 해저케이블에 투입할 수 있는 고성능 매설 ROV와 운용 시스템을 공동 개발하는 게 골자다. 양사는 해저케이블 매설·보호 기술을 실증하고 사업화를 추진할 계획이다. 이번 협약은 서해안 에너지 고속도로 등 대</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28977,7 +29197,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755403"
   data-title="한전, &#x27;드론 테러&#x27; 안보위협 대비 2026년도 을지연습 실제훈련 실시"
   data-publisher="뉴시스"
@@ -28990,7 +29210,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29002,7 +29222,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전, &#x27;드론 테러&#x27; 안보위협 대비 2026년도 을지연습 실제훈련 실시</div>
+      <div class="headline">한전, &#x27;드론 테러&#x27; 안보위협 대비 2026년도 을지연습 실제훈련 실시</div>
       <div class="article-snippet">[세종=뉴시스]손차민 기자 = 한국전력공사가 지난 19일 경북 영주시에 위치한 신영주변전소에서 &#x27;2026년도 을지연습 전력설비 긴급복구 실제훈련&#x27;을 실시했다고 20일 밝혔다. 이번 훈련에는 한전을 비롯해 기후에너지환경부, 육군 제50사단, 영주시, 영주경찰서, 영주소방서 등 유관기관 관계자 160여명이 참가했다. 훈련은 적 특작부대와 드론이 신영주변전소를 공격해 변전소 설비와 인명 피해가 발생하는 전시 상황을 가정해 진행했다. 특히 드론과 사이버테러 등 첨단 기술을 활용한 복합도발 양상이 두드러지는 최근 안보 환경을 시나리오에 반영했다. 아울러 인명구조와 부상자 응급</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29025,7 +29245,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29060,7 +29280,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29082,7 +29302,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202349"
   data-title="대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -29095,7 +29315,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29107,7 +29327,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리</div>
+      <div class="headline">대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리</div>
       <div class="article-snippet">[에너지데일리 송병훈 기자] 국내 해저케이블 산업이 생산설비 확대를 넘어 핵심 시공장비 국산화 단계로 진입하고 있다. 대한전선이 원격조종 수중로봇(ROV) 개발에</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29130,7 +29350,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29165,7 +29385,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29200,7 +29420,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29235,7 +29455,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29270,7 +29490,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29305,7 +29525,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29340,7 +29560,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29375,7 +29595,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29410,7 +29630,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29445,7 +29665,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29480,7 +29700,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29625,7 +29845,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://economictimes.indiatimes.com/markets/stocks/news/sebi-bars-two-entities-for-manipulating-cas-in-financial-market-oversight/articleshow/133361415.cms"
   data-title="Sebi bars two entities for &#x27;manipulating&#x27; CAS"
   data-publisher="The Economic Times"
@@ -29650,7 +29870,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Sebi bars two entities for &#x27;manipulating&#x27; CAS</div>
+      <div class="headline">Sebi bars two entities for &#x27;manipulating&#x27; CAS</div>
       <div class="article-snippet">Sebi barred Copthall Mauritius Investment and Mansi Share and Stock Broking from securities market access. The regulator alleged manipulation of the Sensex during the new closing auction session. Sharp and unusual movements were detected in the index on August 13 expiry day. These actions aimed to benefit from outstand</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29666,7 +29886,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29949,6 +30169,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755598"
+  data-title="김성환 &quot;AI시대 전력은 전략과제…12차 전기본에 &#x27;전기국가&#x27; 담겠다&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787190467"
+  data-country="KR"
+  data-search="김성환 &quot;ai시대 전력은 전략과제…12차 전기본에 &#x27;전기국가&#x27; 담겠다&quot; 뉴시스 원자력 [세종=뉴시스]이수정 기자 = 김성환 기후에너지환경부 장관이 인공지능(ai) 혁명으로 전력 수요가 폭발적으로 늘어나는 상황에서 전력을 단순한 보조수단이 아닌 전략과제로 삼고 안보자산화해야 한다고 강조했다. 김 장관은 20일 오전 국회 의원회관 제3세미나실에서 열린 &#x27;제12차 전력수급기본계획 수립을 위한 제4차 대국민 정책토론회&#x27;에서 &quot;칩이나 ai데이터센터를 준비하는 과정은 마음 먹으면 2~3년이면 할 수 있지만, 전력을 준비하는 일은 훨씬 더 오래 걸린다&quot;며 이같이 밝혔다. 김 장관은 기후위기와 ai 혁명이 동시에 진행되면서 탈탄소와 늘어나는 전력 수요에 함께 대응해"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">9.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김성환 &quot;AI시대 전력은 전략과제…12차 전기본에 &#x27;전기국가&#x27; 담겠다&quot;</div>
+      <div class="article-snippet">[세종=뉴시스]이수정 기자 = 김성환 기후에너지환경부 장관이 인공지능(AI) 혁명으로 전력 수요가 폭발적으로 늘어나는 상황에서 전력을 단순한 보조수단이 아닌 전략과제로 삼고 안보자산화해야 한다고 강조했다. 김 장관은 20일 오전 국회 의원회관 제3세미나실에서 열린 &#x27;제12차 전력수급기본계획 수립을 위한 제4차 대국민 정책토론회&#x27;에서 &quot;칩이나 AI데이터센터를 준비하는 과정은 마음 먹으면 2~3년이면 할 수 있지만, 전력을 준비하는 일은 훨씬 더 오래 걸린다&quot;며 이같이 밝혔다. 김 장관은 기후위기와 AI 혁명이 동시에 진행되면서 탈탄소와 늘어나는 전력 수요에 함께 대응해</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/91b4bb0111f1c3561f14706c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755373"
   data-title="국립대구과학관, 9월1일 &#x27;AI 산업기술관&#x27; 공개한다"
@@ -29962,7 +30217,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29997,7 +30252,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30028,7 +30283,7 @@ header,
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7525"
   data-title="AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’"
   data-publisher="인사이트N파워"
@@ -30053,7 +30308,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’</div>
+      <div class="headline">AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’</div>
       <div class="article-snippet">정부가 대한민국을 먹여 살릴 차세대 성장동력에 소형모듈원자로(SMR)와 핵융합, 차세대 재생에너지를 전면 배치했다. 반도체와 피지컬 AI, AI 데이터센터를 중심으로 한 ‘3대 메가 프로젝트’에 이어 아직 시장이 본격적으로 형성되지 않은 첨단기술에 선제적으로 투자해 미래 산업의 주도권을 확보하겠다는 구상이다.과학기술정보통신부는 관계부처 합동으로 지난 12일 청와대 충무실에서 ‘미래성장동력 7대 SEED 보고회’를 열고 ▲SMR ▲핵융합 ▲한계돌파형 재생에너지 ▲양자 ▲우주·항공 ▲첨단바이오 ▲첨단 공급망 등 7개 프로젝트의 추진 방</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30105,7 +30360,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787189772"
+  data-published="1787190706"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -30219,7 +30474,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787189735"
+  data-published="1787190671"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -30352,7 +30607,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://economictimes.indiatimes.com/news/india/india-calls-for-urgent-unsc-reforms-greater-global-south-representation-at-un-debate/articleshow/133361614.cms"
   data-title="India calls for urgent UNSC reforms, greater Global South representation at UN debate"
   data-publisher="The Economic Times"
@@ -30377,13 +30632,48 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>India calls for urgent UNSC reforms, greater Global South representation at UN debate</div>
+      <div class="headline">India calls for urgent UNSC reforms, greater Global South representation at UN debate</div>
       <div class="article-snippet">India advocates for urgent UN Security Council reforms to reflect current global realities. The nation seeks expanded membership, especially for developing countries in the Global South. Discussions on working methods must integrate broader reform clusters and the veto issue. Transparency and equal access to informatio</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e56c1f5c7645b50aedd0d1ec.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.theguardian.com/us-news/live/2026/aug/19/mary-peltola-dan-sullivan-alaska-primary-election-us-senate-florida-california-wyoming--donald-trump-us-politics-latest"
+  data-title="Republicans reportedly fear datacenter backlash could cost them Ohio Senate seat – US politics live"
+  data-publisher="The Guardian"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787189541"
+  data-country="OTHER"
+  data-search="republicans reportedly fear datacenter backlash could cost them ohio senate seat – us politics live the guardian nuclear power·nuclear energy jon husted campaign reportedly concerned that rival sherrod brown successfully channelling outrage over energy-guzzling facilities sign up for the us breaking news email those unfamiliar with alaska politics are likely raising an eyebrow at some repeated names. no, we’re not talking about dan s sullivan and dan j sulli"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Guardian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">Republicans reportedly fear datacenter backlash could cost them Ohio Senate seat – US politics live</div>
+      <div class="article-snippet">Jon Husted campaign reportedly concerned that rival Sherrod Brown successfully channelling outrage over energy-guzzling facilities Sign up for the US Breaking News email Those unfamiliar with Alaska politics are likely raising an eyebrow at some repeated names. No, we’re not talking about Dan S Sullivan and Dan J Sulli</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9ed90d030de885ef187d91ab.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30400,7 +30690,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30435,7 +30725,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30470,7 +30760,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30505,7 +30795,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30527,7 +30817,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-tren-bien-dong-rat-kho-luong"
   data-title="Tropical depressions in the South China Sea are very unpredictable."
   data-publisher="Vietnam.vn"
@@ -30540,7 +30830,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30552,48 +30842,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Tropical depressions in the South China Sea are very unpredictable.</div>
+      <div class="headline">Tropical depressions in the South China Sea are very unpredictable.</div>
       <div class="article-snippet">TPO - Early this morning (August 20), a tropical depression approached Hainan Island in China with an intensity of level 6, gusting to level 8. It is forecast that the tropical depression will enter the Gulf of Tonkin on the night of August 21, then move very slowly, affecting the Gulf of Tonkin for an extended period,</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ef79f8193b99c7d348f3db2f.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.theguardian.com/us-news/live/2026/aug/19/mary-peltola-dan-sullivan-alaska-primary-election-us-senate-florida-california-wyoming--donald-trump-us-politics-latest"
-  data-title="Republicans reportedly fear datacenter backlash could cost them Ohio Senate seat – US politics live"
-  data-publisher="The Guardian"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="2"
-  data-published="1787182181"
-  data-country="OTHER"
-  data-search="republicans reportedly fear datacenter backlash could cost them ohio senate seat – us politics live the guardian nuclear power·nuclear energy jon husted campaign reportedly concerned that rival sherrod brown successfully channelling outrage over energy-guzzling facilities sign up for the us breaking news email those unfamiliar with alaska politics are likely raising an eyebrow at some repeated names. no, we’re not talking about dan s sullivan and dan j sulli"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">The Guardian</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">Republicans reportedly fear datacenter backlash could cost them Ohio Senate seat – US politics live</div>
-      <div class="article-snippet">Jon Husted campaign reportedly concerned that rival Sherrod Brown successfully channelling outrage over energy-guzzling facilities Sign up for the US Breaking News email Those unfamiliar with Alaska politics are likely raising an eyebrow at some repeated names. No, we’re not talking about Dan S Sullivan and Dan J Sulli</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9ed90d030de885ef187d91ab.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38318,7 +38573,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/13ffdb33c056c0f054ac3b6f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2dc3f5000a1ed757c21e435b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
