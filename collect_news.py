@@ -5178,11 +5178,13 @@ def render_group_unified(
     else:
         display_group = group
 
+    equal_width_class = " company-equal-width" if group in {"현대건설", "타 건설사"} else ""
+
     return f"""
 <section class="news-group group-tab-section" data-group="{escape(group)}">
   <button class="group-title" type="button" aria-expanded="true">
     <span class="group-arrow">▲</span>
-    <span class="group-name">{escape(display_group)}</span>
+    <span class="group-name{equal_width_class}">{escape(display_group)}</span>
     <span class="group-count">{article_total}건</span>
   </button>
   <div class="article-stack">{cards}</div>
@@ -5436,6 +5438,64 @@ def _same_exact_content_across_publishers(a: Article, b: Article) -> bool:
     return desc_a == desc_b
 
 
+
+CONSTRUCTION_UNION_COMPANY_ALIASES = {
+    "현대건설": ("현대건설", "hyundai e&c", "hyundai engineering & construction", "hdec"),
+    "삼성물산": ("삼성물산", "samsung c&t"),
+    "대우건설": ("대우건설", "daewoo e&c"),
+    "DL이앤씨": ("dl이앤씨", "dl e&c"),
+    "GS건설": ("gs건설", "gs e&c"),
+    "SK에코플랜트": ("sk에코플랜트", "sk ecoplant"),
+    "포스코이앤씨": ("포스코이앤씨", "posco e&c"),
+    "롯데건설": ("롯데건설", "lotte e&c"),
+    "현대엔지니어링": ("현대엔지니어링", "hyundai engineering"),
+    "HDC현대산업개발": ("hdc현대산업개발", "hdc hyundai development"),
+    "한화 건설부문": ("한화 건설부문", "한화건설", "hanwha construction"),
+    "두산에너빌리티": ("두산에너빌리티", "doosan enerbility"),
+}
+
+CONSTRUCTION_UNION_TERMS = (
+    "노조",
+    "노동조합",
+    "건설노조",
+    "건설사노조",
+    "건설사 노조",
+    "labor union",
+    "trade union",
+    "union",
+)
+
+def _construction_union_event_key(article: Article) -> tuple[str, str] | None:
+    """
+    같은 날짜에 올라온 같은 건설사의 노조 관련 보도는 동일 이슈로 묶습니다.
+    서로 다른 건설사의 노조 기사는 합치지 않습니다.
+    """
+    haystack = html.unescape(f"{article.title} {article.description}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_union = any(
+        term in haystack or term.replace(" ", "") in compact
+        for term in CONSTRUCTION_UNION_TERMS
+    )
+    if not has_union:
+        return None
+
+    company = None
+    for canonical, aliases in CONSTRUCTION_UNION_COMPANY_ALIASES.items():
+        if any(
+            alias.lower() in haystack or alias.lower().replace(" ", "") in compact
+            for alias in aliases
+        ):
+            company = canonical
+            break
+
+    if not company:
+        return None
+
+    date_key = article.published.astimezone(KST).strftime("%Y-%m-%d")
+    return date_key, company
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5611,7 +5671,29 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             macheon5_unique[macheon5_idx] = article
 
-    result = sorted(macheon5_unique, key=lambda x: x.published, reverse=True)
+    # 같은 날짜 + 같은 건설사 + 노조 관련 보도는 대표기사 1건만 유지
+    union_unique: list[Article] = []
+    union_key_to_idx: dict[tuple[str, str], int] = {}
+    construction_union_removed = 0
+
+    for article in macheon5_unique:
+        event_key = _construction_union_event_key(article)
+        if event_key is None:
+            union_unique.append(article)
+            continue
+
+        if event_key not in union_key_to_idx:
+            union_key_to_idx[event_key] = len(union_unique)
+            union_unique.append(article)
+            continue
+
+        construction_union_removed += 1
+        idx = union_key_to_idx[event_key]
+        kept = union_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            union_unique[idx] = article
+
+    result = sorted(union_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ exact_content_removed={exact_content_removed} "
@@ -5620,7 +5702,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ knf_safety_removed={knf_safety_removed} "
         f"/ lotte_bond_removed={lotte_bond_removed} "
         f"/ recruiting_removed={recruiting_removed} "
-        f"/ macheon5_removed={macheon5_removed} / final={len(result)}"
+        f"/ macheon5_removed={macheon5_removed} "
+        f"/ construction_union_removed={construction_union_removed} / final={len(result)}"
     )
     return result
 
@@ -6205,6 +6288,7 @@ main {{ padding: 12px 12px 34px; }}
 .group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
 .group-name {{ display: inline-flex; align-items: center; height: 27px; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
+.group-name.company-equal-width {{ width: 54px; min-width: 54px; flex: 0 0 54px; }}
 .group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
