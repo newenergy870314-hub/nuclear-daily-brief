@@ -3289,6 +3289,34 @@ HOLTEC_TERMS = {
     "palisades smr", "palisades nuclear", "oyster creek smr",
 }
 
+
+def is_valid_holtec_article(title: str, summary: str = "") -> bool:
+    """Holtec 검색 결과의 지명 오탐(Pacific Palisades 등)을 제거합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    # Holtec/SMR-300이 직접 언급되면 유효 기사
+    if any(term in haystack for term in ("holtec", "holtec international", "홀텍", "smr-300", "smr 300")):
+        return True
+
+    # Palisades는 LA의 Pacific Palisades와 혼동될 수 있으므로 원자력 문맥이 함께 있어야 함
+    if "palisades" in haystack and any(
+        term in haystack
+        for term in (
+            "nuclear", "reactor", "smr", "nuclear power", "nuclear plant",
+            "decommission", "원전", "원자력", "원자로", "해체",
+        )
+    ):
+        return True
+
+    # Oyster Creek 역시 원자력/SMR 문맥이 있을 때만 Holtec 기사로 인정
+    if "oyster creek" in haystack and any(
+        term in haystack
+        for term in ("nuclear", "reactor", "smr", "decommission", "원전", "원자력", "해체")
+    ):
+        return True
+
+    return False
+
 TERRAPOWER_TERMS = {
     "terrapower", "테라파워", "natrium reactor", "natrium nuclear",
     "kemmerer nuclear", "케머러 원전",
@@ -3514,6 +3542,11 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     priority_group = classify_priority_company_group(group, title, summary)
     classified_group = classify_construction_group(priority_group, title, summary)
     if classified_group is None:
+        return None
+
+    # Holtec 전용 검색 결과는 실제 Holtec/원전 관련성이 확인되는 기사만 유지합니다.
+    # 예: "Pacific Palisades" 산불/사건 기사는 Palisades 지명 오탐이므로 제외.
+    if group == "Holtec" and classified_group == "Holtec" and not is_valid_holtec_article(title, summary):
         return None
 
     if classified_group == "현대건설" and is_hyundai_volleyball_article(title, summary):
@@ -9329,7 +9362,7 @@ header,
    ============================================================ */
 .country-map-content {{
   display:grid;
-  grid-template-columns:82px minmax(0,1fr);
+  grid-template-columns:84px minmax(0,1fr);
   gap:12px;
   align-items:stretch;
 }}
@@ -9347,11 +9380,11 @@ header,
   flex-direction:column;
   align-items:center;
   gap:4px;
-  padding:8px 6px;
-  border:1px solid rgba(141,178,208,.26);
-  border-radius:14px;
-  background:linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(245,250,253,.92) 100%);
-  box-shadow:0 3px 10px rgba(60,94,126,.06);
+  padding:8px 7px;
+  border:1px solid rgba(141,178,208,.24);
+  border-radius:15px;
+  background:linear-gradient(180deg, rgba(255,255,255,.97) 0%, rgba(245,250,253,.94) 100%);
+  box-shadow:0 4px 10px rgba(60,94,126,.06);
 }}
 
 .mini-clock-label {{
@@ -9636,11 +9669,102 @@ header,
    CLOCK UI REFINEMENT — compact / contemporary / consistent
    ============================================================ */
 .world-clock-rail {{
-  gap:12px;
+  gap:10px;
+}}
+
+.world-clock-format-common {{
+  align-self:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:20px;
+  padding:0 10px;
+  border:1px solid rgba(83,113,143,.16);
+  border-radius:999px;
+  background:#eef4f8;
+  color:#53677f;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:7px;
+  font-weight:900;
+  line-height:1;
+  white-space:nowrap;
+  box-shadow:0 1px 4px rgba(60,94,126,.05);
 }}
 
 .mini-world-clock {{
-  gap:3px;
+  position:relative;
+  gap:4px;
+}}
+
+.mini-world-clock::before {{
+  position:absolute;
+  top:6px;
+  left:6px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:26px;
+  height:14px;
+  padding:0 6px;
+  border-radius:999px;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:6.4px;
+  font-weight:900;
+  line-height:1;
+  letter-spacing:.15px;
+  box-shadow:0 1px 4px rgba(60,94,126,.08);
+}}
+
+.world-clock-rail .mini-world-clock:first-child {{
+  border-color:rgba(69,132,196,.30);
+  background:linear-gradient(180deg, rgba(248,252,255,.98) 0%, rgba(238,246,253,.95) 100%);
+}}
+
+.world-clock-rail .mini-world-clock:first-child::before {{
+  content:"기준";
+  background:#2f6ea6;
+  color:#ffffff;
+}}
+
+.world-clock-rail .mini-world-clock:first-child .analog-clock {{
+  border-color:#8fb3d0;
+  box-shadow:inset 0 0 0 2px #f3f8fc, 0 0 0 3px rgba(77,143,202,.08);
+}}
+
+.world-clock-rail .mini-world-clock:first-child .mini-clock-label {{
+  color:#21486b;
+}}
+
+.world-clock-rail .mini-world-clock:first-child .mini-clock-format {{
+  background:#2f6ea6;
+}}
+
+.mini-world-clock[data-role="selected-country"] {{
+  border-color:rgba(216,75,75,.24);
+  background:linear-gradient(180deg, rgba(255,251,251,.98) 0%, rgba(253,244,244,.94) 100%);
+}}
+
+.mini-world-clock[data-role="selected-country"]::before {{
+  content:"선택";
+  background:#d84b4b;
+  color:#ffffff;
+}}
+
+.mini-world-clock[data-role="selected-country"] .analog-clock {{
+  border-color:#d6a2a2;
+  box-shadow:inset 0 0 0 2px #fff6f6, 0 0 0 3px rgba(216,75,75,.07);
+}}
+
+.mini-world-clock[data-role="selected-country"] .mini-clock-label {{
+  color:#7d3434;
+}}
+
+.mini-world-clock[data-role="selected-country"] .mini-clock-label span {{
+  color:#b07070;
+}}
+
+.mini-world-clock[data-role="selected-country"] .mini-clock-format {{
+  background:#d84b4b;
 }}
 
 .mini-clock-label {{
@@ -9655,13 +9779,10 @@ header,
   line-height:1.08;
   font-weight:900;
   white-space:nowrap;
+  margin-top:10px;
 }}
 
-.mini-clock-label span {{
-  color:#7f8b9a;
-  font-size:7.5px;
-  font-weight:800;
-}}
+
 
 .mini-clock-sub {{
   display:none !important;
@@ -9674,23 +9795,72 @@ header,
   font-weight:700;
 }}
 
+.mini-clock-label {{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  max-width:100%;
+  color:#23395d;
+  font-family:Arial, "Noto Sans KR", sans-serif;
+  font-size:8.8px;
+  line-height:1.08;
+  font-weight:900;
+  white-space:nowrap;
+  margin-top:10px;
+}}
+
+.mini-clock-flag {{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  line-height:1;
+  flex:0 0 auto;
+}}
+
+.mini-clock-city {{
+  color:inherit;
+  font-weight:900;
+  flex:0 1 auto;
+}}
+
+.mini-clock-country {{
+  color:#7f8b9a;
+  font-size:7.2px;
+  font-weight:800;
+  flex:0 1 auto;
+}}
+
 .mini-clock-meta {{
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
   gap:4px;
+  padding:0 4px;
 }}
 
 .mini-clock-day {{
-  min-width:23px;
+  min-width:0;
+  height:14px;
+  padding:0 5px;
   background:#eef2f6;
   color:#53677f;
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:7px;
+  font-size:6.7px;
   font-weight:900;
+  justify-self:end;
 }}
 
 .mini-clock-time {{
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:9px;
+  font-size:8.5px;
   font-weight:900;
+  justify-self:center;
+  min-width:34px;
+  text-align:center;
+  letter-spacing:-.15px;
 }}
 
 .mini-clock-format {{
@@ -9704,11 +9874,12 @@ header,
   background:#23395d;
   color:#fff;
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:7px;
+  font-size:6.8px;
   font-weight:900;
-  letter-spacing:.2px;
+  letter-spacing:.15px;
   line-height:1;
   white-space:nowrap;
+  justify-self:start;
 }}
 
 /* ============================================================
@@ -9741,11 +9912,32 @@ header,
 
 @media (max-width:380px) {{
   .mini-clock-label {{
-    max-width:64px;
-    font-size:8.5px;
+    max-width:100%;
+    font-size:8.1px;
+    gap:2px;
   }}
-  .mini-clock-label span {{
-    font-size:7px;
+  .mini-clock-flag {{
+    font-size:9px;
+  }}
+  .mini-clock-country {{
+    font-size:6.6px;
+  }}
+  .mini-clock-meta {{
+    gap:3px;
+    padding:0 2px;
+  }}
+  .world-clock-format-common {{
+    min-height:18px;
+    padding:0 8px;
+    font-size:6.5px;
+  }}
+  .mini-clock-time {{
+    min-width:34px;
+    font-size:8.1px;
+  }}
+  .mini-clock-day {{
+    padding:0 4px;
+    font-size:6.3px;
   }}
   .country-map-html-tooltip {{
     min-height:30px;
@@ -11753,12 +11945,12 @@ header,
   position:relative;
   height:232px !important;
   overflow:hidden !important;
-  border:1px solid rgba(124,154,184,.40) !important;
+  border:1px solid rgba(124,154,184,.36) !important;
   border-radius:18px !important;
   background:
     radial-gradient(circle at 34% 38%, rgba(255,255,255,.99) 0%, rgba(255,255,255,.86) 28%, rgba(238,246,252,.82) 58%, transparent 78%),
     linear-gradient(180deg, #f8fbfe 0%, #f3f8fc 54%, #eaf2f8 100%) !important;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.62), 0 6px 18px rgba(66,92,122,.08) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.68), 0 6px 18px rgba(66,92,122,.07) !important;
 }}
 
 .globe-texture-source {{
@@ -11794,7 +11986,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding:0 140px 0 16px;
+  padding:0 138px 0 18px;
 }}
 
 .globe-stage.dragging {{
@@ -11803,7 +11995,7 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:166px;
+  width:164px;
   max-width:none;
   aspect-ratio:1/1;
   border-radius:50%;
@@ -11885,15 +12077,15 @@ header,
   top:14px;
   right:12px;
   bottom:14px;
-  width:112px;
+  width:116px;
   display:flex;
   flex-direction:column;
   gap:7px;
-  padding:10px 9px 9px;
-  border:1px solid rgba(141,178,208,.30);
+  padding:10px 10px 9px;
+  border:1px solid rgba(141,178,208,.28);
   border-radius:15px;
-  background:linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(246,250,253,.92) 100%);
-  box-shadow:0 7px 18px rgba(60,94,126,.08);
+  background:linear-gradient(180deg, rgba(255,255,255,.95) 0%, rgba(246,250,253,.93) 100%);
+  box-shadow:0 7px 18px rgba(60,94,126,.07);
   pointer-events:auto;
 }}
 
@@ -11930,7 +12122,7 @@ header,
 
 .globe-label-rail-sub {{
   color:#7b91a6;
-  font-size:6.2px;
+  font-size:6.4px;
   line-height:1.1;
   font-weight:760;
 }}
@@ -11990,19 +12182,19 @@ header,
   width:100%;
   min-height:29px;
   padding:4px 7px;
-  border:1px solid rgba(141,178,208,.22);
+  border:1px solid rgba(141,178,208,.20);
   border-radius:10px;
   background:rgba(255,255,255,.97);
   color:#344b5e;
-  box-shadow:0 1px 4px rgba(39,78,109,.05), inset 0 0 0 1px rgba(255,255,255,.62);
+  box-shadow:0 1px 4px rgba(39,78,109,.04), inset 0 0 0 1px rgba(255,255,255,.64);
   display:grid;
   grid-template-columns:14px minmax(0,1fr) auto;
   align-items:center;
   column-gap:4px;
   text-align:left;
-  font-size:7px;
+  font-size:7.1px;
   font-weight:780;
-  line-height:1.05;
+  line-height:1.08;
   white-space:normal;
   pointer-events:auto;
   cursor:pointer;
@@ -12090,15 +12282,16 @@ header,
   display:inline-flex !important;
   align-items:center;
   gap:5px;
-  max-width:128px;
+  max-width:150px;
   padding:4px 10px;
   border:1px solid rgba(148,218,255,.16);
   border-radius:999px;
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.93);
   color:#476579 !important;
   font-size:7px !important;
   font-weight:740 !important;
-  box-shadow:0 2px 7px rgba(44,94,132,.08);
+  box-shadow:0 2px 7px rgba(44,94,132,.07);
+  white-space:nowrap;
 }}
 
 .country-map-caption-dot {{
@@ -12117,7 +12310,7 @@ header,
     height:210px !important;
   }}
   .globe-stage {{
-    padding:0 126px 0 10px;
+    padding:0 128px 0 10px;
   }}
   .globe-sphere {{
     width:154px;
@@ -12127,7 +12320,7 @@ header,
     top:12px;
     right:8px;
     bottom:12px;
-    width:102px;
+    width:104px;
     gap:6px;
     padding:9px 8px;
     border-radius:14px;
@@ -12161,7 +12354,7 @@ header,
   }}
   .country-map-caption {{
     display:inline-flex !important;
-    max-width:112px;
+    max-width:126px;
     font-size:6.6px !important;
   }}
 }}
@@ -12175,7 +12368,7 @@ header,
     height:196px !important;
   }}
   .globe-stage {{
-    padding:0 112px 0 8px;
+    padding:0 114px 0 8px;
   }}
   .globe-sphere {{
     width:146px;
@@ -12185,7 +12378,7 @@ header,
     top:12px;
     right:6px;
     bottom:10px;
-    width:92px;
+    width:94px;
     gap:5px;
     padding:8px 7px;
     border-radius:13px;
@@ -12478,8 +12671,9 @@ header,
 
     <div class="country-map-content">
       <aside class="world-clock-rail" aria-label="주요 지역 현재 시간 (24시간제)">
+        <div class="world-clock-format-common">24H · 24시간제</div>
         <div class="mini-world-clock" data-timezone="Asia/Seoul">
-          <div class="mini-clock-label">서울 <span>· 대한민국</span></div>
+          <div class="mini-clock-label"><span class="mini-clock-flag">🇰🇷</span><span class="mini-clock-city">서울</span><span class="mini-clock-country">· 대한민국</span></div>
           <div class="analog-clock" aria-hidden="true">
             <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
             <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
@@ -12493,13 +12687,12 @@ header,
             <span class="clock-center"></span>
           </div>
           <div class="mini-clock-meta">
-            <span class="mini-clock-format" title="24시간제">24H</span>
             <span class="mini-clock-time">--:--</span>
             <span class="mini-clock-day">--</span>
           </div>
         </div>
         <div class="mini-world-clock" data-role="selected-country" data-country-code="BG" data-timezone="Europe/Sofia">
-          <div class="mini-clock-label">소피아 <span>· 불가리아</span></div>
+          <div class="mini-clock-label"><span class="mini-clock-flag">🇧🇬</span><span class="mini-clock-city">소피아</span><span class="mini-clock-country">· 불가리아</span></div>
           <div class="analog-clock" aria-hidden="true">
             <span class="clock-num n12">12</span><span class="clock-num n1">1</span>
             <span class="clock-num n2">2</span><span class="clock-num n3">3</span>
@@ -12513,7 +12706,6 @@ header,
             <span class="clock-center"></span>
           </div>
           <div class="mini-clock-meta">
-            <span class="mini-clock-format" title="24시간제">24H</span>
             <span class="mini-clock-time">--:--</span>
             <span class="mini-clock-day">--</span>
           </div>
@@ -13643,7 +13835,9 @@ const COUNTRY_NAMES = {{
   RO:"루마니아", CZ:"체코", PL:"폴란드", SI:"슬로베니아", FI:"핀란드",
   JP:"일본", CA:"캐나다", FR:"프랑스", SE:"스웨덴",
   CN:"중국", IN:"인도", AU:"호주", RU:"러시아", TR:"튀르키예", SA:"사우디",
-  ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스", OTHER:"기타"
+  ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스",
+  VN:"베트남", SG:"싱가포르", MY:"말레이시아", TH:"태국", DK:"덴마크", SK:"슬로바키아",
+  OTHER:"기타"
 }};
 
 const COUNTRY_CLOCK_META = {{
@@ -13671,8 +13865,63 @@ const COUNTRY_CLOCK_META = {{
   ZA: {{ timeZone:"Africa/Johannesburg", city:"요하네스버그", sub:"남아공" }},
   NL: {{ timeZone:"Europe/Amsterdam", city:"암스테르담", sub:"네덜란드" }},
   BE: {{ timeZone:"Europe/Brussels", city:"브뤼셀", sub:"벨기에" }},
-  CH: {{ timeZone:"Europe/Zurich", city:"취리히", sub:"스위스" }}
+  CH: {{ timeZone:"Europe/Zurich", city:"취리히", sub:"스위스" }},
+  VN: {{ timeZone:"Asia/Ho_Chi_Minh", city:"하노이", sub:"베트남" }},
+  SG: {{ timeZone:"Asia/Singapore", city:"싱가포르", sub:"싱가포르" }},
+  MY: {{ timeZone:"Asia/Kuala_Lumpur", city:"쿠알라룸푸르", sub:"말레이시아" }},
+  TH: {{ timeZone:"Asia/Bangkok", city:"방콕", sub:"태국" }},
+  DK: {{ timeZone:"Europe/Copenhagen", city:"코펜하겐", sub:"덴마크" }},
+  SK: {{ timeZone:"Europe/Bratislava", city:"브라티슬라바", sub:"슬로바키아" }}
 }};
+
+const COUNTRY_GLOBE_META = {{
+  KR: {{ lon:127.8, lat:36.4, flag:"🇰🇷", name:"한국" }},
+  CA: {{ lon:-106.3, lat:56.1, flag:"🇨🇦", name:"캐나다" }},
+  US: {{ lon:-98.6, lat:39.8, flag:"🇺🇸", name:"미국" }},
+  GB: {{ lon:-3.4, lat:55.4, flag:"🇬🇧", name:"영국" }},
+  FR: {{ lon:2.2, lat:46.2, flag:"🇫🇷", name:"프랑스" }},
+  NL: {{ lon:5.3, lat:52.1, flag:"🇳🇱", name:"네덜란드" }},
+  BE: {{ lon:4.7, lat:50.6, flag:"🇧🇪", name:"벨기에" }},
+  CH: {{ lon:8.2, lat:46.8, flag:"🇨🇭", name:"스위스" }},
+  SE: {{ lon:16.0, lat:62.0, flag:"🇸🇪", name:"스웨덴" }},
+  FI: {{ lon:26.0, lat:64.5, flag:"🇫🇮", name:"핀란드" }},
+  PL: {{ lon:19.1, lat:51.9, flag:"🇵🇱", name:"폴란드" }},
+  CZ: {{ lon:15.5, lat:49.8, flag:"🇨🇿", name:"체코" }},
+  SI: {{ lon:15.0, lat:46.2, flag:"🇸🇮", name:"슬로베니아" }},
+  RO: {{ lon:25.0, lat:45.9, flag:"🇷🇴", name:"루마니아" }},
+  BG: {{ lon:25.5, lat:42.7, flag:"🇧🇬", name:"불가리아" }},
+  UA: {{ lon:31.2, lat:48.4, flag:"🇺🇦", name:"우크라이나" }},
+  RU: {{ lon:90.0, lat:60.0, flag:"🇷🇺", name:"러시아" }},
+  TR: {{ lon:35.2, lat:39.0, flag:"🇹🇷", name:"튀르키예" }},
+  AE: {{ lon:53.8, lat:23.4, flag:"🇦🇪", name:"UAE" }},
+  VN: {{ lon:108.3, lat:14.1, flag:"🇻🇳", name:"베트남" }},
+  SA: {{ lon:45.1, lat:23.9, flag:"🇸🇦", name:"사우디" }},
+  IN: {{ lon:79.0, lat:20.6, flag:"🇮🇳", name:"인도" }},
+  CN: {{ lon:104.2, lat:35.9, flag:"🇨🇳", name:"중국" }},
+  JP: {{ lon:138.3, lat:36.2, flag:"🇯🇵", name:"일본" }},
+  AU: {{ lon:133.8, lat:-25.3, flag:"🇦🇺", name:"호주" }},
+  ZA: {{ lon:22.9, lat:-30.6, flag:"🇿🇦", name:"남아공" }},
+  SK: {{ lon:19.7, lat:48.7, flag:"🇸🇰", name:"슬로바키아" }},
+  DK: {{ lon:9.5, lat:56.3, flag:"🇩🇰", name:"덴마크" }},
+  MY: {{ lon:102.0, lat:4.2, flag:"🇲🇾", name:"말레이시아" }},
+  TH: {{ lon:101.0, lat:15.9, flag:"🇹🇭", name:"태국" }},
+  SG: {{ lon:103.8, lat:1.35, flag:"🇸🇬", name:"싱가포르" }}
+}};
+
+function syncCountryPinMeta(){{
+  document.querySelectorAll('#country-chip-rail .country-pin[data-country-filter]').forEach(button=>{{
+    const code=button.dataset.countryFilter;
+    if(!code || code==='OTHER')return;
+    const meta=COUNTRY_GLOBE_META[code];
+    if(!meta)return;
+    button.dataset.lon=String(meta.lon);
+    button.dataset.lat=String(meta.lat);
+    const flagNode=button.querySelector('.flag');
+    if(flagNode && meta.flag)flagNode.textContent=meta.flag;
+    const labelNode=[...button.querySelectorAll('span')].find(node=>!node.classList.contains('flag') && !node.classList.contains('country-count'));
+    if(labelNode && meta.name)labelNode.textContent=meta.name;
+  }});
+}}
 
 function layoutCountryPins(){{
   const canvas=document.querySelector(".world-map-canvas");
@@ -13792,8 +14041,9 @@ function setMiniClockLabel(clock, info){{
   if(!clock || !info)return;
   clock.dataset.timezone=info.timeZone;
   if(info.code)clock.dataset.countryCode=info.code;
+  const flag = info.flag || (info.code && COUNTRY_GLOBE_META[info.code]?.flag) || '🌐';
   const label=clock.querySelector('.mini-clock-label');
-  if(label)label.innerHTML=`${{info.city}} <span>· ${{info.sub}}</span>`;
+  if(label)label.innerHTML=`<span class="mini-clock-flag">${{flag}}</span><span class="mini-clock-city">${{info.city}}</span><span class="mini-clock-country">· ${{info.sub}}</span>`;
 }}
 
 function updateSelectedCountryClock(code=activeCountryFilter){{
@@ -13801,7 +14051,8 @@ function updateSelectedCountryClock(code=activeCountryFilter){{
   if(!clock)return;
   const nextCode = code && COUNTRY_CLOCK_META[code] ? code : 'BG';
   const info = COUNTRY_CLOCK_META[nextCode] || COUNTRY_CLOCK_META.BG;
-  setMiniClockLabel(clock, {{...info, code:nextCode}});
+  const flag = (COUNTRY_GLOBE_META[nextCode] && COUNTRY_GLOBE_META[nextCode].flag) || '🌐';
+  setMiniClockLabel(clock, {{...info, code:nextCode, flag}});
 }}
 
 function updateWorldClocks(){{
@@ -13833,17 +14084,13 @@ function updateWorldClocks(){{
       digital.textContent=`${{hh}}:${{mm}}`;
       digital.setAttribute("aria-label", `${{hh}}시 ${{mm}}분 24시간제`);
     }}
-    const formatBadge=clock.querySelector(".mini-clock-format");
-    if(formatBadge){{
-      formatBadge.textContent="24H";
-      formatBadge.setAttribute("title","24시간제");
-    }}
     if(dayBadge){{
       dayBadge.textContent=dayRelationToKorea(parts,koreaParts);
     }}
   }});
 }}
 
+syncCountryPinMeta();
 updateSelectedCountryClock();
 updateWorldClocks();
 setInterval(updateWorldClocks,1000);
@@ -14342,7 +14589,7 @@ function renderGlobeLabels(){{
   const activeName=activeCountryFilter ? (COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter) : '';
   const rail=document.createElement('div');
   rail.className='globe-label-rail';
-  rail.innerHTML=`<div class="globe-label-rail-header"><div class="globe-label-rail-headcopy"><div class="globe-label-rail-title">${{items.length}}개국</div><div class="globe-label-rail-sub">${{activeName ? activeName + ' 선택중' : '전체 보기'}}</div></div><button type="button" class="globe-all-reset${{activeName ? '' : ' active'}}" aria-label="전체 기사 보기">전체</button></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
+  rail.innerHTML=`<div class="globe-label-rail-header"><div class="globe-label-rail-headcopy"><div class="globe-label-rail-title">${{items.length}}개국</div><div class="globe-label-rail-sub">${{activeName || '국가 선택'}}</div></div><button type="button" class="globe-all-reset${{activeName ? '' : ' active'}}" aria-label="전체 기사 보기">전체</button></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
   const scroll=rail.querySelector('.globe-label-scroll');
   const resetButton=rail.querySelector('.globe-all-reset');
   if(resetButton){{
@@ -14384,7 +14631,8 @@ function renderGlobeLabels(){{
       event.preventDefault();
       event.stopPropagation();
       globeState.autoRotate=false;
-      globeState.targetLon=normalizeGlobeLon(item.lon);
+      const targetMeta=COUNTRY_GLOBE_META[item.code] || item;
+      globeState.targetLon=normalizeGlobeLon(targetMeta.lon);
       globeState.hoverCountry=item.code;
       clearTimeout(globeState.resumeTimer);
       setCountryFilter(item.code);
@@ -14412,7 +14660,7 @@ function renderGlobeFocusMarker(){{
 
   const code=globeState.hoverCountry || activeCountryFilter;
   if(!code)return;
-  const item=globeState.items.find(v=>v.code===code);
+  const item=globeState.items.find(v=>v.code===code) || (COUNTRY_GLOBE_META[code] ? {{ code, ...COUNTRY_GLOBE_META[code] }} : null);
   if(!item)return;
   const p=projectGlobePoint(item.lon,item.lat,globeState.rotationLon);
   if(!p.visible || p.z<0.04)return;
@@ -14569,6 +14817,7 @@ function bindGlobeInteraction(){{
 }}
 
 function layoutAndRenderCountryMap(){{
+  syncCountryPinMeta();
   const caption=document.getElementById('country-map-caption-text');
   const chipButtons=[...document.querySelectorAll('#country-chip-rail .country-pin[data-country-filter]')];
   const items=[];
@@ -14577,8 +14826,9 @@ function layoutAndRenderCountryMap(){{
     if(button.hidden)return;
     const code=button.dataset.countryFilter;
     if(!code || code==='OTHER')return;
-    const lon=Number(button.dataset.lon);
-    const lat=Number(button.dataset.lat);
+    const meta=COUNTRY_GLOBE_META[code] || {{}};
+    const lon=Number.isFinite(meta.lon) ? meta.lon : Number(button.dataset.lon);
+    const lat=Number.isFinite(meta.lat) ? meta.lat : Number(button.dataset.lat);
     if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
     const count=Number((button.querySelector('.country-count')?.textContent||'0').replace(/[^0-9]/g,''))||0;
     if(count<=0)return;
@@ -14588,8 +14838,8 @@ function layoutAndRenderCountryMap(){{
       lon,
       lat,
       count,
-      flag:button.querySelector('.flag')?.textContent||'',
-      name:nameNode?.textContent||COUNTRY_NAMES[code]||code
+      flag:meta.flag || button.querySelector('.flag')?.textContent || '',
+      name:meta.name || nameNode?.textContent || COUNTRY_NAMES[code] || code
     }});
   }});
 
@@ -14602,9 +14852,15 @@ function layoutAndRenderCountryMap(){{
   }}
 
   if(caption){{
-    caption.textContent=activeCountryFilter
-      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시`
-      : '오른쪽 국가 목록에서 선택';
+    if(activeCountryFilter){{
+      const selectedItem = items.find(item=>item.code===activeCountryFilter);
+      const selectedName = selectedItem?.name || COUNTRY_NAMES[activeCountryFilter] || activeCountryFilter;
+      const selectedFlag = selectedItem?.flag || COUNTRY_GLOBE_META[activeCountryFilter]?.flag || '🌐';
+      const selectedCount = Number.isFinite(selectedItem?.count) ? selectedItem.count : 0;
+      caption.textContent = `${{selectedFlag}} ${{selectedName}} · ${{selectedCount}}건`;
+    }} else {{
+      caption.textContent = '오른쪽 목록에서 국가 선택';
+    }}
   }}
 
   renderGlobeLabels();
