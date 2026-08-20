@@ -1450,6 +1450,40 @@ EXCLUDED_HOST_KEYWORDS = {
 }
 
 
+
+def is_nuclear_movie_community_article(article: Article) -> bool:
+    """
+    원자력 기관/본부의 지역주민 대상 영화상영 등 문화행사성 기사를 제외합니다.
+    원자력 관련 표현과 영화 관련 표현이 함께 있을 때만 제외합니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    nuclear_terms = (
+        "원자력",
+        "원전",
+        "한국수력원자력",
+        "한수원",
+        "원자력본부",
+        "원전본부",
+        "nuclear",
+    )
+    movie_terms = (
+        "영화",
+        "영화상영",
+        "무료영화",
+        "영화관람",
+        "영화 관람",
+        "movie",
+        "film screening",
+        "movie screening",
+    )
+
+    has_nuclear = any(term in haystack or term.replace(" ", "") in compact for term in nuclear_terms)
+    has_movie = any(term in haystack or term.replace(" ", "") in compact for term in movie_terms)
+    return has_nuclear and has_movie
+
+
 def is_excluded_source(
     publisher: str = "",
     link: str = "",
@@ -5496,6 +5530,49 @@ def _construction_union_event_key(article: Article) -> tuple[str, str] | None:
     return date_key, company
 
 
+
+NUCLEAR_SITE_ALIASES = {
+    "한울": ("한울", "hanul"),
+    "한빛": ("한빛", "hanbit"),
+    "고리": ("고리", "kori"),
+    "새울": ("새울", "saeul"),
+    "월성": ("월성", "wolsong"),
+}
+
+def _nuclear_site_unit_reactor_event_key(article: Article) -> tuple[str, str, str] | None:
+    """
+    같은 날짜의 '원전본부/원전 + ○호기 + 원자로' 보도는 띄어쓰기 차이와 관계없이
+    동일 이슈로 묶습니다. 본부/원전이 다르거나 호기 번호가 다르면 별도 이슈로 유지합니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_reactor = "원자로" in compact or "reactor" in compact
+    if not has_reactor:
+        return None
+
+    site = None
+    for canonical, aliases in NUCLEAR_SITE_ALIASES.items():
+        if any(alias in compact for alias in aliases):
+            site = canonical
+            break
+
+    if not site:
+        return None
+
+    # 예: 한빛 1호기, 한빛1호기, 고리 2 호기, 새울3호기
+    site_pattern = re.escape(site)
+    unit_match = re.search(rf"(?:{site_pattern})?\s*(\d{{1,2}})\s*호기", haystack)
+    if not unit_match:
+        unit_match = re.search(r"(\d{1,2})호기", compact)
+    if not unit_match:
+        return None
+
+    unit_no = unit_match.group(1)
+    date_key = article.published.astimezone(KST).strftime("%Y-%m-%d")
+    return date_key, site, unit_no
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5518,6 +5595,9 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         key=lambda x: x.published,
         reverse=True,
     )
+
+    # 원자력 + 영화상영 등 지역 문화행사성 기사는 최종 목록/아카이브에서도 제외
+    articles = [a for a in articles if not is_nuclear_movie_community_article(a)]
 
     exact_unique: list[Article] = []
     exact_removed = 0
@@ -5693,7 +5773,29 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             union_unique[idx] = article
 
-    result = sorted(union_unique, key=lambda x: x.published, reverse=True)
+    # 같은 날짜 + 같은 원전본부/원전 + 동일 호기 + 원자로 관련 보도는 대표기사 1건만 유지
+    site_reactor_unique: list[Article] = []
+    site_reactor_key_to_idx: dict[tuple[str, str], int] = {}
+    site_reactor_removed = 0
+
+    for article in union_unique:
+        event_key = _nuclear_site_unit_reactor_event_key(article)
+        if event_key is None:
+            site_reactor_unique.append(article)
+            continue
+
+        if event_key not in site_reactor_key_to_idx:
+            site_reactor_key_to_idx[event_key] = len(site_reactor_unique)
+            site_reactor_unique.append(article)
+            continue
+
+        site_reactor_removed += 1
+        idx = site_reactor_key_to_idx[event_key]
+        kept = site_reactor_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            site_reactor_unique[idx] = article
+
+    result = sorted(site_reactor_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ exact_content_removed={exact_content_removed} "
@@ -5703,7 +5805,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ lotte_bond_removed={lotte_bond_removed} "
         f"/ recruiting_removed={recruiting_removed} "
         f"/ macheon5_removed={macheon5_removed} "
-        f"/ construction_union_removed={construction_union_removed} / final={len(result)}"
+        f"/ construction_union_removed={construction_union_removed} "
+        f"/ site_reactor_removed={site_reactor_removed} / final={len(result)}"
     )
     return result
 
