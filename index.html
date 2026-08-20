@@ -2885,6 +2885,183 @@ header,
   }
 }
 
+
+/* ============================================================
+   MAP COUNTRY LABELS — 지도 위에 국기 + 국가 + 건수 상시 표시
+   모바일에서 점의 의미를 추측하지 않아도 바로 누를 수 있게 구성
+   ============================================================ */
+.country-map-label-layer {
+  position:absolute;
+  inset:8px 8px 17px;
+  z-index:8;
+  pointer-events:none;
+  overflow:visible;
+}
+
+.country-map-label {
+  position:absolute;
+  transform:translate(-50%,-50%);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  min-height:25px;
+  padding:3px 6px;
+  border:1px solid rgba(35,57,93,.24);
+  border-radius:999px;
+  background:rgba(255,255,255,.96);
+  color:#23395d;
+  box-shadow:0 2px 7px rgba(17,24,39,.14);
+  font-size:8px;
+  line-height:1;
+  font-weight:900;
+  white-space:nowrap;
+  cursor:pointer;
+  pointer-events:auto;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.country-map-label .map-label-flag {
+  font-size:12px;
+  line-height:1;
+}
+
+.country-map-label .map-label-count {
+  color:#d92d20;
+  font-size:8px;
+  font-weight:900;
+}
+
+.country-map-label:hover,
+.country-map-label:focus-visible {
+  border-color:#23395d;
+  box-shadow:0 3px 9px rgba(35,57,93,.23);
+  outline:none;
+}
+
+.country-map-label.active {
+  border-color:#23395d;
+  background:#23395d;
+  color:#fff;
+  box-shadow:0 3px 10px rgba(35,57,93,.28);
+}
+
+.country-map-label.active .map-label-count {
+  color:#fee500;
+}
+
+.country-map-label:active {
+  transform:translate(-50%,-50%) scale(.96);
+}
+
+@media (max-width:767px) {
+  .country-map-label {
+    min-height:27px;
+    padding:4px 7px;
+    gap:3px;
+    font-size:8.5px;
+  }
+  .country-map-label .map-label-flag {
+    font-size:13px;
+  }
+  .country-map-label .map-label-count {
+    font-size:8.5px;
+  }
+}
+
+@media (max-width:380px) {
+  .country-map-label {
+    min-height:25px;
+    padding:3px 6px;
+    font-size:8px;
+  }
+  .country-map-label .map-label-flag {
+    font-size:12px;
+  }
+  .country-map-label .map-label-count {
+    font-size:8px;
+  }
+}
+
+
+/* ============================================================
+   MAP LABEL COLLISION + MOBILE TOUCH / ZOOM IMPROVEMENTS
+   ============================================================ */
+.country-map-label-layer {
+  overflow:visible !important;
+}
+
+.country-map-label-connector {
+  stroke:#8a9bb0;
+  stroke-width:1.35;
+  stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+  pointer-events:none;
+  opacity:.72;
+}
+
+.country-map-label {
+  z-index:2;
+  min-height:30px !important;
+  padding:4px 8px !important;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:manipulation;
+  will-change:left,top;
+}
+
+/* 실제 버튼 바깥까지 터치 가능한 영역을 넓혀 작은 라벨도 누르기 쉽게 함 */
+.country-map-label::before {
+  content:"";
+  position:absolute;
+  inset:-5px;
+  border-radius:999px;
+}
+
+.country-map-label.active {
+  z-index:4;
+}
+
+@media (max-width:767px) {
+  .country-map-visual {
+    min-height:178px !important;
+    height:clamp(178px,42vw,220px) !important;
+  }
+  .country-map-label {
+    min-height:34px !important;
+    padding:5px 9px !important;
+    gap:4px !important;
+    font-size:9px !important;
+  }
+  .country-map-label .map-label-flag {
+    font-size:14px !important;
+  }
+  .country-map-label .map-label-count {
+    font-size:9px !important;
+  }
+  .country-map-label::before {
+    inset:-5px;
+  }
+}
+
+@media (max-width:380px) {
+  .country-map-visual {
+    min-height:170px !important;
+    height:190px !important;
+  }
+}
+
+
+/* 국가별 기사 필터는 지도 아래에서 선택 */
+.country-chip-guide-bottom {
+  margin:8px 2px 5px !important;
+}
+#country-chip-rail.country-chip-rail {
+  margin-top:0 !important;
+  margin-bottom:0 !important;
+}
+
 </style>
 </head>
 <body>
@@ -2893,7 +3070,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 11:25 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 12:10 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -2935,45 +3112,6 @@ header,
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
       <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
-    </div>
-
-    <div class="country-chip-guide" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
-    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
-      <button id="country-all" class="country-pin country-all active" type="button">
-        <span>전체</span><span class="country-count">0건</span>
-      </button>
-      <button class="country-pin country-kr" data-country-filter="KR" data-lon="127.8" data-lat="36.4" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ca" data-country-filter="CA" data-lon="-106.3" data-lat="56.1" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-us" data-country-filter="US" data-lon="-98.6" data-lat="39.8" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-gb" data-country-filter="GB" data-lon="-3.4" data-lat="55.4" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fr" data-country-filter="FR" data-lon="2.2" data-lat="46.2" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-nl" data-country-filter="NL" data-lon="5.3" data-lat="52.1" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-be" data-country-filter="BE" data-lon="4.7" data-lat="50.6" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ch" data-country-filter="CH" data-lon="8.2" data-lat="46.8" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-se" data-country-filter="SE" data-lon="16.0" data-lat="62.0" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fi" data-country-filter="FI" data-lon="26.0" data-lat="64.5" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-pl" data-country-filter="PL" data-lon="19.1" data-lat="51.9" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cz" data-country-filter="CZ" data-lon="15.5" data-lat="49.8" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-si" data-country-filter="SI" data-lon="15.0" data-lat="46.2" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ro" data-country-filter="RO" data-lon="25.0" data-lat="45.9" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-bg" data-country-filter="BG" data-lon="25.5" data-lat="42.7" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ua" data-country-filter="UA" data-lon="31.2" data-lat="48.4" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ru" data-country-filter="RU" data-lon="90.0" data-lat="60.0" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-tr" data-country-filter="TR" data-lon="35.2" data-lat="39.0" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ae" data-country-filter="AE" data-lon="53.8" data-lat="23.4" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-vn" data-country-filter="VN" data-lon="108.3" data-lat="14.1" type="button"><span class="flag">🇻🇳</span><span>베트남</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sa" data-country-filter="SA" data-lon="45.1" data-lat="23.9" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-in" data-country-filter="IN" data-lon="79.0" data-lat="20.6" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cn" data-country-filter="CN" data-lon="104.2" data-lat="35.9" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-jp" data-country-filter="JP" data-lon="138.3" data-lat="36.2" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-au" data-country-filter="AU" data-lon="133.8" data-lat="-25.3" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-za" data-country-filter="ZA" data-lon="22.9" data-lat="-30.6" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sk" data-country-filter="SK" data-lon="19.7" data-lat="48.7" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-dk" data-country-filter="DK" data-lon="9.5" data-lat="56.3" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-my" data-country-filter="MY" data-lon="102.0" data-lat="4.2" type="button"><span class="flag">🇲🇾</span><span>말레이시아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-th" data-country-filter="TH" data-lon="101.0" data-lat="15.9" type="button"><span class="flag">🇹🇭</span><span>태국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sg" data-country-filter="SG" data-lon="103.8" data-lat="1.35" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
 
     <div class="country-map-content">
@@ -3752,12 +3890,52 @@ header,
         </g>
               <g id="country-map-dots-svg" class="country-map-dots-svg"></g>
       </svg>
+      <div id="country-map-label-layer" class="country-map-label-layer" aria-label="지도 국가별 기사 바로가기"></div>
       <div id="country-map-html-tooltip" class="country-map-html-tooltip" role="status" aria-live="polite"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
         기사가 있는 국가만 표시
       </div>
     </div>
+    </div>
+
+    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
+    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
+      <button id="country-all" class="country-pin country-all active" type="button">
+        <span>전체</span><span class="country-count">0건</span>
+      </button>
+      <button class="country-pin country-kr" data-country-filter="KR" data-lon="127.8" data-lat="36.4" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ca" data-country-filter="CA" data-lon="-106.3" data-lat="56.1" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-us" data-country-filter="US" data-lon="-98.6" data-lat="39.8" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb" data-country-filter="GB" data-lon="-3.4" data-lat="55.4" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fr" data-country-filter="FR" data-lon="2.2" data-lat="46.2" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-nl" data-country-filter="NL" data-lon="5.3" data-lat="52.1" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-be" data-country-filter="BE" data-lon="4.7" data-lat="50.6" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ch" data-country-filter="CH" data-lon="8.2" data-lat="46.8" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-se" data-country-filter="SE" data-lon="16.0" data-lat="62.0" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fi" data-country-filter="FI" data-lon="26.0" data-lat="64.5" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pl" data-country-filter="PL" data-lon="19.1" data-lat="51.9" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cz" data-country-filter="CZ" data-lon="15.5" data-lat="49.8" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-si" data-country-filter="SI" data-lon="15.0" data-lat="46.2" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ro" data-country-filter="RO" data-lon="25.0" data-lat="45.9" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg" data-country-filter="BG" data-lon="25.5" data-lat="42.7" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua" data-country-filter="UA" data-lon="31.2" data-lat="48.4" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ru" data-country-filter="RU" data-lon="90.0" data-lat="60.0" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-tr" data-country-filter="TR" data-lon="35.2" data-lat="39.0" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae" data-country-filter="AE" data-lon="53.8" data-lat="23.4" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-vn" data-country-filter="VN" data-lon="108.3" data-lat="14.1" type="button"><span class="flag">🇻🇳</span><span>베트남</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sa" data-country-filter="SA" data-lon="45.1" data-lat="23.9" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-in" data-country-filter="IN" data-lon="79.0" data-lat="20.6" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cn" data-country-filter="CN" data-lon="104.2" data-lat="35.9" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-jp" data-country-filter="JP" data-lon="138.3" data-lat="36.2" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-au" data-country-filter="AU" data-lon="133.8" data-lat="-25.3" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-za" data-country-filter="ZA" data-lon="22.9" data-lat="-30.6" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sk" data-country-filter="SK" data-lon="19.7" data-lat="48.7" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-dk" data-country-filter="DK" data-lon="9.5" data-lat="56.3" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-my" data-country-filter="MY" data-lon="102.0" data-lat="4.2" type="button"><span class="flag">🇲🇾</span><span>말레이시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-th" data-country-filter="TH" data-lon="101.0" data-lat="15.9" type="button"><span class="flag">🇹🇭</span><span>태국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sg" data-country-filter="SG" data-lon="103.8" data-lat="1.35" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
 
   </section>
@@ -16089,7 +16267,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">35건</span>
+    <span class="group-count">36건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -16618,6 +16796,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7522"
+  data-title="한전기술, ESG대상 &#x27;3년 연속&#x27; 성평등가족부 장관상"
+  data-publisher="인사이트N파워"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787122100"
+  data-country="KR"
+  data-search="한전기술, esg대상 &#x27;3년 연속&#x27; 성평등가족부 장관상 인사이트n파워 한국전력 한국전력기술이 ‘제21회 대한민국 esg대상’ 시상식에서 사회부문 성평등가족부 장관상을 수상했다고 밝혔다.대한민국 esg대상은 한국서비스산업진흥원이 주최하고 대한민국 esg대상 조직위원회가 주관하는 행사로 환경(e)·사회(s)·지배구조(g) 분야에서 지속가능한 경영을 실천하고 사회적 가치 창출에 기여한 기업과 기관·단체를 선정한다.한전기술은 이번 수상으로 3년 연속 장관상에 이름을 올렸다. 보건·복지 안전망 강화와 지역상생 확산을 비롯해 기관이 추진해 온 사회공헌 사업의 성과를 인정받았다.특히 ‘업(業) 기반의 지속가능한 사회공헌으"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">16.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">한전기술, ESG대상 &#x27;3년 연속&#x27; 성평등가족부 장관상</div>
+      <div class="article-snippet">한국전력기술이 ‘제21회 대한민국 ESG대상’ 시상식에서 사회부문 성평등가족부 장관상을 수상했다고 밝혔다.대한민국 ESG대상은 한국서비스산업진흥원이 주최하고 대한민국 ESG대상 조직위원회가 주관하는 행사로 환경(E)·사회(S)·지배구조(G) 분야에서 지속가능한 경영을 실천하고 사회적 가치 창출에 기여한 기업과 기관·단체를 선정한다.한전기술은 이번 수상으로 3년 연속 장관상에 이름을 올렸다. 보건·복지 안전망 강화와 지역상생 확산을 비롯해 기관이 추진해 온 사회공헌 사업의 성과를 인정받았다.특히 ‘업(業) 기반의 지속가능한 사회공헌으</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ae34f1d15520c7398c4f7c50.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleView.html?idxno=325903"
   data-title="인천시회, 김남준 국회의원 간담회서 전문건설업계 현안·법안 조속 통과 건의"
   data-publisher="대한전문건설신문"
@@ -16630,7 +16843,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16665,7 +16878,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16700,7 +16913,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16735,7 +16948,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16770,7 +16983,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16805,7 +17018,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16840,7 +17053,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16875,7 +17088,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16910,7 +17123,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16945,7 +17158,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16980,7 +17193,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17015,7 +17228,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17050,7 +17263,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17085,7 +17298,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17120,7 +17333,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17155,7 +17368,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17190,7 +17403,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17225,7 +17438,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17260,7 +17473,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17295,7 +17508,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17323,7 +17536,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -17467,41 +17680,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7522"
-  data-title="한전기술, ESG대상 &#x27;3년 연속&#x27; 성평등가족부 장관상"
-  data-publisher="인사이트N파워"
-  data-group="한전 계열사"
-  data-language="ko"
-  data-priority="2"
-  data-published="1787122100"
-  data-country="KR"
-  data-search="한전기술, esg대상 &#x27;3년 연속&#x27; 성평등가족부 장관상 인사이트n파워 한전 계열사 한국전력기술이 ‘제21회 대한민국 esg대상’ 시상식에서 사회부문 성평등가족부 장관상을 수상했다고 밝혔다.대한민국 esg대상은 한국서비스산업진흥원이 주최하고 대한민국 esg대상 조직위원회가 주관하는 행사로 환경(e)·사회(s)·지배구조(g) 분야에서 지속가능한 경영을 실천하고 사회적 가치 창출에 기여한 기업과 기관·단체를 선정한다.한전기술은 이번 수상으로 3년 연속 장관상에 이름을 올렸다. 보건·복지 안전망 강화와 지역상생 확산을 비롯해 기관이 추진해 온 사회공헌 사업의 성과를 인정받았다.특히 ‘업(業) 기반의 지속가능한 사회공헌으"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">한전기술, ESG대상 &#x27;3년 연속&#x27; 성평등가족부 장관상</div>
-      <div class="article-snippet">한국전력기술이 ‘제21회 대한민국 ESG대상’ 시상식에서 사회부문 성평등가족부 장관상을 수상했다고 밝혔다.대한민국 ESG대상은 한국서비스산업진흥원이 주최하고 대한민국 ESG대상 조직위원회가 주관하는 행사로 환경(E)·사회(S)·지배구조(G) 분야에서 지속가능한 경영을 실천하고 사회적 가치 창출에 기여한 기업과 기관·단체를 선정한다.한전기술은 이번 수상으로 3년 연속 장관상에 이름을 올렸다. 보건·복지 안전망 강화와 지역상생 확산을 비롯해 기관이 추진해 온 사회공헌 사업의 성과를 인정받았다.특히 ‘업(業) 기반의 지속가능한 사회공헌으</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ae34f1d15520c7398c4f7c50.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70686"
   data-title="한전KPS, 작업자 따라다니는 AI 로봇 개발"
   data-publisher="에너지타임즈"
@@ -17514,7 +17692,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25626,9 +25804,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227547"
+  data-title="기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順"
+  data-publisher="에너지신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787227089"
+  data-country="KR"
+  data-search="기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順 에너지신문 타 건설사 [에너지신문] 기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석결과, 1위 두산에너빌리티 2위 레인보우로보틱스 3위 현대로템 순으로 분석됐다.한국기업평판연구소는 기계 상장기업 70개 브랜드에 대해 2026년 7월 20일부터 2026년 8월 20일까지의 기계 상장기업 브랜드 빅데이터 33,289,966개를 분석한 결과 지난 7월 기계 상장기업 브랜드 빅데이터 45,014,266개와 비교하면 26.05% 줄어들었다고 밝혔다.기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석 30위 순위는 두산에너빌리티, 레인보우로보틱스, 현대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順</div>
+      <div class="article-snippet">[에너지신문] 기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석결과, 1위 두산에너빌리티 2위 레인보우로보틱스 3위 현대로템 순으로 분석됐다.한국기업평판연구소는 기계 상장기업 70개 브랜드에 대해 2026년 7월 20일부터 2026년 8월 20일까지의 기계 상장기업 브랜드 빅데이터 33,289,966개를 분석한 결과 지난 7월 기계 상장기업 브랜드 빅데이터 45,014,266개와 비교하면 26.05% 줄어들었다고 밝혔다.기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석 30위 순위는 두산에너빌리티, 레인보우로보틱스, 현대</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d6e3c578a149d24395c58609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=671355"
   data-title="마키나락스 &#x27;어텐션2026&#x27; 개최…삼성·HD현대 피지컬AI 사례 공유"
@@ -25642,7 +25855,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25677,7 +25890,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25712,7 +25925,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25734,6 +25947,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397480"
+  data-title="창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;"
+  data-publisher="데일리한국"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787192491"
+  data-country="OTHER"
+  data-search="창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot; 데일리한국 타 건설사 [데일리한국 전준형 기자] 대우건설 노사가 노동조합 창립 39주년을 맞아 상호 신뢰를 바탕으로 소통을 강화하고 협력적인 조직문화를 만들어가기로 뜻을 모았다.전국건설기업노동조합 대우건설지부는 지난 19일 서울 중구 대우건설 본사 푸르지오 아트홀에서 창립 39주년 기념식을 개최했다.행사에는 심상철 대우건설지부 위원장과 이강석 대우건설 대표이사 직무대행을 비롯해 김남근·김현정·이용우 더불어민주당 의원, 노동계 관계자, 회사 경영진 및 조합원 등이 참석했다.심상철 위원장은 기념사에서 최근 경영진 인사와 관련해 노사 간 충분한 소통의 필요성"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리한국</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;</div>
+      <div class="article-snippet">[데일리한국 전준형 기자] 대우건설 노사가 노동조합 창립 39주년을 맞아 상호 신뢰를 바탕으로 소통을 강화하고 협력적인 조직문화를 만들어가기로 뜻을 모았다.전국건설기업노동조합 대우건설지부는 지난 19일 서울 중구 대우건설 본사 푸르지오 아트홀에서 창립 39주년 기념식을 개최했다.행사에는 심상철 대우건설지부 위원장과 이강석 대우건설 대표이사 직무대행을 비롯해 김남근·김현정·이용우 더불어민주당 의원, 노동계 관계자, 회사 경영진 및 조합원 등이 참석했다.심상철 위원장은 기념사에서 최근 경영진 인사와 관련해 노사 간 충분한 소통의 필요성</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/25a4d4fa0ab5995f3451c69e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://newsfield.net/%ea%b2%bd%ec%b0%b0-%eb%8c%80%eb%b6%81%ec%86%a1%ea%b8%88-%ec%9d%98%ed%98%b9-%ec%88%98%ec%82%ac%ec%84%9c-%ec%a0%95%ec%9b%90%ec%a3%bc-%eb%8c%80%ec%9a%b0%ea%b1%b4%ec%84%a4-%ed%9a%8c%ec%9e%a5/"
   data-title="경찰, &#x27;대북송금 의혹&#x27; 수사서 정원주 대우건설 회장 조사 안 해"
@@ -25747,7 +25995,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25782,7 +26030,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25817,7 +26065,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25852,7 +26100,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25887,7 +26135,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25922,7 +26170,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25957,7 +26205,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -25992,7 +26240,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26204,7 +26452,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">27건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26243,54 +26491,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.viva100.com/article/20260820500225"
-  data-title="대한전선, HVDC 해저케이블 시공 수중로봇 국산화 추진"
-  data-publisher="브릿지경제"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787194800"
-  data-country="KR"
-  data-search="대한전선, hvdc 해저케이블 시공 수중로봇 국산화 추진 브릿지경제 한국전력 대한전선이 초고압직류송전(hvdc) 해저케이블 시공에 필요한 원격조종 수중로봇(rov) 국산화에 나선다. 대한전선은 지난 19일 서울 서초구 본사에서 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·hvdc 해저케이블 rov 국산화’를 위한 업무협약(mou)을 체결했다고"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">브릿지경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, HVDC 해저케이블 시공 수중로봇 국산화 추진</div>
-      <div class="article-snippet">대한전선이 초고압직류송전(HVDC) 해저케이블 시공에 필요한 원격조종 수중로봇(ROV) 국산화에 나선다. 대한전선은 지난 19일 서울 서초구 본사에서 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·HVDC 해저케이블 ROV 국산화’를 위한 업무협약(MOU)을 체결했다고</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/456d9f971edbcea38e9e54aa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
   data-title="대한전문건설신문"
   data-publisher="대한전문건설신문"
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787192400"
+  data-published="1787195400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26313,23 +26526,23 @@ header,
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.straightnews.co.kr/news/articleView.html?idxno=309295"
-  data-title="대한전선, HVDC 해저케이블용 ‘수중 작업로봇’ 국산화 나선다"
-  data-publisher="스트레이트뉴스"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478981"
+  data-title="한전KDN, 상반기 실적 점검해 수익성 해법 모색"
+  data-publisher="핀포인트뉴스"
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787191700"
+  data-published="1787192867"
   data-country="KR"
-  data-search="대한전선, hvdc 해저케이블용 ‘수중 작업로봇’ 국산화 나선다 스트레이트뉴스 한국전력 대한전선이 hvdc(초고압직류송전) 해저케이블 시공에 투입되는 고성능 원격조종 수중로봇(rov) 국산화에 나선다.대한전선은 지난 19일 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·hvdc 해저케이블 rov(remotely operated vehicle·원격조종 수중로봇) 국산화’를 위한 업무협약(mou)을 체결했다고 20일 밝혔다.rov는 작업자가 선박 등에서 원격으로 조종해 해저에서 케이블 매설·보호 등의 작업을 수행하는 수중로봇이다. 이번 협약은 서해안 에너지 고속도로 등 대규모 hvdc 해저케이블 사업에 대한 시공 경쟁력을"
+  data-search="한전kdn, 상반기 실적 점검해 수익성 해법 모색 핀포인트뉴스 한국전력 한전kdn이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전kdn은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">스트레이트뉴스</div>
+        <div class="publisher">핀포인트뉴스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -26337,48 +26550,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대한전선, HVDC 해저케이블용 ‘수중 작업로봇’ 국산화 나선다</div>
-      <div class="article-snippet">대한전선이 HVDC(초고압직류송전) 해저케이블 시공에 투입되는 고성능 원격조종 수중로봇(ROV) 국산화에 나선다.대한전선은 지난 19일 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·HVDC 해저케이블 ROV(Remotely Operated Vehicle·원격조종 수중로봇) 국산화’를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다.ROV는 작업자가 선박 등에서 원격으로 조종해 해저에서 케이블 매설·보호 등의 작업을 수행하는 수중로봇이다. 이번 협약은 서해안 에너지 고속도로 등 대규모 HVDC 해저케이블 사업에 대한 시공 경쟁력을</div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
+      <div class="article-snippet">한전KDN이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전KDN은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/148f524c8aca4e006efdbb92.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2461042"
-  data-title="대한전선, 해저케이블 시공장비 국산화 나선다···팬스타로보틱스와 맞손"
-  data-publisher="이뉴스투데이"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787190600"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 시공장비 국산화 나선다···팬스타로보틱스와 맞손 이뉴스투데이 한국전력 [이뉴스투데이 노태하 기자] 대한전선이 대규모 초고압직류송전(hvdc) 해저케이블 사업에 투입되는 핵심 시공장비인 원격조종 수중로봇(rov) 국산화에 나선다.대한전선은 19일 서울 서초구 호반파크 2관 대한전선 본사에서 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·hvdc 해저케이블"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">이뉴스투데이</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 시공장비 국산화 나선다···팬스타로보틱스와 맞손</div>
-      <div class="article-snippet">[이뉴스투데이 노태하 기자] 대한전선이 대규모 초고압직류송전(HVDC) 해저케이블 사업에 투입되는 핵심 시공장비인 원격조종 수중로봇(ROV) 국산화에 나선다.대한전선은 19일 서울 서초구 호반파크 2관 대한전선 본사에서 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·HVDC 해저케이블</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7c9e1c196d4552eeb9060cb6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/d3785eb9df106e2a76b7642c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26395,7 +26573,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26418,76 +26596,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.dt.co.kr/article/12079165"
-  data-title="대한전선, 해저케이블 시공 경쟁력 높인다…핵심 장비 국산화"
-  data-publisher="디지털타임스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787189161"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 시공 경쟁력 높인다…핵심 장비 국산화 디지털타임스 한국전력 대한전선이 해저케이블 시공 핵심 장비인 원격조종 수중로봇(rov)의 국산화에 나선다. 대규모 고압직류송전(hvdc) 해저케이블 사업이 확대되는 가운데 외산 장비 의존도를 낮추고 시공 경쟁력을 높이겠다는 전략이다. 대한전선은 지난 19일 해양 로봇 전문기업 팬스타로보틱"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">디지털타임스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 시공 경쟁력 높인다…핵심 장비 국산화</div>
-      <div class="article-snippet">대한전선이 해저케이블 시공 핵심 장비인 원격조종 수중로봇(ROV)의 국산화에 나선다. 대규모 고압직류송전(HVDC) 해저케이블 사업이 확대되는 가운데 외산 장비 의존도를 낮추고 시공 경쟁력을 높이겠다는 전략이다. 대한전선은 지난 19일 해양 로봇 전문기업 팬스타로보틱</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/cbdd59f72e848e59ec0a4b36.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260820000111"
-  data-title="대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;"
-  data-publisher="전자신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787188995"
-  data-country="KR"
-  data-search="대한전선, 팬스타로보틱스와 hvdc 해저케이블 rov 국산화 &#x27;맞손&#x27; 전자신문 한국전력 대한전선이 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(hvdc) 해저케이블 원격조종 수중로봇(rov) 국산화&#x27;를 위한 업무협약(mou)을 체결했다고 20일 밝혔다. 해상풍력 내·외부망뿐만 아니라 장거리 계통연계, hvdc 해저케이블에 투입할 수 있는 고성능 매설 rov와 운용 시스템을 공동 개발하는 게 골자다. 양사는 해저케이블 매설·보호 기술을 실증하고 사업화를 추진할 계획이다. 이번 협약은 서해안 에너지 고속도로 등 대"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전자신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;</div>
-      <div class="article-snippet">대한전선이 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(HVDC) 해저케이블 원격조종 수중로봇(ROV) 국산화&#x27;를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다. 해상풍력 내·외부망뿐만 아니라 장거리 계통연계, HVDC 해저케이블에 투입할 수 있는 고성능 매설 ROV와 운용 시스템을 공동 개발하는 게 골자다. 양사는 해저케이블 매설·보호 기술을 실증하고 사업화를 추진할 계획이다. 이번 협약은 서해안 에너지 고속도로 등 대</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/cdb72bd85d90af2968f9ceee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755403"
   data-title="한전, &#x27;드론 테러&#x27; 안보위협 대비 2026년도 을지연습 실제훈련 실시"
   data-publisher="뉴시스"
@@ -26500,7 +26608,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26535,7 +26643,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26570,7 +26678,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26593,41 +26701,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202349"
-  data-title="대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리"
-  data-publisher="에너지데일리"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787186781"
-  data-country="KR"
-  data-search="대한전선, hvdc 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리 에너지데일리 한국전력 [에너지데일리 송병훈 기자] 국내 해저케이블 산업이 생산설비 확대를 넘어 핵심 시공장비 국산화 단계로 진입하고 있다. 대한전선이 원격조종 수중로봇(rov) 개발에"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지데일리</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리</div>
-      <div class="article-snippet">[에너지데일리 송병훈 기자] 국내 해저케이블 산업이 생산설비 확대를 넘어 핵심 시공장비 국산화 단계로 진입하고 있다. 대한전선이 원격조종 수중로봇(ROV) 개발에</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/75d846fabc9c6e531cf15da0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202347"
   data-title="한전, 드론·사이버 복합공격 대응 을지연습 실시… 전력망 비상복구 체계 점검 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -26640,7 +26713,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26663,41 +26736,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.etnews.com/20260820000040"
-  data-title="대한전선-팬스타로보틱스, HVDC 해저케이블 매설로봇 국산화 추진"
-  data-publisher="전자신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787185883"
-  data-country="KR"
-  data-search="대한전선-팬스타로보틱스, hvdc 해저케이블 매설로봇 국산화 추진 전자신문 한국전력 대한전선과 팬스타로보틱스가 해상풍력 및 hvdc 해저케이블 프로젝트에 투입할 고성능 매설 rov(원격조종 수중로봇) 국산화에 나선다. 대한전선(대표 송종민)과 해양로봇 전문기업 팬스타로보틱스(대표 민정탁)는 최근 &#x27;해상풍력·hvdc 해저케이블 rov 국산화를 위한 전략적 업무협약(mou)&#x27;을 체결했다. 이번 협약은 서해안 에너지 고속도로를 비롯한 대규모 hvdc 해저케이블 사업과 해상풍력 시장 확대에 대응해 핵심 시공장비와 운용 기술을 국산"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전자신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선-팬스타로보틱스, HVDC 해저케이블 매설로봇 국산화 추진</div>
-      <div class="article-snippet">대한전선과 팬스타로보틱스가 해상풍력 및 HVDC 해저케이블 프로젝트에 투입할 고성능 매설 ROV(원격조종 수중로봇) 국산화에 나선다. 대한전선(대표 송종민)과 해양로봇 전문기업 팬스타로보틱스(대표 민정탁)는 최근 &#x27;해상풍력·HVDC 해저케이블 ROV 국산화를 위한 전략적 업무협약(MOU)&#x27;을 체결했다. 이번 협약은 서해안 에너지 고속도로를 비롯한 대규모 HVDC 해저케이블 사업과 해상풍력 시장 확대에 대응해 핵심 시공장비와 운용 기술을 국산</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1bc53a9ba1fc258d79b67a61.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104661"
   data-title="한전, 복합 안보위협 상황 대응력 향상…‘을지연습 실제훈련’ 전개"
   data-publisher="에너지플랫폼뉴스"
@@ -26710,7 +26748,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26733,41 +26771,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260820_0003755379"
-  data-title="대한전선, 해저케이블 수중로봇 국산화 추진…해저 시공 경쟁력 강화"
-  data-publisher="뉴시스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787185400"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 수중로봇 국산화 추진…해저 시공 경쟁력 강화 뉴시스 한국전력 [서울=뉴시스] 홍세희 기자 = 대한전선이 초고압직류송전(hvdc) 해저케이블 프로젝트에 투입 가능한 고성능 원격조종 수중로봇(rov) 국산화에 나선다. 대한전선은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력∙hvdc 해저케이블 rov 국산화&#x27;를 위한 업무협약(mou)을 체결했다고 20일 밝혔다. 현재 hvdc 등 대형·고난도 해저케이블 프로젝트에 투입되는 매설 장비는 대부분 외산이며, 운용에도 해외 전문인력이 필요한 경우가 많다. 특히 국내 서남해 해역은 조류가 빠르고 탁도가 높으며 수심이 얕아, 국내 해역 조건에 최적화된 고성능 매설 rov의 필"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 수중로봇 국산화 추진…해저 시공 경쟁력 강화</div>
-      <div class="article-snippet">[서울=뉴시스] 홍세희 기자 = 대한전선이 초고압직류송전(HVDC) 해저케이블 프로젝트에 투입 가능한 고성능 원격조종 수중로봇(ROV) 국산화에 나선다. 대한전선은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력∙HVDC 해저케이블 ROV 국산화&#x27;를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다. 현재 HVDC 등 대형·고난도 해저케이블 프로젝트에 투입되는 매설 장비는 대부분 외산이며, 운용에도 해외 전문인력이 필요한 경우가 많다. 특히 국내 서남해 해역은 조류가 빠르고 탁도가 높으며 수심이 얕아, 국내 해역 조건에 최적화된 고성능 매설 ROV의 필</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/de1e3fa542b71611c6b1d4dd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820085938038"
   data-title="한전, 을지연습 연계 전력설비 긴급복구 훈련…드론·사이버테러 대응"
   data-publisher="아주경제"
@@ -26780,7 +26783,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26803,41 +26806,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.yna.co.kr/view/AKR20260820038500003?section=industry/all"
-  data-title="대한전선, 초고압 해저케이블 원격조종 수중로봇 국산화 추진 | 연합뉴스"
-  data-publisher="연합뉴스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787184777"
-  data-country="KR"
-  data-search="대한전선, 초고압 해저케이블 원격조종 수중로봇 국산화 추진 | 연합뉴스 연합뉴스 한국전력 (서울=연합뉴스) 임성호 기자 = 대한전선은 부산에 본사를 둔 해양로봇 전문기업 팬스타로보틱스와 해상풍력·초고압 직류송전(hvdc) 해저 케이블..."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">연합뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 초고압 해저케이블 원격조종 수중로봇 국산화 추진 | 연합뉴스</div>
-      <div class="article-snippet">(서울=연합뉴스) 임성호 기자 = 대한전선은 부산에 본사를 둔 해양로봇 전문기업 팬스타로보틱스와 해상풍력·초고압 직류송전(HVDC) 해저 케이블...</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ee9897b066fa2711d1f0a9ba.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260820040200063?section=industry/all"
   data-title="한전KPS, 당진지역 아동 보호 위해 7천만원씩 2년간 지원 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -26850,7 +26818,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26873,146 +26841,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397384"
-  data-title="대한전선, 해저케이블 매설로봇 국산화…HVDC 시공 역량 강화"
-  data-publisher="데일리한국"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787184512"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 매설로봇 국산화…hvdc 시공 역량 강화 데일리한국 한국전력 [데일리한국 이학림 기자] 대한전선은 해양 로봇 기업 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(hvdc) 해저케이블 원격조종 수중로봇(rov) 국산화&#x27;를 위한 업무협약(mou)을 체결했다고 20일 밝혔다.이번 협약은 서해안 에너지 고속도로 등 대규모 hvdc 해저케이블 사업의 시공 경쟁력을 높이기 위해 추진됐다. 양사는 해외 의존도가 높은 고성능 매설 rov와 운용 기술, 시공 솔루션을 국산화할 계획이다.현재 hvdc 등 대형 해저케이블 프로젝트에 투입되는 매설 장비는 대부분 외산이다. 운용 과정에서도 해외 전문인력이 필요한 경우가"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">데일리한국</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 매설로봇 국산화…HVDC 시공 역량 강화</div>
-      <div class="article-snippet">[데일리한국 이학림 기자] 대한전선은 해양 로봇 기업 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(HVDC) 해저케이블 원격조종 수중로봇(ROV) 국산화&#x27;를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다.이번 협약은 서해안 에너지 고속도로 등 대규모 HVDC 해저케이블 사업의 시공 경쟁력을 높이기 위해 추진됐다. 양사는 해외 의존도가 높은 고성능 매설 ROV와 운용 기술, 시공 솔루션을 국산화할 계획이다.현재 HVDC 등 대형 해저케이블 프로젝트에 투입되는 매설 장비는 대부분 외산이다. 운용 과정에서도 해외 전문인력이 필요한 경우가</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1ea0a99cc16501d8b21c20ca.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.electimes.com/news/articleView.html?idxno=371451"
-  data-title="대한전선, 팬스타로보틱스와 손잡고 HVDC 해저케이블 ‘매설 ROV’ 국산화 추진"
-  data-publisher="전기신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787184264"
-  data-country="KR"
-  data-search="대한전선, 팬스타로보틱스와 손잡고 hvdc 해저케이블 ‘매설 rov’ 국산화 추진 전기신문 한국전력 대한전선이 hvdc 해저케이블 프로젝트에 투입할 수 있는 고성능 rov 국산화에 나선다.대한전선(대표이사 송종민)은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 ‘해상풍력∙hvdc 해저케이블 rov(remotely operated vehicle, 원격조종 수중로봇) 국산화’를 위한 업무협약(mou)을 체결했다고 20일 밝혔다.이번 협약은 서해안 에너지 고속도로 등 대규모 hvdc 해저케이블 사업에 대한 시공 경쟁력을 강화하기 위해 추진됐다. 양사는 해외 의존도가 높은 고성능 매설 rov와 운용 기술 및 시공 솔루션을 국산화해 해저케이블 산업의 자립도를 향상시키"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전기신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 팬스타로보틱스와 손잡고 HVDC 해저케이블 ‘매설 ROV’ 국산화 추진</div>
-      <div class="article-snippet">대한전선이 HVDC 해저케이블 프로젝트에 투입할 수 있는 고성능 ROV 국산화에 나선다.대한전선(대표이사 송종민)은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 ‘해상풍력∙HVDC 해저케이블 ROV(Remotely Operated Vehicle, 원격조종 수중로봇) 국산화’를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다.이번 협약은 서해안 에너지 고속도로 등 대규모 HVDC 해저케이블 사업에 대한 시공 경쟁력을 강화하기 위해 추진됐다. 양사는 해외 의존도가 높은 고성능 매설 ROV와 운용 기술 및 시공 솔루션을 국산화해 해저케이블 산업의 자립도를 향상시키</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0804fe1a89eeee55a7ed05d8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.g-enews.com/article/Industry/2026/08/2026082008445474783084322ec9_1"
-  data-title="대한전선, 외산 의존 해저케이블 ROV 국산화…HVDC 턴키 강화 - 글로벌이코노믹"
-  data-publisher="글로벌이코노믹"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787184204"
-  data-country="KR"
-  data-search="대한전선, 외산 의존 해저케이블 rov 국산화…hvdc 턴키 강화 - 글로벌이코노믹 글로벌이코노믹 한국전력 대한전선이 외산 의존도가 높은 고성능 해저케이블 매설 장비 국산화에 나선다. 서해안 에너지 고속도로 등 대규모 초고압직류송전(hvdc) 사업을 앞두고 생산부터 운송·포설·매설까지 아우르는 해저케이블 턴키 수행 역량을 강화한다는 전략이다.20일 대한전선에 따르면 회사는 지난 19일 해양"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">글로벌이코노믹</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 외산 의존 해저케이블 ROV 국산화…HVDC 턴키 강화 - 글로벌이코노믹</div>
-      <div class="article-snippet">대한전선이 외산 의존도가 높은 고성능 해저케이블 매설 장비 국산화에 나선다. 서해안 에너지 고속도로 등 대규모 초고압직류송전(HVDC) 사업을 앞두고 생산부터 운송·포설·매설까지 아우르는 해저케이블 턴키 수행 역량을 강화한다는 전략이다.20일 대한전선에 따르면 회사는 지난 19일 해양</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/8a5cbfe784cc9e518ce41ccc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1720967"
-  data-title="대한전선, 해저케이블 매설 ROV 국산화 추진…HVDC 사업 대응력 강화 - 이비엔(EBN)뉴스센터"
-  data-publisher="EBN산업경제"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787183961"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 매설 rov 국산화 추진…hvdc 사업 대응력 강화 - 이비엔(ebn)뉴스센터 ebn산업경제 한국전력 대한전선이 고압직류송전(hvdc) 해저케이블 시공에 투입되는 원격조종 수중로봇(rov) 국산화에 나선다. 해저케이블 매설 장비와 운용 기술까지 내재화해 서해안 에"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">EBN산업경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 매설 ROV 국산화 추진…HVDC 사업 대응력 강화 - 이비엔(EBN)뉴스센터</div>
-      <div class="article-snippet">대한전선이 고압직류송전(HVDC) 해저케이블 시공에 투입되는 원격조종 수중로봇(ROV) 국산화에 나선다. 해저케이블 매설 장비와 운용 기술까지 내재화해 서해안 에</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/87c141a1717c3b049d20beb4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820085404997"
   data-title="대한전선, HVDC 해저케이블 &#x27;ROV&#x27; 국산화…해저 시공까지 경쟁력 넓힌다"
   data-publisher="아주경제"
@@ -27025,7 +26853,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27060,7 +26888,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27079,76 +26907,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/411c31d6ad5f11a8eaf8edb6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260820010006453"
-  data-title="대한전선, HVDC 해저케이블 ROV 국산화 추진…해저 시공 경쟁력 강화"
-  data-publisher="아시아투데이"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787182911"
-  data-country="KR"
-  data-search="대한전선, hvdc 해저케이블 rov 국산화 추진…해저 시공 경쟁력 강화 아시아투데이 한국전력 대한전선이 hvdc 해저케이블 프로젝트에 투입 가능한 고성능 rov 국산화에 나선다.대한전선(대표이사 송종민)은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 ‘해상풍력·hvdc 해저케이블 rov(remotely operated vehicle, 원격조종 수중로봇.."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">아시아투데이</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, HVDC 해저케이블 ROV 국산화 추진…해저 시공 경쟁력 강화</div>
-      <div class="article-snippet">대한전선이 HVDC 해저케이블 프로젝트에 투입 가능한 고성능 ROV 국산화에 나선다.대한전선(대표이사 송종민)은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 ‘해상풍력·HVDC 해저케이블 ROV(Remotely Operated Vehicle, 원격조종 수중로봇..</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/fb7a47392cc2b174184ad99d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.seoul.co.kr/news/economy/industry/2026/08/20/20260820500026"
-  data-title="대한전선, 해저케이블 투입 로봇 국산화 추진… 해저 시공 경쟁력 강화"
-  data-publisher="서울신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787182501"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 투입 로봇 국산화 추진… 해저 시공 경쟁력 강화 서울신문 한국전력 대한전선이 팬스타로보틱스와 해저케이블 매설 rov 국산화를 추진했다. 서해안 에너지 고속도로 등 대규모 hvdc 사업에 맞춰 고성능 장비와 운용 기술을 공동 개발하고, 해저케이블 시공 효율과 안정성을 높이려 한다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">서울신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 투입 로봇 국산화 추진… 해저 시공 경쟁력 강화</div>
-      <div class="article-snippet">대한전선이 팬스타로보틱스와 해저케이블 매설 ROV 국산화를 추진했다. 서해안 에너지 고속도로 등 대규모 HVDC 사업에 맞춰 고성능 장비와 운용 기술을 공동 개발하고, 해저케이블 시공 효율과 안정성을 높이려 한다.</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d13abfbfd3cb895c2055926f.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -27395,7 +27153,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">16건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27433,6 +27191,146 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755381"
+  data-title="고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787194800"
+  data-country="OTHER"
+  data-search="고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동 뉴시스 원자력 [세종=뉴시스]이수정 기자 = 고준위 방사성폐기물 관리 정책의 전문성을 뒷받침할 분야별 전문위원회가 본격 가동된다. 고준위방사성폐기물관리위원회는 분야별 전문위원회를 구성하고 오는 21일 오후 서울 중구 상연재에서 &#x27;제1차 분야별 전문위원회&#x27;를 개최한다고 20일 밝혔다. 분야별 전문위원회는 &#x27;고준위 방사성폐기물 관리에 관한 특별법&#x27;에 따라 고준위위원회 산하에 설치·운영되는 전문가 심의기구다. 전문위원회는 부지, 저장·운반, 처분, 소통 등 4개 분야로 구성됐다. 고준위위원회는 지난 6월 말부터 관련 협회·학회와 연구기관, 시민사회 등 25개 기관으로부터 후보자를 추천받"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동</div>
+      <div class="article-snippet">[세종=뉴시스]이수정 기자 = 고준위 방사성폐기물 관리 정책의 전문성을 뒷받침할 분야별 전문위원회가 본격 가동된다. 고준위방사성폐기물관리위원회는 분야별 전문위원회를 구성하고 오는 21일 오후 서울 중구 상연재에서 &#x27;제1차 분야별 전문위원회&#x27;를 개최한다고 20일 밝혔다. 분야별 전문위원회는 &#x27;고준위 방사성폐기물 관리에 관한 특별법&#x27;에 따라 고준위위원회 산하에 설치·운영되는 전문가 심의기구다. 전문위원회는 부지, 저장·운반, 처분, 소통 등 4개 분야로 구성됐다. 고준위위원회는 지난 6월 말부터 관련 협회·학회와 연구기관, 시민사회 등 25개 기관으로부터 후보자를 추천받</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7719258555ebfdfeb806ba0d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260820000189"
+  data-title="메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”"
+  data-publisher="전자신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787194767"
+  data-country="KR"
+  data-search="메가프로젝트 전력수요 38gw 더 는다…김성환 “전력은 국가 안보자산” 전자신문 원자력 반도체와 인공지능(ai) 데이터센터 등 3대 메가프로젝트 추진으로 향후 약 38gw, 연간 260twh 규모의 신규 전력수요가 발생할 것으로 전망됐다. 지난해 국내 총발전량의 40%를 웃도는 규모다. 정부는 ai 시대 전력 공급능력을 국가 경쟁력을 좌우하는 전략자산으로 보고 제12차 전력수급기본계획에 재생에너지·원전 등 무탄소 전원과 전력망 확충 방안을 종합적으로 담기로 했다. 기후에너지환경부와 제12차 전력수급기본계획 수립 총괄위원회는 20일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전자신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”</div>
+      <div class="article-snippet">반도체와 인공지능(AI) 데이터센터 등 3대 메가프로젝트 추진으로 향후 약 38GW, 연간 260TWh 규모의 신규 전력수요가 발생할 것으로 전망됐다. 지난해 국내 총발전량의 40%를 웃도는 규모다. 정부는 AI 시대 전력 공급능력을 국가 경쟁력을 좌우하는 전략자산으로 보고 제12차 전력수급기본계획에 재생에너지·원전 등 무탄소 전원과 전력망 확충 방안을 종합적으로 담기로 했다. 기후에너지환경부와 제12차 전력수급기본계획 수립 총괄위원회는 20일</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5feba4b15fdb5647664586f3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755755"
+  data-title="국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787193063"
+  data-country="US"
+  data-search="국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진 뉴시스 원자력 [서울=뉴시스] 옥승욱 기자 = 국방부가 올해를 전시작전통제권(전작권) 전환의 원년으로 삼고 전환 로드맵을 완성하는 등 우리 군 주도의 연합방위체제 구축에 속도를 낸다. 핵추진잠수함 건조를 위한 특별법 제정과 미국과의 핵연료 협의도 본격 추진한다. 국방부는 20일 국회 국방위원회 전체회의 업무보고에서 이같은 내용의 2026년 국방정책 방향과 주요 국방 현안을 보고했다. 국방부는 굳건한 한미동맹을 바탕으로 북한의 핵·미사일 위협에 대한 대응태세를 강화하는 한편 전작권 전환을 체계적·안정적으로 추진한다는 방침이다. 무엇보다 올해 전작권 전환 가속화를 위한 로드맵을 완성하"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진</div>
+      <div class="article-snippet">[서울=뉴시스] 옥승욱 기자 = 국방부가 올해를 전시작전통제권(전작권) 전환의 원년으로 삼고 전환 로드맵을 완성하는 등 우리 군 주도의 연합방위체제 구축에 속도를 낸다. 핵추진잠수함 건조를 위한 특별법 제정과 미국과의 핵연료 협의도 본격 추진한다. 국방부는 20일 국회 국방위원회 전체회의 업무보고에서 이같은 내용의 2026년 국방정책 방향과 주요 국방 현안을 보고했다. 국방부는 굳건한 한미동맹을 바탕으로 북한의 핵·미사일 위협에 대한 대응태세를 강화하는 한편 전작권 전환을 체계적·안정적으로 추진한다는 방침이다. 무엇보다 올해 전작권 전환 가속화를 위한 로드맵을 완성하</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9754b04081ad670cfde9725f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.dailydgnews.com/news/article.html?no=260681"
+  data-title="[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!"
+  data-publisher="데일리대구경북뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787192408"
+  data-country="KR"
+  data-search="[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다! 데일리대구경북뉴스 원자력 (데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 점심 도시락과 간식을 지원하는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다. 이번 사업은 한울본부 노·사와 울진교육지원청 및 관내 12개 초등학교와 협력하여 방학 기간 급식 공백을 보완하고 맞벌이 가정 등의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리대구경북뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!</div>
+      <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 점심 도시락과 간식을 지원하는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다. 이번 사업은 한울본부 노·사와 울진교육지원청 및 관내 12개 초등학교와 협력하여 방학 기간 급식 공백을 보완하고 맞벌이 가정 등의</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2df1f78693766a7bdd58d601.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820105806489"
   data-title="김성환 기후장관 &amp;quot;&#x27;전기국가&#x27; 전환 전략 12차 전기본에 반영…전력 안보자산화&amp;quot;"
@@ -27446,7 +27344,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27481,7 +27379,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27503,6 +27401,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260820092350158"
+  data-title="고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787185952"
+  data-country="OTHER"
+  data-search="고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토 아주경제 원자력 [사진=아주경제db] 고준위 방사성폐기물 관리 정책을 전문적으로 검토할 분야별 전문위원회가 본격적인 활동에 들어간다. 전문위원회는 첫 회의에서 제3차 고준위 방폐물 관리 기본계획 초안과 처분시설 부적합지역 배제기준안을 살펴볼 예정이다. 고준위방사성폐기물관리위원회는 오는 21일 서울 중구 상연재에서 &amp;#39;제1차 분야별 전문위원회&amp;#39;를 개최한다고 20일 밝혔다. 전문위원회는 고준위 방사성폐기물 관리 정책에 필요한 조사&amp;middot;연구와 전문적인 검토를 담당하는 고준위위원회 산하 전문가 심의기구다. &amp;#39;고준위 방사성폐기물 관리에 관한 특별법&amp;#39;에 근거"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토</div>
+      <div class="article-snippet">[사진=아주경제DB] 고준위 방사성폐기물 관리 정책을 전문적으로 검토할 분야별 전문위원회가 본격적인 활동에 들어간다. 전문위원회는 첫 회의에서 제3차 고준위 방폐물 관리 기본계획 초안과 처분시설 부적합지역 배제기준안을 살펴볼 예정이다. 고준위방사성폐기물관리위원회는 오는 21일 서울 중구 상연재에서 &amp;#39;제1차 분야별 전문위원회&amp;#39;를 개최한다고 20일 밝혔다. 전문위원회는 고준위 방사성폐기물 관리 정책에 필요한 조사&amp;middot;연구와 전문적인 검토를 담당하는 고준위위원회 산하 전문가 심의기구다. &amp;#39;고준위 방사성폐기물 관리에 관한 특별법&amp;#39;에 근거</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/63936ea46a4e62885775dc15.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202344"
   data-title="한울원자력본부, 방학 돌봄 초등학생 434명 점심·간식 지원 - 에너지데일리"
@@ -27516,7 +27449,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27551,7 +27484,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27586,7 +27519,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27621,7 +27554,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27656,7 +27589,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27691,7 +27624,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27726,7 +27659,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27761,7 +27694,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27796,7 +27729,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27831,7 +27764,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27866,7 +27799,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27901,7 +27834,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27936,7 +27869,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27969,14 +27902,14 @@ header,
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7525"
-  data-title="AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’"
+  data-title="“AI가 끌고 SMRㆍ핵융합이 받친다”…이재명 정부가 심은 ‘7대 SEED’"
   data-publisher="인사이트N파워"
   data-group="SMR"
   data-language="ko"
   data-priority="0"
   data-published="1787187991"
   data-country="KR"
-  data-search="ai가 끌고 smrㆍ핵융합이 받친다…정부가 심은 ‘7대 seed’ 인사이트n파워 smr 정부가 대한민국을 먹여 살릴 차세대 성장동력에 소형모듈원자로(smr)와 핵융합, 차세대 재생에너지를 전면 배치했다. 반도체와 피지컬 ai, ai 데이터센터를 중심으로 한 ‘3대 메가 프로젝트’에 이어 아직 시장이 본격적으로 형성되지 않은 첨단기술에 선제적으로 투자해 미래 산업의 주도권을 확보하겠다는 구상이다.과학기술정보통신부는 관계부처 합동으로 지난 12일 청와대 충무실에서 ‘미래성장동력 7대 seed 보고회’를 열고 ▲smr ▲핵융합 ▲한계돌파형 재생에너지 ▲양자 ▲우주·항공 ▲첨단바이오 ▲첨단 공급망 등 7개 프로젝트의 추진 방"
+  data-search="“ai가 끌고 smrㆍ핵융합이 받친다”…이재명 정부가 심은 ‘7대 seed’ 인사이트n파워 smr 정부가 대한민국을 먹여 살릴 차세대 성장동력에 소형모듈원자로(smr)와 핵융합, 차세대 재생에너지를 전면 배치했다. 반도체와 피지컬 ai, ai 데이터센터를 중심으로 한 ‘3대 메가 프로젝트’에 이어 아직 시장이 본격적으로 형성되지 않은 첨단기술에 선제적으로 투자해 미래 산업의 주도권을 확보하겠다는 구상이다.과학기술정보통신부는 관계부처 합동으로 지난 12일 청와대 충무실에서 ‘미래성장동력 7대 seed 보고회’를 열고 ▲smr ▲핵융합 ▲한계돌파형 재생에너지 ▲양자 ▲우주·항공 ▲첨단바이오 ▲첨단 공급망 등 7개 프로젝트의 추진 방"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -27992,7 +27925,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline">AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’</div>
+      <div class="headline">“AI가 끌고 SMRㆍ핵융합이 받친다”…이재명 정부가 심은 ‘7대 SEED’</div>
       <div class="article-snippet">정부가 대한민국을 먹여 살릴 차세대 성장동력에 소형모듈원자로(SMR)와 핵융합, 차세대 재생에너지를 전면 배치했다. 반도체와 피지컬 AI, AI 데이터센터를 중심으로 한 ‘3대 메가 프로젝트’에 이어 아직 시장이 본격적으로 형성되지 않은 첨단기술에 선제적으로 투자해 미래 산업의 주도권을 확보하겠다는 구상이다.과학기술정보통신부는 관계부처 합동으로 지난 12일 청와대 충무실에서 ‘미래성장동력 7대 SEED 보고회’를 열고 ▲SMR ▲핵융합 ▲한계돌파형 재생에너지 ▲양자 ▲우주·항공 ▲첨단바이오 ▲첨단 공급망 등 7개 프로젝트의 추진 방</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28079,7 +28012,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787193026"
+  data-published="1787195582"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -28113,7 +28046,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28187,54 +28120,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787192130"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787192085"
+  data-published="1787195542"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28253,6 +28151,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787195040"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28501,6 +28434,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-giat-cap-8-o-phia-dong-dao-hai-nam-trung-quoc"
+  data-title="Tropical depression, with gusts up to level 8, located east of Hainan Island (China)."
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787188921"
+  data-country="CN"
+  data-search="tropical depression, with gusts up to level 8, located east of hainan island (china). vietnam.vn nuclear power·nuclear energy according to the national center for hydro-meteorological forecasting, at 7:00 am on august 20th, the center of the tropical depression was located at approximately 19.6 degrees north latitude and 111.3 degrees east longitude, over the sea east of hainan island (china)."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">12.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Tropical depression, with gusts up to level 8, located east of Hainan Island (China).</div>
+      <div class="article-snippet">According to the National Center for Hydro-Meteorological Forecasting, at 7:00 AM on August 20th, the center of the tropical depression was located at approximately 19.6 degrees North latitude and 111.3 degrees East longitude, over the sea east of Hainan Island (China).</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/dd8d2c2558e83785b61b095b.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hindustantimes.com/world-news/us-news/who-was-roger-duarte-miami-food-entrepreneur-among-7-killed-in-kenya-helicopter-crash-101787186783953.html"
   data-title="Who was Roger Duarte? Miami food entrepreneur among 7 killed in Kenya helicopter crash"
@@ -28514,7 +28482,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28549,7 +28517,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28584,7 +28552,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28619,7 +28587,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28654,7 +28622,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28689,7 +28657,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28845,9 +28813,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227547"
+  data-title="기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順"
+  data-publisher="에너지신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787227089"
+  data-country="KR"
+  data-search="기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順 에너지신문 타 건설사 [에너지신문] 기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석결과, 1위 두산에너빌리티 2위 레인보우로보틱스 3위 현대로템 순으로 분석됐다.한국기업평판연구소는 기계 상장기업 70개 브랜드에 대해 2026년 7월 20일부터 2026년 8월 20일까지의 기계 상장기업 브랜드 빅데이터 33,289,966개를 분석한 결과 지난 7월 기계 상장기업 브랜드 빅데이터 45,014,266개와 비교하면 26.05% 줄어들었다고 밝혔다.기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석 30위 순위는 두산에너빌리티, 레인보우로보틱스, 현대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>기계 상장기업 2026년 8월 브랜드평판...두산에너빌리티, 레인보우로보틱스, 현대로템 順</div>
+      <div class="article-snippet">[에너지신문] 기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석결과, 1위 두산에너빌리티 2위 레인보우로보틱스 3위 현대로템 순으로 분석됐다.한국기업평판연구소는 기계 상장기업 70개 브랜드에 대해 2026년 7월 20일부터 2026년 8월 20일까지의 기계 상장기업 브랜드 빅데이터 33,289,966개를 분석한 결과 지난 7월 기계 상장기업 브랜드 빅데이터 45,014,266개와 비교하면 26.05% 줄어들었다고 밝혔다.기계 상장기업 브랜드평판 2026년 8월 빅데이터 분석 30위 순위는 두산에너빌리티, 레인보우로보틱스, 현대</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d6e3c578a149d24395c58609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=671355"
   data-title="마키나락스 &#x27;어텐션2026&#x27; 개최…삼성·HD현대 피지컬AI 사례 공유"
@@ -28861,7 +28864,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28896,7 +28899,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28931,7 +28934,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28953,6 +28956,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397480"
+  data-title="창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;"
+  data-publisher="데일리한국"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787192491"
+  data-country="OTHER"
+  data-search="창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot; 데일리한국 타 건설사 [데일리한국 전준형 기자] 대우건설 노사가 노동조합 창립 39주년을 맞아 상호 신뢰를 바탕으로 소통을 강화하고 협력적인 조직문화를 만들어가기로 뜻을 모았다.전국건설기업노동조합 대우건설지부는 지난 19일 서울 중구 대우건설 본사 푸르지오 아트홀에서 창립 39주년 기념식을 개최했다.행사에는 심상철 대우건설지부 위원장과 이강석 대우건설 대표이사 직무대행을 비롯해 김남근·김현정·이용우 더불어민주당 의원, 노동계 관계자, 회사 경영진 및 조합원 등이 참석했다.심상철 위원장은 기념사에서 최근 경영진 인사와 관련해 노사 간 충분한 소통의 필요성"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리한국</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>창립 39주년 맞은 대우건설 노조…노사 &quot;신뢰·소통 강화&quot;</div>
+      <div class="article-snippet">[데일리한국 전준형 기자] 대우건설 노사가 노동조합 창립 39주년을 맞아 상호 신뢰를 바탕으로 소통을 강화하고 협력적인 조직문화를 만들어가기로 뜻을 모았다.전국건설기업노동조합 대우건설지부는 지난 19일 서울 중구 대우건설 본사 푸르지오 아트홀에서 창립 39주년 기념식을 개최했다.행사에는 심상철 대우건설지부 위원장과 이강석 대우건설 대표이사 직무대행을 비롯해 김남근·김현정·이용우 더불어민주당 의원, 노동계 관계자, 회사 경영진 및 조합원 등이 참석했다.심상철 위원장은 기념사에서 최근 경영진 인사와 관련해 노사 간 충분한 소통의 필요성</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/25a4d4fa0ab5995f3451c69e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://newsfield.net/%ea%b2%bd%ec%b0%b0-%eb%8c%80%eb%b6%81%ec%86%a1%ea%b8%88-%ec%9d%98%ed%98%b9-%ec%88%98%ec%82%ac%ec%84%9c-%ec%a0%95%ec%9b%90%ec%a3%bc-%eb%8c%80%ec%9a%b0%ea%b1%b4%ec%84%a4-%ed%9a%8c%ec%9e%a5/"
   data-title="경찰, &#x27;대북송금 의혹&#x27; 수사서 정원주 대우건설 회장 조사 안 해"
@@ -28966,7 +29004,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29001,7 +29039,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29036,7 +29074,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29071,7 +29109,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29106,7 +29144,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29141,7 +29179,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29176,7 +29214,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29211,7 +29249,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29423,7 +29461,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">27건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29462,54 +29500,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.viva100.com/article/20260820500225"
-  data-title="대한전선, HVDC 해저케이블 시공 수중로봇 국산화 추진"
-  data-publisher="브릿지경제"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787194800"
-  data-country="KR"
-  data-search="대한전선, hvdc 해저케이블 시공 수중로봇 국산화 추진 브릿지경제 한국전력 대한전선이 초고압직류송전(hvdc) 해저케이블 시공에 필요한 원격조종 수중로봇(rov) 국산화에 나선다. 대한전선은 지난 19일 서울 서초구 본사에서 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·hvdc 해저케이블 rov 국산화’를 위한 업무협약(mou)을 체결했다고"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">브릿지경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, HVDC 해저케이블 시공 수중로봇 국산화 추진</div>
-      <div class="article-snippet">대한전선이 초고압직류송전(HVDC) 해저케이블 시공에 필요한 원격조종 수중로봇(ROV) 국산화에 나선다. 대한전선은 지난 19일 서울 서초구 본사에서 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·HVDC 해저케이블 ROV 국산화’를 위한 업무협약(MOU)을 체결했다고</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/456d9f971edbcea38e9e54aa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
   data-title="대한전문건설신문"
   data-publisher="대한전문건설신문"
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787192400"
+  data-published="1787195400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29532,23 +29535,23 @@ header,
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.straightnews.co.kr/news/articleView.html?idxno=309295"
-  data-title="대한전선, HVDC 해저케이블용 ‘수중 작업로봇’ 국산화 나선다"
-  data-publisher="스트레이트뉴스"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478981"
+  data-title="한전KDN, 상반기 실적 점검해 수익성 해법 모색"
+  data-publisher="핀포인트뉴스"
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787191700"
+  data-published="1787192867"
   data-country="KR"
-  data-search="대한전선, hvdc 해저케이블용 ‘수중 작업로봇’ 국산화 나선다 스트레이트뉴스 한국전력 대한전선이 hvdc(초고압직류송전) 해저케이블 시공에 투입되는 고성능 원격조종 수중로봇(rov) 국산화에 나선다.대한전선은 지난 19일 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·hvdc 해저케이블 rov(remotely operated vehicle·원격조종 수중로봇) 국산화’를 위한 업무협약(mou)을 체결했다고 20일 밝혔다.rov는 작업자가 선박 등에서 원격으로 조종해 해저에서 케이블 매설·보호 등의 작업을 수행하는 수중로봇이다. 이번 협약은 서해안 에너지 고속도로 등 대규모 hvdc 해저케이블 사업에 대한 시공 경쟁력을"
+  data-search="한전kdn, 상반기 실적 점검해 수익성 해법 모색 핀포인트뉴스 한국전력 한전kdn이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전kdn은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">스트레이트뉴스</div>
+        <div class="publisher">핀포인트뉴스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -29556,48 +29559,13 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대한전선, HVDC 해저케이블용 ‘수중 작업로봇’ 국산화 나선다</div>
-      <div class="article-snippet">대한전선이 HVDC(초고압직류송전) 해저케이블 시공에 투입되는 고성능 원격조종 수중로봇(ROV) 국산화에 나선다.대한전선은 지난 19일 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·HVDC 해저케이블 ROV(Remotely Operated Vehicle·원격조종 수중로봇) 국산화’를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다.ROV는 작업자가 선박 등에서 원격으로 조종해 해저에서 케이블 매설·보호 등의 작업을 수행하는 수중로봇이다. 이번 협약은 서해안 에너지 고속도로 등 대규모 HVDC 해저케이블 사업에 대한 시공 경쟁력을</div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
+      <div class="article-snippet">한전KDN이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전KDN은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/148f524c8aca4e006efdbb92.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2461042"
-  data-title="대한전선, 해저케이블 시공장비 국산화 나선다···팬스타로보틱스와 맞손"
-  data-publisher="이뉴스투데이"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787190600"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 시공장비 국산화 나선다···팬스타로보틱스와 맞손 이뉴스투데이 한국전력 [이뉴스투데이 노태하 기자] 대한전선이 대규모 초고압직류송전(hvdc) 해저케이블 사업에 투입되는 핵심 시공장비인 원격조종 수중로봇(rov) 국산화에 나선다.대한전선은 19일 서울 서초구 호반파크 2관 대한전선 본사에서 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·hvdc 해저케이블"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">이뉴스투데이</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 시공장비 국산화 나선다···팬스타로보틱스와 맞손</div>
-      <div class="article-snippet">[이뉴스투데이 노태하 기자] 대한전선이 대규모 초고압직류송전(HVDC) 해저케이블 사업에 투입되는 핵심 시공장비인 원격조종 수중로봇(ROV) 국산화에 나선다.대한전선은 19일 서울 서초구 호반파크 2관 대한전선 본사에서 해양 로봇 전문기업 팬스타로보틱스와 ‘해상풍력·HVDC 해저케이블</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7c9e1c196d4552eeb9060cb6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/d3785eb9df106e2a76b7642c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29614,7 +29582,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29637,76 +29605,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.dt.co.kr/article/12079165"
-  data-title="대한전선, 해저케이블 시공 경쟁력 높인다…핵심 장비 국산화"
-  data-publisher="디지털타임스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787189161"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 시공 경쟁력 높인다…핵심 장비 국산화 디지털타임스 한국전력 대한전선이 해저케이블 시공 핵심 장비인 원격조종 수중로봇(rov)의 국산화에 나선다. 대규모 고압직류송전(hvdc) 해저케이블 사업이 확대되는 가운데 외산 장비 의존도를 낮추고 시공 경쟁력을 높이겠다는 전략이다. 대한전선은 지난 19일 해양 로봇 전문기업 팬스타로보틱"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">디지털타임스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 시공 경쟁력 높인다…핵심 장비 국산화</div>
-      <div class="article-snippet">대한전선이 해저케이블 시공 핵심 장비인 원격조종 수중로봇(ROV)의 국산화에 나선다. 대규모 고압직류송전(HVDC) 해저케이블 사업이 확대되는 가운데 외산 장비 의존도를 낮추고 시공 경쟁력을 높이겠다는 전략이다. 대한전선은 지난 19일 해양 로봇 전문기업 팬스타로보틱</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/cbdd59f72e848e59ec0a4b36.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260820000111"
-  data-title="대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;"
-  data-publisher="전자신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787188995"
-  data-country="KR"
-  data-search="대한전선, 팬스타로보틱스와 hvdc 해저케이블 rov 국산화 &#x27;맞손&#x27; 전자신문 한국전력 대한전선이 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(hvdc) 해저케이블 원격조종 수중로봇(rov) 국산화&#x27;를 위한 업무협약(mou)을 체결했다고 20일 밝혔다. 해상풍력 내·외부망뿐만 아니라 장거리 계통연계, hvdc 해저케이블에 투입할 수 있는 고성능 매설 rov와 운용 시스템을 공동 개발하는 게 골자다. 양사는 해저케이블 매설·보호 기술을 실증하고 사업화를 추진할 계획이다. 이번 협약은 서해안 에너지 고속도로 등 대"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전자신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 팬스타로보틱스와 HVDC 해저케이블 ROV 국산화 &#x27;맞손&#x27;</div>
-      <div class="article-snippet">대한전선이 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(HVDC) 해저케이블 원격조종 수중로봇(ROV) 국산화&#x27;를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다. 해상풍력 내·외부망뿐만 아니라 장거리 계통연계, HVDC 해저케이블에 투입할 수 있는 고성능 매설 ROV와 운용 시스템을 공동 개발하는 게 골자다. 양사는 해저케이블 매설·보호 기술을 실증하고 사업화를 추진할 계획이다. 이번 협약은 서해안 에너지 고속도로 등 대</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/cdb72bd85d90af2968f9ceee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755403"
   data-title="한전, &#x27;드론 테러&#x27; 안보위협 대비 2026년도 을지연습 실제훈련 실시"
   data-publisher="뉴시스"
@@ -29719,7 +29617,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29754,7 +29652,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29789,7 +29687,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29812,41 +29710,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202349"
-  data-title="대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리"
-  data-publisher="에너지데일리"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787186781"
-  data-country="KR"
-  data-search="대한전선, hvdc 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리 에너지데일리 한국전력 [에너지데일리 송병훈 기자] 국내 해저케이블 산업이 생산설비 확대를 넘어 핵심 시공장비 국산화 단계로 진입하고 있다. 대한전선이 원격조종 수중로봇(rov) 개발에"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지데일리</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, HVDC 해저케이블 핵심 장비 국산화 착수… 공급망 자립 속도 - 에너지데일리</div>
-      <div class="article-snippet">[에너지데일리 송병훈 기자] 국내 해저케이블 산업이 생산설비 확대를 넘어 핵심 시공장비 국산화 단계로 진입하고 있다. 대한전선이 원격조종 수중로봇(ROV) 개발에</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/75d846fabc9c6e531cf15da0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202347"
   data-title="한전, 드론·사이버 복합공격 대응 을지연습 실시… 전력망 비상복구 체계 점검 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -29859,7 +29722,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29882,41 +29745,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.etnews.com/20260820000040"
-  data-title="대한전선-팬스타로보틱스, HVDC 해저케이블 매설로봇 국산화 추진"
-  data-publisher="전자신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787185883"
-  data-country="KR"
-  data-search="대한전선-팬스타로보틱스, hvdc 해저케이블 매설로봇 국산화 추진 전자신문 한국전력 대한전선과 팬스타로보틱스가 해상풍력 및 hvdc 해저케이블 프로젝트에 투입할 고성능 매설 rov(원격조종 수중로봇) 국산화에 나선다. 대한전선(대표 송종민)과 해양로봇 전문기업 팬스타로보틱스(대표 민정탁)는 최근 &#x27;해상풍력·hvdc 해저케이블 rov 국산화를 위한 전략적 업무협약(mou)&#x27;을 체결했다. 이번 협약은 서해안 에너지 고속도로를 비롯한 대규모 hvdc 해저케이블 사업과 해상풍력 시장 확대에 대응해 핵심 시공장비와 운용 기술을 국산"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전자신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선-팬스타로보틱스, HVDC 해저케이블 매설로봇 국산화 추진</div>
-      <div class="article-snippet">대한전선과 팬스타로보틱스가 해상풍력 및 HVDC 해저케이블 프로젝트에 투입할 고성능 매설 ROV(원격조종 수중로봇) 국산화에 나선다. 대한전선(대표 송종민)과 해양로봇 전문기업 팬스타로보틱스(대표 민정탁)는 최근 &#x27;해상풍력·HVDC 해저케이블 ROV 국산화를 위한 전략적 업무협약(MOU)&#x27;을 체결했다. 이번 협약은 서해안 에너지 고속도로를 비롯한 대규모 HVDC 해저케이블 사업과 해상풍력 시장 확대에 대응해 핵심 시공장비와 운용 기술을 국산</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1bc53a9ba1fc258d79b67a61.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104661"
   data-title="한전, 복합 안보위협 상황 대응력 향상…‘을지연습 실제훈련’ 전개"
   data-publisher="에너지플랫폼뉴스"
@@ -29929,7 +29757,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29952,41 +29780,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260820_0003755379"
-  data-title="대한전선, 해저케이블 수중로봇 국산화 추진…해저 시공 경쟁력 강화"
-  data-publisher="뉴시스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787185400"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 수중로봇 국산화 추진…해저 시공 경쟁력 강화 뉴시스 한국전력 [서울=뉴시스] 홍세희 기자 = 대한전선이 초고압직류송전(hvdc) 해저케이블 프로젝트에 투입 가능한 고성능 원격조종 수중로봇(rov) 국산화에 나선다. 대한전선은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력∙hvdc 해저케이블 rov 국산화&#x27;를 위한 업무협약(mou)을 체결했다고 20일 밝혔다. 현재 hvdc 등 대형·고난도 해저케이블 프로젝트에 투입되는 매설 장비는 대부분 외산이며, 운용에도 해외 전문인력이 필요한 경우가 많다. 특히 국내 서남해 해역은 조류가 빠르고 탁도가 높으며 수심이 얕아, 국내 해역 조건에 최적화된 고성능 매설 rov의 필"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 수중로봇 국산화 추진…해저 시공 경쟁력 강화</div>
-      <div class="article-snippet">[서울=뉴시스] 홍세희 기자 = 대한전선이 초고압직류송전(HVDC) 해저케이블 프로젝트에 투입 가능한 고성능 원격조종 수중로봇(ROV) 국산화에 나선다. 대한전선은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 &#x27;해상풍력∙HVDC 해저케이블 ROV 국산화&#x27;를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다. 현재 HVDC 등 대형·고난도 해저케이블 프로젝트에 투입되는 매설 장비는 대부분 외산이며, 운용에도 해외 전문인력이 필요한 경우가 많다. 특히 국내 서남해 해역은 조류가 빠르고 탁도가 높으며 수심이 얕아, 국내 해역 조건에 최적화된 고성능 매설 ROV의 필</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/de1e3fa542b71611c6b1d4dd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820085938038"
   data-title="한전, 을지연습 연계 전력설비 긴급복구 훈련…드론·사이버테러 대응"
   data-publisher="아주경제"
@@ -29999,7 +29792,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30022,41 +29815,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.yna.co.kr/view/AKR20260820038500003?section=industry/all"
-  data-title="대한전선, 초고압 해저케이블 원격조종 수중로봇 국산화 추진 | 연합뉴스"
-  data-publisher="연합뉴스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787184777"
-  data-country="KR"
-  data-search="대한전선, 초고압 해저케이블 원격조종 수중로봇 국산화 추진 | 연합뉴스 연합뉴스 한국전력 (서울=연합뉴스) 임성호 기자 = 대한전선은 부산에 본사를 둔 해양로봇 전문기업 팬스타로보틱스와 해상풍력·초고압 직류송전(hvdc) 해저 케이블..."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">연합뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 초고압 해저케이블 원격조종 수중로봇 국산화 추진 | 연합뉴스</div>
-      <div class="article-snippet">(서울=연합뉴스) 임성호 기자 = 대한전선은 부산에 본사를 둔 해양로봇 전문기업 팬스타로보틱스와 해상풍력·초고압 직류송전(HVDC) 해저 케이블...</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ee9897b066fa2711d1f0a9ba.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260820040200063?section=industry/all"
   data-title="한전KPS, 당진지역 아동 보호 위해 7천만원씩 2년간 지원 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -30069,7 +29827,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30092,146 +29850,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397384"
-  data-title="대한전선, 해저케이블 매설로봇 국산화…HVDC 시공 역량 강화"
-  data-publisher="데일리한국"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787184512"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 매설로봇 국산화…hvdc 시공 역량 강화 데일리한국 한국전력 [데일리한국 이학림 기자] 대한전선은 해양 로봇 기업 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(hvdc) 해저케이블 원격조종 수중로봇(rov) 국산화&#x27;를 위한 업무협약(mou)을 체결했다고 20일 밝혔다.이번 협약은 서해안 에너지 고속도로 등 대규모 hvdc 해저케이블 사업의 시공 경쟁력을 높이기 위해 추진됐다. 양사는 해외 의존도가 높은 고성능 매설 rov와 운용 기술, 시공 솔루션을 국산화할 계획이다.현재 hvdc 등 대형 해저케이블 프로젝트에 투입되는 매설 장비는 대부분 외산이다. 운용 과정에서도 해외 전문인력이 필요한 경우가"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">데일리한국</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 매설로봇 국산화…HVDC 시공 역량 강화</div>
-      <div class="article-snippet">[데일리한국 이학림 기자] 대한전선은 해양 로봇 기업 팬스타로보틱스와 &#x27;해상풍력·초고압직류송전(HVDC) 해저케이블 원격조종 수중로봇(ROV) 국산화&#x27;를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다.이번 협약은 서해안 에너지 고속도로 등 대규모 HVDC 해저케이블 사업의 시공 경쟁력을 높이기 위해 추진됐다. 양사는 해외 의존도가 높은 고성능 매설 ROV와 운용 기술, 시공 솔루션을 국산화할 계획이다.현재 HVDC 등 대형 해저케이블 프로젝트에 투입되는 매설 장비는 대부분 외산이다. 운용 과정에서도 해외 전문인력이 필요한 경우가</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1ea0a99cc16501d8b21c20ca.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.electimes.com/news/articleView.html?idxno=371451"
-  data-title="대한전선, 팬스타로보틱스와 손잡고 HVDC 해저케이블 ‘매설 ROV’ 국산화 추진"
-  data-publisher="전기신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787184264"
-  data-country="KR"
-  data-search="대한전선, 팬스타로보틱스와 손잡고 hvdc 해저케이블 ‘매설 rov’ 국산화 추진 전기신문 한국전력 대한전선이 hvdc 해저케이블 프로젝트에 투입할 수 있는 고성능 rov 국산화에 나선다.대한전선(대표이사 송종민)은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 ‘해상풍력∙hvdc 해저케이블 rov(remotely operated vehicle, 원격조종 수중로봇) 국산화’를 위한 업무협약(mou)을 체결했다고 20일 밝혔다.이번 협약은 서해안 에너지 고속도로 등 대규모 hvdc 해저케이블 사업에 대한 시공 경쟁력을 강화하기 위해 추진됐다. 양사는 해외 의존도가 높은 고성능 매설 rov와 운용 기술 및 시공 솔루션을 국산화해 해저케이블 산업의 자립도를 향상시키"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전기신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 팬스타로보틱스와 손잡고 HVDC 해저케이블 ‘매설 ROV’ 국산화 추진</div>
-      <div class="article-snippet">대한전선이 HVDC 해저케이블 프로젝트에 투입할 수 있는 고성능 ROV 국산화에 나선다.대한전선(대표이사 송종민)은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 ‘해상풍력∙HVDC 해저케이블 ROV(Remotely Operated Vehicle, 원격조종 수중로봇) 국산화’를 위한 업무협약(MOU)을 체결했다고 20일 밝혔다.이번 협약은 서해안 에너지 고속도로 등 대규모 HVDC 해저케이블 사업에 대한 시공 경쟁력을 강화하기 위해 추진됐다. 양사는 해외 의존도가 높은 고성능 매설 ROV와 운용 기술 및 시공 솔루션을 국산화해 해저케이블 산업의 자립도를 향상시키</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0804fe1a89eeee55a7ed05d8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.g-enews.com/article/Industry/2026/08/2026082008445474783084322ec9_1"
-  data-title="대한전선, 외산 의존 해저케이블 ROV 국산화…HVDC 턴키 강화 - 글로벌이코노믹"
-  data-publisher="글로벌이코노믹"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787184204"
-  data-country="KR"
-  data-search="대한전선, 외산 의존 해저케이블 rov 국산화…hvdc 턴키 강화 - 글로벌이코노믹 글로벌이코노믹 한국전력 대한전선이 외산 의존도가 높은 고성능 해저케이블 매설 장비 국산화에 나선다. 서해안 에너지 고속도로 등 대규모 초고압직류송전(hvdc) 사업을 앞두고 생산부터 운송·포설·매설까지 아우르는 해저케이블 턴키 수행 역량을 강화한다는 전략이다.20일 대한전선에 따르면 회사는 지난 19일 해양"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">글로벌이코노믹</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 외산 의존 해저케이블 ROV 국산화…HVDC 턴키 강화 - 글로벌이코노믹</div>
-      <div class="article-snippet">대한전선이 외산 의존도가 높은 고성능 해저케이블 매설 장비 국산화에 나선다. 서해안 에너지 고속도로 등 대규모 초고압직류송전(HVDC) 사업을 앞두고 생산부터 운송·포설·매설까지 아우르는 해저케이블 턴키 수행 역량을 강화한다는 전략이다.20일 대한전선에 따르면 회사는 지난 19일 해양</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/8a5cbfe784cc9e518ce41ccc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1720967"
-  data-title="대한전선, 해저케이블 매설 ROV 국산화 추진…HVDC 사업 대응력 강화 - 이비엔(EBN)뉴스센터"
-  data-publisher="EBN산업경제"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787183961"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 매설 rov 국산화 추진…hvdc 사업 대응력 강화 - 이비엔(ebn)뉴스센터 ebn산업경제 한국전력 대한전선이 고압직류송전(hvdc) 해저케이블 시공에 투입되는 원격조종 수중로봇(rov) 국산화에 나선다. 해저케이블 매설 장비와 운용 기술까지 내재화해 서해안 에"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">EBN산업경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 매설 ROV 국산화 추진…HVDC 사업 대응력 강화 - 이비엔(EBN)뉴스센터</div>
-      <div class="article-snippet">대한전선이 고압직류송전(HVDC) 해저케이블 시공에 투입되는 원격조종 수중로봇(ROV) 국산화에 나선다. 해저케이블 매설 장비와 운용 기술까지 내재화해 서해안 에</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/87c141a1717c3b049d20beb4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820085404997"
   data-title="대한전선, HVDC 해저케이블 &#x27;ROV&#x27; 국산화…해저 시공까지 경쟁력 넓힌다"
   data-publisher="아주경제"
@@ -30244,7 +29862,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30279,7 +29897,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30298,76 +29916,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/411c31d6ad5f11a8eaf8edb6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260820010006453"
-  data-title="대한전선, HVDC 해저케이블 ROV 국산화 추진…해저 시공 경쟁력 강화"
-  data-publisher="아시아투데이"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787182911"
-  data-country="KR"
-  data-search="대한전선, hvdc 해저케이블 rov 국산화 추진…해저 시공 경쟁력 강화 아시아투데이 한국전력 대한전선이 hvdc 해저케이블 프로젝트에 투입 가능한 고성능 rov 국산화에 나선다.대한전선(대표이사 송종민)은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 ‘해상풍력·hvdc 해저케이블 rov(remotely operated vehicle, 원격조종 수중로봇.."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">아시아투데이</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, HVDC 해저케이블 ROV 국산화 추진…해저 시공 경쟁력 강화</div>
-      <div class="article-snippet">대한전선이 HVDC 해저케이블 프로젝트에 투입 가능한 고성능 ROV 국산화에 나선다.대한전선(대표이사 송종민)은 지난 19일 해양 로봇 전문 기업인 팬스타로보틱스와 ‘해상풍력·HVDC 해저케이블 ROV(Remotely Operated Vehicle, 원격조종 수중로봇..</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/fb7a47392cc2b174184ad99d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.seoul.co.kr/news/economy/industry/2026/08/20/20260820500026"
-  data-title="대한전선, 해저케이블 투입 로봇 국산화 추진… 해저 시공 경쟁력 강화"
-  data-publisher="서울신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787182501"
-  data-country="KR"
-  data-search="대한전선, 해저케이블 투입 로봇 국산화 추진… 해저 시공 경쟁력 강화 서울신문 한국전력 대한전선이 팬스타로보틱스와 해저케이블 매설 rov 국산화를 추진했다. 서해안 에너지 고속도로 등 대규모 hvdc 사업에 맞춰 고성능 장비와 운용 기술을 공동 개발하고, 해저케이블 시공 효율과 안정성을 높이려 한다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">서울신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">대한전선, 해저케이블 투입 로봇 국산화 추진… 해저 시공 경쟁력 강화</div>
-      <div class="article-snippet">대한전선이 팬스타로보틱스와 해저케이블 매설 ROV 국산화를 추진했다. 서해안 에너지 고속도로 등 대규모 HVDC 사업에 맞춰 고성능 장비와 운용 기술을 공동 개발하고, 해저케이블 시공 효율과 안정성을 높이려 한다.</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d13abfbfd3cb895c2055926f.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -30614,7 +30162,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">16건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30652,6 +30200,146 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755381"
+  data-title="고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787194800"
+  data-country="OTHER"
+  data-search="고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동 뉴시스 원자력 [세종=뉴시스]이수정 기자 = 고준위 방사성폐기물 관리 정책의 전문성을 뒷받침할 분야별 전문위원회가 본격 가동된다. 고준위방사성폐기물관리위원회는 분야별 전문위원회를 구성하고 오는 21일 오후 서울 중구 상연재에서 &#x27;제1차 분야별 전문위원회&#x27;를 개최한다고 20일 밝혔다. 분야별 전문위원회는 &#x27;고준위 방사성폐기물 관리에 관한 특별법&#x27;에 따라 고준위위원회 산하에 설치·운영되는 전문가 심의기구다. 전문위원회는 부지, 저장·운반, 처분, 소통 등 4개 분야로 구성됐다. 고준위위원회는 지난 6월 말부터 관련 협회·학회와 연구기관, 시민사회 등 25개 기관으로부터 후보자를 추천받"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>고준위 방폐장 부지·처분 등 전문가 35명 위촉…분야별 전문위 가동</div>
+      <div class="article-snippet">[세종=뉴시스]이수정 기자 = 고준위 방사성폐기물 관리 정책의 전문성을 뒷받침할 분야별 전문위원회가 본격 가동된다. 고준위방사성폐기물관리위원회는 분야별 전문위원회를 구성하고 오는 21일 오후 서울 중구 상연재에서 &#x27;제1차 분야별 전문위원회&#x27;를 개최한다고 20일 밝혔다. 분야별 전문위원회는 &#x27;고준위 방사성폐기물 관리에 관한 특별법&#x27;에 따라 고준위위원회 산하에 설치·운영되는 전문가 심의기구다. 전문위원회는 부지, 저장·운반, 처분, 소통 등 4개 분야로 구성됐다. 고준위위원회는 지난 6월 말부터 관련 협회·학회와 연구기관, 시민사회 등 25개 기관으로부터 후보자를 추천받</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7719258555ebfdfeb806ba0d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260820000189"
+  data-title="메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”"
+  data-publisher="전자신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787194767"
+  data-country="KR"
+  data-search="메가프로젝트 전력수요 38gw 더 는다…김성환 “전력은 국가 안보자산” 전자신문 원자력 반도체와 인공지능(ai) 데이터센터 등 3대 메가프로젝트 추진으로 향후 약 38gw, 연간 260twh 규모의 신규 전력수요가 발생할 것으로 전망됐다. 지난해 국내 총발전량의 40%를 웃도는 규모다. 정부는 ai 시대 전력 공급능력을 국가 경쟁력을 좌우하는 전략자산으로 보고 제12차 전력수급기본계획에 재생에너지·원전 등 무탄소 전원과 전력망 확충 방안을 종합적으로 담기로 했다. 기후에너지환경부와 제12차 전력수급기본계획 수립 총괄위원회는 20일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전자신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>메가프로젝트 전력수요 38GW 더 는다…김성환 “전력은 국가 안보자산”</div>
+      <div class="article-snippet">반도체와 인공지능(AI) 데이터센터 등 3대 메가프로젝트 추진으로 향후 약 38GW, 연간 260TWh 규모의 신규 전력수요가 발생할 것으로 전망됐다. 지난해 국내 총발전량의 40%를 웃도는 규모다. 정부는 AI 시대 전력 공급능력을 국가 경쟁력을 좌우하는 전략자산으로 보고 제12차 전력수급기본계획에 재생에너지·원전 등 무탄소 전원과 전력망 확충 방안을 종합적으로 담기로 했다. 기후에너지환경부와 제12차 전력수급기본계획 수립 총괄위원회는 20일</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5feba4b15fdb5647664586f3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260820_0003755755"
+  data-title="국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787193063"
+  data-country="US"
+  data-search="국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진 뉴시스 원자력 [서울=뉴시스] 옥승욱 기자 = 국방부가 올해를 전시작전통제권(전작권) 전환의 원년으로 삼고 전환 로드맵을 완성하는 등 우리 군 주도의 연합방위체제 구축에 속도를 낸다. 핵추진잠수함 건조를 위한 특별법 제정과 미국과의 핵연료 협의도 본격 추진한다. 국방부는 20일 국회 국방위원회 전체회의 업무보고에서 이같은 내용의 2026년 국방정책 방향과 주요 국방 현안을 보고했다. 국방부는 굳건한 한미동맹을 바탕으로 북한의 핵·미사일 위협에 대한 대응태세를 강화하는 한편 전작권 전환을 체계적·안정적으로 추진한다는 방침이다. 무엇보다 올해 전작권 전환 가속화를 위한 로드맵을 완성하"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>국방부, 전작권 전환 속도 낸다…핵추진잠수함 특별법 제정 추진</div>
+      <div class="article-snippet">[서울=뉴시스] 옥승욱 기자 = 국방부가 올해를 전시작전통제권(전작권) 전환의 원년으로 삼고 전환 로드맵을 완성하는 등 우리 군 주도의 연합방위체제 구축에 속도를 낸다. 핵추진잠수함 건조를 위한 특별법 제정과 미국과의 핵연료 협의도 본격 추진한다. 국방부는 20일 국회 국방위원회 전체회의 업무보고에서 이같은 내용의 2026년 국방정책 방향과 주요 국방 현안을 보고했다. 국방부는 굳건한 한미동맹을 바탕으로 북한의 핵·미사일 위협에 대한 대응태세를 강화하는 한편 전작권 전환을 체계적·안정적으로 추진한다는 방침이다. 무엇보다 올해 전작권 전환 가속화를 위한 로드맵을 완성하</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9754b04081ad670cfde9725f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.dailydgnews.com/news/article.html?no=260681"
+  data-title="[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!"
+  data-publisher="데일리대구경북뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787192408"
+  data-country="KR"
+  data-search="[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다! 데일리대구경북뉴스 원자력 (데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 점심 도시락과 간식을 지원하는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다. 이번 사업은 한울본부 노·사와 울진교육지원청 및 관내 12개 초등학교와 협력하여 방학 기간 급식 공백을 보완하고 맞벌이 가정 등의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리대구경북뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한울본부, 아이들은 방학에도 무럭무럭 사랑으로 자라납니다!</div>
+      <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 점심 도시락과 간식을 지원하는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다. 이번 사업은 한울본부 노·사와 울진교육지원청 및 관내 12개 초등학교와 협력하여 방학 기간 급식 공백을 보완하고 맞벌이 가정 등의</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2df1f78693766a7bdd58d601.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820105806489"
   data-title="김성환 기후장관 &amp;quot;&#x27;전기국가&#x27; 전환 전략 12차 전기본에 반영…전력 안보자산화&amp;quot;"
@@ -30665,7 +30353,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30700,7 +30388,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30722,6 +30410,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260820092350158"
+  data-title="고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787185952"
+  data-country="OTHER"
+  data-search="고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토 아주경제 원자력 [사진=아주경제db] 고준위 방사성폐기물 관리 정책을 전문적으로 검토할 분야별 전문위원회가 본격적인 활동에 들어간다. 전문위원회는 첫 회의에서 제3차 고준위 방폐물 관리 기본계획 초안과 처분시설 부적합지역 배제기준안을 살펴볼 예정이다. 고준위방사성폐기물관리위원회는 오는 21일 서울 중구 상연재에서 &amp;#39;제1차 분야별 전문위원회&amp;#39;를 개최한다고 20일 밝혔다. 전문위원회는 고준위 방사성폐기물 관리 정책에 필요한 조사&amp;middot;연구와 전문적인 검토를 담당하는 고준위위원회 산하 전문가 심의기구다. &amp;#39;고준위 방사성폐기물 관리에 관한 특별법&amp;#39;에 근거"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>고준위 방폐물 전문위 본격 가동…처분시설 부적합지역 배제기준 첫 검토</div>
+      <div class="article-snippet">[사진=아주경제DB] 고준위 방사성폐기물 관리 정책을 전문적으로 검토할 분야별 전문위원회가 본격적인 활동에 들어간다. 전문위원회는 첫 회의에서 제3차 고준위 방폐물 관리 기본계획 초안과 처분시설 부적합지역 배제기준안을 살펴볼 예정이다. 고준위방사성폐기물관리위원회는 오는 21일 서울 중구 상연재에서 &amp;#39;제1차 분야별 전문위원회&amp;#39;를 개최한다고 20일 밝혔다. 전문위원회는 고준위 방사성폐기물 관리 정책에 필요한 조사&amp;middot;연구와 전문적인 검토를 담당하는 고준위위원회 산하 전문가 심의기구다. &amp;#39;고준위 방사성폐기물 관리에 관한 특별법&amp;#39;에 근거</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/63936ea46a4e62885775dc15.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202344"
   data-title="한울원자력본부, 방학 돌봄 초등학생 434명 점심·간식 지원 - 에너지데일리"
@@ -30735,7 +30458,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30770,7 +30493,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30805,7 +30528,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30840,7 +30563,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30875,7 +30598,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30910,7 +30633,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30945,7 +30668,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30980,7 +30703,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31015,7 +30738,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31050,7 +30773,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31085,7 +30808,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31120,7 +30843,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31155,7 +30878,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31188,14 +30911,14 @@ header,
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7525"
-  data-title="AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’"
+  data-title="“AI가 끌고 SMRㆍ핵융합이 받친다”…이재명 정부가 심은 ‘7대 SEED’"
   data-publisher="인사이트N파워"
   data-group="SMR"
   data-language="ko"
   data-priority="0"
   data-published="1787187991"
   data-country="KR"
-  data-search="ai가 끌고 smrㆍ핵융합이 받친다…정부가 심은 ‘7대 seed’ 인사이트n파워 smr 정부가 대한민국을 먹여 살릴 차세대 성장동력에 소형모듈원자로(smr)와 핵융합, 차세대 재생에너지를 전면 배치했다. 반도체와 피지컬 ai, ai 데이터센터를 중심으로 한 ‘3대 메가 프로젝트’에 이어 아직 시장이 본격적으로 형성되지 않은 첨단기술에 선제적으로 투자해 미래 산업의 주도권을 확보하겠다는 구상이다.과학기술정보통신부는 관계부처 합동으로 지난 12일 청와대 충무실에서 ‘미래성장동력 7대 seed 보고회’를 열고 ▲smr ▲핵융합 ▲한계돌파형 재생에너지 ▲양자 ▲우주·항공 ▲첨단바이오 ▲첨단 공급망 등 7개 프로젝트의 추진 방"
+  data-search="“ai가 끌고 smrㆍ핵융합이 받친다”…이재명 정부가 심은 ‘7대 seed’ 인사이트n파워 smr 정부가 대한민국을 먹여 살릴 차세대 성장동력에 소형모듈원자로(smr)와 핵융합, 차세대 재생에너지를 전면 배치했다. 반도체와 피지컬 ai, ai 데이터센터를 중심으로 한 ‘3대 메가 프로젝트’에 이어 아직 시장이 본격적으로 형성되지 않은 첨단기술에 선제적으로 투자해 미래 산업의 주도권을 확보하겠다는 구상이다.과학기술정보통신부는 관계부처 합동으로 지난 12일 청와대 충무실에서 ‘미래성장동력 7대 seed 보고회’를 열고 ▲smr ▲핵융합 ▲한계돌파형 재생에너지 ▲양자 ▲우주·항공 ▲첨단바이오 ▲첨단 공급망 등 7개 프로젝트의 추진 방"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -31211,7 +30934,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline">AI가 끌고 SMRㆍ핵융합이 받친다…정부가 심은 ‘7대 SEED’</div>
+      <div class="headline">“AI가 끌고 SMRㆍ핵융합이 받친다”…이재명 정부가 심은 ‘7대 SEED’</div>
       <div class="article-snippet">정부가 대한민국을 먹여 살릴 차세대 성장동력에 소형모듈원자로(SMR)와 핵융합, 차세대 재생에너지를 전면 배치했다. 반도체와 피지컬 AI, AI 데이터센터를 중심으로 한 ‘3대 메가 프로젝트’에 이어 아직 시장이 본격적으로 형성되지 않은 첨단기술에 선제적으로 투자해 미래 산업의 주도권을 확보하겠다는 구상이다.과학기술정보통신부는 관계부처 합동으로 지난 12일 청와대 충무실에서 ‘미래성장동력 7대 SEED 보고회’를 열고 ▲SMR ▲핵융합 ▲한계돌파형 재생에너지 ▲양자 ▲우주·항공 ▲첨단바이오 ▲첨단 공급망 등 7개 프로젝트의 추진 방</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31298,7 +31021,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787193026"
+  data-published="1787195582"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -31332,7 +31055,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31406,54 +31129,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787192130"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787192085"
+  data-published="1787195542"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31472,6 +31160,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787195040"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31720,6 +31443,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-giat-cap-8-o-phia-dong-dao-hai-nam-trung-quoc"
+  data-title="Tropical depression, with gusts up to level 8, located east of Hainan Island (China)."
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787188921"
+  data-country="CN"
+  data-search="tropical depression, with gusts up to level 8, located east of hainan island (china). vietnam.vn nuclear power·nuclear energy according to the national center for hydro-meteorological forecasting, at 7:00 am on august 20th, the center of the tropical depression was located at approximately 19.6 degrees north latitude and 111.3 degrees east longitude, over the sea east of hainan island (china)."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">12.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Tropical depression, with gusts up to level 8, located east of Hainan Island (China).</div>
+      <div class="article-snippet">According to the National Center for Hydro-Meteorological Forecasting, at 7:00 AM on August 20th, the center of the tropical depression was located at approximately 19.6 degrees North latitude and 111.3 degrees East longitude, over the sea east of Hainan Island (China).</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/dd8d2c2558e83785b61b095b.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hindustantimes.com/world-news/us-news/who-was-roger-duarte-miami-food-entrepreneur-among-7-killed-in-kenya-helicopter-crash-101787186783953.html"
   data-title="Who was Roger Duarte? Miami food entrepreneur among 7 killed in Kenya helicopter crash"
@@ -31733,7 +31491,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31768,7 +31526,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31803,7 +31561,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31838,7 +31596,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31873,7 +31631,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31908,7 +31666,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33622,7 +33380,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">35건</span>
+    <span class="group-count">36건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34151,6 +33909,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7522"
+  data-title="한전기술, ESG대상 &#x27;3년 연속&#x27; 성평등가족부 장관상"
+  data-publisher="인사이트N파워"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787122100"
+  data-country="KR"
+  data-search="한전기술, esg대상 &#x27;3년 연속&#x27; 성평등가족부 장관상 인사이트n파워 한국전력 한국전력기술이 ‘제21회 대한민국 esg대상’ 시상식에서 사회부문 성평등가족부 장관상을 수상했다고 밝혔다.대한민국 esg대상은 한국서비스산업진흥원이 주최하고 대한민국 esg대상 조직위원회가 주관하는 행사로 환경(e)·사회(s)·지배구조(g) 분야에서 지속가능한 경영을 실천하고 사회적 가치 창출에 기여한 기업과 기관·단체를 선정한다.한전기술은 이번 수상으로 3년 연속 장관상에 이름을 올렸다. 보건·복지 안전망 강화와 지역상생 확산을 비롯해 기관이 추진해 온 사회공헌 사업의 성과를 인정받았다.특히 ‘업(業) 기반의 지속가능한 사회공헌으"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">16.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline">한전기술, ESG대상 &#x27;3년 연속&#x27; 성평등가족부 장관상</div>
+      <div class="article-snippet">한국전력기술이 ‘제21회 대한민국 ESG대상’ 시상식에서 사회부문 성평등가족부 장관상을 수상했다고 밝혔다.대한민국 ESG대상은 한국서비스산업진흥원이 주최하고 대한민국 ESG대상 조직위원회가 주관하는 행사로 환경(E)·사회(S)·지배구조(G) 분야에서 지속가능한 경영을 실천하고 사회적 가치 창출에 기여한 기업과 기관·단체를 선정한다.한전기술은 이번 수상으로 3년 연속 장관상에 이름을 올렸다. 보건·복지 안전망 강화와 지역상생 확산을 비롯해 기관이 추진해 온 사회공헌 사업의 성과를 인정받았다.특히 ‘업(業) 기반의 지속가능한 사회공헌으</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ae34f1d15520c7398c4f7c50.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleView.html?idxno=325903"
   data-title="인천시회, 김남준 국회의원 간담회서 전문건설업계 현안·법안 조속 통과 건의"
   data-publisher="대한전문건설신문"
@@ -34163,7 +33956,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34198,7 +33991,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34233,7 +34026,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34268,7 +34061,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34303,7 +34096,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34338,7 +34131,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34373,7 +34166,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34408,7 +34201,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34443,7 +34236,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34478,7 +34271,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34513,7 +34306,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34548,7 +34341,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34583,7 +34376,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34618,7 +34411,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34653,7 +34446,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34688,7 +34481,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34723,7 +34516,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34758,7 +34551,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34793,7 +34586,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34828,7 +34621,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34856,7 +34649,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35000,41 +34793,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7522"
-  data-title="한전기술, ESG대상 &#x27;3년 연속&#x27; 성평등가족부 장관상"
-  data-publisher="인사이트N파워"
-  data-group="한전 계열사"
-  data-language="ko"
-  data-priority="2"
-  data-published="1787122100"
-  data-country="KR"
-  data-search="한전기술, esg대상 &#x27;3년 연속&#x27; 성평등가족부 장관상 인사이트n파워 한전 계열사 한국전력기술이 ‘제21회 대한민국 esg대상’ 시상식에서 사회부문 성평등가족부 장관상을 수상했다고 밝혔다.대한민국 esg대상은 한국서비스산업진흥원이 주최하고 대한민국 esg대상 조직위원회가 주관하는 행사로 환경(e)·사회(s)·지배구조(g) 분야에서 지속가능한 경영을 실천하고 사회적 가치 창출에 기여한 기업과 기관·단체를 선정한다.한전기술은 이번 수상으로 3년 연속 장관상에 이름을 올렸다. 보건·복지 안전망 강화와 지역상생 확산을 비롯해 기관이 추진해 온 사회공헌 사업의 성과를 인정받았다.특히 ‘업(業) 기반의 지속가능한 사회공헌으"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">한전기술, ESG대상 &#x27;3년 연속&#x27; 성평등가족부 장관상</div>
-      <div class="article-snippet">한국전력기술이 ‘제21회 대한민국 ESG대상’ 시상식에서 사회부문 성평등가족부 장관상을 수상했다고 밝혔다.대한민국 ESG대상은 한국서비스산업진흥원이 주최하고 대한민국 ESG대상 조직위원회가 주관하는 행사로 환경(E)·사회(S)·지배구조(G) 분야에서 지속가능한 경영을 실천하고 사회적 가치 창출에 기여한 기업과 기관·단체를 선정한다.한전기술은 이번 수상으로 3년 연속 장관상에 이름을 올렸다. 보건·복지 안전망 강화와 지역상생 확산을 비롯해 기관이 추진해 온 사회공헌 사업의 성과를 인정받았다.특히 ‘업(業) 기반의 지속가능한 사회공헌으</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ae34f1d15520c7398c4f7c50.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70686"
   data-title="한전KPS, 작업자 따라다니는 AI 로봇 개발"
   data-publisher="에너지타임즈"
@@ -35047,7 +34805,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -125102,9 +124860,11 @@ function hideCountryMapTooltip(force=false){
 
 function layoutAndRenderCountryMap(){
   const dotLayer=document.getElementById("country-map-dots-svg");
-  if(!dotLayer)return;
+  const labelLayer=document.getElementById("country-map-label-layer");
+  if(!dotLayer || !labelLayer)return;
 
   dotLayer.innerHTML="";
+  labelLayer.innerHTML="";
   hideCountryMapTooltip(true);
 
   const chipButtons=[...document.querySelectorAll(
@@ -125112,6 +124872,7 @@ function layoutAndRenderCountryMap(){
   )];
 
   const SVG_NS="http://www.w3.org/2000/svg";
+  const mapItems=[];
 
   chipButtons.forEach(button=>{
     if(button.hidden)return;
@@ -125123,7 +124884,6 @@ function layoutAndRenderCountryMap(){
     const lat=Number(button.dataset.lat);
     if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
 
-    // Same SVG coordinate system as the world map.
     const x=((lon+180)/360)*1000;
     const y=((85-lat)/145)*500;
 
@@ -125168,14 +124928,12 @@ function layoutAndRenderCountryMap(){
     group.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
     group.addEventListener("focus",()=>show(false));
     group.addEventListener("blur",()=>hideCountryMapTooltip(false));
-
     group.addEventListener("click",event=>{
       event.preventDefault();
       event.stopPropagation();
       setCountryFilter(code);
       setTimeout(()=>show(activeCountryFilter===code),0);
     });
-
     group.addEventListener("keydown",event=>{
       if(event.key==="Enter"||event.key===" "){
         event.preventDefault();
@@ -125183,14 +124941,157 @@ function layoutAndRenderCountryMap(){
         setTimeout(()=>show(activeCountryFilter===code),0);
       }
     });
-
     dotLayer.appendChild(group);
 
-    if(activeCountryFilter===code){
-      show(true);
-    }
+    const label=document.createElement("button");
+    label.type="button";
+    label.className="country-map-label";
+    if(activeCountryFilter===code)label.classList.add("active");
+    label.dataset.countryFilter=code;
+    label.dataset.count=String(count);
+    label.setAttribute("aria-label",`${name} 기사 ${count}건 보기`);
+    label.innerHTML=`<span class="map-label-flag">${flag}</span><span>${name}</span><span class="map-label-count">${count}건</span>`;
+    label.style.left=`${(x/1000)*100}%`;
+    label.style.top=`${(y/500)*100}%`;
+
+    label.addEventListener("mouseenter",()=>show(false));
+    label.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
+    label.addEventListener("focus",()=>show(false));
+    label.addEventListener("blur",()=>hideCountryMapTooltip(false));
+    label.addEventListener("click",event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(code);
+    });
+
+    labelLayer.appendChild(label);
+    mapItems.push({label,button,code,count,x,y});
+
+    if(activeCountryFilter===code)show(true);
+  });
+
+  requestAnimationFrame(()=>{
+    const layerRect=labelLayer.getBoundingClientRect();
+    if(!layerRect.width || !layerRect.height)return;
+
+    // 기사 수가 많은 국가를 먼저 배치하여 중요한 라벨 위치를 우선 확보
+    const ordered=[...mapItems].sort((a,b)=>b.count-a.count);
+
+    const placed=[];
+    const edge=4;
+    const gap=4;
+
+    const overlaps=(a,b)=>!(
+      a.right<=b.left || a.left>=b.right || a.bottom<=b.top || a.top>=b.bottom
+    );
+
+    const clamp=(value,min,max)=>Math.max(min,Math.min(value,max));
+
+    const makeBox=(cx,cy,w,h)=>({
+      left:cx-w/2-gap,
+      right:cx+w/2+gap,
+      top:cy-h/2-gap,
+      bottom:cy+h/2+gap
+    });
+
+    ordered.forEach(item=>{
+      const label=item.label;
+      const w=label.offsetWidth;
+      const h=label.offsetHeight;
+
+      const anchorX=(item.x/1000)*layerRect.width;
+      const anchorY=(item.y/500)*layerRect.height;
+
+      const minX=w/2+edge;
+      const maxX=layerRect.width-w/2-edge;
+      const minY=h/2+edge;
+      const maxY=layerRect.height-h/2-edge;
+
+      // 기준 위치 → 주변 8방향 → 더 큰 원형 범위 순서로 후보 탐색
+      const candidates=[{dx:0,dy:0}];
+      const baseStep=Math.max(h+gap*2,32);
+      const rings=[1,1.45,1.95,2.55,3.2,4.0];
+
+      rings.forEach(r=>{
+        const ry=baseStep*r;
+        const rx=Math.max(w*.62,34)*r;
+        [
+          [0,-ry],[rx,-ry],[-rx,-ry],
+          [rx,0],[-rx,0],
+          [0,ry],[rx,ry],[-rx,ry],
+        ].forEach(([dx,dy])=>candidates.push({dx,dy}));
+      });
+
+      let best=null;
+      let bestPenalty=Infinity;
+
+      candidates.forEach(candidate=>{
+        const cx=clamp(anchorX+candidate.dx,minX,maxX);
+        const cy=clamp(anchorY+candidate.dy,minY,maxY);
+        const box=makeBox(cx,cy,w,h);
+
+        let collisions=0;
+        let overlapArea=0;
+        placed.forEach(p=>{
+          if(!overlaps(box,p.box))return;
+          collisions++;
+          const iw=Math.max(0,Math.min(box.right,p.box.right)-Math.max(box.left,p.box.left));
+          const ih=Math.max(0,Math.min(box.bottom,p.box.bottom)-Math.max(box.top,p.box.top));
+          overlapArea+=iw*ih;
+        });
+
+        const distance=Math.hypot(cx-anchorX,cy-anchorY);
+        const penalty=collisions*100000 + overlapArea*100 + distance;
+
+        if(penalty<bestPenalty){
+          bestPenalty=penalty;
+          best={cx,cy,box,collisions,distance};
+        }
+      });
+
+      if(!best)return;
+
+      label.style.left=`${best.cx}px`;
+      label.style.top=`${best.cy}px`;
+
+      placed.push({box:best.box,code:item.code});
+
+      // 원래 국가 점에서 라벨이 이동한 경우 연결선을 그려 위치 관계를 명확하게 표시
+      if(best.distance>12){
+        const line=document.createElementNS(SVG_NS,"line");
+        line.setAttribute("class","country-map-label-connector");
+        line.setAttribute("x1",String(item.x));
+        line.setAttribute("y1",String(item.y));
+        line.setAttribute("x2",String((best.cx/layerRect.width)*1000));
+        line.setAttribute("y2",String((best.cy/layerRect.height)*500));
+        dotLayer.insertBefore(line,dotLayer.firstChild);
+      }
+    });
   });
 }
+
+
+let countryMapRelayoutTimer=null;
+function scheduleCountryMapRelayout(){
+  clearTimeout(countryMapRelayoutTimer);
+  countryMapRelayoutTimer=setTimeout(()=>layoutAndRenderCountryMap(),120);
+}
+
+if(window.ResizeObserver){
+  const mapVisual=document.querySelector(".country-map-visual");
+  if(mapVisual){
+    const countryMapResizeObserver=new ResizeObserver(()=>scheduleCountryMapRelayout());
+    countryMapResizeObserver.observe(mapVisual);
+  }
+}
+
+window.addEventListener("orientationchange",scheduleCountryMapRelayout);
+window.addEventListener("resize",scheduleCountryMapRelayout);
+if(window.visualViewport){
+  window.visualViewport.addEventListener("resize",scheduleCountryMapRelayout);
+  window.visualViewport.addEventListener("scroll",scheduleCountryMapRelayout);
+}
+
 function updateCountryMapCounts(){
   const panel=activePanel();
   if(!panel)return;
