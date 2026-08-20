@@ -5630,6 +5630,57 @@ CONSTRUCTION_UNION_COMPANY_ALIASES = {
     "두산에너빌리티": ("두산에너빌리티", "doosan enerbility"),
 }
 
+
+CONSTRUCTION_AWARD_TERMS = (
+    # 한국어: 수주 자체 및 수주 기사에서 흔한 표기
+    "수주",
+    "수주액",
+    "수주고",
+    "수주계약",
+    "수주 계약",
+    # 영문 기사 대응
+    "contract award",
+    "contract awarded",
+    "awarded contract",
+    "wins contract",
+    "won contract",
+    "order win",
+    "order intake",
+)
+
+
+def _construction_award_event_key(article: Article) -> tuple[str, str] | None:
+    """
+    같은 날짜에 같은 건설사명과 '수주' 문맥이 함께 등장하는 보도는
+    언론사/제목 표현이 달라도 동일 이슈로 보고 대표기사 1건만 유지합니다.
+
+    사용자 운영 기준에 따라 프로젝트명이 달리 표현되어도 날짜+건설사 기준으로 묶습니다.
+    """
+    haystack = html.unescape(f"{article.title} {article.description}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_award = any(
+        term.lower() in haystack or term.lower().replace(" ", "") in compact
+        for term in CONSTRUCTION_AWARD_TERMS
+    )
+    if not has_award:
+        return None
+
+    company = None
+    for canonical, aliases in CONSTRUCTION_UNION_COMPANY_ALIASES.items():
+        if any(
+            alias.lower() in haystack or alias.lower().replace(" ", "") in compact
+            for alias in aliases
+        ):
+            company = canonical
+            break
+
+    if not company:
+        return None
+
+    date_key = article.published.astimezone(KST).strftime("%Y-%m-%d")
+    return date_key, company
+
 CONSTRUCTION_UNION_TERMS = (
     "노조",
     "노동조합",
@@ -5670,6 +5721,32 @@ def _construction_union_event_key(article: Article) -> tuple[str, str] | None:
 
     date_key = article.published.astimezone(KST).strftime("%Y-%m-%d")
     return date_key, company
+
+
+WIN_WIN_COMPANY_TERMS = (
+    "상생기업",
+    "상생 기업",
+    "상생협력기업",
+    "상생 협력기업",
+    "상생협력 기업",
+    "상생 파트너",
+    "상생파트너",
+)
+
+def _same_day_win_win_company_event_key(article: Article) -> str | None:
+    """
+    같은 날짜에 '상생기업' 계열 표현이 포함된 보도는 언론사/제목 표현이 달라도
+    동일 이슈로 보고 대표기사 1건만 유지합니다.
+    """
+    haystack = html.unescape(f"{article.title} {article.description}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+    has_term = any(
+        term.lower() in haystack or term.lower().replace(" ", "") in compact
+        for term in WIN_WIN_COMPANY_TERMS
+    )
+    if not has_term:
+        return None
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
 
@@ -6035,6 +6112,66 @@ def is_company_sports_article(article: Article) -> bool:
 
 
 
+def is_danal_investment_partners_article(article: Article) -> bool:
+    """다날투자파트너스 관련 기사는 최종 기사 목록과 archive에서 제외합니다."""
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    blocked_terms = (
+        "다날투자파트너스",
+        "다날 투자파트너스",
+        "danal investment partners",
+        "danal investment partner",
+        "danal partners",
+    )
+
+    return any(term.replace(" ", "") in compact for term in blocked_terms)
+
+
+def is_movie_entertainment_article(article: Article) -> bool:
+    """
+    영화·무비·영화 관람/상영/시사회 등 영화성 기사와 이벤트성 보도를
+    회사명/원전명 포함 여부와 관계없이 최종 기사 목록과 archive에서 제외합니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    blocked_terms = (
+        # 한국어
+        "영화", "무비", "영화관람", "영화상영", "무료영화",
+        "영화상영회", "영화관람회", "영화관", "극장", "시사회",
+        "무료상영", "무료관람", "상영회", "무비데이", "movie day",
+        # 영어
+        "movie", "movies", "cinema", "film screening", "movie screening",
+        "screening event", "movie night", "film night", "theater screening",
+        "theatre screening", "premiere screening",
+    )
+
+    return any(term.replace(" ", "") in compact for term in blocked_terms)
+
+
+def is_general_sports_article(article: Article) -> bool:
+    """
+    축구·football 등 명확한 스포츠 종목명이 포함된 기사는
+    회사명 포함 여부와 관계없이 최종 기사 목록과 archive에서 제외합니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    explicit_sports_terms = (
+        # 한국어 종목명
+        "축구", "배구", "농구", "야구", "골프", "테니스", "탁구",
+        "배드민턴", "핸드볼", "럭비", "풋살", "아이스하키", "하키",
+        "미식축구", "크리켓", "e스포츠",
+        # 영어 종목명
+        "football", "soccer", "volleyball", "basketball", "baseball",
+        "golf", "tennis", "badminton", "handball", "rugby", "futsal",
+        "ice hockey", "hockey", "cricket", "esports", "e-sports",
+    )
+
+    return any(term.replace(" ", "") in compact for term in explicit_sports_terms)
+
+
 def _woori_tech_khnp_event_key(article: Article) -> str | None:
     """
     같은 날짜의 우리기술 + 한수원/한국수력원자력 관련 보도는
@@ -6067,32 +6204,27 @@ def _woori_tech_khnp_event_key(article: Article) -> str | None:
 
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
+
+    # 최종 출력/archive 공통 제외 필터를 먼저 적용해야 이후 정렬·중복제거에도 반영됩니다.
+    filtered_articles = [
+        article for article in articles
+        if not is_excluded_source(article.publisher, article.link, article.source_url)
+        and not is_westinghouse_air_brake_article(article.title, article.description)
+        and not is_khnp_elementary_article(article)
+        and not is_company_sports_article(article)
+        and not is_general_sports_article(article)
+        and not is_danal_investment_partners_article(article)
+        and not is_movie_entertainment_article(article)
+    ]
+
     if not DEDUP_ENABLED:
-        return sorted(
-            (
-                article for article in articles
-                if not is_excluded_source(article.publisher, article.link, article.source_url)
-            and not is_westinghouse_air_brake_article(article.title, article.description)
-                and not is_westinghouse_air_brake_article(article.title, article.description)
-            ),
-            key=lambda x: x.published,
-            reverse=True,
-        )
+        return sorted(filtered_articles, key=lambda x: x.published, reverse=True)
 
     sorted_articles = sorted(
-        (
-            article for article in articles
-            if not is_excluded_source(article.publisher, article.link, article.source_url)
-        ),
+        filtered_articles,
         key=lambda x: x.published,
         reverse=True,
     )
-
-    # 한수원/한국수력원자력 + 초등/초등학교 관련 기사는 최종 목록과 archive에서 제외
-    articles = [a for a in articles if not is_khnp_elementary_article(a)]
-
-    # 회사명이 포함되어도 축구·배구 등 스포츠팀/경기 기사면 최종 목록과 archive에서 제외
-    articles = [a for a in articles if not is_company_sports_article(a)]
 
     exact_unique: list[Article] = []
     exact_removed = 0
@@ -6246,12 +6378,34 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             macheon5_unique[macheon5_idx] = article
 
+    # 같은 날짜 + 같은 건설사 + 수주 관련 보도는 대표기사 1건만 유지
+    construction_award_unique: list[Article] = []
+    construction_award_key_to_idx: dict[tuple[str, str], int] = {}
+    construction_award_removed = 0
+
+    for article in macheon5_unique:
+        event_key = _construction_award_event_key(article)
+        if event_key is None:
+            construction_award_unique.append(article)
+            continue
+
+        if event_key not in construction_award_key_to_idx:
+            construction_award_key_to_idx[event_key] = len(construction_award_unique)
+            construction_award_unique.append(article)
+            continue
+
+        construction_award_removed += 1
+        idx = construction_award_key_to_idx[event_key]
+        kept = construction_award_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            construction_award_unique[idx] = article
+
     # 같은 날짜 + 같은 건설사 + 노조 관련 보도는 대표기사 1건만 유지
     union_unique: list[Article] = []
     union_key_to_idx: dict[tuple[str, str], int] = {}
     construction_union_removed = 0
 
-    for article in macheon5_unique:
+    for article in construction_award_unique:
         event_key = _construction_union_event_key(article)
         if event_key is None:
             union_unique.append(article)
@@ -6268,12 +6422,34 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             union_unique[idx] = article
 
+    # 같은 날짜 + 상생기업 관련 보도는 언론사가 달라도 대표기사 1건만 유지
+    win_win_unique: list[Article] = []
+    win_win_key_to_idx: dict[str, int] = {}
+    win_win_company_removed = 0
+
+    for article in union_unique:
+        event_key = _same_day_win_win_company_event_key(article)
+        if event_key is None:
+            win_win_unique.append(article)
+            continue
+
+        if event_key not in win_win_key_to_idx:
+            win_win_key_to_idx[event_key] = len(win_win_unique)
+            win_win_unique.append(article)
+            continue
+
+        win_win_company_removed += 1
+        idx = win_win_key_to_idx[event_key]
+        kept = win_win_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            win_win_unique[idx] = article
+
     # 같은 날짜 + 같은 원전본부/원전 + 동일 호기 + 원자로 관련 보도는 대표기사 1건만 유지
     site_reactor_unique: list[Article] = []
     site_reactor_key_to_idx: dict[tuple[str, str], int] = {}
     site_reactor_removed = 0
 
-    for article in union_unique:
+    for article in win_win_unique:
         event_key = _nuclear_site_unit_reactor_event_key(article)
         if event_key is None:
             site_reactor_unique.append(article)
@@ -6454,7 +6630,9 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ lotte_bond_removed={lotte_bond_removed} "
         f"/ recruiting_removed={recruiting_removed} "
         f"/ macheon5_removed={macheon5_removed} "
+        f"/ construction_award_removed={construction_award_removed} "
         f"/ construction_union_removed={construction_union_removed} "
+        f"/ win_win_company_removed={win_win_company_removed} "
         f"/ site_reactor_removed={site_reactor_removed} "
         f"/ daewoo_lee_removed={daewoo_lee_removed} "
         f"/ planned_maintenance_removed={planned_maintenance_removed} "
@@ -11568,14 +11746,14 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {{
   position:relative;
-  height:226px !important;
+  height:228px !important;
   overflow:hidden !important;
-  border:1px solid rgba(30,58,95,.42) !important;
-  border-radius:14px !important;
+  border:1px solid rgba(124,154,184,.44) !important;
+  border-radius:16px !important;
   background:
-    radial-gradient(circle at 34% 38%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.82) 28%, rgba(238,246,252,.78) 58%, transparent 78%),
-    linear-gradient(180deg, #f8fbfe 0%, #f2f7fb 52%, #eaf2f8 100%) !important;
-  box-shadow:inset 0 0 0 1px rgba(103,137,169,.08), 0 2px 8px rgba(17,24,39,.05) !important;
+    radial-gradient(circle at 34% 38%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.84) 28%, rgba(238,246,252,.80) 58%, transparent 78%),
+    linear-gradient(180deg, #f8fbfe 0%, #f3f8fc 54%, #eaf2f8 100%) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.58), 0 4px 14px rgba(66,92,122,.08) !important;
 }}
 
 .globe-texture-source {{
@@ -11611,7 +11789,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding:0 114px 0 12px;
+  padding:0 128px 0 14px;
 }}
 
 .globe-stage.dragging {{
@@ -11620,7 +11798,7 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:182px;
+  width:172px;
   max-width:none;
   aspect-ratio:1/1;
   border-radius:50%;
@@ -11686,8 +11864,8 @@ header,
 .globe-focus-marker.active {{
   width:9px;
   height:9px;
-  border-color:#fee500;
-  box-shadow:0 0 0 4px rgba(254,229,0,.16), 0 0 13px rgba(254,229,0,.46);
+  border-color:#59a9da;
+  box-shadow:0 0 0 4px rgba(89,169,218,.16), 0 0 13px rgba(89,169,218,.34);
 }}
 
 .globe-label-layer {{
@@ -11699,32 +11877,36 @@ header,
 
 .globe-label-rail {{
   position:absolute;
-  top:24px;
-  right:8px;
-  bottom:10px;
-  width:108px;
+  top:18px;
+  right:10px;
+  bottom:16px;
+  width:96px;
   display:flex;
   flex-direction:column;
   gap:6px;
+  padding:8px 8px 8px 8px;
+  border:1px solid rgba(141,178,208,.34);
+  border-radius:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(245,250,253,.84) 100%);
+  box-shadow:0 6px 14px rgba(60,94,126,.08);
   pointer-events:auto;
 }}
 
 .globe-label-rail-header {{
   flex:0 0 auto;
-  padding:5px 7px 5px;
-  border:1px solid rgba(148,218,255,.18);
-  border-radius:9px;
-  background:rgba(255,255,255,.94);
+  padding:1px 1px 4px;
+  border:none;
+  border-bottom:1px solid rgba(141,178,208,.22);
+  border-radius:0;
+  background:transparent;
   color:#2e4b63;
   font-size:7px;
-  font-weight:850;
+  font-weight:860;
   letter-spacing:.01em;
   line-height:1.18;
   text-align:left;
   white-space:normal;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  box-shadow:0 3px 10px rgba(38,78,110,.08);
+  box-shadow:none;
 }}
 
 .globe-label-scroll {{
@@ -11734,8 +11916,8 @@ header,
   overflow-x:hidden;
   display:flex;
   flex-direction:column;
-  gap:5px;
-  padding:1px 2px 2px 0;
+  gap:6px;
+  padding:2px 1px 0 0;
   touch-action:pan-y;
   -webkit-overflow-scrolling:touch;
   overscroll-behavior:contain;
@@ -11754,46 +11936,44 @@ header,
 .globe-country-label {{
   position:relative;
   width:100%;
-  min-height:31px;
-  padding:5px 6px;
-  border:1px solid rgba(141,214,255,.22);
-  border-radius:8px;
-  background:rgba(255,255,255,.92);
+  min-height:27px;
+  padding:4px 6px;
+  border:1px solid rgba(141,178,208,.24);
+  border-radius:10px;
+  background:rgba(255,255,255,.96);
   color:#344b5e;
-  box-shadow:0 2px 7px rgba(39,78,109,.07), inset 0 0 0 1px rgba(255,255,255,.52);
+  box-shadow:0 1px 4px rgba(39,78,109,.06), inset 0 0 0 1px rgba(255,255,255,.60);
   display:grid;
-  grid-template-columns:15px minmax(0,1fr) auto;
+  grid-template-columns:14px minmax(0,1fr) auto;
   align-items:center;
   column-gap:4px;
   text-align:left;
-  font-size:7.8px;
-  font-weight:790;
+  font-size:7.2px;
+  font-weight:780;
   line-height:1;
   white-space:nowrap;
   pointer-events:auto;
   cursor:pointer;
-  backdrop-filter:blur(7px);
-  -webkit-backdrop-filter:blur(7px);
   transition:border-color .12s ease, background .12s ease, box-shadow .12s ease, transform .12s ease;
   scroll-snap-align:start;
 }}
 
 .globe-country-label:hover,
 .globe-country-label:focus-visible {{
-  border-color:rgba(91,168,216,.54);
-  background:#eef7fd;
-  box-shadow:0 3px 10px rgba(44,94,132,.10);
+  border-color:rgba(91,168,216,.46);
+  background:#f1f8fd;
+  box-shadow:0 3px 9px rgba(44,94,132,.08);
   transform:translateY(-1px);
 }}
 
 .globe-country-label.active {{
-  border-color:#5aa7d7;
-  background:#e6f3fb;
-  box-shadow:0 3px 10px rgba(48,103,145,.12);
+  border-color:#70b4dd;
+  background:#eaf5fc;
+  box-shadow:0 3px 9px rgba(48,103,145,.10);
 }}
 
 .globe-country-flag {{
-  font-size:12px;
+  font-size:11px;
   line-height:1;
   text-align:center;
 }}
@@ -11805,42 +11985,19 @@ header,
 }}
 
 .globe-country-count {{
-  color:#3b8fc4;
-  font-size:7px;
+  color:#4f91bd;
+  font-size:6.6px;
   font-weight:900;
 }}
 
-.globe-country-label.active .globe-country-count {{ color:#fee500; }}
+.globe-country-label.active .globe-country-count {{ color:#2e7eae; }}
 
 .globe-zoom-controls {{
   display:none !important;
 }}
 
 .globe-control-hint {{
-  position:absolute;
-  left:10px;
-  bottom:10px;
-  transform:none;
-  z-index:7;
-  display:flex !important;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:4px;
-  width:110px;
-  max-width:110px;
-  padding:7px 8px;
-  border:1px solid rgba(148,218,255,.16);
-  border-radius:10px;
-  background:rgba(6,14,27,.54);
-  color:#deefff;
-  box-shadow:0 4px 10px rgba(0,0,0,.16);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  font-size:6.7px;
-  font-weight:760;
-  line-height:1.15;
-  white-space:normal;
-  pointer-events:none;
+  display:none !important;
 }}
 
 .globe-guide-step {{
@@ -11872,24 +12029,22 @@ header,
 
 .country-map-caption {{
   position:absolute !important;
-  top:8px !important;
-  left:8px !important;
+  top:10px !important;
+  left:10px !important;
   bottom:auto !important;
   z-index:6 !important;
   display:inline-flex !important;
   align-items:center;
   gap:5px;
-  max-width:calc(100% - 16px);
-  padding:4px 8px;
+  max-width:118px;
+  padding:4px 9px;
   border:1px solid rgba(148,218,255,.16);
   border-radius:999px;
-  background:rgba(255,255,255,.82);
+  background:rgba(255,255,255,.90);
   color:#476579 !important;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
   font-size:7px !important;
   font-weight:740 !important;
-  box-shadow:0 2px 8px rgba(0,0,0,.14);
+  box-shadow:0 2px 7px rgba(44,94,132,.08);
 }}
 
 .country-map-caption-dot {{
@@ -11901,91 +12056,87 @@ header,
 
 @media (max-width:430px) {{
   .country-map-content .country-map-visual.globe-mode {{
-    height:210px !important;
+    height:206px !important;
   }}
   .globe-stage {{
-    padding:0 102px 0 8px;
+    padding:0 110px 0 8px;
   }}
   .globe-sphere {{
-    width:164px;
+    width:158px;
     transform:translateY(4px);
   }}
   .globe-label-rail {{
-    top:22px;
+    top:16px;
     right:6px;
-    bottom:8px;
-    width:96px;
+    bottom:12px;
+    width:88px;
     gap:5px;
+    padding:7px 7px 7px 7px;
+    border-radius:13px;
   }}
   .globe-label-rail-header {{
-    padding:4px 6px;
+    padding:1px 1px 4px;
     font-size:6.3px;
     line-height:1.18;
   }}
   .globe-label-scroll {{
-    gap:4px;
+    gap:5px;
   }}
   .globe-country-label {{
-    min-height:28px;
+    min-height:26px;
     padding:4px 5px;
-    grid-template-columns:14px minmax(0,1fr) auto;
+    grid-template-columns:13px minmax(0,1fr) auto;
     column-gap:3px;
-    font-size:7.2px;
+    font-size:6.9px;
   }}
   .globe-country-flag {{
     font-size:10px;
   }}
   .globe-country-count {{
-    font-size:7px;
-  }}
-  .globe-control-hint {{
-    left:8px;
-    bottom:8px;
-    width:98px;
-    max-width:98px;
-    padding:6px 7px;
-    font-size:6.1px;
-    gap:4px;
+    font-size:6.4px;
   }}
   .country-map-caption {{
     display:inline-flex !important;
-    font-size:6.7px !important;
+    max-width:106px;
+    font-size:6.6px !important;
   }}
 }}
 
 @media (max-width:380px) {{
   .country-map-content .country-map-visual.globe-mode {{
-    height:198px !important;
+    height:194px !important;
   }}
   .globe-stage {{
-    padding:0 92px 0 6px;
+    padding:0 102px 0 6px;
   }}
   .globe-sphere {{
-    width:154px;
+    width:150px;
     transform:translateY(4px);
   }}
   .globe-label-rail {{
-    top:20px;
+    top:14px;
     right:4px;
-    bottom:8px;
-    width:88px;
+    bottom:10px;
+    width:84px;
     gap:4px;
+    padding:6px;
+    border-radius:12px;
   }}
   .globe-label-rail-header {{
-    padding:3px 5px;
-    font-size:6px;
+    padding:1px 1px 3px;
+    font-size:5.8px;
   }}
   .globe-label-scroll {{
-    gap:3px;
+    gap:4px;
   }}
   .globe-country-label {{
-    min-height:26px;
+    min-height:25px;
     padding:3px 4px;
-    grid-template-columns:13px minmax(0,1fr) auto;
-    font-size:6.8px;
+    grid-template-columns:12px minmax(0,1fr) auto;
+    font-size:6.5px;
   }}
-  .globe-country-flag {{ font-size:10px; }}
-  .globe-country-count {{ font-size:6.5px; }}
+  .globe-country-flag {{ font-size:9px; }}
+  .globe-country-count {{ font-size:6.1px; }}
 }}
 
 
@@ -14054,7 +14205,7 @@ function renderGlobeLabels(){{
   const activeName=activeCountryFilter ? (COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter) : '';
   const rail=document.createElement('div');
   rail.className='globe-label-rail';
-  rail.innerHTML=`<div class="globe-label-rail-header">국가별 기사<br><span style="font-size:6px;font-weight:720;color:#3b8fc4;">${{items.length}}개국 · 내림차</span></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
+  rail.innerHTML=`<div class="globe-label-rail-header">국가별 기사<br><span style="font-size:6px;font-weight:720;color:#5f85a3;">${{items.length}}개국 · 기사순</span></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
   const scroll=rail.querySelector('.globe-label-scroll');
   layer.appendChild(rail);
 
