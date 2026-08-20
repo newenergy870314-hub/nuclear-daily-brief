@@ -6217,6 +6217,220 @@ header,
   .continent-country-rank-count { font-size:7.7px !important; }
 }
 
+
+/* ============================================================
+   TRUE FINAL — MAXIMIZED 2D MAP / CONTINENT-FIRST UI
+   ============================================================ */
+.world-clock-rail { display:none !important; }
+.country-map-content { display:block !important; width:100% !important; }
+
+.country-map-visual.globe-mode {
+  width:100% !important;
+  height:276px !important;
+  min-height:276px !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:16px !important;
+  overflow:hidden !important;
+  background:linear-gradient(180deg, rgba(249,252,254,.98), rgba(239,247,252,.94)) !important;
+  box-shadow:none !important;
+}
+
+/* 3D UI is fully retired */
+.globe-stage,
+.globe-sphere,
+.globe-label-layer,
+.globe-marker-layer { display:none !important; }
+
+/* Make the actual 2D map the dominant object */
+.country-map-visual .world-map-inline.globe-texture-source {
+  display:block !important;
+  position:absolute !important;
+  left:-18px !important;
+  top:8px !important;
+  right:112px !important;
+  bottom:8px !important;
+  width:auto !important;
+  height:auto !important;
+  max-width:none !important;
+  opacity:1 !important;
+  transform:scale(1.12) !important;
+  transform-origin:48% 50% !important;
+  filter:contrast(1.14) saturate(1.05) !important;
+  z-index:1 !important;
+}
+
+#country-map-label-layer.country-map-label-layer {
+  position:absolute !important;
+  left:-18px !important;
+  top:8px !important;
+  right:112px !important;
+  bottom:8px !important;
+  transform:scale(1.12) !important;
+  transform-origin:48% 50% !important;
+  z-index:3 !important;
+  pointer-events:none !important;
+}
+
+/* Country location dots and direct labels on the map */
+.map-country-node {
+  pointer-events:auto !important;
+  position:absolute !important;
+  z-index:4 !important;
+}
+.map-country-node::before {
+  content:"" !important;
+  position:absolute !important;
+  left:0 !important;
+  top:0 !important;
+  width:8px !important;
+  height:8px !important;
+  background:#168fce !important;
+  border:2px solid #fff !important;
+  border-radius:50% !important;
+  transform:translate(-50%,-50%) !important;
+  box-shadow:0 0 0 3px rgba(22,143,206,.15), 0 2px 5px rgba(30,83,117,.18) !important;
+}
+.map-country-node.active::before {
+  background:#d84b4b !important;
+  box-shadow:0 0 0 3px rgba(216,75,75,.16), 0 2px 5px rgba(120,55,55,.16) !important;
+}
+.map-country-node::after {
+  content:"" !important;
+  position:absolute !important;
+  top:0 !important;
+  width:12px !important;
+  border-top:1.5px solid rgba(73,124,159,.34) !important;
+}
+.map-country-node.side-right::after {
+  left:4px !important;
+  transform:translateY(-50%) !important;
+}
+.map-country-node.side-left::after {
+  right:4px !important;
+  transform:translateY(-50%) !important;
+}
+.map-country-card {
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:4px !important;
+  position:absolute !important;
+  top:0 !important;
+  min-height:20px !important;
+  padding:2px 7px !important;
+  border-radius:999px !important;
+  border:1px solid rgba(182,203,218,.42) !important;
+  background:rgba(255,255,255,.94) !important;
+  color:#244865 !important;
+  box-shadow:0 2px 8px rgba(50,88,116,.08) !important;
+  font-size:8.3px !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  pointer-events:auto !important;
+  cursor:pointer !important;
+}
+.map-country-node.side-right .map-country-card {
+  left:11px !important;
+  transform:translateY(-50%) !important;
+}
+.map-country-node.side-left .map-country-card {
+  right:11px !important;
+  transform:translateY(-50%) !important;
+}
+.map-country-card .flag { font-size:10px !important; line-height:1 !important; }
+.map-country-card .name { font-size:8.2px !important; font-weight:850 !important; }
+.map-country-card .count { color:#2284c1 !important; font-size:8.2px !important; font-weight:900 !important; }
+.map-country-card.active {
+  background:#fff4c6 !important;
+  border-color:#f0d870 !important;
+}
+.map-country-card.active .count { color:#d92d20 !important; }
+
+/* Right side is only for continent selection */
+#continent-rail {
+  top:10px !important;
+  right:8px !important;
+  bottom:10px !important;
+  width:104px !important;
+  padding:8px 7px !important;
+  gap:6px !important;
+  border:1px solid rgba(157,190,211,.22) !important;
+  border-radius:14px !important;
+  background:rgba(255,255,255,.93) !important;
+  box-shadow:0 3px 10px rgba(53,91,120,.055) !important;
+}
+.continent-rail-title { font-size:10.5px !important; }
+.continent-rail-sub { font-size:7.3px !important; white-space:nowrap !important; }
+.continent-all-button {
+  height:25px !important;
+  padding:0 7px !important;
+  font-size:8.8px !important;
+}
+.continent-rail-scroll { gap:5px !important; }
+.continent-button {
+  min-height:33px !important;
+  padding:5px 7px !important;
+  border-radius:11px !important;
+}
+.continent-button-name {
+  font-size:9.2px !important;
+  white-space:nowrap !important;
+  word-break:keep-all !important;
+}
+.continent-button-meta { font-size:6.8px !important; white-space:nowrap !important; }
+.continent-button-count { font-size:9px !important; }
+
+/* Ranking panel removed: countries are labeled directly on the map */
+#continent-country-ranking { display:none !important; }
+
+/* Remove duplicate floating status pill. Right rail + ranking already explain state. */
+.country-map-caption { display:none !important; }
+
+@media (max-width:430px) {
+  .country-map-visual.globe-mode { height:270px !important; min-height:270px !important; }
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {
+    left:-24px !important;
+    top:10px !important;
+    right:102px !important;
+    bottom:10px !important;
+    transform:scale(1.16) !important;
+    transform-origin:48% 50% !important;
+  }
+  #continent-rail {
+    width:92px !important;
+    right:6px !important;
+    top:9px !important;
+    bottom:9px !important;
+    padding:7px 6px !important;
+  }
+  .continent-button { min-height:32px !important; padding:5px 6px !important; }
+  .continent-button-name { font-size:8.7px !important; }
+  .continent-button-meta { font-size:6.4px !important; }
+  .continent-button-count { font-size:8.4px !important; }
+  .map-country-card { font-size:7.7px !important; padding:2px 6px !important; min-height:18px !important; }
+  .map-country-card .flag { font-size:9px !important; }
+  .map-country-card .name, .map-country-card .count { font-size:7.6px !important; }
+}
+
+@media (max-width:380px) {
+  .country-map-visual.globe-mode { height:258px !important; min-height:258px !important; }
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {
+    left:-30px !important;
+    right:94px !important;
+    transform:scale(1.18) !important;
+  }
+  #continent-rail { width:84px !important; }
+  .continent-button-name { font-size:8.1px !important; }
+  .continent-button-count { font-size:8px !important; }
+  .map-country-card { font-size:7.2px !important; padding:2px 5px !important; }
+  .map-country-card .flag { font-size:8px !important; }
+  .map-country-card .name { display:none !important; }
+  .map-country-card .count { font-size:7.2px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -6225,7 +6439,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 08:10 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 08:30 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -14661,7 +14875,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ce86e498&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58bb3dad40&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -14696,7 +14910,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba670b00&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba955348&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -19122,7 +19336,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b66bd499300c403d54879c01.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/317fe7f2cb91af6a2dc635df.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -19997,7 +20211,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9d616f434d6de870682bd5e8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/7da5850949fb13f932942c15.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -20715,7 +20929,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26686,7 +26900,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246147"
+  data-published="1787246439"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -28088,7 +28302,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.thejakartapost.com/opinion/2026/08/21/fact-checking-the-president?utm_source=(direct)&amp;utm_medium=home_opinion"
   data-title="Fact-checking the President - Editorial - The Jakarta Post"
   data-publisher="The Jakarta Post"
@@ -28114,7 +28328,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Fact-checking the President - Editorial - The Jakarta Post</div>
+      <div class="headline">Fact-checking the President - Editorial - The Jakarta Post</div>
       <div class="article-snippet">From million-rupiah shallots to unverified nuclear claims, President Prabowo Subianto&#x27;s off-script habits are turning presidential rhetoric into viral punchlines - and putting the nation’s credibility on the line.</div>
     </div>
   </div>
@@ -30691,19 +30905,19 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.esnews.kr/news/articleView.html?idxno=5767"
-  data-title="두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문"
-  data-publisher="에너지안전신문"
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003756920"
+  data-title="두산에너빌리티, 오만 미스파 발전소 공사 9281억 수주"
+  data-publisher="뉴시스"
   data-group="타 건설사"
   data-language="ko"
-  data-priority="0"
-  data-published="1787265411"
-  data-country="CN"
-  data-search="두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문 에너지안전신문 타 건설사 두산에너빌리티가 중국 산둥성 라이양 원자력발전소 5·6호기에 들어가는 증기발생기용 초대형 단조품을 수주하면서 중국 원전 핵심 기자재 시장에서 입지를 넓히고 있다."
+  data-priority="1"
+  data-published="1787268477"
+  data-country="KR"
+  data-search="두산에너빌리티, 오만 미스파 발전소 공사 9281억 수주 뉴시스 타 건설사 [서울=뉴시스]유희석 기자 = 두산에너빌리티가 오만에서 9281억원 규모의 발전소 건설 공사를 수주했다. 두산에너빌리티는 오만 미스파 지역에서 추진되는 ‘미스파 독립발전사업(misfah independent power project)’의 공사수주 계약을 체결했다고 21일 공시했다. 계약 상대방은 오만 현지 법인인 자벨 파워(jabel power saoc)다. 계약금액은 9281억3646만원으로 두산에너빌리티의 지난해 연결 기준 매출액 17조578억원의 5.4%에 해당한다. 계약기간은 지난 20일부터 2029년 4월1일까지다. ◎공감언론 뉴시스 heesuk@newsis"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -30711,7 +30925,7 @@ header,
     </div>
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">에너지안전신문</div>
+        <div class="publisher">뉴시스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -30720,12 +30934,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문</div>
-      <div class="article-snippet">두산에너빌리티가 중국 산둥성 라이양 원자력발전소 5·6호기에 들어가는 증기발생기용 초대형 단조품을 수주하면서 중국 원전 핵심 기자재 시장에서 입지를 넓히고 있다.</div>
+      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 오만 미스파 발전소 공사 9281억 수주</div>
+      <div class="article-snippet">[서울=뉴시스]유희석 기자 = 두산에너빌리티가 오만에서 9281억원 규모의 발전소 건설 공사를 수주했다. 두산에너빌리티는 오만 미스파 지역에서 추진되는 ‘미스파 독립발전사업(Misfah Independent Power Project)’의 공사수주 계약을 체결했다고 21일 공시했다. 계약 상대방은 오만 현지 법인인 자벨 파워(Jabel Power SAOC)다. 계약금액은 9281억3646만원으로 두산에너빌리티의 지난해 연결 기준 매출액 17조578억원의 5.4%에 해당한다. 계약기간은 지난 20일부터 2029년 4월1일까지다. ◎공감언론 뉴시스 heesuk@newsis</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/00ebf3f87d278eed6a6a7d41.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/35d54a91ecfa238e28df952e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30761,6 +30975,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/a965b25a0c5da03f453fe784.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/202608202846i"
+  data-title="한 달 만에 52% 반등…AI·원전 올라탄 GS건설"
+  data-publisher="한국경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787266668"
+  data-country="KR"
+  data-search="한 달 만에 52% 반등…ai·원전 올라탄 gs건설 한국경제 타 건설사 한 달 만에 52% 반등…ai·원전 올라탄 gs건설, 조아라 기자, 증권"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한 달 만에 52% 반등…AI·원전 올라탄 GS건설</div>
+      <div class="article-snippet">한 달 만에 52% 반등…AI·원전 올라탄 GS건설, 조아라 기자, 증권</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/af44a90c7f776428cbbebc4a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -30824,7 +31073,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787267400"
+  data-published="1787268600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -30876,9 +31125,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260821081952246"
+  data-title="李대통령, 최태원과 만찬 회동…대미투자 논의 여부 주목"
+  data-publisher="아주경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787268386"
+  data-country="US"
+  data-search="李대통령, 최태원과 만찬 회동…대미투자 논의 여부 주목 아주경제 원전 대미투자 이재명 대통령과 최태원 sk그룹 회장이 지난 6월 29일 청와대에서 열린 3대 메가프로젝트 국민보고회에서 기업 투자계획 발표 후 악수하고 있다. [사진=연합뉴스] 이재명 대통령이 20일 최태원 sk그룹 회장과 모처에서 비공개 만찬 회동을 가진 것으로 알려졌다.&amp;nbsp; 지난 6월 호남 반도체 클러스터 등 &amp;#39;3대 메가 프로젝트&amp;#39; 발표를 앞두고 비공개 회동한 지 2개월 만이자, 이 대통령의 미국 순방을 계기로 샌프란시스코에서 열린 &amp;#39;인공지능(ai) 서밋&amp;#39;에서 만난 지 약 3주 만이다. 이 자리에서는 정부가 추진하고 있는 호남 반도체 클러스터"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>李대통령, 최태원과 만찬 회동…대미투자 논의 여부 주목</div>
+      <div class="article-snippet">이재명 대통령과 최태원 SK그룹 회장이 지난 6월 29일 청와대에서 열린 3대 메가프로젝트 국민보고회에서 기업 투자계획 발표 후 악수하고 있다. [사진=연합뉴스] 이재명 대통령이 20일 최태원 SK그룹 회장과 모처에서 비공개 만찬 회동을 가진 것으로 알려졌다.&amp;nbsp; 지난 6월 호남 반도체 클러스터 등 &amp;#39;3대 메가 프로젝트&amp;#39; 발표를 앞두고 비공개 회동한 지 2개월 만이자, 이 대통령의 미국 순방을 계기로 샌프란시스코에서 열린 &amp;#39;인공지능(AI) 서밋&amp;#39;에서 만난 지 약 3주 만이다. 이 자리에서는 정부가 추진하고 있는 호남 반도체 클러스터</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/686baad21f873a379378610b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newstomato.com/ReadNews.aspx?no=1310937"
   data-title="김정관 &quot;대미 투자, 의미 있는 진전…9월 중 1호 프로젝트 발표&quot;"
@@ -30892,7 +31176,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30927,7 +31211,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30955,7 +31239,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30990,6 +31274,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/136c4e2ac7489d2fd162bc78.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202387"
+  data-title="원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787259600"
+  data-country="OTHER"
+  data-search="원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리 에너지데일리 원자력 [에너지데일리 송병훈 기자] 방사선 사고나 업무상 재해로 방사선에 노출된 환자를 전문적으로 진단·치료하고 재활과 장기 추적관리까지 담당하는 국가 차원의 의료대응체"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 송병훈 기자] 방사선 사고나 업무상 재해로 방사선에 노출된 환자를 전문적으로 진단·치료하고 재활과 장기 추적관리까지 담당하는 국가 차원의 의료대응체</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2a2d95a5f96a17241c15bb92.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -31044,7 +31363,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787267780"
+  data-published="1787268865"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -31078,7 +31397,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31291,7 +31610,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.tradingview.com/news/reuters.com,2026:newsml_FWN44H1P5:0-american-uranium-seeks-trading-halt/"
   data-title="American Uranium Seeks Trading Halt"
   data-publisher="TradingView"
@@ -31317,12 +31636,47 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>American Uranium Seeks Trading Halt</div>
+      <div class="headline">American Uranium Seeks Trading Halt</div>
       <div class="article-snippet">American Uranium Ltd ASX:AMU:</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.cbsnews.com/news/hayden-panettiere-neutrogena-postpartum-depression-backlash/"
+  data-title="Neutrogena addresses its treatment of Hayden Panettiere after she spoke about postpartum depression"
+  data-publisher="CBS News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787267018"
+  data-country="OTHER"
+  data-search="neutrogena addresses its treatment of hayden panettiere after she spoke about postpartum depression cbs news nuclear power·nuclear energy after hayden panettiere&#x27;s death, fans resurfaced her claim that neutrogena had fired her in 2015 over her comments about postpartum depression."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">CBS News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Neutrogena addresses its treatment of Hayden Panettiere after she spoke about postpartum depression</div>
+      <div class="article-snippet">After Hayden Panettiere&#x27;s death, fans resurfaced her claim that Neutrogena had fired her in 2015 over her comments about postpartum depression.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6d3d2e598ebbf9b2d6968704.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31339,7 +31693,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31374,7 +31728,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31548,19 +31902,19 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.esnews.kr/news/articleView.html?idxno=5767"
-  data-title="두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문"
-  data-publisher="에너지안전신문"
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003756920"
+  data-title="두산에너빌리티, 오만 미스파 발전소 공사 9281억 수주"
+  data-publisher="뉴시스"
   data-group="타 건설사"
   data-language="ko"
-  data-priority="0"
-  data-published="1787265411"
-  data-country="CN"
-  data-search="두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문 에너지안전신문 타 건설사 두산에너빌리티가 중국 산둥성 라이양 원자력발전소 5·6호기에 들어가는 증기발생기용 초대형 단조품을 수주하면서 중국 원전 핵심 기자재 시장에서 입지를 넓히고 있다."
+  data-priority="1"
+  data-published="1787268477"
+  data-country="KR"
+  data-search="두산에너빌리티, 오만 미스파 발전소 공사 9281억 수주 뉴시스 타 건설사 [서울=뉴시스]유희석 기자 = 두산에너빌리티가 오만에서 9281억원 규모의 발전소 건설 공사를 수주했다. 두산에너빌리티는 오만 미스파 지역에서 추진되는 ‘미스파 독립발전사업(misfah independent power project)’의 공사수주 계약을 체결했다고 21일 공시했다. 계약 상대방은 오만 현지 법인인 자벨 파워(jabel power saoc)다. 계약금액은 9281억3646만원으로 두산에너빌리티의 지난해 연결 기준 매출액 17조578억원의 5.4%에 해당한다. 계약기간은 지난 20일부터 2029년 4월1일까지다. ◎공감언론 뉴시스 heesuk@newsis"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -31568,7 +31922,7 @@ header,
     </div>
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">에너지안전신문</div>
+        <div class="publisher">뉴시스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -31577,12 +31931,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문</div>
-      <div class="article-snippet">두산에너빌리티가 중국 산둥성 라이양 원자력발전소 5·6호기에 들어가는 증기발생기용 초대형 단조품을 수주하면서 중국 원전 핵심 기자재 시장에서 입지를 넓히고 있다.</div>
+      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 오만 미스파 발전소 공사 9281억 수주</div>
+      <div class="article-snippet">[서울=뉴시스]유희석 기자 = 두산에너빌리티가 오만에서 9281억원 규모의 발전소 건설 공사를 수주했다. 두산에너빌리티는 오만 미스파 지역에서 추진되는 ‘미스파 독립발전사업(Misfah Independent Power Project)’의 공사수주 계약을 체결했다고 21일 공시했다. 계약 상대방은 오만 현지 법인인 자벨 파워(Jabel Power SAOC)다. 계약금액은 9281억3646만원으로 두산에너빌리티의 지난해 연결 기준 매출액 17조578억원의 5.4%에 해당한다. 계약기간은 지난 20일부터 2029년 4월1일까지다. ◎공감언론 뉴시스 heesuk@newsis</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/00ebf3f87d278eed6a6a7d41.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/35d54a91ecfa238e28df952e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31618,6 +31972,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/a965b25a0c5da03f453fe784.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/202608202846i"
+  data-title="한 달 만에 52% 반등…AI·원전 올라탄 GS건설"
+  data-publisher="한국경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787266668"
+  data-country="KR"
+  data-search="한 달 만에 52% 반등…ai·원전 올라탄 gs건설 한국경제 타 건설사 한 달 만에 52% 반등…ai·원전 올라탄 gs건설, 조아라 기자, 증권"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한 달 만에 52% 반등…AI·원전 올라탄 GS건설</div>
+      <div class="article-snippet">한 달 만에 52% 반등…AI·원전 올라탄 GS건설, 조아라 기자, 증권</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/af44a90c7f776428cbbebc4a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -31681,7 +32070,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787267400"
+  data-published="1787268600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -31733,9 +32122,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260821081952246"
+  data-title="李대통령, 최태원과 만찬 회동…대미투자 논의 여부 주목"
+  data-publisher="아주경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787268386"
+  data-country="US"
+  data-search="李대통령, 최태원과 만찬 회동…대미투자 논의 여부 주목 아주경제 원전 대미투자 이재명 대통령과 최태원 sk그룹 회장이 지난 6월 29일 청와대에서 열린 3대 메가프로젝트 국민보고회에서 기업 투자계획 발표 후 악수하고 있다. [사진=연합뉴스] 이재명 대통령이 20일 최태원 sk그룹 회장과 모처에서 비공개 만찬 회동을 가진 것으로 알려졌다.&amp;nbsp; 지난 6월 호남 반도체 클러스터 등 &amp;#39;3대 메가 프로젝트&amp;#39; 발표를 앞두고 비공개 회동한 지 2개월 만이자, 이 대통령의 미국 순방을 계기로 샌프란시스코에서 열린 &amp;#39;인공지능(ai) 서밋&amp;#39;에서 만난 지 약 3주 만이다. 이 자리에서는 정부가 추진하고 있는 호남 반도체 클러스터"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>李대통령, 최태원과 만찬 회동…대미투자 논의 여부 주목</div>
+      <div class="article-snippet">이재명 대통령과 최태원 SK그룹 회장이 지난 6월 29일 청와대에서 열린 3대 메가프로젝트 국민보고회에서 기업 투자계획 발표 후 악수하고 있다. [사진=연합뉴스] 이재명 대통령이 20일 최태원 SK그룹 회장과 모처에서 비공개 만찬 회동을 가진 것으로 알려졌다.&amp;nbsp; 지난 6월 호남 반도체 클러스터 등 &amp;#39;3대 메가 프로젝트&amp;#39; 발표를 앞두고 비공개 회동한 지 2개월 만이자, 이 대통령의 미국 순방을 계기로 샌프란시스코에서 열린 &amp;#39;인공지능(AI) 서밋&amp;#39;에서 만난 지 약 3주 만이다. 이 자리에서는 정부가 추진하고 있는 호남 반도체 클러스터</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/686baad21f873a379378610b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newstomato.com/ReadNews.aspx?no=1310937"
   data-title="김정관 &quot;대미 투자, 의미 있는 진전…9월 중 1호 프로젝트 발표&quot;"
@@ -31749,7 +32173,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31784,7 +32208,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31812,7 +32236,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31847,6 +32271,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/136c4e2ac7489d2fd162bc78.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202387"
+  data-title="원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787259600"
+  data-country="OTHER"
+  data-search="원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리 에너지데일리 원자력 [에너지데일리 송병훈 기자] 방사선 사고나 업무상 재해로 방사선에 노출된 환자를 전문적으로 진단·치료하고 재활과 장기 추적관리까지 담당하는 국가 차원의 의료대응체"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 송병훈 기자] 방사선 사고나 업무상 재해로 방사선에 노출된 환자를 전문적으로 진단·치료하고 재활과 장기 추적관리까지 담당하는 국가 차원의 의료대응체</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2a2d95a5f96a17241c15bb92.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -31901,7 +32360,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787267780"
+  data-published="1787268865"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -31935,7 +32394,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32148,7 +32607,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.tradingview.com/news/reuters.com,2026:newsml_FWN44H1P5:0-american-uranium-seeks-trading-halt/"
   data-title="American Uranium Seeks Trading Halt"
   data-publisher="TradingView"
@@ -32174,12 +32633,47 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>American Uranium Seeks Trading Halt</div>
+      <div class="headline">American Uranium Seeks Trading Halt</div>
       <div class="article-snippet">American Uranium Ltd ASX:AMU:</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.cbsnews.com/news/hayden-panettiere-neutrogena-postpartum-depression-backlash/"
+  data-title="Neutrogena addresses its treatment of Hayden Panettiere after she spoke about postpartum depression"
+  data-publisher="CBS News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787267018"
+  data-country="OTHER"
+  data-search="neutrogena addresses its treatment of hayden panettiere after she spoke about postpartum depression cbs news nuclear power·nuclear energy after hayden panettiere&#x27;s death, fans resurfaced her claim that neutrogena had fired her in 2015 over her comments about postpartum depression."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">CBS News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Neutrogena addresses its treatment of Hayden Panettiere after she spoke about postpartum depression</div>
+      <div class="article-snippet">After Hayden Panettiere&#x27;s death, fans resurfaced her claim that Neutrogena had fired her in 2015 over her comments about postpartum depression.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6d3d2e598ebbf9b2d6968704.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32196,7 +32690,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32231,7 +32725,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33664,7 +34158,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b66bd499300c403d54879c01.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/317fe7f2cb91af6a2dc635df.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34539,7 +35033,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9d616f434d6de870682bd5e8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/7da5850949fb13f932942c15.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35257,7 +35751,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -41228,7 +41722,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246147"
+  data-published="1787246439"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -42630,7 +43124,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.thejakartapost.com/opinion/2026/08/21/fact-checking-the-president?utm_source=(direct)&amp;utm_medium=home_opinion"
   data-title="Fact-checking the President - Editorial - The Jakarta Post"
   data-publisher="The Jakarta Post"
@@ -42656,7 +43150,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Fact-checking the President - Editorial - The Jakarta Post</div>
+      <div class="headline">Fact-checking the President - Editorial - The Jakarta Post</div>
       <div class="article-snippet">From million-rupiah shallots to unverified nuclear claims, President Prabowo Subianto&#x27;s off-script habits are turning presidential rhetoric into viral punchlines - and putting the nation’s credibility on the line.</div>
     </div>
   </div>
@@ -52758,7 +53252,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ce86e498&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58bb3dad40&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -52793,7 +53287,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba670b00&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba955348&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -140450,10 +140944,25 @@ function computeMapLabelPlacements(items, mapRect){
   return placements;
 }
 
-function getRankingPlacement(continentCode){
-  // 선택 대륙 반대편의 여백을 우선 사용합니다.
-  if(continentCode==='NA')return 'right';
-  return 'left';
+function computeDirectMapLabelPlacements(items){
+  const placements=[];
+  const sideY={ left:[], right:[] };
+  const filtered=[...items].sort((a,b)=>b.count-a.count || a.lon-b.lon);
+  filtered.forEach((item,index)=>{
+    const p=project2DPoint(item.lon,item.lat);
+    let side='right';
+    if(p.x > 70) side='left';
+    else if(p.x >= 42 && p.x <= 70) side = (index % 2 === 0 ? 'right' : 'left');
+    let y = p.y;
+    const used = sideY[side];
+    used.forEach(prev=>{
+      if(Math.abs(prev - y) < 8) y = prev + 8.5;
+    });
+    y = Math.max(8, Math.min(92, y));
+    used.push(y);
+    placements.push({ ...item, x:p.x, y, side });
+  });
+  return placements;
 }
 
 function render2DMapLabels(items){
@@ -140463,71 +140972,40 @@ function render2DMapLabels(items){
 
   const filtered = activeContinentFilter==='ALL'
     ? []
-    : items.filter(item=>item.continent===activeContinentFilter);
+    : items
+        .filter(item=>item.continent===activeContinentFilter)
+        .sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
 
-  filtered.forEach(item=>{
-    const p=project2DPoint(item.lon,item.lat);
-    const node=document.createElement('button');
-    node.type='button';
-    node.className='map-country-node' + (activeCountryFilter===item.code ? ' active' : '');
-    node.style.left=`${p.x}%`;
-    node.style.top=`${p.y}%`;
-    node.setAttribute('aria-label',`${item.name} ${item.count}건`);
-    node.title=`${item.flag} ${item.name} · ${item.count}건`;
-    node.addEventListener('click',(event)=>{
+  const placements=computeDirectMapLabelPlacements(filtered);
+  placements.forEach(item=>{
+    const node=document.createElement('div');
+    node.className='map-country-node ' + `side-${item.side}` + (activeCountryFilter===item.code ? ' active' : '');
+    node.style.left=`${item.x}%`;
+    node.style.top=`${item.y}%`;
+
+    const card=document.createElement('button');
+    card.type='button';
+    card.className='map-country-card' + (activeCountryFilter===item.code ? ' active' : '');
+    card.innerHTML=`<span class="flag">${item.flag}</span><span class="name">${item.name}</span><span class="count">${item.count}건</span>`;
+    card.setAttribute('aria-label',`${item.name} ${item.count}건. 클릭하면 해당 국가 기사만 표시합니다.`);
+    card.title=`${item.name} ${item.count}건`;
+    card.addEventListener('click',(event)=>{
       event.preventDefault();
       event.stopPropagation();
       setCountryFilter(item.code);
     });
+
+    node.appendChild(card);
     layer.appendChild(node);
   });
 }
 
 function renderContinentCountryRanking(items){
-  const visual=document.querySelector('.country-map-visual.globe-mode');
-  if(!visual)return;
-  let panel=document.getElementById('continent-country-ranking');
-  if(!panel){
-    panel=document.createElement('div');
-    panel.id='continent-country-ranking';
-    visual.appendChild(panel);
-  }
-
-  if(activeContinentFilter==='ALL'){
+  const panel=document.getElementById('continent-country-ranking');
+  if(panel){
     panel.hidden=true;
     panel.innerHTML='';
-    return;
   }
-
-  const current=CONTINENT_META[activeContinentFilter] || CONTINENT_META.ALL;
-  const countries=items
-    .filter(item=>item.continent===activeContinentFilter)
-    .sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
-
-  panel.hidden=countries.length===0;
-  panel.className=`rank-${getRankingPlacement(activeContinentFilter)}`;
-  if(!countries.length){
-    panel.innerHTML='';
-    return;
-  }
-
-  panel.innerHTML=`
-    <div class="continent-country-ranking-head">
-      <span class="continent-country-ranking-title">${current.name} 국가</span>
-      <span class="continent-country-ranking-sub">기사순</span>
-    </div>
-    <div class="continent-country-ranking-list"></div>
-  `;
-  const list=panel.querySelector('.continent-country-ranking-list');
-  countries.forEach((item,index)=>{
-    const row=document.createElement('button');
-    row.type='button';
-    row.className='continent-country-rank-row' + (activeCountryFilter===item.code ? ' active' : '');
-    row.innerHTML=`<span class="continent-country-rank-index">${index+1}</span><span class="continent-country-rank-name">${item.flag} ${item.name}</span><span class="continent-country-rank-count">${item.count}건</span>`;
-    row.setAttribute('aria-label',`${item.name} ${item.count}건. 해당 국가 기사 보기`);
-    row.addEventListener('click',()=>setCountryFilter(item.code));
-    list.appendChild(row);
-  });
 }
 
 function layoutAndRenderCountryMap(){
@@ -140551,7 +141029,7 @@ function layoutAndRenderCountryMap(){
     }
   }
   const note=document.getElementById('country-filter-note');
-  if(note)note.textContent='대륙을 선택하면 지도 위 점과 국가 순위가 함께 바뀝니다';
+  if(note)note.textContent='대륙 선택 → 지도에서 국가와 기사건수를 바로 확인';
 }
 
 function renderGlobeLabels(){
