@@ -11568,27 +11568,70 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {{
   position:relative;
-  height:202px !important;
+  height:204px !important;
   overflow:hidden !important;
-  border:1px solid #d9e3ee !important;
+  border:1px solid rgba(30,58,95,.42) !important;
   border-radius:14px !important;
-  background:linear-gradient(180deg, #fafdff 0%, #f4f8fc 52%, #edf3f8 100%) !important;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.96) 0 1.1px, transparent 1.55px),
+    radial-gradient(circle at 72% 18%, rgba(255,255,255,.84) 0 1.05px, transparent 1.45px),
+    radial-gradient(circle at 86% 37%, rgba(176,213,255,.92) 0 1px, transparent 1.45px),
+    radial-gradient(circle at 12% 67%, rgba(255,255,255,.80) 0 .95px, transparent 1.3px),
+    radial-gradient(circle at 41% 78%, rgba(255,255,255,.88) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 94% 74%, rgba(255,255,255,.72) 0 .85px, transparent 1.25px),
+    radial-gradient(circle at 62% 61%, rgba(152,195,255,.64) 0 .8px, transparent 1.3px),
+    radial-gradient(circle at 30% 44%, rgba(255,255,255,.58) 0 .75px, transparent 1.15px),
+    radial-gradient(circle at 55% 8%, rgba(255,255,255,.54) 0 .72px, transparent 1.1px),
+    radial-gradient(circle at 4% 38%, rgba(255,255,255,.52) 0 .72px, transparent 1.1px),
+    radial-gradient(circle at 98% 14%, rgba(255,255,255,.52) 0 .72px, transparent 1.1px),
+    linear-gradient(180deg, #09111d 0%, #050a12 48%, #02050b 100%) !important;
+  box-shadow:inset 0 0 22px rgba(0,0,0,.28), 0 2px 8px rgba(17,24,39,.08) !important;
 }}
 
 .globe-texture-source {{
   display:none !important;
 }}
 
+.country-map-content .country-map-visual.globe-mode::before {{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.72;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.75) 0 1px, transparent 1.2px),
+    radial-gradient(circle, rgba(164,204,255,.55) 0 .8px, transparent 1.1px),
+    radial-gradient(circle, rgba(255,255,255,.45) 0 .7px, transparent 1px);
+  background-size:31px 31px, 47px 47px, 67px 67px;
+  background-position:4px 7px, 19px 3px, 11px 29px;
+}}
+
+.country-map-content .country-map-visual.globe-mode::after {{
+  content:"";
+  position:absolute;
+  left:28%;
+  top:-18%;
+  width:66%;
+  height:145%;
+  pointer-events:none;
+  z-index:0;
+  transform:rotate(-17deg);
+  background:radial-gradient(ellipse at center, rgba(75,108,151,.10) 0%, rgba(36,62,99,.055) 38%, transparent 72%);
+  filter:blur(2px);
+}}
+
 .globe-stage {{
   position:absolute;
   inset:0;
+  z-index:2;
   display:flex;
   align-items:center;
   justify-content:center;
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding-top:2px;
+  padding-top:0;
 }}
 
 .globe-stage.dragging {{
@@ -11597,13 +11640,13 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:min(182px, 92%);
+  width:min(160px, 80%);
   aspect-ratio:1/1;
   border-radius:50%;
   overflow:visible;
   isolation:isolate;
-  transform:translateY(-10px);
-  filter:drop-shadow(0 8px 12px rgba(35,57,93,.12));
+  transform:translateY(10px);
+  filter:drop-shadow(0 10px 14px rgba(35,57,93,.08));
 }}
 
 .globe-canvas {{
@@ -11612,13 +11655,14 @@ header,
   width:100%;
   height:100%;
   border-radius:50%;
-  background:#0f6faa;
+  background:#2381c0;
   box-shadow:
-    inset -14px -10px 22px rgba(6,34,66,.22),
-    inset 12px 8px 18px rgba(255,255,255,.10),
-    0 0 0 1px rgba(72,142,188,.24),
-    0 0 18px rgba(102,186,230,.16),
-    0 0 34px rgba(120,210,255,.10);
+    inset -6px -5px 12px rgba(5,33,66,.10),
+    inset 14px 10px 20px rgba(255,255,255,.16),
+    0 0 0 1px rgba(167,224,255,.58),
+    0 0 9px rgba(104,190,255,.68),
+    0 0 22px rgba(97,184,255,.44),
+    0 0 38px rgba(88,170,255,.20);
 }}
 
 .globe-shine {{
@@ -11645,46 +11689,72 @@ header,
   pointer-events:none;
 }}
 
+.globe-country-anchor {{
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(255,255,255,.96);
+  box-shadow:0 0 0 2px rgba(28,140,228,.55), 0 0 10px rgba(115,202,255,.55);
+  pointer-events:none;
+}}
+
+.globe-country-anchor.orbit-focus {{
+  width:9px;
+  height:9px;
+  background:#fee500;
+  box-shadow:0 0 0 3px rgba(254,229,0,.30), 0 0 14px rgba(254,229,0,.42);
+}}
+
 .globe-country-label {{
   position:absolute;
-  transform:translate(-50%,-50%) scale(calc(.90 + var(--globe-depth, .7) * .15));
+  transform:translate(-50%,-50%) scale(calc(.92 + var(--globe-depth, .7) * .12));
   transform-origin:center;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap:4px;
   min-height:24px;
-  max-width:124px;
-  padding:3px 7px;
-  border:1px solid rgba(35,57,93,.16);
-  border-radius:8px;
-  background:rgba(255,255,255,.97);
-  color:#30465f;
-  box-shadow:0 3px 8px rgba(25,45,70,.14);
+  max-width:128px;
+  padding:4px 9px;
+  border:1px solid rgba(141,214,255,.34);
+  border-radius:999px;
+  background:rgba(8,18,34,.68);
+  color:#eef7ff;
+  box-shadow:0 4px 12px rgba(0,0,0,.16), inset 0 0 0 1px rgba(255,255,255,.04);
   font-size:8.2px;
-  font-weight:850;
+  font-weight:800;
   line-height:1;
   white-space:nowrap;
+  letter-spacing:-0.05px;
   pointer-events:auto;
   cursor:pointer;
-  backdrop-filter:blur(2px);
-  -webkit-backdrop-filter:blur(2px);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 }}
 
 .globe-country-label:hover,
 .globe-country-label:focus-visible {{
   z-index:20;
-  border-color:#9aaac0;
-  background:#fff;
-  transform:translate(-50%,-50%) scale(1.06);
+  border-color:rgba(170,226,255,.72);
+  background:rgba(10,24,44,.84);
+  transform:translate(-50%,-50%) scale(1.05);
 }}
 
 .globe-country-label.active {{
   z-index:25;
-  border-color:#23395d;
-  background:#23395d;
+  border-color:#fee500;
+  background:rgba(15,35,64,.94);
   color:#fff;
-  box-shadow:0 3px 10px rgba(35,57,93,.24);
+  box-shadow:0 6px 16px rgba(14,29,53,.28), 0 0 0 1px rgba(254,229,0,.15);
+}}
+
+.globe-country-label.orbit-focus {{
+  border-color:rgba(254,229,0,.72);
+  background:rgba(20,42,72,.90);
+  color:#fff;
+  box-shadow:0 5px 14px rgba(14,29,53,.22), 0 0 0 1px rgba(254,229,0,.12);
 }}
 
 .globe-country-flag {{
@@ -11697,72 +11767,49 @@ header,
   min-width:0;
   overflow:hidden;
   text-overflow:ellipsis;
-  text-shadow:0 1px 0 rgba(255,255,255,.35);
+  text-shadow:none;
 }}
 
 .globe-country-count {{
   flex:0 0 auto;
-  color:#d92d20;
-  font-size:7.5px;
+  color:#9ed9ff;
+  font-size:7.2px;
   font-weight:900;
 }}
 
-.globe-country-label.active .globe-country-count {{
+.globe-country-label.active .globe-country-count,
+.globe-country-label.orbit-focus .globe-country-count {{
   color:#fee500;
 }}
 
 .globe-control-hint {{
-  position:absolute;
-  top:8px;
-  right:8px;
-  bottom:auto;
-  z-index:8;
-  padding:4px 6px;
-  border-radius:999px;
-  background:rgba(255,255,255,.82);
-  color:#758295;
-  font-size:6.9px;
-  font-weight:800;
-  line-height:1;
-  box-shadow:0 1px 4px rgba(35,57,93,.08);
-  pointer-events:none;
+  display:none !important;
 }}
 
 .country-map-caption {{
-  left:8px !important;
-  top:8px !important;
-  bottom:auto !important;
-  z-index:9 !important;
-  max-width:44%;
-  padding:4px 6px;
-  border-radius:999px;
-  background:rgba(255,255,255,.84);
-  backdrop-filter:blur(3px);
-  -webkit-backdrop-filter:blur(3px);
-  color:#6f7d8e !important;
-  font-size:6.9px !important;
-  box-shadow:0 1px 4px rgba(35,57,93,.08);
+  display:none !important;
 }}
 
 .country-map-caption-dot {{
   width:6px !important;
   height:6px !important;
-  background:#355f8d !important;
+  background:#76c8ff !important;
+  box-shadow:0 0 6px rgba(118,200,255,.72);
 }}
 
 @media (max-width:430px) {{
   .country-map-content .country-map-visual.globe-mode {{
-    height:192px !important;
+    height:194px !important;
   }}
   .globe-sphere {{
-    width:min(170px, 93%);
-    transform:translateY(-9px);
+    width:min(150px, 82%);
+    transform:translateY(8px);
   }}
   .globe-country-label {{
     min-height:21px;
     max-width:108px;
-    padding:2px 5px;
-    font-size:7.5px;
+    padding:2px 6px;
+    font-size:7.3px;
   }}
   .globe-country-flag {{
     font-size:10px;
@@ -11771,29 +11818,95 @@ header,
     font-size:7px;
   }}
   .globe-control-hint {{
-    top:7px;
-    right:7px;
-    font-size:6.5px;
+    display:none !important;
   }}
   .country-map-caption {{
-    top:7px !important;
-    left:7px !important;
-    max-width:42%;
+    display:none !important;
   }}
 }}
 
 @media (max-width:380px) {{
   .country-map-content .country-map-visual.globe-mode {{
-    height:184px !important;
+    height:186px !important;
   }}
   .globe-sphere {{
-    width:min(160px, 94%);
-    transform:translateY(-8px);
+    width:min(144px, 83%);
+    transform:translateY(7px);
   }}
   .globe-country-label {{
     max-width:96px;
     min-height:20px;
     font-size:7px;
+  }}
+}}
+
+
+/* ============================================================
+   FINAL OVERRIDE — LANDSCAPE THUMBNAILS
+   ============================================================ */
+.preview-card {{
+  grid-template-columns:minmax(0,1fr) 124px !important;
+  gap:10px !important;
+  min-height:86px !important;
+  padding:5px 4px 5px 10px !important;
+}}
+
+.card-side {{
+  width:124px !important;
+  min-width:124px !important;
+  align-self:center !important;
+}}
+
+.preview-image {{
+  width:124px !important;
+  height:74px !important;
+  min-height:74px !important;
+  align-self:center !important;
+  border-radius:8px !important;
+  overflow:hidden !important;
+  background:#edf2f7 !important;
+}}
+
+.preview-image img {{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:50% 50% !important;
+}}
+
+@media (max-width:430px) {{
+  .preview-card {{
+    grid-template-columns:minmax(0,1fr) 114px !important;
+    gap:9px !important;
+    min-height:84px !important;
+    padding:5px 4px 5px 9px !important;
+  }}
+  .card-side {{
+    width:114px !important;
+    min-width:114px !important;
+  }}
+  .preview-image {{
+    width:114px !important;
+    height:70px !important;
+    min-height:70px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .preview-card {{
+    grid-template-columns:minmax(0,1fr) 104px !important;
+    gap:8px !important;
+    min-height:80px !important;
+    padding:4px 3px 4px 8px !important;
+  }}
+  .card-side {{
+    width:104px !important;
+    min-width:104px !important;
+  }}
+  .preview-image {{
+    width:104px !important;
+    height:66px !important;
+    min-height:66px !important;
   }}
 }}
 </style>
@@ -13363,73 +13476,73 @@ function buildSatelliteTexture(maskCtx,width,height){{
       const elev=ridge(sx,sy);
 
       const coastSignal=(
-        alphaAt(sx-3,sy)+alphaAt(sx+3,sy)+alphaAt(sx,sy-3)+alphaAt(sx,sy+3)+
-        alphaAt(sx-6,sy)+alphaAt(sx+6,sy)+alphaAt(sx,sy-6)+alphaAt(sx,sy+6)
+        alphaAt(sx-2,sy)+alphaAt(sx+2,sy)+alphaAt(sx,sy-2)+alphaAt(sx,sy+2)+
+        alphaAt(sx-5,sy)+alphaAt(sx+5,sy)+alphaAt(sx,sy-5)+alphaAt(sx,sy+5)
       )/8;
       const coastProximity=land ? 1-coastSignal : coastSignal;
-      const coast=clamp01((coastProximity-0.02)/0.58);
+      const coast=clamp01((coastProximity-0.02)/0.62);
 
       let r,g,b;
       if(land){{
         const equatorial=clamp01(1-absLat/42);
         const desertBelt=smoothstep(8,22,absLat)*(1-smoothstep(22,39,absLat));
-        const desert=((0.44+0.34*n-0.18*n2) * desertBelt);
-        const vegetation=clamp01(0.62 + equatorial*0.30 - desert*0.62 - elev*0.10 + n*0.08);
-        const dry=clamp01(0.26 + desert*0.92 + (1-vegetation)*0.18);
-        const rock=clamp01(elev*0.72 + smoothstep(42,66,absLat)*0.16);
-        const snow=clamp01(smoothstep(56,76,absLat) + elev*0.34 - 0.05 + n2*0.05);
+        const desert=((0.42+0.32*n-0.16*n2) * desertBelt);
+        const vegetation=clamp01(0.66 + equatorial*0.28 - desert*0.58 - elev*0.08 + n*0.08);
+        const dry=clamp01(0.22 + desert*0.86 + (1-vegetation)*0.18);
+        const rock=clamp01(elev*0.68 + smoothstep(42,66,absLat)*0.14);
+        const snow=clamp01(smoothstep(56,76,absLat) + elev*0.34 - 0.04 + n2*0.04);
 
-        r=mix(54,100,vegetation);
-        g=mix(78,148,vegetation);
-        b=mix(48,92,vegetation);
+        r=mix(64,112,vegetation);
+        g=mix(96,158,vegetation);
+        b=mix(58,94,vegetation);
 
-        r=mix(r,188,dry*0.64);
-        g=mix(g,164,dry*0.64);
-        b=mix(b,108,dry*0.64);
+        r=mix(r,194,dry*0.62);
+        g=mix(g,170,dry*0.62);
+        b=mix(b,116,dry*0.62);
 
-        r=mix(r,130,rock*0.52);
-        g=mix(g,118,rock*0.52);
-        b=mix(b,108,rock*0.52);
+        r=mix(r,136,rock*0.50);
+        g=mix(g,123,rock*0.50);
+        b=mix(b,113,rock*0.50);
 
-        const rainforest=equatorial*clamp01(0.62 - desert + n*0.18);
-        r=mix(r,40,rainforest*0.34);
-        g=mix(g,114,rainforest*0.34);
-        b=mix(b,58,rainforest*0.34);
+        const rainforest=equatorial*clamp01(0.64 - desert + n*0.18);
+        r=mix(r,46,rainforest*0.32);
+        g=mix(g,122,rainforest*0.32);
+        b=mix(b,62,rainforest*0.32);
 
-        const coastBright=coast*0.34;
-        r=mix(r,174,coastBright*0.30);
-        g=mix(g,176,coastBright*0.34);
-        b=mix(b,120,coastBright*0.22);
+        // brighten shorelines so land masses are easier to read
+        r=mix(r,202,coast*0.18);
+        g=mix(g,198,coast*0.20);
+        b=mix(b,138,coast*0.14);
 
-        r=mix(r,238,snow*0.90);
-        g=mix(g,241,snow*0.90);
+        r=mix(r,239,snow*0.90);
+        g=mix(g,242,snow*0.90);
         b=mix(b,244,snow*0.92);
 
-        const relief=0.96 + n*0.08 + elev*0.09;
+        const relief=1.00 + n*0.07 + elev*0.08;
         r*=relief; g*=relief; b*=relief;
       }} else {{
-        const oceanBand=0.55 + 0.45*Math.sin((lonDeg+22)*0.055) * Math.cos((latDeg-8)*0.072);
+        const oceanBand=0.56 + 0.44*Math.sin((lonDeg+22)*0.055) * Math.cos((latDeg-8)*0.072);
         const gyre=noise(sx*0.45+17, sy*0.35+8);
-        const deepness=clamp01(0.28 + (1-coast)*0.52 + (0.5-gyre)*0.08);
-        r=mix(20,42,coast*0.85);
-        g=mix(92,165,coast*0.85);
-        b=mix(150,212,coast*0.90);
-        r=mix(r,7,deepness*0.74);
-        g=mix(g,48,deepness*0.74);
-        b=mix(b,112,deepness*0.74);
+        const deepness=clamp01(0.24 + (1-coast)*0.48 + (0.5-gyre)*0.06);
+        r=mix(30,60,coast*0.88);
+        g=mix(112,182,coast*0.88);
+        b=mix(174,226,coast*0.92);
+        r=mix(r,12,deepness*0.68);
+        g=mix(g,60,deepness*0.68);
+        b=mix(b,126,deepness*0.68);
         r+=oceanBand*4;
-        g+=oceanBand*7;
-        b+=oceanBand*9;
+        g+=oceanBand*8;
+        b+=oceanBand*10;
 
         const shelf=coast*coast;
-        r=mix(r,66,shelf*0.34);
-        g=mix(g,180,shelf*0.38);
-        b=mix(b,214,shelf*0.46);
+        r=mix(r,82,shelf*0.30);
+        g=mix(g,194,shelf*0.36);
+        b=mix(b,228,shelf*0.42);
 
-        const seaIce=clamp01(smoothstep(67,81,absLat) - deepness*0.20 + n*0.05);
-        r=mix(r,216,seaIce*0.78);
-        g=mix(g,229,seaIce*0.80);
-        b=mix(b,238,seaIce*0.82);
+        const seaIce=clamp01(smoothstep(67,81,absLat) - deepness*0.18 + n*0.05);
+        r=mix(r,218,seaIce*0.74);
+        g=mix(g,231,seaIce*0.78);
+        b=mix(b,240,seaIce*0.82);
       }}
 
       const cloudSignal=(
@@ -13437,10 +13550,10 @@ function buildSatelliteTexture(maskCtx,width,height){{
         0.55*Math.sin((sx-15)*0.062 - (sy+24)*0.021) +
         0.32*Math.sin((sx+140)*0.104 + (sy-33)*0.087)
       );
-      const cloud=clamp01((cloudSignal-0.98)/0.82) * (0.15 + 0.08*clamp01(1-Math.abs(latDeg)/90));
-      r=mix(r,246,cloud);
-      g=mix(g,248,cloud);
-      b=mix(b,250,cloud);
+      const cloud=clamp01((cloudSignal-1.00)/0.84) * (0.14 + 0.07*clamp01(1-Math.abs(latDeg)/90));
+      r=mix(r,247,cloud);
+      g=mix(g,249,cloud);
+      b=mix(b,251,cloud);
 
       out[i]=clamp255(r);
       out[i+1]=clamp255(g);
@@ -13550,21 +13663,14 @@ function renderGlobeCanvas(){{
       let g=texture[si+1];
       let b=texture[si+2];
 
-      const lightDirX=-.40, lightDirY=-.18, lightDirZ=.90;
-      const diffuse=Math.max(.24,nx*lightDirX+ny*lightDirY+z*lightDirZ);
-      const daylight=.62 + .40*diffuse;
+      const lightDirX=-.36, lightDirY=-.15, lightDirZ=.92;
+      const diffuse=Math.max(.34,nx*lightDirX+ny*lightDirY+z*lightDirZ);
+      const daylight=.74 + .26*diffuse;
       r*=daylight; g*=daylight; b*=daylight;
 
-      const reliefShade=Math.max(0,Math.min(1,0.92 + (z*.08) - nx*0.018 - ny*0.010));
-      if(isLand){{
-        r*=reliefShade;
-        g*=reliefShade;
-        b*=reliefShade;
-      }}
-
       if(!isLand){{
-        const spec=Math.pow(Math.max(0,nx*(-.24)+ny*(-.16)+z*.95),22);
-        r+=58*spec; g+=84*spec; b+=102*spec;
+        const spec=Math.pow(Math.max(0,nx*(-.22)+ny*(-.14)+z*.96),20);
+        r+=48*spec; g+=74*spec; b+=92*spec;
       }}
 
       const cloudSignal=(
@@ -13572,15 +13678,15 @@ function renderGlobeCanvas(){{
         0.58*Math.sin((lonDeg-globeState.rotationLon*0.10)*0.49 - latDeg*0.18) +
         0.34*Math.sin(lonDeg*0.88 + latDeg*0.71)
       );
-      const cloud=Math.max(0,Math.min(.17,(cloudSignal-1.18)*.19));
+      const cloud=Math.max(0,Math.min(.14,(cloudSignal-1.20)*.18));
       r=mix(r,248,cloud);
-      g=mix(g,249,cloud);
-      b=mix(b,251,cloud);
+      g=mix(g,250,cloud);
+      b=mix(b,252,cloud);
 
-      const rim=Math.pow(1-z,2.55);
-      r=mix(r,104,rim*.10);
-      g=mix(g,190,rim*.15);
-      b=mix(b,236,rim*.20);
+      const rim=Math.pow(1-z,2.45);
+      r=mix(r,122,rim*.08);
+      g=mix(g,200,rim*.12);
+      b=mix(b,244,rim*.17);
 
       data[di]=clamp255(r);
       data[di+1]=clamp255(g);
@@ -13594,8 +13700,8 @@ function renderGlobeCanvas(){{
   ctx.save();
   ctx.beginPath();
   ctx.arc(radius,radius,radius-2,0,Math.PI*2);
-  ctx.strokeStyle='rgba(155,226,255,.58)';
-  ctx.lineWidth=2.2;
+  ctx.strokeStyle='rgba(178,232,255,.62)';
+  ctx.lineWidth=2.4;
   ctx.stroke();
   ctx.restore();
 }}
@@ -13609,45 +13715,73 @@ function renderGlobeMarkers(){{
     .map(item=>({{...item,projection:projectGlobePoint(item.lon,item.lat,globeState.rotationLon)}}))
     .filter(item=>item.projection.visible)
     .sort((a,b)=>b.count-a.count);
+  if(!projected.length)return;
+
+  const focusItem=projected.reduce((best,item)=>!best || item.projection.z>best.projection.z ? item : best,null);
+  const focusCode=focusItem?.code || '';
 
   const layerRect=layer.getBoundingClientRect();
-  const labelMaxWidth=window.innerWidth<=430 ? 108 : 124;
-  const labelHeight=24;
-  const reserved=[
-    {{left:6, top:6, right:Math.min(layerRect.width*0.46, 122), bottom:34}},
-    {{left:Math.max(0, layerRect.width-128), top:6, right:layerRect.width-6, bottom:34}}
-  ];
-  const placed=[...reserved];
+  const centerX=layerRect.width/2;
+  const centerY=layerRect.height/2;
+  const labelMaxWidth=window.innerWidth<=430 ? 104 : 118;
+  const labelHeight=22;
+  const placed=[];
 
-  const defaultOffsets=[
-    [0,-28],[0,28],[26,-18],[-26,-18],[30,10],[-30,10],[34,-30],[-34,-30],[38,24],[-38,24],[0,-44],[0,44]
-  ];
-  const preferredOffsets={{
-    KR:[[-40,-16],[-42,8],[-28,-32],[-20,24]],
-    JP:[[40,-10],[42,12],[26,-30],[22,26]],
-    CN:[[-36,10],[-34,-16],[-18,28]],
-    TW:[[26,16],[30,-14],[-22,16]],
-    US:[[0,-30],[26,-14],[-26,-14]],
-    GB:[[-26,-12],[-20,18],[24,-10]],
-    FR:[[-28,12],[-18,-18],[26,8]],
-    RU:[[0,-28],[-30,-16],[30,-16]]
+  const extraOffsets={{
+    KR:[[-28,-12],[-30,10],[-12,-24],[-36,-2]],
+    JP:[[28,-12],[30,10],[12,-24],[36,-2]],
+    CN:[[-24,10],[-18,-16],[-8,24]],
+    TW:[[22,14],[18,-12]],
+    US:[[18,-10],[-18,-10],[0,18]],
+    GB:[[-12,-8],[12,8]],
+    FR:[[-14,8],[14,-8]],
+    RU:[[0,-16],[18,10],[-18,10]]
   }};
 
   projected.forEach((item,index)=>{{
     const p=item.projection;
     const important=item.count>=10 || item.code===activeCountryFilter || item.code==='KR' || item.code==='JP';
-    const maxLabels=window.innerWidth<=430 ? 8 : 11;
+    const maxLabels=window.innerWidth<=430 ? 8 : 12;
     if(index>=maxLabels && !important)return;
 
-    const approxWidth=Math.min(labelMaxWidth,58+item.name.length*7+(String(item.count).length*6));
     const baseX=(p.x/100)*layerRect.width;
     const baseY=(p.y/100)*layerRect.height;
-    const candidateOffsets=[...(preferredOffsets[item.code]||[]), ...defaultOffsets];
+    const anchor=document.createElement('div');
+    anchor.className='globe-country-anchor' + (item.code===focusCode ? ' orbit-focus' : '');
+    anchor.style.left=`${{baseX}}px`;
+    anchor.style.top=`${{baseY}}px`;
+    layer.appendChild(anchor);
+
+    const approxWidth=Math.min(labelMaxWidth,56+item.name.length*6.4+(String(item.count).length*6));
+    let vx=baseX-centerX;
+    let vy=baseY-centerY;
+    const len=Math.hypot(vx,vy) || 1;
+    vx/=len; vy/=len;
+
+    // Push labels more to the side/outside so the globe itself stays visible.
+    if(Math.abs(vx)<0.28){{
+      vx = baseX>=centerX ? 0.95 : -0.95;
+      vy *= 0.40;
+    }}
+    const perpX=-vy;
+    const perpY=vx;
+    const radialBase=item.code==='KR' || item.code==='JP' ? 56 : 46;
+    const focusBoost=item.code===focusCode ? 6 : 0;
+    const candidates=[];
+    const pushCandidate=(ox,oy)=>candidates.push([ox,oy]);
+
+    pushCandidate(vx*(radialBase+focusBoost), vy*(radialBase+focusBoost));
+    pushCandidate(vx*(radialBase+14)+perpX*10, vy*(radialBase+14)+perpY*10);
+    pushCandidate(vx*(radialBase+14)-perpX*10, vy*(radialBase+14)-perpY*10);
+    pushCandidate(vx*(radialBase+22), vy*(radialBase+22));
+    pushCandidate(vx*(radialBase+20)+perpX*18, vy*(radialBase+20)+perpY*18);
+    pushCandidate(vx*(radialBase+20)-perpX*18, vy*(radialBase+20)-perpY*18);
+    (extraOffsets[item.code]||[]).forEach(([dx,dy])=>pushCandidate(vx*radialBase+dx, vy*radialBase+dy));
 
     let chosen=null;
-    for(const [dx,dy] of candidateOffsets){{
-      const cx=Math.max(approxWidth/2 + 6, Math.min(layerRect.width - approxWidth/2 - 6, baseX + dx));
-      const cy=Math.max(labelHeight/2 + 38, Math.min(layerRect.height - labelHeight/2 - 10, baseY + dy));
+    for(const [dx,dy] of candidates){{
+      const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + dx));
+      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 6, baseY + dy));
       const rect={{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}};
       const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
       if(!overlaps){{
@@ -13659,16 +13793,15 @@ function renderGlobeMarkers(){{
 
     if(!chosen){{
       if(!important)return;
-      const cx=Math.max(approxWidth/2 + 6, Math.min(layerRect.width - approxWidth/2 - 6, baseX));
-      const cy=Math.max(labelHeight/2 + 38, Math.min(layerRect.height - labelHeight/2 - 10, baseY - 28));
-      const rect={{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}};
-      placed.push(rect);
+      const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + vx*(radialBase+26)));
+      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 6, baseY + vy*(radialBase+18)));
+      placed.push({{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}});
       chosen={{x:cx,y:cy}};
     }}
 
     const btn=document.createElement('button');
     btn.type='button';
-    btn.className='globe-country-label' + (activeCountryFilter===item.code?' active':'');
+    btn.className='globe-country-label' + (activeCountryFilter===item.code?' active':'') + (item.code===focusCode ? ' orbit-focus' : '');
     btn.dataset.countryFilter=item.code;
     btn.style.left=`${{chosen.x}}px`;
     btn.style.top=`${{chosen.y}}px`;
@@ -13786,7 +13919,7 @@ function layoutAndRenderCountryMap(){{
   if(caption){{
     caption.textContent=activeCountryFilter
       ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}}만 표시`
-      : '국가 라벨 선택';
+      : '국가 선택';
   }}
 
   renderGlobeFrame(true);
