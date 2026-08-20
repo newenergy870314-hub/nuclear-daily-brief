@@ -11554,6 +11554,223 @@ header,
     font-size:8.5px;
   }}
 }}
+
+
+/* ============================================================
+   FINAL 3D GLOBE — ROTATING COUNTRY FILTER
+   ============================================================ */
+#country-continent-grid,
+#country-chip-rail,
+.country-chip-guide,
+#country-map-label-layer {{
+  display:none !important;
+}}
+
+.country-map-content .country-map-visual.globe-mode {{
+  position:relative;
+  height:198px !important;
+  overflow:hidden !important;
+  border:1px solid #dce4ed !important;
+  border-radius:14px !important;
+  background:radial-gradient(circle at 54% 43%, #ffffff 0%, #f7f9fc 58%, #eef2f7 100%) !important;
+}}
+
+.globe-texture-source {{
+  display:none !important;
+}}
+
+.globe-stage {{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  touch-action:none;
+  user-select:none;
+  cursor:grab;
+}}
+
+.globe-stage.dragging {{
+  cursor:grabbing;
+}}
+
+.globe-sphere {{
+  position:relative;
+  width:min(174px, 90%);
+  aspect-ratio:1/1;
+  border-radius:50%;
+  overflow:visible;
+  isolation:isolate;
+  filter:drop-shadow(0 7px 10px rgba(35,57,93,.16));
+}}
+
+.globe-canvas {{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:#eef3f8;
+  box-shadow:
+    inset -17px -12px 24px rgba(41,64,91,.17),
+    inset 10px 8px 18px rgba(255,255,255,.74),
+    0 0 0 1px rgba(35,57,93,.12);
+}}
+
+.globe-shine {{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  border-radius:50%;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 31% 24%, rgba(255,255,255,.46) 0 5%, rgba(255,255,255,.15) 17%, transparent 34%),
+    radial-gradient(circle at 73% 72%, transparent 0 52%, rgba(28,49,75,.13) 86%, rgba(28,49,75,.22) 100%);
+  box-shadow:inset -8px -6px 14px rgba(35,57,93,.10);
+}}
+
+.globe-marker-layer {{
+  position:absolute;
+  inset:0;
+  z-index:5;
+  overflow:visible;
+  pointer-events:none;
+}}
+
+.globe-country-label {{
+  position:absolute;
+  transform:translate(-50%,-50%) scale(calc(.88 + var(--globe-depth, .7) * .16));
+  transform-origin:center;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  min-height:23px;
+  max-width:112px;
+  padding:3px 6px;
+  border:1px solid rgba(35,57,93,.18);
+  border-radius:8px;
+  background:rgba(255,255,255,.94);
+  color:#344963;
+  box-shadow:0 2px 6px rgba(25,45,70,.14);
+  font-size:8px;
+  font-weight:850;
+  line-height:1;
+  white-space:nowrap;
+  pointer-events:auto;
+  cursor:pointer;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}}
+
+.globe-country-label:hover,
+.globe-country-label:focus-visible {{
+  z-index:20;
+  border-color:#9aaac0;
+  background:#fff;
+  transform:translate(-50%,-50%) scale(1.06);
+}}
+
+.globe-country-label.active {{
+  z-index:25;
+  border-color:#23395d;
+  background:#23395d;
+  color:#fff;
+  box-shadow:0 3px 10px rgba(35,57,93,.24);
+}}
+
+.globe-country-flag {{
+  flex:0 0 auto;
+  font-size:11px;
+  line-height:1;
+}}
+
+.globe-country-name {{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}}
+
+.globe-country-count {{
+  flex:0 0 auto;
+  color:#d92d20;
+  font-size:7.5px;
+  font-weight:900;
+}}
+
+.globe-country-label.active .globe-country-count {{
+  color:#fee500;
+}}
+
+.globe-control-hint {{
+  position:absolute;
+  right:7px;
+  bottom:6px;
+  z-index:8;
+  color:#8b96a5;
+  font-size:7.2px;
+  font-weight:750;
+  line-height:1;
+  pointer-events:none;
+}}
+
+.country-map-caption {{
+  left:7px !important;
+  bottom:6px !important;
+  z-index:9 !important;
+  max-width:63%;
+  padding:3px 5px;
+  border-radius:6px;
+  background:rgba(255,255,255,.76);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  color:#7d8998 !important;
+  font-size:7px !important;
+}}
+
+.country-map-caption-dot {{
+  width:6px !important;
+  height:6px !important;
+  background:#355f8d !important;
+}}
+
+@media (max-width:430px) {{
+  .country-map-content .country-map-visual.globe-mode {{
+    height:188px !important;
+  }}
+  .globe-sphere {{
+    width:min(164px, 92%);
+  }}
+  .globe-country-label {{
+    min-height:21px;
+    max-width:102px;
+    padding:2px 5px;
+    font-size:7.5px;
+  }}
+  .globe-country-flag {{
+    font-size:10px;
+  }}
+  .globe-country-count {{
+    font-size:7px;
+  }}
+  .globe-control-hint {{
+    font-size:6.7px;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-content .country-map-visual.globe-mode {{
+    height:180px !important;
+  }}
+  .globe-sphere {{
+    width:min(154px, 93%);
+  }}
+  .globe-country-label {{
+    max-width:94px;
+    min-height:20px;
+    font-size:7px;
+  }}
+}}
 </style>
 </head>
 <body>
@@ -11649,8 +11866,16 @@ header,
           </div>
         </div>
       </aside>
-      <div class="country-map-visual" aria-label="기사 발생 국가 세계지도">
-      <svg class="world-map-inline" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
+      <div class="country-map-visual globe-mode" aria-label="기사 발생 국가 3D 회전 지구본">
+      <div id="globe-stage" class="globe-stage" aria-label="드래그하여 회전하는 3D 지구본">
+        <div id="globe-sphere" class="globe-sphere">
+          <canvas id="globe-canvas" class="globe-canvas" width="360" height="360" aria-hidden="true"></canvas>
+          <div id="globe-marker-layer" class="globe-marker-layer" aria-label="국가별 기사 바로가기"></div>
+          <div class="globe-shine" aria-hidden="true"></div>
+        </div>
+        <div class="globe-control-hint">↔ 드래그하여 지구본 회전</div>
+      </div>
+      <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
           <path d="M0.0,55.2 L0.0,55.2 L13.2,59.8 L16.8,65.0 L14.9,61.9 L17.7,61.7 L23.1,62.3 L28.7,65.0 L26.2,66.9 L23.8,66.1 L24.9,67.4 L19.4,66.5 L22.0,67.3 L21.9,68.8 L18.9,69.8 L21.6,71.0 L19.0,71.6 L18.5,70.3 L17.6,71.3 L12.7,69.8 L9.7,67.1 L4.3,67.4 L4.3,64.3 L1.7,64.4 L2.0,67.1 L0.0,68.7 L0.0,55.2 Z"/>
           <path d="M1000.0,68.7 L998.7,69.7 L986.5,69.9 L989.4,70.0 L989.1,70.9 L993.1,69.9 L995.1,71.8 L995.1,70.9 L999.0,76.8 L997.6,78.3 L992.0,77.4 L982.0,80.2 L973.7,84.7 L973.1,86.5 L970.1,84.1 L963.9,84.8 L961.9,86.9 L961.9,84.6 L957.9,87.0 L956.9,85.9 L954.5,86.2 L949.7,93.2 L953.7,94.0 L951.9,95.4 L953.8,99.4 L950.2,99.7 L950.4,104.3 L944.4,106.4 L944.6,110.0 L940.0,110.3 L940.4,112.8 L935.2,117.7 L932.1,102.8 L933.3,97.7 L935.7,93.8 L939.8,93.2 L949.8,84.8 L955.0,83.4 L956.0,78.4 L959.2,77.7 L957.2,77.0 L953.5,77.5 L953.7,80.5 L951.1,80.5 L945.0,84.2 L945.7,82.6 L943.9,83.0 L943.8,81.9 L945.5,79.5 L935.2,81.0 L928.4,86.6 L928.1,88.1 L930.5,88.0 L931.1,89.1 L920.4,90.2 L919.7,89.3 L923.1,88.9 L915.1,87.0 L913.7,88.9 L907.0,88.1 L905.7,89.2 L904.7,88.2 L895.7,89.0 L884.0,98.5 L875.6,103.8 L877.1,104.9 L880.1,104.7 L880.0,107.7 L882.6,105.8 L881.4,108.5 L884.9,106.9 L885.1,105.9 L888.2,105.9 L892.8,109.3 L892.2,110.4 L890.6,109.8 L893.2,113.3 L890.1,118.2 L890.0,124.2 L883.6,133.7 L875.4,143.1 L869.6,146.0 L866.0,143.7 L864.5,146.4 L863.0,145.9 L863.1,147.3 L860.4,149.1 L860.3,152.3 L854.2,156.1 L853.8,157.9 L856.6,159.7 L859.5,165.3 L860.0,168.9 L858.6,172.2 L857.2,171.7 L856.7,173.2 L854.8,172.4 L855.0,173.8 L854.2,172.8 L853.7,174.3 L853.5,173.2 L851.5,174.9 L850.8,173.8 L851.7,173.7 L850.7,172.0 L852.5,168.5 L851.4,168.5 L851.4,166.6 L851.2,167.6 L850.3,166.3 L851.4,165.3 L852.4,166.3 L851.4,162.9 L849.0,161.9 L848.7,162.4 L847.2,162.3 L847.9,161.8 L846.3,161.6 L847.1,160.0 L848.9,159.8 L847.6,159.0 L848.8,156.3 L843.4,155.4 L836.5,159.6 L838.7,157.2 L836.8,157.3 L839.7,153.6 L838.6,151.6 L836.0,152.3 L830.6,157.9 L827.0,158.3 L826.9,160.7 L830.1,161.3 L831.1,165.0 L835.4,162.6 L840.8,164.1 L840.3,165.9 L838.8,165.4 L835.5,166.8 L835.3,168.5 L833.7,168.3 L834.2,169.1 L831.1,172.4 L831.1,173.5 L834.1,174.8 L835.7,180.6 L838.6,183.7 L833.5,182.9 L835.5,183.3 L838.6,186.4 L833.7,189.0 L836.8,188.5 L839.3,190.0 L837.3,191.5 L838.9,191.1 L838.8,192.3 L837.3,192.5 L838.1,193.3 L837.1,194.1 L837.8,195.6 L835.0,196.2 L835.7,196.9 L833.7,201.3 L832.1,200.6 L832.9,201.9 L832.2,202.0 L833.2,202.2 L832.0,203.2 L832.4,205.7 L831.5,204.8 L831.3,206.3 L830.2,206.0 L830.5,207.3 L829.3,207.2 L829.6,208.4 L827.2,208.6 L828.2,209.4 L826.6,211.3 L826.0,210.5 L825.7,211.7 L823.5,212.2 L824.3,212.9 L823.6,214.0 L821.0,215.0 L820.3,214.1 L819.1,215.4 L818.8,214.4 L817.2,215.4 L817.5,216.3 L814.9,213.4 L815.4,216.6 L814.7,216.0 L814.2,217.0 L813.7,215.5 L813.6,217.8 L812.1,217.3 L812.1,218.2 L810.2,217.9 L810.1,218.9 L806.8,220.0 L806.6,219.3 L806.3,223.3 L805.4,223.3 L804.6,220.9 L805.5,219.0 L804.5,218.1 L803.2,219.3 L801.5,217.5 L801.3,218.7 L799.4,218.9 L798.2,220.7 L796.1,220.6 L796.7,221.8 L796.0,221.5 L796.0,223.2 L794.2,224.5 L793.4,227.9 L797.6,235.0 L800.9,237.4 L802.6,240.5 L804.1,249.5 L803.3,249.6 L802.8,253.9 L797.9,257.3 L796.5,256.6 L796.6,257.7 L795.7,257.5 L796.6,258.3 L795.4,258.0 L796.2,259.3 L794.9,258.0 L795.8,260.2 L794.0,258.6 L795.0,260.8 L792.4,262.9 L791.1,262.8 L791.9,258.6 L788.5,256.2 L787.8,256.9 L787.7,254.6 L786.5,255.6 L785.1,251.1 L782.7,249.3 L780.2,249.5 L780.5,246.6 L777.6,247.2 L777.8,251.1 L775.4,257.4 L775.6,261.2 L777.4,261.1 L779.0,268.4 L782.1,269.5 L786.5,274.7 L787.4,277.5 L787.4,283.4 L789.7,288.4 L788.7,287.4 L787.5,288.7 L781.4,283.3 L779.3,278.2 L778.1,270.5 L774.1,264.2 L773.0,264.8 L774.3,257.5 L773.8,258.7 L773.5,256.3 L774.7,252.8 L773.7,252.1 L774.2,248.9 L772.8,244.9 L772.6,246.4 L771.6,241.8 L771.5,236.0 L770.4,236.2 L769.1,232.7 L769.1,235.1 L767.9,236.2 L767.0,235.2 L767.6,236.5 L765.9,237.1 L765.2,238.8 L764.2,237.5 L763.8,238.8 L762.9,237.6 L762.2,238.5 L762.8,237.0 L761.8,238.1 L762.8,232.6 L761.4,226.3 L760.9,228.1 L759.6,226.3 L761.2,226.3 L760.4,224.4 L758.3,223.7 L758.6,222.1 L757.7,223.5 L754.0,214.6 L751.9,214.6 L752.3,216.7 L751.7,217.2 L751.5,215.2 L750.5,217.9 L749.7,215.9 L749.4,217.8 L748.7,216.9 L747.8,218.1 L747.3,217.0 L747.3,218.6 L746.2,217.0 L745.1,218.8 L744.5,216.5 L743.9,218.3 L741.4,219.5 L741.9,221.7 L739.9,224.3 L736.2,226.2 L733.7,230.0 L728.6,234.4 L728.6,236.0 L725.7,236.9 L724.8,238.9 L723.0,239.1 L722.4,241.1 L723.2,247.3 L721.6,252.9 L721.9,257.6 L720.3,257.7 L719.2,260.4 L720.0,261.1 L717.4,262.0 L716.9,264.2 L715.4,265.3 L712.6,262.4 L710.7,254.7 L704.0,237.7 L701.8,224.7 L702.6,221.5 L701.7,219.7 L702.6,218.4 L701.5,218.4 L701.4,217.3 L702.5,216.3 L700.9,216.2 L700.3,220.0 L696.7,221.8 L691.5,216.2 L694.9,215.4 L695.7,213.9 L692.2,214.4 L690.1,212.0 L691.1,210.7 L689.6,211.9 L689.9,210.5 L687.4,210.6 L686.9,207.7 L685.2,207.5 L684.6,204.8 L671.5,206.9 L659.2,204.2 L657.4,199.3 L652.2,201.7 L649.2,201.0 L645.7,197.8 L642.8,196.8 L639.2,189.0 L637.7,189.7 L635.9,188.3 L635.8,189.6 L633.2,189.4 L633.9,191.2 L632.5,191.8 L633.6,191.9 L635.7,197.9 L639.3,201.3 L638.9,203.5 L641.0,207.9 L641.6,203.5 L643.3,203.7 L642.5,209.3 L644.8,210.7 L646.1,209.7 L650.3,209.9 L657.0,202.2 L656.3,204.7 L657.3,208.7 L658.8,210.6 L663.2,212.0 L666.1,216.5 L662.6,222.7 L661.7,222.0 L660.7,223.3 L660.7,227.6 L657.8,228.5 L656.5,231.3 L654.0,231.7 L652.8,234.5 L645.8,236.4 L645.0,239.3 L637.1,242.6 L635.3,244.7 L626.8,247.1 L625.1,249.1 L620.7,249.4 L618.3,240.6 L618.6,235.4 L613.3,225.1 L608.9,220.4 L608.7,215.8 L606.8,211.1 L604.0,209.1 L603.4,206.2 L597.8,196.4 L596.0,196.2 L597.2,191.3 L595.1,197.5 L590.5,189.9 L589.7,185.5 L595.1,185.0 L600.0,174.0 L599.2,170.4 L600.4,166.1 L598.2,167.1 L596.2,166.2 L594.3,168.2 L591.1,168.9 L586.6,166.0 L585.1,166.0 L584.5,168.3 L582.5,168.5 L579.1,165.9 L576.1,166.7 L578.7,165.3 L575.7,165.6 L576.8,164.7 L575.0,163.2 L575.7,162.2 L572.9,161.2 L573.4,159.7 L574.1,161.0 L575.5,160.5 L574.2,159.8 L574.9,156.7 L572.4,157.0 L572.6,155.5 L574.3,153.8 L580.5,153.9 L580.5,153.0 L583.2,152.7 L581.3,152.4 L581.0,151.0 L586.7,151.4 L592.6,148.2 L597.3,147.9 L601.1,150.9 L606.6,152.0 L611.6,152.0 L615.0,150.4 L616.1,148.8 L615.1,145.7 L601.7,137.3 L604.3,136.6 L606.3,133.6 L607.2,134.4 L604.7,132.1 L607.2,132.2 L609.1,130.1 L599.8,132.2 L597.2,134.2 L597.7,132.7 L595.7,134.8 L597.1,136.7 L598.5,137.0 L596.7,134.0 L598.5,136.9 L601.8,136.6 L594.4,140.0 L592.7,139.4 L592.2,136.4 L590.2,136.6 L593.6,135.1 L593.3,134.0 L588.3,133.6 L589.0,133.0 L587.5,132.5 L590.1,132.8 L588.9,131.4 L585.4,132.6 L584.7,134.2 L583.7,133.2 L584.7,134.2 L582.6,135.9 L583.7,134.8 L582.6,135.9 L582.3,135.1 L582.2,138.4 L580.5,139.0 L580.2,138.1 L579.4,143.2 L575.9,147.0 L577.0,146.9 L580.5,151.7 L576.4,151.8 L572.7,155.0 L574.5,152.9 L569.8,151.7 L565.9,152.6 L567.8,154.6 L565.9,153.9 L566.5,155.4 L563.7,153.0 L562.7,153.6 L564.9,158.0 L563.7,157.4 L564.0,158.6 L562.6,159.1 L566.9,161.5 L566.8,163.3 L565.3,161.9 L563.9,162.5 L565.3,164.0 L563.1,163.6 L564.4,167.5 L562.9,166.2 L562.5,167.6 L561.5,165.4 L560.3,166.2 L558.6,162.6 L559.4,161.3 L563.6,162.3 L564.5,161.5 L558.6,160.9 L557.6,159.3 L558.7,158.5 L557.6,158.8 L553.6,153.7 L554.4,148.9 L552.1,146.6 L547.2,144.8 L549.3,145.4 L546.9,143.4 L544.3,143.1 L540.4,136.9 L538.6,138.7 L537.6,135.2 L533.7,136.6 L534.4,140.7 L537.9,142.9 L541.1,148.1 L544.9,148.6 L544.3,150.1 L551.4,154.7 L551.0,155.9 L549.6,154.2 L546.9,153.7 L545.8,156.0 L547.8,158.5 L546.1,159.3 L544.6,162.3 L543.4,162.0 L545.1,159.1 L543.5,155.1 L530.8,146.9 L528.3,141.5 L524.3,139.9 L517.1,144.7 L511.3,142.9 L509.3,143.8 L508.2,145.4 L508.9,148.7 L502.7,151.6 L500.0,155.4 L499.5,156.1 L499.3,158.2 L500.0,158.9 L500.7,159.5 L500.0,160.0 L498.6,160.9 L498.0,163.4 L496.0,163.8 L494.1,166.4 L487.7,166.5 L484.4,169.0 L480.9,164.5 L475.0,165.4 L475.4,160.7 L476.0,160.7 L474.4,160.6 L475.2,158.6 L473.6,159.4 L475.6,154.8 L476.1,147.1 L474.2,144.6 L478.6,142.1 L480.4,143.2 L495.5,143.3 L497.0,136.0 L496.6,135.5 L496.9,133.4 L495.0,132.8 L493.4,129.3 L487.8,128.3 L487.1,126.6 L488.5,126.7 L486.7,125.8 L491.5,124.5 L492.5,125.9 L496.2,125.4 L494.6,121.6 L500.0,123.0 L500.0,123.0 L504.6,120.1 L504.4,117.7 L511.8,116.0 L509.5,115.4 L512.9,114.8 L511.1,113.9 L513.1,110.5 L514.6,112.7 L516.2,111.8 L514.8,110.1 L516.3,109.0 L520.6,109.6 L519.7,108.3 L522.1,107.9 L523.6,109.1 L524.1,107.3 L527.3,108.5 L523.8,105.9 L525.0,105.2 L523.9,103.9 L523.0,104.3 L523.9,96.1 L529.6,94.0 L528.1,97.5 L530.4,98.5 L526.6,101.0 L526.2,104.0 L528.2,105.8 L530.9,105.5 L530.2,107.0 L536.2,105.4 L540.5,108.3 L540.9,106.8 L549.9,104.0 L552.2,105.7 L555.2,104.7 L553.8,106.1 L556.7,104.6 L555.2,104.7 L555.4,103.7 L557.1,103.2 L558.6,100.9 L557.0,103.6 L559.0,103.6 L558.3,98.2 L560.3,94.6 L562.8,93.9 L565.7,96.7 L567.8,95.7 L568.3,92.0 L565.9,91.9 L565.3,88.9 L571.4,87.3 L577.5,88.3 L578.1,86.9 L584.3,86.4 L579.5,85.0 L579.6,83.6 L563.6,86.9 L564.1,84.9 L562.6,85.5 L559.5,84.1 L560.5,81.1 L558.7,76.6 L570.9,68.9 L568.3,66.1 L562.9,65.8 L562.2,67.1 L560.4,66.4 L560.4,68.3 L559.0,67.8 L560.1,70.9 L557.4,73.1 L550.3,76.7 L549.1,75.8 L547.7,83.9 L550.0,84.1 L553.0,87.1 L550.2,88.2 L552.0,88.7 L549.8,90.3 L549.0,89.0 L548.6,90.4 L545.0,90.9 L547.1,91.5 L545.6,91.5 L546.5,95.0 L544.0,99.7 L540.8,99.4 L539.4,102.1 L535.6,102.1 L534.6,99.0 L535.9,98.0 L532.5,94.1 L533.1,91.9 L532.1,93.4 L532.5,91.6 L531.1,91.9 L529.9,86.5 L529.0,89.4 L526.4,89.2 L522.8,92.7 L519.6,93.2 L515.7,91.2 L515.5,89.5 L517.5,90.2 L518.5,89.5 L516.4,89.4 L518.3,87.7 L515.7,88.8 L514.5,87.8 L519.8,84.5 L515.4,86.6 L516.0,84.9 L515.1,85.8 L514.4,84.9 L516.1,83.7 L514.7,84.3 L513.7,83.4 L515.5,83.2 L514.0,82.6 L518.5,82.2 L519.8,83.2 L521.4,82.0 L521.1,81.1 L520.4,82.2 L518.8,81.3 L518.1,82.1 L514.5,82.4 L515.8,81.5 L513.8,81.3 L516.3,81.2 L513.9,80.8 L514.4,79.7 L519.0,79.8 L514.4,79.7 L514.2,78.6 L517.5,79.1 L516.5,78.5 L518.2,78.9 L518.6,78.1 L520.0,79.0 L517.4,77.3 L522.6,76.9 L519.4,76.0 L523.7,77.0 L521.9,75.9 L524.2,76.5 L523.7,74.5 L526.9,73.8 L527.3,74.8 L530.4,74.3 L531.6,72.0 L528.9,73.9 L526.4,73.6 L530.4,70.3 L531.2,71.3 L532.9,70.9 L531.6,70.0 L533.8,69.1 L531.4,69.4 L536.0,67.9 L533.5,68.2 L535.2,65.8 L536.7,66.1 L535.2,65.3 L539.4,64.4 L536.2,64.9 L538.9,62.8 L537.5,62.2 L543.0,61.7 L539.8,61.2 L544.1,60.1 L541.2,59.0 L544.1,58.9 L542.4,58.4 L544.5,57.7 L545.9,59.3 L545.2,57.3 L549.7,57.2 L545.7,56.9 L549.1,56.3 L550.4,53.6 L554.3,54.4 L552.6,53.0 L554.8,52.4 L554.6,53.7 L556.4,51.8 L555.3,54.2 L559.0,51.7 L561.4,52.6 L559.9,50.6 L565.2,51.8 L568.4,48.3 L572.0,48.7 L569.9,51.5 L574.1,48.4 L573.6,50.5 L575.3,50.1 L576.8,47.8 L579.3,48.4 L577.4,50.3 L580.5,48.7 L586.2,50.4 L583.8,51.5 L579.3,51.1 L581.9,52.9 L584.2,52.1 L586.8,53.3 L589.1,51.9 L592.0,52.7 L589.2,52.6 L589.3,53.8 L593.1,53.8 L591.8,55.6 L593.2,54.1 L598.1,54.3 L610.5,58.1 L615.0,61.7 L608.6,65.2 L588.5,61.6 L593.6,64.1 L591.6,64.7 L596.8,66.0 L595.1,67.7 L596.6,70.6 L603.9,73.2 L605.7,71.4 L601.5,69.9 L602.4,68.4 L606.6,69.5 L605.6,70.4 L606.8,69.6 L612.4,70.6 L610.3,67.4 L613.2,65.6 L617.3,63.7 L622.5,65.6 L622.8,57.7 L620.2,56.3 L629.3,58.2 L629.7,59.3 L624.8,60.6 L627.8,62.7 L632.1,62.4 L632.9,60.1 L636.3,60.0 L635.0,58.9 L645.0,56.6 L645.4,57.6 L649.6,55.3 L651.6,55.2 L648.9,55.9 L647.8,58.0 L652.4,58.1 L653.8,56.8 L659.2,56.8 L663.9,55.2 L666.0,57.5 L666.5,56.2 L670.0,55.8 L667.2,53.2 L669.0,52.2 L683.8,54.9 L682.0,54.7 L689.6,58.2 L692.4,55.4 L689.2,53.3 L685.6,53.3 L685.4,47.9 L689.8,46.3 L692.8,41.6 L699.0,41.7 L702.4,42.4 L699.5,46.7 L702.3,48.7 L701.5,55.3 L704.5,57.2 L699.3,62.4 L692.0,63.4 L700.4,64.8 L707.7,59.7 L707.4,56.0 L712.7,55.3 L714.2,59.4 L718.8,60.5 L715.2,59.5 L717.2,57.8 L715.7,55.5 L710.9,54.3 L704.9,54.6 L706.5,49.7 L702.8,46.9 L708.4,44.2 L707.9,42.0 L711.5,47.7 L718.1,48.6 L711.0,45.2 L716.6,45.4 L715.2,44.1 L717.9,43.5 L726.3,45.8 L731.3,45.8 L727.8,49.8 L730.1,48.4 L729.0,51.1 L732.3,52.7 L732.4,46.1 L724.6,43.4 L723.6,39.5 L742.3,38.5 L738.7,35.0 L741.7,35.9 L741.6,34.0 L761.4,31.3 L757.9,31.5 L759.1,30.7 L767.0,30.6 L765.8,31.6 L774.5,30.1 L777.3,30.9 L774.7,29.4 L780.9,29.4 L781.5,27.3 L789.3,25.1 L795.4,26.3 L789.4,27.3 L798.7,27.9 L795.9,29.3 L808.6,28.4 L816.5,31.6 L815.5,32.7 L812.1,31.6 L815.5,33.7 L797.3,39.2 L793.1,42.3 L795.4,40.7 L808.4,39.0 L804.7,39.1 L805.6,37.9 L809.9,37.8 L812.0,39.0 L813.5,38.0 L815.3,40.7 L821.4,38.9 L830.2,39.6 L828.9,40.6 L832.9,41.5 L841.2,41.9 L845.7,38.6 L850.8,40.5 L857.8,40.7 L859.6,42.6 L856.8,43.0 L859.9,44.1 L856.4,44.5 L864.0,49.3 L868.8,45.0 L871.7,46.8 L877.8,46.1 L883.0,47.9 L883.7,46.3 L889.2,46.8 L887.0,45.0 L889.4,43.9 L886.5,44.0 L892.5,42.8 L891.4,41.8 L908.0,43.6 L900.7,44.0 L908.2,43.7 L905.5,45.3 L904.2,44.0 L903.7,46.4 L908.7,43.7 L912.1,43.7 L916.8,45.1 L913.4,45.9 L923.7,48.9 L933.1,48.0 L941.5,48.7 L947.5,54.6 L951.0,52.8 L963.5,53.6 L966.1,52.5 L967.6,54.4 L973.6,56.0 L975.5,55.1 L972.7,53.1 L973.7,51.3 L981.2,52.5 L989.1,52.1 L1000.0,55.2 L1000.0,68.7 Z"/>
@@ -12391,7 +12616,7 @@ header,
     </div>
     </div>
 
-    <div id="country-continent-grid" class="country-continent-grid" aria-label="대륙별 국가 기사 필터"></div>
+    <div id="country-continent-grid" class="country-continent-grid" aria-label="대륙별 국가 기사 필터" hidden></div>
 
     <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true"></div>
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터" hidden>
@@ -12968,235 +13193,336 @@ function hideCountryMapTooltip(force=false){{
   tooltip.classList.remove("visible","persistent");
 }}
 
-function layoutAndRenderCountryMap(){{
-  const dotLayer=document.getElementById("country-map-dots-svg");
-  const labelLayer=document.getElementById("country-map-label-layer");
-  const caption=document.getElementById("country-map-caption-text");
-  if(!dotLayer)return;
+const globeState={{
+  initialized:false,
+  textureReady:false,
+  sourceCanvas:null,
+  sourceCtx:null,
+  rotationLon:127.8,
+  autoRotate:true,
+  dragging:false,
+  pointerId:null,
+  dragStartX:0,
+  dragStartLon:0,
+  resumeTimer:null,
+  lastFrame:0,
+  items:[],
+  frameId:null
+}};
 
-  dotLayer.innerHTML="";
-  if(labelLayer)labelLayer.innerHTML="";
-  hideCountryMapTooltip(true);
+function normalizeGlobeLon(lon){{
+  let value=lon;
+  while(value>180)value-=360;
+  while(value<-180)value+=360;
+  return value;
+}}
 
-  const chipButtons=[...document.querySelectorAll(
-    "#country-chip-rail .country-pin[data-country-filter]"
-  )];
-  const SVG_NS="http://www.w3.org/2000/svg";
-
-  const CONTINENT_MAP={{
-    US:"NA", CA:"NA", MX:"NA",
-    CO:"SA", PE:"SA", CL:"SA", BR:"SA", AR:"SA", UY:"SA",
-    GB:"EU", UK:"EU", FR:"EU", DE:"EU", ES:"EU", IT:"EU", NL:"EU", BE:"EU", SE:"EU", FI:"EU", DK:"EU", NO:"EU", CH:"EU", AT:"EU", PL:"EU", CZ:"EU", SK:"EU", HU:"EU", RO:"EU", BG:"EU", SI:"EU", HR:"EU", LT:"EU", LV:"EU", EE:"EU", PT:"EU", IE:"EU", GR:"EU", UA:"EU", EFTA:"EU",
-    RU:"CIS", KZ:"CIS",
-    TR:"MEA", AE:"MEA", UAE:"MEA", SA:"MEA", EG:"MEA", ZA:"MEA", QA:"MEA", OM:"MEA",
-    IN:"SASIA", PK:"SASIA", BD:"SASIA",
-    CN:"EASIA", JP:"EASIA", KR:"EASIA", TW:"EASIA", HK:"EASIA", MN:"EASIA",
-    VN:"SEA", TH:"SEA", SG:"SEA", MY:"SEA", ID:"SEA", PH:"SEA", LA:"SEA", KH:"SEA", MM:"SEA",
-    AU:"OCE", NZ:"OCE"
+function projectGlobePoint(lon,lat,rotationLon){{
+  const toRad=Math.PI/180;
+  const lambda=(lon-rotationLon)*toRad;
+  const phi=lat*toRad;
+  const cosPhi=Math.cos(phi);
+  const z=cosPhi*Math.cos(lambda);
+  return {{
+    visible:z>0.035,
+    z,
+    x:50 + 47*cosPhi*Math.sin(lambda),
+    y:50 - 47*Math.sin(phi)
   }};
+}}
 
-  const CONTINENT_META={{
-    NA:    {{ title:"북미" }},
-    SA:    {{ title:"남미" }},
-    EU:    {{ title:"유럽" }},
-    CIS:   {{ title:"동유럽·CIS" }},
-    EASIA: {{ title:"동아시아" }},
-    SEA:   {{ title:"동남아" }},
-    SASIA: {{ title:"남아시아" }},
-    MEA:   {{ title:"중동·아프리카" }},
-    OCE:   {{ title:"오세아니아" }},
-    OTHER: {{ title:"기타" }}
-  }};
+function prepareGlobeTexture(){{
+  if(globeState.textureReady || globeState.texturePreparing)return;
+  const sourceSvg=document.querySelector('.world-map-inline.globe-texture-source');
+  if(!sourceSvg)return;
+  globeState.texturePreparing=true;
 
-  function getRegion(code, lon, lat){{
-    if(CONTINENT_MAP[code])return CONTINENT_MAP[code];
-    if(lat>=15 && lon<=-50)return "NA";
-    if(lat<15 && lon<=-35)return "SA";
-    if(lat>=35 && lon>=-10 && lon<=40)return "EU";
-    if(lat>=35 && lon>40 && lon<=90)return "CIS";
-    if(lon>=110 && lat>=20)return "EASIA";
-    if(lon>=95 && lat>-15 && lat<25)return "SEA";
-    if(lon>=60 && lon<95 && lat>=5)return "SASIA";
-    if(lon>=110 && lat<-10)return "OCE";
-    if(lon>=20 && lon<70 && lat<35)return "MEA";
-    return "OTHER";
+  try{{
+    const clone=sourceSvg.cloneNode(true);
+    clone.removeAttribute('class');
+    clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+    clone.setAttribute('width','1000');
+    clone.setAttribute('height','500');
+    clone.querySelectorAll('#country-map-dots-svg').forEach(node=>node.remove());
+
+    const xml=new XMLSerializer().serializeToString(clone);
+    const blob=new Blob([xml],{{type:'image/svg+xml'}});
+    const url=URL.createObjectURL(blob);
+    const img=new Image();
+    img.onload=()=>{{
+      const sourceCanvas=document.createElement('canvas');
+      sourceCanvas.width=1000;
+      sourceCanvas.height=500;
+      const sourceCtx=sourceCanvas.getContext('2d',{{willReadFrequently:true}});
+      sourceCtx.clearRect(0,0,1000,500);
+      sourceCtx.drawImage(img,0,0,1000,500);
+      URL.revokeObjectURL(url);
+      globeState.sourceCanvas=sourceCanvas;
+      globeState.sourceCtx=sourceCtx;
+      globeState.textureReady=true;
+      globeState.texturePreparing=false;
+      renderGlobeFrame(true);
+    }};
+    img.onerror=()=>{{
+      URL.revokeObjectURL(url);
+      globeState.texturePreparing=false;
+    }};
+    img.src=url;
+  }}catch(error){{
+    console.warn('[GLOBE TEXTURE]',error);
+    globeState.texturePreparing=false;
+  }}
+}}
+
+function drawFallbackGlobe(ctx,size){{
+  const r=size/2;
+  ctx.clearRect(0,0,size,size);
+  const grad=ctx.createRadialGradient(r*.72,r*.62,r*.08,r,r,r);
+  grad.addColorStop(0,'#fdfefe');
+  grad.addColorStop(.68,'#edf3f8');
+  grad.addColorStop(1,'#c9d5e1');
+  ctx.fillStyle=grad;
+  ctx.beginPath();
+  ctx.arc(r,r,r-2,0,Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle='rgba(79,103,132,.16)';
+  ctx.lineWidth=1;
+  [0.28,0.55,0.78].forEach(scale=>{{
+    ctx.beginPath();
+    ctx.ellipse(r,r,r*scale,r*.96,0,0,Math.PI*2);
+    ctx.stroke();
+  }});
+  [-.55,0,.55].forEach(offset=>{{
+    ctx.beginPath();
+    ctx.ellipse(r,r+offset*r*.72,r*.95,r*.30,0,0,Math.PI*2);
+    ctx.stroke();
+  }});
+}}
+
+function renderGlobeCanvas(){{
+  const canvas=document.getElementById('globe-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d',{{willReadFrequently:true}});
+  const size=canvas.width;
+  const radius=size/2;
+
+  if(!globeState.textureReady || !globeState.sourceCtx){{
+    drawFallbackGlobe(ctx,size);
+    return;
   }}
 
+  const srcCtx=globeState.sourceCtx;
+  let src;
+  try{{
+    src=srcCtx.getImageData(0,0,1000,500).data;
+  }}catch(error){{
+    drawFallbackGlobe(ctx,size);
+    return;
+  }}
+
+  const out=ctx.createImageData(size,size);
+  const data=out.data;
+  const rot=globeState.rotationLon*Math.PI/180;
+
+  for(let py=0;py<size;py++){{
+    const ny=(py-radius)/(radius-2);
+    for(let px=0;px<size;px++){{
+      const nx=(px-radius)/(radius-2);
+      const rr=nx*nx+ny*ny;
+      const di=(py*size+px)*4;
+      if(rr>1){{
+        data[di+3]=0;
+        continue;
+      }}
+
+      const z=Math.sqrt(Math.max(0,1-rr));
+      const lat=Math.asin(-ny);
+      let lon=Math.atan2(nx,z)+rot;
+      while(lon>Math.PI)lon-=Math.PI*2;
+      while(lon<-Math.PI)lon+=Math.PI*2;
+
+      const lonDeg=lon*180/Math.PI;
+      const latDeg=lat*180/Math.PI;
+      let sx=Math.floor(((lonDeg+180)/360)*999);
+      let sy=Math.floor(((85-latDeg)/145)*499);
+      sx=Math.max(0,Math.min(999,sx));
+      sy=Math.max(0,Math.min(499,sy));
+      const si=(sy*1000+sx)*4;
+
+      const edge=Math.pow(Math.max(0,z),.30);
+      const light=.74 + .26*Math.max(0,(nx*-.28 + ny*-.12 + z*.95));
+      const shade=edge*light;
+
+      data[di]=Math.min(255,src[si]*shade + 17*(1-shade));
+      data[di+1]=Math.min(255,src[si+1]*shade + 24*(1-shade));
+      data[di+2]=Math.min(255,src[si+2]*shade + 34*(1-shade));
+      data[di+3]=255;
+    }}
+  }}
+
+  ctx.putImageData(out,0,0);
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(radius,radius,radius-2,0,Math.PI*2);
+  ctx.strokeStyle='rgba(35,57,93,.28)';
+  ctx.lineWidth=3;
+  ctx.stroke();
+  ctx.restore();
+}}
+
+function renderGlobeMarkers(){{
+  const layer=document.getElementById('globe-marker-layer');
+  if(!layer)return;
+  layer.innerHTML='';
+
+  const projected=globeState.items
+    .map(item=>({{...item,projection:projectGlobePoint(item.lon,item.lat,globeState.rotationLon)}}))
+    .filter(item=>item.projection.visible)
+    .sort((a,b)=>b.count-a.count);
+
+  const placed=[];
+  projected.forEach((item,index)=>{{
+    const p=item.projection;
+    const important=item.count>=10 || item.code===activeCountryFilter;
+    const maxLabels=window.innerWidth<=430 ? 7 : 10;
+    if(index>=maxLabels && !important)return;
+
+    const approxWidth=Math.min(112,52+item.name.length*7+(String(item.count).length*6));
+    const approxHeight=25;
+    const xPct=p.x;
+    const yPct=p.y;
+    const layerRect=layer.getBoundingClientRect();
+    const x=(xPct/100)*layerRect.width;
+    const y=(yPct/100)*layerRect.height;
+    const rect={{left:x-approxWidth/2,right:x+approxWidth/2,top:y-approxHeight/2,bottom:y+approxHeight/2}};
+    const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
+    if(overlaps && !important)return;
+    placed.push(rect);
+
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='globe-country-label' + (activeCountryFilter===item.code?' active':'');
+    btn.dataset.countryFilter=item.code;
+    btn.style.left=`${{xPct}}%`;
+    btn.style.top=`${{yPct}}%`;
+    btn.style.setProperty('--globe-depth',String(Math.max(.45,p.z)));
+    btn.innerHTML=`<span class="globe-country-flag">${{item.flag}}</span><span class="globe-country-name">${{item.name}}</span><span class="globe-country-count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label',`${{item.name}} 기사 ${{item.count}}건 보기`);
+    btn.addEventListener('click',event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      globeState.autoRotate=false;
+      clearTimeout(globeState.resumeTimer);
+      globeState.resumeTimer=setTimeout(()=>{{globeState.autoRotate=true;}},6000);
+      setCountryFilter(item.code);
+    }});
+    layer.appendChild(btn);
+  }});
+}}
+
+function renderGlobeFrame(force=false){{
+  renderGlobeCanvas();
+  renderGlobeMarkers();
+  if(force)globeState.lastFrame=performance.now();
+}}
+
+function startGlobeAnimation(){{
+  if(globeState.frameId)return;
+  const tick=(now)=>{{
+    if(!globeState.lastFrame)globeState.lastFrame=now;
+    const delta=Math.min(40,now-globeState.lastFrame);
+    globeState.lastFrame=now;
+    if(globeState.autoRotate && !globeState.dragging){{
+      globeState.rotationLon=normalizeGlobeLon(globeState.rotationLon + delta*0.0042);
+      renderGlobeFrame();
+    }}
+    globeState.frameId=requestAnimationFrame(tick);
+  }};
+  globeState.frameId=requestAnimationFrame(tick);
+}}
+
+function bindGlobeInteraction(){{
+  if(globeState.bound)return;
+  const stage=document.getElementById('globe-stage');
+  if(!stage)return;
+  globeState.bound=true;
+
+  stage.addEventListener('pointerdown',event=>{{
+    if(event.target.closest('.globe-country-label'))return;
+    globeState.dragging=true;
+    globeState.autoRotate=false;
+    globeState.pointerId=event.pointerId;
+    globeState.dragStartX=event.clientX;
+    globeState.dragStartLon=globeState.rotationLon;
+    stage.classList.add('dragging');
+    stage.setPointerCapture?.(event.pointerId);
+    clearTimeout(globeState.resumeTimer);
+  }});
+
+  stage.addEventListener('pointermove',event=>{{
+    if(!globeState.dragging || event.pointerId!==globeState.pointerId)return;
+    const dx=event.clientX-globeState.dragStartX;
+    globeState.rotationLon=normalizeGlobeLon(globeState.dragStartLon-dx*.65);
+    renderGlobeFrame();
+  }});
+
+  const finish=event=>{{
+    if(!globeState.dragging)return;
+    globeState.dragging=false;
+    stage.classList.remove('dragging');
+    try{{stage.releasePointerCapture?.(event.pointerId);}}catch(_){{}}
+    clearTimeout(globeState.resumeTimer);
+    globeState.resumeTimer=setTimeout(()=>{{globeState.autoRotate=true;}},4500);
+  }};
+  stage.addEventListener('pointerup',finish);
+  stage.addEventListener('pointercancel',finish);
+  stage.addEventListener('dblclick',()=>{{
+    globeState.rotationLon=127.8;
+    globeState.autoRotate=true;
+    renderGlobeFrame(true);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const caption=document.getElementById('country-map-caption-text');
+  const chipButtons=[...document.querySelectorAll('#country-chip-rail .country-pin[data-country-filter]')];
   const items=[];
 
   chipButtons.forEach(button=>{{
     if(button.hidden)return;
-
     const code=button.dataset.countryFilter;
-    if(!code || code==="OTHER")return;
-
+    if(!code || code==='OTHER')return;
     const lon=Number(button.dataset.lon);
     const lat=Number(button.dataset.lat);
-    if(!Number.isFinite(lon) || !Number.isFinite(lat))return;
-
-    const countNode=button.querySelector(".country-count");
-    const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
+    if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
+    const count=Number((button.querySelector('.country-count')?.textContent||'0').replace(/[^0-9]/g,''))||0;
     if(count<=0)return;
-
-    const nameNode=[...button.querySelectorAll("span")].find(
-      node=>!node.classList.contains("flag") && !node.classList.contains("country-count")
-    );
-    const flag=button.querySelector(".flag")?.textContent||"";
-    const name=nameNode?.textContent||COUNTRY_NAMES[code]||code;
-    const region=getRegion(code, lon, lat);
-
-    const x=((lon+180)/360)*1000;
-    const y=((85-lat)/145)*500;
-
-    const group=document.createElementNS(SVG_NS,"g");
-    group.setAttribute("class","country-map-svg-point");
-    group.setAttribute("data-country-filter",code);
-    group.setAttribute("tabindex","0");
-    group.setAttribute("role","button");
-    group.setAttribute("aria-label",`${{name}} 관련 기사 ${{count}}건`);
-    if(activeCountryFilter===code)group.classList.add("active");
-
-    const halo=document.createElementNS(SVG_NS,"circle");
-    halo.setAttribute("class","country-map-svg-halo");
-    halo.setAttribute("cx",String(x));
-    halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=15?"22":count>=5?"18":"15");
-
-    const dot=document.createElementNS(SVG_NS,"circle");
-    dot.setAttribute("class","country-map-svg-dot");
-    dot.setAttribute("cx",String(x));
-    dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=15?"8.4":count>=5?"7.2":"6.3");
-
-    const title=document.createElementNS(SVG_NS,"title");
-    title.textContent=`${{flag}} ${{name}} · ${{count}}건`;
-
-    group.appendChild(halo);
-    group.appendChild(dot);
-    group.appendChild(title);
-    dotLayer.appendChild(group);
-
-    items.push({{ code, flag, name, count, lon, lat, x, y, region, pointEl:group }});
-
-    const show=()=>showCountryMapTooltip(x,y,flag,name,count,false);
-    group.addEventListener("mouseenter",show);
-    group.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
-    group.addEventListener("focus",show);
-    group.addEventListener("blur",()=>hideCountryMapTooltip(true));
-    group.addEventListener("click",event=>{{
-      event.preventDefault();
-      event.stopPropagation();
-      setCountryFilter(code);
-    }});
-    group.addEventListener("keydown",event=>{{
-      if(event.key==="Enter" || event.key===" "){{
-        event.preventDefault();
-        setCountryFilter(code);
-      }}
+    const nameNode=[...button.querySelectorAll('span')].find(node=>!node.classList.contains('flag')&&!node.classList.contains('country-count'));
+    items.push({{
+      code,
+      lon,
+      lat,
+      count,
+      flag:button.querySelector('.flag')?.textContent||'',
+      name:nameNode?.textContent||COUNTRY_NAMES[code]||code
     }});
   }});
+
+  globeState.items=items;
+  if(!globeState.initialized){{
+    globeState.initialized=true;
+    bindGlobeInteraction();
+    prepareGlobeTexture();
+    startGlobeAnimation();
+  }}
 
   if(caption){{
     caption.textContent=activeCountryFilter
-      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중 · 아래 목록에서 다시 선택 가능`
-      : "지도는 기사 분포, 아래 대륙별 목록은 국가 필터입니다";
+      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시 중 · 국가 라벨을 다시 누르면 전체`
+      : '지구본을 돌리고 국가 라벨을 누르면 해당 기사만 표시';
   }}
 
-  renderContinentCountryGrid(items, CONTINENT_META);
-}}
-
-function renderContinentCountryGrid(items, continentMeta){{
-  const grid=document.getElementById("country-continent-grid");
-  const allButton=document.getElementById("country-all");
-  if(!grid)return;
-
-  const totalText=allButton?.querySelector(".country-count")?.textContent || "0건";
-  const totalCount=Number(totalText.replace(/[^0-9]/g,""))||0;
-
-  const REGION_ORDER=["NA","EU","CIS","EASIA","SEA","SASIA","MEA","OCE","SA","OTHER"];
-  const buckets={{}};
-  items.forEach(item=>{{
-    const region=item.region || "OTHER";
-    if(!buckets[region])buckets[region]=[];
-    buckets[region].push(item);
-  }});
-  Object.keys(buckets).forEach(region=>{{
-    buckets[region].sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,"ko"));
-  }});
-
-  grid.innerHTML="";
-
-  const toolbar=document.createElement("div");
-  toolbar.className="country-continent-toolbar";
-  const all=document.createElement("button");
-  all.type="button";
-  all.className="continent-all-button" + (!activeCountryFilter ? " active" : "");
-  all.innerHTML=`<span class="continent-all-label">전체</span><span class="continent-all-count">${{totalCount}}건</span>`;
-  all.addEventListener("click",()=>{{
-    activeCountryFilter="";
-    filterArticles();
-    updateCountryMapCounts();
-    updateCountrySelectionBar();
-  }});
-  toolbar.appendChild(all);
-  grid.appendChild(toolbar);
-
-  const cardsWrap=document.createElement("div");
-  cardsWrap.className="country-continent-cards";
-  grid.appendChild(cardsWrap);
-
-  REGION_ORDER.forEach(region=>{{
-    const regionItems=buckets[region]||[];
-    if(!regionItems.length)return;
-
-    const card=document.createElement("section");
-    card.className="continent-card";
-    card.dataset.region=region;
-
-    const header=document.createElement("div");
-    header.className="continent-card-header";
-    const title=document.createElement("div");
-    title.className="continent-card-title";
-    title.textContent=(continentMeta[region]&&continentMeta[region].title) || region;
-    const sum=document.createElement("div");
-    sum.className="continent-card-count";
-    sum.textContent=`${{regionItems.reduce((acc,item)=>acc+item.count,0)}}건`;
-    header.appendChild(title);
-    header.appendChild(sum);
-    card.appendChild(header);
-
-    const list=document.createElement("div");
-    list.className="continent-country-list";
-
-    regionItems.forEach(item=>{{
-      const btn=document.createElement("button");
-      btn.type="button";
-      btn.className="continent-country-button" + (activeCountryFilter===item.code ? " active" : "");
-      btn.dataset.countryFilter=item.code;
-      btn.setAttribute("aria-label",`${{title.textContent}} · ${{item.name}} 기사 ${{item.count}}건 보기`);
-      btn.innerHTML=
-        `<span class="continent-country-left">`+
-          `<span class="continent-country-flag">${{item.flag}}</span>`+
-          `<span class="continent-country-name">${{item.name}}</span>`+
-        `</span>`+
-        `<span class="continent-country-count">${{item.count}}건</span>`;
-
-      const show=()=>showCountryMapTooltip(item.x,item.y,item.flag,item.name,item.count,false);
-      btn.addEventListener("mouseenter",show);
-      btn.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
-      btn.addEventListener("focus",show);
-      btn.addEventListener("blur",()=>hideCountryMapTooltip(true));
-      btn.addEventListener("click",event=>{{
-        event.preventDefault();
-        event.stopPropagation();
-        setCountryFilter(item.code);
-      }});
-      list.appendChild(btn);
-    }});
-
-    card.appendChild(list);
-    cardsWrap.appendChild(card);
-  }});
+  renderGlobeFrame(true);
 }}
 
 let countryMapRelayoutTimer=null;
