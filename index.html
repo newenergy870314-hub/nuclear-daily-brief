@@ -3608,6 +3608,154 @@ header,
   }
 }
 
+
+/* ============================================================
+   COUNTRY SELECTION UX — 선택 후 갑자기 기사로 이동하지 않음
+   한 줄 상태표시 + 기사 보기 / 해제만 제공
+   ============================================================ */
+.country-selection-bar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-height:38px;
+  margin:5px 1px 0;
+  padding:5px 6px 5px 9px;
+  border:1px solid rgba(31,79,138,.14);
+  border-radius:10px;
+  background:#f7f9fc;
+  box-sizing:border-box;
+}
+.country-selection-bar[hidden] {
+  display:none !important;
+}
+.country-selection-summary {
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  color:#2f435c;
+  font-size:9.5px;
+  font-weight:850;
+  white-space:nowrap;
+  overflow:hidden;
+}
+.country-selection-flag {
+  flex:0 0 auto;
+  font-size:15px;
+  line-height:1;
+}
+.country-selection-name {
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.country-selection-separator {
+  color:#98a2b3;
+}
+.country-selection-count {
+  flex:0 0 auto;
+  color:#667085;
+  font-size:8.5px;
+  font-weight:800;
+}
+.country-selection-actions {
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+.country-selection-primary,
+.country-selection-clear {
+  height:28px;
+  padding:0 9px;
+  border-radius:8px;
+  font-family:inherit;
+  font-size:8.5px;
+  font-weight:850;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.country-selection-primary {
+  border:1px solid #1f4f8a;
+  background:#1f4f8a;
+  color:#fff;
+}
+.country-selection-clear {
+  border:1px solid #dce3eb;
+  background:#fff;
+  color:#667085;
+}
+.country-selection-primary:active,
+.country-selection-clear:active {
+  transform:scale(.97);
+}
+
+@media (max-width:767px) {
+  .country-selection-bar {
+    min-height:40px;
+    margin-top:6px;
+  }
+  .country-selection-summary {
+    font-size:10px;
+  }
+  .country-selection-flag {
+    font-size:16px;
+  }
+  .country-selection-count {
+    font-size:9px;
+  }
+  .country-selection-primary,
+  .country-selection-clear {
+    height:30px;
+    padding:0 10px;
+    font-size:9px;
+  }
+}
+
+
+/* ============================================================
+   MAP FLAG CONSISTENCY — 모든 국기는 동일한 선명도로 표시
+   배경만 연하게, 국기 자체에는 opacity를 적용하지 않음
+   ============================================================ */
+.country-map-label {
+  opacity:1 !important;
+  background:rgba(255,255,255,.76) !important;
+  border-color:rgba(73,96,122,.14) !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.05) !important;
+}
+
+.country-map-label .map-label-flag {
+  opacity:1 !important;
+  filter:none !important;
+  text-shadow:none !important;
+}
+
+.country-map-label .map-label-count {
+  opacity:1 !important;
+}
+
+.country-map-label.active {
+  opacity:1 !important;
+}
+
+.country-map-label.active .map-label-flag {
+  opacity:1 !important;
+  filter:none !important;
+}
+
+/* 선택/비선택 국기의 크기 차이도 최소화 */
+.country-map-label .map-label-flag,
+.country-map-label.active .map-label-flag {
+  font-size:10px !important;
+}
+
+@media (max-width:767px) {
+  .country-map-label .map-label-flag,
+  .country-map-label.active .map-label-flag {
+    font-size:10.5px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3616,7 +3764,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 14:40 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 14:50 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -4482,6 +4630,19 @@ header,
       <button class="country-pin country-th" data-country-filter="TH" data-lon="101.0" data-lat="15.9" type="button"><span class="flag">🇹🇭</span><span>태국</span><span class="country-count">0건</span></button>
       <button class="country-pin country-sg" data-country-filter="SG" data-lon="103.8" data-lat="1.35" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
       <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
+    </div>
+
+    <div id="country-selection-bar" class="country-selection-bar" hidden aria-live="polite">
+      <div class="country-selection-summary">
+        <span id="country-selection-flag" class="country-selection-flag"></span>
+        <span id="country-selection-name" class="country-selection-name"></span>
+        <span class="country-selection-separator">·</span>
+        <span id="country-selection-count" class="country-selection-count"></span>
+      </div>
+      <div class="country-selection-actions">
+        <button id="country-view-articles" class="country-selection-primary" type="button">기사 보기</button>
+        <button id="country-clear-filter" class="country-selection-clear" type="button" aria-label="국가 필터 해제">해제</button>
+      </div>
     </div>
 
   </section>
@@ -19149,7 +19310,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26229,7 +26390,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a21e844928a934ea1b9f7abd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/fb6343730f8bae2a412637b4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26528,7 +26689,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/realestate/12132240"
   data-title="대우건설,‘두정역푸르지오그랑피크’9월 분양예정"
   data-publisher="매일경제"
@@ -26553,7 +26714,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설,‘두정역푸르지오그랑피크’9월 분양예정</div>
+      <div class="headline">대우건설,‘두정역푸르지오그랑피크’9월 분양예정</div>
       <div class="article-snippet">지하 2층~지상 35층, 10개동, 총 1438세대 규모 푸르지오 대단지대우건설은 충청남도 천안시 서북구 성정동 511번지 일원에 ‘두정역 푸르지오 그랑피크’를 9월에 분양할 예정..</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27094,7 +27255,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27133,76 +27294,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.g-enews.com/article/Securities/2026/08/20260820103516609444093b5d4e_1"
-  data-title="[공시] 우리기술, 한수원과 85억원 PMS DAS 공급계약 체결 - 글로벌이코노믹"
-  data-publisher="글로벌이코노믹"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787190174"
-  data-country="KR"
-  data-search="[공시] 우리기술, 한수원과 85억원 pms das 공급계약 체결 - 글로벌이코노믹 글로벌이코노믹 한국수력원자력 우리기술은 20일 한국수력원자력(한수원)과 85억원 규모 고리 3·4호기 pms(주전산기) das(자료취득장치) 공급계약을 체결했다고 공시했다. 이는 지난해 매출액 대비 9.27%에 해당하는 규모다. 계약기간은 오는 2028년 2월 21일까지다.이번 계약으로 우리기술은 원자력발전소 감시"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">글로벌이코노믹</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">[공시] 우리기술, 한수원과 85억원 PMS DAS 공급계약 체결 - 글로벌이코노믹</div>
-      <div class="article-snippet">우리기술은 20일 한국수력원자력(한수원)과 85억원 규모 고리 3·4호기 PMS(주전산기) DAS(자료취득장치) 공급계약을 체결했다고 공시했다. 이는 지난해 매출액 대비 9.27%에 해당하는 규모다. 계약기간은 오는 2028년 2월 21일까지다.이번 계약으로 우리기술은 원자력발전소 감시</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2cf138c8f29aa02cf39475f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.biztribune.co.kr/news/articleView.html?idxno=357641"
-  data-title="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세"
-  data-publisher="비즈트리뷴"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787188800"
-  data-country="KR"
-  data-search="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세 비즈트리뷴 한국수력원자력 우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(pms) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">비즈트리뷴</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세</div>
-      <div class="article-snippet">우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(PMS) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/199fbc73144df512a146fa6e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755486"
   data-title="우리기술, 85억 규모 원전 PMS 설비개선용 자재 공급계약"
   data-publisher="뉴시스"
@@ -27215,7 +27306,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27238,41 +27329,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.hankyung.com/article/2026082015226"
-  data-title="우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결"
-  data-publisher="한국경제"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787187244"
-  data-country="KR"
-  data-search="우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(vmi)&#x27; 협약 체결 한국경제 한국수력원자력 우리기술, 한수원과 85억 규모 고리 3·4호기 pms das 공급계약, 한경우 기자, 증권"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">한국경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결</div>
-      <div class="article-snippet">우리기술, 한수원과 85억 규모 고리 3·4호기 PMS DAS 공급계약, 한경우 기자, 증권</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2eda3b6bca9073efed7113b3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.hidomin.com/news/articleView.html?idxno=717842"
   data-title="한수원(주) 한울원자력본부, 울진 초등생 방학 중 점심도시락 바우처 지원 - 경북도민일보"
   data-publisher="경북도민일보"
@@ -27285,7 +27341,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27320,7 +27376,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27393,7 +27449,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787204400"
+  data-published="1787205000"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -29503,7 +29559,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787204605"
+  data-published="1787205216"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -30622,7 +30678,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/realestate/12132240"
   data-title="대우건설,‘두정역푸르지오그랑피크’9월 분양예정"
   data-publisher="매일경제"
@@ -30647,7 +30703,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설,‘두정역푸르지오그랑피크’9월 분양예정</div>
+      <div class="headline">대우건설,‘두정역푸르지오그랑피크’9월 분양예정</div>
       <div class="article-snippet">지하 2층~지상 35층, 10개동, 총 1438세대 규모 푸르지오 대단지대우건설은 충청남도 천안시 서북구 성정동 511번지 일원에 ‘두정역 푸르지오 그랑피크’를 9월에 분양할 예정..</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31188,7 +31244,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31227,76 +31283,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.g-enews.com/article/Securities/2026/08/20260820103516609444093b5d4e_1"
-  data-title="[공시] 우리기술, 한수원과 85억원 PMS DAS 공급계약 체결 - 글로벌이코노믹"
-  data-publisher="글로벌이코노믹"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787190174"
-  data-country="KR"
-  data-search="[공시] 우리기술, 한수원과 85억원 pms das 공급계약 체결 - 글로벌이코노믹 글로벌이코노믹 한국수력원자력 우리기술은 20일 한국수력원자력(한수원)과 85억원 규모 고리 3·4호기 pms(주전산기) das(자료취득장치) 공급계약을 체결했다고 공시했다. 이는 지난해 매출액 대비 9.27%에 해당하는 규모다. 계약기간은 오는 2028년 2월 21일까지다.이번 계약으로 우리기술은 원자력발전소 감시"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">글로벌이코노믹</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">[공시] 우리기술, 한수원과 85억원 PMS DAS 공급계약 체결 - 글로벌이코노믹</div>
-      <div class="article-snippet">우리기술은 20일 한국수력원자력(한수원)과 85억원 규모 고리 3·4호기 PMS(주전산기) DAS(자료취득장치) 공급계약을 체결했다고 공시했다. 이는 지난해 매출액 대비 9.27%에 해당하는 규모다. 계약기간은 오는 2028년 2월 21일까지다.이번 계약으로 우리기술은 원자력발전소 감시</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2cf138c8f29aa02cf39475f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.biztribune.co.kr/news/articleView.html?idxno=357641"
-  data-title="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세"
-  data-publisher="비즈트리뷴"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787188800"
-  data-country="KR"
-  data-search="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세 비즈트리뷴 한국수력원자력 우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(pms) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">비즈트리뷴</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세</div>
-      <div class="article-snippet">우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(PMS) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/199fbc73144df512a146fa6e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755486"
   data-title="우리기술, 85억 규모 원전 PMS 설비개선용 자재 공급계약"
   data-publisher="뉴시스"
@@ -31309,7 +31295,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31332,41 +31318,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.hankyung.com/article/2026082015226"
-  data-title="우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결"
-  data-publisher="한국경제"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787187244"
-  data-country="KR"
-  data-search="우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(vmi)&#x27; 협약 체결 한국경제 한국수력원자력 우리기술, 한수원과 85억 규모 고리 3·4호기 pms das 공급계약, 한경우 기자, 증권"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">한국경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-      </div>
-      <div class="headline">우리기술, 한수원과 원전 부품 &#x27;공급자 재고관리(VMI)&#x27; 협약 체결</div>
-      <div class="article-snippet">우리기술, 한수원과 85억 규모 고리 3·4호기 PMS DAS 공급계약, 한경우 기자, 증권</div>
-    </div>
-    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2eda3b6bca9073efed7113b3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.hidomin.com/news/articleView.html?idxno=717842"
   data-title="한수원(주) 한울원자력본부, 울진 초등생 방학 중 점심도시락 바우처 지원 - 경북도민일보"
   data-publisher="경북도민일보"
@@ -31379,7 +31330,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31414,7 +31365,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31487,7 +31438,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787204400"
+  data-published="1787205000"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -33597,7 +33548,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787204605"
+  data-published="1787205216"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -38467,7 +38418,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -45547,7 +45498,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a21e844928a934ea1b9f7abd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/fb6343730f8bae2a412637b4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -127873,6 +127824,38 @@ function updateCountryMapCounts(){
   requestAnimationFrame(layoutAndRenderCountryMap);
 }
 
+
+function updateCountrySelectionBar(){
+  const bar=document.getElementById("country-selection-bar");
+  if(!bar)return;
+
+  if(!activeCountryFilter){
+    bar.hidden=true;
+    return;
+  }
+
+  const chip=document.querySelector(
+    `#country-chip-rail .country-pin[data-country-filter="${activeCountryFilter}"]`
+  );
+  const flag=chip?.querySelector(".flag")?.textContent||"🌐";
+  const nameNode=chip
+    ? [...chip.querySelectorAll("span")].find(
+        node=>!node.classList.contains("flag")&&!node.classList.contains("country-count")
+      )
+    : null;
+  const name=nameNode?.textContent||COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
+  const count=chip?.querySelector(".country-count")?.textContent||"0건";
+
+  const flagNode=document.getElementById("country-selection-flag");
+  const nameOut=document.getElementById("country-selection-name");
+  const countOut=document.getElementById("country-selection-count");
+
+  if(flagNode)flagNode.textContent=flag;
+  if(nameOut)nameOut.textContent=name;
+  if(countOut)countOut.textContent=count;
+  bar.hidden=false;
+}
+
 function expandVisibleCountryGroups(){
   const panel=activePanel();
   if(!panel)return null;
@@ -127896,23 +127879,39 @@ function setCountryFilter(code){
   activeCountryFilter=activeCountryFilter===code?"":code;
   filterArticles();
   updateCountryMapCounts();
+  updateCountrySelectionBar();
 
   const note=document.getElementById("country-filter-note");
-  if(activeCountryFilter){
-    const name=COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
-    if(note)note.textContent=`${name} 기사만 표시 중`;
-    const firstVisibleCard=expandVisibleCountryGroups();
-    if(firstVisibleCard){
-      setTimeout(()=>firstVisibleCard.scrollIntoView({behavior:"smooth",block:"center"}),80);
-    }
-  } else {
-    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
-  }
+  if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
 }
 
 document.querySelectorAll("#country-chip-rail [data-country-filter]").forEach(button=>{
   button.addEventListener("click",()=>setCountryFilter(button.dataset.countryFilter));
 });
+
+
+const countryViewArticlesButton=document.getElementById("country-view-articles");
+if(countryViewArticlesButton){
+  countryViewArticlesButton.addEventListener("click",()=>{
+    if(!activeCountryFilter)return;
+    const firstVisibleCard=expandVisibleCountryGroups();
+    if(firstVisibleCard){
+      firstVisibleCard.scrollIntoView({behavior:"smooth",block:"start"});
+    }
+  });
+}
+
+const countryClearFilterButton=document.getElementById("country-clear-filter");
+if(countryClearFilterButton){
+  countryClearFilterButton.addEventListener("click",()=>{
+    activeCountryFilter="";
+    filterArticles();
+    updateCountryMapCounts();
+    updateCountrySelectionBar();
+    const note=document.getElementById("country-filter-note");
+    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
+  });
+}
 
 const countryAllButton=document.getElementById("country-all");
 if(countryAllButton){
@@ -127920,6 +127919,7 @@ if(countryAllButton){
     activeCountryFilter="";
     filterArticles();
     updateCountryMapCounts();
+    updateCountrySelectionBar();
     const note=document.getElementById("country-filter-note");
     if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
   });
@@ -127977,6 +127977,7 @@ function filterArticles(){
 function refreshActivePeriodUI(){
   filterArticles();
   updateCountryMapCounts();
+  updateCountrySelectionBar();
   renderFavorites();
   requestAnimationFrame(layoutAndRenderCountryMap);
 }
