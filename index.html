@@ -4699,11 +4699,11 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {
   position:relative;
-  height:198px !important;
+  height:202px !important;
   overflow:hidden !important;
-  border:1px solid #dce4ed !important;
+  border:1px solid #d9e3ee !important;
   border-radius:14px !important;
-  background:radial-gradient(circle at 54% 43%, #ffffff 0%, #f7f9fc 58%, #eef2f7 100%) !important;
+  background:linear-gradient(180deg, #fafdff 0%, #f4f8fc 52%, #edf3f8 100%) !important;
 }
 
 .globe-texture-source {
@@ -4719,6 +4719,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
+  padding-top:2px;
 }
 
 .globe-stage.dragging {
@@ -4727,12 +4728,13 @@ header,
 
 .globe-sphere {
   position:relative;
-  width:min(174px, 90%);
+  width:min(182px, 92%);
   aspect-ratio:1/1;
   border-radius:50%;
   overflow:visible;
   isolation:isolate;
-  filter:drop-shadow(0 7px 10px rgba(35,57,93,.16));
+  transform:translateY(-10px);
+  filter:drop-shadow(0 8px 12px rgba(35,57,93,.12));
 }
 
 .globe-canvas {
@@ -4776,21 +4778,21 @@ header,
 
 .globe-country-label {
   position:absolute;
-  transform:translate(-50%,-50%) scale(calc(.88 + var(--globe-depth, .7) * .16));
+  transform:translate(-50%,-50%) scale(calc(.90 + var(--globe-depth, .7) * .15));
   transform-origin:center;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:3px;
-  min-height:23px;
-  max-width:112px;
-  padding:3px 6px;
-  border:1px solid rgba(35,57,93,.18);
+  gap:4px;
+  min-height:24px;
+  max-width:124px;
+  padding:3px 7px;
+  border:1px solid rgba(35,57,93,.16);
   border-radius:8px;
-  background:rgba(255,255,255,.94);
-  color:#344963;
-  box-shadow:0 2px 6px rgba(25,45,70,.14);
-  font-size:8px;
+  background:rgba(255,255,255,.97);
+  color:#30465f;
+  box-shadow:0 3px 8px rgba(25,45,70,.14);
+  font-size:8.2px;
   font-weight:850;
   line-height:1;
   white-space:nowrap;
@@ -4826,6 +4828,7 @@ header,
   min-width:0;
   overflow:hidden;
   text-overflow:ellipsis;
+  text-shadow:0 1px 0 rgba(255,255,255,.35);
 }
 
 .globe-country-count {
@@ -4841,28 +4844,35 @@ header,
 
 .globe-control-hint {
   position:absolute;
-  right:7px;
-  bottom:6px;
+  top:8px;
+  right:8px;
+  bottom:auto;
   z-index:8;
-  color:#8b96a5;
-  font-size:7.2px;
-  font-weight:750;
+  padding:4px 6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.82);
+  color:#758295;
+  font-size:6.9px;
+  font-weight:800;
   line-height:1;
+  box-shadow:0 1px 4px rgba(35,57,93,.08);
   pointer-events:none;
 }
 
 .country-map-caption {
-  left:7px !important;
-  bottom:6px !important;
+  left:8px !important;
+  top:8px !important;
+  bottom:auto !important;
   z-index:9 !important;
-  max-width:63%;
-  padding:3px 5px;
-  border-radius:6px;
-  background:rgba(255,255,255,.76);
+  max-width:44%;
+  padding:4px 6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.84);
   backdrop-filter:blur(3px);
   -webkit-backdrop-filter:blur(3px);
-  color:#7d8998 !important;
-  font-size:7px !important;
+  color:#6f7d8e !important;
+  font-size:6.9px !important;
+  box-shadow:0 1px 4px rgba(35,57,93,.08);
 }
 
 .country-map-caption-dot {
@@ -4873,14 +4883,15 @@ header,
 
 @media (max-width:430px) {
   .country-map-content .country-map-visual.globe-mode {
-    height:188px !important;
+    height:192px !important;
   }
   .globe-sphere {
-    width:min(164px, 92%);
+    width:min(170px, 93%);
+    transform:translateY(-9px);
   }
   .globe-country-label {
     min-height:21px;
-    max-width:102px;
+    max-width:108px;
     padding:2px 5px;
     font-size:7.5px;
   }
@@ -4891,19 +4902,27 @@ header,
     font-size:7px;
   }
   .globe-control-hint {
-    font-size:6.7px;
+    top:7px;
+    right:7px;
+    font-size:6.5px;
+  }
+  .country-map-caption {
+    top:7px !important;
+    left:7px !important;
+    max-width:42%;
   }
 }
 
 @media (max-width:380px) {
   .country-map-content .country-map-visual.globe-mode {
-    height:180px !important;
+    height:184px !important;
   }
   .globe-sphere {
-    width:min(154px, 93%);
+    width:min(160px, 94%);
+    transform:translateY(-8px);
   }
   .globe-country-label {
-    max-width:94px;
+    max-width:96px;
     min-height:20px;
     font-size:7px;
   }
@@ -4916,7 +4935,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 16:50 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 17:00 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -5010,7 +5029,7 @@ header,
           <div id="globe-marker-layer" class="globe-marker-layer" aria-label="국가별 기사 바로가기"></div>
           <div class="globe-shine" aria-hidden="true"></div>
         </div>
-        <div class="globe-control-hint">↔ 드래그하여 지구본 회전 · 국가 선택</div>
+        <div class="globe-control-hint">↔ 드래그 회전</div>
       </div>
       <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
@@ -20507,7 +20526,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27918,7 +27937,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">51건</span>
+    <span class="group-count">54건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28131,7 +28150,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397714"
   data-title="구로 우신빌라 재건축 시공권, GS·대우건설 등 4개사 관심"
   data-publisher="데일리한국"
@@ -28156,7 +28175,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>구로 우신빌라 재건축 시공권, GS·대우건설 등 4개사 관심</div>
+      <div class="headline">구로 우신빌라 재건축 시공권, GS·대우건설 등 4개사 관심</div>
       <div class="article-snippet">[데일리한국 김하수 기자] 서울 구로구 우신빌라가 시공사 선정에 돌입하며 재건축 사업 가속페달을 밟고 있다.우신빌라 재건축 조합은 20일 서울 구로구 궁동 일대 조합 사무실에서 시공사 선정을 위한 현장설명회를 개최했다. 현설 결과 GS건설, 대우건설, 대방건설, 제일건설 등 4개 건설사가 참여하며 이곳 시공권에 관심을 보였다.우신빌라 재건축사업은 구로구 213-21번지 일대에 지하3~지상30층 아파트 13개동 1125가구와 부대복리시설을 짓는 프로젝트다. 예정 공사비는 총 4666억원(3.3㎡당 810만원)이다.이곳은 2016년 정</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28481,6 +28500,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Real-Estate/2026/08/20260820160959595114b1077807_1"
+  data-title="현대엔지니어링, 한충전 합병으로 EVC 밸류체인 넓힌다 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787211275"
+  data-country="KR"
+  data-search="현대엔지니어링, 한충전 합병으로 evc 밸류체인 넓힌다 - 글로벌이코노믹 글로벌이코노믹 타 건설사 현대엔지니어링이 한국전기차충전서비스(한충전)를 품고 전기차 충전 사업 확대에 속도를 낸다. 충전시설을 짓고 운영하는 데서 한발 더 나아가 고객 플랫폼을 확보하고 향후 전기차 배터리를 활용한 전력시장 참여까지 사업 영역을 넓힌다는 구상이다. 현대엔지니어링은 이사회를 열고 한충전을 흡수합병"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">17.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 한충전 합병으로 EVC 밸류체인 넓힌다 - 글로벌이코노믹</div>
+      <div class="article-snippet">현대엔지니어링이 한국전기차충전서비스(한충전)를 품고 전기차 충전 사업 확대에 속도를 낸다. 충전시설을 짓고 운영하는 데서 한발 더 나아가 고객 플랫폼을 확보하고 향후 전기차 배터리를 활용한 전력시장 참여까지 사업 영역을 넓힌다는 구상이다. 현대엔지니어링은 이사회를 열고 한충전을 흡수합병</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/52e17e08636286032ff4c509.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.dt.co.kr/article/12079278"
   data-title="현대엔지니어링, 한국전기차충전서비스 흡수합병 …“에너지 벨류체인 구축”"
@@ -28494,7 +28548,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28529,7 +28583,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28564,7 +28618,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28599,7 +28653,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28634,7 +28688,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28669,7 +28723,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28704,7 +28758,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28739,7 +28793,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28774,7 +28828,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28809,7 +28863,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28844,7 +28898,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28879,7 +28933,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28902,6 +28956,76 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260820165255511"
+  data-title="GS건설·현대엘리베이터, 초고층 승강기 기밀 기술 공동개발"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787212520"
+  data-country="OTHER"
+  data-search="gs건설·현대엘리베이터, 초고층 승강기 기밀 기술 공동개발 아주경제 타 건설사 20일 gs건설 r&amp;amp;d센터에서 진행된 &amp;lsquo;초고층 승강기 공동 기술개발&amp;rsquo; 업무협약에서 gs건설 조성한 cto(사진 왼쪽)과 현대엘리베이터 이태원 r&amp;amp;d본부장이 기념사진을 촬영하고 있다. [사진=gs건설] gs건설과 현대엘리베이터가 초고층 건축물의 압력차로 발생하는 승강기 소음과 진동, 출입문 오작동을 줄이기 위한 기밀 성능 기술을 공동 개발한다. &amp;nbsp; gs건설은 현대엘리베이터와 &amp;lsquo;초고층 승강기 기밀 성능 확보를 위한 공동 기술개발&amp;rsquo; 업무협약을 체결했다고 20일 밝혔다. &amp;nbsp; 양사는 초고층 건물에서 나"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">30.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설·현대엘리베이터, 초고층 승강기 기밀 기술 공동개발</div>
+      <div class="article-snippet">20일 GS건설 R&amp;amp;D센터에서 진행된 &amp;lsquo;초고층 승강기 공동 기술개발&amp;rsquo; 업무협약에서 GS건설 조성한 CTO(사진 왼쪽)과 현대엘리베이터 이태원 R&amp;amp;D본부장이 기념사진을 촬영하고 있다. [사진=GS건설] GS건설과 현대엘리베이터가 초고층 건축물의 압력차로 발생하는 승강기 소음과 진동, 출입문 오작동을 줄이기 위한 기밀 성능 기술을 공동 개발한다. &amp;nbsp; GS건설은 현대엘리베이터와 &amp;lsquo;초고층 승강기 기밀 성능 확보를 위한 공동 기술개발&amp;rsquo; 업무협약을 체결했다고 20일 밝혔다. &amp;nbsp; 양사는 초고층 건물에서 나</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d89ff4e0b36518ffda60c192.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.koscaj.com/news/articleView.html?idxno=325946"
+  data-title="GS건설, 현대엘리베이터와 초고층 승강기 기밀 성능 기술 개발"
+  data-publisher="대한전문건설신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787212517"
+  data-country="OTHER"
+  data-search="gs건설, 현대엘리베이터와 초고층 승강기 기밀 성능 기술 개발 대한전문건설신문 타 건설사 gs건설이 현대엘리베이터와 손잡고 초고층 건축물에서 발생하는 압력 차에 대응하는 승강기 기술 개발에 나선다.gs건설은 서울 서초구 gs건설 서초타워에서 현대엘리베이터와 ‘초고층 승강기 기밀 성능 확보를 위한 공동 기술개발’ 업무협약(mou·사진)을 체결했다고 20일 밝혔다.양사는 이번"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">31.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">대한전문건설신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 현대엘리베이터와 초고층 승강기 기밀 성능 기술 개발</div>
+      <div class="article-snippet">GS건설이 현대엘리베이터와 손잡고 초고층 건축물에서 발생하는 압력 차에 대응하는 승강기 기술 개발에 나선다.GS건설은 서울 서초구 GS건설 서초타워에서 현대엘리베이터와 ‘초고층 승강기 기밀 성능 확보를 위한 공동 기술개발’ 업무협약(MOU·사진)을 체결했다고 20일 밝혔다.양사는 이번</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6b5dc18d25b7edf2f2da6fc9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.cstimes.com/news/articleView.html?idxno=717469"
   data-title="GS건설·현대엘리베이터, 초고층 승강기 기밀 성능 공동 기술개발"
   data-publisher="컨슈머타임스"
@@ -28914,7 +29038,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28926,7 +29050,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설·현대엘리베이터, 초고층 승강기 기밀 성능 공동 기술개발</div>
+      <div class="headline">GS건설·현대엘리베이터, 초고층 승강기 기밀 성능 공동 기술개발</div>
       <div class="article-snippet">컨슈머타임스=정용규 기자 | GS건설이 현대엘리베이터와 &#x27;초고층 승강기 기밀 성능 확보를 위한 공동 기술개발&#x27; 업무협약(MOU)을 체결했다고 20일 밝혔다. 협약식은 서울 서초구 GS건설 서초타워에서 열렸다.초고층 건축물에서 빈번히 나타나는 &#x27;연돌효과(Stack Effect)&#x27;가 이번 기술 개발의 출발점이다. 건물 안팎의 온도 차가 클수록 공기가 굴뚝 방향으로 강하게 흐르면서 승강기 내외부 압력 차이를 키운다. 소음·진동·도어 오작동의 원인이 된다.이에 따라 양사는 승강기 기밀 성능을 높여 연돌효과의 영향을 차단하는 기술을 개발하기</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28949,7 +29073,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28984,7 +29108,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29019,7 +29143,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29054,7 +29178,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29089,7 +29213,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29124,7 +29248,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29159,7 +29283,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29194,7 +29318,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29229,7 +29353,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29264,7 +29388,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29299,7 +29423,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29334,7 +29458,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29369,7 +29493,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29404,7 +29528,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29439,7 +29563,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">47.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29474,7 +29598,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">48.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29509,7 +29633,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">46.</span>
+      <span class="article-order-inline">49.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29544,7 +29668,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">47.</span>
+      <span class="article-order-inline">50.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29579,7 +29703,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">48.</span>
+      <span class="article-order-inline">51.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29614,7 +29738,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">49.</span>
+      <span class="article-order-inline">52.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29649,7 +29773,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">50.</span>
+      <span class="article-order-inline">53.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29684,7 +29808,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">51.</span>
+      <span class="article-order-inline">54.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29712,9 +29836,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70694"
+  data-title="한울원전, 방학 중 초등생 점심 공백 채운다"
+  data-publisher="에너지타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787244451"
+  data-country="KR"
+  data-search="한울원전, 방학 중 초등생 점심 공백 채운다 에너지타임즈 한국수력원자력 한울원자력본부가 방학기간 발생할 수 있는 초등학생 급식 공백을 해소하고 맞벌이 가정의 돌봄 부담을 덜어주기 위해 점심 도시락과 간식을 지원한다. 한국수력원자력(주) 한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원사업을 시행한다고 20일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울원전, 방학 중 초등생 점심 공백 채운다</div>
+      <div class="article-snippet">한울원자력본부가 방학기간 발생할 수 있는 초등학생 급식 공백을 해소하고 맞벌이 가정의 돌봄 부담을 덜어주기 위해 점심 도시락과 간식을 지원한다. 한국수력원자력(주) 한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원사업을 시행한다고 20일</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e9daf2b14827bd6717cfd0a4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260820142900054?section=industry/all"
   data-title="한빛원전 사용후핵연료 임시저장시설, 의견 수렴 착수 | 연합뉴스"
@@ -29728,7 +29887,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29763,7 +29922,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29798,7 +29957,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29833,7 +29992,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29868,7 +30027,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29903,7 +30062,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30011,7 +30170,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787212200"
+  data-published="1787212800"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -31402,9 +31561,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">44건</span>
+    <span class="group-count">45건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70695"
+  data-title="방사능분석능력평가…원자력환경공단, 9년 연속 전 항목 A등급"
+  data-publisher="에너지타임즈"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787244941"
+  data-country="KR"
+  data-search="방사능분석능력평가…원자력환경공단, 9년 연속 전 항목 a등급 에너지타임즈 원자력 방사능분석능력평가에서 원자력환경공단이 9년 연속 전 항목 a등급을 획득하며 방사성폐기물 핵종분석 역량을 입증했다. 한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(kins)에서 주관한 2026년 방사능분석능력평가에서 모든 항목 a등급을 획득했다고 20일 밝혔다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>방사능분석능력평가…원자력환경공단, 9년 연속 전 항목 A등급</div>
+      <div class="article-snippet">방사능분석능력평가에서 원자력환경공단이 9년 연속 전 항목 A등급을 획득하며 방사성폐기물 핵종분석 역량을 입증했다. 한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(KINS)에서 주관한 2026년 방사능분석능력평가에서 모든 항목 A등급을 획득했다고 20일 밝혔다.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/276966771a5240566376bf1f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227558"
   data-title="고준위 방폐장 입지·처분 논의 첫발...4개 전문위 가동"
@@ -31418,7 +31612,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31453,7 +31647,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31488,7 +31682,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31523,7 +31717,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31558,7 +31752,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31593,7 +31787,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31628,7 +31822,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31663,7 +31857,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31698,7 +31892,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31733,7 +31927,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31768,7 +31962,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31803,7 +31997,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31838,7 +32032,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31873,7 +32067,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31908,7 +32102,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31943,7 +32137,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31978,7 +32172,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32013,7 +32207,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32048,7 +32242,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32083,7 +32277,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32118,7 +32312,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32153,7 +32347,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32188,7 +32382,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32223,7 +32417,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32258,7 +32452,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32293,7 +32487,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32328,7 +32522,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32363,7 +32557,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32398,7 +32592,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32433,7 +32627,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32468,7 +32662,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32503,7 +32697,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32538,7 +32732,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32573,7 +32767,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32608,7 +32802,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32643,7 +32837,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32678,7 +32872,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32713,7 +32907,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32748,7 +32942,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32783,7 +32977,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32818,7 +33012,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32853,7 +33047,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32888,7 +33082,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32923,7 +33117,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32951,10 +33145,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newstopkorea.com/news/articleView.html?idxno=47168"
+  data-title="오리온이엔씨, 원전 장비·SMR 앞세워 ‘매출 점프업’...프리IPO 본격화 - 뉴스톱"
+  data-publisher="뉴스탑코리아"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787212082"
+  data-country="OTHER"
+  data-search="오리온이엔씨, 원전 장비·smr 앞세워 ‘매출 점프업’...프리ipo 본격화 - 뉴스톱 뉴스탑코리아 smr 국내 원자력 엔지니어링 기업 오리온이엔씨가 원전 운영·해체 장비와 소형모듈원전(smr) 사업 확대를 앞세워 프리ipo(상장 전 지분투자)에 속도를 내고 있다. 지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스탑코리아</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>오리온이엔씨, 원전 장비·SMR 앞세워 ‘매출 점프업’...프리IPO 본격화 - 뉴스톱</div>
+      <div class="article-snippet">국내 원자력 엔지니어링 기업 오리온이엔씨가 원전 운영·해체 장비와 소형모듈원전(SMR) 사업 확대를 앞세워 프리IPO(상장 전 지분투자)에 속도를 내고 있다. 지</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e7455a0259b557283ed70f3d.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.etnews.com/20260820000379"
   data-title="[인터뷰] 김홍범 삼홍아크튜리온 대표 “AI 전력 폭증이 SMR 시대 앞당긴다…한국 제조 경쟁력이 승부처”"
   data-publisher="전자신문"
@@ -32967,7 +33196,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32979,7 +33208,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인터뷰] 김홍범 삼홍아크튜리온 대표 “AI 전력 폭증이 SMR 시대 앞당긴다…한국 제조 경쟁력이 승부처”</div>
+      <div class="headline">[인터뷰] 김홍범 삼홍아크튜리온 대표 “AI 전력 폭증이 SMR 시대 앞당긴다…한국 제조 경쟁력이 승부처”</div>
       <div class="article-snippet">“SMR 설계 많아도 실제 제작 가능한 기업은 제한적…한국 원전 공급망 글로벌 경쟁력 충분” 대형 원전·SMR·ITER서 쌓은 고난도 제작 경험…“글로벌 Tier-1 핵심부품 공급사로 도약” “SMR 제조금융·인허가 패스트트랙 필요…AI 데이터센터가 원전시장 게임 체인저” “소형모듈원자로(SMR) 시대에는 좋은 설계만으로 경쟁할 수 없습니다. 아무리 뛰어난 설계가 있어도 이를 실제 제품으로 만들어 양산할 수 있는 공장과 공급망이 없다면 상용화할</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -33002,7 +33231,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33037,7 +33266,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33072,7 +33301,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33107,7 +33336,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33136,13 +33365,13 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787212308"
+  data-published="1787212960"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33177,7 +33406,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33212,7 +33441,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33355,7 +33584,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787211795"
+  data-published="1787212921"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -33390,7 +33619,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787211792"
+  data-published="1787212918"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -33803,7 +34032,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguardian.com/australia-news/2026/aug/20/alan-jones-trial-grooming-claim-adult-alleged-victim-ntwnfb"
   data-title="Alan Jones’s ‘yelling stopped’ when his ‘sexual behaviour’ began, alleged victim tells court"
   data-publisher="The Guardian"
@@ -33828,7 +34057,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Alan Jones’s ‘yelling stopped’ when his ‘sexual behaviour’ began, alleged victim tells court</div>
+      <div class="headline">Alan Jones’s ‘yelling stopped’ when his ‘sexual behaviour’ began, alleged victim tells court</div>
       <div class="article-snippet">Sydney court hears complainant was more than 40 years younger and far less powerful than the shock jock when he started working as his driver Follow our Australia news live blog for latest updates Get our breaking news email , free app or daily news podcast Alan Jones’s yelling stopped when his “sexual behaviour” began</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -34672,7 +34901,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">51건</span>
+    <span class="group-count">54건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34885,7 +35114,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397714"
   data-title="구로 우신빌라 재건축 시공권, GS·대우건설 등 4개사 관심"
   data-publisher="데일리한국"
@@ -34910,7 +35139,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>구로 우신빌라 재건축 시공권, GS·대우건설 등 4개사 관심</div>
+      <div class="headline">구로 우신빌라 재건축 시공권, GS·대우건설 등 4개사 관심</div>
       <div class="article-snippet">[데일리한국 김하수 기자] 서울 구로구 우신빌라가 시공사 선정에 돌입하며 재건축 사업 가속페달을 밟고 있다.우신빌라 재건축 조합은 20일 서울 구로구 궁동 일대 조합 사무실에서 시공사 선정을 위한 현장설명회를 개최했다. 현설 결과 GS건설, 대우건설, 대방건설, 제일건설 등 4개 건설사가 참여하며 이곳 시공권에 관심을 보였다.우신빌라 재건축사업은 구로구 213-21번지 일대에 지하3~지상30층 아파트 13개동 1125가구와 부대복리시설을 짓는 프로젝트다. 예정 공사비는 총 4666억원(3.3㎡당 810만원)이다.이곳은 2016년 정</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -35235,6 +35464,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Real-Estate/2026/08/20260820160959595114b1077807_1"
+  data-title="현대엔지니어링, 한충전 합병으로 EVC 밸류체인 넓힌다 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787211275"
+  data-country="KR"
+  data-search="현대엔지니어링, 한충전 합병으로 evc 밸류체인 넓힌다 - 글로벌이코노믹 글로벌이코노믹 타 건설사 현대엔지니어링이 한국전기차충전서비스(한충전)를 품고 전기차 충전 사업 확대에 속도를 낸다. 충전시설을 짓고 운영하는 데서 한발 더 나아가 고객 플랫폼을 확보하고 향후 전기차 배터리를 활용한 전력시장 참여까지 사업 영역을 넓힌다는 구상이다. 현대엔지니어링은 이사회를 열고 한충전을 흡수합병"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">17.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 한충전 합병으로 EVC 밸류체인 넓힌다 - 글로벌이코노믹</div>
+      <div class="article-snippet">현대엔지니어링이 한국전기차충전서비스(한충전)를 품고 전기차 충전 사업 확대에 속도를 낸다. 충전시설을 짓고 운영하는 데서 한발 더 나아가 고객 플랫폼을 확보하고 향후 전기차 배터리를 활용한 전력시장 참여까지 사업 영역을 넓힌다는 구상이다. 현대엔지니어링은 이사회를 열고 한충전을 흡수합병</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/52e17e08636286032ff4c509.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.dt.co.kr/article/12079278"
   data-title="현대엔지니어링, 한국전기차충전서비스 흡수합병 …“에너지 벨류체인 구축”"
@@ -35248,7 +35512,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35283,7 +35547,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35318,7 +35582,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35353,7 +35617,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35388,7 +35652,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35423,7 +35687,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35458,7 +35722,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35493,7 +35757,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35528,7 +35792,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35563,7 +35827,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35598,7 +35862,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35633,7 +35897,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35656,6 +35920,76 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260820165255511"
+  data-title="GS건설·현대엘리베이터, 초고층 승강기 기밀 기술 공동개발"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787212520"
+  data-country="OTHER"
+  data-search="gs건설·현대엘리베이터, 초고층 승강기 기밀 기술 공동개발 아주경제 타 건설사 20일 gs건설 r&amp;amp;d센터에서 진행된 &amp;lsquo;초고층 승강기 공동 기술개발&amp;rsquo; 업무협약에서 gs건설 조성한 cto(사진 왼쪽)과 현대엘리베이터 이태원 r&amp;amp;d본부장이 기념사진을 촬영하고 있다. [사진=gs건설] gs건설과 현대엘리베이터가 초고층 건축물의 압력차로 발생하는 승강기 소음과 진동, 출입문 오작동을 줄이기 위한 기밀 성능 기술을 공동 개발한다. &amp;nbsp; gs건설은 현대엘리베이터와 &amp;lsquo;초고층 승강기 기밀 성능 확보를 위한 공동 기술개발&amp;rsquo; 업무협약을 체결했다고 20일 밝혔다. &amp;nbsp; 양사는 초고층 건물에서 나"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">30.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설·현대엘리베이터, 초고층 승강기 기밀 기술 공동개발</div>
+      <div class="article-snippet">20일 GS건설 R&amp;amp;D센터에서 진행된 &amp;lsquo;초고층 승강기 공동 기술개발&amp;rsquo; 업무협약에서 GS건설 조성한 CTO(사진 왼쪽)과 현대엘리베이터 이태원 R&amp;amp;D본부장이 기념사진을 촬영하고 있다. [사진=GS건설] GS건설과 현대엘리베이터가 초고층 건축물의 압력차로 발생하는 승강기 소음과 진동, 출입문 오작동을 줄이기 위한 기밀 성능 기술을 공동 개발한다. &amp;nbsp; GS건설은 현대엘리베이터와 &amp;lsquo;초고층 승강기 기밀 성능 확보를 위한 공동 기술개발&amp;rsquo; 업무협약을 체결했다고 20일 밝혔다. &amp;nbsp; 양사는 초고층 건물에서 나</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d89ff4e0b36518ffda60c192.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.koscaj.com/news/articleView.html?idxno=325946"
+  data-title="GS건설, 현대엘리베이터와 초고층 승강기 기밀 성능 기술 개발"
+  data-publisher="대한전문건설신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787212517"
+  data-country="OTHER"
+  data-search="gs건설, 현대엘리베이터와 초고층 승강기 기밀 성능 기술 개발 대한전문건설신문 타 건설사 gs건설이 현대엘리베이터와 손잡고 초고층 건축물에서 발생하는 압력 차에 대응하는 승강기 기술 개발에 나선다.gs건설은 서울 서초구 gs건설 서초타워에서 현대엘리베이터와 ‘초고층 승강기 기밀 성능 확보를 위한 공동 기술개발’ 업무협약(mou·사진)을 체결했다고 20일 밝혔다.양사는 이번"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">31.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">대한전문건설신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 현대엘리베이터와 초고층 승강기 기밀 성능 기술 개발</div>
+      <div class="article-snippet">GS건설이 현대엘리베이터와 손잡고 초고층 건축물에서 발생하는 압력 차에 대응하는 승강기 기술 개발에 나선다.GS건설은 서울 서초구 GS건설 서초타워에서 현대엘리베이터와 ‘초고층 승강기 기밀 성능 확보를 위한 공동 기술개발’ 업무협약(MOU·사진)을 체결했다고 20일 밝혔다.양사는 이번</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6b5dc18d25b7edf2f2da6fc9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.cstimes.com/news/articleView.html?idxno=717469"
   data-title="GS건설·현대엘리베이터, 초고층 승강기 기밀 성능 공동 기술개발"
   data-publisher="컨슈머타임스"
@@ -35668,7 +36002,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35680,7 +36014,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설·현대엘리베이터, 초고층 승강기 기밀 성능 공동 기술개발</div>
+      <div class="headline">GS건설·현대엘리베이터, 초고층 승강기 기밀 성능 공동 기술개발</div>
       <div class="article-snippet">컨슈머타임스=정용규 기자 | GS건설이 현대엘리베이터와 &#x27;초고층 승강기 기밀 성능 확보를 위한 공동 기술개발&#x27; 업무협약(MOU)을 체결했다고 20일 밝혔다. 협약식은 서울 서초구 GS건설 서초타워에서 열렸다.초고층 건축물에서 빈번히 나타나는 &#x27;연돌효과(Stack Effect)&#x27;가 이번 기술 개발의 출발점이다. 건물 안팎의 온도 차가 클수록 공기가 굴뚝 방향으로 강하게 흐르면서 승강기 내외부 압력 차이를 키운다. 소음·진동·도어 오작동의 원인이 된다.이에 따라 양사는 승강기 기밀 성능을 높여 연돌효과의 영향을 차단하는 기술을 개발하기</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -35703,7 +36037,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35738,7 +36072,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35773,7 +36107,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35808,7 +36142,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35843,7 +36177,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35878,7 +36212,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35913,7 +36247,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35948,7 +36282,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35983,7 +36317,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36018,7 +36352,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36053,7 +36387,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36088,7 +36422,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36123,7 +36457,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36158,7 +36492,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36193,7 +36527,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">47.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36228,7 +36562,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">48.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36263,7 +36597,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">46.</span>
+      <span class="article-order-inline">49.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36298,7 +36632,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">47.</span>
+      <span class="article-order-inline">50.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36333,7 +36667,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">48.</span>
+      <span class="article-order-inline">51.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36368,7 +36702,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">49.</span>
+      <span class="article-order-inline">52.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36403,7 +36737,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">50.</span>
+      <span class="article-order-inline">53.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36438,7 +36772,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">51.</span>
+      <span class="article-order-inline">54.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36466,9 +36800,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70694"
+  data-title="한울원전, 방학 중 초등생 점심 공백 채운다"
+  data-publisher="에너지타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787244451"
+  data-country="KR"
+  data-search="한울원전, 방학 중 초등생 점심 공백 채운다 에너지타임즈 한국수력원자력 한울원자력본부가 방학기간 발생할 수 있는 초등학생 급식 공백을 해소하고 맞벌이 가정의 돌봄 부담을 덜어주기 위해 점심 도시락과 간식을 지원한다. 한국수력원자력(주) 한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원사업을 시행한다고 20일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울원전, 방학 중 초등생 점심 공백 채운다</div>
+      <div class="article-snippet">한울원자력본부가 방학기간 발생할 수 있는 초등학생 급식 공백을 해소하고 맞벌이 가정의 돌봄 부담을 덜어주기 위해 점심 도시락과 간식을 지원한다. 한국수력원자력(주) 한울원자력본부(본부장 이용희)는 방학 중 돌봄교실에 참여하는 지역 초등학생을 대상으로 2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원사업을 시행한다고 20일</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e9daf2b14827bd6717cfd0a4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260820142900054?section=industry/all"
   data-title="한빛원전 사용후핵연료 임시저장시설, 의견 수렴 착수 | 연합뉴스"
@@ -36482,7 +36851,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36517,7 +36886,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36552,7 +36921,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36587,7 +36956,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36622,7 +36991,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36657,7 +37026,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36765,7 +37134,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787212200"
+  data-published="1787212800"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -38156,9 +38525,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">44건</span>
+    <span class="group-count">45건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70695"
+  data-title="방사능분석능력평가…원자력환경공단, 9년 연속 전 항목 A등급"
+  data-publisher="에너지타임즈"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787244941"
+  data-country="KR"
+  data-search="방사능분석능력평가…원자력환경공단, 9년 연속 전 항목 a등급 에너지타임즈 원자력 방사능분석능력평가에서 원자력환경공단이 9년 연속 전 항목 a등급을 획득하며 방사성폐기물 핵종분석 역량을 입증했다. 한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(kins)에서 주관한 2026년 방사능분석능력평가에서 모든 항목 a등급을 획득했다고 20일 밝혔다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>방사능분석능력평가…원자력환경공단, 9년 연속 전 항목 A등급</div>
+      <div class="article-snippet">방사능분석능력평가에서 원자력환경공단이 9년 연속 전 항목 A등급을 획득하며 방사성폐기물 핵종분석 역량을 입증했다. 한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(KINS)에서 주관한 2026년 방사능분석능력평가에서 모든 항목 A등급을 획득했다고 20일 밝혔다.</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/276966771a5240566376bf1f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227558"
   data-title="고준위 방폐장 입지·처분 논의 첫발...4개 전문위 가동"
@@ -38172,7 +38576,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38207,7 +38611,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38242,7 +38646,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38277,7 +38681,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38312,7 +38716,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38347,7 +38751,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38382,7 +38786,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38417,7 +38821,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38452,7 +38856,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38487,7 +38891,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38522,7 +38926,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38557,7 +38961,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38592,7 +38996,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38627,7 +39031,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38662,7 +39066,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38697,7 +39101,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38732,7 +39136,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38767,7 +39171,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38802,7 +39206,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38837,7 +39241,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38872,7 +39276,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38907,7 +39311,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38942,7 +39346,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38977,7 +39381,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39012,7 +39416,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39047,7 +39451,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39082,7 +39486,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39117,7 +39521,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39152,7 +39556,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39187,7 +39591,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39222,7 +39626,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39257,7 +39661,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39292,7 +39696,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39327,7 +39731,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39362,7 +39766,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39397,7 +39801,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39432,7 +39836,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39467,7 +39871,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39502,7 +39906,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39537,7 +39941,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39572,7 +39976,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39607,7 +40011,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39642,7 +40046,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39677,7 +40081,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39705,10 +40109,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newstopkorea.com/news/articleView.html?idxno=47168"
+  data-title="오리온이엔씨, 원전 장비·SMR 앞세워 ‘매출 점프업’...프리IPO 본격화 - 뉴스톱"
+  data-publisher="뉴스탑코리아"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787212082"
+  data-country="OTHER"
+  data-search="오리온이엔씨, 원전 장비·smr 앞세워 ‘매출 점프업’...프리ipo 본격화 - 뉴스톱 뉴스탑코리아 smr 국내 원자력 엔지니어링 기업 오리온이엔씨가 원전 운영·해체 장비와 소형모듈원전(smr) 사업 확대를 앞세워 프리ipo(상장 전 지분투자)에 속도를 내고 있다. 지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스탑코리아</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>오리온이엔씨, 원전 장비·SMR 앞세워 ‘매출 점프업’...프리IPO 본격화 - 뉴스톱</div>
+      <div class="article-snippet">국내 원자력 엔지니어링 기업 오리온이엔씨가 원전 운영·해체 장비와 소형모듈원전(SMR) 사업 확대를 앞세워 프리IPO(상장 전 지분투자)에 속도를 내고 있다. 지</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e7455a0259b557283ed70f3d.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.etnews.com/20260820000379"
   data-title="[인터뷰] 김홍범 삼홍아크튜리온 대표 “AI 전력 폭증이 SMR 시대 앞당긴다…한국 제조 경쟁력이 승부처”"
   data-publisher="전자신문"
@@ -39721,7 +40160,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39733,7 +40172,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인터뷰] 김홍범 삼홍아크튜리온 대표 “AI 전력 폭증이 SMR 시대 앞당긴다…한국 제조 경쟁력이 승부처”</div>
+      <div class="headline">[인터뷰] 김홍범 삼홍아크튜리온 대표 “AI 전력 폭증이 SMR 시대 앞당긴다…한국 제조 경쟁력이 승부처”</div>
       <div class="article-snippet">“SMR 설계 많아도 실제 제작 가능한 기업은 제한적…한국 원전 공급망 글로벌 경쟁력 충분” 대형 원전·SMR·ITER서 쌓은 고난도 제작 경험…“글로벌 Tier-1 핵심부품 공급사로 도약” “SMR 제조금융·인허가 패스트트랙 필요…AI 데이터센터가 원전시장 게임 체인저” “소형모듈원자로(SMR) 시대에는 좋은 설계만으로 경쟁할 수 없습니다. 아무리 뛰어난 설계가 있어도 이를 실제 제품으로 만들어 양산할 수 있는 공장과 공급망이 없다면 상용화할</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -39756,7 +40195,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39791,7 +40230,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39826,7 +40265,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39861,7 +40300,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39890,13 +40329,13 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787212308"
+  data-published="1787212960"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39931,7 +40370,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39966,7 +40405,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -40109,7 +40548,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787211795"
+  data-published="1787212921"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -40144,7 +40583,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787211792"
+  data-published="1787212918"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -40557,7 +40996,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguardian.com/australia-news/2026/aug/20/alan-jones-trial-grooming-claim-adult-alleged-victim-ntwnfb"
   data-title="Alan Jones’s ‘yelling stopped’ when his ‘sexual behaviour’ began, alleged victim tells court"
   data-publisher="The Guardian"
@@ -40582,7 +41021,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Alan Jones’s ‘yelling stopped’ when his ‘sexual behaviour’ began, alleged victim tells court</div>
+      <div class="headline">Alan Jones’s ‘yelling stopped’ when his ‘sexual behaviour’ began, alleged victim tells court</div>
       <div class="article-snippet">Sydney court hears complainant was more than 40 years younger and far less powerful than the shock jock when he started working as his driver Follow our Australia news live blog for latest updates Get our breaking news email , free app or daily news podcast Alan Jones’s yelling stopped when his “sexual behaviour” began</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -45320,7 +45759,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -134861,82 +135300,75 @@ function buildSatelliteTexture(maskCtx,width,height){
       let r,g,b;
       if(land){
         const equatorial=clamp01(1-absLat/42);
-        const boreal=clamp01((58-absLat)/28);
-        const desertBelt=smoothstep(8,22,absLat)*(1-smoothstep(22,38,absLat));
-        const desert=((0.42+0.36*n-0.22*n2) * desertBelt);
-        const vegetation=clamp01(0.58 + equatorial*0.34 - desert*0.65 - elev*0.12 + n*0.08);
-        const dry=clamp01(0.30 + desert*0.88 + (1-vegetation)*0.20);
-        const rock=clamp01(elev*0.74 + smoothstep(42,64,absLat)*0.18);
-        const snow=clamp01(smoothstep(58,77,absLat) + elev*0.35 - 0.08 + n2*0.05);
+        const desertBelt=smoothstep(8,22,absLat)*(1-smoothstep(22,39,absLat));
+        const desert=((0.44+0.34*n-0.18*n2) * desertBelt);
+        const vegetation=clamp01(0.62 + equatorial*0.30 - desert*0.62 - elev*0.10 + n*0.08);
+        const dry=clamp01(0.26 + desert*0.92 + (1-vegetation)*0.18);
+        const rock=clamp01(elev*0.72 + smoothstep(42,66,absLat)*0.16);
+        const snow=clamp01(smoothstep(56,76,absLat) + elev*0.34 - 0.05 + n2*0.05);
 
-        // base biome blend: lush vegetation -> dry scrub -> rocky highlands
-        r=mix(46,92,vegetation);
-        g=mix(68,128,vegetation);
-        b=mix(42,78,vegetation);
+        r=mix(54,100,vegetation);
+        g=mix(78,148,vegetation);
+        b=mix(48,92,vegetation);
 
-        r=mix(r,169,dry*0.70);
-        g=mix(g,146,dry*0.70);
-        b=mix(b,95,dry*0.70);
+        r=mix(r,188,dry*0.64);
+        g=mix(g,164,dry*0.64);
+        b=mix(b,108,dry*0.64);
 
-        r=mix(r,124,rock*0.55);
-        g=mix(g,112,rock*0.55);
-        b=mix(b,103,rock*0.55);
+        r=mix(r,130,rock*0.52);
+        g=mix(g,118,rock*0.52);
+        b=mix(b,108,rock*0.52);
 
-        // tropical forest deepening
-        const rainforest=equatorial*clamp01(0.60 - desert + n*0.18);
-        r=mix(r,34,rainforest*0.40);
-        g=mix(g,101,rainforest*0.40);
-        b=mix(b,54,rainforest*0.40);
+        const rainforest=equatorial*clamp01(0.62 - desert + n*0.18);
+        r=mix(r,40,rainforest*0.34);
+        g=mix(g,114,rainforest*0.34);
+        b=mix(b,58,rainforest*0.34);
 
-        // coastlines become a touch brighter and greener
-        r=mix(r,124,coast*0.12);
-        g=mix(g,144,coast*0.18);
-        b=mix(b,96,coast*0.10);
+        const coastBright=coast*0.34;
+        r=mix(r,174,coastBright*0.30);
+        g=mix(g,176,coastBright*0.34);
+        b=mix(b,120,coastBright*0.22);
 
-        // snowy high latitudes and mountains
-        r=mix(r,236,snow*0.92);
-        g=mix(g,240,snow*0.92);
-        b=mix(b,242,snow*0.92);
+        r=mix(r,238,snow*0.90);
+        g=mix(g,241,snow*0.90);
+        b=mix(b,244,snow*0.92);
 
-        const relief=0.90 + n*0.10 + elev*0.11;
+        const relief=0.96 + n*0.08 + elev*0.09;
         r*=relief; g*=relief; b*=relief;
       } else {
         const oceanBand=0.55 + 0.45*Math.sin((lonDeg+22)*0.055) * Math.cos((latDeg-8)*0.072);
         const gyre=noise(sx*0.45+17, sy*0.35+8);
-        const deepness=clamp01(0.32 + (1-coast)*0.56 + (0.5-gyre)*0.10);
-        r=mix(10,19,coast*0.85);
-        g=mix(55,133,coast*0.85);
-        b=mix(106,188,coast*0.90);
-        r=mix(r,4,deepness*0.78);
-        g=mix(g,31,deepness*0.78);
-        b=mix(b,84,deepness*0.78);
-        r+=oceanBand*3;
-        g+=oceanBand*6;
-        b+=oceanBand*8;
+        const deepness=clamp01(0.28 + (1-coast)*0.52 + (0.5-gyre)*0.08);
+        r=mix(20,42,coast*0.85);
+        g=mix(92,165,coast*0.85);
+        b=mix(150,212,coast*0.90);
+        r=mix(r,7,deepness*0.74);
+        g=mix(g,48,deepness*0.74);
+        b=mix(b,112,deepness*0.74);
+        r+=oceanBand*4;
+        g+=oceanBand*7;
+        b+=oceanBand*9;
 
-        // shallow coastal shelf
         const shelf=coast*coast;
-        r=mix(r,42,shelf*0.40);
-        g=mix(g,151,shelf*0.46);
-        b=mix(b,186,shelf*0.55);
+        r=mix(r,66,shelf*0.34);
+        g=mix(g,180,shelf*0.38);
+        b=mix(b,214,shelf*0.46);
 
-        // polar sea ice hint
         const seaIce=clamp01(smoothstep(67,81,absLat) - deepness*0.20 + n*0.05);
-        r=mix(r,214,seaIce*0.82);
-        g=mix(g,228,seaIce*0.82);
-        b=mix(b,236,seaIce*0.82);
+        r=mix(r,216,seaIce*0.78);
+        g=mix(g,229,seaIce*0.80);
+        b=mix(b,238,seaIce*0.82);
       }
 
-      // Thin global cloud veil for a satellite-photo feel.
       const cloudSignal=(
         Math.sin((sx+71)*0.028 + (sy+9)*0.045) +
         0.55*Math.sin((sx-15)*0.062 - (sy+24)*0.021) +
         0.32*Math.sin((sx+140)*0.104 + (sy-33)*0.087)
       );
-      const cloud=clamp01((cloudSignal-0.95)/0.78) * (0.18 + 0.10*clamp01(1-Math.abs(latDeg)/90));
-      r=mix(r,244,cloud);
-      g=mix(g,247,cloud);
-      b=mix(b,249,cloud);
+      const cloud=clamp01((cloudSignal-0.98)/0.82) * (0.15 + 0.08*clamp01(1-Math.abs(latDeg)/90));
+      r=mix(r,246,cloud);
+      g=mix(g,248,cloud);
+      b=mix(b,250,cloud);
 
       out[i]=clamp255(r);
       out[i+1]=clamp255(g);
@@ -135046,42 +135478,37 @@ function renderGlobeCanvas(){
       let g=texture[si+1];
       let b=texture[si+2];
 
-      // Physically inspired lighting for a Google-Earth-like spherical appearance.
-      const lightDirX=-.42, lightDirY=-.23, lightDirZ=.88;
-      const diffuse=Math.max(.14,nx*lightDirX+ny*lightDirY+z*lightDirZ);
-      const daylight=.44 + .66*diffuse;
+      const lightDirX=-.40, lightDirY=-.18, lightDirZ=.90;
+      const diffuse=Math.max(.24,nx*lightDirX+ny*lightDirY+z*lightDirZ);
+      const daylight=.62 + .40*diffuse;
       r*=daylight; g*=daylight; b*=daylight;
 
-      // Relief shading gives land more photographic depth.
-      const reliefShade=Math.max(0,Math.min(1,0.64 + (z*.22) - nx*0.04 - ny*0.03));
+      const reliefShade=Math.max(0,Math.min(1,0.92 + (z*.08) - nx*0.018 - ny*0.010));
       if(isLand){
         r*=reliefShade;
         g*=reliefShade;
         b*=reliefShade;
       }
 
-      // Ocean glint and limb brightening.
       if(!isLand){
-        const spec=Math.pow(Math.max(0,nx*(-.26)+ny*(-.19)+z*.95),24);
-        r+=72*spec; g+=96*spec; b+=112*spec;
+        const spec=Math.pow(Math.max(0,nx*(-.24)+ny*(-.16)+z*.95),22);
+        r+=58*spec; g+=84*spec; b+=102*spec;
       }
 
-      // Subtle moving cloud highlight to keep the globe lively.
       const cloudSignal=(
         Math.sin((lonDeg+globeState.rotationLon*0.18)*0.22 + latDeg*0.37) +
         0.58*Math.sin((lonDeg-globeState.rotationLon*0.10)*0.49 - latDeg*0.18) +
         0.34*Math.sin(lonDeg*0.88 + latDeg*0.71)
       );
-      const cloud=Math.max(0,Math.min(.22,(cloudSignal-1.12)*.19));
-      r=mix(r,247,cloud);
+      const cloud=Math.max(0,Math.min(.17,(cloudSignal-1.18)*.19));
+      r=mix(r,248,cloud);
       g=mix(g,249,cloud);
       b=mix(b,251,cloud);
 
-      // Atmospheric scattering at the rim.
-      const rim=Math.pow(1-z,2.7);
-      r=mix(r,92,rim*.14);
-      g=mix(g,181,rim*.20);
-      b=mix(b,232,rim*.28);
+      const rim=Math.pow(1-z,2.55);
+      r=mix(r,104,rim*.10);
+      g=mix(g,190,rim*.15);
+      b=mix(b,236,rim*.20);
 
       data[di]=clamp255(r);
       data[di+1]=clamp255(g);
@@ -135092,12 +135519,11 @@ function renderGlobeCanvas(){
 
   ctx.putImageData(out,0,0);
 
-  // soft atmospheric ring
   ctx.save();
   ctx.beginPath();
   ctx.arc(radius,radius,radius-2,0,Math.PI*2);
-  ctx.strokeStyle='rgba(140,219,255,.62)';
-  ctx.lineWidth=2.4;
+  ctx.strokeStyle='rgba(155,226,255,.58)';
+  ctx.lineWidth=2.2;
   ctx.stroke();
   ctx.restore();
 }
@@ -135112,31 +135538,68 @@ function renderGlobeMarkers(){
     .filter(item=>item.projection.visible)
     .sort((a,b)=>b.count-a.count);
 
-  const placed=[];
+  const layerRect=layer.getBoundingClientRect();
+  const labelMaxWidth=window.innerWidth<=430 ? 108 : 124;
+  const labelHeight=24;
+  const reserved=[
+    {left:6, top:6, right:Math.min(layerRect.width*0.46, 122), bottom:34},
+    {left:Math.max(0, layerRect.width-128), top:6, right:layerRect.width-6, bottom:34}
+  ];
+  const placed=[...reserved];
+
+  const defaultOffsets=[
+    [0,-28],[0,28],[26,-18],[-26,-18],[30,10],[-30,10],[34,-30],[-34,-30],[38,24],[-38,24],[0,-44],[0,44]
+  ];
+  const preferredOffsets={
+    KR:[[-40,-16],[-42,8],[-28,-32],[-20,24]],
+    JP:[[40,-10],[42,12],[26,-30],[22,26]],
+    CN:[[-36,10],[-34,-16],[-18,28]],
+    TW:[[26,16],[30,-14],[-22,16]],
+    US:[[0,-30],[26,-14],[-26,-14]],
+    GB:[[-26,-12],[-20,18],[24,-10]],
+    FR:[[-28,12],[-18,-18],[26,8]],
+    RU:[[0,-28],[-30,-16],[30,-16]]
+  };
+
   projected.forEach((item,index)=>{
     const p=item.projection;
-    const important=item.count>=10 || item.code===activeCountryFilter;
-    const maxLabels=window.innerWidth<=430 ? 7 : 10;
+    const important=item.count>=10 || item.code===activeCountryFilter || item.code==='KR' || item.code==='JP';
+    const maxLabels=window.innerWidth<=430 ? 8 : 11;
     if(index>=maxLabels && !important)return;
 
-    const approxWidth=Math.min(112,52+item.name.length*7+(String(item.count).length*6));
-    const approxHeight=25;
-    const xPct=p.x;
-    const yPct=p.y;
-    const layerRect=layer.getBoundingClientRect();
-    const x=(xPct/100)*layerRect.width;
-    const y=(yPct/100)*layerRect.height;
-    const rect={left:x-approxWidth/2,right:x+approxWidth/2,top:y-approxHeight/2,bottom:y+approxHeight/2};
-    const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
-    if(overlaps && !important)return;
-    placed.push(rect);
+    const approxWidth=Math.min(labelMaxWidth,58+item.name.length*7+(String(item.count).length*6));
+    const baseX=(p.x/100)*layerRect.width;
+    const baseY=(p.y/100)*layerRect.height;
+    const candidateOffsets=[...(preferredOffsets[item.code]||[]), ...defaultOffsets];
+
+    let chosen=null;
+    for(const [dx,dy] of candidateOffsets){
+      const cx=Math.max(approxWidth/2 + 6, Math.min(layerRect.width - approxWidth/2 - 6, baseX + dx));
+      const cy=Math.max(labelHeight/2 + 38, Math.min(layerRect.height - labelHeight/2 - 10, baseY + dy));
+      const rect={left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2};
+      const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
+      if(!overlaps){
+        chosen={x:cx,y:cy};
+        placed.push(rect);
+        break;
+      }
+    }
+
+    if(!chosen){
+      if(!important)return;
+      const cx=Math.max(approxWidth/2 + 6, Math.min(layerRect.width - approxWidth/2 - 6, baseX));
+      const cy=Math.max(labelHeight/2 + 38, Math.min(layerRect.height - labelHeight/2 - 10, baseY - 28));
+      const rect={left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2};
+      placed.push(rect);
+      chosen={x:cx,y:cy};
+    }
 
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='globe-country-label' + (activeCountryFilter===item.code?' active':'');
     btn.dataset.countryFilter=item.code;
-    btn.style.left=`${xPct}%`;
-    btn.style.top=`${yPct}%`;
+    btn.style.left=`${chosen.x}px`;
+    btn.style.top=`${chosen.y}px`;
     btn.style.setProperty('--globe-depth',String(Math.max(.45,p.z)));
     btn.innerHTML=`<span class="globe-country-flag">${item.flag}</span><span class="globe-country-name">${item.name}</span><span class="globe-country-count">${item.count}건</span>`;
     btn.setAttribute('aria-label',`${item.name} 기사 ${item.count}건 보기`);
@@ -135250,8 +135713,8 @@ function layoutAndRenderCountryMap(){
 
   if(caption){
     caption.textContent=activeCountryFilter
-      ? `${COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter} 기사만 표시 중 · 국가 라벨을 다시 누르면 전체`
-      : '지구본을 돌리고 국가 라벨을 누르면 해당 기사만 표시';
+      ? `${COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}만 표시`
+      : '국가 라벨 선택';
   }
 
   renderGlobeFrame(true);
