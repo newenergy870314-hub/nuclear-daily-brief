@@ -13823,6 +13823,75 @@ header,
   .map-country-card .count {{ font-size:7.2px !important; }}
 }}
 
+
+
+/* Selected continent highlight directly on 2D map */
+#continent-highlight-layer {{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  z-index:1 !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+}}
+.continent-highlight-shape {{
+  fill:rgba(40,151,211,.18) !important;
+  stroke:#278fc8 !important;
+  stroke-width:3.0 !important;
+  stroke-linejoin:round !important;
+  stroke-linecap:round !important;
+  vector-effect:non-scaling-stroke !important;
+  filter:drop-shadow(0 2px 5px rgba(39,143,200,.16)) !important;
+}}
+.continent-highlight-label {{
+  fill:#197aaa !important;
+  font-size:22px !important;
+  font-weight:900 !important;
+  text-anchor:middle !important;
+  paint-order:stroke !important;
+  stroke:rgba(255,255,255,.94) !important;
+  stroke-width:4.5px !important;
+  stroke-linejoin:round !important;
+  pointer-events:none !important;
+}}
+.map-country-node {{ z-index:4 !important; }}
+
+@media (max-width:430px) {{
+  .continent-highlight-shape {{ stroke-width:2.6 !important; }}
+  .continent-highlight-label {{ font-size:20px !important; stroke-width:4px !important; }}
+}}
+
+/* Smart continent interaction polish */
+.continent-button.active {{
+  border-color:#278fc8 !important;
+  background:#eaf6fd !important;
+  box-shadow:inset 0 0 0 1px rgba(39,143,200,.14) !important;
+}}
+.continent-button.active .continent-button-name {{ color:#126f9f !important; }}
+.map-country-card {{
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease !important;
+}}
+.map-country-card:hover,
+.map-country-card:focus-visible {{
+  transform:translateY(-50%) scale(1.04) !important;
+  box-shadow:0 4px 12px rgba(50,88,116,.13) !important;
+  outline:none !important;
+}}
+.map-country-node.side-left .map-country-card:hover,
+.map-country-node.side-left .map-country-card:focus-visible {{
+  transform:translateY(-50%) scale(1.04) !important;
+}}
+.map-country-card.active {{
+  border-color:#e5c94b !important;
+  box-shadow:0 0 0 2px rgba(229,201,75,.18),0 3px 10px rgba(50,88,116,.10) !important;
+}}
+@media (max-width:380px) {{
+  .map-country-card .name {{ display:inline !important; font-size:6.8px !important; }}
+  .map-country-card .count {{ font-size:6.9px !important; }}
+  .map-country-card {{ gap:2px !important; padding:2px 4px !important; }}
+}}
+
 </style>
 </head>
 <body>
@@ -16502,6 +16571,8 @@ function renderContinentRail2D(items){{
   if(allButton){{
     allButton.addEventListener('click',()=>{{
       activeContinentFilter='ALL';
+      activeCountryFilter='';
+      filterArticles();
       layoutAndRenderCountryMap();
     }});
   }}
@@ -16513,7 +16584,15 @@ function renderContinentRail2D(items){{
     button.className='continent-button' + (activeContinentFilter===code ? ' active' : '');
     button.innerHTML=`<span><span class="continent-button-name">${{CONTINENT_META[code].name}}</span><span class="continent-button-meta">${{countryCounts[code]||0}}개국</span></span><span class="continent-button-count">${{articleCounts[code]||0}}건</span>`;
     button.addEventListener('click',()=>{{
+      const switching = activeContinentFilter !== code;
       activeContinentFilter=code;
+      if(code==='ALL'){{
+        activeCountryFilter='';
+        filterArticles();
+      }} else if(switching && activeCountryFilter && getCountryContinent(activeCountryFilter)!==code){{
+        activeCountryFilter='';
+        filterArticles();
+      }}
       layoutAndRenderCountryMap();
     }});
     scroll.appendChild(button);
@@ -16546,29 +16625,73 @@ function computeMapLabelPlacements(items, mapRect){{
 
 function computeDirectMapLabelPlacements(items){{
   const placements=[];
-  const sideY={{ left:[], right:[] }};
-  const filtered=[...items].sort((a,b)=>b.count-a.count || a.lon-b.lon);
+  const filtered=[...items].sort((a,b)=>b.count-a.count || a.lat-b.lat || a.lon-b.lon);
+  const occupied=[];
   filtered.forEach((item,index)=>{{
     const p=project2DPoint(item.lon,item.lat);
-    let side='right';
-    if(p.x > 70) side='left';
-    else if(p.x >= 42 && p.x <= 70) side = (index % 2 === 0 ? 'right' : 'left');
-    let y = p.y;
-    const used = sideY[side];
-    used.forEach(prev=>{{
-      if(Math.abs(prev - y) < 8) y = prev + 8.5;
-    }});
-    y = Math.max(8, Math.min(92, y));
-    used.push(y);
-    placements.push({{ ...item, x:p.x, y, side }});
+    let side = p.x > 72 ? 'left' : 'right';
+    if(p.x >= 43 && p.x <= 72) side = (index % 2 === 0 ? 'right' : 'left');
+
+    let y=p.y;
+    const step=7.2;
+    let tries=0;
+    while(tries<12){{
+      const clash=occupied.some(prev => prev.side===side && Math.abs(prev.y-y)<6.6 && Math.abs(prev.x-p.x)<28);
+      if(!clash)break;
+      const direction = tries % 2 === 0 ? 1 : -1;
+      y = p.y + direction * Math.ceil((tries+1)/2) * step;
+      y=Math.max(7,Math.min(93,y));
+      tries++;
+    }}
+    occupied.push({{x:p.x,y,side}});
+    placements.push({{...item,x:p.x,y,side}});
   }});
   return placements;
+}}
+
+
+function renderSelectedContinentHighlight(){{
+  const layer=document.getElementById('country-map-label-layer');
+  if(!layer)return;
+  let svg=document.getElementById('continent-highlight-layer');
+  if(!svg){{
+    svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.id='continent-highlight-layer';
+    svg.setAttribute('viewBox','0 0 1000 500');
+    svg.setAttribute('preserveAspectRatio','none');
+    layer.prepend(svg);
+  }}
+  svg.innerHTML='';
+  if(activeContinentFilter==='ALL')return;
+
+  const regions={{
+    NA: {{ points:'30,65 205,55 315,125 330,220 265,305 145,320 55,255 10,155', labelX:165, labelY:165 }},
+    EU: {{ points:'405,78 645,70 705,125 680,205 585,240 455,222 390,155', labelX:550, labelY:148 }},
+    AS: {{ points:'555,60 920,55 990,135 970,270 865,335 720,325 610,260 535,165', labelX:780, labelY:170 }},
+    MEA:{{ points:'390,165 650,155 730,245 690,420 520,455 395,385 350,265', labelX:535, labelY:285 }},
+    OC: {{ points:'705,300 985,295 995,475 735,480 665,395', labelX:840, labelY:390 }}
+  }};
+  const region=regions[activeContinentFilter];
+  if(!region)return;
+
+  const polygon=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  polygon.setAttribute('points',region.points);
+  polygon.setAttribute('class','continent-highlight-shape');
+  svg.appendChild(polygon);
+
+  const textNode=document.createElementNS('http://www.w3.org/2000/svg','text');
+  textNode.setAttribute('x',String(region.labelX));
+  textNode.setAttribute('y',String(region.labelY));
+  textNode.setAttribute('class','continent-highlight-label');
+  textNode.textContent=(CONTINENT_META[activeContinentFilter]||CONTINENT_META.ALL).name;
+  svg.appendChild(textNode);
 }}
 
 function render2DMapLabels(items){{
   const layer=document.getElementById('country-map-label-layer');
   if(!layer)return;
-  layer.innerHTML='';
+  layer.querySelectorAll('.map-country-node').forEach(node=>node.remove());
+  renderSelectedContinentHighlight();
 
   const filtered = activeContinentFilter==='ALL'
     ? []
@@ -16629,7 +16752,7 @@ function layoutAndRenderCountryMap(){{
     }}
   }}
   const note=document.getElementById('country-filter-note');
-  if(note)note.textContent='대륙 선택 → 지도에서 국가와 기사건수를 바로 확인';
+  if(note)note.textContent='대륙 선택 → 지도에서 국가별 기사건수 확인 · 국가 클릭 시 기사 필터';
 }}
 
 function renderGlobeLabels(){{
