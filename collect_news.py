@@ -5155,6 +5155,39 @@ def render_group(group: str, articles: list[Article]) -> str:
 '''
 
 
+
+OTHER_CONSTRUCTION_COMPANY_ORDER = [
+    ("현대엔지니어링", ("현대엔지니어링", "hyundai engineering")),
+    ("삼성물산", ("삼성물산", "samsung c&t")),
+    ("대우건설", ("대우건설", "daewoo e&c")),
+    ("DL이앤씨", ("dl이앤씨", "dl e&c")),
+    ("GS건설", ("gs건설", "gs e&c")),
+    ("SK에코플랜트", ("sk에코플랜트", "sk ecoplant")),
+    ("포스코이앤씨", ("포스코이앤씨", "posco e&c")),
+    ("롯데건설", ("롯데건설", "lotte e&c")),
+    ("HDC현대산업개발", ("hdc현대산업개발", "hdc hyundai development")),
+    ("한화 건설부문", ("한화 건설부문", "한화건설", "hanwha construction")),
+    ("두산에너빌리티", ("두산에너빌리티", "doosan enerbility")),
+]
+
+def _other_construction_company_rank(article: Article) -> tuple[int, str]:
+    """
+    他 건설사 탭에서 같은 회사 기사끼리 붙도록 회사별 정렬 키를 반환합니다.
+    회사 내부에서는 최신 기사 순으로 정렬됩니다.
+    """
+    haystack = normalized(f"{article.title} {article.description} {article.publisher}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    for idx, (company, aliases) in enumerate(OTHER_CONSTRUCTION_COMPANY_ORDER):
+        for alias in aliases:
+            alias_norm = normalized(alias)
+            alias_compact = re.sub(r"\s+", "", alias_norm)
+            if alias_norm in haystack or alias_compact in compact:
+                return idx, company
+
+    return len(OTHER_CONSTRUCTION_COMPANY_ORDER), "기타"
+
+
 def render_group_unified(
     group: str,
     articles: list[Article],
@@ -5171,6 +5204,16 @@ def render_group_unified(
     def order_articles(items: list[Article]) -> list[Article]:
         if not items:
             return []
+
+        # 他 건설사 탭은 같은 회사 기사끼리 묶고, 회사 내부는 최신순으로 정렬
+        if group == "타 건설사":
+            return sorted(
+                items,
+                key=lambda item: (
+                    _other_construction_company_rank(item)[0],
+                    -item.published.timestamp(),
+                ),
+            )
 
         buckets: dict[int, list[Article]] = {0: [], 1: [], 2: []}
         for item in items:
@@ -5573,6 +5616,33 @@ def _nuclear_site_unit_reactor_event_key(article: Article) -> tuple[str, str, st
     return date_key, site, unit_no
 
 
+
+def _daewoo_lee_kangseok_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 '대우건설 + 이강석 사장' 보도는 띄어쓰기 차이와 관계없이
+    동일 이슈로 묶습니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    has_daewoo = (
+        "대우건설" in compact
+        or "daewooe&c" in compact
+        or "daewooengineeringconstruction" in compact
+    )
+    has_lee_kangseok = "이강석" in compact
+    has_ceo_title = (
+        "사장" in compact
+        or "대표이사" in compact
+        or "ceo" in compact
+    )
+
+    if not (has_daewoo and has_lee_kangseok and has_ceo_title):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5795,7 +5865,29 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             site_reactor_unique[idx] = article
 
-    result = sorted(site_reactor_unique, key=lambda x: x.published, reverse=True)
+    # 같은 날짜 + 대우건설 + 이강석 사장 관련 보도는 대표기사 1건만 유지
+    daewoo_lee_unique: list[Article] = []
+    daewoo_lee_key_to_idx: dict[str, int] = {}
+    daewoo_lee_removed = 0
+
+    for article in site_reactor_unique:
+        event_key = _daewoo_lee_kangseok_event_key(article)
+        if event_key is None:
+            daewoo_lee_unique.append(article)
+            continue
+
+        if event_key not in daewoo_lee_key_to_idx:
+            daewoo_lee_key_to_idx[event_key] = len(daewoo_lee_unique)
+            daewoo_lee_unique.append(article)
+            continue
+
+        daewoo_lee_removed += 1
+        idx = daewoo_lee_key_to_idx[event_key]
+        kept = daewoo_lee_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            daewoo_lee_unique[idx] = article
+
+    result = sorted(daewoo_lee_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ exact_content_removed={exact_content_removed} "
@@ -5806,7 +5898,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ recruiting_removed={recruiting_removed} "
         f"/ macheon5_removed={macheon5_removed} "
         f"/ construction_union_removed={construction_union_removed} "
-        f"/ site_reactor_removed={site_reactor_removed} / final={len(result)}"
+        f"/ site_reactor_removed={site_reactor_removed} "
+        f"/ daewoo_lee_removed={daewoo_lee_removed} / final={len(result)}"
     )
     return result
 
