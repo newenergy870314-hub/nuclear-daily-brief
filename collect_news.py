@@ -11573,19 +11573,9 @@ header,
   border:1px solid rgba(30,58,95,.42) !important;
   border-radius:14px !important;
   background:
-    radial-gradient(circle at 18% 22%, rgba(255,255,255,.96) 0 1.1px, transparent 1.55px),
-    radial-gradient(circle at 72% 18%, rgba(255,255,255,.84) 0 1.05px, transparent 1.45px),
-    radial-gradient(circle at 86% 37%, rgba(176,213,255,.92) 0 1px, transparent 1.45px),
-    radial-gradient(circle at 12% 67%, rgba(255,255,255,.80) 0 .95px, transparent 1.3px),
-    radial-gradient(circle at 41% 78%, rgba(255,255,255,.88) 0 1px, transparent 1.4px),
-    radial-gradient(circle at 94% 74%, rgba(255,255,255,.72) 0 .85px, transparent 1.25px),
-    radial-gradient(circle at 62% 61%, rgba(152,195,255,.64) 0 .8px, transparent 1.3px),
-    radial-gradient(circle at 30% 44%, rgba(255,255,255,.58) 0 .75px, transparent 1.15px),
-    radial-gradient(circle at 55% 8%, rgba(255,255,255,.54) 0 .72px, transparent 1.1px),
-    radial-gradient(circle at 4% 38%, rgba(255,255,255,.52) 0 .72px, transparent 1.1px),
-    radial-gradient(circle at 98% 14%, rgba(255,255,255,.52) 0 .72px, transparent 1.1px),
-    linear-gradient(180deg, #09111d 0%, #050a12 48%, #02050b 100%) !important;
-  box-shadow:inset 0 0 22px rgba(0,0,0,.28), 0 2px 8px rgba(17,24,39,.08) !important;
+    radial-gradient(circle at 34% 38%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.82) 28%, rgba(238,246,252,.78) 58%, transparent 78%),
+    linear-gradient(180deg, #f8fbfe 0%, #f2f7fb 52%, #eaf2f8 100%) !important;
+  box-shadow:inset 0 0 0 1px rgba(103,137,169,.08), 0 2px 8px rgba(17,24,39,.05) !important;
 }}
 
 .globe-texture-source {{
@@ -11598,27 +11588,17 @@ header,
   inset:0;
   pointer-events:none;
   z-index:0;
-  opacity:.72;
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,.75) 0 1px, transparent 1.2px),
-    radial-gradient(circle, rgba(164,204,255,.55) 0 .8px, transparent 1.1px),
-    radial-gradient(circle, rgba(255,255,255,.45) 0 .7px, transparent 1px);
-  background-size:31px 31px, 47px 47px, 67px 67px;
-  background-position:4px 7px, 19px 3px, 11px 29px;
+  opacity:.55;
+  background:radial-gradient(circle at 34% 48%, rgba(153,203,235,.16) 0%, rgba(153,203,235,.07) 34%, transparent 66%);
 }}
 
 .country-map-content .country-map-visual.globe-mode::after {{
   content:"";
   position:absolute;
-  left:28%;
-  top:-18%;
-  width:66%;
-  height:145%;
+  inset:0;
   pointer-events:none;
   z-index:0;
-  transform:rotate(-17deg);
-  background:radial-gradient(ellipse at center, rgba(75,108,151,.10) 0%, rgba(36,62,99,.055) 38%, transparent 72%);
-  filter:blur(2px);
+  background:linear-gradient(90deg, rgba(255,255,255,.18) 0%, transparent 58%, rgba(222,235,245,.18) 100%);
 }}
 
 .globe-stage {{
@@ -11631,7 +11611,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding:0 106px 0 14px;
+  padding:0 114px 0 12px;
 }}
 
 .globe-stage.dragging {{
@@ -11719,10 +11699,10 @@ header,
 
 .globe-label-rail {{
   position:absolute;
-  top:28px;
+  top:24px;
   right:8px;
-  bottom:18px;
-  width:100px;
+  bottom:10px;
+  width:108px;
   display:flex;
   flex-direction:column;
   gap:6px;
@@ -11731,18 +11711,20 @@ header,
 
 .globe-label-rail-header {{
   flex:0 0 auto;
-  padding:5px 7px 4px;
+  padding:5px 7px 5px;
   border:1px solid rgba(148,218,255,.18);
   border-radius:9px;
-  background:linear-gradient(180deg, rgba(8,18,34,.70) 0%, rgba(6,14,27,.58) 100%);
-  color:#e6f4ff;
+  background:rgba(255,255,255,.94);
+  color:#2e4b63;
   font-size:7px;
   font-weight:850;
   letter-spacing:.01em;
+  line-height:1.18;
   text-align:left;
+  white-space:normal;
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
-  box-shadow:0 3px 10px rgba(0,0,0,.14);
+  box-shadow:0 3px 10px rgba(38,78,110,.08);
 }}
 
 .globe-label-scroll {{
@@ -11776,9 +11758,9 @@ header,
   padding:5px 6px;
   border:1px solid rgba(141,214,255,.22);
   border-radius:8px;
-  background:rgba(7,18,34,.76);
-  color:#eef7ff;
-  box-shadow:0 3px 10px rgba(0,0,0,.13), inset 0 0 0 1px rgba(255,255,255,.025);
+  background:rgba(255,255,255,.92);
+  color:#344b5e;
+  box-shadow:0 2px 7px rgba(39,78,109,.07), inset 0 0 0 1px rgba(255,255,255,.52);
   display:grid;
   grid-template-columns:15px minmax(0,1fr) auto;
   align-items:center;
@@ -11798,16 +11780,16 @@ header,
 
 .globe-country-label:hover,
 .globe-country-label:focus-visible {{
-  border-color:rgba(170,226,255,.62);
-  background:rgba(11,27,49,.90);
-  box-shadow:0 4px 12px rgba(0,0,0,.18), 0 0 0 1px rgba(126,208,255,.10);
+  border-color:rgba(91,168,216,.54);
+  background:#eef7fd;
+  box-shadow:0 3px 10px rgba(44,94,132,.10);
   transform:translateY(-1px);
 }}
 
 .globe-country-label.active {{
-  border-color:#fee500;
-  background:rgba(18,38,66,.94);
-  box-shadow:0 4px 12px rgba(0,0,0,.18), 0 0 0 1px rgba(254,229,0,.12);
+  border-color:#5aa7d7;
+  background:#e6f3fb;
+  box-shadow:0 3px 10px rgba(48,103,145,.12);
 }}
 
 .globe-country-flag {{
@@ -11823,7 +11805,7 @@ header,
 }}
 
 .globe-country-count {{
-  color:#9ed9ff;
+  color:#3b8fc4;
   font-size:7px;
   font-weight:900;
 }}
@@ -11836,33 +11818,36 @@ header,
 
 .globe-control-hint {{
   position:absolute;
-  left:12px;
+  left:10px;
   bottom:10px;
   transform:none;
   z-index:7;
   display:flex !important;
-  align-items:center;
-  gap:8px;
-  max-width:calc(100% - 124px);
-  padding:6px 10px;
-  border:1px solid rgba(148,218,255,.18);
-  border-radius:999px;
-  background:rgba(6,14,27,.56);
+  flex-direction:column;
+  align-items:flex-start;
+  gap:4px;
+  width:110px;
+  max-width:110px;
+  padding:7px 8px;
+  border:1px solid rgba(148,218,255,.16);
+  border-radius:10px;
+  background:rgba(6,14,27,.54);
   color:#deefff;
   box-shadow:0 4px 10px rgba(0,0,0,.16);
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
-  font-size:7px;
+  font-size:6.7px;
   font-weight:760;
-  line-height:1;
-  white-space:nowrap;
+  line-height:1.15;
+  white-space:normal;
   pointer-events:none;
 }}
 
 .globe-guide-step {{
   display:inline-flex;
   align-items:center;
-  gap:3px;
+  gap:4px;
+  width:100%;
   opacity:.96;
 }}
 
@@ -11881,9 +11866,7 @@ header,
 }}
 
 .globe-guide-divider {{
-  width:1px;
-  height:10px;
-  background:rgba(170,220,255,.18);
+  display:none !important;
 }}
 
 
@@ -11900,8 +11883,8 @@ header,
   padding:4px 8px;
   border:1px solid rgba(148,218,255,.16);
   border-radius:999px;
-  background:rgba(6,14,27,.52);
-  color:#dbeeff !important;
+  background:rgba(255,255,255,.82);
+  color:#476579 !important;
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
   font-size:7px !important;
@@ -11912,8 +11895,8 @@ header,
 .country-map-caption-dot {{
   width:6px !important;
   height:6px !important;
-  background:#76c8ff !important;
-  box-shadow:0 0 6px rgba(118,200,255,.72);
+  background:#5aa7d7 !important;
+  box-shadow:0 0 5px rgba(90,167,215,.38);
 }}
 
 @media (max-width:430px) {{
@@ -11921,22 +11904,23 @@ header,
     height:210px !important;
   }}
   .globe-stage {{
-    padding:0 94px 0 10px;
+    padding:0 102px 0 8px;
   }}
   .globe-sphere {{
     width:164px;
     transform:translateY(4px);
   }}
   .globe-label-rail {{
-    top:26px;
+    top:22px;
     right:6px;
-    bottom:16px;
-    width:88px;
+    bottom:8px;
+    width:96px;
     gap:5px;
   }}
   .globe-label-rail-header {{
     padding:4px 6px;
     font-size:6.3px;
+    line-height:1.18;
   }}
   .globe-label-scroll {{
     gap:4px;
@@ -11957,10 +11941,11 @@ header,
   .globe-control-hint {{
     left:8px;
     bottom:8px;
-    max-width:calc(100% - 106px);
-    padding:5px 7px;
-    font-size:6.4px;
-    gap:5px;
+    width:98px;
+    max-width:98px;
+    padding:6px 7px;
+    font-size:6.1px;
+    gap:4px;
   }}
   .country-map-caption {{
     display:inline-flex !important;
@@ -11973,17 +11958,17 @@ header,
     height:198px !important;
   }}
   .globe-stage {{
-    padding:0 88px 0 8px;
+    padding:0 92px 0 6px;
   }}
   .globe-sphere {{
     width:154px;
     transform:translateY(4px);
   }}
   .globe-label-rail {{
-    top:24px;
+    top:20px;
     right:4px;
-    bottom:14px;
-    width:82px;
+    bottom:8px;
+    width:88px;
     gap:4px;
   }}
   .globe-label-rail-header {{
@@ -12299,7 +12284,6 @@ header,
           <div class="globe-shine" aria-hidden="true"></div>
         </div>
         <div id="globe-label-layer" class="globe-label-layer" aria-label="국가별 기사 바로가기"></div>
-        <div class="globe-control-hint"><span class="globe-guide-step" data-step="1">오른쪽 목록 스크롤</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="2">국가 클릭 → 이동·필터</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="3">지구본 드래그 회전</span></div>
       </div>
       <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
@@ -14070,7 +14054,7 @@ function renderGlobeLabels(){{
   const activeName=activeCountryFilter ? (COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter) : '';
   const rail=document.createElement('div');
   rail.className='globe-label-rail';
-  rail.innerHTML=`<div class="globe-label-rail-header">국가별 기사<br><span style="font-size:6px;font-weight:720;color:#9ed9ff;">전체 ${{items.length}}개국 · 내림차순</span></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
+  rail.innerHTML=`<div class="globe-label-rail-header">국가별 기사<br><span style="font-size:6px;font-weight:720;color:#3b8fc4;">${{items.length}}개국 · 내림차</span></div><div class="globe-label-scroll" aria-label="국가별 기사 목록"></div>`;
   const scroll=rail.querySelector('.globe-label-scroll');
   layer.appendChild(rail);
 
