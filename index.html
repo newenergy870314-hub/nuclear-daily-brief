@@ -3496,6 +3496,118 @@ header,
   .country-map-label .map-label-count { font-size:8px !important; }
 }
 
+
+/* ============================================================
+   MAP / FLAG VISUAL BALANCE — 지도 우선, 국기 배지는 보조 정보
+   ============================================================ */
+
+/* 지형선은 한 단계 또렷하게 */
+.world-map-land path {
+  fill:#dce5ee !important;
+  stroke:#aab8c7 !important;
+  stroke-width:1.45 !important;
+  opacity:.96 !important;
+}
+
+/* 지도 배경은 최대한 깨끗하게 */
+.country-map-visual {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255,255,255,.99), rgba(242,246,250,.99)) !important;
+}
+
+/* 위치 점은 작고 차분하게 */
+.country-map-svg-halo {
+  opacity:.10 !important;
+}
+.country-map-svg-dot {
+  stroke-width:3.2px !important;
+  opacity:.88 !important;
+}
+.country-map-svg-point.active .country-map-svg-dot {
+  opacity:1 !important;
+}
+
+/* 평상시 국기+건수는 작은 보조 배지 */
+.country-map-label {
+  min-height:18px !important;
+  height:18px !important;
+  padding:0 4px !important;
+  gap:2px !important;
+  border:1px solid rgba(73,96,122,.16) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.78) !important;
+  color:#52667d !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.06) !important;
+  opacity:.82 !important;
+  backdrop-filter:blur(2px);
+}
+
+.country-map-label .map-label-flag {
+  font-size:9px !important;
+  line-height:1 !important;
+}
+
+.country-map-label .map-label-count {
+  color:#52667d !important;
+  font-size:6.8px !important;
+  line-height:1 !important;
+  font-weight:850 !important;
+}
+
+/* 선택한 국가만 선명하고 약간 크게 */
+.country-map-label.active {
+  min-height:22px !important;
+  height:22px !important;
+  padding:0 6px !important;
+  gap:3px !important;
+  border-color:#1f4f8a !important;
+  background:rgba(31,79,138,.96) !important;
+  color:#fff !important;
+  box-shadow:0 3px 9px rgba(31,79,138,.20) !important;
+  opacity:1 !important;
+  z-index:12 !important;
+}
+.country-map-label.active .map-label-flag {
+  font-size:11px !important;
+}
+.country-map-label.active .map-label-count {
+  color:#fee500 !important;
+  font-size:8px !important;
+}
+
+/* 연결선도 지도보다 튀지 않도록 최소화 */
+.country-map-label-connector {
+  stroke:#71879e !important;
+  stroke-width:.8 !important;
+  opacity:.28 !important;
+}
+
+/* 모바일에서도 배지가 커져 지도를 덮지 않게 동일한 시각 비율 유지 */
+@media (max-width:767px) {
+  .country-map-label {
+    min-height:19px !important;
+    height:19px !important;
+    padding:0 4px !important;
+  }
+  .country-map-label .map-label-flag {
+    font-size:9.5px !important;
+  }
+  .country-map-label .map-label-count {
+    font-size:7px !important;
+  }
+  .country-map-label.active {
+    min-height:23px !important;
+    height:23px !important;
+    padding:0 6px !important;
+  }
+  .country-map-label.active .map-label-flag {
+    font-size:11.5px !important;
+  }
+  .country-map-label.active .map-label-count {
+    font-size:8px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -3504,7 +3616,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 14:30 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 14:40 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -19037,7 +19149,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26273,7 +26385,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">19건</span>
+    <span class="group-count">20건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26417,6 +26529,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/realestate/12132240"
+  data-title="대우건설,‘두정역푸르지오그랑피크’9월 분양예정"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787203914"
+  data-country="OTHER"
+  data-search="대우건설,‘두정역푸르지오그랑피크’9월 분양예정 매일경제 타 건설사 지하 2층~지상 35층, 10개동, 총 1438세대 규모 푸르지오 대단지대우건설은 충청남도 천안시 서북구 성정동 511번지 일원에 ‘두정역 푸르지오 그랑피크’를 9월에 분양할 예정.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대우건설,‘두정역푸르지오그랑피크’9월 분양예정</div>
+      <div class="article-snippet">지하 2층~지상 35층, 10개동, 총 1438세대 규모 푸르지오 대단지대우건설은 충청남도 천안시 서북구 성정동 511번지 일원에 ‘두정역 푸르지오 그랑피크’를 9월에 분양할 예정..</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5e81c704fd701ba56b2a25af.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://it.chosun.com/news/articleView.html?idxno=2023092168499"
   data-title="대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색"
   data-publisher="IT조선"
@@ -26429,7 +26576,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26441,7 +26588,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색</div>
+      <div class="headline">대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색</div>
       <div class="article-snippet">대우건설이 추진하는 미국 뉴저지 주거개발사업과 관련해 기존에 계획한 합작법인(JV) 추진이 무산된 것으로 확인됐다. 대우건설은 해당 사업부지를 단독 매입했고 새 파트너사를 물색 중이다.20일 대우건설에 따르면 대우건설의 미국 투자법인 DUSAI(Daewoo E&amp;C USA Investm</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26464,7 +26611,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26499,7 +26646,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26534,7 +26681,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26569,7 +26716,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26604,7 +26751,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26639,7 +26786,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26661,7 +26808,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Real-Estate/2026/08/20260820132245507214b1077807_1"
   data-title="GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
@@ -26674,7 +26821,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26686,7 +26833,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹</div>
+      <div class="headline">GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹</div>
       <div class="article-snippet">GS건설이 호주 퀸즐랜드주가 추진하는 대형 철도 인프라 사업의 최종 사업자 선정을 앞두고 있다. GS건설 호주법인이 참여한 컨소시엄은 프랑스 빈치(VINCI)가 포함된 경쟁 컨소시엄과 사업권을 놓고 2파전을 벌이고 있다.21일 호주 정부에 따르면 ‘더 웨이브(The Wave)’ 2단계</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -26709,7 +26856,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26744,7 +26891,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26779,7 +26926,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26814,7 +26961,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26849,7 +26996,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26884,7 +27031,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26919,7 +27066,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27020,7 +27167,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.biztribune.co.kr/news/articleView.html?idxno=357641"
   data-title="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세"
   data-publisher="비즈트리뷴"
@@ -27045,7 +27192,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세</div>
+      <div class="headline">[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세</div>
       <div class="article-snippet">우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(PMS) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -27246,7 +27393,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787203800"
+  data-published="1787204400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -27957,7 +28104,7 @@ header,
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4431006"
   data-title="김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;"
   data-publisher="연합인포맥스"
@@ -27982,7 +28129,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;</div>
+      <div class="headline">김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;</div>
       <div class="article-snippet">김성환 기후에너지환경부 장관이 재생에너지를 중심으로 원전을 함께 인공지능(AI)의 전원으로 사용해야 한다고 재차 언급했다.김 장관은 20일 12차 전력수급기본계획(전기본) 수립을 위한 전기국가 대국민 정책 토론회에서 &quot;석탄과 석유가 아닌 재생에너지를 중심으로 일부 원전을 섞어 깨끗한 에너지원으로 AI 데이터센터와 로봇을 움직이면서, 그 혜택으로 인류가 더 평등하고 행복하게 살아갈 수 있는 사회를 만들어 갈 것&quot;이라고 언급했다.그는 AI 혁명으로 전기 수요가 폭발적으로 늘었다면서, 한국이야말로 철강, 반도체, 전력을 모두 갖춘 유일</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28071,7 +28218,7 @@ header,
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ytn.co.kr/_ln/0102_202608201235565822"
   data-title="&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?"
   data-publisher="YTN"
@@ -28096,7 +28243,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?</div>
+      <div class="headline">&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?</div>
       <div class="article-snippet">연일 미국 트럼프 행정부 핵심 관계자들을 만난 김정관 산업통상부 장관이 오늘(20일) 귀국합니다.대미 투자 압박과 추가 관세 가능성이 있는 상황에서 어떤 논의가 오갔...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28290,7 +28437,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260820110800530?section=industry/all"
   data-title="&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스"
   data-publisher="연합뉴스"
@@ -28315,7 +28462,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스</div>
+      <div class="headline">&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 이재영 기자 = 3대 메가프로젝트 수요를 반영한 결과 2040년 연중 전기를 가장 많이 필요할 때 수요가 대형 원자력발전소 1...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28325,7 +28472,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755992"
   data-title="AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)"
   data-publisher="뉴시스"
@@ -28350,7 +28497,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)</div>
+      <div class="headline">AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)</div>
       <div class="article-snippet">[세종=뉴시스]이수정 기자 = 인공지능(AI) 데이터센터와 반도체 클러스터 등 정부가 추진하는 &#x27;3대 메가프로젝트&#x27;로 향후 연간 약 260테라와트시(TWh)의 추가 전력수요가 발생할 수 있다는 전망이 나왔다. 정부가 2030년까지 재생에너지 설비 100기가와트(GW) 보급을 추진하고 있지만, 예상 발전량은 약 150TWh에 그치는 만큼 늘어나는 전력 수요에 대응하려면 다양한 무탄소 전원과 전력망, 에너지저장장치(ESS) 등 전력 인프라를 함께 확보해야 한다는 분석이다. 기후에너지환경부가 20일 오전 국회 의원회관 제3세미나실에서 개최한 제12차 전력수급기본계획 수립을</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -28395,7 +28542,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=260699"
   data-title="[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급"
   data-publisher="데일리대구경북뉴스"
@@ -28420,7 +28567,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급</div>
+      <div class="headline">[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급</div>
       <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(KINS)이 주관한 2026년 방사능분석능력평가에서 전 항목 A등급을 획득했다. 방사능분석능력평가는 한국원자력안전기술원 주관으로 국내 방사능 분석기관들의 분석 능력과 분석 자료의 신뢰성, 품질관리 등을 검증하기 위해 1997년부터 매년 시행되는 평가다. 이번 평가에는 지</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -29356,7 +29503,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787203885"
+  data-published="1787204605"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -30181,7 +30328,7 @@ header,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.goodkyung.com/news/articleView.html?idxno=290449"
   data-title="[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제"
   data-publisher="굿모닝경제"
@@ -30206,7 +30353,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제</div>
+      <div class="headline">[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제</div>
       <div class="article-snippet">한국수출입은행이 금융을 앞세워 K-원전의 글로벌 시장 진출을 지원하고 있다. 막대한 사업비가 투입되고 사업 기간도 긴 원전 프로젝트 특성상 기술과 시공 능력뿐 아</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30332,7 +30479,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">他 건설사</span>
-    <span class="group-count">19건</span>
+    <span class="group-count">20건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30476,6 +30623,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/realestate/12132240"
+  data-title="대우건설,‘두정역푸르지오그랑피크’9월 분양예정"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787203914"
+  data-country="OTHER"
+  data-search="대우건설,‘두정역푸르지오그랑피크’9월 분양예정 매일경제 타 건설사 지하 2층~지상 35층, 10개동, 총 1438세대 규모 푸르지오 대단지대우건설은 충청남도 천안시 서북구 성정동 511번지 일원에 ‘두정역 푸르지오 그랑피크’를 9월에 분양할 예정.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대우건설,‘두정역푸르지오그랑피크’9월 분양예정</div>
+      <div class="article-snippet">지하 2층~지상 35층, 10개동, 총 1438세대 규모 푸르지오 대단지대우건설은 충청남도 천안시 서북구 성정동 511번지 일원에 ‘두정역 푸르지오 그랑피크’를 9월에 분양할 예정..</div>
+    </div>
+    <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5e81c704fd701ba56b2a25af.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://it.chosun.com/news/articleView.html?idxno=2023092168499"
   data-title="대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색"
   data-publisher="IT조선"
@@ -30488,7 +30670,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30500,7 +30682,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색</div>
+      <div class="headline">대우건설, 美 개발사업 계획 변경… 토지 단독 매입·새 파트너 물색</div>
       <div class="article-snippet">대우건설이 추진하는 미국 뉴저지 주거개발사업과 관련해 기존에 계획한 합작법인(JV) 추진이 무산된 것으로 확인됐다. 대우건설은 해당 사업부지를 단독 매입했고 새 파트너사를 물색 중이다.20일 대우건설에 따르면 대우건설의 미국 투자법인 DUSAI(Daewoo E&amp;C USA Investm</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30523,7 +30705,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30558,7 +30740,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30593,7 +30775,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30628,7 +30810,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30663,7 +30845,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30698,7 +30880,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30720,7 +30902,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Real-Estate/2026/08/20260820132245507214b1077807_1"
   data-title="GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
@@ -30733,7 +30915,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30745,7 +30927,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹</div>
+      <div class="headline">GS건설, 호주 ‘더 웨이브’ 철도사업 최종 2파전…빈치와 경쟁 - 글로벌이코노믹</div>
       <div class="article-snippet">GS건설이 호주 퀸즐랜드주가 추진하는 대형 철도 인프라 사업의 최종 사업자 선정을 앞두고 있다. GS건설 호주법인이 참여한 컨소시엄은 프랑스 빈치(VINCI)가 포함된 경쟁 컨소시엄과 사업권을 놓고 2파전을 벌이고 있다.21일 호주 정부에 따르면 ‘더 웨이브(The Wave)’ 2단계</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -30768,7 +30950,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30803,7 +30985,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30838,7 +31020,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30873,7 +31055,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30908,7 +31090,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30943,7 +31125,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30978,7 +31160,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31079,7 +31261,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.biztribune.co.kr/news/articleView.html?idxno=357641"
   data-title="[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세"
   data-publisher="비즈트리뷴"
@@ -31104,7 +31286,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세</div>
+      <div class="headline">[특징주] 우리기술, 한수원 85억원 원전 설비 수주에 강세</div>
       <div class="article-snippet">우리기술이 한국수력원자력(한수원)과 약 85억원 규모 원전 설비 공급계약을 체결하면서 주가가 상승세를 보이고 있다. 계약 규모가 지난해 매출의 9.72%에 해당한다는 점이 투자심리에 영향을 미친 것으로 보인다.20일 오전 10시 18분 코스닥시장에서 우리기술은 전 거래일 대비 3.46%(400원) 오른 1만1960원에 거래되고 있다.우리기술은 이날 장중 공시를 통해 한수원과 고리원전 3·4호기 주전산기(PMS) 설비개선용 자재 공급계약을 체결했다고 밝혔다. 계약금액은 84억7260만원으로 지난해 매출액 871억3539만원의 9.72</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -31305,7 +31487,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787203800"
+  data-published="1787204400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -32016,7 +32198,7 @@ header,
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4431006"
   data-title="김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;"
   data-publisher="연합인포맥스"
@@ -32041,7 +32223,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;</div>
+      <div class="headline">김성환 기후부 장관 &quot;재생에너지 중심으로 원전 섞어 AI 움직여야&quot;</div>
       <div class="article-snippet">김성환 기후에너지환경부 장관이 재생에너지를 중심으로 원전을 함께 인공지능(AI)의 전원으로 사용해야 한다고 재차 언급했다.김 장관은 20일 12차 전력수급기본계획(전기본) 수립을 위한 전기국가 대국민 정책 토론회에서 &quot;석탄과 석유가 아닌 재생에너지를 중심으로 일부 원전을 섞어 깨끗한 에너지원으로 AI 데이터센터와 로봇을 움직이면서, 그 혜택으로 인류가 더 평등하고 행복하게 살아갈 수 있는 사회를 만들어 갈 것&quot;이라고 언급했다.그는 AI 혁명으로 전기 수요가 폭발적으로 늘었다면서, 한국이야말로 철강, 반도체, 전력을 모두 갖춘 유일</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -32130,7 +32312,7 @@ header,
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ytn.co.kr/_ln/0102_202608201235565822"
   data-title="&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?"
   data-publisher="YTN"
@@ -32155,7 +32337,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?</div>
+      <div class="headline">&#x27;대미 투자·관세 협상&#x27; 김정관 오늘 귀국...성과는?</div>
       <div class="article-snippet">연일 미국 트럼프 행정부 핵심 관계자들을 만난 김정관 산업통상부 장관이 오늘(20일) 귀국합니다.대미 투자 압박과 추가 관세 가능성이 있는 상황에서 어떤 논의가 오갔...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -32349,7 +32531,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260820110800530?section=industry/all"
   data-title="&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스"
   data-publisher="연합뉴스"
@@ -32374,7 +32556,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스</div>
+      <div class="headline">&#x27;3대 메가&#x27; 반영시 2040년 전력수요 27GW↑, &#x27;원전 19기 용량&#x27; | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 이재영 기자 = 3대 메가프로젝트 수요를 반영한 결과 2040년 연중 전기를 가장 많이 필요할 때 수요가 대형 원자력발전소 1...</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -32384,7 +32566,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003755992"
   data-title="AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)"
   data-publisher="뉴시스"
@@ -32409,7 +32591,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)</div>
+      <div class="headline">AI·반도체 전력수요 260TWh 전망…원전 놓고 이견도(종합)</div>
       <div class="article-snippet">[세종=뉴시스]이수정 기자 = 인공지능(AI) 데이터센터와 반도체 클러스터 등 정부가 추진하는 &#x27;3대 메가프로젝트&#x27;로 향후 연간 약 260테라와트시(TWh)의 추가 전력수요가 발생할 수 있다는 전망이 나왔다. 정부가 2030년까지 재생에너지 설비 100기가와트(GW) 보급을 추진하고 있지만, 예상 발전량은 약 150TWh에 그치는 만큼 늘어나는 전력 수요에 대응하려면 다양한 무탄소 전원과 전력망, 에너지저장장치(ESS) 등 전력 인프라를 함께 확보해야 한다는 분석이다. 기후에너지환경부가 20일 오전 국회 의원회관 제3세미나실에서 개최한 제12차 전력수급기본계획 수립을</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -32454,7 +32636,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=260699"
   data-title="[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급"
   data-publisher="데일리대구경북뉴스"
@@ -32479,7 +32661,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급</div>
+      <div class="headline">[데일리대구경북뉴스] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급</div>
       <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한국원자력환경공단(이사장 조성돈)은 한국원자력안전기술원(KINS)이 주관한 2026년 방사능분석능력평가에서 전 항목 A등급을 획득했다. 방사능분석능력평가는 한국원자력안전기술원 주관으로 국내 방사능 분석기관들의 분석 능력과 분석 자료의 신뢰성, 품질관리 등을 검증하기 위해 1997년부터 매년 시행되는 평가다. 이번 평가에는 지</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -33415,7 +33597,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787203885"
+  data-published="1787204605"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -34240,7 +34422,7 @@ header,
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.goodkyung.com/news/articleView.html?idxno=290449"
   data-title="[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제"
   data-publisher="굿모닝경제"
@@ -34265,7 +34447,7 @@ header,
           <span class="important-label">중요</span>
         </div>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제</div>
+      <div class="headline">[줌! 이기업] &quot;원전 수주, 금융이 가른다&quot;…빌 게이츠 만난 수은, 테라파워와 금융동맹 - 굿모닝경제</div>
       <div class="article-snippet">한국수출입은행이 금융을 앞세워 K-원전의 글로벌 시장 진출을 지원하고 있다. 막대한 사업비가 투입되고 사업 기간도 긴 원전 프로젝트 특성상 기술과 시공 능력뿐 아</div>
     </div>
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
@@ -38285,7 +38467,7 @@ header,
     <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -127584,7 +127766,7 @@ function layoutAndRenderCountryMap(){
       if(!best)return;
       label.style.left=`${best.cx}px`; label.style.top=`${best.cy}px`;
       placed.push({box:best.box,code:item.code});
-      if(best.distance>18){
+      if(best.distance>26){
         const line=document.createElementNS(SVG_NS,"line");
         line.setAttribute("class","country-map-label-connector");
         line.setAttribute("x1",String(item.x)); line.setAttribute("y1",String(item.y));
