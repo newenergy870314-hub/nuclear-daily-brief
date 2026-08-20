@@ -6431,6 +6431,75 @@ header,
   .map-country-card .count { font-size:7.2px !important; }
 }
 
+
+
+/* Selected continent highlight directly on 2D map */
+#continent-highlight-layer {
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  z-index:1 !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+}
+.continent-highlight-shape {
+  fill:rgba(40,151,211,.18) !important;
+  stroke:#278fc8 !important;
+  stroke-width:3.0 !important;
+  stroke-linejoin:round !important;
+  stroke-linecap:round !important;
+  vector-effect:non-scaling-stroke !important;
+  filter:drop-shadow(0 2px 5px rgba(39,143,200,.16)) !important;
+}
+.continent-highlight-label {
+  fill:#197aaa !important;
+  font-size:22px !important;
+  font-weight:900 !important;
+  text-anchor:middle !important;
+  paint-order:stroke !important;
+  stroke:rgba(255,255,255,.94) !important;
+  stroke-width:4.5px !important;
+  stroke-linejoin:round !important;
+  pointer-events:none !important;
+}
+.map-country-node { z-index:4 !important; }
+
+@media (max-width:430px) {
+  .continent-highlight-shape { stroke-width:2.6 !important; }
+  .continent-highlight-label { font-size:20px !important; stroke-width:4px !important; }
+}
+
+/* Smart continent interaction polish */
+.continent-button.active {
+  border-color:#278fc8 !important;
+  background:#eaf6fd !important;
+  box-shadow:inset 0 0 0 1px rgba(39,143,200,.14) !important;
+}
+.continent-button.active .continent-button-name { color:#126f9f !important; }
+.map-country-card {
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease !important;
+}
+.map-country-card:hover,
+.map-country-card:focus-visible {
+  transform:translateY(-50%) scale(1.04) !important;
+  box-shadow:0 4px 12px rgba(50,88,116,.13) !important;
+  outline:none !important;
+}
+.map-country-node.side-left .map-country-card:hover,
+.map-country-node.side-left .map-country-card:focus-visible {
+  transform:translateY(-50%) scale(1.04) !important;
+}
+.map-country-card.active {
+  border-color:#e5c94b !important;
+  box-shadow:0 0 0 2px rgba(229,201,75,.18),0 3px 10px rgba(50,88,116,.10) !important;
+}
+@media (max-width:380px) {
+  .map-country-card .name { display:inline !important; font-size:6.8px !important; }
+  .map-country-card .count { font-size:6.9px !important; }
+  .map-country-card { gap:2px !important; padding:2px 4px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -6439,7 +6508,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 08:35 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 08:40 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -14875,7 +14944,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba2e8528&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba5595f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -14910,7 +14979,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ceca7fa0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba43d9a0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -19336,7 +19405,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/317fe7f2cb91af6a2dc635df.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/db731506c8a426aa5a904dea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -20211,7 +20280,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7da5850949fb13f932942c15.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/af77e45856e311dff621b54d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -20929,7 +20998,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26900,7 +26969,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246439"
+  data-published="1787246452"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -31073,7 +31142,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787268600"
+  data-published="1787269200"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -31163,7 +31232,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etoday.co.kr/news/view/2616635?trc=main_top_sub"
   data-title="이재명 대통령, 최태원 회장과 비공개 만찬…반도체·대미투자 현안 논의 주목"
   data-publisher="이투데이"
@@ -31189,7 +31258,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이재명 대통령, 최태원 회장과 비공개 만찬…반도체·대미투자 현안 논의 주목</div>
+      <div class="headline">이재명 대통령, 최태원 회장과 비공개 만찬…반도체·대미투자 현안 논의 주목</div>
       <div class="article-snippet">호남 반도체 클러스터 등 3대 메가 프로젝트 논의 관측美 반도체 투자 압박도 현안…이재용·구광모 등 연쇄 회동 가능성▲최태원 SK 회장이 24일(현지시</div>
     </div>
   </div>
@@ -31274,7 +31343,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31312,6 +31381,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.donga.com/news/Inter/article/all/20260821/134516942/1"
+  data-title="푸틴 “러, 세계 유일 원자력 전반 전문성 보유”"
+  data-publisher="동아일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787266492"
+  data-country="RU"
+  data-search="푸틴 “러, 세계 유일 원자력 전반 전문성 보유” 동아일보 원자력 블라디미르 푸틴 러시아 대통령은 20일(현지 시간) 러시아가 원자력 에너지 분야 전반에 걸쳐 전문성을 보유한 세계 유일의 국가라고 자평하며 신규 원자력발전소 건설·증설 계획을 발표했다. 타스통신 등에 따르면 푸틴 대통령은 이날 원자력에너지 회의에서 “러시아는 아마도 …"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">동아일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>푸틴 “러, 세계 유일 원자력 전반 전문성 보유”</div>
+      <div class="article-snippet">블라디미르 푸틴 러시아 대통령은 20일(현지 시간) 러시아가 원자력 에너지 분야 전반에 걸쳐 전문성을 보유한 세계 유일의 국가라고 자평하며 신규 원자력발전소 건설·증설 계획을 발표했다. 타스통신 등에 따르면 푸틴 대통령은 이날 원자력에너지 회의에서 “러시아는 아마도 …</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/190804303c34f738d9ab0412.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202387"
   data-title="원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리"
@@ -31325,7 +31429,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31353,7 +31457,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31391,6 +31495,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003756959"
+  data-title="중흥토건, 부산 장안지구 &#x27;중흥S-클래스&#x27; 514가구 분양 나서"
+  data-publisher="뉴시스"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787269235"
+  data-country="OTHER"
+  data-search="중흥토건, 부산 장안지구 &#x27;중흥s-클래스&#x27; 514가구 분양 나서 뉴시스 smr [부산=뉴시스]백재현 기자 = 중흥토건이 21일 부산 장안지구에 중흥s-클래스 514가구에 대한 분양에 나섰다. 분양 아파트는 기장군 장안읍 좌동리 일원에 지하 2층, 지상 25층 총 9개동, 전용 59·84㎡ 총 514가구로 내년 6월 입주 예정이다. 주택형별로는 ▲전용 59㎡a 127가구 ▲전용 59㎡b 108가구 ▲전용 84㎡a 235가구 ▲전용 84㎡b 44가구 등이다. 분양 아파트는 부산 마지막 택지지구로 꼽히는 장안지구에 들어서는데다 분양가상한제가 적용되며 선시공 후분양으로 진행된다.중흥토건은 1차 계약금을 500만원으로 책정, 초기 부담을 줄였으며, 중도"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>중흥토건, 부산 장안지구 &#x27;중흥S-클래스&#x27; 514가구 분양 나서</div>
+      <div class="article-snippet">[부산=뉴시스]백재현 기자 = 중흥토건이 21일 부산 장안지구에 중흥S-클래스 514가구에 대한 분양에 나섰다. 분양 아파트는 기장군 장안읍 좌동리 일원에 지하 2층, 지상 25층 총 9개동, 전용 59·84㎡ 총 514가구로 내년 6월 입주 예정이다. 주택형별로는 ▲전용 59㎡A 127가구 ▲전용 59㎡B 108가구 ▲전용 84㎡A 235가구 ▲전용 84㎡B 44가구 등이다. 분양 아파트는 부산 마지막 택지지구로 꼽히는 장안지구에 들어서는데다 분양가상한제가 적용되며 선시공 후분양으로 진행된다.중흥토건은 1차 계약금을 500만원으로 책정, 초기 부담을 줄였으며, 중도</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6e06962faa7ca0976cc3b67e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.nacintl.com/newsroom/nac-news/setting-the-standard-for-advanced-reactor-fuel-transport-nac-international-supports-delivery-of-first-haleu-triso-fuel-for-project-pele-using-optimus-l-system"
   data-title="entire initial core"
@@ -31398,13 +31537,13 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787269223"
+  data-published="1787269546"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31874,7 +32013,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106087"
   data-title="美 페르미 &quot;텍사스 데이터센터 승인 중단, &#x27;프로젝트 마타도르&#x27;에 영향 없어&quot;"
   data-publisher="더구루"
@@ -31900,7 +32039,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美 페르미 &quot;텍사스 데이터센터 승인 중단, &#x27;프로젝트 마타도르&#x27;에 영향 없어&quot;</div>
+      <div class="headline">美 페르미 &quot;텍사스 데이터센터 승인 중단, &#x27;프로젝트 마타도르&#x27;에 영향 없어&quot;</div>
       <div class="article-snippet">[더구루=홍성환 기자] 텍사스 주정부가 신규 데이터센터의 전력망 연결 승인을 일시 중단한 가운데 미국 에너지 인프라 기업 &#x27;페르미 아메리카&#x27;가 &quot;프로젝트 마타도르에는 영향이 없다&quot;고 밝혔다. 리 맥킨타이어 페르미 CEO는 20일(현지시간) 성명을 내고 &quot;우리의 프로젝트는 자체 전력망을 활용하는 민간 시스템으로 개발되고 있다</div>
     </div>
   </div>
@@ -32140,7 +32279,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787268600"
+  data-published="1787269200"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -32230,7 +32369,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etoday.co.kr/news/view/2616635?trc=main_top_sub"
   data-title="이재명 대통령, 최태원 회장과 비공개 만찬…반도체·대미투자 현안 논의 주목"
   data-publisher="이투데이"
@@ -32256,7 +32395,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이재명 대통령, 최태원 회장과 비공개 만찬…반도체·대미투자 현안 논의 주목</div>
+      <div class="headline">이재명 대통령, 최태원 회장과 비공개 만찬…반도체·대미투자 현안 논의 주목</div>
       <div class="article-snippet">호남 반도체 클러스터 등 3대 메가 프로젝트 논의 관측美 반도체 투자 압박도 현안…이재용·구광모 등 연쇄 회동 가능성▲최태원 SK 회장이 24일(현지시</div>
     </div>
   </div>
@@ -32341,7 +32480,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32379,6 +32518,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.donga.com/news/Inter/article/all/20260821/134516942/1"
+  data-title="푸틴 “러, 세계 유일 원자력 전반 전문성 보유”"
+  data-publisher="동아일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787266492"
+  data-country="RU"
+  data-search="푸틴 “러, 세계 유일 원자력 전반 전문성 보유” 동아일보 원자력 블라디미르 푸틴 러시아 대통령은 20일(현지 시간) 러시아가 원자력 에너지 분야 전반에 걸쳐 전문성을 보유한 세계 유일의 국가라고 자평하며 신규 원자력발전소 건설·증설 계획을 발표했다. 타스통신 등에 따르면 푸틴 대통령은 이날 원자력에너지 회의에서 “러시아는 아마도 …"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">동아일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>푸틴 “러, 세계 유일 원자력 전반 전문성 보유”</div>
+      <div class="article-snippet">블라디미르 푸틴 러시아 대통령은 20일(현지 시간) 러시아가 원자력 에너지 분야 전반에 걸쳐 전문성을 보유한 세계 유일의 국가라고 자평하며 신규 원자력발전소 건설·증설 계획을 발표했다. 타스통신 등에 따르면 푸틴 대통령은 이날 원자력에너지 회의에서 “러시아는 아마도 …</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/190804303c34f738d9ab0412.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202387"
   data-title="원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리"
@@ -32392,7 +32566,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32420,7 +32594,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32458,6 +32632,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003756959"
+  data-title="중흥토건, 부산 장안지구 &#x27;중흥S-클래스&#x27; 514가구 분양 나서"
+  data-publisher="뉴시스"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787269235"
+  data-country="OTHER"
+  data-search="중흥토건, 부산 장안지구 &#x27;중흥s-클래스&#x27; 514가구 분양 나서 뉴시스 smr [부산=뉴시스]백재현 기자 = 중흥토건이 21일 부산 장안지구에 중흥s-클래스 514가구에 대한 분양에 나섰다. 분양 아파트는 기장군 장안읍 좌동리 일원에 지하 2층, 지상 25층 총 9개동, 전용 59·84㎡ 총 514가구로 내년 6월 입주 예정이다. 주택형별로는 ▲전용 59㎡a 127가구 ▲전용 59㎡b 108가구 ▲전용 84㎡a 235가구 ▲전용 84㎡b 44가구 등이다. 분양 아파트는 부산 마지막 택지지구로 꼽히는 장안지구에 들어서는데다 분양가상한제가 적용되며 선시공 후분양으로 진행된다.중흥토건은 1차 계약금을 500만원으로 책정, 초기 부담을 줄였으며, 중도"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>중흥토건, 부산 장안지구 &#x27;중흥S-클래스&#x27; 514가구 분양 나서</div>
+      <div class="article-snippet">[부산=뉴시스]백재현 기자 = 중흥토건이 21일 부산 장안지구에 중흥S-클래스 514가구에 대한 분양에 나섰다. 분양 아파트는 기장군 장안읍 좌동리 일원에 지하 2층, 지상 25층 총 9개동, 전용 59·84㎡ 총 514가구로 내년 6월 입주 예정이다. 주택형별로는 ▲전용 59㎡A 127가구 ▲전용 59㎡B 108가구 ▲전용 84㎡A 235가구 ▲전용 84㎡B 44가구 등이다. 분양 아파트는 부산 마지막 택지지구로 꼽히는 장안지구에 들어서는데다 분양가상한제가 적용되며 선시공 후분양으로 진행된다.중흥토건은 1차 계약금을 500만원으로 책정, 초기 부담을 줄였으며, 중도</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6e06962faa7ca0976cc3b67e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.nacintl.com/newsroom/nac-news/setting-the-standard-for-advanced-reactor-fuel-transport-nac-international-supports-delivery-of-first-haleu-triso-fuel-for-project-pele-using-optimus-l-system"
   data-title="entire initial core"
@@ -32465,13 +32674,13 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787269223"
+  data-published="1787269546"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32941,7 +33150,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106087"
   data-title="美 페르미 &quot;텍사스 데이터센터 승인 중단, &#x27;프로젝트 마타도르&#x27;에 영향 없어&quot;"
   data-publisher="더구루"
@@ -32967,7 +33176,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美 페르미 &quot;텍사스 데이터센터 승인 중단, &#x27;프로젝트 마타도르&#x27;에 영향 없어&quot;</div>
+      <div class="headline">美 페르미 &quot;텍사스 데이터센터 승인 중단, &#x27;프로젝트 마타도르&#x27;에 영향 없어&quot;</div>
       <div class="article-snippet">[더구루=홍성환 기자] 텍사스 주정부가 신규 데이터센터의 전력망 연결 승인을 일시 중단한 가운데 미국 에너지 인프라 기업 &#x27;페르미 아메리카&#x27;가 &quot;프로젝트 마타도르에는 영향이 없다&quot;고 밝혔다. 리 맥킨타이어 페르미 CEO는 20일(현지시간) 성명을 내고 &quot;우리의 프로젝트는 자체 전력망을 활용하는 민간 시스템으로 개발되고 있다</div>
     </div>
   </div>
@@ -34298,7 +34507,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/317fe7f2cb91af6a2dc635df.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/db731506c8a426aa5a904dea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35173,7 +35382,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7da5850949fb13f932942c15.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/af77e45856e311dff621b54d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35891,7 +36100,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -41862,7 +42071,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246439"
+  data-published="1787246452"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -53392,7 +53601,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba2e8528&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba5595f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -53427,7 +53636,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ceca7fa0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba43d9a0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -141042,6 +141251,8 @@ function renderContinentRail2D(items){
   if(allButton){
     allButton.addEventListener('click',()=>{
       activeContinentFilter='ALL';
+      activeCountryFilter='';
+      filterArticles();
       layoutAndRenderCountryMap();
     });
   }
@@ -141053,7 +141264,15 @@ function renderContinentRail2D(items){
     button.className='continent-button' + (activeContinentFilter===code ? ' active' : '');
     button.innerHTML=`<span><span class="continent-button-name">${CONTINENT_META[code].name}</span><span class="continent-button-meta">${countryCounts[code]||0}개국</span></span><span class="continent-button-count">${articleCounts[code]||0}건</span>`;
     button.addEventListener('click',()=>{
+      const switching = activeContinentFilter !== code;
       activeContinentFilter=code;
+      if(code==='ALL'){
+        activeCountryFilter='';
+        filterArticles();
+      } else if(switching && activeCountryFilter && getCountryContinent(activeCountryFilter)!==code){
+        activeCountryFilter='';
+        filterArticles();
+      }
       layoutAndRenderCountryMap();
     });
     scroll.appendChild(button);
@@ -141086,29 +141305,73 @@ function computeMapLabelPlacements(items, mapRect){
 
 function computeDirectMapLabelPlacements(items){
   const placements=[];
-  const sideY={ left:[], right:[] };
-  const filtered=[...items].sort((a,b)=>b.count-a.count || a.lon-b.lon);
+  const filtered=[...items].sort((a,b)=>b.count-a.count || a.lat-b.lat || a.lon-b.lon);
+  const occupied=[];
   filtered.forEach((item,index)=>{
     const p=project2DPoint(item.lon,item.lat);
-    let side='right';
-    if(p.x > 70) side='left';
-    else if(p.x >= 42 && p.x <= 70) side = (index % 2 === 0 ? 'right' : 'left');
-    let y = p.y;
-    const used = sideY[side];
-    used.forEach(prev=>{
-      if(Math.abs(prev - y) < 8) y = prev + 8.5;
-    });
-    y = Math.max(8, Math.min(92, y));
-    used.push(y);
-    placements.push({ ...item, x:p.x, y, side });
+    let side = p.x > 72 ? 'left' : 'right';
+    if(p.x >= 43 && p.x <= 72) side = (index % 2 === 0 ? 'right' : 'left');
+
+    let y=p.y;
+    const step=7.2;
+    let tries=0;
+    while(tries<12){
+      const clash=occupied.some(prev => prev.side===side && Math.abs(prev.y-y)<6.6 && Math.abs(prev.x-p.x)<28);
+      if(!clash)break;
+      const direction = tries % 2 === 0 ? 1 : -1;
+      y = p.y + direction * Math.ceil((tries+1)/2) * step;
+      y=Math.max(7,Math.min(93,y));
+      tries++;
+    }
+    occupied.push({x:p.x,y,side});
+    placements.push({...item,x:p.x,y,side});
   });
   return placements;
+}
+
+
+function renderSelectedContinentHighlight(){
+  const layer=document.getElementById('country-map-label-layer');
+  if(!layer)return;
+  let svg=document.getElementById('continent-highlight-layer');
+  if(!svg){
+    svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.id='continent-highlight-layer';
+    svg.setAttribute('viewBox','0 0 1000 500');
+    svg.setAttribute('preserveAspectRatio','none');
+    layer.prepend(svg);
+  }
+  svg.innerHTML='';
+  if(activeContinentFilter==='ALL')return;
+
+  const regions={
+    NA: { points:'30,65 205,55 315,125 330,220 265,305 145,320 55,255 10,155', labelX:165, labelY:165 },
+    EU: { points:'405,78 645,70 705,125 680,205 585,240 455,222 390,155', labelX:550, labelY:148 },
+    AS: { points:'555,60 920,55 990,135 970,270 865,335 720,325 610,260 535,165', labelX:780, labelY:170 },
+    MEA:{ points:'390,165 650,155 730,245 690,420 520,455 395,385 350,265', labelX:535, labelY:285 },
+    OC: { points:'705,300 985,295 995,475 735,480 665,395', labelX:840, labelY:390 }
+  };
+  const region=regions[activeContinentFilter];
+  if(!region)return;
+
+  const polygon=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  polygon.setAttribute('points',region.points);
+  polygon.setAttribute('class','continent-highlight-shape');
+  svg.appendChild(polygon);
+
+  const textNode=document.createElementNS('http://www.w3.org/2000/svg','text');
+  textNode.setAttribute('x',String(region.labelX));
+  textNode.setAttribute('y',String(region.labelY));
+  textNode.setAttribute('class','continent-highlight-label');
+  textNode.textContent=(CONTINENT_META[activeContinentFilter]||CONTINENT_META.ALL).name;
+  svg.appendChild(textNode);
 }
 
 function render2DMapLabels(items){
   const layer=document.getElementById('country-map-label-layer');
   if(!layer)return;
-  layer.innerHTML='';
+  layer.querySelectorAll('.map-country-node').forEach(node=>node.remove());
+  renderSelectedContinentHighlight();
 
   const filtered = activeContinentFilter==='ALL'
     ? []
@@ -141169,7 +141432,7 @@ function layoutAndRenderCountryMap(){
     }
   }
   const note=document.getElementById('country-filter-note');
-  if(note)note.textContent='대륙 선택 → 지도에서 국가와 기사건수를 바로 확인';
+  if(note)note.textContent='대륙 선택 → 지도에서 국가별 기사건수 확인 · 국가 클릭 시 기사 필터';
 }
 
 function renderGlobeLabels(){
