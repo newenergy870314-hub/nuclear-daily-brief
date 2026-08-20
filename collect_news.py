@@ -11568,7 +11568,7 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {{
   position:relative;
-  height:204px !important;
+  height:226px !important;
   overflow:hidden !important;
   border:1px solid rgba(30,58,95,.42) !important;
   border-radius:14px !important;
@@ -11640,13 +11640,13 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:min(160px, 80%);
+  width:min(184px, 88%);
   aspect-ratio:1/1;
   border-radius:50%;
   overflow:visible;
   isolation:isolate;
-  transform:translateY(10px);
-  filter:drop-shadow(0 10px 14px rgba(35,57,93,.08));
+  transform:translateY(6px);
+  filter:drop-shadow(0 12px 16px rgba(35,57,93,.10));
 }}
 
 .globe-canvas {{
@@ -11700,6 +11700,22 @@ header,
   pointer-events:none;
 }}
 
+.globe-country-connector {{
+  position:absolute;
+  height:1.6px;
+  transform-origin:0 50%;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(255,255,255,.72) 0%, rgba(126,208,255,.78) 55%, rgba(126,208,255,.16) 100%);
+  box-shadow:0 0 8px rgba(126,208,255,.20);
+  opacity:.86;
+  pointer-events:none;
+}}
+
+.globe-country-connector.orbit-focus {{
+  background:linear-gradient(90deg, rgba(255,238,138,.98) 0%, rgba(254,229,0,.92) 60%, rgba(254,229,0,.22) 100%);
+  box-shadow:0 0 10px rgba(254,229,0,.26);
+}}
+
 .globe-country-anchor.orbit-focus {{
   width:9px;
   height:9px;
@@ -11709,29 +11725,29 @@ header,
 
 .globe-country-label {{
   position:absolute;
-  transform:translate(-50%,-50%) scale(calc(.92 + var(--globe-depth, .7) * .12));
+  transform:translate(-50%,-50%) scale(calc(.92 + var(--globe-depth, .7) * .10));
   transform-origin:center;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:4px;
+  gap:5px;
   min-height:24px;
-  max-width:128px;
-  padding:4px 9px;
-  border:1px solid rgba(141,214,255,.34);
+  max-width:132px;
+  padding:4px 10px;
+  border:1px solid rgba(141,214,255,.28);
   border-radius:999px;
-  background:rgba(8,18,34,.68);
+  background:linear-gradient(180deg, rgba(10,24,44,.78) 0%, rgba(7,18,34,.72) 100%);
   color:#eef7ff;
-  box-shadow:0 4px 12px rgba(0,0,0,.16), inset 0 0 0 1px rgba(255,255,255,.04);
+  box-shadow:0 5px 14px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.03);
   font-size:8.2px;
-  font-weight:800;
+  font-weight:780;
   line-height:1;
   white-space:nowrap;
   letter-spacing:-0.05px;
   pointer-events:auto;
   cursor:pointer;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
 }}
 
 .globe-country-label:hover,
@@ -11783,11 +11799,78 @@ header,
 }}
 
 .globe-control-hint {{
-  display:none !important;
+  position:absolute;
+  left:50%;
+  bottom:10px;
+  transform:translateX(-50%);
+  z-index:7;
+  display:flex !important;
+  align-items:center;
+  gap:8px;
+  max-width:calc(100% - 18px);
+  padding:6px 10px;
+  border:1px solid rgba(148,218,255,.22);
+  border-radius:999px;
+  background:rgba(6,14,27,.62);
+  color:#deefff;
+  box-shadow:0 4px 10px rgba(0,0,0,.16);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  font-size:7.2px;
+  font-weight:760;
+  line-height:1;
+  white-space:nowrap;
+  pointer-events:none;
 }}
 
+.globe-guide-step {{
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  opacity:.96;
+}}
+
+.globe-guide-step::before {{
+  content:attr(data-step);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:rgba(126,208,255,.18);
+  color:#8dd8ff;
+  font-size:7px;
+  font-weight:900;
+}}
+
+.globe-guide-divider {{
+  width:1px;
+  height:10px;
+  background:rgba(170,220,255,.18);
+}}
+
+
 .country-map-caption {{
-  display:none !important;
+  position:absolute !important;
+  top:8px !important;
+  left:8px !important;
+  bottom:auto !important;
+  z-index:6 !important;
+  display:inline-flex !important;
+  align-items:center;
+  gap:5px;
+  max-width:calc(100% - 16px);
+  padding:4px 8px;
+  border:1px solid rgba(148,218,255,.16);
+  border-radius:999px;
+  background:rgba(6,14,27,.52);
+  color:#dbeeff !important;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  font-size:7px !important;
+  font-weight:740 !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.14);
 }}
 
 .country-map-caption-dot {{
@@ -11799,17 +11882,17 @@ header,
 
 @media (max-width:430px) {{
   .country-map-content .country-map-visual.globe-mode {{
-    height:194px !important;
+    height:210px !important;
   }}
   .globe-sphere {{
-    width:min(150px, 82%);
-    transform:translateY(8px);
+    width:min(170px, 86%);
+    transform:translateY(5px);
   }}
   .globe-country-label {{
     min-height:21px;
-    max-width:108px;
-    padding:2px 6px;
-    font-size:7.3px;
+    max-width:112px;
+    padding:2px 7px;
+    font-size:7.4px;
   }}
   .globe-country-flag {{
     font-size:10px;
@@ -11818,23 +11901,27 @@ header,
     font-size:7px;
   }}
   .globe-control-hint {{
-    display:none !important;
+    bottom:8px;
+    padding:6px 8px;
+    font-size:6.6px;
+    gap:6px;
   }}
   .country-map-caption {{
-    display:none !important;
+    display:inline-flex !important;
+    font-size:6.7px !important;
   }}
 }}
 
 @media (max-width:380px) {{
   .country-map-content .country-map-visual.globe-mode {{
-    height:186px !important;
+    height:198px !important;
   }}
   .globe-sphere {{
-    width:min(144px, 83%);
-    transform:translateY(7px);
+    width:min(156px, 86%);
+    transform:translateY(4px);
   }}
   .globe-country-label {{
-    max-width:96px;
+    max-width:100px;
     min-height:20px;
     font-size:7px;
   }}
@@ -11896,33 +11983,35 @@ header,
 }}
 
 .preview-card {{
-  grid-template-columns:minmax(0,1fr) 128px !important;
+  grid-template-columns:minmax(0,1fr) 124px !important;
   gap:10px !important;
   min-height:86px !important;
   padding:5px 4px 5px 10px !important;
 }}
 
 .card-side {{
-  width:128px !important;
-  min-width:128px !important;
+  width:124px !important;
+  min-width:124px !important;
   align-self:center !important;
 }}
 
 .preview-image {{
-  width:128px !important;
-  height:74px !important;
-  min-height:74px !important;
+  width:124px !important;
+  height:72px !important;
+  min-height:72px !important;
   align-self:center !important;
   border-radius:8px !important;
   overflow:hidden !important;
   background:#edf2f7 !important;
 }}
 
-.preview-image img {{
+.preview-image img,
+.preview-image svg {{
   width:100% !important;
   height:100% !important;
   object-fit:cover !important;
   object-position:50% 50% !important;
+  display:block !important;
 }}
 
 @media (max-width:430px) {{
@@ -11938,19 +12027,19 @@ header,
     line-height:15px !important;
   }}
   .preview-card {{
-    grid-template-columns:minmax(0,1fr) 118px !important;
+    grid-template-columns:minmax(0,1fr) 116px !important;
     gap:9px !important;
     min-height:84px !important;
     padding:5px 4px 5px 9px !important;
   }}
   .card-side {{
-    width:118px !important;
-    min-width:118px !important;
+    width:116px !important;
+    min-width:116px !important;
   }}
   .preview-image {{
-    width:118px !important;
-    height:70px !important;
-    min-height:70px !important;
+    width:116px !important;
+    height:68px !important;
+    min-height:68px !important;
   }}
 }}
 
@@ -11969,19 +12058,19 @@ header,
     line-height:14px !important;
   }}
   .preview-card {{
-    grid-template-columns:minmax(0,1fr) 108px !important;
+    grid-template-columns:minmax(0,1fr) 106px !important;
     gap:8px !important;
     min-height:80px !important;
     padding:4px 3px 4px 8px !important;
   }}
   .card-side {{
-    width:108px !important;
-    min-width:108px !important;
+    width:106px !important;
+    min-width:106px !important;
   }}
   .preview-image {{
-    width:108px !important;
-    height:66px !important;
-    min-height:66px !important;
+    width:106px !important;
+    height:64px !important;
+    min-height:64px !important;
   }}
 }}
 </style>
@@ -12086,7 +12175,7 @@ header,
           <div id="globe-marker-layer" class="globe-marker-layer" aria-label="국가별 기사 바로가기"></div>
           <div class="globe-shine" aria-hidden="true"></div>
         </div>
-        <div class="globe-control-hint">↔ 드래그 회전</div>
+        <div class="globe-control-hint"><span class="globe-guide-step" data-step="1">드래그 회전</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="2">국가 라벨 클릭</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="3">더블클릭 초기화</span></div>
       </div>
       <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
@@ -13412,6 +13501,7 @@ const globeState={{
   sourceCanvas:null,
   sourceCtx:null,
   maskData:null,
+  boundaryData:null,
   textureCanvas:null,
   textureCtx:null,
   textureData:null,
@@ -13441,12 +13531,14 @@ function projectGlobePoint(lon,lat,rotationLon){{
   const lambda=(lon-rotationLon)*toRad;
   const phi=lat*toRad;
   const cosPhi=Math.cos(phi);
+  const sinPhi=Math.sin(phi);
   const z=cosPhi*Math.cos(lambda);
+  const xNorm=cosPhi*Math.sin(lambda);
   return {{
-    visible:z>0.035,
+    visible:z>0.02,
     z,
-    x:50 + 47*cosPhi*Math.sin(lambda),
-    y:50 - 47*Math.sin(phi)
+    x:50 + 48.5*xNorm,
+    y:50 - 48.5*sinPhi
   }};
 }}
 
@@ -13483,6 +13575,39 @@ function prepareGlobeTexture(){{
       }}catch(error){{
         globeState.maskData=null;
       }}
+
+      // Boundary overlay for clearer country / continental separation.
+      try{{
+        const boundaryClone=document.createElementNS('http://www.w3.org/2000/svg','svg');
+        boundaryClone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+        boundaryClone.setAttribute('viewBox','0 0 1000 500');
+        boundaryClone.setAttribute('width','1000');
+        boundaryClone.setAttribute('height','500');
+        const style=document.createElementNS('http://www.w3.org/2000/svg','style');
+        style.textContent=`.world-map-country-lines path{{stroke:#ffffff;stroke-width:1.4;fill:none;stroke-linejoin:round;stroke-linecap:round;opacity:1;}} .world-map-coast-lines path{{stroke:#d8f0ff;stroke-width:1.8;fill:none;stroke-linejoin:round;stroke-linecap:round;opacity:1;}} .world-map-land path{{fill:none;stroke:none;}}`;
+        boundaryClone.appendChild(style);
+        sourceSvg.querySelectorAll('.world-map-country-lines, .world-map-coast-lines').forEach(node=>boundaryClone.appendChild(node.cloneNode(true)));
+        const boundaryXml=new XMLSerializer().serializeToString(boundaryClone);
+        const boundaryBlob=new Blob([boundaryXml],{{type:'image/svg+xml'}});
+        const boundaryUrl=URL.createObjectURL(boundaryBlob);
+        const boundaryImg=new Image();
+        boundaryImg.onload=()=>{{
+          const boundaryCanvas=document.createElement('canvas');
+          boundaryCanvas.width=1000;
+          boundaryCanvas.height=500;
+          const boundaryCtx=boundaryCanvas.getContext('2d',{{willReadFrequently:true}});
+          boundaryCtx.clearRect(0,0,1000,500);
+          boundaryCtx.drawImage(boundaryImg,0,0,1000,500);
+          globeState.boundaryData=boundaryCtx.getImageData(0,0,1000,500).data;
+          URL.revokeObjectURL(boundaryUrl);
+          renderGlobeFrame(true);
+        }};
+        boundaryImg.onerror=()=>URL.revokeObjectURL(boundaryUrl);
+        boundaryImg.src=boundaryUrl;
+      }}catch(error){{
+        console.warn('[GLOBE BOUNDARY]',error);
+      }}
+
       const textureInfo=buildSatelliteTexture(sourceCtx,1000,500);
       globeState.textureCanvas=textureInfo.canvas;
       globeState.textureCtx=textureInfo.ctx;
@@ -13698,6 +13823,7 @@ function renderGlobeCanvas(){{
 
   const texture=globeState.textureData;
   const mask=globeState.maskData;
+  const boundary=globeState.boundaryData;
   const texW=globeState.textureWidth || 1000;
   const texH=globeState.textureHeight || 500;
 
@@ -13738,14 +13864,30 @@ function renderGlobeCanvas(){{
       let g=texture[si+1];
       let b=texture[si+2];
 
-      const lightDirX=-.36, lightDirY=-.15, lightDirZ=.92;
-      const diffuse=Math.max(.34,nx*lightDirX+ny*lightDirY+z*lightDirZ);
-      const daylight=.74 + .26*diffuse;
+      const lightDirX=-.34, lightDirY=-.14, lightDirZ=.93;
+      const diffuse=Math.max(.36,nx*lightDirX+ny*lightDirY+z*lightDirZ);
+      const daylight=.78 + .22*diffuse;
       r*=daylight; g*=daylight; b*=daylight;
 
       if(!isLand){{
-        const spec=Math.pow(Math.max(0,nx*(-.22)+ny*(-.14)+z*.96),20);
-        r+=48*spec; g+=74*spec; b+=92*spec;
+        const spec=Math.pow(Math.max(0,nx*(-.22)+ny*(-.13)+z*.965),20);
+        r+=44*spec; g+=70*spec; b+=88*spec;
+      }}
+
+      if(boundary){{
+        const boundaryAlpha=boundary[si+3]/255;
+        if(boundaryAlpha>0.08){{
+          const boundaryStrength=Math.min(0.62, boundaryAlpha*0.76) * (0.82 + z*0.18);
+          if(isLand){{
+            r=mix(r,232,boundaryStrength);
+            g=mix(g,243,boundaryStrength);
+            b=mix(b,250,boundaryStrength);
+          }} else {{
+            r=mix(r,176,boundaryStrength*0.40);
+            g=mix(g,224,boundaryStrength*0.52);
+            b=mix(b,245,boundaryStrength*0.62);
+          }}
+        }}
       }}
 
       const cloudSignal=(
@@ -13753,15 +13895,15 @@ function renderGlobeCanvas(){{
         0.58*Math.sin((lonDeg-globeState.rotationLon*0.10)*0.49 - latDeg*0.18) +
         0.34*Math.sin(lonDeg*0.88 + latDeg*0.71)
       );
-      const cloud=Math.max(0,Math.min(.14,(cloudSignal-1.20)*.18));
+      const cloud=Math.max(0,Math.min(.12,(cloudSignal-1.22)*.18));
       r=mix(r,248,cloud);
       g=mix(g,250,cloud);
       b=mix(b,252,cloud);
 
-      const rim=Math.pow(1-z,2.45);
-      r=mix(r,122,rim*.08);
-      g=mix(g,200,rim*.12);
-      b=mix(b,244,rim*.17);
+      const rim=Math.pow(1-z,2.35);
+      r=mix(r,128,rim*.08);
+      g=mix(g,204,rim*.12);
+      b=mix(b,244,rim*.18);
 
       data[di]=clamp255(r);
       data[di+1]=clamp255(g);
@@ -13775,8 +13917,8 @@ function renderGlobeCanvas(){{
   ctx.save();
   ctx.beginPath();
   ctx.arc(radius,radius,radius-2,0,Math.PI*2);
-  ctx.strokeStyle='rgba(178,232,255,.62)';
-  ctx.lineWidth=2.4;
+  ctx.strokeStyle='rgba(178,232,255,.68)';
+  ctx.lineWidth=2.5;
   ctx.stroke();
   ctx.restore();
 }}
@@ -13798,65 +13940,64 @@ function renderGlobeMarkers(){{
   const layerRect=layer.getBoundingClientRect();
   const centerX=layerRect.width/2;
   const centerY=layerRect.height/2;
-  const labelMaxWidth=window.innerWidth<=430 ? 104 : 118;
+  const labelMaxWidth=window.innerWidth<=430 ? 112 : 132;
   const labelHeight=22;
   const placed=[];
 
-  const extraOffsets={{
-    KR:[[-28,-12],[-30,10],[-12,-24],[-36,-2]],
-    JP:[[28,-12],[30,10],[12,-24],[36,-2]],
-    CN:[[-24,10],[-18,-16],[-8,24]],
-    TW:[[22,14],[18,-12]],
-    US:[[18,-10],[-18,-10],[0,18]],
-    GB:[[-12,-8],[12,8]],
-    FR:[[-14,8],[14,-8]],
-    RU:[[0,-16],[18,10],[-18,10]]
+  const specialOffsets={{
+    KR:[[-16,-10],[-20,12],[-10,-26],[-26,-2]],
+    JP:[[16,-10],[20,12],[10,-26],[26,-2]],
+    CN:[[-24,8],[-18,-16],[-10,22]],
+    US:[[14,-10],[-14,-10],[0,18]],
+    GB:[[-10,-8],[10,8]],
+    FR:[[-12,8],[12,-8]],
+    RU:[[0,-14],[16,10],[-16,10]]
   }};
 
   projected.forEach((item,index)=>{{
     const p=item.projection;
-    const important=item.count>=10 || item.code===activeCountryFilter || item.code==='KR' || item.code==='JP';
+    const important=item.count>=10 || item.code===activeCountryFilter || item.code==='KR' || item.code==='JP' || item.code===focusCode;
     const maxLabels=window.innerWidth<=430 ? 8 : 12;
     if(index>=maxLabels && !important)return;
 
     const baseX=(p.x/100)*layerRect.width;
     const baseY=(p.y/100)*layerRect.height;
+
     const anchor=document.createElement('div');
     anchor.className='globe-country-anchor' + (item.code===focusCode ? ' orbit-focus' : '');
     anchor.style.left=`${{baseX}}px`;
     anchor.style.top=`${{baseY}}px`;
     layer.appendChild(anchor);
 
-    const approxWidth=Math.min(labelMaxWidth,56+item.name.length*6.4+(String(item.count).length*6));
+    const approxWidth=Math.min(labelMaxWidth,58+item.name.length*6.5+(String(item.count).length*6));
     let vx=baseX-centerX;
     let vy=baseY-centerY;
     const len=Math.hypot(vx,vy) || 1;
     vx/=len; vy/=len;
 
-    // Push labels more to the side/outside so the globe itself stays visible.
-    if(Math.abs(vx)<0.28){{
-      vx = baseX>=centerX ? 0.95 : -0.95;
-      vy *= 0.40;
+    // steer labels outward and slightly to the side to keep the globe visible
+    if(Math.abs(vx)<0.32){{
+      vx = baseX>=centerX ? 0.96 : -0.96;
+      vy *= 0.34;
     }}
     const perpX=-vy;
     const perpY=vx;
-    const radialBase=item.code==='KR' || item.code==='JP' ? 56 : 46;
-    const focusBoost=item.code===focusCode ? 6 : 0;
+    const radialBase=item.code==='KR' || item.code==='JP' ? 58 : 50;
+    const focusBoost=item.code===focusCode ? 10 : 0;
     const candidates=[];
     const pushCandidate=(ox,oy)=>candidates.push([ox,oy]);
-
     pushCandidate(vx*(radialBase+focusBoost), vy*(radialBase+focusBoost));
-    pushCandidate(vx*(radialBase+14)+perpX*10, vy*(radialBase+14)+perpY*10);
-    pushCandidate(vx*(radialBase+14)-perpX*10, vy*(radialBase+14)-perpY*10);
-    pushCandidate(vx*(radialBase+22), vy*(radialBase+22));
-    pushCandidate(vx*(radialBase+20)+perpX*18, vy*(radialBase+20)+perpY*18);
-    pushCandidate(vx*(radialBase+20)-perpX*18, vy*(radialBase+20)-perpY*18);
-    (extraOffsets[item.code]||[]).forEach(([dx,dy])=>pushCandidate(vx*radialBase+dx, vy*radialBase+dy));
+    pushCandidate(vx*(radialBase+16)+perpX*12, vy*(radialBase+16)+perpY*12);
+    pushCandidate(vx*(radialBase+16)-perpX*12, vy*(radialBase+16)-perpY*12);
+    pushCandidate(vx*(radialBase+24), vy*(radialBase+24));
+    pushCandidate(vx*(radialBase+24)+perpX*18, vy*(radialBase+24)+perpY*18);
+    pushCandidate(vx*(radialBase+24)-perpX*18, vy*(radialBase+24)-perpY*18);
+    (specialOffsets[item.code]||[]).forEach(([dx,dy])=>pushCandidate(vx*radialBase+dx, vy*radialBase+dy));
 
     let chosen=null;
     for(const [dx,dy] of candidates){{
       const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + dx));
-      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 6, baseY + dy));
+      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 28, baseY + dy));
       const rect={{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}};
       const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
       if(!overlaps){{
@@ -13868,11 +14009,23 @@ function renderGlobeMarkers(){{
 
     if(!chosen){{
       if(!important)return;
-      const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + vx*(radialBase+26)));
-      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 6, baseY + vy*(radialBase+18)));
+      const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + vx*(radialBase+28)));
+      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 28, baseY + vy*(radialBase+20)));
       placed.push({{left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2}});
       chosen={{x:cx,y:cy}};
     }}
+
+    const dx=chosen.x-baseX;
+    const dy=chosen.y-baseY;
+    const distance=Math.max(10, Math.hypot(dx,dy)-approxWidth*0.35);
+    const angle=Math.atan2(dy,dx)*180/Math.PI;
+    const connector=document.createElement('div');
+    connector.className='globe-country-connector' + (item.code===focusCode ? ' orbit-focus' : '');
+    connector.style.left=`${{baseX}}px`;
+    connector.style.top=`${{baseY}}px`;
+    connector.style.width=`${{distance}}px`;
+    connector.style.transform=`translateY(-50%) rotate(${{angle}}deg)`;
+    layer.appendChild(connector);
 
     const btn=document.createElement('button');
     btn.type='button';
@@ -13908,7 +14061,7 @@ function startGlobeAnimation(){{
     const delta=Math.min(40,now-globeState.lastFrame);
     globeState.lastFrame=now;
     if(globeState.autoRotate && !globeState.dragging){{
-      globeState.rotationLon=normalizeGlobeLon(globeState.rotationLon + delta*0.0042);
+      globeState.rotationLon=normalizeGlobeLon(globeState.rotationLon + delta*0.0034);
       renderGlobeFrame();
     }}
     globeState.frameId=requestAnimationFrame(tick);
@@ -13993,8 +14146,8 @@ function layoutAndRenderCountryMap(){{
 
   if(caption){{
     caption.textContent=activeCountryFilter
-      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}}만 표시`
-      : '국가 선택';
+      ? `${{COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}} 기사만 표시`
+      : '지구본에서 국가 선택';
   }}
 
   renderGlobeFrame(true);
