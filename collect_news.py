@@ -13481,7 +13481,7 @@ header,
 }}
 .continent-country-ranking-title {{
   color:#173956 !important;
-  font-size:9.2px !important;
+  font-size:8.5px !important;
   font-weight:900 !important;
   line-height:1.1 !important;
 }}
@@ -13618,8 +13618,8 @@ header,
 
 .country-map-visual.globe-mode {{
   width:100% !important;
-  height:276px !important;
-  min-height:276px !important;
+  height:292px !important;
+  min-height:292px !important;
   padding:0 !important;
   border:0 !important;
   border-radius:16px !important;
@@ -13638,15 +13638,15 @@ header,
 .country-map-visual .world-map-inline.globe-texture-source {{
   display:block !important;
   position:absolute !important;
-  left:-18px !important;
-  top:8px !important;
-  right:112px !important;
-  bottom:8px !important;
+  left:-22px !important;
+  top:6px !important;
+  right:96px !important;
+  bottom:6px !important;
   width:auto !important;
   height:auto !important;
   max-width:none !important;
   opacity:1 !important;
-  transform:scale(1.12) !important;
+  transform:scale(1.18) !important;
   transform-origin:48% 50% !important;
   filter:contrast(1.14) saturate(1.05) !important;
   z-index:1 !important;
@@ -13654,11 +13654,11 @@ header,
 
 #country-map-label-layer.country-map-label-layer {{
   position:absolute !important;
-  left:-18px !important;
-  top:8px !important;
-  right:112px !important;
-  bottom:8px !important;
-  transform:scale(1.12) !important;
+  left:-22px !important;
+  top:6px !important;
+  right:96px !important;
+  bottom:6px !important;
+  transform:scale(1.18) !important;
   transform-origin:48% 50% !important;
   z-index:3 !important;
   pointer-events:none !important;
@@ -13744,34 +13744,34 @@ header,
   top:10px !important;
   right:8px !important;
   bottom:10px !important;
-  width:104px !important;
-  padding:8px 7px !important;
-  gap:6px !important;
+  width:88px !important;
+  padding:7px 6px !important;
+  gap:5px !important;
   border:1px solid rgba(157,190,211,.22) !important;
   border-radius:14px !important;
   background:rgba(255,255,255,.93) !important;
   box-shadow:0 3px 10px rgba(53,91,120,.055) !important;
 }}
-.continent-rail-title {{ font-size:10.5px !important; }}
-.continent-rail-sub {{ font-size:7.3px !important; white-space:nowrap !important; }}
+.continent-rail-title {{ font-size:9.8px !important; }}
+.continent-rail-sub {{ font-size:6.8px !important; white-space:nowrap !important; }}
 .continent-all-button {{
-  height:25px !important;
-  padding:0 7px !important;
-  font-size:8.8px !important;
+  height:23px !important;
+  padding:0 6px !important;
+  font-size:8.1px !important;
 }}
-.continent-rail-scroll {{ gap:5px !important; }}
+.continent-rail-scroll {{ gap:4px !important; }}
 .continent-button {{
-  min-height:33px !important;
-  padding:5px 7px !important;
-  border-radius:11px !important;
+  min-height:30px !important;
+  padding:4px 6px !important;
+  border-radius:10px !important;
 }}
 .continent-button-name {{
   font-size:9.2px !important;
   white-space:nowrap !important;
   word-break:keep-all !important;
 }}
-.continent-button-meta {{ font-size:6.8px !important; white-space:nowrap !important; }}
-.continent-button-count {{ font-size:9px !important; }}
+.continent-button-meta {{ font-size:6.1px !important; white-space:nowrap !important; }}
+.continent-button-count {{ font-size:8.4px !important; }}
 
 /* Ranking panel removed: countries are labeled directly on the map */
 #continent-country-ranking {{ display:none !important; }}
@@ -13780,43 +13780,43 @@ header,
 .country-map-caption {{ display:none !important; }}
 
 @media (max-width:430px) {{
-  .country-map-visual.globe-mode {{ height:270px !important; min-height:270px !important; }}
+  .country-map-visual.globe-mode {{ height:282px !important; min-height:282px !important; }}
   .country-map-visual .world-map-inline.globe-texture-source,
   #country-map-label-layer.country-map-label-layer {{
-    left:-24px !important;
-    top:10px !important;
-    right:102px !important;
-    bottom:10px !important;
-    transform:scale(1.16) !important;
+    left:-28px !important;
+    top:8px !important;
+    right:88px !important;
+    bottom:8px !important;
+    transform:scale(1.2) !important;
     transform-origin:48% 50% !important;
   }}
   #continent-rail {{
-    width:92px !important;
-    right:6px !important;
-    top:9px !important;
-    bottom:9px !important;
-    padding:7px 6px !important;
+    width:80px !important;
+    right:5px !important;
+    top:8px !important;
+    bottom:8px !important;
+    padding:6px 5px !important;
   }}
-  .continent-button {{ min-height:32px !important; padding:5px 6px !important; }}
-  .continent-button-name {{ font-size:8.7px !important; }}
-  .continent-button-meta {{ font-size:6.4px !important; }}
-  .continent-button-count {{ font-size:8.4px !important; }}
+  .continent-button {{ min-height:29px !important; padding:4px 5px !important; }}
+  .continent-button-name {{ font-size:7.6px !important; }}
+  .continent-button-meta {{ font-size:5.8px !important; }}
+  .continent-button-count {{ font-size:7.8px !important; }}
   .map-country-card {{ font-size:7.7px !important; padding:2px 6px !important; min-height:18px !important; }}
   .map-country-card .flag {{ font-size:9px !important; }}
   .map-country-card .name, .map-country-card .count {{ font-size:7.6px !important; }}
 }}
 
 @media (max-width:380px) {{
-  .country-map-visual.globe-mode {{ height:258px !important; min-height:258px !important; }}
+  .country-map-visual.globe-mode {{ height:266px !important; min-height:266px !important; }}
   .country-map-visual .world-map-inline.globe-texture-source,
   #country-map-label-layer.country-map-label-layer {{
-    left:-30px !important;
-    right:94px !important;
-    transform:scale(1.18) !important;
+    left:-34px !important;
+    right:84px !important;
+    transform:scale(1.22) !important;
   }}
-  #continent-rail {{ width:84px !important; }}
+  #continent-rail {{ width:74px !important; }}
   .continent-button-name {{ font-size:8.1px !important; }}
-  .continent-button-count {{ font-size:8px !important; }}
+  .continent-button-count {{ font-size:7.4px !important; }}
   .map-country-card {{ font-size:7.2px !important; padding:2px 5px !important; }}
   .map-country-card .flag {{ font-size:8px !important; }}
   .map-country-card .name {{ display:none !important; }}
@@ -13825,41 +13825,36 @@ header,
 
 
 
-/* Selected continent highlight directly on 2D map */
-#continent-highlight-layer {{
-  position:absolute !important;
-  inset:0 !important;
-  width:100% !important;
-  height:100% !important;
-  z-index:1 !important;
+/* Selected continent highlight is rendered INSIDE the native world-map SVG. */
+#continent-highlight-svg-layer {{
   pointer-events:none !important;
-  overflow:visible !important;
 }}
-.continent-highlight-shape {{
-  fill:rgba(40,151,211,.18) !important;
-  stroke:#278fc8 !important;
-  stroke-width:3.0 !important;
-  stroke-linejoin:round !important;
-  stroke-linecap:round !important;
+#continent-highlight-svg-layer .continent-highlight-land path {{
+  fill:#79c8ee !important;
+  fill-opacity:.66 !important;
+  stroke:#1688c5 !important;
+  stroke-width:1.5 !important;
+  stroke-opacity:.92 !important;
   vector-effect:non-scaling-stroke !important;
-  filter:drop-shadow(0 2px 5px rgba(39,143,200,.16)) !important;
+  filter:drop-shadow(0 1px 2px rgba(25,126,174,.18)) !important;
 }}
-.continent-highlight-label {{
-  fill:#197aaa !important;
-  font-size:22px !important;
+#continent-highlight-svg-layer .continent-highlight-title {{
+  fill:#116f9e !important;
+  font-size:23px !important;
   font-weight:900 !important;
   text-anchor:middle !important;
   paint-order:stroke !important;
-  stroke:rgba(255,255,255,.94) !important;
-  stroke-width:4.5px !important;
+  stroke:rgba(255,255,255,.96) !important;
+  stroke-width:5px !important;
   stroke-linejoin:round !important;
-  pointer-events:none !important;
 }}
 .map-country-node {{ z-index:4 !important; }}
 
 @media (max-width:430px) {{
-  .continent-highlight-shape {{ stroke-width:2.6 !important; }}
-  .continent-highlight-label {{ font-size:20px !important; stroke-width:4px !important; }}
+  #continent-highlight-svg-layer .continent-highlight-title {{
+    font-size:21px !important;
+    stroke-width:4.5px !important;
+  }}
 }}
 
 /* Smart continent interaction polish */
@@ -16650,41 +16645,84 @@ function computeDirectMapLabelPlacements(items){{
 }}
 
 
-function renderSelectedContinentHighlight(){{
-  const layer=document.getElementById('country-map-label-layer');
-  if(!layer)return;
-  let svg=document.getElementById('continent-highlight-layer');
-  if(!svg){{
-    svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.id='continent-highlight-layer';
-    svg.setAttribute('viewBox','0 0 1000 500');
-    svg.setAttribute('preserveAspectRatio','none');
-    layer.prepend(svg);
+function ensureNativeContinentHighlightLayer(){{
+  const sourceSvg=document.querySelector('.world-map-inline.globe-texture-source');
+  if(!sourceSvg)return null;
+
+  const landGroup=sourceSvg.querySelector('.world-map-land');
+  if(!landGroup)return null;
+
+  if(!landGroup.id)landGroup.id='world-map-land-source';
+
+  let defs=sourceSvg.querySelector('defs[data-continent-highlight-defs="1"]');
+  if(!defs){{
+    defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
+    defs.setAttribute('data-continent-highlight-defs','1');
+    sourceSvg.insertBefore(defs,sourceSvg.firstChild);
   }}
-  svg.innerHTML='';
+
+  let layer=sourceSvg.querySelector('#continent-highlight-svg-layer');
+  if(!layer){{
+    layer=document.createElementNS('http://www.w3.org/2000/svg','g');
+    layer.id='continent-highlight-svg-layer';
+    const countryLines=sourceSvg.querySelector('.world-map-country-lines');
+    if(countryLines)sourceSvg.insertBefore(layer,countryLines);
+    else sourceSvg.appendChild(layer);
+  }}
+  return {{sourceSvg,landGroup,defs,layer}};
+}}
+
+function getContinentNativeRegion(code){{
+  // Same 1000x500 viewBox as the actual world-map SVG.
+  // Polygons are only clip regions; the visible highlight is the REAL land paths.
+  const regions={{
+    NA: {{ points:'0,45 330,45 360,175 325,285 260,340 125,330 25,265 0,180', labelX:170, labelY:165 }},
+    EU: {{ points:'390,55 625,55 680,115 665,205 610,238 480,230 395,165', labelX:535, labelY:145 }},
+    AS: {{ points:'585,45 1000,45 1000,300 900,345 755,330 640,280 570,195', labelX:805, labelY:165 }},
+    MEA:{{ points:'360,170 675,150 730,260 690,455 505,470 385,395 340,265', labelX:535, labelY:300 }},
+    OC: {{ points:'690,285 1000,285 1000,500 690,500 650,390', labelX:840, labelY:400 }}
+  }};
+  return regions[code] || null;
+}}
+
+function renderSelectedContinentHighlight(){{
+  const ctx=ensureNativeContinentHighlightLayer();
+  if(!ctx)return;
+  const {{landGroup,defs,layer}}=ctx;
+
+  layer.innerHTML='';
+  defs.querySelectorAll('[data-continent-clip="1"]').forEach(node=>node.remove());
   if(activeContinentFilter==='ALL')return;
 
-  const regions={{
-    NA: {{ points:'30,65 205,55 315,125 330,220 265,305 145,320 55,255 10,155', labelX:165, labelY:165 }},
-    EU: {{ points:'405,78 645,70 705,125 680,205 585,240 455,222 390,155', labelX:550, labelY:148 }},
-    AS: {{ points:'555,60 920,55 990,135 970,270 865,335 720,325 610,260 535,165', labelX:780, labelY:170 }},
-    MEA:{{ points:'390,165 650,155 730,245 690,420 520,455 395,385 350,265', labelX:535, labelY:285 }},
-    OC: {{ points:'705,300 985,295 995,475 735,480 665,395', labelX:840, labelY:390 }}
-  }};
-  const region=regions[activeContinentFilter];
+  const region=getContinentNativeRegion(activeContinentFilter);
   if(!region)return;
 
+  const clipId=`continent-native-clip-${{activeContinentFilter}}`;
+  const clip=document.createElementNS('http://www.w3.org/2000/svg','clipPath');
+  clip.id=clipId;
+  clip.setAttribute('data-continent-clip','1');
   const polygon=document.createElementNS('http://www.w3.org/2000/svg','polygon');
   polygon.setAttribute('points',region.points);
-  polygon.setAttribute('class','continent-highlight-shape');
-  svg.appendChild(polygon);
+  clip.appendChild(polygon);
+  defs.appendChild(clip);
 
-  const textNode=document.createElementNS('http://www.w3.org/2000/svg','text');
-  textNode.setAttribute('x',String(region.labelX));
-  textNode.setAttribute('y',String(region.labelY));
-  textNode.setAttribute('class','continent-highlight-label');
-  textNode.textContent=(CONTINENT_META[activeContinentFilter]||CONTINENT_META.ALL).name;
-  svg.appendChild(textNode);
+  const highlightGroup=document.createElementNS('http://www.w3.org/2000/svg','g');
+  highlightGroup.setAttribute('class','continent-highlight-land');
+  highlightGroup.setAttribute('clip-path',`url(#${{clipId}})`);
+
+  landGroup.querySelectorAll('path').forEach(path=>{{
+    const clone=path.cloneNode(true);
+    clone.removeAttribute('style');
+    highlightGroup.appendChild(clone);
+  }});
+  layer.appendChild(highlightGroup);
+
+  const title=document.createElementNS('http://www.w3.org/2000/svg','text');
+  title.setAttribute('x',String(region.labelX));
+  title.setAttribute('y',String(region.labelY));
+  title.setAttribute('class','continent-highlight-title');
+  title.textContent=(CONTINENT_META[activeContinentFilter]||CONTINENT_META.ALL).name;
+  layer.appendChild(title);
 }}
 
 function render2DMapLabels(items){{
