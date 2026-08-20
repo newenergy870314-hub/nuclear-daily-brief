@@ -13774,7 +13774,7 @@ header,
 .continent-button-count {{ font-size:9px !important; }}
 
 /* Ranking panel removed: countries are labeled directly on the map */
-#continent-country-ranking { display:none !important; }
+#continent-country-ranking {{ display:none !important; }}
 
 /* Remove duplicate floating status pill. Right rail + ranking already explain state. */
 .country-map-caption {{ display:none !important; }}
@@ -13801,9 +13801,9 @@ header,
   .continent-button-name {{ font-size:8.7px !important; }}
   .continent-button-meta {{ font-size:6.4px !important; }}
   .continent-button-count {{ font-size:8.4px !important; }}
-  .map-country-card { font-size:7.7px !important; padding:2px 6px !important; min-height:18px !important; }
-  .map-country-card .flag { font-size:9px !important; }
-  .map-country-card .name, .map-country-card .count { font-size:7.6px !important; }
+  .map-country-card {{ font-size:7.7px !important; padding:2px 6px !important; min-height:18px !important; }}
+  .map-country-card .flag {{ font-size:9px !important; }}
+  .map-country-card .name, .map-country-card .count {{ font-size:7.6px !important; }}
 }}
 
 @media (max-width:380px) {{
@@ -13817,10 +13817,10 @@ header,
   #continent-rail {{ width:84px !important; }}
   .continent-button-name {{ font-size:8.1px !important; }}
   .continent-button-count {{ font-size:8px !important; }}
-  .map-country-card { font-size:7.2px !important; padding:2px 5px !important; }
-  .map-country-card .flag { font-size:8px !important; }
-  .map-country-card .name { display:none !important; }
-  .map-country-card .count { font-size:7.2px !important; }
+  .map-country-card {{ font-size:7.2px !important; padding:2px 5px !important; }}
+  .map-country-card .flag {{ font-size:8px !important; }}
+  .map-country-card .name {{ display:none !important; }}
+  .map-country-card .count {{ font-size:7.2px !important; }}
 }}
 
 </style>
