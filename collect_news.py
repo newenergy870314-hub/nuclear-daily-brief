@@ -66,6 +66,7 @@ ALWAYS_SHOW_GROUPS = {
     "타 건설사",
     "한국수력원자력",
     "한국전력",
+    "한전 계열사",
     "원전 관계부처",
     "원전 대미투자",
     "원자력",
@@ -128,6 +129,16 @@ GROUPS = [
         "한전 임명", "한전 취임", "한전 승진",
         "한전 보직", "한전 인사발령",
         "KEPCO appointment", "KEPCO personnel", "KEPCO executive",
+    ]),
+    ("한전 계열사", [
+        # 원전·원자력 관련 핵심 한전 그룹사
+        # 한국전력기술: 국문/약칭/영문 표기 모두 수집
+        '"한국전력기술"', '"한국전력기술(주)"', '"한기" 원전', '"한기" 원자력',
+        '"KEPCO E&C"', '"KEPCO Engineering & Construction"', '"KEPCO-ENC"', '"KOPEC"',
+        # 한전KPS
+        '"한전KPS"', '"KEPCO KPS"', '"KEPCO-KPS"',
+        # 한전원자력연료
+        '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
     ]),
     ("원전 관계부처", [
         # 산업통상부·기후에너지환경부·과학기술정보통신부의
@@ -241,6 +252,7 @@ GROUP_TAB_LABELS = {
     "타 건설사": "他 건설사",
     "한국수력원자력": "한수원",
     "한국전력": "한전",
+    "한전 계열사": "한전 계열사",
     "원전 관계부처": "원전 관계부처(산업통상부·기후부·과기부)",
     "원전 대미투자": "대미투자",
     "원자력": "원자력",
@@ -1356,6 +1368,7 @@ DIRECT_GROUP_PRIORITY = [
     "타 건설사",
     "한국수력원자력",
     "한국전력",
+    "한전 계열사",
     "원전 관계부처",
     "SMR",
     "Nuclear Power·Nuclear Energy",
@@ -3310,6 +3323,46 @@ def is_westinghouse_air_brake_article(title: str, summary: str = "") -> bool:
     return any(term in haystack for term in WESTINGHOUSE_AIR_BRAKE_TERMS)
 
 
+
+KEPCO_AFFILIATE_ALIASES = {
+    "한국전력기술": (
+        "한국전력기술",
+        "kepco e&c",
+        "kepco engineering & construction",
+        "kepco engineering and construction",
+        "kepco-enc",
+        "kopec",
+    ),
+    "한전KPS": (
+        "한전kps",
+        "kepco kps",
+        "kepco-kps",
+    ),
+    "한전원자력연료": (
+        "한전원자력연료",
+        "kepco nuclear fuel",
+        "knf",
+    ),
+}
+
+def _mentions_kepco_affiliate(title: str, summary: str = "") -> bool:
+    """원전 관련 핵심 한전 계열사 국문·약칭·영문 표기를 인식합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    for aliases in KEPCO_AFFILIATE_ALIASES.values():
+        for alias in aliases:
+            alias_lower = alias.lower()
+            if alias_lower in haystack or re.sub(r"\s+", "", alias_lower) in compact:
+                return True
+
+    # '한기'는 일반 문장 오탐을 막기 위해 독립된 약칭으로 등장할 때만 인정
+    if re.search(r"(?<![가-힣A-Za-z0-9])한기(?![가-힣A-Za-z0-9])", haystack):
+        return True
+
+    return False
+
+
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
     회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
@@ -3329,6 +3382,10 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     # 1순위: 현대건설 (건설기계 오탐 제외)
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
+
+    # 한전 계열사는 한국전력 본체와 분리
+    if _mentions_kepco_affiliate(title, summary):
+        return "한전 계열사"
 
     # 2순위 이하: 현대건설이 없는 경우에만 적용
     has_nuclear_term = any(
@@ -5643,6 +5700,97 @@ def _daewoo_lee_kangseok_event_key(article: Article) -> str | None:
     return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
+
+def _nuclear_planned_maintenance_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 원전/원자력 + 계획예방정비 관련 보도는
+    띄어쓰기 차이와 관계없이 동일 이슈로 묶습니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    nuclear_terms = (
+        "원전",
+        "원자력",
+        "한국수력원자력",
+        "한수원",
+        "원자력본부",
+        "원전본부",
+        "nuclear",
+    )
+    maintenance_terms = (
+        "계획예방정비",
+        "계획예방정비기간",
+        "계획정비",
+        "plannedmaintenance",
+        "scheduledmaintenance",
+        "plannedoutage",
+        "refuelingoutage",
+    )
+
+    has_nuclear = any(
+        term.replace(" ", "") in compact
+        for term in nuclear_terms
+    )
+    has_planned_maintenance = any(
+        term.replace(" ", "") in compact
+        for term in maintenance_terms
+    )
+
+    if not (has_nuclear and has_planned_maintenance):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
+
+def _nuclear_training_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 원전/원자력 + 훈련 관련 보도는
+    띄어쓰기 및 훈련 유형 표현 차이와 관계없이 동일 이슈로 묶습니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    nuclear_terms = (
+        "원전",
+        "원자력",
+        "한국수력원자력",
+        "한수원",
+        "원자력본부",
+        "원전본부",
+        "nuclear",
+    )
+    training_terms = (
+        "훈련",
+        "비상훈련",
+        "재난훈련",
+        "방사능방재훈련",
+        "방재훈련",
+        "합동훈련",
+        "대응훈련",
+        "모의훈련",
+        "emergencydrill",
+        "emergencyexercise",
+        "drill",
+        "exercise",
+    )
+
+    has_nuclear = any(
+        term.replace(" ", "") in compact
+        for term in nuclear_terms
+    )
+    has_training = any(
+        term.replace(" ", "") in compact
+        for term in training_terms
+    )
+
+    if not (has_nuclear and has_training):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5887,7 +6035,51 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             daewoo_lee_unique[idx] = article
 
-    result = sorted(daewoo_lee_unique, key=lambda x: x.published, reverse=True)
+    # 같은 날짜 + 원전/원자력 + 계획예방정비 관련 보도는 대표기사 1건만 유지
+    planned_maintenance_unique: list[Article] = []
+    planned_maintenance_key_to_idx: dict[str, int] = {}
+    planned_maintenance_removed = 0
+
+    for article in daewoo_lee_unique:
+        event_key = _nuclear_planned_maintenance_event_key(article)
+        if event_key is None:
+            planned_maintenance_unique.append(article)
+            continue
+
+        if event_key not in planned_maintenance_key_to_idx:
+            planned_maintenance_key_to_idx[event_key] = len(planned_maintenance_unique)
+            planned_maintenance_unique.append(article)
+            continue
+
+        planned_maintenance_removed += 1
+        idx = planned_maintenance_key_to_idx[event_key]
+        kept = planned_maintenance_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            planned_maintenance_unique[idx] = article
+
+    # 같은 날짜 + 원전/원자력 + 훈련 관련 보도는 대표기사 1건만 유지
+    nuclear_training_unique: list[Article] = []
+    nuclear_training_key_to_idx: dict[str, int] = {}
+    nuclear_training_removed = 0
+
+    for article in planned_maintenance_unique:
+        event_key = _nuclear_training_event_key(article)
+        if event_key is None:
+            nuclear_training_unique.append(article)
+            continue
+
+        if event_key not in nuclear_training_key_to_idx:
+            nuclear_training_key_to_idx[event_key] = len(nuclear_training_unique)
+            nuclear_training_unique.append(article)
+            continue
+
+        nuclear_training_removed += 1
+        idx = nuclear_training_key_to_idx[event_key]
+        kept = nuclear_training_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            nuclear_training_unique[idx] = article
+
+    result = sorted(nuclear_training_unique, key=lambda x: x.published, reverse=True)
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ exact_content_removed={exact_content_removed} "
@@ -5899,7 +6091,9 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         f"/ macheon5_removed={macheon5_removed} "
         f"/ construction_union_removed={construction_union_removed} "
         f"/ site_reactor_removed={site_reactor_removed} "
-        f"/ daewoo_lee_removed={daewoo_lee_removed} / final={len(result)}"
+        f"/ daewoo_lee_removed={daewoo_lee_removed} "
+        f"/ planned_maintenance_removed={planned_maintenance_removed} "
+        f"/ nuclear_training_removed={nuclear_training_removed} / final={len(result)}"
     )
     return result
 
