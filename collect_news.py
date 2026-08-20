@@ -9511,14 +9511,15 @@ header,
   display:grid;
   grid-template-columns:84px minmax(0,1fr);
   gap:12px;
-  align-items:stretch;
+  align-items:center;
 }}
 
 .world-clock-rail {{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:10px;
+  align-self:center;
+  gap:8px;
   min-width:0;
 }}
 
@@ -9526,12 +9527,14 @@ header,
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:4px;
-  padding:8px 7px;
-  border:1px solid rgba(141,178,208,.24);
+  justify-content:flex-start;
+  gap:5px;
+  min-height:106px;
+  padding:18px 7px 8px;
+  border:1px solid rgba(141,178,208,.22);
   border-radius:15px;
-  background:linear-gradient(180deg, rgba(255,255,255,.97) 0%, rgba(245,250,253,.94) 100%);
-  box-shadow:0 4px 10px rgba(60,94,126,.06);
+  background:linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(246,250,253,.95) 100%);
+  box-shadow:0 4px 10px rgba(60,94,126,.05);
 }}
 
 .mini-clock-label {{
@@ -9820,22 +9823,7 @@ header,
 }}
 
 .world-clock-format-common {{
-  align-self:center;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:20px;
-  padding:0 10px;
-  border:1px solid rgba(83,113,143,.16);
-  border-radius:999px;
-  background:#eef4f8;
-  color:#53677f;
-  font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:7px;
-  font-weight:900;
-  line-height:1;
-  white-space:nowrap;
-  box-shadow:0 1px 4px rgba(60,94,126,.05);
+  display:none !important;
 }}
 
 .mini-world-clock {{
@@ -9846,19 +9834,20 @@ header,
 .mini-world-clock::before {{
   position:absolute;
   top:6px;
-  left:6px;
+  right:6px;
+  left:auto;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:26px;
-  height:14px;
+  min-width:24px;
+  height:13px;
   padding:0 6px;
   border-radius:999px;
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:6.4px;
+  font-size:6.1px;
   font-weight:900;
   line-height:1;
-  letter-spacing:.15px;
+  letter-spacing:.1px;
   box-shadow:0 1px 4px rgba(60,94,126,.08);
 }}
 
@@ -9887,27 +9876,27 @@ header,
 }}
 
 .mini-world-clock[data-role="selected-country"] {{
-  border-color:rgba(216,75,75,.24);
-  background:linear-gradient(180deg, rgba(255,251,251,.98) 0%, rgba(253,244,244,.94) 100%);
+  border-color:rgba(201,103,90,.22);
+  background:linear-gradient(180deg, rgba(255,252,249,.98) 0%, rgba(253,247,243,.95) 100%);
 }}
 
 .mini-world-clock[data-role="selected-country"]::before {{
   content:"선택";
-  background:#d84b4b;
+  background:#d06a5b;
   color:#ffffff;
 }}
 
 .mini-world-clock[data-role="selected-country"] .analog-clock {{
-  border-color:#d6a2a2;
-  box-shadow:inset 0 0 0 2px #fff6f6, 0 0 0 3px rgba(216,75,75,.07);
+  border-color:#d4b0a5;
+  box-shadow:inset 0 0 0 2px #fff9f6, 0 0 0 3px rgba(208,106,91,.06);
 }}
 
 .mini-world-clock[data-role="selected-country"] .mini-clock-label {{
-  color:#7d3434;
+  color:#7c4a40;
 }}
 
-.mini-world-clock[data-role="selected-country"] .mini-clock-label span {{
-  color:#b07070;
+.mini-world-clock[data-role="selected-country"] .mini-clock-country {{
+  color:#a07b73;
 }}
 
 .mini-world-clock[data-role="selected-country"] .mini-clock-format {{
@@ -9950,11 +9939,11 @@ header,
   max-width:100%;
   color:#23395d;
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:8.8px;
+  font-size:8.6px;
   line-height:1.08;
   font-weight:900;
   white-space:nowrap;
-  margin-top:10px;
+  margin-top:0;
 }}
 
 .mini-clock-flag {{
@@ -9985,7 +9974,8 @@ header,
   grid-template-columns:1fr auto;
   align-items:center;
   gap:4px;
-  padding:0 4px;
+  padding:0 3px;
+  margin-top:auto;
 }}
 
 .mini-clock-day {{
@@ -9995,14 +9985,14 @@ header,
   background:#eef2f6;
   color:#53677f;
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:6.7px;
+  font-size:6.5px;
   font-weight:900;
   justify-self:end;
 }}
 
 .mini-clock-time {{
   font-family:Arial, "Noto Sans KR", sans-serif;
-  font-size:8.5px;
+  font-size:8.3px;
   font-weight:900;
   justify-self:center;
   min-width:34px;
@@ -12090,7 +12080,7 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {{
   position:relative;
-  height:232px !important;
+  height:228px !important;
   overflow:hidden !important;
   border:1px solid rgba(124,154,184,.36) !important;
   border-radius:18px !important;
@@ -12133,7 +12123,7 @@ header,
   touch-action:none;
   user-select:none;
   cursor:grab;
-  padding:0 138px 0 18px;
+  padding:0 136px 0 16px;
 }}
 
 .globe-stage.dragging {{
@@ -12142,7 +12132,7 @@ header,
 
 .globe-sphere {{
   position:relative;
-  width:164px;
+  width:160px;
   max-width:none;
   aspect-ratio:1/1;
   border-radius:50%;
@@ -12450,14 +12440,15 @@ header,
 
 @media (max-width:430px) {{
   .country-map-content {{
-    grid-template-columns:76px minmax(0,1fr);
+    grid-template-columns:74px minmax(0,1fr);
     gap:10px;
+    align-items:center;
   }}
   .country-map-content .country-map-visual.globe-mode {{
     height:210px !important;
   }}
   .globe-stage {{
-    padding:0 128px 0 10px;
+    padding:0 126px 0 10px;
   }}
   .globe-sphere {{
     width:154px;
@@ -12467,7 +12458,7 @@ header,
     top:12px;
     right:8px;
     bottom:12px;
-    width:104px;
+    width:102px;
     gap:6px;
     padding:9px 8px;
     border-radius:14px;
@@ -12508,14 +12499,15 @@ header,
 
 @media (max-width:380px) {{
   .country-map-content {{
-    grid-template-columns:72px minmax(0,1fr);
+    grid-template-columns:70px minmax(0,1fr);
     gap:8px;
+    align-items:center;
   }}
   .country-map-content .country-map-visual.globe-mode {{
     height:196px !important;
   }}
   .globe-stage {{
-    padding:0 114px 0 8px;
+    padding:0 112px 0 8px;
   }}
   .globe-sphere {{
     width:146px;
@@ -12525,7 +12517,7 @@ header,
     top:12px;
     right:6px;
     bottom:10px;
-    width:94px;
+    width:92px;
     gap:5px;
     padding:8px 7px;
     border-radius:13px;
@@ -12554,6 +12546,56 @@ header,
   .globe-country-count {{ font-size:5.9px; }}
 }}
 
+
+/* ============================================================
+   FINAL POLISH — CLOCK / GLOBE / PANEL BALANCE
+   ============================================================ */
+.world-clock-format-common {{
+  display:none !important;
+}}
+
+.world-clock-rail {{
+  margin:0;
+}}
+
+.mini-world-clock::before {{
+  z-index:2;
+}}
+
+.mini-world-clock .analog-clock {{
+  flex:0 0 auto;
+}}
+
+.mini-world-clock[data-role="selected-country"] {{
+  transform:none;
+}}
+
+@media (max-width:430px) {{
+  .mini-world-clock {{
+    min-height:102px;
+    padding:17px 6px 8px;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .mini-world-clock {{
+    min-height:98px;
+    padding:16px 5px 7px;
+  }}
+  .mini-world-clock::before {{
+    top:5px;
+    right:5px;
+    min-width:22px;
+    height:12px;
+    font-size:5.8px;
+  }}
+  .mini-clock-label {{
+    font-size:8px;
+  }}
+  .mini-clock-country {{
+    font-size:6.5px;
+  }}
+}}
 
 /* ============================================================
    FINAL OVERRIDE — IMPORTANT BUTTON LEFT + LANDSCAPE THUMBNAILS
@@ -12818,7 +12860,6 @@ header,
 
     <div class="country-map-content">
       <aside class="world-clock-rail" aria-label="주요 지역 현재 시간 (24시간제)">
-        <div class="world-clock-format-common">24H · 24시간제</div>
         <div class="mini-world-clock" data-timezone="Asia/Seoul">
           <div class="mini-clock-label"><span class="mini-clock-flag">🇰🇷</span><span class="mini-clock-city">서울</span><span class="mini-clock-country">· 대한민국</span></div>
           <div class="analog-clock" aria-hidden="true">
