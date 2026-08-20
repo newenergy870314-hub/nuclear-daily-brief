@@ -5836,6 +5836,33 @@ def _nuclear_auto_shutdown_event_key(article: Article) -> str | None:
     return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
+
+def is_khnp_elementary_article(article: Article) -> bool:
+    """
+    한수원/한국수력원자력 + 초등/초등학교 관련 지역행사·교육·지원성 기사를 제외합니다.
+    """
+    haystack = normalized(f"{article.title} {article.description}")
+    compact = re.sub(r"\s+", "", haystack)
+
+    khnp_terms = (
+        "한수원",
+        "한국수력원자력",
+        "khnp",
+    )
+    elementary_terms = (
+        "초등",
+        "초등학교",
+        "초등학생",
+        "elementaryschool",
+        "elementarystudent",
+    )
+
+    has_khnp = any(term.replace(" ", "") in compact for term in khnp_terms)
+    has_elementary = any(term.replace(" ", "") in compact for term in elementary_terms)
+
+    return has_khnp and has_elementary
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
     if not DEDUP_ENABLED:
@@ -5858,6 +5885,9 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         key=lambda x: x.published,
         reverse=True,
     )
+
+    # 한수원/한국수력원자력 + 초등/초등학교 관련 기사는 최종 목록과 archive에서 제외
+    articles = [a for a in articles if not is_khnp_elementary_article(a)]
 
     exact_unique: list[Article] = []
     exact_removed = 0
@@ -9473,6 +9503,183 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   MAP COUNTRY LABELS — 지도 위에 국기 + 국가 + 건수 상시 표시
+   모바일에서 점의 의미를 추측하지 않아도 바로 누를 수 있게 구성
+   ============================================================ */
+.country-map-label-layer {{
+  position:absolute;
+  inset:8px 8px 17px;
+  z-index:8;
+  pointer-events:none;
+  overflow:visible;
+}}
+
+.country-map-label {{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  min-height:25px;
+  padding:3px 6px;
+  border:1px solid rgba(35,57,93,.24);
+  border-radius:999px;
+  background:rgba(255,255,255,.96);
+  color:#23395d;
+  box-shadow:0 2px 7px rgba(17,24,39,.14);
+  font-size:8px;
+  line-height:1;
+  font-weight:900;
+  white-space:nowrap;
+  cursor:pointer;
+  pointer-events:auto;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}}
+
+.country-map-label .map-label-flag {{
+  font-size:12px;
+  line-height:1;
+}}
+
+.country-map-label .map-label-count {{
+  color:#d92d20;
+  font-size:8px;
+  font-weight:900;
+}}
+
+.country-map-label:hover,
+.country-map-label:focus-visible {{
+  border-color:#23395d;
+  box-shadow:0 3px 9px rgba(35,57,93,.23);
+  outline:none;
+}}
+
+.country-map-label.active {{
+  border-color:#23395d;
+  background:#23395d;
+  color:#fff;
+  box-shadow:0 3px 10px rgba(35,57,93,.28);
+}}
+
+.country-map-label.active .map-label-count {{
+  color:#fee500;
+}}
+
+.country-map-label:active {{
+  transform:translate(-50%,-50%) scale(.96);
+}}
+
+@media (max-width:767px) {{
+  .country-map-label {{
+    min-height:27px;
+    padding:4px 7px;
+    gap:3px;
+    font-size:8.5px;
+  }}
+  .country-map-label .map-label-flag {{
+    font-size:13px;
+  }}
+  .country-map-label .map-label-count {{
+    font-size:8.5px;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-label {{
+    min-height:25px;
+    padding:3px 6px;
+    font-size:8px;
+  }}
+  .country-map-label .map-label-flag {{
+    font-size:12px;
+  }}
+  .country-map-label .map-label-count {{
+    font-size:8px;
+  }}
+}}
+
+
+/* ============================================================
+   MAP LABEL COLLISION + MOBILE TOUCH / ZOOM IMPROVEMENTS
+   ============================================================ */
+.country-map-label-layer {{
+  overflow:visible !important;
+}}
+
+.country-map-label-connector {{
+  stroke:#8a9bb0;
+  stroke-width:1.35;
+  stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
+  pointer-events:none;
+  opacity:.72;
+}}
+
+.country-map-label {{
+  z-index:2;
+  min-height:30px !important;
+  padding:4px 8px !important;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:manipulation;
+  will-change:left,top;
+}}
+
+/* 실제 버튼 바깥까지 터치 가능한 영역을 넓혀 작은 라벨도 누르기 쉽게 함 */
+.country-map-label::before {{
+  content:"";
+  position:absolute;
+  inset:-5px;
+  border-radius:999px;
+}}
+
+.country-map-label.active {{
+  z-index:4;
+}}
+
+@media (max-width:767px) {{
+  .country-map-visual {{
+    min-height:178px !important;
+    height:clamp(178px,42vw,220px) !important;
+  }}
+  .country-map-label {{
+    min-height:34px !important;
+    padding:5px 9px !important;
+    gap:4px !important;
+    font-size:9px !important;
+  }}
+  .country-map-label .map-label-flag {{
+    font-size:14px !important;
+  }}
+  .country-map-label .map-label-count {{
+    font-size:9px !important;
+  }}
+  .country-map-label::before {{
+    inset:-5px;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual {{
+    min-height:170px !important;
+    height:190px !important;
+  }}
+}}
+
+
+/* 국가별 기사 필터는 지도 아래에서 선택 */
+.country-chip-guide-bottom {{
+  margin:8px 2px 5px !important;
+}}
+#country-chip-rail.country-chip-rail {{
+  margin-top:0 !important;
+  margin-bottom:0 !important;
+}}
+
 </style>
 </head>
 <body>
@@ -9523,45 +9730,6 @@ header,
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
       <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
-    </div>
-
-    <div class="country-chip-guide" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
-    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
-      <button id="country-all" class="country-pin country-all active" type="button">
-        <span>전체</span><span class="country-count">0건</span>
-      </button>
-      <button class="country-pin country-kr" data-country-filter="KR" data-lon="127.8" data-lat="36.4" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ca" data-country-filter="CA" data-lon="-106.3" data-lat="56.1" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-us" data-country-filter="US" data-lon="-98.6" data-lat="39.8" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-gb" data-country-filter="GB" data-lon="-3.4" data-lat="55.4" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fr" data-country-filter="FR" data-lon="2.2" data-lat="46.2" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-nl" data-country-filter="NL" data-lon="5.3" data-lat="52.1" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-be" data-country-filter="BE" data-lon="4.7" data-lat="50.6" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ch" data-country-filter="CH" data-lon="8.2" data-lat="46.8" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-se" data-country-filter="SE" data-lon="16.0" data-lat="62.0" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-fi" data-country-filter="FI" data-lon="26.0" data-lat="64.5" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-pl" data-country-filter="PL" data-lon="19.1" data-lat="51.9" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cz" data-country-filter="CZ" data-lon="15.5" data-lat="49.8" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-si" data-country-filter="SI" data-lon="15.0" data-lat="46.2" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ro" data-country-filter="RO" data-lon="25.0" data-lat="45.9" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-bg" data-country-filter="BG" data-lon="25.5" data-lat="42.7" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ua" data-country-filter="UA" data-lon="31.2" data-lat="48.4" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ru" data-country-filter="RU" data-lon="90.0" data-lat="60.0" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-tr" data-country-filter="TR" data-lon="35.2" data-lat="39.0" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-ae" data-country-filter="AE" data-lon="53.8" data-lat="23.4" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-vn" data-country-filter="VN" data-lon="108.3" data-lat="14.1" type="button"><span class="flag">🇻🇳</span><span>베트남</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sa" data-country-filter="SA" data-lon="45.1" data-lat="23.9" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-in" data-country-filter="IN" data-lon="79.0" data-lat="20.6" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-cn" data-country-filter="CN" data-lon="104.2" data-lat="35.9" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-jp" data-country-filter="JP" data-lon="138.3" data-lat="36.2" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-au" data-country-filter="AU" data-lon="133.8" data-lat="-25.3" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-za" data-country-filter="ZA" data-lon="22.9" data-lat="-30.6" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sk" data-country-filter="SK" data-lon="19.7" data-lat="48.7" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-dk" data-country-filter="DK" data-lon="9.5" data-lat="56.3" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-my" data-country-filter="MY" data-lon="102.0" data-lat="4.2" type="button"><span class="flag">🇲🇾</span><span>말레이시아</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-th" data-country-filter="TH" data-lon="101.0" data-lat="15.9" type="button"><span class="flag">🇹🇭</span><span>태국</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-sg" data-country-filter="SG" data-lon="103.8" data-lat="1.35" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
-      <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
 
     <div class="country-map-content">
@@ -10340,12 +10508,52 @@ header,
         </g>
               <g id="country-map-dots-svg" class="country-map-dots-svg"></g>
       </svg>
+      <div id="country-map-label-layer" class="country-map-label-layer" aria-label="지도 국가별 기사 바로가기"></div>
       <div id="country-map-html-tooltip" class="country-map-html-tooltip" role="status" aria-live="polite"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
         기사가 있는 국가만 표시
       </div>
     </div>
+    </div>
+
+    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가를 누르면 해당 기사만 볼 수 있습니다</div>
+    <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
+      <button id="country-all" class="country-pin country-all active" type="button">
+        <span>전체</span><span class="country-count">0건</span>
+      </button>
+      <button class="country-pin country-kr" data-country-filter="KR" data-lon="127.8" data-lat="36.4" type="button"><span class="flag">🇰🇷</span><span>한국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ca" data-country-filter="CA" data-lon="-106.3" data-lat="56.1" type="button"><span class="flag">🇨🇦</span><span>캐나다</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-us" data-country-filter="US" data-lon="-98.6" data-lat="39.8" type="button"><span class="flag">🇺🇸</span><span>미국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-gb" data-country-filter="GB" data-lon="-3.4" data-lat="55.4" type="button"><span class="flag">🇬🇧</span><span>영국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fr" data-country-filter="FR" data-lon="2.2" data-lat="46.2" type="button"><span class="flag">🇫🇷</span><span>프랑스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-nl" data-country-filter="NL" data-lon="5.3" data-lat="52.1" type="button"><span class="flag">🇳🇱</span><span>네덜란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-be" data-country-filter="BE" data-lon="4.7" data-lat="50.6" type="button"><span class="flag">🇧🇪</span><span>벨기에</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ch" data-country-filter="CH" data-lon="8.2" data-lat="46.8" type="button"><span class="flag">🇨🇭</span><span>스위스</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-se" data-country-filter="SE" data-lon="16.0" data-lat="62.0" type="button"><span class="flag">🇸🇪</span><span>스웨덴</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-fi" data-country-filter="FI" data-lon="26.0" data-lat="64.5" type="button"><span class="flag">🇫🇮</span><span>핀란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pl" data-country-filter="PL" data-lon="19.1" data-lat="51.9" type="button"><span class="flag">🇵🇱</span><span>폴란드</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cz" data-country-filter="CZ" data-lon="15.5" data-lat="49.8" type="button"><span class="flag">🇨🇿</span><span>체코</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-si" data-country-filter="SI" data-lon="15.0" data-lat="46.2" type="button"><span class="flag">🇸🇮</span><span>슬로베니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ro" data-country-filter="RO" data-lon="25.0" data-lat="45.9" type="button"><span class="flag">🇷🇴</span><span>루마니아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-bg" data-country-filter="BG" data-lon="25.5" data-lat="42.7" type="button"><span class="flag">🇧🇬</span><span>불가리아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ua" data-country-filter="UA" data-lon="31.2" data-lat="48.4" type="button"><span class="flag">🇺🇦</span><span>우크라이나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ru" data-country-filter="RU" data-lon="90.0" data-lat="60.0" type="button"><span class="flag">🇷🇺</span><span>러시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-tr" data-country-filter="TR" data-lon="35.2" data-lat="39.0" type="button"><span class="flag">🇹🇷</span><span>튀르키예</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ae" data-country-filter="AE" data-lon="53.8" data-lat="23.4" type="button"><span class="flag">🇦🇪</span><span>UAE</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-vn" data-country-filter="VN" data-lon="108.3" data-lat="14.1" type="button"><span class="flag">🇻🇳</span><span>베트남</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sa" data-country-filter="SA" data-lon="45.1" data-lat="23.9" type="button"><span class="flag">🇸🇦</span><span>사우디</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-in" data-country-filter="IN" data-lon="79.0" data-lat="20.6" type="button"><span class="flag">🇮🇳</span><span>인도</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cn" data-country-filter="CN" data-lon="104.2" data-lat="35.9" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-jp" data-country-filter="JP" data-lon="138.3" data-lat="36.2" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-au" data-country-filter="AU" data-lon="133.8" data-lat="-25.3" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-za" data-country-filter="ZA" data-lon="22.9" data-lat="-30.6" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sk" data-country-filter="SK" data-lon="19.7" data-lat="48.7" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-dk" data-country-filter="DK" data-lon="9.5" data-lat="56.3" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-my" data-country-filter="MY" data-lon="102.0" data-lat="4.2" type="button"><span class="flag">🇲🇾</span><span>말레이시아</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-th" data-country-filter="TH" data-lon="101.0" data-lat="15.9" type="button"><span class="flag">🇹🇭</span><span>태국</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-sg" data-country-filter="SG" data-lon="103.8" data-lat="1.35" type="button"><span class="flag">🇸🇬</span><span>싱가포르</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-other" data-country-filter="OTHER" type="button"><span class="flag">🌐</span><span>기타</span><span class="country-count">0건</span></button>
     </div>
 
   </section>
@@ -10873,9 +11081,11 @@ function hideCountryMapTooltip(force=false){{
 
 function layoutAndRenderCountryMap(){{
   const dotLayer=document.getElementById("country-map-dots-svg");
-  if(!dotLayer)return;
+  const labelLayer=document.getElementById("country-map-label-layer");
+  if(!dotLayer || !labelLayer)return;
 
   dotLayer.innerHTML="";
+  labelLayer.innerHTML="";
   hideCountryMapTooltip(true);
 
   const chipButtons=[...document.querySelectorAll(
@@ -10883,6 +11093,7 @@ function layoutAndRenderCountryMap(){{
   )];
 
   const SVG_NS="http://www.w3.org/2000/svg";
+  const mapItems=[];
 
   chipButtons.forEach(button=>{{
     if(button.hidden)return;
@@ -10894,7 +11105,6 @@ function layoutAndRenderCountryMap(){{
     const lat=Number(button.dataset.lat);
     if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
 
-    // Same SVG coordinate system as the world map.
     const x=((lon+180)/360)*1000;
     const y=((85-lat)/145)*500;
 
@@ -10939,14 +11149,12 @@ function layoutAndRenderCountryMap(){{
     group.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
     group.addEventListener("focus",()=>show(false));
     group.addEventListener("blur",()=>hideCountryMapTooltip(false));
-
     group.addEventListener("click",event=>{{
       event.preventDefault();
       event.stopPropagation();
       setCountryFilter(code);
       setTimeout(()=>show(activeCountryFilter===code),0);
     }});
-
     group.addEventListener("keydown",event=>{{
       if(event.key==="Enter"||event.key===" "){{
         event.preventDefault();
@@ -10954,14 +11162,157 @@ function layoutAndRenderCountryMap(){{
         setTimeout(()=>show(activeCountryFilter===code),0);
       }}
     }});
-
     dotLayer.appendChild(group);
 
-    if(activeCountryFilter===code){{
-      show(true);
-    }}
+    const label=document.createElement("button");
+    label.type="button";
+    label.className="country-map-label";
+    if(activeCountryFilter===code)label.classList.add("active");
+    label.dataset.countryFilter=code;
+    label.dataset.count=String(count);
+    label.setAttribute("aria-label",`${{name}} 기사 ${{count}}건 보기`);
+    label.innerHTML=`<span class="map-label-flag">${{flag}}</span><span>${{name}}</span><span class="map-label-count">${{count}}건</span>`;
+    label.style.left=`${{(x/1000)*100}}%`;
+    label.style.top=`${{(y/500)*100}}%`;
+
+    label.addEventListener("mouseenter",()=>show(false));
+    label.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
+    label.addEventListener("focus",()=>show(false));
+    label.addEventListener("blur",()=>hideCountryMapTooltip(false));
+    label.addEventListener("click",event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(code);
+    }});
+
+    labelLayer.appendChild(label);
+    mapItems.push({{label,button,code,count,x,y}});
+
+    if(activeCountryFilter===code)show(true);
+  }});
+
+  requestAnimationFrame(()=>{{
+    const layerRect=labelLayer.getBoundingClientRect();
+    if(!layerRect.width || !layerRect.height)return;
+
+    // 기사 수가 많은 국가를 먼저 배치하여 중요한 라벨 위치를 우선 확보
+    const ordered=[...mapItems].sort((a,b)=>b.count-a.count);
+
+    const placed=[];
+    const edge=4;
+    const gap=4;
+
+    const overlaps=(a,b)=>!(
+      a.right<=b.left || a.left>=b.right || a.bottom<=b.top || a.top>=b.bottom
+    );
+
+    const clamp=(value,min,max)=>Math.max(min,Math.min(value,max));
+
+    const makeBox=(cx,cy,w,h)=>({{
+      left:cx-w/2-gap,
+      right:cx+w/2+gap,
+      top:cy-h/2-gap,
+      bottom:cy+h/2+gap
+    }});
+
+    ordered.forEach(item=>{{
+      const label=item.label;
+      const w=label.offsetWidth;
+      const h=label.offsetHeight;
+
+      const anchorX=(item.x/1000)*layerRect.width;
+      const anchorY=(item.y/500)*layerRect.height;
+
+      const minX=w/2+edge;
+      const maxX=layerRect.width-w/2-edge;
+      const minY=h/2+edge;
+      const maxY=layerRect.height-h/2-edge;
+
+      // 기준 위치 → 주변 8방향 → 더 큰 원형 범위 순서로 후보 탐색
+      const candidates=[{{dx:0,dy:0}}];
+      const baseStep=Math.max(h+gap*2,32);
+      const rings=[1,1.45,1.95,2.55,3.2,4.0];
+
+      rings.forEach(r=>{{
+        const ry=baseStep*r;
+        const rx=Math.max(w*.62,34)*r;
+        [
+          [0,-ry],[rx,-ry],[-rx,-ry],
+          [rx,0],[-rx,0],
+          [0,ry],[rx,ry],[-rx,ry],
+        ].forEach(([dx,dy])=>candidates.push({{dx,dy}}));
+      }});
+
+      let best=null;
+      let bestPenalty=Infinity;
+
+      candidates.forEach(candidate=>{{
+        const cx=clamp(anchorX+candidate.dx,minX,maxX);
+        const cy=clamp(anchorY+candidate.dy,minY,maxY);
+        const box=makeBox(cx,cy,w,h);
+
+        let collisions=0;
+        let overlapArea=0;
+        placed.forEach(p=>{{
+          if(!overlaps(box,p.box))return;
+          collisions++;
+          const iw=Math.max(0,Math.min(box.right,p.box.right)-Math.max(box.left,p.box.left));
+          const ih=Math.max(0,Math.min(box.bottom,p.box.bottom)-Math.max(box.top,p.box.top));
+          overlapArea+=iw*ih;
+        }});
+
+        const distance=Math.hypot(cx-anchorX,cy-anchorY);
+        const penalty=collisions*100000 + overlapArea*100 + distance;
+
+        if(penalty<bestPenalty){{
+          bestPenalty=penalty;
+          best={{cx,cy,box,collisions,distance}};
+        }}
+      }});
+
+      if(!best)return;
+
+      label.style.left=`${{best.cx}}px`;
+      label.style.top=`${{best.cy}}px`;
+
+      placed.push({{box:best.box,code:item.code}});
+
+      // 원래 국가 점에서 라벨이 이동한 경우 연결선을 그려 위치 관계를 명확하게 표시
+      if(best.distance>12){{
+        const line=document.createElementNS(SVG_NS,"line");
+        line.setAttribute("class","country-map-label-connector");
+        line.setAttribute("x1",String(item.x));
+        line.setAttribute("y1",String(item.y));
+        line.setAttribute("x2",String((best.cx/layerRect.width)*1000));
+        line.setAttribute("y2",String((best.cy/layerRect.height)*500));
+        dotLayer.insertBefore(line,dotLayer.firstChild);
+      }}
+    }});
   }});
 }}
+
+
+let countryMapRelayoutTimer=null;
+function scheduleCountryMapRelayout(){{
+  clearTimeout(countryMapRelayoutTimer);
+  countryMapRelayoutTimer=setTimeout(()=>layoutAndRenderCountryMap(),120);
+}}
+
+if(window.ResizeObserver){{
+  const mapVisual=document.querySelector(".country-map-visual");
+  if(mapVisual){{
+    const countryMapResizeObserver=new ResizeObserver(()=>scheduleCountryMapRelayout());
+    countryMapResizeObserver.observe(mapVisual);
+  }}
+}}
+
+window.addEventListener("orientationchange",scheduleCountryMapRelayout);
+window.addEventListener("resize",scheduleCountryMapRelayout);
+if(window.visualViewport){{
+  window.visualViewport.addEventListener("resize",scheduleCountryMapRelayout);
+  window.visualViewport.addEventListener("scroll",scheduleCountryMapRelayout);
+}}
+
 function updateCountryMapCounts(){{
   const panel=activePanel();
   if(!panel)return;
