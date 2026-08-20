@@ -9926,6 +9926,181 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   COUNTRY CAROUSEL + SINGLE COUNTRY MAP
+   모바일: 좌우 스와이프 / 선택칩 자동 중앙정렬 / 지도에는 선택국가 1개만
+   ============================================================ */
+.country-map-visual {{
+  min-height:178px !important;
+  height:clamp(178px,42vw,210px) !important;
+  overflow:hidden !important;
+}}
+
+.country-map-label-layer {{
+  pointer-events:none !important;
+}}
+
+.country-map-label {{
+  display:none !important;
+}}
+
+/* 선택된 국가 라벨 하나만 지도에 표시 */
+.country-map-label.active {{
+  display:inline-flex !important;
+  min-height:30px !important;
+  padding:5px 9px !important;
+  gap:4px !important;
+  border:1px solid #1f4f8a !important;
+  border-radius:999px !important;
+  background:rgba(31,79,138,.96) !important;
+  color:#fff !important;
+  box-shadow:0 4px 12px rgba(17,24,39,.22) !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+  pointer-events:auto !important;
+  z-index:10 !important;
+  backdrop-filter:blur(5px);
+}}
+
+.country-map-label.active .map-label-flag {{
+  font-size:14px !important;
+}}
+
+.country-map-label.active .map-label-count {{
+  color:#fee500 !important;
+  font-size:9px !important;
+  font-weight:900 !important;
+}}
+
+/* 선택한 국가 점 하나만 또렷하게 */
+.country-map-svg-halo {{
+  opacity:.22 !important;
+}}
+.country-map-svg-dot {{
+  stroke-width:5px !important;
+}}
+
+.country-map-caption {{
+  max-width:calc(100% - 16px);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}}
+
+/* 국가 필터를 중앙 선택형 carousel/picker로 변경 */
+#country-chip-rail.country-chip-rail {{
+  position:relative;
+  display:flex !important;
+  align-items:center;
+  gap:7px !important;
+  width:100%;
+  min-height:46px !important;
+  margin:0 !important;
+  padding:5px calc(50% - 64px) 7px !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scroll-snap-type:x mandatory !important;
+  scroll-padding-inline:calc(50% - 64px);
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-x;
+  overscroll-behavior-inline:contain;
+  mask-image:linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}}
+
+#country-chip-rail.country-chip-rail::-webkit-scrollbar {{
+  display:none;
+}}
+
+#country-chip-rail .country-pin {{
+  flex:0 0 auto !important;
+  scroll-snap-align:center !important;
+  scroll-snap-stop:always;
+  min-height:34px !important;
+  height:34px !important;
+  padding:0 11px !important;
+  border:1px solid #dde4ec !important;
+  border-radius:999px !important;
+  background:#fff !important;
+  color:#53657a !important;
+  box-shadow:0 1px 3px rgba(17,24,39,.05) !important;
+  font-size:9px !important;
+  font-weight:800 !important;
+  opacity:.58;
+  transform:scale(.92) !important;
+  transition:
+    transform .18s ease,
+    opacity .18s ease,
+    background .18s ease,
+    border-color .18s ease,
+    color .18s ease,
+    box-shadow .18s ease !important;
+}}
+
+#country-chip-rail .country-pin .flag {{
+  font-size:13px !important;
+}}
+
+#country-chip-rail .country-pin .country-count {{
+  color:#8b96a5 !important;
+  font-size:8px !important;
+}}
+
+/* 선택 칩은 중앙에서 크게 */
+#country-chip-rail .country-pin.active {{
+  opacity:1 !important;
+  transform:scale(1.06) !important;
+  background:#1f4f8a !important;
+  border-color:#1f4f8a !important;
+  color:#fff !important;
+  box-shadow:0 4px 12px rgba(31,79,138,.22) !important;
+  z-index:3;
+}}
+
+#country-chip-rail .country-pin.active .country-count {{
+  color:#fee500 !important;
+}}
+
+.country-chip-guide-bottom {{
+  margin:8px 2px 2px !important;
+  color:#7f8b99 !important;
+  font-size:8px !important;
+  text-align:center !important;
+}}
+
+@media (max-width:767px) {{
+  .country-map-visual {{
+    min-height:182px !important;
+    height:190px !important;
+  }}
+  #country-chip-rail.country-chip-rail {{
+    min-height:50px !important;
+    padding-top:6px !important;
+    padding-bottom:8px !important;
+  }}
+  #country-chip-rail .country-pin {{
+    min-height:36px !important;
+    height:36px !important;
+    padding:0 12px !important;
+    font-size:9.5px !important;
+  }}
+  #country-chip-rail .country-pin .flag {{
+    font-size:14px !important;
+  }}
+  #country-chip-rail .country-pin .country-count {{
+    font-size:8.5px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual {{
+    min-height:176px !important;
+    height:184px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -9975,7 +10150,7 @@ header,
         <div class="world-map-title">국가별 기사</div>
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
-      <div id="country-filter-note" class="country-filter-note country-filter-note-inline"></div>
+      <div id="country-filter-note" class="country-filter-note country-filter-note-inline">국가를 누르면 해당 기사만 볼 수 있습니다</div>
     </div>
 
     <div class="country-map-content">
@@ -10758,12 +10933,12 @@ header,
       <div id="country-map-html-tooltip" class="country-map-html-tooltip" role="status" aria-live="polite"></div>
       <div class="country-map-caption">
         <span class="country-map-caption-dot"></span>
-        기사가 있는 국가만 표시
+        <span id="country-map-caption-text">아래 국가 필터에서 국가를 선택하세요</span>
       </div>
     </div>
     </div>
 
-    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">국가 필터를 누르면 해당 기사만 표시됩니다</div>
+    <div class="country-chip-guide country-chip-guide-bottom" aria-hidden="true">좌우로 넘겨 국가를 선택하세요 · 선택한 국가만 지도에 표시됩니다</div>
     <div id="country-chip-rail" class="country-chip-rail" aria-label="국가별 기사 필터">
       <button id="country-all" class="country-pin country-all active" type="button">
         <span>전체</span><span class="country-count">0건</span>
@@ -11328,231 +11503,125 @@ function hideCountryMapTooltip(force=false){{
 function layoutAndRenderCountryMap(){{
   const dotLayer=document.getElementById("country-map-dots-svg");
   const labelLayer=document.getElementById("country-map-label-layer");
+  const caption=document.getElementById("country-map-caption-text");
   if(!dotLayer || !labelLayer)return;
 
   dotLayer.innerHTML="";
   labelLayer.innerHTML="";
   hideCountryMapTooltip(true);
 
-  const chipButtons=[...document.querySelectorAll(
-    "#country-chip-rail .country-pin[data-country-filter]"
-  )];
+  // 전체 상태에서는 복잡한 국가 점을 모두 숨기고 깨끗한 세계지도만 표시
+  if(!activeCountryFilter){{
+    if(caption)caption.textContent="아래 국가 필터에서 국가를 선택하세요";
+    return;
+  }}
 
-  const SVG_NS="http://www.w3.org/2000/svg";
-  const mapItems=[];
+  // 기타는 정확한 단일 위치를 찍을 수 없으므로 지도는 기본 상태로 유지
+  if(activeCountryFilter==="OTHER"){{
+    if(caption)caption.textContent="기타 국가 기사만 표시 중";
+    return;
+  }}
 
-  // 지도 상시 라벨은 기사 수 상위 5개 국가만 표시해 지도를 가리지 않도록 함
-  const featuredCodes=new Set(
-    chipButtons
-      .filter(button=>!button.hidden && button.dataset.countryFilter && button.dataset.countryFilter!=="OTHER")
-      .map(button=>{{
-        const countNode=button.querySelector(".country-count");
-        const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
-        return {{code:button.dataset.countryFilter,count}};
-      }})
-      .filter(item=>item.count>0)
-      .sort((a,b)=>b.count-a.count)
-      .slice(0,5)
-      .map(item=>item.code)
+  const button=document.querySelector(
+    `#country-chip-rail .country-pin[data-country-filter="${{activeCountryFilter}}"]`
   );
+  if(!button || button.hidden){{
+    if(caption)caption.textContent="선택한 국가의 위치 정보가 없습니다";
+    return;
+  }}
 
-  chipButtons.forEach(button=>{{
-    if(button.hidden)return;
+  const lon=Number(button.dataset.lon);
+  const lat=Number(button.dataset.lat);
+  if(!Number.isFinite(lon)||!Number.isFinite(lat)){{
+    if(caption)caption.textContent="선택한 국가의 위치 정보가 없습니다";
+    return;
+  }}
 
-    const code=button.dataset.countryFilter;
-    if(!code || code==="OTHER")return;
+  const countNode=button.querySelector(".country-count");
+  const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
 
-    const lon=Number(button.dataset.lon);
-    const lat=Number(button.dataset.lat);
-    if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
+  const nameNode=[...button.querySelectorAll("span")]
+    .find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
+  const flag=button.querySelector(".flag")?.textContent||"";
+  const name=nameNode?.textContent||COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter;
 
-    const x=((lon+180)/360)*1000;
-    const y=((85-lat)/145)*500;
+  const x=((lon+180)/360)*1000;
+  const y=((85-lat)/145)*500;
+  const SVG_NS="http://www.w3.org/2000/svg";
 
-    const countNode=button.querySelector(".country-count");
-    const count=Number((countNode?.textContent||"0").replace(/[^0-9]/g,""))||0;
-    if(count<=0)return;
+  const group=document.createElementNS(SVG_NS,"g");
+  group.setAttribute("class","country-map-svg-point active");
+  group.setAttribute("data-country-filter",activeCountryFilter);
+  group.setAttribute("tabindex","0");
+  group.setAttribute("role","button");
+  group.setAttribute("aria-label",`${{name}} 관련 기사 ${{count}}건`);
 
-    const nameNode=[...button.querySelectorAll("span")]
-      .find(node=>!node.classList.contains("flag")&&!node.classList.contains("country-count"));
-    const flag=button.querySelector(".flag")?.textContent||"";
-    const name=nameNode?.textContent||COUNTRY_NAMES[code]||code;
+  const halo=document.createElementNS(SVG_NS,"circle");
+  halo.setAttribute("class","country-map-svg-halo");
+  halo.setAttribute("cx",String(x));
+  halo.setAttribute("cy",String(y));
+  halo.setAttribute("r","34");
 
-    const group=document.createElementNS(SVG_NS,"g");
-    group.setAttribute("class","country-map-svg-point");
-    group.setAttribute("data-country-filter",code);
-    group.setAttribute("tabindex","0");
-    group.setAttribute("role","button");
-    group.setAttribute("aria-label",`${{name}} 관련 기사 ${{count}}건`);
-    if(activeCountryFilter===code)group.classList.add("active");
+  const dot=document.createElementNS(SVG_NS,"circle");
+  dot.setAttribute("class","country-map-svg-dot");
+  dot.setAttribute("cx",String(x));
+  dot.setAttribute("cy",String(y));
+  dot.setAttribute("r","19");
 
-    const halo=document.createElementNS(SVG_NS,"circle");
-    halo.setAttribute("class","country-map-svg-halo");
-    halo.setAttribute("cx",String(x));
-    halo.setAttribute("cy",String(y));
-    halo.setAttribute("r",count>=10?"38":count>=4?"33":"28");
+  const title=document.createElementNS(SVG_NS,"title");
+  title.textContent=`${{flag}} ${{name}} · ${{count}}건`;
 
-    const dot=document.createElementNS(SVG_NS,"circle");
-    dot.setAttribute("class","country-map-svg-dot");
-    dot.setAttribute("cx",String(x));
-    dot.setAttribute("cy",String(y));
-    dot.setAttribute("r",count>=10?"22":count>=4?"19":"16");
+  group.appendChild(halo);
+  group.appendChild(dot);
+  group.appendChild(title);
+  dotLayer.appendChild(group);
 
-    const title=document.createElementNS(SVG_NS,"title");
-    title.textContent=`${{flag}} ${{name}} · ${{count}}건`;
-    group.appendChild(halo);
-    group.appendChild(dot);
-    group.appendChild(title);
+  const show=()=>showCountryMapTooltip(x,y,flag,name,count,false);
+  group.addEventListener("mouseenter",show);
+  group.addEventListener("mouseleave",()=>hideCountryMapTooltip(true));
+  group.addEventListener("focus",show);
+  group.addEventListener("blur",()=>hideCountryMapTooltip(true));
 
-    const show=(persistent=false)=>showCountryMapTooltip(x,y,flag,name,count,persistent);
-
-    group.addEventListener("mouseenter",()=>show(false));
-    group.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
-    group.addEventListener("focus",()=>show(false));
-    group.addEventListener("blur",()=>hideCountryMapTooltip(false));
-    group.addEventListener("click",event=>{{
-      event.preventDefault();
-      event.stopPropagation();
-      setCountryFilter(code);
-      setTimeout(()=>show(activeCountryFilter===code),0);
-    }});
-    group.addEventListener("keydown",event=>{{
-      if(event.key==="Enter"||event.key===" "){{
-        event.preventDefault();
-        setCountryFilter(code);
-        setTimeout(()=>show(activeCountryFilter===code),0);
-      }}
-    }});
-    dotLayer.appendChild(group);
-
-    const label=document.createElement("button");
-    label.type="button";
-    label.className="country-map-label";
-    if(featuredCodes.has(code))label.classList.add("map-label-featured");
-    if(activeCountryFilter===code)label.classList.add("active");
-    label.dataset.countryFilter=code;
-    label.dataset.count=String(count);
-    label.setAttribute("aria-label",`${{name}} 기사 ${{count}}건 보기`);
-    label.innerHTML=`<span class="map-label-flag">${{flag}}</span><span>${{name}}</span><span class="map-label-count">${{count}}건</span>`;
-    label.style.left=`${{(x/1000)*100}}%`;
-    label.style.top=`${{(y/500)*100}}%`;
-
-    label.addEventListener("mouseenter",()=>show(false));
-    label.addEventListener("mouseleave",()=>hideCountryMapTooltip(false));
-    label.addEventListener("focus",()=>show(false));
-    label.addEventListener("blur",()=>hideCountryMapTooltip(false));
-    label.addEventListener("click",event=>{{
-      event.preventDefault();
-      event.stopPropagation();
-      setCountryFilter(code);
-    }});
-
-    labelLayer.appendChild(label);
-    if(featuredCodes.has(code) || activeCountryFilter===code){{
-      mapItems.push({{label,button,code,count,x,y}});
-    }}
-
-    if(activeCountryFilter===code)show(true);
-  }});
+  // 선택 국가 라벨 하나만 지도에 표시
+  const label=document.createElement("button");
+  label.type="button";
+  label.className="country-map-label active";
+  label.dataset.countryFilter=activeCountryFilter;
+  label.setAttribute("aria-label",`${{name}} 기사 ${{count}}건`);
+  label.innerHTML=`<span class="map-label-flag">${{flag}}</span><span>${{name}}</span><span class="map-label-count">${{count}}건</span>`;
+  labelLayer.appendChild(label);
 
   requestAnimationFrame(()=>{{
     const layerRect=labelLayer.getBoundingClientRect();
     if(!layerRect.width || !layerRect.height)return;
 
-    // 기사 수가 많은 국가를 먼저 배치하여 중요한 라벨 위치를 우선 확보
-    const ordered=[...mapItems].sort((a,b)=>b.count-a.count);
+    const anchorX=(x/1000)*layerRect.width;
+    const anchorY=(y/500)*layerRect.height;
+    const w=label.offsetWidth;
+    const h=label.offsetHeight;
+    const edge=6;
 
-    const placed=[];
-    const edge=4;
-    const gap=4;
+    // 국가 점을 최대한 가리지 않도록 위쪽 우선, 화면 밖이면 아래쪽으로 배치
+    let cx=anchorX;
+    let cy=anchorY-h-13;
 
-    const overlaps=(a,b)=>!(
-      a.right<=b.left || a.left>=b.right || a.bottom<=b.top || a.top>=b.bottom
-    );
+    cx=Math.max(w/2+edge,Math.min(cx,layerRect.width-w/2-edge));
+    if(cy<h/2+edge)cy=anchorY+h+13;
+    cy=Math.max(h/2+edge,Math.min(cy,layerRect.height-h/2-edge));
 
-    const clamp=(value,min,max)=>Math.max(min,Math.min(value,max));
+    label.style.left=`${{cx}}px`;
+    label.style.top=`${{cy}}px`;
 
-    const makeBox=(cx,cy,w,h)=>({{
-      left:cx-w/2-gap,
-      right:cx+w/2+gap,
-      top:cy-h/2-gap,
-      bottom:cy+h/2+gap
-    }});
-
-    ordered.forEach(item=>{{
-      const label=item.label;
-      const w=label.offsetWidth;
-      const h=label.offsetHeight;
-
-      const anchorX=(item.x/1000)*layerRect.width;
-      const anchorY=(item.y/500)*layerRect.height;
-
-      const minX=w/2+edge;
-      const maxX=layerRect.width-w/2-edge;
-      const minY=h/2+edge;
-      const maxY=layerRect.height-h/2-edge;
-
-      // 기준 위치 → 주변 8방향 → 더 큰 원형 범위 순서로 후보 탐색
-      const candidates=[{{dx:0,dy:0}}];
-      const baseStep=Math.max(h+gap*2,32);
-      const rings=[1,1.45,1.95,2.55,3.2,4.0];
-
-      rings.forEach(r=>{{
-        const ry=baseStep*r;
-        const rx=Math.max(w*.62,34)*r;
-        [
-          [0,-ry],[rx,-ry],[-rx,-ry],
-          [rx,0],[-rx,0],
-          [0,ry],[rx,ry],[-rx,ry],
-        ].forEach(([dx,dy])=>candidates.push({{dx,dy}}));
-      }});
-
-      let best=null;
-      let bestPenalty=Infinity;
-
-      candidates.forEach(candidate=>{{
-        const cx=clamp(anchorX+candidate.dx,minX,maxX);
-        const cy=clamp(anchorY+candidate.dy,minY,maxY);
-        const box=makeBox(cx,cy,w,h);
-
-        let collisions=0;
-        let overlapArea=0;
-        placed.forEach(p=>{{
-          if(!overlaps(box,p.box))return;
-          collisions++;
-          const iw=Math.max(0,Math.min(box.right,p.box.right)-Math.max(box.left,p.box.left));
-          const ih=Math.max(0,Math.min(box.bottom,p.box.bottom)-Math.max(box.top,p.box.top));
-          overlapArea+=iw*ih;
-        }});
-
-        const distance=Math.hypot(cx-anchorX,cy-anchorY);
-        const penalty=collisions*100000 + overlapArea*100 + distance;
-
-        if(penalty<bestPenalty){{
-          bestPenalty=penalty;
-          best={{cx,cy,box,collisions,distance}};
-        }}
-      }});
-
-      if(!best)return;
-
-      label.style.left=`${{best.cx}}px`;
-      label.style.top=`${{best.cy}}px`;
-
-      placed.push({{box:best.box,code:item.code}});
-
-      // 원래 국가 점에서 라벨이 이동한 경우 연결선을 그려 위치 관계를 명확하게 표시
-      if(best.distance>12){{
-        const line=document.createElementNS(SVG_NS,"line");
-        line.setAttribute("class","country-map-label-connector");
-        line.setAttribute("x1",String(item.x));
-        line.setAttribute("y1",String(item.y));
-        line.setAttribute("x2",String((best.cx/layerRect.width)*1000));
-        line.setAttribute("y2",String((best.cy/layerRect.height)*500));
-        dotLayer.insertBefore(line,dotLayer.firstChild);
-      }}
-    }});
+    const line=document.createElementNS(SVG_NS,"line");
+    line.setAttribute("class","country-map-label-connector");
+    line.setAttribute("x1",String(x));
+    line.setAttribute("y1",String(y));
+    line.setAttribute("x2",String((cx/layerRect.width)*1000));
+    line.setAttribute("y2",String((cy/layerRect.height)*500));
+    dotLayer.insertBefore(line,dotLayer.firstChild);
   }});
+
+  if(caption)caption.textContent=`${{flag}} ${{name}} · ${{count}}건`;
 }}
 
 
@@ -11575,6 +11644,18 @@ window.addEventListener("resize",scheduleCountryMapRelayout);
 if(window.visualViewport){{
   window.visualViewport.addEventListener("resize",scheduleCountryMapRelayout);
   window.visualViewport.addEventListener("scroll",scheduleCountryMapRelayout);
+}}
+
+
+function centerCountryChip(button, smooth=true){{
+  const rail=document.getElementById("country-chip-rail");
+  if(!rail || !button || button.hidden)return;
+
+  const target=button.offsetLeft-(rail.clientWidth-button.offsetWidth)/2;
+  rail.scrollTo({{
+    left:Math.max(0,target),
+    behavior:smooth?"smooth":"auto"
+  }});
 }}
 
 function updateCountryMapCounts(){{
@@ -11607,7 +11688,7 @@ function updateCountryMapCounts(){{
     button.hidden=count===0;
     button.classList.toggle("active",activeCountryFilter===code);
     if(activeCountryFilter===code && !button.hidden){{
-      requestAnimationFrame(()=>button.scrollIntoView({{behavior:"smooth",block:"nearest",inline:"center"}}));
+      requestAnimationFrame(()=>centerCountryChip(button,true));
     }}
   }});
 
@@ -11683,12 +11764,15 @@ function setCountryFilter(code){{
       setTimeout(()=>firstVisibleCard.scrollIntoView({{behavior:"smooth",block:"center"}}),80);
     }}
   }} else {{
-    if(note)note.textContent="";
+    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
   }}
 }}
 
 document.querySelectorAll("#country-chip-rail [data-country-filter]").forEach(button=>{{
-  button.addEventListener("click",()=>setCountryFilter(button.dataset.countryFilter));
+  button.addEventListener("click",()=>{{
+    setCountryFilter(button.dataset.countryFilter);
+    requestAnimationFrame(()=>centerCountryChip(button,true));
+  }});
 }});
 
 const countryAllButton=document.getElementById("country-all");
@@ -11697,8 +11781,9 @@ if(countryAllButton){{
     activeCountryFilter="";
     filterArticles();
     updateCountryMapCounts();
+    requestAnimationFrame(()=>centerCountryChip(countryAllButton,true));
     const note=document.getElementById("country-filter-note");
-    if(note)note.textContent="";
+    if(note)note.textContent="국가를 누르면 해당 기사만 볼 수 있습니다";
   }});
 }}
 
