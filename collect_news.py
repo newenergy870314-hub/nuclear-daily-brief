@@ -8828,7 +8828,7 @@ header,
     <div class="topbar-title-row">
       <h1>원자력 주요기사</h1>
       <div class="topbar-actions">
-        <span class="updated updated-inline">업데이트됨 {generated_at:%-m.%-d %H:%M} KST</span>
+        <span class="updated updated-inline">업데이트됨 {format_korean_date_time(generated_at)} KST</span>
         <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
       </div>
     </div>
@@ -8845,7 +8845,7 @@ header,
         <label class="utility-box date-picker-box" for="archive-date">
           <span class="utility-label">날짜</span>
           <span class="date-control">
-            <span id="archive-date-display" class="date-display">0000.00.00</span>
+            <span id="archive-date-display" class="date-display">0000.00.00(-)</span>
             <span class="date-calendar" aria-hidden="true">▾</span>
             <input id="archive-date" class="date-input" type="date" aria-label="기사 날짜 선택">
           </span>
@@ -10526,7 +10526,15 @@ const archiveInput=document.getElementById("archive-date");
 const archiveDateDisplay=document.getElementById("archive-date-display");
 
 function formatArchiveDateDisplay(value){{
-  return value ? value.replaceAll("-", ".") : "";
+  if(!value) return "";
+  const parts=value.split("-");
+  if(parts.length!==3) return value.replaceAll("-", ".");
+  const year=Number(parts[0]);
+  const month=Number(parts[1]);
+  const day=Number(parts[2]);
+  const weekdayNames=["일","월","화","수","목","금","토"];
+  const weekday=weekdayNames[new Date(year, month-1, day).getDay()];
+  return `${{parts[0]}}.${{parts[1]}}.${{parts[2]}}(${{weekday}})`;
 }}
 
 function updateArchiveDateDisplay(value){{
