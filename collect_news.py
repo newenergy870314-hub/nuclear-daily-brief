@@ -5157,9 +5157,10 @@ def render_group(group: str, articles: list[Article]) -> str:
 
 
 OTHER_CONSTRUCTION_COMPANY_ORDER = [
-    ("현대엔지니어링", ("현대엔지니어링", "hyundai engineering")),
+    ("두산에너빌리티", ("두산에너빌리티", "doosan enerbility")),
     ("삼성물산", ("삼성물산", "samsung c&t")),
     ("대우건설", ("대우건설", "daewoo e&c")),
+    ("현대엔지니어링", ("현대엔지니어링", "hyundai engineering")),
     ("DL이앤씨", ("dl이앤씨", "dl e&c")),
     ("GS건설", ("gs건설", "gs e&c")),
     ("SK에코플랜트", ("sk에코플랜트", "sk ecoplant")),
@@ -5167,7 +5168,6 @@ OTHER_CONSTRUCTION_COMPANY_ORDER = [
     ("롯데건설", ("롯데건설", "lotte e&c")),
     ("HDC현대산업개발", ("hdc현대산업개발", "hdc hyundai development")),
     ("한화 건설부문", ("한화 건설부문", "한화건설", "hanwha construction")),
-    ("두산에너빌리티", ("두산에너빌리티", "doosan enerbility")),
 ]
 
 def _other_construction_company_rank(article: Article) -> tuple[int, str]:
