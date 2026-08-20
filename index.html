@@ -4699,7 +4699,7 @@ header,
 
 .country-map-content .country-map-visual.globe-mode {
   position:relative;
-  height:204px !important;
+  height:226px !important;
   overflow:hidden !important;
   border:1px solid rgba(30,58,95,.42) !important;
   border-radius:14px !important;
@@ -4771,13 +4771,13 @@ header,
 
 .globe-sphere {
   position:relative;
-  width:min(160px, 80%);
+  width:min(184px, 88%);
   aspect-ratio:1/1;
   border-radius:50%;
   overflow:visible;
   isolation:isolate;
-  transform:translateY(10px);
-  filter:drop-shadow(0 10px 14px rgba(35,57,93,.08));
+  transform:translateY(6px);
+  filter:drop-shadow(0 12px 16px rgba(35,57,93,.10));
 }
 
 .globe-canvas {
@@ -4831,6 +4831,22 @@ header,
   pointer-events:none;
 }
 
+.globe-country-connector {
+  position:absolute;
+  height:1.6px;
+  transform-origin:0 50%;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(255,255,255,.72) 0%, rgba(126,208,255,.78) 55%, rgba(126,208,255,.16) 100%);
+  box-shadow:0 0 8px rgba(126,208,255,.20);
+  opacity:.86;
+  pointer-events:none;
+}
+
+.globe-country-connector.orbit-focus {
+  background:linear-gradient(90deg, rgba(255,238,138,.98) 0%, rgba(254,229,0,.92) 60%, rgba(254,229,0,.22) 100%);
+  box-shadow:0 0 10px rgba(254,229,0,.26);
+}
+
 .globe-country-anchor.orbit-focus {
   width:9px;
   height:9px;
@@ -4840,29 +4856,29 @@ header,
 
 .globe-country-label {
   position:absolute;
-  transform:translate(-50%,-50%) scale(calc(.92 + var(--globe-depth, .7) * .12));
+  transform:translate(-50%,-50%) scale(calc(.92 + var(--globe-depth, .7) * .10));
   transform-origin:center;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:4px;
+  gap:5px;
   min-height:24px;
-  max-width:128px;
-  padding:4px 9px;
-  border:1px solid rgba(141,214,255,.34);
+  max-width:132px;
+  padding:4px 10px;
+  border:1px solid rgba(141,214,255,.28);
   border-radius:999px;
-  background:rgba(8,18,34,.68);
+  background:linear-gradient(180deg, rgba(10,24,44,.78) 0%, rgba(7,18,34,.72) 100%);
   color:#eef7ff;
-  box-shadow:0 4px 12px rgba(0,0,0,.16), inset 0 0 0 1px rgba(255,255,255,.04);
+  box-shadow:0 5px 14px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.03);
   font-size:8.2px;
-  font-weight:800;
+  font-weight:780;
   line-height:1;
   white-space:nowrap;
   letter-spacing:-0.05px;
   pointer-events:auto;
   cursor:pointer;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
 }
 
 .globe-country-label:hover,
@@ -4914,11 +4930,78 @@ header,
 }
 
 .globe-control-hint {
-  display:none !important;
+  position:absolute;
+  left:50%;
+  bottom:10px;
+  transform:translateX(-50%);
+  z-index:7;
+  display:flex !important;
+  align-items:center;
+  gap:8px;
+  max-width:calc(100% - 18px);
+  padding:6px 10px;
+  border:1px solid rgba(148,218,255,.22);
+  border-radius:999px;
+  background:rgba(6,14,27,.62);
+  color:#deefff;
+  box-shadow:0 4px 10px rgba(0,0,0,.16);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  font-size:7.2px;
+  font-weight:760;
+  line-height:1;
+  white-space:nowrap;
+  pointer-events:none;
 }
 
+.globe-guide-step {
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  opacity:.96;
+}
+
+.globe-guide-step::before {
+  content:attr(data-step);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:rgba(126,208,255,.18);
+  color:#8dd8ff;
+  font-size:7px;
+  font-weight:900;
+}
+
+.globe-guide-divider {
+  width:1px;
+  height:10px;
+  background:rgba(170,220,255,.18);
+}
+
+
 .country-map-caption {
-  display:none !important;
+  position:absolute !important;
+  top:8px !important;
+  left:8px !important;
+  bottom:auto !important;
+  z-index:6 !important;
+  display:inline-flex !important;
+  align-items:center;
+  gap:5px;
+  max-width:calc(100% - 16px);
+  padding:4px 8px;
+  border:1px solid rgba(148,218,255,.16);
+  border-radius:999px;
+  background:rgba(6,14,27,.52);
+  color:#dbeeff !important;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  font-size:7px !important;
+  font-weight:740 !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.14);
 }
 
 .country-map-caption-dot {
@@ -4930,17 +5013,17 @@ header,
 
 @media (max-width:430px) {
   .country-map-content .country-map-visual.globe-mode {
-    height:194px !important;
+    height:210px !important;
   }
   .globe-sphere {
-    width:min(150px, 82%);
-    transform:translateY(8px);
+    width:min(170px, 86%);
+    transform:translateY(5px);
   }
   .globe-country-label {
     min-height:21px;
-    max-width:108px;
-    padding:2px 6px;
-    font-size:7.3px;
+    max-width:112px;
+    padding:2px 7px;
+    font-size:7.4px;
   }
   .globe-country-flag {
     font-size:10px;
@@ -4949,23 +5032,27 @@ header,
     font-size:7px;
   }
   .globe-control-hint {
-    display:none !important;
+    bottom:8px;
+    padding:6px 8px;
+    font-size:6.6px;
+    gap:6px;
   }
   .country-map-caption {
-    display:none !important;
+    display:inline-flex !important;
+    font-size:6.7px !important;
   }
 }
 
 @media (max-width:380px) {
   .country-map-content .country-map-visual.globe-mode {
-    height:186px !important;
+    height:198px !important;
   }
   .globe-sphere {
-    width:min(144px, 83%);
-    transform:translateY(7px);
+    width:min(156px, 86%);
+    transform:translateY(4px);
   }
   .globe-country-label {
-    max-width:96px;
+    max-width:100px;
     min-height:20px;
     font-size:7px;
   }
@@ -5027,33 +5114,35 @@ header,
 }
 
 .preview-card {
-  grid-template-columns:minmax(0,1fr) 128px !important;
+  grid-template-columns:minmax(0,1fr) 124px !important;
   gap:10px !important;
   min-height:86px !important;
   padding:5px 4px 5px 10px !important;
 }
 
 .card-side {
-  width:128px !important;
-  min-width:128px !important;
+  width:124px !important;
+  min-width:124px !important;
   align-self:center !important;
 }
 
 .preview-image {
-  width:128px !important;
-  height:74px !important;
-  min-height:74px !important;
+  width:124px !important;
+  height:72px !important;
+  min-height:72px !important;
   align-self:center !important;
   border-radius:8px !important;
   overflow:hidden !important;
   background:#edf2f7 !important;
 }
 
-.preview-image img {
+.preview-image img,
+.preview-image svg {
   width:100% !important;
   height:100% !important;
   object-fit:cover !important;
   object-position:50% 50% !important;
+  display:block !important;
 }
 
 @media (max-width:430px) {
@@ -5069,19 +5158,19 @@ header,
     line-height:15px !important;
   }
   .preview-card {
-    grid-template-columns:minmax(0,1fr) 118px !important;
+    grid-template-columns:minmax(0,1fr) 116px !important;
     gap:9px !important;
     min-height:84px !important;
     padding:5px 4px 5px 9px !important;
   }
   .card-side {
-    width:118px !important;
-    min-width:118px !important;
+    width:116px !important;
+    min-width:116px !important;
   }
   .preview-image {
-    width:118px !important;
-    height:70px !important;
-    min-height:70px !important;
+    width:116px !important;
+    height:68px !important;
+    min-height:68px !important;
   }
 }
 
@@ -5100,19 +5189,19 @@ header,
     line-height:14px !important;
   }
   .preview-card {
-    grid-template-columns:minmax(0,1fr) 108px !important;
+    grid-template-columns:minmax(0,1fr) 106px !important;
     gap:8px !important;
     min-height:80px !important;
     padding:4px 3px 4px 8px !important;
   }
   .card-side {
-    width:108px !important;
-    min-width:108px !important;
+    width:106px !important;
+    min-width:106px !important;
   }
   .preview-image {
-    width:108px !important;
-    height:66px !important;
-    min-height:66px !important;
+    width:106px !important;
+    height:64px !important;
+    min-height:64px !important;
   }
 }
 </style>
@@ -5123,7 +5212,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.20(목) 17:20 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.20(목) 17:30 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -5217,7 +5306,7 @@ header,
           <div id="globe-marker-layer" class="globe-marker-layer" aria-label="국가별 기사 바로가기"></div>
           <div class="globe-shine" aria-hidden="true"></div>
         </div>
-        <div class="globe-control-hint">↔ 드래그 회전</div>
+        <div class="globe-control-hint"><span class="globe-guide-step" data-step="1">드래그 회전</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="2">국가 라벨 클릭</span><span class="globe-guide-divider"></span><span class="globe-guide-step" data-step="3">더블클릭 초기화</span></div>
       </div>
       <svg class="world-map-inline globe-texture-source" viewBox="0 0 1000 500" role="img" aria-label="세계지도">
         <g class="world-map-land">
@@ -20714,7 +20803,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27969,7 +28058,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a21e844928a934ea1b9f7abd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/fb6343730f8bae2a412637b4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28233,7 +28322,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397652"
   data-title="[건설업계 브리핑] 삼성물산·GS건설·IPARK현산 外"
   data-publisher="데일리한국"
@@ -28259,7 +28348,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[건설업계 브리핑] 삼성물산·GS건설·IPARK현산 外</div>
+      <div class="headline">[건설업계 브리핑] 삼성물산·GS건설·IPARK현산 外</div>
       <div class="article-snippet">[데일리한국 전준형 기자] ◇삼성물산 래미안 조경, IDEA 디자인 어워드 3년 연속 수상삼성물산 건설부문은 &#x27;IDEA 디자인 어워드 2026&#x27; 환경 부문에서 래미안 조경 작품 2건이 본상을 받았다고 20일 전했다. 수상작은 서울 서초구 래미안 원페를라의 &#x27;윈드 라이브러리 가든&#x27;과 송파구 잠실래미안아이파크의 &#x27;블루 포레스트 가든&#x27;이다. 삼성물산은 2024년부터 3년 연속 IDEA 어워드 수상을 이어갔다.◇GS건설, 현대엘리베이터와 초고층 승강기 기술개발GS건설은 현대엘리베이터와 &#x27;초고층 승강기 기밀 성능 확보를 위한 공동 기술개발&#x27;</div>
     </div>
   </div>
@@ -28688,7 +28777,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397737"
   data-title="현대엔지니어링, 전기차 충전사업 힘 준다…“국내 1위 EVC 사업자 도약”"
   data-publisher="데일리한국"
@@ -28714,7 +28803,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 전기차 충전사업 힘 준다…“국내 1위 EVC 사업자 도약”</div>
+      <div class="headline">현대엔지니어링, 전기차 충전사업 힘 준다…“국내 1위 EVC 사업자 도약”</div>
       <div class="article-snippet">[데일리한국 김하수 기자] 현대엔지니어링이 전기차 충전(EVC) 사업 경쟁력 강화에 나선다.현대엔지니어링은 이사회를 개최하고 한국전기차충전서비스(이하 한충전)를 합병하는 안건을 결의했다고 20일 밝혔다.합병기일은 오는 11월 1일이다. 존속회사인 현대엔지니어링이 소멸회사인 한충전을 흡수합병하는 방식이다. 이번 합병안은 내부 검토와 외부 전문 자문기관의 검토 절차를 거쳐 이사회에 상정됐으며 이사회는 △합병비율의 적정성 △주주가치 영향 △이해상충 가능성 등을 종합적으로 검토해 결의했다.합병비율은 1대 0.3132476이다. 현대엔지니어</div>
     </div>
   </div>
@@ -28758,7 +28847,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ceoscoredaily.com/page/view/2026082016471317032"
   data-title="현대엔지니어링, 한국전기차충전서비스 흡수합병 결의"
   data-publisher="CEO스코어데일리"
@@ -28784,7 +28873,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 한국전기차충전서비스 흡수합병 결의</div>
+      <div class="headline">현대엔지니어링, 한국전기차충전서비스 흡수합병 결의</div>
       <div class="article-snippet">현대엔지니어링 전기차 충전 사업 모델 구상도(AI활용 이미지).&lt;사진제공=현대엔지니어링&gt;현대엔지니어링이 이사회를 개최하고 한국전기차충전서비스를 합병하는 안건을 결의했다고...</div>
     </div>
   </div>
@@ -29283,7 +29372,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260820501154"
   data-title="현대엔지니어링, 한충전 흡수합병… “전기차 충전사업 역량 강화”"
   data-publisher="브릿지경제"
@@ -29309,12 +29398,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 한충전 흡수합병… “전기차 충전사업 역량 강화”</div>
+      <div class="headline">현대엔지니어링, 한충전 흡수합병… “전기차 충전사업 역량 강화”</div>
       <div class="article-snippet">현대엔지니어링이 한국전기차충전서비스(이하 한충전)를 흡수합병하며 전기차 충전사업 역량 강화에 나선다. 현대엔지니어링은 이사회를 열고 한충전을 합병하는 안건을 결의했다고 20일 밝혔다. 합병기일은 오는 11월 1일이며 현대엔지니어링이 존속회사로 한충전을 흡수합병하는 방식</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b51357ea3f7ac22f5eb454b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/7313c805fbd8db01917e5bee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29983,7 +30072,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260820501165"
   data-title="GS건설, 현대엘리베이터와 초고층 승강기 기술 개발 ‘맞손’"
   data-publisher="브릿지경제"
@@ -30009,12 +30098,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 현대엘리베이터와 초고층 승강기 기술 개발 ‘맞손’</div>
+      <div class="headline">GS건설, 현대엘리베이터와 초고층 승강기 기술 개발 ‘맞손’</div>
       <div class="article-snippet">GS건설이 현대엘리베이터와 손잡고 초고층 건축물의 승강기 기밀 성능을 높이는 기술 개발에 나선다. GS건설은 20일 서울 서초구 GS건설 서초타워에서 현대엘리베이터와 ‘초고층 승강기 기밀 성능 확보를 위한 공동 기술개발’ 업무협약(MOU)을 체결했다고 밝혔다. 이번 협</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/614d211b025aaf7240a56a85.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/ad6c89145bcab202ca36d6a8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30228,7 +30317,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820171020578"
   data-title="김윤덕 장관 &amp;quot;신길2도심복합사업 2028년 착공…차질 없이 추진&amp;quot;"
   data-publisher="아주경제"
@@ -30254,7 +30343,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김윤덕 장관 &amp;quot;신길2도심복합사업 2028년 착공…차질 없이 추진&amp;quot;</div>
+      <div class="headline">김윤덕 장관 &amp;quot;신길2도심복합사업 2028년 착공…차질 없이 추진&amp;quot;</div>
       <div class="article-snippet">김윤덕 국토교통부 장관이 20일 서울 영등포구 신길동 신길2 도심공공주택복합사업장에서 열린 간담회에서 발언하고 있다. [사진=국토교통부] 서울 영등포구 신길동 일대에 1332가구를 공급하는 &amp;lsquo;신길2 도심공공주택복합사업&amp;rsquo;이 보상 절차에 들어간다. 정부는 주민과의 소통을 강화해 2028년 착공 목표를 차질 없이 달성한다는 방침이다. &amp;nbsp; 국토교통부는 김윤덕 장관이 20일 해당 사업 현장을 방문해 추진 상황을 점검하고 주민 대표 및 관계기관과 간담회를 열었다고 밝혔다. &amp;nbsp; 사업은 영등포구 신길동 205-136번지 일원 6만704㎡ 부지</div>
     </div>
   </div>
@@ -30593,7 +30682,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">34건</span>
+    <span class="group-count">36건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30673,7 +30762,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787214300"
+  data-published="1787214600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -30702,6 +30791,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.greened.kr/news/articleView.html?idxno=348104"
+  data-title="[데이터 뉴스룸] 에너지業 50곳 부채비율 200% 넘어…가스공사·한전 400%대 vs 삼성SDI 50%대"
+  data-publisher="녹색경제신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787214382"
+  data-country="KR"
+  data-search="[데이터 뉴스룸] 에너지業 50곳 부채비율 200% 넘어…가스공사·한전 400%대 vs 삼성sdi 50%대 녹색경제신문 한국전력 [녹색경제신문 = 한익재 기자] 국내 주요 전기·가스·축전지 등 에너지 관련 업체 50곳의 올 1분기 평균 부채비율은 220%대 수준으로 나타났다. 개별 기업별로 살펴보면 희비는 교차했다. 조사 대상 50곳 중 8곳은 부채비율이 200%를 넘어섰고, 11곳은 50% 미만인 것으로 파악됐다. 특히 한국가스공사(가스공사)와 한국전력공사(한전)는 부채비율이 400%를 넘어섰고, 삼성sdi는 50%대 수준으로 낮은 것으로 파악됐다. 다원시스와 광명전기는 자본잠식 상태에 빠진 것으로 나타났다.이 같은 결과는 본지가 ‘국내 주요 에너지 업체"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">녹색경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[데이터 뉴스룸] 에너지業 50곳 부채비율 200% 넘어…가스공사·한전 400%대 vs 삼성SDI 50%대</div>
+      <div class="article-snippet">[녹색경제신문 = 한익재 기자] 국내 주요 전기·가스·축전지 등 에너지 관련 업체 50곳의 올 1분기 평균 부채비율은 220%대 수준으로 나타났다. 개별 기업별로 살펴보면 희비는 교차했다. 조사 대상 50곳 중 8곳은 부채비율이 200%를 넘어섰고, 11곳은 50% 미만인 것으로 파악됐다. 특히 한국가스공사(가스공사)와 한국전력공사(한전)는 부채비율이 400%를 넘어섰고, 삼성SDI는 50%대 수준으로 낮은 것으로 파악됐다. 다원시스와 광명전기는 자본잠식 상태에 빠진 것으로 나타났다.이 같은 결과는 본지가 ‘국내 주요 에너지 업체</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleView.html?idxno=325962"
   data-title="윤학수 회장 “회원사 위한 의정활동 감사” 김남근 의원 “하도급 구조 개선 논의 필요”"
   data-publisher="대한전문건설신문"
@@ -30714,7 +30838,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30727,7 +30851,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>윤학수 회장 “회원사 위한 의정활동 감사” 김남근 의원 “하도급 구조 개선 논의 필요”</div>
+      <div class="headline">윤학수 회장 “회원사 위한 의정활동 감사” 김남근 의원 “하도급 구조 개선 논의 필요”</div>
       <div class="article-snippet">대한전문건설협회(전건협) 윤학수 중앙회장이 지난 18일 서울 전문건설회관에서 국회 국토교통위원회 소속 김남근 의원과 간담회를 갖고, 전문건설업계가 나아가야 할 방향을 논의했다.올 하반기부터 새롭게 국토교통위원회를 맡게 된 김 의원의 전문건설회관 방문은 이번이 두 번째다. 앞서 지난 7</div>
     </div>
   </div>
@@ -30749,7 +30873,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30784,7 +30908,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30819,7 +30943,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30854,7 +30978,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30889,7 +31013,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30924,7 +31048,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30959,7 +31083,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30994,7 +31118,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31029,7 +31153,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31064,7 +31188,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31099,7 +31223,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31134,7 +31258,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31169,7 +31293,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31204,7 +31328,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31239,7 +31363,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31274,7 +31398,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31309,7 +31433,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31344,7 +31468,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31379,7 +31503,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31414,7 +31538,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31449,7 +31573,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31484,7 +31608,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31519,7 +31643,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31554,7 +31678,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31589,7 +31713,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31624,7 +31748,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31659,7 +31783,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31694,7 +31818,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31729,7 +31853,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31751,6 +31875,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260820164309479"
+  data-title="거제·통영 호우 복구 &#x27;속도&#x27;...이재민 지원 총력"
+  data-publisher="아주경제"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787214355"
+  data-country="KR"
+  data-search="거제·통영 호우 복구 &#x27;속도&#x27;...이재민 지원 총력 아주경제 한국전력 경남도 자연재난과는 20일 브리핑을 통해 거제, 통영 호우피해 복구 관련 브리핑을 하고 있다. [사진=경남도] 기록적인 폭우로 큰 피해를 입은 경남 거제&amp;middot;통영의 응급복구 작업이 속도를 내고 있다. 경남도는 공무원과 군&amp;middot;경찰&amp;middot;소방, 자원봉사자 등 7301명과 장비 1109대를 투입해 도로와 상수도 등 기반시설 복구에 총력을 기울이고 있다. 특히 거제&amp;middot;통영 주민들의 일상 회복에 직결되는 상수도는 공공시설의 경우 20일 중 복구를 마무리한다는 목표다. 다만 침수된 오피스텔과 공동주택 등 사유시설의 전기&amp;middot;배수 설"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">35.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>거제·통영 호우 복구 &#x27;속도&#x27;...이재민 지원 총력</div>
+      <div class="article-snippet">경남도 자연재난과는 20일 브리핑을 통해 거제, 통영 호우피해 복구 관련 브리핑을 하고 있다. [사진=경남도] 기록적인 폭우로 큰 피해를 입은 경남 거제&amp;middot;통영의 응급복구 작업이 속도를 내고 있다. 경남도는 공무원과 군&amp;middot;경찰&amp;middot;소방, 자원봉사자 등 7301명과 장비 1109대를 투입해 도로와 상수도 등 기반시설 복구에 총력을 기울이고 있다. 특히 거제&amp;middot;통영 주민들의 일상 회복에 직결되는 상수도는 공공시설의 경우 20일 중 복구를 마무리한다는 목표다. 다만 침수된 오피스텔과 공동주택 등 사유시설의 전기&amp;middot;배수 설</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7663358eaf2d59280aa200d9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820152112122"
   data-title="인크루트 &amp;quot;대기업 10곳 중 7곳 하반기 채용 나서&amp;quot;"
@@ -31764,7 +31923,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32207,7 +32366,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.donga.com/news/Economy/article/all/20260820/134512713/1"
   data-title="3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요"
   data-publisher="동아일보"
@@ -32233,7 +32392,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요</div>
+      <div class="headline">3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요</div>
       <div class="article-snippet">반도체 산업단지와 인공지능(AI) 데이터센터 등 3대 메가프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kW로 전망됐다. 이는 올해 4월 전망보다 2680만 kW 늘어난 것으로, 반도체 클러스터와 AI 데이터센터에 대형 원전 19기 설비용량에 달하는 전력…</div>
     </div>
   </div>
@@ -34113,7 +34272,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787214370"
+  data-published="1787214855"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -34815,7 +34974,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://economictimes.indiatimes.com/news/international/australia/quote-of-the-day-by-jessica-alba-i-share-the-same-advice-that-my-mom-gave-me-stay-hydrated-and-fantastic-four-actress-on-beauty-confidence-and-self-worth/articleshow/133369644.cms"
   data-title="Quote of the Day by Jessica Alba: ‘I share the same advice that my mom gave me: stay hydrated and…’ – Fantastic Four actress on beauty, confidence and self-worth"
   data-publisher="The Economic Times"
@@ -34841,7 +35000,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Quote of the Day by Jessica Alba: ‘I share the same advice that my mom gave me: stay hydrated and…’ – Fantastic Four actress on beauty, confidence and self-worth</div>
+      <div class="headline">Quote of the Day by Jessica Alba: ‘I share the same advice that my mom gave me: stay hydrated and…’ – Fantastic Four actress on beauty, confidence and self-worth</div>
       <div class="article-snippet">Actress and entrepreneur Jessica Alba defines beauty as inner character and self-care. She advises staying hydrated and sleeping well, which her mother taught her. Alba co-founded The Honest Company, focusing on health and sustainability in products. Her career spanned films and television, making her a recognizable fi</div>
     </div>
   </div>
@@ -35827,7 +35986,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397652"
   data-title="[건설업계 브리핑] 삼성물산·GS건설·IPARK현산 外"
   data-publisher="데일리한국"
@@ -35853,7 +36012,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[건설업계 브리핑] 삼성물산·GS건설·IPARK현산 外</div>
+      <div class="headline">[건설업계 브리핑] 삼성물산·GS건설·IPARK현산 外</div>
       <div class="article-snippet">[데일리한국 전준형 기자] ◇삼성물산 래미안 조경, IDEA 디자인 어워드 3년 연속 수상삼성물산 건설부문은 &#x27;IDEA 디자인 어워드 2026&#x27; 환경 부문에서 래미안 조경 작품 2건이 본상을 받았다고 20일 전했다. 수상작은 서울 서초구 래미안 원페를라의 &#x27;윈드 라이브러리 가든&#x27;과 송파구 잠실래미안아이파크의 &#x27;블루 포레스트 가든&#x27;이다. 삼성물산은 2024년부터 3년 연속 IDEA 어워드 수상을 이어갔다.◇GS건설, 현대엘리베이터와 초고층 승강기 기술개발GS건설은 현대엘리베이터와 &#x27;초고층 승강기 기밀 성능 확보를 위한 공동 기술개발&#x27;</div>
     </div>
   </div>
@@ -36282,7 +36441,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397737"
   data-title="현대엔지니어링, 전기차 충전사업 힘 준다…“국내 1위 EVC 사업자 도약”"
   data-publisher="데일리한국"
@@ -36308,7 +36467,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 전기차 충전사업 힘 준다…“국내 1위 EVC 사업자 도약”</div>
+      <div class="headline">현대엔지니어링, 전기차 충전사업 힘 준다…“국내 1위 EVC 사업자 도약”</div>
       <div class="article-snippet">[데일리한국 김하수 기자] 현대엔지니어링이 전기차 충전(EVC) 사업 경쟁력 강화에 나선다.현대엔지니어링은 이사회를 개최하고 한국전기차충전서비스(이하 한충전)를 합병하는 안건을 결의했다고 20일 밝혔다.합병기일은 오는 11월 1일이다. 존속회사인 현대엔지니어링이 소멸회사인 한충전을 흡수합병하는 방식이다. 이번 합병안은 내부 검토와 외부 전문 자문기관의 검토 절차를 거쳐 이사회에 상정됐으며 이사회는 △합병비율의 적정성 △주주가치 영향 △이해상충 가능성 등을 종합적으로 검토해 결의했다.합병비율은 1대 0.3132476이다. 현대엔지니어</div>
     </div>
   </div>
@@ -36352,7 +36511,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ceoscoredaily.com/page/view/2026082016471317032"
   data-title="현대엔지니어링, 한국전기차충전서비스 흡수합병 결의"
   data-publisher="CEO스코어데일리"
@@ -36378,7 +36537,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 한국전기차충전서비스 흡수합병 결의</div>
+      <div class="headline">현대엔지니어링, 한국전기차충전서비스 흡수합병 결의</div>
       <div class="article-snippet">현대엔지니어링 전기차 충전 사업 모델 구상도(AI활용 이미지).&lt;사진제공=현대엔지니어링&gt;현대엔지니어링이 이사회를 개최하고 한국전기차충전서비스를 합병하는 안건을 결의했다고...</div>
     </div>
   </div>
@@ -36877,7 +37036,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260820501154"
   data-title="현대엔지니어링, 한충전 흡수합병… “전기차 충전사업 역량 강화”"
   data-publisher="브릿지경제"
@@ -36903,12 +37062,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 한충전 흡수합병… “전기차 충전사업 역량 강화”</div>
+      <div class="headline">현대엔지니어링, 한충전 흡수합병… “전기차 충전사업 역량 강화”</div>
       <div class="article-snippet">현대엔지니어링이 한국전기차충전서비스(이하 한충전)를 흡수합병하며 전기차 충전사업 역량 강화에 나선다. 현대엔지니어링은 이사회를 열고 한충전을 합병하는 안건을 결의했다고 20일 밝혔다. 합병기일은 오는 11월 1일이며 현대엔지니어링이 존속회사로 한충전을 흡수합병하는 방식</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b51357ea3f7ac22f5eb454b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/7313c805fbd8db01917e5bee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37577,7 +37736,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260820501165"
   data-title="GS건설, 현대엘리베이터와 초고층 승강기 기술 개발 ‘맞손’"
   data-publisher="브릿지경제"
@@ -37603,12 +37762,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 현대엘리베이터와 초고층 승강기 기술 개발 ‘맞손’</div>
+      <div class="headline">GS건설, 현대엘리베이터와 초고층 승강기 기술 개발 ‘맞손’</div>
       <div class="article-snippet">GS건설이 현대엘리베이터와 손잡고 초고층 건축물의 승강기 기밀 성능을 높이는 기술 개발에 나선다. GS건설은 20일 서울 서초구 GS건설 서초타워에서 현대엘리베이터와 ‘초고층 승강기 기밀 성능 확보를 위한 공동 기술개발’ 업무협약(MOU)을 체결했다고 밝혔다. 이번 협</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/614d211b025aaf7240a56a85.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/ad6c89145bcab202ca36d6a8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37822,7 +37981,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820171020578"
   data-title="김윤덕 장관 &amp;quot;신길2도심복합사업 2028년 착공…차질 없이 추진&amp;quot;"
   data-publisher="아주경제"
@@ -37848,7 +38007,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김윤덕 장관 &amp;quot;신길2도심복합사업 2028년 착공…차질 없이 추진&amp;quot;</div>
+      <div class="headline">김윤덕 장관 &amp;quot;신길2도심복합사업 2028년 착공…차질 없이 추진&amp;quot;</div>
       <div class="article-snippet">김윤덕 국토교통부 장관이 20일 서울 영등포구 신길동 신길2 도심공공주택복합사업장에서 열린 간담회에서 발언하고 있다. [사진=국토교통부] 서울 영등포구 신길동 일대에 1332가구를 공급하는 &amp;lsquo;신길2 도심공공주택복합사업&amp;rsquo;이 보상 절차에 들어간다. 정부는 주민과의 소통을 강화해 2028년 착공 목표를 차질 없이 달성한다는 방침이다. &amp;nbsp; 국토교통부는 김윤덕 장관이 20일 해당 사업 현장을 방문해 추진 상황을 점검하고 주민 대표 및 관계기관과 간담회를 열었다고 밝혔다. &amp;nbsp; 사업은 영등포구 신길동 205-136번지 일원 6만704㎡ 부지</div>
     </div>
   </div>
@@ -38187,7 +38346,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">34건</span>
+    <span class="group-count">36건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -38267,7 +38426,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787214300"
+  data-published="1787214600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -38296,6 +38455,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.greened.kr/news/articleView.html?idxno=348104"
+  data-title="[데이터 뉴스룸] 에너지業 50곳 부채비율 200% 넘어…가스공사·한전 400%대 vs 삼성SDI 50%대"
+  data-publisher="녹색경제신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787214382"
+  data-country="KR"
+  data-search="[데이터 뉴스룸] 에너지業 50곳 부채비율 200% 넘어…가스공사·한전 400%대 vs 삼성sdi 50%대 녹색경제신문 한국전력 [녹색경제신문 = 한익재 기자] 국내 주요 전기·가스·축전지 등 에너지 관련 업체 50곳의 올 1분기 평균 부채비율은 220%대 수준으로 나타났다. 개별 기업별로 살펴보면 희비는 교차했다. 조사 대상 50곳 중 8곳은 부채비율이 200%를 넘어섰고, 11곳은 50% 미만인 것으로 파악됐다. 특히 한국가스공사(가스공사)와 한국전력공사(한전)는 부채비율이 400%를 넘어섰고, 삼성sdi는 50%대 수준으로 낮은 것으로 파악됐다. 다원시스와 광명전기는 자본잠식 상태에 빠진 것으로 나타났다.이 같은 결과는 본지가 ‘국내 주요 에너지 업체"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">녹색경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[데이터 뉴스룸] 에너지業 50곳 부채비율 200% 넘어…가스공사·한전 400%대 vs 삼성SDI 50%대</div>
+      <div class="article-snippet">[녹색경제신문 = 한익재 기자] 국내 주요 전기·가스·축전지 등 에너지 관련 업체 50곳의 올 1분기 평균 부채비율은 220%대 수준으로 나타났다. 개별 기업별로 살펴보면 희비는 교차했다. 조사 대상 50곳 중 8곳은 부채비율이 200%를 넘어섰고, 11곳은 50% 미만인 것으로 파악됐다. 특히 한국가스공사(가스공사)와 한국전력공사(한전)는 부채비율이 400%를 넘어섰고, 삼성SDI는 50%대 수준으로 낮은 것으로 파악됐다. 다원시스와 광명전기는 자본잠식 상태에 빠진 것으로 나타났다.이 같은 결과는 본지가 ‘국내 주요 에너지 업체</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleView.html?idxno=325962"
   data-title="윤학수 회장 “회원사 위한 의정활동 감사” 김남근 의원 “하도급 구조 개선 논의 필요”"
   data-publisher="대한전문건설신문"
@@ -38308,7 +38502,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38321,7 +38515,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>윤학수 회장 “회원사 위한 의정활동 감사” 김남근 의원 “하도급 구조 개선 논의 필요”</div>
+      <div class="headline">윤학수 회장 “회원사 위한 의정활동 감사” 김남근 의원 “하도급 구조 개선 논의 필요”</div>
       <div class="article-snippet">대한전문건설협회(전건협) 윤학수 중앙회장이 지난 18일 서울 전문건설회관에서 국회 국토교통위원회 소속 김남근 의원과 간담회를 갖고, 전문건설업계가 나아가야 할 방향을 논의했다.올 하반기부터 새롭게 국토교통위원회를 맡게 된 김 의원의 전문건설회관 방문은 이번이 두 번째다. 앞서 지난 7</div>
     </div>
   </div>
@@ -38343,7 +38537,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38378,7 +38572,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38413,7 +38607,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38448,7 +38642,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38483,7 +38677,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38518,7 +38712,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38553,7 +38747,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38588,7 +38782,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38623,7 +38817,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38658,7 +38852,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38693,7 +38887,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38728,7 +38922,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38763,7 +38957,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38798,7 +38992,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38833,7 +39027,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38868,7 +39062,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38903,7 +39097,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38938,7 +39132,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38973,7 +39167,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39008,7 +39202,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39043,7 +39237,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39078,7 +39272,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39113,7 +39307,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39148,7 +39342,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39183,7 +39377,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39218,7 +39412,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39253,7 +39447,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39288,7 +39482,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39323,7 +39517,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39345,6 +39539,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260820164309479"
+  data-title="거제·통영 호우 복구 &#x27;속도&#x27;...이재민 지원 총력"
+  data-publisher="아주경제"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787214355"
+  data-country="KR"
+  data-search="거제·통영 호우 복구 &#x27;속도&#x27;...이재민 지원 총력 아주경제 한국전력 경남도 자연재난과는 20일 브리핑을 통해 거제, 통영 호우피해 복구 관련 브리핑을 하고 있다. [사진=경남도] 기록적인 폭우로 큰 피해를 입은 경남 거제&amp;middot;통영의 응급복구 작업이 속도를 내고 있다. 경남도는 공무원과 군&amp;middot;경찰&amp;middot;소방, 자원봉사자 등 7301명과 장비 1109대를 투입해 도로와 상수도 등 기반시설 복구에 총력을 기울이고 있다. 특히 거제&amp;middot;통영 주민들의 일상 회복에 직결되는 상수도는 공공시설의 경우 20일 중 복구를 마무리한다는 목표다. 다만 침수된 오피스텔과 공동주택 등 사유시설의 전기&amp;middot;배수 설"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">35.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>거제·통영 호우 복구 &#x27;속도&#x27;...이재민 지원 총력</div>
+      <div class="article-snippet">경남도 자연재난과는 20일 브리핑을 통해 거제, 통영 호우피해 복구 관련 브리핑을 하고 있다. [사진=경남도] 기록적인 폭우로 큰 피해를 입은 경남 거제&amp;middot;통영의 응급복구 작업이 속도를 내고 있다. 경남도는 공무원과 군&amp;middot;경찰&amp;middot;소방, 자원봉사자 등 7301명과 장비 1109대를 투입해 도로와 상수도 등 기반시설 복구에 총력을 기울이고 있다. 특히 거제&amp;middot;통영 주민들의 일상 회복에 직결되는 상수도는 공공시설의 경우 20일 중 복구를 마무리한다는 목표다. 다만 침수된 오피스텔과 공동주택 등 사유시설의 전기&amp;middot;배수 설</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7663358eaf2d59280aa200d9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820152112122"
   data-title="인크루트 &amp;quot;대기업 10곳 중 7곳 하반기 채용 나서&amp;quot;"
@@ -39358,7 +39587,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39801,7 +40030,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.donga.com/news/Economy/article/all/20260820/134512713/1"
   data-title="3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요"
   data-publisher="동아일보"
@@ -39827,7 +40056,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요</div>
+      <div class="headline">3대 메가프로젝트 반영한 전력 수요, 2040년 ‘원전 19기 용량’ 더 필요</div>
       <div class="article-snippet">반도체 산업단지와 인공지능(AI) 데이터센터 등 3대 메가프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kW로 전망됐다. 이는 올해 4월 전망보다 2680만 kW 늘어난 것으로, 반도체 클러스터와 AI 데이터센터에 대형 원전 19기 설비용량에 달하는 전력…</div>
     </div>
   </div>
@@ -41707,7 +41936,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787214370"
+  data-published="1787214855"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -42409,7 +42638,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://economictimes.indiatimes.com/news/international/australia/quote-of-the-day-by-jessica-alba-i-share-the-same-advice-that-my-mom-gave-me-stay-hydrated-and-fantastic-four-actress-on-beauty-confidence-and-self-worth/articleshow/133369644.cms"
   data-title="Quote of the Day by Jessica Alba: ‘I share the same advice that my mom gave me: stay hydrated and…’ – Fantastic Four actress on beauty, confidence and self-worth"
   data-publisher="The Economic Times"
@@ -42435,7 +42664,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Quote of the Day by Jessica Alba: ‘I share the same advice that my mom gave me: stay hydrated and…’ – Fantastic Four actress on beauty, confidence and self-worth</div>
+      <div class="headline">Quote of the Day by Jessica Alba: ‘I share the same advice that my mom gave me: stay hydrated and…’ – Fantastic Four actress on beauty, confidence and self-worth</div>
       <div class="article-snippet">Actress and entrepreneur Jessica Alba defines beauty as inner character and self-care. She advises staying hydrated and sleeping well, which her mother taught her. Alba co-founded The Honest Company, focusing on health and sustainability in products. Her career spanned films and television, making her a recognizable fi</div>
     </div>
   </div>
@@ -47207,7 +47436,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9c139b26c0265a4b6fca3609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/84a638537864e7b4a3015d67.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -54462,7 +54691,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a21e844928a934ea1b9f7abd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/fb6343730f8bae2a412637b4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -136600,6 +136829,7 @@ const globeState={
   sourceCanvas:null,
   sourceCtx:null,
   maskData:null,
+  boundaryData:null,
   textureCanvas:null,
   textureCtx:null,
   textureData:null,
@@ -136629,12 +136859,14 @@ function projectGlobePoint(lon,lat,rotationLon){
   const lambda=(lon-rotationLon)*toRad;
   const phi=lat*toRad;
   const cosPhi=Math.cos(phi);
+  const sinPhi=Math.sin(phi);
   const z=cosPhi*Math.cos(lambda);
+  const xNorm=cosPhi*Math.sin(lambda);
   return {
-    visible:z>0.035,
+    visible:z>0.02,
     z,
-    x:50 + 47*cosPhi*Math.sin(lambda),
-    y:50 - 47*Math.sin(phi)
+    x:50 + 48.5*xNorm,
+    y:50 - 48.5*sinPhi
   };
 }
 
@@ -136671,6 +136903,39 @@ function prepareGlobeTexture(){
       }catch(error){
         globeState.maskData=null;
       }
+
+      // Boundary overlay for clearer country / continental separation.
+      try{
+        const boundaryClone=document.createElementNS('http://www.w3.org/2000/svg','svg');
+        boundaryClone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+        boundaryClone.setAttribute('viewBox','0 0 1000 500');
+        boundaryClone.setAttribute('width','1000');
+        boundaryClone.setAttribute('height','500');
+        const style=document.createElementNS('http://www.w3.org/2000/svg','style');
+        style.textContent=`.world-map-country-lines path{stroke:#ffffff;stroke-width:1.4;fill:none;stroke-linejoin:round;stroke-linecap:round;opacity:1;} .world-map-coast-lines path{stroke:#d8f0ff;stroke-width:1.8;fill:none;stroke-linejoin:round;stroke-linecap:round;opacity:1;} .world-map-land path{fill:none;stroke:none;}`;
+        boundaryClone.appendChild(style);
+        sourceSvg.querySelectorAll('.world-map-country-lines, .world-map-coast-lines').forEach(node=>boundaryClone.appendChild(node.cloneNode(true)));
+        const boundaryXml=new XMLSerializer().serializeToString(boundaryClone);
+        const boundaryBlob=new Blob([boundaryXml],{type:'image/svg+xml'});
+        const boundaryUrl=URL.createObjectURL(boundaryBlob);
+        const boundaryImg=new Image();
+        boundaryImg.onload=()=>{
+          const boundaryCanvas=document.createElement('canvas');
+          boundaryCanvas.width=1000;
+          boundaryCanvas.height=500;
+          const boundaryCtx=boundaryCanvas.getContext('2d',{willReadFrequently:true});
+          boundaryCtx.clearRect(0,0,1000,500);
+          boundaryCtx.drawImage(boundaryImg,0,0,1000,500);
+          globeState.boundaryData=boundaryCtx.getImageData(0,0,1000,500).data;
+          URL.revokeObjectURL(boundaryUrl);
+          renderGlobeFrame(true);
+        };
+        boundaryImg.onerror=()=>URL.revokeObjectURL(boundaryUrl);
+        boundaryImg.src=boundaryUrl;
+      }catch(error){
+        console.warn('[GLOBE BOUNDARY]',error);
+      }
+
       const textureInfo=buildSatelliteTexture(sourceCtx,1000,500);
       globeState.textureCanvas=textureInfo.canvas;
       globeState.textureCtx=textureInfo.ctx;
@@ -136886,6 +137151,7 @@ function renderGlobeCanvas(){
 
   const texture=globeState.textureData;
   const mask=globeState.maskData;
+  const boundary=globeState.boundaryData;
   const texW=globeState.textureWidth || 1000;
   const texH=globeState.textureHeight || 500;
 
@@ -136926,14 +137192,30 @@ function renderGlobeCanvas(){
       let g=texture[si+1];
       let b=texture[si+2];
 
-      const lightDirX=-.36, lightDirY=-.15, lightDirZ=.92;
-      const diffuse=Math.max(.34,nx*lightDirX+ny*lightDirY+z*lightDirZ);
-      const daylight=.74 + .26*diffuse;
+      const lightDirX=-.34, lightDirY=-.14, lightDirZ=.93;
+      const diffuse=Math.max(.36,nx*lightDirX+ny*lightDirY+z*lightDirZ);
+      const daylight=.78 + .22*diffuse;
       r*=daylight; g*=daylight; b*=daylight;
 
       if(!isLand){
-        const spec=Math.pow(Math.max(0,nx*(-.22)+ny*(-.14)+z*.96),20);
-        r+=48*spec; g+=74*spec; b+=92*spec;
+        const spec=Math.pow(Math.max(0,nx*(-.22)+ny*(-.13)+z*.965),20);
+        r+=44*spec; g+=70*spec; b+=88*spec;
+      }
+
+      if(boundary){
+        const boundaryAlpha=boundary[si+3]/255;
+        if(boundaryAlpha>0.08){
+          const boundaryStrength=Math.min(0.62, boundaryAlpha*0.76) * (0.82 + z*0.18);
+          if(isLand){
+            r=mix(r,232,boundaryStrength);
+            g=mix(g,243,boundaryStrength);
+            b=mix(b,250,boundaryStrength);
+          } else {
+            r=mix(r,176,boundaryStrength*0.40);
+            g=mix(g,224,boundaryStrength*0.52);
+            b=mix(b,245,boundaryStrength*0.62);
+          }
+        }
       }
 
       const cloudSignal=(
@@ -136941,15 +137223,15 @@ function renderGlobeCanvas(){
         0.58*Math.sin((lonDeg-globeState.rotationLon*0.10)*0.49 - latDeg*0.18) +
         0.34*Math.sin(lonDeg*0.88 + latDeg*0.71)
       );
-      const cloud=Math.max(0,Math.min(.14,(cloudSignal-1.20)*.18));
+      const cloud=Math.max(0,Math.min(.12,(cloudSignal-1.22)*.18));
       r=mix(r,248,cloud);
       g=mix(g,250,cloud);
       b=mix(b,252,cloud);
 
-      const rim=Math.pow(1-z,2.45);
-      r=mix(r,122,rim*.08);
-      g=mix(g,200,rim*.12);
-      b=mix(b,244,rim*.17);
+      const rim=Math.pow(1-z,2.35);
+      r=mix(r,128,rim*.08);
+      g=mix(g,204,rim*.12);
+      b=mix(b,244,rim*.18);
 
       data[di]=clamp255(r);
       data[di+1]=clamp255(g);
@@ -136963,8 +137245,8 @@ function renderGlobeCanvas(){
   ctx.save();
   ctx.beginPath();
   ctx.arc(radius,radius,radius-2,0,Math.PI*2);
-  ctx.strokeStyle='rgba(178,232,255,.62)';
-  ctx.lineWidth=2.4;
+  ctx.strokeStyle='rgba(178,232,255,.68)';
+  ctx.lineWidth=2.5;
   ctx.stroke();
   ctx.restore();
 }
@@ -136986,65 +137268,64 @@ function renderGlobeMarkers(){
   const layerRect=layer.getBoundingClientRect();
   const centerX=layerRect.width/2;
   const centerY=layerRect.height/2;
-  const labelMaxWidth=window.innerWidth<=430 ? 104 : 118;
+  const labelMaxWidth=window.innerWidth<=430 ? 112 : 132;
   const labelHeight=22;
   const placed=[];
 
-  const extraOffsets={
-    KR:[[-28,-12],[-30,10],[-12,-24],[-36,-2]],
-    JP:[[28,-12],[30,10],[12,-24],[36,-2]],
-    CN:[[-24,10],[-18,-16],[-8,24]],
-    TW:[[22,14],[18,-12]],
-    US:[[18,-10],[-18,-10],[0,18]],
-    GB:[[-12,-8],[12,8]],
-    FR:[[-14,8],[14,-8]],
-    RU:[[0,-16],[18,10],[-18,10]]
+  const specialOffsets={
+    KR:[[-16,-10],[-20,12],[-10,-26],[-26,-2]],
+    JP:[[16,-10],[20,12],[10,-26],[26,-2]],
+    CN:[[-24,8],[-18,-16],[-10,22]],
+    US:[[14,-10],[-14,-10],[0,18]],
+    GB:[[-10,-8],[10,8]],
+    FR:[[-12,8],[12,-8]],
+    RU:[[0,-14],[16,10],[-16,10]]
   };
 
   projected.forEach((item,index)=>{
     const p=item.projection;
-    const important=item.count>=10 || item.code===activeCountryFilter || item.code==='KR' || item.code==='JP';
+    const important=item.count>=10 || item.code===activeCountryFilter || item.code==='KR' || item.code==='JP' || item.code===focusCode;
     const maxLabels=window.innerWidth<=430 ? 8 : 12;
     if(index>=maxLabels && !important)return;
 
     const baseX=(p.x/100)*layerRect.width;
     const baseY=(p.y/100)*layerRect.height;
+
     const anchor=document.createElement('div');
     anchor.className='globe-country-anchor' + (item.code===focusCode ? ' orbit-focus' : '');
     anchor.style.left=`${baseX}px`;
     anchor.style.top=`${baseY}px`;
     layer.appendChild(anchor);
 
-    const approxWidth=Math.min(labelMaxWidth,56+item.name.length*6.4+(String(item.count).length*6));
+    const approxWidth=Math.min(labelMaxWidth,58+item.name.length*6.5+(String(item.count).length*6));
     let vx=baseX-centerX;
     let vy=baseY-centerY;
     const len=Math.hypot(vx,vy) || 1;
     vx/=len; vy/=len;
 
-    // Push labels more to the side/outside so the globe itself stays visible.
-    if(Math.abs(vx)<0.28){
-      vx = baseX>=centerX ? 0.95 : -0.95;
-      vy *= 0.40;
+    // steer labels outward and slightly to the side to keep the globe visible
+    if(Math.abs(vx)<0.32){
+      vx = baseX>=centerX ? 0.96 : -0.96;
+      vy *= 0.34;
     }
     const perpX=-vy;
     const perpY=vx;
-    const radialBase=item.code==='KR' || item.code==='JP' ? 56 : 46;
-    const focusBoost=item.code===focusCode ? 6 : 0;
+    const radialBase=item.code==='KR' || item.code==='JP' ? 58 : 50;
+    const focusBoost=item.code===focusCode ? 10 : 0;
     const candidates=[];
     const pushCandidate=(ox,oy)=>candidates.push([ox,oy]);
-
     pushCandidate(vx*(radialBase+focusBoost), vy*(radialBase+focusBoost));
-    pushCandidate(vx*(radialBase+14)+perpX*10, vy*(radialBase+14)+perpY*10);
-    pushCandidate(vx*(radialBase+14)-perpX*10, vy*(radialBase+14)-perpY*10);
-    pushCandidate(vx*(radialBase+22), vy*(radialBase+22));
-    pushCandidate(vx*(radialBase+20)+perpX*18, vy*(radialBase+20)+perpY*18);
-    pushCandidate(vx*(radialBase+20)-perpX*18, vy*(radialBase+20)-perpY*18);
-    (extraOffsets[item.code]||[]).forEach(([dx,dy])=>pushCandidate(vx*radialBase+dx, vy*radialBase+dy));
+    pushCandidate(vx*(radialBase+16)+perpX*12, vy*(radialBase+16)+perpY*12);
+    pushCandidate(vx*(radialBase+16)-perpX*12, vy*(radialBase+16)-perpY*12);
+    pushCandidate(vx*(radialBase+24), vy*(radialBase+24));
+    pushCandidate(vx*(radialBase+24)+perpX*18, vy*(radialBase+24)+perpY*18);
+    pushCandidate(vx*(radialBase+24)-perpX*18, vy*(radialBase+24)-perpY*18);
+    (specialOffsets[item.code]||[]).forEach(([dx,dy])=>pushCandidate(vx*radialBase+dx, vy*radialBase+dy));
 
     let chosen=null;
     for(const [dx,dy] of candidates){
       const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + dx));
-      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 6, baseY + dy));
+      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 28, baseY + dy));
       const rect={left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2};
       const overlaps=placed.some(r=>!(rect.right<r.left || rect.left>r.right || rect.bottom<r.top || rect.top>r.bottom));
       if(!overlaps){
@@ -137056,11 +137337,23 @@ function renderGlobeMarkers(){
 
     if(!chosen){
       if(!important)return;
-      const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + vx*(radialBase+26)));
-      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 6, baseY + vy*(radialBase+18)));
+      const cx=Math.max(approxWidth/2 + 4, Math.min(layerRect.width - approxWidth/2 - 4, baseX + vx*(radialBase+28)));
+      const cy=Math.max(labelHeight/2 + 6, Math.min(layerRect.height - labelHeight/2 - 28, baseY + vy*(radialBase+20)));
       placed.push({left:cx-approxWidth/2,right:cx+approxWidth/2,top:cy-labelHeight/2,bottom:cy+labelHeight/2});
       chosen={x:cx,y:cy};
     }
+
+    const dx=chosen.x-baseX;
+    const dy=chosen.y-baseY;
+    const distance=Math.max(10, Math.hypot(dx,dy)-approxWidth*0.35);
+    const angle=Math.atan2(dy,dx)*180/Math.PI;
+    const connector=document.createElement('div');
+    connector.className='globe-country-connector' + (item.code===focusCode ? ' orbit-focus' : '');
+    connector.style.left=`${baseX}px`;
+    connector.style.top=`${baseY}px`;
+    connector.style.width=`${distance}px`;
+    connector.style.transform=`translateY(-50%) rotate(${angle}deg)`;
+    layer.appendChild(connector);
 
     const btn=document.createElement('button');
     btn.type='button';
@@ -137096,7 +137389,7 @@ function startGlobeAnimation(){
     const delta=Math.min(40,now-globeState.lastFrame);
     globeState.lastFrame=now;
     if(globeState.autoRotate && !globeState.dragging){
-      globeState.rotationLon=normalizeGlobeLon(globeState.rotationLon + delta*0.0042);
+      globeState.rotationLon=normalizeGlobeLon(globeState.rotationLon + delta*0.0034);
       renderGlobeFrame();
     }
     globeState.frameId=requestAnimationFrame(tick);
@@ -137181,8 +137474,8 @@ function layoutAndRenderCountryMap(){
 
   if(caption){
     caption.textContent=activeCountryFilter
-      ? `${COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter}만 표시`
-      : '국가 선택';
+      ? `${COUNTRY_NAMES[activeCountryFilter]||activeCountryFilter} 기사만 표시`
+      : '지구본에서 국가 선택';
   }
 
   renderGlobeFrame(true);
