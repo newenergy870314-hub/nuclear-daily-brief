@@ -18320,6 +18320,8 @@ function getCountryMapAnchor(item){{
   return projectExactSvgPoint(item.lon,item.lat);
 }}
 
+const FINAL_CONTINENT_DOCK_ORDER = ['NA','EU','AS','MEA','OC'];
+
 function ensureMapStateChip(items){{
   const visual=document.querySelector('.country-map-visual.globe-mode');
   if(!visual)return;
@@ -18354,7 +18356,7 @@ function renderContinentRail2D(items){{
   if(!rail){{rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}}
   const counts={{}};
   const articles={{}};
-  CONTINENT_ORDER.forEach(c=>{{counts[c]=0;articles[c]=0;}});
+  FINAL_CONTINENT_DOCK_ORDER.forEach(c=>{{counts[c]=0;articles[c]=0;}});
   items.forEach(item=>{{
     if(!item.continent||!CONTINENT_META[item.continent]||item.count<=0)return;
     counts[item.continent]=(counts[item.continent]||0)+1;
@@ -18362,7 +18364,7 @@ function renderContinentRail2D(items){{
   }});
   rail.innerHTML='<div class="continent-rail-scroll" aria-label="대륙 선택"></div>';
   const scroll=rail.querySelector('.continent-rail-scroll');
-  CONTINENT_ORDER.forEach(code=>{{
+  FINAL_CONTINENT_DOCK_ORDER.forEach(code=>{{
     if(code==='ALL')return;
     const btn=document.createElement('button');
     btn.type='button';
