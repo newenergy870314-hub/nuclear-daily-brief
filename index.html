@@ -5656,6 +5656,7 @@ header,
 @media (max-width:430px) {
   .preview-copy {
     min-height:86px !important;
+    column-gap:3px !important;
   }
   .important-button {
     margin-left:auto !important;
@@ -5667,38 +5668,41 @@ header,
   }
   .preview-card {
     grid-template-columns:minmax(0,1fr) 116px !important;
-    gap:9px !important;
+    gap:6px !important;
     min-height:86px !important;
-    padding:4px 4px 4px 9px !important;
+    height:86px !important;
+    padding:0 3px 0 5px !important;
   }
   .card-side {
     width:116px !important;
     min-width:116px !important;
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
-    align-self:center !important;
+    height:86px !important;
+    min-height:86px !important;
+    max-height:86px !important;
+    align-self:stretch !important;
   }
   .preview-image {
     width:116px !important;
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
+    height:86px !important;
+    min-height:86px !important;
+    max-height:86px !important;
     border-radius:0 !important;
   }
   .headline {
     font-size:12.6px !important;
+    margin:1px 0 2px !important;
   }
   .article-snippet {
+    margin-top:0 !important;
     font-size:9.9px !important;
-    line-height:1.33 !important;
+    line-height:1.31 !important;
   }
 }
 
 @media (max-width:380px) {
   .preview-copy {
     grid-template-columns:16px minmax(0,1fr) !important;
-    column-gap:4px !important;
+    column-gap:3px !important;
     min-height:82px !important;
   }
   .important-button {
@@ -5711,31 +5715,34 @@ header,
   }
   .preview-card {
     grid-template-columns:minmax(0,1fr) 106px !important;
-    gap:8px !important;
+    gap:6px !important;
     min-height:82px !important;
-    padding:4px 3px 4px 8px !important;
+    height:82px !important;
+    padding:0 2px 0 5px !important;
   }
   .card-side {
     width:106px !important;
     min-width:106px !important;
-    height:74px !important;
-    min-height:74px !important;
-    max-height:74px !important;
-    align-self:center !important;
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
+    align-self:stretch !important;
   }
   .preview-image {
     width:106px !important;
-    height:74px !important;
-    min-height:74px !important;
-    max-height:74px !important;
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
     border-radius:0 !important;
   }
   .headline {
     font-size:12.2px !important;
+    margin:1px 0 2px !important;
   }
   .article-snippet {
+    margin-top:0 !important;
     font-size:9.6px !important;
-    line-height:1.31 !important;
+    line-height:1.29 !important;
   }
 }
 
@@ -7436,7 +7443,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 10:45 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 11:15 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -8263,6 +8270,11 @@ header,
       <button class="country-pin country-cn" data-country-filter="CN" data-lon="104.2" data-lat="35.9" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
       <button class="country-pin country-jp" data-country-filter="JP" data-lon="138.3" data-lat="36.2" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
       <button class="country-pin country-au" data-country-filter="AU" data-lon="133.8" data-lat="-25.3" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-br" data-country-filter="BR" data-lon="-51.9" data-lat="-14.2" type="button"><span class="flag">🇧🇷</span><span>브라질</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ar" data-country-filter="AR" data-lon="-63.6" data-lat="-38.4" type="button"><span class="flag">🇦🇷</span><span>아르헨티나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cl" data-country-filter="CL" data-lon="-71.5" data-lat="-35.7" type="button"><span class="flag">🇨🇱</span><span>칠레</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pe" data-country-filter="PE" data-lon="-75.0" data-lat="-9.2" type="button"><span class="flag">🇵🇪</span><span>페루</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-co" data-country-filter="CO" data-lon="-74.3" data-lat="4.6" type="button"><span class="flag">🇨🇴</span><span>콜롬비아</span><span class="country-count">0건</span></button>
       <button class="country-pin country-za" data-country-filter="ZA" data-lon="22.9" data-lat="-30.6" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
       <button class="country-pin country-sk" data-country-filter="SK" data-lon="19.7" data-lat="48.7" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
       <button class="country-pin country-dk" data-country-filter="DK" data-lon="9.5" data-lat="56.3" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
@@ -15916,7 +15928,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cf458718&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58b71046b0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -15951,7 +15963,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c9846650&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cc93cc50&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -21360,7 +21372,7 @@ header,
   data-language="ko"
   data-priority="1"
   data-published="1787200244"
-  data-country="OTHER"
+  data-country="BR"
   data-search="포스코이앤씨, 2600억원대 ‘고의파산’ 논란...k건설 신뢰 추락 esg경제 타 건설사 [esg경제신문=김대우 기자] 포스코이앤씨가 브라질에서 시공한 해외 플랜트 사업과 관련해 채권 회수 문제가 불거지면서 이른바 ‘고의파산’ 논란이 좀처럼 사그러들지 않고 있다.해외 발주처와 현지 법인을 둘러싼 복잡한 법적 분쟁이 이어지는 가운데 국내 대표 건설사인 포스코이앤씨의 책임론까지 확산되면서 k건설의 대외 신뢰도에 적지 않은 타격이 예상된다.20일 업계에 따르면 약 54억 달러(약 7조 4000억원) 규모의 브라질 세아라주 페셍 산업단지 내 csp 제철소 건설 프로젝트 관련 채권자들은 사업 수행 과정에서 핵심 자산과 수익이 다"
   tabindex="0" role="link">
   <div class="preview-copy">
@@ -28046,7 +28058,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787245612"
+  data-published="1787246147"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -32042,7 +32054,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">15건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32151,6 +32163,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.econovill.com/news/articleView.html?idxno=748575"
+  data-title="“물량 75%가 특별공급”…대우건설, ‘검암역 푸르지오 프라베뉴’ 21일 선봬"
+  data-publisher="이코노믹리뷰"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787276489"
+  data-country="OTHER"
+  data-search="“물량 75%가 특별공급”…대우건설, ‘검암역 푸르지오 프라베뉴’ 21일 선봬 이코노믹리뷰 타 건설사 대우건설이 민간참여 공공분양 단지 ‘검암역 푸르지오 프라베뉴’ 공급에 나선다.대우건설은 인천광역시 서해구 검암동 일원에 짓는 ‘검암역 푸르지오 프라베뉴’의 견본주택을 21일 개관하고 본격적인 분양에 나선다고 밝혔다.이 단지는 지하 2층~지상 25층, 3개 동, 총 441가구 규모이며, 전용면적 60~84㎡ 중소형으로 구성된다.청약 접수는 오는 31일 특별공급, 9월 1일 1순위, 9월 2일 2순위, 당첨자 발표는 9월 8일, 정당 계약은 11월 2일부터 11월 4일까지 3일간 이어질 예정이다.‘검암역 푸르지오 프라베뉴’는 전체 공급"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이코노믹리뷰</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>“물량 75%가 특별공급”…대우건설, ‘검암역 푸르지오 프라베뉴’ 21일 선봬</div>
+      <div class="article-snippet">대우건설이 민간참여 공공분양 단지 ‘검암역 푸르지오 프라베뉴’ 공급에 나선다.대우건설은 인천광역시 서해구 검암동 일원에 짓는 ‘검암역 푸르지오 프라베뉴’의 견본주택을 21일 개관하고 본격적인 분양에 나선다고 밝혔다.이 단지는 지하 2층~지상 25층, 3개 동, 총 441가구 규모이며, 전용면적 60~84㎡ 중소형으로 구성된다.청약 접수는 오는 31일 특별공급, 9월 1일 1순위, 9월 2일 2순위, 당첨자 발표는 9월 8일, 정당 계약은 11월 2일부터 11월 4일까지 3일간 이어질 예정이다.‘검암역 푸르지오 프라베뉴’는 전체 공급</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a27cd73babce635ff5557533.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.seoulfn.com/news/articleView.html?idxno=636131"
   data-title="[분양] 대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 외 - 서울파이낸스"
   data-publisher="서울파이낸스"
@@ -32163,7 +32210,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32176,7 +32223,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[분양] 대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 외 - 서울파이낸스</div>
+      <div class="headline">[분양] 대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 외 - 서울파이낸스</div>
       <div class="article-snippet">[서울파이낸스 김예온 기자] 대우건설은 인천광역시 서해구 검암동 일원에 조성하는 &#x27;검암역 푸르지오 프라베뉴&#x27;의 견본주택을 개관하고 본격적인 분양일정에 들어갔다고</div>
     </div>
   </div>
@@ -32198,7 +32245,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32233,7 +32280,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32268,7 +32315,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32303,7 +32350,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32326,6 +32373,76 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.econovill.com/news/articleView.html?idxno=748580"
+  data-title="DL이앤씨, ‘e편한세상 동탄역 어반원’ 오피스텔 240실 공급"
+  data-publisher="이코노믹리뷰"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787277275"
+  data-country="OTHER"
+  data-search="dl이앤씨, ‘e편한세상 동탄역 어반원’ 오피스텔 240실 공급 이코노믹리뷰 타 건설사 dl이앤씨가 동탄2신도시 일원에 선보이는 ‘e편한세상 동탄역 어반원’ 주거형 오피스텔이 주거 대안으로 관심 받고 있다.고금리·분양가 상승·대출 규제로 아파트 진입 부담은 커진 반면, 오피스텔은 청약통장 부담이 낮고 상대적으로 접근 문턱이 낮기 때문이다.21일 dl이앤씨에 따르면, 이 단지는 지하 4층~지상 46층, 3개 동 아파트 610가구와 지하 3층~지상 26층, 1개동 주거형 오피스텔 240실 규모로 조성된다.이 단지의 가장 큰 장점은 gtx와 srt 동탄역을 도보로 이용할 수 있는 역세권에 자리한다는 점이다. 또 강남, 판교"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">10.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이코노믹리뷰</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>DL이앤씨, ‘e편한세상 동탄역 어반원’ 오피스텔 240실 공급</div>
+      <div class="article-snippet">DL이앤씨가 동탄2신도시 일원에 선보이는 ‘e편한세상 동탄역 어반원’ 주거형 오피스텔이 주거 대안으로 관심 받고 있다.고금리·분양가 상승·대출 규제로 아파트 진입 부담은 커진 반면, 오피스텔은 청약통장 부담이 낮고 상대적으로 접근 문턱이 낮기 때문이다.21일 DL이앤씨에 따르면, 이 단지는 지하 4층~지상 46층, 3개 동 아파트 610가구와 지하 3층~지상 26층, 1개동 주거형 오피스텔 240실 규모로 조성된다.이 단지의 가장 큰 장점은 GTX와 SRT 동탄역을 도보로 이용할 수 있는 역세권에 자리한다는 점이다. 또 강남, 판교</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/31977fc289d66b67222a691c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1680688/GS%EA%B1%B4%EC%84%A4-%EB%AA%A9%EB%8F%9912%EB%8B%A8%EC%A7%80-%EC%88%98%EC%A3%BC-%EC%B4%9D%EB%A0%A5%EC%8B%A0%ED%95%9C%EC%9D%80-2026"
+  data-title="GS건설, 목동12단지 수주 총력…신한은행과 사업비·이주비 조달 맞손"
+  data-publisher="데일리안"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787277480"
+  data-country="OTHER"
+  data-search="gs건설, 목동12단지 수주 총력…신한은행과 사업비·이주비 조달 맞손 데일리안 타 건설사 목동12단지 재건축 사업 수주에 뛰어든 gs건설이 안정적인 금융조달의 기반을 마련하고자 신한은행과 협력관계를 구축한다.gs건설은 21일 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약(mou)를 체결했다고 밝혔다.이번 협약을 통해 양사는 목동12단지 재건축사업에 필요한 사업비와 조합원"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">11.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 목동12단지 수주 총력…신한은행과 사업비·이주비 조달 맞손</div>
+      <div class="article-snippet">목동12단지 재건축 사업 수주에 뛰어든 GS건설이 안정적인 금융조달의 기반을 마련하고자 신한은행과 협력관계를 구축한다.GS건설은 21일 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약(MOU)를 체결했다고 밝혔다.이번 협약을 통해 양사는 목동12단지 재건축사업에 필요한 사업비와 조합원</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/17fee0f8e43f6084a0c6a0fd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.asiae.co.kr/article/2026082110411375002"
   data-title="GS건설, 목동12단지 재건축 정조준…신한은행과 금융 협력"
   data-publisher="아시아경제"
@@ -32338,7 +32455,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32351,47 +32468,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 목동12단지 재건축 정조준…신한은행과 금융 협력</div>
+      <div class="headline">GS건설, 목동12단지 재건축 정조준…신한은행과 금융 협력</div>
       <div class="article-snippet">GS건설은 21일 서울 종로구 그랑서울 본사에서 신한은행과 목동12단지아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약(MOU)을 체결했다고 21일 .</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/737c5351a04184e95b7a439e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://biz.heraldcorp.com/article/10847801"
-  data-title="GS건설, 신한은행과 목동12단지 재건축 금융 MOU…수주 행보 본격화"
-  data-publisher="헤럴드경제"
-  data-group="타 건설사"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787276018"
-  data-country="OTHER"
-  data-search="gs건설, 신한은행과 목동12단지 재건축 금융 mou…수주 행보 본격화 헤럴드경제 타 건설사 gs건설은 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지 재건축정비사업의 원활한 추진을 위한 금융 업무협약(mou)을 체결했다고 21일 밝혔으며 양사는 향후"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">헤럴드경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">GS건설, 신한은행과 목동12단지 재건축 금융 MOU…수주 행보 본격화</div>
-      <div class="article-snippet">GS건설은 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지 재건축정비사업의 원활한 추진을 위한 금융 업무협약(MOU)을 체결했다고 21일 밝혔으며 양사는 향후</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b53bbf5c79b8d57fd2081759.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32408,7 +32490,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32443,7 +32525,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32478,7 +32560,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32513,7 +32595,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32548,7 +32630,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32569,6 +32651,41 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/131f676d167a9cd3810070e6.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003757312"
+  data-title="송도 발코니 붕괴 아파트…박찬대 &quot;인허가 과정 살펴봐야&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787277791"
+  data-country="OTHER"
+  data-search="송도 발코니 붕괴 아파트…박찬대 &quot;인허가 과정 살펴봐야&quot; 뉴시스 타 건설사 [인천=뉴시스] 전예준 기자 = 박찬대 인천시장이 최근 송도국제도시에서 발생한 아파트 발코니 붕괴 사고와 관련해 해당 아파트의 건축 인허가 과정도 살펴봐야 한다고 강조했다. 박 시장과 남영희 시 정무부시장은 21일 인천시청에서 열린 국토교통부-인천시 공동 시설물사고조사위원회 첫 회의에 참석해 위원들에게 철저한 조사를 당부했다. 박 시장은 &quot;입주한 지 1년 조금 넘은 아파트 발코니가 붕괴된 것은 우리 사회의 신뢰 자산이 무너진 것이라고 본다&quot;며 &quot;어떻게 이 사태까지 왔는지 사조위가 사고 원인을 확실하게 밝혀내고, 신뢰를 쌓아나갈 기초를 분명히 해줬으면 좋겠다&quot;고 말했다"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">18.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>송도 발코니 붕괴 아파트…박찬대 &quot;인허가 과정 살펴봐야&quot;</div>
+      <div class="article-snippet">[인천=뉴시스] 전예준 기자 = 박찬대 인천시장이 최근 송도국제도시에서 발생한 아파트 발코니 붕괴 사고와 관련해 해당 아파트의 건축 인허가 과정도 살펴봐야 한다고 강조했다. 박 시장과 남영희 시 정무부시장은 21일 인천시청에서 열린 국토교통부-인천시 공동 시설물사고조사위원회 첫 회의에 참석해 위원들에게 철저한 조사를 당부했다. 박 시장은 &quot;입주한 지 1년 조금 넘은 아파트 발코니가 붕괴된 것은 우리 사회의 신뢰 자산이 무너진 것이라고 본다&quot;며 &quot;어떻게 이 사태까지 왔는지 사조위가 사고 원인을 확실하게 밝혀내고, 신뢰를 쌓아나갈 기초를 분명히 해줬으면 좋겠다&quot;고 말했다</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d1d88214200b4241514af7b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -32576,9 +32693,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104705"
+  data-title="고리원자력본부, 을지연습 실제훈련 전개…비상사태 대응력 향상"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787276671"
+  data-country="KR"
+  data-search="고리원자력본부, 을지연습 실제훈련 전개…비상사태 대응력 향상 에너지플랫폼뉴스 한국수력원자력 [에너지플랫폼뉴스 박병인 기자] 고리원자력본부가 전시 동원령 선포 상황을 가정한 을지연습을 전개하며 비상사태에 대한 대응력을 향상시켰다.한국수력원자력 고리원자력본부(본부장 반병훈)는 2026년 을지연습 기간 중인 20일, 본부 내에서 ‘을지연습 실제훈련’을 실시했다.이번 훈련은 적 드론 및 지상침투의 동시다발적인 상황에서 국가중요시설인 원자력발전소의 통합 방호능력을 향상하기 위해 마련되었으며, 훈련에는 고리원자력본부 청원경찰, 특수경비대, 자체소방대를 비롯해 기장경찰서, 제53보병사단 예하 부대 등 300여 명이 참가했다. 특히 전"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, 을지연습 실제훈련 전개…비상사태 대응력 향상</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 고리원자력본부가 전시 동원령 선포 상황을 가정한 을지연습을 전개하며 비상사태에 대한 대응력을 향상시켰다.한국수력원자력 고리원자력본부(본부장 반병훈)는 2026년 을지연습 기간 중인 20일, 본부 내에서 ‘을지연습 실제훈련’을 실시했다.이번 훈련은 적 드론 및 지상침투의 동시다발적인 상황에서 국가중요시설인 원자력발전소의 통합 방호능력을 향상하기 위해 마련되었으며, 훈련에는 고리원자력본부 청원경찰, 특수경비대, 자체소방대를 비롯해 기장경찰서, 제53보병사단 예하 부대 등 300여 명이 참가했다. 특히 전</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d35824f6b6d9181aadca8667.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.asiae.co.kr/article/2026082109523943239"
   data-title="새울원자력본부, ‘2026 새울 아카데미 2기’ 수료식 개최… 두 달간 여정 마무리"
@@ -32592,7 +32744,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32614,6 +32766,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104704"
+  data-title="새울원자력본부, 지역 역량 강화 앞장…교육과정 운영 ‘성과’"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787273069"
+  data-country="KR"
+  data-search="새울원자력본부, 지역 역량 강화 앞장…교육과정 운영 ‘성과’ 에너지플랫폼뉴스 한국수력원자력 [에너지플랫폼뉴스 박병인 기자] 새울원자력본부가 지역 역량 강화를 위한 교육과정을 운영한 가운데, 수료식이 열리며 결실을 맺었다.한국수력원자력(주) 새울원자력본부(본부장 김상우, 이하 새울본부)는 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 개최하며 지난 두 달간 진행된 교육 과정을 성공적으로 마무리했다.‘2026년 새울 아카데미 2기’는 단순한 지식 전달을 넘어, 지역주민과 새울본부가 지역사회의 미래를 함께 그려나가기 위해 기획된 지역 밀착형 교육 프로그램이다. 이번 2기 과정은 박혜령 대표의 ‘팀 빌딩을 활용한"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, 지역 역량 강화 앞장…교육과정 운영 ‘성과’</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 새울원자력본부가 지역 역량 강화를 위한 교육과정을 운영한 가운데, 수료식이 열리며 결실을 맺었다.한국수력원자력(주) 새울원자력본부(본부장 김상우, 이하 새울본부)는 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 개최하며 지난 두 달간 진행된 교육 과정을 성공적으로 마무리했다.‘2026년 새울 아카데미 2기’는 단순한 지식 전달을 넘어, 지역주민과 새울본부가 지역사회의 미래를 함께 그려나가기 위해 기획된 지역 밀착형 교육 프로그램이다. 이번 2기 과정은 박혜령 대표의 ‘팀 빌딩을 활용한</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4213d3c237d7d6f043aebe89.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202400"
   data-title="새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리"
@@ -32627,7 +32814,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32804,9 +32991,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.sentv.co.kr/article/view/sentv202608210084"
+  data-title="전남개발공사-한전KDN, 청년드림 만원주택 ‘스마트 주거서비스’ 발굴 나선다"
+  data-publisher="서울경제TV"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787277671"
+  data-country="KR"
+  data-search="전남개발공사-한전kdn, 청년드림 만원주택 ‘스마트 주거서비스’ 발굴 나선다 서울경제tv 한전 계열사 전남개발공사와 한전kdn이 청년층의 주거 부담을 낮추는 데서 한발 더 나아가 생활 편의까지 높이는 스마트 주거서비스 발굴에 나선다. 전남개발공사"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>전남개발공사-한전KDN, 청년드림 만원주택 ‘스마트 주거서비스’ 발굴 나선다</div>
+      <div class="article-snippet">전남개발공사와 한전KDN이 청년층의 주거 부담을 낮추는 데서 한발 더 나아가 생활 편의까지 높이는 스마트 주거서비스 발굴에 나선다. 전남개발공사</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3970b531afd3ae32d32afd1a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="원자력 협회·학회">
@@ -32936,9 +33158,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ngetnews.com/news/articleView.html?idxno=552596"
+  data-title="이 대통령, 최태원과 비공개 만찬…반도체·대미투자 논의 촉각"
+  data-publisher="뉴스저널리즘"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787276913"
+  data-country="OTHER"
+  data-search="이 대통령, 최태원과 비공개 만찬…반도체·대미투자 논의 촉각 뉴스저널리즘 원전 대미투자 이재명 대통령이 최태원 sk그룹 회장과 비공개 만찬을 하면서 정부가 속도를 내는 반도체 투자와 대미 투자 협상이 주목된다.21일 재계에 따르면 이 대통령은 전날 최 회장과 만찬 회동을 한 것으로 알려졌다. 청와대는 이 대통령과 최 회장의 회동 여부에 대해 &quot;비공개 일정에 대한 확인은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스저널리즘</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>이 대통령, 최태원과 비공개 만찬…반도체·대미투자 논의 촉각</div>
+      <div class="article-snippet">이재명 대통령이 최태원 SK그룹 회장과 비공개 만찬을 하면서 정부가 속도를 내는 반도체 투자와 대미 투자 협상이 주목된다.21일 재계에 따르면 이 대통령은 전날 최 회장과 만찬 회동을 한 것으로 알려졌다. 청와대는 이 대통령과 최 회장의 회동 여부에 대해 &quot;비공개 일정에 대한 확인은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/11b7b9f358ad8d2f16fd3685.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hani.co.kr/arti/economy/marketing/1273974.html"
   data-title="이 대통령-최태원 비공개 만찬…국내 반도체 팹과 대미 투자 논의한 듯"
@@ -32952,7 +33209,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32987,7 +33244,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33022,7 +33279,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33057,7 +33314,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33092,7 +33349,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33127,7 +33384,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33162,7 +33419,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33197,7 +33454,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33225,9 +33482,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://biz.heraldcorp.com/article/10847867"
+  data-title="[사설] 데이터센터도 원전·송전망도…갈등해결 제도화가 AI경쟁력"
+  data-publisher="헤럴드경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787277977"
+  data-country="US"
+  data-search="[사설] 데이터센터도 원전·송전망도…갈등해결 제도화가 ai경쟁력 헤럴드경제 원자력 미국에서 인공지능(ai) 데이터센터 건립에 대한 지역 주민 반대가 확산하면서 각 주(州)정부가 규제를 강화하고 있다. 오는 11월 중간선거 최대 쟁점 중 하나로 더올랐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[사설] 데이터센터도 원전·송전망도…갈등해결 제도화가 AI경쟁력</div>
+      <div class="article-snippet">미국에서 인공지능(AI) 데이터센터 건립에 대한 지역 주민 반대가 확산하면서 각 주(州)정부가 규제를 강화하고 있다. 오는 11월 중간선거 최대 쟁점 중 하나로 더올랐다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://wimg.heraldcorp.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=5776"
   data-title="한국원자력의학원-서울과기대, 의과학 진로탐색 프로그램 운영 - 에너지안전신문"
@@ -33241,7 +33533,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33276,7 +33568,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33311,7 +33603,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33333,6 +33625,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00009&amp;news_seq_no=5213866"
+  data-title="2026년 8월 21일 매일경제 1면…&#x27;암 정복 한 발 더&#x27; mRNA 치료 백신 첫 3상 성공 [아침&amp;매일경제]"
+  data-publisher="MBN"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787273460"
+  data-country="OTHER"
+  data-search="2026년 8월 21일 매일경제 1면…&#x27;암 정복 한 발 더&#x27; mrna 치료 백신 첫 3상 성공 [아침&amp;매일경제] mbn 원자력 출연자]윤영걸 전 매경ax 대표최창렬 용인대 특임교수차재원 부산가톨릭대학교 특임교수문종형 국민의힘 미디어대변인#mbn #mbn아침앤매일경제 #민지숙앵커 #암 #정복 #mrna #개인맞춤형 #치료백신 #성공 #코로나19 #트럼프 #김정은 #핵 #타협 #비핵화 #이재명 #국힘 #징계 #당원권정지 #윤리위 #조희대 #후임 #서면제청 #손봉기 #반려 #원전 #전력량 #반도체 #ai #용산 #부동산 #주택공급 #김윤덕 #오세훈"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">MBN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>2026년 8월 21일 매일경제 1면…&#x27;암 정복 한 발 더&#x27; mRNA 치료 백신 첫 3상 성공 [아침&amp;매일경제]</div>
+      <div class="article-snippet">출연자]윤영걸 전 매경AX 대표최창렬 용인대 특임교수차재원 부산가톨릭대학교 특임교수문종형 국민의힘 미디어대변인#MBN #MBN아침앤매일경제 #민지숙앵커 #암 #정복 #mRNA #개인맞춤형 #치료백신 #성공 #코로나19 #트럼프 #김정은 #핵 #타협 #비핵화 #이재명 #국힘 #징계 #당원권정지 #윤리위 #조희대 #후임 #서면제청 #손봉기 #반려 #원전 #전력량 #반도체 #AI #용산 #부동산 #주택공급 #김윤덕 #오세훈</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bde0be1f22b1fca1f4f8cbc3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260821000046"
   data-title="대전TP, 이차전지 실무 아카데미 교육생 모집…현장형 교육 무료 운영"
@@ -33346,7 +33673,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33381,7 +33708,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33416,7 +33743,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33451,7 +33778,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33486,7 +33813,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33521,7 +33848,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33556,7 +33883,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33591,7 +33918,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33626,7 +33953,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33661,7 +33988,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33682,6 +34009,41 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/2a2d95a5f96a17241c15bb92.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260821111158830"
+  data-title="정점식 &amp;quot;李 정부, 검증된 상식·신뢰 국정으로 기조 전환해야&amp;quot;"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787278594"
+  data-country="OTHER"
+  data-search="정점식 &amp;quot;李 정부, 검증된 상식·신뢰 국정으로 기조 전환해야&amp;quot; 아주경제 원자력 국민의힘 임이자 정책위의장(왼쪽)과 정점식 원내대표가 21일 국회에서 열린 원내대책회의에 참석하고 있다. [사진=연합뉴스] 정점식 국민의힘 원내대표가 21일 부동산을 비롯한 경제 정책의 기조를 시장 중심으로 바꿔야 한다고 주장했다. 김용범 청와대 정책실장 등 경제 라인 변화도 함께 촉구했다. 정 원내대표는 이날 국회에서 열린 원내대책회의에서 &amp;quot;이재명 정부 2차 개각에 대한 소문이 무성한데, 입각에 거론되는 인사 면면을 보니 우려된다&amp;quot;며 이같이 강조했다. 개각의 목적이 자리 돌려막기가 아닌 국정기조 전환이어야 한다는 의견을 밝힌 정 원내대표는 &amp;quo"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">16.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>정점식 &amp;quot;李 정부, 검증된 상식·신뢰 국정으로 기조 전환해야&amp;quot;</div>
+      <div class="article-snippet">국민의힘 임이자 정책위의장(왼쪽)과 정점식 원내대표가 21일 국회에서 열린 원내대책회의에 참석하고 있다. [사진=연합뉴스] 정점식 국민의힘 원내대표가 21일 부동산을 비롯한 경제 정책의 기조를 시장 중심으로 바꿔야 한다고 주장했다. 김용범 청와대 정책실장 등 경제 라인 변화도 함께 촉구했다. 정 원내대표는 이날 국회에서 열린 원내대책회의에서 &amp;quot;이재명 정부 2차 개각에 대한 소문이 무성한데, 입각에 거론되는 인사 면면을 보니 우려된다&amp;quot;며 이같이 강조했다. 개각의 목적이 자리 돌려막기가 아닌 국정기조 전환이어야 한다는 의견을 밝힌 정 원내대표는 &amp;quo</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ebeda09809076a577fc047fb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -33689,7 +34051,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33727,6 +34089,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.edaily.co.kr/News/Read?newsId=03358726645549616&amp;mediaCodeNo=257"
+  data-title="박홍근 &quot;미래대응기금, SMR·우주항공·양자에 투자&quot;"
+  data-publisher="이데일리"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787278293"
+  data-country="OTHER"
+  data-search="박홍근 &quot;미래대응기금, smr·우주항공·양자에 투자&quot; 이데일리 smr 박홍근 기획예산처 장관이 반도체 호황으로 걷힌 추가 세수를 활용해 ‘미래대응기금’을 신설하겠다고 21일 밝혔다. 인공지능(ai) 대전환기에 대응해 하락하는 잠재성장률을 끌어올리고, 세수 변동성을 완화하는 재정 안정화 장치를 마련하겠다는 구상이다. 박홍근 기획예산처..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>박홍근 &quot;미래대응기금, SMR·우주항공·양자에 투자&quot;</div>
+      <div class="article-snippet">박홍근 기획예산처 장관이 반도체 호황으로 걷힌 추가 세수를 활용해 ‘미래대응기금’을 신설하겠다고 21일 밝혔다. 인공지능(AI) 대전환기에 대응해 하락하는 잠재성장률을 끌어올리고, 세수 변동성을 완화하는 재정 안정화 장치를 마련하겠다는 구상이다. 박홍근 기획예산처...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1c3362c234bb4c5eb5877cf9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757200"
   data-title="대창솔루션, 826억 규모 원전 터빈 특수강 소재 수주"
@@ -33740,7 +34137,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33775,7 +34172,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33810,7 +34207,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33832,6 +34229,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003756888"
+  data-title="반도체 초과세수 &#x27;미래대응기금&#x27;에 적립…세수펑크 때 꺼내 쓴다"
+  data-publisher="뉴시스"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787278200"
+  data-country="OTHER"
+  data-search="반도체 초과세수 &#x27;미래대응기금&#x27;에 적립…세수펑크 때 꺼내 쓴다 뉴시스 smr [세종=뉴시스]여동준 박광온 기자 = 정부가 반도체 호황 등으로 평소보다 크게 늘어난 세수를 별도 기금에 적립하고, 향후 세수결손이 발생하면 이를 꺼내 재정을 보강하는 &#x27;재정 저수지&#x27;를 만든다. 세수가 많이 걷힐 때 지출을 함께 늘리고 세수가 줄면 긴축하는 경기동행적 재정운용을 완화하는 동시에 청년과 인공지능(ai), 지방 등 미래 성장 분야에 재원을 집중 투자하겠다는 구상이다. 21일 정부에 따르면 기획예산처는 이 같은 내용의 &#x27;미래대응기금 추진방안&#x27;을 제1차 재정운용전략협의회에서 논의했다. 미래대응기금의 핵심 재원은 정부가 새로 정의한 &#x27;추가세수&#x27;와 기존의 &#x27;초과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">6.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>반도체 초과세수 &#x27;미래대응기금&#x27;에 적립…세수펑크 때 꺼내 쓴다</div>
+      <div class="article-snippet">[세종=뉴시스]여동준 박광온 기자 = 정부가 반도체 호황 등으로 평소보다 크게 늘어난 세수를 별도 기금에 적립하고, 향후 세수결손이 발생하면 이를 꺼내 재정을 보강하는 &#x27;재정 저수지&#x27;를 만든다. 세수가 많이 걷힐 때 지출을 함께 늘리고 세수가 줄면 긴축하는 경기동행적 재정운용을 완화하는 동시에 청년과 인공지능(AI), 지방 등 미래 성장 분야에 재원을 집중 투자하겠다는 구상이다. 21일 정부에 따르면 기획예산처는 이 같은 내용의 &#x27;미래대응기금 추진방안&#x27;을 제1차 재정운용전략협의회에서 논의했다. 미래대응기금의 핵심 재원은 정부가 새로 정의한 &#x27;추가세수&#x27;와 기존의 &#x27;초과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bded2e35ce82d67b61003121.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003756959"
   data-title="중흥토건, 부산 장안지구 &#x27;중흥S-클래스&#x27; 514가구 분양 나서"
@@ -33845,7 +34277,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33874,13 +34306,13 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787277081"
+  data-published="1787278858"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33915,7 +34347,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33943,7 +34375,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">12건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33982,54 +34414,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787276414"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787276413"
+  data-published="1787278796"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34048,6 +34445,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787278519"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34157,54 +34589,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://interestingengineering.com/energy/nuclearn-gse-nuclear-simulators"
-  data-title="Agentic nuclear simulators generate instant drills from text prompts"
-  data-publisher="Interesting Engineering"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787266989"
-  data-country="OTHER"
-  data-search="agentic nuclear simulators generate instant drills from text prompts interesting engineering nuclear power·nuclear energy nuclear training simulators could soon generate scenarios from natural-language prompts and tailor assessments to each trainee."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Interesting Engineering</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Agentic nuclear simulators generate instant drills from text prompts</div>
-      <div class="article-snippet">Nuclear training simulators could soon generate scenarios from natural-language prompts and tailor assessments to each trainee.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7b96dfade519c44ff14ab1fb.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.theguardian.com/us-news/live/2026/aug/20/donald-trump-national-debt-borrowing-record-michael-cohen-canada-iran-latest-news-updates"
-  data-title="Michael Cohen, ex-fixer for Trump who once testified against him, hosts president on his radio show – US politics live"
+  data-title="Michael Cohen, ex-fixer for Trump who once testified against him, hosts president on his radio show – as it happened"
   data-publisher="The Guardian"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787273049"
+  data-published="1787277086"
   data-country="OTHER"
-  data-search="michael cohen, ex-fixer for trump who once testified against him, hosts president on his radio show – us politics live the guardian nuclear power·nuclear energy despite previously comparing him to a ‘mobster’, trump’s former personal lawyer showers him with praise trump administration faces questions over top aide natalie harp’s security clearance sign up for the us breaking news email an fbi team seized electronic devices from former us representative eric swalwell at the san"
+  data-search="michael cohen, ex-fixer for trump who once testified against him, hosts president on his radio show – as it happened the guardian nuclear power·nuclear energy despite previously comparing him to a ‘mobster’, trump’s former personal lawyer showers him with praise. this blog is now closed. trump administration faces questions over top aide natalie harp’s security clearance sign up for the us breaking news email an fbi team seized electronic devices from former us representativ"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34217,8 +34614,8 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Michael Cohen, ex-fixer for Trump who once testified against him, hosts president on his radio show – US politics live</div>
-      <div class="article-snippet">Despite previously comparing him to a ‘mobster’, Trump’s former personal lawyer showers him with praise Trump administration faces questions over top aide Natalie Harp’s security clearance Sign up for the US Breaking News email An FBI team seized electronic devices from former US representative Eric Swalwell at the San</div>
+      <div class="headline">Michael Cohen, ex-fixer for Trump who once testified against him, hosts president on his radio show – as it happened</div>
+      <div class="article-snippet">Despite previously comparing him to a ‘mobster’, Trump’s former personal lawyer showers him with praise. This blog is now closed. Trump administration faces questions over top aide Natalie Harp’s security clearance Sign up for the US Breaking News email An FBI team seized electronic devices from former US representativ</div>
     </div>
   </div>
   <div class="card-side">
@@ -34239,7 +34636,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34274,7 +34671,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34309,7 +34706,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34344,7 +34741,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34544,7 +34941,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">15건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34653,6 +35050,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.econovill.com/news/articleView.html?idxno=748575"
+  data-title="“물량 75%가 특별공급”…대우건설, ‘검암역 푸르지오 프라베뉴’ 21일 선봬"
+  data-publisher="이코노믹리뷰"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787276489"
+  data-country="OTHER"
+  data-search="“물량 75%가 특별공급”…대우건설, ‘검암역 푸르지오 프라베뉴’ 21일 선봬 이코노믹리뷰 타 건설사 대우건설이 민간참여 공공분양 단지 ‘검암역 푸르지오 프라베뉴’ 공급에 나선다.대우건설은 인천광역시 서해구 검암동 일원에 짓는 ‘검암역 푸르지오 프라베뉴’의 견본주택을 21일 개관하고 본격적인 분양에 나선다고 밝혔다.이 단지는 지하 2층~지상 25층, 3개 동, 총 441가구 규모이며, 전용면적 60~84㎡ 중소형으로 구성된다.청약 접수는 오는 31일 특별공급, 9월 1일 1순위, 9월 2일 2순위, 당첨자 발표는 9월 8일, 정당 계약은 11월 2일부터 11월 4일까지 3일간 이어질 예정이다.‘검암역 푸르지오 프라베뉴’는 전체 공급"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이코노믹리뷰</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>“물량 75%가 특별공급”…대우건설, ‘검암역 푸르지오 프라베뉴’ 21일 선봬</div>
+      <div class="article-snippet">대우건설이 민간참여 공공분양 단지 ‘검암역 푸르지오 프라베뉴’ 공급에 나선다.대우건설은 인천광역시 서해구 검암동 일원에 짓는 ‘검암역 푸르지오 프라베뉴’의 견본주택을 21일 개관하고 본격적인 분양에 나선다고 밝혔다.이 단지는 지하 2층~지상 25층, 3개 동, 총 441가구 규모이며, 전용면적 60~84㎡ 중소형으로 구성된다.청약 접수는 오는 31일 특별공급, 9월 1일 1순위, 9월 2일 2순위, 당첨자 발표는 9월 8일, 정당 계약은 11월 2일부터 11월 4일까지 3일간 이어질 예정이다.‘검암역 푸르지오 프라베뉴’는 전체 공급</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a27cd73babce635ff5557533.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.seoulfn.com/news/articleView.html?idxno=636131"
   data-title="[분양] 대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 외 - 서울파이낸스"
   data-publisher="서울파이낸스"
@@ -34665,7 +35097,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34678,7 +35110,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[분양] 대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 외 - 서울파이낸스</div>
+      <div class="headline">[분양] 대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 외 - 서울파이낸스</div>
       <div class="article-snippet">[서울파이낸스 김예온 기자] 대우건설은 인천광역시 서해구 검암동 일원에 조성하는 &#x27;검암역 푸르지오 프라베뉴&#x27;의 견본주택을 개관하고 본격적인 분양일정에 들어갔다고</div>
     </div>
   </div>
@@ -34700,7 +35132,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34735,7 +35167,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34770,7 +35202,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34805,7 +35237,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34828,6 +35260,76 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.econovill.com/news/articleView.html?idxno=748580"
+  data-title="DL이앤씨, ‘e편한세상 동탄역 어반원’ 오피스텔 240실 공급"
+  data-publisher="이코노믹리뷰"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787277275"
+  data-country="OTHER"
+  data-search="dl이앤씨, ‘e편한세상 동탄역 어반원’ 오피스텔 240실 공급 이코노믹리뷰 타 건설사 dl이앤씨가 동탄2신도시 일원에 선보이는 ‘e편한세상 동탄역 어반원’ 주거형 오피스텔이 주거 대안으로 관심 받고 있다.고금리·분양가 상승·대출 규제로 아파트 진입 부담은 커진 반면, 오피스텔은 청약통장 부담이 낮고 상대적으로 접근 문턱이 낮기 때문이다.21일 dl이앤씨에 따르면, 이 단지는 지하 4층~지상 46층, 3개 동 아파트 610가구와 지하 3층~지상 26층, 1개동 주거형 오피스텔 240실 규모로 조성된다.이 단지의 가장 큰 장점은 gtx와 srt 동탄역을 도보로 이용할 수 있는 역세권에 자리한다는 점이다. 또 강남, 판교"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">10.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이코노믹리뷰</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>DL이앤씨, ‘e편한세상 동탄역 어반원’ 오피스텔 240실 공급</div>
+      <div class="article-snippet">DL이앤씨가 동탄2신도시 일원에 선보이는 ‘e편한세상 동탄역 어반원’ 주거형 오피스텔이 주거 대안으로 관심 받고 있다.고금리·분양가 상승·대출 규제로 아파트 진입 부담은 커진 반면, 오피스텔은 청약통장 부담이 낮고 상대적으로 접근 문턱이 낮기 때문이다.21일 DL이앤씨에 따르면, 이 단지는 지하 4층~지상 46층, 3개 동 아파트 610가구와 지하 3층~지상 26층, 1개동 주거형 오피스텔 240실 규모로 조성된다.이 단지의 가장 큰 장점은 GTX와 SRT 동탄역을 도보로 이용할 수 있는 역세권에 자리한다는 점이다. 또 강남, 판교</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/31977fc289d66b67222a691c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1680688/GS%EA%B1%B4%EC%84%A4-%EB%AA%A9%EB%8F%9912%EB%8B%A8%EC%A7%80-%EC%88%98%EC%A3%BC-%EC%B4%9D%EB%A0%A5%EC%8B%A0%ED%95%9C%EC%9D%80-2026"
+  data-title="GS건설, 목동12단지 수주 총력…신한은행과 사업비·이주비 조달 맞손"
+  data-publisher="데일리안"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787277480"
+  data-country="OTHER"
+  data-search="gs건설, 목동12단지 수주 총력…신한은행과 사업비·이주비 조달 맞손 데일리안 타 건설사 목동12단지 재건축 사업 수주에 뛰어든 gs건설이 안정적인 금융조달의 기반을 마련하고자 신한은행과 협력관계를 구축한다.gs건설은 21일 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약(mou)를 체결했다고 밝혔다.이번 협약을 통해 양사는 목동12단지 재건축사업에 필요한 사업비와 조합원"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">11.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 목동12단지 수주 총력…신한은행과 사업비·이주비 조달 맞손</div>
+      <div class="article-snippet">목동12단지 재건축 사업 수주에 뛰어든 GS건설이 안정적인 금융조달의 기반을 마련하고자 신한은행과 협력관계를 구축한다.GS건설은 21일 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약(MOU)를 체결했다고 밝혔다.이번 협약을 통해 양사는 목동12단지 재건축사업에 필요한 사업비와 조합원</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/17fee0f8e43f6084a0c6a0fd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.asiae.co.kr/article/2026082110411375002"
   data-title="GS건설, 목동12단지 재건축 정조준…신한은행과 금융 협력"
   data-publisher="아시아경제"
@@ -34840,7 +35342,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34853,47 +35355,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 목동12단지 재건축 정조준…신한은행과 금융 협력</div>
+      <div class="headline">GS건설, 목동12단지 재건축 정조준…신한은행과 금융 협력</div>
       <div class="article-snippet">GS건설은 21일 서울 종로구 그랑서울 본사에서 신한은행과 목동12단지아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약(MOU)을 체결했다고 21일 .</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/737c5351a04184e95b7a439e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://biz.heraldcorp.com/article/10847801"
-  data-title="GS건설, 신한은행과 목동12단지 재건축 금융 MOU…수주 행보 본격화"
-  data-publisher="헤럴드경제"
-  data-group="타 건설사"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787276018"
-  data-country="OTHER"
-  data-search="gs건설, 신한은행과 목동12단지 재건축 금융 mou…수주 행보 본격화 헤럴드경제 타 건설사 gs건설은 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지 재건축정비사업의 원활한 추진을 위한 금융 업무협약(mou)을 체결했다고 21일 밝혔으며 양사는 향후"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">헤럴드경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">GS건설, 신한은행과 목동12단지 재건축 금융 MOU…수주 행보 본격화</div>
-      <div class="article-snippet">GS건설은 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지 재건축정비사업의 원활한 추진을 위한 금융 업무협약(MOU)을 체결했다고 21일 밝혔으며 양사는 향후</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b53bbf5c79b8d57fd2081759.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34910,7 +35377,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34945,7 +35412,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34980,7 +35447,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35015,7 +35482,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35050,7 +35517,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35071,6 +35538,41 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/131f676d167a9cd3810070e6.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003757312"
+  data-title="송도 발코니 붕괴 아파트…박찬대 &quot;인허가 과정 살펴봐야&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787277791"
+  data-country="OTHER"
+  data-search="송도 발코니 붕괴 아파트…박찬대 &quot;인허가 과정 살펴봐야&quot; 뉴시스 타 건설사 [인천=뉴시스] 전예준 기자 = 박찬대 인천시장이 최근 송도국제도시에서 발생한 아파트 발코니 붕괴 사고와 관련해 해당 아파트의 건축 인허가 과정도 살펴봐야 한다고 강조했다. 박 시장과 남영희 시 정무부시장은 21일 인천시청에서 열린 국토교통부-인천시 공동 시설물사고조사위원회 첫 회의에 참석해 위원들에게 철저한 조사를 당부했다. 박 시장은 &quot;입주한 지 1년 조금 넘은 아파트 발코니가 붕괴된 것은 우리 사회의 신뢰 자산이 무너진 것이라고 본다&quot;며 &quot;어떻게 이 사태까지 왔는지 사조위가 사고 원인을 확실하게 밝혀내고, 신뢰를 쌓아나갈 기초를 분명히 해줬으면 좋겠다&quot;고 말했다"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">18.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>송도 발코니 붕괴 아파트…박찬대 &quot;인허가 과정 살펴봐야&quot;</div>
+      <div class="article-snippet">[인천=뉴시스] 전예준 기자 = 박찬대 인천시장이 최근 송도국제도시에서 발생한 아파트 발코니 붕괴 사고와 관련해 해당 아파트의 건축 인허가 과정도 살펴봐야 한다고 강조했다. 박 시장과 남영희 시 정무부시장은 21일 인천시청에서 열린 국토교통부-인천시 공동 시설물사고조사위원회 첫 회의에 참석해 위원들에게 철저한 조사를 당부했다. 박 시장은 &quot;입주한 지 1년 조금 넘은 아파트 발코니가 붕괴된 것은 우리 사회의 신뢰 자산이 무너진 것이라고 본다&quot;며 &quot;어떻게 이 사태까지 왔는지 사조위가 사고 원인을 확실하게 밝혀내고, 신뢰를 쌓아나갈 기초를 분명히 해줬으면 좋겠다&quot;고 말했다</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d1d88214200b4241514af7b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -35078,9 +35580,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104705"
+  data-title="고리원자력본부, 을지연습 실제훈련 전개…비상사태 대응력 향상"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787276671"
+  data-country="KR"
+  data-search="고리원자력본부, 을지연습 실제훈련 전개…비상사태 대응력 향상 에너지플랫폼뉴스 한국수력원자력 [에너지플랫폼뉴스 박병인 기자] 고리원자력본부가 전시 동원령 선포 상황을 가정한 을지연습을 전개하며 비상사태에 대한 대응력을 향상시켰다.한국수력원자력 고리원자력본부(본부장 반병훈)는 2026년 을지연습 기간 중인 20일, 본부 내에서 ‘을지연습 실제훈련’을 실시했다.이번 훈련은 적 드론 및 지상침투의 동시다발적인 상황에서 국가중요시설인 원자력발전소의 통합 방호능력을 향상하기 위해 마련되었으며, 훈련에는 고리원자력본부 청원경찰, 특수경비대, 자체소방대를 비롯해 기장경찰서, 제53보병사단 예하 부대 등 300여 명이 참가했다. 특히 전"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, 을지연습 실제훈련 전개…비상사태 대응력 향상</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 고리원자력본부가 전시 동원령 선포 상황을 가정한 을지연습을 전개하며 비상사태에 대한 대응력을 향상시켰다.한국수력원자력 고리원자력본부(본부장 반병훈)는 2026년 을지연습 기간 중인 20일, 본부 내에서 ‘을지연습 실제훈련’을 실시했다.이번 훈련은 적 드론 및 지상침투의 동시다발적인 상황에서 국가중요시설인 원자력발전소의 통합 방호능력을 향상하기 위해 마련되었으며, 훈련에는 고리원자력본부 청원경찰, 특수경비대, 자체소방대를 비롯해 기장경찰서, 제53보병사단 예하 부대 등 300여 명이 참가했다. 특히 전</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d35824f6b6d9181aadca8667.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.asiae.co.kr/article/2026082109523943239"
   data-title="새울원자력본부, ‘2026 새울 아카데미 2기’ 수료식 개최… 두 달간 여정 마무리"
@@ -35094,7 +35631,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35116,6 +35653,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104704"
+  data-title="새울원자력본부, 지역 역량 강화 앞장…교육과정 운영 ‘성과’"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787273069"
+  data-country="KR"
+  data-search="새울원자력본부, 지역 역량 강화 앞장…교육과정 운영 ‘성과’ 에너지플랫폼뉴스 한국수력원자력 [에너지플랫폼뉴스 박병인 기자] 새울원자력본부가 지역 역량 강화를 위한 교육과정을 운영한 가운데, 수료식이 열리며 결실을 맺었다.한국수력원자력(주) 새울원자력본부(본부장 김상우, 이하 새울본부)는 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 개최하며 지난 두 달간 진행된 교육 과정을 성공적으로 마무리했다.‘2026년 새울 아카데미 2기’는 단순한 지식 전달을 넘어, 지역주민과 새울본부가 지역사회의 미래를 함께 그려나가기 위해 기획된 지역 밀착형 교육 프로그램이다. 이번 2기 과정은 박혜령 대표의 ‘팀 빌딩을 활용한"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, 지역 역량 강화 앞장…교육과정 운영 ‘성과’</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 새울원자력본부가 지역 역량 강화를 위한 교육과정을 운영한 가운데, 수료식이 열리며 결실을 맺었다.한국수력원자력(주) 새울원자력본부(본부장 김상우, 이하 새울본부)는 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 개최하며 지난 두 달간 진행된 교육 과정을 성공적으로 마무리했다.‘2026년 새울 아카데미 2기’는 단순한 지식 전달을 넘어, 지역주민과 새울본부가 지역사회의 미래를 함께 그려나가기 위해 기획된 지역 밀착형 교육 프로그램이다. 이번 2기 과정은 박혜령 대표의 ‘팀 빌딩을 활용한</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4213d3c237d7d6f043aebe89.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202400"
   data-title="새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리"
@@ -35129,7 +35701,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35306,9 +35878,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.sentv.co.kr/article/view/sentv202608210084"
+  data-title="전남개발공사-한전KDN, 청년드림 만원주택 ‘스마트 주거서비스’ 발굴 나선다"
+  data-publisher="서울경제TV"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787277671"
+  data-country="KR"
+  data-search="전남개발공사-한전kdn, 청년드림 만원주택 ‘스마트 주거서비스’ 발굴 나선다 서울경제tv 한전 계열사 전남개발공사와 한전kdn이 청년층의 주거 부담을 낮추는 데서 한발 더 나아가 생활 편의까지 높이는 스마트 주거서비스 발굴에 나선다. 전남개발공사"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>전남개발공사-한전KDN, 청년드림 만원주택 ‘스마트 주거서비스’ 발굴 나선다</div>
+      <div class="article-snippet">전남개발공사와 한전KDN이 청년층의 주거 부담을 낮추는 데서 한발 더 나아가 생활 편의까지 높이는 스마트 주거서비스 발굴에 나선다. 전남개발공사</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3970b531afd3ae32d32afd1a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="원자력 협회·학회">
@@ -35438,9 +36045,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ngetnews.com/news/articleView.html?idxno=552596"
+  data-title="이 대통령, 최태원과 비공개 만찬…반도체·대미투자 논의 촉각"
+  data-publisher="뉴스저널리즘"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787276913"
+  data-country="OTHER"
+  data-search="이 대통령, 최태원과 비공개 만찬…반도체·대미투자 논의 촉각 뉴스저널리즘 원전 대미투자 이재명 대통령이 최태원 sk그룹 회장과 비공개 만찬을 하면서 정부가 속도를 내는 반도체 투자와 대미 투자 협상이 주목된다.21일 재계에 따르면 이 대통령은 전날 최 회장과 만찬 회동을 한 것으로 알려졌다. 청와대는 이 대통령과 최 회장의 회동 여부에 대해 &quot;비공개 일정에 대한 확인은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스저널리즘</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>이 대통령, 최태원과 비공개 만찬…반도체·대미투자 논의 촉각</div>
+      <div class="article-snippet">이재명 대통령이 최태원 SK그룹 회장과 비공개 만찬을 하면서 정부가 속도를 내는 반도체 투자와 대미 투자 협상이 주목된다.21일 재계에 따르면 이 대통령은 전날 최 회장과 만찬 회동을 한 것으로 알려졌다. 청와대는 이 대통령과 최 회장의 회동 여부에 대해 &quot;비공개 일정에 대한 확인은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/11b7b9f358ad8d2f16fd3685.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hani.co.kr/arti/economy/marketing/1273974.html"
   data-title="이 대통령-최태원 비공개 만찬…국내 반도체 팹과 대미 투자 논의한 듯"
@@ -35454,7 +36096,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35489,7 +36131,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35524,7 +36166,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35559,7 +36201,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35594,7 +36236,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35629,7 +36271,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35664,7 +36306,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35699,7 +36341,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35727,9 +36369,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://biz.heraldcorp.com/article/10847867"
+  data-title="[사설] 데이터센터도 원전·송전망도…갈등해결 제도화가 AI경쟁력"
+  data-publisher="헤럴드경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787277977"
+  data-country="US"
+  data-search="[사설] 데이터센터도 원전·송전망도…갈등해결 제도화가 ai경쟁력 헤럴드경제 원자력 미국에서 인공지능(ai) 데이터센터 건립에 대한 지역 주민 반대가 확산하면서 각 주(州)정부가 규제를 강화하고 있다. 오는 11월 중간선거 최대 쟁점 중 하나로 더올랐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[사설] 데이터센터도 원전·송전망도…갈등해결 제도화가 AI경쟁력</div>
+      <div class="article-snippet">미국에서 인공지능(AI) 데이터센터 건립에 대한 지역 주민 반대가 확산하면서 각 주(州)정부가 규제를 강화하고 있다. 오는 11월 중간선거 최대 쟁점 중 하나로 더올랐다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://wimg.heraldcorp.com" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=5776"
   data-title="한국원자력의학원-서울과기대, 의과학 진로탐색 프로그램 운영 - 에너지안전신문"
@@ -35743,7 +36420,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35778,7 +36455,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35813,7 +36490,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35835,6 +36512,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00009&amp;news_seq_no=5213866"
+  data-title="2026년 8월 21일 매일경제 1면…&#x27;암 정복 한 발 더&#x27; mRNA 치료 백신 첫 3상 성공 [아침&amp;매일경제]"
+  data-publisher="MBN"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787273460"
+  data-country="OTHER"
+  data-search="2026년 8월 21일 매일경제 1면…&#x27;암 정복 한 발 더&#x27; mrna 치료 백신 첫 3상 성공 [아침&amp;매일경제] mbn 원자력 출연자]윤영걸 전 매경ax 대표최창렬 용인대 특임교수차재원 부산가톨릭대학교 특임교수문종형 국민의힘 미디어대변인#mbn #mbn아침앤매일경제 #민지숙앵커 #암 #정복 #mrna #개인맞춤형 #치료백신 #성공 #코로나19 #트럼프 #김정은 #핵 #타협 #비핵화 #이재명 #국힘 #징계 #당원권정지 #윤리위 #조희대 #후임 #서면제청 #손봉기 #반려 #원전 #전력량 #반도체 #ai #용산 #부동산 #주택공급 #김윤덕 #오세훈"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">MBN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>2026년 8월 21일 매일경제 1면…&#x27;암 정복 한 발 더&#x27; mRNA 치료 백신 첫 3상 성공 [아침&amp;매일경제]</div>
+      <div class="article-snippet">출연자]윤영걸 전 매경AX 대표최창렬 용인대 특임교수차재원 부산가톨릭대학교 특임교수문종형 국민의힘 미디어대변인#MBN #MBN아침앤매일경제 #민지숙앵커 #암 #정복 #mRNA #개인맞춤형 #치료백신 #성공 #코로나19 #트럼프 #김정은 #핵 #타협 #비핵화 #이재명 #국힘 #징계 #당원권정지 #윤리위 #조희대 #후임 #서면제청 #손봉기 #반려 #원전 #전력량 #반도체 #AI #용산 #부동산 #주택공급 #김윤덕 #오세훈</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bde0be1f22b1fca1f4f8cbc3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260821000046"
   data-title="대전TP, 이차전지 실무 아카데미 교육생 모집…현장형 교육 무료 운영"
@@ -35848,7 +36560,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35883,7 +36595,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35918,7 +36630,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35953,7 +36665,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35988,7 +36700,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36023,7 +36735,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36058,7 +36770,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36093,7 +36805,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36128,7 +36840,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36163,7 +36875,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36184,6 +36896,41 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/2a2d95a5f96a17241c15bb92.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260821111158830"
+  data-title="정점식 &amp;quot;李 정부, 검증된 상식·신뢰 국정으로 기조 전환해야&amp;quot;"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787278594"
+  data-country="OTHER"
+  data-search="정점식 &amp;quot;李 정부, 검증된 상식·신뢰 국정으로 기조 전환해야&amp;quot; 아주경제 원자력 국민의힘 임이자 정책위의장(왼쪽)과 정점식 원내대표가 21일 국회에서 열린 원내대책회의에 참석하고 있다. [사진=연합뉴스] 정점식 국민의힘 원내대표가 21일 부동산을 비롯한 경제 정책의 기조를 시장 중심으로 바꿔야 한다고 주장했다. 김용범 청와대 정책실장 등 경제 라인 변화도 함께 촉구했다. 정 원내대표는 이날 국회에서 열린 원내대책회의에서 &amp;quot;이재명 정부 2차 개각에 대한 소문이 무성한데, 입각에 거론되는 인사 면면을 보니 우려된다&amp;quot;며 이같이 강조했다. 개각의 목적이 자리 돌려막기가 아닌 국정기조 전환이어야 한다는 의견을 밝힌 정 원내대표는 &amp;quo"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">16.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>정점식 &amp;quot;李 정부, 검증된 상식·신뢰 국정으로 기조 전환해야&amp;quot;</div>
+      <div class="article-snippet">국민의힘 임이자 정책위의장(왼쪽)과 정점식 원내대표가 21일 국회에서 열린 원내대책회의에 참석하고 있다. [사진=연합뉴스] 정점식 국민의힘 원내대표가 21일 부동산을 비롯한 경제 정책의 기조를 시장 중심으로 바꿔야 한다고 주장했다. 김용범 청와대 정책실장 등 경제 라인 변화도 함께 촉구했다. 정 원내대표는 이날 국회에서 열린 원내대책회의에서 &amp;quot;이재명 정부 2차 개각에 대한 소문이 무성한데, 입각에 거론되는 인사 면면을 보니 우려된다&amp;quot;며 이같이 강조했다. 개각의 목적이 자리 돌려막기가 아닌 국정기조 전환이어야 한다는 의견을 밝힌 정 원내대표는 &amp;quo</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ebeda09809076a577fc047fb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -36191,7 +36938,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36229,6 +36976,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.edaily.co.kr/News/Read?newsId=03358726645549616&amp;mediaCodeNo=257"
+  data-title="박홍근 &quot;미래대응기금, SMR·우주항공·양자에 투자&quot;"
+  data-publisher="이데일리"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787278293"
+  data-country="OTHER"
+  data-search="박홍근 &quot;미래대응기금, smr·우주항공·양자에 투자&quot; 이데일리 smr 박홍근 기획예산처 장관이 반도체 호황으로 걷힌 추가 세수를 활용해 ‘미래대응기금’을 신설하겠다고 21일 밝혔다. 인공지능(ai) 대전환기에 대응해 하락하는 잠재성장률을 끌어올리고, 세수 변동성을 완화하는 재정 안정화 장치를 마련하겠다는 구상이다. 박홍근 기획예산처..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>박홍근 &quot;미래대응기금, SMR·우주항공·양자에 투자&quot;</div>
+      <div class="article-snippet">박홍근 기획예산처 장관이 반도체 호황으로 걷힌 추가 세수를 활용해 ‘미래대응기금’을 신설하겠다고 21일 밝혔다. 인공지능(AI) 대전환기에 대응해 하락하는 잠재성장률을 끌어올리고, 세수 변동성을 완화하는 재정 안정화 장치를 마련하겠다는 구상이다. 박홍근 기획예산처...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1c3362c234bb4c5eb5877cf9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757200"
   data-title="대창솔루션, 826억 규모 원전 터빈 특수강 소재 수주"
@@ -36242,7 +37024,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36277,7 +37059,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36312,7 +37094,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36334,6 +37116,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003756888"
+  data-title="반도체 초과세수 &#x27;미래대응기금&#x27;에 적립…세수펑크 때 꺼내 쓴다"
+  data-publisher="뉴시스"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787278200"
+  data-country="OTHER"
+  data-search="반도체 초과세수 &#x27;미래대응기금&#x27;에 적립…세수펑크 때 꺼내 쓴다 뉴시스 smr [세종=뉴시스]여동준 박광온 기자 = 정부가 반도체 호황 등으로 평소보다 크게 늘어난 세수를 별도 기금에 적립하고, 향후 세수결손이 발생하면 이를 꺼내 재정을 보강하는 &#x27;재정 저수지&#x27;를 만든다. 세수가 많이 걷힐 때 지출을 함께 늘리고 세수가 줄면 긴축하는 경기동행적 재정운용을 완화하는 동시에 청년과 인공지능(ai), 지방 등 미래 성장 분야에 재원을 집중 투자하겠다는 구상이다. 21일 정부에 따르면 기획예산처는 이 같은 내용의 &#x27;미래대응기금 추진방안&#x27;을 제1차 재정운용전략협의회에서 논의했다. 미래대응기금의 핵심 재원은 정부가 새로 정의한 &#x27;추가세수&#x27;와 기존의 &#x27;초과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">6.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>반도체 초과세수 &#x27;미래대응기금&#x27;에 적립…세수펑크 때 꺼내 쓴다</div>
+      <div class="article-snippet">[세종=뉴시스]여동준 박광온 기자 = 정부가 반도체 호황 등으로 평소보다 크게 늘어난 세수를 별도 기금에 적립하고, 향후 세수결손이 발생하면 이를 꺼내 재정을 보강하는 &#x27;재정 저수지&#x27;를 만든다. 세수가 많이 걷힐 때 지출을 함께 늘리고 세수가 줄면 긴축하는 경기동행적 재정운용을 완화하는 동시에 청년과 인공지능(AI), 지방 등 미래 성장 분야에 재원을 집중 투자하겠다는 구상이다. 21일 정부에 따르면 기획예산처는 이 같은 내용의 &#x27;미래대응기금 추진방안&#x27;을 제1차 재정운용전략협의회에서 논의했다. 미래대응기금의 핵심 재원은 정부가 새로 정의한 &#x27;추가세수&#x27;와 기존의 &#x27;초과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bded2e35ce82d67b61003121.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003756959"
   data-title="중흥토건, 부산 장안지구 &#x27;중흥S-클래스&#x27; 514가구 분양 나서"
@@ -36347,7 +37164,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36376,13 +37193,13 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787277081"
+  data-published="1787278858"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36417,7 +37234,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36445,7 +37262,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">12건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36484,54 +37301,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787276414"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787276413"
+  data-published="1787278796"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36550,6 +37332,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787278519"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36659,54 +37476,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://interestingengineering.com/energy/nuclearn-gse-nuclear-simulators"
-  data-title="Agentic nuclear simulators generate instant drills from text prompts"
-  data-publisher="Interesting Engineering"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787266989"
-  data-country="OTHER"
-  data-search="agentic nuclear simulators generate instant drills from text prompts interesting engineering nuclear power·nuclear energy nuclear training simulators could soon generate scenarios from natural-language prompts and tailor assessments to each trainee."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Interesting Engineering</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Agentic nuclear simulators generate instant drills from text prompts</div>
-      <div class="article-snippet">Nuclear training simulators could soon generate scenarios from natural-language prompts and tailor assessments to each trainee.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7b96dfade519c44ff14ab1fb.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.theguardian.com/us-news/live/2026/aug/20/donald-trump-national-debt-borrowing-record-michael-cohen-canada-iran-latest-news-updates"
-  data-title="Michael Cohen, ex-fixer for Trump who once testified against him, hosts president on his radio show – US politics live"
+  data-title="Michael Cohen, ex-fixer for Trump who once testified against him, hosts president on his radio show – as it happened"
   data-publisher="The Guardian"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787273049"
+  data-published="1787277086"
   data-country="OTHER"
-  data-search="michael cohen, ex-fixer for trump who once testified against him, hosts president on his radio show – us politics live the guardian nuclear power·nuclear energy despite previously comparing him to a ‘mobster’, trump’s former personal lawyer showers him with praise trump administration faces questions over top aide natalie harp’s security clearance sign up for the us breaking news email an fbi team seized electronic devices from former us representative eric swalwell at the san"
+  data-search="michael cohen, ex-fixer for trump who once testified against him, hosts president on his radio show – as it happened the guardian nuclear power·nuclear energy despite previously comparing him to a ‘mobster’, trump’s former personal lawyer showers him with praise. this blog is now closed. trump administration faces questions over top aide natalie harp’s security clearance sign up for the us breaking news email an fbi team seized electronic devices from former us representativ"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36719,8 +37501,8 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Michael Cohen, ex-fixer for Trump who once testified against him, hosts president on his radio show – US politics live</div>
-      <div class="article-snippet">Despite previously comparing him to a ‘mobster’, Trump’s former personal lawyer showers him with praise Trump administration faces questions over top aide Natalie Harp’s security clearance Sign up for the US Breaking News email An FBI team seized electronic devices from former US representative Eric Swalwell at the San</div>
+      <div class="headline">Michael Cohen, ex-fixer for Trump who once testified against him, hosts president on his radio show – as it happened</div>
+      <div class="article-snippet">Despite previously comparing him to a ‘mobster’, Trump’s former personal lawyer showers him with praise. This blog is now closed. Trump administration faces questions over top aide Natalie Harp’s security clearance Sign up for the US Breaking News email An FBI team seized electronic devices from former US representativ</div>
     </div>
   </div>
   <div class="card-side">
@@ -36741,7 +37523,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36776,7 +37558,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36811,7 +37593,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36846,7 +37628,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39262,7 +40044,7 @@ header,
   data-language="ko"
   data-priority="1"
   data-published="1787200244"
-  data-country="OTHER"
+  data-country="BR"
   data-search="포스코이앤씨, 2600억원대 ‘고의파산’ 논란...k건설 신뢰 추락 esg경제 타 건설사 [esg경제신문=김대우 기자] 포스코이앤씨가 브라질에서 시공한 해외 플랜트 사업과 관련해 채권 회수 문제가 불거지면서 이른바 ‘고의파산’ 논란이 좀처럼 사그러들지 않고 있다.해외 발주처와 현지 법인을 둘러싼 복잡한 법적 분쟁이 이어지는 가운데 국내 대표 건설사인 포스코이앤씨의 책임론까지 확산되면서 k건설의 대외 신뢰도에 적지 않은 타격이 예상된다.20일 업계에 따르면 약 54억 달러(약 7조 4000억원) 규모의 브라질 세아라주 페셍 산업단지 내 csp 제철소 건설 프로젝트 관련 채권자들은 사업 수행 과정에서 핵심 자산과 수익이 다"
   tabindex="0" role="link">
   <div class="preview-copy">
@@ -45948,7 +46730,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787245612"
+  data-published="1787246147"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -57513,7 +58295,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cf458718&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58b71046b0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -57548,7 +58330,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c9846650&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cc93cc50&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -102245,7 +103027,7 @@ header,
   data-language="en"
   data-priority="2"
   data-published="1785333600"
-  data-country="KR"
+  data-country="BR"
   data-search="hyundai motor group to build south america hydrogen hub in brazil fuel cells works 현대건설 "
   tabindex="0" role="link">
   <div class="preview-copy">
@@ -116599,7 +117381,7 @@ header,
   data-language="en"
   data-priority="0"
   data-published="1783605498"
-  data-country="OTHER"
+  data-country="AR"
   data-search="argentina plans 300 mw smr at atucha neutron bytes smr "
   tabindex="0" role="link">
   <div class="preview-copy">
@@ -117316,7 +118098,7 @@ header,
   data-language="en"
   data-priority="0"
   data-published="1783494000"
-  data-country="OTHER"
+  data-country="AR"
   data-search="us-based meitner energy presents small modular reactor plan for argentina nucnet smr "
   tabindex="0" role="link">
   <div class="preview-copy">
@@ -143686,7 +144468,7 @@ const COUNTRY_NAMES = {
   US:"미국", KR:"한국", GB:"영국", BG:"불가리아", UA:"우크라이나", AE:"UAE",
   RO:"루마니아", CZ:"체코", PL:"폴란드", SI:"슬로베니아", FI:"핀란드",
   JP:"일본", CA:"캐나다", FR:"프랑스", SE:"스웨덴",
-  CN:"중국", IN:"인도", AU:"호주", RU:"러시아", TR:"튀르키예", SA:"사우디",
+  CN:"중국", IN:"인도", AU:"호주", BR:"브라질", AR:"아르헨티나", CL:"칠레", PE:"페루", CO:"콜롬비아", RU:"러시아", TR:"튀르키예", SA:"사우디",
   ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스",
   VN:"베트남", SG:"싱가포르", MY:"말레이시아", TH:"태국", DK:"덴마크", SK:"슬로바키아",
   OTHER:"기타"
@@ -143752,6 +144534,11 @@ const COUNTRY_GLOBE_META = {
   CN: { lon:104.2, lat:35.9, flag:"🇨🇳", name:"중국" },
   JP: { lon:138.3, lat:36.2, flag:"🇯🇵", name:"일본" },
   AU: { lon:133.8, lat:-25.3, flag:"🇦🇺", name:"호주" },
+  BR: { lon:-51.9, lat:-14.2, flag:"🇧🇷", name:"브라질" },
+  AR: { lon:-63.6, lat:-38.4, flag:"🇦🇷", name:"아르헨티나" },
+  CL: { lon:-71.5, lat:-35.7, flag:"🇨🇱", name:"칠레" },
+  PE: { lon:-75.0, lat:-9.2, flag:"🇵🇪", name:"페루" },
+  CO: { lon:-74.3, lat:4.6, flag:"🇨🇴", name:"콜롬비아" },
   ZA: { lon:22.9, lat:-30.6, flag:"🇿🇦", name:"남아공" },
   SK: { lon:19.7, lat:48.7, flag:"🇸🇰", name:"슬로바키아" },
   DK: { lon:9.5, lat:56.3, flag:"🇩🇰", name:"덴마크" },
@@ -145087,6 +145874,7 @@ let activeContinentFilter = 'ALL';
 const CONTINENT_META = {
   ALL: { name:'전체' },
   NA: { name:'북미' },
+  SA: { name:'남미' },
   EU: { name:'유럽' },
   AS: { name:'아시아' },
   MEA: { name:'중동·아프리카' },
@@ -145094,9 +145882,10 @@ const CONTINENT_META = {
 };
 
 const COUNTRY_CONTINENT_META = {
-  KR:'AS', JP:'AS', CN:'AS', IN:'AS', VN:'AS', SG:'AS', MY:'AS', TH:'AS',
+  KR:'AS', JP:'AS', CN:'AS', IN:'AS', VN:'AS', SG:'AS', MY:'AS', TH:'AS', RU:'AS',
   US:'NA', CA:'NA',
-  GB:'EU', FR:'EU', NL:'EU', BE:'EU', CH:'EU', SE:'EU', FI:'EU', PL:'EU', CZ:'EU', SI:'EU', RO:'EU', BG:'EU', UA:'EU', RU:'EU', TR:'EU', SK:'EU', DK:'EU',
+  BR:'SA', AR:'SA', CL:'SA', PE:'SA', CO:'SA',
+  GB:'EU', FR:'EU', NL:'EU', BE:'EU', CH:'EU', SE:'EU', FI:'EU', PL:'EU', CZ:'EU', SI:'EU', RO:'EU', BG:'EU', UA:'EU', TR:'EU', SK:'EU', DK:'EU',
   AE:'MEA', SA:'MEA', ZA:'MEA',
   AU:'OC'
 };
@@ -145712,9 +146501,10 @@ const COUNTRY_MAP_ANCHORS={
   SE:[53.3,27.4], FI:[56.2,26.3], PL:[54.8,37.0], CZ:[53.3,38.7], SI:[53.5,41.5],
   RO:[56.9,41.8], BG:[57.1,44.2], UA:[59.4,39.1], RU:[69.5,28.8], TR:[59.7,46.3],
   SK:[54.3,39.0], DK:[51.3,32.0],
-  KR:[85.8,41.2], JP:[89.5,42.0], CN:[79.8,42.5], IN:[70.4,54.7], VN:[81.6,56.8],
+  KR:[84.2,41.2], JP:[87.6,42.0], CN:[79.8,42.5], IN:[70.4,54.7], VN:[81.6,56.8],
   MY:[81.9,62.0], TH:[79.8,56.3], SG:[82.2,64.0],
   AE:[64.0,52.3], SA:[61.2,52.9], ZA:[55.0,72.8],
+  BR:[35.6,57.9], AR:[32.3,71.3], CL:[30.1,69.8], PE:[29.2,55.1], CO:[29.4,47.4],
   AU:[85.1,75.7]
 };
 
@@ -145727,11 +146517,15 @@ function getCountryMapAnchor(item){
 function getContinentNativeRegion(code){
   /* 1000x500 SVG viewBox. Tighter clips prevent unrelated continents being highlighted. */
   const regions={
-    NA: {points:'20,65 330,65 365,170 335,292 245,335 110,310 25,240',labelX:190,labelY:170},
-    EU: {points:'445,85 610,80 630,135 612,225 535,245 465,220 435,155',labelX:530,labelY:155},
-    AS: {points:'565,55 995,55 995,310 915,345 780,330 675,285 590,215 555,130',labelX:795,labelY:175},
-    MEA:{points:'430,205 655,190 682,255 650,390 595,460 485,455 415,365 400,270',labelX:535,labelY:315},
-    OC: {points:'745,300 995,300 995,490 760,490 720,390',labelX:850,labelY:405}
+    /* Clip polygons are intentionally conservative: they color real land paths only. */
+    NA: {points:'15,55 345,55 365,165 335,260 285,300 220,305 155,285 95,260 30,220',labelX:190,labelY:165},
+    SA: {points:'245,190 405,190 445,255 430,345 395,430 350,492 305,430 275,345 255,260',labelX:350,labelY:330},
+    EU: {points:'425,82 560,82 575,120 608,155 610,215 565,240 505,230 455,200 430,150',labelX:520,labelY:160},
+    /* Russia is treated as Asia: high-latitude western extension includes Russia but avoids most of Europe. */
+    AS: {points:'555,50 995,50 995,310 915,345 780,330 675,285 635,235 625,190 635,150 600,115 560,95',labelX:795,labelY:175},
+    /* Middle East + Africa only; boundary stops west of India. */
+    MEA:{points:'410,205 665,190 680,245 655,330 625,420 575,470 495,455 430,390 400,300',labelX:535,labelY:320},
+    OC: {points:'720,300 995,300 995,490 745,490 710,390',labelX:850,labelY:405}
   };
   return regions[code]||null;
 }
@@ -145883,7 +146677,7 @@ function getCountryMapAnchor(item){
   return projectExactSvgPoint(item.lon,item.lat);
 }
 
-const FINAL_CONTINENT_DOCK_ORDER = ['NA','EU','AS','MEA','OC'];
+const FINAL_CONTINENT_DOCK_ORDER = ['NA','SA','EU','AS','MEA','OC'];
 
 function ensureMapStateChip(items){
   const visual=document.querySelector('.country-map-visual.globe-mode');
