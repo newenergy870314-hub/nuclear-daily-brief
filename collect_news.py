@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# KR/JP ACTUAL MAP NEARBY COORDINATE FIX 2026-08-22
 # KR/JP LABELS MOVED ONTO BLUE HIGHLIGHT REGION 2026-08-22
 # COUNTRY LABELS NEAR OWN MAP + GENERIC NO OVERLAP 2026-08-22
 # CONTINENT RAIL WIDER 2026-08-22
@@ -22600,7 +22601,7 @@ const FINAL_COUNTRY_LABEL_PRESETS = {{
 
 const FINAL_CONTINENT_RENDER_ORDER = {{
   EU:['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','DK','SK'],
-  AS:['RU','CN','IN','VN','TH','MY','SG','KR','JP'],
+  AS:['RU','KR','JP','CN','IN','VN','TH','MY','SG'],
   MEA:['AE','SA','ZA'],
   NA:['US','CA'],
   SA:['BR','AR','CL','CO','PE'],
@@ -22756,11 +22757,19 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
     const visual=document.querySelector('.country-map-visual.globe-mode');
     const svg=document.querySelector('.world-map-inline.globe-texture-source');
     if(!visual||!svg) return null;
+
     const vp=getExactMapViewport(svg,visual);
     const p=getCountryMapAnchor(item);
+    const visualRect=visual.getBoundingClientRect();
+
+    /* getExactMapViewport()는 visual 기준 좌표이고,
+       label rect는 layer 기준 좌표이므로 같은 좌표계로 변환 */
+    const screenX=visualRect.left + vp.left + (p.x/100)*vp.width;
+    const screenY=visualRect.top + vp.top + (p.y/100)*vp.height;
+
     return {{
-      x:vp.left+(p.x/100)*vp.width,
-      y:vp.top+(p.y/100)*vp.height
+      x:screenX-layerRect.left,
+      y:screenY-layerRect.top
     }};
   }};
 
@@ -22788,7 +22797,7 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
     const startTop = parseFloat(el.style.top) || box.top;
 
     const candidates = [];
-    const radii = [8,14,20,28,36,46,58];
+    const radii = [6,10,14,18,24,30,36];
     const dirs = [
       [1,0],[-1,0],[0,-1],[0,1],
       [1,-1],[1,1],[-1,-1],[-1,1]
@@ -22811,6 +22820,14 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
         const cx=left+box.width/2;
         const cy=top+box.height/2;
         const distance=Math.hypot(cx-anchor.x,cy-anchor.y);
+
+        /* 국가 버튼은 자기 나라 주변에만 유지.
+           한국/일본은 특히 동아시아 실제 위치에서 멀리 이동 금지. */
+        const maxDistance = (el.dataset.countryCode==='KR' || el.dataset.countryCode==='JP')
+          ? 52
+          : 72;
+        if(distance > maxDistance) continue;
+
         candidates.push({{...candidate,distance}});
       }}
     }}
@@ -22822,7 +22839,7 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
       el.style.top=`${{best.top}}px`;
       box=best;
     }}
-
+    /* 가까운 빈자리가 없으면 원래의 국가 주변 위치를 유지 */
     placed.push(box);
   }});
 }}
