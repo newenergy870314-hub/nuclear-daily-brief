@@ -10761,7 +10761,7 @@ header,
   display:inline-flex !important;
   min-height:24px !important;
   padding:3px 6px !important;
-  gap:3px !important;
+  gap:2px !important;
   border:1px solid rgba(35,57,93,.18) !important;
   border-radius:999px !important;
   background:rgba(255,255,255,.94) !important;
@@ -13920,6 +13920,7 @@ header,
   font-size:9.2px !important;
   white-space:nowrap !important;
   word-break:keep-all !important;
+  overflow:visible !important;
 }}
 .continent-button-meta {{ font-size:6.1px !important; white-space:nowrap !important; }}
 .continent-button-count {{ font-size:8.4px !important; }}
@@ -14091,7 +14092,7 @@ header,
   min-width:34px !important;
   height:25px !important;
   padding:0 !important;
-  border-radius:9px !important;
+  border-radius:8px !important;
   font-size:7.7px !important;
 }}
 .continent-rail-scroll {{
@@ -14195,7 +14196,7 @@ header,
   #continent-rail {{ width:80px !important; right:5px !important; top:8px !important; max-height:266px !important; padding:5px !important; }}
   .continent-rail-title {{ font-size:8.1px !important; }}
   .continent-all-button {{ width:31px !important; min-width:31px !important; height:23px !important; font-size:7.2px !important; }}
-  .continent-button {{ min-height:29px !important; padding:4px !important; }}
+  .continent-button {{ min-height:29px !important; padding:3px !important; }}
   .continent-button-name {{ font-size:7.3px !important; }}
   .continent-button-count {{ font-size:7.1px !important; }}
   .country-map-visual .world-map-inline.globe-texture-source {{ left:4px !important; right:91px !important; top:7px !important; bottom:7px !important; }}
@@ -14205,7 +14206,7 @@ header,
 @media (max-width:380px) {{
   .country-map-visual.globe-mode {{ height:268px !important; min-height:268px !important; }}
   #continent-rail {{ width:74px !important; max-height:252px !important; }}
-  .continent-button-name {{ font-size:6.9px !important; }}
+  .continent-button-name {{ font-size:6.1px !important; letter-spacing:-.28px !important; }}
   .continent-button-count {{ font-size:6.8px !important; }}
   .country-map-visual .world-map-inline.globe-texture-source {{ right:84px !important; }}
   .country-native-node .country-native-text {{ font-size:15px !important; }}
@@ -14541,7 +14542,7 @@ header,
   #continent-rail {{ width:63px !important; }}
   .continent-rail-title {{ font-size:7.4px !important; }}
   .continent-button-name {{ font-size:6.35px !important; }}
-  .continent-button-count {{ font-size:6.25px !important; }}
+  .continent-button-count {{ font-size:5.75px !important; }}
 }}
 
 
@@ -14732,7 +14733,7 @@ header,
   #continent-rail {{ width:58px !important; }}
   .continent-rail-title {{ font-size:7.2px !important; }}
   .continent-button-name {{ font-size:6.05px !important; }}
-  .continent-button-count {{ font-size:5.95px !important; }}
+  .continent-button-count {{ font-size:5.45px !important; }}
   .precise-country-label {{ font-size:6.95px !important; }}
   .precise-country-label .name,.precise-country-label .count {{ font-size:6.9px !important; }}
 }}
@@ -14822,13 +14823,13 @@ header,
 /* Bottom thumb-friendly continent dock */
 #continent-rail {{
   position:absolute !important;
-  left:7px !important;
-  right:7px !important;
-  bottom:7px !important;
+  left:6px !important;
+  right:6px !important;
+  bottom:6px !important;
   top:auto !important;
   width:auto !important;
-  height:38px !important;
-  max-height:38px !important;
+  height:36px !important;
+  max-height:36px !important;
   display:block !important;
   padding:4px !important;
   border:1px solid rgba(148,185,208,.28) !important;
@@ -14843,7 +14844,7 @@ header,
 .continent-all-button {{ display:none !important; }}
 .continent-rail-scroll {{
   display:grid !important;
-  grid-template-columns:.85fr .85fr .92fr 1.18fr 1.34fr .96fr !important;
+  grid-template-columns:.78fr .78fr .76fr .88fr 1.46fr 1.04fr !important;
   align-items:stretch !important;
   gap:3px !important;
   width:100% !important;
@@ -14853,13 +14854,13 @@ header,
 }}
 .continent-button {{
   min-width:0 !important;
-  min-height:29px !important;
-  height:29px !important;
-  padding:2px 3px !important;
+  min-height:28px !important;
+  height:28px !important;
+  padding:1px 2px !important;
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
-  gap:3px !important;
+  gap:2px !important;
   border:1px solid rgba(190,207,219,.54) !important;
   border-radius:9px !important;
   background:linear-gradient(180deg,#ffffff,#f8fbfd) !important;
@@ -14870,16 +14871,16 @@ header,
 .continent-button-name {{
   display:block !important;
   min-width:0 !important;
-  font-size:7.2px !important;
+  font-size:6.35px !important;
   font-weight:900 !important;
-  line-height:1.04 !important;
-  letter-spacing:-.22px !important;
-  white-space:normal !important;
+  line-height:1 !important;
+  letter-spacing:-.26px !important;
+  white-space:nowrap !important;
   word-break:keep-all !important;
 }}
 .continent-button-count {{
   flex:0 0 auto !important;
-  font-size:6.55px !important;
+  font-size:5.95px !important;
   font-weight:950 !important;
   line-height:1 !important;
   color:#2785b6 !important;
@@ -14956,18 +14957,18 @@ header,
 @media (max-width:430px) {{
   .country-map-visual.globe-mode {{ height:244px !important; min-height:244px !important; }}
   .country-map-visual .world-map-inline.globe-texture-source {{ left:6px !important; top:35px !important; width:calc(100% - 12px) !important; }}
-  #continent-rail {{ left:6px !important; right:6px !important; bottom:6px !important; height:37px !important; max-height:37px !important; }}
-  .continent-button {{ height:28px !important; min-height:28px !important; padding:2px !important; }}
-  .continent-button-name {{ font-size:6.9px !important; }}
-  .continent-button-count {{ font-size:6.25px !important; }}
+  #continent-rail {{ left:5px !important; right:5px !important; bottom:5px !important; height:35px !important; max-height:35px !important; padding:3px !important; }}
+  .continent-button {{ height:27px !important; min-height:27px !important; padding:1px !important; }}
+  .continent-button-name {{ font-size:6.1px !important; letter-spacing:-.28px !important; }}
+  .continent-button-count {{ font-size:5.75px !important; }}
   .precise-country-label {{ min-height:19px !important; padding:2px 5px !important; font-size:7.4px !important; }}
   .precise-country-label .flag {{ font-size:8.3px !important; }}
   .precise-country-label .name,.precise-country-label .count {{ font-size:7.35px !important; }}
 }}
 @media (max-width:380px) {{
   .country-map-visual.globe-mode {{ height:238px !important; min-height:238px !important; }}
-  .continent-button-name {{ font-size:6.45px !important; }}
-  .continent-button-count {{ font-size:5.95px !important; }}
+  .continent-button-name {{ font-size:5.8px !important; letter-spacing:-.3px !important; }}
+  .continent-button-count {{ font-size:5.45px !important; }}
   .precise-country-label {{ font-size:7px !important; padding:2px 4px !important; }}
   .precise-country-label .name,.precise-country-label .count {{ font-size:6.95px !important; }}
 }}
@@ -15090,6 +15091,119 @@ header,
     line-height:1.32 !important;
     margin-top:1px !important;
     color:#556171 !important;
+  }}
+}}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL HEADER STATE CHIP MOVE — move selected continent pill to top-right header
+   ============================================================ */
+.world-map-head {{
+  align-items:flex-start !important;
+}}
+#map-head-chip-slot {{
+  margin-left:auto !important;
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:flex-end !important;
+  min-width:0 !important;
+  flex:0 0 auto !important;
+}}
+#map-head-chip-slot .map-continent-state {{
+  position:relative !important;
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:auto !important;
+  z-index:auto !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:5px !important;
+  min-height:24px !important;
+  height:24px !important;
+  padding:0 8px !important;
+  border:1px solid rgba(151,187,210,.34) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.97) !important;
+  box-shadow:0 2px 7px rgba(49,87,115,.06) !important;
+  white-space:nowrap !important;
+}}
+#map-head-chip-slot .map-continent-back {{
+  width:18px !important;
+  height:18px !important;
+  margin-left:-3px !important;
+  font-size:10px !important;
+}}
+#map-head-chip-slot .map-continent-state .state-name {{
+  font-size:8.1px !important;
+}}
+#map-head-chip-slot .map-continent-state .state-meta {{
+  font-size:6.7px !important;
+}}
+@media (max-width:430px) {{
+  #map-head-chip-slot .map-continent-state {{
+    min-height:22px !important;
+    height:22px !important;
+    padding:0 7px !important;
+    gap:4px !important;
+  }}
+  #map-head-chip-slot .map-continent-state .state-name {{ font-size:7.7px !important; }}
+  #map-head-chip-slot .map-continent-state .state-meta {{ font-size:6.35px !important; }}
+}}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP ENLARGED AFTER HEADER CHIP MOVE
+   ============================================================ */
+.country-map-visual {{
+  height: 224px !important;
+}}
+@media (max-width:430px) {{
+  .country-map-visual {{
+    height: 214px !important;
+  }}
+}}
+@media (max-width:380px) {{
+  .country-map-visual {{
+    height: 204px !important;
+  }}
+}}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL THUMBNAIL VERTICAL MARGIN — top/bottom symmetric
+   Card height includes 1px borders + vertical padding (border-box).
+   ============================================================ */
+@media (max-width:430px) {{
+  .card-side {{
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+  }}
+  .preview-image {{
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .card-side {{
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:center !important;
+  }}
+  .preview-image {{
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:center !important;
   }}
 }}
 
@@ -18700,33 +18814,69 @@ const COUNTRY_LABEL_PREFS = {{
   GB:[-30,30,-75,75], FR:[35,-35,0], NL:[50,-50,90,-90], BE:[80,-80,45,-45], CH:[65,-65,115,-115],
   SE:[35,-35,70], FI:[18,-18,45], PL:[35,-35,0], CZ:[60,-60,100,-100], SI:[85,-85,45,-45],
   RO:[45,-45,0], BG:[55,-55,0], UA:[35,-35,-70], TR:[25,-25,60], SK:[75,-75,35,-35], DK:[30,-30,70],
-  RU:[25,-25,0],
+  RU:[15,-15,35,-35],
   AE:[-20,20,-55,55], SA:[0,-28,28], ZA:[-20,20,0],
-  CN:[150,120,180,-150,-120], IN:[140,180,110,-140], VN:[20,-20,55,-55], TH:[20,-20,55,-55], MY:[-20,20,60,-60], SG:[-25,25,70,-70],
-  KR:[160,125,-160,-125,180], JP:[-165,-130,165,130,180],
-  AU:[-25,25,0]
+  CN:[180,150,130,-150], IN:[180,145,120], VN:[15,-15,45,-45], TH:[15,-15,45,-45], MY:[-20,20,60,-60], SG:[-25,25,70,-70],
+  KR:[160,125,180,-160], JP:[-165,-130,165,130,180],
+  AU:[-15,15,0]
 }};
 
+const COUNTRY_LABEL_OFFSETS = {{
+  US:[[36,0],[34,-18],[34,18]],
+  CA:[[38,-18],[42,0]],
+  GB:[[-54,0],[-42,18]],
+  FR:[[40,-6],[38,12]],
+  BG:[[-58,8],[-42,-10]],
+  UA:[[-62,18],[-44,2]],
+  RU:[[28,-18],[34,0]],
+  CN:[[-48,12],[-42,-6],[-58,22]],
+  IN:[[-42,18],[-50,30],[-34,2]],
+  KR:[[36,-4],[32,12]],
+  JP:[[34,-18],[30,-2]],
+  VN:[[38,10],[28,22]],
+  TH:[[34,8],[24,22]],
+  AU:[[34,-2],[28,14]],
+  BR:[[-40,16],[-32,0]],
+  ZA:[[0,22],[18,12]]
+}};
+
+function buildBoxFromOffset(w,h,ax,ay,bounds,dx,dy){{
+  let left = ax + dx - w / 2;
+  let top = ay + dy - h / 2;
+  left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+  top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+  return {{left, top, right:left+w, bottom:top+h, w, h}};
+}}
+
 function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode){{
-  const baseAngles = COUNTRY_LABEL_PREFS[itemCode] || [0,-35,35,-70,70,180,-145,145,-105,105];
-  const radii = [16,26,38,50,64,78,92];
+  const offsetCandidates = COUNTRY_LABEL_OFFSETS[itemCode] || [];
   let best = null;
+
+  for(const [dx,dy] of offsetCandidates){{
+    for(const [nx,ny] of [[0,0],[0,-8],[0,8],[-8,0],[8,0],[-12,0],[12,0]]){{
+      const box = buildBoxFromOffset(w,h,ax,ay,bounds,dx+nx,dy+ny);
+      const collisionCount = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,4) ? 1 : 0), 0);
+      const dist = Math.hypot((box.left + w/2) - ax, (box.top + h/2) - ay);
+      const score = collisionCount * 100000 + dist;
+      if(!best || score < best.score) best = {{...box, score, collisionCount}};
+      if(collisionCount === 0) return box;
+    }}
+  }}
+
+  const baseAngles = COUNTRY_LABEL_PREFS[itemCode] || [0,-35,35,-70,70,180,-145,145,-105,105];
+  const radii = [14,22,30,40,52,66,82];
   for(const r of radii){{
     for(const deg of baseAngles){{
       const rad = deg * Math.PI / 180;
-      let centerX = ax + Math.cos(rad) * r;
-      let centerY = ay + Math.sin(rad) * r;
-      let left = centerX - w / 2;
-      let top = centerY - h / 2;
-      left = Math.max(bounds.left, Math.min(bounds.right - w, left));
-      top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
-      const box = {{left, top, right:left+w, bottom:top+h, w, h}};
+      const dx = Math.cos(rad) * r;
+      const dy = Math.sin(rad) * r;
+      const box = buildBoxFromOffset(w,h,ax,ay,bounds,dx,dy);
       const collisionCount = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,4) ? 1 : 0), 0);
-      const dist = Math.hypot((left + w/2) - ax, (top + h/2) - ay);
-      const edgePenalty = (left<=bounds.left+1 || top<=bounds.top+1 || left+w>=bounds.right-1 || top+h>=bounds.bottom-1) ? 24 : 0;
+      const dist = Math.hypot((box.left + w/2) - ax, (box.top + h/2) - ay);
+      const edgePenalty = (box.left<=bounds.left+1 || box.top<=bounds.top+1 || box.left+w>=bounds.right-1 || box.top+h>=bounds.bottom-1) ? 16 : 0;
       const score = collisionCount * 100000 + dist + edgePenalty;
       if(!best || score < best.score) best = {{...box, score, collisionCount}};
-      if(collisionCount === 0 && r <= 64) return box;
+      if(collisionCount === 0 && r <= 52) return box;
     }}
   }}
   return best;
@@ -18814,6 +18964,48 @@ function layoutAndRenderCountryMap(){{
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+
+/* ============================================================
+   2026-08-21 FINAL HEADER STATE CHIP MOVE — runtime override
+   ============================================================ */
+function ensureMapStateChip(items){{
+  const head=document.querySelector('.world-map-head');
+  if(!head) return;
+  let slot=document.getElementById('map-head-chip-slot');
+  if(!slot){{
+    slot=document.createElement('div');
+    slot.id='map-head-chip-slot';
+    head.appendChild(slot);
+  }}
+  let chip=document.getElementById('map-continent-state');
+  if(!chip){{
+    chip=document.createElement('div');
+    chip.id='map-continent-state';
+    chip.className='map-continent-state';
+  }}
+  if(chip.parentElement!==slot) slot.appendChild(chip);
+
+  if(activeContinentFilter==='ALL'){{
+    chip.hidden=true;
+    chip.innerHTML='';
+    return;
+  }}
+
+  const meta=CONTINENT_META[activeContinentFilter]||{{name:'대륙'}};
+  const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
+  chip.hidden=false;
+  chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${{meta.name}}</span><span class="state-meta">${{countries.length}}개국 · ${{articles}}건</span>`;
+  chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{{
+    activeContinentFilter='ALL';
+    activeCountryFilter='';
+    filterArticles();
+    updateCountryMapCounts();
+    layoutAndRenderCountryMap();
+  }});
+}}
 
 </script>
 </body>
