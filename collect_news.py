@@ -14520,6 +14520,433 @@ header,
   .continent-button-count {{ font-size:6.25px !important; }}
 }}
 
+
+
+/* ============================================================
+   ABSOLUTE FINAL VISUAL TUNING — precise pins / compact rail
+   ============================================================ */
+.country-map-visual.globe-mode {{
+  height:198px !important;
+  min-height:198px !important;
+  overflow:hidden !important;
+  background:linear-gradient(180deg,#fbfdff 0%,#f3f8fc 100%) !important;
+}}
+
+/* Use most of the card for the world map while keeping Australia clear of the rail. */
+.country-map-visual .world-map-inline.globe-texture-source {{
+  display:block !important;
+  position:absolute !important;
+  left:-2px !important;
+  right:auto !important;
+  top:50% !important;
+  bottom:auto !important;
+  width:calc(100% - 44px) !important;
+  height:auto !important;
+  aspect-ratio:2 / 1 !important;
+  max-width:none !important;
+  transform:translateY(-50%) !important;
+  transform-origin:center !important;
+  opacity:1 !important;
+  filter:contrast(1.06) saturate(.98) !important;
+}}
+
+/* Critical: label coordinates are visual-relative, so the layer itself must be full-size and untransformed. */
+#country-map-label-layer.country-map-label-layer {{
+  position:absolute !important;
+  inset:0 !important;
+  left:0 !important;
+  right:0 !important;
+  top:0 !important;
+  bottom:0 !important;
+  width:100% !important;
+  height:100% !important;
+  transform:none !important;
+  transform-origin:center !important;
+  pointer-events:none !important;
+  z-index:5 !important;
+  overflow:visible !important;
+}}
+
+/* Compact, right-thumb-friendly continent selector. */
+#continent-rail {{
+  top:7px !important;
+  right:5px !important;
+  bottom:auto !important;
+  width:64px !important;
+  height:auto !important;
+  max-height:none !important;
+  padding:4px !important;
+  gap:3px !important;
+  border-radius:12px !important;
+  border:1px solid rgba(154,187,208,.30) !important;
+  background:rgba(255,255,255,.96) !important;
+  box-shadow:0 2px 8px rgba(47,86,116,.06) !important;
+}}
+.continent-rail-head {{
+  min-height:22px !important;
+  padding:0 1px 3px !important;
+  align-items:center !important;
+}}
+.continent-rail-title {{
+  font-size:7.8px !important;
+  letter-spacing:-.15px !important;
+}}
+.continent-back-button {{
+  width:21px !important;
+  height:21px !important;
+  font-size:11px !important;
+}}
+.continent-rail-scroll {{ gap:3px !important; overflow:visible !important; }}
+.continent-button {{
+  min-height:24px !important;
+  padding:3px 3px !important;
+  gap:2px !important;
+  border-radius:8px !important;
+  box-shadow:none !important;
+}}
+.continent-button-name {{
+  min-width:0 !important;
+  font-size:6.65px !important;
+  line-height:1.02 !important;
+  letter-spacing:-.18px !important;
+  white-space:normal !important;
+  word-break:keep-all !important;
+}}
+.continent-button-count {{
+  font-size:6.55px !important;
+  line-height:1 !important;
+}}
+.continent-button.active {{
+  background:#edf8fe !important;
+  border-color:#4aa8d8 !important;
+}}
+
+/* New map pins: dot stays geographically fixed; only label moves. */
+.precise-country-dot {{
+  position:absolute !important;
+  width:7px !important;
+  height:7px !important;
+  margin:-3.5px 0 0 -3.5px !important;
+  border-radius:50% !important;
+  border:1.5px solid #fff !important;
+  background:#1997d3 !important;
+  box-shadow:0 0 0 2px rgba(25,151,211,.16),0 1px 4px rgba(31,83,116,.18) !important;
+  pointer-events:none !important;
+  z-index:7 !important;
+}}
+.precise-country-dot.active {{
+  background:#d84b4b !important;
+  box-shadow:0 0 0 2px rgba(216,75,75,.16),0 1px 4px rgba(110,55,55,.18) !important;
+}}
+.precise-country-connector {{
+  position:absolute !important;
+  height:1px !important;
+  background:rgba(65,115,148,.34) !important;
+  transform-origin:0 50% !important;
+  pointer-events:none !important;
+  z-index:5 !important;
+}}
+.precise-country-label {{
+  position:absolute !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:3px !important;
+  min-height:19px !important;
+  padding:2px 5px !important;
+  border:1px solid rgba(165,194,213,.52) !important;
+  border-radius:7px !important;
+  background:rgba(255,255,255,.96) !important;
+  box-shadow:0 2px 6px rgba(45,84,111,.08) !important;
+  color:#244863 !important;
+  font-size:7.7px !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  pointer-events:auto !important;
+  cursor:pointer !important;
+  z-index:8 !important;
+}}
+.precise-country-label .flag {{ font-size:8.4px !important; line-height:1 !important; }}
+.precise-country-label .name {{ font-size:7.65px !important; }}
+.precise-country-label .count {{ color:#1886c1 !important; font-size:7.65px !important; font-weight:950 !important; }}
+.precise-country-label.active {{
+  background:#fff3be !important;
+  border-color:#e8cd63 !important;
+}}
+.precise-country-label.active .count {{ color:#d84b4b !important; }}
+.precise-country-label:hover,
+.precise-country-label:focus-visible {{
+  outline:none !important;
+  border-color:#74b9df !important;
+  box-shadow:0 3px 9px rgba(45,101,139,.12) !important;
+}}
+
+/* Highlight should support the labels, not compete with them. */
+#continent-highlight-svg-layer .continent-highlight-land path {{
+  fill:#78c9ed !important;
+  fill-opacity:.48 !important;
+  stroke:#2798ce !important;
+  stroke-width:1.05 !important;
+  stroke-opacity:.68 !important;
+  filter:none !important;
+}}
+#continent-highlight-svg-layer .continent-highlight-title {{ display:none !important; }}
+
+@media (max-width:430px) {{
+  .country-map-visual.globe-mode {{ height:188px !important; min-height:188px !important; }}
+  .country-map-visual .world-map-inline.globe-texture-source {{ width:calc(100% - 41px) !important; }}
+  #continent-rail {{ width:61px !important; right:4px !important; top:6px !important; padding:3px !important; }}
+  .continent-button {{ min-height:23px !important; padding:3px 2px !important; }}
+  .continent-button-name {{ font-size:6.3px !important; }}
+  .continent-button-count {{ font-size:6.2px !important; }}
+  .precise-country-label {{ min-height:18px !important; padding:2px 4px !important; font-size:7.25px !important; }}
+  .precise-country-label .name,.precise-country-label .count {{ font-size:7.2px !important; }}
+}}
+@media (max-width:380px) {{
+  .country-map-visual.globe-mode {{ height:182px !important; min-height:182px !important; }}
+  .country-map-visual .world-map-inline.globe-texture-source {{ width:calc(100% - 39px) !important; }}
+  #continent-rail {{ width:58px !important; }}
+  .continent-rail-title {{ font-size:7.2px !important; }}
+  .continent-button-name {{ font-size:6.05px !important; }}
+  .continent-button-count {{ font-size:5.95px !important; }}
+  .precise-country-label {{ font-size:6.95px !important; }}
+  .precise-country-label .name,.precise-country-label .count {{ font-size:6.9px !important; }}
+}}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP UI — bottom continent dock + exact 2:1 map coordinates
+   ============================================================ */
+.country-map-visual.globe-mode {{
+  height:248px !important;
+  min-height:248px !important;
+  overflow:hidden !important;
+  border-radius:17px !important;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(255,255,255,.98) 0%,rgba(247,251,254,.96) 55%,rgba(236,245,251,.92) 100%) !important;
+  box-shadow:inset 0 0 0 1px rgba(170,197,216,.20),0 4px 16px rgba(53,91,120,.045) !important;
+}}
+.country-map-visual .world-map-inline.globe-texture-source {{
+  display:block !important;
+  position:absolute !important;
+  left:7px !important;
+  top:34px !important;
+  right:auto !important;
+  bottom:auto !important;
+  width:calc(100% - 14px) !important;
+  height:auto !important;
+  aspect-ratio:2 / 1 !important;
+  max-width:none !important;
+  transform:none !important;
+  transform-origin:center !important;
+  opacity:1 !important;
+  filter:contrast(1.08) saturate(.97) drop-shadow(0 2px 7px rgba(48,93,125,.06)) !important;
+  z-index:1 !important;
+}}
+#country-map-label-layer.country-map-label-layer {{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  transform:none !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+  z-index:7 !important;
+}}
+
+/* Map state chip */
+.map-continent-state {{
+  position:absolute !important;
+  left:10px !important;
+  top:8px !important;
+  z-index:9 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:5px !important;
+  height:24px !important;
+  padding:0 8px !important;
+  border:1px solid rgba(151,187,210,.28) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.94) !important;
+  box-shadow:0 2px 7px rgba(49,87,115,.06) !important;
+  color:#42637c !important;
+  font-size:7.8px !important;
+  font-weight:850 !important;
+  white-space:nowrap !important;
+}}
+.map-continent-back {{
+  width:20px !important;
+  height:20px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:0 !important;
+  margin-left:-4px !important;
+  border:0 !important;
+  border-radius:50% !important;
+  background:#eaf6fc !important;
+  color:#176c98 !important;
+  font-size:11px !important;
+  font-weight:950 !important;
+  cursor:pointer !important;
+}}
+.map-continent-state .state-name {{ color:#174d70 !important; font-size:8.3px !important; font-weight:950 !important; }}
+.map-continent-state .state-meta {{ color:#7a8e9f !important; font-size:6.9px !important; }}
+
+/* Bottom thumb-friendly continent dock */
+#continent-rail {{
+  position:absolute !important;
+  left:7px !important;
+  right:7px !important;
+  bottom:7px !important;
+  top:auto !important;
+  width:auto !important;
+  height:39px !important;
+  max-height:39px !important;
+  display:block !important;
+  padding:4px !important;
+  border:1px solid rgba(148,185,208,.28) !important;
+  border-radius:13px !important;
+  background:rgba(255,255,255,.95) !important;
+  box-shadow:0 4px 12px rgba(48,87,116,.08) !important;
+  backdrop-filter:blur(5px) !important;
+  z-index:10 !important;
+}}
+.continent-rail-head,
+.continent-back-button,
+.continent-all-button {{ display:none !important; }}
+.continent-rail-scroll {{
+  display:grid !important;
+  grid-template-columns:.82fr .82fr .92fr 1.42fr 1.22fr !important;
+  align-items:stretch !important;
+  gap:3px !important;
+  width:100% !important;
+  height:100% !important;
+  padding:0 !important;
+  overflow:visible !important;
+}}
+.continent-button {{
+  min-width:0 !important;
+  min-height:29px !important;
+  height:29px !important;
+  padding:2px 3px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  border:1px solid rgba(190,207,219,.54) !important;
+  border-radius:9px !important;
+  background:linear-gradient(180deg,#ffffff,#f8fbfd) !important;
+  color:#355873 !important;
+  box-shadow:none !important;
+  text-align:center !important;
+}}
+.continent-button-name {{
+  display:block !important;
+  min-width:0 !important;
+  font-size:7.2px !important;
+  font-weight:900 !important;
+  line-height:1.04 !important;
+  letter-spacing:-.22px !important;
+  white-space:normal !important;
+  word-break:keep-all !important;
+}}
+.continent-button-count {{
+  flex:0 0 auto !important;
+  font-size:6.55px !important;
+  font-weight:950 !important;
+  line-height:1 !important;
+  color:#2785b6 !important;
+  white-space:nowrap !important;
+}}
+.continent-button-meta {{ display:none !important; }}
+.continent-button.active {{
+  border-color:#45a5d4 !important;
+  background:linear-gradient(180deg,#eef9fe,#e6f5fc) !important;
+  box-shadow:inset 0 0 0 1px rgba(42,145,194,.10) !important;
+}}
+.continent-button.active .continent-button-name {{ color:#116c98 !important; }}
+.continent-button.active .continent-button-count {{ color:#d84b4b !important; }}
+
+/* Exact fixed pin + movable collision-free label */
+.precise-country-dot {{
+  position:absolute !important;
+  width:7px !important;
+  height:7px !important;
+  margin:-3.5px 0 0 -3.5px !important;
+  border-radius:50% !important;
+  border:1.6px solid #fff !important;
+  background:#168fc8 !important;
+  box-shadow:0 0 0 2px rgba(22,143,200,.16),0 1px 4px rgba(26,82,116,.20) !important;
+  pointer-events:none !important;
+  z-index:9 !important;
+}}
+.precise-country-dot.active {{ background:#d84b4b !important; box-shadow:0 0 0 2px rgba(216,75,75,.16),0 1px 4px rgba(110,55,55,.18) !important; }}
+.precise-country-connector {{
+  position:absolute !important;
+  height:1px !important;
+  background:rgba(73,119,149,.34) !important;
+  transform-origin:0 50% !important;
+  pointer-events:none !important;
+  z-index:7 !important;
+}}
+.precise-country-label {{
+  position:absolute !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:3px !important;
+  min-height:20px !important;
+  padding:2px 6px !important;
+  border:1px solid rgba(163,193,213,.50) !important;
+  border-radius:8px !important;
+  background:rgba(255,255,255,.965) !important;
+  box-shadow:0 3px 8px rgba(43,84,113,.09) !important;
+  color:#294b65 !important;
+  font-size:7.8px !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  pointer-events:auto !important;
+  cursor:pointer !important;
+  z-index:11 !important;
+}}
+.precise-country-label .flag {{ font-size:8.8px !important; line-height:1 !important; }}
+.precise-country-label .name {{ font-size:7.75px !important; font-weight:900 !important; }}
+.precise-country-label .count {{ color:#1686bf !important; font-size:7.75px !important; font-weight:950 !important; }}
+.precise-country-label.active {{ background:#fff3bd !important; border-color:#e8cd63 !important; }}
+.precise-country-label.active .count {{ color:#d84b4b !important; }}
+
+/* Selected continent is contextual, not dominant. */
+#continent-highlight-svg-layer .continent-highlight-land path {{
+  fill:#6fc4ea !important;
+  fill-opacity:.38 !important;
+  stroke:#3099c9 !important;
+  stroke-width:.9 !important;
+  stroke-opacity:.58 !important;
+  filter:none !important;
+}}
+#continent-highlight-svg-layer .continent-highlight-title {{ display:none !important; }}
+
+@media (max-width:430px) {{
+  .country-map-visual.globe-mode {{ height:244px !important; min-height:244px !important; }}
+  .country-map-visual .world-map-inline.globe-texture-source {{ left:6px !important; top:35px !important; width:calc(100% - 12px) !important; }}
+  #continent-rail {{ left:6px !important; right:6px !important; bottom:6px !important; height:38px !important; max-height:38px !important; }}
+  .continent-button {{ height:28px !important; min-height:28px !important; padding:2px !important; }}
+  .continent-button-name {{ font-size:6.9px !important; }}
+  .continent-button-count {{ font-size:6.25px !important; }}
+  .precise-country-label {{ min-height:19px !important; padding:2px 5px !important; font-size:7.4px !important; }}
+  .precise-country-label .flag {{ font-size:8.3px !important; }}
+  .precise-country-label .name,.precise-country-label .count {{ font-size:7.35px !important; }}
+}}
+@media (max-width:380px) {{
+  .country-map-visual.globe-mode {{ height:238px !important; min-height:238px !important; }}
+  .continent-button-name {{ font-size:6.45px !important; }}
+  .continent-button-count {{ font-size:5.95px !important; }}
+  .precise-country-label {{ font-size:7px !important; padding:2px 4px !important; }}
+  .precise-country-label .name,.precise-country-label .count {{ font-size:6.95px !important; }}
+}}
+
 </style>
 </head>
 <body>
@@ -17710,6 +18137,361 @@ function layoutAndRenderCountryMap(){{
     ? '오른쪽에서 대륙을 선택하세요'
     : '← 버튼으로 전체 세계지도로 돌아가기';
 }}
+
+
+
+/* ============================================================
+   ABSOLUTE FINAL MAP RUNTIME — calibrated SVG anchors + collision-free labels
+   ============================================================ */
+const COUNTRY_MAP_ANCHORS={{
+  US:[23.0,42.0], CA:[22.5,29.0],
+  GB:[48.1,35.5], FR:[50.1,40.2], NL:[50.4,36.1], BE:[50.2,38.1], CH:[51.7,40.5],
+  SE:[53.3,27.4], FI:[56.2,26.3], PL:[54.8,37.0], CZ:[53.3,38.7], SI:[53.5,41.5],
+  RO:[56.9,41.8], BG:[57.1,44.2], UA:[59.4,39.1], RU:[69.5,28.8], TR:[59.7,46.3],
+  SK:[54.3,39.0], DK:[51.3,32.0],
+  KR:[85.8,41.2], JP:[89.5,42.0], CN:[79.8,42.5], IN:[70.4,54.7], VN:[81.6,56.8],
+  MY:[81.9,62.0], TH:[79.8,56.3], SG:[82.2,64.0],
+  AE:[64.0,52.3], SA:[61.2,52.9], ZA:[55.0,72.8],
+  AU:[85.1,75.7]
+}};
+
+function getCountryMapAnchor(item){{
+  const fixed=COUNTRY_MAP_ANCHORS[item.code];
+  if(fixed)return {{x:fixed[0],y:fixed[1]}};
+  return project2DPoint(item.lon,item.lat);
+}}
+
+function getContinentNativeRegion(code){{
+  /* 1000x500 SVG viewBox. Tighter clips prevent unrelated continents being highlighted. */
+  const regions={{
+    NA: {{points:'20,65 330,65 365,170 335,292 245,335 110,310 25,240',labelX:190,labelY:170}},
+    EU: {{points:'445,85 610,80 630,135 612,225 535,245 465,220 435,155',labelX:530,labelY:155}},
+    AS: {{points:'565,55 995,55 995,310 915,345 780,330 675,285 590,215 555,130',labelX:795,labelY:175}},
+    MEA:{{points:'430,205 655,190 682,255 650,390 595,460 485,455 415,365 400,270',labelX:535,labelY:315}},
+    OC: {{points:'745,300 995,300 995,490 760,490 720,390',labelX:850,labelY:405}}
+  }};
+  return regions[code]||null;
+}}
+
+function getPreciseMapViewport(svg,visual){{
+  const sr=svg.getBoundingClientRect();
+  const vr=visual.getBoundingClientRect();
+  return {{left:sr.left-vr.left,top:sr.top-vr.top,width:sr.width,height:sr.height}};
+}}
+
+function estimateCountryLabelWidth(item){{
+  const digits=String(item.count||0).length;
+  const nameUnits=Math.max(2,[...String(item.name||'')].length);
+  return Math.min(94,39+nameUnits*6.4+digits*4.2);
+}}
+
+function boxesOverlap(a,b,pad=3){{
+  return !(a.right+pad<=b.left || a.left>=b.right+pad || a.bottom+pad<=b.top || a.top>=b.bottom+pad);
+}}
+
+function findCountryLabelBox(item,anchorX,anchorY,bounds,occupied){{
+  const w=estimateCountryLabelWidth(item), h=20;
+  const candidateOffsets=[
+    [10,-10],[10,5],[10,-25],[-w-10,-10],[-w-10,5],[-w-10,-25],
+    [18,20],[-w-18,20],[18,-40],[-w-18,-40],
+    [28,35],[-w-28,35],[28,-55],[-w-28,-55],
+    [42,0],[-w-42,0],[42,28],[-w-42,28]
+  ];
+  let best=null;
+  for(const [dx,dy] of candidateOffsets){{
+    let left=anchorX+dx, top=anchorY+dy;
+    left=Math.max(bounds.left,Math.min(bounds.right-w,left));
+    top=Math.max(bounds.top,Math.min(bounds.bottom-h,top));
+    const box={{left,top,right:left+w,bottom:top+h,w,h}};
+    const collisions=occupied.reduce((n,o)=>n+(boxesOverlap(box,o)?1:0),0);
+    const distance=Math.abs(dx)+Math.abs(dy);
+    const score=collisions*10000+distance;
+    if(!best||score<best.score)best={{...box,score,collisions}};
+    if(collisions===0)return box;
+  }}
+  return best;
+}}
+
+function addPreciseConnector(layer,ax,ay,box){{
+  const tx=ax<box.left?box.left:(ax>box.right?box.right:(box.left+box.right)/2);
+  const ty=ay<box.top?box.top:(ay>box.bottom?box.bottom:(box.top+box.bottom)/2);
+  const dx=tx-ax,dy=ty-ay;
+  const len=Math.hypot(dx,dy);
+  if(len<6)return;
+  const line=document.createElement('span');
+  line.className='precise-country-connector';
+  line.style.left=`${{ax}}px`;
+  line.style.top=`${{ay}}px`;
+  line.style.width=`${{Math.max(0,len-3)}}px`;
+  line.style.transform=`rotate(${{Math.atan2(dy,dx)*180/Math.PI}}deg)`;
+  layer.appendChild(line);
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const svg=document.querySelector('.world-map-inline.globe-texture-source');
+  const layer=document.getElementById('country-map-label-layer');
+  if(!visual||!svg||!layer)return;
+  layer.innerHTML='';
+  if(activeContinentFilter==='ALL')return;
+
+  const countries=items
+    .filter(item=>item.continent===activeContinentFilter && item.count>0)
+    .sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
+  if(!countries.length)return;
+
+  const vp=getPreciseMapViewport(svg,visual);
+  const rail=document.getElementById('continent-rail');
+  const vr=visual.getBoundingClientRect();
+  const rr=rail?.getBoundingClientRect();
+  const railLeft=rr?rr.left-vr.left:visual.clientWidth;
+  const bounds={{
+    left:Math.max(2,vp.left+2),
+    top:Math.max(2,vp.top+2),
+    right:Math.min(vp.left+vp.width-2,railLeft-4),
+    bottom:Math.min(visual.clientHeight-2,vp.top+vp.height-2)
+  }};
+
+  const occupied=[];
+  countries.forEach(item=>{{
+    const p=getCountryMapAnchor(item);
+    const ax=vp.left+(p.x/100)*vp.width;
+    const ay=vp.top+(p.y/100)*vp.height;
+    const box=findCountryLabelBox(item,ax,ay,bounds,occupied);
+    occupied.push(box);
+
+    const dot=document.createElement('span');
+    dot.className='precise-country-dot'+(activeCountryFilter===item.code?' active':'');
+    dot.style.left=`${{ax}}px`;
+    dot.style.top=`${{ay}}px`;
+    layer.appendChild(dot);
+
+    addPreciseConnector(layer,ax,ay,box);
+
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='precise-country-label'+(activeCountryFilter===item.code?' active':'');
+    btn.style.left=`${{box.left}}px`;
+    btn.style.top=`${{box.top}}px`;
+    btn.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label',`${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    btn.addEventListener('click',(event)=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    }});
+    layer.appendChild(btn);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items=collect2DCountryItems();
+  if(!items.length)return;
+  maybeInitializeContinentFilter(items);
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  renderHtmlCountryLabels(items);
+  const ranking=document.getElementById('continent-country-ranking');
+  if(ranking){{ranking.hidden=true;ranking.innerHTML='';}}
+  const caption=document.getElementById('country-map-caption-text');
+  if(caption)caption.textContent='';
+  const note=document.getElementById('country-filter-note');
+  if(note)note.textContent=activeContinentFilter==='ALL'
+    ? '오른쪽에서 대륙을 선택하세요'
+    : '국가를 누르면 해당 기사만 표시됩니다';
+}}
+
+requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load',()=>requestAnimationFrame(layoutAndRenderCountryMap),{{once:true}});
+window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP RUNTIME — exact equirectangular anchors + strict collision avoidance
+   ============================================================ */
+function projectExactSvgPoint(lon,lat){{
+  const x=((Number(lon)+180)/360)*100;
+  const y=((90-Number(lat))/180)*100;
+  return {{x:Math.max(0,Math.min(100,x)),y:Math.max(0,Math.min(100,y))}};
+}}
+
+function getCountryMapAnchor(item){{
+  return projectExactSvgPoint(item.lon,item.lat);
+}}
+
+function ensureMapStateChip(items){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  if(!visual)return;
+  let chip=document.getElementById('map-continent-state');
+  if(!chip){{
+    chip=document.createElement('div');
+    chip.id='map-continent-state';
+    chip.className='map-continent-state';
+    visual.appendChild(chip);
+  }}
+  if(activeContinentFilter==='ALL'){{
+    chip.innerHTML='<span class="state-name">세계지도</span><span class="state-meta">아래에서 대륙 선택</span>';
+    return;
+  }}
+  const meta=CONTINENT_META[activeContinentFilter]||{{name:'대륙'}};
+  const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
+  chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${{meta.name}}</span><span class="state-meta">${{countries.length}}개국 · ${{articles}}건</span>`;
+  chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{{
+    activeContinentFilter='ALL';
+    activeCountryFilter='';
+    filterArticles();
+    updateCountryMapCounts();
+    layoutAndRenderCountryMap();
+  }});
+}}
+
+function renderContinentRail2D(items){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  if(!visual)return;
+  let rail=document.getElementById('continent-rail');
+  if(!rail){{rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}}
+  const counts={{}};
+  const articles={{}};
+  CONTINENT_ORDER.forEach(c=>{{counts[c]=0;articles[c]=0;}});
+  items.forEach(item=>{{
+    if(!item.continent||!CONTINENT_META[item.continent]||item.count<=0)return;
+    counts[item.continent]=(counts[item.continent]||0)+1;
+    articles[item.continent]=(articles[item.continent]||0)+item.count;
+  }});
+  rail.innerHTML='<div class="continent-rail-scroll" aria-label="대륙 선택"></div>';
+  const scroll=rail.querySelector('.continent-rail-scroll');
+  CONTINENT_ORDER.forEach(code=>{{
+    if(code==='ALL')return;
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='continent-button'+(activeContinentFilter===code?' active':'');
+    btn.innerHTML=`<span class="continent-button-name">${{CONTINENT_META[code].name}}</span><span class="continent-button-count">${{articles[code]||0}}건</span>`;
+    btn.addEventListener('click',()=>{{
+      activeContinentFilter=code;
+      if(activeCountryFilter && getCountryContinent(activeCountryFilter)!==code)activeCountryFilter='';
+      filterArticles();
+      updateCountryMapCounts();
+      layoutAndRenderCountryMap();
+    }});
+    scroll.appendChild(btn);
+  }});
+}}
+
+function getExactMapViewport(svg,visual){{
+  const sr=svg.getBoundingClientRect();
+  const vr=visual.getBoundingClientRect();
+  return {{left:sr.left-vr.left,top:sr.top-vr.top,width:sr.width,height:sr.height}};
+}}
+
+function labelBoxesOverlap(a,b,pad=3){{
+  return !(a.right+pad<=b.left || a.left>=b.right+pad || a.bottom+pad<=b.top || a.top>=b.bottom+pad);
+}}
+
+function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied){{
+  const radii=[12,20,30,42,56,70,84];
+  const angles=[0,-35,35,-70,70,180,-145,145,-105,105];
+  let best=null;
+  for(const r of radii){{
+    for(const deg of angles){{
+      const rad=deg*Math.PI/180;
+      let left=ax+Math.cos(rad)*r-(deg===180||Math.abs(deg)>100?w:0);
+      let top=ay+Math.sin(rad)*r-h/2;
+      left=Math.max(bounds.left,Math.min(bounds.right-w,left));
+      top=Math.max(bounds.top,Math.min(bounds.bottom-h,top));
+      const box={{left,top,right:left+w,bottom:top+h,w,h}};
+      const collisionCount=occupied.reduce((n,o)=>n+(labelBoxesOverlap(box,o,3)?1:0),0);
+      const dist=Math.hypot((left+w/2)-ax,(top+h/2)-ay);
+      const edgePenalty=(left<=bounds.left+1||left+w>=bounds.right-1||top<=bounds.top+1||top+h>=bounds.bottom-1)?18:0;
+      const score=collisionCount*100000+dist+edgePenalty;
+      if(!best||score<best.score)best={{...box,score,collisionCount}};
+      if(collisionCount===0 && r<=56)return box;
+    }}
+  }}
+  return best;
+}}
+
+function addExactConnector(layer,ax,ay,box){{
+  const cx=Math.max(box.left,Math.min(ax,box.right));
+  const cy=Math.max(box.top,Math.min(ay,box.bottom));
+  const dx=cx-ax,dy=cy-ay;
+  const len=Math.hypot(dx,dy);
+  if(len<9)return;
+  const line=document.createElement('span');
+  line.className='precise-country-connector';
+  line.style.left=`${{ax}}px`;line.style.top=`${{ay}}px`;
+  line.style.width=`${{Math.max(0,len-4)}}px`;
+  line.style.transform=`rotate(${{Math.atan2(dy,dx)*180/Math.PI}}deg)`;
+  layer.appendChild(line);
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const svg=document.querySelector('.world-map-inline.globe-texture-source');
+  const layer=document.getElementById('country-map-label-layer');
+  if(!visual||!svg||!layer)return;
+  layer.innerHTML='';
+  if(activeContinentFilter==='ALL')return;
+  const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0)
+    .sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name,'ko'));
+  if(!countries.length)return;
+  const vp=getExactMapViewport(svg,visual);
+  const dock=document.getElementById('continent-rail');
+  const vr=visual.getBoundingClientRect();
+  const dr=dock?.getBoundingClientRect();
+  const dockTop=dr?dr.top-vr.top:visual.clientHeight-44;
+  const bounds={{left:Math.max(3,vp.left+2),top:Math.max(31,vp.top+2),right:Math.min(visual.clientWidth-3,vp.left+vp.width-2),bottom:Math.min(dockTop-4,vp.top+vp.height-2)}};
+  const occupied=[];
+
+  countries.forEach(item=>{{
+    const p=getCountryMapAnchor(item);
+    const ax=vp.left+(p.x/100)*vp.width;
+    const ay=vp.top+(p.y/100)*vp.height;
+
+    const dot=document.createElement('span');
+    dot.className='precise-country-dot'+(activeCountryFilter===item.code?' active':'');
+    dot.style.left=`${{ax}}px`;dot.style.top=`${{ay}}px`;
+    layer.appendChild(dot);
+
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='precise-country-label'+(activeCountryFilter===item.code?' active':'');
+    btn.style.visibility='hidden';
+    btn.style.left='0px';btn.style.top='0px';
+    btn.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label',`${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+
+    const w=Math.ceil(btn.getBoundingClientRect().width||64);
+    const h=Math.ceil(btn.getBoundingClientRect().height||20);
+    const box=chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied);
+    occupied.push(box);
+    btn.style.left=`${{box.left}}px`;btn.style.top=`${{box.top}}px`;btn.style.visibility='visible';
+    btn.addEventListener('click',(event)=>{{event.preventDefault();event.stopPropagation();setCountryFilter(item.code);}});
+    addExactConnector(layer,ax,ay,box);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items=collect2DCountryItems();
+  if(!items.length)return;
+  if(!activeContinentFilter)activeContinentFilter='ALL';
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking=document.getElementById('continent-country-ranking');
+  if(ranking){{ranking.hidden=true;ranking.innerHTML='';}}
+  const caption=document.querySelector('.country-map-caption');
+  if(caption)caption.style.display='none';
+  const note=document.getElementById('country-filter-note');
+  if(note)note.textContent=activeContinentFilter==='ALL'?'대륙을 선택하세요':'국가를 누르면 해당 기사만 표시됩니다';
+}}
+
+requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load',()=>requestAnimationFrame(layoutAndRenderCountryMap),{{once:true}});
+window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountryMap));
 
 </script>
 </body>
