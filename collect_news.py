@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# EUROPE LABELS NEAR + NO OVERLAP 2026-08-21
 # CARD SPACING + STRONGER CONFIRMED DUPLICATE MATCHING 2026-08-21
 # HOLTEC PALISADES REQUIRES HOLTEC CO-OCCURRENCE 2026-08-21
 # ARTICLE NUMBER REMOVED + TEXT WIDTH EXPANDED 2026-08-21
@@ -16249,6 +16250,36 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   2026-08-21 EUROPE MAP LABEL PACKING
+   Europe-only: smaller chips + clean near-country placement
+   ============================================================ */
+.precise-country-label.europe-country-label {{
+  min-height:14px !important;
+  padding:1px 3px !important;
+  gap:1.5px !important;
+  font-size:6.35px !important;
+  box-shadow:0 1px 3px rgba(54,89,114,.07) !important;
+}}
+.precise-country-label.europe-country-label .flag {{
+  font-size:6.9px !important;
+}}
+.precise-country-label.europe-country-label .name,
+.precise-country-label.europe-country-label .count {{
+  font-size:6.3px !important;
+}}
+@media (max-width:430px) {{
+  .precise-country-label.europe-country-label {{
+    min-height:13px !important;
+    padding:1px 2.5px !important;
+    font-size:6.05px !important;
+  }}
+  .precise-country-label.europe-country-label .flag {{ font-size:6.6px !important; }}
+  .precise-country-label.europe-country-label .name,
+  .precise-country-label.europe-country-label .count {{ font-size:6px !important; }}
+}}
+
 </style>
 </head>
 <body>
@@ -20761,6 +20792,194 @@ function layoutAndRenderCountryMap(){{
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+/* ============================================================
+   2026-08-21 EUROPE-SPECIFIC LABEL PACKING OVERRIDE
+   ============================================================ */
+const EUROPE_LABEL_CODES = new Set(['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','SK','DK']);
+
+const EUROPE_LABEL_DIRECTION = {{
+  GB:'W', FR:'W', NL:'W', BE:'W', CH:'W',
+  SE:'N', FI:'N', DK:'W',
+  PL:'E', CZ:'E', SK:'E', SI:'S',
+  RO:'E', BG:'E', UA:'E', TR:'E'
+}};
+
+function europeDirectionalPenalty(code, dx, dy){{
+  const pref = EUROPE_LABEL_DIRECTION[code] || 'E';
+  if(pref==='W') return dx <= 0 ? 0 : 18;
+  if(pref==='E') return dx >= 0 ? 0 : 18;
+  if(pref==='N') return dy <= 0 ? 0 : 18;
+  if(pref==='S') return dy >= 0 ? 0 : 18;
+  return 0;
+}}
+
+function chooseEuropeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
+  let best = null;
+
+  const test = (cx, cy) => {{
+    let left = cx - w/2;
+    let top = cy - h/2;
+    left = Math.max(bounds.left, Math.min(bounds.right-w, left));
+    top = Math.max(bounds.top, Math.min(bounds.bottom-h, top));
+    const box = {{ left, top, right:left+w, bottom:top+h, w, h }};
+
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,5) ? 1 : 0), 0);
+    const anchorHit = boxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
+    const dx = (left+w/2)-ax;
+    const dy = (top+h/2)-ay;
+    const dist = Math.hypot(dx,dy);
+    const directionPenalty = europeDirectionalPenalty(itemCode, dx, dy);
+    const edgePenalty = (
+      left <= bounds.left+1 || top <= bounds.top+1 ||
+      left+w >= bounds.right-1 || top+h >= bounds.bottom-1
+    ) ? 7 : 0;
+    const score = collisions*1000000 + anchorHit*20000 + dist + directionPenalty + edgePenalty;
+    if(!best || score < best.score) best = {{ ...box, score, collisions, anchorHit }};
+    return collisions===0 && anchorHit===0 ? box : null;
+  }};
+
+  // 1. Very close candidates first.
+  const nearOffsets = [
+    [16,0],[-16,0],[0,-15],[0,15],
+    [18,-12],[18,12],[-18,-12],[-18,12],
+    [26,0],[-26,0],[0,-24],[0,24],
+    [28,-16],[28,16],[-28,-16],[-28,16]
+  ];
+  for(const [dx,dy] of nearOffsets){{
+    const box = test(ax+dx, ay+dy);
+    if(box) return box;
+  }}
+
+  // 2. Dense-Europe packing: search outward in small rings.
+  // This guarantees that labels keep separating instead of falling back on top of each other.
+  const maxRadius = 78;
+  const step = 8;
+  for(let radius=32; radius<=maxRadius; radius+=step){{
+    for(let dx=-radius; dx<=radius; dx+=step){{
+      for(const dy of [-radius, radius]){{
+        const box = test(ax+dx, ay+dy);
+        if(box) return box;
+      }}
+    }}
+    for(let dy=-radius+step; dy<=radius-step; dy+=step){{
+      for(const dx of [-radius, radius]){{
+        const box = test(ax+dx, ay+dy);
+        if(box) return box;
+      }}
+    }}
+  }}
+
+  // 3. Last resort still returns the least-colliding candidate, not the original anchor.
+  return best || {{ left:ax-w/2, top:ay-h/2, right:ax+w/2, bottom:ay+h/2, w, h }};
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svg = document.querySelector('.world-map-inline.globe-texture-source');
+  const layer = document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer) return;
+  layer.innerHTML='';
+  if(activeContinentFilter==='ALL') return;
+
+  const countries = items
+    .filter(v => v.continent===activeContinentFilter && v.count>0)
+    .sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
+  if(!countries.length) return;
+
+  const vp = getExactMapViewport(svg, visual);
+  const dock = document.getElementById('continent-rail');
+  const vr = visual.getBoundingClientRect();
+  const dr = dock?.getBoundingClientRect();
+  const dockTop = dr ? dr.top-vr.top : visual.clientHeight-42;
+  const bounds = {{
+    left:Math.max(4,vp.left+2),
+    top:Math.max(8,vp.top+2),
+    right:Math.min(vp.left+vp.width-2,visual.clientWidth-4),
+    bottom:Math.min(dockTop-4,vp.top+vp.height-2)
+  }};
+
+  const clusterCodes = new Set(['GB','NL','BE','CH','CZ','SI','SK','DK','KR','JP','SG','MY','TH','VN']);
+  const anchors = countries.map(item=>{{
+    const p=getCountryMapAnchor(item);
+    return {{
+      code:item.code,
+      x:vp.left+(p.x/100)*vp.width,
+      y:vp.top+(p.y/100)*vp.height,
+      cluster:clusterCodes.has(item.code)
+    }};
+  }});
+
+  // In Europe, place the densest cluster first so later labels pack around it.
+  const europePriority = ['NL','BE','GB','FR','CH','DK','CZ','SK','SI','PL','RO','BG','UA','SE','FI','TR'];
+  const renderOrder = activeContinentFilter==='EU'
+    ? [...countries].sort((a,b)=>{{
+        const ai=europePriority.indexOf(a.code), bi=europePriority.indexOf(b.code);
+        return (ai<0?999:ai)-(bi<0?999:bi) || b.count-a.count;
+      }})
+    : countries;
+
+  const occupied=[];
+  renderOrder.forEach(item=>{{
+    const anchor=anchors.find(v=>v.code===item.code);
+    if(!anchor) return;
+    const ax=anchor.x, ay=anchor.y;
+
+    const dot=document.createElement('span');
+    dot.className='precise-country-dot'+(activeCountryFilter===item.code?' active':'');
+    dot.style.left=`${{ax}}px`;
+    dot.style.top=`${{ay}}px`;
+    layer.appendChild(dot);
+
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='precise-country-label'
+      +(activeContinentFilter==='EU' && EUROPE_LABEL_CODES.has(item.code) ? ' europe-country-label' : '')
+      +(activeCountryFilter===item.code ? ' active' : '');
+    btn.style.visibility='hidden';
+    btn.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label', `${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+
+    const w=Math.ceil(btn.getBoundingClientRect().width || 56);
+    const h=Math.ceil(btn.getBoundingClientRect().height || 15);
+    const box = activeContinentFilter==='EU' && EUROPE_LABEL_CODES.has(item.code)
+      ? chooseEuropeLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors)
+      : chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors);
+
+    occupied.push(box);
+    btn.style.left=`${{box.left}}px`;
+    btn.style.top=`${{box.top}}px`;
+    btn.style.visibility='visible';
+    btn.addEventListener('click', event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    }});
+    addExactConnector(layer,ax,ay,box);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items=collect2DCountryItems();
+  if(!items.length)return;
+  if(!activeContinentFilter)activeContinentFilter='ALL';
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking=document.getElementById('continent-country-ranking');
+  if(ranking){{ ranking.hidden=true; ranking.innerHTML=''; }}
+  const caption=document.querySelector('.country-map-caption');
+  if(caption)caption.style.display='none';
+  const note=document.getElementById('country-filter-note');
+  if(note)note.textContent=activeContinentFilter==='ALL'?'대륙을 선택하세요':'국가를 누르면 해당 기사만 표시됩니다';
+}}
+
+requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load',()=>requestAnimationFrame(layoutAndRenderCountryMap),{{once:true}});
+window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountryMap));
 
 </script>
 </body>
