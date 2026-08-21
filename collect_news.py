@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# MAP / CONTINENT PROJECTION ALIGNMENT FIX 2026-08-21
 # KEPCO KDN THREE-STAGE GROUP LOCK 2026-08-21
 # IMAGE CONTENT FINGERPRINT DEDUP (SHA-256 + dHash) 2026-08-21
 # TRUE MERGED FINAL: UI + ALL COUNTRY COORDS + CONTINENT TOGGLE + THUMBNAIL DEDUP + ERROR FIX 2026-08-21
@@ -15793,6 +15794,64 @@ header,
   }}
 }}
 
+
+
+/* ============================================================
+   2026-08-21 CONTINENT TAB LABEL/COUNT SPACING FIX
+   Keep all six continent tabs in one row, but stack the label and
+   article count inside each tab so long names never collide.
+   ============================================================ */
+.continent-button {{
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:2px !important;
+  padding:2px 2px !important;
+  overflow:hidden !important;
+}}
+.continent-button-name {{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  text-align:center !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  line-height:1 !important;
+}}
+.continent-button-count {{
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  margin:0 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+@media (max-width:430px) {{
+  .continent-button {{
+    height:27px !important;
+    min-height:27px !important;
+    gap:1.5px !important;
+    padding:2px 1px !important;
+  }}
+  .continent-button-name {{
+    font-size:6.05px !important;
+    letter-spacing:-.24px !important;
+  }}
+  .continent-button-count {{
+    font-size:5.8px !important;
+  }}
+}}
+@media (max-width:380px) {{
+  .continent-button-name {{
+    font-size:5.75px !important;
+    letter-spacing:-.26px !important;
+  }}
+  .continent-button-count {{
+    font-size:5.5px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -19377,37 +19436,19 @@ window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountr
 /* ============================================================
    2026-08-21 FINAL MAP RUNTIME OVERRIDE — refined continent clips + manual anchors + better label separation
    ============================================================ */
-const MANUAL_COUNTRY_MAP_ANCHORS = {{
-  /* All frequently surfaced countries reviewed against the current flat world-map artwork.
-     Rule: the blue dot stays on the actual land / island position, while the label moves for readability. */
-  US:[22.6,41.6], CA:[22.2,28.9],
-  BR:[35.2,57.8], AR:[32.0,71.0], CL:[29.2,69.2], PE:[28.6,54.6], CO:[29.0,47.2],
-  GB:[48.4,34.6], FR:[49.3,40.0], NL:[50.2,36.7], BE:[49.9,37.9], CH:[51.3,40.6],
-  SE:[53.2,28.4], FI:[55.6,27.0], PL:[53.8,37.4], CZ:[52.9,39.1], SI:[53.4,41.5],
-  RO:[55.6,41.5], BG:[56.3,43.5], UA:[58.3,38.5], TR:[59.5,45.6], SK:[53.9,38.7], DK:[49.8,32.6],
-  RU:[73.4,27.7],
-  AE:[62.7,51.1], SA:[59.3,52.5], ZA:[54.2,72.8],
-  CN:[77.8,43.4], IN:[69.0,53.1], VN:[80.2,56.5], TH:[78.2,55.8], MY:[79.6,61.2], SG:[80.0,63.4],
-  KR:[82.8,41.7], JP:[87.9,39.8],
-  AU:[84.0,75.6]
-}};
+const MANUAL_COUNTRY_MAP_ANCHORS = {{}};
 
 function getCountryMapAnchor(item){{
-  const fixed = MANUAL_COUNTRY_MAP_ANCHORS[item.code];
-  if(fixed) return {{x:fixed[0], y:fixed[1]}};
+  // 지도와 좌표가 안 맞는 핵심 원인은 수동 보정 좌표와 실제 SVG 투영이 섞여 있던 점입니다.
+  // 이제는 모든 국가 점을 동일한 equirectangular projection으로 계산합니다.
   return projectExactSvgPoint(item.lon,item.lat);
 }}
 
 function getContinentNativeRegion(code){{
-  const regions = {{
-    NA:{{points:'18,58 320,58 358,125 348,210 300,280 230,305 125,295 45,242',labelX:188,labelY:166}},
-    SA:{{points:'232,188 420,188 448,255 444,342 422,420 392,478 352,500 314,476 286,410 264,325 246,248',labelX:344,labelY:336}},
-    EU:{{points:'430,88 592,88 612,128 606,182 566,225 510,228 454,198 432,145',labelX:520,labelY:160}},
-    AS:{{points:'560,58 995,58 995,300 935,338 812,332 708,296 650,240 622,185 604,128 565,94',labelX:798,labelY:178}},
-    MEA:{{points:'438,206 646,202 668,248 650,330 612,448 506,452 442,382 428,286',labelX:538,labelY:324}},
-    OC:{{points:'740,306 995,306 995,490 756,490 724,394',labelX:852,labelY:408}}
-  }};
-  return regions[code] || null;
+  // 기존 대륙 하이라이트는 대략적인 clip polygon이라 실제 지도 윤곽과 어긋났습니다.
+  // 대륙은 탭 필터 + 해당 대륙 국가 라벨만 보여주고,
+  // 부정확한 파란 면 하이라이트는 사용하지 않습니다.
+  return null;
 }}
 
 const COUNTRY_LABEL_PREFS = {{
