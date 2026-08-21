@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# CARD SPACING + STRONGER CONFIRMED DUPLICATE MATCHING 2026-08-21
 # HOLTEC PALISADES REQUIRES HOLTEC CO-OCCURRENCE 2026-08-21
 # ARTICLE NUMBER REMOVED + TEXT WIDTH EXPANDED 2026-08-21
 # CONSERVATIVE IMAGE + CONTENT CONFIRMED DEDUP 2026-08-21
@@ -71,7 +72,7 @@ THUMBNAIL_MAX_BYTES = 5_000_000
 # 썸네일 내용 기반 중복 판정 메타데이터
 # URL/로컬 파일명이 달라도 실제 이미지가 같으면 잡기 위한 fingerprint를 저장합니다.
 THUMBNAIL_FINGERPRINT_FILE = THUMBNAIL_DIR / "_fingerprints.json"
-THUMBNAIL_DHASH_MAX_DISTANCE = 2
+THUMBNAIL_DHASH_MAX_DISTANCE = 6
 
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
@@ -2194,18 +2195,27 @@ def _compute_thumbnail_fingerprint(path: Path) -> dict[str, object]:
             result["width"] = int(width)
             result["height"] = int(height)
 
-            # EXIF 회전 여부와 무관하게 비교 가능한 grayscale 9x8 dHash
-            gray = image.convert("L").resize((9, 8))
-            pixels = list(gray.getdata())
+            # 같은 사진의 리사이즈/재압축을 잡기 위한 grayscale perceptual hashes
+            gray_d = image.convert("L").resize((9, 8))
+            pixels_d = list(gray_d.getdata())
+
+            gray_a = image.convert("L").resize((8, 8))
+            pixels_a = list(gray_a.getdata())
 
         bits = 0
         bit_index = 0
         for row in range(8):
             base = row * 9
             for col in range(8):
-                bits |= (1 if pixels[base + col] > pixels[base + col + 1] else 0) << bit_index
+                bits |= (1 if pixels_d[base + col] > pixels_d[base + col + 1] else 0) << bit_index
                 bit_index += 1
         result["dhash"] = f"{bits:016x}"
+
+        avg = sum(pixels_a) / max(1, len(pixels_a))
+        abits = 0
+        for bit_index, value in enumerate(pixels_a):
+            abits |= (1 if value >= avg else 0) << bit_index
+        result["ahash"] = f"{abits:016x}"
     except Exception:
         # Pillow 미설치/손상 이미지라도 정확 파일 해시(SHA-256)는 계속 사용합니다.
         pass
@@ -6394,8 +6404,12 @@ def _same_thumbnail_content_context(a: Article, b: Article, *, exact_image: bool
             return True
         return False
 
-    # dHash만 가까운 경우는 한 단계 더 엄격하게
-    if len(common) >= 4 and containment >= 0.60 and title_similarity >= 0.52:
+    # perceptual hash가 가까운 경우:
+    # 사진이 실제로 매우 유사하고, 핵심 주체·대상·행위가 3개 이상 겹치면 동일 보도로 인정.
+    # 사건 단계가 다른 경우는 상위 함수에서 이미 제외됩니다.
+    if len(common) >= 4 and containment >= 0.50 and title_similarity >= 0.45:
+        return True
+    if len(common) >= 3 and containment >= 0.55 and title_similarity >= 0.50:
         return True
 
     return False
@@ -6407,7 +6421,7 @@ def _same_thumbnail_same_event(a: Article, b: Article) -> bool:
 
     필수 조건
     1) 서로 다른 언론사
-    2) 실제 썸네일이 완전히 동일(SHA-256) 또는 매우 유사(dHash <= 2)
+    2) 실제 썸네일이 완전히 동일(SHA-256) 또는 매우 유사(dHash/aHash)
     3) 제목/미리보기의 핵심 주체·대상·행위가 같은 사건
     4) 둘 다 사건 단계가 명시됐는데 단계가 다르면 절대 병합하지 않음
 
@@ -6438,12 +6452,22 @@ def _same_thumbnail_same_event(a: Article, b: Article) -> bool:
     if not exact_image:
         dhash_a = str(fp_a.get("dhash") or "")
         dhash_b = str(fp_b.get("dhash") or "")
-        if dhash_a and dhash_b:
-            distance = _hex_hamming_distance(dhash_a, dhash_b)
-            near_image = (
-                distance is not None
-                and distance <= THUMBNAIL_DHASH_MAX_DISTANCE
+        ahash_a = str(fp_a.get("ahash") or "")
+        ahash_b = str(fp_b.get("ahash") or "")
+
+        d_distance = _hex_hamming_distance(dhash_a, dhash_b) if dhash_a and dhash_b else None
+        a_distance = _hex_hamming_distance(ahash_a, ahash_b) if ahash_a and ahash_b else None
+
+        # 같은 원본을 언론사별로 리사이즈/재압축한 정도는 허용.
+        # 사진만으로 삭제하지 않고 아래의 기사 내용/사건 단계 검증을 반드시 통과해야 합니다.
+        near_image = (
+            (d_distance is not None and d_distance <= THUMBNAIL_DHASH_MAX_DISTANCE)
+            or (a_distance is not None and a_distance <= 5)
+            or (
+                d_distance is not None and a_distance is not None
+                and d_distance <= 9 and a_distance <= 8
             )
+        )
 
     if not (exact_image or near_image):
         return False
@@ -16187,6 +16211,42 @@ main {{
   .precise-country-label .flag {{ font-size:7.0px !important; }}
   .precise-country-label .name,
   .precise-country-label .count {{ font-size:6.45px !important; }}
+}}
+
+
+/* ============================================================
+   2026-08-21 FINAL ARTICLE BREATHING ROOM
+   - a little more left space
+   - small, even padding around article cards
+   ============================================================ */
+main {{
+  padding-left:16px !important;
+  padding-right:13px !important;
+}}
+.preview-card {{
+  padding:5px 5px 5px 9px !important;
+}}
+.preview-copy {{
+  padding-top:2px !important;
+  padding-bottom:2px !important;
+}}
+@media (max-width:430px) {{
+  main {{
+    padding-left:16px !important;
+    padding-right:12px !important;
+  }}
+  .preview-card {{
+    padding:5px 4px 5px 9px !important;
+  }}
+}}
+@media (max-width:380px) {{
+  main {{
+    padding-left:15px !important;
+    padding-right:11px !important;
+  }}
+  .preview-card {{
+    padding:4px 3px 4px 8px !important;
+  }}
 }}
 
 </style>
