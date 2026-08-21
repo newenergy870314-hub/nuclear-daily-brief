@@ -13792,7 +13792,7 @@ header,
   left:-22px !important;
   top:6px !important;
   right:96px !important;
-  bottom:6px !important;
+  bottom:10px !important;
   width:auto !important;
   height:auto !important;
   max-width:none !important;
@@ -14957,7 +14957,7 @@ header,
 @media (max-width:430px) {{
   .country-map-visual.globe-mode {{ height:244px !important; min-height:244px !important; }}
   .country-map-visual .world-map-inline.globe-texture-source {{ left:6px !important; top:35px !important; width:calc(100% - 12px) !important; }}
-  #continent-rail {{ left:5px !important; right:5px !important; bottom:5px !important; height:35px !important; max-height:35px !important; padding:3px !important; }}
+  #continent-rail {{ left:5px !important; right:5px !important; bottom:9px !important; height:34px !important; max-height:34px !important; padding:3px !important; }}
   .continent-button {{ height:27px !important; min-height:27px !important; padding:1px !important; }}
   .continent-button-name {{ font-size:6.1px !important; letter-spacing:-.28px !important; }}
   .continent-button-count {{ font-size:5.75px !important; }}
@@ -15014,29 +15014,29 @@ header,
 
 @media (max-width:430px) {{
   .preview-card {{
-    padding:3px 3px 3px 4px !important;
+    padding:2px 3px 2px 4px !important;
     gap:6px !important;
     min-height:86px !important;
     height:86px !important;
   }}
   .preview-copy {{
-    min-height:80px !important;
+    min-height:82px !important;
     padding:1px 0 !important;
     column-gap:3px !important;
   }}
   .card-side {{
     width:116px !important;
     min-width:116px !important;
-    height:80px !important;
-    min-height:80px !important;
-    max-height:80px !important;
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
     align-self:center !important;
   }}
   .preview-image {{
     width:116px !important;
-    height:80px !important;
-    min-height:80px !important;
-    max-height:80px !important;
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
     align-self:center !important;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.96) !important;
   }}
@@ -15055,29 +15055,29 @@ header,
 
 @media (max-width:380px) {{
   .preview-card {{
-    padding:3px 2px 3px 4px !important;
+    padding:2px 2px 2px 4px !important;
     gap:6px !important;
     min-height:82px !important;
     height:82px !important;
   }}
   .preview-copy {{
-    min-height:76px !important;
+    min-height:78px !important;
     padding:1px 0 !important;
     column-gap:2px !important;
   }}
   .card-side {{
     width:106px !important;
     min-width:106px !important;
-    height:76px !important;
-    min-height:76px !important;
-    max-height:76px !important;
+    height:78px !important;
+    min-height:78px !important;
+    max-height:78px !important;
     align-self:center !important;
   }}
   .preview-image {{
     width:106px !important;
-    height:76px !important;
-    min-height:76px !important;
-    max-height:76px !important;
+    height:78px !important;
+    min-height:78px !important;
+    max-height:78px !important;
     align-self:center !important;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.96) !important;
   }}
@@ -15157,72 +15157,54 @@ header,
 /* ============================================================
    2026-08-21 FINAL MAP ENLARGED AFTER HEADER CHIP MOVE
    ============================================================ */
-.country-map-visual {{
-  height: 224px !important;
-}}
+.country-map-visual {
+  height: 220px !important;
+}
 @media (max-width:430px) {{
-  .country-map-visual {{
-    height: 214px !important;
-  }}
+  .country-map-visual {
+    height: 208px !important;
+  }
 }}
 @media (max-width:380px) {{
-  .country-map-visual {{
-    height: 204px !important;
-  }}
+  .country-map-visual {
+    height: 198px !important;
+  }
 }}
 
 
 
 /* ============================================================
    2026-08-21 FINAL THUMBNAIL VERTICAL MARGIN — top/bottom symmetric
-   Mobile card/image sizing is unified above so visible white margins match.
+   Card height includes 1px borders + vertical padding (border-box).
    ============================================================ */
-
-
-/* ============================================================
-   2026-08-21 FINAL MAP TOP GAP REMOVAL
-   - remove empty header-chip footprint on ALL state
-   - lift map upward so top blank area disappears
-   ============================================================ */
-.map-continent-state[hidden],
-#map-head-chip-slot[hidden] {{
-  display:none !important;
-}}
-#map-head-chip-slot:empty {{
-  display:none !important;
-}}
-
-.country-map-visual .world-map-inline.globe-texture-source {{
-  top:10px !important;
-}}
 @media (max-width:430px) {{
-  .country-map-visual.globe-mode {{ height:244px !important; min-height:244px !important; }}
-  .country-map-visual .world-map-inline.globe-texture-source {{
-    left:6px !important;
-    right:6px !important;
-    width:calc(100% - 12px) !important;
-    top:8px !important;
-    bottom:42px !important;
+  .card-side {{
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+  }}
+  .preview-image {{
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
   }}
 }}
+
 @media (max-width:380px) {{
-  .country-map-visual.globe-mode {{ height:238px !important; min-height:238px !important; }}
-  .country-map-visual .world-map-inline.globe-texture-source {{
-    top:8px !important;
-    bottom:41px !important;
+  .card-side {{
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:center !important;
   }}
-}}
-
-
-
-/* ============================================================
-   2026-08-21 FINAL EMPTY HEADER PILL FIX
-   - no blank pill in world-map/ALL state
-   - selected-continent pill exists only after continent selection
-   ============================================================ */
-#map-head-chip-slot[hidden],
-#map-head-chip-slot .map-continent-state[hidden] {{
-  display:none !important;
+  .preview-image {{
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:center !important;
+  }}
 }}
 
 </style>
@@ -18796,16 +18778,18 @@ window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountr
    2026-08-21 FINAL MAP RUNTIME OVERRIDE — refined continent clips + manual anchors + better label separation
    ============================================================ */
 const MANUAL_COUNTRY_MAP_ANCHORS = {{
-  US:[22.6,41.8], CA:[22.0,28.7],
-  BR:[35.0,58.0], AR:[32.1,71.1], CL:[29.8,69.5], PE:[28.8,54.8], CO:[29.3,47.0],
-  GB:[47.5,35.6], FR:[49.8,40.2], NL:[50.8,36.9], BE:[50.5,38.3], CH:[52.2,40.8],
-  SE:[53.8,28.1], FI:[56.4,26.6], PL:[54.3,37.4], CZ:[53.4,39.4], SI:[53.8,41.9],
-  RO:[56.0,41.8], BG:[57.1,44.0], UA:[58.5,38.8], TR:[59.4,45.0], SK:[54.7,39.0], DK:[50.9,32.3],
-  RU:[73.0,25.8],
-  AE:[62.8,51.0], SA:[59.6,52.1], ZA:[54.6,73.0],
-  CN:[77.9,43.0], IN:[69.2,54.0], VN:[79.9,56.1], TH:[77.8,55.2], MY:[79.4,61.2], SG:[80.4,63.8],
-  KR:[82.8,41.8], JP:[86.8,42.6],
-  AU:[84.4,75.8]
+  /* All frequently surfaced countries reviewed against the current flat world-map artwork.
+     Rule: the blue dot stays on the actual land / island position, while the label moves for readability. */
+  US:[22.6,41.6], CA:[22.2,28.9],
+  BR:[35.2,57.8], AR:[32.0,71.0], CL:[29.2,69.2], PE:[28.6,54.6], CO:[29.0,47.2],
+  GB:[45.8,34.8], FR:[49.3,40.0], NL:[50.2,36.7], BE:[49.9,37.9], CH:[51.3,40.6],
+  SE:[53.2,28.4], FI:[55.6,27.0], PL:[53.8,37.4], CZ:[52.9,39.1], SI:[53.4,41.5],
+  RO:[55.6,41.5], BG:[56.3,43.5], UA:[58.3,38.5], TR:[59.5,45.6], SK:[53.9,38.7], DK:[49.8,32.6],
+  RU:[73.4,27.7],
+  AE:[62.7,51.1], SA:[59.3,52.5], ZA:[54.2,72.8],
+  CN:[77.8,43.4], IN:[69.0,53.1], VN:[80.2,56.5], TH:[78.2,55.8], MY:[79.6,61.2], SG:[80.0,63.4],
+  KR:[82.8,41.7], JP:[87.9,39.8],
+  AU:[84.0,75.6]
 }};
 
 function getCountryMapAnchor(item){{
@@ -18817,7 +18801,7 @@ function getCountryMapAnchor(item){{
 function getContinentNativeRegion(code){{
   const regions = {{
     NA:{{points:'18,58 320,58 358,125 348,210 300,280 230,305 125,295 45,242',labelX:188,labelY:166}},
-    SA:{{points:'232,188 420,188 448,255 444,342 422,420 392,478 352,500 314,476 286,410 264,325 246,248',labelX:344,labelY:336}},
+    SA:{{points:'248,205 405,205 430,280 416,360 382,448 344,490 304,428 275,320 258,250',labelX:344,labelY:334}},
     EU:{{points:'430,88 592,88 612,128 606,182 566,225 510,228 454,198 432,145',labelX:520,labelY:160}},
     AS:{{points:'560,58 995,58 995,300 935,338 812,332 708,296 650,240 622,185 604,128 565,94',labelX:798,labelY:178}},
     MEA:{{points:'438,206 646,202 668,248 650,330 612,448 506,452 442,382 428,286',labelX:538,labelY:324}},
@@ -18829,30 +18813,44 @@ function getContinentNativeRegion(code){{
 const COUNTRY_LABEL_PREFS = {{
   US:[0,-28,28,-55,55], CA:[18,-18,45,-45],
   BR:[0,-35,35], AR:[0,35,-35], CL:[18,-18,0], PE:[18,-18,45], CO:[0,30,-30],
-  GB:[-30,30,-75,75], FR:[35,-35,0], NL:[50,-50,90,-90], BE:[80,-80,45,-45], CH:[65,-65,115,-115],
-  SE:[35,-35,70], FI:[18,-18,45], PL:[35,-35,0], CZ:[60,-60,100,-100], SI:[85,-85,45,-45],
-  RO:[45,-45,0], BG:[55,-55,0], UA:[35,-35,-70], TR:[25,-25,60], SK:[75,-75,35,-35], DK:[30,-30,70],
+  GB:[180,-150,150,-120,120], FR:[35,-35,0], NL:[90,-90,55,-55], BE:[95,-95,55,-55], CH:[75,-75,115,-115],
+  SE:[35,-35,70], FI:[18,-18,45], PL:[55,-55,0], CZ:[80,-80,110,-110], SI:[95,-95,55,-55],
+  RO:[55,-55,0], BG:[180,-145,145], UA:[20,-20,-60], TR:[20,-20,60], SK:[95,-95,55,-55], DK:[30,-30,70],
   RU:[15,-15,35,-35],
   AE:[-20,20,-55,55], SA:[0,-28,28], ZA:[-20,20,0],
-  CN:[180,150,130,-150], IN:[180,145,120], VN:[15,-15,45,-45], TH:[15,-15,45,-45], MY:[-20,20,60,-60], SG:[-25,25,70,-70],
-  KR:[160,125,180,-160], JP:[-165,-130,165,130,180],
+  CN:[180,150,130,-150], IN:[160,135,115], VN:[15,-15,45,-45], TH:[15,-15,45,-45], MY:[-20,20,60,-60], SG:[-25,25,70,-70],
+  KR:[160,125,180,-160], JP:[180,145,-145,125,-125],
   AU:[-15,15,0]
 }};
 
 const COUNTRY_LABEL_OFFSETS = {{
   US:[[36,0],[34,-18],[34,18]],
-  CA:[[38,-18],[42,0]],
-  GB:[[-54,0],[-42,18]],
-  FR:[[40,-6],[38,12]],
-  BG:[[-58,8],[-42,-10]],
-  UA:[[-62,18],[-44,2]],
-  RU:[[28,-18],[34,0]],
-  CN:[[-48,12],[-42,-6],[-58,22]],
-  IN:[[-42,18],[-50,30],[-34,2]],
-  KR:[[36,-4],[32,12]],
-  JP:[[34,-18],[30,-2]],
-  VN:[[38,10],[28,22]],
-  TH:[[34,8],[24,22]],
+  CA:[[40,-18],[44,0],[36,14]],
+  GB:[[-66,0],[-56,16],[-58,-16]],
+  FR:[[44,12],[42,-6]],
+  NL:[[52,-12],[58,4]],
+  BE:[[-56,18],[-52,2]],
+  CH:[[48,20],[52,2]],
+  SE:[[38,-18],[34,0]],
+  FI:[[34,-18],[28,-2]],
+  PL:[[44,-10],[38,10]],
+  CZ:[[74,-18],[82,-2]],
+  SI:[[62,18],[54,2]],
+  RO:[[52,-2],[58,16]],
+  BG:[[-62,10],[-50,-10]],
+  UA:[[68,-6],[58,12]],
+  TR:[[54,16],[48,-4]],
+  SK:[[68,18],[64,0]],
+  DK:[[34,-18],[40,0]],
+  RU:[[26,-18],[34,0]],
+  CN:[[-48,10],[-42,-8],[-58,22]],
+  IN:[[-40,14],[-48,28],[-34,-2]],
+  KR:[[34,0],[32,14]],
+  JP:[[38,-18],[34,-2],[40,14]],
+  VN:[[40,10],[30,22]],
+  TH:[[36,8],[26,22]],
+  MY:[[28,16],[34,-2]],
+  SG:[[30,12],[36,-4]],
   AU:[[34,-2],[28,14]],
   BR:[[-40,16],[-32,0]],
   ZA:[[0,22],[18,12]]
@@ -19008,63 +19006,13 @@ function ensureMapStateChip(items){{
   if(activeContinentFilter==='ALL'){{
     chip.hidden=true;
     chip.innerHTML='';
-    if(chip.parentElement) chip.parentElement.hidden=true;
     return;
   }}
-
-  if(slot) slot.hidden=false;
 
   const meta=CONTINENT_META[activeContinentFilter]||{{name:'대륙'}};
   const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
   const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
   chip.hidden=false;
-  chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${{meta.name}}</span><span class="state-meta">${{countries.length}}개국 · ${{articles}}건</span>`;
-  chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{{
-    activeContinentFilter='ALL';
-    activeCountryFilter='';
-    filterArticles();
-    updateCountryMapCounts();
-    layoutAndRenderCountryMap();
-  }});
-}}
-
-
-
-/* ============================================================
-   2026-08-21 FINAL EMPTY HEADER PILL FIX — runtime override
-   ============================================================ */
-function ensureMapStateChip(items){{
-  const head=document.querySelector('.world-map-head');
-  if(!head) return;
-
-  let slot=document.getElementById('map-head-chip-slot');
-
-  if(activeContinentFilter==='ALL'){{
-    if(slot) slot.remove();
-    return;
-  }}
-
-  if(!slot){{
-    slot=document.createElement('div');
-    slot.id='map-head-chip-slot';
-    head.appendChild(slot);
-  }}
-  slot.hidden=false;
-
-  let chip=document.getElementById('map-continent-state');
-  if(!chip){{
-    chip=document.createElement('div');
-    chip.id='map-continent-state';
-    chip.className='map-continent-state';
-    slot.appendChild(chip);
-  }} else if(chip.parentElement!==slot){{
-    slot.appendChild(chip);
-  }}
-
-  chip.hidden=false;
-  const meta=CONTINENT_META[activeContinentFilter]||{{name:'대륙'}};
-  const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
-  const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
   chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${{meta.name}}</span><span class="state-meta">${{countries.length}}개국 · ${{articles}}건</span>`;
   chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{{
     activeContinentFilter='ALL';
