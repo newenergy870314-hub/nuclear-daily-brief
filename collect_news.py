@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# KR/JP NATURAL NEARBY NO-OVERLAP 2026-08-22
+# KR/JP STRICT VERTICAL NO-OVERLAP 2026-08-22
 # CONTINENT TABS EDGE SAFE PADDING FIX 2026-08-22
 # KOREA/JAPAN HARD VERTICAL SEPARATION 2026-08-22
 # KOREA TOP / JAPAN BOTTOM POSITION LOCK 2026-08-22
@@ -22360,8 +22362,8 @@ const FINAL_COUNTRY_LABEL_PRESETS = {{
   TH:[[32,18],[30,32],[26,4]],
   MY:[[26,18],[30,4]],
   SG:[[30,14],[34,0]],
-  KR:[[48,-34],[54,-28],[60,-40],[66,-24]],
-  JP:[[62,34],[68,42],[74,28],[80,38]],
+  KR:[[34,-10],[40,4],[42,-20],[48,12]],
+  JP:[[48,10],[54,22],[58,-2],[62,28]],
   AU:[[34,-4],[30,14]],
 }};
 
@@ -22413,9 +22415,7 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
   const eastLocked = itemCode==='KR' || itemCode==='JP';
   const consider = (box) => {{
     if(eastLocked && (box.left + w/2) <= ax + 12) return false;
-    if(itemCode==='KR' && (box.top + h/2) >= ay - 10) return false;
-    if(itemCode==='JP' && (box.top + h/2) <= ay + 10) return false;
-    const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 8;
+    const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 8);
     const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
     const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
     const dist = Math.hypot((box.left + w/2)-ax, (box.top + h/2)-ay);
@@ -22457,9 +22457,7 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
     for(let left=bounds.left; left<=bounds.right-w; left+=stepX){{
       const box={{left,top,right:left+w,bottom:top+h,w,h}};
       if(eastLocked && (left + w/2) <= ax + 12) continue;
-      if(itemCode==='KR' && (top + h/2) >= ay - 10) continue;
-      if(itemCode==='JP' && (top + h/2) <= ay + 10) continue;
-      const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 9;
+      const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 9);
       const collisions = occupied.reduce(
         (n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0
       );
