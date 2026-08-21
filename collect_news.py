@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# CONTINENT DOCK TRUE BOTTOM + CONTENT-WIDTH RECT BUTTONS 2026-08-22
+# CHINA COUNTRY BUTTON POSITIONED ON MAINLAND 2026-08-22
 # ASIA HIGHLIGHT LEFT BOUNDARY REFINED 2026-08-22
 # CONTINENT DOCK BOTTOM COMPACT RECTANGLE 2026-08-22
 # MAP DOCK LOWER + COUNTRY LABEL NO OVERLAP 2026-08-21
@@ -17377,6 +17379,116 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   2026-08-22 ABSOLUTE FINAL — CONTINENT DOCK TRUE BOTTOM + COMPACT RECT BUTTONS
+   - dock sits at the very bottom of the country-news panel
+   - buttons size to content instead of stretching across leftover space
+   - map occupies the freed space above
+   ============================================================ */
+#continent-rail {{
+  left:4px !important;
+  right:4px !important;
+  bottom:0 !important;
+  height:37px !important;
+  max-height:37px !important;
+  padding:2px 3px !important;
+  border-radius:8px !important;
+}}
+.continent-rail-scroll {{
+  display:grid !important;
+  width:100% !important;
+  height:100% !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  overflow:visible !important;
+}}
+.continent-button {{
+  width:auto !important;
+  min-width:0 !important;
+  max-width:none !important;
+  min-height:31px !important;
+  height:31px !important;
+  padding:2px 6px !important;
+  border-radius:7px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  box-sizing:border-box !important;
+}}
+.continent-button-name {{
+  width:auto !important;
+  max-width:none !important;
+  font-size:9.1px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}}
+.continent-button-count {{
+  width:auto !important;
+  max-width:none !important;
+  font-size:8.0px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+.country-map-visual .world-map-inline.globe-texture-source {{
+  bottom:40px !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:3px !important;
+    right:3px !important;
+    bottom:0 !important;
+    height:36px !important;
+    max-height:36px !important;
+    padding:2px !important;
+  }}
+  .continent-rail-scroll {{
+    gap:2px !important;
+  }}
+  .continent-button {{
+    min-height:30px !important;
+    height:30px !important;
+    padding:2px 5px !important;
+    gap:2px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.55px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.55px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:39px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    height:35px !important;
+    max-height:35px !important;
+  }}
+  .continent-button {{
+    min-height:29px !important;
+    height:29px !important;
+    padding:2px 4px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.0px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.15px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:38px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -20861,12 +20973,14 @@ function renderContinentRail2D(items){{
 
   /* 6개 대륙 버튼은 모두 항상 표시.
      기사 많은 순서는 유지하되, 짧은 이름은 좁게 / 긴 이름은 넓게 배분합니다. */
-  const dockWidthMap = {{ NA:0.92, EU:0.92, AS:1.02, SA:0.96, OC:1.08, MEA:1.20 }};
+  /* 버튼 폭은 컨텐츠 길이에 맞춰 compact하게 사용합니다.
+     6개 버튼 모두 보이되, 빈 공간을 억지로 동일 분할하지 않습니다. */
   scroll.style.setProperty(
     'grid-template-columns',
-    rankedContinentOrder.map(code=>`${{dockWidthMap[code]||1}}fr`).join(' '),
+    rankedContinentOrder.map(()=> 'max-content').join(' '),
     'important'
   );
+  scroll.style.setProperty('justify-content', 'center', 'important');
 
   rankedContinentOrder.forEach(code=>{{
     const btn=document.createElement('button');
@@ -22173,7 +22287,7 @@ const FINAL_COUNTRY_LABEL_PRESETS = {{
   AE:[[34,-4],[36,12],[28,22]],
   SA:[[30,18],[34,0],[24,32]],
   ZA:[[0,-26],[24,-8],[-24,-8]],
-  CN:[[-34,22],[-46,30],[-24,34],[-52,18]],
+  CN:[[0,4],[8,8],[-8,10],[0,16]],
   IN:[[-42,18],[-46,34],[-32,2]],
   VN:[[40,16],[38,30],[30,4]],
   TH:[[32,18],[30,32],[26,4]],
