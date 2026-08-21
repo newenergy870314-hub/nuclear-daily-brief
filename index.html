@@ -6495,6 +6495,196 @@ header,
   .map-country-card { gap:2px !important; padding:2px 4px !important; }
 }
 
+
+
+/* ============================================================
+   FINAL MAP RESET — FULL WORLD / COMPACT CONTINENT TABS
+   ============================================================ */
+.country-map-visual.globe-mode {
+  height:306px !important;
+  min-height:306px !important;
+  overflow:hidden !important;
+  border-radius:16px !important;
+  background:linear-gradient(180deg,#f9fcfe 0%,#eef7fc 100%) !important;
+}
+
+/* Continent selector: compact horizontal strip, never covers the map */
+#continent-rail {
+  position:absolute !important;
+  left:8px !important;
+  right:8px !important;
+  top:7px !important;
+  bottom:auto !important;
+  width:auto !important;
+  height:38px !important;
+  min-height:38px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  gap:5px !important;
+  padding:4px 5px !important;
+  border:1px solid rgba(157,190,211,.20) !important;
+  border-radius:12px !important;
+  background:rgba(255,255,255,.95) !important;
+  box-shadow:0 2px 8px rgba(53,91,120,.05) !important;
+  z-index:8 !important;
+  overflow:hidden !important;
+}
+.continent-rail-head {
+  flex:0 0 auto !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:4px !important;
+  padding:0 !important;
+  border:0 !important;
+}
+.continent-rail-head > div { display:none !important; }
+.continent-all-button {
+  flex:0 0 auto !important;
+  height:28px !important;
+  min-width:42px !important;
+  padding:0 8px !important;
+  border-radius:9px !important;
+  font-size:8.7px !important;
+}
+.continent-rail-scroll {
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  gap:4px !important;
+  padding:0 !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scrollbar-width:none !important;
+}
+.continent-rail-scroll::-webkit-scrollbar { display:none !important; }
+.continent-button {
+  flex:0 0 auto !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:4px !important;
+  min-height:28px !important;
+  height:28px !important;
+  padding:0 8px !important;
+  border-radius:9px !important;
+  white-space:nowrap !important;
+}
+.continent-button > span { display:inline-flex !important; align-items:center !important; gap:3px !important; }
+.continent-button-name {
+  display:inline !important;
+  font-size:8.5px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+.continent-button-meta { display:none !important; }
+.continent-button-count {
+  font-size:8px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+
+/* Full, seamless world map: no zoom/cropping, no right-side reserved space */
+.country-map-visual .world-map-inline.globe-texture-source {
+  display:block !important;
+  position:absolute !important;
+  left:8px !important;
+  right:8px !important;
+  top:52px !important;
+  bottom:8px !important;
+  width:auto !important;
+  height:auto !important;
+  max-width:none !important;
+  transform:none !important;
+  transform-origin:center center !important;
+  opacity:1 !important;
+  filter:contrast(1.08) saturate(1.03) !important;
+  z-index:1 !important;
+  overflow:visible !important;
+}
+#country-map-label-layer.country-map-label-layer {
+  position:absolute !important;
+  left:8px !important;
+  right:8px !important;
+  top:52px !important;
+  bottom:8px !important;
+  width:auto !important;
+  height:auto !important;
+  transform:none !important;
+  transform-origin:center center !important;
+  z-index:5 !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+}
+
+/* Country labels are the primary map interaction */
+.map-country-node { z-index:6 !important; }
+.map-country-node::before {
+  width:7px !important;
+  height:7px !important;
+  border-width:1.5px !important;
+  box-shadow:0 0 0 2px rgba(22,143,206,.13),0 1px 4px rgba(30,83,117,.16) !important;
+}
+.map-country-node::after { width:9px !important; }
+.map-country-node.side-right .map-country-card { left:9px !important; }
+.map-country-node.side-left .map-country-card { right:9px !important; }
+.map-country-card {
+  min-height:19px !important;
+  padding:2px 5px !important;
+  gap:3px !important;
+  border-radius:7px !important;
+  background:rgba(255,255,255,.96) !important;
+  font-size:7.7px !important;
+  box-shadow:0 2px 6px rgba(50,88,116,.09) !important;
+}
+.map-country-card .flag { font-size:9px !important; }
+.map-country-card .name { display:inline !important; font-size:7.6px !important; }
+.map-country-card .count { font-size:7.6px !important; }
+
+/* Selected continent remains visible on the real land mass */
+#continent-highlight-svg-layer .continent-highlight-land path {
+  fill:#70c4ec !important;
+  fill-opacity:.58 !important;
+  stroke:#1787c1 !important;
+  stroke-width:1.25 !important;
+}
+#continent-highlight-svg-layer .continent-highlight-title {
+  font-size:20px !important;
+  stroke-width:4px !important;
+}
+
+@media (max-width:430px) {
+  .country-map-visual.globe-mode { height:300px !important; min-height:300px !important; }
+  #continent-rail { left:6px !important; right:6px !important; top:6px !important; height:36px !important; min-height:36px !important; padding:4px !important; }
+  .continent-all-button { height:26px !important; min-width:39px !important; padding:0 7px !important; font-size:8px !important; }
+  .continent-button { height:26px !important; min-height:26px !important; padding:0 7px !important; }
+  .continent-button-name { font-size:7.8px !important; }
+  .continent-button-count { font-size:7.3px !important; }
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {
+    left:5px !important;
+    right:5px !important;
+    top:48px !important;
+    bottom:6px !important;
+    transform:none !important;
+  }
+  .map-country-card { min-height:18px !important; padding:2px 4px !important; gap:2px !important; }
+  .map-country-card .flag { font-size:8px !important; }
+  .map-country-card .name { display:inline !important; font-size:6.9px !important; }
+  .map-country-card .count { font-size:6.9px !important; }
+}
+
+@media (max-width:380px) {
+  .country-map-visual.globe-mode { height:286px !important; min-height:286px !important; }
+  .continent-button { padding:0 6px !important; }
+  .continent-button-name { font-size:7.4px !important; }
+  .continent-button-count { font-size:7px !important; }
+  .map-country-card .name { display:inline !important; font-size:6.5px !important; }
+  .map-country-card .count { font-size:6.5px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -6503,7 +6693,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 09:15 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 09:20 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -14948,7 +15138,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba0b0fa8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba0b95e0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -14983,7 +15173,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba95ecb8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cc9dc700&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -18424,7 +18614,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etoday.co.kr/news/view/2611856?trc=main_newsflash"
   data-title="주택이 받치고 LNG·원전이 끈다…대우건설 ‘창사 최대 수주’ 승부수"
   data-publisher="이투데이"
@@ -18450,7 +18640,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>주택이 받치고 LNG·원전이 끈다…대우건설 ‘창사 최대 수주’ 승부수</div>
+      <div class="headline">주택이 받치고 LNG·원전이 끈다…대우건설 ‘창사 최대 수주’ 승부수</div>
       <div class="article-snippet">연간 신규수주 목표 18조→27조원…50% 대폭 상향주택·건축 수주 6조7420억원…매출총이익률 21.2%파푸아뉴기니 LNG 수주 가시권…체코 원전 계약 추진▲대</div>
     </div>
   </div>
@@ -19435,7 +19625,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/db731506c8a426aa5a904dea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2ad75a9ae03c39c62838db38.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -20310,7 +20500,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/af77e45856e311dff621b54d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/387006f2ab89224703324876.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -21028,7 +21218,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24411,7 +24601,7 @@ header,
   data-priority="0"
   data-published="1787237787"
   data-country="KR"
-  data-search="북삼고 1학년 202명, 원자력·미래에너지 원리 배웠다 한국원자력신문 원자력 경북 칠곡군 북삼고등학교 학생들이 원자력발전의 원리와 차세대 원전 기술, 미래 전력산업의 변화 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼은 19일 오후 북삼고 강당에서 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’을 진행했다. 사실과과학네트웍 김동희 이사가 주관한 이날 교"
+  data-search="북삼고 1학년 202명, 원자력·미래에너지 원리 배웠다 한국원자력신문 원자력 경북 칠곡군 북삼고등학교 학생들이 원자력발전의 원리와 차세대 원전 기술, 미래 전력산업의 변화 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼이 주최하고 사단법인 사실과과학네트웍이 주관한 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’이 지난 19일 오후 북삼고 강당에서 열렸다."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -24429,7 +24619,7 @@ header,
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">북삼고 1학년 202명, 원자력·미래에너지 원리 배웠다</div>
-      <div class="article-snippet">경북 칠곡군 북삼고등학교 학생들이 원자력발전의 원리와 차세대 원전 기술, 미래 전력산업의 변화 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼은 19일 오후 북삼고 강당에서 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’을 진행했다. 사실과과학네트웍 김동희 이사가 주관한 이날 교</div>
+      <div class="article-snippet">경북 칠곡군 북삼고등학교 학생들이 원자력발전의 원리와 차세대 원전 기술, 미래 전력산업의 변화 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼이 주최하고 사단법인 사실과과학네트웍이 주관한 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’이 지난 19일 오후 북삼고 강당에서 열렸다.</div>
     </div>
   </div>
   <div class="card-side">
@@ -27043,7 +27233,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246452"
+  data-published="1787246439"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -30965,14 +31155,14 @@ header,
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308752"
-  data-title="[건설 포트폴리오 점검] 현대건설, 신규 수중 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - FETV"
+  data-title="[건설 포트폴리오 점검] 현대건설, 신규 수주 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - FETV"
   data-publisher="FETV"
   data-group="현대건설"
   data-language="ko"
   data-priority="0"
   data-published="1787263200"
   data-country="KR"
-  data-search="[건설 포트폴리오 점검] 현대건설, 신규 수중 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - fetv fetv 현대건설 [편집자 주] 건설사들이 데이터센터와 원전, 플랜트 등 비주택 사업을 새로운 성장동력으로 내세우고 있다. 이에 fetv는 주요 건설사의 사업보고서에 담긴 수주 현"
+  data-search="[건설 포트폴리오 점검] 현대건설, 신규 수주 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - fetv fetv 현대건설 [편집자 주] 건설사들이 데이터센터와 원전, 플랜트 등 비주택 사업을 새로운 성장동력으로 내세우고 있다. 이에 fetv는 주요 건설사의 사업보고서에 담긴 수주 현"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -30989,7 +31179,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">[건설 포트폴리오 점검] 현대건설, 신규 수중 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - FETV</div>
+      <div class="headline">[건설 포트폴리오 점검] 현대건설, 신규 수주 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - FETV</div>
       <div class="article-snippet">[편집자 주] 건설사들이 데이터센터와 원전, 플랜트 등 비주택 사업을 새로운 성장동력으로 내세우고 있다. 이에 FETV는 주요 건설사의 사업보고서에 담긴 수주 현</div>
     </div>
   </div>
@@ -31004,9 +31194,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Global-Biz/2026/08/2026082108295711240c8c1c064d_1"
+  data-title="두산에너빌리티, 中 라이양 원전 5·6호기 증기발생기 부품 8개 연속 수주 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787268694"
+  data-country="CN"
+  data-search="두산에너빌리티, 中 라이양 원전 5·6호기 증기발생기 부품 8개 연속 수주 - 글로벌이코노믹 글로벌이코노믹 타 건설사 국내 대표 에너지 플랜트 기업 두산에너빌리티(doosan enerbility)가 중국 산둥성에서 추진 중인 대규모 원자력 발전 프로젝트에 핵심 대형 단조 부품을 추가 공급하는 쾌거를 달성했다.지난해 체결한 라이양(laiyang) 원전 3·4호기 계약에 이어 5·6호기 프로젝트까지 연속"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 中 라이양 원전 5·6호기 증기발생기 부품 8개 연속 수주 - 글로벌이코노믹</div>
+      <div class="article-snippet">국내 대표 에너지 플랜트 기업 두산에너빌리티(Doosan Enerbility)가 중국 산둥성에서 추진 중인 대규모 원자력 발전 프로젝트에 핵심 대형 단조 부품을 추가 공급하는 쾌거를 달성했다.지난해 체결한 라이양(Laiyang) 원전 3·4호기 계약에 이어 5·6호기 프로젝트까지 연속</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3257449237c371988a14eb62.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003756920"
   data-title="두산에너빌리티, 오만 미스파 발전소 공사 9281억 수주"
@@ -31020,7 +31245,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31042,42 +31267,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://www.esnews.kr/news/articleView.html?idxno=5767"
-  data-title="두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문"
-  data-publisher="에너지안전신문"
-  data-group="타 건설사"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787265411"
-  data-country="CN"
-  data-search="두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문 에너지안전신문 타 건설사 두산에너빌리티가 중국 산둥성 라이양 원자력발전소 5·6호기에 들어가는 증기발생기용 초대형 단조품을 수주하면서 중국 원전 핵심 기자재 시장에서 입지를 넓히고 있다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지안전신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문</div>
-      <div class="article-snippet">두산에너빌리티가 중국 산둥성 라이양 원자력발전소 5·6호기에 들어가는 증기발생기용 초대형 단조품을 수주하면서 중국 원전 핵심 기자재 시장에서 입지를 넓히고 있다.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/00ebf3f87d278eed6a6a7d41.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820175728770"
   data-title="BS한양 컨소시엄, 광양항 묘도수도 항로 직선화사업 수주"
   data-publisher="아주경제"
@@ -31103,7 +31293,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>BS한양 컨소시엄, 광양항 묘도수도 항로 직선화사업 수주</div>
+      <div class="headline">BS한양 컨소시엄, 광양항 묘도수도 항로 직선화사업 수주</div>
       <div class="article-snippet">광양항 묘도수도 항로 직선화 사업 조감도 [사진=BS한양 제공] BS한양 컨소시엄이 1957억원 규모의 광양(여천)항 묘도수도 항로 직선화사업을 수주했다. &amp;nbsp; BS한양은 20일 자사 컨소시엄이 해양수산부가 발주한 광양(여천)항 묘도수도 항로 직선화사업의 실시설계적격자로 최종 선정됐다고 밝혔다. 컨소시엄은 BS한양을 주간사로 태영건설, 대우건설, 동부건설, HJ중공업 등이 참여한다. &amp;nbsp; 이번 사업은 전남 여수시 묘도동 인근 해역의 혼잡한 선박 통항 여건을 개선하기 위한 프로젝트다. 여수국가산업단지와 광양항 일대 2760m 구간의 묘도수도 항로 폭을 기</div>
     </div>
   </div>
@@ -31112,7 +31302,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757029"
   data-title="대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관"
   data-publisher="뉴시스"
@@ -31138,12 +31328,47 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관</div>
+      <div class="headline">대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관</div>
       <div class="article-snippet">[서울=뉴시스]정유선 기자 = 대우건설은 인천광역시 서해구 검암동 일원에 조성하는 &#x27;검암역 푸르지오 프라베뉴&#x27;의 견본주택을 21일 열고 본격적인 분양 일정에 돌입했다. 청약 일정은 오는 31일 특별공급을 시작으로 다음 달 1일 1순위, 9월 2일 2순위 접수를 받는다. 당첨자 발표는 8일이며, 정당 계약은 11월 2일부터 4일까지 3일간 진행된다. 민간참여 공공분양 단지인 이 단지는 전체 공급 물량의 약 75%가 특별공급으로 배정된다. 민간분양 대비 비중이 높은 신생아 특별공급(20%)을 비롯해 생애최초, 신혼부부 등 다양한 유형이 공급된다. 신혼부부 특공은 예비신혼</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e18e23b4f6a18c6f5eeae07.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313074"
+  data-title="현대엔지니어링, 한충전 흡수합병…전기차 충전 밸류체인 일원화 - 건설타임즈"
+  data-publisher="건설타임즈"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787270835"
+  data-country="KR"
+  data-search="현대엔지니어링, 한충전 흡수합병…전기차 충전 밸류체인 일원화 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = 현대엔지니어링이 한국전기차충전서비스를 흡수합병하고 전기차 충전사업의 구축·운영·유지보수·플랫폼 역량을 일원화한다.현대엔지니어링은 지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">건설타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 한충전 흡수합병…전기차 충전 밸류체인 일원화 - 건설타임즈</div>
+      <div class="article-snippet">(건설타임즈) 박상민 기자 = 현대엔지니어링이 한국전기차충전서비스를 흡수합병하고 전기차 충전사업의 구축·운영·유지보수·플랫폼 역량을 일원화한다.현대엔지니어링은 지</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4b3d38fe6ae396c223eded8f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31160,7 +31385,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31182,6 +31407,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313076"
+  data-title="GS건설·현대엘리베이터, 초고층 승강기 ‘기밀 성능’ 공동개발 - 건설타임즈"
+  data-publisher="건설타임즈"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787271069"
+  data-country="OTHER"
+  data-search="gs건설·현대엘리베이터, 초고층 승강기 ‘기밀 성능’ 공동개발 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 이헌규 기자 = gs건설이 현대엘리베이터와 초고층 건축물의 승강기 기밀 성능을 높이기 위한 공동 기술개발에 착수한다.gs건설은 지난 20일 서울 서"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">7.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">건설타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설·현대엘리베이터, 초고층 승강기 ‘기밀 성능’ 공동개발 - 건설타임즈</div>
+      <div class="article-snippet">(건설타임즈) 이헌규 기자 = GS건설이 현대엘리베이터와 초고층 건축물의 승강기 기밀 성능을 높이기 위한 공동 기술개발에 착수한다.GS건설은 지난 20일 서울 서</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/64bf9a9ce718ca827533d7c3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1721127"
   data-title="GS건설, 초고층 &#x27;연돌효과&#x27; 잡는다…현대엘리베이터와 승강기 기술 개발 - 이비엔(EBN)뉴스센터"
@@ -31195,7 +31455,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31230,7 +31490,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31251,6 +31511,41 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/af44a90c7f776428cbbebc4a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/202608213903i"
+  data-title="롯데건설, &#x27;상동역 롯데캐슬 시그니처&#x27; 25일 1순위 청약 나서"
+  data-publisher="한국경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787271169"
+  data-country="KR"
+  data-search="롯데건설, &#x27;상동역 롯데캐슬 시그니처&#x27; 25일 1순위 청약 나서 한국경제 타 건설사 롯데건설, ‘상동역 롯데캐슬 시그니처’ 25일 1순위 청약 나서, 부동산 플랫폼 &#x27;호갱노노&#x27; 실검 1위 기록 등 수요자 관심 높아 견본주택에 신축 갈아타기 실수요 발걸음 이어져… 치열한 청약 경쟁 예고 전용 85㎡ 초과 100% 추첨제… 가점 낮은 2030세대 및 유주택자 당첨 기회 확대 24일 특별공급, 25일 1순위 청약 접수… 9월 1일 당첨자 발표 진행"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">10.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>롯데건설, &#x27;상동역 롯데캐슬 시그니처&#x27; 25일 1순위 청약 나서</div>
+      <div class="article-snippet">롯데건설, ‘상동역 롯데캐슬 시그니처’ 25일 1순위 청약 나서, 부동산 플랫폼 &#x27;호갱노노&#x27; 실검 1위 기록 등 수요자 관심 높아 견본주택에 신축 갈아타기 실수요 발걸음 이어져… 치열한 청약 경쟁 예고 전용 85㎡ 초과 100% 추첨제… 가점 낮은 2030세대 및 유주택자 당첨 기회 확대 24일 특별공급, 25일 1순위 청약 접수… 9월 1일 당첨자 발표 진행</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/131f676d167a9cd3810070e6.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -31258,9 +31553,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202400"
+  data-title="새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787270565"
+  data-country="KR"
+  data-search="새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리 에너지데일리 한국수력원자력 [에너지데일리 윤호철 기자] 한국수력원자력 새울원자력본부(본부장 김상우)는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 개최하며, 지난 두"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 윤호철 기자] 한국수력원자력 새울원자력본부(본부장 김상우)는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 개최하며, 지난 두</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c43bc8415fa01544324f8cc1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="한국전력">
@@ -31312,7 +31642,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787269200"
+  data-published="1787271600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -31592,10 +31922,10 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757051"
   data-title="원안위, 중저준위 방사성폐기물 처분시설 변경허가 의결"
   data-publisher="뉴시스"
@@ -31621,7 +31951,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, 중저준위 방사성폐기물 처분시설 변경허가 의결</div>
+      <div class="headline">원안위, 중저준위 방사성폐기물 처분시설 변경허가 의결</div>
       <div class="article-snippet">[세종=뉴시스]손차민 기자 = 원자력안전위원회가 지난 20일 제2026-12회 원안위 회의를 서면으로 개최해 중저준위 방사성폐기물 표층처분시설 건설·운영변경허가안을 심의·의결했다고 21일 밝혔다. 이날 원안위에서 논의된 안건은 한국원자력환경공단(KORAD)이 신청했다. 이번 변경허가는 지난 3월 사용전검사에 합격한 한국원자력환경공단 표층처분시설의 사용전검사 지적사항 조치 결과와 준공도면 등을 안전성분석보고서에 반영하기 위한 것으로, 총 29건의 변경사항을 포함했다. 주요 내용은 ▲지진감시계통의 지진응답 기준 명확화, 유출물방사선감시계통(RMS) 경보기능 변경 등 사용</div>
     </div>
   </div>
@@ -31735,6 +32065,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397772"
+  data-title="한울원전, 울진 초등생 434명에 도시락·간식 지원"
+  data-publisher="데일리한국"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787268288"
+  data-country="KR"
+  data-search="한울원전, 울진 초등생 434명에 도시락·간식 지원 데일리한국 원자력 [울진(경북)=데일리한국 임병섭 기자] 한울원자력본부가 방학 중 돌봄교실을 이용하는 울진지역 초등학생들을 위해 점심 도시락과 간식 지원에 나선다.한울원자력본부는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다고 21일 밝혔다.이번 사업은 한울본부 노·사와 울진교육지원청, 지역 12개 초등학교가 협력해 방학 기간 급식 공백을 줄이고 맞벌이 가정 등의 돌봄 부담을 덜기 위해 마련됐다.지원 대상은 지역 초등학교 1~2학년 돌봄교실 참여 학생 434명이다. 각 학교는 인근 도시락 업체나 식당을 통해 학생들에게"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리한국</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울원전, 울진 초등생 434명에 도시락·간식 지원</div>
+      <div class="article-snippet">[울진(경북)=데일리한국 임병섭 기자] 한울원자력본부가 방학 중 돌봄교실을 이용하는 울진지역 초등학생들을 위해 점심 도시락과 간식 지원에 나선다.한울원자력본부는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다고 21일 밝혔다.이번 사업은 한울본부 노·사와 울진교육지원청, 지역 12개 초등학교가 협력해 방학 기간 급식 공백을 줄이고 맞벌이 가정 등의 돌봄 부담을 덜기 위해 마련됐다.지원 대상은 지역 초등학교 1~2학년 돌봄교실 참여 학생 434명이다. 각 학교는 인근 도시락 업체나 식당을 통해 학생들에게</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/36dacbfee03583171de0965b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003756840"
   data-title="불가리아, 다뉴브강 수위 저하로 원자로 가동량 대폭 줄여"
@@ -31748,7 +32113,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31783,7 +32148,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31818,7 +32183,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31926,7 +32291,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787271509"
+  data-published="1787271804"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -31995,7 +32360,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32215,7 +32580,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787270181"
+  data-published="1787271489"
   data-country="OTHER"
   data-search="michael cohen, ex-fixer for trump who once testified against him, hosts president on his radio show – us politics live the guardian nuclear power·nuclear energy despite previously comparing him to a ‘mobster’, trump’s former personal lawyer showers him with praise trump administration faces questions over top aide natalie harp’s security clearance sign up for the us breaking news email an fbi team seized electronic devices from former us representative eric swalwell at the san"
   tabindex="0" role="link">
@@ -32243,6 +32608,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/reuters.com,2026-08-21:newsml_TnwbKZQGs:0-canadian-uranium-announces-filing-of-amended-and-restated-financial-statements-and-md-a/"
+  data-title="Canadian Uranium Announces Filing Of Amended And Restated Financial Statements And MD&amp;A"
+  data-publisher="TradingView"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787271003"
+  data-country="OTHER"
+  data-search="canadian uranium announces filing of amended and restated financial statements and md&amp;a tradingview nuclear power·nuclear energy (thenewswire)vancouver, british columbia – august 20, 2026 – thenewswire - canadian uranium corp. (cse: canu) (the “company”) announces that, pursuant to section 11.5 of national instrument 51-102 – continuous disclosure obligations, and as a result of a continuous disclosure review by the bc secur…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Canadian Uranium Announces Filing Of Amended And Restated Financial Statements And MD&amp;A</div>
+      <div class="article-snippet">(TheNewswire)Vancouver, British Columbia – August 20, 2026 – TheNewswire - Canadian Uranium Corp. (CSE: CANU) (the “Company”) announces that, pursuant to Section 11.5 of National Instrument 51-102 – Continuous Disclosure Obligations, and as a result of a continuous disclosure review by the BC Secur…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.tradingview.com/news/reuters.com,2026:newsml_FWN44H1P5:0-american-uranium-seeks-trading-halt/"
   data-title="American Uranium Seeks Trading Halt"
@@ -32256,7 +32656,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32291,7 +32691,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32326,7 +32726,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32487,14 +32887,14 @@ header,
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308752"
-  data-title="[건설 포트폴리오 점검] 현대건설, 신규 수중 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - FETV"
+  data-title="[건설 포트폴리오 점검] 현대건설, 신규 수주 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - FETV"
   data-publisher="FETV"
   data-group="현대건설"
   data-language="ko"
   data-priority="0"
   data-published="1787263200"
   data-country="KR"
-  data-search="[건설 포트폴리오 점검] 현대건설, 신규 수중 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - fetv fetv 현대건설 [편집자 주] 건설사들이 데이터센터와 원전, 플랜트 등 비주택 사업을 새로운 성장동력으로 내세우고 있다. 이에 fetv는 주요 건설사의 사업보고서에 담긴 수주 현"
+  data-search="[건설 포트폴리오 점검] 현대건설, 신규 수주 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - fetv fetv 현대건설 [편집자 주] 건설사들이 데이터센터와 원전, 플랜트 등 비주택 사업을 새로운 성장동력으로 내세우고 있다. 이에 fetv는 주요 건설사의 사업보고서에 담긴 수주 현"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -32511,7 +32911,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">[건설 포트폴리오 점검] 현대건설, 신규 수중 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - FETV</div>
+      <div class="headline">[건설 포트폴리오 점검] 현대건설, 신규 수주 중 &#x27;에너지 7%&#x27;…단계적 추진 중 - FETV</div>
       <div class="article-snippet">[편집자 주] 건설사들이 데이터센터와 원전, 플랜트 등 비주택 사업을 새로운 성장동력으로 내세우고 있다. 이에 FETV는 주요 건설사의 사업보고서에 담긴 수주 현</div>
     </div>
   </div>
@@ -32526,9 +32926,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Global-Biz/2026/08/2026082108295711240c8c1c064d_1"
+  data-title="두산에너빌리티, 中 라이양 원전 5·6호기 증기발생기 부품 8개 연속 수주 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787268694"
+  data-country="CN"
+  data-search="두산에너빌리티, 中 라이양 원전 5·6호기 증기발생기 부품 8개 연속 수주 - 글로벌이코노믹 글로벌이코노믹 타 건설사 국내 대표 에너지 플랜트 기업 두산에너빌리티(doosan enerbility)가 중국 산둥성에서 추진 중인 대규모 원자력 발전 프로젝트에 핵심 대형 단조 부품을 추가 공급하는 쾌거를 달성했다.지난해 체결한 라이양(laiyang) 원전 3·4호기 계약에 이어 5·6호기 프로젝트까지 연속"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 中 라이양 원전 5·6호기 증기발생기 부품 8개 연속 수주 - 글로벌이코노믹</div>
+      <div class="article-snippet">국내 대표 에너지 플랜트 기업 두산에너빌리티(Doosan Enerbility)가 중국 산둥성에서 추진 중인 대규모 원자력 발전 프로젝트에 핵심 대형 단조 부품을 추가 공급하는 쾌거를 달성했다.지난해 체결한 라이양(Laiyang) 원전 3·4호기 계약에 이어 5·6호기 프로젝트까지 연속</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3257449237c371988a14eb62.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003756920"
   data-title="두산에너빌리티, 오만 미스파 발전소 공사 9281억 수주"
@@ -32542,7 +32977,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32564,42 +32999,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://www.esnews.kr/news/articleView.html?idxno=5767"
-  data-title="두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문"
-  data-publisher="에너지안전신문"
-  data-group="타 건설사"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787265411"
-  data-country="CN"
-  data-search="두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문 에너지안전신문 타 건설사 두산에너빌리티가 중국 산둥성 라이양 원자력발전소 5·6호기에 들어가는 증기발생기용 초대형 단조품을 수주하면서 중국 원전 핵심 기자재 시장에서 입지를 넓히고 있다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지안전신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 중국 라이양 원전 단조품 연속 수주 - 에너지안전신문</div>
-      <div class="article-snippet">두산에너빌리티가 중국 산둥성 라이양 원자력발전소 5·6호기에 들어가는 증기발생기용 초대형 단조품을 수주하면서 중국 원전 핵심 기자재 시장에서 입지를 넓히고 있다.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/00ebf3f87d278eed6a6a7d41.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820175728770"
   data-title="BS한양 컨소시엄, 광양항 묘도수도 항로 직선화사업 수주"
   data-publisher="아주경제"
@@ -32625,7 +33025,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>BS한양 컨소시엄, 광양항 묘도수도 항로 직선화사업 수주</div>
+      <div class="headline">BS한양 컨소시엄, 광양항 묘도수도 항로 직선화사업 수주</div>
       <div class="article-snippet">광양항 묘도수도 항로 직선화 사업 조감도 [사진=BS한양 제공] BS한양 컨소시엄이 1957억원 규모의 광양(여천)항 묘도수도 항로 직선화사업을 수주했다. &amp;nbsp; BS한양은 20일 자사 컨소시엄이 해양수산부가 발주한 광양(여천)항 묘도수도 항로 직선화사업의 실시설계적격자로 최종 선정됐다고 밝혔다. 컨소시엄은 BS한양을 주간사로 태영건설, 대우건설, 동부건설, HJ중공업 등이 참여한다. &amp;nbsp; 이번 사업은 전남 여수시 묘도동 인근 해역의 혼잡한 선박 통항 여건을 개선하기 위한 프로젝트다. 여수국가산업단지와 광양항 일대 2760m 구간의 묘도수도 항로 폭을 기</div>
     </div>
   </div>
@@ -32634,7 +33034,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757029"
   data-title="대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관"
   data-publisher="뉴시스"
@@ -32660,12 +33060,47 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관</div>
+      <div class="headline">대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관</div>
       <div class="article-snippet">[서울=뉴시스]정유선 기자 = 대우건설은 인천광역시 서해구 검암동 일원에 조성하는 &#x27;검암역 푸르지오 프라베뉴&#x27;의 견본주택을 21일 열고 본격적인 분양 일정에 돌입했다. 청약 일정은 오는 31일 특별공급을 시작으로 다음 달 1일 1순위, 9월 2일 2순위 접수를 받는다. 당첨자 발표는 8일이며, 정당 계약은 11월 2일부터 4일까지 3일간 진행된다. 민간참여 공공분양 단지인 이 단지는 전체 공급 물량의 약 75%가 특별공급으로 배정된다. 민간분양 대비 비중이 높은 신생아 특별공급(20%)을 비롯해 생애최초, 신혼부부 등 다양한 유형이 공급된다. 신혼부부 특공은 예비신혼</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e18e23b4f6a18c6f5eeae07.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313074"
+  data-title="현대엔지니어링, 한충전 흡수합병…전기차 충전 밸류체인 일원화 - 건설타임즈"
+  data-publisher="건설타임즈"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787270835"
+  data-country="KR"
+  data-search="현대엔지니어링, 한충전 흡수합병…전기차 충전 밸류체인 일원화 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = 현대엔지니어링이 한국전기차충전서비스를 흡수합병하고 전기차 충전사업의 구축·운영·유지보수·플랫폼 역량을 일원화한다.현대엔지니어링은 지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">건설타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 한충전 흡수합병…전기차 충전 밸류체인 일원화 - 건설타임즈</div>
+      <div class="article-snippet">(건설타임즈) 박상민 기자 = 현대엔지니어링이 한국전기차충전서비스를 흡수합병하고 전기차 충전사업의 구축·운영·유지보수·플랫폼 역량을 일원화한다.현대엔지니어링은 지</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4b3d38fe6ae396c223eded8f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32682,7 +33117,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32704,6 +33139,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313076"
+  data-title="GS건설·현대엘리베이터, 초고층 승강기 ‘기밀 성능’ 공동개발 - 건설타임즈"
+  data-publisher="건설타임즈"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787271069"
+  data-country="OTHER"
+  data-search="gs건설·현대엘리베이터, 초고층 승강기 ‘기밀 성능’ 공동개발 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 이헌규 기자 = gs건설이 현대엘리베이터와 초고층 건축물의 승강기 기밀 성능을 높이기 위한 공동 기술개발에 착수한다.gs건설은 지난 20일 서울 서"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">7.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">건설타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설·현대엘리베이터, 초고층 승강기 ‘기밀 성능’ 공동개발 - 건설타임즈</div>
+      <div class="article-snippet">(건설타임즈) 이헌규 기자 = GS건설이 현대엘리베이터와 초고층 건축물의 승강기 기밀 성능을 높이기 위한 공동 기술개발에 착수한다.GS건설은 지난 20일 서울 서</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/64bf9a9ce718ca827533d7c3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1721127"
   data-title="GS건설, 초고층 &#x27;연돌효과&#x27; 잡는다…현대엘리베이터와 승강기 기술 개발 - 이비엔(EBN)뉴스센터"
@@ -32717,7 +33187,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32752,7 +33222,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32773,6 +33243,41 @@ header,
     <div class="preview-image"><img src="assets/thumbnails/af44a90c7f776428cbbebc4a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/202608213903i"
+  data-title="롯데건설, &#x27;상동역 롯데캐슬 시그니처&#x27; 25일 1순위 청약 나서"
+  data-publisher="한국경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787271169"
+  data-country="KR"
+  data-search="롯데건설, &#x27;상동역 롯데캐슬 시그니처&#x27; 25일 1순위 청약 나서 한국경제 타 건설사 롯데건설, ‘상동역 롯데캐슬 시그니처’ 25일 1순위 청약 나서, 부동산 플랫폼 &#x27;호갱노노&#x27; 실검 1위 기록 등 수요자 관심 높아 견본주택에 신축 갈아타기 실수요 발걸음 이어져… 치열한 청약 경쟁 예고 전용 85㎡ 초과 100% 추첨제… 가점 낮은 2030세대 및 유주택자 당첨 기회 확대 24일 특별공급, 25일 1순위 청약 접수… 9월 1일 당첨자 발표 진행"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">10.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>롯데건설, &#x27;상동역 롯데캐슬 시그니처&#x27; 25일 1순위 청약 나서</div>
+      <div class="article-snippet">롯데건설, ‘상동역 롯데캐슬 시그니처’ 25일 1순위 청약 나서, 부동산 플랫폼 &#x27;호갱노노&#x27; 실검 1위 기록 등 수요자 관심 높아 견본주택에 신축 갈아타기 실수요 발걸음 이어져… 치열한 청약 경쟁 예고 전용 85㎡ 초과 100% 추첨제… 가점 낮은 2030세대 및 유주택자 당첨 기회 확대 24일 특별공급, 25일 1순위 청약 접수… 9월 1일 당첨자 발표 진행</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/131f676d167a9cd3810070e6.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -32780,9 +33285,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202400"
+  data-title="새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787270565"
+  data-country="KR"
+  data-search="새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리 에너지데일리 한국수력원자력 [에너지데일리 윤호철 기자] 한국수력원자력 새울원자력본부(본부장 김상우)는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 개최하며, 지난 두"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 윤호철 기자] 한국수력원자력 새울원자력본부(본부장 김상우)는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 개최하며, 지난 두</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c43bc8415fa01544324f8cc1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="한국전력">
@@ -32834,7 +33374,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787269200"
+  data-published="1787271600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -33114,10 +33654,10 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757051"
   data-title="원안위, 중저준위 방사성폐기물 처분시설 변경허가 의결"
   data-publisher="뉴시스"
@@ -33143,7 +33683,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, 중저준위 방사성폐기물 처분시설 변경허가 의결</div>
+      <div class="headline">원안위, 중저준위 방사성폐기물 처분시설 변경허가 의결</div>
       <div class="article-snippet">[세종=뉴시스]손차민 기자 = 원자력안전위원회가 지난 20일 제2026-12회 원안위 회의를 서면으로 개최해 중저준위 방사성폐기물 표층처분시설 건설·운영변경허가안을 심의·의결했다고 21일 밝혔다. 이날 원안위에서 논의된 안건은 한국원자력환경공단(KORAD)이 신청했다. 이번 변경허가는 지난 3월 사용전검사에 합격한 한국원자력환경공단 표층처분시설의 사용전검사 지적사항 조치 결과와 준공도면 등을 안전성분석보고서에 반영하기 위한 것으로, 총 29건의 변경사항을 포함했다. 주요 내용은 ▲지진감시계통의 지진응답 기준 명확화, 유출물방사선감시계통(RMS) 경보기능 변경 등 사용</div>
     </div>
   </div>
@@ -33257,6 +33797,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1397772"
+  data-title="한울원전, 울진 초등생 434명에 도시락·간식 지원"
+  data-publisher="데일리한국"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787268288"
+  data-country="KR"
+  data-search="한울원전, 울진 초등생 434명에 도시락·간식 지원 데일리한국 원자력 [울진(경북)=데일리한국 임병섭 기자] 한울원자력본부가 방학 중 돌봄교실을 이용하는 울진지역 초등학생들을 위해 점심 도시락과 간식 지원에 나선다.한울원자력본부는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다고 21일 밝혔다.이번 사업은 한울본부 노·사와 울진교육지원청, 지역 12개 초등학교가 협력해 방학 기간 급식 공백을 줄이고 맞벌이 가정 등의 돌봄 부담을 덜기 위해 마련됐다.지원 대상은 지역 초등학교 1~2학년 돌봄교실 참여 학생 434명이다. 각 학교는 인근 도시락 업체나 식당을 통해 학생들에게"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리한국</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한울원전, 울진 초등생 434명에 도시락·간식 지원</div>
+      <div class="article-snippet">[울진(경북)=데일리한국 임병섭 기자] 한울원자력본부가 방학 중 돌봄교실을 이용하는 울진지역 초등학생들을 위해 점심 도시락과 간식 지원에 나선다.한울원자력본부는 ‘2026년 울진군 초등학생 방학 중 점심도시락 바우처 지원 사업’을 시행한다고 21일 밝혔다.이번 사업은 한울본부 노·사와 울진교육지원청, 지역 12개 초등학교가 협력해 방학 기간 급식 공백을 줄이고 맞벌이 가정 등의 돌봄 부담을 덜기 위해 마련됐다.지원 대상은 지역 초등학교 1~2학년 돌봄교실 참여 학생 434명이다. 각 학교는 인근 도시락 업체나 식당을 통해 학생들에게</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/36dacbfee03583171de0965b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003756840"
   data-title="불가리아, 다뉴브강 수위 저하로 원자로 가동량 대폭 줄여"
@@ -33270,7 +33845,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33305,7 +33880,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33340,7 +33915,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33448,7 +34023,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787271509"
+  data-published="1787271804"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -33517,7 +34092,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33737,7 +34312,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787270181"
+  data-published="1787271489"
   data-country="OTHER"
   data-search="michael cohen, ex-fixer for trump who once testified against him, hosts president on his radio show – us politics live the guardian nuclear power·nuclear energy despite previously comparing him to a ‘mobster’, trump’s former personal lawyer showers him with praise trump administration faces questions over top aide natalie harp’s security clearance sign up for the us breaking news email an fbi team seized electronic devices from former us representative eric swalwell at the san"
   tabindex="0" role="link">
@@ -33765,6 +34340,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/reuters.com,2026-08-21:newsml_TnwbKZQGs:0-canadian-uranium-announces-filing-of-amended-and-restated-financial-statements-and-md-a/"
+  data-title="Canadian Uranium Announces Filing Of Amended And Restated Financial Statements And MD&amp;A"
+  data-publisher="TradingView"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787271003"
+  data-country="OTHER"
+  data-search="canadian uranium announces filing of amended and restated financial statements and md&amp;a tradingview nuclear power·nuclear energy (thenewswire)vancouver, british columbia – august 20, 2026 – thenewswire - canadian uranium corp. (cse: canu) (the “company”) announces that, pursuant to section 11.5 of national instrument 51-102 – continuous disclosure obligations, and as a result of a continuous disclosure review by the bc secur…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Canadian Uranium Announces Filing Of Amended And Restated Financial Statements And MD&amp;A</div>
+      <div class="article-snippet">(TheNewswire)Vancouver, British Columbia – August 20, 2026 – TheNewswire - Canadian Uranium Corp. (CSE: CANU) (the “Company”) announces that, pursuant to Section 11.5 of National Instrument 51-102 – Continuous Disclosure Obligations, and as a result of a continuous disclosure review by the BC Secur…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.tradingview.com/news/reuters.com,2026:newsml_FWN44H1P5:0-american-uranium-seeks-trading-halt/"
   data-title="American Uranium Seeks Trading Halt"
@@ -33778,7 +34388,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33813,7 +34423,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33848,7 +34458,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34331,7 +34941,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etoday.co.kr/news/view/2611856?trc=main_newsflash"
   data-title="주택이 받치고 LNG·원전이 끈다…대우건설 ‘창사 최대 수주’ 승부수"
   data-publisher="이투데이"
@@ -34357,7 +34967,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>주택이 받치고 LNG·원전이 끈다…대우건설 ‘창사 최대 수주’ 승부수</div>
+      <div class="headline">주택이 받치고 LNG·원전이 끈다…대우건설 ‘창사 최대 수주’ 승부수</div>
       <div class="article-snippet">연간 신규수주 목표 18조→27조원…50% 대폭 상향주택·건축 수주 6조7420억원…매출총이익률 21.2%파푸아뉴기니 LNG 수주 가시권…체코 원전 계약 추진▲대</div>
     </div>
   </div>
@@ -35342,7 +35952,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/db731506c8a426aa5a904dea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2ad75a9ae03c39c62838db38.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36217,7 +36827,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/af77e45856e311dff621b54d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/387006f2ab89224703324876.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36935,7 +37545,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -40318,7 +40928,7 @@ header,
   data-priority="0"
   data-published="1787237787"
   data-country="KR"
-  data-search="북삼고 1학년 202명, 원자력·미래에너지 원리 배웠다 한국원자력신문 원자력 경북 칠곡군 북삼고등학교 학생들이 원자력발전의 원리와 차세대 원전 기술, 미래 전력산업의 변화 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼은 19일 오후 북삼고 강당에서 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’을 진행했다. 사실과과학네트웍 김동희 이사가 주관한 이날 교"
+  data-search="북삼고 1학년 202명, 원자력·미래에너지 원리 배웠다 한국원자력신문 원자력 경북 칠곡군 북삼고등학교 학생들이 원자력발전의 원리와 차세대 원전 기술, 미래 전력산업의 변화 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼이 주최하고 사단법인 사실과과학네트웍이 주관한 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’이 지난 19일 오후 북삼고 강당에서 열렸다."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -40336,7 +40946,7 @@ header,
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">북삼고 1학년 202명, 원자력·미래에너지 원리 배웠다</div>
-      <div class="article-snippet">경북 칠곡군 북삼고등학교 학생들이 원자력발전의 원리와 차세대 원전 기술, 미래 전력산업의 변화 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼은 19일 오후 북삼고 강당에서 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’을 진행했다. 사실과과학네트웍 김동희 이사가 주관한 이날 교</div>
+      <div class="article-snippet">경북 칠곡군 북삼고등학교 학생들이 원자력발전의 원리와 차세대 원전 기술, 미래 전력산업의 변화 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼이 주최하고 사단법인 사실과과학네트웍이 주관한 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’이 지난 19일 오후 북삼고 강당에서 열렸다.</div>
     </div>
   </div>
   <div class="card-side">
@@ -42950,7 +43560,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246452"
+  data-published="1787246439"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -54445,7 +55055,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba0b0fa8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba0b95e0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -54480,7 +55090,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba95ecb8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cc9dc700&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -142093,11 +142703,10 @@ function renderContinentRail2D(items){
   }
   const scroll=rail.querySelector('.continent-rail-scroll');
   order.forEach(code=>{
-    if((articleCounts[code]||0)<=0)return;
     const button=document.createElement('button');
     button.type='button';
     button.className='continent-button' + (activeContinentFilter===code ? ' active' : '');
-    button.innerHTML=`<span><span class="continent-button-name">${CONTINENT_META[code].name}</span><span class="continent-button-meta">${countryCounts[code]||0}개국</span></span><span class="continent-button-count">${articleCounts[code]||0}건</span>`;
+    button.innerHTML=`<span><span class="continent-button-name">${CONTINENT_META[code].name}</span></span><span class="continent-button-count">${articleCounts[code]||0}건</span>`;
     button.addEventListener('click',()=>{
       const switching = activeContinentFilter !== code;
       activeContinentFilter=code;
@@ -142144,22 +142753,22 @@ function computeDirectMapLabelPlacements(items){
   const occupied=[];
   filtered.forEach((item,index)=>{
     const p=project2DPoint(item.lon,item.lat);
-    let side = p.x > 72 ? 'left' : 'right';
-    if(p.x >= 43 && p.x <= 72) side = (index % 2 === 0 ? 'right' : 'left');
+    let side = p.x > 76 ? 'left' : 'right';
+    if(p.x >= 44 && p.x <= 76) side = (index % 2 === 0 ? 'right' : 'left');
 
-    let y=p.y;
-    const step=7.2;
+    let labelDy=0;
     let tries=0;
-    while(tries<12){
-      const clash=occupied.some(prev => prev.side===side && Math.abs(prev.y-y)<6.6 && Math.abs(prev.x-p.x)<28);
+    while(tries<14){
+      const candidateY=p.y+labelDy;
+      const clash=occupied.some(prev => prev.side===side && Math.abs(prev.y-candidateY)<7.2 && Math.abs(prev.x-p.x)<30);
       if(!clash)break;
-      const direction = tries % 2 === 0 ? 1 : -1;
-      y = p.y + direction * Math.ceil((tries+1)/2) * step;
-      y=Math.max(7,Math.min(93,y));
+      const band=Math.ceil((tries+1)/2);
+      labelDy=(tries%2===0 ? 1 : -1)*band*7.5;
+      if(p.y+labelDy<5 || p.y+labelDy>95) labelDy=-labelDy;
       tries++;
     }
-    occupied.push({x:p.x,y,side});
-    placements.push({...item,x:p.x,y,side});
+    occupied.push({x:p.x,y:Math.max(5,Math.min(95,p.y+labelDy)),side});
+    placements.push({...item,x:p.x,y:p.y,side,labelDy});
   });
   return placements;
 }
@@ -142206,6 +142815,11 @@ function getContinentNativeRegion(code){
 }
 
 function renderSelectedContinentHighlight(){
+  const sourceSvg=document.querySelector('.world-map-inline.globe-texture-source');
+  if(sourceSvg){
+    sourceSvg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    sourceSvg.setAttribute('viewBox','0 0 1000 500');
+  }
   const ctx=ensureNativeContinentHighlightLayer();
   if(!ctx)return;
   const {landGroup,defs,layer}=ctx;
@@ -142267,6 +142881,7 @@ function render2DMapLabels(items){
     const card=document.createElement('button');
     card.type='button';
     card.className='map-country-card' + (activeCountryFilter===item.code ? ' active' : '');
+    if(item.labelDy) card.style.marginTop=`${item.labelDy}%`;
     card.innerHTML=`<span class="flag">${item.flag}</span><span class="name">${item.name}</span><span class="count">${item.count}건</span>`;
     card.setAttribute('aria-label',`${item.name} ${item.count}건. 클릭하면 해당 국가 기사만 표시합니다.`);
     card.title=`${item.name} ${item.count}건`;
