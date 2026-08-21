@@ -5013,6 +5013,11 @@ COUNTRY_META = {
     "CN": ("🇨🇳", "중국"),
     "IN": ("🇮🇳", "인도"),
     "AU": ("🇦🇺", "호주"),
+    "BR": ("🇧🇷", "브라질"),
+    "AR": ("🇦🇷", "아르헨티나"),
+    "CL": ("🇨🇱", "칠레"),
+    "PE": ("🇵🇪", "페루"),
+    "CO": ("🇨🇴", "콜롬비아"),
     "RU": ("🇷🇺", "러시아"),
     "TR": ("🇹🇷", "튀르키예"),
     "SA": ("🇸🇦", "사우디"),
@@ -5064,6 +5069,11 @@ COUNTRY_PROJECT_TERMS = {
     "CN": ("taishan", "타이산", "sanmen", "산먼", "haiyang", "하이양", "xudapu", "쉬다푸"),
     "IN": ("kudankulam", "쿠단쿨람", "jaitapur", "자이타푸르", "kaiga", "카이가", "npcil"),
     "AU": ("australian nuclear", "호주 원전"),
+    "BR": ("angra", "앙그라", "angra 1", "angra 2", "angra 3", "eletronuclear"),
+    "AR": ("atucha", "아투차", "embalse", "엠발세", "carem", "cnea"),
+    "CL": ("chile nuclear", "chilean nuclear", "칠레 원전", "칠레 원자력"),
+    "PE": ("peru nuclear", "peruvian nuclear", "페루 원전", "페루 원자력"),
+    "CO": ("colombia nuclear", "colombian nuclear", "콜롬비아 원전", "콜롬비아 원자력"),
     "RU": ("kursk ii", "쿠르스크", "leningrad ii", "레닌그라드", "rosatom project"),
     "TR": ("akkuyu", "아쿠유", "sinop nuclear", "시노프 원전"),
     "SA": (
@@ -5150,6 +5160,11 @@ COUNTRY_EXPLICIT_TERMS = {
     "CN": ("중국", "china", "chinese"),
     "IN": ("인도", "india", "indian"),
     "AU": ("호주", "australia", "australian"),
+    "BR": ("브라질", "brazil", "brazilian"),
+    "AR": ("아르헨티나", "argentina", "argentine", "argentinian"),
+    "CL": ("칠레", "chile", "chilean"),
+    "PE": ("페루", "peru", "peruvian"),
+    "CO": ("콜롬비아", "colombia", "colombian"),
     "RU": ("러시아", "russia", "russian"),
     "TR": ("튀르키예", "터키", "turkey", "türkiye", "turkiye", "turkish"),
     "SA": ("사우디", "사우디아라비아", "saudi arabia", "saudi"),
@@ -5179,6 +5194,8 @@ COUNTRY_HOME_ENTITY_TERMS = {
     "CN": ("cnnc", "cgn", "china national nuclear corporation",),
     "IN": ("npcil", "nuclear power corporation of india",),
     "CA": ("candu energy", "atkinsréalis", "atkinsrealis",),
+    "BR": ("eletronuclear", "eletronuclear s.a.",),
+    "AR": ("cnea", "nucleoeléctrica argentina", "nucleoelectrica argentina",),
     "AE": (
         "emirates nuclear energy corporation", "enec",
         "nawah energy", "nawah energy company",
@@ -13175,6 +13192,7 @@ header,
 @media (max-width:430px) {{
   .preview-copy {{
     min-height:86px !important;
+    column-gap:3px !important;
   }}
   .important-button {{
     margin-left:auto !important;
@@ -13186,38 +13204,41 @@ header,
   }}
   .preview-card {{
     grid-template-columns:minmax(0,1fr) 116px !important;
-    gap:9px !important;
+    gap:6px !important;
     min-height:86px !important;
-    padding:4px 4px 4px 9px !important;
+    height:86px !important;
+    padding:0 3px 0 5px !important;
   }}
   .card-side {{
     width:116px !important;
     min-width:116px !important;
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
-    align-self:center !important;
+    height:86px !important;
+    min-height:86px !important;
+    max-height:86px !important;
+    align-self:stretch !important;
   }}
   .preview-image {{
     width:116px !important;
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
+    height:86px !important;
+    min-height:86px !important;
+    max-height:86px !important;
     border-radius:0 !important;
   }}
   .headline {{
     font-size:12.6px !important;
+    margin:1px 0 2px !important;
   }}
   .article-snippet {{
+    margin-top:0 !important;
     font-size:9.9px !important;
-    line-height:1.33 !important;
+    line-height:1.31 !important;
   }}
 }}
 
 @media (max-width:380px) {{
   .preview-copy {{
     grid-template-columns:16px minmax(0,1fr) !important;
-    column-gap:4px !important;
+    column-gap:3px !important;
     min-height:82px !important;
   }}
   .important-button {{
@@ -13230,31 +13251,34 @@ header,
   }}
   .preview-card {{
     grid-template-columns:minmax(0,1fr) 106px !important;
-    gap:8px !important;
+    gap:6px !important;
     min-height:82px !important;
-    padding:4px 3px 4px 8px !important;
+    height:82px !important;
+    padding:0 2px 0 5px !important;
   }}
   .card-side {{
     width:106px !important;
     min-width:106px !important;
-    height:74px !important;
-    min-height:74px !important;
-    max-height:74px !important;
-    align-self:center !important;
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
+    align-self:stretch !important;
   }}
   .preview-image {{
     width:106px !important;
-    height:74px !important;
-    min-height:74px !important;
-    max-height:74px !important;
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
     border-radius:0 !important;
   }}
   .headline {{
     font-size:12.2px !important;
+    margin:1px 0 2px !important;
   }}
   .article-snippet {{
+    margin-top:0 !important;
     font-size:9.6px !important;
-    line-height:1.31 !important;
+    line-height:1.29 !important;
   }}
 }}
 
@@ -15782,6 +15806,11 @@ header,
       <button class="country-pin country-cn" data-country-filter="CN" data-lon="104.2" data-lat="35.9" type="button"><span class="flag">🇨🇳</span><span>중국</span><span class="country-count">0건</span></button>
       <button class="country-pin country-jp" data-country-filter="JP" data-lon="138.3" data-lat="36.2" type="button"><span class="flag">🇯🇵</span><span>일본</span><span class="country-count">0건</span></button>
       <button class="country-pin country-au" data-country-filter="AU" data-lon="133.8" data-lat="-25.3" type="button"><span class="flag">🇦🇺</span><span>호주</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-br" data-country-filter="BR" data-lon="-51.9" data-lat="-14.2" type="button"><span class="flag">🇧🇷</span><span>브라질</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-ar" data-country-filter="AR" data-lon="-63.6" data-lat="-38.4" type="button"><span class="flag">🇦🇷</span><span>아르헨티나</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-cl" data-country-filter="CL" data-lon="-71.5" data-lat="-35.7" type="button"><span class="flag">🇨🇱</span><span>칠레</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-pe" data-country-filter="PE" data-lon="-75.0" data-lat="-9.2" type="button"><span class="flag">🇵🇪</span><span>페루</span><span class="country-count">0건</span></button>
+      <button class="country-pin country-co" data-country-filter="CO" data-lon="-74.3" data-lat="4.6" type="button"><span class="flag">🇨🇴</span><span>콜롬비아</span><span class="country-count">0건</span></button>
       <button class="country-pin country-za" data-country-filter="ZA" data-lon="22.9" data-lat="-30.6" type="button"><span class="flag">🇿🇦</span><span>남아공</span><span class="country-count">0건</span></button>
       <button class="country-pin country-sk" data-country-filter="SK" data-lon="19.7" data-lat="48.7" type="button"><span class="flag">🇸🇰</span><span>슬로바키아</span><span class="country-count">0건</span></button>
       <button class="country-pin country-dk" data-country-filter="DK" data-lon="9.5" data-lat="56.3" type="button"><span class="flag">🇩🇰</span><span>덴마크</span><span class="country-count">0건</span></button>
@@ -16123,7 +16152,7 @@ const COUNTRY_NAMES = {{
   US:"미국", KR:"한국", GB:"영국", BG:"불가리아", UA:"우크라이나", AE:"UAE",
   RO:"루마니아", CZ:"체코", PL:"폴란드", SI:"슬로베니아", FI:"핀란드",
   JP:"일본", CA:"캐나다", FR:"프랑스", SE:"스웨덴",
-  CN:"중국", IN:"인도", AU:"호주", RU:"러시아", TR:"튀르키예", SA:"사우디",
+  CN:"중국", IN:"인도", AU:"호주", BR:"브라질", AR:"아르헨티나", CL:"칠레", PE:"페루", CO:"콜롬비아", RU:"러시아", TR:"튀르키예", SA:"사우디",
   ZA:"남아공", NL:"네덜란드", BE:"벨기에", CH:"스위스",
   VN:"베트남", SG:"싱가포르", MY:"말레이시아", TH:"태국", DK:"덴마크", SK:"슬로바키아",
   OTHER:"기타"
@@ -16189,6 +16218,11 @@ const COUNTRY_GLOBE_META = {{
   CN: {{ lon:104.2, lat:35.9, flag:"🇨🇳", name:"중국" }},
   JP: {{ lon:138.3, lat:36.2, flag:"🇯🇵", name:"일본" }},
   AU: {{ lon:133.8, lat:-25.3, flag:"🇦🇺", name:"호주" }},
+  BR: {{ lon:-51.9, lat:-14.2, flag:"🇧🇷", name:"브라질" }},
+  AR: {{ lon:-63.6, lat:-38.4, flag:"🇦🇷", name:"아르헨티나" }},
+  CL: {{ lon:-71.5, lat:-35.7, flag:"🇨🇱", name:"칠레" }},
+  PE: {{ lon:-75.0, lat:-9.2, flag:"🇵🇪", name:"페루" }},
+  CO: {{ lon:-74.3, lat:4.6, flag:"🇨🇴", name:"콜롬비아" }},
   ZA: {{ lon:22.9, lat:-30.6, flag:"🇿🇦", name:"남아공" }},
   SK: {{ lon:19.7, lat:48.7, flag:"🇸🇰", name:"슬로바키아" }},
   DK: {{ lon:9.5, lat:56.3, flag:"🇩🇰", name:"덴마크" }},
@@ -17524,6 +17558,7 @@ let activeContinentFilter = 'ALL';
 const CONTINENT_META = {{
   ALL: {{ name:'전체' }},
   NA: {{ name:'북미' }},
+  SA: {{ name:'남미' }},
   EU: {{ name:'유럽' }},
   AS: {{ name:'아시아' }},
   MEA: {{ name:'중동·아프리카' }},
@@ -17531,9 +17566,10 @@ const CONTINENT_META = {{
 }};
 
 const COUNTRY_CONTINENT_META = {{
-  KR:'AS', JP:'AS', CN:'AS', IN:'AS', VN:'AS', SG:'AS', MY:'AS', TH:'AS',
+  KR:'AS', JP:'AS', CN:'AS', IN:'AS', VN:'AS', SG:'AS', MY:'AS', TH:'AS', RU:'AS',
   US:'NA', CA:'NA',
-  GB:'EU', FR:'EU', NL:'EU', BE:'EU', CH:'EU', SE:'EU', FI:'EU', PL:'EU', CZ:'EU', SI:'EU', RO:'EU', BG:'EU', UA:'EU', RU:'EU', TR:'EU', SK:'EU', DK:'EU',
+  BR:'SA', AR:'SA', CL:'SA', PE:'SA', CO:'SA',
+  GB:'EU', FR:'EU', NL:'EU', BE:'EU', CH:'EU', SE:'EU', FI:'EU', PL:'EU', CZ:'EU', SI:'EU', RO:'EU', BG:'EU', UA:'EU', TR:'EU', SK:'EU', DK:'EU',
   AE:'MEA', SA:'MEA', ZA:'MEA',
   AU:'OC'
 }};
@@ -18149,9 +18185,10 @@ const COUNTRY_MAP_ANCHORS={{
   SE:[53.3,27.4], FI:[56.2,26.3], PL:[54.8,37.0], CZ:[53.3,38.7], SI:[53.5,41.5],
   RO:[56.9,41.8], BG:[57.1,44.2], UA:[59.4,39.1], RU:[69.5,28.8], TR:[59.7,46.3],
   SK:[54.3,39.0], DK:[51.3,32.0],
-  KR:[85.8,41.2], JP:[89.5,42.0], CN:[79.8,42.5], IN:[70.4,54.7], VN:[81.6,56.8],
+  KR:[84.2,41.2], JP:[87.6,42.0], CN:[79.8,42.5], IN:[70.4,54.7], VN:[81.6,56.8],
   MY:[81.9,62.0], TH:[79.8,56.3], SG:[82.2,64.0],
   AE:[64.0,52.3], SA:[61.2,52.9], ZA:[55.0,72.8],
+  BR:[35.6,57.9], AR:[32.3,71.3], CL:[30.1,69.8], PE:[29.2,55.1], CO:[29.4,47.4],
   AU:[85.1,75.7]
 }};
 
@@ -18164,11 +18201,15 @@ function getCountryMapAnchor(item){{
 function getContinentNativeRegion(code){{
   /* 1000x500 SVG viewBox. Tighter clips prevent unrelated continents being highlighted. */
   const regions={{
-    NA: {{points:'20,65 330,65 365,170 335,292 245,335 110,310 25,240',labelX:190,labelY:170}},
-    EU: {{points:'445,85 610,80 630,135 612,225 535,245 465,220 435,155',labelX:530,labelY:155}},
-    AS: {{points:'565,55 995,55 995,310 915,345 780,330 675,285 590,215 555,130',labelX:795,labelY:175}},
-    MEA:{{points:'430,205 655,190 682,255 650,390 595,460 485,455 415,365 400,270',labelX:535,labelY:315}},
-    OC: {{points:'745,300 995,300 995,490 760,490 720,390',labelX:850,labelY:405}}
+    /* Clip polygons are intentionally conservative: they color real land paths only. */
+    NA: {{points:'15,55 345,55 365,165 335,260 285,300 220,305 155,285 95,260 30,220',labelX:190,labelY:165}},
+    SA: {{points:'245,190 405,190 445,255 430,345 395,430 350,492 305,430 275,345 255,260',labelX:350,labelY:330}},
+    EU: {{points:'425,82 560,82 575,120 608,155 610,215 565,240 505,230 455,200 430,150',labelX:520,labelY:160}},
+    /* Russia is treated as Asia: high-latitude western extension includes Russia but avoids most of Europe. */
+    AS: {{points:'555,50 995,50 995,310 915,345 780,330 675,285 635,235 625,190 635,150 600,115 560,95',labelX:795,labelY:175}},
+    /* Middle East + Africa only; boundary stops west of India. */
+    MEA:{{points:'410,205 665,190 680,245 655,330 625,420 575,470 495,455 430,390 400,300',labelX:535,labelY:320}},
+    OC: {{points:'720,300 995,300 995,490 745,490 710,390',labelX:850,labelY:405}}
   }};
   return regions[code]||null;
 }}
@@ -18320,7 +18361,7 @@ function getCountryMapAnchor(item){{
   return projectExactSvgPoint(item.lon,item.lat);
 }}
 
-const FINAL_CONTINENT_DOCK_ORDER = ['NA','EU','AS','MEA','OC'];
+const FINAL_CONTINENT_DOCK_ORDER = ['NA','SA','EU','AS','MEA','OC'];
 
 function ensureMapStateChip(items){{
   const visual=document.querySelector('.country-map-visual.globe-mode');
