@@ -8221,6 +8221,126 @@ main {
   }
 }
 
+
+/* ============================================================
+   2026-08-21 ACCURATE COUNTRY-PATH MAP
+   Replace rough continent polygons with country-path based world map.
+   ============================================================ */
+.country-map-visual.globe-mode.accurate-map-enabled {
+  position: relative !important;
+  overflow: hidden !important;
+}
+.country-map-visual.globe-mode.accurate-map-enabled .world-map-inline,
+.country-map-visual.globe-mode.accurate-map-enabled #continent-highlight-svg-layer,
+.country-map-visual.globe-mode.accurate-map-enabled #country-map-label-layer {
+  display: none !important;
+}
+#accurate-country-map-surface {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+#accurate-country-map-svg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+#accurate-country-label-layer {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+}
+.accurate-map-country {
+  fill: #e8eef3 !important;
+  stroke: #ffffff !important;
+  stroke-width: 0.65 !important;
+  vector-effect: non-scaling-stroke !important;
+}
+.accurate-map-country.in-active-continent {
+  fill: #7cccf0 !important;
+  stroke: #ffffff !important;
+  stroke-width: 0.75 !important;
+}
+.accurate-map-country.has-articles.in-active-continent {
+  fill: #5abbe9 !important;
+}
+.accurate-map-country.inactive-dim {
+  fill: #eef3f7 !important;
+}
+.accurate-country-dot {
+  position: absolute !important;
+  width: 4.5px !important;
+  height: 4.5px !important;
+  border-radius: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background: #0f8fca !important;
+  border: 1.15px solid #ffffff !important;
+  box-shadow: 0 0 0 1px rgba(15,143,202,.14), 0 1px 3px rgba(62,93,121,.16) !important;
+  z-index: 6 !important;
+}
+.accurate-country-dot.active {
+  width: 5.2px !important;
+  height: 5.2px !important;
+  background: #d84c4c !important;
+}
+.accurate-country-connector {
+  position: absolute !important;
+  height: 1.15px !important;
+  transform-origin: left center !important;
+  background: rgba(74, 118, 151, .48) !important;
+  border-radius: 999px !important;
+  z-index: 5 !important;
+}
+.accurate-country-label {
+  position: absolute !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 2px !important;
+  min-height: 15px !important;
+  padding: 1px 4px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(140, 174, 196, .72) !important;
+  background: rgba(255,255,255,.98) !important;
+  color: #214966 !important;
+  font-size: 6.75px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  box-shadow: 0 1px 4px rgba(54,89,114,.08) !important;
+  pointer-events: auto !important;
+  z-index: 7 !important;
+}
+.accurate-country-label .flag { font-size: 7.4px !important; line-height: 1 !important; }
+.accurate-country-label .name { font-size: 6.75px !important; font-weight: 950 !important; }
+.accurate-country-label .count { font-size: 6.75px !important; font-weight: 950 !important; color: #1787c2 !important; }
+.accurate-country-label.active {
+  background: #fff3bd !important;
+  border-color: #e5c85b !important;
+}
+.accurate-country-label.active .count { color: #d84c4c !important; }
+@media (max-width: 430px) {
+  .accurate-country-dot {
+    width: 4px !important;
+    height: 4px !important;
+  }
+  .accurate-country-dot.active {
+    width: 4.7px !important;
+    height: 4.7px !important;
+  }
+  .accurate-country-label {
+    min-height: 14px !important;
+    padding: 1px 3px !important;
+    font-size: 6.45px !important;
+  }
+  .accurate-country-label .flag { font-size: 7px !important; }
+  .accurate-country-label .name,
+  .accurate-country-label .count { font-size: 6.45px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -8229,7 +8349,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 16:30 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 16:45 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -16005,7 +16125,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba098bb0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba59aa28&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -16037,7 +16157,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58bb161208&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58bb4fed20&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27045,7 +27165,7 @@ main {
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246147"
+  data-published="1787246439"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -30868,7 +30988,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newscj.com/news/articleView.html?idxno=3426815"
   data-title="[건설오늘] GS건설, 목동12단지 수주 경쟁력 강화 外 대우건설·DL이앤씨·현대엔지니어링·IPARK현대산업개발·삼성물산"
   data-publisher="천지일보"
@@ -30891,7 +31011,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[건설오늘] GS건설, 목동12단지 수주 경쟁력 강화 外 대우건설·DL이앤씨·현대엔지니어링·IPARK현대산업개발·삼성물산</div>
+      <div class="headline">[건설오늘] GS건설, 목동12단지 수주 경쟁력 강화 外 대우건설·DL이앤씨·현대엔지니어링·IPARK현대산업개발·삼성물산</div>
       <div class="article-snippet">[천지일보=정다준 기자] 21일 건설업계가 재건축 수주와 신규 분양, 금융 협력 등을 통해 사업 경쟁력 강화에 나섰다. GS건설은 신한은행과 손잡고 목동12단지 재건축 사업비와 이주비 등 금융조달 역량을 높였으며 대우건설은 인천 검암역세권 공공분양 단지의 견본주택을 열고 분양에 돌입했</div>
     </div>
   </div>
@@ -30996,7 +31116,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsway.co.kr/news/view?ud=2026082111205670146"
   data-title="&#x27;검암역 푸르지오 프라베뉴&#x27;...분양가·더블생활권 &#x27;눈길&#x27; - 뉴스웨이"
   data-publisher="뉴스웨이"
@@ -31019,7 +31139,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;검암역 푸르지오 프라베뉴&#x27;...분양가·더블생활권 &#x27;눈길&#x27; - 뉴스웨이</div>
+      <div class="headline">&#x27;검암역 푸르지오 프라베뉴&#x27;...분양가·더블생활권 &#x27;눈길&#x27; - 뉴스웨이</div>
       <div class="article-snippet">대우건설이 인천 서해구 검암동에 공급하는 &#x27;검암역 푸르지오 프라베뉴&#x27;가 분양가상한제로 합리적인 분양가를 내세우며 실수요자들의 주목을 받고 있다. 더블역세권과 더블생활권 입지, 민간참여 공공분양, 높은 특별공급 비중, 우수한 교통 및 생활 인프라 등이 경쟁력으로 꼽힌다. 오는 31일부터 특별공급, 9월1~2일 청약이 진행된다.</div>
     </div>
   </div>
@@ -31924,7 +32044,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.insightkorea.co.kr/news/articleView.html?idxno=252941"
   data-title="‘도시정비 신기록’ 한화 건설부문…시평 지표 약화에 그룹 입지도 ‘촉각’"
   data-publisher="인사이트코리아"
@@ -31947,7 +32067,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘도시정비 신기록’ 한화 건설부문…시평 지표 약화에 그룹 입지도 ‘촉각’</div>
+      <div class="headline">‘도시정비 신기록’ 한화 건설부문…시평 지표 약화에 그룹 입지도 ‘촉각’</div>
       <div class="article-snippet">[인사이트코리아 = 윤찬우 기자] 한화 건설부문이 올해 도시정비사업에서 역대 최대 수주 실적을 이어가고 있다. 이달 광명 하안주공5단지 재건축까지 확보하면 연간 수주액은 처음으로 2조원을 넘어설 전망이다. 다만 시공능력평가 세부 지표는 일제히 하락해 도시정비사업 성과와 엇갈린 흐름을</div>
     </div>
   </div>
@@ -32518,7 +32638,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757939"
   data-title="나주시, &#x27;인공태양&#x27; 기반 국가 핵융합 거점 노린다"
   data-publisher="뉴시스"
@@ -32541,7 +32661,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>나주시, &#x27;인공태양&#x27; 기반 국가 핵융합 거점 노린다</div>
+      <div class="headline">나주시, &#x27;인공태양&#x27; 기반 국가 핵융합 거점 노린다</div>
       <div class="article-snippet">[나주=뉴시스]이창우 기자 = 전남광주특별시 나주시가 인공태양 연구시설을 발판으로 핵융합 연구부터 실증로, 전력 생산과 산업화까지 아우르는 국가 핵융합 에너지 거점 구축에 나선다. 21일 나주시에 따르면 윤병태 나주시장은 이날 대전광역시에 위치한 한국핵융합에너지연구원을 찾아 오영국 원장과 면담하고 한국형 핵융합 실증로(DEMO) 유치와 정부 주도 연구단지·클러스터 조성, 핵융합 에너지 특화 연구개발특구 지정 등을 건의했다. 이번 제안은 정부가 2030년대 핵융합 전력 생산을 목표로 실증로 개발에 속도를 내는 데 맞춰 나주가 선제적으로 관련 인프라를 집적하자는 취지다.</div>
     </div>
   </div>
@@ -32687,7 +32807,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301819"
   data-title="한전KDN, 기후변화위기 취약계층 여름나기 물품 지원"
   data-publisher="투데이에너지"
@@ -32710,7 +32830,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 기후변화위기 취약계층 여름나기 물품 지원</div>
+      <div class="headline">한전KDN, 기후변화위기 취약계층 여름나기 물품 지원</div>
       <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)이 지난 20일 기후변화위기 취약계층 대상 여름나기 물품 지원에 나섰다. 이번 지원은 기후위기와 에너지 가격 상승 등으로 어려움을 겪는 지역사회 취약계층의 에너지 효율을 높이고 안전한 생활환경 조성을 지원하는</div>
     </div>
   </div>
@@ -32751,7 +32871,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301815"
   data-title="한전KDN ‘스마트 주거 서비스 아이디어 공유회’ 개최"
   data-publisher="투데이에너지"
@@ -32774,7 +32894,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN ‘스마트 주거 서비스 아이디어 공유회’ 개최</div>
+      <div class="headline">한전KDN ‘스마트 주거 서비스 아이디어 공유회’ 개최</div>
       <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 전남개발공사(사장 장충모)와 지난 20일 전남광주통합특별시 남악신도시 소재 전남개발공사 본사에서 공공주택 에너지복지 서비스 실현을 위한 ‘스마트 주거 서비스 아이디어 공유회’를 개최했다.이번 공유회는 지난</div>
     </div>
   </div>
@@ -33282,38 +33402,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.dailian.co.kr/news/view/1680827/%EC%86%8D%EB%B3%B4-%EF%A7%A1%EB%8C%80%ED%86%B5%EB%A0%B9-%EC%82%B0%EC%97%85%ED%86%B5%EC%83%81%EB%B6%80-%ED%86%B5%EC%83%81%EA%B5%90%EC%84%AD%EB%B3%B8%EB%B6%80-2026"
-  data-title="[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명"
-  data-publisher="데일리안"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787293320"
-  data-country="KR"
-  data-search="[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 데일리안 원전 관계부처 "
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">데일리안</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</div>
-      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0529be5449031537cc9446f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.khan.co.kr/article/202608211521001"
   data-title="[속보]이 대통령, 여한구 후임 통상교섭본부장에 박정성, 소방청장에 최용철 임명"
   data-publisher="경향신문"
@@ -33566,6 +33654,38 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/fe6e8eeac7c4a4563f5c2042.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://n.news.naver.com/article/119/0003123950?type=main"
+  data-title="[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명"
+  data-publisher="데일리안"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787281200"
+  data-country="KR"
+  data-search="[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 데일리안 원전 관계부처 메인 뉴스판에서 데일리안 주요뉴스를 볼 수 있습니다. 보러가기 닫기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</div>
+      <div class="article-snippet">메인 뉴스판에서 데일리안 주요뉴스를 볼 수 있습니다. 보러가기 닫기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/155c5817c01442ef6faa8f55.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34256,7 +34376,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">33건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34292,6 +34412,38 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.greenpostkorea.co.kr/news/articleView.html?idxno=307331"
+  data-title="[사설] 원전 19기 규모 추가 전력 필요···실현 가능 대책 있나 - 그린포스트코리아"
+  data-publisher="그린포스트코리아"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787297251"
+  data-country="OTHER"
+  data-search="[사설] 원전 19기 규모 추가 전력 필요···실현 가능 대책 있나 - 그린포스트코리아 그린포스트코리아 원자력 정부가 2040년 국가 최대 전력 수요 전망치를 불과 4개월 만에 28% 상향 조정하며 대형 원자력발전소 19기 분량(27gw)에 달하는 추가 전력이 필요하다는"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">그린포스트코리아</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[사설] 원전 19기 규모 추가 전력 필요···실현 가능 대책 있나 - 그린포스트코리아</div>
+      <div class="article-snippet">정부가 2040년 국가 최대 전력 수요 전망치를 불과 4개월 만에 28% 상향 조정하며 대형 원자력발전소 19기 분량(27GW)에 달하는 추가 전력이 필요하다는</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/339964c41a23435e60662099.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757906"
   data-title="원안위, 새울 1호기 임계 허용…&quot;후속검사로 안정성 최종 확인&quot;"
   data-publisher="뉴시스"
@@ -34314,7 +34466,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, 새울 1호기 임계 허용…&quot;후속검사로 안정성 최종 확인&quot;</div>
+      <div class="headline">원안위, 새울 1호기 임계 허용…&quot;후속검사로 안정성 최종 확인&quot;</div>
       <div class="article-snippet">[세종=뉴시스]이수정 기자 = 원자력안전위원회가 정기검사를 실시한 새울 원자력발전소 1호기의 임계를 21일 허용했다고 밝혔다. 원안위는 이번 정기검사에서 총 98개 정기검사 항목 가운데 임계 전까지 수행해야 하는 86개 항목을 검사한 결과, 향후 원자로 임계가 안전하게 이뤄질 수 있음을 확인했다. 정기검사 기간 실시한 증기발생기 점검에서는 내부 이물질인 소선과 슬러지 등이 발견돼 이를 제거했다. 이후 해당 세관에 대한 검사를 다시 실시한 결과 건전성이 확보된 것으로 확인됐다. 또한 기기냉각해수계통 회전여과망 곡관부에 설치된 부착식 앵커에서는 12개소의 시공 불일치가</div>
     </div>
   </div>
@@ -34324,6 +34476,38 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://biz.heraldcorp.com/article/10848358"
+  data-title="전남광주특별시, ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의"
+  data-publisher="헤럴드경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787296414"
+  data-country="OTHER"
+  data-search="전남광주특별시, ‘군공항 이전 무안군지원전담팀(tf)’ 첫 회의 헤럴드경제 원자력 [헤럴드경제(광주)=서인주 기자] 전남광주통합특별시는 21일 광주청사에서 ‘무안군 지원사업 전담팀(tf)’의 첫 회의를 열어, 무안군이 요청한 국가지원사업에 대한 특별"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>전남광주특별시, ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의</div>
+      <div class="article-snippet">[헤럴드경제(광주)=서인주 기자] 전남광주통합특별시는 21일 광주청사에서 ‘무안군 지원사업 전담팀(TF)’의 첫 회의를 열어, 무안군이 요청한 국가지원사업에 대한 특별</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/43cd7115ae672e601ec1d92d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260821133200017?section=industry/all"
   data-title="원안위, 정기검사 마친 새울원전 1호기 재가동 허용 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -34346,12 +34530,44 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, 정기검사 마친 새울원전 1호기 재가동 허용 | 연합뉴스</div>
+      <div class="headline">원안위, 정기검사 마친 새울원전 1호기 재가동 허용 | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 조승한 기자 = 원자력안전위원회는 지난달 2일부터 정기검사를 실시한 울산 울주 새울원전 1호기 재가동을 21일 허용했다고 밝혔...</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/868a297e2c628f344b5b4348.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.straightnews.co.kr/news/articleView.html?idxno=309416"
+  data-title="원전·데이터센터로 진격하는 건설업계…중소사엔 &#x27;그림의 떡&#x27;"
+  data-publisher="스트레이트뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787295814"
+  data-country="CZ"
+  data-search="원전·데이터센터로 진격하는 건설업계…중소사엔 &#x27;그림의 떡&#x27; 스트레이트뉴스 원자력 건설업계 일감이 계속 줄고 있으나 원전과 데이터센터는 중요 사업으로 급부상하고 있다. ai 확산으로 인해 급격히 수요가 커지고 있는 분야다. 다만 대형 건설사들만 수행할 수 있어 업계 내 양극화는 더욱 심화될 전망이다.21일 해외건설협회에 따르면 올해 상반기 해외 수주액은 112억8000만달러(약 15조5000억원)로 지난해 같은 기간에 비해 63.6% 급감했다. 지난해 상반기 반영된 체코 원전 수주액 187억달러를 제외하더라도 8%가량 감소한 것이며, 2024년 상반기 156억달러와 비교하면 27% 낮은 수치다. 최대 시장이었던"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">스트레이트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원전·데이터센터로 진격하는 건설업계…중소사엔 &#x27;그림의 떡&#x27;</div>
+      <div class="article-snippet">건설업계 일감이 계속 줄고 있으나 원전과 데이터센터는 중요 사업으로 급부상하고 있다. AI 확산으로 인해 급격히 수요가 커지고 있는 분야다. 다만 대형 건설사들만 수행할 수 있어 업계 내 양극화는 더욱 심화될 전망이다.21일 해외건설협회에 따르면 올해 상반기 해외 수주액은 112억8000만달러(약 15조5000억원)로 지난해 같은 기간에 비해 63.6% 급감했다. 지난해 상반기 반영된 체코 원전 수주액 187억달러를 제외하더라도 8%가량 감소한 것이며, 2024년 상반기 156억달러와 비교하면 27% 낮은 수치다. 최대 시장이었던</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1e3ec8a22935f0ff02ff92b7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34387,7 +34603,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.jnilbo.com/news/articleView.html?idxno=90000058567"
   data-title="전남광주시 ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의 - 전남일보"
   data-publisher="전남일보"
@@ -34410,7 +34626,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>전남광주시 ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의 - 전남일보</div>
+      <div class="headline">전남광주시 ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의 - 전남일보</div>
       <div class="article-snippet">전남광주통합특별시는 21일 광주청사에서 ‘무안군 지원사업 전담팀(TF)’의 첫 회의를 열어, 무안군이 요청한 국가지원사업에 대한 특별시 차원의 지원방안을 논의했다</div>
     </div>
   </div>
@@ -35220,6 +35436,38 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.dt.co.kr/article/12079433"
+  data-title="에버켐텍, EU PPWR·PFAS 규제 대응 친환경 배리어 코팅제 ‘넥스리어’ 공급 본격화"
+  data-publisher="디지털타임스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787296769"
+  data-country="OTHER"
+  data-search="에버켐텍, eu ppwr·pfas 규제 대응 친환경 배리어 코팅제 ‘넥스리어’ 공급 본격화 디지털타임스 원자력 유럽연합(eu)의 포장재 및 포장폐기물 규정(ppwr) 도입과 함께 잔류성 유기오염물질인 과불화화합물(pfas)에 대한 사용 규제가 시행되고 있다. 2026년 8월 12일부터 식품 접촉 포장재 내 pfas 함량 기준(개별 pfas: 25ppb 미만, targeted p"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">디지털타임스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>에버켐텍, EU PPWR·PFAS 규제 대응 친환경 배리어 코팅제 ‘넥스리어’ 공급 본격화</div>
+      <div class="article-snippet">유럽연합(EU)의 포장재 및 포장폐기물 규정(PPWR) 도입과 함께 잔류성 유기오염물질인 과불화화합물(PFAS)에 대한 사용 규제가 시행되고 있다. 2026년 8월 12일부터 식품 접촉 포장재 내 PFAS 함량 기준(개별 PFAS: 25ppb 미만, targeted P</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a59cfba052294c28d6ceb4bf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260821161244357"
   data-title="[NNA] 미얀마-러시아 양국 간 상거래, 대부분 루블화 결제"
   data-publisher="아주경제"
@@ -35242,7 +35490,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[NNA] 미얀마-러시아 양국 간 상거래, 대부분 루블화 결제</div>
+      <div class="headline">[NNA] 미얀마-러시아 양국 간 상거래, 대부분 루블화 결제</div>
       <div class="article-snippet">[사진=게티이미지] 러시아의 푸틴 대통령은 18일 미얀마 군사정권의 대통령을 맡고 있는 민 아웅 흘라잉과의 회담 후 기자단에 미얀마와의 양국 간 상거래 중 약 3분의 2가 러시아 루블화로 결제되고 있다고 밝히며 양국의 경제 협력 진전을 강조했다. 러시아 대통령실(크렘린궁)의 성명에 따르면 푸틴 대통령은 민 아웅 흘라잉 대통령의 러시아 체류 기간 중 정부 간 및 민간 분야에서 다수의 합의가 성립되었다고 말했다. 양국 정부는 경제 관계 강화를 최우선 사항으로 삼고 있으며, 신뢰성 높은 결제 메커니즘을 구축했다고 설명했다. 현재는 상거래의 약 3분의 2가 루블화로 결제되는</div>
     </div>
   </div>
@@ -35321,7 +35569,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">26건</span>
+    <span class="group-count">27건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35385,6 +35633,38 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/eeb67f83f99c502ebc3aa60b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5780"
+  data-title="KINS, AI·비경수형 SMR 규제 책임자 인사 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787296466"
+  data-country="KR"
+  data-search="kins, ai·비경수형 smr 규제 책임자 인사 - 에너지안전신문 에너지안전신문 smr 한국원자력안전기술원(kins)이 인공지능(ai) 활용 전략과 비경수형 소형모듈원자로(smr) 규제 업무를 이끌 실장급 책임자 두 명을 새로 발령했다. kins는"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>KINS, AI·비경수형 SMR 규제 책임자 인사 - 에너지안전신문</div>
+      <div class="article-snippet">한국원자력안전기술원(KINS)이 인공지능(AI) 활용 전략과 비경수형 소형모듈원자로(SMR) 규제 업무를 이끌 실장급 책임자 두 명을 새로 발령했다. KINS는</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8a741d5582e7f88613d2ff97.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35484,7 +35764,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301818"
   data-title="[인사] 한국원자력안전기술원"
   data-publisher="투데이에너지"
@@ -35507,7 +35787,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 한국원자력안전기술원</div>
+      <div class="headline">[인사] 한국원자력안전기술원</div>
       <div class="article-snippet">[투데이에너지] ■ 실장급▲ AI총괄 PM : 황충만 ▲ 비경수형 SMR 규제사업 PM : 이종혁(2026년 8월 24일자 발령)</div>
     </div>
   </div>
@@ -35971,7 +36251,7 @@ main {
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787297627"
+  data-published="1787298635"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -36162,9 +36442,41 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">36건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.koreaherald.com/article/10848183"
+  data-title="Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance"
+  data-publisher="헤럴드경제"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787290742"
+  data-country="KR"
+  data-search="seoul sees us-n. korea dialogue as most realistic way to halt pyongyang’s nuclear advance 헤럴드경제 nuclear power·nuclear energy south korea’s unification ministry on friday said restarting us-north korea dialogue and first halting pyongyang’s expanding nuclear capabilities is the most re"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance</div>
+      <div class="article-snippet">South Korea’s Unification Ministry on Friday said restarting US-North Korea dialogue and first halting Pyongyang’s expanding nuclear capabilities is the most re</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b83ed5a9a9097f86fe2c0664.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.asahi.com/ajw/special/nuclear_hibakusha/"
   data-title="Nuclear Threat &amp; Hibakusha | The Asahi Shimbun: Breaking News, Japan News and Analysis"
@@ -36198,45 +36510,13 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787297578"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787297577"
+  data-published="1787298584"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -36258,6 +36538,38 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787298478"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36354,38 +36666,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.koreaherald.com/article/10848183"
-  data-title="Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance"
-  data-publisher="The Korea Herald"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787290742"
-  data-country="KR"
-  data-search="seoul sees us-n. korea dialogue as most realistic way to halt pyongyang’s nuclear advance the korea herald nuclear power·nuclear energy south korea’s unification ministry on friday said restarting us-north korea dialogue and first halting pyongyang’s expanding nuclear capabilities is the most re"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">The Korea Herald</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance</div>
-      <div class="article-snippet">South Korea’s Unification Ministry on Friday said restarting US-North Korea dialogue and first halting Pyongyang’s expanding nuclear capabilities is the most re</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b83ed5a9a9097f86fe2c0664.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36677,6 +36957,38 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.enerdata.net/publications/daily-energy-news/edf-signs-25-year-ppas-400-mw-solar-and-16-gwh-bess-nevada-us.html"
+  data-title="EDF signs 25-year PPAs for 400 MW solar and 1.6 GWh BESS in Nevada (US)"
+  data-publisher="Enerdata"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787313600"
+  data-country="US"
+  data-search="edf signs 25-year ppas for 400 mw solar and 1.6 gwh bess in nevada (us) enerdata nuclear power·nuclear energy edf power solutions north america has signed two 25-year power purchase agreements with the us power utility nv energy covering the full output of the winston energy project in nevada, united states (edf power solutions press release, 18/08/2026)."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Enerdata</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>EDF signs 25-year PPAs for 400 MW solar and 1.6 GWh BESS in Nevada (US)</div>
+      <div class="article-snippet">EDF power solutions North America has signed two 25-year power purchase agreements with the US power utility NV Energy covering the full output of the Winston Energy Project in Nevada, United States (EDF power solutions press release, 18/08/2026).</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0a221fb85f6819f6001cbf00.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.globalbankingandfinance.com/dubai-continues-to-attract-entrepreneurs-and-global-investors/"
   data-title="Dubai Continues to Attract Entrepreneurs and Global Investors"
@@ -36773,7 +37085,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/dai-bieu-lo-rui-ro-khi-bo-cong-chung-nha-dat-bo-truong-nn-mt-noi-gi"
   data-title="Representatives express concerns about the risks of abolishing notarization for land and property transactions; what does the Minister of Agriculture and Environment say?"
   data-publisher="Vietnam.vn"
@@ -36796,7 +37108,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Representatives express concerns about the risks of abolishing notarization for land and property transactions; what does the Minister of Agriculture and Environment say?</div>
+      <div class="headline">Representatives express concerns about the risks of abolishing notarization for land and property transactions; what does the Minister of Agriculture and Environment say?</div>
       <div class="article-snippet">Delegates expressed concerns about the risks posed by the revised draft Land Law, which no longer mandates notarization for land and house transfers. However, the Minister of Agriculture and Environment affirmed that the rights of land users are always guaranteed during transactions.</div>
     </div>
   </div>
@@ -37681,7 +37993,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newscj.com/news/articleView.html?idxno=3426815"
   data-title="[건설오늘] GS건설, 목동12단지 수주 경쟁력 강화 外 대우건설·DL이앤씨·현대엔지니어링·IPARK현대산업개발·삼성물산"
   data-publisher="천지일보"
@@ -37704,7 +38016,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[건설오늘] GS건설, 목동12단지 수주 경쟁력 강화 外 대우건설·DL이앤씨·현대엔지니어링·IPARK현대산업개발·삼성물산</div>
+      <div class="headline">[건설오늘] GS건설, 목동12단지 수주 경쟁력 강화 外 대우건설·DL이앤씨·현대엔지니어링·IPARK현대산업개발·삼성물산</div>
       <div class="article-snippet">[천지일보=정다준 기자] 21일 건설업계가 재건축 수주와 신규 분양, 금융 협력 등을 통해 사업 경쟁력 강화에 나섰다. GS건설은 신한은행과 손잡고 목동12단지 재건축 사업비와 이주비 등 금융조달 역량을 높였으며 대우건설은 인천 검암역세권 공공분양 단지의 견본주택을 열고 분양에 돌입했</div>
     </div>
   </div>
@@ -37809,7 +38121,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsway.co.kr/news/view?ud=2026082111205670146"
   data-title="&#x27;검암역 푸르지오 프라베뉴&#x27;...분양가·더블생활권 &#x27;눈길&#x27; - 뉴스웨이"
   data-publisher="뉴스웨이"
@@ -37832,7 +38144,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;검암역 푸르지오 프라베뉴&#x27;...분양가·더블생활권 &#x27;눈길&#x27; - 뉴스웨이</div>
+      <div class="headline">&#x27;검암역 푸르지오 프라베뉴&#x27;...분양가·더블생활권 &#x27;눈길&#x27; - 뉴스웨이</div>
       <div class="article-snippet">대우건설이 인천 서해구 검암동에 공급하는 &#x27;검암역 푸르지오 프라베뉴&#x27;가 분양가상한제로 합리적인 분양가를 내세우며 실수요자들의 주목을 받고 있다. 더블역세권과 더블생활권 입지, 민간참여 공공분양, 높은 특별공급 비중, 우수한 교통 및 생활 인프라 등이 경쟁력으로 꼽힌다. 오는 31일부터 특별공급, 9월1~2일 청약이 진행된다.</div>
     </div>
   </div>
@@ -38737,7 +39049,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.insightkorea.co.kr/news/articleView.html?idxno=252941"
   data-title="‘도시정비 신기록’ 한화 건설부문…시평 지표 약화에 그룹 입지도 ‘촉각’"
   data-publisher="인사이트코리아"
@@ -38760,7 +39072,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘도시정비 신기록’ 한화 건설부문…시평 지표 약화에 그룹 입지도 ‘촉각’</div>
+      <div class="headline">‘도시정비 신기록’ 한화 건설부문…시평 지표 약화에 그룹 입지도 ‘촉각’</div>
       <div class="article-snippet">[인사이트코리아 = 윤찬우 기자] 한화 건설부문이 올해 도시정비사업에서 역대 최대 수주 실적을 이어가고 있다. 이달 광명 하안주공5단지 재건축까지 확보하면 연간 수주액은 처음으로 2조원을 넘어설 전망이다. 다만 시공능력평가 세부 지표는 일제히 하락해 도시정비사업 성과와 엇갈린 흐름을</div>
     </div>
   </div>
@@ -39331,7 +39643,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757939"
   data-title="나주시, &#x27;인공태양&#x27; 기반 국가 핵융합 거점 노린다"
   data-publisher="뉴시스"
@@ -39354,7 +39666,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>나주시, &#x27;인공태양&#x27; 기반 국가 핵융합 거점 노린다</div>
+      <div class="headline">나주시, &#x27;인공태양&#x27; 기반 국가 핵융합 거점 노린다</div>
       <div class="article-snippet">[나주=뉴시스]이창우 기자 = 전남광주특별시 나주시가 인공태양 연구시설을 발판으로 핵융합 연구부터 실증로, 전력 생산과 산업화까지 아우르는 국가 핵융합 에너지 거점 구축에 나선다. 21일 나주시에 따르면 윤병태 나주시장은 이날 대전광역시에 위치한 한국핵융합에너지연구원을 찾아 오영국 원장과 면담하고 한국형 핵융합 실증로(DEMO) 유치와 정부 주도 연구단지·클러스터 조성, 핵융합 에너지 특화 연구개발특구 지정 등을 건의했다. 이번 제안은 정부가 2030년대 핵융합 전력 생산을 목표로 실증로 개발에 속도를 내는 데 맞춰 나주가 선제적으로 관련 인프라를 집적하자는 취지다.</div>
     </div>
   </div>
@@ -39500,7 +39812,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301819"
   data-title="한전KDN, 기후변화위기 취약계층 여름나기 물품 지원"
   data-publisher="투데이에너지"
@@ -39523,7 +39835,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 기후변화위기 취약계층 여름나기 물품 지원</div>
+      <div class="headline">한전KDN, 기후변화위기 취약계층 여름나기 물품 지원</div>
       <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)이 지난 20일 기후변화위기 취약계층 대상 여름나기 물품 지원에 나섰다. 이번 지원은 기후위기와 에너지 가격 상승 등으로 어려움을 겪는 지역사회 취약계층의 에너지 효율을 높이고 안전한 생활환경 조성을 지원하는</div>
     </div>
   </div>
@@ -39564,7 +39876,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301815"
   data-title="한전KDN ‘스마트 주거 서비스 아이디어 공유회’ 개최"
   data-publisher="투데이에너지"
@@ -39587,7 +39899,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN ‘스마트 주거 서비스 아이디어 공유회’ 개최</div>
+      <div class="headline">한전KDN ‘스마트 주거 서비스 아이디어 공유회’ 개최</div>
       <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 전남개발공사(사장 장충모)와 지난 20일 전남광주통합특별시 남악신도시 소재 전남개발공사 본사에서 공공주택 에너지복지 서비스 실현을 위한 ‘스마트 주거 서비스 아이디어 공유회’를 개최했다.이번 공유회는 지난</div>
     </div>
   </div>
@@ -40095,38 +40407,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.dailian.co.kr/news/view/1680827/%EC%86%8D%EB%B3%B4-%EF%A7%A1%EB%8C%80%ED%86%B5%EB%A0%B9-%EC%82%B0%EC%97%85%ED%86%B5%EC%83%81%EB%B6%80-%ED%86%B5%EC%83%81%EA%B5%90%EC%84%AD%EB%B3%B8%EB%B6%80-2026"
-  data-title="[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명"
-  data-publisher="데일리안"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787293320"
-  data-country="KR"
-  data-search="[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 데일리안 원전 관계부처 "
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">데일리안</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</div>
-      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0529be5449031537cc9446f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.khan.co.kr/article/202608211521001"
   data-title="[속보]이 대통령, 여한구 후임 통상교섭본부장에 박정성, 소방청장에 최용철 임명"
   data-publisher="경향신문"
@@ -40379,6 +40659,38 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/fe6e8eeac7c4a4563f5c2042.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://n.news.naver.com/article/119/0003123950?type=main"
+  data-title="[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명"
+  data-publisher="데일리안"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787281200"
+  data-country="KR"
+  data-search="[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 데일리안 원전 관계부처 메인 뉴스판에서 데일리안 주요뉴스를 볼 수 있습니다. 보러가기 닫기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</div>
+      <div class="article-snippet">메인 뉴스판에서 데일리안 주요뉴스를 볼 수 있습니다. 보러가기 닫기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/155c5817c01442ef6faa8f55.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -41069,7 +41381,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">33건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -41105,6 +41417,38 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.greenpostkorea.co.kr/news/articleView.html?idxno=307331"
+  data-title="[사설] 원전 19기 규모 추가 전력 필요···실현 가능 대책 있나 - 그린포스트코리아"
+  data-publisher="그린포스트코리아"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787297251"
+  data-country="OTHER"
+  data-search="[사설] 원전 19기 규모 추가 전력 필요···실현 가능 대책 있나 - 그린포스트코리아 그린포스트코리아 원자력 정부가 2040년 국가 최대 전력 수요 전망치를 불과 4개월 만에 28% 상향 조정하며 대형 원자력발전소 19기 분량(27gw)에 달하는 추가 전력이 필요하다는"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">그린포스트코리아</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[사설] 원전 19기 규모 추가 전력 필요···실현 가능 대책 있나 - 그린포스트코리아</div>
+      <div class="article-snippet">정부가 2040년 국가 최대 전력 수요 전망치를 불과 4개월 만에 28% 상향 조정하며 대형 원자력발전소 19기 분량(27GW)에 달하는 추가 전력이 필요하다는</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/339964c41a23435e60662099.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757906"
   data-title="원안위, 새울 1호기 임계 허용…&quot;후속검사로 안정성 최종 확인&quot;"
   data-publisher="뉴시스"
@@ -41127,7 +41471,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, 새울 1호기 임계 허용…&quot;후속검사로 안정성 최종 확인&quot;</div>
+      <div class="headline">원안위, 새울 1호기 임계 허용…&quot;후속검사로 안정성 최종 확인&quot;</div>
       <div class="article-snippet">[세종=뉴시스]이수정 기자 = 원자력안전위원회가 정기검사를 실시한 새울 원자력발전소 1호기의 임계를 21일 허용했다고 밝혔다. 원안위는 이번 정기검사에서 총 98개 정기검사 항목 가운데 임계 전까지 수행해야 하는 86개 항목을 검사한 결과, 향후 원자로 임계가 안전하게 이뤄질 수 있음을 확인했다. 정기검사 기간 실시한 증기발생기 점검에서는 내부 이물질인 소선과 슬러지 등이 발견돼 이를 제거했다. 이후 해당 세관에 대한 검사를 다시 실시한 결과 건전성이 확보된 것으로 확인됐다. 또한 기기냉각해수계통 회전여과망 곡관부에 설치된 부착식 앵커에서는 12개소의 시공 불일치가</div>
     </div>
   </div>
@@ -41137,6 +41481,38 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://biz.heraldcorp.com/article/10848358"
+  data-title="전남광주특별시, ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의"
+  data-publisher="헤럴드경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787296414"
+  data-country="OTHER"
+  data-search="전남광주특별시, ‘군공항 이전 무안군지원전담팀(tf)’ 첫 회의 헤럴드경제 원자력 [헤럴드경제(광주)=서인주 기자] 전남광주통합특별시는 21일 광주청사에서 ‘무안군 지원사업 전담팀(tf)’의 첫 회의를 열어, 무안군이 요청한 국가지원사업에 대한 특별"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>전남광주특별시, ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의</div>
+      <div class="article-snippet">[헤럴드경제(광주)=서인주 기자] 전남광주통합특별시는 21일 광주청사에서 ‘무안군 지원사업 전담팀(TF)’의 첫 회의를 열어, 무안군이 요청한 국가지원사업에 대한 특별</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/43cd7115ae672e601ec1d92d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260821133200017?section=industry/all"
   data-title="원안위, 정기검사 마친 새울원전 1호기 재가동 허용 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -41159,12 +41535,44 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, 정기검사 마친 새울원전 1호기 재가동 허용 | 연합뉴스</div>
+      <div class="headline">원안위, 정기검사 마친 새울원전 1호기 재가동 허용 | 연합뉴스</div>
       <div class="article-snippet">(서울=연합뉴스) 조승한 기자 = 원자력안전위원회는 지난달 2일부터 정기검사를 실시한 울산 울주 새울원전 1호기 재가동을 21일 허용했다고 밝혔...</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/868a297e2c628f344b5b4348.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.straightnews.co.kr/news/articleView.html?idxno=309416"
+  data-title="원전·데이터센터로 진격하는 건설업계…중소사엔 &#x27;그림의 떡&#x27;"
+  data-publisher="스트레이트뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787295814"
+  data-country="CZ"
+  data-search="원전·데이터센터로 진격하는 건설업계…중소사엔 &#x27;그림의 떡&#x27; 스트레이트뉴스 원자력 건설업계 일감이 계속 줄고 있으나 원전과 데이터센터는 중요 사업으로 급부상하고 있다. ai 확산으로 인해 급격히 수요가 커지고 있는 분야다. 다만 대형 건설사들만 수행할 수 있어 업계 내 양극화는 더욱 심화될 전망이다.21일 해외건설협회에 따르면 올해 상반기 해외 수주액은 112억8000만달러(약 15조5000억원)로 지난해 같은 기간에 비해 63.6% 급감했다. 지난해 상반기 반영된 체코 원전 수주액 187억달러를 제외하더라도 8%가량 감소한 것이며, 2024년 상반기 156억달러와 비교하면 27% 낮은 수치다. 최대 시장이었던"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">스트레이트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원전·데이터센터로 진격하는 건설업계…중소사엔 &#x27;그림의 떡&#x27;</div>
+      <div class="article-snippet">건설업계 일감이 계속 줄고 있으나 원전과 데이터센터는 중요 사업으로 급부상하고 있다. AI 확산으로 인해 급격히 수요가 커지고 있는 분야다. 다만 대형 건설사들만 수행할 수 있어 업계 내 양극화는 더욱 심화될 전망이다.21일 해외건설협회에 따르면 올해 상반기 해외 수주액은 112억8000만달러(약 15조5000억원)로 지난해 같은 기간에 비해 63.6% 급감했다. 지난해 상반기 반영된 체코 원전 수주액 187억달러를 제외하더라도 8%가량 감소한 것이며, 2024년 상반기 156억달러와 비교하면 27% 낮은 수치다. 최대 시장이었던</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1e3ec8a22935f0ff02ff92b7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -41200,7 +41608,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.jnilbo.com/news/articleView.html?idxno=90000058567"
   data-title="전남광주시 ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의 - 전남일보"
   data-publisher="전남일보"
@@ -41223,7 +41631,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>전남광주시 ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의 - 전남일보</div>
+      <div class="headline">전남광주시 ‘군공항 이전 무안군지원전담팀(TF)’ 첫 회의 - 전남일보</div>
       <div class="article-snippet">전남광주통합특별시는 21일 광주청사에서 ‘무안군 지원사업 전담팀(TF)’의 첫 회의를 열어, 무안군이 요청한 국가지원사업에 대한 특별시 차원의 지원방안을 논의했다</div>
     </div>
   </div>
@@ -42033,6 +42441,38 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.dt.co.kr/article/12079433"
+  data-title="에버켐텍, EU PPWR·PFAS 규제 대응 친환경 배리어 코팅제 ‘넥스리어’ 공급 본격화"
+  data-publisher="디지털타임스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787296769"
+  data-country="OTHER"
+  data-search="에버켐텍, eu ppwr·pfas 규제 대응 친환경 배리어 코팅제 ‘넥스리어’ 공급 본격화 디지털타임스 원자력 유럽연합(eu)의 포장재 및 포장폐기물 규정(ppwr) 도입과 함께 잔류성 유기오염물질인 과불화화합물(pfas)에 대한 사용 규제가 시행되고 있다. 2026년 8월 12일부터 식품 접촉 포장재 내 pfas 함량 기준(개별 pfas: 25ppb 미만, targeted p"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">디지털타임스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>에버켐텍, EU PPWR·PFAS 규제 대응 친환경 배리어 코팅제 ‘넥스리어’ 공급 본격화</div>
+      <div class="article-snippet">유럽연합(EU)의 포장재 및 포장폐기물 규정(PPWR) 도입과 함께 잔류성 유기오염물질인 과불화화합물(PFAS)에 대한 사용 규제가 시행되고 있다. 2026년 8월 12일부터 식품 접촉 포장재 내 PFAS 함량 기준(개별 PFAS: 25ppb 미만, targeted P</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a59cfba052294c28d6ceb4bf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260821161244357"
   data-title="[NNA] 미얀마-러시아 양국 간 상거래, 대부분 루블화 결제"
   data-publisher="아주경제"
@@ -42055,7 +42495,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[NNA] 미얀마-러시아 양국 간 상거래, 대부분 루블화 결제</div>
+      <div class="headline">[NNA] 미얀마-러시아 양국 간 상거래, 대부분 루블화 결제</div>
       <div class="article-snippet">[사진=게티이미지] 러시아의 푸틴 대통령은 18일 미얀마 군사정권의 대통령을 맡고 있는 민 아웅 흘라잉과의 회담 후 기자단에 미얀마와의 양국 간 상거래 중 약 3분의 2가 러시아 루블화로 결제되고 있다고 밝히며 양국의 경제 협력 진전을 강조했다. 러시아 대통령실(크렘린궁)의 성명에 따르면 푸틴 대통령은 민 아웅 흘라잉 대통령의 러시아 체류 기간 중 정부 간 및 민간 분야에서 다수의 합의가 성립되었다고 말했다. 양국 정부는 경제 관계 강화를 최우선 사항으로 삼고 있으며, 신뢰성 높은 결제 메커니즘을 구축했다고 설명했다. 현재는 상거래의 약 3분의 2가 루블화로 결제되는</div>
     </div>
   </div>
@@ -42134,7 +42574,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">26건</span>
+    <span class="group-count">27건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -42198,6 +42638,38 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/eeb67f83f99c502ebc3aa60b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5780"
+  data-title="KINS, AI·비경수형 SMR 규제 책임자 인사 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787296466"
+  data-country="KR"
+  data-search="kins, ai·비경수형 smr 규제 책임자 인사 - 에너지안전신문 에너지안전신문 smr 한국원자력안전기술원(kins)이 인공지능(ai) 활용 전략과 비경수형 소형모듈원자로(smr) 규제 업무를 이끌 실장급 책임자 두 명을 새로 발령했다. kins는"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>KINS, AI·비경수형 SMR 규제 책임자 인사 - 에너지안전신문</div>
+      <div class="article-snippet">한국원자력안전기술원(KINS)이 인공지능(AI) 활용 전략과 비경수형 소형모듈원자로(SMR) 규제 업무를 이끌 실장급 책임자 두 명을 새로 발령했다. KINS는</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8a741d5582e7f88613d2ff97.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -42297,7 +42769,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301818"
   data-title="[인사] 한국원자력안전기술원"
   data-publisher="투데이에너지"
@@ -42320,7 +42792,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 한국원자력안전기술원</div>
+      <div class="headline">[인사] 한국원자력안전기술원</div>
       <div class="article-snippet">[투데이에너지] ■ 실장급▲ AI총괄 PM : 황충만 ▲ 비경수형 SMR 규제사업 PM : 이종혁(2026년 8월 24일자 발령)</div>
     </div>
   </div>
@@ -42784,7 +43256,7 @@ main {
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787297627"
+  data-published="1787298635"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -42975,9 +43447,41 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">36건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.koreaherald.com/article/10848183"
+  data-title="Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance"
+  data-publisher="헤럴드경제"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787290742"
+  data-country="KR"
+  data-search="seoul sees us-n. korea dialogue as most realistic way to halt pyongyang’s nuclear advance 헤럴드경제 nuclear power·nuclear energy south korea’s unification ministry on friday said restarting us-north korea dialogue and first halting pyongyang’s expanding nuclear capabilities is the most re"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance</div>
+      <div class="article-snippet">South Korea’s Unification Ministry on Friday said restarting US-North Korea dialogue and first halting Pyongyang’s expanding nuclear capabilities is the most re</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b83ed5a9a9097f86fe2c0664.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.asahi.com/ajw/special/nuclear_hibakusha/"
   data-title="Nuclear Threat &amp; Hibakusha | The Asahi Shimbun: Breaking News, Japan News and Analysis"
@@ -43011,45 +43515,13 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787297578"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787297577"
+  data-published="1787298584"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -43071,6 +43543,38 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787298478"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -43167,38 +43671,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.koreaherald.com/article/10848183"
-  data-title="Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance"
-  data-publisher="The Korea Herald"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787290742"
-  data-country="KR"
-  data-search="seoul sees us-n. korea dialogue as most realistic way to halt pyongyang’s nuclear advance the korea herald nuclear power·nuclear energy south korea’s unification ministry on friday said restarting us-north korea dialogue and first halting pyongyang’s expanding nuclear capabilities is the most re"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">The Korea Herald</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance</div>
-      <div class="article-snippet">South Korea’s Unification Ministry on Friday said restarting US-North Korea dialogue and first halting Pyongyang’s expanding nuclear capabilities is the most re</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b83ed5a9a9097f86fe2c0664.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -43490,6 +43962,38 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.enerdata.net/publications/daily-energy-news/edf-signs-25-year-ppas-400-mw-solar-and-16-gwh-bess-nevada-us.html"
+  data-title="EDF signs 25-year PPAs for 400 MW solar and 1.6 GWh BESS in Nevada (US)"
+  data-publisher="Enerdata"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787313600"
+  data-country="US"
+  data-search="edf signs 25-year ppas for 400 mw solar and 1.6 gwh bess in nevada (us) enerdata nuclear power·nuclear energy edf power solutions north america has signed two 25-year power purchase agreements with the us power utility nv energy covering the full output of the winston energy project in nevada, united states (edf power solutions press release, 18/08/2026)."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Enerdata</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>EDF signs 25-year PPAs for 400 MW solar and 1.6 GWh BESS in Nevada (US)</div>
+      <div class="article-snippet">EDF power solutions North America has signed two 25-year power purchase agreements with the US power utility NV Energy covering the full output of the Winston Energy Project in Nevada, United States (EDF power solutions press release, 18/08/2026).</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0a221fb85f6819f6001cbf00.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.globalbankingandfinance.com/dubai-continues-to-attract-entrepreneurs-and-global-investors/"
   data-title="Dubai Continues to Attract Entrepreneurs and Global Investors"
@@ -43586,7 +44090,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/dai-bieu-lo-rui-ro-khi-bo-cong-chung-nha-dat-bo-truong-nn-mt-noi-gi"
   data-title="Representatives express concerns about the risks of abolishing notarization for land and property transactions; what does the Minister of Agriculture and Environment say?"
   data-publisher="Vietnam.vn"
@@ -43609,7 +44113,7 @@ main {
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Representatives express concerns about the risks of abolishing notarization for land and property transactions; what does the Minister of Agriculture and Environment say?</div>
+      <div class="headline">Representatives express concerns about the risks of abolishing notarization for land and property transactions; what does the Minister of Agriculture and Environment say?</div>
       <div class="article-snippet">Delegates expressed concerns about the risks posed by the revised draft Land Law, which no longer mandates notarization for land and house transfers. However, the Minister of Agriculture and Environment affirmed that the rights of land users are always guaranteed during transactions.</div>
     </div>
   </div>
@@ -52573,7 +53077,7 @@ main {
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246147"
+  data-published="1787246439"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -63192,7 +63696,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba098bb0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba59aa28&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -63224,7 +63728,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58bb161208&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58bb4fed20&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -146297,6 +146801,374 @@ function layoutAndRenderCountryMap(){
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {once:true});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+/* ============================================================
+   2026-08-21 ACCURATE COUNTRY-PATH MAP
+   ============================================================ */
+const ACCURATE_MAP_GEOJSON_URL = 'https://cdn.jsdelivr.net/gh/datasets/geo-countries@master/data/countries.geojson';
+let __accurateMapScriptPromise = null;
+let __accurateMapDataPromise = null;
+let __accurateMapLastToken = 0;
+
+function loadAccurateMapScript(url){
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[data-accurate-map-src="${url}"]`);
+    if(existing){
+      if(existing.getAttribute('data-loaded') === '1') return resolve();
+      existing.addEventListener('load', () => resolve(), { once:true });
+      existing.addEventListener('error', () => reject(new Error(`script load failed: ${url}`)), { once:true });
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = url;
+    script.async = true;
+    script.defer = true;
+    script.setAttribute('data-accurate-map-src', url);
+    script.addEventListener('load', () => { script.setAttribute('data-loaded', '1'); resolve(); }, { once:true });
+    script.addEventListener('error', () => reject(new Error(`script load failed: ${url}`)), { once:true });
+    document.head.appendChild(script);
+  });
+}
+
+function ensureAccurateMapDependencies(){
+  if(window.d3 && window.d3.geoNaturalEarth1) return Promise.resolve();
+  if(!__accurateMapScriptPromise){
+    __accurateMapScriptPromise = loadAccurateMapScript('https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js');
+  }
+  return __accurateMapScriptPromise;
+}
+
+function loadAccurateMapGeoJSON(){
+  if(!__accurateMapDataPromise){
+    __accurateMapDataPromise = ensureAccurateMapDependencies().then(() =>
+      fetch(ACCURATE_MAP_GEOJSON_URL, { cache: 'force-cache' }).then(response => {
+        if(!response.ok) throw new Error(`map fetch failed: ${response.status}`);
+        return response.json();
+      })
+    );
+  }
+  return __accurateMapDataPromise;
+}
+
+function accurateFeatureISO2(feature){
+  const p = feature?.properties || {};
+  return String(p.ISO_A2 || p.cca2 || p.iso_a2 || '').toUpperCase();
+}
+
+function accurateFeatureISO3(feature){
+  const p = feature?.properties || {};
+  return String(p.ISO_A3 || p.cca3 || p.iso_a3 || feature?.id || '').toUpperCase();
+}
+
+function accurateFeatureRegion(feature){
+  const p = feature?.properties || {};
+  return String(p.REGION_UN || p.region || p.CONTINENT || '').trim();
+}
+
+function accurateFeatureSubregion(feature){
+  const p = feature?.properties || {};
+  return String(p.SUBREGION || p.subregion || '').trim();
+}
+
+function accurateMapContinentCode(feature){
+  const iso3 = accurateFeatureISO3(feature);
+  const region = accurateFeatureRegion(feature);
+  const sub = accurateFeatureSubregion(feature);
+
+  if(iso3 === 'ATA') return null;
+  if(iso3 === 'RUS') return 'AS';
+
+  if(region === 'Europe') return 'EU';
+  if(region === 'Africa') return 'MEA';
+  if(region === 'Oceania') return 'OC';
+  if(region === 'Americas') return sub === 'South America' ? 'SA' : 'NA';
+  if(region === 'Asia') return sub === 'Western Asia' ? 'MEA' : 'AS';
+
+  if(region === 'North America') return 'NA';
+  if(region === 'South America') return 'SA';
+  if(region === 'Asia') return 'AS';
+  return null;
+}
+
+function ensureAccurateMapSurface(){
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  if(!visual) return null;
+  visual.classList.add('accurate-map-enabled');
+
+  let surface = visual.querySelector('#accurate-country-map-surface');
+  if(!surface){
+    surface = document.createElement('div');
+    surface.id = 'accurate-country-map-surface';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.id = 'accurate-country-map-svg';
+    surface.appendChild(svg);
+
+    const labelLayer = document.createElement('div');
+    labelLayer.id = 'accurate-country-label-layer';
+    surface.appendChild(labelLayer);
+    visual.appendChild(surface);
+  }
+  return surface;
+}
+
+function accurateLabelBoxesOverlap(a,b,pad=4){
+  return !(
+    a.right + pad <= b.left ||
+    a.left >= b.right + pad ||
+    a.bottom + pad <= b.top ||
+    a.top >= b.bottom + pad
+  );
+}
+
+function accurateBoxHitsAnchors(box, anchors, selfCode){
+  for(const pt of anchors){
+    if(pt.code === selfCode) continue;
+    const pad = pt.cluster ? 8 : 5;
+    if(pt.x >= box.left-pad && pt.x <= box.right+pad && pt.y >= box.top-pad && pt.y <= box.bottom+pad){
+      return true;
+    }
+  }
+  return false;
+}
+
+function chooseAccurateLabelBox(w,h,ax,ay,bounds,occupied,anchors,itemCode){
+  const offsetMap = {
+    US:[[15,-8],[16,6],[14,-18]], CA:[[15,-10],[17,3]],
+    BR:[[-15,8],[-16,-8]], AR:[[14,8],[14,-8]], CL:[[14,0],[16,12]], CO:[[14,-6],[14,8]], PE:[[14,6],[14,-8]],
+    GB:[[16,-10],[16,5],[22,-2]], FR:[[15,8],[15,-6]], NL:[[18,-8],[18,5]], BE:[[15,8],[15,-6]], CH:[[16,8],[16,-8]],
+    SE:[[16,-10],[16,4]], FI:[[16,-10],[16,4]], PL:[[16,-8],[16,6]], CZ:[[18,8],[18,-6]], SI:[[16,8],[16,-6]],
+    RO:[[18,8],[18,-6]], BG:[[18,8],[18,-6]], UA:[[18,-8],[18,6]], TR:[[18,8],[18,-8]], DK:[[16,-8],[16,6]], SK:[[18,8],[18,-6]],
+    RU:[[18,-8],[18,6]], AE:[[16,8],[16,-6]], SA:[[18,8],[18,-8]], ZA:[[16,-8],[16,8]],
+    CN:[[-18,8],[-18,-8]], IN:[[16,10],[18,-8]], VN:[[16,6],[16,-8]], TH:[[16,6],[16,-8]], MY:[[16,8],[16,-8]], SG:[[16,8],[16,-8]],
+    KR:[[16,-4],[16,8]], JP:[[18,-8],[18,8]], AU:[[16,-8],[16,8]]
+  };
+  const angleMap = {
+    US:[-20,20,-45,45], CA:[-20,15,35], BR:[160,135,-160], AR:[15,-15,35], CL:[0,20],
+    GB:[-15,15,35], FR:[15,-20], NL:[-15,20], BE:[25,-25], CH:[20,-20],
+    SE:[-20,20], FI:[-20,15], PL:[-15,20], CZ:[20,-20], SI:[25,-25], RO:[20,-20], BG:[20,-20], UA:[-15,20], TR:[15,-15], DK:[-20,15], SK:[25,-25], RU:[-15,15],
+    AE:[15,-15], SA:[15,-15], ZA:[-20,20],
+    CN:[165,-165,145], IN:[18,-18,38], VN:[10,-20], TH:[10,-20], MY:[20,-20], SG:[20,-20], KR:[5,20], JP:[-20,20], AU:[-15,15]
+  };
+
+  const presetOffsets = offsetMap[itemCode] || [];
+  let best = null;
+
+  const tryBox = (left, top) => {
+    left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+    top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+    const box = { left, top, right:left+w, bottom:top+h, w, h };
+    const collisions = occupied.reduce((n,other) => n + (accurateLabelBoxesOverlap(box, other, 5) ? 1 : 0), 0);
+    const anchorHit = accurateBoxHitsAnchors(box, anchors, itemCode) ? 1 : 0;
+    const dist = Math.hypot((left + w/2) - ax, (top + h/2) - ay);
+    const edgePenalty = (left <= bounds.left+1 || top <= bounds.top+1 || left+w >= bounds.right-1 || top+h >= bounds.bottom-1) ? 3 : 0;
+    const score = collisions*100000 + anchorHit*7000 + dist + edgePenalty;
+    if(!best || score < best.score) best = { ...box, score };
+    if(collisions === 0 && anchorHit === 0) return box;
+    return null;
+  };
+
+  for(const [dx,dy] of presetOffsets){
+    for(const [nx,ny] of [[0,0],[0,-4],[0,4],[-4,0],[4,0]]){
+      const box = tryBox(ax + dx + nx - w/2, ay + dy + ny - h/2);
+      if(box) return box;
+    }
+  }
+
+  const angles = angleMap[itemCode] || [0,-20,20,-40,40,180,-140,140];
+  const radii = [10,14,18,24,30,38,48,58,70,84];
+  for(const r of radii){
+    for(const deg of angles){
+      const rad = deg * Math.PI / 180;
+      const left = ax + Math.cos(rad)*r - (Math.cos(rad) < -0.2 ? w : w/2);
+      const top = ay + Math.sin(rad)*r - h/2;
+      const box = tryBox(left, top);
+      if(box) return box;
+    }
+  }
+  return best || { left:ax, top:ay, right:ax+w, bottom:ay+h, w, h };
+}
+
+function addAccurateConnector(layer, ax, ay, box){
+  const cx = Math.max(box.left, Math.min(ax, box.right));
+  const cy = Math.max(box.top, Math.min(ay, box.bottom));
+  const dx = cx - ax;
+  const dy = cy - ay;
+  const len = Math.hypot(dx, dy);
+  if(len < 3) return;
+  const line = document.createElement('span');
+  line.className = 'accurate-country-connector';
+  line.style.left = `${ax}px`;
+  line.style.top = `${ay}px`;
+  line.style.width = `${Math.max(0, len - 2)}px`;
+  line.style.transform = `rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`;
+  layer.appendChild(line);
+}
+
+function accurateMapFrame(visual){
+  const dock = document.getElementById('continent-rail');
+  const vr = visual.getBoundingClientRect();
+  const dr = dock?.getBoundingClientRect();
+  const top = 8;
+  const bottom = dr ? Math.max(top + 120, dr.top - vr.top - 6) : visual.clientHeight - 42;
+  return {
+    left: 8,
+    top,
+    right: visual.clientWidth - 8,
+    bottom,
+    width: Math.max(40, visual.clientWidth - 16),
+    height: Math.max(80, bottom - top)
+  };
+}
+
+async function renderAccurateCountryPathMap(renderToken){
+  const items = collect2DCountryItems();
+  if(!items.length) return;
+  if(!activeContinentFilter) activeContinentFilter = 'ALL';
+
+  renderContinentRail2D(items);
+  ensureMapStateChip(items);
+
+  const ranking = document.getElementById('continent-country-ranking');
+  if(ranking){ ranking.hidden = true; ranking.innerHTML = ''; }
+  const caption = document.querySelector('.country-map-caption');
+  if(caption) caption.style.display = 'none';
+  const note = document.getElementById('country-filter-note');
+  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
+
+  const geojson = await loadAccurateMapGeoJSON();
+  if(renderToken !== __accurateMapLastToken) return;
+
+  const surface = ensureAccurateMapSurface();
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svgEl = document.getElementById('accurate-country-map-svg');
+  const labelLayer = document.getElementById('accurate-country-label-layer');
+  if(!surface || !visual || !svgEl || !labelLayer) return;
+
+  const frame = accurateMapFrame(visual);
+  const d3 = window.d3;
+  const svg = d3.select(svgEl);
+  svg.selectAll('*').remove();
+  labelLayer.innerHTML = '';
+
+  const features = (geojson.features || []).filter(feature => accurateFeatureISO3(feature) !== 'ATA');
+  const projection = d3.geoNaturalEarth1().fitExtent([[frame.left, frame.top], [frame.right, frame.bottom]], { type:'FeatureCollection', features });
+  const path = d3.geoPath(projection);
+  svg.attr('viewBox', `0 0 ${visual.clientWidth} ${visual.clientHeight}`);
+
+  const featureByISO2 = new Map();
+  features.forEach(feature => {
+    const iso2 = accurateFeatureISO2(feature);
+    if(iso2) featureByISO2.set(iso2, feature);
+  });
+
+  const itemByCode = new Map(items.map(item => [String(item.code || '').toUpperCase(), item]));
+  svg.append('g')
+    .selectAll('path')
+    .data(features)
+    .join('path')
+    .attr('class', feature => {
+      const iso2 = accurateFeatureISO2(feature);
+      const continentCode = accurateMapContinentCode(feature);
+      const hasArticles = !!itemByCode.get(iso2)?.count;
+      const classes = ['accurate-map-country'];
+      if(activeContinentFilter !== 'ALL' && continentCode === activeContinentFilter){
+        classes.push('in-active-continent');
+        if(hasArticles) classes.push('has-articles');
+      } else if(activeContinentFilter !== 'ALL') {
+        classes.push('inactive-dim');
+      }
+      return classes.join(' ');
+    })
+    .attr('d', path);
+
+  if(activeContinentFilter === 'ALL') return;
+
+  const visibleItems = items
+    .filter(item => item.continent === activeContinentFilter && item.count > 0)
+    .sort((a,b) => b.count - a.count || a.name.localeCompare(b.name, 'ko'));
+
+  const bounds = {
+    left: frame.left + 2,
+    top: frame.top + 2,
+    right: frame.right - 2,
+    bottom: frame.bottom - 2
+  };
+
+  const clusterCodes = new Set(['GB','NL','BE','CH','CZ','SI','SK','DK','KR','JP','SG','MY','TH','VN']);
+  const anchors = visibleItems.map(item => {
+    const code = String(item.code || '').toUpperCase();
+    const feature = featureByISO2.get(code);
+    let x = frame.left + frame.width/2;
+    let y = frame.top + frame.height/2;
+    if(feature){
+      const centroid = path.centroid(feature);
+      if(Array.isArray(centroid) && Number.isFinite(centroid[0]) && Number.isFinite(centroid[1])){
+        x = centroid[0];
+        y = centroid[1];
+      }
+    } else if(Number.isFinite(item.lon) && Number.isFinite(item.lat)) {
+      const p = projection([item.lon, item.lat]);
+      if(p){ x = p[0]; y = p[1]; }
+    }
+    return { code, x, y, cluster: clusterCodes.has(code) };
+  });
+
+  const occupied = [];
+  visibleItems.forEach(item => {
+    const code = String(item.code || '').toUpperCase();
+    const anchor = anchors.find(v => v.code === code);
+    if(!anchor) return;
+    const ax = anchor.x;
+    const ay = anchor.y;
+
+    const dot = document.createElement('span');
+    dot.className = 'accurate-country-dot' + (activeCountryFilter === code ? ' active' : '');
+    dot.style.left = `${ax}px`;
+    dot.style.top = `${ay}px`;
+    labelLayer.appendChild(dot);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'accurate-country-label' + (activeCountryFilter === code ? ' active' : '');
+    btn.style.visibility = 'hidden';
+    btn.innerHTML = `<span class="flag">${item.flag}</span><span class="name">${item.name}</span><span class="count">${item.count}건</span>`;
+    btn.setAttribute('aria-label', `${item.name} ${item.count}건. 해당 국가 기사 보기`);
+    labelLayer.appendChild(btn);
+
+    const rect = btn.getBoundingClientRect();
+    const w = Math.ceil(rect.width || 58);
+    const h = Math.ceil(rect.height || 17);
+    const box = chooseAccurateLabelBox(w, h, ax, ay, bounds, occupied, anchors, code);
+    occupied.push(box);
+    btn.style.left = `${box.left}px`;
+    btn.style.top = `${box.top}px`;
+    btn.style.visibility = 'visible';
+    btn.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(code);
+    });
+    addAccurateConnector(labelLayer, ax, ay, box);
+  });
+}
+
+async function layoutAndRenderCountryMap(){
+  const token = ++__accurateMapLastToken;
+  try {
+    await renderAccurateCountryPathMap(token);
+  } catch (error) {
+    console.error('[accurate-country-map] render failed', error);
+    const note = document.getElementById('country-filter-note');
+    if(note){
+      note.textContent = '지도를 불러오지 못했습니다. 새로고침 후 다시 확인해 주세요.';
+    }
+  }
+}
+
+requestAnimationFrame(() => requestAnimationFrame(() => layoutAndRenderCountryMap()));
+window.addEventListener('load', () => requestAnimationFrame(() => layoutAndRenderCountryMap()), { once:true });
+window.addEventListener('resize', () => requestAnimationFrame(() => layoutAndRenderCountryMap()));
 
 </script>
 </body>
