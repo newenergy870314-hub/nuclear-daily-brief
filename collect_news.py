@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# RELATED ARTICLE TRANSITIVE CLUSTERING REFINED 2026-08-21
 # RELATED ARTICLES GROUPED + ALTERNATIVE PUBLISHERS UI 2026-08-21
 # MAP DOTS + CONNECTOR LINES REMOVED 2026-08-21
 # EUROPE LABELS NEAR + NO OVERLAP 2026-08-21
@@ -5698,10 +5699,16 @@ def _related_coverage_html(article: Article) -> str:
 
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
-    대표기사 묶음용 보수적 동일사건 판정.
-    이미지 fingerprint가 확인되면 기존 이미지+내용 판정을 사용하고,
-    이미지가 없거나 서로 다르더라도 같은 날짜/탭/국가/사건단계에서
-    핵심 주체·대상·행위가 충분히 겹칠 때만 묶습니다.
+    대표기사 묶음용 동일사건 판정.
+
+    안전장치:
+    - 같은 날짜
+    - 같은 기사 탭
+    - 서로 다른 언론사
+    - 국가가 명확히 다르면 제외
+    - 계약/착공/준공 등 사건 단계가 명확히 다르면 제외
+
+    그 안에서 이미지, 제목, 설명문의 사건구조를 함께 봅니다.
     """
     publisher_a = (a.publisher or "").strip()
     publisher_b = (b.publisher or "").strip()
@@ -5730,8 +5737,14 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     if stage_a and stage_b and stage_a != stage_b:
         return False
 
-    # 이미지까지 확인되면 가장 강한 신호
+    # 1) 실제 동일/유사 이미지 + 동일 내용은 가장 강한 중복 신호
     if _same_thumbnail_same_event(a, b):
+        return True
+
+    # 2) 기존의 제목+설명 기반 일반 동일사건 판정 활용
+    #    제목이 "공동개발", "핵심기술 개발 맞손", "연돌효과 해법"처럼 달라도
+    #    설명문에 같은 주체/대상/행위가 들어 있으면 하나의 사건으로 연결됩니다.
+    if same_event_general(a, b):
         return True
 
     tokens_a = _thumbnail_event_tokens(a)
@@ -5742,19 +5755,25 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     common = tokens_a & tokens_b
     containment = len(common) / max(1, min(len(tokens_a), len(tokens_b)))
     title_similarity = semantic_duplicate_score(a.title or "", b.title or "")
+    full_similarity = article_ngram_similarity(a, b)
 
-    # 기존 동일사건/보도자료 판정 + 핵심 토큰 확인
+    # 3) 보도자료성 제목 변형
     if (
         is_same_event(a.title or "", b.title or "")
         or same_press_release_event(a.title or "", b.title or "")
     ):
-        if len(common) >= 3 and containment >= 0.55 and title_similarity >= 0.45:
+        if len(common) >= 3 and (
+            containment >= 0.48
+            or title_similarity >= 0.44
+            or full_similarity >= 0.42
+        ):
             return True
 
-    # 일반 판정은 더 엄격하게 유지
-    if len(common) >= 5 and containment >= 0.60 and title_similarity >= 0.48:
+    # 4) 제목은 많이 달라도 설명문이 동일 보도자료 계열인 경우
+    if len(common) >= 4 and containment >= 0.50 and full_similarity >= 0.40:
         return True
-    if len(common) >= 4 and containment >= 0.70 and title_similarity >= 0.56:
+
+    if len(common) >= 3 and containment >= 0.60 and full_similarity >= 0.52:
         return True
 
     return False
@@ -5764,33 +5783,87 @@ def _group_confirmed_related_articles(
     articles: list[Article],
 ) -> tuple[list[Article], int]:
     """
-    같은 사건의 타 언론사 보도를 대표기사 1건으로 묶되,
-    삭제된 기사 정보는 _RELATED_COVERAGE_GROUPS에 보존하여 UI에서 확인할 수 있게 합니다.
+    같은 사건의 타 언론사 보도를 연결요소(cluster) 단위로 묶습니다.
+
+    이전 방식은 새 기사와 '대표기사 1건'만 비교해서,
+    A-B는 같고 B-C도 같은데 A-C 제목 차이가 큰 경우
+    같은 사건이 2~3개 묶음으로 쪼개질 수 있었습니다.
+
+    이제는 클러스터 안의 어느 기사 하나와 동일사건이면 같은 묶음으로 넣고,
+    서로 연결되는 클러스터도 다시 합칩니다.
     """
+    ordered = sorted(articles, key=lambda x: x.published, reverse=True)
+    clusters: list[list[Article]] = []
+
+    for article in ordered:
+        matched_cluster_indexes: list[int] = []
+
+        for idx, cluster in enumerate(clusters):
+            if any(
+                _same_content_event_for_grouping(article, member)
+                for member in cluster
+            ):
+                matched_cluster_indexes.append(idx)
+
+        if not matched_cluster_indexes:
+            clusters.append([article])
+            continue
+
+        # 첫 번째 매칭 클러스터에 넣고, 이 기사로 인해 연결된 다른 클러스터도 병합
+        base_idx = matched_cluster_indexes[0]
+        merged_cluster = list(clusters[base_idx])
+        merged_cluster.append(article)
+
+        for idx in reversed(matched_cluster_indexes[1:]):
+            merged_cluster.extend(clusters[idx])
+            del clusters[idx]
+
+        # 병합 후에도 클러스터-클러스터 간 브리지가 생길 수 있으므로
+        # 연결 가능한 묶음이 없어질 때까지 한 번 더 정리
+        changed = True
+        while changed:
+            changed = False
+            for idx in range(len(clusters) - 1, -1, -1):
+                if idx == base_idx or clusters[idx] is clusters[base_idx]:
+                    continue
+                other = clusters[idx]
+                if any(
+                    _same_content_event_for_grouping(left, right)
+                    for left in merged_cluster
+                    for right in other
+                ):
+                    merged_cluster.extend(other)
+                    del clusters[idx]
+                    if idx < base_idx:
+                        base_idx -= 1
+                    changed = True
+
+        clusters[base_idx] = merged_cluster
+
     result: list[Article] = []
     grouped_count = 0
 
-    for article in sorted(articles, key=lambda x: x.published, reverse=True):
-        matched_idx: int | None = None
-        for idx, kept in enumerate(result):
-            if _same_content_event_for_grouping(article, kept):
-                matched_idx = idx
-                break
+    for cluster in clusters:
+        # 동일 URL이 우연히 들어온 경우까지 포함해 중복 payload를 정리
+        unique_members: list[Article] = []
+        seen_member_keys: set[tuple[str, str, str]] = set()
+        for member in cluster:
+            key = (
+                member.link or "",
+                member.publisher or "",
+                normalized(member.title or ""),
+            )
+            if key in seen_member_keys:
+                continue
+            seen_member_keys.add(key)
+            unique_members.append(member)
 
-        if matched_idx is None:
-            result.append(article)
-            continue
+        representative = max(unique_members, key=_article_rep_score)
+        result.append(representative)
 
-        grouped_count += 1
-        kept = result[matched_idx]
-
-        if _article_rep_score(article) > _article_rep_score(kept):
-            representative = article
-            result[matched_idx] = article
-            _register_related_coverage(representative, [kept, article])
-        else:
-            representative = kept
-            _register_related_coverage(representative, [kept, article])
+        if len(unique_members) > 1:
+            grouped_count += len(unique_members) - 1
+            _register_related_coverage(representative, unique_members)
 
     return sorted(result, key=lambda x: x.published, reverse=True), grouped_count
 
