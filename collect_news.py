@@ -1,5 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
-# FINAL RUNTIME F-STRING CSS BRACE FIX APPLIED 2026-08-21
+# TRUE MERGED FINAL: UI + ALL COUNTRY COORDS + CONTINENT TOGGLE + THUMBNAIL DEDUP + ERROR FIX 2026-08-21
 # Overseas fix: EN articles → Nuclear Power·Nuclear Energy, URL date regex,
 # ANS URL filter, faster shard rotation (2), higher EN candidate limits.
 # Related-article clustering removed: each article is shown as its own card.
@@ -15174,29 +15174,29 @@ header,
 
 @media (max-width:430px) {{
   .preview-card {{
-    padding:2px 3px 2px 4px !important;
+    padding:3px 3px 3px 4px !important;
     gap:6px !important;
     min-height:86px !important;
     height:86px !important;
   }}
   .preview-copy {{
-    min-height:82px !important;
+    min-height:80px !important;
     padding:1px 0 !important;
     column-gap:3px !important;
   }}
   .card-side {{
     width:116px !important;
     min-width:116px !important;
-    height:82px !important;
-    min-height:82px !important;
-    max-height:82px !important;
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
     align-self:center !important;
   }}
   .preview-image {{
     width:116px !important;
-    height:82px !important;
-    min-height:82px !important;
-    max-height:82px !important;
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
     align-self:center !important;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.96) !important;
   }}
@@ -15215,29 +15215,29 @@ header,
 
 @media (max-width:380px) {{
   .preview-card {{
-    padding:2px 2px 2px 4px !important;
+    padding:3px 2px 3px 4px !important;
     gap:6px !important;
     min-height:82px !important;
     height:82px !important;
   }}
   .preview-copy {{
-    min-height:78px !important;
+    min-height:76px !important;
     padding:1px 0 !important;
     column-gap:2px !important;
   }}
   .card-side {{
     width:106px !important;
     min-width:106px !important;
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
     align-self:center !important;
   }}
   .preview-image {{
     width:106px !important;
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
     align-self:center !important;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.96) !important;
   }}
@@ -15335,54 +15335,174 @@ header,
 
 /* ============================================================
    2026-08-21 FINAL THUMBNAIL VERTICAL MARGIN — top/bottom symmetric
-   Card height includes 1px borders + vertical padding (border-box).
+   Mobile card/image sizing is unified above so visible white margins match.
    ============================================================ */
-@media (max-width:430px) {{
-  .card-side {{
-    height:80px !important;
-    min-height:80px !important;
-    max-height:80px !important;
-    align-self:center !important;
-  }}
-  .preview-image {{
-    height:80px !important;
-    min-height:80px !important;
-    max-height:80px !important;
-    align-self:center !important;
-  }}
-}}
-
-@media (max-width:380px) {{
-  .card-side {{
-    height:76px !important;
-    min-height:76px !important;
-    max-height:76px !important;
-    align-self:center !important;
-  }}
-  .preview-image {{
-    height:76px !important;
-    min-height:76px !important;
-    max-height:76px !important;
-    align-self:center !important;
-  }}
-}}
 
 
 /* ============================================================
-   2026-08-21 FINAL MAP BOTTOM WHITESPACE REDUCTION
-   - keep map scale/position
-   - pull the bottom continent dock upward by shortening the map container
+   2026-08-21 FINAL MAP TOP GAP REMOVAL
+   - remove empty header-chip footprint on ALL state
+   - lift map upward so top blank area disappears
    ============================================================ */
+.map-continent-state[hidden],
+#map-head-chip-slot[hidden] {{
+  display:none !important;
+}}
+#map-head-chip-slot:empty {{
+  display:none !important;
+}}
+
+.country-map-visual .world-map-inline.globe-texture-source {{
+  top:10px !important;
+}}
 @media (max-width:430px) {{
-  .country-map-visual.globe-mode {{
-    height:232px !important;
-    min-height:232px !important;
+  .country-map-visual.globe-mode {{ height:244px !important; min-height:244px !important; }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    left:6px !important;
+    right:6px !important;
+    width:calc(100% - 12px) !important;
+    top:8px !important;
+    bottom:42px !important;
   }}
 }}
 @media (max-width:380px) {{
+  .country-map-visual.globe-mode {{ height:238px !important; min-height:238px !important; }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    top:8px !important;
+    bottom:41px !important;
+  }}
+}}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL EMPTY HEADER PILL FIX
+   - no blank pill in world-map/ALL state
+   - selected-continent pill exists only after continent selection
+   ============================================================ */
+#map-head-chip-slot[hidden],
+#map-head-chip-slot .map-continent-state[hidden] {{
+  display:none !important;
+}}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL CARD BOTTOM BREATHING ROOM
+   - preserve top spacing
+   - give article preview and thumbnail slightly more bottom room
+   ============================================================ */
+@media (max-width:430px) {{
+  .preview-card {{
+    height:88px !important;
+    min-height:88px !important;
+    padding:3px 3px 5px 4px !important;
+  }}
+  .preview-copy {{
+    min-height:80px !important;
+    padding:1px 0 2px !important;
+  }}
+  .card-side,
+  .preview-image {{
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:start !important;
+    margin-top:0 !important;
+  }}
+  .article-snippet {{
+    margin-bottom:1px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .preview-card {{
+    height:84px !important;
+    min-height:84px !important;
+    padding:3px 2px 5px 4px !important;
+  }}
+  .preview-copy {{
+    min-height:76px !important;
+    padding:1px 0 2px !important;
+  }}
+  .card-side,
+  .preview-image {{
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:start !important;
+    margin-top:0 !important;
+  }}
+  .article-snippet {{
+    margin-bottom:1px !important;
+  }}
+}}
+
+
+
+/* ============================================================
+   2026-08-21 ABSOLUTE FINAL MOBILE CARD + MAP SPACING
+   ============================================================ */
+#map-head-chip-slot[hidden],
+#map-head-chip-slot .map-continent-state[hidden] {{
+  display:none !important;
+}}
+
+@media (max-width:430px) {{
+  .preview-card {{
+    height:88px !important;
+    min-height:88px !important;
+    padding:3px 3px 5px 4px !important;
+  }}
+  .preview-copy {{
+    min-height:80px !important;
+    padding:1px 0 2px !important;
+  }}
+  .card-side, .preview-image {{
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:start !important;
+    margin-top:0 !important;
+  }}
+  .article-snippet {{ margin-bottom:1px !important; }}
+
   .country-map-visual.globe-mode {{
-    height:226px !important;
-    min-height:226px !important;
+    height:208px !important;
+    min-height:208px !important;
+  }}
+  #continent-rail {{
+    left:5px !important;
+    right:5px !important;
+    bottom:9px !important;
+    height:34px !important;
+    max-height:34px !important;
+    padding:3px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .preview-card {{
+    height:84px !important;
+    min-height:84px !important;
+    padding:3px 2px 5px 4px !important;
+  }}
+  .preview-copy {{
+    min-height:76px !important;
+    padding:1px 0 2px !important;
+  }}
+  .card-side, .preview-image {{
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:start !important;
+    margin-top:0 !important;
+  }}
+  .article-snippet {{ margin-bottom:1px !important; }}
+
+  .country-map-visual.globe-mode {{
+    height:198px !important;
+    min-height:198px !important;
   }}
 }}
 
@@ -18827,8 +18947,14 @@ function renderContinentRail2D(items){{
     btn.className='continent-button'+(activeContinentFilter===code?' active':'');
     btn.innerHTML=`<span class="continent-button-name">${{CONTINENT_META[code].name}}</span><span class="continent-button-count">${{articles[code]||0}}건</span>`;
     btn.addEventListener('click',()=>{{
-      activeContinentFilter=code;
-      if(activeCountryFilter && getCountryContinent(activeCountryFilter)!==code)activeCountryFilter='';
+      const isSameContinent = activeContinentFilter===code;
+      if(isSameContinent){{
+        activeContinentFilter='ALL';
+        activeCountryFilter='';
+      }} else {{
+        activeContinentFilter=code;
+        if(activeCountryFilter && getCountryContinent(activeCountryFilter)!==code)activeCountryFilter='';
+      }}
       filterArticles();
       updateCountryMapCounts();
       layoutAndRenderCountryMap();
@@ -18980,7 +19106,7 @@ function getCountryMapAnchor(item){{
 function getContinentNativeRegion(code){{
   const regions = {{
     NA:{{points:'18,58 320,58 358,125 348,210 300,280 230,305 125,295 45,242',labelX:188,labelY:166}},
-    SA:{{points:'248,205 405,205 430,280 416,360 382,448 344,490 304,428 275,320 258,250',labelX:344,labelY:334}},
+    SA:{{points:'232,188 420,188 448,255 444,342 422,420 392,478 352,500 314,476 286,410 264,325 246,248',labelX:344,labelY:336}},
     EU:{{points:'430,88 592,88 612,128 606,182 566,225 510,228 454,198 432,145',labelX:520,labelY:160}},
     AS:{{points:'560,58 995,58 995,300 935,338 812,332 708,296 650,240 622,185 604,128 565,94',labelX:798,labelY:178}},
     MEA:{{points:'438,206 646,202 668,248 650,330 612,448 506,452 442,382 428,286',labelX:538,labelY:324}},
@@ -19185,13 +19311,105 @@ function ensureMapStateChip(items){{
   if(activeContinentFilter==='ALL'){{
     chip.hidden=true;
     chip.innerHTML='';
+    if(chip.parentElement) chip.parentElement.hidden=true;
     return;
   }}
+
+  if(slot) slot.hidden=false;
 
   const meta=CONTINENT_META[activeContinentFilter]||{{name:'대륙'}};
   const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
   const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
   chip.hidden=false;
+  chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${{meta.name}}</span><span class="state-meta">${{countries.length}}개국 · ${{articles}}건</span>`;
+  chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{{
+    activeContinentFilter='ALL';
+    activeCountryFilter='';
+    filterArticles();
+    updateCountryMapCounts();
+    layoutAndRenderCountryMap();
+  }});
+}}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL EMPTY HEADER PILL FIX — runtime override
+   ============================================================ */
+function ensureMapStateChip(items){{
+  const head=document.querySelector('.world-map-head');
+  if(!head) return;
+
+  let slot=document.getElementById('map-head-chip-slot');
+
+  if(activeContinentFilter==='ALL'){{
+    if(slot) slot.remove();
+    return;
+  }}
+
+  if(!slot){{
+    slot=document.createElement('div');
+    slot.id='map-head-chip-slot';
+    head.appendChild(slot);
+  }}
+  slot.hidden=false;
+
+  let chip=document.getElementById('map-continent-state');
+  if(!chip){{
+    chip=document.createElement('div');
+    chip.id='map-continent-state';
+    chip.className='map-continent-state';
+    slot.appendChild(chip);
+  }} else if(chip.parentElement!==slot){{
+    slot.appendChild(chip);
+  }}
+
+  chip.hidden=false;
+  const meta=CONTINENT_META[activeContinentFilter]||{{name:'대륙'}};
+  const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
+  chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${{meta.name}}</span><span class="state-meta">${{countries.length}}개국 · ${{articles}}건</span>`;
+  chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{{
+    activeContinentFilter='ALL';
+    activeCountryFilter='';
+    filterArticles();
+    updateCountryMapCounts();
+    layoutAndRenderCountryMap();
+  }});
+}}
+
+
+
+/* ============================================================
+   2026-08-21 ABSOLUTE FINAL EMPTY HEADER PILL FIX
+   ============================================================ */
+function ensureMapStateChip(items){{
+  const head=document.querySelector('.world-map-head');
+  if(!head) return;
+  let slot=document.getElementById('map-head-chip-slot');
+  if(activeContinentFilter==='ALL'){{
+    if(slot) slot.remove();
+    return;
+  }}
+  if(!slot){{
+    slot=document.createElement('div');
+    slot.id='map-head-chip-slot';
+    head.appendChild(slot);
+  }}
+  slot.hidden=false;
+  let chip=document.getElementById('map-continent-state');
+  if(!chip){{
+    chip=document.createElement('div');
+    chip.id='map-continent-state';
+    chip.className='map-continent-state';
+    slot.appendChild(chip);
+  }} else if(chip.parentElement!==slot){{
+    slot.appendChild(chip);
+  }}
+  chip.hidden=false;
+  const meta=CONTINENT_META[activeContinentFilter]||{{name:'대륙'}};
+  const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
   chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${{meta.name}}</span><span class="state-meta">${{countries.length}}개국 · ${{articles}}건</span>`;
   chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{{
     activeContinentFilter='ALL';
@@ -19326,8 +19544,7 @@ def main() -> int:
     cache_article_thumbnails(articles_by_period)
     cleanup_old_thumbnails(now)
 
-    # 같은 회사가 언론사에 제공한 동일 사진을 여러 매체가 쓰는 동일 기사 보완:
-    # 같은 날짜 + 완전히 동일한 로컬 썸네일 파일명 + 동일 사건 문맥일 때만 대표 1건으로 축약합니다.
+    # 동일 썸네일 파일명 + 동일 날짜 + 동일 사건 문맥일 때만 대표 기사 1건으로 축약합니다.
     thumbnail_dedup_removed_total = 0
     for label in ("전일", "금일", "익일"):
         deduped_items, removed_count = _deduplicate_identical_thumbnail_events(
