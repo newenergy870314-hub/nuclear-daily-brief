@@ -1,4 +1,8 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# COUNTRY LABELS NEAR OWN MAP + GENERIC NO OVERLAP 2026-08-22
+# CONTINENT RAIL WIDER 2026-08-22
+# CONTINENT TAB TWO-LINE NAME/COUNT LAYOUT 2026-08-22
+# KR/JP DETERMINISTIC SEPARATION + CONTINENT TAB GAP 2026-08-22
 # CONTINENT TABS TRUE EDGE CLIP FIX 2026-08-22
 # KR/JP ACTUAL DOM OVERLAP FIX 2026-08-22
 # KR/JP NATURAL NEARBY NO-OVERLAP 2026-08-22
@@ -17639,6 +17643,148 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB NAME/COUNT GAP FINAL
+   ============================================================ */
+.continent-button {{
+  column-gap:5px !important;
+  row-gap:0 !important;
+}}
+.continent-button-name,
+.continent-button-count {{
+  flex:0 0 auto !important;
+}}
+@media (max-width:430px) {{
+  .continent-button {{
+    column-gap:4px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB TWO-LINE FINAL LAYOUT
+   1st row: continent name
+   2nd row: article count
+   ============================================================ */
+#continent-rail {{
+  height:44px !important;
+  max-height:44px !important;
+}}
+
+.continent-button {{
+  min-height:36px !important;
+  height:36px !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:2px !important;
+  padding:3px 3px !important;
+}}
+
+.continent-button-name {{
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  font-size:9.2px !important;
+  line-height:1.02 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}}
+
+.continent-button-count {{
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  font-size:8.2px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    height:43px !important;
+    max-height:43px !important;
+  }}
+
+  .continent-button {{
+    min-height:35px !important;
+    height:35px !important;
+    gap:1px !important;
+    padding:3px 2px !important;
+  }}
+
+  .continent-button-name {{
+    font-size:8.7px !important;
+  }}
+
+  .continent-button-count {{
+    font-size:7.8px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    height:42px !important;
+    max-height:42px !important;
+  }}
+
+  .continent-button {{
+    min-height:34px !important;
+    height:34px !important;
+  }}
+
+  .continent-button-name {{
+    font-size:8.2px !important;
+  }}
+
+  .continent-button-count {{
+    font-size:7.4px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT RAIL WIDER FINAL
+   - use almost the full width of the country-news panel
+   - keep only a small safe margin on both sides
+   - give all six continent buttons more room
+   ============================================================ */
+#continent-rail {{
+  left:4px !important;
+  right:4px !important;
+  width:auto !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+}}
+
+.continent-rail-scroll {{
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:3px !important;
+    right:3px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    left:3px !important;
+    right:3px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -22446,8 +22592,8 @@ const FINAL_COUNTRY_LABEL_PRESETS = {{
   TH:[[32,18],[30,32],[26,4]],
   MY:[[26,18],[30,4]],
   SG:[[30,14],[34,0]],
-  KR:[[34,-10],[40,4],[42,-20],[48,12]],
-  JP:[[48,10],[54,22],[58,-2],[62,28]],
+  KR:[[18,-8],[22,8],[-20,-8],[-18,8]],
+  JP:[[18,-8],[22,8],[-18,-8],[-16,10]],
   AU:[[34,-4],[30,14]],
 }};
 
@@ -22494,11 +22640,7 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
   const presets = FINAL_COUNTRY_LABEL_PRESETS[itemCode] || [];
   let best = null;
 
-  /* 한국/일본은 동아시아 국가이므로 지도상 항상 기준점의 오른쪽에 배치.
-     중국/인도보다 왼쪽으로 역전되는 배치를 허용하지 않습니다. */
-  const eastLocked = itemCode==='KR' || itemCode==='JP';
   const consider = (box) => {{
-    if(eastLocked && (box.left + w/2) <= ax + 12) return false;
     const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 8);
     const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
     const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
@@ -22540,7 +22682,6 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
   for(let top=bounds.top; top<=bounds.bottom-h; top+=stepY){{
     for(let left=bounds.left; left<=bounds.right-w; left+=stepX){{
       const box={{left,top,right:left+w,bottom:top+h,w,h}};
-      if(eastLocked && (left + w/2) <= ax + 12) continue;
       const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 9);
       const collisions = occupied.reduce(
         (n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0
@@ -22588,10 +22729,11 @@ function finalRectsOverlap(a,b,pad=4){{
   );
 }}
 
-function finalResolveKrJpRenderedOverlap(layer,bounds){{
-  const kr = layer.querySelector('.precise-country-label[data-country-code="KR"]');
-  const jp = layer.querySelector('.precise-country-label[data-country-code="JP"]');
-  if(!kr || !jp) return;
+
+
+function finalResolveRenderedCountryOverlaps(layer,bounds){{
+  const labels = [...layer.querySelectorAll('.precise-country-label[data-country-code]')];
+  if(labels.length < 2) return;
 
   const layerRect = layer.getBoundingClientRect();
   const localRect = (el) => {{
@@ -22606,61 +22748,82 @@ function finalResolveKrJpRenderedOverlap(layer,bounds){{
     }};
   }};
 
-  const krBox = localRect(kr);
-  const jpBox = localRect(jp);
-  if(!finalRectsOverlap(krBox,jpBox,5)) return;
-
-  const others = [...layer.querySelectorAll('.precise-country-label')]
-    .filter(el => el !== jp)
-    .map(localRect);
-
-  const startLeft = parseFloat(jp.style.left) || jpBox.left;
-  const startTop = parseFloat(jp.style.top) || jpBox.top;
-
-  /* 실제 브라우저에서 보이는 크기를 기준으로, 일본 버튼을 가장 가까운 빈자리로만 이동 */
-  const candidates = [
-    [0, jpBox.height + 6],
-    [8, jpBox.height + 6],
-    [14, jpBox.height + 10],
-    [10, -(jpBox.height + 6)],
-    [18, 4],
-    [24, 10]
-  ];
-
-  for(const [dx,dy] of candidates){{
-    let left = startLeft + dx;
-    let top = startTop + dy;
-    left = Math.max(bounds.left, Math.min(bounds.right-jpBox.width,left));
-    top = Math.max(bounds.top, Math.min(bounds.bottom-jpBox.height,top));
-    const box = {{
-      left, top,
-      right:left+jpBox.width,
-      bottom:top+jpBox.height,
-      width:jpBox.width,
-      height:jpBox.height
+  const anchorFor = (el) => {{
+    const code = el.dataset.countryCode;
+    const item = collect2DCountryItems().find(v=>v.code===code);
+    if(!item) return null;
+    const visual=document.querySelector('.country-map-visual.globe-mode');
+    const svg=document.querySelector('.world-map-inline.globe-texture-source');
+    if(!visual||!svg) return null;
+    const vp=getExactMapViewport(svg,visual);
+    const p=getCountryMapAnchor(item);
+    return {{
+      x:vp.left+(p.x/100)*vp.width,
+      y:vp.top+(p.y/100)*vp.height
     }};
-    if(!others.some(r => finalRectsOverlap(box,r,5))){{
-      jp.style.left = `${{left}}px`;
-      jp.style.top = `${{top}}px`;
+  }};
+
+  /* 기사 수/국가 순서는 기존 렌더 순서를 존중.
+     각 버튼은 자기 나라 근처에 두되, 실제 DOM 기준으로 겹치면
+     가까운 빈자리로만 미세 이동합니다. */
+  const placed = [];
+  labels.forEach((el,index)=>{{
+    let box = localRect(el);
+    const anchor = anchorFor(el);
+    if(!anchor){{
+      placed.push(box);
       return;
     }}
-  }}
 
-  for(let shift=6; shift<=70; shift+=2){{
-    const left = startLeft;
-    const top = Math.min(bounds.bottom-jpBox.height,startTop+shift);
-    const box = {{
-      left, top,
-      right:left+jpBox.width,
-      bottom:top+jpBox.height,
-      width:jpBox.width,
-      height:jpBox.height
-    }};
-    if(!others.some(r => finalRectsOverlap(box,r,5))){{
-      jp.style.top = `${{top}}px`;
+    const overlapsPlaced = (candidate,pad=6) =>
+      placed.some(r=>finalRectsOverlap(candidate,r,pad));
+
+    if(!overlapsPlaced(box,6)){{
+      placed.push(box);
       return;
     }}
-  }}
+
+    const startLeft = parseFloat(el.style.left) || box.left;
+    const startTop = parseFloat(el.style.top) || box.top;
+
+    const candidates = [];
+    const radii = [8,14,20,28,36,46,58];
+    const dirs = [
+      [1,0],[-1,0],[0,-1],[0,1],
+      [1,-1],[1,1],[-1,-1],[-1,1]
+    ];
+
+    for(const r of radii){{
+      for(const [dx,dy] of dirs){{
+        let left = startLeft + dx*r;
+        let top = startTop + dy*r;
+        left = Math.max(bounds.left, Math.min(bounds.right-box.width,left));
+        top = Math.max(bounds.top, Math.min(bounds.bottom-box.height,top));
+        const candidate = {{
+          left,top,
+          right:left+box.width,
+          bottom:top+box.height,
+          width:box.width,
+          height:box.height
+        }};
+        if(overlapsPlaced(candidate,6)) continue;
+        const cx=left+box.width/2;
+        const cy=top+box.height/2;
+        const distance=Math.hypot(cx-anchor.x,cy-anchor.y);
+        candidates.push({{...candidate,distance}});
+      }}
+    }}
+
+    if(candidates.length){{
+      candidates.sort((a,b)=>a.distance-b.distance);
+      const best=candidates[0];
+      el.style.left=`${{best.left}}px`;
+      el.style.top=`${{best.top}}px`;
+      box=best;
+    }}
+
+    placed.push(box);
+  }});
 }}
 
 
@@ -22744,7 +22907,7 @@ function renderHtmlCountryLabels(items){{
   }}
 
   /* 실제 DOM 렌더링 후 한국/일본이 겹치는지 다시 확인하고, 겹칠 때만 미세 이동 */
-  requestAnimationFrame(() => finalResolveKrJpRenderedOverlap(layer,bounds));
+  requestAnimationFrame(() => requestAnimationFrame(() => finalResolveRenderedCountryOverlaps(layer,bounds)));
 }}
 
 function layoutAndRenderCountryMap(){{
