@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# MAP DOTS + CONNECTOR LINES REMOVED 2026-08-21
 # EUROPE LABELS NEAR + NO OVERLAP 2026-08-21
 # CARD SPACING + STRONGER CONFIRMED DUPLICATE MATCHING 2026-08-21
 # HOLTEC PALISADES REQUIRES HOLTEC CO-OCCURRENCE 2026-08-21
@@ -16278,6 +16279,24 @@ main {{
   .precise-country-label.europe-country-label .flag {{ font-size:6.6px !important; }}
   .precise-country-label.europe-country-label .name,
   .precise-country-label.europe-country-label .count {{ font-size:6px !important; }}
+}}
+
+
+/* ============================================================
+   2026-08-21 MAP DOTS / CONNECTOR LINES REMOVED
+   Country labels only. Do not show uncertain point markers.
+   ============================================================ */
+.precise-country-dot,
+.precise-country-dot.active,
+.precise-country-connector,
+.clean-map-country-dot,
+.clean-map-country-connector,
+.accurate-country-dot,
+.accurate-country-dot.active,
+.accurate-country-connector {{
+  display:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
 }}
 
 </style>
