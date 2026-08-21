@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# EVENT GROUPING REFINED: ENTITY + TARGET + ACTION MATCH 2026-08-21
+# COUNTRY TAB + MAP LABEL READABILITY / COLLISION REFINED 2026-08-21
 # SPEED OPTIMIZED DIRECT COLLECTION + UNION-FIND RELATED GROUPING 2026-08-21
 # RELATED ARTICLE TRANSITIVE CLUSTERING REFINED 2026-08-21
 # RELATED ARTICLES GROUPED + ALTERNATIVE PUBLISHERS UI 2026-08-21
@@ -5702,14 +5704,17 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
 
-    안전장치:
+    핵심 원칙:
     - 같은 날짜
     - 같은 기사 탭
     - 서로 다른 언론사
     - 국가가 명확히 다르면 제외
-    - 계약/착공/준공 등 사건 단계가 명확히 다르면 제외
+    - 계약/착공/준공/선정 등 사건 단계가 명확히 다르면 제외
+    - 핵심 주체 + 대상(프로젝트/기관/설비) + 행위가 같아야 묶음
 
-    그 안에서 이미지, 제목, 설명문의 사건구조를 함께 봅니다.
+    제목 표현이 달라도 설명문까지 포함한 사건구조가 같으면 묶되,
+    단순히 같은 회사명이 들어간 브리핑/종합기사까지 합쳐지지 않도록
+    '대상 앵커'와 '행위 앵커'를 추가 확인합니다.
     """
     publisher_a = (a.publisher or "").strip()
     publisher_b = (b.publisher or "").strip()
@@ -5738,15 +5743,52 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     if stage_a and stage_b and stage_a != stage_b:
         return False
 
-    # 1) 실제 동일/유사 이미지 + 동일 내용은 가장 강한 중복 신호
+    hay_a = normalized(f"{a.title or ''} {a.description or ''}")
+    hay_b = normalized(f"{b.title or ''} {b.description or ''}")
+
+    # 실제 동일/유사 이미지 + 동일 내용은 가장 강한 신호
     if _same_thumbnail_same_event(a, b):
         return True
 
-    # 2) 기존의 제목+설명 기반 일반 동일사건 판정 활용
-    #    제목이 "공동개발", "핵심기술 개발 맞손", "연돌효과 해법"처럼 달라도
-    #    설명문에 같은 주체/대상/행위가 들어 있으면 하나의 사건으로 연결됩니다.
-    if same_event_general(a, b):
-        return True
+    # 사건의 '대상'이 되는 고유 앵커.
+    # 숫자/단지명/프로젝트명/상대기관명이 제목 또는 설명문에 공통으로 있을수록
+    # 같은 보도자료 계열일 가능성이 높습니다.
+    anchor_patterns = (
+        r"[가-힣A-Za-z0-9]+(?:\d+)?단지",
+        r"[가-힣A-Za-z0-9]+(?:지구|구역|사업|프로젝트|원전|발전소|호기|센터|공장|현장)",
+        r"(?:신한은행|국민은행|우리은행|하나은행|농협은행|기업은행|산업은행)",
+        r"(?:현대엘리베이터|현대엔지니어링|대우건설|DL이앤씨|삼성물산|롯데건설|포스코이앤씨|SK에코플랜트)",
+    )
+
+    anchors_a: set[str] = set()
+    anchors_b: set[str] = set()
+    for pattern in anchor_patterns:
+        anchors_a.update(re.findall(pattern, hay_a, flags=re.I))
+        anchors_b.update(re.findall(pattern, hay_b, flags=re.I))
+
+    common_anchors = {x for x in anchors_a & anchors_b if len(x) >= 3}
+
+    # 행위 앵커는 표현이 달라도 같은 이벤트 단계인지 보기 위한 보조 신호.
+    action_groups = (
+        ("업무협약", "협약", "mou", "맞손", "협력"),
+        ("금융", "자금조달", "금융지원", "사업비", "대출"),
+        ("공동개발", "기술개발", "개발", "공동 기술개발"),
+        ("수주", "선정", "우선협상대상자"),
+        ("계약", "본계약", "체결"),
+        ("착공", "기공"),
+        ("준공", "완공"),
+    )
+
+    def action_signature(hay: str) -> set[int]:
+        sig: set[int] = set()
+        for idx, variants in enumerate(action_groups):
+            if any(normalized(v) in hay for v in variants):
+                sig.add(idx)
+        return sig
+
+    actions_a = action_signature(hay_a)
+    actions_b = action_signature(hay_b)
+    common_actions = actions_a & actions_b
 
     tokens_a = _thumbnail_event_tokens(a)
     tokens_b = _thumbnail_event_tokens(b)
@@ -5758,23 +5800,41 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     title_similarity = semantic_duplicate_score(a.title or "", b.title or "")
     full_similarity = article_ngram_similarity(a, b)
 
-    # 3) 보도자료성 제목 변형
+    # 기존 일반 동일사건 판정은 유지하되, 고유 대상 또는 충분한 사건 토큰이 있어야 수용
+    if same_event_general(a, b):
+        if common_anchors and (common_actions or len(common) >= 4):
+            return True
+        if len(common) >= 5 and containment >= 0.55:
+            return True
+
+    # 보도자료성 제목 변형
     if (
         is_same_event(a.title or "", b.title or "")
         or same_press_release_event(a.title or "", b.title or "")
     ):
-        if len(common) >= 3 and (
-            containment >= 0.48
-            or title_similarity >= 0.44
-            or full_similarity >= 0.42
+        if common_anchors and (
+            common_actions
+            or containment >= 0.45
+            or title_similarity >= 0.42
+            or full_similarity >= 0.40
         ):
             return True
+        if len(common) >= 4 and containment >= 0.58 and full_similarity >= 0.42:
+            return True
 
-    # 4) 제목은 많이 달라도 설명문이 동일 보도자료 계열인 경우
-    if len(common) >= 4 and containment >= 0.50 and full_similarity >= 0.40:
+    # 목동12단지 같은 구체 프로젝트/단지 앵커가 공통이고
+    # 금융/협약 등 행위축도 겹치면 제목이 크게 달라도 같은 사건으로 묶음.
+    if common_anchors and common_actions:
+        if len(common) >= 3 and containment >= 0.45 and full_similarity >= 0.34:
+            return True
+        if len(common) >= 4 and title_similarity >= 0.36:
+            return True
+
+    # 일반 판정은 보수적으로 유지
+    if len(common) >= 5 and containment >= 0.58 and full_similarity >= 0.42:
         return True
 
-    if len(common) >= 3 and containment >= 0.60 and full_similarity >= 0.52:
+    if len(common) >= 4 and containment >= 0.68 and full_similarity >= 0.50:
         return True
 
     return False
@@ -16661,6 +16721,143 @@ main {{
   }}
 }}
 
+
+
+/* ============================================================
+   2026-08-21 COUNTRY TAB + MAP LABEL READABILITY FINAL OVERRIDE
+   - bottom continent/country navigation made article-tab readable
+   - map country labels enlarged
+   - larger collision gap for dense regions such as Europe
+   ============================================================ */
+
+/* Bottom map navigation: previously ~6px, now readable at normal mobile size. */
+.continent-rail-scroll {{
+  align-items:stretch !important;
+}}
+.continent-button {{
+  height:40px !important;
+  min-height:40px !important;
+  padding:4px 2px !important;
+  gap:3px !important;
+}}
+.continent-button-name {{
+  overflow:visible !important;
+  text-overflow:clip !important;
+  white-space:normal !important;
+  font-size:10.5px !important;
+  font-weight:900 !important;
+  line-height:1.05 !important;
+  letter-spacing:-.25px !important;
+}}
+.continent-button-count {{
+  font-size:9.5px !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+}}
+
+/* Keep the old country chip rail readable too if it is shown later. */
+#country-chip-rail .country-pin {{
+  min-height:38px !important;
+  height:38px !important;
+  padding:0 12px !important;
+  font-size:12px !important;
+  font-weight:850 !important;
+}}
+#country-chip-rail .country-pin .flag {{
+  font-size:17px !important;
+}}
+#country-chip-rail .country-pin .country-count {{
+  font-size:10.5px !important;
+}}
+
+/* Map labels: enlarged but still compact enough for Europe. */
+.precise-country-label,
+.precise-country-label.europe-country-label {{
+  min-height:23px !important;
+  padding:3px 6px !important;
+  gap:3px !important;
+  font-size:9.4px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  box-shadow:0 2px 6px rgba(54,89,114,.11) !important;
+}}
+.precise-country-label .flag,
+.precise-country-label.europe-country-label .flag {{
+  font-size:10.5px !important;
+}}
+.precise-country-label .name,
+.precise-country-label .count,
+.precise-country-label.europe-country-label .name,
+.precise-country-label.europe-country-label .count {{
+  font-size:9.3px !important;
+  font-weight:900 !important;
+}}
+.precise-country-label .count,
+.precise-country-label.europe-country-label .count {{
+  color:#d84b4b !important;
+}}
+
+@media (max-width:430px) {{
+  .continent-button {{
+    height:39px !important;
+    min-height:39px !important;
+    padding:4px 1px !important;
+  }}
+  .continent-button-name {{
+    font-size:10px !important;
+    letter-spacing:-.32px !important;
+  }}
+  .continent-button-count {{
+    font-size:9px !important;
+  }}
+
+  .precise-country-label,
+  .precise-country-label.europe-country-label {{
+    min-height:22px !important;
+    padding:3px 5px !important;
+    gap:2.5px !important;
+  }}
+  .precise-country-label .flag,
+  .precise-country-label.europe-country-label .flag {{
+    font-size:10px !important;
+  }}
+  .precise-country-label .name,
+  .precise-country-label .count,
+  .precise-country-label.europe-country-label .name,
+  .precise-country-label.europe-country-label .count {{
+    font-size:8.9px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .continent-button {{
+    height:38px !important;
+    min-height:38px !important;
+  }}
+  .continent-button-name {{
+    font-size:9.5px !important;
+  }}
+  .continent-button-count {{
+    font-size:8.6px !important;
+  }}
+
+  .precise-country-label,
+  .precise-country-label.europe-country-label {{
+    min-height:21px !important;
+    padding:2px 5px !important;
+  }}
+  .precise-country-label .flag,
+  .precise-country-label.europe-country-label .flag {{
+    font-size:9.6px !important;
+  }}
+  .precise-country-label .name,
+  .precise-country-label .count,
+  .precise-country-label.europe-country-label .name,
+  .precise-country-label.europe-country-label .count {{
+    font-size:8.5px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -21091,7 +21288,7 @@ function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors)
     left = Math.max(bounds.left, Math.min(bounds.right - w, left));
     top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
     const box = {{left, top, right:left+w, bottom:top+h, w, h}};
-    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,5) ? 1 : 0),0);
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,7) ? 1 : 0),0);
     const anchorHit = boxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
     const dist = Math.hypot((left+w/2)-ax,(top+h/2)-ay);
     const edgePenalty = (left<=bounds.left+1 || top<=bounds.top+1 || left+w>=bounds.right-1 || top+h>=bounds.bottom-1) ? 3 : 0;
@@ -21107,7 +21304,7 @@ function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors)
     }}
   }}
   const angles = angleMap[itemCode] || [0,-20,20,-40,40,180,-140,140];
-  const radii = [10,14,18,24,30,38,48,58,70];
+  const radii = [14,20,26,34,42,52,64,78,94,112];
   for(const r of radii){{
     for(const deg of angles){{
       const rad = deg * Math.PI / 180;
@@ -21245,7 +21442,7 @@ function chooseEuropeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
     top = Math.max(bounds.top, Math.min(bounds.bottom-h, top));
     const box = {{ left, top, right:left+w, bottom:top+h, w, h }};
 
-    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,5) ? 1 : 0), 0);
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,8) ? 1 : 0), 0);
     const anchorHit = boxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
     const dx = (left+w/2)-ax;
     const dy = (top+h/2)-ay;
@@ -21262,10 +21459,11 @@ function chooseEuropeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
 
   // 1. Very close candidates first.
   const nearOffsets = [
-    [16,0],[-16,0],[0,-15],[0,15],
-    [18,-12],[18,12],[-18,-12],[-18,12],
-    [26,0],[-26,0],[0,-24],[0,24],
-    [28,-16],[28,16],[-28,-16],[-28,16]
+    [20,0],[-20,0],[0,-18],[0,18],
+    [22,-14],[22,14],[-22,-14],[-22,14],
+    [30,0],[-30,0],[0,-28],[0,28],
+    [34,-18],[34,18],[-34,-18],[-34,18],
+    [42,0],[-42,0],[0,-38],[0,38]
   ];
   for(const [dx,dy] of nearOffsets){{
     const box = test(ax+dx, ay+dy);
@@ -21274,9 +21472,9 @@ function chooseEuropeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
 
   // 2. Dense-Europe packing: search outward in small rings.
   // This guarantees that labels keep separating instead of falling back on top of each other.
-  const maxRadius = 78;
-  const step = 8;
-  for(let radius=32; radius<=maxRadius; radius+=step){{
+  const maxRadius = 126;
+  const step = 7;
+  for(let radius=38; radius<=maxRadius; radius+=step){{
     for(let dx=-radius; dx<=radius; dx+=step){{
       for(const dy of [-radius, radius]){{
         const box = test(ax+dx, ay+dy);
@@ -21550,6 +21748,18 @@ def main() -> int:
         f"[RELATED GROUP TOTAL] grouped={related_grouped_total} "
         f"/ elapsed={time.perf_counter() - related_group_started:.2f}s"
     )
+    if _RELATED_COVERAGE_GROUPS:
+        largest_groups = sorted(
+            (
+                (1 + len(items), rep_link)
+                for rep_link, items in _RELATED_COVERAGE_GROUPS.items()
+            ),
+            reverse=True,
+        )[:5]
+        print(
+            "[RELATED GROUP TOP] "
+            + " / ".join(f"{size} articles" for size, _ in largest_groups)
+        )
 
     current_urls = {
         article.link
