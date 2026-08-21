@@ -8483,29 +8483,31 @@ main {
 
 
 /* ============================================================
-   2026-08-21 CONTINENT DOCK UNCLIPPED FINAL OVERRIDE
-   - prevent continent tabs from clipping on mobile
-   - allow long names like 중동·아프리카 to fit naturally
-   - keep one-row overall layout with balanced proportions
+   2026-08-21 CONTINENT DOCK READABILITY FINAL OVERRIDE
+   - enlarge continent-tab text
+   - allow variable widths by continent (NA/EU narrower, OC/MEA wider)
+   - keep one-row layout without clipping
    ============================================================ */
 #continent-rail {
   left:8px !important;
   right:8px !important;
   bottom:6px !important;
-  height:48px !important;
-  max-height:48px !important;
+  height:54px !important;
+  max-height:54px !important;
   padding:4px !important;
   border-radius:14px !important;
 }
 .continent-rail-scroll {
-  grid-template-columns:repeat(6, minmax(0, 1fr)) !important;
+  display:flex !important;
+  align-items:stretch !important;
   gap:4px !important;
+  grid-template-columns:none !important;
 }
 .continent-button {
   min-width:0 !important;
-  min-height:38px !important;
-  height:38px !important;
-  padding:3px 2px !important;
+  min-height:42px !important;
+  height:42px !important;
+  padding:3px 4px !important;
   display:flex !important;
   flex-direction:column !important;
   align-items:center !important;
@@ -8516,10 +8518,10 @@ main {
 .continent-button-name {
   display:block !important;
   width:100% !important;
-  font-size:9px !important;
+  font-size:10.4px !important;
   font-weight:900 !important;
-  line-height:1.02 !important;
-  letter-spacing:-.18px !important;
+  line-height:1.05 !important;
+  letter-spacing:-.16px !important;
   white-space:normal !important;
   word-break:keep-all !important;
   overflow:visible !important;
@@ -8529,7 +8531,7 @@ main {
 .continent-button-count {
   display:block !important;
   width:100% !important;
-  font-size:8.2px !important;
+  font-size:9.4px !important;
   font-weight:950 !important;
   line-height:1 !important;
   text-align:center !important;
@@ -8537,95 +8539,212 @@ main {
 }
 @media (max-width:430px) {
   #continent-rail {
-    left:7px !important;
-    right:7px !important;
+    left:6px !important;
+    right:6px !important;
     bottom:5px !important;
-    height:50px !important;
-    max-height:50px !important;
+    height:56px !important;
+    max-height:56px !important;
     padding:4px !important;
   }
   .continent-rail-scroll {
     gap:3px !important;
   }
   .continent-button {
-    min-height:40px !important;
-    height:40px !important;
-    padding:3px 1px !important;
+    min-height:44px !important;
+    height:44px !important;
+    padding:3px 3px !important;
     gap:1px !important;
   }
   .continent-button-name {
-    font-size:8.1px !important;
-    line-height:1.0 !important;
-    letter-spacing:-.22px !important;
+    font-size:9.4px !important;
+    line-height:1.04 !important;
+    letter-spacing:-.18px !important;
   }
   .continent-button-count {
-    font-size:7.7px !important;
+    font-size:8.7px !important;
   }
 }
 @media (max-width:380px) {
   #continent-rail {
-    left:6px !important;
-    right:6px !important;
-    height:48px !important;
-    max-height:48px !important;
+    left:5px !important;
+    right:5px !important;
+    height:54px !important;
+    max-height:54px !important;
   }
   .continent-button {
-    min-height:38px !important;
-    height:38px !important;
+    min-height:42px !important;
+    height:42px !important;
+    padding:2px 2px !important;
   }
   .continent-button-name {
-    font-size:7.5px !important;
-    letter-spacing:-.24px !important;
+    font-size:8.8px !important;
+    letter-spacing:-.2px !important;
   }
   .continent-button-count {
-    font-size:7.1px !important;
+    font-size:8.1px !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-21 NEW BADGE VERTICAL ALIGNMENT
+   ============================================================ */
+.new-badge,
+.badge-new,
+.headline .new-badge,
+.headline .badge-new {
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  position:relative !important;
+  top:-1.5px !important;
+  vertical-align:middle !important;
+  margin-right:4px !important;
+  line-height:1 !important;
+}
+@media (max-width:430px) {
+  .new-badge,
+  .badge-new,
+  .headline .new-badge,
+  .headline .badge-new {
+    top:-1.5px !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-21 THUMBNAIL TOP/BOTTOM GAP EQUALIZED
+   ============================================================ */
+@media (max-width:430px) {
+  .preview-card {
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+  }
+  .preview-side,
+  .preview-image,
+  .card-side {
+    align-self:center !important;
+  }
+}
+@media (max-width:380px) {
+  .preview-card {
+    padding-top:4px !important;
+    padding-bottom:4px !important;
   }
 }
 
 
 
 /* ============================================================
-   2026-08-21 FINAL THUMBNAIL VERTICAL FILL REFINEMENT
-   - reduce top/bottom white space around thumbnails
-   - show slightly more image vertically without changing card width
+   2026-08-21 THUMBNAIL FINAL BOTTOM SPACE RELAXED
+   - make top/bottom thumbnail breathing room feel visually balanced
+   - give slightly more lower breathing room so mobile cards feel less cramped
    ============================================================ */
-.preview-card {
-  padding-top:3px !important;
-  padding-bottom:3px !important;
-}
-.preview-image,
-.card-side {
-  height:80px !important;
-  min-height:80px !important;
-  max-height:80px !important;
-}
-
 @media (max-width:430px) {
   .preview-card {
-    padding-top:2px !important;
-    padding-bottom:2px !important;
+    height:90px !important;
+    min-height:90px !important;
+    max-height:90px !important;
+    padding:5px 3px 5px 4px !important;
+    align-items:center !important;
+    box-sizing:border-box !important;
   }
-  .preview-image,
-  .card-side {
-    height:84px !important;
-    min-height:84px !important;
-    max-height:84px !important;
-    align-self:start !important;
+  .preview-copy {
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+    padding:1px 0 1px !important;
+    box-sizing:border-box !important;
+  }
+  .card-side,
+  .preview-image {
+    height:78px !important;
+    min-height:78px !important;
+    max-height:78px !important;
+    align-self:center !important;
     margin-top:0 !important;
     margin-bottom:0 !important;
+  }
+  .preview-image {
+    box-sizing:border-box !important;
+    padding-top:1px !important;
+    padding-bottom:3px !important;
+    overflow:hidden !important;
+  }
+  .preview-image img {
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    display:block !important;
   }
 }
 
 @media (max-width:380px) {
   .preview-card {
-    padding-top:2px !important;
-    padding-bottom:2px !important;
+    height:86px !important;
+    min-height:86px !important;
+    max-height:86px !important;
+    padding:4px 2px 4px 4px !important;
+    align-items:center !important;
+    box-sizing:border-box !important;
   }
-  .preview-image,
-  .card-side {
-    height:80px !important;
-    min-height:80px !important;
-    max-height:80px !important;
+  .preview-copy {
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:center !important;
+    padding:1px 0 1px !important;
+    box-sizing:border-box !important;
+  }
+  .card-side,
+  .preview-image {
+    height:74px !important;
+    min-height:74px !important;
+    max-height:74px !important;
+    align-self:center !important;
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+  .preview-image {
+    box-sizing:border-box !important;
+    padding-top:1px !important;
+    padding-bottom:3px !important;
+    overflow:hidden !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-21 CONTINENT BUTTON VISIBILITY HOTFIX
+   Older CSS forced every continent button to width:100%, so only
+   the first dynamically ranked button could remain visible.
+   ============================================================ */
+.continent-rail-scroll {
+  display:flex !important;
+  width:100% !important;
+  overflow:visible !important;
+}
+.continent-button {
+  width:auto !important;
+  max-width:none !important;
+  flex-shrink:1 !important;
+}
+
+
+
+/* ============================================================
+   2026-08-21 THUMBNAIL BOTTOM SPACE SLIGHTLY MORE
+   - only a very slight increase to the lower breathing room
+   ============================================================ */
+@media (max-width:430px) {
+  .preview-image {
+    padding-bottom:4px !important;
+  }
+}
+@media (max-width:380px) {
+  .preview-image {
+    padding-bottom:4px !important;
   }
 }
 
@@ -8637,7 +8756,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 23:40 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.22(토) 00:00 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -14713,7 +14832,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">103건</span>
+    <span class="group-count">102건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -16729,39 +16848,6 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/kinectrics-clean-core-aneel-thorium-fuel-qualification-review/"
-  data-title="Kinectrics Reviews Clean Core ANEEL Thorium Fuel Program"
-  data-publisher="SMR Intel"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="2"
-  data-published="1787151798"
-  data-country="OTHER"
-  data-search="kinectrics reviews clean core aneel thorium fuel program smr intel nuclear power·nuclear energy kinectrics will independently review clean core&#x27;s aneel thorium-haleu fuel design, manufacturing, safety, and regulatory readiness for candu deployment."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Kinectrics Reviews Clean Core ANEEL Thorium Fuel Program</div>
-      <div class="article-snippet">Kinectrics will independently review Clean Core&#x27;s ANEEL thorium-HALEU fuel design, manufacturing, safety, and regulatory readiness for CANDU deployment.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/kinectrics-clean-core-aneel-thorium-fuel-qualification-review/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://news.cgtn.com/news/2026-08-19/news-1PK9zrRXHwY/p.html"
   data-title="CANADIAN MINISTER IN CHARGE OF BILATERAL U.S. TRADE, AND CHIEF CANADIAN TRADE NEGOTIATOR, WILL BOTH MEET U.S. TRADE REPRESENTATIVE GREER AT 11;15 EDT WEDNESDAY - CANADIAN STATEMENT"
@@ -18420,7 +18506,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">24건</span>
+    <span class="group-count">23건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -19179,39 +19265,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/423f29fda812b2fdcb8fd6cf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/doosan-enerbility-laiyang-5-6-steam-generator-forgings/"
-  data-title="Doosan Enerbility Wins 8-Forging China Deal for Laiyang 5&amp;6"
-  data-publisher="SMR Intel"
-  data-group="타 건설사"
-  data-language="en"
-  data-priority="2"
-  data-published="1787213945"
-  data-country="CN"
-  data-search="doosan enerbility wins 8-forging china deal for laiyang 5&amp;6 smr intel 타 건설사 doosan enerbility contracts to deliver 8 forged steam generator components for china&#x27;s laiyang units 5&amp;6 by 2029."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Doosan Enerbility Wins 8-Forging China Deal for Laiyang 5&amp;6</div>
-      <div class="article-snippet">Doosan Enerbility contracts to deliver 8 forged steam generator components for China&#x27;s Laiyang units 5&amp;6 by 2029.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/doosan-enerbility-laiyang-5-6-steam-generator-forgings/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -22749,7 +22802,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -23013,39 +23066,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e220d71561f9020003fe47dc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/corpus-christi-marad-nuclear-maritime-smrts/"
-  data-title="Corpus Christi Joins MARAD Nuclear Maritime Push"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1787241995"
-  data-country="OTHER"
-  data-search="corpus christi joins marad nuclear maritime push smr intel smr port of corpus christi signs dual agreements with marad and core power to study smr integration and floating nuclear power plants."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Corpus Christi Joins MARAD Nuclear Maritime Push</div>
-      <div class="article-snippet">Port of Corpus Christi signs dual agreements with MARAD and Core Power to study SMR integration and floating nuclear power plants.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/corpus-christi-marad-nuclear-maritime-smrts/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29837,7 +29857,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">22건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30368,6 +30388,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://montelnews.com/news/932908dd-ab31-4dc7-88d1-e6c86d48f8f9/finland-can-halve-smr-costs-with-2039-launch-helen-ceo"
+  data-title="Finland can halve SMR costs, 2039 launch eyed – Helen CEO"
+  data-publisher="Montel News"
+  data-group="SMR"
+  data-language="en"
+  data-priority="0"
+  data-published="1787304982"
+  data-country="FI"
+  data-search="finland can halve smr costs, 2039 launch eyed – helen ceo montel news smr helen ceo says finland can halve smr costs by pairing heat and power for district heating, targeting a commercial reactor around 2039."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Montel News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Finland can halve SMR costs, 2039 launch eyed – Helen CEO</div>
+      <div class="article-snippet">Helen CEO says Finland can halve SMR costs by pairing heat and power for district heating, targeting a commercial reactor around 2039.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3943bf26f857c72442d4a6a4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://economictimes.indiatimes.com/news/politics-and-nation/will-smriti-irani-challenge-rahul-gandhi-in-2029-heres-what-she-said-et-wlf-2026/videoshow/133396720.cms"
   data-title="Will Smriti Irani challenge Rahul Gandhi in 2029? Here’s what she said | ET WLF 2026"
@@ -30467,72 +30520,6 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/jobs/"
-  data-title="Nuclear &amp; SMR Jobs — smrintel.com"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1787274957"
-  data-country="OTHER"
-  data-search="nuclear &amp; smr jobs — smrintel.com smr intel smr open roles across the nuclear and smr industry. 300+ positions updated daily."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Nuclear &amp; SMR Jobs — smrintel.com</div>
-      <div class="article-snippet">Open roles across the nuclear and SMR industry. 300+ positions updated daily.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/opengraph-image" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/"
-  data-title="Newsfeed — smrintel.com"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1787272923"
-  data-country="OTHER"
-  data-search="newsfeed — smrintel.com smr intel smr real-time nuclear and smr news: funding rounds, regulatory milestones, deployment updates, and policy developments."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Newsfeed — smrintel.com</div>
-      <div class="article-snippet">Real-time nuclear and SMR news: funding rounds, regulatory milestones, deployment updates, and policy developments.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/opengraph-image" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://interestingengineering.com/energy/radiant-kaleidos-nuclear-fuel-supply"
   data-title="Portable 1MW Kaleidos reactor locks in crucial nuclear fuel supply"
@@ -30572,7 +30559,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">59건</span>
+    <span class="group-count">61건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30609,6 +30596,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787324552"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787324551"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://english.kyodonews.net/articles/-/82759"
   data-title="FOCUS: Questions grow over Trump&#x27;s commitment to N. Korea denuclearization goal"
   data-publisher="Kyodo News"
@@ -30641,21 +30694,21 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
+<article class="preview-card new-article"
+  data-url="https://interestingengineering.com/science/crystal-nuclear-clock-10-times-more-precise"
+  data-title="Perfect crystal site brings ultra-precise nuclear clock closer to reality"
+  data-publisher="Interesting Engineering"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787323421"
+  data-published="1787324051"
   data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  data-search="perfect crystal site brings ultra-precise nuclear clock closer to reality interesting engineering nuclear power·nuclear energy scientists have succeeded in finding the perfect site inside a crystal to dope thorium 229 to make a nuclear clock which is 10 times more precise."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
+        <div class="publisher">Interesting Engineering</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -30665,12 +30718,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+      <div class="headline"><span class="new-badge">NEW</span>Perfect crystal site brings ultra-precise nuclear clock closer to reality</div>
+      <div class="article-snippet">Scientists have succeeded in finding the perfect site inside a crystal to dope thorium 229 to make a nuclear clock which is 10 times more precise.</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2eeac722acd71fbbd9e27e13.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30704,39 +30757,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787318409"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31268,72 +31288,6 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/atomic-canyon-niva-ai-nuclear-industry-virtual-assistant/"
-  data-title="Atomic Canyon Launches NIVA AI for Nuclear Ops"
-  data-publisher="SMR Intel"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787272923"
-  data-country="OTHER"
-  data-search="atomic canyon launches niva ai for nuclear ops smr intel nuclear power·nuclear energy atomic canyon&#x27;s niva ai platform goes live with constellation energy as an early user, backed by nvidia and ex-vanguard ceo tim buckley."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Atomic Canyon Launches NIVA AI for Nuclear Ops</div>
-      <div class="article-snippet">Atomic Canyon&#x27;s NIVA AI platform goes live with Constellation Energy as an early user, backed by NVIDIA and ex-Vanguard CEO Tim Buckley.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/atomic-canyon-niva-ai-nuclear-industry-virtual-assistant/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/swiss-nuclear-power-plant-cost-14-43-billion-francs/"
-  data-title="Swiss Nuclear Plant Cost 14 to 43 Billion Francs"
-  data-publisher="SMR Intel"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787268630"
-  data-country="CH"
-  data-search="swiss nuclear plant cost 14 to 43 billion francs smr intel nuclear power·nuclear energy swiss academies report puts new nuclear plant costs at 14–43 billion francs, with government risk-sharing deemed essential."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Swiss Nuclear Plant Cost 14 to 43 Billion Francs</div>
-      <div class="article-snippet">Swiss Academies report puts new nuclear plant costs at 14–43 billion francs, with government risk-sharing deemed essential.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/swiss-nuclear-power-plant-cost-14-43-billion-francs/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.aa.com.tr/en/europe/bulgarias-kozloduy-nuclear-plant-cuts-output-because-of-danube-drought/4033319"
   data-title="Bulgaria&#x27;s Kozloduy nuclear plant cuts output because of Danube drought"
@@ -31367,6 +31321,72 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.theguardian.com/us-news/live/2026/aug/21/democrats-progressive-election-politics-live"
+  data-title="‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live"
+  data-publisher="The Guardian"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787323623"
+  data-country="OTHER"
+  data-search="‘shouldn’t be renamed at all’: senator attacks navy’s reported consideration of honoring trump instead of black war hero – live the guardian nuclear power·nuclear energy mark kelly, an arizona democrat and retired navy officer, slams navy’s mulling of naming a carrier for trump instead of wwii hero doris miller us navy carrier set to honor black war hero may reportedly be renamed after trump sign up for the us breaking news email a movement opposing automatic license plate reader camer"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Guardian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live</div>
+      <div class="article-snippet">Mark Kelly, an Arizona Democrat and retired Navy officer, slams Navy’s mulling of naming a carrier for Trump instead of WWII hero Doris Miller US navy carrier set to honor Black war hero may reportedly be renamed after Trump Sign up for the US Breaking News email A movement opposing automatic license plate reader camer</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1d83d714a4058ccd4df0689d.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.engineeringnews.co.za/article/kwikot-launches-hvac-offering-under-haier-air-water-solutions-2026-08-21"
+  data-title="Kwikot launches HVAC offering under Haier Air &amp; Water Solutions"
+  data-publisher="Engineering News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787321460"
+  data-country="CN"
+  data-search="kwikot launches hvac offering under haier air &amp; water solutions engineering news nuclear power·nuclear energy water heating systems manufacturer kwikot has formally entered the local heating, ventilation and air conditioning (hvac) market. the new offering represents the latest expansion of kwikot’s portfolio since its acquisition by chinese home appliance brand haier in 2024 and forms part of a broader air and water solutions"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Engineering News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Kwikot launches HVAC offering under Haier Air &amp; Water Solutions</div>
+      <div class="article-snippet">Water heating systems manufacturer Kwikot has formally entered the local heating, ventilation and air conditioning (HVAC) market. The new offering represents the latest expansion of Kwikot’s portfolio since its acquisition by Chinese home appliance brand Haier in 2024 and forms part of a broader air and water solutions</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a92ab70a547cfaf6ebdb315e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.latribune.fr/article/afrique/21221512823162/nigerian-exchange-pourquoi-la-hausse-des-benefices-profite-peu-aux-filiales-europeennes"
   data-title="Nigerian Exchange : pourquoi la hausse des bénéfices profite peu aux filiales européennes"
@@ -31397,6 +31417,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/41fbccc49272905e12e81fff.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-manh-len-thanh-bao-so-4-dac-khu-bach-long-vi-gio-manh-cap-8-giat-cap-9"
+  data-title="Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9."
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787317201"
+  data-country="VN"
+  data-search="tropical depression intensifies into typhoon number 4, bach long vi special zone experiences strong winds of level 8, gusting to level 9. vietnam.vn nuclear power·nuclear energy due to the influence of typhoon number 4, strong winds of level 8, gusting to level 9, were recorded in the bach long vi special zone (hai phong)."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9.</div>
+      <div class="article-snippet">Due to the influence of typhoon number 4, strong winds of level 8, gusting to level 9, were recorded in the Bach Long Vi special zone (Hai Phong).</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/94a54ff9e7b38a7f73d5d993.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38673,7 +38726,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">32건</span>
+    <span class="group-count">31건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -39534,6 +39587,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://montelnews.com/news/932908dd-ab31-4dc7-88d1-e6c86d48f8f9/finland-can-halve-smr-costs-with-2039-launch-helen-ceo"
+  data-title="Finland can halve SMR costs, 2039 launch eyed – Helen CEO"
+  data-publisher="Montel News"
+  data-group="SMR"
+  data-language="en"
+  data-priority="0"
+  data-published="1787304982"
+  data-country="FI"
+  data-search="finland can halve smr costs, 2039 launch eyed – helen ceo montel news smr helen ceo says finland can halve smr costs by pairing heat and power for district heating, targeting a commercial reactor around 2039."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Montel News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Finland can halve SMR costs, 2039 launch eyed – Helen CEO</div>
+      <div class="article-snippet">Helen CEO says Finland can halve SMR costs by pairing heat and power for district heating, targeting a commercial reactor around 2039.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3943bf26f857c72442d4a6a4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://economictimes.indiatimes.com/news/politics-and-nation/will-smriti-irani-challenge-rahul-gandhi-in-2029-heres-what-she-said-et-wlf-2026/videoshow/133396720.cms"
   data-title="Will Smriti Irani challenge Rahul Gandhi in 2029? Here’s what she said | ET WLF 2026"
@@ -39633,72 +39719,6 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/jobs/"
-  data-title="Nuclear &amp; SMR Jobs — smrintel.com"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1787274957"
-  data-country="OTHER"
-  data-search="nuclear &amp; smr jobs — smrintel.com smr intel smr open roles across the nuclear and smr industry. 300+ positions updated daily."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Nuclear &amp; SMR Jobs — smrintel.com</div>
-      <div class="article-snippet">Open roles across the nuclear and SMR industry. 300+ positions updated daily.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/opengraph-image" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/"
-  data-title="Newsfeed — smrintel.com"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1787272923"
-  data-country="OTHER"
-  data-search="newsfeed — smrintel.com smr intel smr real-time nuclear and smr news: funding rounds, regulatory milestones, deployment updates, and policy developments."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Newsfeed — smrintel.com</div>
-      <div class="article-snippet">Real-time nuclear and SMR news: funding rounds, regulatory milestones, deployment updates, and policy developments.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/opengraph-image" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://interestingengineering.com/energy/radiant-kaleidos-nuclear-fuel-supply"
   data-title="Portable 1MW Kaleidos reactor locks in crucial nuclear fuel supply"
@@ -39738,7 +39758,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">59건</span>
+    <span class="group-count">61건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -39775,6 +39795,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787324552"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787324551"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://english.kyodonews.net/articles/-/82759"
   data-title="FOCUS: Questions grow over Trump&#x27;s commitment to N. Korea denuclearization goal"
   data-publisher="Kyodo News"
@@ -39807,21 +39893,21 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
+<article class="preview-card new-article"
+  data-url="https://interestingengineering.com/science/crystal-nuclear-clock-10-times-more-precise"
+  data-title="Perfect crystal site brings ultra-precise nuclear clock closer to reality"
+  data-publisher="Interesting Engineering"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787323421"
+  data-published="1787324051"
   data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  data-search="perfect crystal site brings ultra-precise nuclear clock closer to reality interesting engineering nuclear power·nuclear energy scientists have succeeded in finding the perfect site inside a crystal to dope thorium 229 to make a nuclear clock which is 10 times more precise."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
+        <div class="publisher">Interesting Engineering</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -39831,12 +39917,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+      <div class="headline"><span class="new-badge">NEW</span>Perfect crystal site brings ultra-precise nuclear clock closer to reality</div>
+      <div class="article-snippet">Scientists have succeeded in finding the perfect site inside a crystal to dope thorium 229 to make a nuclear clock which is 10 times more precise.</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2eeac722acd71fbbd9e27e13.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39870,39 +39956,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787318409"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -40434,72 +40487,6 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/atomic-canyon-niva-ai-nuclear-industry-virtual-assistant/"
-  data-title="Atomic Canyon Launches NIVA AI for Nuclear Ops"
-  data-publisher="SMR Intel"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787272923"
-  data-country="OTHER"
-  data-search="atomic canyon launches niva ai for nuclear ops smr intel nuclear power·nuclear energy atomic canyon&#x27;s niva ai platform goes live with constellation energy as an early user, backed by nvidia and ex-vanguard ceo tim buckley."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Atomic Canyon Launches NIVA AI for Nuclear Ops</div>
-      <div class="article-snippet">Atomic Canyon&#x27;s NIVA AI platform goes live with Constellation Energy as an early user, backed by NVIDIA and ex-Vanguard CEO Tim Buckley.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/atomic-canyon-niva-ai-nuclear-industry-virtual-assistant/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/swiss-nuclear-power-plant-cost-14-43-billion-francs/"
-  data-title="Swiss Nuclear Plant Cost 14 to 43 Billion Francs"
-  data-publisher="SMR Intel"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787268630"
-  data-country="CH"
-  data-search="swiss nuclear plant cost 14 to 43 billion francs smr intel nuclear power·nuclear energy swiss academies report puts new nuclear plant costs at 14–43 billion francs, with government risk-sharing deemed essential."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Swiss Nuclear Plant Cost 14 to 43 Billion Francs</div>
-      <div class="article-snippet">Swiss Academies report puts new nuclear plant costs at 14–43 billion francs, with government risk-sharing deemed essential.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/swiss-nuclear-power-plant-cost-14-43-billion-francs/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.aa.com.tr/en/europe/bulgarias-kozloduy-nuclear-plant-cuts-output-because-of-danube-drought/4033319"
   data-title="Bulgaria&#x27;s Kozloduy nuclear plant cuts output because of Danube drought"
@@ -40533,6 +40520,72 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.theguardian.com/us-news/live/2026/aug/21/democrats-progressive-election-politics-live"
+  data-title="‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live"
+  data-publisher="The Guardian"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787323623"
+  data-country="OTHER"
+  data-search="‘shouldn’t be renamed at all’: senator attacks navy’s reported consideration of honoring trump instead of black war hero – live the guardian nuclear power·nuclear energy mark kelly, an arizona democrat and retired navy officer, slams navy’s mulling of naming a carrier for trump instead of wwii hero doris miller us navy carrier set to honor black war hero may reportedly be renamed after trump sign up for the us breaking news email a movement opposing automatic license plate reader camer"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Guardian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live</div>
+      <div class="article-snippet">Mark Kelly, an Arizona Democrat and retired Navy officer, slams Navy’s mulling of naming a carrier for Trump instead of WWII hero Doris Miller US navy carrier set to honor Black war hero may reportedly be renamed after Trump Sign up for the US Breaking News email A movement opposing automatic license plate reader camer</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1d83d714a4058ccd4df0689d.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.engineeringnews.co.za/article/kwikot-launches-hvac-offering-under-haier-air-water-solutions-2026-08-21"
+  data-title="Kwikot launches HVAC offering under Haier Air &amp; Water Solutions"
+  data-publisher="Engineering News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787321460"
+  data-country="CN"
+  data-search="kwikot launches hvac offering under haier air &amp; water solutions engineering news nuclear power·nuclear energy water heating systems manufacturer kwikot has formally entered the local heating, ventilation and air conditioning (hvac) market. the new offering represents the latest expansion of kwikot’s portfolio since its acquisition by chinese home appliance brand haier in 2024 and forms part of a broader air and water solutions"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Engineering News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Kwikot launches HVAC offering under Haier Air &amp; Water Solutions</div>
+      <div class="article-snippet">Water heating systems manufacturer Kwikot has formally entered the local heating, ventilation and air conditioning (HVAC) market. The new offering represents the latest expansion of Kwikot’s portfolio since its acquisition by Chinese home appliance brand Haier in 2024 and forms part of a broader air and water solutions</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a92ab70a547cfaf6ebdb315e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.latribune.fr/article/afrique/21221512823162/nigerian-exchange-pourquoi-la-hausse-des-benefices-profite-peu-aux-filiales-europeennes"
   data-title="Nigerian Exchange : pourquoi la hausse des bénéfices profite peu aux filiales européennes"
@@ -40563,6 +40616,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/41fbccc49272905e12e81fff.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-manh-len-thanh-bao-so-4-dac-khu-bach-long-vi-gio-manh-cap-8-giat-cap-9"
+  data-title="Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9."
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787317201"
+  data-country="VN"
+  data-search="tropical depression intensifies into typhoon number 4, bach long vi special zone experiences strong winds of level 8, gusting to level 9. vietnam.vn nuclear power·nuclear energy due to the influence of typhoon number 4, strong winds of level 8, gusting to level 9, were recorded in the bach long vi special zone (hai phong)."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9.</div>
+      <div class="article-snippet">Due to the influence of typhoon number 4, strong winds of level 8, gusting to level 9, were recorded in the Bach Long Vi special zone (Hai Phong).</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/94a54ff9e7b38a7f73d5d993.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -41992,7 +42078,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">70건</span>
+    <span class="group-count">69건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -44269,39 +44355,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/423f29fda812b2fdcb8fd6cf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/doosan-enerbility-laiyang-5-6-steam-generator-forgings/"
-  data-title="Doosan Enerbility Wins 8-Forging China Deal for Laiyang 5&amp;6"
-  data-publisher="SMR Intel"
-  data-group="타 건설사"
-  data-language="en"
-  data-priority="2"
-  data-published="1787213945"
-  data-country="CN"
-  data-search="doosan enerbility wins 8-forging china deal for laiyang 5&amp;6 smr intel 타 건설사 doosan enerbility contracts to deliver 8 forged steam generator components for china&#x27;s laiyang units 5&amp;6 by 2029."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Doosan Enerbility Wins 8-Forging China Deal for Laiyang 5&amp;6</div>
-      <div class="article-snippet">Doosan Enerbility contracts to deliver 8 forged steam generator components for China&#x27;s Laiyang units 5&amp;6 by 2029.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/doosan-enerbility-laiyang-5-6-steam-generator-forgings/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -50215,7 +50268,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -50512,39 +50565,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e220d71561f9020003fe47dc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/corpus-christi-marad-nuclear-maritime-smrts/"
-  data-title="Corpus Christi Joins MARAD Nuclear Maritime Push"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1787241995"
-  data-country="OTHER"
-  data-search="corpus christi joins marad nuclear maritime push smr intel smr port of corpus christi signs dual agreements with marad and core power to study smr integration and floating nuclear power plants."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Corpus Christi Joins MARAD Nuclear Maritime Push</div>
-      <div class="article-snippet">Port of Corpus Christi signs dual agreements with MARAD and Core Power to study SMR integration and floating nuclear power plants.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/corpus-christi-marad-nuclear-maritime-smrts/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -60512,7 +60532,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">106건</span>
+    <span class="group-count">105건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -62624,39 +62644,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/56c8ae3762264fb105318ba8.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/kinectrics-clean-core-aneel-thorium-fuel-qualification-review/"
-  data-title="Kinectrics Reviews Clean Core ANEEL Thorium Fuel Program"
-  data-publisher="SMR Intel"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="2"
-  data-published="1787151798"
-  data-country="OTHER"
-  data-search="kinectrics reviews clean core aneel thorium fuel program smr intel nuclear power·nuclear energy kinectrics will independently review clean core&#x27;s aneel thorium-haleu fuel design, manufacturing, safety, and regulatory readiness for candu deployment."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Kinectrics Reviews Clean Core ANEEL Thorium Fuel Program</div>
-      <div class="article-snippet">Kinectrics will independently review Clean Core&#x27;s ANEEL thorium-HALEU fuel design, manufacturing, safety, and regulatory readiness for CANDU deployment.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/kinectrics-clean-core-aneel-thorium-fuel-qualification-review/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -70494,7 +70481,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -70923,39 +70910,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ff84f51140ae53d6cb30dd17.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/jobs/"
-  data-title="Nuclear &amp; SMR Jobs — smrintel.com"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1787033695"
-  data-country="OTHER"
-  data-search="nuclear &amp; smr jobs — smrintel.com smr intel smr open roles across the nuclear and smr industry. 300+ positions updated daily."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Nuclear &amp; SMR Jobs — smrintel.com</div>
-      <div class="article-snippet">Open roles across the nuclear and SMR industry. 300+ positions updated daily.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/opengraph-image" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -74332,7 +74286,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -74431,39 +74385,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/135eabea8d9c1709811b0f44.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://smrintel.com/news/x-energy-1-billion-doe-terrapower-korea-natrium-deals-2026/"
-  data-title="X-energy Gets $1B More, TerraPower Lands Korea Deals"
-  data-publisher="SMR Intel"
-  data-group="현대건설"
-  data-language="en"
-  data-priority="1"
-  data-published="1786968713"
-  data-country="KR"
-  data-search="x-energy gets $1b more, terrapower lands korea deals smr intel 현대건설 doe adds $1b to x-energy&#x27;s seadrift project; terrapower signs epc and commercialization deals with hdec and sk innovation."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">X-energy Gets $1B More, TerraPower Lands Korea Deals</div>
-      <div class="article-snippet">DOE adds $1B to X-energy&#x27;s Seadrift project; TerraPower signs EPC and commercialization deals with HDEC and SK Innovation.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/x-energy-1-billion-doe-terrapower-korea-natrium-deals-2026/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -75700,7 +75621,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -75867,72 +75788,6 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/c9a255f3c1b2cecebd0da98b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
-
-<article class="preview-card new-article"
-  data-url="https://smrintel.com/news/"
-  data-title="Newsfeed — smrintel.com"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1786983366"
-  data-country="OTHER"
-  data-search="newsfeed — smrintel.com smr intel smr real-time nuclear and smr news: funding rounds, regulatory milestones, deployment updates, and policy developments."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>Newsfeed — smrintel.com</div>
-      <div class="article-snippet">Real-time nuclear and SMR news: funding rounds, regulatory milestones, deployment updates, and policy developments.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/opengraph-image" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://smrintel.com/watchlist/"
-  data-title="My Watchlist — smrintel.com"
-  data-publisher="SMR Intel"
-  data-group="SMR"
-  data-language="en"
-  data-priority="0"
-  data-published="1786983366"
-  data-country="OTHER"
-  data-search="my watchlist — smrintel.com smr intel smr track your favorite nuclear and smr companies, their latest news, and funding activity."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">My Watchlist — smrintel.com</div>
-      <div class="article-snippet">Track your favorite nuclear and SMR companies, their latest news, and funding activity.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/opengraph-image" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
 </div>
 </section>
 
@@ -75940,7 +75795,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">49건</span>
+    <span class="group-count">48건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -76072,39 +75927,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/1b07a945ce8fd167e4665b88.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://smrintel.com/news/india-shanti-bill-rules-public-consultation-2026/"
-  data-title="India&#x27;s SHANTI Bill Rules Open for Comment Until Sept 4"
-  data-publisher="SMR Intel"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1786980157"
-  data-country="IN"
-  data-search="india&#x27;s shanti bill rules open for comment until sept 4 smr intel nuclear power·nuclear energy india opens public comment on shanti act draft rules, enabling private nuclear participation and a single composite licence framework."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">SMR Intel</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">India&#x27;s SHANTI Bill Rules Open for Comment Until Sept 4</div>
-      <div class="article-snippet">India opens public comment on SHANTI Act draft rules, enabling private nuclear participation and a single composite licence framework.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://smrintel.com/news/india-shanti-bill-rules-public-consultation-2026/opengraph-image?4f8ae5e7a7710242" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -144520,7 +144342,7 @@ document.querySelectorAll(".tab-button").forEach(button => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
-const archiveCutoff="2026-08-21";
+const archiveCutoff="2026-08-22";
 const archiveDates=[...document.querySelectorAll(".archive-panel")]
   .map(x=>x.dataset.archiveDate)
   .filter(value=>value && value<=archiveCutoff)
@@ -145482,6 +145304,11 @@ function renderContinentRail2D(items){
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='continent-button'+(activeContinentFilter===code?' active':'');
+    const dockFlexMap = { NA:0.86, EU:0.86, AS:0.98, SA:0.92, OC:1.18, MEA:1.48 };
+    btn.style.setProperty('flex', `${dockFlexMap[code]||1} 1 0`, 'important');
+    btn.style.setProperty('width', 'auto', 'important');
+    btn.style.setProperty('max-width', 'none', 'important');
+    btn.style.setProperty('flex-basis', '0', 'important');
     btn.innerHTML=`<span class="continent-button-name">${CONTINENT_META[code].name}</span><span class="continent-button-count">${articles[code]||0}건</span>`;
     btn.addEventListener('click',()=>{
       const isSameContinent = activeContinentFilter===code;
@@ -146355,7 +146182,7 @@ function getContinentNativeRegion(code){
     NA:{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' },
     SA:{ points:'196,196 262,194 314,226 340,286 334,360 316,428 286,490 240,494 214,444 200,374 194,306 192,244' },
     EU:{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' },
-    AS:{ points:'520,44 636,44 764,60 892,82 984,126 998,198 958,242 888,258 806,250 758,238 738,258 716,250 700,222 690,194 670,172 644,154 610,132 570,104 540,78' },
+    AS:{ points:'520,44 636,44 764,60 892,82 984,126 998,198 958,242 888,258 806,250 730,226 662,200 592,170 540,132' },
     MEA:{ points:'392,146 474,148 540,170 578,220 600,286 606,360 596,432 562,490 504,494 456,466 430,410 412,344 398,276 390,206' },
     OC:{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }
   };
@@ -146740,14 +146567,14 @@ window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountr
 
 
 /* ============================================================
-   2026-08-21 FINAL OVERRIDE — ASIA INDIA HIGHLIGHT REFINED + NEAR COUNTRY LABELS
+   2026-08-21 FINAL OVERRIDE — MEA EASTWARD HIGHLIGHT + NEAR COUNTRY LABELS
    ============================================================ */
 function getContinentNativeRegion(code){
   const regions = {
     NA:{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' },
-    SA:{ points:'196,196 262,194 314,226 340,286 334,360 316,428 286,490 240,494 214,444 200,374 194,306 192,244' },
+    SA:{ points:'248,190 316,188 370,214 404,262 414,318 406,374 388,430 358,486 318,496 288,460 272,412 262,358 256,304 250,248' },
     EU:{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' },
-    AS:{ points:'520,44 636,44 764,60 892,82 984,126 998,198 958,242 888,258 806,250 730,226 662,200 592,170 540,132' },
+    AS:{ points:'520,44 636,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 700,232 672,242 656,276 646,316 620,324 586,300 558,252 540,188 540,132' },
     /* 중동·아프리카는 아라비아반도 쪽으로 더 넓게 잡아 중동이 빠지지 않게 조정 */
     MEA:{ points:'386,144 468,146 550,164 618,196 670,236 712,286 728,346 716,410 680,462 626,494 558,496 500,484 458,454 426,408 406,352 392,292 384,230' },
     OC:{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }
@@ -146779,11 +146606,11 @@ const FINAL_COUNTRY_LABEL_PRESETS = {
   TR:[[30,12],[30,-4]],
   DK:[[20,-16],[26,-4]],
   SK:[[30,10],[30,-6]],
-  RU:[[28,-22],[34,-6],[24,10]],
+  RU:[[-8,-34],[18,-32],[30,-26],[-24,-24]],
   AE:[[34,-4],[36,12],[28,22]],
   SA:[[30,18],[34,0],[24,32]],
   ZA:[[0,-26],[24,-8],[-24,-8]],
-  CN:[[-52,-6],[-58,12],[-46,28]],
+  CN:[[-34,22],[-46,30],[-24,34],[-52,18]],
   IN:[[-42,18],[-46,34],[-32,2]],
   VN:[[40,16],[38,30],[30,4]],
   TH:[[32,18],[30,32],[26,4]],
@@ -146796,7 +146623,7 @@ const FINAL_COUNTRY_LABEL_PRESETS = {
 
 const FINAL_CONTINENT_RENDER_ORDER = {
   EU:['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','DK','SK'],
-  AS:['KR','JP','CN','VN','IN','RU','TH','MY','SG'],
+  AS:['RU','CN','KR','JP','VN','IN','TH','MY','SG'],
   MEA:['AE','SA','ZA'],
   NA:['US','CA'],
   SA:['BR','AR','CL','CO','PE'],
@@ -146837,7 +146664,8 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){
   const presets = FINAL_COUNTRY_LABEL_PRESETS[itemCode] || [];
   let best = null;
   const consider = (box) => {
-    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,8) ? 1 : 0), 0);
+    const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 8;
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
     const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
     const dist = Math.hypot((box.left + w/2)-ax, (box.top + h/2)-ay);
     const edgePenalty = (
