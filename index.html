@@ -3225,7 +3225,7 @@ header,
   display:inline-flex !important;
   min-height:24px !important;
   padding:3px 6px !important;
-  gap:3px !important;
+  gap:2px !important;
   border:1px solid rgba(35,57,93,.18) !important;
   border-radius:999px !important;
   background:rgba(255,255,255,.94) !important;
@@ -6384,6 +6384,7 @@ header,
   font-size:9.2px !important;
   white-space:nowrap !important;
   word-break:keep-all !important;
+  overflow:visible !important;
 }
 .continent-button-meta { font-size:6.1px !important; white-space:nowrap !important; }
 .continent-button-count { font-size:8.4px !important; }
@@ -6555,7 +6556,7 @@ header,
   min-width:34px !important;
   height:25px !important;
   padding:0 !important;
-  border-radius:9px !important;
+  border-radius:8px !important;
   font-size:7.7px !important;
 }
 .continent-rail-scroll {
@@ -6659,7 +6660,7 @@ header,
   #continent-rail { width:80px !important; right:5px !important; top:8px !important; max-height:266px !important; padding:5px !important; }
   .continent-rail-title { font-size:8.1px !important; }
   .continent-all-button { width:31px !important; min-width:31px !important; height:23px !important; font-size:7.2px !important; }
-  .continent-button { min-height:29px !important; padding:4px !important; }
+  .continent-button { min-height:29px !important; padding:3px !important; }
   .continent-button-name { font-size:7.3px !important; }
   .continent-button-count { font-size:7.1px !important; }
   .country-map-visual .world-map-inline.globe-texture-source { left:4px !important; right:91px !important; top:7px !important; bottom:7px !important; }
@@ -6669,7 +6670,7 @@ header,
 @media (max-width:380px) {
   .country-map-visual.globe-mode { height:268px !important; min-height:268px !important; }
   #continent-rail { width:74px !important; max-height:252px !important; }
-  .continent-button-name { font-size:6.9px !important; }
+  .continent-button-name { font-size:6.1px !important; letter-spacing:-.28px !important; }
   .continent-button-count { font-size:6.8px !important; }
   .country-map-visual .world-map-inline.globe-texture-source { right:84px !important; }
   .country-native-node .country-native-text { font-size:15px !important; }
@@ -7005,7 +7006,7 @@ header,
   #continent-rail { width:63px !important; }
   .continent-rail-title { font-size:7.4px !important; }
   .continent-button-name { font-size:6.35px !important; }
-  .continent-button-count { font-size:6.25px !important; }
+  .continent-button-count { font-size:5.75px !important; }
 }
 
 
@@ -7196,7 +7197,7 @@ header,
   #continent-rail { width:58px !important; }
   .continent-rail-title { font-size:7.2px !important; }
   .continent-button-name { font-size:6.05px !important; }
-  .continent-button-count { font-size:5.95px !important; }
+  .continent-button-count { font-size:5.45px !important; }
   .precise-country-label { font-size:6.95px !important; }
   .precise-country-label .name,.precise-country-label .count { font-size:6.9px !important; }
 }
@@ -7286,13 +7287,13 @@ header,
 /* Bottom thumb-friendly continent dock */
 #continent-rail {
   position:absolute !important;
-  left:7px !important;
-  right:7px !important;
-  bottom:7px !important;
+  left:6px !important;
+  right:6px !important;
+  bottom:6px !important;
   top:auto !important;
   width:auto !important;
-  height:38px !important;
-  max-height:38px !important;
+  height:36px !important;
+  max-height:36px !important;
   display:block !important;
   padding:4px !important;
   border:1px solid rgba(148,185,208,.28) !important;
@@ -7307,7 +7308,7 @@ header,
 .continent-all-button { display:none !important; }
 .continent-rail-scroll {
   display:grid !important;
-  grid-template-columns:.85fr .85fr .92fr 1.18fr 1.34fr .96fr !important;
+  grid-template-columns:.78fr .78fr .76fr .88fr 1.46fr 1.04fr !important;
   align-items:stretch !important;
   gap:3px !important;
   width:100% !important;
@@ -7317,13 +7318,13 @@ header,
 }
 .continent-button {
   min-width:0 !important;
-  min-height:29px !important;
-  height:29px !important;
-  padding:2px 3px !important;
+  min-height:28px !important;
+  height:28px !important;
+  padding:1px 2px !important;
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
-  gap:3px !important;
+  gap:2px !important;
   border:1px solid rgba(190,207,219,.54) !important;
   border-radius:9px !important;
   background:linear-gradient(180deg,#ffffff,#f8fbfd) !important;
@@ -7334,16 +7335,16 @@ header,
 .continent-button-name {
   display:block !important;
   min-width:0 !important;
-  font-size:7.2px !important;
+  font-size:6.35px !important;
   font-weight:900 !important;
-  line-height:1.04 !important;
-  letter-spacing:-.22px !important;
-  white-space:normal !important;
+  line-height:1 !important;
+  letter-spacing:-.26px !important;
+  white-space:nowrap !important;
   word-break:keep-all !important;
 }
 .continent-button-count {
   flex:0 0 auto !important;
-  font-size:6.55px !important;
+  font-size:5.95px !important;
   font-weight:950 !important;
   line-height:1 !important;
   color:#2785b6 !important;
@@ -7420,18 +7421,18 @@ header,
 @media (max-width:430px) {
   .country-map-visual.globe-mode { height:244px !important; min-height:244px !important; }
   .country-map-visual .world-map-inline.globe-texture-source { left:6px !important; top:35px !important; width:calc(100% - 12px) !important; }
-  #continent-rail { left:6px !important; right:6px !important; bottom:6px !important; height:37px !important; max-height:37px !important; }
-  .continent-button { height:28px !important; min-height:28px !important; padding:2px !important; }
-  .continent-button-name { font-size:6.9px !important; }
-  .continent-button-count { font-size:6.25px !important; }
+  #continent-rail { left:5px !important; right:5px !important; bottom:5px !important; height:35px !important; max-height:35px !important; padding:3px !important; }
+  .continent-button { height:27px !important; min-height:27px !important; padding:1px !important; }
+  .continent-button-name { font-size:6.1px !important; letter-spacing:-.28px !important; }
+  .continent-button-count { font-size:5.75px !important; }
   .precise-country-label { min-height:19px !important; padding:2px 5px !important; font-size:7.4px !important; }
   .precise-country-label .flag { font-size:8.3px !important; }
   .precise-country-label .name,.precise-country-label .count { font-size:7.35px !important; }
 }
 @media (max-width:380px) {
   .country-map-visual.globe-mode { height:238px !important; min-height:238px !important; }
-  .continent-button-name { font-size:6.45px !important; }
-  .continent-button-count { font-size:5.95px !important; }
+  .continent-button-name { font-size:5.8px !important; letter-spacing:-.3px !important; }
+  .continent-button-count { font-size:5.45px !important; }
   .precise-country-label { font-size:7px !important; padding:2px 4px !important; }
   .precise-country-label .name,.precise-country-label .count { font-size:6.95px !important; }
 }
@@ -7557,6 +7558,119 @@ header,
   }
 }
 
+
+
+/* ============================================================
+   2026-08-21 FINAL HEADER STATE CHIP MOVE — move selected continent pill to top-right header
+   ============================================================ */
+.world-map-head {
+  align-items:flex-start !important;
+}
+#map-head-chip-slot {
+  margin-left:auto !important;
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:flex-end !important;
+  min-width:0 !important;
+  flex:0 0 auto !important;
+}
+#map-head-chip-slot .map-continent-state {
+  position:relative !important;
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:auto !important;
+  z-index:auto !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:5px !important;
+  min-height:24px !important;
+  height:24px !important;
+  padding:0 8px !important;
+  border:1px solid rgba(151,187,210,.34) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.97) !important;
+  box-shadow:0 2px 7px rgba(49,87,115,.06) !important;
+  white-space:nowrap !important;
+}
+#map-head-chip-slot .map-continent-back {
+  width:18px !important;
+  height:18px !important;
+  margin-left:-3px !important;
+  font-size:10px !important;
+}
+#map-head-chip-slot .map-continent-state .state-name {
+  font-size:8.1px !important;
+}
+#map-head-chip-slot .map-continent-state .state-meta {
+  font-size:6.7px !important;
+}
+@media (max-width:430px) {
+  #map-head-chip-slot .map-continent-state {
+    min-height:22px !important;
+    height:22px !important;
+    padding:0 7px !important;
+    gap:4px !important;
+  }
+  #map-head-chip-slot .map-continent-state .state-name { font-size:7.7px !important; }
+  #map-head-chip-slot .map-continent-state .state-meta { font-size:6.35px !important; }
+}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP ENLARGED AFTER HEADER CHIP MOVE
+   ============================================================ */
+.country-map-visual {
+  height: 224px !important;
+}
+@media (max-width:430px) {
+  .country-map-visual {
+    height: 214px !important;
+  }
+}
+@media (max-width:380px) {
+  .country-map-visual {
+    height: 204px !important;
+  }
+}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL THUMBNAIL VERTICAL MARGIN — top/bottom symmetric
+   Card height includes 1px borders + vertical padding (border-box).
+   ============================================================ */
+@media (max-width:430px) {
+  .card-side {
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+  }
+  .preview-image {
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+  }
+}
+
+@media (max-width:380px) {
+  .card-side {
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:center !important;
+  }
+  .preview-image {
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:center !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -7565,7 +7679,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 11:30 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 12:20 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -16050,7 +16164,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba1b7190&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba834658&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -16085,7 +16199,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba3a9110&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba91a3b0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -20572,7 +20686,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/394588f870ec0dee0cb12cda.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/e0315ec3edbe8afc894bf13e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24025,7 +24139,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ytn.co.kr/_ln/0101_202608202347009997"
   data-title="이 대통령, 최태원과 비공개 만찬...대미투자 논의 여부 주목"
   data-publisher="YTN"
@@ -24051,7 +24165,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이 대통령, 최태원과 비공개 만찬...대미투자 논의 여부 주목</div>
+      <div class="headline">이 대통령, 최태원과 비공개 만찬...대미투자 논의 여부 주목</div>
       <div class="article-snippet">이재명 대통령이 오늘(20일) 최태원 SK그룹 회장과 비공개 만찬 회동을 한 것으로 알려졌습니다.이 대통령과 최 회장의 만남은 지난달 미국 샌프란시스코에서 열린 &#x27;인공...</div>
     </div>
   </div>
@@ -32211,7 +32325,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">24건</span>
+    <span class="group-count">26건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32320,6 +32434,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.goodkyung.com/news/articleView.html?idxno=290506"
+  data-title="[굿모닝! 21일 건설업계 소식] GS건설·현대엔지니어링·DL이앤씨·대우건설·롯데건설 - 굿모닝경제"
+  data-publisher="굿모닝경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787280353"
+  data-country="OTHER"
+  data-search="[굿모닝! 21일 건설업계 소식] gs건설·현대엔지니어링·dl이앤씨·대우건설·롯데건설 - 굿모닝경제 굿모닝경제 타 건설사 gs건설은 신한은행과 서울 양천구 목동12단지 아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약을 체결했다. 협약을 통해 gs건설과 신한은행은 목동1"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">굿모닝경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[굿모닝! 21일 건설업계 소식] GS건설·현대엔지니어링·DL이앤씨·대우건설·롯데건설 - 굿모닝경제</div>
+      <div class="article-snippet">GS건설은 신한은행과 서울 양천구 목동12단지 아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약을 체결했다. 협약을 통해 GS건설과 신한은행은 목동1</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1a51cd50a884d8ade5dc5330.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4431184"
   data-title="GS건설, 목동12단지 수주전 위해 신한은행과 맞손"
   data-publisher="연합인포맥스"
@@ -32332,7 +32481,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32345,7 +32494,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 목동12단지 수주전 위해 신한은행과 맞손</div>
+      <div class="headline">GS건설, 목동12단지 수주전 위해 신한은행과 맞손</div>
       <div class="article-snippet">GS건설[006360]이 양천구 목동12단지 재건축 사업 수주를 위해 신한은행과 손을 잡았다.GS건설은 21일 신한은행과 목동12단지 아파트 재건축 정비사업의 사업 추진을 위한 금융 업무협약을 체결했다고 밝혔다.이번 협약에 따라 GS건설과 신한은행은 향후 목동12단지 재건축에 필요한 사업비와 조합원 이주비 등을 안정적으로 조달할 수 있도록 협력체계를 구축하기로 했다.해당 사업장은 오는 31일 시공사 입찰 제안서 접수를 마감할 예정이다.현재까지 GS건설을 비롯해, 대우건설[047040], 포스코이앤씨, IPARK현대산업개발 등 4개</div>
     </div>
   </div>
@@ -32367,7 +32516,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32402,7 +32551,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32424,7 +32573,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.srtimes.kr/news/articleView.html?idxno=210547"
   data-title="대우건설, 인천 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관…분양 돌입"
   data-publisher="SR타임스"
@@ -32437,7 +32586,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32450,7 +32599,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, 인천 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관…분양 돌입</div>
+      <div class="headline">대우건설, 인천 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관…분양 돌입</div>
       <div class="article-snippet">[SRT(에스알 타임스) 안병용 기자] 대우건설이 인천광역시 서해구 검암동 일원에 선보이는 민간참여 공공분양 아파트 ‘검암역 푸르지오 프라베뉴’의 견본주택을 21일 개관하고 본격적인 분양 일정에 돌입한다.​청약 일정은 오는 31일 특별공급을 시작으로 9월1일 1순위, 9월2일 2순위</div>
     </div>
   </div>
@@ -32459,7 +32608,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=479284"
   data-title="대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 31일 청약 돌입"
   data-publisher="핀포인트뉴스"
@@ -32472,7 +32621,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32485,7 +32634,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 31일 청약 돌입</div>
+      <div class="headline">대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 31일 청약 돌입</div>
       <div class="article-snippet">공공분양 아파트의 청약 제도가 민영주택과 다른 만큼 인천 검암역세권에서 공급되는 신규 단지에 청약하려는 수요자들은 자격 요건을 세밀하게 따져볼 필요가 있다. 특히 특별공급 비중이 높고 일반공급에서도 부부 중복청약이 가능해 청약 전략에 따라 접근 방식이 달라질 수 있다.대우건설은 인천광역시 서해구 검암동 일원에 조성하는 ‘검암역 푸르지오 프라베뉴’ 모델하우스를 21일 개관하고 분양에 들어간다고 밝혔다. 청약은 8월 31일 특별공급을 시작으로 9월 1일 1순위, 9월 2일 2순위 접수가 진행된다. 당첨자 발표는 9월 8일이며 정당계약은</div>
     </div>
   </div>
@@ -32507,7 +32656,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32542,7 +32691,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32577,7 +32726,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32612,7 +32761,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32647,7 +32796,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32669,7 +32818,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260821500315"
   data-title="GS건설, 신한은행·현대엘리베이터와 잇따라 업무협약 체결"
   data-publisher="브릿지경제"
@@ -32682,7 +32831,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32695,12 +32844,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 신한은행·현대엘리베이터와 잇따라 업무협약 체결</div>
+      <div class="headline">GS건설, 신한은행·현대엘리베이터와 잇따라 업무협약 체결</div>
       <div class="article-snippet">GS건설이 재건축 정비사업의 자금 조달과 초고층 건축물 핵심 기술 확보를 위해 금융권 및 전문기업과 연이어 업무협약(MOU)을 맺고 경쟁력 강화에 나섰다. GS건설은 21일 서울 종로구 그랑서울 본사에서 신한은행과 목동12단지아파트 재건축정비사업 추진을 위한 금융 업무</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f005d1da9133607c94b4ec88.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/dc340825e616ce2ef0289b1b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32717,7 +32866,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32752,7 +32901,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32774,7 +32923,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260821065300003?section=economy/all"
   data-title="GS건설, 신한은행과 목동12단지 재건축 금융협약 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -32787,7 +32936,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32800,7 +32949,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 신한은행과 목동12단지 재건축 금융협약 | 연합뉴스</div>
+      <div class="headline">GS건설, 신한은행과 목동12단지 재건축 금융협약 | 연합뉴스</div>
       <div class="article-snippet">(세종=연합뉴스) 오진송 기자 = GS건설은 21일 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지아파트 재건축정비사업의 원활한 추진...</div>
     </div>
   </div>
@@ -32822,7 +32971,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32857,7 +33006,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32892,7 +33041,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32927,7 +33076,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32962,7 +33111,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32997,7 +33146,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33020,6 +33169,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.koreaherald.com/article/10847985"
+  data-title="Doosan Enerbility wins W930b contract for Oman power plant"
+  data-publisher="The Korea Herald"
+  data-group="타 건설사"
+  data-language="en"
+  data-priority="2"
+  data-published="1787280162"
+  data-country="KR"
+  data-search="doosan enerbility wins w930b contract for oman power plant the korea herald 타 건설사 doosan enerbility said friday it has won a 930 billion won ($683 million) contract to build the misfah combined-cycle power plant in oman. the plant is schedule"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">25.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Korea Herald</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Doosan Enerbility wins W930b contract for Oman power plant</div>
+      <div class="article-snippet">Doosan Enerbility said Friday it has won a 930 billion won ($683 million) contract to build the Misfah combined-cycle power plant in Oman. The plant is schedule</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b98bd77fec5268317fdd8e88.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.koreajoongangdaily.com/business/doosan-enerbility-wins-930-billion-won-gas-plant-deal-in-oman/12836614"
   data-title="Doosan Enerbility wins 930 billion won gas plant deal in Oman"
   data-publisher="Korea JoongAng Daily"
@@ -33032,7 +33216,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33045,7 +33229,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Doosan Enerbility wins 930 billion won gas plant deal in Oman</div>
+      <div class="headline">Doosan Enerbility wins 930 billion won gas plant deal in Oman</div>
       <div class="article-snippet">Doosan Enerbility will help build a 1,600-megawatt combined-cycle gas power plant near Muscat, scheduled for completion in 2029.</div>
     </div>
   </div>
@@ -33063,7 +33247,7 @@ header,
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202410"
   data-title="고리원자력본부, &#x27;2026년 장학증서&#x27; 수여식 시행 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -33089,7 +33273,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, &#x27;2026년 장학증서&#x27; 수여식 시행 - 에너지데일리</div>
+      <div class="headline">고리원자력본부, &#x27;2026년 장학증서&#x27; 수여식 시행 - 에너지데일리</div>
       <div class="article-snippet">[에너지데일리 윤호철 기자] 한국수력원자력 고리원자력본부(본부장 반병훈)는 발전소 주변 지역 학생들의 안정적 학업 여건 지원과 우수 인재 육성 등을 위해 장학생</div>
     </div>
   </div>
@@ -33244,7 +33428,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33289,7 +33473,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787279400"
+  data-published="1787282400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -33317,6 +33501,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7531"
+  data-title="한전, 드론ㆍ사이버테러 복합위협 대응…신영주변전소서 실전훈련"
+  data-publisher="인사이트N파워"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787280432"
+  data-country="KR"
+  data-search="한전, 드론ㆍ사이버테러 복합위협 대응…신영주변전소서 실전훈련 인사이트n파워 한국전력 한국전력이 드론 공격과 사이버테러 등 복합 안보위협에 대비해 국가중요시설인 변전소 방호와 전력설비 긴급복구 대응체계를 점검했다. 한전은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 밝혔다.이번 훈련에는 한전을 비롯해 기후에너지환경부, 육군 제50사단, 영주시, 영주경찰서, 영주소방서 등 유관기관 관계자 160여명이 참여해 시설방호와 설비복구를 함께 수행하며 긴급복구 대응태세와 기관 간 협조체계를 점검했다.훈련 장소인 신영주변전소는 경북지역에 안정적으로 전력을 공급하는 동시"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전, 드론ㆍ사이버테러 복합위협 대응…신영주변전소서 실전훈련</div>
+      <div class="article-snippet">한국전력이 드론 공격과 사이버테러 등 복합 안보위협에 대비해 국가중요시설인 변전소 방호와 전력설비 긴급복구 대응체계를 점검했다. 한전은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 밝혔다.이번 훈련에는 한전을 비롯해 기후에너지환경부, 육군 제50사단, 영주시, 영주경찰서, 영주소방서 등 유관기관 관계자 160여명이 참여해 시설방호와 설비복구를 함께 수행하며 긴급복구 대응태세와 기관 간 협조체계를 점검했다.훈련 장소인 신영주변전소는 경북지역에 안정적으로 전력을 공급하는 동시</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4eac1686ca29d16ee5616912.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260821093036484"
   data-title="이기형 김포시장, 9개 건설사·16개 현장과 상생 논의...지역업체 참여 확대 추진"
@@ -33330,7 +33549,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33365,7 +33584,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33393,9 +33612,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202412"
+  data-title="한전KDN, 전남개발공사와 ‘스마트 주거 서비스 아이디어’를 공유하다 - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787281229"
+  data-country="KR"
+  data-search="한전kdn, 전남개발공사와 ‘스마트 주거 서비스 아이디어’를 공유하다 - 에너지데일리 에너지데일리 한전 계열사 [에너지데일리 송병훈 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 전남개발공사(사장 장충모)와 지난 20일 &#x27;공공주택 e복지서비스 실현을 위한 ‘스"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 전남개발공사와 ‘스마트 주거 서비스 아이디어’를 공유하다 - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 송병훈 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 전남개발공사(사장 장충모)와 지난 20일 &#x27;공공주택 e복지서비스 실현을 위한 ‘스</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/355b9decf674123e9d7c0834.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.sentv.co.kr/article/view/sentv202608210084"
   data-title="전남개발공사-한전KDN, 청년드림 만원주택 ‘스마트 주거서비스’ 발굴 나선다"
@@ -33409,7 +33663,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33484,7 +33738,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=479333"
   data-title="[인사] 과학기술정보통신부"
   data-publisher="핀포인트뉴스"
@@ -33510,7 +33764,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 과학기술정보통신부</div>
+      <div class="headline">[인사] 과학기술정보통신부</div>
       <div class="article-snippet">◇ 과장급 전보▲ 바이오융합혁신팀장 전승윤 ▲ 연구개발타당성심사팀장 윤지영</div>
     </div>
   </div>
@@ -33519,7 +33773,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.public25.com/news/articleView.html?idxno=53075"
   data-title="[인사] 과학기술정보통신부 - 퍼블릭타임스"
   data-publisher="서울신문"
@@ -33545,7 +33799,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 과학기술정보통신부 - 퍼블릭타임스</div>
+      <div class="headline">[인사] 과학기술정보통신부 - 퍼블릭타임스</div>
       <div class="article-snippet">△바이오융합혁신팀장 전승윤 △연구개발타당성심사팀장 윤지영노혁진 전문기자 rho@public25.com</div>
     </div>
   </div>
@@ -33554,7 +33808,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260821070200017?section=industry/all"
   data-title="[인사] 과학기술정보통신부 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -33580,7 +33834,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 과학기술정보통신부 | 연합뉴스</div>
+      <div class="headline">[인사] 과학기술정보통신부 | 연합뉴스</div>
       <div class="article-snippet">▲ 바이오융합혁신팀장 전승윤 ▲ 연구개발타당성심사팀장 윤지영 (서울=연합뉴스)</div>
     </div>
   </div>
@@ -33668,7 +33922,7 @@ header,
     <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://it.chosun.com/news/articleView.html?idxno=2023092168579"
   data-title="李대통령·최태원 SK 회장, 비공개 만찬…반도체·대미투자 논의"
   data-publisher="IT조선"
@@ -33694,7 +33948,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>李대통령·최태원 SK 회장, 비공개 만찬…반도체·대미투자 논의</div>
+      <div class="headline">李대통령·최태원 SK 회장, 비공개 만찬…반도체·대미투자 논의</div>
       <div class="article-snippet">이재명 대통령과 최태원 SK그룹 회장이 20일 오후 서울 모처에서 비공개 만찬 회동을 가졌다. 7월 말 미국 샌프란시스코에서 열린 ‘인공지능(AI) 서밋’ 참석 이후 약 1개월 만이다. 6월 3대 메가 프로젝트 발표를 앞두고 비공개 회동을 가진 지 2개월 만이기도 하다.이번 회동에서는</div>
     </div>
   </div>
@@ -34024,10 +34278,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">19건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=AKR20260821024651009"
+  data-title="말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합)"
+  data-publisher="한국경제TV"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787313129"
+  data-country="KR"
+  data-search="말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합) 한국경제tv 원자력 말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합)온두라스는 국토 80% 가뭄…세르비아서 &#x27;사바 강의 타이타닉&#x27; 노출물류비용 치솟자 운송업체들 대혼란…해상환적하고 육로 적극 활용(멕시코시티·서울=..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합)</div>
+      <div class="article-snippet">말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합)온두라스는 국토 80% 가뭄…세르비아서 &#x27;사바 강의 타이타닉&#x27; 노출물류비용 치솟자 운송업체들 대혼란…해상환적하고 육로 적극 활용(멕시코시티·서울=...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3dfe713827b71029e57941cf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://bizn.donga.com/dongaTop/3/all/20260821/134516418/3"
   data-title="3대 메가프로젝트에 ‘원전 19기’ 규모 전력 필요"
   data-publisher="동아일보"
@@ -34040,7 +34329,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34053,12 +34342,47 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>3대 메가프로젝트에 ‘원전 19기’ 규모 전력 필요</div>
+      <div class="headline">3대 메가프로젝트에 ‘원전 19기’ 규모 전력 필요</div>
       <div class="article-snippet">반도체 산업단지와 인공지능(AI) 데이터센터 등 3대 메가 프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kW로 전망됐다. 올 4월에 내놨던 전망보다 2680만 kW 늘어난 것으로, 3대 메가 프로젝트 가동에 대형 원전 19기 설비용량에 달하는 전력이 필…</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/98bfbe13533ea7393642335f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003757240"
+  data-title="독일, &#x27;드론 타격&#x27; 체르노빌 원전 격납시설 복구에 5000만 유로 지원"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787280150"
+  data-country="UA"
+  data-search="독일, &#x27;드론 타격&#x27; 체르노빌 원전 격납시설 복구에 5000만 유로 지원 뉴시스 원자력 [서울=뉴시스] 이재우 기자 = 독일이 러시아-우크라이나전쟁으로 손상된 체르노빌 원자력발전소 보호 격납 구조물의 복구를 위해 5000만 유로(약 810억원)을 지원하기로 했다. &#x27;신형 안전 격납 시설((new safe confinement·nsc)&#x27;라고 불리는 격납 구조물 전체 복구에는 최소 5억 유로가 필요할 것으로 추정된다. 유럽연합(eu)과 노르웨이 등도 앞서 격납 구조물 복구를 돕기 위해 자금 출연을 약속했다. 20일(현지시간) 키이우 인디펜던트와 도이체벨레(dw)에 따르면 카르스텐 슈나이더 독일 환경·자연보전·핵안전부 장관은 지난 18일 우크라이나 키이우를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>독일, &#x27;드론 타격&#x27; 체르노빌 원전 격납시설 복구에 5000만 유로 지원</div>
+      <div class="article-snippet">[서울=뉴시스] 이재우 기자 = 독일이 러시아-우크라이나전쟁으로 손상된 체르노빌 원자력발전소 보호 격납 구조물의 복구를 위해 5000만 유로(약 810억원)을 지원하기로 했다. &#x27;신형 안전 격납 시설((New Safe Confinement·NSC)&#x27;라고 불리는 격납 구조물 전체 복구에는 최소 5억 유로가 필요할 것으로 추정된다. 유럽연합(EU)과 노르웨이 등도 앞서 격납 구조물 복구를 돕기 위해 자금 출연을 약속했다. 20일(현지시간) 키이우 인디펜던트와 도이체벨레(DW)에 따르면 카르스텐 슈나이더 독일 환경·자연보전·핵안전부 장관은 지난 18일 우크라이나 키이우를</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6546d16e976b07ae278821fb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34075,7 +34399,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34110,7 +34434,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34145,7 +34469,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34180,7 +34504,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34215,7 +34539,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34250,7 +34574,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34285,7 +34609,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34320,7 +34644,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34355,7 +34679,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34390,7 +34714,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34425,7 +34749,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34460,7 +34784,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34495,7 +34819,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34530,7 +34854,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34565,7 +34889,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34600,7 +34924,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34883,7 +35207,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787279735"
+  data-published="1787282710"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -34991,19 +35315,54 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787282654"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
   data-title="Global Nuclear Power Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787279682"
+  data-published="1787282652"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35032,13 +35391,13 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787279090"
+  data-published="1787282303"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35057,41 +35416,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787278796"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35200,7 +35524,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/ha-tinh-phe-duyet-de-an-ton-vinh-doanh-nghiep-doanh-nhan-tieu-bieu-giai-doan-2026-2030"
   data-title="Ha Tinh province approves the Project to honor outstanding businesses and entrepreneurs for the period 2026 - 2030."
   data-publisher="Vietnam.vn"
@@ -35226,7 +35550,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Ha Tinh province approves the Project to honor outstanding businesses and entrepreneurs for the period 2026 - 2030.</div>
+      <div class="headline">Ha Tinh province approves the Project to honor outstanding businesses and entrepreneurs for the period 2026 - 2030.</div>
       <div class="article-snippet">(Baohatinh.vn) - The People&#x27;s Committee of Ha Tinh province has just issued Decision No. 2089/QD-UBND dated August 18, 2026, approving the Project for awarding the titles of &quot;Outstanding Enterprise&quot; and &quot;Outstanding Entrepreneur&quot; of Ha Tinh province for the period 2026 - 2030.</div>
     </div>
   </div>
@@ -35235,7 +35559,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.internazionale.it/ultime-notizie-reuters/2026/08/21/democratic-california-state-legislator-wahab-wins-us-house-seat-media-projects"
   data-title="Democratic California state legislator Wahab wins US House of Representatives seat"
   data-publisher="Internazionale"
@@ -35261,7 +35585,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Democratic California state legislator Wahab wins US House of Representatives seat</div>
+      <div class="headline">Democratic California state legislator Wahab wins US House of Representatives seat</div>
       <div class="article-snippet">By Richard Cowan and Kanishka SinghWASHINGTON, Aug 20 (Reuters) - Democrat Aisha Wahab, a member of the California state Senate, was projected on Thursday to win a specia… Leggi</div>
     </div>
   </div>
@@ -35270,7 +35594,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/thoi-tiet-ngay-21-8-ap-thap-nhiet-doi-co-kha-nang-manh-len-thanh-bao-bac-bo-mua-rat-to"
   data-title="Weather forecast for August 21st: Tropical depression likely to strengthen into a storm, very heavy rain in Northern Vietnam."
   data-publisher="Vietnam.vn"
@@ -35296,7 +35620,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Weather forecast for August 21st: Tropical depression likely to strengthen into a storm, very heavy rain in Northern Vietnam.</div>
+      <div class="headline">Weather forecast for August 21st: Tropical depression likely to strengthen into a storm, very heavy rain in Northern Vietnam.</div>
       <div class="article-snippet">According to the National Center for Hydro-Meteorological Forecasting, on August 21st, the tropical depression in the eastern part of the northern Gulf of Tonkin is moving slowly towards the west-northwest and has the potential to strengthen into a typhoon. Due to the influence of the tropical depression&#x27;s circulation,</div>
     </div>
   </div>
@@ -35410,7 +35734,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/nvidia-de-xuat-4-huong-hop-tac-chien-luoc-voi-viet-nam"
   data-title="NVIDIA proposes four strategic areas of cooperation with Vietnam."
   data-publisher="Vietnam.vn"
@@ -35436,7 +35760,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>NVIDIA proposes four strategic areas of cooperation with Vietnam.</div>
+      <div class="headline">NVIDIA proposes four strategic areas of cooperation with Vietnam.</div>
       <div class="article-snippet">During a meeting with the Ministry of Science and Technology on August 20, 2026, NVIDIA representatives proposed strengthening cooperation with Vietnam in four key areas: building a large-scale programming language (LLM) mastered by Vietnam, developing AI infrastructure and GPU capabilities, training human resources, a</div>
     </div>
   </div>
@@ -35658,7 +35982,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">24건</span>
+    <span class="group-count">26건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35767,6 +36091,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.goodkyung.com/news/articleView.html?idxno=290506"
+  data-title="[굿모닝! 21일 건설업계 소식] GS건설·현대엔지니어링·DL이앤씨·대우건설·롯데건설 - 굿모닝경제"
+  data-publisher="굿모닝경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787280353"
+  data-country="OTHER"
+  data-search="[굿모닝! 21일 건설업계 소식] gs건설·현대엔지니어링·dl이앤씨·대우건설·롯데건설 - 굿모닝경제 굿모닝경제 타 건설사 gs건설은 신한은행과 서울 양천구 목동12단지 아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약을 체결했다. 협약을 통해 gs건설과 신한은행은 목동1"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">굿모닝경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[굿모닝! 21일 건설업계 소식] GS건설·현대엔지니어링·DL이앤씨·대우건설·롯데건설 - 굿모닝경제</div>
+      <div class="article-snippet">GS건설은 신한은행과 서울 양천구 목동12단지 아파트 재건축정비사업의 원활한 사업 추진을 위한 금융 업무협약을 체결했다. 협약을 통해 GS건설과 신한은행은 목동1</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1a51cd50a884d8ade5dc5330.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4431184"
   data-title="GS건설, 목동12단지 수주전 위해 신한은행과 맞손"
   data-publisher="연합인포맥스"
@@ -35779,7 +36138,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35792,7 +36151,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 목동12단지 수주전 위해 신한은행과 맞손</div>
+      <div class="headline">GS건설, 목동12단지 수주전 위해 신한은행과 맞손</div>
       <div class="article-snippet">GS건설[006360]이 양천구 목동12단지 재건축 사업 수주를 위해 신한은행과 손을 잡았다.GS건설은 21일 신한은행과 목동12단지 아파트 재건축 정비사업의 사업 추진을 위한 금융 업무협약을 체결했다고 밝혔다.이번 협약에 따라 GS건설과 신한은행은 향후 목동12단지 재건축에 필요한 사업비와 조합원 이주비 등을 안정적으로 조달할 수 있도록 협력체계를 구축하기로 했다.해당 사업장은 오는 31일 시공사 입찰 제안서 접수를 마감할 예정이다.현재까지 GS건설을 비롯해, 대우건설[047040], 포스코이앤씨, IPARK현대산업개발 등 4개</div>
     </div>
   </div>
@@ -35814,7 +36173,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35849,7 +36208,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35871,7 +36230,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.srtimes.kr/news/articleView.html?idxno=210547"
   data-title="대우건설, 인천 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관…분양 돌입"
   data-publisher="SR타임스"
@@ -35884,7 +36243,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35897,7 +36256,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, 인천 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관…분양 돌입</div>
+      <div class="headline">대우건설, 인천 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택 개관…분양 돌입</div>
       <div class="article-snippet">[SRT(에스알 타임스) 안병용 기자] 대우건설이 인천광역시 서해구 검암동 일원에 선보이는 민간참여 공공분양 아파트 ‘검암역 푸르지오 프라베뉴’의 견본주택을 21일 개관하고 본격적인 분양 일정에 돌입한다.​청약 일정은 오는 31일 특별공급을 시작으로 9월1일 1순위, 9월2일 2순위</div>
     </div>
   </div>
@@ -35906,7 +36265,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=479284"
   data-title="대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 31일 청약 돌입"
   data-publisher="핀포인트뉴스"
@@ -35919,7 +36278,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35932,7 +36291,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 31일 청약 돌입</div>
+      <div class="headline">대우건설, &#x27;검암역 푸르지오 프라베뉴&#x27; 31일 청약 돌입</div>
       <div class="article-snippet">공공분양 아파트의 청약 제도가 민영주택과 다른 만큼 인천 검암역세권에서 공급되는 신규 단지에 청약하려는 수요자들은 자격 요건을 세밀하게 따져볼 필요가 있다. 특히 특별공급 비중이 높고 일반공급에서도 부부 중복청약이 가능해 청약 전략에 따라 접근 방식이 달라질 수 있다.대우건설은 인천광역시 서해구 검암동 일원에 조성하는 ‘검암역 푸르지오 프라베뉴’ 모델하우스를 21일 개관하고 분양에 들어간다고 밝혔다. 청약은 8월 31일 특별공급을 시작으로 9월 1일 1순위, 9월 2일 2순위 접수가 진행된다. 당첨자 발표는 9월 8일이며 정당계약은</div>
     </div>
   </div>
@@ -35954,7 +36313,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35989,7 +36348,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36024,7 +36383,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36059,7 +36418,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36094,7 +36453,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36116,7 +36475,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260821500315"
   data-title="GS건설, 신한은행·현대엘리베이터와 잇따라 업무협약 체결"
   data-publisher="브릿지경제"
@@ -36129,7 +36488,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36142,12 +36501,12 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 신한은행·현대엘리베이터와 잇따라 업무협약 체결</div>
+      <div class="headline">GS건설, 신한은행·현대엘리베이터와 잇따라 업무협약 체결</div>
       <div class="article-snippet">GS건설이 재건축 정비사업의 자금 조달과 초고층 건축물 핵심 기술 확보를 위해 금융권 및 전문기업과 연이어 업무협약(MOU)을 맺고 경쟁력 강화에 나섰다. GS건설은 21일 서울 종로구 그랑서울 본사에서 신한은행과 목동12단지아파트 재건축정비사업 추진을 위한 금융 업무</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f005d1da9133607c94b4ec88.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/dc340825e616ce2ef0289b1b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36164,7 +36523,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36199,7 +36558,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36221,7 +36580,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260821065300003?section=economy/all"
   data-title="GS건설, 신한은행과 목동12단지 재건축 금융협약 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -36234,7 +36593,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36247,7 +36606,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 신한은행과 목동12단지 재건축 금융협약 | 연합뉴스</div>
+      <div class="headline">GS건설, 신한은행과 목동12단지 재건축 금융협약 | 연합뉴스</div>
       <div class="article-snippet">(세종=연합뉴스) 오진송 기자 = GS건설은 21일 서울 종로구 그랑서울 본사 사옥에서 신한은행과 목동12단지아파트 재건축정비사업의 원활한 추진...</div>
     </div>
   </div>
@@ -36269,7 +36628,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36304,7 +36663,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36339,7 +36698,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36374,7 +36733,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36409,7 +36768,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36444,7 +36803,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36467,6 +36826,41 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.koreaherald.com/article/10847985"
+  data-title="Doosan Enerbility wins W930b contract for Oman power plant"
+  data-publisher="The Korea Herald"
+  data-group="타 건설사"
+  data-language="en"
+  data-priority="2"
+  data-published="1787280162"
+  data-country="KR"
+  data-search="doosan enerbility wins w930b contract for oman power plant the korea herald 타 건설사 doosan enerbility said friday it has won a 930 billion won ($683 million) contract to build the misfah combined-cycle power plant in oman. the plant is schedule"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">25.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Korea Herald</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Doosan Enerbility wins W930b contract for Oman power plant</div>
+      <div class="article-snippet">Doosan Enerbility said Friday it has won a 930 billion won ($683 million) contract to build the Misfah combined-cycle power plant in Oman. The plant is schedule</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b98bd77fec5268317fdd8e88.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.koreajoongangdaily.com/business/doosan-enerbility-wins-930-billion-won-gas-plant-deal-in-oman/12836614"
   data-title="Doosan Enerbility wins 930 billion won gas plant deal in Oman"
   data-publisher="Korea JoongAng Daily"
@@ -36479,7 +36873,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36492,7 +36886,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Doosan Enerbility wins 930 billion won gas plant deal in Oman</div>
+      <div class="headline">Doosan Enerbility wins 930 billion won gas plant deal in Oman</div>
       <div class="article-snippet">Doosan Enerbility will help build a 1,600-megawatt combined-cycle gas power plant near Muscat, scheduled for completion in 2029.</div>
     </div>
   </div>
@@ -36510,7 +36904,7 @@ header,
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202410"
   data-title="고리원자력본부, &#x27;2026년 장학증서&#x27; 수여식 시행 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -36536,7 +36930,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, &#x27;2026년 장학증서&#x27; 수여식 시행 - 에너지데일리</div>
+      <div class="headline">고리원자력본부, &#x27;2026년 장학증서&#x27; 수여식 시행 - 에너지데일리</div>
       <div class="article-snippet">[에너지데일리 윤호철 기자] 한국수력원자력 고리원자력본부(본부장 반병훈)는 발전소 주변 지역 학생들의 안정적 학업 여건 지원과 우수 인재 육성 등을 위해 장학생</div>
     </div>
   </div>
@@ -36691,7 +37085,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36736,7 +37130,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787279400"
+  data-published="1787282400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -36764,6 +37158,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7531"
+  data-title="한전, 드론ㆍ사이버테러 복합위협 대응…신영주변전소서 실전훈련"
+  data-publisher="인사이트N파워"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787280432"
+  data-country="KR"
+  data-search="한전, 드론ㆍ사이버테러 복합위협 대응…신영주변전소서 실전훈련 인사이트n파워 한국전력 한국전력이 드론 공격과 사이버테러 등 복합 안보위협에 대비해 국가중요시설인 변전소 방호와 전력설비 긴급복구 대응체계를 점검했다. 한전은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 밝혔다.이번 훈련에는 한전을 비롯해 기후에너지환경부, 육군 제50사단, 영주시, 영주경찰서, 영주소방서 등 유관기관 관계자 160여명이 참여해 시설방호와 설비복구를 함께 수행하며 긴급복구 대응태세와 기관 간 협조체계를 점검했다.훈련 장소인 신영주변전소는 경북지역에 안정적으로 전력을 공급하는 동시"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전, 드론ㆍ사이버테러 복합위협 대응…신영주변전소서 실전훈련</div>
+      <div class="article-snippet">한국전력이 드론 공격과 사이버테러 등 복합 안보위협에 대비해 국가중요시설인 변전소 방호와 전력설비 긴급복구 대응체계를 점검했다. 한전은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 밝혔다.이번 훈련에는 한전을 비롯해 기후에너지환경부, 육군 제50사단, 영주시, 영주경찰서, 영주소방서 등 유관기관 관계자 160여명이 참여해 시설방호와 설비복구를 함께 수행하며 긴급복구 대응태세와 기관 간 협조체계를 점검했다.훈련 장소인 신영주변전소는 경북지역에 안정적으로 전력을 공급하는 동시</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4eac1686ca29d16ee5616912.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260821093036484"
   data-title="이기형 김포시장, 9개 건설사·16개 현장과 상생 논의...지역업체 참여 확대 추진"
@@ -36777,7 +37206,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36812,7 +37241,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36840,9 +37269,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202412"
+  data-title="한전KDN, 전남개발공사와 ‘스마트 주거 서비스 아이디어’를 공유하다 - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787281229"
+  data-country="KR"
+  data-search="한전kdn, 전남개발공사와 ‘스마트 주거 서비스 아이디어’를 공유하다 - 에너지데일리 에너지데일리 한전 계열사 [에너지데일리 송병훈 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 전남개발공사(사장 장충모)와 지난 20일 &#x27;공공주택 e복지서비스 실현을 위한 ‘스"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 전남개발공사와 ‘스마트 주거 서비스 아이디어’를 공유하다 - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 송병훈 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 전남개발공사(사장 장충모)와 지난 20일 &#x27;공공주택 e복지서비스 실현을 위한 ‘스</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/355b9decf674123e9d7c0834.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.sentv.co.kr/article/view/sentv202608210084"
   data-title="전남개발공사-한전KDN, 청년드림 만원주택 ‘스마트 주거서비스’ 발굴 나선다"
@@ -36856,7 +37320,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36931,7 +37395,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=479333"
   data-title="[인사] 과학기술정보통신부"
   data-publisher="핀포인트뉴스"
@@ -36957,7 +37421,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 과학기술정보통신부</div>
+      <div class="headline">[인사] 과학기술정보통신부</div>
       <div class="article-snippet">◇ 과장급 전보▲ 바이오융합혁신팀장 전승윤 ▲ 연구개발타당성심사팀장 윤지영</div>
     </div>
   </div>
@@ -36966,7 +37430,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.public25.com/news/articleView.html?idxno=53075"
   data-title="[인사] 과학기술정보통신부 - 퍼블릭타임스"
   data-publisher="서울신문"
@@ -36992,7 +37456,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 과학기술정보통신부 - 퍼블릭타임스</div>
+      <div class="headline">[인사] 과학기술정보통신부 - 퍼블릭타임스</div>
       <div class="article-snippet">△바이오융합혁신팀장 전승윤 △연구개발타당성심사팀장 윤지영노혁진 전문기자 rho@public25.com</div>
     </div>
   </div>
@@ -37001,7 +37465,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260821070200017?section=industry/all"
   data-title="[인사] 과학기술정보통신부 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -37027,7 +37491,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 과학기술정보통신부 | 연합뉴스</div>
+      <div class="headline">[인사] 과학기술정보통신부 | 연합뉴스</div>
       <div class="article-snippet">▲ 바이오융합혁신팀장 전승윤 ▲ 연구개발타당성심사팀장 윤지영 (서울=연합뉴스)</div>
     </div>
   </div>
@@ -37115,7 +37579,7 @@ header,
     <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://it.chosun.com/news/articleView.html?idxno=2023092168579"
   data-title="李대통령·최태원 SK 회장, 비공개 만찬…반도체·대미투자 논의"
   data-publisher="IT조선"
@@ -37141,7 +37605,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>李대통령·최태원 SK 회장, 비공개 만찬…반도체·대미투자 논의</div>
+      <div class="headline">李대통령·최태원 SK 회장, 비공개 만찬…반도체·대미투자 논의</div>
       <div class="article-snippet">이재명 대통령과 최태원 SK그룹 회장이 20일 오후 서울 모처에서 비공개 만찬 회동을 가졌다. 7월 말 미국 샌프란시스코에서 열린 ‘인공지능(AI) 서밋’ 참석 이후 약 1개월 만이다. 6월 3대 메가 프로젝트 발표를 앞두고 비공개 회동을 가진 지 2개월 만이기도 하다.이번 회동에서는</div>
     </div>
   </div>
@@ -37471,10 +37935,45 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">19건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=AKR20260821024651009"
+  data-title="말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합)"
+  data-publisher="한국경제TV"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787313129"
+  data-country="KR"
+  data-search="말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합) 한국경제tv 원자력 말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합)온두라스는 국토 80% 가뭄…세르비아서 &#x27;사바 강의 타이타닉&#x27; 노출물류비용 치솟자 운송업체들 대혼란…해상환적하고 육로 적극 활용(멕시코시티·서울=..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합)</div>
+      <div class="article-snippet">말라붙은 지구촌…파나마운하 통항에 유럽 원전까지 차질(종합)온두라스는 국토 80% 가뭄…세르비아서 &#x27;사바 강의 타이타닉&#x27; 노출물류비용 치솟자 운송업체들 대혼란…해상환적하고 육로 적극 활용(멕시코시티·서울=...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3dfe713827b71029e57941cf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://bizn.donga.com/dongaTop/3/all/20260821/134516418/3"
   data-title="3대 메가프로젝트에 ‘원전 19기’ 규모 전력 필요"
   data-publisher="동아일보"
@@ -37487,7 +37986,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37500,12 +37999,47 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>3대 메가프로젝트에 ‘원전 19기’ 규모 전력 필요</div>
+      <div class="headline">3대 메가프로젝트에 ‘원전 19기’ 규모 전력 필요</div>
       <div class="article-snippet">반도체 산업단지와 인공지능(AI) 데이터센터 등 3대 메가 프로젝트를 반영한 2040년 최대 전력수요가 1억6500만 kW로 전망됐다. 올 4월에 내놨던 전망보다 2680만 kW 늘어난 것으로, 3대 메가 프로젝트 가동에 대형 원전 19기 설비용량에 달하는 전력이 필…</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/98bfbe13533ea7393642335f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003757240"
+  data-title="독일, &#x27;드론 타격&#x27; 체르노빌 원전 격납시설 복구에 5000만 유로 지원"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787280150"
+  data-country="UA"
+  data-search="독일, &#x27;드론 타격&#x27; 체르노빌 원전 격납시설 복구에 5000만 유로 지원 뉴시스 원자력 [서울=뉴시스] 이재우 기자 = 독일이 러시아-우크라이나전쟁으로 손상된 체르노빌 원자력발전소 보호 격납 구조물의 복구를 위해 5000만 유로(약 810억원)을 지원하기로 했다. &#x27;신형 안전 격납 시설((new safe confinement·nsc)&#x27;라고 불리는 격납 구조물 전체 복구에는 최소 5억 유로가 필요할 것으로 추정된다. 유럽연합(eu)과 노르웨이 등도 앞서 격납 구조물 복구를 돕기 위해 자금 출연을 약속했다. 20일(현지시간) 키이우 인디펜던트와 도이체벨레(dw)에 따르면 카르스텐 슈나이더 독일 환경·자연보전·핵안전부 장관은 지난 18일 우크라이나 키이우를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>독일, &#x27;드론 타격&#x27; 체르노빌 원전 격납시설 복구에 5000만 유로 지원</div>
+      <div class="article-snippet">[서울=뉴시스] 이재우 기자 = 독일이 러시아-우크라이나전쟁으로 손상된 체르노빌 원자력발전소 보호 격납 구조물의 복구를 위해 5000만 유로(약 810억원)을 지원하기로 했다. &#x27;신형 안전 격납 시설((New Safe Confinement·NSC)&#x27;라고 불리는 격납 구조물 전체 복구에는 최소 5억 유로가 필요할 것으로 추정된다. 유럽연합(EU)과 노르웨이 등도 앞서 격납 구조물 복구를 돕기 위해 자금 출연을 약속했다. 20일(현지시간) 키이우 인디펜던트와 도이체벨레(DW)에 따르면 카르스텐 슈나이더 독일 환경·자연보전·핵안전부 장관은 지난 18일 우크라이나 키이우를</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6546d16e976b07ae278821fb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37522,7 +38056,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37557,7 +38091,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37592,7 +38126,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37627,7 +38161,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37662,7 +38196,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37697,7 +38231,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37732,7 +38266,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37767,7 +38301,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37802,7 +38336,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37837,7 +38371,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37872,7 +38406,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37907,7 +38441,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37942,7 +38476,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -37977,7 +38511,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38012,7 +38546,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38047,7 +38581,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38330,7 +38864,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787279735"
+  data-published="1787282710"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -38438,19 +38972,54 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787282654"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
   data-title="Global Nuclear Power Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787279682"
+  data-published="1787282652"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38479,13 +39048,13 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787279090"
+  data-published="1787282303"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38504,41 +39073,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787278796"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38647,7 +39181,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/ha-tinh-phe-duyet-de-an-ton-vinh-doanh-nghiep-doanh-nhan-tieu-bieu-giai-doan-2026-2030"
   data-title="Ha Tinh province approves the Project to honor outstanding businesses and entrepreneurs for the period 2026 - 2030."
   data-publisher="Vietnam.vn"
@@ -38673,7 +39207,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Ha Tinh province approves the Project to honor outstanding businesses and entrepreneurs for the period 2026 - 2030.</div>
+      <div class="headline">Ha Tinh province approves the Project to honor outstanding businesses and entrepreneurs for the period 2026 - 2030.</div>
       <div class="article-snippet">(Baohatinh.vn) - The People&#x27;s Committee of Ha Tinh province has just issued Decision No. 2089/QD-UBND dated August 18, 2026, approving the Project for awarding the titles of &quot;Outstanding Enterprise&quot; and &quot;Outstanding Entrepreneur&quot; of Ha Tinh province for the period 2026 - 2030.</div>
     </div>
   </div>
@@ -38682,7 +39216,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.internazionale.it/ultime-notizie-reuters/2026/08/21/democratic-california-state-legislator-wahab-wins-us-house-seat-media-projects"
   data-title="Democratic California state legislator Wahab wins US House of Representatives seat"
   data-publisher="Internazionale"
@@ -38708,7 +39242,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Democratic California state legislator Wahab wins US House of Representatives seat</div>
+      <div class="headline">Democratic California state legislator Wahab wins US House of Representatives seat</div>
       <div class="article-snippet">By Richard Cowan and Kanishka SinghWASHINGTON, Aug 20 (Reuters) - Democrat Aisha Wahab, a member of the California state Senate, was projected on Thursday to win a specia… Leggi</div>
     </div>
   </div>
@@ -38717,7 +39251,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/thoi-tiet-ngay-21-8-ap-thap-nhiet-doi-co-kha-nang-manh-len-thanh-bao-bac-bo-mua-rat-to"
   data-title="Weather forecast for August 21st: Tropical depression likely to strengthen into a storm, very heavy rain in Northern Vietnam."
   data-publisher="Vietnam.vn"
@@ -38743,7 +39277,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Weather forecast for August 21st: Tropical depression likely to strengthen into a storm, very heavy rain in Northern Vietnam.</div>
+      <div class="headline">Weather forecast for August 21st: Tropical depression likely to strengthen into a storm, very heavy rain in Northern Vietnam.</div>
       <div class="article-snippet">According to the National Center for Hydro-Meteorological Forecasting, on August 21st, the tropical depression in the eastern part of the northern Gulf of Tonkin is moving slowly towards the west-northwest and has the potential to strengthen into a typhoon. Due to the influence of the tropical depression&#x27;s circulation,</div>
     </div>
   </div>
@@ -38857,7 +39391,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/nvidia-de-xuat-4-huong-hop-tac-chien-luoc-voi-viet-nam"
   data-title="NVIDIA proposes four strategic areas of cooperation with Vietnam."
   data-publisher="Vietnam.vn"
@@ -38883,7 +39417,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>NVIDIA proposes four strategic areas of cooperation with Vietnam.</div>
+      <div class="headline">NVIDIA proposes four strategic areas of cooperation with Vietnam.</div>
       <div class="article-snippet">During a meeting with the Ministry of Science and Technology on August 20, 2026, NVIDIA representatives proposed strengthening cooperation with Vietnam in four key areas: building a large-scale programming language (LLM) mastered by Vietnam, developing AI infrastructure and GPU capabilities, training human resources, a</div>
     </div>
   </div>
@@ -40399,7 +40933,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/394588f870ec0dee0cb12cda.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/e0315ec3edbe8afc894bf13e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -43852,7 +44386,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ytn.co.kr/_ln/0101_202608202347009997"
   data-title="이 대통령, 최태원과 비공개 만찬...대미투자 논의 여부 주목"
   data-publisher="YTN"
@@ -43878,7 +44412,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이 대통령, 최태원과 비공개 만찬...대미투자 논의 여부 주목</div>
+      <div class="headline">이 대통령, 최태원과 비공개 만찬...대미투자 논의 여부 주목</div>
       <div class="article-snippet">이재명 대통령이 오늘(20일) 최태원 SK그룹 회장과 비공개 만찬 회동을 한 것으로 알려졌습니다.이 대통령과 최 회장의 만남은 지난달 미국 샌프란시스코에서 열린 &#x27;인공...</div>
     </div>
   </div>
@@ -59607,7 +60141,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba1b7190&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba834658&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -59642,7 +60176,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba3a9110&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba91a3b0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -148206,33 +148740,69 @@ const COUNTRY_LABEL_PREFS = {
   GB:[-30,30,-75,75], FR:[35,-35,0], NL:[50,-50,90,-90], BE:[80,-80,45,-45], CH:[65,-65,115,-115],
   SE:[35,-35,70], FI:[18,-18,45], PL:[35,-35,0], CZ:[60,-60,100,-100], SI:[85,-85,45,-45],
   RO:[45,-45,0], BG:[55,-55,0], UA:[35,-35,-70], TR:[25,-25,60], SK:[75,-75,35,-35], DK:[30,-30,70],
-  RU:[25,-25,0],
+  RU:[15,-15,35,-35],
   AE:[-20,20,-55,55], SA:[0,-28,28], ZA:[-20,20,0],
-  CN:[150,120,180,-150,-120], IN:[140,180,110,-140], VN:[20,-20,55,-55], TH:[20,-20,55,-55], MY:[-20,20,60,-60], SG:[-25,25,70,-70],
-  KR:[160,125,-160,-125,180], JP:[-165,-130,165,130,180],
-  AU:[-25,25,0]
+  CN:[180,150,130,-150], IN:[180,145,120], VN:[15,-15,45,-45], TH:[15,-15,45,-45], MY:[-20,20,60,-60], SG:[-25,25,70,-70],
+  KR:[160,125,180,-160], JP:[-165,-130,165,130,180],
+  AU:[-15,15,0]
 };
 
+const COUNTRY_LABEL_OFFSETS = {
+  US:[[36,0],[34,-18],[34,18]],
+  CA:[[38,-18],[42,0]],
+  GB:[[-54,0],[-42,18]],
+  FR:[[40,-6],[38,12]],
+  BG:[[-58,8],[-42,-10]],
+  UA:[[-62,18],[-44,2]],
+  RU:[[28,-18],[34,0]],
+  CN:[[-48,12],[-42,-6],[-58,22]],
+  IN:[[-42,18],[-50,30],[-34,2]],
+  KR:[[36,-4],[32,12]],
+  JP:[[34,-18],[30,-2]],
+  VN:[[38,10],[28,22]],
+  TH:[[34,8],[24,22]],
+  AU:[[34,-2],[28,14]],
+  BR:[[-40,16],[-32,0]],
+  ZA:[[0,22],[18,12]]
+};
+
+function buildBoxFromOffset(w,h,ax,ay,bounds,dx,dy){
+  let left = ax + dx - w / 2;
+  let top = ay + dy - h / 2;
+  left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+  top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+  return {left, top, right:left+w, bottom:top+h, w, h};
+}
+
 function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode){
-  const baseAngles = COUNTRY_LABEL_PREFS[itemCode] || [0,-35,35,-70,70,180,-145,145,-105,105];
-  const radii = [16,26,38,50,64,78,92];
+  const offsetCandidates = COUNTRY_LABEL_OFFSETS[itemCode] || [];
   let best = null;
+
+  for(const [dx,dy] of offsetCandidates){
+    for(const [nx,ny] of [[0,0],[0,-8],[0,8],[-8,0],[8,0],[-12,0],[12,0]]){
+      const box = buildBoxFromOffset(w,h,ax,ay,bounds,dx+nx,dy+ny);
+      const collisionCount = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,4) ? 1 : 0), 0);
+      const dist = Math.hypot((box.left + w/2) - ax, (box.top + h/2) - ay);
+      const score = collisionCount * 100000 + dist;
+      if(!best || score < best.score) best = {...box, score, collisionCount};
+      if(collisionCount === 0) return box;
+    }
+  }
+
+  const baseAngles = COUNTRY_LABEL_PREFS[itemCode] || [0,-35,35,-70,70,180,-145,145,-105,105];
+  const radii = [14,22,30,40,52,66,82];
   for(const r of radii){
     for(const deg of baseAngles){
       const rad = deg * Math.PI / 180;
-      let centerX = ax + Math.cos(rad) * r;
-      let centerY = ay + Math.sin(rad) * r;
-      let left = centerX - w / 2;
-      let top = centerY - h / 2;
-      left = Math.max(bounds.left, Math.min(bounds.right - w, left));
-      top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
-      const box = {left, top, right:left+w, bottom:top+h, w, h};
+      const dx = Math.cos(rad) * r;
+      const dy = Math.sin(rad) * r;
+      const box = buildBoxFromOffset(w,h,ax,ay,bounds,dx,dy);
       const collisionCount = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,4) ? 1 : 0), 0);
-      const dist = Math.hypot((left + w/2) - ax, (top + h/2) - ay);
-      const edgePenalty = (left<=bounds.left+1 || top<=bounds.top+1 || left+w>=bounds.right-1 || top+h>=bounds.bottom-1) ? 24 : 0;
+      const dist = Math.hypot((box.left + w/2) - ax, (box.top + h/2) - ay);
+      const edgePenalty = (box.left<=bounds.left+1 || box.top<=bounds.top+1 || box.left+w>=bounds.right-1 || box.top+h>=bounds.bottom-1) ? 16 : 0;
       const score = collisionCount * 100000 + dist + edgePenalty;
       if(!best || score < best.score) best = {...box, score, collisionCount};
-      if(collisionCount === 0 && r <= 64) return box;
+      if(collisionCount === 0 && r <= 52) return box;
     }
   }
   return best;
@@ -148320,6 +148890,48 @@ function layoutAndRenderCountryMap(){
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {once:true});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+
+/* ============================================================
+   2026-08-21 FINAL HEADER STATE CHIP MOVE — runtime override
+   ============================================================ */
+function ensureMapStateChip(items){
+  const head=document.querySelector('.world-map-head');
+  if(!head) return;
+  let slot=document.getElementById('map-head-chip-slot');
+  if(!slot){
+    slot=document.createElement('div');
+    slot.id='map-head-chip-slot';
+    head.appendChild(slot);
+  }
+  let chip=document.getElementById('map-continent-state');
+  if(!chip){
+    chip=document.createElement('div');
+    chip.id='map-continent-state';
+    chip.className='map-continent-state';
+  }
+  if(chip.parentElement!==slot) slot.appendChild(chip);
+
+  if(activeContinentFilter==='ALL'){
+    chip.hidden=true;
+    chip.innerHTML='';
+    return;
+  }
+
+  const meta=CONTINENT_META[activeContinentFilter]||{name:'대륙'};
+  const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
+  chip.hidden=false;
+  chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${meta.name}</span><span class="state-meta">${countries.length}개국 · ${articles}건</span>`;
+  chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{
+    activeContinentFilter='ALL';
+    activeCountryFilter='';
+    filterArticles();
+    updateCountryMapCounts();
+    layoutAndRenderCountryMap();
+  });
+}
 
 </script>
 </body>
