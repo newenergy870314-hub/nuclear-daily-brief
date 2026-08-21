@@ -1,10 +1,4 @@
 # VERIFIED FINAL BUILD 2026-08-19
-# RUSSIA/CHINA LABEL SEPARATION + SOUTH AMERICA FULL HIGHLIGHT 2026-08-21
-# RUNTIME NAMEERROR FIX: unquote + excluded source function 2026-08-21
-# HOLTEC TAB STRICT NUCLEAR/SMR CONTEXT FILTER 2026-08-21
-# SMR INTEL COMPLETELY EXCLUDED 2026-08-21
-# THUMBNAIL TOP/BOTTOM GAP EQUALIZED 2026-08-21
-# NEW BADGE ALIGN + MEA MAP OVERRIDE FSTRING REPAIR 2026-08-21
 # EVENT GROUPING REFINED: ENTITY + TARGET + ACTION MATCH 2026-08-21
 # COUNTRY TAB + MAP LABEL READABILITY / COLLISION REFINED 2026-08-21
 # SPEED OPTIMIZED DIRECT COLLECTION + UNION-FIND RELATED GROUPING 2026-08-21
@@ -41,7 +35,7 @@ from datetime import datetime, timedelta, timezone
 from difflib import SequenceMatcher
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urljoin, urlparse, parse_qsl, urlunparse, urlencode, unquote
+from urllib.parse import urljoin, urlparse, parse_qsl, urlunparse, urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
@@ -422,6 +416,7 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'TechXplore',
     'Global Energy Monitor',
     'Nuclear News Network',
+    'SMR Intel',
     'Politico',
     'Axios',
     'The Hill',
@@ -919,6 +914,7 @@ DIRECT_NEWS_PAGES = [
     # Nuclear Newswire / ANS Nuclear Newswire는 사용자 요청에 따라 제외
     # ─────────────────────────────────────────────
     ('Nuclear News Network', 'https://www.nuclearnewsnetwork.com/', 'en'),
+    ('SMR Intel', 'https://smrintel.com/news/', 'en'),
     ('Nuclear Monitor', 'https://wiseinternational.org/nuclear-monitor/', 'en'),
     ('Bellona Nuclear', 'https://bellona.org/', 'en'),
     ('Nuclear Plant Journal', 'https://www.nuclearplantjournal.com/', 'en'),
@@ -1128,6 +1124,7 @@ DIRECT_ALWAYS_PUBLISHERS = {
     "NucNet",
     "Nuclear Engineering International",
     "Nuclear News Network",
+    "SMR Intel",
     "Nuclear Monitor",
     "Bellona Nuclear",
     "Power Engineering Magazine",
@@ -1298,6 +1295,7 @@ NUCLEAR_SPECIALIST_PUBLISHERS = {
     "IAEA News",
     "Nuclear Street",
     "Nuclear News Network",
+    "SMR Intel",
     "Nuclear Monitor",
     "Bellona Nuclear",
     "Nuclear Plant Journal",
@@ -1516,7 +1514,6 @@ BLOCKED_STOCK_KEYWORDS = {
 
 
 EXCLUDED_PUBLISHERS = {
-    "SMR Intel",
     "Nuclear Newswire",
     "NuclearNewswire",
     "Nuclear Newswire (ANS)",
@@ -3554,60 +3551,36 @@ def is_pacific_palisades_non_nuclear_article(title: str, summary: str = "") -> b
 
 def is_valid_holtec_article(title: str, summary: str = "") -> bool:
     """
-    Holtec 탭에는 Holtec의 원전·SMR 사업과 직접 관련된 기사만 허용합니다.
+    Holtec 검색 결과의 지명 오탐을 제거합니다.
 
-    방어 규칙:
-    - 'Palisades'라는 단어만으로는 절대 Holtec 기사로 인정하지 않음.
-    - Palisades 기사는 Holtec 명시 + 원전/SMR 문맥이 모두 있어야 함.
-    - Holtec 이름만 우연히 등장하는 비원자력 기사도 제외.
-    - SMR-300은 Holtec 고유 모델이므로 직접 인정.
-    - Oyster Creek은 원전/SMR/해체 문맥이 있을 때 인정.
+    핵심 규칙:
+    - 'Palisades'는 단독으로 Holtec 근거로 사용하지 않습니다.
+    - Palisades가 포함된 기사는 반드시 Holtec/홀텍이 함께 명시되어야
+      Holtec 기사로 인정합니다.
     """
     haystack = html.unescape(f"{title} {summary}").lower()
-
-    # 명백한 동명이의/비원자력 오탐
-    false_positive_terms = (
-        "goldcorp",
-        "gold corp",
-        "gold mining",
-        "mining company",
-        "board of directors",
-        "annual general meeting",
-        "shareholder",
-        "mineral",
-        "exploration company",
-    )
-    if any(term in haystack for term in false_positive_terms):
-        return False
 
     has_holtec = any(
         term in haystack
         for term in ("holtec", "holtec international", "홀텍")
     )
 
-    nuclear_context_terms = (
-        "nuclear", "nuclear power", "nuclear plant", "nuclear energy",
-        "reactor", "small modular reactor", "smr",
-        "decommission", "spent fuel", "nuclear fuel",
-        "원전", "원자력", "원자로", "소형모듈원자로",
-        "해체", "사용후핵연료",
-    )
-    has_nuclear_context = any(term in haystack for term in nuclear_context_terms)
+    # Palisades가 등장하면 Holtec 동시 언급을 필수로 요구
+    if "palisades" in haystack:
+        return has_holtec
 
-    # Holtec의 고유 SMR 모델은 가장 명확한 직접 근거
+    # Palisades가 아닌 일반 Holtec/SMR-300 기사
+    if has_holtec:
+        return True
+
     if any(term in haystack for term in ("smr-300", "smr 300")):
         return True
 
-    # Palisades는 회사/광산 등 동명이의가 있으므로 가장 엄격하게 판정
-    if "palisades" in haystack:
-        return has_holtec and has_nuclear_context
-
-    # Holtec 회사가 직접 언급되어도 원전·SMR 문맥이 함께 있어야 함
-    if has_holtec and has_nuclear_context:
-        return True
-
-    # Oyster Creek은 기존 정책 유지: 원전/SMR/해체 문맥 필수
-    if "oyster creek" in haystack and has_nuclear_context:
+    # Oyster Creek은 기존처럼 원자력/SMR 문맥이 있을 때만 인정
+    if "oyster creek" in haystack and any(
+        term in haystack
+        for term in ("nuclear", "reactor", "smr", "decommission", "원전", "원자력", "해체")
+    ):
         return True
 
     return False
@@ -3859,8 +3832,10 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
         return "원자력"
 
     if any(term in haystack for term in HOLTEC_TERMS):
-        # Holtec 탭은 회사명/모델명뿐 아니라 실제 원전·SMR 문맥까지 확인
-        if is_valid_holtec_article(title, summary):
+        # Palisades 지명은 Holtec 동시 언급이 있을 때만 Holtec으로 분류
+        if "palisades" not in haystack or any(
+            term in haystack for term in ("holtec", "holtec international", "홀텍")
+        ):
             return "Holtec"
 
     if any(term in haystack for term in TERRAPOWER_TERMS):
@@ -3943,9 +3918,8 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if is_pacific_palisades_non_nuclear_article(title, summary):
         return None
 
-    # 어느 검색경로에서 들어왔든 Holtec 탭으로 분류된 기사는
-    # 실제 Holtec 원전·SMR 관련성이 확인되어야 최종 유지합니다.
-    if classified_group == "Holtec" and not is_valid_holtec_article(title, summary):
+    # Holtec 전용 검색 결과는 실제 Holtec/원전 관련성이 확인되는 기사만 유지합니다.
+    if group == "Holtec" and classified_group == "Holtec" and not is_valid_holtec_article(title, summary):
         return None
 
     if classified_group == "현대건설" and is_hyundai_volleyball_article(title, summary):
@@ -16887,31 +16861,29 @@ main {{
 
 
 /* ============================================================
-   2026-08-21 CONTINENT DOCK READABILITY FINAL OVERRIDE
-   - enlarge continent-tab text
-   - allow variable widths by continent (NA/EU narrower, OC/MEA wider)
-   - keep one-row layout without clipping
+   2026-08-21 CONTINENT DOCK UNCLIPPED FINAL OVERRIDE
+   - prevent continent tabs from clipping on mobile
+   - allow long names like 중동·아프리카 to fit naturally
+   - keep one-row overall layout with balanced proportions
    ============================================================ */
 #continent-rail {{
   left:8px !important;
   right:8px !important;
   bottom:6px !important;
-  height:54px !important;
-  max-height:54px !important;
+  height:48px !important;
+  max-height:48px !important;
   padding:4px !important;
   border-radius:14px !important;
 }}
 .continent-rail-scroll {{
-  display:flex !important;
-  align-items:stretch !important;
+  grid-template-columns:repeat(6, minmax(0, 1fr)) !important;
   gap:4px !important;
-  grid-template-columns:none !important;
 }}
 .continent-button {{
   min-width:0 !important;
-  min-height:42px !important;
-  height:42px !important;
-  padding:3px 4px !important;
+  min-height:38px !important;
+  height:38px !important;
+  padding:3px 2px !important;
   display:flex !important;
   flex-direction:column !important;
   align-items:center !important;
@@ -16922,10 +16894,10 @@ main {{
 .continent-button-name {{
   display:block !important;
   width:100% !important;
-  font-size:10.4px !important;
+  font-size:9px !important;
   font-weight:900 !important;
-  line-height:1.05 !important;
-  letter-spacing:-.16px !important;
+  line-height:1.02 !important;
+  letter-spacing:-.18px !important;
   white-space:normal !important;
   word-break:keep-all !important;
   overflow:visible !important;
@@ -16935,7 +16907,7 @@ main {{
 .continent-button-count {{
   display:block !important;
   width:100% !important;
-  font-size:9.4px !important;
+  font-size:8.2px !important;
   font-weight:950 !important;
   line-height:1 !important;
   text-align:center !important;
@@ -16943,178 +16915,95 @@ main {{
 }}
 @media (max-width:430px) {{
   #continent-rail {{
-    left:6px !important;
-    right:6px !important;
+    left:7px !important;
+    right:7px !important;
     bottom:5px !important;
-    height:56px !important;
-    max-height:56px !important;
+    height:50px !important;
+    max-height:50px !important;
     padding:4px !important;
   }}
   .continent-rail-scroll {{
     gap:3px !important;
   }}
   .continent-button {{
-    min-height:44px !important;
-    height:44px !important;
-    padding:3px 3px !important;
+    min-height:40px !important;
+    height:40px !important;
+    padding:3px 1px !important;
     gap:1px !important;
   }}
   .continent-button-name {{
-    font-size:9.4px !important;
-    line-height:1.04 !important;
-    letter-spacing:-.18px !important;
+    font-size:8.1px !important;
+    line-height:1.0 !important;
+    letter-spacing:-.22px !important;
   }}
   .continent-button-count {{
-    font-size:8.7px !important;
+    font-size:7.7px !important;
   }}
 }}
 @media (max-width:380px) {{
   #continent-rail {{
-    left:5px !important;
-    right:5px !important;
-    height:54px !important;
-    max-height:54px !important;
+    left:6px !important;
+    right:6px !important;
+    height:48px !important;
+    max-height:48px !important;
   }}
   .continent-button {{
-    min-height:42px !important;
-    height:42px !important;
-    padding:2px 2px !important;
+    min-height:38px !important;
+    height:38px !important;
   }}
   .continent-button-name {{
-    font-size:8.8px !important;
-    letter-spacing:-.2px !important;
+    font-size:7.5px !important;
+    letter-spacing:-.24px !important;
   }}
   .continent-button-count {{
-    font-size:8.1px !important;
+    font-size:7.1px !important;
   }}
 }}
 
 
-/* ============================================================
-   2026-08-21 NEW BADGE VERTICAL ALIGNMENT
-   ============================================================ */
-.new-badge,
-.badge-new,
-.headline .new-badge,
-.headline .badge-new {{
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  position:relative !important;
-  top:-1.5px !important;
-  vertical-align:middle !important;
-  margin-right:4px !important;
-  line-height:1 !important;
-}}
-@media (max-width:430px) {{
-  .new-badge,
-  .badge-new,
-  .headline .new-badge,
-  .headline .badge-new {{
-    top:-1.5px !important;
-  }}
-}}
-
 
 /* ============================================================
-   2026-08-21 THUMBNAIL TOP/BOTTOM GAP EQUALIZED
+   2026-08-21 FINAL THUMBNAIL VERTICAL FILL REFINEMENT
+   - reduce top/bottom white space around thumbnails
+   - show slightly more image vertically without changing card width
    ============================================================ */
+.preview-card {{
+  padding-top:3px !important;
+  padding-bottom:3px !important;
+}}
+.preview-image,
+.card-side {{
+  height:80px !important;
+  min-height:80px !important;
+  max-height:80px !important;
+}}
+
 @media (max-width:430px) {{
   .preview-card {{
-    padding-top:5px !important;
-    padding-bottom:5px !important;
+    padding-top:2px !important;
+    padding-bottom:2px !important;
   }}
-  .preview-side,
   .preview-image,
   .card-side {{
-    align-self:center !important;
+    height:84px !important;
+    min-height:84px !important;
+    max-height:84px !important;
+    align-self:start !important;
+    margin-top:0 !important;
+    margin-bottom:0 !important;
   }}
 }}
+
 @media (max-width:380px) {{
   .preview-card {{
-    padding-top:4px !important;
-    padding-bottom:4px !important;
+    padding-top:2px !important;
+    padding-bottom:2px !important;
   }}
-}}
-
-
-
-/* ============================================================
-   2026-08-21 THUMBNAIL FINAL BOTTOM SPACE RELAXED
-   - make top/bottom thumbnail breathing room feel visually balanced
-   - give slightly more lower breathing room so mobile cards feel less cramped
-   ============================================================ */
-@media (max-width:430px) {{
-  .preview-card {{
-    height:90px !important;
-    min-height:90px !important;
-    max-height:90px !important;
-    padding:5px 3px 5px 4px !important;
-    align-items:center !important;
-    box-sizing:border-box !important;
-  }}
-  .preview-copy {{
+  .preview-image,
+  .card-side {{
     height:80px !important;
     min-height:80px !important;
     max-height:80px !important;
-    align-self:center !important;
-    padding:1px 0 1px !important;
-    box-sizing:border-box !important;
-  }}
-  .card-side,
-  .preview-image {{
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
-    align-self:center !important;
-    margin-top:0 !important;
-    margin-bottom:0 !important;
-  }}
-  .preview-image {{
-    box-sizing:border-box !important;
-    padding-top:1px !important;
-    padding-bottom:3px !important;
-    overflow:hidden !important;
-  }}
-  .preview-image img {{
-    width:100% !important;
-    height:100% !important;
-    object-fit:cover !important;
-    display:block !important;
-  }}
-}}
-
-@media (max-width:380px) {{
-  .preview-card {{
-    height:86px !important;
-    min-height:86px !important;
-    max-height:86px !important;
-    padding:4px 2px 4px 4px !important;
-    align-items:center !important;
-    box-sizing:border-box !important;
-  }}
-  .preview-copy {{
-    height:76px !important;
-    min-height:76px !important;
-    max-height:76px !important;
-    align-self:center !important;
-    padding:1px 0 1px !important;
-    box-sizing:border-box !important;
-  }}
-  .card-side,
-  .preview-image {{
-    height:74px !important;
-    min-height:74px !important;
-    max-height:74px !important;
-    align-self:center !important;
-    margin-top:0 !important;
-    margin-bottom:0 !important;
-  }}
-  .preview-image {{
-    box-sizing:border-box !important;
-    padding-top:1px !important;
-    padding-bottom:3px !important;
-    overflow:hidden !important;
   }}
 }}
 
@@ -20604,8 +20493,6 @@ function renderContinentRail2D(items){{
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='continent-button'+(activeContinentFilter===code?' active':'');
-    const dockFlexMap = {{ NA:0.86, EU:0.86, AS:0.98, SA:0.92, OC:1.18, MEA:1.48 }};
-    btn.style.flex = `${{dockFlexMap[code]||1}} 1 0`;
     btn.innerHTML=`<span class="continent-button-name">${{CONTINENT_META[code].name}}</span><span class="continent-button-count">${{articles[code]||0}}건</span>`;
     btn.addEventListener('click',()=>{{
       const isSameContinent = activeContinentFilter===code;
@@ -21479,7 +21366,7 @@ function getContinentNativeRegion(code){{
     NA:{{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' }},
     SA:{{ points:'196,196 262,194 314,226 340,286 334,360 316,428 286,490 240,494 214,444 200,374 194,306 192,244' }},
     EU:{{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' }},
-    AS:{{ points:'520,44 636,44 764,60 892,82 984,126 998,198 958,242 888,258 806,250 730,226 662,200 592,170 540,132' }},
+    AS:{{ points:'520,44 636,44 764,60 892,82 984,126 998,198 958,242 888,258 806,250 758,238 738,258 716,250 700,222 690,194 670,172 644,154 610,132 570,104 540,78' }},
     MEA:{{ points:'392,146 474,148 540,170 578,220 600,286 606,360 596,432 562,490 504,494 456,466 430,410 412,344 398,276 390,206' }},
     OC:{{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }}
   }};
@@ -21864,14 +21751,14 @@ window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountr
 
 
 /* ============================================================
-   2026-08-21 FINAL OVERRIDE — MEA EASTWARD HIGHLIGHT + NEAR COUNTRY LABELS
+   2026-08-21 FINAL OVERRIDE — ASIA INDIA HIGHLIGHT REFINED + NEAR COUNTRY LABELS
    ============================================================ */
 function getContinentNativeRegion(code){{
   const regions = {{
     NA:{{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' }},
-    SA:{{ points:'248,190 316,188 370,214 404,262 414,318 406,374 388,430 358,486 318,496 288,460 272,412 262,358 256,304 250,248' }},
+    SA:{{ points:'196,196 262,194 314,226 340,286 334,360 316,428 286,490 240,494 214,444 200,374 194,306 192,244' }},
     EU:{{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' }},
-    AS:{{ points:'520,44 636,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 700,232 672,242 656,276 646,316 620,324 586,300 558,252 540,188 540,132' }},
+    AS:{{ points:'520,44 636,44 764,60 892,82 984,126 998,198 958,242 888,258 806,250 730,226 662,200 592,170 540,132' }},
     /* 중동·아프리카는 아라비아반도 쪽으로 더 넓게 잡아 중동이 빠지지 않게 조정 */
     MEA:{{ points:'386,144 468,146 550,164 618,196 670,236 712,286 728,346 716,410 680,462 626,494 558,496 500,484 458,454 426,408 406,352 392,292 384,230' }},
     OC:{{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }}
@@ -21903,11 +21790,11 @@ const FINAL_COUNTRY_LABEL_PRESETS = {{
   TR:[[30,12],[30,-4]],
   DK:[[20,-16],[26,-4]],
   SK:[[30,10],[30,-6]],
-  RU:[[-8,-34],[18,-32],[30,-26],[-24,-24]],
+  RU:[[28,-22],[34,-6],[24,10]],
   AE:[[34,-4],[36,12],[28,22]],
   SA:[[30,18],[34,0],[24,32]],
   ZA:[[0,-26],[24,-8],[-24,-8]],
-  CN:[[-34,22],[-46,30],[-24,34],[-52,18]],
+  CN:[[-52,-6],[-58,12],[-46,28]],
   IN:[[-42,18],[-46,34],[-32,2]],
   VN:[[40,16],[38,30],[30,4]],
   TH:[[32,18],[30,32],[26,4]],
@@ -21920,7 +21807,7 @@ const FINAL_COUNTRY_LABEL_PRESETS = {{
 
 const FINAL_CONTINENT_RENDER_ORDER = {{
   EU:['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','DK','SK'],
-  AS:['RU','CN','KR','JP','VN','IN','TH','MY','SG'],
+  AS:['KR','JP','CN','VN','IN','RU','TH','MY','SG'],
   MEA:['AE','SA','ZA'],
   NA:['US','CA'],
   SA:['BR','AR','CL','CO','PE'],
@@ -21961,8 +21848,7 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
   const presets = FINAL_COUNTRY_LABEL_PRESETS[itemCode] || [];
   let best = null;
   const consider = (box) => {{
-    const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 8;
-    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,8) ? 1 : 0), 0);
     const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
     const dist = Math.hypot((box.left + w/2)-ax, (box.top + h/2)-ay);
     const edgePenalty = (
@@ -22175,19 +22061,6 @@ def main() -> int:
     )
 
     fetched = fetch_articles(overall_start, overall_end)
-
-    fetched_before_publisher_exclude = len(fetched)
-    fetched = [
-        article for article in fetched
-        if not is_excluded_source(article.publisher, article.link)
-    ]
-    excluded_now = fetched_before_publisher_exclude - len(fetched)
-    if excluded_now:
-        print(
-            f"[PUBLISHER EXCLUDE] removed={excluded_now} "
-            f"/ publishers={', '.join(sorted(EXCLUDED_PUBLISHERS))}"
-        )
-
     print(f"Fetched raw articles: {len(fetched)}")
 
     # 네트워크 재호출 없이 메모리에서 전일/금일/익일로 분리
@@ -22225,11 +22098,7 @@ def main() -> int:
 
         for raw in archive.get(archive_key, {}).get("articles", []):
             article = article_from_dict(raw)
-            if (
-                article is not None
-                and not is_excluded_source(article.publisher, article.link)
-                and start <= article.published < end
-            ):
+            if article is not None and start <= article.published < end:
                 merged_items.append(article)
 
         # archive에서 화면으로 다시 불러올 때도 동일이슈 중복을 제거합니다.
