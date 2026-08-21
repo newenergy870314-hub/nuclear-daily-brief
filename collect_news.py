@@ -16143,6 +16143,52 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   2026-08-21 FINAL MAP CONTINENT FILL + LABEL COLLISION FIX
+   ============================================================ */
+#continent-highlight-svg-layer .continent-highlight-land path {{
+  fill:#74c9f0 !important;
+  fill-opacity:.46 !important;
+  stroke:#2190c8 !important;
+  stroke-width:1.0 !important;
+  stroke-opacity:.80 !important;
+}}
+.precise-country-dot {{
+  width:4.2px !important;
+  height:4.2px !important;
+  border:1.1px solid #fff !important;
+  box-shadow:0 0 0 1px rgba(22,145,205,.12),0 1px 3px rgba(58,93,121,.14) !important;
+}}
+.precise-country-dot.active {{
+  width:5px !important;
+  height:5px !important;
+}}
+.precise-country-label {{
+  gap:2px !important;
+  min-height:15px !important;
+  padding:1px 4px !important;
+  font-size:6.8px !important;
+  line-height:1 !important;
+}}
+.precise-country-label .flag {{ font-size:7.4px !important; }}
+.precise-country-label .name,
+.precise-country-label .count {{ font-size:6.75px !important; }}
+.precise-country-connector {{
+  height:1.15px !important;
+  background:rgba(73,117,150,.50) !important;
+}}
+@media (max-width:430px) {{
+  .precise-country-label {{
+    min-height:14px !important;
+    padding:1px 3px !important;
+    font-size:6.5px !important;
+  }}
+  .precise-country-label .flag {{ font-size:7.0px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:6.45px !important; }}
+}}
+
 </style>
 </head>
 <body>
@@ -20447,6 +20493,208 @@ function layoutAndRenderCountryMap(){{
   if(ranking){{ ranking.hidden = true; ranking.innerHTML = ''; }}
   const caption = document.querySelector('.country-map-caption');
   if(caption) caption.style.display = 'none';
+  const note = document.getElementById('country-filter-note');
+  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
+}}
+requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
+window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP CONTINENT FILL + LABEL COLLISION FIX
+   ============================================================ */
+function getContinentNativeRegion(code){{
+  const regions = {{
+    NA:{{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' }},
+    SA:{{ points:'196,196 262,194 314,226 340,286 334,360 316,428 286,490 240,494 214,444 200,374 194,306 192,244' }},
+    EU:{{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' }},
+    AS:{{ points:'520,44 636,44 764,60 892,82 984,126 998,198 958,242 888,258 806,250 730,226 662,200 592,170 540,132' }},
+    MEA:{{ points:'392,146 474,148 540,170 578,220 600,286 606,360 596,432 562,490 504,494 456,466 430,410 412,344 398,276 390,206' }},
+    OC:{{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }}
+  }};
+  return regions[code] || null;
+}}
+
+function renderSelectedContinentHighlight(){{
+  const ctx = ensureNativeContinentHighlightLayer();
+  if(!ctx) return;
+  const {{ landGroup, defs, layer }} = ctx;
+  layer.innerHTML='';
+  defs.querySelectorAll('[data-continent-clip="1"]').forEach(node=>node.remove());
+  if(activeContinentFilter==='ALL') return;
+  const region=getContinentNativeRegion(activeContinentFilter);
+  if(!region) return;
+  const clipId = `continent-native-clip-${{activeContinentFilter}}`;
+  const clip = document.createElementNS('http://www.w3.org/2000/svg','clipPath');
+  clip.id = clipId;
+  clip.setAttribute('data-continent-clip','1');
+  const polygon = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  polygon.setAttribute('points', region.points);
+  clip.appendChild(polygon);
+  defs.appendChild(clip);
+  const highlightGroup = document.createElementNS('http://www.w3.org/2000/svg','g');
+  highlightGroup.setAttribute('class','continent-highlight-land');
+  highlightGroup.setAttribute('clip-path', `url(#${{clipId}})`);
+  landGroup.querySelectorAll('path').forEach(path=>{{
+    const clone = path.cloneNode(true);
+    clone.removeAttribute('style');
+    highlightGroup.appendChild(clone);
+  }});
+  layer.appendChild(highlightGroup);
+}}
+
+function boxIntersectsAnchor(box, anchors, selfCode){{
+  for(const pt of anchors){{
+    if(pt.code===selfCode) continue;
+    const pad = pt.cluster ? 7 : 5;
+    if(pt.x >= box.left-pad && pt.x <= box.right+pad && pt.y >= box.top-pad && pt.y <= box.bottom+pad){{
+      return true;
+    }}
+  }}
+  return false;
+}}
+
+function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
+  const offsetMap = {{
+    US:[[15,-8],[16,6],[14,-18]], CA:[[15,-10],[17,3]],
+    BR:[[-15,8],[-16,-8]], AR:[[14,8],[14,-8]], CL:[[14,0],[16,12]], CO:[[14,-6],[14,8]], PE:[[14,6],[14,-8]],
+    GB:[[16,-10],[16,5],[22,-2]], FR:[[15,8],[15,-6]], NL:[[18,-8],[18,5]], BE:[[15,8],[15,-6]], CH:[[16,8],[16,-8]],
+    SE:[[16,-10],[16,4]], FI:[[16,-10],[16,4]], PL:[[16,-8],[16,6]], CZ:[[18,8],[18,-6]], SI:[[16,8],[16,-6]],
+    RO:[[18,8],[18,-6]], BG:[[18,8],[18,-6]], UA:[[18,-8],[18,6]], TR:[[18,8],[18,-8]], DK:[[16,-8],[16,6]], SK:[[18,8],[18,-6]],
+    RU:[[18,-8],[18,6]],
+    AE:[[16,8],[16,-6]], SA:[[18,8],[18,-8]], ZA:[[16,-8],[16,8]],
+    CN:[[-18,8],[-18,-8]], IN:[[16,10],[18,-8]], VN:[[16,6],[16,-8]], TH:[[16,6],[16,-8]], MY:[[16,8],[16,-8]], SG:[[16,8],[16,-8]],
+    KR:[[16,-4],[16,8]], JP:[[18,-8],[18,8]], AU:[[16,-8],[16,8]]
+  }};
+  const angleMap = {{
+    US:[-20,20,-45,45], CA:[-20,15,35], BR:[160,135,-160], AR:[15,-15,35], CL:[0,20],
+    GB:[-15,15,35], FR:[15,-20], NL:[-15,20], BE:[25,-25], CH:[20,-20],
+    SE:[-20,20], FI:[-20,15], PL:[-15,20], CZ:[20,-20], SI:[25,-25], RO:[20,-20], BG:[20,-20], UA:[-15,20], TR:[15,-15], DK:[-20,15], SK:[25,-25], RU:[-15,15],
+    AE:[15,-15], SA:[15,-15], ZA:[-20,20],
+    CN:[165,-165,145], IN:[18,-18,38], VN:[10,-20], TH:[10,-20], MY:[20,-20], SG:[20,-20], KR:[5,20], JP:[-20,20], AU:[-15,15]
+  }};
+  const presetOffsets = offsetMap[itemCode] || [];
+  let best = null;
+  const tryBox = (left,top) => {{
+    left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+    top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+    const box = {{left, top, right:left+w, bottom:top+h, w, h}};
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,5) ? 1 : 0),0);
+    const anchorHit = boxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
+    const dist = Math.hypot((left+w/2)-ax,(top+h/2)-ay);
+    const edgePenalty = (left<=bounds.left+1 || top<=bounds.top+1 || left+w>=bounds.right-1 || top+h>=bounds.bottom-1) ? 3 : 0;
+    const score = collisions*100000 + anchorHit*5000 + dist + edgePenalty;
+    if(!best || score < best.score) best = {{...box, score}};
+    if(collisions===0 && anchorHit===0) return box;
+    return null;
+  }};
+  for(const [dx,dy] of presetOffsets){{
+    for(const [nx,ny] of [[0,0],[0,-4],[0,4],[-4,0],[4,0]]){{
+      const box = tryBox(ax + dx + nx - w/2, ay + dy + ny - h/2);
+      if(box) return box;
+    }}
+  }}
+  const angles = angleMap[itemCode] || [0,-20,20,-40,40,180,-140,140];
+  const radii = [10,14,18,24,30,38,48,58,70];
+  for(const r of radii){{
+    for(const deg of angles){{
+      const rad = deg * Math.PI / 180;
+      const left = ax + Math.cos(rad)*r - (Math.cos(rad) < -0.2 ? w : w/2);
+      const top = ay + Math.sin(rad)*r - h/2;
+      const box = tryBox(left, top);
+      if(box) return box;
+    }}
+  }}
+  return best || {{left:ax, top:ay, right:ax+w, bottom:ay+h, w, h}};
+}}
+
+function addExactConnector(layer,ax,ay,box){{
+  const cx = Math.max(box.left, Math.min(ax, box.right));
+  const cy = Math.max(box.top, Math.min(ay, box.bottom));
+  const dx = cx - ax;
+  const dy = cy - ay;
+  const len = Math.hypot(dx, dy);
+  if(len < 3) return;
+  const line = document.createElement('span');
+  line.className = 'precise-country-connector';
+  line.style.left = `${{ax}}px`;
+  line.style.top = `${{ay}}px`;
+  line.style.width = `${{Math.max(0, len - 2)}}px`;
+  line.style.transform = `rotate(${{Math.atan2(dy,dx)*180/Math.PI}}deg)`;
+  layer.appendChild(line);
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svg = document.querySelector('.world-map-inline.globe-texture-source');
+  const layer = document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer) return;
+  layer.innerHTML='';
+  if(activeContinentFilter==='ALL') return;
+  const countries = items.filter(v => v.continent===activeContinentFilter && v.count>0)
+    .sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
+  if(!countries.length) return;
+  const vp = getExactMapViewport(svg, visual);
+  const dock = document.getElementById('continent-rail');
+  const vr = visual.getBoundingClientRect();
+  const dr = dock?.getBoundingClientRect();
+  const dockTop = dr ? dr.top - vr.top : visual.clientHeight - 42;
+  const bounds = {{
+    left: Math.max(4, vp.left + 2),
+    top: Math.max(8, vp.top + 2),
+    right: Math.min(vp.left + vp.width - 2, visual.clientWidth - 4),
+    bottom: Math.min(dockTop - 4, vp.top + vp.height - 2)
+  }};
+  const clusterCodes = new Set(['GB','NL','BE','CH','CZ','SI','SK','DK','KR','JP','SG','MY','TH','VN']);
+  const anchors = countries.map(item=>{{
+    const p = getCountryMapAnchor(item);
+    return {{ code:item.code, x:vp.left + (p.x/100)*vp.width, y:vp.top + (p.y/100)*vp.height, cluster:clusterCodes.has(item.code) }};
+  }});
+  const occupied=[];
+  countries.forEach(item=>{{
+    const anchor = anchors.find(v=>v.code===item.code);
+    const ax=anchor.x, ay=anchor.y;
+    const dot=document.createElement('span');
+    dot.className='precise-country-dot'+(activeCountryFilter===item.code?' active':'');
+    dot.style.left=`${{ax}}px`;
+    dot.style.top=`${{ay}}px`;
+    layer.appendChild(dot);
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='precise-country-label'+(activeCountryFilter===item.code?' active':'');
+    btn.style.visibility='hidden';
+    btn.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label', `${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+    const w=Math.ceil(btn.getBoundingClientRect().width || 58);
+    const h=Math.ceil(btn.getBoundingClientRect().height || 17);
+    const box=chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors);
+    occupied.push(box);
+    btn.style.left=`${{box.left}}px`;
+    btn.style.top=`${{box.top}}px`;
+    btn.style.visibility='visible';
+    btn.addEventListener('click', event=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    }});
+    addExactConnector(layer,ax,ay,box);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items = collect2DCountryItems();
+  if(!items.length) return;
+  if(!activeContinentFilter) activeContinentFilter='ALL';
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking = document.getElementById('continent-country-ranking');
+  if(ranking){{ ranking.hidden=true; ranking.innerHTML=''; }}
+  const caption = document.querySelector('.country-map-caption');
+  if(caption) caption.style.display='none';
   const note = document.getElementById('country-filter-note');
   if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
 }}
