@@ -8748,6 +8748,85 @@ main {
   }
 }
 
+
+/* ============================================================
+   2026-08-21 ABSOLUTE FINAL — ALL CONTINENT BUTTONS + THUMBNAIL FILL
+   ============================================================ */
+
+/* Use grid, not flex: prevents the old width/flex rules from collapsing
+   the dock to a single visible continent button. */
+.continent-rail-scroll {
+  display:grid !important;
+  width:100% !important;
+  min-width:0 !important;
+  overflow:visible !important;
+  align-items:stretch !important;
+}
+.continent-button {
+  display:flex !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+
+/* Thumbnail: picture itself fills vertically.
+   Breathing room is outside the image, symmetrically in the card. */
+@media (max-width:430px) {
+  .preview-card {
+    height:90px !important;
+    min-height:90px !important;
+    max-height:90px !important;
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+    align-items:center !important;
+    box-sizing:border-box !important;
+  }
+  .card-side,
+  .preview-image {
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+  .preview-image {
+    padding:0 !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+  }
+  .preview-image img {
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    object-fit:cover !important;
+    object-position:50% 50% !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+}
+
+@media (max-width:380px) {
+  .preview-card {
+    height:86px !important;
+    min-height:86px !important;
+    max-height:86px !important;
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+  }
+  .card-side,
+  .preview-image {
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+  }
+  .preview-image {
+    padding:0 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -8756,7 +8835,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.22(토) 00:00 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.22(토) 00:20 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -30388,7 +30467,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://montelnews.com/news/932908dd-ab31-4dc7-88d1-e6c86d48f8f9/finland-can-halve-smr-costs-with-2039-launch-helen-ceo"
   data-title="Finland can halve SMR costs, 2039 launch eyed – Helen CEO"
   data-publisher="Montel News"
@@ -30412,7 +30491,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Finland can halve SMR costs, 2039 launch eyed – Helen CEO</div>
+      <div class="headline">Finland can halve SMR costs, 2039 launch eyed – Helen CEO</div>
       <div class="article-snippet">Helen CEO says Finland can halve SMR costs by pairing heat and power for district heating, targeting a commercial reactor around 2039.</div>
     </div>
   </div>
@@ -30559,7 +30638,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">61건</span>
+    <span class="group-count">62건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30694,7 +30773,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://interestingengineering.com/science/crystal-nuclear-clock-10-times-more-precise"
   data-title="Perfect crystal site brings ultra-precise nuclear clock closer to reality"
   data-publisher="Interesting Engineering"
@@ -30718,7 +30797,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Perfect crystal site brings ultra-precise nuclear clock closer to reality</div>
+      <div class="headline">Perfect crystal site brings ultra-precise nuclear clock closer to reality</div>
       <div class="article-snippet">Scientists have succeeded in finding the perfect site inside a crystal to dope thorium 229 to make a nuclear clock which is 10 times more precise.</div>
     </div>
   </div>
@@ -31322,6 +31401,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.theguardian.com/tv-and-radio/2026/aug/21/neutrogena-hayden-panettiere-statement"
+  data-title="Neutrogena responds to criticism over how brand deal with Hayden Panettiere ended"
+  data-publisher="The Guardian"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787324989"
+  data-country="OTHER"
+  data-search="neutrogena responds to criticism over how brand deal with hayden panettiere ended the guardian nuclear power·nuclear energy late actor in may said beauty brand cut off its relationship with her after she spoke out about postpartum depression the beauty brand neutrogena has acknowledged making its former ambassador hayden panettiere “feel unsupported during a very difficult time” – alluding to when the late hollywood actor said the company s"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Guardian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Neutrogena responds to criticism over how brand deal with Hayden Panettiere ended</div>
+      <div class="article-snippet">Late actor in May said beauty brand cut off its relationship with her after she spoke out about postpartum depression The beauty brand Neutrogena has acknowledged making its former ambassador Hayden Panettiere “feel unsupported during a very difficult time” – alluding to when the late Hollywood actor said the company s</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/303bf4ce6deb696e65bc7f82.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.theguardian.com/us-news/live/2026/aug/21/democrats-progressive-election-politics-live"
   data-title="‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live"
   data-publisher="The Guardian"
@@ -31345,7 +31457,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live</div>
+      <div class="headline">‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live</div>
       <div class="article-snippet">Mark Kelly, an Arizona Democrat and retired Navy officer, slams Navy’s mulling of naming a carrier for Trump instead of WWII hero Doris Miller US navy carrier set to honor Black war hero may reportedly be renamed after Trump Sign up for the US Breaking News email A movement opposing automatic license plate reader camer</div>
     </div>
   </div>
@@ -31354,7 +31466,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.engineeringnews.co.za/article/kwikot-launches-hvac-offering-under-haier-air-water-solutions-2026-08-21"
   data-title="Kwikot launches HVAC offering under Haier Air &amp; Water Solutions"
   data-publisher="Engineering News"
@@ -31378,7 +31490,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Kwikot launches HVAC offering under Haier Air &amp; Water Solutions</div>
+      <div class="headline">Kwikot launches HVAC offering under Haier Air &amp; Water Solutions</div>
       <div class="article-snippet">Water heating systems manufacturer Kwikot has formally entered the local heating, ventilation and air conditioning (HVAC) market. The new offering represents the latest expansion of Kwikot’s portfolio since its acquisition by Chinese home appliance brand Haier in 2024 and forms part of a broader air and water solutions</div>
     </div>
   </div>
@@ -31420,7 +31532,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-manh-len-thanh-bao-so-4-dac-khu-bach-long-vi-gio-manh-cap-8-giat-cap-9"
   data-title="Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9."
   data-publisher="Vietnam.vn"
@@ -31444,7 +31556,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9.</div>
+      <div class="headline">Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9.</div>
       <div class="article-snippet">Due to the influence of typhoon number 4, strong winds of level 8, gusting to level 9, were recorded in the Bach Long Vi special zone (Hai Phong).</div>
     </div>
   </div>
@@ -39587,7 +39699,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://montelnews.com/news/932908dd-ab31-4dc7-88d1-e6c86d48f8f9/finland-can-halve-smr-costs-with-2039-launch-helen-ceo"
   data-title="Finland can halve SMR costs, 2039 launch eyed – Helen CEO"
   data-publisher="Montel News"
@@ -39611,7 +39723,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Finland can halve SMR costs, 2039 launch eyed – Helen CEO</div>
+      <div class="headline">Finland can halve SMR costs, 2039 launch eyed – Helen CEO</div>
       <div class="article-snippet">Helen CEO says Finland can halve SMR costs by pairing heat and power for district heating, targeting a commercial reactor around 2039.</div>
     </div>
   </div>
@@ -39758,7 +39870,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">61건</span>
+    <span class="group-count">62건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -39893,7 +40005,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://interestingengineering.com/science/crystal-nuclear-clock-10-times-more-precise"
   data-title="Perfect crystal site brings ultra-precise nuclear clock closer to reality"
   data-publisher="Interesting Engineering"
@@ -39917,7 +40029,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Perfect crystal site brings ultra-precise nuclear clock closer to reality</div>
+      <div class="headline">Perfect crystal site brings ultra-precise nuclear clock closer to reality</div>
       <div class="article-snippet">Scientists have succeeded in finding the perfect site inside a crystal to dope thorium 229 to make a nuclear clock which is 10 times more precise.</div>
     </div>
   </div>
@@ -40521,6 +40633,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.theguardian.com/tv-and-radio/2026/aug/21/neutrogena-hayden-panettiere-statement"
+  data-title="Neutrogena responds to criticism over how brand deal with Hayden Panettiere ended"
+  data-publisher="The Guardian"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787324989"
+  data-country="OTHER"
+  data-search="neutrogena responds to criticism over how brand deal with hayden panettiere ended the guardian nuclear power·nuclear energy late actor in may said beauty brand cut off its relationship with her after she spoke out about postpartum depression the beauty brand neutrogena has acknowledged making its former ambassador hayden panettiere “feel unsupported during a very difficult time” – alluding to when the late hollywood actor said the company s"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Guardian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Neutrogena responds to criticism over how brand deal with Hayden Panettiere ended</div>
+      <div class="article-snippet">Late actor in May said beauty brand cut off its relationship with her after she spoke out about postpartum depression The beauty brand Neutrogena has acknowledged making its former ambassador Hayden Panettiere “feel unsupported during a very difficult time” – alluding to when the late Hollywood actor said the company s</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/303bf4ce6deb696e65bc7f82.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.theguardian.com/us-news/live/2026/aug/21/democrats-progressive-election-politics-live"
   data-title="‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live"
   data-publisher="The Guardian"
@@ -40544,7 +40689,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live</div>
+      <div class="headline">‘Shouldn’t be renamed at all’: senator attacks Navy’s reported consideration of honoring Trump instead of Black war hero – live</div>
       <div class="article-snippet">Mark Kelly, an Arizona Democrat and retired Navy officer, slams Navy’s mulling of naming a carrier for Trump instead of WWII hero Doris Miller US navy carrier set to honor Black war hero may reportedly be renamed after Trump Sign up for the US Breaking News email A movement opposing automatic license plate reader camer</div>
     </div>
   </div>
@@ -40553,7 +40698,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.engineeringnews.co.za/article/kwikot-launches-hvac-offering-under-haier-air-water-solutions-2026-08-21"
   data-title="Kwikot launches HVAC offering under Haier Air &amp; Water Solutions"
   data-publisher="Engineering News"
@@ -40577,7 +40722,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Kwikot launches HVAC offering under Haier Air &amp; Water Solutions</div>
+      <div class="headline">Kwikot launches HVAC offering under Haier Air &amp; Water Solutions</div>
       <div class="article-snippet">Water heating systems manufacturer Kwikot has formally entered the local heating, ventilation and air conditioning (HVAC) market. The new offering represents the latest expansion of Kwikot’s portfolio since its acquisition by Chinese home appliance brand Haier in 2024 and forms part of a broader air and water solutions</div>
     </div>
   </div>
@@ -40619,7 +40764,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-manh-len-thanh-bao-so-4-dac-khu-bach-long-vi-gio-manh-cap-8-giat-cap-9"
   data-title="Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9."
   data-publisher="Vietnam.vn"
@@ -40643,7 +40788,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9.</div>
+      <div class="headline">Tropical depression intensifies into typhoon number 4, Bach Long Vi special zone experiences strong winds of level 8, gusting to level 9.</div>
       <div class="article-snippet">Due to the influence of typhoon number 4, strong winds of level 8, gusting to level 9, were recorded in the Bach Long Vi special zone (Hai Phong).</div>
     </div>
   </div>
@@ -145300,15 +145445,19 @@ function renderContinentRail2D(items){
     .sort((a,b)=>b.count-a.count || a.index-b.index)
     .map(entry=>entry.code);
 
+  /* 6개 대륙 버튼은 모두 항상 표시.
+     기사 많은 순서는 유지하되, 짧은 이름은 좁게 / 긴 이름은 넓게 배분합니다. */
+  const dockWidthMap = { NA:0.84, EU:0.84, AS:0.96, SA:0.90, OC:1.18, MEA:1.44 };
+  scroll.style.setProperty(
+    'grid-template-columns',
+    rankedContinentOrder.map(code=>`${dockWidthMap[code]||1}fr`).join(' '),
+    'important'
+  );
+
   rankedContinentOrder.forEach(code=>{
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='continent-button'+(activeContinentFilter===code?' active':'');
-    const dockFlexMap = { NA:0.86, EU:0.86, AS:0.98, SA:0.92, OC:1.18, MEA:1.48 };
-    btn.style.setProperty('flex', `${dockFlexMap[code]||1} 1 0`, 'important');
-    btn.style.setProperty('width', 'auto', 'important');
-    btn.style.setProperty('max-width', 'none', 'important');
-    btn.style.setProperty('flex-basis', '0', 'important');
     btn.innerHTML=`<span class="continent-button-name">${CONTINENT_META[code].name}</span><span class="continent-button-count">${articles[code]||0}건</span>`;
     btn.addEventListener('click',()=>{
       const isSameContinent = activeContinentFilter===code;
