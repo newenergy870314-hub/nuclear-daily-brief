@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# KEPCO KDN THREE-STAGE GROUP LOCK 2026-08-21
+# IMAGE CONTENT FINGERPRINT DEDUP (SHA-256 + dHash) 2026-08-21
 # TRUE MERGED FINAL: UI + ALL COUNTRY COORDS + CONTINENT TOGGLE + THUMBNAIL DEDUP + ERROR FIX 2026-08-21
 # Overseas fix: EN articles → Nuclear Power·Nuclear Energy, URL date regex,
 # ANS URL filter, faster shard rotation (2), higher EN candidate limits.
@@ -61,6 +63,11 @@ THUMBNAIL_KEEP_DAYS = 7
 THUMBNAIL_DOWNLOAD_WORKERS = 10
 THUMBNAIL_TIMEOUT_SECONDS = 5
 THUMBNAIL_MAX_BYTES = 5_000_000
+
+# 썸네일 내용 기반 중복 판정 메타데이터
+# URL/로컬 파일명이 달라도 실제 이미지가 같으면 잡기 위한 fingerprint를 저장합니다.
+THUMBNAIL_FINGERPRINT_FILE = THUMBNAIL_DIR / "_fingerprints.json"
+THUMBNAIL_DHASH_MAX_DISTANCE = 4
 
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
@@ -2127,6 +2134,130 @@ def _image_extension(content_type: str, url: str) -> str:
     return ".jpg"
 
 
+def _load_thumbnail_fingerprint_store() -> dict[str, dict]:
+    if not THUMBNAIL_FINGERPRINT_FILE.exists():
+        return {}
+    try:
+        data = json.loads(
+            THUMBNAIL_FINGERPRINT_FILE.read_text(encoding="utf-8")
+        )
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _save_thumbnail_fingerprint_store(store: dict[str, dict]) -> None:
+    try:
+        THUMBNAIL_DIR.mkdir(parents=True, exist_ok=True)
+        THUMBNAIL_FINGERPRINT_FILE.write_text(
+            json.dumps(store, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+    except Exception:
+        pass
+
+
+def _compute_thumbnail_fingerprint(path: Path) -> dict[str, object]:
+    """
+    이미지 파일 자체의 fingerprint를 만듭니다.
+
+    sha256:
+      파일 바이트가 완전히 같은 사진 검출.
+
+    dhash:
+      Pillow가 설치되어 있으면 64-bit difference hash를 추가 생성.
+      언론사가 같은 사진을 리사이즈/재압축해도 거의 같은 값을 만들기 위한 값입니다.
+      Pillow가 없는 환경에서는 sha256만 사용하며 전체 수집은 중단하지 않습니다.
+    """
+    try:
+        payload = path.read_bytes()
+    except Exception:
+        return {}
+
+    if not payload:
+        return {}
+
+    result: dict[str, object] = {
+        "sha256": hashlib.sha256(payload).hexdigest(),
+        "size_bytes": len(payload),
+    }
+
+    try:
+        from PIL import Image  # type: ignore
+
+        with Image.open(path) as image:
+            width, height = image.size
+            result["width"] = int(width)
+            result["height"] = int(height)
+
+            # EXIF 회전 여부와 무관하게 비교 가능한 grayscale 9x8 dHash
+            gray = image.convert("L").resize((9, 8))
+            pixels = list(gray.getdata())
+
+        bits = 0
+        bit_index = 0
+        for row in range(8):
+            base = row * 9
+            for col in range(8):
+                bits |= (1 if pixels[base + col] > pixels[base + col + 1] else 0) << bit_index
+                bit_index += 1
+        result["dhash"] = f"{bits:016x}"
+    except Exception:
+        # Pillow 미설치/손상 이미지라도 정확 파일 해시(SHA-256)는 계속 사용합니다.
+        pass
+
+    return result
+
+
+def _register_thumbnail_fingerprint(
+    local_path: str,
+    source_url: str,
+    store: dict[str, dict],
+) -> None:
+    if not local_path:
+        return
+
+    path = Path(local_path)
+    if not path.exists() or not path.is_file():
+        return
+
+    name = path.name.lower()
+    record = store.get(name, {})
+    if not isinstance(record, dict):
+        record = {}
+
+    # 파일이 바뀌었거나 fingerprint가 없으면 다시 계산
+    try:
+        current_size = path.stat().st_size
+    except Exception:
+        current_size = 0
+
+    if (
+        not record.get("sha256")
+        or int(record.get("size_bytes") or 0) != current_size
+    ):
+        computed = _compute_thumbnail_fingerprint(path)
+        if computed:
+            record.update(computed)
+
+    parsed = urlparse(source_url or "")
+    original_name = Path(parsed.path).name if parsed.path else ""
+
+    urls = record.get("source_urls")
+    if not isinstance(urls, list):
+        urls = []
+    if source_url and source_url not in urls:
+        urls.append(source_url)
+        # sidecar 파일이 너무 커지지 않도록 최근 URL 일부만 유지
+        urls = urls[-8:]
+
+    record["source_urls"] = urls
+    if original_name:
+        record["original_filename"] = original_name
+
+    store[name] = record
+
+
 def _download_thumbnail(image_url: str) -> str:
     if not image_url:
         return ""
@@ -2145,7 +2276,11 @@ def _download_thumbnail(image_url: str) -> str:
 
     try:
         parsed = urlparse(image_url)
-        referer = f"{parsed.scheme}://{parsed.netloc}/" if parsed.scheme and parsed.netloc else image_url
+        referer = (
+            f"{parsed.scheme}://{parsed.netloc}/"
+            if parsed.scheme and parsed.netloc
+            else image_url
+        )
         request = Request(
             image_url,
             headers={
@@ -2178,7 +2313,16 @@ def _download_thumbnail(image_url: str) -> str:
 def cache_article_thumbnails(
     articles_by_period: dict[str, list[Article]],
 ) -> None:
-    """표시될 기사 이미지만 병렬 다운로드하여 로컬 경로로 바꿉니다."""
+    """
+    표시될 기사 이미지를 로컬 저장하고 이미지 fingerprint도 함께 생성합니다.
+
+    저장 정보:
+    - 원본 이미지 URL
+    - 원본 URL의 파일명
+    - SHA-256
+    - 이미지 width / height (Pillow 사용 가능 시)
+    - dHash (Pillow 사용 가능 시)
+    """
     by_image_url: dict[str, list[Article]] = {}
 
     for articles in articles_by_period.values():
@@ -2189,7 +2333,9 @@ def cache_article_thumbnails(
     if not by_image_url:
         return
 
+    fingerprint_store = _load_thumbnail_fingerprint_store()
     workers = min(THUMBNAIL_DOWNLOAD_WORKERS, len(by_image_url))
+
     with ThreadPoolExecutor(max_workers=workers) as executor:
         future_map = {
             executor.submit(_download_thumbnail, image_url): image_url
@@ -2205,9 +2351,35 @@ def cache_article_thumbnails(
             if not local_path:
                 continue
 
+            _register_thumbnail_fingerprint(
+                local_path,
+                original_url,
+                fingerprint_store,
+            )
+
             for article in by_image_url.get(original_url, []):
                 article.image = local_path
 
+    _save_thumbnail_fingerprint_store(fingerprint_store)
+
+    exact_count = sum(
+        1 for value in fingerprint_store.values()
+        if isinstance(value, dict) and value.get("sha256")
+    )
+    perceptual_count = sum(
+        1 for value in fingerprint_store.values()
+        if isinstance(value, dict) and value.get("dhash")
+    )
+    if exact_count:
+        print(
+            f"[THUMBNAIL FINGERPRINT] exact_sha256={exact_count} "
+            f"/ perceptual_dhash={perceptual_count}"
+        )
+        if perceptual_count == 0:
+            print(
+                "[THUMBNAIL FINGERPRINT] Pillow unavailable or images undecodable; "
+                "SHA-256 exact-image matching remains active."
+            )
 
 def cleanup_old_thumbnails(now: datetime) -> None:
     if not THUMBNAIL_DIR.exists():
@@ -5406,6 +5578,7 @@ def render_card(
     is_new: bool = False,
 ) -> str:
     ensure_article_display_metadata(article)
+    enforce_kepco_kdn_group(article)
 
     if article.image:
         image_html = (
@@ -6095,7 +6268,7 @@ _THUMBNAIL_EVENT_STAGES = {
 
 
 def _thumbnail_filename(article: Article) -> str:
-    """로컬 캐시된 썸네일의 파일명만 반환합니다. 실패/외부 URL은 중복 근거로 쓰지 않습니다."""
+    """로컬 캐시된 썸네일의 파일명만 반환합니다."""
     image = (article.image or "").strip().replace("\\", "/")
     if not image.startswith("assets/thumbnails/"):
         return ""
@@ -6105,70 +6278,101 @@ def _thumbnail_filename(article: Article) -> str:
     return name
 
 
-def _thumbnail_event_stage(article: Article) -> str | None:
-    haystack = html.unescape(f"{article.title} {article.description[:260]}").lower()
-    compact = re.sub(r"\s+", "", haystack)
-    for stage, terms in _THUMBNAIL_EVENT_STAGES.items():
-        if any(term.lower() in haystack or term.lower().replace(" ", "") in compact for term in terms):
-            return stage
-    return None
+_THUMBNAIL_FP_RUNTIME_CACHE: dict[str, dict] | None = None
 
 
-def _thumbnail_event_tokens(article: Article) -> set[str]:
-    source = article_event_text(article)
-    result: set[str] = set()
-    for token in meaningful_keywords(source):
-        t = normalized(token)
-        if not t or len(t) < 2:
-            continue
-        if t in _THUMBNAIL_DEDUP_GENERIC_TOKENS:
-            continue
-        if re.fullmatch(r"\d+(?:\.\d+)?", t):
-            continue
-        result.add(t)
-    return result
+def _thumbnail_fingerprint_store_cached() -> dict[str, dict]:
+    global _THUMBNAIL_FP_RUNTIME_CACHE
+    if _THUMBNAIL_FP_RUNTIME_CACHE is None:
+        _THUMBNAIL_FP_RUNTIME_CACHE = _load_thumbnail_fingerprint_store()
+    return _THUMBNAIL_FP_RUNTIME_CACHE
+
+
+def _thumbnail_fingerprint(article: Article) -> dict:
+    name = _thumbnail_filename(article)
+    if not name:
+        return {}
+
+    store = _thumbnail_fingerprint_store_cached()
+    record = store.get(name)
+    if isinstance(record, dict) and record.get("sha256"):
+        return record
+
+    # 예전 캐시 이미지라 sidecar에 없을 경우 즉석 계산
+    local_path = THUMBNAIL_DIR / name
+    if not local_path.exists():
+        return {}
+
+    computed = _compute_thumbnail_fingerprint(local_path)
+    if not computed:
+        return {}
+
+    store[name] = computed
+    return computed
+
+
+def _hex_hamming_distance(a: str, b: str) -> int | None:
+    try:
+        return (int(a, 16) ^ int(b, 16)).bit_count()
+    except Exception:
+        return None
 
 
 def _same_thumbnail_same_event(a: Article, b: Article) -> bool:
     """
-    사용자 지정 강제 중복 규칙.
+    서로 다른 언론사가 실제로 같은 사진을 사용하면 동일 기사로 간주합니다.
 
-    - 언론사가 서로 다르고
-    - 로컬 썸네일 파일명이 완전히 동일하면
+    1) SHA-256 동일:
+       URL/로컬 파일명이 달라도 다운로드 결과가 완전히 같은 이미지.
 
-    제목/본문/프로젝트/사건 단계와 관계없이 동일 기사로 간주합니다.
-    이 함수는 각 날짜(전일/금일/익일) 묶음 안에서 실행되므로
-    해당 기간 내 대표기사 1건만 남깁니다.
+    2) dHash 거리 <= THUMBNAIL_DHASH_MAX_DISTANCE:
+       같은 사진을 언론사가 리사이즈/재압축한 경우까지 검출.
+
+    제목/본문 유사도는 요구사항에 따라 추가 조건으로 사용하지 않습니다.
     """
     publisher_a = (a.publisher or "").strip()
     publisher_b = (b.publisher or "").strip()
 
-    # 같은 언론사끼리는 이 강제 규칙을 적용하지 않습니다.
     if not publisher_a or not publisher_b or publisher_a == publisher_b:
         return False
 
-    thumb_a = _thumbnail_filename(a)
-    thumb_b = _thumbnail_filename(b)
+    fp_a = _thumbnail_fingerprint(a)
+    fp_b = _thumbnail_fingerprint(b)
+    if not fp_a or not fp_b:
+        return False
 
-    return bool(thumb_a and thumb_a == thumb_b)
+    sha_a = str(fp_a.get("sha256") or "")
+    sha_b = str(fp_b.get("sha256") or "")
+    if sha_a and sha_b and sha_a == sha_b:
+        return True
+
+    dhash_a = str(fp_a.get("dhash") or "")
+    dhash_b = str(fp_b.get("dhash") or "")
+    if dhash_a and dhash_b:
+        distance = _hex_hamming_distance(dhash_a, dhash_b)
+        if distance is not None and distance <= THUMBNAIL_DHASH_MAX_DISTANCE:
+            return True
+
+    return False
 
 
-def _deduplicate_identical_thumbnail_events(articles: list[Article]) -> tuple[list[Article], int]:
-    """서로 다른 언론사가 동일 썸네일 파일명을 쓰면 대표 1건으로 축약합니다."""
+def _deduplicate_identical_thumbnail_events(
+    articles: list[Article],
+) -> tuple[list[Article], int]:
+    """
+    서로 다른 언론사가 동일/거의 동일한 썸네일 사진을 사용하면
+    대표기사 1건만 유지합니다.
+    """
     result: list[Article] = []
     removed = 0
 
-    # 최신 기사 순서를 유지하면서 더 풍부한 대표기사로 교체합니다.
     for article in sorted(articles, key=lambda x: x.published, reverse=True):
-        thumb = _thumbnail_filename(article)
-        if not thumb:
+        if not _thumbnail_filename(article):
             result.append(article)
             continue
 
         matched_idx = None
         for idx, kept in enumerate(result):
-            if _thumbnail_filename(kept) != thumb:
-                continue
             if _same_thumbnail_same_event(article, kept):
                 matched_idx = idx
                 break
@@ -7426,6 +7630,22 @@ def ensure_article_display_metadata(article: Article) -> None:
         article.publisher = "출처 미확인"
 
 
+def enforce_kepco_kdn_group(article: Article) -> Article:
+    """
+    한전KDN 최종 분류 안전장치.
+
+    제목/미리보기 중 하나라도 아래 표기가 있으면 기존 group 값과 무관하게
+    반드시 '한전 계열사'로 고정합니다.
+      - 한전KDN / 한전 KDN
+      - KEPCO KDN / KEPCO-KDN
+
+    신규 수집, archive 복원, 최종 렌더 직전 모두에서 재사용합니다.
+    """
+    if _mentions_kepco_kdn(article.title, article.description):
+        article.group = "한전 계열사"
+    return article
+
+
 def article_from_dict(data: dict) -> Article | None:
     try:
         title = str(data.get("title", ""))
@@ -7458,7 +7678,7 @@ def article_from_dict(data: dict) -> Article | None:
         if group_name == "현대건설" and is_hyundai_volleyball_article(title):
             return None
 
-        return Article(
+        article = Article(
             title=title,
             link=link,
             published=date_parser.parse(str(data.get("published", ""))).astimezone(KST),
@@ -7469,6 +7689,7 @@ def article_from_dict(data: dict) -> Article | None:
             source_url=source_url,
             description=str(data.get("description", "")),
         )
+        return enforce_kepco_kdn_group(article)
     except Exception:
         return None
 
@@ -7508,6 +7729,7 @@ def update_archive(
         merged_by_url: dict[str, Article] = {}
 
         for article in existing_items + current_items:
+            enforce_kepco_kdn_group(article)
             normalized_link = article.link.strip() if article.link else ""
             identity = normalized_link or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
 
@@ -19612,12 +19834,17 @@ def main() -> int:
     for items in articles_by_period.values():
         for article in items:
             ensure_article_display_metadata(article)
+            enforce_kepco_kdn_group(article)
 
     # 대표 이미지를 로컬 파일로 저장해 외부 이미지 차단/로딩 실패를 줄입니다.
     cache_article_thumbnails(articles_by_period)
     cleanup_old_thumbnails(now)
 
-    # 동일 썸네일 파일명 + 동일 날짜 + 동일 사건 문맥일 때만 대표 기사 1건으로 축약합니다.
+    # 방금 저장한 fingerprint sidecar를 기준으로 중복 판정하도록 캐시를 새로 읽습니다.
+    global _THUMBNAIL_FP_RUNTIME_CACHE
+    _THUMBNAIL_FP_RUNTIME_CACHE = None
+
+    # 서로 다른 언론사가 동일/거의 동일한 실제 썸네일 사진을 쓰면 대표 기사 1건으로 축약합니다.
     thumbnail_dedup_removed_total = 0
     for label in ("전일", "금일", "익일"):
         deduped_items, removed_count = _deduplicate_identical_thumbnail_events(
