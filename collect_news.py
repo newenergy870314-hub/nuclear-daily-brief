@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# ASIA HIGHLIGHT LEFT BOUNDARY REFINED 2026-08-22
+# CONTINENT DOCK BOTTOM COMPACT RECTANGLE 2026-08-22
 # MAP DOCK LOWER + COUNTRY LABEL NO OVERLAP 2026-08-21
 # ALL 6 CONTINENT BUTTONS RESTORED + THUMBNAIL VERTICAL FILL 2026-08-21
 # RUSSIA/CHINA LABEL SEPARATION + SOUTH AMERICA FULL HIGHLIGHT 2026-08-21
@@ -17264,6 +17266,117 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   2026-08-22 CONTINENT DOCK — BOTTOM / COMPACT RECTANGLE
+   - place selector as low as possible in the country-news panel
+   - reduce unused button space
+   - keep buttons as compact horizontal rectangles
+   - maximize visible map area above the dock
+   ============================================================ */
+#continent-rail {{
+  left:6px !important;
+  right:6px !important;
+  bottom:1px !important;
+  height:42px !important;
+  max-height:42px !important;
+  padding:3px !important;
+  border-radius:10px !important;
+}}
+
+.continent-rail-scroll {{
+  height:100% !important;
+  align-items:stretch !important;
+  gap:3px !important;
+}}
+
+.continent-button {{
+  min-width:0 !important;
+  min-height:34px !important;
+  height:34px !important;
+  padding:2px 4px !important;
+  border-radius:8px !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+}}
+
+.continent-button-name {{
+  width:auto !important;
+  font-size:9.4px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}}
+
+.continent-button-count {{
+  width:auto !important;
+  font-size:8.4px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+
+/* Pull the map down close to the selector while preserving a clear gap. */
+.country-map-visual .world-map-inline.globe-texture-source {{
+  bottom:47px !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:5px !important;
+    right:5px !important;
+    bottom:1px !important;
+    height:40px !important;
+    max-height:40px !important;
+    padding:3px !important;
+  }}
+  .continent-rail-scroll {{
+    gap:2px !important;
+  }}
+  .continent-button {{
+    min-height:32px !important;
+    height:32px !important;
+    padding:2px 3px !important;
+    border-radius:7px !important;
+    gap:2px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.8px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.9px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:45px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    left:4px !important;
+    right:4px !important;
+    bottom:1px !important;
+    height:39px !important;
+    max-height:39px !important;
+  }}
+  .continent-button {{
+    min-height:31px !important;
+    height:31px !important;
+    padding:2px 2px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.3px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.5px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:44px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -20748,7 +20861,7 @@ function renderContinentRail2D(items){{
 
   /* 6개 대륙 버튼은 모두 항상 표시.
      기사 많은 순서는 유지하되, 짧은 이름은 좁게 / 긴 이름은 넓게 배분합니다. */
-  const dockWidthMap = {{ NA:0.84, EU:0.84, AS:0.96, SA:0.90, OC:1.18, MEA:1.44 }};
+  const dockWidthMap = {{ NA:0.92, EU:0.92, AS:1.02, SA:0.96, OC:1.08, MEA:1.20 }};
   scroll.style.setProperty(
     'grid-template-columns',
     rankedContinentOrder.map(code=>`${{dockWidthMap[code]||1}}fr`).join(' '),
@@ -22024,7 +22137,7 @@ function getContinentNativeRegion(code){{
     NA:{{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' }},
     SA:{{ points:'248,190 316,188 370,214 404,262 414,318 406,374 388,430 358,486 318,496 288,460 272,412 262,358 256,304 250,248' }},
     EU:{{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' }},
-    AS:{{ points:'520,44 636,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 700,232 672,242 656,276 646,316 620,324 586,300 558,252 540,188 540,132' }},
+    AS:{{ points:'582,46 650,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 700,232 672,242 656,276 646,316 620,324 608,300 600,258 596,214 596,170 590,126 584,86' }},
     /* 중동·아프리카는 아라비아반도 쪽으로 더 넓게 잡아 중동이 빠지지 않게 조정 */
     MEA:{{ points:'386,144 468,146 550,164 618,196 670,236 712,286 728,346 716,410 680,462 626,494 558,496 500,484 458,454 426,408 406,352 392,292 384,230' }},
     OC:{{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }}
