@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# HOLTEC PALISADES REQUIRES HOLTEC CO-OCCURRENCE 2026-08-21
 # ARTICLE NUMBER REMOVED + TEXT WIDTH EXPANDED 2026-08-21
 # CONSERVATIVE IMAGE + CONTENT CONFIRMED DEDUP 2026-08-21
 # MAP / CONTINENT PROJECTION ALIGNMENT FIX 2026-08-21
@@ -262,7 +263,7 @@ GROUPS = [
     ]),
     ("Holtec", [
         "Holtec nuclear", '"Holtec International"', "홀텍",
-        "SMR-300", "Palisades nuclear", '"Oyster Creek" SMR',
+        "SMR-300", '"Holtec" Palisades', '"Oyster Creek" SMR',
     ]),
     ("TerraPower", [
         "TerraPower", "테라파워", "Natrium reactor", "Natrium nuclear",
@@ -1353,7 +1354,7 @@ DIRECT_GROUP_KEYWORDS = {
         "аец козлодуй", "козлодуй",
     ],
     "Holtec": [
-        "holtec", "홀텍", "smr-300", "palisades", "oyster creek",
+        "holtec", "홀텍", "smr-300", "oyster creek",
     ],
     "TerraPower": [
         "terrapower", "테라파워", "natrium", "kemmerer",
@@ -3227,7 +3228,7 @@ GROUP_CORE_PRIORITY_TERMS = {
         "korea-us investment",
     },
     "Holtec": {
-        "holtec", "홀텍", "smr-300", "palisades",
+        "holtec", "홀텍", "smr-300",
     },
     "TerraPower": {
         "terrapower", "테라파워", "natrium", "kemmerer",
@@ -3513,7 +3514,7 @@ SHIN_HANUL_TERMS = {
 
 HOLTEC_TERMS = {
     "holtec", "holtec international", "홀텍", "smr-300", "smr 300",
-    "palisades smr", "palisades nuclear", "oyster creek smr",
+    "oyster creek smr",
 }
 
 
@@ -3532,24 +3533,33 @@ def is_pacific_palisades_non_nuclear_article(title: str, summary: str = "") -> b
 
 
 def is_valid_holtec_article(title: str, summary: str = "") -> bool:
-    """Holtec 검색 결과의 지명 오탐(Pacific Palisades 등)을 제거합니다."""
+    """
+    Holtec 검색 결과의 지명 오탐을 제거합니다.
+
+    핵심 규칙:
+    - 'Palisades'는 단독으로 Holtec 근거로 사용하지 않습니다.
+    - Palisades가 포함된 기사는 반드시 Holtec/홀텍이 함께 명시되어야
+      Holtec 기사로 인정합니다.
+    """
     haystack = html.unescape(f"{title} {summary}").lower()
 
-    # Holtec/SMR-300이 직접 언급되면 유효 기사
-    if any(term in haystack for term in ("holtec", "holtec international", "홀텍", "smr-300", "smr 300")):
-        return True
-
-    # Palisades는 LA의 Pacific Palisades와 혼동될 수 있으므로 원자력 문맥이 함께 있어야 함
-    if "palisades" in haystack and any(
+    has_holtec = any(
         term in haystack
-        for term in (
-            "nuclear", "reactor", "smr", "nuclear power", "nuclear plant",
-            "decommission", "원전", "원자력", "원자로", "해체",
-        )
-    ):
+        for term in ("holtec", "holtec international", "홀텍")
+    )
+
+    # Palisades가 등장하면 Holtec 동시 언급을 필수로 요구
+    if "palisades" in haystack:
+        return has_holtec
+
+    # Palisades가 아닌 일반 Holtec/SMR-300 기사
+    if has_holtec:
         return True
 
-    # Oyster Creek 역시 원자력/SMR 문맥이 있을 때만 Holtec 기사로 인정
+    if any(term in haystack for term in ("smr-300", "smr 300")):
+        return True
+
+    # Oyster Creek은 기존처럼 원자력/SMR 문맥이 있을 때만 인정
     if "oyster creek" in haystack and any(
         term in haystack
         for term in ("nuclear", "reactor", "smr", "decommission", "원전", "원자력", "해체")
@@ -3805,7 +3815,11 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
         return "원자력"
 
     if any(term in haystack for term in HOLTEC_TERMS):
-        return "Holtec"
+        # Palisades 지명은 Holtec 동시 언급이 있을 때만 Holtec으로 분류
+        if "palisades" not in haystack or any(
+            term in haystack for term in ("holtec", "holtec international", "홀텍")
+        ):
+            return "Holtec"
 
     if any(term in haystack for term in TERRAPOWER_TERMS):
         return "TerraPower"
@@ -15298,7 +15312,7 @@ header,
 .continent-all-button {{ display:none !important; }}
 .continent-rail-scroll {{
   display:grid !important;
-  grid-template-columns:.78fr .78fr .76fr .88fr 1.46fr 1.04fr !important;
+  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
   align-items:stretch !important;
   gap:3px !important;
   width:100% !important;
@@ -16050,6 +16064,83 @@ header,
   .precise-country-label .flag {{ font-size:7.5px !important; }}
   .precise-country-label .name,
   .precise-country-label .count {{ font-size:6.75px !important; }}
+}}
+
+
+/* 2026-08-21 FINAL: all six continent tabs use identical width even after dynamic reordering. */
+.continent-rail-scroll {{
+  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+}}
+.continent-button {{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}}
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP REFINEMENT
+   - more precise continent highlight look
+   - smaller map dots
+   - tighter label chips with shorter connectors
+   ============================================================ */
+#continent-highlight-svg-layer .continent-highlight-land path {{
+  fill:#72c4ec !important;
+  fill-opacity:.42 !important;
+  stroke:#238ec7 !important;
+  stroke-width:1.15 !important;
+  stroke-opacity:.82 !important;
+}}
+.precise-country-dot {{
+  width:4.5px !important;
+  height:4.5px !important;
+  border:1.2px solid #fff !important;
+}}
+.precise-country-dot.active {{
+  width:5.2px !important;
+  height:5.2px !important;
+}}
+.precise-country-label {{
+  gap:2px !important;
+  min-height:16px !important;
+  padding:1px 4px !important;
+  font-size:6.95px !important;
+}}
+.precise-country-label .flag {{ font-size:7.6px !important; }}
+.precise-country-label .name,
+.precise-country-label .count {{ font-size:6.95px !important; }}
+.precise-country-connector {{
+  height:1.2px !important;
+  background:rgba(73,117,150,.48) !important;
+}}
+@media (max-width:430px) {{
+  .precise-country-label {{
+    min-height:15px !important;
+    padding:1px 3px !important;
+    font-size:6.65px !important;
+  }}
+  .precise-country-label .flag {{ font-size:7.2px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:6.65px !important; }}
+}}
+
+
+/* ============================================================
+   2026-08-21 FINAL LEFT MARGIN TUNE
+   Slight extra breathing room on the left side
+   ============================================================ */
+main {{
+  padding-left:14px !important;
+}}
+@media (max-width:430px) {{
+  main {{
+    padding-left:14px !important;
+  }}
+}}
+@media (max-width:380px) {{
+  main {{
+    padding-left:13px !important;
+  }}
 }}
 
 </style>
@@ -20154,6 +20245,211 @@ function layoutAndRenderCountryMap(){{
   if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
 }}
 
+requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
+window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP REFINEMENT OVERRIDE
+   ============================================================ */
+function getContinentNativeRegion(code){{
+  const regions = {{
+    NA:{{ points:'8,54 48,28 138,28 214,46 286,72 334,110 350,166 334,224 272,250 215,258 165,242 128,208 95,172 63,140 36,104 16,78' }},
+    SA:{{ points:'215,212 256,198 292,208 320,242 334,286 330,338 314,392 292,446 262,486 236,470 226,430 214,382 205,332 198,284 201,246' }},
+    EU:{{ points:'396,64 434,52 474,58 516,70 558,82 592,102 604,126 592,148 562,156 530,152 505,142 484,148 458,144 436,128 418,108 402,88' }},
+    AS:{{ points:'526,64 576,56 640,58 710,68 786,82 858,92 934,116 984,152 992,196 964,234 922,248 868,248 828,232 786,222 748,212 712,212 676,198 646,178 616,164 588,154 560,136 540,108' }},
+    MEA:{{ points:'438,150 478,154 522,170 550,204 568,250 580,304 596,358 592,414 562,470 520,490 486,460 466,416 456,372 442,322 424,274 412,224 416,184' }},
+    OC:{{ points:'744,304 786,288 838,300 888,320 926,346 952,378 944,420 910,446 872,452 840,438 814,416 794,392 774,364 756,336' }}
+  }};
+  return regions[code] || null;
+}}
+
+function renderSelectedContinentHighlight(){{
+  const ctx = ensureNativeContinentHighlightLayer();
+  if(!ctx) return;
+  const {{ landGroup, defs, layer }} = ctx;
+  layer.innerHTML='';
+  defs.querySelectorAll('[data-continent-clip="1"]').forEach(node=>node.remove());
+  if(activeContinentFilter==='ALL') return;
+  const region=getContinentNativeRegion(activeContinentFilter);
+  if(!region) return;
+  const clipId = `continent-native-clip-${{activeContinentFilter}}`;
+  const clip = document.createElementNS('http://www.w3.org/2000/svg','clipPath');
+  clip.id = clipId;
+  clip.setAttribute('data-continent-clip','1');
+  const polygon = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  polygon.setAttribute('points', region.points);
+  clip.appendChild(polygon);
+  defs.appendChild(clip);
+  const highlightGroup = document.createElementNS('http://www.w3.org/2000/svg','g');
+  highlightGroup.setAttribute('class','continent-highlight-land');
+  highlightGroup.setAttribute('clip-path', `url(#${{clipId}})`);
+  landGroup.querySelectorAll('path').forEach(path=>{{
+    const clone = path.cloneNode(true);
+    clone.removeAttribute('style');
+    highlightGroup.appendChild(clone);
+  }});
+  layer.appendChild(highlightGroup);
+}}
+
+function boxIntersectsAnchor(box, anchors, selfCode){{
+  for(const pt of anchors){{
+    if(pt.code===selfCode) continue;
+    const pad = pt.cluster ? 7 : 5;
+    if(pt.x >= box.left-pad && pt.x <= box.right+pad && pt.y >= box.top-pad && pt.y <= box.bottom+pad){{
+      return true;
+    }}
+  }}
+  return false;
+}}
+
+function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
+  const offsetMap = {{
+    US:[[16,-8],[18,6],[16,-20]], CA:[[16,-12],[18,4]],
+    BR:[[-16,8],[-18,-8]], AR:[[16,8],[16,-8]], CL:[[14,0],[18,12]], CO:[[16,-6],[16,8]], PE:[[16,6],[16,-8]],
+    GB:[[16,-10],[16,6],[22,-2]], FR:[[16,8],[16,-6]], NL:[[18,-8],[18,6]], BE:[[16,8],[16,-6]], CH:[[16,8],[16,-8]],
+    SE:[[16,-10],[18,4]], FI:[[16,-10],[16,4]], PL:[[18,-8],[18,6]], CZ:[[18,8],[18,-6]], SI:[[16,8],[16,-6]],
+    RO:[[18,8],[18,-6]], BG:[[18,8],[18,-6]], UA:[[18,-8],[18,6]], TR:[[18,8],[18,-8]], DK:[[16,-8],[16,6]], SK:[[18,8],[18,-6]],
+    RU:[[18,-8],[18,6]],
+    AE:[[16,8],[16,-6]], SA:[[18,8],[18,-8]], ZA:[[16,-8],[16,8]],
+    CN:[[-18,8],[-20,-8]], IN:[[16,10],[18,-8]], VN:[[16,6],[16,-8]], TH:[[16,6],[16,-8]], MY:[[16,8],[16,-8]], SG:[[16,8],[16,-8]],
+    KR:[[16,-4],[16,8]], JP:[[18,-8],[18,8]], AU:[[16,-8],[16,8]]
+  }};
+  const angleMap = {{
+    US:[-20,20,-45,45], CA:[-20,15,35], BR:[160,135,-160], AR:[15,-15,35], CL:[0,20],
+    GB:[-15,15,35], FR:[15,-20], NL:[-15,20], BE:[25,-25], CH:[20,-20],
+    SE:[-20,20], FI:[-20,15], PL:[-15,20], CZ:[20,-20], SI:[25,-25], RO:[20,-20], BG:[20,-20], UA:[-15,20], TR:[15,-15], DK:[-20,15], SK:[25,-25], RU:[-15,15],
+    AE:[15,-15], SA:[15,-15], ZA:[-20,20],
+    CN:[165,-165,145], IN:[18,-18,38], VN:[10,-20], TH:[10,-20], MY:[20,-20], SG:[20,-20], KR:[5,20], JP:[-20,20], AU:[-15,15]
+  }};
+  const presetOffsets = offsetMap[itemCode] || [];
+  let best = null;
+  const tryBox = (left,top) => {{
+    left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+    top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+    const box = {{left, top, right:left+w, bottom:top+h, w, h}};
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,4) ? 1 : 0),0);
+    const anchorHit = boxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
+    const dist = Math.hypot((left+w/2)-ax,(top+h/2)-ay);
+    const edgePenalty = (left<=bounds.left+1 || top<=bounds.top+1 || left+w>=bounds.right-1 || top+h>=bounds.bottom-1) ? 4 : 0;
+    const score = collisions*100000 + anchorHit*3000 + dist + edgePenalty;
+    if(!best || score < best.score) best = {{...box, score, collisions, anchorHit}};
+    if(collisions===0 && anchorHit===0) return box;
+    return null;
+  }};
+  for(const [dx,dy] of presetOffsets){{
+    for(const [nx,ny] of [[0,0],[0,-4],[0,4],[-4,0],[4,0]]){{
+      const box = tryBox(ax + dx + nx - w/2, ay + dy + ny - h/2);
+      if(box) return box;
+    }}
+  }}
+  const angles = angleMap[itemCode] || [0,-20,20,-40,40,180,-140,140];
+  const radii = [10,14,18,24,30,36,44,52];
+  for(const r of radii){{
+    for(const deg of angles){{
+      const rad = deg * Math.PI / 180;
+      const left = ax + Math.cos(rad)*r - (Math.cos(rad) < -0.2 ? w : w/2);
+      const top = ay + Math.sin(rad)*r - h/2;
+      const box = tryBox(left, top);
+      if(box && r <= 36) return box;
+    }}
+  }}
+  return best || {{left:ax, top:ay, right:ax+w, bottom:ay+h, w, h}};
+}}
+
+function addExactConnector(layer,ax,ay,box){{
+  const cx = Math.max(box.left, Math.min(ax, box.right));
+  const cy = Math.max(box.top, Math.min(ay, box.bottom));
+  const dx = cx - ax;
+  const dy = cy - ay;
+  const len = Math.hypot(dx, dy);
+  if(len < 3) return;
+  const line = document.createElement('span');
+  line.className = 'precise-country-connector';
+  line.style.left = `${{ax}}px`;
+  line.style.top = `${{ay}}px`;
+  line.style.width = `${{Math.max(0, len - 2)}}px`;
+  line.style.transform = `rotate(${{Math.atan2(dy,dx)*180/Math.PI}}deg)`;
+  layer.appendChild(line);
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svg = document.querySelector('.world-map-inline.globe-texture-source');
+  const layer = document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer) return;
+  layer.innerHTML='';
+  if(activeContinentFilter==='ALL') return;
+  const countries = items
+    .filter(v => v.continent === activeContinentFilter && v.count > 0)
+    .sort((a,b) => b.count - a.count || a.name.localeCompare(b.name,'ko'));
+  if(!countries.length) return;
+  const vp = getExactMapViewport(svg, visual);
+  const dock = document.getElementById('continent-rail');
+  const vr = visual.getBoundingClientRect();
+  const dr = dock?.getBoundingClientRect();
+  const dockTop = dr ? dr.top - vr.top : visual.clientHeight - 42;
+  const bounds = {{
+    left: Math.max(4, vp.left + 2),
+    top: Math.max(8, vp.top + 2),
+    right: Math.min(vp.left + vp.width - 2, visual.clientWidth - 4),
+    bottom: Math.min(dockTop - 4, vp.top + vp.height - 2)
+  }};
+  const anchors = countries.map(item => {{
+    const p = getCountryMapAnchor(item);
+    const x = vp.left + (p.x/100) * vp.width;
+    const y = vp.top + (p.y/100) * vp.height;
+    const cluster = ['GB','NL','BE','CH','CZ','SI','SK','DK','KR','JP','SG','MY','TH','VN'].includes(item.code);
+    return {{code:item.code, x, y, cluster}};
+  }});
+  const occupied=[];
+  countries.forEach(item => {{
+    const anchor = anchors.find(v => v.code===item.code);
+    const ax = anchor.x, ay = anchor.y;
+    const dot = document.createElement('span');
+    dot.className = 'precise-country-dot' + (activeCountryFilter===item.code ? ' active' : '');
+    dot.style.left = `${{ax}}px`;
+    dot.style.top = `${{ay}}px`;
+    layer.appendChild(dot);
+    const btn = document.createElement('button');
+    btn.type='button';
+    btn.className = 'precise-country-label' + (activeCountryFilter===item.code ? ' active' : '');
+    btn.style.visibility='hidden';
+    btn.innerHTML = `<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label', `${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+    const w = Math.ceil(btn.getBoundingClientRect().width || 60);
+    const h = Math.ceil(btn.getBoundingClientRect().height || 18);
+    const box = chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors);
+    occupied.push(box);
+    btn.style.left = `${{box.left}}px`;
+    btn.style.top = `${{box.top}}px`;
+    btn.style.visibility='visible';
+    btn.addEventListener('click', (event) => {{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    }});
+    addExactConnector(layer,ax,ay,box);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items = collect2DCountryItems();
+  if(!items.length) return;
+  if(!activeContinentFilter) activeContinentFilter = 'ALL';
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking = document.getElementById('continent-country-ranking');
+  if(ranking){{ ranking.hidden = true; ranking.innerHTML = ''; }}
+  const caption = document.querySelector('.country-map-caption');
+  if(caption) caption.style.display = 'none';
+  const note = document.getElementById('country-filter-note');
+  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
+}}
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
