@@ -8483,29 +8483,31 @@ main {
 
 
 /* ============================================================
-   2026-08-21 CONTINENT DOCK UNCLIPPED FINAL OVERRIDE
-   - prevent continent tabs from clipping on mobile
-   - allow long names like 중동·아프리카 to fit naturally
-   - keep one-row overall layout with balanced proportions
+   2026-08-21 CONTINENT DOCK READABILITY FINAL OVERRIDE
+   - enlarge continent-tab text
+   - allow variable widths by continent (NA/EU narrower, OC/MEA wider)
+   - keep one-row layout without clipping
    ============================================================ */
 #continent-rail {
   left:8px !important;
   right:8px !important;
   bottom:6px !important;
-  height:48px !important;
-  max-height:48px !important;
+  height:54px !important;
+  max-height:54px !important;
   padding:4px !important;
   border-radius:14px !important;
 }
 .continent-rail-scroll {
-  grid-template-columns:repeat(6, minmax(0, 1fr)) !important;
+  display:flex !important;
+  align-items:stretch !important;
   gap:4px !important;
+  grid-template-columns:none !important;
 }
 .continent-button {
   min-width:0 !important;
-  min-height:38px !important;
-  height:38px !important;
-  padding:3px 2px !important;
+  min-height:42px !important;
+  height:42px !important;
+  padding:3px 4px !important;
   display:flex !important;
   flex-direction:column !important;
   align-items:center !important;
@@ -8516,10 +8518,10 @@ main {
 .continent-button-name {
   display:block !important;
   width:100% !important;
-  font-size:9px !important;
+  font-size:10.4px !important;
   font-weight:900 !important;
-  line-height:1.02 !important;
-  letter-spacing:-.18px !important;
+  line-height:1.05 !important;
+  letter-spacing:-.16px !important;
   white-space:normal !important;
   word-break:keep-all !important;
   overflow:visible !important;
@@ -8529,7 +8531,7 @@ main {
 .continent-button-count {
   display:block !important;
   width:100% !important;
-  font-size:8.2px !important;
+  font-size:9.4px !important;
   font-weight:950 !important;
   line-height:1 !important;
   text-align:center !important;
@@ -8537,48 +8539,49 @@ main {
 }
 @media (max-width:430px) {
   #continent-rail {
-    left:7px !important;
-    right:7px !important;
+    left:6px !important;
+    right:6px !important;
     bottom:5px !important;
-    height:50px !important;
-    max-height:50px !important;
+    height:56px !important;
+    max-height:56px !important;
     padding:4px !important;
   }
   .continent-rail-scroll {
     gap:3px !important;
   }
   .continent-button {
-    min-height:40px !important;
-    height:40px !important;
-    padding:3px 1px !important;
+    min-height:44px !important;
+    height:44px !important;
+    padding:3px 3px !important;
     gap:1px !important;
   }
   .continent-button-name {
-    font-size:8.1px !important;
-    line-height:1.0 !important;
-    letter-spacing:-.22px !important;
+    font-size:9.4px !important;
+    line-height:1.04 !important;
+    letter-spacing:-.18px !important;
   }
   .continent-button-count {
-    font-size:7.7px !important;
+    font-size:8.7px !important;
   }
 }
 @media (max-width:380px) {
   #continent-rail {
-    left:6px !important;
-    right:6px !important;
-    height:48px !important;
-    max-height:48px !important;
+    left:5px !important;
+    right:5px !important;
+    height:54px !important;
+    max-height:54px !important;
   }
   .continent-button {
-    min-height:38px !important;
-    height:38px !important;
+    min-height:42px !important;
+    height:42px !important;
+    padding:2px 2px !important;
   }
   .continent-button-name {
-    font-size:7.5px !important;
-    letter-spacing:-.24px !important;
+    font-size:8.8px !important;
+    letter-spacing:-.2px !important;
   }
   .continent-button-count {
-    font-size:7.1px !important;
+    font-size:8.1px !important;
   }
 }
 
@@ -8630,6 +8633,87 @@ main {
   }
 }
 
+
+
+/* ============================================================
+   2026-08-21 THUMBNAIL FINAL BOTTOM SPACE RELAXED
+   - make top/bottom thumbnail breathing room feel visually balanced
+   - give slightly more lower breathing room so mobile cards feel less cramped
+   ============================================================ */
+@media (max-width:430px) {
+  .preview-card {
+    height:90px !important;
+    min-height:90px !important;
+    max-height:90px !important;
+    padding:5px 3px 5px 4px !important;
+    align-items:center !important;
+    box-sizing:border-box !important;
+  }
+  .preview-copy {
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+    padding:1px 0 1px !important;
+    box-sizing:border-box !important;
+  }
+  .card-side,
+  .preview-image {
+    height:78px !important;
+    min-height:78px !important;
+    max-height:78px !important;
+    align-self:center !important;
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+  .preview-image {
+    box-sizing:border-box !important;
+    padding-top:1px !important;
+    padding-bottom:3px !important;
+    overflow:hidden !important;
+  }
+  .preview-image img {
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    display:block !important;
+  }
+}
+
+@media (max-width:380px) {
+  .preview-card {
+    height:86px !important;
+    min-height:86px !important;
+    max-height:86px !important;
+    padding:4px 2px 4px 4px !important;
+    align-items:center !important;
+    box-sizing:border-box !important;
+  }
+  .preview-copy {
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+    align-self:center !important;
+    padding:1px 0 1px !important;
+    box-sizing:border-box !important;
+  }
+  .card-side,
+  .preview-image {
+    height:74px !important;
+    min-height:74px !important;
+    max-height:74px !important;
+    align-self:center !important;
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }
+  .preview-image {
+    box-sizing:border-box !important;
+    padding-top:1px !important;
+    padding-bottom:3px !important;
+    overflow:hidden !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -8638,7 +8722,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 23:05 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 23:20 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -15439,7 +15523,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cc9ff020&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c98eb0d8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28218,7 +28302,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 15개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sisajournal.com/news/articleView.html?idxno=384423" target="_blank" rel="noopener"><span class="related-coverage-publisher">시사저널</span><span class="related-coverage-title">李대통령, 여한구 후임 통상교섭본부장에 박정성…소방청장엔 최용철 임명 - 시사저널</span></a><a class="related-coverage-link" href="https://news.tvchosun.com/site/data/html_dir/2026/08/21/2026082190183.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">TV조선</span><span class="related-coverage-title">李 대통령, 통상 사령탑에 박정성 임명…&#x27;경질&#x27; 여한구 후임</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000546323.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">여한구 전격 경질 엿새 만…통상교섭본부장에 박정성 인선</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/politics/12133254" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">李, 통상교섭본부장에 박정성 임명…여한구 경질 6일만 - 매일경제</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026082115431430347" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">李대통령, 새 통상교섭본부장에 박정성 차관보…여한구 경질 6일만</span></a><a class="related-coverage-link" href="https://www.hankookilbo.com/news/article/A2026082115200004667?dtypecode=pancode_main" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국일보</span><span class="related-coverage-title">이 대통령, 통상교섭본부장 박정성 발탁... &#x27;여한구 경질&#x27; 엿새 만-정치ㅣ한국일보</span></a><a class="related-coverage-link" href="https://www.joongang.co.kr/article/25455126" target="_blank" rel="noopener"><span class="related-coverage-publisher">중앙일보</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 | 중앙일보</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202608211521001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">[속보]이 대통령, 여한구 후임 통상교섭본부장에 박정성, 소방청장에 최용철 임명</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/politics/12133216" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 임명 - 매일경제</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026082150117" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a><a class="related-coverage-link" href="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5213926" target="_blank" rel="noopener"><span class="related-coverage-publisher">MBN</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a><a class="related-coverage-link" href="https://news.jtbc.co.kr/article/NB12314439" target="_blank" rel="noopener"><span class="related-coverage-publisher">JTBC</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 차관보 임명</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260821118300001?section=politics/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 | 연합뉴스</span></a><a class="related-coverage-link" href="https://biz.chosun.com/policy/politics/president_office/2026/08/21/ACWDQMTZABBHBBIDUPCKBTDFY4/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">여한구 후임 통상교섭본부장에 박정성, 소방청장 최용철</span></a><a class="related-coverage-link" href="https://n.news.naver.com/article/119/0003123950?type=main" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 16개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0101_202608212231111639" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">이 대통령, &#x27;통상사령탑&#x27;에 박정성 임명...여한구 경질 엿새 만</span></a><a class="related-coverage-link" href="https://www.sisajournal.com/news/articleView.html?idxno=384423" target="_blank" rel="noopener"><span class="related-coverage-publisher">시사저널</span><span class="related-coverage-title">李대통령, 여한구 후임 통상교섭본부장에 박정성…소방청장엔 최용철 임명 - 시사저널</span></a><a class="related-coverage-link" href="https://news.tvchosun.com/site/data/html_dir/2026/08/21/2026082190183.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">TV조선</span><span class="related-coverage-title">李 대통령, 통상 사령탑에 박정성 임명…&#x27;경질&#x27; 여한구 후임</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000546323.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">여한구 전격 경질 엿새 만…통상교섭본부장에 박정성 인선</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/politics/12133254" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">李, 통상교섭본부장에 박정성 임명…여한구 경질 6일만 - 매일경제</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026082115431430347" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">李대통령, 새 통상교섭본부장에 박정성 차관보…여한구 경질 6일만</span></a><a class="related-coverage-link" href="https://www.hankookilbo.com/news/article/A2026082115200004667?dtypecode=pancode_main" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국일보</span><span class="related-coverage-title">이 대통령, 통상교섭본부장 박정성 발탁... &#x27;여한구 경질&#x27; 엿새 만-정치ㅣ한국일보</span></a><a class="related-coverage-link" href="https://www.joongang.co.kr/article/25455126" target="_blank" rel="noopener"><span class="related-coverage-publisher">중앙일보</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 | 중앙일보</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202608211521001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">[속보]이 대통령, 여한구 후임 통상교섭본부장에 박정성, 소방청장에 최용철 임명</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/politics/12133216" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 임명 - 매일경제</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026082150117" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a><a class="related-coverage-link" href="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5213926" target="_blank" rel="noopener"><span class="related-coverage-publisher">MBN</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a><a class="related-coverage-link" href="https://news.jtbc.co.kr/article/NB12314439" target="_blank" rel="noopener"><span class="related-coverage-publisher">JTBC</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 차관보 임명</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260821118300001?section=politics/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 | 연합뉴스</span></a><a class="related-coverage-link" href="https://biz.chosun.com/policy/politics/president_office/2026/08/21/ACWDQMTZABBHBBIDUPCKBTDFY4/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">여한구 후임 통상교섭본부장에 박정성, 소방청장 최용철</span></a><a class="related-coverage-link" href="https://n.news.naver.com/article/119/0003123950?type=main" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">李대통령, 새 통상 사령탑에 박정성 발탁...여한구 경질 6일만</div>
@@ -28644,7 +28728,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202425"
   data-title="월성원자력본부, 을지연습서 대드론 방어체계 점검…‘빈틈없는 원전 방호’ 강화 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -28668,7 +28752,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>월성원자력본부, 을지연습서 대드론 방어체계 점검…‘빈틈없는 원전 방호’ 강화 - 에너지데일리</div>
+      <div class="headline">월성원자력본부, 을지연습서 대드론 방어체계 점검…‘빈틈없는 원전 방호’ 강화 - 에너지데일리</div>
       <div class="article-snippet">[에너지데일리 윤호철 기자] 국가중요시설인 원자력발전소를 겨냥한 드론과 미사일 등 복합적인 안보 위협에 대비해 월성원자력본부가 실전형 방호체계를 점검했다. 특히</div>
     </div>
   </div>
@@ -30411,7 +30495,7 @@ main {
     <span class="group-count">57건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://qazinform.com/news/uzbekistan-and-kazakhstan-deepen-nuclear-safety-dialogue-46dbb5"
   data-title="Uzbekistan and Kazakhstan deepen nuclear safety dialogue"
   data-publisher="Qazinform"
@@ -30435,7 +30519,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Uzbekistan and Kazakhstan deepen nuclear safety dialogue</div>
+      <div class="headline">Uzbekistan and Kazakhstan deepen nuclear safety dialogue</div>
       <div class="article-snippet">Uzbekistan and Kazakhstan held working-level talks focused on nuclear, radiation, and environmental safety, Qazinform News Agency cites Trend.</div>
     </div>
   </div>
@@ -30484,7 +30568,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787319586"
+  data-published="1787321886"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -35380,7 +35464,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">36건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35413,6 +35497,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ac9f7f8a11eab81248f9a6e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ytn.co.kr/_ln/0101_202608212231111639"
+  data-title="이 대통령, &#x27;통상사령탑&#x27;에 박정성 임명...여한구 경질 엿새 만"
+  data-publisher="YTN"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787319060"
+  data-country="KR"
+  data-search="이 대통령, &#x27;통상사령탑&#x27;에 박정성 임명...여한구 경질 엿새 만 ytn 원전 관계부처 이재명 대통령이 신임 통상교섭본부장에 박정성 산업통상부 차관보를 임명했습니다.여한구 전 본부장을 경질한 지 불과 엿새 만인데, 대미 통상 현안 대응의 시급성이 이..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">YTN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">이 대통령, &#x27;통상사령탑&#x27;에 박정성 임명...여한구 경질 엿새 만</div>
+      <div class="article-snippet">이재명 대통령이 신임 통상교섭본부장에 박정성 산업통상부 차관보를 임명했습니다.여한구 전 본부장을 경질한 지 불과 엿새 만인데, 대미 통상 현안 대응의 시급성이 이...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://image.ytn.co.kr/general/jpg/2026/0821/202608212231111639_t.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35800,7 +35917,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 15개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sisajournal.com/news/articleView.html?idxno=384423" target="_blank" rel="noopener"><span class="related-coverage-publisher">시사저널</span><span class="related-coverage-title">李대통령, 여한구 후임 통상교섭본부장에 박정성…소방청장엔 최용철 임명 - 시사저널</span></a><a class="related-coverage-link" href="https://news.tvchosun.com/site/data/html_dir/2026/08/21/2026082190183.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">TV조선</span><span class="related-coverage-title">李 대통령, 통상 사령탑에 박정성 임명…&#x27;경질&#x27; 여한구 후임</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000546323.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">여한구 전격 경질 엿새 만…통상교섭본부장에 박정성 인선</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/politics/12133254" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">李, 통상교섭본부장에 박정성 임명…여한구 경질 6일만 - 매일경제</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026082115431430347" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">李대통령, 새 통상교섭본부장에 박정성 차관보…여한구 경질 6일만</span></a><a class="related-coverage-link" href="https://www.hankookilbo.com/news/article/A2026082115200004667?dtypecode=pancode_main" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국일보</span><span class="related-coverage-title">이 대통령, 통상교섭본부장 박정성 발탁... &#x27;여한구 경질&#x27; 엿새 만-정치ㅣ한국일보</span></a><a class="related-coverage-link" href="https://www.joongang.co.kr/article/25455126" target="_blank" rel="noopener"><span class="related-coverage-publisher">중앙일보</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 | 중앙일보</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202608211521001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">[속보]이 대통령, 여한구 후임 통상교섭본부장에 박정성, 소방청장에 최용철 임명</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/politics/12133216" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 임명 - 매일경제</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026082150117" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a><a class="related-coverage-link" href="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5213926" target="_blank" rel="noopener"><span class="related-coverage-publisher">MBN</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a><a class="related-coverage-link" href="https://news.jtbc.co.kr/article/NB12314439" target="_blank" rel="noopener"><span class="related-coverage-publisher">JTBC</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 차관보 임명</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260821118300001?section=politics/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 | 연합뉴스</span></a><a class="related-coverage-link" href="https://biz.chosun.com/policy/politics/president_office/2026/08/21/ACWDQMTZABBHBBIDUPCKBTDFY4/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">여한구 후임 통상교섭본부장에 박정성, 소방청장 최용철</span></a><a class="related-coverage-link" href="https://n.news.naver.com/article/119/0003123950?type=main" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 16개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0101_202608212231111639" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">이 대통령, &#x27;통상사령탑&#x27;에 박정성 임명...여한구 경질 엿새 만</span></a><a class="related-coverage-link" href="https://www.sisajournal.com/news/articleView.html?idxno=384423" target="_blank" rel="noopener"><span class="related-coverage-publisher">시사저널</span><span class="related-coverage-title">李대통령, 여한구 후임 통상교섭본부장에 박정성…소방청장엔 최용철 임명 - 시사저널</span></a><a class="related-coverage-link" href="https://news.tvchosun.com/site/data/html_dir/2026/08/21/2026082190183.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">TV조선</span><span class="related-coverage-title">李 대통령, 통상 사령탑에 박정성 임명…&#x27;경질&#x27; 여한구 후임</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000546323.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">여한구 전격 경질 엿새 만…통상교섭본부장에 박정성 인선</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/politics/12133254" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">李, 통상교섭본부장에 박정성 임명…여한구 경질 6일만 - 매일경제</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026082115431430347" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">李대통령, 새 통상교섭본부장에 박정성 차관보…여한구 경질 6일만</span></a><a class="related-coverage-link" href="https://www.hankookilbo.com/news/article/A2026082115200004667?dtypecode=pancode_main" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국일보</span><span class="related-coverage-title">이 대통령, 통상교섭본부장 박정성 발탁... &#x27;여한구 경질&#x27; 엿새 만-정치ㅣ한국일보</span></a><a class="related-coverage-link" href="https://www.joongang.co.kr/article/25455126" target="_blank" rel="noopener"><span class="related-coverage-publisher">중앙일보</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 | 중앙일보</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202608211521001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">[속보]이 대통령, 여한구 후임 통상교섭본부장에 박정성, 소방청장에 최용철 임명</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/politics/12133216" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 임명 - 매일경제</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026082150117" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a><a class="related-coverage-link" href="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5213926" target="_blank" rel="noopener"><span class="related-coverage-publisher">MBN</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a><a class="related-coverage-link" href="https://news.jtbc.co.kr/article/NB12314439" target="_blank" rel="noopener"><span class="related-coverage-publisher">JTBC</span><span class="related-coverage-title">[속보] 이 대통령, 산업통상부 통상교섭본부장에 박정성 차관보 임명</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260821118300001?section=politics/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명 | 연합뉴스</span></a><a class="related-coverage-link" href="https://biz.chosun.com/policy/politics/president_office/2026/08/21/ACWDQMTZABBHBBIDUPCKBTDFY4/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">여한구 후임 통상교섭본부장에 박정성, 소방청장 최용철</span></a><a class="related-coverage-link" href="https://n.news.naver.com/article/119/0003123950?type=main" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[속보] 李대통령, 산업통상부 통상교섭본부장에 박정성 임명</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">李대통령, 새 통상 사령탑에 박정성 발탁...여한구 경질 6일만</div>
@@ -37117,7 +37234,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202425"
   data-title="월성원자력본부, 을지연습서 대드론 방어체계 점검…‘빈틈없는 원전 방호’ 강화 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -37141,7 +37258,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>월성원자력본부, 을지연습서 대드론 방어체계 점검…‘빈틈없는 원전 방호’ 강화 - 에너지데일리</div>
+      <div class="headline">월성원자력본부, 을지연습서 대드론 방어체계 점검…‘빈틈없는 원전 방호’ 강화 - 에너지데일리</div>
       <div class="article-snippet">[에너지데일리 윤호철 기자] 국가중요시설인 원자력발전소를 겨냥한 드론과 미사일 등 복합적인 안보 위협에 대비해 월성원자력본부가 실전형 방호체계를 점검했다. 특히</div>
     </div>
   </div>
@@ -39412,7 +39529,7 @@ main {
     <span class="group-count">57건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://qazinform.com/news/uzbekistan-and-kazakhstan-deepen-nuclear-safety-dialogue-46dbb5"
   data-title="Uzbekistan and Kazakhstan deepen nuclear safety dialogue"
   data-publisher="Qazinform"
@@ -39436,7 +39553,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Uzbekistan and Kazakhstan deepen nuclear safety dialogue</div>
+      <div class="headline">Uzbekistan and Kazakhstan deepen nuclear safety dialogue</div>
       <div class="article-snippet">Uzbekistan and Kazakhstan held working-level talks focused on nuclear, radiation, and environmental safety, Qazinform News Agency cites Trend.</div>
     </div>
   </div>
@@ -39485,7 +39602,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787319586"
+  data-published="1787321886"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -60842,7 +60959,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cc9ff020&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c98eb0d8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -144823,6 +144940,8 @@ function renderContinentRail2D(items){
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='continent-button'+(activeContinentFilter===code?' active':'');
+    const dockFlexMap = { NA:0.86, EU:0.86, AS:0.98, SA:0.92, OC:1.18, MEA:1.48 };
+    btn.style.flex = `${dockFlexMap[code]||1} 1 0`;
     btn.innerHTML=`<span class="continent-button-name">${CONTINENT_META[code].name}</span><span class="continent-button-count">${articles[code]||0}건</span>`;
     btn.addEventListener('click',()=>{
       const isSameContinent = activeContinentFilter===code;
@@ -146086,9 +146205,9 @@ window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountr
 function getContinentNativeRegion(code){
   const regions = {
     NA:{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' },
-    SA:{ points:'196,196 262,194 314,226 340,286 334,360 316,428 286,490 240,494 214,444 200,374 194,306 192,244' },
+    SA:{ points:'248,190 316,188 370,214 404,262 414,318 406,374 388,430 358,486 318,496 288,460 272,412 262,358 256,304 250,248' },
     EU:{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' },
-    AS:{ points:'520,44 636,44 764,60 892,82 984,126 998,198 958,242 888,258 806,250 730,226 662,200 592,170 540,132' },
+    AS:{ points:'520,44 636,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 700,232 672,242 656,276 646,316 620,324 586,300 558,252 540,188 540,132' },
     /* 중동·아프리카는 아라비아반도 쪽으로 더 넓게 잡아 중동이 빠지지 않게 조정 */
     MEA:{ points:'386,144 468,146 550,164 618,196 670,236 712,286 728,346 716,410 680,462 626,494 558,496 500,484 458,454 426,408 406,352 392,292 384,230' },
     OC:{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }
@@ -146120,11 +146239,11 @@ const FINAL_COUNTRY_LABEL_PRESETS = {
   TR:[[30,12],[30,-4]],
   DK:[[20,-16],[26,-4]],
   SK:[[30,10],[30,-6]],
-  RU:[[28,-22],[34,-6],[24,10]],
+  RU:[[-8,-34],[18,-32],[30,-26],[-24,-24]],
   AE:[[34,-4],[36,12],[28,22]],
   SA:[[30,18],[34,0],[24,32]],
   ZA:[[0,-26],[24,-8],[-24,-8]],
-  CN:[[-52,-6],[-58,12],[-46,28]],
+  CN:[[-34,22],[-46,30],[-24,34],[-52,18]],
   IN:[[-42,18],[-46,34],[-32,2]],
   VN:[[40,16],[38,30],[30,4]],
   TH:[[32,18],[30,32],[26,4]],
@@ -146137,7 +146256,7 @@ const FINAL_COUNTRY_LABEL_PRESETS = {
 
 const FINAL_CONTINENT_RENDER_ORDER = {
   EU:['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','DK','SK'],
-  AS:['KR','JP','CN','VN','IN','RU','TH','MY','SG'],
+  AS:['RU','CN','KR','JP','VN','IN','TH','MY','SG'],
   MEA:['AE','SA','ZA'],
   NA:['US','CA'],
   SA:['BR','AR','CL','CO','PE'],
@@ -146178,7 +146297,8 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){
   const presets = FINAL_COUNTRY_LABEL_PRESETS[itemCode] || [];
   let best = null;
   const consider = (box) => {
-    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,8) ? 1 : 0), 0);
+    const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 8;
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
     const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
     const dist = Math.hypot((box.left + w/2)-ax, (box.top + h/2)-ay);
     const edgePenalty = (
