@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# CONTINENT TABS EDGE SAFE PADDING FIX 2026-08-22
 # KOREA/JAPAN HARD VERTICAL SEPARATION 2026-08-22
 # KOREA TOP / JAPAN BOTTOM POSITION LOCK 2026-08-22
 # KOREA/JAPAN COUNTRY BUTTON EAST-SIDE LOCK 2026-08-22
@@ -17490,6 +17491,68 @@ main {{
   }}
   .country-map-visual .world-map-inline.globe-texture-source {{
     bottom:38px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB EDGE SAFE-PADDING FIX
+   - prevent first/last continent tabs from looking clipped
+   - keep compact rectangular buttons and bottom placement
+   ============================================================ */
+#continent-rail {{
+  left:8px !important;
+  right:8px !important;
+  padding-left:5px !important;
+  padding-right:5px !important;
+  box-sizing:border-box !important;
+}}
+
+.continent-rail-scroll {{
+  width:100% !important;
+  box-sizing:border-box !important;
+  padding-left:2px !important;
+  padding-right:2px !important;
+  overflow:visible !important;
+}}
+
+.continent-button:first-child {{
+  margin-left:1px !important;
+}}
+
+.continent-button:last-child {{
+  margin-right:1px !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:7px !important;
+    right:7px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }}
+
+  .continent-rail-scroll {{
+    padding-left:2px !important;
+    padding-right:2px !important;
+    gap:2px !important;
+  }}
+
+  .continent-button:first-child {{
+    margin-left:1px !important;
+  }}
+
+  .continent-button:last-child {{
+    margin-right:1px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    left:6px !important;
+    right:6px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
   }}
 }}
 
