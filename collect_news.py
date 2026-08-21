@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# ALL 6 CONTINENT BUTTONS RESTORED + THUMBNAIL VERTICAL FILL 2026-08-21
 # RUSSIA/CHINA LABEL SEPARATION + SOUTH AMERICA FULL HIGHLIGHT 2026-08-21
 # RUNTIME NAMEERROR FIX: unquote + excluded source function 2026-08-21
 # HOLTEC TAB STRICT NUCLEAR/SMR CONTEXT FILTER 2026-08-21
@@ -17152,6 +17153,85 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   2026-08-21 ABSOLUTE FINAL — ALL CONTINENT BUTTONS + THUMBNAIL FILL
+   ============================================================ */
+
+/* Use grid, not flex: prevents the old width/flex rules from collapsing
+   the dock to a single visible continent button. */
+.continent-rail-scroll {{
+  display:grid !important;
+  width:100% !important;
+  min-width:0 !important;
+  overflow:visible !important;
+  align-items:stretch !important;
+}}
+.continent-button {{
+  display:flex !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}}
+
+/* Thumbnail: picture itself fills vertically.
+   Breathing room is outside the image, symmetrically in the card. */
+@media (max-width:430px) {{
+  .preview-card {{
+    height:90px !important;
+    min-height:90px !important;
+    max-height:90px !important;
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+    align-items:center !important;
+    box-sizing:border-box !important;
+  }}
+  .card-side,
+  .preview-image {{
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
+    align-self:center !important;
+    margin-top:0 !important;
+    margin-bottom:0 !important;
+  }}
+  .preview-image {{
+    padding:0 !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+  }}
+  .preview-image img {{
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    object-fit:cover !important;
+    object-position:50% 50% !important;
+    margin:0 !important;
+    padding:0 !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .preview-card {{
+    height:86px !important;
+    min-height:86px !important;
+    max-height:86px !important;
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+  }}
+  .card-side,
+  .preview-image {{
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
+  }}
+  .preview-image {{
+    padding:0 !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -20634,15 +20714,19 @@ function renderContinentRail2D(items){{
     .sort((a,b)=>b.count-a.count || a.index-b.index)
     .map(entry=>entry.code);
 
+  /* 6개 대륙 버튼은 모두 항상 표시.
+     기사 많은 순서는 유지하되, 짧은 이름은 좁게 / 긴 이름은 넓게 배분합니다. */
+  const dockWidthMap = {{ NA:0.84, EU:0.84, AS:0.96, SA:0.90, OC:1.18, MEA:1.44 }};
+  scroll.style.setProperty(
+    'grid-template-columns',
+    rankedContinentOrder.map(code=>`${{dockWidthMap[code]||1}}fr`).join(' '),
+    'important'
+  );
+
   rankedContinentOrder.forEach(code=>{{
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='continent-button'+(activeContinentFilter===code?' active':'');
-    const dockFlexMap = {{ NA:0.86, EU:0.86, AS:0.98, SA:0.92, OC:1.18, MEA:1.48 }};
-    btn.style.setProperty('flex', `${{dockFlexMap[code]||1}} 1 0`, 'important');
-    btn.style.setProperty('width', 'auto', 'important');
-    btn.style.setProperty('max-width', 'none', 'important');
-    btn.style.setProperty('flex-basis', '0', 'important');
     btn.innerHTML=`<span class="continent-button-name">${{CONTINENT_META[code].name}}</span><span class="continent-button-count">${{articles[code]||0}}건</span>`;
     btn.addEventListener('click',()=>{{
       const isSameContinent = activeContinentFilter===code;
