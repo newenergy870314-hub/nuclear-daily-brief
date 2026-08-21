@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# MAP DOCK LOWER + COUNTRY LABEL NO OVERLAP 2026-08-21
 # ALL 6 CONTINENT BUTTONS RESTORED + THUMBNAIL VERTICAL FILL 2026-08-21
 # RUSSIA/CHINA LABEL SEPARATION + SOUTH AMERICA FULL HIGHLIGHT 2026-08-21
 # RUNTIME NAMEERROR FIX: unquote + excluded source function 2026-08-21
@@ -17232,6 +17233,37 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   2026-08-21 FINAL MAP SPACING + COUNTRY LABEL COLLISION FIX
+   ============================================================ */
+#continent-rail {{
+  bottom:2px !important;
+}}
+
+/* Keep the actual map visibly above the selector so they do not overlap. */
+.country-map-visual .world-map-inline.globe-texture-source {{
+  bottom:64px !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    bottom:2px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:68px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    bottom:2px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:66px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -22103,7 +22135,7 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
   }}
 
   const angles = [0,-20,20,-45,45,-70,70,180,-140,140,-110,110];
-  const radii = [18,26,34,44,56,70,86];
+  const radii = [18,26,34,44,56,70,86,104,124];
   for(const r of radii){{
     for(const deg of angles){{
       const rad = deg * Math.PI / 180;
@@ -22113,6 +22145,33 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
       if(consider(box)) return box;
     }}
   }}
+
+  /* 마지막 안전장치:
+     국가 버튼끼리 절대 겹치지 않도록 지도 내부를 촘촘히 탐색합니다.
+     가까운 위치를 우선하되, collision=0인 위치만 선택합니다. */
+  const scanCandidates = [];
+  const stepX = 8;
+  const stepY = Math.max(10, h + 5);
+  for(let top=bounds.top; top<=bounds.bottom-h; top+=stepY){{
+    for(let left=bounds.left; left<=bounds.right-w; left+=stepX){{
+      const box={{left,top,right:left+w,bottom:top+h,w,h}};
+      const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 9;
+      const collisions = occupied.reduce(
+        (n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0
+      );
+      if(collisions>0) continue;
+      if(finalBoxIntersectsAnchor(box, anchors, itemCode)) continue;
+      const cx=left+w/2, cy=top+h/2;
+      const dist=Math.hypot(cx-ax,cy-ay);
+      scanCandidates.push({{...box,dist}});
+    }}
+  }}
+  if(scanCandidates.length){{
+    scanCandidates.sort((a,b)=>a.dist-b.dist);
+    return scanCandidates[0];
+  }}
+
+  /* 공간이 정말 부족한 극단적 경우에만 기존 best를 사용 */
   return best || finalBuildBox(ax,ay,w,h,bounds,0,0);
 }}
 
