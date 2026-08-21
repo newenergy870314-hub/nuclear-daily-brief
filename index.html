@@ -9079,6 +9079,68 @@ main {
   }
 }
 
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB EDGE SAFE-PADDING FIX
+   - prevent first/last continent tabs from looking clipped
+   - keep compact rectangular buttons and bottom placement
+   ============================================================ */
+#continent-rail {
+  left:8px !important;
+  right:8px !important;
+  padding-left:5px !important;
+  padding-right:5px !important;
+  box-sizing:border-box !important;
+}
+
+.continent-rail-scroll {
+  width:100% !important;
+  box-sizing:border-box !important;
+  padding-left:2px !important;
+  padding-right:2px !important;
+  overflow:visible !important;
+}
+
+.continent-button:first-child {
+  margin-left:1px !important;
+}
+
+.continent-button:last-child {
+  margin-right:1px !important;
+}
+
+@media (max-width:430px) {
+  #continent-rail {
+    left:7px !important;
+    right:7px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }
+
+  .continent-rail-scroll {
+    padding-left:2px !important;
+    padding-right:2px !important;
+    gap:2px !important;
+  }
+
+  .continent-button:first-child {
+    margin-left:1px !important;
+  }
+
+  .continent-button:last-child {
+    margin-right:1px !important;
+  }
+}
+
+@media (max-width:380px) {
+  #continent-rail {
+    left:6px !important;
+    right:6px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -9087,7 +9149,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.22(토) 02:05 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.22(토) 02:20 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -31032,7 +31094,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787331944"
+  data-published="1787332508"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -40594,7 +40656,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787331944"
+  data-published="1787332508"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -147679,8 +147741,8 @@ const FINAL_COUNTRY_LABEL_PRESETS = {
   TH:[[32,18],[30,32],[26,4]],
   MY:[[26,18],[30,4]],
   SG:[[30,14],[34,0]],
-  KR:[[44,-22],[50,-10],[56,-28],[60,-16]],
-  JP:[[60,20],[66,30],[72,14],[76,26]],
+  KR:[[48,-34],[54,-28],[60,-40],[66,-24]],
+  JP:[[62,34],[68,42],[74,28],[80,38]],
   AU:[[34,-4],[30,14]],
 };
 
@@ -147732,6 +147794,8 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){
   const eastLocked = itemCode==='KR' || itemCode==='JP';
   const consider = (box) => {
     if(eastLocked && (box.left + w/2) <= ax + 12) return false;
+    if(itemCode==='KR' && (box.top + h/2) >= ay - 10) return false;
+    if(itemCode==='JP' && (box.top + h/2) <= ay + 10) return false;
     const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 8;
     const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
     const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
@@ -147774,6 +147838,8 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){
     for(let left=bounds.left; left<=bounds.right-w; left+=stepX){
       const box={left,top,right:left+w,bottom:top+h,w,h};
       if(eastLocked && (left + w/2) <= ax + 12) continue;
+      if(itemCode==='KR' && (top + h/2) >= ay - 10) continue;
+      if(itemCode==='JP' && (top + h/2) <= ay + 10) continue;
       const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 9;
       const collisions = occupied.reduce(
         (n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0
