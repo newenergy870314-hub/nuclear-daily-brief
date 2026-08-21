@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# FINAL RUNTIME F-STRING CSS BRACE FIX APPLIED 2026-08-21
 # Overseas fix: EN articles → Nuclear Power·Nuclear Energy, URL date regex,
 # ANS URL filter, faster shard rotation (2), higher EN candidate limits.
 # Related-article clustering removed: each article is shown as its own card.
@@ -6034,6 +6035,165 @@ def _deduplicate_major_construction_events(articles: list[Article]) -> tuple[lis
             result[matched_idx] = article
 
     return result, removed
+
+
+# 동일 썸네일 파일명은 여러 언론사가 같은 회사 제공사진/원본 이미지를 사용했다는 강한 신호입니다.
+# 다만 같은 회사가 동일 대표사진을 다른 날/다른 사건에 재사용할 수 있으므로
+# "같은 날짜 + 같은 썸네일 파일명 + 같은 사건 문맥"일 때만 대표기사 1건으로 축약합니다.
+_THUMBNAIL_DEDUP_GENERIC_TOKENS = {
+    "기사", "뉴스", "보도", "관련", "통해", "위해", "대한", "이번", "올해", "지난해", "최근",
+    "기업", "회사", "업계", "시장", "사업", "공사", "프로젝트", "계획", "예정", "추진", "진행",
+    "강화", "확대", "개선", "기대", "전망", "국내", "해외", "서울", "한국", "기자",
+    "the", "a", "an", "and", "for", "to", "of", "in", "on", "with", "news", "article",
+}
+
+_THUMBNAIL_EVENT_STAGES = {
+    "mou": (
+        "mou", "업무협약", "양해각서", "협약 체결", "협약체결", "기술협약", "공동개발 협약",
+        "memorandum of understanding", "agreement signed",
+    ),
+    "preferred_bidder": (
+        "우선협상대상자", "우선협상자", "preferred bidder", "preferred proponent",
+    ),
+    "contract_signed": (
+        "본계약", "계약 체결", "계약체결", "도급계약", "공사계약", "signed contract", "contract signing",
+    ),
+    "award": (
+        "수주", "낙찰", "시공권", "시공사 선정", "사업자 선정", "contract award", "awarded contract",
+        "wins contract", "won contract", "order win", "order intake",
+    ),
+    "groundbreaking": (
+        "착공", "첫삽", "기공식", "groundbreaking", "construction begins", "construction starts",
+    ),
+    "completion": (
+        "준공", "완공", "사용승인", "completion", "completed", "opens",
+    ),
+    "launch_sale": (
+        "분양", "청약", "공급", "분양 예정", "분양예정", "분양 개시", "분양개시",
+    ),
+    "financial_results": (
+        "실적", "영업이익", "매출", "순이익", "분기실적", "earnings", "operating profit", "revenue",
+    ),
+    "financing": (
+        "회사채", "공모채", "유상증자", "자금조달", "프로젝트파이낸싱", "corporate bond", "financing",
+    ),
+}
+
+
+def _thumbnail_filename(article: Article) -> str:
+    """로컬 캐시된 썸네일의 파일명만 반환합니다. 실패/외부 URL은 중복 근거로 쓰지 않습니다."""
+    image = (article.image or "").strip().replace("\\", "/")
+    if not image.startswith("assets/thumbnails/"):
+        return ""
+    name = Path(image).name.lower()
+    if not re.fullmatch(r"[0-9a-f]{24}\.(?:jpg|png|webp|gif)", name):
+        return ""
+    return name
+
+
+def _thumbnail_event_stage(article: Article) -> str | None:
+    haystack = html.unescape(f"{article.title} {article.description[:260]}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+    for stage, terms in _THUMBNAIL_EVENT_STAGES.items():
+        if any(term.lower() in haystack or term.lower().replace(" ", "") in compact for term in terms):
+            return stage
+    return None
+
+
+def _thumbnail_event_tokens(article: Article) -> set[str]:
+    source = article_event_text(article)
+    result: set[str] = set()
+    for token in meaningful_keywords(source):
+        t = normalized(token)
+        if not t or len(t) < 2:
+            continue
+        if t in _THUMBNAIL_DEDUP_GENERIC_TOKENS:
+            continue
+        if re.fullmatch(r"\d+(?:\.\d+)?", t):
+            continue
+        result.add(t)
+    return result
+
+
+def _same_thumbnail_same_event(a: Article, b: Article) -> bool:
+    """
+    동일 썸네일 파일명 기반의 보수적 동일사건 판정.
+
+    필수:
+      1) KST 동일 날짜
+      2) 로컬 썸네일 파일명이 완전히 동일
+      3) 사건 단계가 서로 명확히 다르면 유지
+      4) 제목/본문의 핵심 주체·대상·프로젝트가 충분히 겹칠 때만 중복 처리
+    """
+    if a.published.astimezone(KST).date() != b.published.astimezone(KST).date():
+        return False
+
+    thumb_a = _thumbnail_filename(a)
+    thumb_b = _thumbnail_filename(b)
+    if not thumb_a or thumb_a != thumb_b:
+        return False
+
+    stage_a = _thumbnail_event_stage(a)
+    stage_b = _thumbnail_event_stage(b)
+    if stage_a and stage_b and stage_a != stage_b:
+        return False
+
+    title_a = semantic_normalized(a.title)
+    title_b = semantic_normalized(b.title)
+    if title_a and title_b and title_a == title_b:
+        return True
+
+    tokens_a = _thumbnail_event_tokens(a)
+    tokens_b = _thumbnail_event_tokens(b)
+    shared = tokens_a & tokens_b
+    strong_shared = {
+        t for t in shared
+        if len(t) >= 4 or any(ch.isdigit() for ch in t) or re.search(r"[a-z][a-z0-9&.-]{2,}", t)
+    }
+
+    title_similarity = SequenceMatcher(None, title_a, title_b).ratio() if title_a and title_b else 0.0
+    full_similarity = article_ngram_similarity(a, b)
+
+    # 같은 썸네일은 강한 신호지만, 핵심 식별어가 최소 2개는 겹쳐야 합니다.
+    if len(shared) >= 2 and strong_shared and (title_similarity >= 0.32 or full_similarity >= 0.34):
+        return True
+
+    # 회사/프로젝트 등 고유성이 높은 공통어가 2개 이상이면 제목 표현이 크게 달라도 동일 사건으로 봅니다.
+    if len(strong_shared) >= 2 and len(shared) >= 3:
+        return True
+
+    return False
+
+
+def _deduplicate_identical_thumbnail_events(articles: list[Article]) -> tuple[list[Article], int]:
+    """같은 날 동일 썸네일 + 동일 사건인 기사만 대표 1건으로 축약합니다."""
+    result: list[Article] = []
+    removed = 0
+
+    # 최신 기사 순서를 유지하면서 더 풍부한 대표기사로 교체합니다.
+    for article in sorted(articles, key=lambda x: x.published, reverse=True):
+        thumb = _thumbnail_filename(article)
+        if not thumb:
+            result.append(article)
+            continue
+
+        matched_idx = None
+        for idx, kept in enumerate(result):
+            if _thumbnail_filename(kept) != thumb:
+                continue
+            if _same_thumbnail_same_event(article, kept):
+                matched_idx = idx
+                break
+
+        if matched_idx is None:
+            result.append(article)
+            continue
+
+        removed += 1
+        if _article_rep_score(article) > _article_rep_score(result[matched_idx]):
+            result[matched_idx] = article
+
+    return sorted(result, key=lambda x: x.published, reverse=True), removed
 
 
 CONSTRUCTION_UNION_TERMS = (
@@ -13792,7 +13952,7 @@ header,
   left:-22px !important;
   top:6px !important;
   right:96px !important;
-  bottom:10px !important;
+  bottom:6px !important;
   width:auto !important;
   height:auto !important;
   max-width:none !important;
@@ -14957,7 +15117,7 @@ header,
 @media (max-width:430px) {{
   .country-map-visual.globe-mode {{ height:244px !important; min-height:244px !important; }}
   .country-map-visual .world-map-inline.globe-texture-source {{ left:6px !important; top:35px !important; width:calc(100% - 12px) !important; }}
-  #continent-rail {{ left:5px !important; right:5px !important; bottom:9px !important; height:34px !important; max-height:34px !important; padding:3px !important; }}
+  #continent-rail {{ left:5px !important; right:5px !important; bottom:5px !important; height:35px !important; max-height:35px !important; padding:3px !important; }}
   .continent-button {{ height:27px !important; min-height:27px !important; padding:1px !important; }}
   .continent-button-name {{ font-size:6.1px !important; letter-spacing:-.28px !important; }}
   .continent-button-count {{ font-size:5.75px !important; }}
@@ -15157,18 +15317,18 @@ header,
 /* ============================================================
    2026-08-21 FINAL MAP ENLARGED AFTER HEADER CHIP MOVE
    ============================================================ */
-.country-map-visual {
-  height: 220px !important;
-}
+.country-map-visual {{
+  height: 224px !important;
+}}
 @media (max-width:430px) {{
-  .country-map-visual {
-    height: 208px !important;
-  }
+  .country-map-visual {{
+    height: 214px !important;
+  }}
 }}
 @media (max-width:380px) {{
-  .country-map-visual {
-    height: 198px !important;
-  }
+  .country-map-visual {{
+    height: 204px !important;
+  }}
 }}
 
 
@@ -15204,6 +15364,25 @@ header,
     min-height:76px !important;
     max-height:76px !important;
     align-self:center !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP BOTTOM WHITESPACE REDUCTION
+   - keep map scale/position
+   - pull the bottom continent dock upward by shortening the map container
+   ============================================================ */
+@media (max-width:430px) {{
+  .country-map-visual.globe-mode {{
+    height:232px !important;
+    min-height:232px !important;
+  }}
+}}
+@media (max-width:380px) {{
+  .country-map-visual.globe-mode {{
+    height:226px !important;
+    min-height:226px !important;
   }}
 }}
 
@@ -19146,6 +19325,19 @@ def main() -> int:
     # 대표 이미지를 로컬 파일로 저장해 외부 이미지 차단/로딩 실패를 줄입니다.
     cache_article_thumbnails(articles_by_period)
     cleanup_old_thumbnails(now)
+
+    # 같은 회사가 언론사에 제공한 동일 사진을 여러 매체가 쓰는 동일 기사 보완:
+    # 같은 날짜 + 완전히 동일한 로컬 썸네일 파일명 + 동일 사건 문맥일 때만 대표 1건으로 축약합니다.
+    thumbnail_dedup_removed_total = 0
+    for label in ("전일", "금일", "익일"):
+        deduped_items, removed_count = _deduplicate_identical_thumbnail_events(
+            articles_by_period.get(label, [])
+        )
+        articles_by_period[label] = deduped_items
+        thumbnail_dedup_removed_total += removed_count
+        if removed_count:
+            print(f"[THUMBNAIL DEDUP {label}] removed={removed_count} / remain={len(deduped_items)}")
+    print(f"[THUMBNAIL DEDUP TOTAL] removed={thumbnail_dedup_removed_total}")
 
     current_urls = {
         article.link
