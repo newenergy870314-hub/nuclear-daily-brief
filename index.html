@@ -7478,29 +7478,29 @@ header,
 
 @media (max-width:430px) {
   .preview-card {
-    padding:2px 3px 2px 4px !important;
+    padding:3px 3px 3px 4px !important;
     gap:6px !important;
     min-height:86px !important;
     height:86px !important;
   }
   .preview-copy {
-    min-height:82px !important;
+    min-height:80px !important;
     padding:1px 0 !important;
     column-gap:3px !important;
   }
   .card-side {
     width:116px !important;
     min-width:116px !important;
-    height:82px !important;
-    min-height:82px !important;
-    max-height:82px !important;
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
     align-self:center !important;
   }
   .preview-image {
     width:116px !important;
-    height:82px !important;
-    min-height:82px !important;
-    max-height:82px !important;
+    height:80px !important;
+    min-height:80px !important;
+    max-height:80px !important;
     align-self:center !important;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.96) !important;
   }
@@ -7519,29 +7519,29 @@ header,
 
 @media (max-width:380px) {
   .preview-card {
-    padding:2px 2px 2px 4px !important;
+    padding:3px 2px 3px 4px !important;
     gap:6px !important;
     min-height:82px !important;
     height:82px !important;
   }
   .preview-copy {
-    min-height:78px !important;
+    min-height:76px !important;
     padding:1px 0 !important;
     column-gap:2px !important;
   }
   .card-side {
     width:106px !important;
     min-width:106px !important;
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
     align-self:center !important;
   }
   .preview-image {
     width:106px !important;
-    height:78px !important;
-    min-height:78px !important;
-    max-height:78px !important;
+    height:76px !important;
+    min-height:76px !important;
+    max-height:76px !important;
     align-self:center !important;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.96) !important;
   }
@@ -7639,36 +7639,54 @@ header,
 
 /* ============================================================
    2026-08-21 FINAL THUMBNAIL VERTICAL MARGIN — top/bottom symmetric
-   Card height includes 1px borders + vertical padding (border-box).
+   Mobile card/image sizing is unified above so visible white margins match.
    ============================================================ */
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP TOP GAP REMOVAL
+   - remove empty header-chip footprint on ALL state
+   - lift map upward so top blank area disappears
+   ============================================================ */
+.map-continent-state[hidden],
+#map-head-chip-slot[hidden] {
+  display:none !important;
+}
+#map-head-chip-slot:empty {
+  display:none !important;
+}
+
+.country-map-visual .world-map-inline.globe-texture-source {
+  top:10px !important;
+}
 @media (max-width:430px) {
-  .card-side {
-    height:80px !important;
-    min-height:80px !important;
-    max-height:80px !important;
-    align-self:center !important;
+  .country-map-visual.globe-mode { height:244px !important; min-height:244px !important; }
+  .country-map-visual .world-map-inline.globe-texture-source {
+    left:6px !important;
+    right:6px !important;
+    width:calc(100% - 12px) !important;
+    top:8px !important;
+    bottom:42px !important;
   }
-  .preview-image {
-    height:80px !important;
-    min-height:80px !important;
-    max-height:80px !important;
-    align-self:center !important;
+}
+@media (max-width:380px) {
+  .country-map-visual.globe-mode { height:238px !important; min-height:238px !important; }
+  .country-map-visual .world-map-inline.globe-texture-source {
+    top:8px !important;
+    bottom:41px !important;
   }
 }
 
-@media (max-width:380px) {
-  .card-side {
-    height:76px !important;
-    min-height:76px !important;
-    max-height:76px !important;
-    align-self:center !important;
-  }
-  .preview-image {
-    height:76px !important;
-    min-height:76px !important;
-    max-height:76px !important;
-    align-self:center !important;
-  }
+
+
+/* ============================================================
+   2026-08-21 FINAL EMPTY HEADER PILL FIX
+   - no blank pill in world-map/ALL state
+   - selected-continent pill exists only after continent selection
+   ============================================================ */
+#map-head-chip-slot[hidden],
+#map-head-chip-slot .map-continent-state[hidden] {
+  display:none !important;
 }
 
 </style>
@@ -7679,7 +7697,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 12:30 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 12:40 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -16164,7 +16182,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba5ecb20&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c682e0f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -16199,7 +16217,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba2caed8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c8ccb168&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -20686,7 +20704,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/de4147f871354bd42dbbae9b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/66fd3fa122f40335eb706505.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -22279,7 +22297,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32849,7 +32867,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/c3badad02c409b979006d205.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/4f7c0e05b629858ac029707e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33247,7 +33265,7 @@ header,
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7534"
   data-title="새울원자력본부, ‘새울 아카데미 2기’ 마무리"
   data-publisher="인사이트N파워"
@@ -33273,7 +33291,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, ‘새울 아카데미 2기’ 마무리</div>
+      <div class="headline">새울원자력본부, ‘새울 아카데미 2기’ 마무리</div>
       <div class="article-snippet">한국수력원자력 새울원자력본부는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 열고 두 달간 진행한 교육과정을 마무리했다(사진)고 밝혔다. 지난 6월 11일부터 8월 20일까지 진행된 ‘새울 아카데미 2기’는 지역주민의 역량 강화와 지역사회 발전을 위해 마련한 지역 밀착형 교육 프로그램이다.이번 과정에서는 박혜령 대표의 ‘팀 빌딩을 활용한 마을만들기 사업계획 만들기’를 비롯해 이호섭 작곡가의 ‘트롯과 인생수업’, 고려대 나홍식 교수의 ‘건강한 삶을 위해서(치매 예방법)’ 등 인문·예술·건강 분야를 아우르는 강연과</div>
     </div>
   </div>
@@ -33508,7 +33526,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787283000"
+  data-published="1787283600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -34313,7 +34331,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">19건</span>
+    <span class="group-count">20건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34351,6 +34369,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7535"
+  data-title="경주 방폐장 2단계 표층처분시설 ‘변경허가’…지진ㆍ방사선감시 등 29건 반영"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787283152"
+  data-country="KR"
+  data-search="경주 방폐장 2단계 표층처분시설 ‘변경허가’…지진ㆍ방사선감시 등 29건 반영 인사이트n파워 원자력 경주 중·저준위 방사성폐기물 2단계 표층처분시설의 지진·방사선 감시계통과 공조 및 소방설비 등 실제 준공상태가 안전성분석보고서에 반영된다.원자력안전위원회는 지난 20일 제2026-12회 전체회의를 서면으로 열고 한국원자력환경공단(korad)이 신청한 중·저준위 방사성폐기물 표층처분시설 건설·운영 변경허가안을 심의·의결했다.이번 변경허가는 표층처분시설 사용전검사 과정에서 나온 지적사항에 대한 조치 결과와 준공도면(as-built), 상세설계 확정사항 등을 기존 허가서류인 안전성분석보고서(sar)에 반영하기 위한 것이다.경북 경주시 문"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>경주 방폐장 2단계 표층처분시설 ‘변경허가’…지진ㆍ방사선감시 등 29건 반영</div>
+      <div class="article-snippet">경주 중·저준위 방사성폐기물 2단계 표층처분시설의 지진·방사선 감시계통과 공조 및 소방설비 등 실제 준공상태가 안전성분석보고서에 반영된다.원자력안전위원회는 지난 20일 제2026-12회 전체회의를 서면으로 열고 한국원자력환경공단(KORAD)이 신청한 중·저준위 방사성폐기물 표층처분시설 건설·운영 변경허가안을 심의·의결했다.이번 변경허가는 표층처분시설 사용전검사 과정에서 나온 지적사항에 대한 조치 결과와 준공도면(As-Built), 상세설계 확정사항 등을 기존 허가서류인 안전성분석보고서(SAR)에 반영하기 위한 것이다.경북 경주시 문</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d8f562905bfb345a4e5a26ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://bizn.donga.com/dongaTop/3/all/20260821/134516418/3"
   data-title="3대 메가프로젝트에 ‘원전 19기’ 규모 전력 필요"
@@ -34364,7 +34417,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34399,7 +34452,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34434,7 +34487,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34469,7 +34522,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34504,7 +34557,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34539,7 +34592,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34574,7 +34627,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34609,7 +34662,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34644,7 +34697,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34679,7 +34732,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34714,7 +34767,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34749,7 +34802,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34784,7 +34837,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34819,7 +34872,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34854,7 +34907,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34889,7 +34942,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34924,7 +34977,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34959,7 +35012,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35242,7 +35295,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787283173"
+  data-published="1787283917"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -35311,7 +35364,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35350,54 +35403,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787282654"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
   data-title="Global Nuclear Power Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787282652"
+  data-published="1787283872"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35420,13 +35438,48 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787283870"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-oil-gas-extraction-tracker"
   data-title="Global Oil and Gas Extraction Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787282303"
+  data-published="1787283800"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
@@ -35454,7 +35507,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.cgtn.com/news/2026-08-21/Bulgaria-to-curb-nuclear-output-due-to-low-Danube-levels-1PMA1ShM3Zu/p.html"
   data-title="Bulgaria to curb nuclear output due to low Danube levels"
   data-publisher="CGTN"
@@ -35480,7 +35533,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Bulgaria to curb nuclear output due to low Danube levels</div>
+      <div class="headline">Bulgaria to curb nuclear output due to low Danube levels</div>
       <div class="article-snippet">Bulgaria will become the latest European country to reduce its nuclear power output on Friday due to a record drought scorching the continent, the energy ministry said.</div>
     </div>
   </div>
@@ -35559,7 +35612,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://vietnamnet.vn/en/storm-no-4-may-form-as-tropical-depression-lingers-offshore-2547531.html"
   data-title="Storm No. 4 may form as tropical depression lingers offshore"
   data-publisher="VietnamNet Global"
@@ -35585,12 +35638,47 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Storm No. 4 may form as tropical depression lingers offshore</div>
+      <div class="headline">Storm No. 4 may form as tropical depression lingers offshore</div>
       <div class="article-snippet">Northeastern Vietnam faces days of heavy rain as a tropical depression over the Gulf of Tonkin strengthens and repeatedly changes direction.</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e085c5c15a82dcf7e4fc158a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.japantimes.co.jp/business/2026/08/21/teen-lawsuit-meta-google-drop/"
+  data-title="U.S. teen drops lawsuit against Meta, Google and Snap ahead of trial"
+  data-publisher="The Japan Times"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787279040"
+  data-country="US"
+  data-search="u.s. teen drops lawsuit against meta, google and snap ahead of trial the japan times nuclear power·nuclear energy the plaintiff, a 15-year-old girl from new jersey, had alleged that tech giants contributed to her social media addiction, depression and self-harm."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">9.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Japan Times</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>U.S. teen drops lawsuit against Meta, Google and Snap ahead of trial</div>
+      <div class="article-snippet">The plaintiff, a 15-year-old girl from New Jersey, had alleged that tech giants contributed to her social media addiction, depression and self-harm.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3f1293afbd69a9b5248955e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35607,7 +35695,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35642,7 +35730,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35677,7 +35765,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35712,7 +35800,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35747,7 +35835,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35782,7 +35870,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35811,13 +35899,13 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787267018"
+  data-published="1787266980"
   data-country="OTHER"
   data-search="neutrogena addresses its treatment of hayden panettiere after she spoke about postpartum depression cbs news nuclear power·nuclear energy after hayden panettiere&#x27;s death, fans resurfaced her claim that neutrogena had fired her in 2015 over her comments about postpartum depression."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35852,7 +35940,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35887,7 +35975,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36611,7 +36699,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/c3badad02c409b979006d205.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/4f7c0e05b629858ac029707e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37009,7 +37097,7 @@ header,
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7534"
   data-title="새울원자력본부, ‘새울 아카데미 2기’ 마무리"
   data-publisher="인사이트N파워"
@@ -37035,7 +37123,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, ‘새울 아카데미 2기’ 마무리</div>
+      <div class="headline">새울원자력본부, ‘새울 아카데미 2기’ 마무리</div>
       <div class="article-snippet">한국수력원자력 새울원자력본부는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 열고 두 달간 진행한 교육과정을 마무리했다(사진)고 밝혔다. 지난 6월 11일부터 8월 20일까지 진행된 ‘새울 아카데미 2기’는 지역주민의 역량 강화와 지역사회 발전을 위해 마련한 지역 밀착형 교육 프로그램이다.이번 과정에서는 박혜령 대표의 ‘팀 빌딩을 활용한 마을만들기 사업계획 만들기’를 비롯해 이호섭 작곡가의 ‘트롯과 인생수업’, 고려대 나홍식 교수의 ‘건강한 삶을 위해서(치매 예방법)’ 등 인문·예술·건강 분야를 아우르는 강연과</div>
     </div>
   </div>
@@ -37270,7 +37358,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787283000"
+  data-published="1787283600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -38075,7 +38163,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">19건</span>
+    <span class="group-count">20건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -38113,6 +38201,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7535"
+  data-title="경주 방폐장 2단계 표층처분시설 ‘변경허가’…지진ㆍ방사선감시 등 29건 반영"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787283152"
+  data-country="KR"
+  data-search="경주 방폐장 2단계 표층처분시설 ‘변경허가’…지진ㆍ방사선감시 등 29건 반영 인사이트n파워 원자력 경주 중·저준위 방사성폐기물 2단계 표층처분시설의 지진·방사선 감시계통과 공조 및 소방설비 등 실제 준공상태가 안전성분석보고서에 반영된다.원자력안전위원회는 지난 20일 제2026-12회 전체회의를 서면으로 열고 한국원자력환경공단(korad)이 신청한 중·저준위 방사성폐기물 표층처분시설 건설·운영 변경허가안을 심의·의결했다.이번 변경허가는 표층처분시설 사용전검사 과정에서 나온 지적사항에 대한 조치 결과와 준공도면(as-built), 상세설계 확정사항 등을 기존 허가서류인 안전성분석보고서(sar)에 반영하기 위한 것이다.경북 경주시 문"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>경주 방폐장 2단계 표층처분시설 ‘변경허가’…지진ㆍ방사선감시 등 29건 반영</div>
+      <div class="article-snippet">경주 중·저준위 방사성폐기물 2단계 표층처분시설의 지진·방사선 감시계통과 공조 및 소방설비 등 실제 준공상태가 안전성분석보고서에 반영된다.원자력안전위원회는 지난 20일 제2026-12회 전체회의를 서면으로 열고 한국원자력환경공단(KORAD)이 신청한 중·저준위 방사성폐기물 표층처분시설 건설·운영 변경허가안을 심의·의결했다.이번 변경허가는 표층처분시설 사용전검사 과정에서 나온 지적사항에 대한 조치 결과와 준공도면(As-Built), 상세설계 확정사항 등을 기존 허가서류인 안전성분석보고서(SAR)에 반영하기 위한 것이다.경북 경주시 문</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d8f562905bfb345a4e5a26ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://bizn.donga.com/dongaTop/3/all/20260821/134516418/3"
   data-title="3대 메가프로젝트에 ‘원전 19기’ 규모 전력 필요"
@@ -38126,7 +38249,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38161,7 +38284,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38196,7 +38319,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38231,7 +38354,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38266,7 +38389,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38301,7 +38424,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38336,7 +38459,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38371,7 +38494,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38406,7 +38529,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38441,7 +38564,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38476,7 +38599,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38511,7 +38634,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38546,7 +38669,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38581,7 +38704,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38616,7 +38739,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38651,7 +38774,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38686,7 +38809,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -38721,7 +38844,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39004,7 +39127,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787283173"
+  data-published="1787283917"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -39073,7 +39196,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -39112,54 +39235,19 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787282654"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
   data-title="Global Nuclear Power Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787282652"
+  data-published="1787283872"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39182,13 +39270,48 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787283870"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-oil-gas-extraction-tracker"
   data-title="Global Oil and Gas Extraction Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787282303"
+  data-published="1787283800"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
@@ -39216,7 +39339,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.cgtn.com/news/2026-08-21/Bulgaria-to-curb-nuclear-output-due-to-low-Danube-levels-1PMA1ShM3Zu/p.html"
   data-title="Bulgaria to curb nuclear output due to low Danube levels"
   data-publisher="CGTN"
@@ -39242,7 +39365,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Bulgaria to curb nuclear output due to low Danube levels</div>
+      <div class="headline">Bulgaria to curb nuclear output due to low Danube levels</div>
       <div class="article-snippet">Bulgaria will become the latest European country to reduce its nuclear power output on Friday due to a record drought scorching the continent, the energy ministry said.</div>
     </div>
   </div>
@@ -39321,7 +39444,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://vietnamnet.vn/en/storm-no-4-may-form-as-tropical-depression-lingers-offshore-2547531.html"
   data-title="Storm No. 4 may form as tropical depression lingers offshore"
   data-publisher="VietnamNet Global"
@@ -39347,12 +39470,47 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Storm No. 4 may form as tropical depression lingers offshore</div>
+      <div class="headline">Storm No. 4 may form as tropical depression lingers offshore</div>
       <div class="article-snippet">Northeastern Vietnam faces days of heavy rain as a tropical depression over the Gulf of Tonkin strengthens and repeatedly changes direction.</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e085c5c15a82dcf7e4fc158a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.japantimes.co.jp/business/2026/08/21/teen-lawsuit-meta-google-drop/"
+  data-title="U.S. teen drops lawsuit against Meta, Google and Snap ahead of trial"
+  data-publisher="The Japan Times"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787279040"
+  data-country="US"
+  data-search="u.s. teen drops lawsuit against meta, google and snap ahead of trial the japan times nuclear power·nuclear energy the plaintiff, a 15-year-old girl from new jersey, had alleged that tech giants contributed to her social media addiction, depression and self-harm."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">9.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Japan Times</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>U.S. teen drops lawsuit against Meta, Google and Snap ahead of trial</div>
+      <div class="article-snippet">The plaintiff, a 15-year-old girl from New Jersey, had alleged that tech giants contributed to her social media addiction, depression and self-harm.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3f1293afbd69a9b5248955e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39369,7 +39527,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39404,7 +39562,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39439,7 +39597,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39474,7 +39632,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39509,7 +39667,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39544,7 +39702,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39573,13 +39731,13 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787267018"
+  data-published="1787266980"
   data-country="OTHER"
   data-search="neutrogena addresses its treatment of hayden panettiere after she spoke about postpartum depression cbs news nuclear power·nuclear energy after hayden panettiere&#x27;s death, fans resurfaced her claim that neutrogena had fired her in 2015 over her comments about postpartum depression."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39614,7 +39772,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -39649,7 +39807,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41143,7 +41301,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/de4147f871354bd42dbbae9b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/66fd3fa122f40335eb706505.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -42736,7 +42894,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -60351,7 +60509,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba5ecb20&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c682e0f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -60386,7 +60544,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba2caed8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c8ccb168&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -148935,7 +149093,7 @@ function getCountryMapAnchor(item){
 function getContinentNativeRegion(code){
   const regions = {
     NA:{points:'18,58 320,58 358,125 348,210 300,280 230,305 125,295 45,242',labelX:188,labelY:166},
-    SA:{points:'248,205 405,205 430,280 416,360 382,448 344,490 304,428 275,320 258,250',labelX:344,labelY:334},
+    SA:{points:'232,188 420,188 448,255 444,342 422,420 392,478 352,500 314,476 286,410 264,325 246,248',labelX:344,labelY:336},
     EU:{points:'430,88 592,88 612,128 606,182 566,225 510,228 454,198 432,145',labelX:520,labelY:160},
     AS:{points:'560,58 995,58 995,300 935,338 812,332 708,296 650,240 622,185 604,128 565,94',labelX:798,labelY:178},
     MEA:{points:'438,206 646,202 668,248 650,330 612,448 506,452 442,382 428,286',labelX:538,labelY:324},
@@ -149126,13 +149284,63 @@ function ensureMapStateChip(items){
   if(activeContinentFilter==='ALL'){
     chip.hidden=true;
     chip.innerHTML='';
+    if(chip.parentElement) chip.parentElement.hidden=true;
     return;
   }
+
+  if(slot) slot.hidden=false;
 
   const meta=CONTINENT_META[activeContinentFilter]||{name:'대륙'};
   const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
   const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
   chip.hidden=false;
+  chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${meta.name}</span><span class="state-meta">${countries.length}개국 · ${articles}건</span>`;
+  chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{
+    activeContinentFilter='ALL';
+    activeCountryFilter='';
+    filterArticles();
+    updateCountryMapCounts();
+    layoutAndRenderCountryMap();
+  });
+}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL EMPTY HEADER PILL FIX — runtime override
+   ============================================================ */
+function ensureMapStateChip(items){
+  const head=document.querySelector('.world-map-head');
+  if(!head) return;
+
+  let slot=document.getElementById('map-head-chip-slot');
+
+  if(activeContinentFilter==='ALL'){
+    if(slot) slot.remove();
+    return;
+  }
+
+  if(!slot){
+    slot=document.createElement('div');
+    slot.id='map-head-chip-slot';
+    head.appendChild(slot);
+  }
+  slot.hidden=false;
+
+  let chip=document.getElementById('map-continent-state');
+  if(!chip){
+    chip=document.createElement('div');
+    chip.id='map-continent-state';
+    chip.className='map-continent-state';
+    slot.appendChild(chip);
+  } else if(chip.parentElement!==slot){
+    slot.appendChild(chip);
+  }
+
+  chip.hidden=false;
+  const meta=CONTINENT_META[activeContinentFilter]||{name:'대륙'};
+  const countries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  const articles=countries.reduce((sum,v)=>sum+(v.count||0),0);
   chip.innerHTML=`<button type="button" class="map-continent-back" aria-label="전체 세계지도로 돌아가기">←</button><span class="state-name">${meta.name}</span><span class="state-meta">${countries.length}개국 · ${articles}건</span>`;
   chip.querySelector('.map-continent-back')?.addEventListener('click',()=>{
     activeContinentFilter='ALL';
