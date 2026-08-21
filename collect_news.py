@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# SPEED OPTIMIZED DIRECT COLLECTION + UNION-FIND RELATED GROUPING 2026-08-21
 # RELATED ARTICLE TRANSITIVE CLUSTERING REFINED 2026-08-21
 # RELATED ARTICLES GROUPED + ALTERNATIVE PUBLISHERS UI 2026-08-21
 # MAP DOTS + CONNECTOR LINES REMOVED 2026-08-21
@@ -1098,15 +1099,15 @@ OVERSEAS_RSS_PUBLISHERS = {
 DIRECT_SOURCE_WORKERS = 10
 DIRECT_ARTICLE_WORKERS = 6
 DIRECT_HTTP_MAX_CONCURRENCY = 18
-DIRECT_PAGE_TIMEOUT_SECONDS = 7
+DIRECT_PAGE_TIMEOUT_SECONDS = 5
 DIRECT_PAGE_MAX_LINKS = 400
 # 5분마다 모든 직접수집 페이지를 깊게 재검사하면 시간이 급증하므로
-# 2개 shard로 나눠 약 10분 내 전체 1회 순환합니다. RSS는 매 실행 전체 수집합니다.
-DIRECT_ROTATION_SHARDS = 2
+# 3개 shard로 나눠 약 15분 내 전체 1회 순환합니다. RSS는 매 실행 전체 수집합니다.
+DIRECT_ROTATION_SHARDS = 3
 DIRECT_FULL_SCAN = os.getenv("DIRECT_FULL_SCAN", "0") == "1"
-DIRECT_GENERAL_CANDIDATE_LIMIT = 60
-DIRECT_SPECIALIST_CANDIDATE_LIMIT = 100
-DIRECT_BLIND_ENERGY_LIMIT = 50
+DIRECT_GENERAL_CANDIDATE_LIMIT = 30
+DIRECT_SPECIALIST_CANDIDATE_LIMIT = 50
+DIRECT_BLIND_ENERGY_LIMIT = 24
 
 # 매 5분 확인할 핵심 해외/원전 전문 매체. 나머지는 4개 shard 순환.
 DIRECT_ALWAYS_PUBLISHERS = {
@@ -1151,10 +1152,10 @@ DIRECT_ALWAYS_PUBLISHERS = {
     "CNBC",
     "Axios",
 }
-DIRECT_FETCH_RETRIES = 1
+DIRECT_FETCH_RETRIES = 0
 DIRECT_RETRY_BACKOFF_SECONDS = 0.35
 DIRECT_SITEMAP_MAX_BYTES = 1_500_000
-DIRECT_SITEMAP_MAX_URLS = 60
+DIRECT_SITEMAP_MAX_URLS = 30
 DIRECT_HTTP_SEMAPHORE = threading.BoundedSemaphore(DIRECT_HTTP_MAX_CONCURRENCY)
 
 # 하위 호환용: 기존 코드/로그에서 참조할 수 있어 유지
@@ -4947,7 +4948,7 @@ def _select_direct_pages_for_this_run() -> tuple[list[tuple[str, str, str]], int
 def fetch_direct_news_pages(start: datetime, end: datetime) -> list[Article]:
     """
     RSS가 없거나 RSS 보완이 필요한 국내외 언론사의 공식 페이지 직접수집.
-    핵심매체는 매 실행, 나머지는 4-shard 순환으로 20분 내 전체를 확인합니다.
+    핵심매체는 매 실행, 나머지는 3-shard 순환으로 약 15분 내 전체를 확인합니다.
     매체별 성공/실패 원인을 GitHub Actions 로그에 남깁니다.
     """
     if not DIRECT_NEWS_PAGES:
@@ -4992,7 +4993,7 @@ def fetch_direct_news_pages(start: datetime, end: datetime) -> list[Article]:
                 fetched.extend(articles)
                 source_stats.append(stats)
             except Exception as exc:
-                print(f"[SOURCE PAGE] unhandled_error={type(exc).__name__}")
+                print(f"[SOURCE PAGE] unhandled_error={type(exc).__name__}: {exc}")
 
     if source_stats:
         source_count = len(source_stats)
@@ -5785,85 +5786,104 @@ def _group_confirmed_related_articles(
     """
     같은 사건의 타 언론사 보도를 연결요소(cluster) 단위로 묶습니다.
 
-    이전 방식은 새 기사와 '대표기사 1건'만 비교해서,
-    A-B는 같고 B-C도 같은데 A-C 제목 차이가 큰 경우
-    같은 사건이 2~3개 묶음으로 쪼개질 수 있었습니다.
+    SPEED OPTIMIZED:
+    - 먼저 날짜 + 기사탭으로 후보군을 분리
+    - 후보군 안에서만 1회씩 pair 비교
+    - Union-Find로 A-B, B-C 연결관계까지 한 번에 병합
+    - 이전의 cluster 전체 재탐색/while 반복을 제거
 
-    이제는 클러스터 안의 어느 기사 하나와 동일사건이면 같은 묶음으로 넣고,
-    서로 연결되는 클러스터도 다시 합칩니다.
+    동일사건 판정 기준 자체는 _same_content_event_for_grouping()을 그대로 사용합니다.
     """
+    if len(articles) <= 1:
+        return list(articles), 0
+
     ordered = sorted(articles, key=lambda x: x.published, reverse=True)
-    clusters: list[list[Article]] = []
 
+    # 날짜 + 탭이 다르면 동일기사로 묶이지 않으므로 애초에 비교하지 않습니다.
+    buckets: dict[tuple[str, str], list[Article]] = {}
     for article in ordered:
-        matched_cluster_indexes: list[int] = []
-
-        for idx, cluster in enumerate(clusters):
-            if any(
-                _same_content_event_for_grouping(article, member)
-                for member in cluster
-            ):
-                matched_cluster_indexes.append(idx)
-
-        if not matched_cluster_indexes:
-            clusters.append([article])
-            continue
-
-        # 첫 번째 매칭 클러스터에 넣고, 이 기사로 인해 연결된 다른 클러스터도 병합
-        base_idx = matched_cluster_indexes[0]
-        merged_cluster = list(clusters[base_idx])
-        merged_cluster.append(article)
-
-        for idx in reversed(matched_cluster_indexes[1:]):
-            merged_cluster.extend(clusters[idx])
-            del clusters[idx]
-
-        # 병합 후에도 클러스터-클러스터 간 브리지가 생길 수 있으므로
-        # 연결 가능한 묶음이 없어질 때까지 한 번 더 정리
-        changed = True
-        while changed:
-            changed = False
-            for idx in range(len(clusters) - 1, -1, -1):
-                if idx == base_idx or clusters[idx] is clusters[base_idx]:
-                    continue
-                other = clusters[idx]
-                if any(
-                    _same_content_event_for_grouping(left, right)
-                    for left in merged_cluster
-                    for right in other
-                ):
-                    merged_cluster.extend(other)
-                    del clusters[idx]
-                    if idx < base_idx:
-                        base_idx -= 1
-                    changed = True
-
-        clusters[base_idx] = merged_cluster
+        day = article.published.astimezone(KST).strftime("%Y-%m-%d")
+        key = (day, article.group or "")
+        buckets.setdefault(key, []).append(article)
 
     result: list[Article] = []
     grouped_count = 0
 
-    for cluster in clusters:
-        # 동일 URL이 우연히 들어온 경우까지 포함해 중복 payload를 정리
-        unique_members: list[Article] = []
-        seen_member_keys: set[tuple[str, str, str]] = set()
-        for member in cluster:
-            key = (
-                member.link or "",
-                member.publisher or "",
-                normalized(member.title or ""),
-            )
-            if key in seen_member_keys:
-                continue
-            seen_member_keys.add(key)
-            unique_members.append(member)
+    for bucket_articles in buckets.values():
+        n = len(bucket_articles)
+        if n == 1:
+            result.append(bucket_articles[0])
+            continue
 
-        representative = max(unique_members, key=_article_rep_score)
-        result.append(representative)
+        parent = list(range(n))
+        rank = [0] * n
 
-        if len(unique_members) > 1:
-            grouped_count += len(unique_members) - 1
-            _register_related_coverage(representative, unique_members)
+        def find(x: int) -> int:
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        def union(a_idx: int, b_idx: int) -> None:
+            root_a = find(a_idx)
+            root_b = find(b_idx)
+            if root_a == root_b:
+                return
+            if rank[root_a] < rank[root_b]:
+                root_a, root_b = root_b, root_a
+            parent[root_b] = root_a
+            if rank[root_a] == rank[root_b]:
+                rank[root_a] += 1
+
+        # 국가/언론사 등 매우 싼 조건을 먼저 걸러 비싼 similarity 계산을 줄입니다.
+        countries = [detect_article_country(a) for a in bucket_articles]
+        publishers = [(a.publisher or "").strip() for a in bucket_articles]
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                if not publishers[i] or not publishers[j] or publishers[i] == publishers[j]:
+                    continue
+
+                country_i = countries[i]
+                country_j = countries[j]
+                if (
+                    country_i not in {"", "OTHER"}
+                    and country_j not in {"", "OTHER"}
+                    and country_i != country_j
+                ):
+                    continue
+
+                if _same_content_event_for_grouping(
+                    bucket_articles[i],
+                    bucket_articles[j],
+                ):
+                    union(i, j)
+
+        clusters: dict[int, list[Article]] = {}
+        for idx, article in enumerate(bucket_articles):
+            clusters.setdefault(find(idx), []).append(article)
+
+        for cluster in clusters.values():
+            unique_members: list[Article] = []
+            seen_member_keys: set[tuple[str, str, str]] = set()
+
+            for member in cluster:
+                key = (
+                    member.link or "",
+                    member.publisher or "",
+                    normalized(member.title or ""),
+                )
+                if key in seen_member_keys:
+                    continue
+                seen_member_keys.add(key)
+                unique_members.append(member)
+
+            representative = max(unique_members, key=_article_rep_score)
+            result.append(representative)
+
+            if len(unique_members) > 1:
+                grouped_count += len(unique_members) - 1
+                _register_related_coverage(representative, unique_members)
 
     return sorted(result, key=lambda x: x.published, reverse=True), grouped_count
 
@@ -21513,6 +21533,7 @@ def main() -> int:
     # 같은 사건의 타 언론사 보도는 대표기사 1건으로 묶고,
     # 나머지 언론사/제목/링크 정보는 UI의 "외 N개 언론사 보도"에 보존합니다.
     _RELATED_COVERAGE_GROUPS.clear()
+    related_group_started = time.perf_counter()
     related_grouped_total = 0
     for label in ("전일", "금일", "익일"):
         grouped_items, grouped_count = _group_confirmed_related_articles(
@@ -21525,7 +21546,10 @@ def main() -> int:
                 f"[RELATED GROUP {label}] grouped={grouped_count} "
                 f"/ remain={len(grouped_items)}"
             )
-    print(f"[RELATED GROUP TOTAL] grouped={related_grouped_total}")
+    print(
+        f"[RELATED GROUP TOTAL] grouped={related_grouped_total} "
+        f"/ elapsed={time.perf_counter() - related_group_started:.2f}s"
+    )
 
     current_urls = {
         article.link
