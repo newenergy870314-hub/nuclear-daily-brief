@@ -14782,7 +14782,8 @@ header,
 /* Map state chip */
 .map-continent-state {{
   position:absolute !important;
-  left:10px !important;
+  right:10px !important;
+  left:auto !important;
   top:8px !important;
   z-index:9 !important;
   display:inline-flex !important;
@@ -14826,8 +14827,8 @@ header,
   bottom:7px !important;
   top:auto !important;
   width:auto !important;
-  height:39px !important;
-  max-height:39px !important;
+  height:38px !important;
+  max-height:38px !important;
   display:block !important;
   padding:4px !important;
   border:1px solid rgba(148,185,208,.28) !important;
@@ -14842,7 +14843,7 @@ header,
 .continent-all-button {{ display:none !important; }}
 .continent-rail-scroll {{
   display:grid !important;
-  grid-template-columns:.82fr .82fr .92fr 1.42fr 1.22fr !important;
+  grid-template-columns:.85fr .85fr .92fr 1.18fr 1.34fr .96fr !important;
   align-items:stretch !important;
   gap:3px !important;
   width:100% !important;
@@ -14920,7 +14921,7 @@ header,
   display:inline-flex !important;
   align-items:center !important;
   gap:3px !important;
-  min-height:20px !important;
+  min-height:19px !important;
   padding:2px 6px !important;
   border:1px solid rgba(163,193,213,.50) !important;
   border-radius:8px !important;
@@ -14955,7 +14956,7 @@ header,
 @media (max-width:430px) {{
   .country-map-visual.globe-mode {{ height:244px !important; min-height:244px !important; }}
   .country-map-visual .world-map-inline.globe-texture-source {{ left:6px !important; top:35px !important; width:calc(100% - 12px) !important; }}
-  #continent-rail {{ left:6px !important; right:6px !important; bottom:6px !important; height:38px !important; max-height:38px !important; }}
+  #continent-rail {{ left:6px !important; right:6px !important; bottom:6px !important; height:37px !important; max-height:37px !important; }}
   .continent-button {{ height:28px !important; min-height:28px !important; padding:2px !important; }}
   .continent-button-name {{ font-size:6.9px !important; }}
   .continent-button-count {{ font-size:6.25px !important; }}
@@ -14969,6 +14970,127 @@ header,
   .continent-button-count {{ font-size:5.95px !important; }}
   .precise-country-label {{ font-size:7px !important; padding:2px 4px !important; }}
   .precise-country-label .name,.precise-country-label .count {{ font-size:6.95px !important; }}
+}}
+
+
+
+/* ============================================================
+   2026-08-21 FINAL CARD TUNING — thumbnail breathing room + balanced text hierarchy
+   ============================================================ */
+.preview-card {{
+  padding:4px 4px 4px 8px !important;
+  gap:9px !important;
+}}
+.preview-copy {{
+  column-gap:3px !important;
+  padding:2px 0 !important;
+}}
+.preview-image {{
+  height:76px !important;
+  min-height:76px !important;
+  max-height:76px !important;
+  align-self:center !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.92) !important;
+}}
+.card-side {{
+  height:76px !important;
+  min-height:76px !important;
+  align-self:center !important;
+}}
+.headline {{
+  margin:1px 0 2px !important;
+  font-size:12.7px !important;
+  line-height:1.26 !important;
+  letter-spacing:-0.06px !important;
+}}
+.article-snippet {{
+  margin-top:1px !important;
+  font-size:10.5px !important;
+  line-height:1.36 !important;
+  color:#586474 !important;
+  letter-spacing:-0.02px !important;
+}}
+
+@media (max-width:430px) {{
+  .preview-card {{
+    padding:2px 3px 2px 4px !important;
+    gap:6px !important;
+    min-height:86px !important;
+    height:86px !important;
+  }}
+  .preview-copy {{
+    min-height:82px !important;
+    padding:1px 0 !important;
+    column-gap:3px !important;
+  }}
+  .card-side {{
+    width:116px !important;
+    min-width:116px !important;
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
+    align-self:center !important;
+  }}
+  .preview-image {{
+    width:116px !important;
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
+    align-self:center !important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.96) !important;
+  }}
+  .headline {{
+    font-size:12.4px !important;
+    line-height:1.24 !important;
+    margin:1px 0 2px !important;
+  }}
+  .article-snippet {{
+    font-size:10.3px !important;
+    line-height:1.35 !important;
+    margin-top:1px !important;
+    color:#556171 !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  .preview-card {{
+    padding:2px 2px 2px 4px !important;
+    gap:6px !important;
+    min-height:82px !important;
+    height:82px !important;
+  }}
+  .preview-copy {{
+    min-height:78px !important;
+    padding:1px 0 !important;
+    column-gap:2px !important;
+  }}
+  .card-side {{
+    width:106px !important;
+    min-width:106px !important;
+    height:78px !important;
+    min-height:78px !important;
+    max-height:78px !important;
+    align-self:center !important;
+  }}
+  .preview-image {{
+    width:106px !important;
+    height:78px !important;
+    min-height:78px !important;
+    max-height:78px !important;
+    align-self:center !important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.96) !important;
+  }}
+  .headline {{
+    font-size:12.0px !important;
+    line-height:1.22 !important;
+    margin:1px 0 2px !important;
+  }}
+  .article-snippet {{
+    font-size:10.0px !important;
+    line-height:1.32 !important;
+    margin-top:1px !important;
+    color:#556171 !important;
+  }}
 }}
 
 </style>
@@ -18535,6 +18657,163 @@ function layoutAndRenderCountryMap(){{
 requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load',()=>requestAnimationFrame(layoutAndRenderCountryMap),{{once:true}});
 window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP RUNTIME OVERRIDE — refined continent clips + manual anchors + better label separation
+   ============================================================ */
+const MANUAL_COUNTRY_MAP_ANCHORS = {{
+  US:[22.6,41.8], CA:[22.0,28.7],
+  BR:[35.0,58.0], AR:[32.1,71.1], CL:[29.8,69.5], PE:[28.8,54.8], CO:[29.3,47.0],
+  GB:[47.5,35.6], FR:[49.8,40.2], NL:[50.8,36.9], BE:[50.5,38.3], CH:[52.2,40.8],
+  SE:[53.8,28.1], FI:[56.4,26.6], PL:[54.3,37.4], CZ:[53.4,39.4], SI:[53.8,41.9],
+  RO:[56.0,41.8], BG:[57.1,44.0], UA:[58.5,38.8], TR:[59.4,45.0], SK:[54.7,39.0], DK:[50.9,32.3],
+  RU:[73.0,25.8],
+  AE:[62.8,51.0], SA:[59.6,52.1], ZA:[54.6,73.0],
+  CN:[77.9,43.0], IN:[69.2,54.0], VN:[79.9,56.1], TH:[77.8,55.2], MY:[79.4,61.2], SG:[80.4,63.8],
+  KR:[82.8,41.8], JP:[86.8,42.6],
+  AU:[84.4,75.8]
+}};
+
+function getCountryMapAnchor(item){{
+  const fixed = MANUAL_COUNTRY_MAP_ANCHORS[item.code];
+  if(fixed) return {{x:fixed[0], y:fixed[1]}};
+  return projectExactSvgPoint(item.lon,item.lat);
+}}
+
+function getContinentNativeRegion(code){{
+  const regions = {{
+    NA:{{points:'18,58 320,58 358,125 348,210 300,280 230,305 125,295 45,242',labelX:188,labelY:166}},
+    SA:{{points:'248,205 405,205 430,280 416,360 382,448 344,490 304,428 275,320 258,250',labelX:344,labelY:334}},
+    EU:{{points:'430,88 592,88 612,128 606,182 566,225 510,228 454,198 432,145',labelX:520,labelY:160}},
+    AS:{{points:'560,58 995,58 995,300 935,338 812,332 708,296 650,240 622,185 604,128 565,94',labelX:798,labelY:178}},
+    MEA:{{points:'438,206 646,202 668,248 650,330 612,448 506,452 442,382 428,286',labelX:538,labelY:324}},
+    OC:{{points:'740,306 995,306 995,490 756,490 724,394',labelX:852,labelY:408}}
+  }};
+  return regions[code] || null;
+}}
+
+const COUNTRY_LABEL_PREFS = {{
+  US:[0,-28,28,-55,55], CA:[18,-18,45,-45],
+  BR:[0,-35,35], AR:[0,35,-35], CL:[18,-18,0], PE:[18,-18,45], CO:[0,30,-30],
+  GB:[-30,30,-75,75], FR:[35,-35,0], NL:[50,-50,90,-90], BE:[80,-80,45,-45], CH:[65,-65,115,-115],
+  SE:[35,-35,70], FI:[18,-18,45], PL:[35,-35,0], CZ:[60,-60,100,-100], SI:[85,-85,45,-45],
+  RO:[45,-45,0], BG:[55,-55,0], UA:[35,-35,-70], TR:[25,-25,60], SK:[75,-75,35,-35], DK:[30,-30,70],
+  RU:[25,-25,0],
+  AE:[-20,20,-55,55], SA:[0,-28,28], ZA:[-20,20,0],
+  CN:[150,120,180,-150,-120], IN:[140,180,110,-140], VN:[20,-20,55,-55], TH:[20,-20,55,-55], MY:[-20,20,60,-60], SG:[-25,25,70,-70],
+  KR:[160,125,-160,-125,180], JP:[-165,-130,165,130,180],
+  AU:[-25,25,0]
+}};
+
+function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode){{
+  const baseAngles = COUNTRY_LABEL_PREFS[itemCode] || [0,-35,35,-70,70,180,-145,145,-105,105];
+  const radii = [16,26,38,50,64,78,92];
+  let best = null;
+  for(const r of radii){{
+    for(const deg of baseAngles){{
+      const rad = deg * Math.PI / 180;
+      let centerX = ax + Math.cos(rad) * r;
+      let centerY = ay + Math.sin(rad) * r;
+      let left = centerX - w / 2;
+      let top = centerY - h / 2;
+      left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+      top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+      const box = {{left, top, right:left+w, bottom:top+h, w, h}};
+      const collisionCount = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,4) ? 1 : 0), 0);
+      const dist = Math.hypot((left + w/2) - ax, (top + h/2) - ay);
+      const edgePenalty = (left<=bounds.left+1 || top<=bounds.top+1 || left+w>=bounds.right-1 || top+h>=bounds.bottom-1) ? 24 : 0;
+      const score = collisionCount * 100000 + dist + edgePenalty;
+      if(!best || score < best.score) best = {{...box, score, collisionCount}};
+      if(collisionCount === 0 && r <= 64) return box;
+    }}
+  }}
+  return best;
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svg = document.querySelector('.world-map-inline.globe-texture-source');
+  const layer = document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer) return;
+  layer.innerHTML = '';
+  if(activeContinentFilter === 'ALL') return;
+
+  const countries = items.filter(v => v.continent === activeContinentFilter && v.count > 0)
+    .sort((a,b) => b.count - a.count || a.name.localeCompare(b.name,'ko'));
+  if(!countries.length) return;
+
+  const vp = getExactMapViewport(svg, visual);
+  const dock = document.getElementById('continent-rail');
+  const vr = visual.getBoundingClientRect();
+  const dr = dock?.getBoundingClientRect();
+  const dockTop = dr ? dr.top - vr.top : visual.clientHeight - 44;
+  const bounds = {{
+    left: Math.max(4, vp.left + 2),
+    top: Math.max(30, vp.top + 1),
+    right: Math.min(visual.clientWidth - 4, vp.left + vp.width - 2),
+    bottom: Math.min(dockTop - 5, vp.top + vp.height - 2)
+  }};
+  const occupied = [];
+
+  countries.forEach(item => {{
+    const p = getCountryMapAnchor(item);
+    const ax = vp.left + (p.x/100) * vp.width;
+    const ay = vp.top + (p.y/100) * vp.height;
+
+    const dot = document.createElement('span');
+    dot.className = 'precise-country-dot' + (activeCountryFilter===item.code ? ' active' : '');
+    dot.style.left = `${{ax}}px`;
+    dot.style.top = `${{ay}}px`;
+    layer.appendChild(dot);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'precise-country-label' + (activeCountryFilter===item.code ? ' active' : '');
+    btn.style.visibility = 'hidden';
+    btn.style.left = '0px';
+    btn.style.top = '0px';
+    btn.innerHTML = `<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label', `${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+
+    const w = Math.ceil(btn.getBoundingClientRect().width || 64);
+    const h = Math.ceil(btn.getBoundingClientRect().height || 20);
+    const box = chooseCollisionFreeLabelBox(w, h, ax, ay, bounds, occupied, item.code);
+    occupied.push(box);
+    btn.style.left = `${{box.left}}px`;
+    btn.style.top = `${{box.top}}px`;
+    btn.style.visibility = 'visible';
+    btn.addEventListener('click', (event) => {{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    }});
+
+    addExactConnector(layer, ax, ay, box);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items = collect2DCountryItems();
+  if(!items.length) return;
+  if(!activeContinentFilter) activeContinentFilter = 'ALL';
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking = document.getElementById('continent-country-ranking');
+  if(ranking){{ ranking.hidden = true; ranking.innerHTML = ''; }}
+  const caption = document.querySelector('.country-map-caption');
+  if(caption) caption.style.display = 'none';
+  const note = document.getElementById('country-filter-note');
+  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
+}}
+
+requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
+window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
 
 </script>
 </body>
