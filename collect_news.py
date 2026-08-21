@@ -14014,6 +14014,196 @@ header,
   .map-country-card {{ gap:2px !important; padding:2px 4px !important; }}
 }}
 
+
+
+/* ============================================================
+   FINAL MAP RESET — FULL WORLD / COMPACT CONTINENT TABS
+   ============================================================ */
+.country-map-visual.globe-mode {{
+  height:306px !important;
+  min-height:306px !important;
+  overflow:hidden !important;
+  border-radius:16px !important;
+  background:linear-gradient(180deg,#f9fcfe 0%,#eef7fc 100%) !important;
+}}
+
+/* Continent selector: compact horizontal strip, never covers the map */
+#continent-rail {{
+  position:absolute !important;
+  left:8px !important;
+  right:8px !important;
+  top:7px !important;
+  bottom:auto !important;
+  width:auto !important;
+  height:38px !important;
+  min-height:38px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  gap:5px !important;
+  padding:4px 5px !important;
+  border:1px solid rgba(157,190,211,.20) !important;
+  border-radius:12px !important;
+  background:rgba(255,255,255,.95) !important;
+  box-shadow:0 2px 8px rgba(53,91,120,.05) !important;
+  z-index:8 !important;
+  overflow:hidden !important;
+}}
+.continent-rail-head {{
+  flex:0 0 auto !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:4px !important;
+  padding:0 !important;
+  border:0 !important;
+}}
+.continent-rail-head > div {{ display:none !important; }}
+.continent-all-button {{
+  flex:0 0 auto !important;
+  height:28px !important;
+  min-width:42px !important;
+  padding:0 8px !important;
+  border-radius:9px !important;
+  font-size:8.7px !important;
+}}
+.continent-rail-scroll {{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  gap:4px !important;
+  padding:0 !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  scrollbar-width:none !important;
+}}
+.continent-rail-scroll::-webkit-scrollbar {{ display:none !important; }}
+.continent-button {{
+  flex:0 0 auto !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:4px !important;
+  min-height:28px !important;
+  height:28px !important;
+  padding:0 8px !important;
+  border-radius:9px !important;
+  white-space:nowrap !important;
+}}
+.continent-button > span {{ display:inline-flex !important; align-items:center !important; gap:3px !important; }}
+.continent-button-name {{
+  display:inline !important;
+  font-size:8.5px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+.continent-button-meta {{ display:none !important; }}
+.continent-button-count {{
+  font-size:8px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+
+/* Full, seamless world map: no zoom/cropping, no right-side reserved space */
+.country-map-visual .world-map-inline.globe-texture-source {{
+  display:block !important;
+  position:absolute !important;
+  left:8px !important;
+  right:8px !important;
+  top:52px !important;
+  bottom:8px !important;
+  width:auto !important;
+  height:auto !important;
+  max-width:none !important;
+  transform:none !important;
+  transform-origin:center center !important;
+  opacity:1 !important;
+  filter:contrast(1.08) saturate(1.03) !important;
+  z-index:1 !important;
+  overflow:visible !important;
+}}
+#country-map-label-layer.country-map-label-layer {{
+  position:absolute !important;
+  left:8px !important;
+  right:8px !important;
+  top:52px !important;
+  bottom:8px !important;
+  width:auto !important;
+  height:auto !important;
+  transform:none !important;
+  transform-origin:center center !important;
+  z-index:5 !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+}}
+
+/* Country labels are the primary map interaction */
+.map-country-node {{ z-index:6 !important; }}
+.map-country-node::before {{
+  width:7px !important;
+  height:7px !important;
+  border-width:1.5px !important;
+  box-shadow:0 0 0 2px rgba(22,143,206,.13),0 1px 4px rgba(30,83,117,.16) !important;
+}}
+.map-country-node::after {{ width:9px !important; }}
+.map-country-node.side-right .map-country-card {{ left:9px !important; }}
+.map-country-node.side-left .map-country-card {{ right:9px !important; }}
+.map-country-card {{
+  min-height:19px !important;
+  padding:2px 5px !important;
+  gap:3px !important;
+  border-radius:7px !important;
+  background:rgba(255,255,255,.96) !important;
+  font-size:7.7px !important;
+  box-shadow:0 2px 6px rgba(50,88,116,.09) !important;
+}}
+.map-country-card .flag {{ font-size:9px !important; }}
+.map-country-card .name {{ display:inline !important; font-size:7.6px !important; }}
+.map-country-card .count {{ font-size:7.6px !important; }}
+
+/* Selected continent remains visible on the real land mass */
+#continent-highlight-svg-layer .continent-highlight-land path {{
+  fill:#70c4ec !important;
+  fill-opacity:.58 !important;
+  stroke:#1787c1 !important;
+  stroke-width:1.25 !important;
+}}
+#continent-highlight-svg-layer .continent-highlight-title {{
+  font-size:20px !important;
+  stroke-width:4px !important;
+}}
+
+@media (max-width:430px) {{
+  .country-map-visual.globe-mode {{ height:300px !important; min-height:300px !important; }}
+  #continent-rail {{ left:6px !important; right:6px !important; top:6px !important; height:36px !important; min-height:36px !important; padding:4px !important; }}
+  .continent-all-button {{ height:26px !important; min-width:39px !important; padding:0 7px !important; font-size:8px !important; }}
+  .continent-button {{ height:26px !important; min-height:26px !important; padding:0 7px !important; }}
+  .continent-button-name {{ font-size:7.8px !important; }}
+  .continent-button-count {{ font-size:7.3px !important; }}
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {{
+    left:5px !important;
+    right:5px !important;
+    top:48px !important;
+    bottom:6px !important;
+    transform:none !important;
+  }}
+  .map-country-card {{ min-height:18px !important; padding:2px 4px !important; gap:2px !important; }}
+  .map-country-card .flag {{ font-size:8px !important; }}
+  .map-country-card .name {{ display:inline !important; font-size:6.9px !important; }}
+  .map-country-card .count {{ font-size:6.9px !important; }}
+}}
+
+@media (max-width:380px) {{
+  .country-map-visual.globe-mode {{ height:286px !important; min-height:286px !important; }}
+  .continent-button {{ padding:0 6px !important; }}
+  .continent-button-name {{ font-size:7.4px !important; }}
+  .continent-button-count {{ font-size:7px !important; }}
+  .map-country-card .name {{ display:inline !important; font-size:6.5px !important; }}
+  .map-country-card .count {{ font-size:6.5px !important; }}
+}}
+
 </style>
 </head>
 <body>
@@ -16700,11 +16890,10 @@ function renderContinentRail2D(items){{
   }}
   const scroll=rail.querySelector('.continent-rail-scroll');
   order.forEach(code=>{{
-    if((articleCounts[code]||0)<=0)return;
     const button=document.createElement('button');
     button.type='button';
     button.className='continent-button' + (activeContinentFilter===code ? ' active' : '');
-    button.innerHTML=`<span><span class="continent-button-name">${{CONTINENT_META[code].name}}</span><span class="continent-button-meta">${{countryCounts[code]||0}}개국</span></span><span class="continent-button-count">${{articleCounts[code]||0}}건</span>`;
+    button.innerHTML=`<span><span class="continent-button-name">${{CONTINENT_META[code].name}}</span></span><span class="continent-button-count">${{articleCounts[code]||0}}건</span>`;
     button.addEventListener('click',()=>{{
       const switching = activeContinentFilter !== code;
       activeContinentFilter=code;
@@ -16751,22 +16940,22 @@ function computeDirectMapLabelPlacements(items){{
   const occupied=[];
   filtered.forEach((item,index)=>{{
     const p=project2DPoint(item.lon,item.lat);
-    let side = p.x > 72 ? 'left' : 'right';
-    if(p.x >= 43 && p.x <= 72) side = (index % 2 === 0 ? 'right' : 'left');
+    let side = p.x > 76 ? 'left' : 'right';
+    if(p.x >= 44 && p.x <= 76) side = (index % 2 === 0 ? 'right' : 'left');
 
-    let y=p.y;
-    const step=7.2;
+    let labelDy=0;
     let tries=0;
-    while(tries<12){{
-      const clash=occupied.some(prev => prev.side===side && Math.abs(prev.y-y)<6.6 && Math.abs(prev.x-p.x)<28);
+    while(tries<14){{
+      const candidateY=p.y+labelDy;
+      const clash=occupied.some(prev => prev.side===side && Math.abs(prev.y-candidateY)<7.2 && Math.abs(prev.x-p.x)<30);
       if(!clash)break;
-      const direction = tries % 2 === 0 ? 1 : -1;
-      y = p.y + direction * Math.ceil((tries+1)/2) * step;
-      y=Math.max(7,Math.min(93,y));
+      const band=Math.ceil((tries+1)/2);
+      labelDy=(tries%2===0 ? 1 : -1)*band*7.5;
+      if(p.y+labelDy<5 || p.y+labelDy>95) labelDy=-labelDy;
       tries++;
     }}
-    occupied.push({{x:p.x,y,side}});
-    placements.push({{...item,x:p.x,y,side}});
+    occupied.push({{x:p.x,y:Math.max(5,Math.min(95,p.y+labelDy)),side}});
+    placements.push({{...item,x:p.x,y:p.y,side,labelDy}});
   }});
   return placements;
 }}
@@ -16813,6 +17002,11 @@ function getContinentNativeRegion(code){{
 }}
 
 function renderSelectedContinentHighlight(){{
+  const sourceSvg=document.querySelector('.world-map-inline.globe-texture-source');
+  if(sourceSvg){{
+    sourceSvg.setAttribute('preserveAspectRatio','xMidYMid meet');
+    sourceSvg.setAttribute('viewBox','0 0 1000 500');
+  }}
   const ctx=ensureNativeContinentHighlightLayer();
   if(!ctx)return;
   const {{landGroup,defs,layer}}=ctx;
@@ -16874,6 +17068,7 @@ function render2DMapLabels(items){{
     const card=document.createElement('button');
     card.type='button';
     card.className='map-country-card' + (activeCountryFilter===item.code ? ' active' : '');
+    if(item.labelDy) card.style.marginTop=`${{item.labelDy}}%`;
     card.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
     card.setAttribute('aria-label',`${{item.name}} ${{item.count}}건. 클릭하면 해당 국가 기사만 표시합니다.`);
     card.title=`${{item.name}} ${{item.count}}건`;
