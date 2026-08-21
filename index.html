@@ -6897,6 +6897,110 @@ header,
   .clean-map-country-label { font-size:7px !important; }
 }
 
+
+
+/* ============================================================
+   ABSOLUTE FINAL MAP TUNING — compact right rail / clean back state
+   ============================================================ */
+.country-map-visual.globe-mode {
+  height:218px !important;
+  min-height:218px !important;
+}
+
+/* Render the full 2:1 SVG at its natural aspect ratio: no internal letterbox. */
+.country-map-visual .world-map-inline.globe-texture-source {
+  left:4px !important;
+  right:auto !important;
+  top:50% !important;
+  bottom:auto !important;
+  width:calc(100% - 84px) !important;
+  height:auto !important;
+  aspect-ratio:2 / 1 !important;
+  transform:translateY(-50%) !important;
+  transform-origin:center !important;
+}
+
+/* Right rail height follows its content instead of stretching to map bottom. */
+#continent-rail {
+  top:8px !important;
+  right:5px !important;
+  bottom:auto !important;
+  width:72px !important;
+  max-height:none !important;
+  height:auto !important;
+  padding:5px 4px !important;
+  gap:4px !important;
+}
+.continent-rail-head {
+  min-height:23px !important;
+  padding:0 1px 3px !important;
+}
+.continent-rail-title { font-size:8.1px !important; }
+.continent-back-button {
+  flex:0 0 auto !important;
+  width:23px !important;
+  height:23px !important;
+  padding:0 !important;
+  border-radius:50% !important;
+  border:1px solid #8fc7e7 !important;
+  background:#fff !important;
+  color:#1f5d83 !important;
+  font-size:12px !important;
+  font-weight:950 !important;
+  line-height:1 !important;
+  cursor:pointer !important;
+}
+.continent-back-button:hover,
+.continent-back-button:focus-visible {
+  background:#eef8fe !important;
+  outline:none !important;
+}
+.continent-rail-scroll { gap:3px !important; overflow:visible !important; }
+.continent-button {
+  min-height:27px !important;
+  padding:3px 4px !important;
+  border-radius:8px !important;
+  gap:2px !important;
+}
+.continent-button-name {
+  font-size:7.05px !important;
+  line-height:1.04 !important;
+}
+.continent-button-count {
+  font-size:6.9px !important;
+}
+.continent-all-button { display:none !important; }
+
+/* Country labels remain readable but compact. */
+.clean-map-country-label {
+  min-height:18px !important;
+  padding:2px 5px !important;
+  font-size:7.6px !important;
+}
+.clean-map-country-label .flag { font-size:8.5px !important; }
+.clean-map-country-dot { width:7px !important; height:7px !important; }
+
+@media (max-width:430px) {
+  .country-map-visual.globe-mode { height:212px !important; min-height:212px !important; }
+  .country-map-visual .world-map-inline.globe-texture-source {
+    left:3px !important;
+    width:calc(100% - 78px) !important;
+  }
+  #continent-rail { width:67px !important; right:4px !important; top:7px !important; padding:4px !important; }
+  .continent-button { min-height:26px !important; padding:3px !important; }
+  .continent-button-name { font-size:6.7px !important; }
+  .continent-button-count { font-size:6.55px !important; }
+  .clean-map-country-label { font-size:7.25px !important; padding:2px 4px !important; }
+}
+@media (max-width:380px) {
+  .country-map-visual.globe-mode { height:204px !important; min-height:204px !important; }
+  .country-map-visual .world-map-inline.globe-texture-source { width:calc(100% - 73px) !important; }
+  #continent-rail { width:63px !important; }
+  .continent-rail-title { font-size:7.4px !important; }
+  .continent-button-name { font-size:6.35px !important; }
+  .continent-button-count { font-size:6.25px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -6905,7 +7009,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 09:35 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 09:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -7984,7 +8088,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105994"
   data-title="목동10단지, 현대건설과 10월 중순 &#x27;수의계약&#x27; 매듭"
   data-publisher="더구루"
@@ -8010,7 +8114,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>목동10단지, 현대건설과 10월 중순 &#x27;수의계약&#x27; 매듭</div>
+      <div class="headline">목동10단지, 현대건설과 10월 중순 &#x27;수의계약&#x27; 매듭</div>
       <div class="article-snippet">[더구루=김수현 기자] 서울 양천구 목동신시가지 재건축 시장에서 현대건설이 첫 수주 깃발을 꽂을 전망이다. 총공사비 2조6000억원 규모의 목동10단지가 현대건설과의 수의계약 절차에 착수해 오는 10월 시공사 선정을 매듭짓는다. 19일 정비업계에 따르면 목동10단지 사업시행자인 한국토지신탁이 이날 오전 9시 진행한 목동10단지 재건축 시공사 선정을 위한 2</div>
     </div>
   </div>
@@ -14581,7 +14685,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">105건</span>
+    <span class="group-count">106건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -15385,7 +15489,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba93b240&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ce24e6f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -15420,7 +15524,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58bb18d358&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ce763a08&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -16054,6 +16158,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://spacenews.com/space-nuclear-programs-face-near-and-long-term-challenges/"
+  data-title="Space nuclear programs face near- and long-term challenges"
+  data-publisher="Neutron Bytes"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787107011"
+  data-country="OTHER"
+  data-search="space nuclear programs face near- and long-term challenges neutron bytes nuclear power·nuclear energy while space nuclear programs are “having a moment,” industry officials say they face near-term challenges as well as longer-term concerns."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">43.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Neutron Bytes</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Space nuclear programs face near- and long-term challenges</div>
+      <div class="article-snippet">While space nuclear programs are “having a moment,” industry officials say they face near-term challenges as well as longer-term concerns.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e24b52e1ba8d4bd96256a601.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.upr.org/utah-news/2026-08-18/daily-news-nuclear-billboard-ftc-complaint-wildfire-evacuation-ski-season-park-city-resort"
   data-title="Daily news: Advocacy organizations are fighting Utah&#x27;s pro-nuclear billboards"
@@ -16067,7 +16206,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16102,7 +16241,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16137,7 +16276,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16172,7 +16311,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">46.</span>
+      <span class="article-order-inline">47.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16207,7 +16346,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">47.</span>
+      <span class="article-order-inline">48.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16242,7 +16381,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">48.</span>
+      <span class="article-order-inline">49.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16277,7 +16416,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">49.</span>
+      <span class="article-order-inline">50.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16312,7 +16451,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">50.</span>
+      <span class="article-order-inline">51.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16347,7 +16486,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">51.</span>
+      <span class="article-order-inline">52.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16382,7 +16521,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">52.</span>
+      <span class="article-order-inline">53.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16417,7 +16556,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">53.</span>
+      <span class="article-order-inline">54.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16452,7 +16591,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">54.</span>
+      <span class="article-order-inline">55.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16487,7 +16626,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">55.</span>
+      <span class="article-order-inline">56.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16522,7 +16661,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">56.</span>
+      <span class="article-order-inline">57.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16557,7 +16696,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">57.</span>
+      <span class="article-order-inline">58.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16592,7 +16731,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">58.</span>
+      <span class="article-order-inline">59.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16627,7 +16766,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">59.</span>
+      <span class="article-order-inline">60.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16662,7 +16801,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">60.</span>
+      <span class="article-order-inline">61.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16697,7 +16836,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">61.</span>
+      <span class="article-order-inline">62.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16732,7 +16871,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">62.</span>
+      <span class="article-order-inline">63.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16767,7 +16906,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">63.</span>
+      <span class="article-order-inline">64.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16802,7 +16941,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">64.</span>
+      <span class="article-order-inline">65.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16837,7 +16976,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">65.</span>
+      <span class="article-order-inline">66.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16872,7 +17011,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">66.</span>
+      <span class="article-order-inline">67.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16907,7 +17046,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">67.</span>
+      <span class="article-order-inline">68.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16942,7 +17081,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">68.</span>
+      <span class="article-order-inline">69.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16977,7 +17116,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">69.</span>
+      <span class="article-order-inline">70.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17012,7 +17151,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">70.</span>
+      <span class="article-order-inline">71.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17047,7 +17186,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">71.</span>
+      <span class="article-order-inline">72.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17082,7 +17221,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">72.</span>
+      <span class="article-order-inline">73.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17117,7 +17256,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">73.</span>
+      <span class="article-order-inline">74.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17152,7 +17291,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">74.</span>
+      <span class="article-order-inline">75.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17187,7 +17326,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">75.</span>
+      <span class="article-order-inline">76.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17222,7 +17361,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">76.</span>
+      <span class="article-order-inline">77.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17257,7 +17396,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">77.</span>
+      <span class="article-order-inline">78.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17292,7 +17431,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">78.</span>
+      <span class="article-order-inline">79.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17327,7 +17466,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">79.</span>
+      <span class="article-order-inline">80.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17362,7 +17501,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">80.</span>
+      <span class="article-order-inline">81.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17397,7 +17536,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">81.</span>
+      <span class="article-order-inline">82.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17432,7 +17571,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">82.</span>
+      <span class="article-order-inline">83.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17467,7 +17606,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">83.</span>
+      <span class="article-order-inline">84.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17502,7 +17641,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">84.</span>
+      <span class="article-order-inline">85.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17537,7 +17676,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">85.</span>
+      <span class="article-order-inline">86.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17572,7 +17711,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">86.</span>
+      <span class="article-order-inline">87.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17607,7 +17746,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">87.</span>
+      <span class="article-order-inline">88.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17642,7 +17781,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">88.</span>
+      <span class="article-order-inline">89.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17677,7 +17816,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">89.</span>
+      <span class="article-order-inline">90.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17712,7 +17851,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">90.</span>
+      <span class="article-order-inline">91.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17747,7 +17886,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">91.</span>
+      <span class="article-order-inline">92.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17782,7 +17921,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">92.</span>
+      <span class="article-order-inline">93.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17817,7 +17956,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">93.</span>
+      <span class="article-order-inline">94.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17852,7 +17991,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">94.</span>
+      <span class="article-order-inline">95.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17887,7 +18026,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">95.</span>
+      <span class="article-order-inline">96.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17922,7 +18061,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">96.</span>
+      <span class="article-order-inline">97.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17957,7 +18096,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">97.</span>
+      <span class="article-order-inline">98.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -17992,7 +18131,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">98.</span>
+      <span class="article-order-inline">99.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18027,7 +18166,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">99.</span>
+      <span class="article-order-inline">100.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18062,7 +18201,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">100.</span>
+      <span class="article-order-inline">101.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18097,7 +18236,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">101.</span>
+      <span class="article-order-inline">102.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18132,7 +18271,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">102.</span>
+      <span class="article-order-inline">103.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18167,7 +18306,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">103.</span>
+      <span class="article-order-inline">104.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18202,7 +18341,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">104.</span>
+      <span class="article-order-inline">105.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -18237,7 +18376,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">105.</span>
+      <span class="article-order-inline">106.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -24603,7 +24742,7 @@ header,
   data-priority="0"
   data-published="1787254200"
   data-country="OTHER"
-  data-search="lng선으로 1조 벌더니 ai·원전까지 … ‘세계 1위 조선사’의 다음 10년 매일경제 원자력 hd현대중공업, 원전 수혜주로 놀라운 변신hd현대중공업은 오랫동안 ‘세계 1위 조선사’라는 타이틀로 소개돼 왔다. 그런데 최근 1년 새 이 회사를 부르는 수식어가 눈에 띄게 늘었다.."
+  data-search="lng선으로 1조 벌더니 ai·원전까지 … ‘세계 1위 조선사’의 다음 10년 매일경제 원자력 hd현대중공업,원전 수혜주로 놀라운 변신hd현대중공업은 오랫동안 ‘세계 1위 조선사’라는 타이틀로 소개돼 왔다. 그런데 최근 1년 새 이 회사를 부르는 수식어가 눈에 띄게 늘었다..."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -24621,11 +24760,11 @@ header,
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">LNG선으로 1조 벌더니 AI·원전까지 … ‘세계 1위 조선사’의 다음 10년</div>
-      <div class="article-snippet">HD현대중공업, 원전 수혜주로 놀라운 변신HD현대중공업은 오랫동안 ‘세계 1위 조선사’라는 타이틀로 소개돼 왔다. 그런데 최근 1년 새 이 회사를 부르는 수식어가 눈에 띄게 늘었다..</div>
+      <div class="article-snippet">HD현대중공업,원전 수혜주로 놀라운 변신HD현대중공업은 오랫동안 ‘세계 1위 조선사’라는 타이틀로 소개돼 왔다. 그런데 최근 1년 새 이 회사를 부르는 수식어가 눈에 띄게 늘었다...</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/03868c6794bb0a784b409dd6.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/cd09e6063d9ec6dca9cec374.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27619,7 +27758,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">103건</span>
+    <span class="group-count">104건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28357,6 +28496,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://tass.com/politics/2175647"
+  data-title="Russia only country in world with expertise across entire nuclear energy sector — Putin"
+  data-publisher="TASS"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787230369"
+  data-country="RU"
+  data-search="russia only country in world with expertise across entire nuclear energy sector — putin tass nuclear power·nuclear energy these competitive advantages enable the country to hold a leading position in the market for the construction of nuclear power plants abroad, the russian leader stressed"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">22.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TASS</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Russia only country in world with expertise across entire nuclear energy sector — Putin</div>
+      <div class="article-snippet">These competitive advantages enable the country to hold a leading position in the market for the construction of nuclear power plants abroad, the Russian leader stressed</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/59de5437a29daae6e8ea68bc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.koreajoongangdaily.com/business/newlyprojected-energy-demand-created-by-ai-and-chips-calls-for-19-more-nuclear-reactors/12835871"
   data-title="Newly-projected energy demand created by AI and chips calls for 19 more nuclear reactors"
@@ -28370,7 +28544,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28405,7 +28579,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28440,7 +28614,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28475,7 +28649,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28510,7 +28684,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28545,7 +28719,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28580,7 +28754,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28615,7 +28789,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28650,7 +28824,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28685,7 +28859,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28720,7 +28894,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28755,7 +28929,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28790,7 +28964,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28825,7 +28999,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28860,7 +29034,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28895,7 +29069,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28930,7 +29104,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28965,7 +29139,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29000,7 +29174,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29035,7 +29209,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29070,7 +29244,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29105,7 +29279,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29140,7 +29314,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29175,7 +29349,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29210,7 +29384,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">46.</span>
+      <span class="article-order-inline">47.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29245,7 +29419,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">47.</span>
+      <span class="article-order-inline">48.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29280,7 +29454,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">48.</span>
+      <span class="article-order-inline">49.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29315,7 +29489,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">49.</span>
+      <span class="article-order-inline">50.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29350,7 +29524,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">50.</span>
+      <span class="article-order-inline">51.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29385,7 +29559,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">51.</span>
+      <span class="article-order-inline">52.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29420,7 +29594,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">52.</span>
+      <span class="article-order-inline">53.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29455,7 +29629,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">53.</span>
+      <span class="article-order-inline">54.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29490,7 +29664,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">54.</span>
+      <span class="article-order-inline">55.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29525,7 +29699,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">55.</span>
+      <span class="article-order-inline">56.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29560,7 +29734,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">56.</span>
+      <span class="article-order-inline">57.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29595,7 +29769,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">57.</span>
+      <span class="article-order-inline">58.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29630,7 +29804,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">58.</span>
+      <span class="article-order-inline">59.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29665,7 +29839,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">59.</span>
+      <span class="article-order-inline">60.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29700,7 +29874,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">60.</span>
+      <span class="article-order-inline">61.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29735,7 +29909,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">61.</span>
+      <span class="article-order-inline">62.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29770,7 +29944,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">62.</span>
+      <span class="article-order-inline">63.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29805,7 +29979,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">63.</span>
+      <span class="article-order-inline">64.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29840,7 +30014,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">64.</span>
+      <span class="article-order-inline">65.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29875,7 +30049,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">65.</span>
+      <span class="article-order-inline">66.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29910,7 +30084,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">66.</span>
+      <span class="article-order-inline">67.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29945,7 +30119,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">67.</span>
+      <span class="article-order-inline">68.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -29980,7 +30154,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">68.</span>
+      <span class="article-order-inline">69.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30015,7 +30189,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">69.</span>
+      <span class="article-order-inline">70.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30050,7 +30224,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">70.</span>
+      <span class="article-order-inline">71.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30085,7 +30259,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">71.</span>
+      <span class="article-order-inline">72.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30120,7 +30294,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">72.</span>
+      <span class="article-order-inline">73.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30155,7 +30329,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">73.</span>
+      <span class="article-order-inline">74.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30190,7 +30364,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">74.</span>
+      <span class="article-order-inline">75.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30225,7 +30399,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">75.</span>
+      <span class="article-order-inline">76.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30260,7 +30434,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">76.</span>
+      <span class="article-order-inline">77.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30295,7 +30469,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">77.</span>
+      <span class="article-order-inline">78.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30330,7 +30504,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">78.</span>
+      <span class="article-order-inline">79.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30365,7 +30539,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">79.</span>
+      <span class="article-order-inline">80.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30400,7 +30574,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">80.</span>
+      <span class="article-order-inline">81.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30435,7 +30609,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">81.</span>
+      <span class="article-order-inline">82.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30470,7 +30644,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">82.</span>
+      <span class="article-order-inline">83.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30505,7 +30679,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">83.</span>
+      <span class="article-order-inline">84.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30540,7 +30714,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">84.</span>
+      <span class="article-order-inline">85.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30575,7 +30749,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">85.</span>
+      <span class="article-order-inline">86.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30610,7 +30784,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">86.</span>
+      <span class="article-order-inline">87.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30645,7 +30819,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">87.</span>
+      <span class="article-order-inline">88.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30680,7 +30854,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">88.</span>
+      <span class="article-order-inline">89.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30715,7 +30889,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">89.</span>
+      <span class="article-order-inline">90.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30750,7 +30924,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">90.</span>
+      <span class="article-order-inline">91.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30785,7 +30959,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">91.</span>
+      <span class="article-order-inline">92.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30820,7 +30994,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">92.</span>
+      <span class="article-order-inline">93.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30855,7 +31029,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">93.</span>
+      <span class="article-order-inline">94.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30890,7 +31064,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">94.</span>
+      <span class="article-order-inline">95.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30925,7 +31099,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">95.</span>
+      <span class="article-order-inline">96.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30960,7 +31134,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">96.</span>
+      <span class="article-order-inline">97.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -30995,7 +31169,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">97.</span>
+      <span class="article-order-inline">98.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31030,7 +31204,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">98.</span>
+      <span class="article-order-inline">99.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31065,7 +31239,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">99.</span>
+      <span class="article-order-inline">100.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31100,7 +31274,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">100.</span>
+      <span class="article-order-inline">101.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31135,7 +31309,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">101.</span>
+      <span class="article-order-inline">102.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31170,7 +31344,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">102.</span>
+      <span class="article-order-inline">103.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31205,7 +31379,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">103.</span>
+      <span class="article-order-inline">104.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31444,7 +31618,7 @@ header,
     <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106070"
   data-title="두산에너빌리티, 日 에바라와 &#x27;첨단 압축기 개발&#x27; 동맹…글로벌 LNG 시장 &#x27;정조준&#x27;"
   data-publisher="더구루"
@@ -31470,7 +31644,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 日 에바라와 &#x27;첨단 압축기 개발&#x27; 동맹…글로벌 LNG 시장 &#x27;정조준&#x27;</div>
+      <div class="headline">두산에너빌리티, 日 에바라와 &#x27;첨단 압축기 개발&#x27; 동맹…글로벌 LNG 시장 &#x27;정조준&#x27;</div>
       <div class="article-snippet">[더구루=김예지 기자] 두산에너빌리티가 일본의 글로벌 기계 기업 에바라(Ebara) 산하 에바라 엘리엇 에너지(Ebara Elliott Energy)와 손잡고 액화천연가스(LNG) 산업용 첨단 압축기 시장 공략에 나선다. 가스터빈 사업을 확대하고 있는 두산에너빌리티가 에바라 엘리엇 에너지의 LNG 터보기계 기술을 접목해 글로벌 LNG 시장으로 사업 영역을</div>
     </div>
   </div>
@@ -31794,7 +31968,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/2026082138276"
   data-title="롯데건설, 상동역 롯데캐슬 시그니처 25일 1순위 청약"
   data-publisher="한국경제"
@@ -31820,7 +31994,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>롯데건설, 상동역 롯데캐슬 시그니처 25일 1순위 청약</div>
+      <div class="headline">롯데건설, 상동역 롯데캐슬 시그니처 25일 1순위 청약</div>
       <div class="article-snippet">롯데건설, 상동역 롯데캐슬 시그니처 25일 1순위 청약, 이슬기 기자, 부동산</div>
     </div>
   </div>
@@ -31870,9 +32044,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.asiae.co.kr/article/2026082109523943239"
+  data-title="새울원자력본부, ‘2026 새울 아카데미 2기’ 수료식 개최… 두 달간 여정 마무리"
+  data-publisher="아시아경제"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787273559"
+  data-country="KR"
+  data-search="새울원자력본부, ‘2026 새울 아카데미 2기’ 수료식 개최… 두 달간 여정 마무리 아시아경제 한국수력원자력 한국수력원자력 새울원자력본부(본부장 김상우)가 두 달간 진행된 지역주민 대상 교육 프로그램 &#x27;2026 새울 아카데미 2기&#x27;를 마치고 20일 수료식을 열었다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아시아경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, ‘2026 새울 아카데미 2기’ 수료식 개최… 두 달간 여정 마무리</div>
+      <div class="article-snippet">한국수력원자력 새울원자력본부(본부장 김상우)가 두 달간 진행된 지역주민 대상 교육 프로그램 &#x27;2026 새울 아카데미 2기&#x27;를 마치고 20일 수료식을 열었다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7160629e402db0efa00ccb06.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202400"
   data-title="새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리"
@@ -31886,7 +32095,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -31987,7 +32196,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260821084931325"
   data-title="거제, 폭우로 하천·하수처리시설 피해…기후차관 &amp;quot;복구·재발방지 총력&amp;quot;"
   data-publisher="아주경제"
@@ -32013,7 +32222,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>거제, 폭우로 하천·하수처리시설 피해…기후차관 &amp;quot;복구·재발방지 총력&amp;quot;</div>
+      <div class="headline">거제, 폭우로 하천·하수처리시설 피해…기후차관 &amp;quot;복구·재발방지 총력&amp;quot;</div>
       <div class="article-snippet">지난 17일 오후 경남 거제시 옥포동 한 차도가 범람하고 있다. [사진=연합뉴스] 기록적 폭우로 경남 거제시에 하천 범람과 제방 유실, 상하수도&amp;middot;전력시설 파손 등 피해가 잇따른 가운데 정부가 응급복구와 함께 피해 재발 방지에 총력을 모은다. &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; 기후에너지환경부는 금한승 제1차관이 21일 거제시를 방문해 하천과 공공하수처리시설, 상수도관 파손 현장 등을 점검했다고 밝혔다. 거제시에는 지난 15일부터 19일까지 누적</div>
     </div>
   </div>
@@ -32049,7 +32258,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371491"
   data-title="금한승 기후부 1차관, 집중호우 피해 거제 찾아 복구 상황 점검"
   data-publisher="전기신문"
@@ -32075,7 +32284,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>금한승 기후부 1차관, 집중호우 피해 거제 찾아 복구 상황 점검</div>
+      <div class="headline">금한승 기후부 1차관, 집중호우 피해 거제 찾아 복구 상황 점검</div>
       <div class="article-snippet">금한승 기후에너지환경부 제1차관이 기록적인 집중호우로 피해가 발생한 경남 거제시를 찾아 침수 피해 현장을 점검한다.21일 기후에너지환경부에 따르면 이날 금한승 차관은 거제시 주요 피해 현장을 방문해 복구 상황을 살펴본다.거제시에는 지난 15일부터 19일까지 누적 968.1mm의 비가 내렸다. 특히 17일에는 6시간 동안 509.9mm, 1시간 동안 124.5mm의 기록적인 폭우가 쏟아졌다.이에 따라 고현천 등 11개 하천 27곳에서 범람과 제방 유실, 호안 파손 등의 피해가 발생했다. 또 거제면 공공하수처리시설이 침수돼 하수처리가</div>
     </div>
   </div>
@@ -32309,9 +32518,79 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7529"
+  data-title="김성환 “전력, 산업 보조수단 아닌 국가 안보자산”…수요예측부터 다시 짠다"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787273470"
+  data-country="KR"
+  data-search="김성환 “전력, 산업 보조수단 아닌 국가 안보자산”…수요예측부터 다시 짠다 인사이트n파워 원자력 김성환 기후에너지환경부 장관이 인공지능(ai)과 반도체 등 첨단산업의 급격한 성장에 대응하기 위해 전력을 단순한 산업 지원수단이 아닌 ‘국가 전략과제이자 안보자산’으로 접근해야 한다고 강조했다.특히 기존 전망보다 전력수요가 크게 증가할 것으로 예상됨에 따라 제12차 전력수급기본계획의 수요전망부터 다시 들여다보고 재생에너지와 원전 등 무탄소 전원을 포함한 새로운 전력공급체계를 설계하겠다는 뜻을 밝혔다.김 장관은 지난 20일 국회의원회관에서 잇따라 열린 제12차 전력수급기본계획 수립을 위한 제4차 ‘전기국가 전환’ 및 제5차 ‘전력수요"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김성환 “전력, 산업 보조수단 아닌 국가 안보자산”…수요예측부터 다시 짠다</div>
+      <div class="article-snippet">김성환 기후에너지환경부 장관이 인공지능(AI)과 반도체 등 첨단산업의 급격한 성장에 대응하기 위해 전력을 단순한 산업 지원수단이 아닌 ‘국가 전략과제이자 안보자산’으로 접근해야 한다고 강조했다.특히 기존 전망보다 전력수요가 크게 증가할 것으로 예상됨에 따라 제12차 전력수급기본계획의 수요전망부터 다시 들여다보고 재생에너지와 원전 등 무탄소 전원을 포함한 새로운 전력공급체계를 설계하겠다는 뜻을 밝혔다.김 장관은 지난 20일 국회의원회관에서 잇따라 열린 제12차 전력수급기본계획 수립을 위한 제4차 ‘전기국가 전환’ 및 제5차 ‘전력수요</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1af1d127ffc5685f0bf66e69.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5772"
+  data-title="미 원자력학회, 2027 의회 펠로우 2명 선정…원자력 전문성 정책 현장으로 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787271640"
+  data-country="US"
+  data-search="미 원자력학회, 2027 의회 펠로우 2명 선정…원자력 전문성 정책 현장으로 - 에너지안전신문 에너지안전신문 원자력 미국원자력학회(ans)가 2027년도 ‘글렌 t. 시보그 의회 과학·공학 펠로우’로 매들린 로크하트(madeline lockhart)와 아리스티디스 루미스-데메트"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>미 원자력학회, 2027 의회 펠로우 2명 선정…원자력 전문성 정책 현장으로 - 에너지안전신문</div>
+      <div class="article-snippet">미국원자력학회(ANS)가 2027년도 ‘글렌 T. 시보그 의회 과학·공학 펠로우’로 매들린 로크하트(Madeline Lockhart)와 아리스티디스 루미스-데메트</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9928a895a9a79489ab8dca53.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757051"
   data-title="원안위, 중저준위 방사성폐기물 처분시설 변경허가 의결"
@@ -32325,7 +32604,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32360,7 +32639,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32395,7 +32674,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32430,7 +32709,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32465,7 +32744,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32500,7 +32779,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32535,7 +32814,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32570,7 +32849,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32601,7 +32880,7 @@ header,
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371436"
   data-title="기장 담수화시설 새 활용안…“공업용수는 정관에서, 기장은 핑크수소 거점으로”"
   data-publisher="전기신문"
@@ -32627,7 +32906,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>기장 담수화시설 새 활용안…“공업용수는 정관에서, 기장은 핑크수소 거점으로”</div>
+      <div class="headline">기장 담수화시설 새 활용안…“공업용수는 정관에서, 기장은 핑크수소 거점으로”</div>
       <div class="article-snippet">10년 넘게 활용 방안을 찾지 못하고 있는 부산 기장 해수담수화시설의 새로운 활용 방안이 제시됐다.한국수소에너지기술연구조합(이사장 이욱태)은 최근 기장 담수화시설을 원전과 소형모듈원전(SMR)을 연계한 국가 청정수소 생산 거점으로 육성하고 공업용수 공급은 별도로 추진하는 내용을 담은 정책 제안서를 부산시에 제출했다고 밝혔다.조합은 공업용수 공급 자체를 반대하는 것이 아니라 산업단지에는 경제성이 높은 하수 재이용수를 공급하고 기장 담수화시설은 물·수소 융합산업의 핵심 인프라로 활용하는 것이 장기적으로 부산의 산업 경쟁력을 높일 수 있다고 설명했다.기장 해수담수화시설은</div>
     </div>
   </div>
@@ -32713,7 +32992,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787272856"
+  data-published="1787273902"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -32782,7 +33061,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32827,7 +33106,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787272753"
+  data-published="1787273841"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -32862,7 +33141,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787272739"
+  data-published="1787273697"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
@@ -32897,7 +33176,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787272295"
+  data-published="1787273648"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -32925,6 +33204,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://neutronbytes.com/2026/08/20/atomic-canyon-launches-ai-virtual-assistant-for-nuclear-reactor-operations/"
+  data-title="Atomic Canyon Launches AI Virtual Assistant for Nuclear Reactor Operations"
+  data-publisher="Neutron Bytes"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787272923"
+  data-country="US"
+  data-search="atomic canyon launches ai virtual assistant for nuclear reactor operations neutron bytes nuclear power·nuclear energy atomic canyon launches nuclear industry virtual assistant where is the nrc on the use of ai? kairos power launches advanced nuclear manufacturing &amp; construction program in tennessee urenco usa…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Neutron Bytes</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Atomic Canyon Launches AI Virtual Assistant for Nuclear Reactor Operations</div>
+      <div class="article-snippet">Atomic Canyon Launches Nuclear Industry Virtual Assistant Where is the NRC on the Use of AI? Kairos Power Launches Advanced Nuclear Manufacturing &amp; Construction Program in Tennessee Urenco USA…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b451c8807caa05a74811558d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.aa.com.tr/en/europe/bulgarias-kozloduy-nuclear-plant-cuts-output-because-of-danube-drought/4033319"
   data-title="Bulgaria&#x27;s Kozloduy nuclear plant cuts output because of Danube drought"
@@ -32938,7 +33252,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -32973,7 +33287,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33002,13 +33316,13 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787272454"
+  data-published="1787273049"
   data-country="OTHER"
   data-search="michael cohen, ex-fixer for trump who once testified against him, hosts president on his radio show – us politics live the guardian nuclear power·nuclear energy despite previously comparing him to a ‘mobster’, trump’s former personal lawyer showers him with praise trump administration faces questions over top aide natalie harp’s security clearance sign up for the us breaking news email an fbi team seized electronic devices from former us representative eric swalwell at the san"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33043,7 +33357,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33078,7 +33392,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33113,7 +33427,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33148,7 +33462,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33351,7 +33665,7 @@ header,
     <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106070"
   data-title="두산에너빌리티, 日 에바라와 &#x27;첨단 압축기 개발&#x27; 동맹…글로벌 LNG 시장 &#x27;정조준&#x27;"
   data-publisher="더구루"
@@ -33377,7 +33691,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 日 에바라와 &#x27;첨단 압축기 개발&#x27; 동맹…글로벌 LNG 시장 &#x27;정조준&#x27;</div>
+      <div class="headline">두산에너빌리티, 日 에바라와 &#x27;첨단 압축기 개발&#x27; 동맹…글로벌 LNG 시장 &#x27;정조준&#x27;</div>
       <div class="article-snippet">[더구루=김예지 기자] 두산에너빌리티가 일본의 글로벌 기계 기업 에바라(Ebara) 산하 에바라 엘리엇 에너지(Ebara Elliott Energy)와 손잡고 액화천연가스(LNG) 산업용 첨단 압축기 시장 공략에 나선다. 가스터빈 사업을 확대하고 있는 두산에너빌리티가 에바라 엘리엇 에너지의 LNG 터보기계 기술을 접목해 글로벌 LNG 시장으로 사업 영역을</div>
     </div>
   </div>
@@ -33701,7 +34015,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/2026082138276"
   data-title="롯데건설, 상동역 롯데캐슬 시그니처 25일 1순위 청약"
   data-publisher="한국경제"
@@ -33727,7 +34041,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>롯데건설, 상동역 롯데캐슬 시그니처 25일 1순위 청약</div>
+      <div class="headline">롯데건설, 상동역 롯데캐슬 시그니처 25일 1순위 청약</div>
       <div class="article-snippet">롯데건설, 상동역 롯데캐슬 시그니처 25일 1순위 청약, 이슬기 기자, 부동산</div>
     </div>
   </div>
@@ -33777,9 +34091,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.asiae.co.kr/article/2026082109523943239"
+  data-title="새울원자력본부, ‘2026 새울 아카데미 2기’ 수료식 개최… 두 달간 여정 마무리"
+  data-publisher="아시아경제"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787273559"
+  data-country="KR"
+  data-search="새울원자력본부, ‘2026 새울 아카데미 2기’ 수료식 개최… 두 달간 여정 마무리 아시아경제 한국수력원자력 한국수력원자력 새울원자력본부(본부장 김상우)가 두 달간 진행된 지역주민 대상 교육 프로그램 &#x27;2026 새울 아카데미 2기&#x27;를 마치고 20일 수료식을 열었다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아시아경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, ‘2026 새울 아카데미 2기’ 수료식 개최… 두 달간 여정 마무리</div>
+      <div class="article-snippet">한국수력원자력 새울원자력본부(본부장 김상우)가 두 달간 진행된 지역주민 대상 교육 프로그램 &#x27;2026 새울 아카데미 2기&#x27;를 마치고 20일 수료식을 열었다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7160629e402db0efa00ccb06.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202400"
   data-title="새울원자력본부, ‘2026년 새울 아카데미 2기’ 수료식 개최 - 에너지데일리"
@@ -33793,7 +34142,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -33894,7 +34243,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260821084931325"
   data-title="거제, 폭우로 하천·하수처리시설 피해…기후차관 &amp;quot;복구·재발방지 총력&amp;quot;"
   data-publisher="아주경제"
@@ -33920,7 +34269,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>거제, 폭우로 하천·하수처리시설 피해…기후차관 &amp;quot;복구·재발방지 총력&amp;quot;</div>
+      <div class="headline">거제, 폭우로 하천·하수처리시설 피해…기후차관 &amp;quot;복구·재발방지 총력&amp;quot;</div>
       <div class="article-snippet">지난 17일 오후 경남 거제시 옥포동 한 차도가 범람하고 있다. [사진=연합뉴스] 기록적 폭우로 경남 거제시에 하천 범람과 제방 유실, 상하수도&amp;middot;전력시설 파손 등 피해가 잇따른 가운데 정부가 응급복구와 함께 피해 재발 방지에 총력을 모은다. &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; 기후에너지환경부는 금한승 제1차관이 21일 거제시를 방문해 하천과 공공하수처리시설, 상수도관 파손 현장 등을 점검했다고 밝혔다. 거제시에는 지난 15일부터 19일까지 누적</div>
     </div>
   </div>
@@ -33956,7 +34305,7 @@ header,
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371491"
   data-title="금한승 기후부 1차관, 집중호우 피해 거제 찾아 복구 상황 점검"
   data-publisher="전기신문"
@@ -33982,7 +34331,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>금한승 기후부 1차관, 집중호우 피해 거제 찾아 복구 상황 점검</div>
+      <div class="headline">금한승 기후부 1차관, 집중호우 피해 거제 찾아 복구 상황 점검</div>
       <div class="article-snippet">금한승 기후에너지환경부 제1차관이 기록적인 집중호우로 피해가 발생한 경남 거제시를 찾아 침수 피해 현장을 점검한다.21일 기후에너지환경부에 따르면 이날 금한승 차관은 거제시 주요 피해 현장을 방문해 복구 상황을 살펴본다.거제시에는 지난 15일부터 19일까지 누적 968.1mm의 비가 내렸다. 특히 17일에는 6시간 동안 509.9mm, 1시간 동안 124.5mm의 기록적인 폭우가 쏟아졌다.이에 따라 고현천 등 11개 하천 27곳에서 범람과 제방 유실, 호안 파손 등의 피해가 발생했다. 또 거제면 공공하수처리시설이 침수돼 하수처리가</div>
     </div>
   </div>
@@ -34216,9 +34565,79 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7529"
+  data-title="김성환 “전력, 산업 보조수단 아닌 국가 안보자산”…수요예측부터 다시 짠다"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787273470"
+  data-country="KR"
+  data-search="김성환 “전력, 산업 보조수단 아닌 국가 안보자산”…수요예측부터 다시 짠다 인사이트n파워 원자력 김성환 기후에너지환경부 장관이 인공지능(ai)과 반도체 등 첨단산업의 급격한 성장에 대응하기 위해 전력을 단순한 산업 지원수단이 아닌 ‘국가 전략과제이자 안보자산’으로 접근해야 한다고 강조했다.특히 기존 전망보다 전력수요가 크게 증가할 것으로 예상됨에 따라 제12차 전력수급기본계획의 수요전망부터 다시 들여다보고 재생에너지와 원전 등 무탄소 전원을 포함한 새로운 전력공급체계를 설계하겠다는 뜻을 밝혔다.김 장관은 지난 20일 국회의원회관에서 잇따라 열린 제12차 전력수급기본계획 수립을 위한 제4차 ‘전기국가 전환’ 및 제5차 ‘전력수요"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김성환 “전력, 산업 보조수단 아닌 국가 안보자산”…수요예측부터 다시 짠다</div>
+      <div class="article-snippet">김성환 기후에너지환경부 장관이 인공지능(AI)과 반도체 등 첨단산업의 급격한 성장에 대응하기 위해 전력을 단순한 산업 지원수단이 아닌 ‘국가 전략과제이자 안보자산’으로 접근해야 한다고 강조했다.특히 기존 전망보다 전력수요가 크게 증가할 것으로 예상됨에 따라 제12차 전력수급기본계획의 수요전망부터 다시 들여다보고 재생에너지와 원전 등 무탄소 전원을 포함한 새로운 전력공급체계를 설계하겠다는 뜻을 밝혔다.김 장관은 지난 20일 국회의원회관에서 잇따라 열린 제12차 전력수급기본계획 수립을 위한 제4차 ‘전기국가 전환’ 및 제5차 ‘전력수요</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1af1d127ffc5685f0bf66e69.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5772"
+  data-title="미 원자력학회, 2027 의회 펠로우 2명 선정…원자력 전문성 정책 현장으로 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787271640"
+  data-country="US"
+  data-search="미 원자력학회, 2027 의회 펠로우 2명 선정…원자력 전문성 정책 현장으로 - 에너지안전신문 에너지안전신문 원자력 미국원자력학회(ans)가 2027년도 ‘글렌 t. 시보그 의회 과학·공학 펠로우’로 매들린 로크하트(madeline lockhart)와 아리스티디스 루미스-데메트"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>미 원자력학회, 2027 의회 펠로우 2명 선정…원자력 전문성 정책 현장으로 - 에너지안전신문</div>
+      <div class="article-snippet">미국원자력학회(ANS)가 2027년도 ‘글렌 T. 시보그 의회 과학·공학 펠로우’로 매들린 로크하트(Madeline Lockhart)와 아리스티디스 루미스-데메트</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9928a895a9a79489ab8dca53.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757051"
   data-title="원안위, 중저준위 방사성폐기물 처분시설 변경허가 의결"
@@ -34232,7 +34651,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34267,7 +34686,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34302,7 +34721,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34337,7 +34756,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34372,7 +34791,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34407,7 +34826,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34442,7 +34861,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34477,7 +34896,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34508,7 +34927,7 @@ header,
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371436"
   data-title="기장 담수화시설 새 활용안…“공업용수는 정관에서, 기장은 핑크수소 거점으로”"
   data-publisher="전기신문"
@@ -34534,7 +34953,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>기장 담수화시설 새 활용안…“공업용수는 정관에서, 기장은 핑크수소 거점으로”</div>
+      <div class="headline">기장 담수화시설 새 활용안…“공업용수는 정관에서, 기장은 핑크수소 거점으로”</div>
       <div class="article-snippet">10년 넘게 활용 방안을 찾지 못하고 있는 부산 기장 해수담수화시설의 새로운 활용 방안이 제시됐다.한국수소에너지기술연구조합(이사장 이욱태)은 최근 기장 담수화시설을 원전과 소형모듈원전(SMR)을 연계한 국가 청정수소 생산 거점으로 육성하고 공업용수 공급은 별도로 추진하는 내용을 담은 정책 제안서를 부산시에 제출했다고 밝혔다.조합은 공업용수 공급 자체를 반대하는 것이 아니라 산업단지에는 경제성이 높은 하수 재이용수를 공급하고 기장 담수화시설은 물·수소 융합산업의 핵심 인프라로 활용하는 것이 장기적으로 부산의 산업 경쟁력을 높일 수 있다고 설명했다.기장 해수담수화시설은</div>
     </div>
   </div>
@@ -34620,7 +35039,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787272856"
+  data-published="1787273902"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -34689,7 +35108,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34734,7 +35153,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787272753"
+  data-published="1787273841"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -34769,7 +35188,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787272739"
+  data-published="1787273697"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
@@ -34804,7 +35223,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787272295"
+  data-published="1787273648"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -34832,6 +35251,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://neutronbytes.com/2026/08/20/atomic-canyon-launches-ai-virtual-assistant-for-nuclear-reactor-operations/"
+  data-title="Atomic Canyon Launches AI Virtual Assistant for Nuclear Reactor Operations"
+  data-publisher="Neutron Bytes"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787272923"
+  data-country="US"
+  data-search="atomic canyon launches ai virtual assistant for nuclear reactor operations neutron bytes nuclear power·nuclear energy atomic canyon launches nuclear industry virtual assistant where is the nrc on the use of ai? kairos power launches advanced nuclear manufacturing &amp; construction program in tennessee urenco usa…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Neutron Bytes</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Atomic Canyon Launches AI Virtual Assistant for Nuclear Reactor Operations</div>
+      <div class="article-snippet">Atomic Canyon Launches Nuclear Industry Virtual Assistant Where is the NRC on the Use of AI? Kairos Power Launches Advanced Nuclear Manufacturing &amp; Construction Program in Tennessee Urenco USA…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b451c8807caa05a74811558d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.aa.com.tr/en/europe/bulgarias-kozloduy-nuclear-plant-cuts-output-because-of-danube-drought/4033319"
   data-title="Bulgaria&#x27;s Kozloduy nuclear plant cuts output because of Danube drought"
@@ -34845,7 +35299,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34880,7 +35334,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34909,13 +35363,13 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787272454"
+  data-published="1787273049"
   data-country="OTHER"
   data-search="michael cohen, ex-fixer for trump who once testified against him, hosts president on his radio show – us politics live the guardian nuclear power·nuclear energy despite previously comparing him to a ‘mobster’, trump’s former personal lawyer showers him with praise trump administration faces questions over top aide natalie harp’s security clearance sign up for the us breaking news email an fbi team seized electronic devices from former us representative eric swalwell at the san"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34950,7 +35404,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -34985,7 +35439,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35020,7 +35474,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35055,7 +35509,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41280,7 +41734,7 @@ header,
   data-priority="0"
   data-published="1787254200"
   data-country="OTHER"
-  data-search="lng선으로 1조 벌더니 ai·원전까지 … ‘세계 1위 조선사’의 다음 10년 매일경제 원자력 hd현대중공업, 원전 수혜주로 놀라운 변신hd현대중공업은 오랫동안 ‘세계 1위 조선사’라는 타이틀로 소개돼 왔다. 그런데 최근 1년 새 이 회사를 부르는 수식어가 눈에 띄게 늘었다.."
+  data-search="lng선으로 1조 벌더니 ai·원전까지 … ‘세계 1위 조선사’의 다음 10년 매일경제 원자력 hd현대중공업,원전 수혜주로 놀라운 변신hd현대중공업은 오랫동안 ‘세계 1위 조선사’라는 타이틀로 소개돼 왔다. 그런데 최근 1년 새 이 회사를 부르는 수식어가 눈에 띄게 늘었다..."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
@@ -41298,11 +41752,11 @@ header,
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">LNG선으로 1조 벌더니 AI·원전까지 … ‘세계 1위 조선사’의 다음 10년</div>
-      <div class="article-snippet">HD현대중공업, 원전 수혜주로 놀라운 변신HD현대중공업은 오랫동안 ‘세계 1위 조선사’라는 타이틀로 소개돼 왔다. 그런데 최근 1년 새 이 회사를 부르는 수식어가 눈에 띄게 늘었다..</div>
+      <div class="article-snippet">HD현대중공업,원전 수혜주로 놀라운 변신HD현대중공업은 오랫동안 ‘세계 1위 조선사’라는 타이틀로 소개돼 왔다. 그런데 최근 1년 새 이 회사를 부르는 수식어가 눈에 띄게 늘었다...</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/03868c6794bb0a784b409dd6.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/cd09e6063d9ec6dca9cec374.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -44296,7 +44750,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">103건</span>
+    <span class="group-count">104건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -45034,6 +45488,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://tass.com/politics/2175647"
+  data-title="Russia only country in world with expertise across entire nuclear energy sector — Putin"
+  data-publisher="TASS"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787230369"
+  data-country="RU"
+  data-search="russia only country in world with expertise across entire nuclear energy sector — putin tass nuclear power·nuclear energy these competitive advantages enable the country to hold a leading position in the market for the construction of nuclear power plants abroad, the russian leader stressed"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">22.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TASS</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Russia only country in world with expertise across entire nuclear energy sector — Putin</div>
+      <div class="article-snippet">These competitive advantages enable the country to hold a leading position in the market for the construction of nuclear power plants abroad, the Russian leader stressed</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/59de5437a29daae6e8ea68bc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.koreajoongangdaily.com/business/newlyprojected-energy-demand-created-by-ai-and-chips-calls-for-19-more-nuclear-reactors/12835871"
   data-title="Newly-projected energy demand created by AI and chips calls for 19 more nuclear reactors"
@@ -45047,7 +45536,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45082,7 +45571,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45117,7 +45606,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45152,7 +45641,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45187,7 +45676,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45222,7 +45711,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45257,7 +45746,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45292,7 +45781,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45327,7 +45816,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45362,7 +45851,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45397,7 +45886,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45432,7 +45921,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45467,7 +45956,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45502,7 +45991,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45537,7 +46026,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45572,7 +46061,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45607,7 +46096,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45642,7 +46131,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45677,7 +46166,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45712,7 +46201,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45747,7 +46236,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45782,7 +46271,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45817,7 +46306,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45852,7 +46341,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45887,7 +46376,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">46.</span>
+      <span class="article-order-inline">47.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45922,7 +46411,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">47.</span>
+      <span class="article-order-inline">48.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45957,7 +46446,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">48.</span>
+      <span class="article-order-inline">49.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45992,7 +46481,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">49.</span>
+      <span class="article-order-inline">50.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46027,7 +46516,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">50.</span>
+      <span class="article-order-inline">51.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46062,7 +46551,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">51.</span>
+      <span class="article-order-inline">52.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46097,7 +46586,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">52.</span>
+      <span class="article-order-inline">53.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46132,7 +46621,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">53.</span>
+      <span class="article-order-inline">54.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46167,7 +46656,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">54.</span>
+      <span class="article-order-inline">55.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46202,7 +46691,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">55.</span>
+      <span class="article-order-inline">56.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46237,7 +46726,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">56.</span>
+      <span class="article-order-inline">57.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46272,7 +46761,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">57.</span>
+      <span class="article-order-inline">58.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46307,7 +46796,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">58.</span>
+      <span class="article-order-inline">59.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46342,7 +46831,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">59.</span>
+      <span class="article-order-inline">60.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46377,7 +46866,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">60.</span>
+      <span class="article-order-inline">61.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46412,7 +46901,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">61.</span>
+      <span class="article-order-inline">62.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46447,7 +46936,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">62.</span>
+      <span class="article-order-inline">63.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46482,7 +46971,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">63.</span>
+      <span class="article-order-inline">64.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46517,7 +47006,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">64.</span>
+      <span class="article-order-inline">65.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46552,7 +47041,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">65.</span>
+      <span class="article-order-inline">66.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46587,7 +47076,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">66.</span>
+      <span class="article-order-inline">67.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46622,7 +47111,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">67.</span>
+      <span class="article-order-inline">68.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46657,7 +47146,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">68.</span>
+      <span class="article-order-inline">69.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46692,7 +47181,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">69.</span>
+      <span class="article-order-inline">70.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46727,7 +47216,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">70.</span>
+      <span class="article-order-inline">71.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46762,7 +47251,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">71.</span>
+      <span class="article-order-inline">72.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46797,7 +47286,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">72.</span>
+      <span class="article-order-inline">73.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46832,7 +47321,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">73.</span>
+      <span class="article-order-inline">74.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46867,7 +47356,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">74.</span>
+      <span class="article-order-inline">75.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46902,7 +47391,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">75.</span>
+      <span class="article-order-inline">76.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46937,7 +47426,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">76.</span>
+      <span class="article-order-inline">77.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46972,7 +47461,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">77.</span>
+      <span class="article-order-inline">78.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47007,7 +47496,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">78.</span>
+      <span class="article-order-inline">79.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47042,7 +47531,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">79.</span>
+      <span class="article-order-inline">80.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47077,7 +47566,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">80.</span>
+      <span class="article-order-inline">81.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47112,7 +47601,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">81.</span>
+      <span class="article-order-inline">82.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47147,7 +47636,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">82.</span>
+      <span class="article-order-inline">83.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47182,7 +47671,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">83.</span>
+      <span class="article-order-inline">84.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47217,7 +47706,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">84.</span>
+      <span class="article-order-inline">85.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47252,7 +47741,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">85.</span>
+      <span class="article-order-inline">86.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47287,7 +47776,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">86.</span>
+      <span class="article-order-inline">87.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47322,7 +47811,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">87.</span>
+      <span class="article-order-inline">88.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47357,7 +47846,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">88.</span>
+      <span class="article-order-inline">89.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47392,7 +47881,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">89.</span>
+      <span class="article-order-inline">90.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47427,7 +47916,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">90.</span>
+      <span class="article-order-inline">91.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47462,7 +47951,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">91.</span>
+      <span class="article-order-inline">92.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47497,7 +47986,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">92.</span>
+      <span class="article-order-inline">93.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47532,7 +48021,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">93.</span>
+      <span class="article-order-inline">94.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47567,7 +48056,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">94.</span>
+      <span class="article-order-inline">95.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47602,7 +48091,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">95.</span>
+      <span class="article-order-inline">96.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47637,7 +48126,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">96.</span>
+      <span class="article-order-inline">97.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47672,7 +48161,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">97.</span>
+      <span class="article-order-inline">98.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47707,7 +48196,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">98.</span>
+      <span class="article-order-inline">99.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47742,7 +48231,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">99.</span>
+      <span class="article-order-inline">100.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47777,7 +48266,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">100.</span>
+      <span class="article-order-inline">101.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47812,7 +48301,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">101.</span>
+      <span class="article-order-inline">102.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47847,7 +48336,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">102.</span>
+      <span class="article-order-inline">103.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -47882,7 +48371,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">103.</span>
+      <span class="article-order-inline">104.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -48286,7 +48775,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=105994"
   data-title="목동10단지, 현대건설과 10월 중순 &#x27;수의계약&#x27; 매듭"
   data-publisher="더구루"
@@ -48312,7 +48801,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>목동10단지, 현대건설과 10월 중순 &#x27;수의계약&#x27; 매듭</div>
+      <div class="headline">목동10단지, 현대건설과 10월 중순 &#x27;수의계약&#x27; 매듭</div>
       <div class="article-snippet">[더구루=김수현 기자] 서울 양천구 목동신시가지 재건축 시장에서 현대건설이 첫 수주 깃발을 꽂을 전망이다. 총공사비 2조6000억원 규모의 목동10단지가 현대건설과의 수의계약 절차에 착수해 오는 10월 시공사 선정을 매듭짓는다. 19일 정비업계에 따르면 목동10단지 사업시행자인 한국토지신탁이 이날 오전 9시 진행한 목동10단지 재건축 시공사 선정을 위한 2</div>
     </div>
   </div>
@@ -54883,7 +55372,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">105건</span>
+    <span class="group-count">106건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -55687,7 +56176,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba93b240&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ce24e6f8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -55722,7 +56211,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58bb18d358&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ce763a08&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -56356,6 +56845,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://spacenews.com/space-nuclear-programs-face-near-and-long-term-challenges/"
+  data-title="Space nuclear programs face near- and long-term challenges"
+  data-publisher="Neutron Bytes"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787107011"
+  data-country="OTHER"
+  data-search="space nuclear programs face near- and long-term challenges neutron bytes nuclear power·nuclear energy while space nuclear programs are “having a moment,” industry officials say they face near-term challenges as well as longer-term concerns."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">43.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Neutron Bytes</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Space nuclear programs face near- and long-term challenges</div>
+      <div class="article-snippet">While space nuclear programs are “having a moment,” industry officials say they face near-term challenges as well as longer-term concerns.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e24b52e1ba8d4bd96256a601.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.upr.org/utah-news/2026-08-18/daily-news-nuclear-billboard-ftc-complaint-wildfire-evacuation-ski-season-park-city-resort"
   data-title="Daily news: Advocacy organizations are fighting Utah&#x27;s pro-nuclear billboards"
@@ -56369,7 +56893,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56404,7 +56928,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56439,7 +56963,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56474,7 +56998,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">46.</span>
+      <span class="article-order-inline">47.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56509,7 +57033,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">47.</span>
+      <span class="article-order-inline">48.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56544,7 +57068,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">48.</span>
+      <span class="article-order-inline">49.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56579,7 +57103,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">49.</span>
+      <span class="article-order-inline">50.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56614,7 +57138,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">50.</span>
+      <span class="article-order-inline">51.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56649,7 +57173,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">51.</span>
+      <span class="article-order-inline">52.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56684,7 +57208,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">52.</span>
+      <span class="article-order-inline">53.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56719,7 +57243,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">53.</span>
+      <span class="article-order-inline">54.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56754,7 +57278,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">54.</span>
+      <span class="article-order-inline">55.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56789,7 +57313,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">55.</span>
+      <span class="article-order-inline">56.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56824,7 +57348,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">56.</span>
+      <span class="article-order-inline">57.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56859,7 +57383,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">57.</span>
+      <span class="article-order-inline">58.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56894,7 +57418,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">58.</span>
+      <span class="article-order-inline">59.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56929,7 +57453,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">59.</span>
+      <span class="article-order-inline">60.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56964,7 +57488,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">60.</span>
+      <span class="article-order-inline">61.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -56999,7 +57523,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">61.</span>
+      <span class="article-order-inline">62.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57034,7 +57558,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">62.</span>
+      <span class="article-order-inline">63.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57069,7 +57593,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">63.</span>
+      <span class="article-order-inline">64.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57104,7 +57628,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">64.</span>
+      <span class="article-order-inline">65.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57139,7 +57663,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">65.</span>
+      <span class="article-order-inline">66.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57174,7 +57698,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">66.</span>
+      <span class="article-order-inline">67.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57209,7 +57733,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">67.</span>
+      <span class="article-order-inline">68.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57244,7 +57768,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">68.</span>
+      <span class="article-order-inline">69.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57279,7 +57803,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">69.</span>
+      <span class="article-order-inline">70.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57314,7 +57838,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">70.</span>
+      <span class="article-order-inline">71.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57349,7 +57873,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">71.</span>
+      <span class="article-order-inline">72.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57384,7 +57908,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">72.</span>
+      <span class="article-order-inline">73.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57419,7 +57943,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">73.</span>
+      <span class="article-order-inline">74.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57454,7 +57978,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">74.</span>
+      <span class="article-order-inline">75.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57489,7 +58013,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">75.</span>
+      <span class="article-order-inline">76.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57524,7 +58048,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">76.</span>
+      <span class="article-order-inline">77.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57559,7 +58083,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">77.</span>
+      <span class="article-order-inline">78.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57594,7 +58118,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">78.</span>
+      <span class="article-order-inline">79.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57629,7 +58153,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">79.</span>
+      <span class="article-order-inline">80.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57664,7 +58188,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">80.</span>
+      <span class="article-order-inline">81.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57699,7 +58223,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">81.</span>
+      <span class="article-order-inline">82.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57734,7 +58258,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">82.</span>
+      <span class="article-order-inline">83.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57769,7 +58293,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">83.</span>
+      <span class="article-order-inline">84.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57804,7 +58328,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">84.</span>
+      <span class="article-order-inline">85.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57839,7 +58363,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">85.</span>
+      <span class="article-order-inline">86.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57874,7 +58398,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">86.</span>
+      <span class="article-order-inline">87.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57909,7 +58433,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">87.</span>
+      <span class="article-order-inline">88.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57944,7 +58468,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">88.</span>
+      <span class="article-order-inline">89.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57979,7 +58503,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">89.</span>
+      <span class="article-order-inline">90.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58014,7 +58538,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">90.</span>
+      <span class="article-order-inline">91.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58049,7 +58573,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">91.</span>
+      <span class="article-order-inline">92.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58084,7 +58608,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">92.</span>
+      <span class="article-order-inline">93.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58119,7 +58643,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">93.</span>
+      <span class="article-order-inline">94.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58154,7 +58678,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">94.</span>
+      <span class="article-order-inline">95.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58189,7 +58713,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">95.</span>
+      <span class="article-order-inline">96.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58224,7 +58748,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">96.</span>
+      <span class="article-order-inline">97.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58259,7 +58783,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">97.</span>
+      <span class="article-order-inline">98.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58294,7 +58818,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">98.</span>
+      <span class="article-order-inline">99.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58329,7 +58853,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">99.</span>
+      <span class="article-order-inline">100.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58364,7 +58888,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">100.</span>
+      <span class="article-order-inline">101.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58399,7 +58923,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">101.</span>
+      <span class="article-order-inline">102.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58434,7 +58958,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">102.</span>
+      <span class="article-order-inline">103.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58469,7 +58993,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">103.</span>
+      <span class="article-order-inline">104.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58504,7 +59028,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">104.</span>
+      <span class="article-order-inline">105.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58539,7 +59063,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">105.</span>
+      <span class="article-order-inline">106.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -143731,6 +144255,114 @@ function setCountryFilter(code){
 requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load',()=>requestAnimationFrame(layoutAndRenderCountryMap),{once:true});
 window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+
+/* ============================================================
+   ABSOLUTE FINAL MAP RUNTIME — Robinson-aligned pins + Back semantics
+   ============================================================ */
+function maybeInitializeContinentFilter(items){
+  // Keep the initial map intentionally clean. No continent is auto-selected.
+  if(!activeContinentFilter)activeContinentFilter='ALL';
+}
+
+/* Robinson projection matching the curved world-map silhouette much more closely
+   than the previous equirectangular lon/lat mapping. */
+const ROBINSON_X=[1.0000,.9986,.9954,.9900,.9822,.9730,.9600,.9427,.9216,.8962,.8679,.8350,.7986,.7597,.7186,.6732,.6213,.5722,.5322];
+const ROBINSON_Y=[0.0000,.0620,.1240,.1860,.2480,.3100,.3720,.4340,.4958,.5571,.6176,.6769,.7346,.7903,.8435,.8936,.9394,.9761,1.0000];
+function project2DPoint(lon,lat){
+  const clampedLat=Math.max(-90,Math.min(90,Number(lat)||0));
+  const absLat=Math.abs(clampedLat);
+  const idx=Math.min(17,Math.floor(absLat/5));
+  const frac=Math.min(1,(absLat-idx*5)/5);
+  const xCoef=ROBINSON_X[idx]+(ROBINSON_X[idx+1]-ROBINSON_X[idx])*frac;
+  const yCoef=ROBINSON_Y[idx]+(ROBINSON_Y[idx+1]-ROBINSON_Y[idx])*frac;
+  const lambda=(Math.max(-180,Math.min(180,Number(lon)||0))*Math.PI)/180;
+  const rx=0.8487*lambda*xCoef;
+  const ry=1.3523*yCoef*(clampedLat<0?-1:1);
+  const maxX=0.8487*Math.PI;
+  const maxY=1.3523;
+  return {
+    x:((rx+maxX)/(2*maxX))*100,
+    y:((maxY-ry)/(2*maxY))*100
+  };
+}
+
+function renderContinentRail2D(items){
+  const rail=ensure2DContinentRail();
+  if(!rail)return;
+  const {articleCounts}=getContinentCounts(items);
+  const order=['NA','EU','AS','MEA','OC'];
+  const selected=activeContinentFilter!=='ALL';
+  rail.innerHTML=`
+    <div class="continent-rail-head">
+      <span class="continent-rail-title">대륙별</span>
+      ${selected?'<button type="button" class="continent-back-button" aria-label="대륙 선택 이전으로 돌아가기" title="뒤로가기">←</button>':''}
+    </div>
+    <div class="continent-rail-scroll" aria-label="대륙 선택"></div>`;
+
+  rail.querySelector('.continent-back-button')?.addEventListener('click',()=>{
+    activeContinentFilter='ALL';
+    activeCountryFilter='';
+    filterArticles();
+    requestAnimationFrame(layoutAndRenderCountryMap);
+  });
+
+  const scroll=rail.querySelector('.continent-rail-scroll');
+  order.forEach(code=>{
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='continent-button'+(activeContinentFilter===code?' active':'');
+    btn.innerHTML=`<span class="continent-button-name">${CONTINENT_META[code].name}</span><span class="continent-button-count">${articleCounts[code]||0}건</span>`;
+    btn.addEventListener('click',()=>{
+      if(activeContinentFilter!==code)activeCountryFilter='';
+      activeContinentFilter=code;
+      filterArticles();
+      requestAnimationFrame(layoutAndRenderCountryMap);
+    });
+    scroll.appendChild(btn);
+  });
+}
+
+function computeCleanLabelPositions(items,viewport){
+  const sorted=[...items].sort((a,b)=>b.count-a.count || a.lat-b.lat || a.lon-b.lon);
+  const occupied=[];
+  return sorted.map((item,index)=>{
+    const p=project2DPoint(item.lon,item.lat);
+    const anchorX=viewport.left+(p.x/100)*viewport.width;
+    const anchorY=viewport.top+(p.y/100)*viewport.height;
+    let side=p.x>69?'left':'right';
+    if(p.x>=43&&p.x<=69)side=index%2===0?'right':'left';
+    let labelY=anchorY;
+    for(let n=0;n<16;n++){
+      const clash=occupied.some(o=>o.side===side && Math.abs(o.y-labelY)<17 && Math.abs(o.x-anchorX)<115);
+      if(!clash)break;
+      const band=Math.ceil((n+1)/2);
+      const dir=n%2===0?1:-1;
+      labelY=anchorY+dir*band*18;
+      labelY=Math.max(viewport.top+8,Math.min(viewport.top+viewport.height-8,labelY));
+    }
+    occupied.push({x:anchorX,y:labelY,side});
+    return {...item,anchorX,anchorY,labelY,side};
+  });
+}
+
+function layoutAndRenderCountryMap(){
+  const items=collect2DCountryItems();
+  if(!items.length)return;
+  maybeInitializeContinentFilter(items);
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  renderHtmlCountryLabels(items);
+  const ranking=document.getElementById('continent-country-ranking');
+  if(ranking){ranking.hidden=true;ranking.innerHTML='';}
+  const caption=document.getElementById('country-map-caption-text');
+  if(caption)caption.textContent='';
+  const note=document.getElementById('country-filter-note');
+  if(note)note.textContent=activeContinentFilter==='ALL'
+    ? '오른쪽에서 대륙을 선택하세요'
+    : '← 버튼으로 전체 세계지도로 돌아가기';
+}
 
 </script>
 </body>
