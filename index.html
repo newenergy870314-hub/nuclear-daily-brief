@@ -7308,7 +7308,7 @@ header,
 .continent-all-button { display:none !important; }
 .continent-rail-scroll {
   display:grid !important;
-  grid-template-columns:.78fr .78fr .76fr .88fr 1.46fr 1.04fr !important;
+  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
   align-items:stretch !important;
   gap:3px !important;
   width:100% !important;
@@ -8062,6 +8062,83 @@ header,
   .precise-country-label .count { font-size:6.75px !important; }
 }
 
+
+/* 2026-08-21 FINAL: all six continent tabs use identical width even after dynamic reordering. */
+.continent-rail-scroll {
+  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+}
+.continent-button {
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP REFINEMENT
+   - more precise continent highlight look
+   - smaller map dots
+   - tighter label chips with shorter connectors
+   ============================================================ */
+#continent-highlight-svg-layer .continent-highlight-land path {
+  fill:#72c4ec !important;
+  fill-opacity:.42 !important;
+  stroke:#238ec7 !important;
+  stroke-width:1.15 !important;
+  stroke-opacity:.82 !important;
+}
+.precise-country-dot {
+  width:4.5px !important;
+  height:4.5px !important;
+  border:1.2px solid #fff !important;
+}
+.precise-country-dot.active {
+  width:5.2px !important;
+  height:5.2px !important;
+}
+.precise-country-label {
+  gap:2px !important;
+  min-height:16px !important;
+  padding:1px 4px !important;
+  font-size:6.95px !important;
+}
+.precise-country-label .flag { font-size:7.6px !important; }
+.precise-country-label .name,
+.precise-country-label .count { font-size:6.95px !important; }
+.precise-country-connector {
+  height:1.2px !important;
+  background:rgba(73,117,150,.48) !important;
+}
+@media (max-width:430px) {
+  .precise-country-label {
+    min-height:15px !important;
+    padding:1px 3px !important;
+    font-size:6.65px !important;
+  }
+  .precise-country-label .flag { font-size:7.2px !important; }
+  .precise-country-label .name,
+  .precise-country-label .count { font-size:6.65px !important; }
+}
+
+
+/* ============================================================
+   2026-08-21 FINAL LEFT MARGIN TUNE
+   Slight extra breathing room on the left side
+   ============================================================ */
+main {
+  padding-left:14px !important;
+}
+@media (max-width:430px) {
+  main {
+    padding-left:14px !important;
+  }
+}
+@media (max-width:380px) {
+  main {
+    padding-left:13px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -8070,7 +8147,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 14:55 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 15:10 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -15846,7 +15923,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ceb92a98&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cec4e400&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -15878,7 +15955,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58d32453f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c92c5820&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -21413,7 +21490,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26854,7 +26931,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246439"
+  data-published="1787246147"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -30514,9 +30591,41 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">33건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ekn.kr/web/view.php?key=20260821023384982"
+  data-title="[에너지소식] 두산에너빌, 오만 가스발전소 공사 계약…한전, 을지연습 참가"
+  data-publisher="에너지경제신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787289521"
+  data-country="KR"
+  data-search="[에너지소식] 두산에너빌, 오만 가스발전소 공사 계약…한전, 을지연습 참가 에너지경제신문 타 건설사 두산에너빌리티는 오만 미스파 가스복합발전소 건설공사 계약을 체결했다고 21일 밝혔다. 총 계약 금액은 약 9300억원이다. 이번 프로젝트에서 두산에너빌리티는 발전소 건설 전문회사.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[에너지소식] 두산에너빌, 오만 가스발전소 공사 계약…한전, 을지연습 참가</div>
+      <div class="article-snippet">두산에너빌리티는 오만 미스파 가스복합발전소 건설공사 계약을 체결했다고 21일 밝혔다. 총 계약 금액은 약 9300억원이다. 이번 프로젝트에서 두산에너빌리티는 발전소 건설 전문회사..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b15505dc9c3128537a8bd205.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106070"
   data-title="두산에너빌리티, 日 에바라와 &#x27;첨단 압축기 개발&#x27; 동맹…글로벌 LNG 시장 &#x27;정조준&#x27;"
@@ -30642,6 +30751,38 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e0bab6489e98723bd8fd772.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308819"
+  data-title="대우건설, 무주택 실수요 겨냥한 검암역 공공분양 단지 공개 - FETV"
+  data-publisher="FETV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787287192"
+  data-country="OTHER"
+  data-search="대우건설, 무주택 실수요 겨냥한 검암역 공공분양 단지 공개 - fetv fetv 타 건설사 [fetv=임요한 기자] 대우건설이 인천 검암에서 분양에 들어간다. 대우건설은 인천광역시 서해구 검암동 일대에 짓는 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택을 21일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">FETV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대우건설, 무주택 실수요 겨냥한 검암역 공공분양 단지 공개 - FETV</div>
+      <div class="article-snippet">[FETV=임요한 기자] 대우건설이 인천 검암에서 분양에 들어간다. 대우건설은 인천광역시 서해구 검암동 일대에 짓는 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택을 21일</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c2e111de6fffadb0f24d355e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30933,6 +31074,38 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308820"
+  data-title="현대엔지니어링, 전기차 충전 그룹 계열사 합친다…11월 1일 합병 - FETV"
+  data-publisher="FETV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787287669"
+  data-country="KR"
+  data-search="현대엔지니어링, 전기차 충전 그룹 계열사 합친다…11월 1일 합병 - fetv fetv 타 건설사 [fetv=임요한 기자] 현대엔지니어링이 전기차 충전 계열사를 흡수한다. 현대엔지니어링은 20일 이사회를 열어 한국전기차충전서비스(한충전)를 합병하는 안건을 통과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">FETV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 전기차 충전 그룹 계열사 합친다…11월 1일 합병 - FETV</div>
+      <div class="article-snippet">[FETV=임요한 기자] 현대엔지니어링이 전기차 충전 계열사를 흡수한다. 현대엔지니어링은 20일 이사회를 열어 한국전기차충전서비스(한충전)를 합병하는 안건을 통과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/902eb23e12695207cd9d0b9d.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313074"
   data-title="현대엔지니어링, 한충전 흡수합병…전기차 충전 밸류체인 일원화 - 건설타임즈"
@@ -31061,6 +31234,38 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003757762"
+  data-title="GS건설, 신한은행과 목동12단지 재건축 금융 업무협약"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787292372"
+  data-country="OTHER"
+  data-search="gs건설, 신한은행과 목동12단지 재건축 금융 업무협약 뉴시스 타 건설사 [서울=뉴시스]정진형 기자 = gs건설은 21일 서울 종로구 그랑서울 본사에서 신한은행과 &#x27;목동12단지 아파트 재건축정비사업&#x27;의 원활한 추진을 위한 금융 업무협약(mou)을 맺었다고 밝혔다. 이번 협약을 통해 양사는 목동12단지 재건축사업에 필요한 사업비와 조합원 이주비 등 원활한 금융 조달을 위한 협력체계를 구축하고, 향후 사업 진행 상황에 맞춰 안정적인 금융 지원을 이어가기로 했다. gs건설은 이번 협약에 앞서 목동12단지의 설계 경쟁력을 높이기 위해 건축 설계 분야의 겐슬러(gensler), 조경 분야의 이디에스에이(edsa), 구조 안전 설계 분야의 에이럽(a"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 신한은행과 목동12단지 재건축 금융 업무협약</div>
+      <div class="article-snippet">[서울=뉴시스]정진형 기자 = GS건설은 21일 서울 종로구 그랑서울 본사에서 신한은행과 &#x27;목동12단지 아파트 재건축정비사업&#x27;의 원활한 추진을 위한 금융 업무협약(MOU)을 맺었다고 밝혔다. 이번 협약을 통해 양사는 목동12단지 재건축사업에 필요한 사업비와 조합원 이주비 등 원활한 금융 조달을 위한 협력체계를 구축하고, 향후 사업 진행 상황에 맞춰 안정적인 금융 지원을 이어가기로 했다. GS건설은 이번 협약에 앞서 목동12단지의 설계 경쟁력을 높이기 위해 건축 설계 분야의 겐슬러(Gensler), 조경 분야의 이디에스에이(EDSA), 구조 안전 설계 분야의 에이럽(A</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8893ce05f4cb7c7d121cca79.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2461657"
   data-title="GS건설·신한은행, ‘목동12단지 재건축’ 금융 협약 체결"
@@ -31121,7 +31326,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1d9da3cefa3d5654d0790df6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/496da17243aab2a4e90d2092.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31579,9 +31784,73 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="http://www.knpnews.com/news/articleView.html?idxno=34328"
+  data-title="새울원자력본부, 지역주민 대상 ‘새울 아카데미 2기’ 마무리"
+  data-publisher="한국원자력신문"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787292754"
+  data-country="KR"
+  data-search="새울원자력본부, 지역주민 대상 ‘새울 아카데미 2기’ 마무리 한국원자력신문 한국수력원자력 한국수력원자력 새울원자력본부는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 열고 두 달간의 교육과정을 마무리했다고 21일 밝혔다.새울 아카데미 2기는 지역주민을 대상으로 지난 6월 11일부터 8월 20일까지 진행됐다. 교육과정은 인문·예술·건강 강연과 지역 현안"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국원자력신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, 지역주민 대상 ‘새울 아카데미 2기’ 마무리</div>
+      <div class="article-snippet">한국수력원자력 새울원자력본부는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 열고 두 달간의 교육과정을 마무리했다고 21일 밝혔다.새울 아카데미 2기는 지역주민을 대상으로 지난 6월 11일부터 8월 20일까지 진행됐다. 교육과정은 인문·예술·건강 강연과 지역 현안</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bdcab2749be75d3d20d85a71.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="http://www.knpnews.com/news/articleView.html?idxno=34327"
+  data-title="고리원자력본부, 지역 장학생 199명 선발…2억5000만원 지원"
+  data-publisher="한국원자력신문"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787292754"
+  data-country="KR"
+  data-search="고리원자력본부, 지역 장학생 199명 선발…2억5000만원 지원 한국원자력신문 한국수력원자력 한국수력원자력 고리원자력본부는 발전소 주변지역 학생 199명을 장학생으로 선발하고 총 2억 5000만원 상당의 장학금을 지급할 예정이라고 밝혔다.고리원자력본부는 지난 20일 고리스포츠문화센터 멀티공연장에서 ‘2026년 고리원자력본부 장학증서 수여식’을 개최했다. 행사에는 김원일 기장군"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국원자력신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, 지역 장학생 199명 선발…2억5000만원 지원</div>
+      <div class="article-snippet">한국수력원자력 고리원자력본부는 발전소 주변지역 학생 199명을 장학생으로 선발하고 총 2억 5000만원 상당의 장학금을 지급할 예정이라고 밝혔다.고리원자력본부는 지난 20일 고리스포츠문화센터 멀티공연장에서 ‘2026년 고리원자력본부 장학증서 수여식’을 개최했다. 행사에는 김원일 기장군</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/29e9e017c571a11d2030920c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7534"
   data-title="새울본부, ‘새울 아카데미 2기’ 마무리 “지역주민 역량 강화”"
@@ -31886,7 +32155,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787287800"
+  data-published="1787292600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -32619,7 +32888,7 @@ header,
     <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/world/12133184"
   data-title="산업장관 “대미 투자 협상 진전…1호 9월 중 발표”"
   data-publisher="매일경제"
@@ -32642,7 +32911,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>산업장관 “대미 투자 협상 진전…1호 9월 중 발표”</div>
+      <div class="headline">산업장관 “대미 투자 협상 진전…1호 9월 중 발표”</div>
       <div class="article-snippet">김정관, 러트닉과 이틀간 담판 “에너지 분야 중심으로 추진 논의” “관세 15% 상한선에 서로 공감대”미국을 방문하고 돌아온 김정관 산업통상부 장관은 20일 양국 간 대미 투자 협..</div>
     </div>
   </div>
@@ -33041,7 +33310,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">27건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33077,6 +33346,70 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7541"
+  data-title="이집트 첫 원전 ‘엘다바 1호기’ 윤곽…내부격납건물 34m까지 올라섰다"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787292821"
+  data-country="OTHER"
+  data-search="이집트 첫 원전 ‘엘다바 1호기’ 윤곽…내부격납건물 34m까지 올라섰다 인사이트n파워 원자력 이집트 최초의 원자력발전소인 엘다바(el dabaa) 1호기의 원자로건물 내부격납구조물이 지상 34m 높이까지 올라서며 본격적인 외형을 갖춰가고 있다.world nuclear news(wnn)와 이집트 원자력발전소청(nppa, nuclear power plants authority))에 따르면 엘다바 1호기 원자로건물 내부격납구조물(inner containment) 4단에 대한 콘크리트 타설작업이 최근 완료됐다.이번 작업은 콘크리트 펌프카 5대를 투입해 30시간 동안 중단 없이 진행됐다. 주간과 야간 작업에 각각 약 80명의 전문인"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>이집트 첫 원전 ‘엘다바 1호기’ 윤곽…내부격납건물 34m까지 올라섰다</div>
+      <div class="article-snippet">이집트 최초의 원자력발전소인 엘다바(El Dabaa) 1호기의 원자로건물 내부격납구조물이 지상 34m 높이까지 올라서며 본격적인 외형을 갖춰가고 있다.World Nuclear News(WNN)와 이집트 원자력발전소청(NPPA, Nuclear Power Plants Authority))에 따르면 엘다바 1호기 원자로건물 내부격납구조물(Inner Containment) 4단에 대한 콘크리트 타설작업이 최근 완료됐다.이번 작업은 콘크리트 펌프카 5대를 투입해 30시간 동안 중단 없이 진행됐다. 주간과 야간 작업에 각각 약 80명의 전문인</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/868437166d714e35ecf97e63.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="http://www.knpnews.com/news/articleView.html?idxno=34325"
+  data-title="한국원자력환경공단, 방사능분석 평가 9년 연속 전 항목 A등급"
+  data-publisher="한국원자력신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787292754"
+  data-country="KR"
+  data-search="한국원자력환경공단, 방사능분석 평가 9년 연속 전 항목 a등급 한국원자력신문 원자력 한국원자력환경공단이 한국원자력안전기술원(kins) 주관 ‘2026년 방사능분석능력평가’에서 9년 연속 전 항목 a등급을 받았다고 20일 밝혔다.방사능분석능력평가는 국내 방사능 분석기관의 분석 능력과 자료 신뢰성, 품질관리 수준 등을 검증하기 위해 1997년부터 매년 시행되고 있다. 올"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국원자력신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한국원자력환경공단, 방사능분석 평가 9년 연속 전 항목 A등급</div>
+      <div class="article-snippet">한국원자력환경공단이 한국원자력안전기술원(KINS) 주관 ‘2026년 방사능분석능력평가’에서 9년 연속 전 항목 A등급을 받았다고 20일 밝혔다.방사능분석능력평가는 국내 방사능 분석기관의 분석 능력과 자료 신뢰성, 품질관리 수준 등을 검증하기 위해 1997년부터 매년 시행되고 있다. 올</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f4f69d2e65b0cdb04fd21cd4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757392"
   data-title="대전TP, 이차전지 실무역량강화아카데미 교육생 모집 등[대전소식]"
   data-publisher="뉴시스"
@@ -33099,7 +33432,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대전TP, 이차전지 실무역량강화아카데미 교육생 모집 등[대전소식]</div>
+      <div class="headline">대전TP, 이차전지 실무역량강화아카데미 교육생 모집 등[대전소식]</div>
       <div class="article-snippet">[대전=뉴시스]곽상훈 기자 = 대전시와 대전테크노파크(대전TP)는 충북대 이차전지 학연 협력 플랫폼 구축 사업단과 함께 &#x27;하반기 대전 이차전지 실무역량 강화 아카데미&#x27; 교육생을 모집한다고 21일 밝혔다. 이번 하반기 아카데미는 지난 4월 한국원자력연구원(KAERI)과 연계해 추진한 상반기 프로그램의 후속으로 한국기초과학지원연구원(KBSI)과 협력해 진행한다. 상반기에는 X-선 및 중성자 회절 분석 등 소재의 기초 결정 구조 정밀 분석에 집중했다면 하반기에는 이차전지 소재 초미세 구조 분석, 이차전지 전극·셀 비파괴 구조 분석 등 차세대 배터리 핵심 검증 파이프라인 전</div>
     </div>
   </div>
@@ -33108,7 +33441,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.2news.co.kr/news/articleView.html?idxno=22042"
   data-title="미국의 원자력 에너지 부흥기 도래: 벡텔 최고운영자가 강조한 4가지 과제 - 에너지뉴스"
   data-publisher="2news.co.kr"
@@ -33131,7 +33464,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>미국의 원자력 에너지 부흥기 도래: 벡텔 최고운영자가 강조한 4가지 과제 - 에너지뉴스</div>
+      <div class="headline">미국의 원자력 에너지 부흥기 도래: 벡텔 최고운영자가 강조한 4가지 과제 - 에너지뉴스</div>
       <div class="article-snippet">미국이 청정하고 안정적인 대규모 전력 수급을 위해 원자력 에너지 확대의 결정적 시기를 맞이했다는 주장이 제기됐다. 인공지능(AI) 확산으로 전력 수요가 급증하는</div>
     </div>
   </div>
@@ -33850,9 +34183,41 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227584"
+  data-title="[인사] 한국원자력안전기술원"
+  data-publisher="에너지신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787323886"
+  data-country="KR"
+  data-search="[인사] 한국원자력안전기술원 에너지신문 smr ▲실장급△황충만 ai총괄 pm △이종혁 비경수형 smr 규제사업 pm"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[인사] 한국원자력안전기술원</div>
+      <div class="article-snippet">▲실장급△황충만 AI총괄 PM △이종혁 비경수형 SMR 규제사업 PM</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ac9f7f8a11eab81248f9a6e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371436"
   data-title="기장 담수화시설 새 활용안…“공업용수는 정관에서, 기장은 핑크수소 거점으로”"
@@ -34340,7 +34705,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787291910"
+  data-published="1787292916"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -34403,41 +34768,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">27건</span>
+    <span class="group-count">31건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.koreaherald.com/article/10848183"
-  data-title="Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance"
-  data-publisher="헤럴드경제"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787290742"
-  data-country="KR"
-  data-search="seoul sees us-n. korea dialogue as most realistic way to halt pyongyang’s nuclear advance 헤럴드경제 nuclear power·nuclear energy south korea’s unification ministry on friday said restarting us-north korea dialogue and first halting pyongyang’s expanding nuclear capabilities is the most re"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">헤럴드경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance</div>
-      <div class="article-snippet">South Korea’s Unification Ministry on Friday said restarting US-North Korea dialogue and first halting Pyongyang’s expanding nuclear capabilities is the most re</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b83ed5a9a9097f86fe2c0664.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.asahi.com/ajw/special/nuclear_hibakusha/"
   data-title="Nuclear Threat &amp; Hibakusha | The Asahi Shimbun: Breaking News, Japan News and Analysis"
@@ -34477,7 +34810,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787291362"
+  data-published="1787292870"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -34509,7 +34842,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787291334"
+  data-published="1787292713"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -34531,6 +34864,70 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/reuters.com,2026:newsml_L1N44H0UG:0-solar-gives-hungary-s-power-system-vital-cover-from-nuclear-fallout-maguire/"
+  data-title="Solar gives Hungary&#x27;s power system vital cover from nuclear fallout: Maguire"
+  data-publisher="TradingView"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787292000"
+  data-country="OTHER"
+  data-search="solar gives hungary&#x27;s power system vital cover from nuclear fallout: maguire tradingview nuclear power·nuclear energy by gavin maguirerecord solar output is helping to shield hungary&#x27;s power system from the worst effects of the forced cutbacks at the country&#x27;s only nuclear power plant, demonstrating that renewables can provide a critical layer of resilience in power systems.hungary&#x27;s paks nuclear plant — which gen…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Solar gives Hungary&#x27;s power system vital cover from nuclear fallout: Maguire</div>
+      <div class="article-snippet">By Gavin MaguireRecord solar output is helping to shield Hungary&#x27;s power system from the worst effects of the forced cutbacks at the country&#x27;s only nuclear power plant, demonstrating that renewables can provide a critical layer of resilience in power systems.Hungary&#x27;s Paks nuclear plant — which gen…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.koreaherald.com/article/10848183"
+  data-title="Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance"
+  data-publisher="The Korea Herald"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787290742"
+  data-country="KR"
+  data-search="seoul sees us-n. korea dialogue as most realistic way to halt pyongyang’s nuclear advance the korea herald nuclear power·nuclear energy south korea’s unification ministry on friday said restarting us-north korea dialogue and first halting pyongyang’s expanding nuclear capabilities is the most re"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Korea Herald</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance</div>
+      <div class="article-snippet">South Korea’s Unification Ministry on Friday said restarting US-North Korea dialogue and first halting Pyongyang’s expanding nuclear capabilities is the most re</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b83ed5a9a9097f86fe2c0664.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34695,6 +35092,38 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://maritime-executive.com/corporate/trump-s-transportation-secretary-sean-p-duffy-and-port-of-corpus-christi-sign-agreement-to-explore-nuclear-maritime-technologies"
+  data-title="DOT and Port of Corpus Christi Sign Nuclear-Technology Agreement"
+  data-publisher="The Maritime Executive"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787277660"
+  data-country="US"
+  data-search="dot and port of corpus christi sign nuclear-technology agreement the maritime executive nuclear power·nuclear energy u.s. secretary of transportation sean p. duffy today was joined by maritime administrator (marad) stephen m. carmel, u.s. representative michael cloud..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Maritime Executive</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">DOT and Port of Corpus Christi Sign Nuclear-Technology Agreement</div>
+      <div class="article-snippet">U.S. Secretary of Transportation Sean P. Duffy today was joined by Maritime Administrator (MARAD) Stephen M. Carmel, U.S. Representative Michael Cloud...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/100f89222d4be60106075c43.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://neutronbytes.com/2026/08/20/atomic-canyon-launches-ai-virtual-assistant-for-nuclear-reactor-operations/"
   data-title="Atomic Canyon Launches AI Virtual Assistant for Nuclear Reactor Operations"
   data-publisher="Neutron Bytes"
@@ -34758,7 +35187,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.latribune.fr/article/defense-aerospatiale/defense/21954451719018/la-france-garde-sa-place-de-numero-2-mondial-de-larmement-mais-la-menace-se-rapproche"
   data-title="La France garde sa place de numéro 2 mondial de l&#x27;armement, mais la menace se rapproche"
   data-publisher="La Tribune"
@@ -34781,7 +35210,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>La France garde sa place de numéro 2 mondial de l&#x27;armement, mais la menace se rapproche</div>
+      <div class="headline">La France garde sa place de numéro 2 mondial de l&#x27;armement, mais la menace se rapproche</div>
       <div class="article-snippet">L&#x27;Inde, à elle seule, a représenté 6,9 milliards d&#x27;euros de commandes en 2025, portée notamment par 26 Rafale Marine. Alors que l&#x27;Asie concentre 43 % des prises de commandes, les clients de l&#x27;Union européenne n&#x27;en ont pesé que 27 %, malgré le réarmement du continent.</div>
     </div>
   </div>
@@ -34819,6 +35248,38 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ae8c9ebce5993a738a5f0410.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.koreaherald.com/article/10848064"
+  data-title="Samsung consumer-device workers to rally as chip boom widens pay divide"
+  data-publisher="The Korea Herald"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787285422"
+  data-country="KR"
+  data-search="samsung consumer-device workers to rally as chip boom widens pay divide the korea herald nuclear power·nuclear energy a samsung electronics union representing mainly workers in the company’s consumer-device business is set to rally in seoul on friday afternoon over a widening c"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Korea Herald</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Samsung consumer-device workers to rally as chip boom widens pay divide</div>
+      <div class="article-snippet">A Samsung Electronics union representing mainly workers in the company’s consumer-device business is set to rally in Seoul on Friday afternoon over a widening c</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/910539cf620f76ec23a5ed6d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34915,6 +35376,38 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e085c5c15a82dcf7e4fc158a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-giat-cap-9-sap-manh-len-thanh-bao-khu-vuc-nao-cua-viet-nam-se-bi-anh-huong"
+  data-title="Tropical depression with gusts reaching level 9 is about to strengthen into a typhoon; which areas of Vietnam will be affected?"
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787281920"
+  data-country="VN"
+  data-search="tropical depression with gusts reaching level 9 is about to strengthen into a typhoon; which areas of vietnam will be affected? vietnam.vn nuclear power·nuclear energy gđxh - according to weather forecasts, a tropical depression with gusts reaching level 9 is currently located in the northern part of the gulf of tonkin. in the coming hours, the tropical depression has the potential to strengthen into a typhoon."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Tropical depression with gusts reaching level 9 is about to strengthen into a typhoon; which areas of Vietnam will be affected?</div>
+      <div class="article-snippet">GĐXH - According to weather forecasts, a tropical depression with gusts reaching level 9 is currently located in the northern part of the Gulf of Tonkin. In the coming hours, the tropical depression has the potential to strengthen into a typhoon.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6da76aca762159d2baf3c08c.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35471,9 +35964,41 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">33건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ekn.kr/web/view.php?key=20260821023384982"
+  data-title="[에너지소식] 두산에너빌, 오만 가스발전소 공사 계약…한전, 을지연습 참가"
+  data-publisher="에너지경제신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787289521"
+  data-country="KR"
+  data-search="[에너지소식] 두산에너빌, 오만 가스발전소 공사 계약…한전, 을지연습 참가 에너지경제신문 타 건설사 두산에너빌리티는 오만 미스파 가스복합발전소 건설공사 계약을 체결했다고 21일 밝혔다. 총 계약 금액은 약 9300억원이다. 이번 프로젝트에서 두산에너빌리티는 발전소 건설 전문회사.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[에너지소식] 두산에너빌, 오만 가스발전소 공사 계약…한전, 을지연습 참가</div>
+      <div class="article-snippet">두산에너빌리티는 오만 미스파 가스복합발전소 건설공사 계약을 체결했다고 21일 밝혔다. 총 계약 금액은 약 9300억원이다. 이번 프로젝트에서 두산에너빌리티는 발전소 건설 전문회사..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b15505dc9c3128537a8bd205.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106070"
   data-title="두산에너빌리티, 日 에바라와 &#x27;첨단 압축기 개발&#x27; 동맹…글로벌 LNG 시장 &#x27;정조준&#x27;"
@@ -35599,6 +36124,38 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e0bab6489e98723bd8fd772.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308819"
+  data-title="대우건설, 무주택 실수요 겨냥한 검암역 공공분양 단지 공개 - FETV"
+  data-publisher="FETV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787287192"
+  data-country="OTHER"
+  data-search="대우건설, 무주택 실수요 겨냥한 검암역 공공분양 단지 공개 - fetv fetv 타 건설사 [fetv=임요한 기자] 대우건설이 인천 검암에서 분양에 들어간다. 대우건설은 인천광역시 서해구 검암동 일대에 짓는 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택을 21일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">FETV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대우건설, 무주택 실수요 겨냥한 검암역 공공분양 단지 공개 - FETV</div>
+      <div class="article-snippet">[FETV=임요한 기자] 대우건설이 인천 검암에서 분양에 들어간다. 대우건설은 인천광역시 서해구 검암동 일대에 짓는 &#x27;검암역 푸르지오 프라베뉴&#x27; 견본주택을 21일</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c2e111de6fffadb0f24d355e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35890,6 +36447,38 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308820"
+  data-title="현대엔지니어링, 전기차 충전 그룹 계열사 합친다…11월 1일 합병 - FETV"
+  data-publisher="FETV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787287669"
+  data-country="KR"
+  data-search="현대엔지니어링, 전기차 충전 그룹 계열사 합친다…11월 1일 합병 - fetv fetv 타 건설사 [fetv=임요한 기자] 현대엔지니어링이 전기차 충전 계열사를 흡수한다. 현대엔지니어링은 20일 이사회를 열어 한국전기차충전서비스(한충전)를 합병하는 안건을 통과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">FETV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대엔지니어링, 전기차 충전 그룹 계열사 합친다…11월 1일 합병 - FETV</div>
+      <div class="article-snippet">[FETV=임요한 기자] 현대엔지니어링이 전기차 충전 계열사를 흡수한다. 현대엔지니어링은 20일 이사회를 열어 한국전기차충전서비스(한충전)를 합병하는 안건을 통과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/902eb23e12695207cd9d0b9d.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313074"
   data-title="현대엔지니어링, 한충전 흡수합병…전기차 충전 밸류체인 일원화 - 건설타임즈"
@@ -36018,6 +36607,38 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260821_0003757762"
+  data-title="GS건설, 신한은행과 목동12단지 재건축 금융 업무협약"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787292372"
+  data-country="OTHER"
+  data-search="gs건설, 신한은행과 목동12단지 재건축 금융 업무협약 뉴시스 타 건설사 [서울=뉴시스]정진형 기자 = gs건설은 21일 서울 종로구 그랑서울 본사에서 신한은행과 &#x27;목동12단지 아파트 재건축정비사업&#x27;의 원활한 추진을 위한 금융 업무협약(mou)을 맺었다고 밝혔다. 이번 협약을 통해 양사는 목동12단지 재건축사업에 필요한 사업비와 조합원 이주비 등 원활한 금융 조달을 위한 협력체계를 구축하고, 향후 사업 진행 상황에 맞춰 안정적인 금융 지원을 이어가기로 했다. gs건설은 이번 협약에 앞서 목동12단지의 설계 경쟁력을 높이기 위해 건축 설계 분야의 겐슬러(gensler), 조경 분야의 이디에스에이(edsa), 구조 안전 설계 분야의 에이럽(a"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 신한은행과 목동12단지 재건축 금융 업무협약</div>
+      <div class="article-snippet">[서울=뉴시스]정진형 기자 = GS건설은 21일 서울 종로구 그랑서울 본사에서 신한은행과 &#x27;목동12단지 아파트 재건축정비사업&#x27;의 원활한 추진을 위한 금융 업무협약(MOU)을 맺었다고 밝혔다. 이번 협약을 통해 양사는 목동12단지 재건축사업에 필요한 사업비와 조합원 이주비 등 원활한 금융 조달을 위한 협력체계를 구축하고, 향후 사업 진행 상황에 맞춰 안정적인 금융 지원을 이어가기로 했다. GS건설은 이번 협약에 앞서 목동12단지의 설계 경쟁력을 높이기 위해 건축 설계 분야의 겐슬러(Gensler), 조경 분야의 이디에스에이(EDSA), 구조 안전 설계 분야의 에이럽(A</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8893ce05f4cb7c7d121cca79.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2461657"
   data-title="GS건설·신한은행, ‘목동12단지 재건축’ 금융 협약 체결"
@@ -36078,7 +36699,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1d9da3cefa3d5654d0790df6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/496da17243aab2a4e90d2092.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36536,9 +37157,73 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="http://www.knpnews.com/news/articleView.html?idxno=34328"
+  data-title="새울원자력본부, 지역주민 대상 ‘새울 아카데미 2기’ 마무리"
+  data-publisher="한국원자력신문"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787292754"
+  data-country="KR"
+  data-search="새울원자력본부, 지역주민 대상 ‘새울 아카데미 2기’ 마무리 한국원자력신문 한국수력원자력 한국수력원자력 새울원자력본부는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 열고 두 달간의 교육과정을 마무리했다고 21일 밝혔다.새울 아카데미 2기는 지역주민을 대상으로 지난 6월 11일부터 8월 20일까지 진행됐다. 교육과정은 인문·예술·건강 강연과 지역 현안"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국원자력신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>새울원자력본부, 지역주민 대상 ‘새울 아카데미 2기’ 마무리</div>
+      <div class="article-snippet">한국수력원자력 새울원자력본부는 지난 20일 ‘2026년 새울 아카데미 2기’ 수료식과 명사 특강을 열고 두 달간의 교육과정을 마무리했다고 21일 밝혔다.새울 아카데미 2기는 지역주민을 대상으로 지난 6월 11일부터 8월 20일까지 진행됐다. 교육과정은 인문·예술·건강 강연과 지역 현안</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bdcab2749be75d3d20d85a71.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="http://www.knpnews.com/news/articleView.html?idxno=34327"
+  data-title="고리원자력본부, 지역 장학생 199명 선발…2억5000만원 지원"
+  data-publisher="한국원자력신문"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787292754"
+  data-country="KR"
+  data-search="고리원자력본부, 지역 장학생 199명 선발…2억5000만원 지원 한국원자력신문 한국수력원자력 한국수력원자력 고리원자력본부는 발전소 주변지역 학생 199명을 장학생으로 선발하고 총 2억 5000만원 상당의 장학금을 지급할 예정이라고 밝혔다.고리원자력본부는 지난 20일 고리스포츠문화센터 멀티공연장에서 ‘2026년 고리원자력본부 장학증서 수여식’을 개최했다. 행사에는 김원일 기장군"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국원자력신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, 지역 장학생 199명 선발…2억5000만원 지원</div>
+      <div class="article-snippet">한국수력원자력 고리원자력본부는 발전소 주변지역 학생 199명을 장학생으로 선발하고 총 2억 5000만원 상당의 장학금을 지급할 예정이라고 밝혔다.고리원자력본부는 지난 20일 고리스포츠문화센터 멀티공연장에서 ‘2026년 고리원자력본부 장학증서 수여식’을 개최했다. 행사에는 김원일 기장군</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/29e9e017c571a11d2030920c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7534"
   data-title="새울본부, ‘새울 아카데미 2기’ 마무리 “지역주민 역량 강화”"
@@ -36843,7 +37528,7 @@ header,
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787287800"
+  data-published="1787292600"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -37576,7 +38261,7 @@ header,
     <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/world/12133184"
   data-title="산업장관 “대미 투자 협상 진전…1호 9월 중 발표”"
   data-publisher="매일경제"
@@ -37599,7 +38284,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>산업장관 “대미 투자 협상 진전…1호 9월 중 발표”</div>
+      <div class="headline">산업장관 “대미 투자 협상 진전…1호 9월 중 발표”</div>
       <div class="article-snippet">김정관, 러트닉과 이틀간 담판 “에너지 분야 중심으로 추진 논의” “관세 15% 상한선에 서로 공감대”미국을 방문하고 돌아온 김정관 산업통상부 장관은 20일 양국 간 대미 투자 협..</div>
     </div>
   </div>
@@ -37998,7 +38683,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">27건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -38034,6 +38719,70 @@ header,
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7541"
+  data-title="이집트 첫 원전 ‘엘다바 1호기’ 윤곽…내부격납건물 34m까지 올라섰다"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787292821"
+  data-country="OTHER"
+  data-search="이집트 첫 원전 ‘엘다바 1호기’ 윤곽…내부격납건물 34m까지 올라섰다 인사이트n파워 원자력 이집트 최초의 원자력발전소인 엘다바(el dabaa) 1호기의 원자로건물 내부격납구조물이 지상 34m 높이까지 올라서며 본격적인 외형을 갖춰가고 있다.world nuclear news(wnn)와 이집트 원자력발전소청(nppa, nuclear power plants authority))에 따르면 엘다바 1호기 원자로건물 내부격납구조물(inner containment) 4단에 대한 콘크리트 타설작업이 최근 완료됐다.이번 작업은 콘크리트 펌프카 5대를 투입해 30시간 동안 중단 없이 진행됐다. 주간과 야간 작업에 각각 약 80명의 전문인"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>이집트 첫 원전 ‘엘다바 1호기’ 윤곽…내부격납건물 34m까지 올라섰다</div>
+      <div class="article-snippet">이집트 최초의 원자력발전소인 엘다바(El Dabaa) 1호기의 원자로건물 내부격납구조물이 지상 34m 높이까지 올라서며 본격적인 외형을 갖춰가고 있다.World Nuclear News(WNN)와 이집트 원자력발전소청(NPPA, Nuclear Power Plants Authority))에 따르면 엘다바 1호기 원자로건물 내부격납구조물(Inner Containment) 4단에 대한 콘크리트 타설작업이 최근 완료됐다.이번 작업은 콘크리트 펌프카 5대를 투입해 30시간 동안 중단 없이 진행됐다. 주간과 야간 작업에 각각 약 80명의 전문인</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/868437166d714e35ecf97e63.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="http://www.knpnews.com/news/articleView.html?idxno=34325"
+  data-title="한국원자력환경공단, 방사능분석 평가 9년 연속 전 항목 A등급"
+  data-publisher="한국원자력신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787292754"
+  data-country="KR"
+  data-search="한국원자력환경공단, 방사능분석 평가 9년 연속 전 항목 a등급 한국원자력신문 원자력 한국원자력환경공단이 한국원자력안전기술원(kins) 주관 ‘2026년 방사능분석능력평가’에서 9년 연속 전 항목 a등급을 받았다고 20일 밝혔다.방사능분석능력평가는 국내 방사능 분석기관의 분석 능력과 자료 신뢰성, 품질관리 수준 등을 검증하기 위해 1997년부터 매년 시행되고 있다. 올"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국원자력신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한국원자력환경공단, 방사능분석 평가 9년 연속 전 항목 A등급</div>
+      <div class="article-snippet">한국원자력환경공단이 한국원자력안전기술원(KINS) 주관 ‘2026년 방사능분석능력평가’에서 9년 연속 전 항목 A등급을 받았다고 20일 밝혔다.방사능분석능력평가는 국내 방사능 분석기관의 분석 능력과 자료 신뢰성, 품질관리 수준 등을 검증하기 위해 1997년부터 매년 시행되고 있다. 올</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f4f69d2e65b0cdb04fd21cd4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757392"
   data-title="대전TP, 이차전지 실무역량강화아카데미 교육생 모집 등[대전소식]"
   data-publisher="뉴시스"
@@ -38056,7 +38805,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대전TP, 이차전지 실무역량강화아카데미 교육생 모집 등[대전소식]</div>
+      <div class="headline">대전TP, 이차전지 실무역량강화아카데미 교육생 모집 등[대전소식]</div>
       <div class="article-snippet">[대전=뉴시스]곽상훈 기자 = 대전시와 대전테크노파크(대전TP)는 충북대 이차전지 학연 협력 플랫폼 구축 사업단과 함께 &#x27;하반기 대전 이차전지 실무역량 강화 아카데미&#x27; 교육생을 모집한다고 21일 밝혔다. 이번 하반기 아카데미는 지난 4월 한국원자력연구원(KAERI)과 연계해 추진한 상반기 프로그램의 후속으로 한국기초과학지원연구원(KBSI)과 협력해 진행한다. 상반기에는 X-선 및 중성자 회절 분석 등 소재의 기초 결정 구조 정밀 분석에 집중했다면 하반기에는 이차전지 소재 초미세 구조 분석, 이차전지 전극·셀 비파괴 구조 분석 등 차세대 배터리 핵심 검증 파이프라인 전</div>
     </div>
   </div>
@@ -38065,7 +38814,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.2news.co.kr/news/articleView.html?idxno=22042"
   data-title="미국의 원자력 에너지 부흥기 도래: 벡텔 최고운영자가 강조한 4가지 과제 - 에너지뉴스"
   data-publisher="2news.co.kr"
@@ -38088,7 +38837,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>미국의 원자력 에너지 부흥기 도래: 벡텔 최고운영자가 강조한 4가지 과제 - 에너지뉴스</div>
+      <div class="headline">미국의 원자력 에너지 부흥기 도래: 벡텔 최고운영자가 강조한 4가지 과제 - 에너지뉴스</div>
       <div class="article-snippet">미국이 청정하고 안정적인 대규모 전력 수급을 위해 원자력 에너지 확대의 결정적 시기를 맞이했다는 주장이 제기됐다. 인공지능(AI) 확산으로 전력 수요가 급증하는</div>
     </div>
   </div>
@@ -38807,9 +39556,41 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227584"
+  data-title="[인사] 한국원자력안전기술원"
+  data-publisher="에너지신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787323886"
+  data-country="KR"
+  data-search="[인사] 한국원자력안전기술원 에너지신문 smr ▲실장급△황충만 ai총괄 pm △이종혁 비경수형 smr 규제사업 pm"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[인사] 한국원자력안전기술원</div>
+      <div class="article-snippet">▲실장급△황충만 AI총괄 PM △이종혁 비경수형 SMR 규제사업 PM</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ac9f7f8a11eab81248f9a6e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371436"
   data-title="기장 담수화시설 새 활용안…“공업용수는 정관에서, 기장은 핑크수소 거점으로”"
@@ -39297,7 +40078,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787291910"
+  data-published="1787292916"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -39360,41 +40141,9 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">27건</span>
+    <span class="group-count">31건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.koreaherald.com/article/10848183"
-  data-title="Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance"
-  data-publisher="헤럴드경제"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787290742"
-  data-country="KR"
-  data-search="seoul sees us-n. korea dialogue as most realistic way to halt pyongyang’s nuclear advance 헤럴드경제 nuclear power·nuclear energy south korea’s unification ministry on friday said restarting us-north korea dialogue and first halting pyongyang’s expanding nuclear capabilities is the most re"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">헤럴드경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance</div>
-      <div class="article-snippet">South Korea’s Unification Ministry on Friday said restarting US-North Korea dialogue and first halting Pyongyang’s expanding nuclear capabilities is the most re</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b83ed5a9a9097f86fe2c0664.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.asahi.com/ajw/special/nuclear_hibakusha/"
   data-title="Nuclear Threat &amp; Hibakusha | The Asahi Shimbun: Breaking News, Japan News and Analysis"
@@ -39434,7 +40183,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787291362"
+  data-published="1787292870"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -39466,7 +40215,7 @@ header,
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787291334"
+  data-published="1787292713"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -39488,6 +40237,70 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/reuters.com,2026:newsml_L1N44H0UG:0-solar-gives-hungary-s-power-system-vital-cover-from-nuclear-fallout-maguire/"
+  data-title="Solar gives Hungary&#x27;s power system vital cover from nuclear fallout: Maguire"
+  data-publisher="TradingView"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787292000"
+  data-country="OTHER"
+  data-search="solar gives hungary&#x27;s power system vital cover from nuclear fallout: maguire tradingview nuclear power·nuclear energy by gavin maguirerecord solar output is helping to shield hungary&#x27;s power system from the worst effects of the forced cutbacks at the country&#x27;s only nuclear power plant, demonstrating that renewables can provide a critical layer of resilience in power systems.hungary&#x27;s paks nuclear plant — which gen…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Solar gives Hungary&#x27;s power system vital cover from nuclear fallout: Maguire</div>
+      <div class="article-snippet">By Gavin MaguireRecord solar output is helping to shield Hungary&#x27;s power system from the worst effects of the forced cutbacks at the country&#x27;s only nuclear power plant, demonstrating that renewables can provide a critical layer of resilience in power systems.Hungary&#x27;s Paks nuclear plant — which gen…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.koreaherald.com/article/10848183"
+  data-title="Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance"
+  data-publisher="The Korea Herald"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787290742"
+  data-country="KR"
+  data-search="seoul sees us-n. korea dialogue as most realistic way to halt pyongyang’s nuclear advance the korea herald nuclear power·nuclear energy south korea’s unification ministry on friday said restarting us-north korea dialogue and first halting pyongyang’s expanding nuclear capabilities is the most re"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Korea Herald</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Seoul sees US-N. Korea dialogue as most realistic way to halt Pyongyang’s nuclear advance</div>
+      <div class="article-snippet">South Korea’s Unification Ministry on Friday said restarting US-North Korea dialogue and first halting Pyongyang’s expanding nuclear capabilities is the most re</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b83ed5a9a9097f86fe2c0664.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39652,6 +40465,38 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://maritime-executive.com/corporate/trump-s-transportation-secretary-sean-p-duffy-and-port-of-corpus-christi-sign-agreement-to-explore-nuclear-maritime-technologies"
+  data-title="DOT and Port of Corpus Christi Sign Nuclear-Technology Agreement"
+  data-publisher="The Maritime Executive"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787277660"
+  data-country="US"
+  data-search="dot and port of corpus christi sign nuclear-technology agreement the maritime executive nuclear power·nuclear energy u.s. secretary of transportation sean p. duffy today was joined by maritime administrator (marad) stephen m. carmel, u.s. representative michael cloud..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Maritime Executive</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">DOT and Port of Corpus Christi Sign Nuclear-Technology Agreement</div>
+      <div class="article-snippet">U.S. Secretary of Transportation Sean P. Duffy today was joined by Maritime Administrator (MARAD) Stephen M. Carmel, U.S. Representative Michael Cloud...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/100f89222d4be60106075c43.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://neutronbytes.com/2026/08/20/atomic-canyon-launches-ai-virtual-assistant-for-nuclear-reactor-operations/"
   data-title="Atomic Canyon Launches AI Virtual Assistant for Nuclear Reactor Operations"
   data-publisher="Neutron Bytes"
@@ -39715,7 +40560,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.latribune.fr/article/defense-aerospatiale/defense/21954451719018/la-france-garde-sa-place-de-numero-2-mondial-de-larmement-mais-la-menace-se-rapproche"
   data-title="La France garde sa place de numéro 2 mondial de l&#x27;armement, mais la menace se rapproche"
   data-publisher="La Tribune"
@@ -39738,7 +40583,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>La France garde sa place de numéro 2 mondial de l&#x27;armement, mais la menace se rapproche</div>
+      <div class="headline">La France garde sa place de numéro 2 mondial de l&#x27;armement, mais la menace se rapproche</div>
       <div class="article-snippet">L&#x27;Inde, à elle seule, a représenté 6,9 milliards d&#x27;euros de commandes en 2025, portée notamment par 26 Rafale Marine. Alors que l&#x27;Asie concentre 43 % des prises de commandes, les clients de l&#x27;Union européenne n&#x27;en ont pesé que 27 %, malgré le réarmement du continent.</div>
     </div>
   </div>
@@ -39776,6 +40621,38 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ae8c9ebce5993a738a5f0410.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.koreaherald.com/article/10848064"
+  data-title="Samsung consumer-device workers to rally as chip boom widens pay divide"
+  data-publisher="The Korea Herald"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787285422"
+  data-country="KR"
+  data-search="samsung consumer-device workers to rally as chip boom widens pay divide the korea herald nuclear power·nuclear energy a samsung electronics union representing mainly workers in the company’s consumer-device business is set to rally in seoul on friday afternoon over a widening c"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Korea Herald</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Samsung consumer-device workers to rally as chip boom widens pay divide</div>
+      <div class="article-snippet">A Samsung Electronics union representing mainly workers in the company’s consumer-device business is set to rally in Seoul on Friday afternoon over a widening c</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/910539cf620f76ec23a5ed6d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39872,6 +40749,38 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e085c5c15a82dcf7e4fc158a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/ap-thap-nhiet-doi-giat-cap-9-sap-manh-len-thanh-bao-khu-vuc-nao-cua-viet-nam-se-bi-anh-huong"
+  data-title="Tropical depression with gusts reaching level 9 is about to strengthen into a typhoon; which areas of Vietnam will be affected?"
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787281920"
+  data-country="VN"
+  data-search="tropical depression with gusts reaching level 9 is about to strengthen into a typhoon; which areas of vietnam will be affected? vietnam.vn nuclear power·nuclear energy gđxh - according to weather forecasts, a tropical depression with gusts reaching level 9 is currently located in the northern part of the gulf of tonkin. in the coming hours, the tropical depression has the potential to strengthen into a typhoon."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Tropical depression with gusts reaching level 9 is about to strengthen into a typhoon; which areas of Vietnam will be affected?</div>
+      <div class="article-snippet">GĐXH - According to weather forecasts, a tropical depression with gusts reaching level 9 is currently located in the northern part of the Gulf of Tonkin. In the coming hours, the tropical depression has the potential to strengthen into a typhoon.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6da76aca762159d2baf3c08c.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -42909,7 +43818,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a50f6dbaeceecf70b58ff5ac.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://cdn.knpnews.com/news/thumbnail/202608/34322_35012_2557_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -43069,7 +43978,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/889020d28266b699ce190c86.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/526d29ac459500830d7de298.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -48606,7 +49515,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246439"
+  data-published="1787246147"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -57479,7 +58388,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9bbc3b144098a5ad2169c2f2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://cdn.knpnews.com/news/thumbnail/202608/34311_35000_2045_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -59193,7 +60102,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ceb92a98&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58cec4e400&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -59225,7 +60134,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58d32453f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58c92c5820&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -141888,6 +142797,211 @@ function layoutAndRenderCountryMap(){
   if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
 }
 
+requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {once:true});
+window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP REFINEMENT OVERRIDE
+   ============================================================ */
+function getContinentNativeRegion(code){
+  const regions = {
+    NA:{ points:'8,54 48,28 138,28 214,46 286,72 334,110 350,166 334,224 272,250 215,258 165,242 128,208 95,172 63,140 36,104 16,78' },
+    SA:{ points:'215,212 256,198 292,208 320,242 334,286 330,338 314,392 292,446 262,486 236,470 226,430 214,382 205,332 198,284 201,246' },
+    EU:{ points:'396,64 434,52 474,58 516,70 558,82 592,102 604,126 592,148 562,156 530,152 505,142 484,148 458,144 436,128 418,108 402,88' },
+    AS:{ points:'526,64 576,56 640,58 710,68 786,82 858,92 934,116 984,152 992,196 964,234 922,248 868,248 828,232 786,222 748,212 712,212 676,198 646,178 616,164 588,154 560,136 540,108' },
+    MEA:{ points:'438,150 478,154 522,170 550,204 568,250 580,304 596,358 592,414 562,470 520,490 486,460 466,416 456,372 442,322 424,274 412,224 416,184' },
+    OC:{ points:'744,304 786,288 838,300 888,320 926,346 952,378 944,420 910,446 872,452 840,438 814,416 794,392 774,364 756,336' }
+  };
+  return regions[code] || null;
+}
+
+function renderSelectedContinentHighlight(){
+  const ctx = ensureNativeContinentHighlightLayer();
+  if(!ctx) return;
+  const { landGroup, defs, layer } = ctx;
+  layer.innerHTML='';
+  defs.querySelectorAll('[data-continent-clip="1"]').forEach(node=>node.remove());
+  if(activeContinentFilter==='ALL') return;
+  const region=getContinentNativeRegion(activeContinentFilter);
+  if(!region) return;
+  const clipId = `continent-native-clip-${activeContinentFilter}`;
+  const clip = document.createElementNS('http://www.w3.org/2000/svg','clipPath');
+  clip.id = clipId;
+  clip.setAttribute('data-continent-clip','1');
+  const polygon = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  polygon.setAttribute('points', region.points);
+  clip.appendChild(polygon);
+  defs.appendChild(clip);
+  const highlightGroup = document.createElementNS('http://www.w3.org/2000/svg','g');
+  highlightGroup.setAttribute('class','continent-highlight-land');
+  highlightGroup.setAttribute('clip-path', `url(#${clipId})`);
+  landGroup.querySelectorAll('path').forEach(path=>{
+    const clone = path.cloneNode(true);
+    clone.removeAttribute('style');
+    highlightGroup.appendChild(clone);
+  });
+  layer.appendChild(highlightGroup);
+}
+
+function boxIntersectsAnchor(box, anchors, selfCode){
+  for(const pt of anchors){
+    if(pt.code===selfCode) continue;
+    const pad = pt.cluster ? 7 : 5;
+    if(pt.x >= box.left-pad && pt.x <= box.right+pad && pt.y >= box.top-pad && pt.y <= box.bottom+pad){
+      return true;
+    }
+  }
+  return false;
+}
+
+function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){
+  const offsetMap = {
+    US:[[16,-8],[18,6],[16,-20]], CA:[[16,-12],[18,4]],
+    BR:[[-16,8],[-18,-8]], AR:[[16,8],[16,-8]], CL:[[14,0],[18,12]], CO:[[16,-6],[16,8]], PE:[[16,6],[16,-8]],
+    GB:[[16,-10],[16,6],[22,-2]], FR:[[16,8],[16,-6]], NL:[[18,-8],[18,6]], BE:[[16,8],[16,-6]], CH:[[16,8],[16,-8]],
+    SE:[[16,-10],[18,4]], FI:[[16,-10],[16,4]], PL:[[18,-8],[18,6]], CZ:[[18,8],[18,-6]], SI:[[16,8],[16,-6]],
+    RO:[[18,8],[18,-6]], BG:[[18,8],[18,-6]], UA:[[18,-8],[18,6]], TR:[[18,8],[18,-8]], DK:[[16,-8],[16,6]], SK:[[18,8],[18,-6]],
+    RU:[[18,-8],[18,6]],
+    AE:[[16,8],[16,-6]], SA:[[18,8],[18,-8]], ZA:[[16,-8],[16,8]],
+    CN:[[-18,8],[-20,-8]], IN:[[16,10],[18,-8]], VN:[[16,6],[16,-8]], TH:[[16,6],[16,-8]], MY:[[16,8],[16,-8]], SG:[[16,8],[16,-8]],
+    KR:[[16,-4],[16,8]], JP:[[18,-8],[18,8]], AU:[[16,-8],[16,8]]
+  };
+  const angleMap = {
+    US:[-20,20,-45,45], CA:[-20,15,35], BR:[160,135,-160], AR:[15,-15,35], CL:[0,20],
+    GB:[-15,15,35], FR:[15,-20], NL:[-15,20], BE:[25,-25], CH:[20,-20],
+    SE:[-20,20], FI:[-20,15], PL:[-15,20], CZ:[20,-20], SI:[25,-25], RO:[20,-20], BG:[20,-20], UA:[-15,20], TR:[15,-15], DK:[-20,15], SK:[25,-25], RU:[-15,15],
+    AE:[15,-15], SA:[15,-15], ZA:[-20,20],
+    CN:[165,-165,145], IN:[18,-18,38], VN:[10,-20], TH:[10,-20], MY:[20,-20], SG:[20,-20], KR:[5,20], JP:[-20,20], AU:[-15,15]
+  };
+  const presetOffsets = offsetMap[itemCode] || [];
+  let best = null;
+  const tryBox = (left,top) => {
+    left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+    top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+    const box = {left, top, right:left+w, bottom:top+h, w, h};
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,4) ? 1 : 0),0);
+    const anchorHit = boxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
+    const dist = Math.hypot((left+w/2)-ax,(top+h/2)-ay);
+    const edgePenalty = (left<=bounds.left+1 || top<=bounds.top+1 || left+w>=bounds.right-1 || top+h>=bounds.bottom-1) ? 4 : 0;
+    const score = collisions*100000 + anchorHit*3000 + dist + edgePenalty;
+    if(!best || score < best.score) best = {...box, score, collisions, anchorHit};
+    if(collisions===0 && anchorHit===0) return box;
+    return null;
+  };
+  for(const [dx,dy] of presetOffsets){
+    for(const [nx,ny] of [[0,0],[0,-4],[0,4],[-4,0],[4,0]]){
+      const box = tryBox(ax + dx + nx - w/2, ay + dy + ny - h/2);
+      if(box) return box;
+    }
+  }
+  const angles = angleMap[itemCode] || [0,-20,20,-40,40,180,-140,140];
+  const radii = [10,14,18,24,30,36,44,52];
+  for(const r of radii){
+    for(const deg of angles){
+      const rad = deg * Math.PI / 180;
+      const left = ax + Math.cos(rad)*r - (Math.cos(rad) < -0.2 ? w : w/2);
+      const top = ay + Math.sin(rad)*r - h/2;
+      const box = tryBox(left, top);
+      if(box && r <= 36) return box;
+    }
+  }
+  return best || {left:ax, top:ay, right:ax+w, bottom:ay+h, w, h};
+}
+
+function addExactConnector(layer,ax,ay,box){
+  const cx = Math.max(box.left, Math.min(ax, box.right));
+  const cy = Math.max(box.top, Math.min(ay, box.bottom));
+  const dx = cx - ax;
+  const dy = cy - ay;
+  const len = Math.hypot(dx, dy);
+  if(len < 3) return;
+  const line = document.createElement('span');
+  line.className = 'precise-country-connector';
+  line.style.left = `${ax}px`;
+  line.style.top = `${ay}px`;
+  line.style.width = `${Math.max(0, len - 2)}px`;
+  line.style.transform = `rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`;
+  layer.appendChild(line);
+}
+
+function renderHtmlCountryLabels(items){
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svg = document.querySelector('.world-map-inline.globe-texture-source');
+  const layer = document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer) return;
+  layer.innerHTML='';
+  if(activeContinentFilter==='ALL') return;
+  const countries = items
+    .filter(v => v.continent === activeContinentFilter && v.count > 0)
+    .sort((a,b) => b.count - a.count || a.name.localeCompare(b.name,'ko'));
+  if(!countries.length) return;
+  const vp = getExactMapViewport(svg, visual);
+  const dock = document.getElementById('continent-rail');
+  const vr = visual.getBoundingClientRect();
+  const dr = dock?.getBoundingClientRect();
+  const dockTop = dr ? dr.top - vr.top : visual.clientHeight - 42;
+  const bounds = {
+    left: Math.max(4, vp.left + 2),
+    top: Math.max(8, vp.top + 2),
+    right: Math.min(vp.left + vp.width - 2, visual.clientWidth - 4),
+    bottom: Math.min(dockTop - 4, vp.top + vp.height - 2)
+  };
+  const anchors = countries.map(item => {
+    const p = getCountryMapAnchor(item);
+    const x = vp.left + (p.x/100) * vp.width;
+    const y = vp.top + (p.y/100) * vp.height;
+    const cluster = ['GB','NL','BE','CH','CZ','SI','SK','DK','KR','JP','SG','MY','TH','VN'].includes(item.code);
+    return {code:item.code, x, y, cluster};
+  });
+  const occupied=[];
+  countries.forEach(item => {
+    const anchor = anchors.find(v => v.code===item.code);
+    const ax = anchor.x, ay = anchor.y;
+    const dot = document.createElement('span');
+    dot.className = 'precise-country-dot' + (activeCountryFilter===item.code ? ' active' : '');
+    dot.style.left = `${ax}px`;
+    dot.style.top = `${ay}px`;
+    layer.appendChild(dot);
+    const btn = document.createElement('button');
+    btn.type='button';
+    btn.className = 'precise-country-label' + (activeCountryFilter===item.code ? ' active' : '');
+    btn.style.visibility='hidden';
+    btn.innerHTML = `<span class="flag">${item.flag}</span><span class="name">${item.name}</span><span class="count">${item.count}건</span>`;
+    btn.setAttribute('aria-label', `${item.name} ${item.count}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+    const w = Math.ceil(btn.getBoundingClientRect().width || 60);
+    const h = Math.ceil(btn.getBoundingClientRect().height || 18);
+    const box = chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors);
+    occupied.push(box);
+    btn.style.left = `${box.left}px`;
+    btn.style.top = `${box.top}px`;
+    btn.style.visibility='visible';
+    btn.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    });
+    addExactConnector(layer,ax,ay,box);
+  });
+}
+
+function layoutAndRenderCountryMap(){
+  const items = collect2DCountryItems();
+  if(!items.length) return;
+  if(!activeContinentFilter) activeContinentFilter = 'ALL';
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking = document.getElementById('continent-country-ranking');
+  if(ranking){ ranking.hidden = true; ranking.innerHTML = ''; }
+  const caption = document.querySelector('.country-map-caption');
+  if(caption) caption.style.display = 'none';
+  const note = document.getElementById('country-filter-note');
+  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
+}
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {once:true});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
