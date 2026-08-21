@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# KOREA/JAPAN COUNTRY BUTTON EAST-SIDE LOCK 2026-08-22
+# ASIA HIGHLIGHT AFRICA EXCLUDED 2026-08-22
 # CONTINENT DOCK TRUE BOTTOM + CONTENT-WIDTH RECT BUTTONS 2026-08-22
 # CHINA COUNTRY BUTTON POSITIONED ON MAINLAND 2026-08-22
 # ASIA HIGHLIGHT LEFT BOUNDARY REFINED 2026-08-22
@@ -22251,7 +22253,7 @@ function getContinentNativeRegion(code){{
     NA:{{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' }},
     SA:{{ points:'248,190 316,188 370,214 404,262 414,318 406,374 388,430 358,486 318,496 288,460 272,412 262,358 256,304 250,248' }},
     EU:{{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' }},
-    AS:{{ points:'582,46 650,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 700,232 672,242 656,276 646,316 620,324 608,300 600,258 596,214 596,170 590,126 584,86' }},
+    AS:{{ points:'620,46 660,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 704,238 686,246 670,270 662,302 650,322 640,300 636,270 634,236 634,198 632,156 628,112 624,78' }},
     /* 중동·아프리카는 아라비아반도 쪽으로 더 넓게 잡아 중동이 빠지지 않게 조정 */
     MEA:{{ points:'386,144 468,146 550,164 618,196 670,236 712,286 728,346 716,410 680,462 626,494 558,496 500,484 458,454 426,408 406,352 392,292 384,230' }},
     OC:{{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }}
@@ -22293,14 +22295,14 @@ const FINAL_COUNTRY_LABEL_PRESETS = {{
   TH:[[32,18],[30,32],[26,4]],
   MY:[[26,18],[30,4]],
   SG:[[30,14],[34,0]],
-  KR:[[30,-2],[28,14],[26,-16]],
-  JP:[[50,-12],[52,6],[54,22]],
+  KR:[[42,-4],[46,12],[48,-18],[54,4]],
+  JP:[[62,-12],[66,6],[70,22],[74,-2]],
   AU:[[34,-4],[30,14]],
 }};
 
 const FINAL_CONTINENT_RENDER_ORDER = {{
   EU:['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','DK','SK'],
-  AS:['RU','CN','KR','JP','VN','IN','TH','MY','SG'],
+  AS:['RU','CN','IN','VN','TH','MY','SG','KR','JP'],
   MEA:['AE','SA','ZA'],
   NA:['US','CA'],
   SA:['BR','AR','CL','CO','PE'],
@@ -22340,7 +22342,12 @@ function finalBuildBox(ax,ay,w,h,bounds,dx,dy){{
 function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
   const presets = FINAL_COUNTRY_LABEL_PRESETS[itemCode] || [];
   let best = null;
+
+  /* 한국/일본은 동아시아 국가이므로 지도상 항상 기준점의 오른쪽에 배치.
+     중국/인도보다 왼쪽으로 역전되는 배치를 허용하지 않습니다. */
+  const eastLocked = itemCode==='KR' || itemCode==='JP';
   const consider = (box) => {{
+    if(eastLocked && (box.left + w/2) <= ax + 12) return false;
     const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 8;
     const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
     const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
@@ -22382,6 +22389,7 @@ function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
   for(let top=bounds.top; top<=bounds.bottom-h; top+=stepY){{
     for(let left=bounds.left; left<=bounds.right-w; left+=stepX){{
       const box={{left,top,right:left+w,bottom:top+h,w,h}};
+      if(eastLocked && (left + w/2) <= ax + 12) continue;
       const collisionPad = (itemCode==='RU' || itemCode==='CN') ? 12 : 9;
       const collisions = occupied.reduce(
         (n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0
