@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# RELATED ARTICLES GROUPED + ALTERNATIVE PUBLISHERS UI 2026-08-21
 # MAP DOTS + CONNECTOR LINES REMOVED 2026-08-21
 # EUROPE LABELS NEAR + NO OVERLAP 2026-08-21
 # CARD SPACING + STRONGER CONFIRMED DUPLICATE MATCHING 2026-08-21
@@ -5601,6 +5602,199 @@ def detect_article_country(article: Article) -> str:
 
 
 
+
+# 같은 사건을 여러 언론사가 보도한 경우 대표기사 아래에 "외 N개 언론사 보도"로 보이기 위한 런타임 메타데이터.
+# 화면 생성 중에만 사용하며 archive 구조는 변경하지 않습니다.
+_RELATED_COVERAGE_GROUPS: dict[str, list[dict[str, str]]] = {}
+
+
+def _related_article_payload(article: Article) -> dict[str, str]:
+    return {
+        "link": article.link or "",
+        "publisher": article.publisher or "출처 미확인",
+        "title": article.title or "",
+    }
+
+
+def _merge_related_payloads(*payload_lists: list[dict[str, str]]) -> list[dict[str, str]]:
+    merged: list[dict[str, str]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for payload_list in payload_lists:
+        for item in payload_list:
+            key = (
+                str(item.get("link") or ""),
+                str(item.get("publisher") or ""),
+                normalized(str(item.get("title") or "")),
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+            merged.append(
+                {
+                    "link": str(item.get("link") or ""),
+                    "publisher": str(item.get("publisher") or "출처 미확인"),
+                    "title": str(item.get("title") or ""),
+                }
+            )
+    return merged
+
+
+def _register_related_coverage(representative: Article, members: list[Article]) -> None:
+    rep_link = representative.link or ""
+    if not rep_link:
+        return
+
+    prior_payloads: list[dict[str, str]] = []
+    cleanup_keys: set[str] = set()
+
+    for member in members:
+        member_link = member.link or ""
+        if member_link and member_link in _RELATED_COVERAGE_GROUPS:
+            prior_payloads.extend(_RELATED_COVERAGE_GROUPS[member_link])
+            cleanup_keys.add(member_link)
+
+    candidate_payloads = [_related_article_payload(member) for member in members]
+    merged = _merge_related_payloads(prior_payloads, candidate_payloads)
+
+    # 대표기사 자체는 대체 언론사 목록에서 제외
+    alternatives = [
+        item for item in merged
+        if item.get("link") != rep_link
+    ]
+
+    for key in cleanup_keys:
+        if key != rep_link:
+            _RELATED_COVERAGE_GROUPS.pop(key, None)
+
+    if alternatives:
+        _RELATED_COVERAGE_GROUPS[rep_link] = alternatives
+    else:
+        _RELATED_COVERAGE_GROUPS.pop(rep_link, None)
+
+
+def _related_coverage_html(article: Article) -> str:
+    alternatives = _RELATED_COVERAGE_GROUPS.get(article.link or "", [])
+    if not alternatives:
+        return ""
+
+    safe_items = []
+    for item in alternatives:
+        link = escape(item.get("link") or "")
+        publisher = escape(item.get("publisher") or "출처 미확인")
+        title = escape(item.get("title") or "")
+        safe_items.append(
+            f'<a class="related-coverage-link" href="{link}" target="_blank" rel="noopener">'
+            f'<span class="related-coverage-publisher">{publisher}</span>'
+            f'<span class="related-coverage-title">{title}</span>'
+            '</a>'
+        )
+
+    return (
+        f'<button class="related-coverage-button" type="button" '
+        f'aria-expanded="false">외 {len(alternatives)}개 언론사 보도</button>'
+        f'<div class="related-coverage-source" hidden>{"".join(safe_items)}</div>'
+    )
+
+
+def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
+    """
+    대표기사 묶음용 보수적 동일사건 판정.
+    이미지 fingerprint가 확인되면 기존 이미지+내용 판정을 사용하고,
+    이미지가 없거나 서로 다르더라도 같은 날짜/탭/국가/사건단계에서
+    핵심 주체·대상·행위가 충분히 겹칠 때만 묶습니다.
+    """
+    publisher_a = (a.publisher or "").strip()
+    publisher_b = (b.publisher or "").strip()
+    if not publisher_a or not publisher_b or publisher_a == publisher_b:
+        return False
+
+    date_a = a.published.astimezone(KST).strftime("%Y-%m-%d")
+    date_b = b.published.astimezone(KST).strftime("%Y-%m-%d")
+    if date_a != date_b:
+        return False
+
+    if a.group != b.group:
+        return False
+
+    country_a = detect_article_country(a)
+    country_b = detect_article_country(b)
+    if (
+        country_a not in {"", "OTHER"}
+        and country_b not in {"", "OTHER"}
+        and country_a != country_b
+    ):
+        return False
+
+    stage_a = _thumbnail_event_stage(a)
+    stage_b = _thumbnail_event_stage(b)
+    if stage_a and stage_b and stage_a != stage_b:
+        return False
+
+    # 이미지까지 확인되면 가장 강한 신호
+    if _same_thumbnail_same_event(a, b):
+        return True
+
+    tokens_a = _thumbnail_event_tokens(a)
+    tokens_b = _thumbnail_event_tokens(b)
+    if not tokens_a or not tokens_b:
+        return False
+
+    common = tokens_a & tokens_b
+    containment = len(common) / max(1, min(len(tokens_a), len(tokens_b)))
+    title_similarity = semantic_duplicate_score(a.title or "", b.title or "")
+
+    # 기존 동일사건/보도자료 판정 + 핵심 토큰 확인
+    if (
+        is_same_event(a.title or "", b.title or "")
+        or same_press_release_event(a.title or "", b.title or "")
+    ):
+        if len(common) >= 3 and containment >= 0.55 and title_similarity >= 0.45:
+            return True
+
+    # 일반 판정은 더 엄격하게 유지
+    if len(common) >= 5 and containment >= 0.60 and title_similarity >= 0.48:
+        return True
+    if len(common) >= 4 and containment >= 0.70 and title_similarity >= 0.56:
+        return True
+
+    return False
+
+
+def _group_confirmed_related_articles(
+    articles: list[Article],
+) -> tuple[list[Article], int]:
+    """
+    같은 사건의 타 언론사 보도를 대표기사 1건으로 묶되,
+    삭제된 기사 정보는 _RELATED_COVERAGE_GROUPS에 보존하여 UI에서 확인할 수 있게 합니다.
+    """
+    result: list[Article] = []
+    grouped_count = 0
+
+    for article in sorted(articles, key=lambda x: x.published, reverse=True):
+        matched_idx: int | None = None
+        for idx, kept in enumerate(result):
+            if _same_content_event_for_grouping(article, kept):
+                matched_idx = idx
+                break
+
+        if matched_idx is None:
+            result.append(article)
+            continue
+
+        grouped_count += 1
+        kept = result[matched_idx]
+
+        if _article_rep_score(article) > _article_rep_score(kept):
+            representative = article
+            result[matched_idx] = article
+            _register_related_coverage(representative, [kept, article])
+        else:
+            representative = kept
+            _register_related_coverage(representative, [kept, article])
+
+    return sorted(result, key=lambda x: x.published, reverse=True), grouped_count
+
+
 def render_card(
     article: Article,
     number: int,
@@ -5657,6 +5851,7 @@ def render_card(
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
+        {_related_coverage_html(article)}
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">{new_badge}{escape(article.title)}</div>
@@ -16299,6 +16494,80 @@ main {{
   opacity:0 !important;
 }}
 
+
+/* ============================================================
+   2026-08-21 RELATED ARTICLE GROUP UI
+   ============================================================ */
+.related-coverage-button {{
+  flex:0 0 auto !important;
+  border:0 !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:transparent !important;
+  color:#1685bd !important;
+  font-size:8.4px !important;
+  font-weight:900 !important;
+  line-height:1.05 !important;
+  cursor:pointer !important;
+  white-space:nowrap !important;
+}}
+.related-coverage-button:hover,
+.related-coverage-button:focus-visible {{
+  text-decoration:underline !important;
+}}
+.related-coverage-source {{
+  display:none !important;
+}}
+.related-coverage-drawer {{
+  position:relative !important;
+  z-index:30 !important;
+  margin:-1px 0 5px !important;
+  padding:5px 7px !important;
+  border:1px solid rgba(35,57,93,.11) !important;
+  border-top:0 !important;
+  background:#f8fbfd !important;
+  box-shadow:0 3px 8px rgba(15,23,42,.06) !important;
+}}
+.related-coverage-drawer .related-coverage-link {{
+  display:flex !important;
+  align-items:baseline !important;
+  gap:5px !important;
+  padding:4px 2px !important;
+  color:inherit !important;
+  text-decoration:none !important;
+  border-bottom:1px solid rgba(35,57,93,.06) !important;
+}}
+.related-coverage-drawer .related-coverage-link:last-child {{
+  border-bottom:0 !important;
+}}
+.related-coverage-drawer .related-coverage-publisher {{
+  flex:0 0 auto !important;
+  color:#536273 !important;
+  font-size:8.6px !important;
+  font-weight:900 !important;
+}}
+.related-coverage-drawer .related-coverage-title {{
+  min-width:0 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  color:#31465a !important;
+  font-size:8.6px !important;
+  font-weight:700 !important;
+}}
+@media (max-width:430px) {{
+  .related-coverage-button {{
+    font-size:8px !important;
+  }}
+  .related-coverage-drawer {{
+    padding:4px 6px !important;
+  }}
+  .related-coverage-drawer .related-coverage-publisher,
+  .related-coverage-drawer .related-coverage-title {{
+    font-size:8.2px !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -17373,7 +17642,7 @@ function showImportantToast(message){{
 document.querySelectorAll(".preview-card").forEach(card=>{{
   applyState(card);
 
-  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button")) openArticle(card); }});
+  card.addEventListener("click",e=>{{ if(!e.target.closest(".important-button, .related-coverage-button, .related-coverage-link")) openArticle(card); }});
   card.addEventListener("keydown",e=>{{ if(e.key==="Enter"||e.key===" "){{ e.preventDefault(); openArticle(card); }}}});
   const importantButton = card.querySelector(".important-button");
   if(importantButton){{
@@ -17404,6 +17673,45 @@ document.querySelectorAll(".preview-card").forEach(card=>{{
       }});
 
       renderFavorites();
+    }});
+  }}
+
+
+  const relatedCoverageButton = card.querySelector(".related-coverage-button");
+  if(relatedCoverageButton){{
+    relatedCoverageButton.addEventListener("click", e => {{
+      e.preventDefault();
+      e.stopPropagation();
+
+      const currentDrawer = card.nextElementSibling?.classList?.contains("related-coverage-drawer")
+        ? card.nextElementSibling
+        : null;
+
+      document.querySelectorAll(".related-coverage-drawer").forEach(drawer => {{
+        if(drawer !== currentDrawer) drawer.remove();
+      }});
+      document.querySelectorAll(".related-coverage-button").forEach(button => {{
+        if(button !== relatedCoverageButton) button.setAttribute("aria-expanded", "false");
+      }});
+
+      if(currentDrawer){{
+        currentDrawer.remove();
+        relatedCoverageButton.setAttribute("aria-expanded", "false");
+        return;
+      }}
+
+      const source = card.querySelector(".related-coverage-source");
+      if(!source) return;
+
+      const drawer = document.createElement("div");
+      drawer.className = "related-coverage-drawer";
+      drawer.innerHTML = source.innerHTML;
+      card.insertAdjacentElement("afterend", drawer);
+      relatedCoverageButton.setAttribute("aria-expanded", "true");
+
+      drawer.querySelectorAll(".related-coverage-link").forEach(link => {{
+        link.addEventListener("click", event => event.stopPropagation());
+      }});
     }});
   }}
 
@@ -21129,17 +21437,22 @@ def main() -> int:
     global _THUMBNAIL_FP_RUNTIME_CACHE
     _THUMBNAIL_FP_RUNTIME_CACHE = None
 
-    # 서로 다른 언론사 + 동일/유사 사진 + 동일 사건이 모두 확인될 때만 대표 기사 1건으로 축약합니다.
-    thumbnail_dedup_removed_total = 0
+    # 같은 사건의 타 언론사 보도는 대표기사 1건으로 묶고,
+    # 나머지 언론사/제목/링크 정보는 UI의 "외 N개 언론사 보도"에 보존합니다.
+    _RELATED_COVERAGE_GROUPS.clear()
+    related_grouped_total = 0
     for label in ("전일", "금일", "익일"):
-        deduped_items, removed_count = _deduplicate_identical_thumbnail_events(
+        grouped_items, grouped_count = _group_confirmed_related_articles(
             articles_by_period.get(label, [])
         )
-        articles_by_period[label] = deduped_items
-        thumbnail_dedup_removed_total += removed_count
-        if removed_count:
-            print(f"[THUMBNAIL DEDUP {label}] removed={removed_count} / remain={len(deduped_items)}")
-    print(f"[THUMBNAIL DEDUP TOTAL] removed={thumbnail_dedup_removed_total}")
+        articles_by_period[label] = grouped_items
+        related_grouped_total += grouped_count
+        if grouped_count:
+            print(
+                f"[RELATED GROUP {label}] grouped={grouped_count} "
+                f"/ remain={len(grouped_items)}"
+            )
+    print(f"[RELATED GROUP TOTAL] grouped={related_grouped_total}")
 
     current_urls = {
         article.link
