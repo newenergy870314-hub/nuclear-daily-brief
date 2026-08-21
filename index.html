@@ -7887,6 +7887,64 @@ header,
   }
 }
 
+
+
+/* ============================================================
+   2026-08-21 CONTINENT TAB LABEL/COUNT SPACING FIX
+   Keep all six continent tabs in one row, but stack the label and
+   article count inside each tab so long names never collide.
+   ============================================================ */
+.continent-button {
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:2px !important;
+  padding:2px 2px !important;
+  overflow:hidden !important;
+}
+.continent-button-name {
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  text-align:center !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  line-height:1 !important;
+}
+.continent-button-count {
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  margin:0 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+@media (max-width:430px) {
+  .continent-button {
+    height:27px !important;
+    min-height:27px !important;
+    gap:1.5px !important;
+    padding:2px 1px !important;
+  }
+  .continent-button-name {
+    font-size:6.05px !important;
+    letter-spacing:-.24px !important;
+  }
+  .continent-button-count {
+    font-size:5.8px !important;
+  }
+}
+@media (max-width:380px) {
+  .continent-button-name {
+    font-size:5.75px !important;
+    letter-spacing:-.26px !important;
+  }
+  .continent-button-count {
+    font-size:5.5px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -7895,7 +7953,7 @@ header,
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.21(금) 14:15 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.21(금) 14:25 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -9913,7 +9971,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">34건</span>
+    <span class="group-count">32건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -10372,41 +10430,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301721"
-  data-title="한전KDN, 을지연습 통해 에너지 ICT 비상체계 점검"
-  data-publisher="투데이에너지"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787123828"
-  data-country="KR"
-  data-search="한전kdn, 을지연습 통해 에너지 ict 비상체계 점검 투데이에너지 한국전력 [투데이에너지 이종수 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">투데이에너지</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 을지연습 통해 에너지 ICT 비상체계 점검</div>
-      <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/db2c1631b4bfc8b107d1f82b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.mk.co.kr/news/politics/12131233"
   data-title="공기업·켄텍·에너지밸리 한곳에…“발전 5사 최적지는 나주”"
   data-publisher="매일경제"
@@ -10419,7 +10442,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10454,7 +10477,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10489,7 +10512,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10524,7 +10547,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10559,7 +10582,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10594,7 +10617,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10629,7 +10652,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10664,7 +10687,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10699,7 +10722,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10734,7 +10757,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10769,7 +10792,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10804,7 +10827,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10839,7 +10862,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10862,41 +10885,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.electimes.com/news/articleView.html?idxno=371411"
-  data-title="한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련"
-  data-publisher="전기신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787101642"
-  data-country="KR"
-  data-search="한전kdn, 2026 을지연습으로 에너지 ict 비상체계 마련 전기신문 한국전력 한전kdn이 올해 을지연습으로 통해 에너지 ict 분야의 비상사태 발생시 체계를 마련한다.에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전kdn은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전기신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련</div>
-      <div class="article-snippet">한전KDN이 올해 을지연습으로 통해 에너지 ICT 분야의 비상사태 발생시 체계를 마련한다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a124b27045c7d8bb229db927.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371398"
   data-title="발전소 누비며 작업자 졸졸…한전KPS, 피지컬AI 띄운다"
   data-publisher="전기신문"
@@ -10909,7 +10897,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10944,7 +10932,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -10979,7 +10967,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -11014,7 +11002,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -11049,7 +11037,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -11084,7 +11072,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -11112,7 +11100,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -11221,6 +11209,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301721"
+  data-title="한전KDN, 을지연습 통해 에너지 ICT 비상체계 점검"
+  data-publisher="투데이에너지"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787123828"
+  data-country="KR"
+  data-search="한전kdn, 을지연습 통해 에너지 ict 비상체계 점검 투데이에너지 한전 계열사 [투데이에너지 이종수 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">투데이에너지</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 을지연습 통해 에너지 ICT 비상체계 점검</div>
+      <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/db2c1631b4bfc8b107d1f82b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301718"
   data-title="한전KPS ‘작업자 밀착형 피지컬AI’ 현장 투입 가능성 확인"
   data-publisher="투데이에너지"
@@ -11233,7 +11256,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -11268,7 +11291,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -11287,6 +11310,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/683df663a54441fee6eee2aa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=371411"
+  data-title="한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련"
+  data-publisher="전기신문"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787101642"
+  data-country="KR"
+  data-search="한전kdn, 2026 을지연습으로 에너지 ict 비상체계 마련 전기신문 한전 계열사 한전kdn이 올해 을지연습으로 통해 에너지 ict 분야의 비상사태 발생시 체계를 마련한다.에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전kdn은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">7.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련</div>
+      <div class="article-snippet">한전KDN이 올해 을지연습으로 통해 에너지 ICT 분야의 비상사태 발생시 체계를 마련한다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a124b27045c7d8bb229db927.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -13773,7 +13831,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">34건</span>
+    <span class="group-count">32건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -13812,41 +13870,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227529"
-  data-title="원전 안전문화, 사업자 넘어 규제기관 리더십까지 넓힌다"
-  data-publisher="에너지신문"
-  data-group="원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787157410"
-  data-country="KR"
-  data-search="원전 안전문화, 사업자 넘어 규제기관 리더십까지 넓힌다 에너지신문 원자력 [에너지신문] 원자력 안전문화의 초점이 발전사업자의 현장 관리에서 규제기관의 조직문화와 리더십으로 확대되고 있다. 규정을 만들고 집행하는 기관 스스로 어떤 의사결정 구조와 행동 원칙을 갖추느냐가 원자력 안전 수준과 규제 신뢰도를 좌우할 수 있다는 판단이다.한국원자력안전기술원(kins)은 경제협력개발기구 원자력기구(oecd nea) 원자력규제활동위원회 산하 ‘리더십 및 안전문화 워킹그룹(wglsc)’과 공동 제작한 안전문화·리더십 영상 3편을 공개했다.영상은 ‘안전 리더십 강화 지침’, ‘원자력 규제기관과 사업자 사이의 관계 최적화’"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">원전 안전문화, 사업자 넘어 규제기관 리더십까지 넓힌다</div>
-      <div class="article-snippet">[에너지신문] 원자력 안전문화의 초점이 발전사업자의 현장 관리에서 규제기관의 조직문화와 리더십으로 확대되고 있다. 규정을 만들고 집행하는 기관 스스로 어떤 의사결정 구조와 행동 원칙을 갖추느냐가 원자력 안전 수준과 규제 신뢰도를 좌우할 수 있다는 판단이다.한국원자력안전기술원(KINS)은 경제협력개발기구 원자력기구(OECD NEA) 원자력규제활동위원회 산하 ‘리더십 및 안전문화 워킹그룹(WGLSC)’과 공동 제작한 안전문화·리더십 영상 3편을 공개했다.영상은 ‘안전 리더십 강화 지침’, ‘원자력 규제기관과 사업자 사이의 관계 최적화’</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/745d34dcdcf2e48b35c19657.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371443"
   data-title="한국이 만든 원자력 안전문화 영상, OECD서 본다"
   data-publisher="전기신문"
@@ -13859,7 +13882,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -13894,7 +13917,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -13929,7 +13952,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -13964,7 +13987,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -13999,7 +14022,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14034,7 +14057,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14069,7 +14092,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14104,7 +14127,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14139,7 +14162,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14174,7 +14197,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14209,7 +14232,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14244,7 +14267,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14279,7 +14302,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14314,7 +14337,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14349,7 +14372,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14384,7 +14407,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14419,7 +14442,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14454,7 +14477,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14477,41 +14500,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="http://www.knpnews.com/news/articleView.html?idxno=34311"
-  data-title="KINS, OECD/NEA와 원자력 안전문화·리더십 영상 3편 공개"
-  data-publisher="한국원자력신문"
-  data-group="원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787098940"
-  data-country="KR"
-  data-search="kins, oecd/nea와 원자력 안전문화·리더십 영상 3편 공개 한국원자력신문 원자력 한국원자력안전기술원(kins)이 경제협력개발기구 원자력기구(oecd/nea)와 공동으로 원자력 안전문화와 리더십을 다룬 홍보영상 3편을 공개했다.kins는 oecd/nea 원자력규제활동위원회(cnra) 산하 ‘리더십 및 안전문화 워킹그룹(wglsc)’과 협력해 제작한 영상을 19일 양"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">한국원자력신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">KINS, OECD/NEA와 원자력 안전문화·리더십 영상 3편 공개</div>
-      <div class="article-snippet">한국원자력안전기술원(KINS)이 경제협력개발기구 원자력기구(OECD/NEA)와 공동으로 원자력 안전문화와 리더십을 다룬 홍보영상 3편을 공개했다.KINS는 OECD/NEA 원자력규제활동위원회(CNRA) 산하 ‘리더십 및 안전문화 워킹그룹(WGLSC)’과 협력해 제작한 영상을 19일 양</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9bbc3b144098a5ad2169c2f2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70679"
   data-title="제12차 전력수급기본계획 최대 쟁점 신규원전"
   data-publisher="에너지타임즈"
@@ -14524,7 +14512,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14559,7 +14547,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14594,7 +14582,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14629,7 +14617,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14664,7 +14652,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14699,7 +14687,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14734,7 +14722,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14769,7 +14757,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14804,7 +14792,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14839,7 +14827,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14874,7 +14862,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14909,7 +14897,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -14944,7 +14932,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -16380,7 +16368,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba0e87f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba955de8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -16415,7 +16403,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba9ae380&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba88bea8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -22216,7 +22204,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">40건</span>
+    <span class="group-count">35건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -22290,41 +22278,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="http://www.knpnews.com/news/articleView.html?idxno=34322"
-  data-title="한전, 신영주변전소서 드론·사이버테러 대응 합동훈련"
-  data-publisher="한국원자력신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787228803"
-  data-country="KR"
-  data-search="한전, 신영주변전소서 드론·사이버테러 대응 합동훈련 한국원자력신문 한국전력 한국전력이 국가 중요 전력시설을 겨냥한 드론 공격과 사이버테러 등 복합 위기 상황에 대비해 관계기관과 합동 대응훈련을 진행했다.한국전력은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 20일 밝혔다.현장에는 한전과 기후에너지환"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">한국원자력신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전, 신영주변전소서 드론·사이버테러 대응 합동훈련</div>
-      <div class="article-snippet">한국전력이 국가 중요 전력시설을 겨냥한 드론 공격과 사이버테러 등 복합 위기 상황에 대비해 관계기관과 합동 대응훈련을 진행했다.한국전력은 지난 19일 경북 영주시 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다고 20일 밝혔다.현장에는 한전과 기후에너지환</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a50f6dbaeceecf70b58ff5ac.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.econovill.com/news/articleView.html?idxno=748526"
   data-title="민간에 전력망 건설 문 연다…한전은 &#x27;건설 부담&#x27; 덜고 송전망 운영"
   data-publisher="이코노믹리뷰"
@@ -22337,7 +22290,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22372,7 +22325,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22407,7 +22360,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22442,7 +22395,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22477,7 +22430,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22512,7 +22465,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">9.</span>
+      <span class="article-order-inline">8.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22547,7 +22500,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">10.</span>
+      <span class="article-order-inline">9.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22582,7 +22535,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
+      <span class="article-order-inline">10.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22617,7 +22570,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22640,41 +22593,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202359"
-  data-title="한전KDN, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리"
-  data-publisher="에너지데일리"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787209161"
-  data-country="KR"
-  data-search="한전kdn, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리 에너지데일리 한국전력 [에너지데일리 송병훈 기자] 전력산업의 디지털·ai 전환이 빨라지고 공공기관의 재무건전성과 경영효율성에 대한 요구가 높아지는 가운데 한전kdn이 사업별 수익성과"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지데일리</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리</div>
-      <div class="article-snippet">[에너지데일리 송병훈 기자] 전력산업의 디지털·AI 전환이 빨라지고 공공기관의 재무건전성과 경영효율성에 대한 요구가 높아지는 가운데 한전KDN이 사업별 수익성과</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/60d34f85c668ec220eda0f32.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003756206"
   data-title="호남반도체산단 전력·용수 인프라사업, 25일 국무회의서 예타 면제 의결 주목"
   data-publisher="뉴시스"
@@ -22687,7 +22605,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22722,7 +22640,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22757,7 +22675,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22792,7 +22710,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22827,7 +22745,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22862,7 +22780,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22897,7 +22815,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22932,7 +22850,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22967,7 +22885,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -22990,41 +22908,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.e-platform.net/news/articleView.html?idxno=104673"
-  data-title="한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색"
-  data-publisher="에너지플랫폼뉴스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787196867"
-  data-country="KR"
-  data-search="한전kdn 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색 에너지플랫폼뉴스 한국전력 [에너지플랫폼뉴스 박병인 기자] 한전kdn 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ict 전문 공기업 한전kdn(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전kdn은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지플랫폼뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
-      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전KDN은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/bbca0db08cccbcf752729f75.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.news2day.co.kr/article/20260820500146"
   data-title="[한국전력공사가 일하는 법] 드론이 하늘에 오르기 전, 사람부터 시뮬레이터에 태운다"
   data-publisher="뉴스투데이"
@@ -23037,7 +22920,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23060,41 +22943,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478981"
-  data-title="한전KDN, 상반기 실적 점검해 수익성 해법 모색"
-  data-publisher="핀포인트뉴스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787192867"
-  data-country="KR"
-  data-search="한전kdn, 상반기 실적 점검해 수익성 해법 모색 핀포인트뉴스 한국전력 한전kdn이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전kdn은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">핀포인트뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
-      <div class="article-snippet">한전KDN이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전KDN은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d3785eb9df106e2a76b7642c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2461040"
   data-title="한전, 드론 공격 가정 신영주변전소 긴급복구 훈련"
   data-publisher="이뉴스투데이"
@@ -23107,7 +22955,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23142,7 +22990,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23177,7 +23025,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23212,7 +23060,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23247,7 +23095,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23270,41 +23118,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.e-platform.net/news/articleView.html?idxno=104661"
-  data-title="한전, 복합 안보위협 상황 대응력 향상…‘을지연습 실제훈련’ 전개"
-  data-publisher="에너지플랫폼뉴스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787185688"
-  data-country="KR"
-  data-search="한전, 복합 안보위협 상황 대응력 향상…‘을지연습 실제훈련’ 전개 에너지플랫폼뉴스 한국전력 [에너지플랫폼뉴스 박병인 기자] 한전이 신영주변전소에서 유과기관과 함께 을지연습을 전개하며 안보위협에 대한 대응능력을 크게 향상시켰다.한국전력(사장 김동철)이 19일 경북 영주시에 위치한 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다. 이번 훈련에는 한전을 비롯해 기후에너지환경부, 육군 제50사단, 영주시, 영주경찰서, 영주소방서 등 유관기관 관계자 160여 명이 참가했다. 참가 기관들은 시설방호와 설비복구를 함께 수행하며 긴급복구 대응태세와 유기적 협조체계를 점검했다. 훈련이 진행된 신영주변전소는"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지플랫폼뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전, 복합 안보위협 상황 대응력 향상…‘을지연습 실제훈련’ 전개</div>
-      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전이 신영주변전소에서 유과기관과 함께 을지연습을 전개하며 안보위협에 대한 대응능력을 크게 향상시켰다.한국전력(사장 김동철)이 19일 경북 영주시에 위치한 신영주변전소에서 ‘2026년도 을지연습 전력설비 긴급복구 실제훈련’을 실시했다. 이번 훈련에는 한전을 비롯해 기후에너지환경부, 육군 제50사단, 영주시, 영주경찰서, 영주소방서 등 유관기관 관계자 160여 명이 참가했다. 참가 기관들은 시설방호와 설비복구를 함께 수행하며 긴급복구 대응태세와 유기적 협조체계를 점검했다. 훈련이 진행된 신영주변전소는</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d008cdef3b350bd3875f338c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260820085938038"
   data-title="한전, 을지연습 연계 전력설비 긴급복구 훈련…드론·사이버테러 대응"
   data-publisher="아주경제"
@@ -23317,7 +23130,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23352,7 +23165,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23387,7 +23200,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23422,7 +23235,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23457,7 +23270,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23492,7 +23305,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23527,7 +23340,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23562,7 +23375,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23597,7 +23410,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23625,9 +23438,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202359"
+  data-title="한전KDN, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787209161"
+  data-country="KR"
+  data-search="한전kdn, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리 에너지데일리 한전 계열사 [에너지데일리 송병훈 기자] 전력산업의 디지털·ai 전환이 빨라지고 공공기관의 재무건전성과 경영효율성에 대한 요구가 높아지는 가운데 한전kdn이 사업별 수익성과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 송병훈 기자] 전력산업의 디지털·AI 전환이 빨라지고 공공기관의 재무건전성과 경영효율성에 대한 요구가 높아지는 가운데 한전KDN이 사업별 수익성과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/60d34f85c668ec220eda0f32.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70688"
   data-title="매출 늘리고 원가 낮춘다…한전KDN, 수익성 개선 고삐"
@@ -23641,7 +23489,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23676,7 +23524,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -23695,6 +23543,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d0632177fe9ad2a65847d46f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478981"
+  data-title="한전KDN, 상반기 실적 점검해 수익성 해법 모색"
+  data-publisher="핀포인트뉴스"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787192867"
+  data-country="KR"
+  data-search="한전kdn, 상반기 실적 점검해 수익성 해법 모색 핀포인트뉴스 한전 계열사 한전kdn이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전kdn은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">핀포인트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
+      <div class="article-snippet">한전KDN이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전KDN은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d3785eb9df106e2a76b7642c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -25586,7 +25469,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">77건</span>
+    <span class="group-count">76건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26430,41 +26313,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.sisajournal.com/news/articleView.html?idxno=384223"
-  data-title="[경주 24시] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급 - 시사저널"
-  data-publisher="시사저널"
-  data-group="원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787215200"
-  data-country="KR"
-  data-search="[경주 24시] 원자력환경공단, 방사능분석능력평가 9년 연속 a등급 - 시사저널 시사저널 원자력 한국원자력환경공단(korad)은 한국원자력안전기술원(kins)이 주관한 2026년 ‘방사능분석능력평가’에서 전 항목 a등급을 획득했다고 20일 밝혔다. 이로써 공"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">시사저널</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[경주 24시] 원자력환경공단, 방사능분석능력평가 9년 연속 A등급 - 시사저널</div>
-      <div class="article-snippet">한국원자력환경공단(KORAD)은 한국원자력안전기술원(KINS)이 주관한 2026년 ‘방사능분석능력평가’에서 전 항목 A등급을 획득했다고 20일 밝혔다. 이로써 공</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/145cd7f58fb81a307365fa65.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202379"
   data-title="원자력안전 패러다임 전환… 사업자 ‘1차 안전책임’ 법제화 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -26477,7 +26325,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26512,7 +26360,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26547,7 +26395,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26582,7 +26430,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26617,7 +26465,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26652,7 +26500,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26687,7 +26535,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26722,7 +26570,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26757,7 +26605,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26792,7 +26640,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26827,7 +26675,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26862,7 +26710,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26897,7 +26745,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26932,7 +26780,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">38.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -26967,7 +26815,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">39.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27002,7 +26850,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">41.</span>
+      <span class="article-order-inline">40.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27037,7 +26885,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">42.</span>
+      <span class="article-order-inline">41.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27072,7 +26920,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">43.</span>
+      <span class="article-order-inline">42.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27107,7 +26955,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">44.</span>
+      <span class="article-order-inline">43.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27142,7 +26990,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">45.</span>
+      <span class="article-order-inline">44.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27177,7 +27025,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">46.</span>
+      <span class="article-order-inline">45.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27212,7 +27060,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">47.</span>
+      <span class="article-order-inline">46.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27247,7 +27095,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">48.</span>
+      <span class="article-order-inline">47.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27282,7 +27130,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">49.</span>
+      <span class="article-order-inline">48.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27317,7 +27165,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">50.</span>
+      <span class="article-order-inline">49.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27352,7 +27200,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">51.</span>
+      <span class="article-order-inline">50.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27387,7 +27235,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">52.</span>
+      <span class="article-order-inline">51.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27422,7 +27270,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">53.</span>
+      <span class="article-order-inline">52.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27457,7 +27305,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">54.</span>
+      <span class="article-order-inline">53.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27492,7 +27340,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">55.</span>
+      <span class="article-order-inline">54.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27527,7 +27375,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">56.</span>
+      <span class="article-order-inline">55.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27562,7 +27410,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">57.</span>
+      <span class="article-order-inline">56.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27597,7 +27445,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">58.</span>
+      <span class="article-order-inline">57.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27632,7 +27480,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">59.</span>
+      <span class="article-order-inline">58.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27667,7 +27515,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">60.</span>
+      <span class="article-order-inline">59.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27702,7 +27550,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">61.</span>
+      <span class="article-order-inline">60.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27737,7 +27585,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">62.</span>
+      <span class="article-order-inline">61.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27772,7 +27620,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">63.</span>
+      <span class="article-order-inline">62.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27807,7 +27655,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">64.</span>
+      <span class="article-order-inline">63.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27842,7 +27690,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">65.</span>
+      <span class="article-order-inline">64.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27877,7 +27725,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">66.</span>
+      <span class="article-order-inline">65.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27912,7 +27760,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">67.</span>
+      <span class="article-order-inline">66.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27947,7 +27795,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">68.</span>
+      <span class="article-order-inline">67.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -27982,7 +27830,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">69.</span>
+      <span class="article-order-inline">68.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28017,7 +27865,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">70.</span>
+      <span class="article-order-inline">69.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28052,7 +27900,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">71.</span>
+      <span class="article-order-inline">70.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28087,7 +27935,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">72.</span>
+      <span class="article-order-inline">71.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28122,7 +27970,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">73.</span>
+      <span class="article-order-inline">72.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28157,7 +28005,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">74.</span>
+      <span class="article-order-inline">73.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28192,7 +28040,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">75.</span>
+      <span class="article-order-inline">74.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28227,7 +28075,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">76.</span>
+      <span class="article-order-inline">75.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28262,7 +28110,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">77.</span>
+      <span class="article-order-inline">76.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -28545,7 +28393,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246452"
+  data-published="1787246439"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -33673,7 +33521,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.busan.com/view/busan/view.php?code=2026082114103349512"
   data-title="고리원자력본부, 발전소 주변 지역 장학생 선발… 장학증서 수여식 개최"
   data-publisher="부산일보"
@@ -33699,7 +33547,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, 발전소 주변 지역 장학생 선발… 장학증서 수여식 개최</div>
+      <div class="headline">고리원자력본부, 발전소 주변 지역 장학생 선발… 장학증서 수여식 개최</div>
       <div class="article-snippet">장학증서 수여식 단체사진. 고리원자력본부 제공 한국수력원자력(주) 고리원자력본부(본부장 반병훈)는 발전소 주변 지역 학생들의 안정적...</div>
     </div>
   </div>
@@ -33883,7 +33731,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757586"
   data-title="국회물포럼, 31일 &#x27;3대 메가프로젝트 반도체 산업용수 공급&#x27; 토론회"
   data-publisher="뉴시스"
@@ -33909,7 +33757,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>국회물포럼, 31일 &#x27;3대 메가프로젝트 반도체 산업용수 공급&#x27; 토론회</div>
+      <div class="headline">국회물포럼, 31일 &#x27;3대 메가프로젝트 반도체 산업용수 공급&#x27; 토론회</div>
       <div class="article-snippet">[서울=뉴시스] 이창환 기자 = 국회물포럼(회장 한정애 국회의원)이 오는 31일 3대 메가프로젝트 반도체 산업용수 공급 관련 토론회를 개최한다. 21일 한정애 더불어민주당 의원실에 따르면 국회물포럼은 이달 31일 오후 국회 의원회관에서 &#x27;3대 메가프로젝트 반도체 산업용수 공급 어떻게 할 것인가&#x27;라는 주제로 국회 토론회를 개최할 예정이다. 국회물포럼은 이번 토론회를 통해 발전용 댐과 농업용 저수지의 다목적 이용을 통해 3대 메가프로젝트에 필요한 수자원을 확보할 수 있는지 살펴보고, 입법적 지원 방안을 모색할 예정이다. 남궁은 한국초순수담수화학회 회장이 토론회 좌장을 맡</div>
     </div>
   </div>
@@ -35159,7 +35007,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">21건</span>
+    <span class="group-count">22건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35792,6 +35640,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://biz.newdaily.co.kr/site/data/html/2026/08/21/2026082100017.html"
+  data-title="2040년 전력수요 1억6500만kW … &#x27;3대 메가프로젝트&#x27;에 원전 19기 규모 전력 필요"
+  data-publisher="뉴데일리"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787265958"
+  data-country="OTHER"
+  data-search="2040년 전력수요 1억6500만kw … &#x27;3대 메가프로젝트&#x27;에 원전 19기 규모 전력 필요 뉴데일리 원자력 반도체 클러스터와 인공지능(ai) 데이터센터 등 정부가 추진하는 3대 메가프로젝트의 전력 수요가 반영되면서 2040년 우리나라가 한순간에 필요로 하는 최대 전력이 1억6500만kw까지 늘어날 것으로 전망됐다. 현재 건설 중인 1.4gw급 대형 원자력발전소 19기의 설비용량을 합친 것과 맞먹는 규모다.20일 서울 영등포구 국회의원회관에서 열린 제12차 전력수급기본계획(전기본) 제5차 토론회에서 전기본 수립 총괄위원회 수요계획소위원회는 2040년 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">19.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>2040년 전력수요 1억6500만kW … &#x27;3대 메가프로젝트&#x27;에 원전 19기 규모 전력 필요</div>
+      <div class="article-snippet">반도체 클러스터와 인공지능(AI) 데이터센터 등 정부가 추진하는 3대 메가프로젝트의 전력 수요가 반영되면서 2040년 우리나라가 한순간에 필요로 하는 최대 전력이 1억6500만kW까지 늘어날 것으로 전망됐다. 현재 건설 중인 1.4GW급 대형 원자력발전소 19기의 설비용량을 합친 것과 맞먹는 규모다.20일 서울 영등포구 국회의원회관에서 열린 제12차 전력수급기본계획(전기본) 제5차 토론회에서 전기본 수립 총괄위원회 수요계획소위원회는 2040년 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7c9346652800ef599b5ed6ba.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202387"
   data-title="원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리"
@@ -35805,7 +35688,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35840,7 +35723,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -35875,7 +35758,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36438,7 +36321,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787289533"
+  data-published="1787290207"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -36546,6 +36429,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787290140"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
@@ -36558,7 +36476,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36593,7 +36511,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -36612,41 +36530,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787288504"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38730,7 +38613,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.busan.com/view/busan/view.php?code=2026082114103349512"
   data-title="고리원자력본부, 발전소 주변 지역 장학생 선발… 장학증서 수여식 개최"
   data-publisher="부산일보"
@@ -38756,7 +38639,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고리원자력본부, 발전소 주변 지역 장학생 선발… 장학증서 수여식 개최</div>
+      <div class="headline">고리원자력본부, 발전소 주변 지역 장학생 선발… 장학증서 수여식 개최</div>
       <div class="article-snippet">장학증서 수여식 단체사진. 고리원자력본부 제공 한국수력원자력(주) 고리원자력본부(본부장 반병훈)는 발전소 주변 지역 학생들의 안정적...</div>
     </div>
   </div>
@@ -38940,7 +38823,7 @@ header,
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260821_0003757586"
   data-title="국회물포럼, 31일 &#x27;3대 메가프로젝트 반도체 산업용수 공급&#x27; 토론회"
   data-publisher="뉴시스"
@@ -38966,7 +38849,7 @@ header,
         </div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>국회물포럼, 31일 &#x27;3대 메가프로젝트 반도체 산업용수 공급&#x27; 토론회</div>
+      <div class="headline">국회물포럼, 31일 &#x27;3대 메가프로젝트 반도체 산업용수 공급&#x27; 토론회</div>
       <div class="article-snippet">[서울=뉴시스] 이창환 기자 = 국회물포럼(회장 한정애 국회의원)이 오는 31일 3대 메가프로젝트 반도체 산업용수 공급 관련 토론회를 개최한다. 21일 한정애 더불어민주당 의원실에 따르면 국회물포럼은 이달 31일 오후 국회 의원회관에서 &#x27;3대 메가프로젝트 반도체 산업용수 공급 어떻게 할 것인가&#x27;라는 주제로 국회 토론회를 개최할 예정이다. 국회물포럼은 이번 토론회를 통해 발전용 댐과 농업용 저수지의 다목적 이용을 통해 3대 메가프로젝트에 필요한 수자원을 확보할 수 있는지 살펴보고, 입법적 지원 방안을 모색할 예정이다. 남궁은 한국초순수담수화학회 회장이 토론회 좌장을 맡</div>
     </div>
   </div>
@@ -40216,7 +40099,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">21건</span>
+    <span class="group-count">22건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -40849,6 +40732,41 @@ header,
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://biz.newdaily.co.kr/site/data/html/2026/08/21/2026082100017.html"
+  data-title="2040년 전력수요 1억6500만kW … &#x27;3대 메가프로젝트&#x27;에 원전 19기 규모 전력 필요"
+  data-publisher="뉴데일리"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787265958"
+  data-country="OTHER"
+  data-search="2040년 전력수요 1억6500만kw … &#x27;3대 메가프로젝트&#x27;에 원전 19기 규모 전력 필요 뉴데일리 원자력 반도체 클러스터와 인공지능(ai) 데이터센터 등 정부가 추진하는 3대 메가프로젝트의 전력 수요가 반영되면서 2040년 우리나라가 한순간에 필요로 하는 최대 전력이 1억6500만kw까지 늘어날 것으로 전망됐다. 현재 건설 중인 1.4gw급 대형 원자력발전소 19기의 설비용량을 합친 것과 맞먹는 규모다.20일 서울 영등포구 국회의원회관에서 열린 제12차 전력수급기본계획(전기본) 제5차 토론회에서 전기본 수립 총괄위원회 수요계획소위원회는 2040년 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">19.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>2040년 전력수요 1억6500만kW … &#x27;3대 메가프로젝트&#x27;에 원전 19기 규모 전력 필요</div>
+      <div class="article-snippet">반도체 클러스터와 인공지능(AI) 데이터센터 등 정부가 추진하는 3대 메가프로젝트의 전력 수요가 반영되면서 2040년 우리나라가 한순간에 필요로 하는 최대 전력이 1억6500만kW까지 늘어날 것으로 전망됐다. 현재 건설 중인 1.4GW급 대형 원자력발전소 19기의 설비용량을 합친 것과 맞먹는 규모다.20일 서울 영등포구 국회의원회관에서 열린 제12차 전력수급기본계획(전기본) 제5차 토론회에서 전기본 수립 총괄위원회 수요계획소위원회는 2040년 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7c9346652800ef599b5ed6ba.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202387"
   data-title="원자력의학원 ‘방사선상해 전문치료’ 법제화…국가 방사선 사고 의료대응 강화 - 에너지데일리"
@@ -40862,7 +40780,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -40897,7 +40815,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -40932,7 +40850,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41495,7 +41413,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787289533"
+  data-published="1787290207"
   data-country="OTHER"
   data-search="entire initial core neutron bytes smr peachtree corners, ga — nac international inc. (nac) is proud to announce its pivotal role in the successful first delivery of high assay low-enriched uranium (haleu) triso fuel to support the department of defense’s project pele advanced reactor demonstration. the recently announced delivery of advanced nuclear fuel t"
   tabindex="0" role="link">
@@ -41603,6 +41521,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787290140"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
@@ -41615,7 +41568,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41650,7 +41603,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -41669,41 +41622,6 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787288504"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -45263,7 +45181,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">40건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -45687,41 +45605,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202359"
-  data-title="한전KDN, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리"
-  data-publisher="에너지데일리"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787209161"
-  data-country="KR"
-  data-search="한전kdn, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리 에너지데일리 한국전력 [에너지데일리 송병훈 기자] 전력산업의 디지털·ai 전환이 빨라지고 공공기관의 재무건전성과 경영효율성에 대한 요구가 높아지는 가운데 한전kdn이 사업별 수익성과"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지데일리</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리</div>
-      <div class="article-snippet">[에너지데일리 송병훈 기자] 전력산업의 디지털·AI 전환이 빨라지고 공공기관의 재무건전성과 경영효율성에 대한 요구가 높아지는 가운데 한전KDN이 사업별 수익성과</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/60d34f85c668ec220eda0f32.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260820_0003756206"
   data-title="호남반도체산단 전력·용수 인프라사업, 25일 국무회의서 예타 면제 의결 주목"
   data-publisher="뉴시스"
@@ -45734,7 +45617,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45769,7 +45652,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45804,7 +45687,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45839,7 +45722,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45874,7 +45757,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45909,7 +45792,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45944,7 +45827,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -45979,7 +45862,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46014,7 +45897,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46037,41 +45920,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.e-platform.net/news/articleView.html?idxno=104673"
-  data-title="한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색"
-  data-publisher="에너지플랫폼뉴스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787196867"
-  data-country="KR"
-  data-search="한전kdn 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색 에너지플랫폼뉴스 한국전력 [에너지플랫폼뉴스 박병인 기자] 한전kdn 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ict 전문 공기업 한전kdn(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전kdn은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지플랫폼뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
-      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전KDN은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/bbca0db08cccbcf752729f75.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.news2day.co.kr/article/20260820500146"
   data-title="[한국전력공사가 일하는 법] 드론이 하늘에 오르기 전, 사람부터 시뮬레이터에 태운다"
   data-publisher="뉴스투데이"
@@ -46084,7 +45932,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46107,41 +45955,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478981"
-  data-title="한전KDN, 상반기 실적 점검해 수익성 해법 모색"
-  data-publisher="핀포인트뉴스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787192867"
-  data-country="KR"
-  data-search="한전kdn, 상반기 실적 점검해 수익성 해법 모색 핀포인트뉴스 한국전력 한전kdn이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전kdn은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">핀포인트뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
-      <div class="article-snippet">한전KDN이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전KDN은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d3785eb9df106e2a76b7642c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2461040"
   data-title="한전, 드론 공격 가정 신영주변전소 긴급복구 훈련"
   data-publisher="이뉴스투데이"
@@ -46154,7 +45967,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46189,7 +46002,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46224,7 +46037,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46259,7 +46072,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46294,7 +46107,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46329,7 +46142,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46364,7 +46177,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46399,7 +46212,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46434,7 +46247,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46469,7 +46282,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46504,7 +46317,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">33.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46539,7 +46352,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">34.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46574,7 +46387,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">35.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46609,7 +46422,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">36.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46644,7 +46457,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">40.</span>
+      <span class="article-order-inline">37.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46672,9 +46485,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202359"
+  data-title="한전KDN, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787209161"
+  data-country="KR"
+  data-search="한전kdn, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리 에너지데일리 한전 계열사 [에너지데일리 송병훈 기자] 전력산업의 디지털·ai 전환이 빨라지고 공공기관의 재무건전성과 경영효율성에 대한 요구가 높아지는 가운데 한전kdn이 사업별 수익성과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 수익성·사업구조 동시 점검…“실적 분석 넘어 실행 중심 경영으로” - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 송병훈 기자] 전력산업의 디지털·AI 전환이 빨라지고 공공기관의 재무건전성과 경영효율성에 대한 요구가 높아지는 가운데 한전KDN이 사업별 수익성과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/60d34f85c668ec220eda0f32.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70688"
   data-title="매출 늘리고 원가 낮춘다…한전KDN, 수익성 개선 고삐"
@@ -46688,7 +46536,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46711,6 +46559,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104673"
+  data-title="한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787196867"
+  data-country="KR"
+  data-search="한전kdn 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색 에너지플랫폼뉴스 한전 계열사 [에너지플랫폼뉴스 박병인 기자] 한전kdn 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ict 전문 공기업 한전kdn(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전kdn은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">3.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN 박상형 사장, 타운홀 미팅 주도…수익성 개선 방안 모색</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN 박상형 사장이 타운홀 미팅을 주관하며 회사의 수익성 개선을 통한 경영목표 달성 방안을 모색했다.에너지ICT 전문 공기업 한전KDN(사장 박상형)이 19일 전남광주통합시 나주혁신도시 소재 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 시행했다.한전KDN은 직전 개최된 회의와 리더 워크숍을 통해 올해 상반기 사업실적에 대한 상세 분석과 연말 손익 전망 사전 점검을 진행하고 하반기 경영성과 제고 방안 마련을 위한 열린 토론으로 202</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bbca0db08cccbcf752729f75.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=5762"
   data-title="한전KDN, 타운홀미팅서 경영목표 달성 방안 논의 - 에너지안전신문"
   data-publisher="에너지안전신문"
@@ -46723,7 +46606,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -46742,6 +46625,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d0632177fe9ad2a65847d46f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=478981"
+  data-title="한전KDN, 상반기 실적 점검해 수익성 해법 모색"
+  data-publisher="핀포인트뉴스"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787192867"
+  data-country="KR"
+  data-search="한전kdn, 상반기 실적 점검해 수익성 해법 모색 핀포인트뉴스 한전 계열사 한전kdn이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전kdn은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">핀포인트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 상반기 실적 점검해 수익성 해법 모색</div>
+      <div class="article-snippet">한전KDN이 올해 상반기 사업 성과와 비용 구조를 함께 점검하며 연말 경영목표 달성을 위한 실행과제 마련에 나섰다.단순한 실적 점검에 그치지 않고 사업 부서와 지원 부서가 함께 손익 개선 방안을 구체화하는 데 초점을 맞췄다.한전KDN은 지난 19일 전남 나주혁신도시 본사 다목적실에서 ‘2026 경영목표 달성을 위한 사업실적 분석 및 수익성 개선 열린 토론(타운홀 미팅)’을 열었다고 20일 밝혔다. 박상형 사장을 비롯한 경영진과 본사 단·실·처·원장, 특수사업소장 등 주요 보직자 30명이 참석했다.이번 토론은 앞서 진행한 회의와 리더</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d3785eb9df106e2a76b7642c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -51592,7 +51510,7 @@ header,
   data-group="SMR"
   data-language="en"
   data-priority="0"
-  data-published="1787246452"
+  data-published="1787246439"
   data-country="OTHER"
   data-search="morpheus microreactor neutron bytes smr "
   tabindex="0" role="link">
@@ -56690,7 +56608,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">34건</span>
+    <span class="group-count">32건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -57149,41 +57067,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301721"
-  data-title="한전KDN, 을지연습 통해 에너지 ICT 비상체계 점검"
-  data-publisher="투데이에너지"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787123828"
-  data-country="KR"
-  data-search="한전kdn, 을지연습 통해 에너지 ict 비상체계 점검 투데이에너지 한국전력 [투데이에너지 이종수 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">투데이에너지</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 을지연습 통해 에너지 ICT 비상체계 점검</div>
-      <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/db2c1631b4bfc8b107d1f82b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.mk.co.kr/news/politics/12131233"
   data-title="공기업·켄텍·에너지밸리 한곳에…“발전 5사 최적지는 나주”"
   data-publisher="매일경제"
@@ -57196,7 +57079,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57231,7 +57114,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57266,7 +57149,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57301,7 +57184,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57336,7 +57219,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57371,7 +57254,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57406,7 +57289,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57441,7 +57324,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57476,7 +57359,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57511,7 +57394,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57546,7 +57429,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57581,7 +57464,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57616,7 +57499,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57639,41 +57522,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.electimes.com/news/articleView.html?idxno=371411"
-  data-title="한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련"
-  data-publisher="전기신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787101642"
-  data-country="KR"
-  data-search="한전kdn, 2026 을지연습으로 에너지 ict 비상체계 마련 전기신문 한국전력 한전kdn이 올해 을지연습으로 통해 에너지 ict 분야의 비상사태 발생시 체계를 마련한다.에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전kdn은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전기신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련</div>
-      <div class="article-snippet">한전KDN이 올해 을지연습으로 통해 에너지 ICT 분야의 비상사태 발생시 체계를 마련한다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a124b27045c7d8bb229db927.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371398"
   data-title="발전소 누비며 작업자 졸졸…한전KPS, 피지컬AI 띄운다"
   data-publisher="전기신문"
@@ -57686,7 +57534,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57721,7 +57569,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57756,7 +57604,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57791,7 +57639,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57826,7 +57674,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57861,7 +57709,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">32.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -57889,7 +57737,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -57998,6 +57846,41 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301721"
+  data-title="한전KDN, 을지연습 통해 에너지 ICT 비상체계 점검"
+  data-publisher="투데이에너지"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787123828"
+  data-country="KR"
+  data-search="한전kdn, 을지연습 통해 에너지 ict 비상체계 점검 투데이에너지 한전 계열사 [투데이에너지 이종수 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">4.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">투데이에너지</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 을지연습 통해 에너지 ICT 비상체계 점검</div>
+      <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/db2c1631b4bfc8b107d1f82b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301718"
   data-title="한전KPS ‘작업자 밀착형 피지컬AI’ 현장 투입 가능성 확인"
   data-publisher="투데이에너지"
@@ -58010,7 +57893,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58045,7 +57928,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -58064,6 +57947,41 @@ header,
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/683df663a54441fee6eee2aa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=371411"
+  data-title="한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련"
+  data-publisher="전기신문"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787101642"
+  data-country="KR"
+  data-search="한전kdn, 2026 을지연습으로 에너지 ict 비상체계 마련 전기신문 한전 계열사 한전kdn이 올해 을지연습으로 통해 에너지 ict 분야의 비상사태 발생시 체계를 마련한다.에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전kdn은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">7.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 2026 을지연습으로 에너지 ICT 비상체계 마련</div>
+      <div class="article-snippet">한전KDN이 올해 을지연습으로 통해 에너지 ICT 분야의 비상사태 발생시 체계를 마련한다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고 밝혔다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을 가정한 전시 종합상황실 운영 등 통합상황 조치 능력을 배양하는 것</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a124b27045c7d8bb229db927.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -63157,7 +63075,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba0e87f0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/new-uk-immersive-facility-helps-nuclear-specialists-plan-decommissioning-projects-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba955de8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -63192,7 +63110,7 @@ header,
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba9ae380&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/core-power-and-corpus-christi-port-announced-study-to-prepare-ground-for-nuclear-maritime-future-8-4-2026#&lt;ActiveStorage::Attached::One:0x00007a58ba88bea8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -67942,7 +67860,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">39건</span>
+    <span class="group-count">31건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -68436,76 +68354,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.newscj.com/news/articleView.html?idxno=3426140"
-  data-title="한전KDN, AI 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입"
-  data-publisher="천지일보"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787053000"
-  data-country="KR"
-  data-search="한전kdn, ai 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입 천지일보 한국전력 [천지일보=천성현 기자] 한전kdn이 인공지능(ai) 해킹과 드론 테러 등 최근 고도화하는 안보 위협에 대응하기 위한 실전형 비상대비훈련에 돌입했다.에너지 ict 전문 공기업 한전kdn은 18일부터 오는 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 진행한"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">천지일보</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, AI 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입</div>
-      <div class="article-snippet">[천지일보=천성현 기자] 한전KDN이 인공지능(AI) 해킹과 드론 테러 등 최근 고도화하는 안보 위협에 대응하기 위한 실전형 비상대비훈련에 돌입했다.에너지 ICT 전문 공기업 한전KDN은 18일부터 오는 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 진행한</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4bd924e2f368859ae276aef8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.e-platform.net/news/articleView.html?idxno=104613"
-  data-title="한전KDN, 을지연습 전개…에너지 ICT 비상 대응체계 ‘확립’"
-  data-publisher="에너지플랫폼뉴스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787047638"
-  data-country="KR"
-  data-search="한전kdn, 을지연습 전개…에너지 ict 비상 대응체계 ‘확립’ 에너지플랫폼뉴스 한국전력 [에너지플랫폼뉴스 박병인 기자] 한전kdn이 을지연습에 돌입하는 가운데 에너지 ict 분야 비상 대응체계 확립에 최선을 다한다.에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전kdn은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지플랫폼뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 을지연습 전개…에너지 ICT 비상 대응체계 ‘확립’</div>
-      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN이 을지연습에 돌입하는 가운데 에너지 ICT 분야 비상 대응체계 확립에 최선을 다한다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/e8572667f4ea139ef28f3e29.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260818145853474"
   data-title="K-배터리 3사, 1조 규모 공공 ESS 정면승부...국내 생산이 핵심"
   data-publisher="아주경제"
@@ -68518,7 +68366,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -68541,41 +68389,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70672"
-  data-title="2026년 을지연습…한전KDN, 에너지 ICT 방호역량 집중 점검"
-  data-publisher="에너지타임즈"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787042178"
-  data-country="KR"
-  data-search="2026년 을지연습…한전kdn, 에너지 ict 방호역량 집중 점검 에너지타임즈 한국전력 한전kdn(주)(사장 박상형)이 최근 고도화되는 안보 위협에 대응해 국가 핵심 에너지ict 인프라 방호와 비상복구 역량을 집중적으로 점검하기 위해 18일부터 오는 21일까지 모든 임직원이 참여하는 ‘2026년도 을지연습’을 실시한다. 이번 훈련에서 한전kdn은 비상대비계획인 충무계획 실효성과 현행화를 점검하는 한편 전시 종합상황실 운영 등 비상상황에서 통합적인 상황조치 능력을 높일 계획이다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지타임즈</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">2026년 을지연습…한전KDN, 에너지 ICT 방호역량 집중 점검</div>
-      <div class="article-snippet">한전KDN(주)(사장 박상형)이 최근 고도화되는 안보 위협에 대응해 국가 핵심 에너지ICT 인프라 방호와 비상복구 역량을 집중적으로 점검하기 위해 18일부터 오는 21일까지 모든 임직원이 참여하는 ‘2026년도 을지연습’을 실시한다. 이번 훈련에서 한전KDN은 비상대비계획인 충무계획 실효성과 현행화를 점검하는 한편 전시 종합상황실 운영 등 비상상황에서 통합적인 상황조치 능력을 높일 계획이다.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2368bdc2404493c6299f4033.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7507"
   data-title="한전, 상반기 영업익 4조9127억원 ‘흑자 지속’…전년比 9768억원 감소"
   data-publisher="인사이트N파워"
@@ -68588,7 +68401,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -68623,7 +68436,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -68658,7 +68471,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">21.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -68681,76 +68494,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2460327"
-  data-title="한전KDN, AI 해킹·드론 공격 맞선 ‘에너지ICT 방어망’ 점검"
-  data-publisher="이뉴스투데이"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787039080"
-  data-country="KR"
-  data-search="한전kdn, ai 해킹·드론 공격 맞선 ‘에너지ict 방어망’ 점검 이뉴스투데이 한국전력 [이뉴스투데이 노태하 기자] 한전kdn이 인공지능(ai) 기반 해킹과 드론 공격 등 첨단 안보 위협에 대비해 에너지 정보통신기술(ict) 인프라 비상 대응체계 점검에 나선다.한전kdn은 18일부터 오는 21일까지 3박 4일간 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">22.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">이뉴스투데이</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, AI 해킹·드론 공격 맞선 ‘에너지ICT 방어망’ 점검</div>
-      <div class="article-snippet">[이뉴스투데이 노태하 기자] 한전KDN이 인공지능(AI) 기반 해킹과 드론 공격 등 첨단 안보 위협에 대비해 에너지 정보통신기술(ICT) 인프라 비상 대응체계 점검에 나선다.한전KDN은 18일부터 오는 21일까지 3박 4일간 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/12a43ec954b91728215c46d2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.esnews.kr/news/articleView.html?idxno=5714"
-  data-title="한국 한전KDN, AI·드론 테러 대비 에너지ICT 방어 ‘2026 을지연습’ 실시 - 에너지안전신문"
-  data-publisher="에너지안전신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787038874"
-  data-country="KR"
-  data-search="한국 한전kdn, ai·드론 테러 대비 에너지ict 방어 ‘2026 을지연습’ 실시 - 에너지안전신문 에너지안전신문 한국전력 에너지 정보통신기술(ict) 전문 공기업인 한전kdn은 8월 18일부터 21일까지 3박 4일간 전사 임직원이 참여하는 ‘2026년 을지연습’을 전격 실시한다. 이"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">23.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지안전신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한국 한전KDN, AI·드론 테러 대비 에너지ICT 방어 ‘2026 을지연습’ 실시 - 에너지안전신문</div>
-      <div class="article-snippet">에너지 정보통신기술(ICT) 전문 공기업인 한전KDN은 8월 18일부터 21일까지 3박 4일간 전사 임직원이 참여하는 ‘2026년 을지연습’을 전격 실시한다. 이</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ed8e32a50509331898e94c76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleView.html?idxno=325871"
   data-title="대구시회, 시 교육청 공종별 협회 간담회서 업계 현안 건의"
   data-publisher="대한전문건설신문"
@@ -68763,7 +68506,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">24.</span>
+      <span class="article-order-inline">19.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -68786,111 +68529,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.kns.tv/news/articleView.html?idxno=1013734"
-  data-title="한전KDN, ‘2026 을지연습’ 통해 AI 해킹·드론 테러 대비 에너지 ICT 비상체계 모색"
-  data-publisher="KNS뉴스통신"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787033264"
-  data-country="KR"
-  data-search="한전kdn, ‘2026 을지연습’ 통해 ai 해킹·드론 테러 대비 에너지 ict 비상체계 모색 kns뉴스통신 한국전력 [kns뉴스통신=김관일 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 통해 인공지능(ai) 해킹, 드론 공격 등 최근 변화하는 첨단 안보 위협에 대응할 수 있는 도상연습과 실제 훈련 강화에 중점을 두어 실시한다고 밝혔다.을지연습은 전시(戰時) 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전kdn은 이번 을지연습을 통해 회사의 비상대비계획(충무계"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">25.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">KNS뉴스통신</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, ‘2026 을지연습’ 통해 AI 해킹·드론 테러 대비 에너지 ICT 비상체계 모색</div>
-      <div class="article-snippet">[KNS뉴스통신=김관일 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 통해 인공지능(AI) 해킹, 드론 공격 등 최근 변화하는 첨단 안보 위협에 대응할 수 있는 도상연습과 실제 훈련 강화에 중점을 두어 실시한다고 밝혔다.을지연습은 전시(戰時) 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/3ee353c3fce9b60dad7dbebc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260818_0003752821"
-  data-title="을지연습 훈련 참여 한전KDN &#x27;AI 해킹·드론 테러&#x27; 대응"
-  data-publisher="뉴시스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787033137"
-  data-country="KR"
-  data-search="을지연습 훈련 참여 한전kdn &#x27;ai 해킹·드론 테러&#x27; 대응 뉴시스 한국전력 [나주=뉴시스]이창우 기자 = 한전kdn이 인공지능(ai) 해킹과 드론 테러 등 첨단 안보 위협에 대비해 국가 핵심 에너지 정보통신(ict) 인프라의 비상 대응 역량 강화에 나섰다. 한전kdn은 18일부터 21일까지 전 임직원이 참여하는 &#x27;2026년 을지연습&#x27;을 실시한다고 밝혔다. 이번 훈련은 전시 또는 국가비상사태를 가정해 비상대비계획과 전시 종합상황실 운영 능력을 점검하고 실제 상황에 대비한 대응력을 높이는 데 초점을 맞췄다. 첫날 필수요원 비상소집과 최초 상황보고, 비밀문서 안전반출을 시작으로 19일 사이버 공격 대응·화재 대응훈련, 20일 민방위 대피훈련과 사"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">26.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">을지연습 훈련 참여 한전KDN &#x27;AI 해킹·드론 테러&#x27; 대응</div>
-      <div class="article-snippet">[나주=뉴시스]이창우 기자 = 한전KDN이 인공지능(AI) 해킹과 드론 테러 등 첨단 안보 위협에 대비해 국가 핵심 에너지 정보통신(ICT) 인프라의 비상 대응 역량 강화에 나섰다. 한전KDN은 18일부터 21일까지 전 임직원이 참여하는 &#x27;2026년 을지연습&#x27;을 실시한다고 밝혔다. 이번 훈련은 전시 또는 국가비상사태를 가정해 비상대비계획과 전시 종합상황실 운영 능력을 점검하고 실제 상황에 대비한 대응력을 높이는 데 초점을 맞췄다. 첫날 필수요원 비상소집과 최초 상황보고, 비밀문서 안전반출을 시작으로 19일 사이버 공격 대응·화재 대응훈련, 20일 민방위 대피훈련과 사</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5ead1c7ba9dff61bc22b967f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202296"
-  data-title="한전KDN, AI 해킹·드론 테러 대비 에너지 ICT 비상체계 훈련 - 에너지데일리"
-  data-publisher="에너지데일리"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787032906"
-  data-country="KR"
-  data-search="한전kdn, ai 해킹·드론 테러 대비 에너지 ict 비상체계 훈련 - 에너지데일리 에너지데일리 한국전력 [에너지데일리 송병훈 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">27.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지데일리</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, AI 해킹·드론 테러 대비 에너지 ICT 비상체계 훈련 - 에너지데일리</div>
-      <div class="article-snippet">[에너지데일리 송병훈 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f3c350a3649a9af2deac1c8d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.etnews.com/20260818000332"
   data-title="한전KPS, 작업자 밀착형 로봇 실증…피지컬 AI 역량 강화한다"
   data-publisher="전자신문"
@@ -68903,7 +68541,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">28.</span>
+      <span class="article-order-inline">20.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -68938,7 +68576,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">29.</span>
+      <span class="article-order-inline">21.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -68973,7 +68611,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">30.</span>
+      <span class="article-order-inline">22.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69008,7 +68646,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">31.</span>
+      <span class="article-order-inline">23.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69043,7 +68681,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">32.</span>
+      <span class="article-order-inline">24.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69078,7 +68716,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">33.</span>
+      <span class="article-order-inline">25.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69113,7 +68751,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">34.</span>
+      <span class="article-order-inline">26.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69148,7 +68786,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">35.</span>
+      <span class="article-order-inline">27.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69183,7 +68821,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">36.</span>
+      <span class="article-order-inline">28.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69218,7 +68856,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">37.</span>
+      <span class="article-order-inline">29.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69253,7 +68891,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">38.</span>
+      <span class="article-order-inline">30.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69288,7 +68926,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">39.</span>
+      <span class="article-order-inline">31.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69316,9 +68954,79 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.newscj.com/news/articleView.html?idxno=3426140"
+  data-title="한전KDN, AI 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입"
+  data-publisher="천지일보"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787053000"
+  data-country="KR"
+  data-search="한전kdn, ai 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입 천지일보 한전 계열사 [천지일보=천성현 기자] 한전kdn이 인공지능(ai) 해킹과 드론 테러 등 최근 고도화하는 안보 위협에 대응하기 위한 실전형 비상대비훈련에 돌입했다.에너지 ict 전문 공기업 한전kdn은 18일부터 오는 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 진행한"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">천지일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, AI 해킹·드론 테러 대비… ‘2026년 을지연습’ 돌입</div>
+      <div class="article-snippet">[천지일보=천성현 기자] 한전KDN이 인공지능(AI) 해킹과 드론 테러 등 최근 고도화하는 안보 위협에 대응하기 위한 실전형 비상대비훈련에 돌입했다.에너지 ICT 전문 공기업 한전KDN은 18일부터 오는 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 진행한</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4bd924e2f368859ae276aef8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104613"
+  data-title="한전KDN, 을지연습 전개…에너지 ICT 비상 대응체계 ‘확립’"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787047638"
+  data-country="KR"
+  data-search="한전kdn, 을지연습 전개…에너지 ict 비상 대응체계 ‘확립’ 에너지플랫폼뉴스 한전 계열사 [에너지플랫폼뉴스 박병인 기자] 한전kdn이 을지연습에 돌입하는 가운데 에너지 ict 분야 비상 대응체계 확립에 최선을 다한다.에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전kdn은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 을지연습 전개…에너지 ICT 비상 대응체계 ‘확립’</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN이 을지연습에 돌입하는 가운데 에너지 ICT 분야 비상 대응체계 확립에 최선을 다한다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다.을지연습은 전시 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계획)의 실효성 검토와 현행화를 점검하고 전쟁 상황을</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e8572667f4ea139ef28f3e29.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227505"
   data-title="발전정비 현장에 ‘동행 로봇’...한전KPS, 피지컬AI 실증"
@@ -69332,7 +69040,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">1.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69367,7 +69075,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -69390,6 +69098,216 @@ header,
 </article>
 
 <article class="preview-card"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70672"
+  data-title="2026년 을지연습…한전KDN, 에너지 ICT 방호역량 집중 점검"
+  data-publisher="에너지타임즈"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787042178"
+  data-country="KR"
+  data-search="2026년 을지연습…한전kdn, 에너지 ict 방호역량 집중 점검 에너지타임즈 한전 계열사 한전kdn(주)(사장 박상형)이 최근 고도화되는 안보 위협에 대응해 국가 핵심 에너지ict 인프라 방호와 비상복구 역량을 집중적으로 점검하기 위해 18일부터 오는 21일까지 모든 임직원이 참여하는 ‘2026년도 을지연습’을 실시한다. 이번 훈련에서 한전kdn은 비상대비계획인 충무계획 실효성과 현행화를 점검하는 한편 전시 종합상황실 운영 등 비상상황에서 통합적인 상황조치 능력을 높일 계획이다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">5.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">2026년 을지연습…한전KDN, 에너지 ICT 방호역량 집중 점검</div>
+      <div class="article-snippet">한전KDN(주)(사장 박상형)이 최근 고도화되는 안보 위협에 대응해 국가 핵심 에너지ICT 인프라 방호와 비상복구 역량을 집중적으로 점검하기 위해 18일부터 오는 21일까지 모든 임직원이 참여하는 ‘2026년도 을지연습’을 실시한다. 이번 훈련에서 한전KDN은 비상대비계획인 충무계획 실효성과 현행화를 점검하는 한편 전시 종합상황실 운영 등 비상상황에서 통합적인 상황조치 능력을 높일 계획이다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2368bdc2404493c6299f4033.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2460327"
+  data-title="한전KDN, AI 해킹·드론 공격 맞선 ‘에너지ICT 방어망’ 점검"
+  data-publisher="이뉴스투데이"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787039080"
+  data-country="KR"
+  data-search="한전kdn, ai 해킹·드론 공격 맞선 ‘에너지ict 방어망’ 점검 이뉴스투데이 한전 계열사 [이뉴스투데이 노태하 기자] 한전kdn이 인공지능(ai) 기반 해킹과 드론 공격 등 첨단 안보 위협에 대비해 에너지 정보통신기술(ict) 인프라 비상 대응체계 점검에 나선다.한전kdn은 18일부터 오는 21일까지 3박 4일간 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">6.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, AI 해킹·드론 공격 맞선 ‘에너지ICT 방어망’ 점검</div>
+      <div class="article-snippet">[이뉴스투데이 노태하 기자] 한전KDN이 인공지능(AI) 기반 해킹과 드론 공격 등 첨단 안보 위협에 대비해 에너지 정보통신기술(ICT) 인프라 비상 대응체계 점검에 나선다.한전KDN은 18일부터 오는 21일까지 3박 4일간 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/12a43ec954b91728215c46d2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=5714"
+  data-title="한국 한전KDN, AI·드론 테러 대비 에너지ICT 방어 ‘2026 을지연습’ 실시 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787038874"
+  data-country="KR"
+  data-search="한국 한전kdn, ai·드론 테러 대비 에너지ict 방어 ‘2026 을지연습’ 실시 - 에너지안전신문 에너지안전신문 한전 계열사 에너지 정보통신기술(ict) 전문 공기업인 한전kdn은 8월 18일부터 21일까지 3박 4일간 전사 임직원이 참여하는 ‘2026년 을지연습’을 전격 실시한다. 이"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">7.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한국 한전KDN, AI·드론 테러 대비 에너지ICT 방어 ‘2026 을지연습’ 실시 - 에너지안전신문</div>
+      <div class="article-snippet">에너지 정보통신기술(ICT) 전문 공기업인 한전KDN은 8월 18일부터 21일까지 3박 4일간 전사 임직원이 참여하는 ‘2026년 을지연습’을 전격 실시한다. 이</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ed8e32a50509331898e94c76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.kns.tv/news/articleView.html?idxno=1013734"
+  data-title="한전KDN, ‘2026 을지연습’ 통해 AI 해킹·드론 테러 대비 에너지 ICT 비상체계 모색"
+  data-publisher="KNS뉴스통신"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787033264"
+  data-country="KR"
+  data-search="한전kdn, ‘2026 을지연습’ 통해 ai 해킹·드론 테러 대비 에너지 ict 비상체계 모색 kns뉴스통신 한전 계열사 [kns뉴스통신=김관일 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 통해 인공지능(ai) 해킹, 드론 공격 등 최근 변화하는 첨단 안보 위협에 대응할 수 있는 도상연습과 실제 훈련 강화에 중점을 두어 실시한다고 밝혔다.을지연습은 전시(戰時) 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전kdn은 이번 을지연습을 통해 회사의 비상대비계획(충무계"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">8.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">KNS뉴스통신</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, ‘2026 을지연습’ 통해 AI 해킹·드론 테러 대비 에너지 ICT 비상체계 모색</div>
+      <div class="article-snippet">[KNS뉴스통신=김관일 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 3박 4일 동안 전사 임직원이 참여하는 ‘2026년 을지연습’을 통해 인공지능(AI) 해킹, 드론 공격 등 최근 변화하는 첨단 안보 위협에 대응할 수 있는 도상연습과 실제 훈련 강화에 중점을 두어 실시한다고 밝혔다.을지연습은 전시(戰時) 또는 이에 준하는 국가비상사태 발생 시 국민의 생명과 재산을 보호하기 위해 정부 차원에서 연 1회 전국 단위로 실시하는 비상대비훈련이다.한전KDN은 이번 을지연습을 통해 회사의 비상대비계획(충무계</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3ee353c3fce9b60dad7dbebc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260818_0003752821"
+  data-title="을지연습 훈련 참여 한전KDN &#x27;AI 해킹·드론 테러&#x27; 대응"
+  data-publisher="뉴시스"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787033137"
+  data-country="KR"
+  data-search="을지연습 훈련 참여 한전kdn &#x27;ai 해킹·드론 테러&#x27; 대응 뉴시스 한전 계열사 [나주=뉴시스]이창우 기자 = 한전kdn이 인공지능(ai) 해킹과 드론 테러 등 첨단 안보 위협에 대비해 국가 핵심 에너지 정보통신(ict) 인프라의 비상 대응 역량 강화에 나섰다. 한전kdn은 18일부터 21일까지 전 임직원이 참여하는 &#x27;2026년 을지연습&#x27;을 실시한다고 밝혔다. 이번 훈련은 전시 또는 국가비상사태를 가정해 비상대비계획과 전시 종합상황실 운영 능력을 점검하고 실제 상황에 대비한 대응력을 높이는 데 초점을 맞췄다. 첫날 필수요원 비상소집과 최초 상황보고, 비밀문서 안전반출을 시작으로 19일 사이버 공격 대응·화재 대응훈련, 20일 민방위 대피훈련과 사"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">9.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">을지연습 훈련 참여 한전KDN &#x27;AI 해킹·드론 테러&#x27; 대응</div>
+      <div class="article-snippet">[나주=뉴시스]이창우 기자 = 한전KDN이 인공지능(AI) 해킹과 드론 테러 등 첨단 안보 위협에 대비해 국가 핵심 에너지 정보통신(ICT) 인프라의 비상 대응 역량 강화에 나섰다. 한전KDN은 18일부터 21일까지 전 임직원이 참여하는 &#x27;2026년 을지연습&#x27;을 실시한다고 밝혔다. 이번 훈련은 전시 또는 국가비상사태를 가정해 비상대비계획과 전시 종합상황실 운영 능력을 점검하고 실제 상황에 대비한 대응력을 높이는 데 초점을 맞췄다. 첫날 필수요원 비상소집과 최초 상황보고, 비밀문서 안전반출을 시작으로 19일 사이버 공격 대응·화재 대응훈련, 20일 민방위 대피훈련과 사</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5ead1c7ba9dff61bc22b967f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202296"
+  data-title="한전KDN, AI 해킹·드론 테러 대비 에너지 ICT 비상체계 훈련 - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787032906"
+  data-country="KR"
+  data-search="한전kdn, ai 해킹·드론 테러 대비 에너지 ict 비상체계 훈련 - 에너지데일리 에너지데일리 한전 계열사 [에너지데일리 송병훈 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">10.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, AI 해킹·드론 테러 대비 에너지 ICT 비상체계 훈련 - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 송병훈 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 18일부터 21일까지 전사 임직원이 참여하는 ‘2026년 을지연습’을 실시한다고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f3c350a3649a9af2deac1c8d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202291"
   data-title="한전KPS, 피지컬AI 로봇으로 발전정비 현장 안전관리 혁신한다 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -69402,7 +69320,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -84618,7 +84536,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -84727,41 +84645,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70640"
-  data-title="한전KDN, 충남 유휴부지 태양광 300MW 추진"
-  data-publisher="에너지타임즈"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1786575136"
-  data-country="KR"
-  data-search="한전kdn, 충남 유휴부지 태양광 300mw 추진 에너지타임즈 한국전력 한전kdn이 충남지역 공공 유휴부지를 활용해 최대 300mw 규모 태양광발전 사업을 추진한다. 한전kdn(주)(사장 박상형)은 충남개발공사와 충남지역 에너지 자립도를 높이기 위해 충남지역 내 공공 유휴뷰지를 활용한 재생에너지 건설과 인프라 구축사업을 공동으로 추진하기로 하고 지난 11일 업무협약을 체결했다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지타임즈</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 충남 유휴부지 태양광 300MW 추진</div>
-      <div class="article-snippet">한전KDN이 충남지역 공공 유휴부지를 활용해 최대 300MW 규모 태양광발전 사업을 추진한다. 한전KDN(주)(사장 박상형)은 충남개발공사와 충남지역 에너지 자립도를 높이기 위해 충남지역 내 공공 유휴뷰지를 활용한 재생에너지 건설과 인프라 구축사업을 공동으로 추진하기로 하고 지난 11일 업무협약을 체결했다.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70639"
   data-title="호남권‧용인 반도체 메가프로젝트 전력망 윤곽"
   data-publisher="에너지타임즈"
@@ -84774,7 +84657,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -84809,7 +84692,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -84837,9 +84720,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70640"
+  data-title="한전KDN, 충남 유휴부지 태양광 300MW 추진"
+  data-publisher="에너지타임즈"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1786575136"
+  data-country="KR"
+  data-search="한전kdn, 충남 유휴부지 태양광 300mw 추진 에너지타임즈 한전 계열사 한전kdn이 충남지역 공공 유휴부지를 활용해 최대 300mw 규모 태양광발전 사업을 추진한다. 한전kdn(주)(사장 박상형)은 충남개발공사와 충남지역 에너지 자립도를 높이기 위해 충남지역 내 공공 유휴뷰지를 활용한 재생에너지 건설과 인프라 구축사업을 공동으로 추진하기로 하고 지난 11일 업무협약을 체결했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 충남 유휴부지 태양광 300MW 추진</div>
+      <div class="article-snippet">한전KDN이 충남지역 공공 유휴부지를 활용해 최대 300MW 규모 태양광발전 사업을 추진한다. 한전KDN(주)(사장 박상형)은 충남개발공사와 충남지역 에너지 자립도를 높이기 위해 충남지역 내 공공 유휴뷰지를 활용한 재생에너지 건설과 인프라 구축사업을 공동으로 추진하기로 하고 지난 11일 업무협약을 체결했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="원자력 협회·학회">
@@ -85615,7 +85533,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -85654,41 +85572,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70640"
-  data-title="한전KDN, 충남 유휴부지 태양광 300MW 추진"
-  data-publisher="에너지타임즈"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1786542736"
-  data-country="KR"
-  data-search="한전kdn, 충남 유휴부지 태양광 300mw 추진 에너지타임즈 한국전력 한전kdn이 충남지역 공공 유휴부지를 활용해 최대 300mw 규모 태양광발전 사업을 추진한다. 한전kdn(주)(사장 박상형)은 충남개발공사와 충남지역 에너지 자립도를 높이기 위해 충남지역 내 공공 유휴뷰지를 활용한 재생에너지 건설과 인프라 구축사업을 공동으로 추진하기로 하고 지난 11일 업무협약을 체결했다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">2.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지타임즈</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 충남 유휴부지 태양광 300MW 추진</div>
-      <div class="article-snippet">한전KDN이 충남지역 공공 유휴부지를 활용해 최대 300MW 규모 태양광발전 사업을 추진한다. 한전KDN(주)(사장 박상형)은 충남개발공사와 충남지역 에너지 자립도를 높이기 위해 충남지역 내 공공 유휴뷰지를 활용한 재생에너지 건설과 인프라 구축사업을 공동으로 추진하기로 하고 지난 11일 업무협약을 체결했다.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="http://www.energytimes.kr/news/thumbnail/202608/70640_39401_5155_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70637"
   data-title="흑자 기조 이어간 ‘한전’…올 상반기 영업익 4.9조"
   data-publisher="에너지타임즈"
@@ -85701,7 +85584,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">3.</span>
+      <span class="article-order-inline">2.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -85736,7 +85619,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">4.</span>
+      <span class="article-order-inline">3.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -85771,7 +85654,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">5.</span>
+      <span class="article-order-inline">4.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -85806,7 +85689,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">6.</span>
+      <span class="article-order-inline">5.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -85841,7 +85724,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">7.</span>
+      <span class="article-order-inline">6.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -85876,7 +85759,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">8.</span>
+      <span class="article-order-inline">7.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -85904,9 +85787,44 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70640"
+  data-title="한전KDN, 충남 유휴부지 태양광 300MW 추진"
+  data-publisher="에너지타임즈"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1786542736"
+  data-country="KR"
+  data-search="한전kdn, 충남 유휴부지 태양광 300mw 추진 에너지타임즈 한전 계열사 한전kdn이 충남지역 공공 유휴부지를 활용해 최대 300mw 규모 태양광발전 사업을 추진한다. 한전kdn(주)(사장 박상형)은 충남개발공사와 충남지역 에너지 자립도를 높이기 위해 충남지역 내 공공 유휴뷰지를 활용한 재생에너지 건설과 인프라 구축사업을 공동으로 추진하기로 하고 지난 11일 업무협약을 체결했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 충남 유휴부지 태양광 300MW 추진</div>
+      <div class="article-snippet">한전KDN이 충남지역 공공 유휴부지를 활용해 최대 300MW 규모 태양광발전 사업을 추진한다. 한전KDN(주)(사장 박상형)은 충남개발공사와 충남지역 에너지 자립도를 높이기 위해 충남지역 내 공공 유휴뷰지를 활용한 재생에너지 건설과 인프라 구축사업을 공동으로 추진하기로 하고 지난 11일 업무협약을 체결했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="http://www.energytimes.kr/news/thumbnail/202608/70640_39401_5155_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="원자력 협회·학회">
@@ -87032,7 +86950,7 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">20건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -87386,41 +87304,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301442"
-  data-title="한전KDN, 서울본부에 창업·사회적기업 입주공간 마련"
-  data-publisher="투데이에너지"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1786421162"
-  data-country="KR"
-  data-search="한전kdn, 서울본부에 창업·사회적기업 입주공간 마련 투데이에너지 한국전력 [투데이에너지 이종수 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 서울특별시 고덕비즈밸리 소재 서울본부 사옥 내에 창업지원 공간을 구축하고 입주할 창업기업과 벤처기업, 사회적기업 8곳을 모집한다고 11일 밝혔다. 모집 분야는 △상생 분야(여성·장애인·사회적경제 기업) △"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">11.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">투데이에너지</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 서울본부에 창업·사회적기업 입주공간 마련</div>
-      <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 서울특별시 고덕비즈밸리 소재 서울본부 사옥 내에 창업지원 공간을 구축하고 입주할 창업기업과 벤처기업, 사회적기업 8곳을 모집한다고 11일 밝혔다. 모집 분야는 △상생 분야(여성·장애인·사회적경제 기업) △</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/38d30ba7d15885758c2cd40a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.fnnews.com/news/202608111134406417"
   data-title="한전 사장 &quot;3대 메가프로젝트 전력 수요 대응…계통망 적기 건설&quot;"
   data-publisher="파이낸셜뉴스"
@@ -87433,7 +87316,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">12.</span>
+      <span class="article-order-inline">11.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -87468,7 +87351,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">13.</span>
+      <span class="article-order-inline">12.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -87491,41 +87374,6 @@ header,
 </article>
 
 <article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260811_0003744170"
-  data-title="한전KDN, 서울본부 사옥에 창업·사회적기업 입주공간 마련"
-  data-publisher="뉴시스"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1786412979"
-  data-country="KR"
-  data-search="한전kdn, 서울본부 사옥에 창업·사회적기업 입주공간 마련 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 한전kdn이 서울특별시 고덕비즈밸리 소재 서울본부 사옥 내에 창업지원 공간을 구축하고 입주할 창업기업과 벤처기업, 사회적기업 8곳을 모집한다고 11일 밝혔다. 한전kdn은 정부의 사회적 약자 대상 규제 개선과 창업 활성화 정책을 실현하고자 사회적기업과 예비 창업자를 포함한 창업 7년 미만의 창업기업, 벤처·스타트 업 기업을 모집한다. 모집 분야는 ▲상생 분야(여성·장애인·사회적경제 기업) ▲인공지능 분야(ai 서비스·솔루션·플랫폼) ▲에너지·전기·ict(클라우드·iot 등 관련 기술) 등 총 3개 분야다. 또 분야별 임대료 지원 혜택도"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">14.</span>
-    </div>
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한전KDN, 서울본부 사옥에 창업·사회적기업 입주공간 마련</div>
-      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 한전KDN이 서울특별시 고덕비즈밸리 소재 서울본부 사옥 내에 창업지원 공간을 구축하고 입주할 창업기업과 벤처기업, 사회적기업 8곳을 모집한다고 11일 밝혔다. 한전KDN은 정부의 사회적 약자 대상 규제 개선과 창업 활성화 정책을 실현하고자 사회적기업과 예비 창업자를 포함한 창업 7년 미만의 창업기업, 벤처·스타트 업 기업을 모집한다. 모집 분야는 ▲상생 분야(여성·장애인·사회적경제 기업) ▲인공지능 분야(AI 서비스·솔루션·플랫폼) ▲에너지·전기·ICT(클라우드·IoT 등 관련 기술) 등 총 3개 분야다. 또 분야별 임대료 지원 혜택도</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/354a4b9de2290a5965d94d06.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.ekn.kr/web/view.php?key=20260811021351180"
   data-title="SK하이닉스, 채권시장 ‘큰 손’ 부상…한 달 새 한전채 2.7조 매입"
   data-publisher="에너지경제신문"
@@ -87538,7 +87386,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">15.</span>
+      <span class="article-order-inline">13.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -87573,7 +87421,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">16.</span>
+      <span class="article-order-inline">14.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -87608,7 +87456,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">17.</span>
+      <span class="article-order-inline">15.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -87643,7 +87491,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">18.</span>
+      <span class="article-order-inline">16.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -87678,7 +87526,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">19.</span>
+      <span class="article-order-inline">17.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -87713,7 +87561,7 @@ header,
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-order-column">
-      <span class="article-order-inline">20.</span>
+      <span class="article-order-inline">18.</span>
     </div>
     <div class="article-content-column">
       <div class="meta-row">
@@ -87741,9 +87589,79 @@ header,
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">2건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.todayenergy.kr/news/articleView.html?idxno=301442"
+  data-title="한전KDN, 서울본부에 창업·사회적기업 입주공간 마련"
+  data-publisher="투데이에너지"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1786421162"
+  data-country="KR"
+  data-search="한전kdn, 서울본부에 창업·사회적기업 입주공간 마련 투데이에너지 한전 계열사 [투데이에너지 이종수 기자] 에너지ict 전문 공기업 한전kdn(사장 박상형)은 서울특별시 고덕비즈밸리 소재 서울본부 사옥 내에 창업지원 공간을 구축하고 입주할 창업기업과 벤처기업, 사회적기업 8곳을 모집한다고 11일 밝혔다. 모집 분야는 △상생 분야(여성·장애인·사회적경제 기업) △"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">1.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">투데이에너지</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 서울본부에 창업·사회적기업 입주공간 마련</div>
+      <div class="article-snippet">[투데이에너지 이종수 기자] 에너지ICT 전문 공기업 한전KDN(사장 박상형)은 서울특별시 고덕비즈밸리 소재 서울본부 사옥 내에 창업지원 공간을 구축하고 입주할 창업기업과 벤처기업, 사회적기업 8곳을 모집한다고 11일 밝혔다. 모집 분야는 △상생 분야(여성·장애인·사회적경제 기업) △</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/38d30ba7d15885758c2cd40a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260811_0003744170"
+  data-title="한전KDN, 서울본부 사옥에 창업·사회적기업 입주공간 마련"
+  data-publisher="뉴시스"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1786412979"
+  data-country="KR"
+  data-search="한전kdn, 서울본부 사옥에 창업·사회적기업 입주공간 마련 뉴시스 한전 계열사 [세종=뉴시스]손차민 기자 = 한전kdn이 서울특별시 고덕비즈밸리 소재 서울본부 사옥 내에 창업지원 공간을 구축하고 입주할 창업기업과 벤처기업, 사회적기업 8곳을 모집한다고 11일 밝혔다. 한전kdn은 정부의 사회적 약자 대상 규제 개선과 창업 활성화 정책을 실현하고자 사회적기업과 예비 창업자를 포함한 창업 7년 미만의 창업기업, 벤처·스타트 업 기업을 모집한다. 모집 분야는 ▲상생 분야(여성·장애인·사회적경제 기업) ▲인공지능 분야(ai 서비스·솔루션·플랫폼) ▲에너지·전기·ict(클라우드·iot 등 관련 기술) 등 총 3개 분야다. 또 분야별 임대료 지원 혜택도"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-order-column">
+      <span class="article-order-inline">2.</span>
+    </div>
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 서울본부 사옥에 창업·사회적기업 입주공간 마련</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 한전KDN이 서울특별시 고덕비즈밸리 소재 서울본부 사옥 내에 창업지원 공간을 구축하고 입주할 창업기업과 벤처기업, 사회적기업 8곳을 모집한다고 11일 밝혔다. 한전KDN은 정부의 사회적 약자 대상 규제 개선과 창업 활성화 정책을 실현하고자 사회적기업과 예비 창업자를 포함한 창업 7년 미만의 창업기업, 벤처·스타트 업 기업을 모집한다. 모집 분야는 ▲상생 분야(여성·장애인·사회적경제 기업) ▲인공지능 분야(AI 서비스·솔루션·플랫폼) ▲에너지·전기·ICT(클라우드·IoT 등 관련 기술) 등 총 3개 분야다. 또 분야별 임대료 지원 혜택도</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/354a4b9de2290a5965d94d06.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="원자력 협회·학회">
@@ -151733,37 +151651,19 @@ window.addEventListener('resize',()=>requestAnimationFrame(layoutAndRenderCountr
 /* ============================================================
    2026-08-21 FINAL MAP RUNTIME OVERRIDE — refined continent clips + manual anchors + better label separation
    ============================================================ */
-const MANUAL_COUNTRY_MAP_ANCHORS = {
-  /* All frequently surfaced countries reviewed against the current flat world-map artwork.
-     Rule: the blue dot stays on the actual land / island position, while the label moves for readability. */
-  US:[22.6,41.6], CA:[22.2,28.9],
-  BR:[35.2,57.8], AR:[32.0,71.0], CL:[29.2,69.2], PE:[28.6,54.6], CO:[29.0,47.2],
-  GB:[48.4,34.6], FR:[49.3,40.0], NL:[50.2,36.7], BE:[49.9,37.9], CH:[51.3,40.6],
-  SE:[53.2,28.4], FI:[55.6,27.0], PL:[53.8,37.4], CZ:[52.9,39.1], SI:[53.4,41.5],
-  RO:[55.6,41.5], BG:[56.3,43.5], UA:[58.3,38.5], TR:[59.5,45.6], SK:[53.9,38.7], DK:[49.8,32.6],
-  RU:[73.4,27.7],
-  AE:[62.7,51.1], SA:[59.3,52.5], ZA:[54.2,72.8],
-  CN:[77.8,43.4], IN:[69.0,53.1], VN:[80.2,56.5], TH:[78.2,55.8], MY:[79.6,61.2], SG:[80.0,63.4],
-  KR:[82.8,41.7], JP:[87.9,39.8],
-  AU:[84.0,75.6]
-};
+const MANUAL_COUNTRY_MAP_ANCHORS = {};
 
 function getCountryMapAnchor(item){
-  const fixed = MANUAL_COUNTRY_MAP_ANCHORS[item.code];
-  if(fixed) return {x:fixed[0], y:fixed[1]};
+  // 지도와 좌표가 안 맞는 핵심 원인은 수동 보정 좌표와 실제 SVG 투영이 섞여 있던 점입니다.
+  // 이제는 모든 국가 점을 동일한 equirectangular projection으로 계산합니다.
   return projectExactSvgPoint(item.lon,item.lat);
 }
 
 function getContinentNativeRegion(code){
-  const regions = {
-    NA:{points:'18,58 320,58 358,125 348,210 300,280 230,305 125,295 45,242',labelX:188,labelY:166},
-    SA:{points:'232,188 420,188 448,255 444,342 422,420 392,478 352,500 314,476 286,410 264,325 246,248',labelX:344,labelY:336},
-    EU:{points:'430,88 592,88 612,128 606,182 566,225 510,228 454,198 432,145',labelX:520,labelY:160},
-    AS:{points:'560,58 995,58 995,300 935,338 812,332 708,296 650,240 622,185 604,128 565,94',labelX:798,labelY:178},
-    MEA:{points:'438,206 646,202 668,248 650,330 612,448 506,452 442,382 428,286',labelX:538,labelY:324},
-    OC:{points:'740,306 995,306 995,490 756,490 724,394',labelX:852,labelY:408}
-  };
-  return regions[code] || null;
+  // 기존 대륙 하이라이트는 대략적인 clip polygon이라 실제 지도 윤곽과 어긋났습니다.
+  // 대륙은 탭 필터 + 해당 대륙 국가 라벨만 보여주고,
+  // 부정확한 파란 면 하이라이트는 사용하지 않습니다.
+  return null;
 }
 
 const COUNTRY_LABEL_PREFS = {
