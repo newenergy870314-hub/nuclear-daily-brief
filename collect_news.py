@@ -144,6 +144,15 @@ GROUPS = [
         # 한전원자력연료
         '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
     ]),
+    ("원자력 협회·학회", [
+        # 국내외 원자력 관련 협회·학회
+        '"한국원자력산업협회"', '"KAIF" 원자력',
+        '"한국원전수출산업협회"', '"Korea Nuclear Association"',
+        '"한국원자력학회"', '"Korean Nuclear Society"',
+        '"한국방사성폐기물학회"', '"Korean Radioactive Waste Society"',
+        '"대한방사선방어학회"', '"Korean Association for Radiation Protection"',
+        '"세계원자력협회"', '"World Nuclear Association"',
+    ]),
     ("원전 관계부처", [
         # 산업통상부·기후에너지환경부·과학기술정보통신부의
         # 장관·차관급 이상 인사 및 정책 관련 기사
@@ -227,15 +236,6 @@ GROUPS = [
         '"Nuclear Power"', '"Nuclear Energy"', '"Nuclear Power Plant"',
         '"Nuclear Construction"', '"Nuclear Project"',
         '"Nuclear New Build"', '"New Nuclear Build"',
-    ]),
-    ("원자력 협회·학회", [
-        # 국내외 원자력 관련 협회·학회
-        '"한국원자력산업협회"', '"KAIF" 원자력',
-        '"한국원전수출산업협회"', '"Korea Nuclear Association"',
-        '"한국원자력학회"', '"Korean Nuclear Society"',
-        '"한국방사성폐기물학회"', '"Korean Radioactive Waste Society"',
-        '"대한방사선방어학회"', '"Korean Association for Radiation Protection"',
-        '"세계원자력협회"', '"World Nuclear Association"',
     ]),
     ("불가리아 코즐로두이 원전", [
         # 코즐로두이 원전 및 7·8호기 프로젝트
@@ -5828,54 +5828,196 @@ CONSTRUCTION_UNION_COMPANY_ALIASES = {
 
 
 CONSTRUCTION_AWARD_TERMS = (
-    # 한국어: 수주 자체 및 수주 기사에서 흔한 표기
-    "수주",
-    "수주액",
-    "수주고",
-    "수주계약",
-    "수주 계약",
-    # 영문 기사 대응
-    "contract award",
-    "contract awarded",
-    "awarded contract",
-    "wins contract",
-    "won contract",
-    "order win",
-    "order intake",
+    "수주", "수주액", "수주고", "수주계약", "수주 계약",
+    "낙찰", "시공권", "시공사 선정",
+    "contract award", "contract awarded", "awarded contract",
+    "wins contract", "won contract", "order win", "order intake",
 )
 
+# 주요 건설사 탭 중복 제거는 누락 방지를 최우선으로 매우 보수적으로 운영합니다.
+# 동일 회사/동일 날짜라는 이유만으로는 절대 합치지 않습니다.
+MAJOR_CONSTRUCTION_GROUP = "타 건설사"
 
-def _construction_award_event_key(article: Article) -> tuple[str, str] | None:
-    """
-    같은 날짜에 같은 건설사명과 '수주' 문맥이 함께 등장하는 보도는
-    언론사/제목 표현이 달라도 동일 이슈로 보고 대표기사 1건만 유지합니다.
+_CONSTRUCTION_EVENT_ACTIONS = {
+    "preferred_bidder": (
+        "우선협상대상자", "우선협상자", "preferred bidder", "preferred proponent",
+    ),
+    "contract_signed": (
+        "본계약", "계약 체결", "계약체결", "도급계약", "공사계약 체결",
+        "signs contract", "signed contract", "contract signing",
+    ),
+    "award": (
+        "수주", "수주액", "수주고", "낙찰", "시공권 확보", "시공권",
+        "시공사 선정", "사업자 선정", "contract award", "contract awarded",
+        "awarded contract", "wins contract", "won contract", "order win", "order intake",
+    ),
+    "groundbreaking": (
+        "착공", "첫삽", "기공식", "groundbreaking", "construction begins", "construction starts",
+    ),
+    "completion": (
+        "준공", "완공", "사용승인", "completion", "completed", "opens",
+    ),
+    "financial_results": (
+        "실적", "영업이익", "매출", "순이익", "분기실적", "earnings", "operating profit", "revenue",
+    ),
+    "financing": (
+        "회사채", "공모채", "유상증자", "자금조달", "pf", "프로젝트파이낸싱",
+        "corporate bond", "financing",
+    ),
+}
 
-    사용자 운영 기준에 따라 프로젝트명이 달리 표현되어도 날짜+건설사 기준으로 묶습니다.
-    """
+_CONSTRUCTION_DEDUP_GENERIC_TOKENS = {
+    "건설", "건설사", "사업", "공사", "프로젝트", "현장", "관련", "대한", "통해", "위해",
+    "추진", "진행", "계획", "예정", "본격", "확대", "강화", "시장", "업계", "기업", "회사",
+    "수주", "수주액", "수주고", "낙찰", "계약", "체결", "시공", "선정", "확보", "공사비",
+    "억원", "조원", "규모", "최대", "국내", "해외", "올해", "지난해", "이번", "관련해",
+    "the", "a", "an", "and", "for", "to", "of", "in", "on", "with", "project", "construction",
+    "contract", "award", "awarded", "wins", "won", "company",
+}
+
+
+def _construction_company_key(article: Article) -> str | None:
     haystack = html.unescape(f"{article.title} {article.description}").lower()
     compact = re.sub(r"\s+", "", haystack)
-
-    has_award = any(
-        term.lower() in haystack or term.lower().replace(" ", "") in compact
-        for term in CONSTRUCTION_AWARD_TERMS
-    )
-    if not has_award:
-        return None
-
-    company = None
     for canonical, aliases in CONSTRUCTION_UNION_COMPANY_ALIASES.items():
-        if any(
-            alias.lower() in haystack or alias.lower().replace(" ", "") in compact
-            for alias in aliases
-        ):
-            company = canonical
-            break
+        for alias in aliases:
+            alias_lower = alias.lower()
+            if alias_lower in haystack or alias_lower.replace(" ", "") in compact:
+                return canonical
+    return None
 
-    if not company:
-        return None
 
-    date_key = article.published.astimezone(KST).strftime("%Y-%m-%d")
-    return date_key, company
+def _construction_action_key(article: Article) -> str | None:
+    haystack = html.unescape(f"{article.title} {article.description[:220]}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+    # 우선협상대상자 선정과 본계약 체결은 반드시 서로 다른 사건으로 봅니다.
+    for action, terms in _CONSTRUCTION_EVENT_ACTIONS.items():
+        if any(term.lower() in haystack or term.lower().replace(" ", "") in compact for term in terms):
+            return action
+    return None
+
+
+def _construction_subject_tokens(article: Article) -> set[str]:
+    """회사명/행위/상투어를 제거하고 프로젝트·지역·발주처·시설명 후보만 남깁니다."""
+    source = article_event_text(article)
+    tokens = meaningful_keywords(source)
+
+    company_words: set[str] = set()
+    for canonical, aliases in CONSTRUCTION_UNION_COMPANY_ALIASES.items():
+        company_words.add(normalized(canonical))
+        company_words.add(re.sub(r"\s+", "", normalized(canonical)))
+        for alias in aliases:
+            company_words.add(normalized(alias))
+            company_words.add(re.sub(r"\s+", "", normalized(alias)))
+
+    action_words = set()
+    for terms in _CONSTRUCTION_EVENT_ACTIONS.values():
+        for term in terms:
+            action_words.add(normalized(term))
+            action_words.update(keyword_set(term))
+
+    result = set()
+    for token in tokens:
+        t = normalized(token)
+        if not t or len(t) < 2:
+            continue
+        if t in _CONSTRUCTION_DEDUP_GENERIC_TOKENS or t in company_words or t in action_words:
+            continue
+        # 숫자 하나만 있는 값, 단순 금액/비율 숫자는 프로젝트 식별 근거로 쓰지 않습니다.
+        if re.fullmatch(r"\d+(?:\.\d+)?", t):
+            continue
+        result.add(t)
+    return result
+
+
+def _same_major_construction_event(a: Article, b: Article) -> bool:
+    """
+    주요 건설사 탭 전용 보수적 동일사건 판정.
+
+    필수 조건:
+      1) 둘 다 주요 건설사 탭
+      2) KST 동일 날짜
+      3) 동일 건설사
+      4) 동일 사건 유형(수주/본계약/우협/착공/준공/실적 등)
+      5) 프로젝트·지역·발주처·시설명 성격의 강한 공통 토큰이 충분히 존재
+
+    애매하면 False로 두어 두 기사 모두 유지합니다.
+    """
+    if a.group != MAJOR_CONSTRUCTION_GROUP or b.group != MAJOR_CONSTRUCTION_GROUP:
+        return False
+
+    if a.published.astimezone(KST).date() != b.published.astimezone(KST).date():
+        return False
+
+    company_a = _construction_company_key(a)
+    company_b = _construction_company_key(b)
+    if not company_a or company_a != company_b:
+        return False
+
+    action_a = _construction_action_key(a)
+    action_b = _construction_action_key(b)
+    if not action_a or action_a != action_b:
+        return False
+
+    subject_a = _construction_subject_tokens(a)
+    subject_b = _construction_subject_tokens(b)
+    shared = subject_a & subject_b
+
+    # 서로 다른 프로젝트를 잘못 합치는 것을 막기 위해 공통 식별어 2개 이상을 기본 요구합니다.
+    # 그중 하나는 4자 이상이거나 숫자가 포함된 고유성이 높은 표현이어야 합니다.
+    strong_shared = {
+        token for token in shared
+        if len(token) >= 4 or any(ch.isdigit() for ch in token)
+    }
+    if len(shared) < 2 or not strong_shared:
+        return False
+
+    title_similarity = SequenceMatcher(
+        None,
+        semantic_normalized(a.title),
+        semantic_normalized(b.title),
+    ).ratio()
+    full_similarity = article_ngram_similarity(a, b)
+
+    # 프로젝트 식별어가 충분히 같더라도 기사 문맥이 어느 정도 함께 읽힐 때만 합칩니다.
+    if title_similarity >= 0.34 or full_similarity >= 0.40:
+        return True
+
+    # 공통 고유 식별어가 3개 이상이면 제목 표현 차이가 커도 같은 사건으로 볼 수 있습니다.
+    if len(strong_shared) >= 2 and len(shared) >= 3:
+        return True
+
+    return False
+
+
+def _deduplicate_major_construction_events(articles: list[Article]) -> tuple[list[Article], int]:
+    """주요 건설사 탭에서 확실한 동일사건만 대표기사 1건으로 축약합니다."""
+    result: list[Article] = []
+    removed = 0
+
+    for article in articles:
+        if article.group != MAJOR_CONSTRUCTION_GROUP:
+            result.append(article)
+            continue
+
+        matched_idx = None
+        for idx, kept in enumerate(result):
+            if kept.group != MAJOR_CONSTRUCTION_GROUP:
+                continue
+            if _same_major_construction_event(article, kept):
+                matched_idx = idx
+                break
+
+        if matched_idx is None:
+            result.append(article)
+            continue
+
+        removed += 1
+        if _article_rep_score(article) > _article_rep_score(result[matched_idx]):
+            result[matched_idx] = article
+
+    return result, removed
+
 
 CONSTRUCTION_UNION_TERMS = (
     "노조",
@@ -6679,27 +6821,12 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             macheon5_unique[macheon5_idx] = article
 
-    # 같은 날짜 + 같은 건설사 + 수주 관련 보도는 대표기사 1건만 유지
-    construction_award_unique: list[Article] = []
-    construction_award_key_to_idx: dict[tuple[str, str], int] = {}
-    construction_award_removed = 0
-
-    for article in macheon5_unique:
-        event_key = _construction_award_event_key(article)
-        if event_key is None:
-            construction_award_unique.append(article)
-            continue
-
-        if event_key not in construction_award_key_to_idx:
-            construction_award_key_to_idx[event_key] = len(construction_award_unique)
-            construction_award_unique.append(article)
-            continue
-
-        construction_award_removed += 1
-        idx = construction_award_key_to_idx[event_key]
-        kept = construction_award_unique[idx]
-        if _article_rep_score(article) > _article_rep_score(kept):
-            construction_award_unique[idx] = article
+    # 주요 건설사 탭: 동일 날짜+동일 회사만으로 묶지 않고,
+    # 사건 유형 + 프로젝트/대상 식별 근거까지 충분히 일치할 때만 대표기사 1건 유지.
+    # 애매한 기사는 삭제하지 않고 모두 남깁니다.
+    construction_award_unique, construction_award_removed = _deduplicate_major_construction_events(
+        macheon5_unique
+    )
 
     # 같은 날짜 + 같은 건설사 + 노조 관련 보도는 대표기사 1건만 유지
     union_unique: list[Article] = []
