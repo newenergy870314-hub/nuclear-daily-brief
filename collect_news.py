@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# ARTICLE NUMBER REMOVED + TEXT WIDTH EXPANDED 2026-08-21
+# CONSERVATIVE IMAGE + CONTENT CONFIRMED DEDUP 2026-08-21
 # MAP / CONTINENT PROJECTION ALIGNMENT FIX 2026-08-21
 # KEPCO KDN THREE-STAGE GROUP LOCK 2026-08-21
 # IMAGE CONTENT FINGERPRINT DEDUP (SHA-256 + dHash) 2026-08-21
@@ -68,7 +70,7 @@ THUMBNAIL_MAX_BYTES = 5_000_000
 # 썸네일 내용 기반 중복 판정 메타데이터
 # URL/로컬 파일명이 달라도 실제 이미지가 같으면 잡기 위한 fingerprint를 저장합니다.
 THUMBNAIL_FINGERPRINT_FILE = THUMBNAIL_DIR / "_fingerprints.json"
-THUMBNAIL_DHASH_MAX_DISTANCE = 4
+THUMBNAIL_DHASH_MAX_DISTANCE = 2
 
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
@@ -5620,9 +5622,6 @@ def render_card(
   data-search="{escape(search_text)}"
   tabindex="0" role="link">
   <div class="preview-copy">
-    <div class="article-order-column">
-      <span class="article-order-inline">{number}.</span>
-    </div>
     <div class="article-content-column">
       <div class="meta-row">
         <div class="publisher">{escape(article.publisher)}</div>
@@ -6319,22 +6318,97 @@ def _hex_hamming_distance(a: str, b: str) -> int | None:
         return None
 
 
+def _thumbnail_event_stage(article: Article) -> str | None:
+    """
+    기사에 명확히 표현된 사건 단계를 반환합니다.
+    서로 다른 단계가 둘 다 확인되면 같은 사진이어도 합치지 않습니다.
+    """
+    haystack = html.unescape(
+        f"{article.title} {(article.description or '')[:260]}"
+    ).lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    for stage, terms in _THUMBNAIL_EVENT_STAGES.items():
+        for term in terms:
+            lowered = term.lower()
+            if lowered in haystack or lowered.replace(" ", "") in compact:
+                return stage
+    return None
+
+
+def _thumbnail_event_tokens(article: Article) -> set[str]:
+    """사진 중복 판정용 핵심 주체·대상·행위 토큰."""
+    return {
+        token
+        for token in event_signature_tokens(article)
+        if token not in _THUMBNAIL_DEDUP_GENERIC_TOKENS
+        and len(token) >= 2
+    }
+
+
+def _same_thumbnail_content_context(a: Article, b: Article, *, exact_image: bool) -> bool:
+    """
+    사진이 같다는 사실만으로는 삭제하지 않고 기사 내용도 같이 확인합니다.
+
+    확실한 중복으로 인정하는 경우:
+    - 제목의 사건 개념(주체/대상/행위)이 동일하다고 기존 로직이 판정하거나
+    - 핵심 토큰이 충분히 겹치고 제목 유사도도 일정 수준 이상인 경우
+
+    exact_image=False(dHash 유사 사진)는 오탐 방지를 위해 더 엄격하게 봅니다.
+    """
+    title_a = a.title or ""
+    title_b = b.title or ""
+
+    # 기존의 보수적인 동일 사건/보도자료 판정 결과를 우선 활용
+    if is_same_event(title_a, title_b) or same_press_release_event(title_a, title_b):
+        return True
+
+    tokens_a = _thumbnail_event_tokens(a)
+    tokens_b = _thumbnail_event_tokens(b)
+    if not tokens_a or not tokens_b:
+        return False
+
+    common = tokens_a & tokens_b
+    containment = len(common) / max(1, min(len(tokens_a), len(tokens_b)))
+    title_similarity = semantic_duplicate_score(title_a, title_b)
+
+    # 파일 자체가 완전히 같은 이미지: 핵심어 3개 이상 + 충분한 내용 겹침
+    if exact_image:
+        if len(common) >= 4:
+            return True
+        if len(common) >= 3 and containment >= 0.50 and title_similarity >= 0.45:
+            return True
+        return False
+
+    # dHash만 가까운 경우는 한 단계 더 엄격하게
+    if len(common) >= 4 and containment >= 0.60 and title_similarity >= 0.52:
+        return True
+
+    return False
+
+
 def _same_thumbnail_same_event(a: Article, b: Article) -> bool:
     """
-    서로 다른 언론사가 실제로 같은 사진을 사용하면 동일 기사로 간주합니다.
+    '확실한 중복기사'만 대표 1건으로 묶습니다.
 
-    1) SHA-256 동일:
-       URL/로컬 파일명이 달라도 다운로드 결과가 완전히 같은 이미지.
+    필수 조건
+    1) 서로 다른 언론사
+    2) 실제 썸네일이 완전히 동일(SHA-256) 또는 매우 유사(dHash <= 2)
+    3) 제목/미리보기의 핵심 주체·대상·행위가 같은 사건
+    4) 둘 다 사건 단계가 명시됐는데 단계가 다르면 절대 병합하지 않음
 
-    2) dHash 거리 <= THUMBNAIL_DHASH_MAX_DISTANCE:
-       같은 사진을 언론사가 리사이즈/재압축한 경우까지 검출.
-
-    제목/본문 유사도는 요구사항에 따라 추가 조건으로 사용하지 않습니다.
+    따라서 같은 회사가 같은 대표사진을 다른 기사에 재사용하는 경우는
+    사진만 같다는 이유로 중복 처리하지 않습니다.
     """
     publisher_a = (a.publisher or "").strip()
     publisher_b = (b.publisher or "").strip()
-
     if not publisher_a or not publisher_b or publisher_a == publisher_b:
+        return False
+
+    # 명확히 다른 사건 단계는 보호: MOU ≠ 본계약 ≠ 착공 ≠ 준공 등
+    stage_a = _thumbnail_event_stage(a)
+    stage_b = _thumbnail_event_stage(b)
+    if stage_a and stage_b and stage_a != stage_b:
         return False
 
     fp_a = _thumbnail_fingerprint(a)
@@ -6344,25 +6418,34 @@ def _same_thumbnail_same_event(a: Article, b: Article) -> bool:
 
     sha_a = str(fp_a.get("sha256") or "")
     sha_b = str(fp_b.get("sha256") or "")
-    if sha_a and sha_b and sha_a == sha_b:
-        return True
+    exact_image = bool(sha_a and sha_b and sha_a == sha_b)
 
-    dhash_a = str(fp_a.get("dhash") or "")
-    dhash_b = str(fp_b.get("dhash") or "")
-    if dhash_a and dhash_b:
-        distance = _hex_hamming_distance(dhash_a, dhash_b)
-        if distance is not None and distance <= THUMBNAIL_DHASH_MAX_DISTANCE:
-            return True
+    near_image = False
+    if not exact_image:
+        dhash_a = str(fp_a.get("dhash") or "")
+        dhash_b = str(fp_b.get("dhash") or "")
+        if dhash_a and dhash_b:
+            distance = _hex_hamming_distance(dhash_a, dhash_b)
+            near_image = (
+                distance is not None
+                and distance <= THUMBNAIL_DHASH_MAX_DISTANCE
+            )
 
-    return False
+    if not (exact_image or near_image):
+        return False
 
+    return _same_thumbnail_content_context(
+        a,
+        b,
+        exact_image=exact_image,
+    )
 
 def _deduplicate_identical_thumbnail_events(
     articles: list[Article],
 ) -> tuple[list[Article], int]:
     """
-    서로 다른 언론사가 동일/거의 동일한 썸네일 사진을 사용하면
-    대표기사 1건만 유지합니다.
+    서로 다른 언론사가 동일/거의 동일한 썸네일을 쓰면서
+    핵심 주체·대상·행위까지 같은 확실한 동일 사건일 때만 대표기사 1건을 유지합니다.
     """
     result: list[Article] = []
     removed = 0
@@ -15852,6 +15935,123 @@ header,
   }}
 }}
 
+
+/* ============================================================
+   2026-08-21 FINAL ARTICLE NUMBER REMOVAL
+   Remove low-value leading index and return the width to article text.
+   ============================================================ */
+.article-order-column,
+.article-order-inline,
+.article-number {{
+  display:none !important;
+}}
+.preview-copy {{
+  grid-template-columns:minmax(0,1fr) !important;
+  column-gap:0 !important;
+}}
+.article-content-column {{
+  grid-column:1 !important;
+  grid-row:1 !important;
+  width:100% !important;
+  min-width:0 !important;
+}}
+
+
+/* ============================================================
+   2026-08-21 FINAL MAP POLISH
+   - restore blue continent highlight
+   - keep country labels close with short connector lines
+   - reduce dot size so pins do not cover the map
+   ============================================================ */
+#country-map-label-layer.country-map-label-layer {{
+  display:block !important;
+  pointer-events:none !important;
+}}
+#continent-highlight-svg-layer {{
+  pointer-events:none !important;
+}}
+#continent-highlight-svg-layer .continent-highlight-land path {{
+  fill:#78c7ec !important;
+  fill-opacity:.52 !important;
+  stroke:#1e8ec8 !important;
+  stroke-width:1.35 !important;
+  stroke-opacity:.86 !important;
+  vector-effect:non-scaling-stroke !important;
+}}
+#continent-highlight-svg-layer .continent-highlight-title {{
+  display:none !important;
+}}
+.precise-country-dot {{
+  position:absolute !important;
+  width:6px !important;
+  height:6px !important;
+  border-radius:50% !important;
+  transform:translate(-50%,-50%) !important;
+  background:#1691cd !important;
+  border:1.5px solid #ffffff !important;
+  box-shadow:0 0 0 1px rgba(22,145,205,.15), 0 1px 4px rgba(58,93,121,.16) !important;
+  z-index:9 !important;
+}}
+.precise-country-dot.active {{
+  background:#d84b4b !important;
+  box-shadow:0 0 0 2px rgba(216,75,75,.14), 0 1px 4px rgba(110,55,55,.16) !important;
+}}
+.precise-country-connector {{
+  position:absolute !important;
+  height:1.5px !important;
+  transform-origin:left center !important;
+  background:rgba(76,119,151,.42) !important;
+  border-radius:999px !important;
+  z-index:8 !important;
+}}
+.precise-country-label {{
+  position:absolute !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:3px !important;
+  min-height:18px !important;
+  padding:2px 5px !important;
+  border:1px solid rgba(143,176,197,.72) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.97) !important;
+  color:#214966 !important;
+  font-size:7.5px !important;
+  font-weight:850 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  box-shadow:0 1px 4px rgba(54,89,114,.08) !important;
+  pointer-events:auto !important;
+  z-index:10 !important;
+}}
+.precise-country-label .flag {{ font-size:8.3px !important; line-height:1 !important; }}
+.precise-country-label .name {{ font-size:7.4px !important; font-weight:900 !important; }}
+.precise-country-label .count {{ color:#1787c2 !important; font-size:7.4px !important; font-weight:950 !important; }}
+.precise-country-label.active {{ background:#fff3bd !important; border-color:#e6c957 !important; }}
+.precise-country-label.active .count {{ color:#d84b4b !important; }}
+@media (max-width:430px) {{
+  .precise-country-dot {{
+    width:5px !important;
+    height:5px !important;
+  }}
+  .precise-country-label {{
+    min-height:17px !important;
+    padding:2px 4px !important;
+    font-size:7.05px !important;
+  }}
+  .precise-country-label .flag {{ font-size:7.8px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:6.95px !important; }}
+}}
+@media (max-width:380px) {{
+  .precise-country-label {{
+    min-height:16px !important;
+    padding:1px 4px !important;
+  }}
+  .precise-country-label .flag {{ font-size:7.5px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:6.75px !important; }}
+}}
+
 </style>
 </head>
 <body>
@@ -19756,6 +19956,208 @@ function ensureMapStateChip(items){{
   }});
 }}
 
+
+/* ============================================================
+   2026-08-21 FINAL MAP HIGHLIGHT + NEAR LABELS OVERRIDE
+   ============================================================ */
+function getContinentNativeRegion(code){{
+  const regions = {{
+    NA:  {{ points:'0,40 330,40 360,150 338,238 262,320 110,320 22,255 0,170', labelX:175, labelY:165 }},
+    SA:  {{ points:'190,205 345,205 372,275 332,500 238,500 170,360', labelX:270, labelY:355 }},
+    EU:  {{ points:'405,55 640,55 682,112 650,205 540,230 430,188 390,120', labelX:535, labelY:140 }},
+    AS:  {{ points:'560,42 1000,42 1000,300 915,345 770,330 640,265 565,175', labelX:805, labelY:165 }},
+    MEA: {{ points:'345,150 730,150 742,262 690,500 460,500 355,390 332,250', labelX:535, labelY:310 }},
+    OC:  {{ points:'700,270 1000,270 1000,500 690,500 655,380', labelX:845, labelY:395 }}
+  }};
+  return regions[code] || null;
+}}
+
+function renderSelectedContinentHighlight(){{
+  const ctx = ensureNativeContinentHighlightLayer();
+  if(!ctx) return;
+  const {{ landGroup, defs, layer }} = ctx;
+  layer.innerHTML='';
+  defs.querySelectorAll('[data-continent-clip="1"]').forEach(node=>node.remove());
+  if(activeContinentFilter==='ALL') return;
+
+  const region = getContinentNativeRegion(activeContinentFilter);
+  if(!region) return;
+
+  const clipId = `continent-native-clip-${{activeContinentFilter}}`;
+  const clip = document.createElementNS('http://www.w3.org/2000/svg','clipPath');
+  clip.id = clipId;
+  clip.setAttribute('data-continent-clip','1');
+  const polygon = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  polygon.setAttribute('points', region.points);
+  clip.appendChild(polygon);
+  defs.appendChild(clip);
+
+  const highlightGroup = document.createElementNS('http://www.w3.org/2000/svg','g');
+  highlightGroup.setAttribute('class','continent-highlight-land');
+  highlightGroup.setAttribute('clip-path', `url(#${{clipId}})`);
+
+  landGroup.querySelectorAll('path').forEach(path=>{{
+    const clone = path.cloneNode(true);
+    clone.removeAttribute('style');
+    highlightGroup.appendChild(clone);
+  }});
+  layer.appendChild(highlightGroup);
+}}
+
+function chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,itemCode){{
+  const offsetMap = {{
+    US:[[18,-6],[22,8],[16,-18]], CA:[[18,-12],[20,4]],
+    BR:[[-20,10],[-22,-8]], AR:[[18,8],[16,-8]], CL:[[18,0],[22,12]], CO:[[16,-6],[18,8]], PE:[[18,6],[18,-8]],
+    GB:[[18,-8],[18,8],[24,-2]], FR:[[18,8],[18,-6]], NL:[[18,-8],[20,6]], BE:[[16,8],[18,-6]], CH:[[18,8],[18,-8]],
+    SE:[[20,-8],[18,6]], FI:[[18,-8],[18,6]], PL:[[18,-8],[18,6]], CZ:[[18,8],[18,-6]], SI:[[18,8],[16,-6]],
+    RO:[[18,8],[18,-6]], BG:[[18,8],[18,-6]], UA:[[20,-8],[18,6]], TR:[[18,8],[18,-8]], DK:[[16,-8],[18,6]], SK:[[16,8],[18,-6]],
+    RU:[[20,-8],[20,8]],
+    AE:[[16,8],[18,-6]], SA:[[18,8],[18,-8]], ZA:[[18,-8],[18,8]],
+    CN:[[-20,8],[-24,-8]], IN:[[20,8],[22,-8]], VN:[[18,6],[18,-8]], TH:[[18,6],[18,-8]], MY:[[18,8],[18,-8]], SG:[[18,8],[18,-8]],
+    KR:[[18,-4],[18,8]], JP:[[20,-8],[20,8]], AU:[[18,-8],[18,8]]
+  }};
+  const angleMap = {{
+    US:[-15,25,-45,45], CA:[-20,15,35], BR:[160,135,-160], AR:[15,-15,35], CL:[0,20],
+    GB:[-10,18,35], FR:[15,-20], NL:[-15,20], BE:[25,-25], CH:[20,-20],
+    SE:[-20,20], FI:[-20,15], PL:[-15,20], CZ:[20,-20], SI:[25,-25], RO:[20,-20], BG:[20,-20], UA:[-15,20], TR:[15,-15], DK:[-20,15], SK:[25,-25], RU:[-15,15],
+    AE:[15,-15], SA:[15,-15], ZA:[-20,20],
+    CN:[165,-165,145], IN:[20,-20,40], VN:[10,-20], TH:[10,-20], MY:[20,-20], SG:[20,-20], KR:[5,20], JP:[-20,20], AU:[-15,15]
+  }};
+  const presetOffsets = offsetMap[itemCode] || [];
+  let best = null;
+
+  for(const [dx,dy] of presetOffsets){{
+    for(const [nx,ny] of [[0,0],[0,-5],[0,5],[-5,0],[5,0]]){{
+      let left = ax + dx - w/2;
+      let top = ay + dy - h/2;
+      left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+      top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+      const box = {{left, top, right:left+w, bottom:top+h, w, h}};
+      const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,3) ? 1 : 0),0);
+      const score = collisions * 100000 + Math.hypot((left+w/2)-ax,(top+h/2)-ay);
+      if(!best || score < best.score) best = {{...box, score, collisions}};
+      if(collisions===0) return box;
+    }}
+  }}
+
+  const angles = angleMap[itemCode] || [0,-20,20,-40,40,180,-140,140];
+  const radii = [10,16,24,32,42,54];
+  for(const r of radii){{
+    for(const deg of angles){{
+      const rad = deg * Math.PI / 180;
+      let left = ax + Math.cos(rad) * r - (Math.cos(rad) < -0.2 ? w : w/2);
+      let top = ay + Math.sin(rad) * r - h/2;
+      left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+      top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+      const box = {{left, top, right:left+w, bottom:top+h, w, h}};
+      const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,3) ? 1 : 0),0);
+      const edgePenalty = (left<=bounds.left+1 || top<=bounds.top+1 || left+w>=bounds.right-1 || top+h>=bounds.bottom-1) ? 8 : 0;
+      const score = collisions * 100000 + Math.hypot((left+w/2)-ax,(top+h/2)-ay) + edgePenalty;
+      if(!best || score < best.score) best = {{...box, score, collisions}};
+      if(collisions===0 && r <= 32) return box;
+    }}
+  }}
+  return best;
+}}
+
+function addExactConnector(layer,ax,ay,box){{
+  const cx = Math.max(box.left, Math.min(ax, box.right));
+  const cy = Math.max(box.top, Math.min(ay, box.bottom));
+  const dx = cx - ax;
+  const dy = cy - ay;
+  const len = Math.hypot(dx, dy);
+  if(len < 4) return;
+  const line = document.createElement('span');
+  line.className = 'precise-country-connector';
+  line.style.left = `${{ax}}px`;
+  line.style.top = `${{ay}}px`;
+  line.style.width = `${{Math.max(0, len - 3)}}px`;
+  line.style.transform = `rotate(${{Math.atan2(dy,dx)*180/Math.PI}}deg)`;
+  layer.appendChild(line);
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svg = document.querySelector('.world-map-inline.globe-texture-source');
+  const layer = document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer) return;
+  layer.innerHTML = '';
+  if(activeContinentFilter === 'ALL') return;
+
+  const countries = items
+    .filter(v => v.continent === activeContinentFilter && v.count > 0)
+    .sort((a,b) => b.count - a.count || a.name.localeCompare(b.name,'ko'));
+  if(!countries.length) return;
+
+  const vp = getExactMapViewport(svg, visual);
+  const dock = document.getElementById('continent-rail');
+  const vr = visual.getBoundingClientRect();
+  const dr = dock?.getBoundingClientRect();
+  const dockTop = dr ? dr.top - vr.top : visual.clientHeight - 42;
+  const bounds = {{
+    left: Math.max(4, vp.left + 2),
+    top: Math.max(10, vp.top + 2),
+    right: Math.min(vp.left + vp.width - 2, visual.clientWidth - 4),
+    bottom: Math.min(dockTop - 4, vp.top + vp.height - 2)
+  }};
+
+  const occupied = [];
+  countries.forEach(item => {{
+    const p = getCountryMapAnchor(item);
+    const ax = vp.left + (p.x/100) * vp.width;
+    const ay = vp.top + (p.y/100) * vp.height;
+
+    const dot = document.createElement('span');
+    dot.className = 'precise-country-dot' + (activeCountryFilter===item.code ? ' active' : '');
+    dot.style.left = `${{ax}}px`;
+    dot.style.top = `${{ay}}px`;
+    layer.appendChild(dot);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'precise-country-label' + (activeCountryFilter===item.code ? ' active' : '');
+    btn.style.visibility = 'hidden';
+    btn.innerHTML = `<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label', `${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+
+    const w = Math.ceil(btn.getBoundingClientRect().width || 64);
+    const h = Math.ceil(btn.getBoundingClientRect().height || 20);
+    const box = chooseCollisionFreeLabelBox(w,h,ax,ay,bounds,occupied,item.code);
+    occupied.push(box);
+    btn.style.left = `${{box.left}}px`;
+    btn.style.top = `${{box.top}}px`;
+    btn.style.visibility = 'visible';
+    btn.addEventListener('click', (event) => {{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    }});
+
+    addExactConnector(layer,ax,ay,box);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items = collect2DCountryItems();
+  if(!items.length) return;
+  if(!activeContinentFilter) activeContinentFilter = 'ALL';
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking = document.getElementById('continent-country-ranking');
+  if(ranking){{ ranking.hidden = true; ranking.innerHTML = ''; }}
+  const caption = document.querySelector('.country-map-caption');
+  if(caption) caption.style.display = 'none';
+  const note = document.getElementById('country-filter-note');
+  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
+}}
+
+requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
+window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
 </script>
 </body>
 </html>
@@ -19885,7 +20287,7 @@ def main() -> int:
     global _THUMBNAIL_FP_RUNTIME_CACHE
     _THUMBNAIL_FP_RUNTIME_CACHE = None
 
-    # 서로 다른 언론사가 동일/거의 동일한 실제 썸네일 사진을 쓰면 대표 기사 1건으로 축약합니다.
+    # 서로 다른 언론사 + 동일/유사 사진 + 동일 사건이 모두 확인될 때만 대표 기사 1건으로 축약합니다.
     thumbnail_dedup_removed_total = 0
     for label in ("전일", "금일", "익일"):
         deduped_items, removed_count = _deduplicate_identical_thumbnail_events(
