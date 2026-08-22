@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# GLOBAL EXCLUSION: 전국노래자랑 2026-08-22
+# PALISADES GOLDCORP GLOBAL NON-NUCLEAR EXCLUSION 2026-08-22
 # KR/JP ACTUAL MAP NEARBY COORDINATE FIX 2026-08-22
 # KR/JP LABELS MOVED ONTO BLUE HIGHLIGHT REGION 2026-08-22
 # COUNTRY LABELS NEAR OWN MAP + GENERIC NO OVERLAP 2026-08-22
@@ -3475,6 +3477,12 @@ BLOCKED_CAMPAIGN_SLOGAN_TERMS = {
 }
 
 
+def is_excluded_national_singing_contest_article(title: str, summary: str = "") -> bool:
+    """'전국노래자랑'이 포함된 기사는 수집 목적과 무관하므로 전역 제외합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    return "전국노래자랑" in haystack
+
+
 def is_blocked_campaign_slogan(title: str, summary: str = "") -> bool:
     """
     캠페인·구호성 문구가 '기사 제목 자체'에 들어간 경우만 제외합니다.
@@ -3557,6 +3565,40 @@ HOLTEC_TERMS = {
     "holtec", "holtec international", "홀텍", "smr-300", "smr 300",
     "oyster creek smr",
 }
+
+
+def is_palisades_goldcorp_non_nuclear_article(title: str, summary: str = "") -> bool:
+    """Palisades Goldcorp 광산회사 관련 기사는 원전/SMR 기사에서 전역 제외합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    if "palisades" not in haystack:
+        return False
+
+    goldcorp_terms = (
+        "palisades goldcorp",
+        "goldcorp",
+        "gold corp",
+        "gold mining",
+        "mining company",
+        "mineral",
+        "exploration company",
+    )
+    corporate_terms = (
+        "board of directors",
+        "annual general meeting",
+        "shareholder",
+        "election of",
+        "director",
+    )
+
+    # 회사명이 명확하면 즉시 제외. 회사명이 축약되어도 광산/이사회 문맥이면 제외.
+    return (
+        "palisades goldcorp" in haystack
+        or (
+            any(term in haystack for term in goldcorp_terms)
+            and any(term in haystack for term in corporate_terms)
+        )
+    )
 
 
 def is_pacific_palisades_non_nuclear_article(title: str, summary: str = "") -> bool:
@@ -3955,6 +3997,14 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if is_blocked_campaign_slogan(title, summary):
         return None
 
+    if is_excluded_national_singing_contest_article(title, summary):
+        return None
+
+    # Palisades Goldcorp는 광산회사로 Holtec/Palisades 원전과 무관하므로
+    # 어떤 검색경로·분류그룹으로 들어와도 전역에서 제외합니다.
+    if is_palisades_goldcorp_non_nuclear_article(title, summary):
+        return None
+
     priority_group = classify_priority_company_group(group, title, summary)
     classified_group = classify_construction_group(priority_group, title, summary)
     if classified_group is None:
@@ -4044,6 +4094,8 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     if is_westinghouse_air_brake_article(title, summary):
         return None
     if is_blocked_campaign_slogan(title, summary):
+        return None
+    if is_excluded_national_singing_contest_article(title, summary):
         return None
     if is_excluded_military_nuclear_article(title, summary):
         return None
@@ -8248,6 +8300,8 @@ def update_archive(
         merged_by_url: dict[str, Article] = {}
 
         for article in existing_items + current_items:
+            if is_excluded_national_singing_contest_article(article.title, article.description):
+                continue
             enforce_kepco_kdn_group(article)
             normalized_link = article.link.strip() if article.link else ""
             identity = normalized_link or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
@@ -23065,6 +23119,7 @@ def main() -> int:
             if (
                 article is not None
                 and not is_excluded_source(article.publisher, article.link)
+                and not is_excluded_national_singing_contest_article(article.title, article.description)
                 and start <= article.published < end
             ):
                 merged_items.append(article)
