@@ -1,4 +1,6 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# KEPCO AFFILIATE PRESS EVENT GROUPING 2026-08-23
+# KEPCO LOW-VALUE LOCAL INCIDENT RELEVANCE FILTER 2026-08-23
 # GLOBAL EXCLUSION: 전국노래자랑 2026-08-22
 # PALISADES GOLDCORP GLOBAL NON-NUCLEAR EXCLUSION 2026-08-22
 # KR/JP ACTUAL MAP NEARBY COORDINATE FIX 2026-08-22
@@ -3871,6 +3873,76 @@ def _mentions_kozloduy_project(title: str, summary: str = "") -> bool:
     return False
 
 
+
+KEPCO_LOW_VALUE_LOCAL_INCIDENT_TERMS = (
+    "낙뢰", "벼락", "정전", "停電", "복구작업", "복구 작업",
+    "전력 복구", "전기 복구", "침수", "폭우", "호우", "태풍",
+    "강풍", "폭설", "산불", "화재", "감전", "전봇대", "전신주",
+    "교통사고", "차량 충돌", "전선 끊", "전선 단선",
+    "lightning", "local outage", "power outage", "blackout",
+    "storm damage", "power restoration",
+)
+
+KEPCO_STRATEGIC_COMPANY_TERMS = (
+    # 회사 자체의 주요 경영·사업 동향
+    "한국전력", "한국전력공사", "한전", "kepco",
+    "사장", "대표", "이사회", "임원", "인사", "조직개편",
+    "실적", "영업이익", "적자", "흑자", "재무", "부채", "요금",
+    "전기요금", "전력망", "송전망", "배전망", "송전선로",
+    "변전소", "hvdc", "해저케이블", "전력구", "전력설비",
+    "투자", "수주", "계약", "협약", "mou", "협력", "사업",
+    "프로젝트", "착공", "준공", "건설", "기술개발", "연구개발",
+    "수출", "해외", "신사업", "재생에너지", "원전", "원자력",
+    "smr", "전력시장", "전력수급", "전력계통", "계통운영",
+    "전력산업", "에너지정책",
+)
+
+def is_low_value_kepco_local_incident(title: str, summary: str = "") -> bool:
+    """
+    한국전력 이름이 본문에 우연히 언급된 지역 정전·낙뢰·사고 기사를
+    '한국전력 동향'으로 오인하지 않도록 제외합니다.
+
+    핵심 원칙:
+    - 지역 날씨/사고/정전 자체가 기사 중심이면 제외
+    - 한국전력의 경영·사업·전력망 투자/운영·원전 등 회사 동향이 중심이면 유지
+    """
+    title_text = html.unescape(title or "").lower()
+    full_text = html.unescape(f"{title} {summary}").lower()
+
+    incident_in_title = any(term in title_text for term in KEPCO_LOW_VALUE_LOCAL_INCIDENT_TERMS)
+    if not incident_in_title:
+        return False
+
+    # 제목 자체가 한국전력/한전의 주도적 사업·경영 이슈를 명시하면 유지 가능
+    title_has_kepco = any(
+        term in title_text
+        for term in ("한국전력", "한국전력공사", "한전", "kepco")
+    )
+
+    substantive_terms = tuple(
+        term for term in KEPCO_STRATEGIC_COMPANY_TERMS
+        if term not in ("한국전력", "한국전력공사", "한전", "kepco")
+    )
+    title_has_substantive_company_context = any(term in title_text for term in substantive_terms)
+
+    # '낙뢰로 ○○시 정전…복구작업 중'처럼 제목이 지역 사건이고
+    # 한전은 본문에서 복구 주체 정도로만 등장하는 경우를 제거.
+    if not title_has_kepco and not title_has_substantive_company_context:
+        return True
+
+    # 한전이 제목에 있더라도 단순 지역 정전/복구 기사이며
+    # 회사의 주요 사업·경영 맥락이 전혀 없으면 제외.
+    if title_has_kepco and not title_has_substantive_company_context:
+        low_value_action_terms = (
+            "복구", "현장 출동", "긴급 복구", "전력 공급 재개",
+            "정전 발생", "낙뢰 피해", "피해 복구",
+        )
+        if any(term in full_text for term in low_value_action_terms):
+            return True
+
+    return False
+
+
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
     회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
@@ -4019,6 +4091,11 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if classified_group == "Holtec" and not is_valid_holtec_article(title, summary):
         return None
 
+    # 지역 낙뢰·정전·사고 자체가 중심이고 한전은 복구 주체로만 언급된 기사는
+    # 한국전력 주요 동향 탭에서 제외합니다.
+    if classified_group == "한국전력" and is_low_value_kepco_local_incident(title, summary):
+        return None
+
     if classified_group == "현대건설" and is_hyundai_volleyball_article(title, summary):
         return None
 
@@ -4108,6 +4185,8 @@ def classify_direct_article(title: str, summary: str) -> str | None:
 
     priority_group = classify_priority_company_group("원자력", title, summary)
     if priority_group != "원자력":
+        if priority_group == "한국전력" and is_low_value_kepco_local_incident(title, summary):
+            return None
         return priority_group
 
     has_hangul = bool(re.search(r"[가-힣]", f"{title} {summary}"))
@@ -5799,6 +5878,66 @@ def _related_coverage_html(article: Article) -> str:
     )
 
 
+
+def _kepco_affiliate_press_event_key(article: Article) -> str | None:
+    """
+    한전 계열사 보도자료성 기사에서 제목 표현이 달라도 동일 행사를 묶기 위한 키.
+
+    현재 반복 노출이 확인된 한전KDN 사례:
+    - 기후위기/여름나기 취약계층 물품 지원
+    - 전남개발공사와 스마트 주거서비스·에너지 플랫폼 아이디어 공유
+    """
+    if (article.group or "") != "한전 계열사":
+        return None
+
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+
+    # 한전KDN 기사에만 적용하여 다른 계열사끼리 과도하게 묶이지 않게 함.
+    if not any(token in hay for token in ("한전kdn", "kepcokdn", "kepco kdn")):
+        return None
+
+    support_subject = any(
+        token in hay
+        for token in (
+            "취약계층", "기후위기취약계층", "기후위기 취약계층",
+            "에너지취약계층", "에너지 취약계층",
+        )
+    )
+    support_action = any(
+        token in hay
+        for token in (
+            "여름나기", "물품지원", "물품 지원", "지원물품",
+            "지원 물품", "물품전달", "물품 전달", "사회공헌",
+        )
+    )
+    if support_subject and support_action:
+        return "한전KDN|취약계층|여름나기물품지원"
+
+    housing_partner = any(
+        token in hay
+        for token in ("전남개발공사", "전남 개발공사")
+    )
+    housing_subject = any(
+        token in hay
+        for token in (
+            "스마트주거", "스마트 주거", "주거서비스", "주거 서비스",
+            "공공임대주택", "공공 임대주택", "임대주택",
+            "에너지플랫폼", "에너지 플랫폼",
+        )
+    )
+    housing_action = any(
+        token in hay
+        for token in (
+            "아이디어공유", "아이디어 공유", "공유회",
+            "구축방안", "구축 방안", "방안모색", "방안 모색",
+        )
+    )
+    if housing_partner and housing_subject and housing_action:
+        return "한전KDN|전남개발공사|스마트주거에너지플랫폼"
+
+    return None
+
+
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
@@ -5844,6 +5983,14 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     hay_a = normalized(f"{a.title or ''} {a.description or ''}")
     hay_b = normalized(f"{b.title or ''} {b.description or ''}")
+
+    # 한전 계열사 보도자료는 동일 행사라도 제목이
+    # '물품 지원/건강한 여름나기', '아이디어 공유/에너지 플랫폼 구축'처럼
+    # 크게 달라질 수 있으므로 사건 구조 키를 먼저 비교합니다.
+    affiliate_event_a = _kepco_affiliate_press_event_key(a)
+    affiliate_event_b = _kepco_affiliate_press_event_key(b)
+    if affiliate_event_a and affiliate_event_a == affiliate_event_b:
+        return True
 
     # 실제 동일/유사 이미지 + 동일 내용은 가장 강한 신호
     if _same_thumbnail_same_event(a, b):
@@ -8301,6 +8448,8 @@ def update_archive(
 
         for article in existing_items + current_items:
             if is_excluded_national_singing_contest_article(article.title, article.description):
+                continue
+            if article.group == "한국전력" and is_low_value_kepco_local_incident(article.title, article.description):
                 continue
             enforce_kepco_kdn_group(article)
             normalized_link = article.link.strip() if article.link else ""
@@ -23120,6 +23269,7 @@ def main() -> int:
                 article is not None
                 and not is_excluded_source(article.publisher, article.link)
                 and not is_excluded_national_singing_contest_article(article.title, article.description)
+                and not (article.group == "한국전력" and is_low_value_kepco_local_incident(article.title, article.description))
                 and start <= article.published < end
             ):
                 merged_items.append(article)
