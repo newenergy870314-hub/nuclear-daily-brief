@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# FOREIGN TAB LABELS RENAMED + MOVED BELOW KEPCO AFFILIATES 2026-08-24
 # CHOI TAE-WON / PRESIDENT MEETING EVENT GROUPING V2 2026-08-24
 # VIETNAM.VN NATIVE VIETNAMESE NUCLEAR COVERAGE 2026-08-24
 # ADDED ENERGY INTELLIGENCE SOURCE 2026-08-24
@@ -129,11 +130,11 @@ THUMBNAIL_DHASH_MAX_DISTANCE = 6
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
     "타 건설사",
-    "해외 원전 건설사",
-    "해외 원전 엔지니어링사",
     "한국수력원자력",
     "한국전력",
     "한전 계열사",
+    "해외 건설사",
+    "해외 설계사",
     "원전 관계부처",
     "원전 대미투자",
     "원자력",
@@ -185,24 +186,6 @@ GROUPS = [
         '"한화 건설부문"', '"Hanwha construction"',
         '"두산에너빌리티" 건설', '"Doosan Enerbility" construction',
     ]),
-    ("해외 원전 건설사", [
-        # 해외 EPC/Construction 회사는 일반 인프라 기사가 아니라 원전 문맥이 있는 기사만 수집
-        '"Bechtel" nuclear', '"Bechtel" nuclear power plant', '"Bechtel" reactor',
-        '"Fluor Corporation" nuclear', '"Fluor" nuclear power plant',
-        '"Kiewit" nuclear', '"Kiewit" nuclear power plant', '"Kiewit" reactor',
-        '"Bouygues" nuclear', '"Bouygues Construction" nuclear',
-        '"VINCI" nuclear', '"VINCI Construction" nuclear',
-        '"Aecon" nuclear', '"Aecon" nuclear power',
-    ]),
-    ("해외 원전 엔지니어링사", [
-        # 원전 설계·엔지니어링·PMC/기술서비스 회사
-        '"AtkinsRéalis" nuclear', '"AtkinsRealis" nuclear', '"SNC-Lavalin" nuclear',
-        '"Jacobs" nuclear', '"Jacobs" nuclear power',
-        '"Sargent & Lundy" nuclear', '"Sargent and Lundy" nuclear',
-        '"Worley" nuclear', '"Worley" nuclear power',
-        '"Tractebel" nuclear', '"Tractebel" nuclear power',
-        '"Black & Veatch" nuclear', '"Black and Veatch" nuclear',
-    ]),
     ("한국수력원자력", [
         "한수원 원전", "한국수력원자력", "KHNP nuclear",
         "KHNP reactor", "KHNP nuclear project",
@@ -230,6 +213,24 @@ GROUPS = [
         '"한전KDN"', '"KEPCO KDN"', '"KEPCO-KDN"',
         # 한전원자력연료
         '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
+    ]),
+    ("해외 건설사", [
+        # 해외 EPC/Construction 회사는 일반 인프라 기사가 아니라 원전 문맥이 있는 기사만 수집
+        '"Bechtel" nuclear', '"Bechtel" nuclear power plant', '"Bechtel" reactor',
+        '"Fluor Corporation" nuclear', '"Fluor" nuclear power plant',
+        '"Kiewit" nuclear', '"Kiewit" nuclear power plant', '"Kiewit" reactor',
+        '"Bouygues" nuclear', '"Bouygues Construction" nuclear',
+        '"VINCI" nuclear', '"VINCI Construction" nuclear',
+        '"Aecon" nuclear', '"Aecon" nuclear power',
+    ]),
+    ("해외 설계사", [
+        # 원전 설계·엔지니어링·PMC/기술서비스 회사
+        '"AtkinsRéalis" nuclear', '"AtkinsRealis" nuclear', '"SNC-Lavalin" nuclear',
+        '"Jacobs" nuclear', '"Jacobs" nuclear power',
+        '"Sargent & Lundy" nuclear', '"Sargent and Lundy" nuclear',
+        '"Worley" nuclear', '"Worley" nuclear power',
+        '"Tractebel" nuclear', '"Tractebel" nuclear power',
+        '"Black & Veatch" nuclear', '"Black and Veatch" nuclear',
     ]),
     ("국내 원자력 협회·학회", [
         # 국내 원자력 관련 협회·학회
@@ -424,11 +425,11 @@ GROUPS = [
 GROUP_TAB_LABELS = {
     "현대건설": "현대건설",
     "타 건설사": "주요 건설사",
-    "해외 원전 건설사": "해외 원전 건설사",
-    "해외 원전 엔지니어링사": "해외 원전 엔지니어링사",
     "한국수력원자력": "한수원",
     "한국전력": "한전",
     "한전 계열사": "한전 계열사",
+    "해외 건설사": "해외 건설사",
+    "해외 설계사": "해외 설계사",
     "원전 관계부처": "원전 관계부처(산업통상부·기후부·과기부)",
     "원전 대미투자": "대미투자",
     "원자력": "원자력",
@@ -1481,12 +1482,12 @@ DIRECT_GROUP_KEYWORDS = {
         "hdc현대산업개발", "hanwha construction", "한화 건설부문",
         "두산에너빌리티", "doosan enerbility",
     ],
-    "해외 원전 건설사": [
+    "해외 건설사": [
         "bechtel", "fluor corporation", "kiewit",
         "bouygues", "bouygues construction",
         "vinci construction", "aecon",
     ],
-    "해외 원전 엔지니어링사": [
+    "해외 설계사": [
         "atkinsréalis", "atkinsrealis", "snc-lavalin",
         "jacobs", "sargent & lundy", "sargent and lundy",
         "worley", "tractebel", "black & veatch", "black and veatch",
@@ -1650,8 +1651,8 @@ DIRECT_GROUP_PRIORITY = [
     "해외 원자력 협회·학회",
     "국제 원자력·에너지기구",
     "불가리아 코즐로두이 원전",
-    "해외 원전 건설사",
-    "해외 원전 엔지니어링사",
+    "해외 건설사",
+    "해외 설계사",
     "타 건설사",
     "한국수력원자력",
     "한국전력",
@@ -4257,10 +4258,10 @@ def _foreign_nuclear_company_group(title: str, summary: str = "") -> str | None:
         return None
 
     if _matches_any_company_pattern(haystack, FOREIGN_NUCLEAR_CONTRACTOR_PATTERNS):
-        return "해외 원전 건설사"
+        return "해외 건설사"
 
     if _matches_any_company_pattern(haystack, FOREIGN_NUCLEAR_ENGINEERING_PATTERNS):
-        return "해외 원전 엔지니어링사"
+        return "해외 설계사"
 
     return None
 
@@ -4426,7 +4427,7 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if classified_group == "Holtec" and not is_valid_holtec_article(title, summary):
         return None
 
-    if classified_group in {"해외 원전 건설사", "해외 원전 엔지니어링사"}:
+    if classified_group in {"해외 건설사", "해외 설계사"}:
         if not is_civil_nuclear_relevant(title, summary):
             return None
 
