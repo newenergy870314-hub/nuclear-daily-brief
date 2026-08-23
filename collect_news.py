@@ -1,4 +1,17 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# CHOI TAE-WON / PRESIDENT MEETING EVENT GROUPING V2 2026-08-24
+# VIETNAM.VN NATIVE VIETNAMESE NUCLEAR COVERAGE 2026-08-24
+# ADDED ENERGY INTELLIGENCE SOURCE 2026-08-24
+# ADDED ANI + THE NEWS MILL + CHEMICAL INDUSTRY DIGEST SOURCES 2026-08-24
+# OECD/NEA ADDED TO INTERNATIONAL NUCLEAR ENERGY ORGANIZATION TAB 2026-08-24
+# IAEA + IEA MERGED INTO INTERNATIONAL NUCLEAR ENERGY ORGANIZATION TAB 2026-08-24
+# FOREIGN NUCLEAR CONTRACTOR + ENGINEERING TABS 2026-08-24
+# EXCLUDE FAST COMPANY CHINA RENEWABLE GRID ARTICLE 2026-08-24
+# IAEA TAB LABEL RENAMED TO 국제원자력기구(IAEA) 2026-08-24
+# IAEA DEDICATED TAB BELOW NUCLEAR ASSOCIATION TABS 2026-08-24
+# PALISADES GOLDCORP ARCHIVE + DISPLAY HARD FILTER 2026-08-24
+# DOMESTIC / OVERSEAS NUCLEAR ASSOCIATION TABS SPLIT 2026-08-24
+# NUCLEAR ASSOCIATIONS / SOCIETIES EXPANDED 2026-08-24
 # KEPCO AFFILIATE EVENT GROUPING V2: CROSS-DAY + WORDING VARIANTS 2026-08-23
 # KEPCO AFFILIATE PRESS EVENT GROUPING 2026-08-23
 # KEPCO LOW-VALUE LOCAL INCIDENT RELEVANCE FILTER 2026-08-23
@@ -116,6 +129,8 @@ THUMBNAIL_DHASH_MAX_DISTANCE = 6
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
     "타 건설사",
+    "해외 원전 건설사",
+    "해외 원전 엔지니어링사",
     "한국수력원자력",
     "한국전력",
     "한전 계열사",
@@ -128,7 +143,9 @@ ALWAYS_SHOW_GROUPS = {
     "TerraPower",
     "Westinghouse",
     "Fermi America",
-    "원자력 협회·학회",
+    "국내 원자력 협회·학회",
+    "해외 원자력 협회·학회",
+    "국제 원자력·에너지기구",
     "불가리아 코즐로두이 원전",
 }
 
@@ -168,6 +185,24 @@ GROUPS = [
         '"한화 건설부문"', '"Hanwha construction"',
         '"두산에너빌리티" 건설', '"Doosan Enerbility" construction',
     ]),
+    ("해외 원전 건설사", [
+        # 해외 EPC/Construction 회사는 일반 인프라 기사가 아니라 원전 문맥이 있는 기사만 수집
+        '"Bechtel" nuclear', '"Bechtel" nuclear power plant', '"Bechtel" reactor',
+        '"Fluor Corporation" nuclear', '"Fluor" nuclear power plant',
+        '"Kiewit" nuclear', '"Kiewit" nuclear power plant', '"Kiewit" reactor',
+        '"Bouygues" nuclear', '"Bouygues Construction" nuclear',
+        '"VINCI" nuclear', '"VINCI Construction" nuclear',
+        '"Aecon" nuclear', '"Aecon" nuclear power',
+    ]),
+    ("해외 원전 엔지니어링사", [
+        # 원전 설계·엔지니어링·PMC/기술서비스 회사
+        '"AtkinsRéalis" nuclear', '"AtkinsRealis" nuclear', '"SNC-Lavalin" nuclear',
+        '"Jacobs" nuclear', '"Jacobs" nuclear power',
+        '"Sargent & Lundy" nuclear', '"Sargent and Lundy" nuclear',
+        '"Worley" nuclear', '"Worley" nuclear power',
+        '"Tractebel" nuclear', '"Tractebel" nuclear power',
+        '"Black & Veatch" nuclear', '"Black and Veatch" nuclear',
+    ]),
     ("한국수력원자력", [
         "한수원 원전", "한국수력원자력", "KHNP nuclear",
         "KHNP reactor", "KHNP nuclear project",
@@ -196,14 +231,76 @@ GROUPS = [
         # 한전원자력연료
         '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
     ]),
-    ("원자력 협회·학회", [
-        # 국내외 원자력 관련 협회·학회
+    ("국내 원자력 협회·학회", [
+        # 국내 원자력 관련 협회·학회
         '"한국원자력산업협회"', '"KAIF" 원자력',
         '"한국원전수출산업협회"', '"Korea Nuclear Association"',
         '"한국원자력학회"', '"Korean Nuclear Society"',
         '"한국방사성폐기물학회"', '"Korean Radioactive Waste Society"',
         '"대한방사선방어학회"', '"Korean Association for Radiation Protection"',
-        '"세계원자력협회"', '"World Nuclear Association"',
+        '"한국방사선진흥협회"', '"KARA" 방사선',
+        '"한국방사선산업학회"', '"Korean Society of Radiation Industry"',
+        '"한국여성원자력전문인협회"', '"WiN Korea"', '"Women in Nuclear Korea"',
+    ]),
+    ("해외 원자력 협회·학회", [
+        # 미국 및 주요 해외 원자력 산업협회·학회
+        '"American Nuclear Society"', '"ANS" nuclear',
+        '"Nuclear Energy Institute"', '"NEI" nuclear',
+        '"U.S. Nuclear Industry Council"', '"US Nuclear Industry Council"', '"USNIC"',
+        '"U.S. Women in Nuclear"', '"US Women in Nuclear"', '"U.S. WIN" nuclear',
+        '"North American Young Generation in Nuclear"', '"NAYGN"',
+        '"World Nuclear Association"', '"세계원자력협회"',
+        '"European Nuclear Society"', '"ENS" nuclear',
+        '"Canadian Nuclear Association"', '"CNA" nuclear',
+        '"Canadian Nuclear Society"', '"CNS" nuclear',
+        '"Nuclear Institute" UK nuclear',
+    ]),
+    ("국제 원자력·에너지기구", [
+        # 국제원자력기구(IAEA)
+        '"International Atomic Energy Agency"',
+        '"IAEA" nuclear',
+        '"IAEA" nuclear power plant',
+        '"IAEA" reactor',
+        '"IAEA" nuclear safety',
+        '"IAEA" safeguards',
+        '"IAEA" inspection',
+        '"IAEA" mission',
+        '"IAEA" OSART',
+        '"국제원자력기구"',
+        '"IAEA" 원전',
+        '"IAEA" 원자력',
+        '"IAEA" 시찰',
+        '"IAEA" 사찰',
+        '"IAEA" 안전점검',
+
+        # 국제에너지기구(IEA)
+        '"International Energy Agency" nuclear',
+        '"International Energy Agency" energy',
+        '"IEA" nuclear',
+        '"IEA" nuclear power',
+        '"IEA" electricity',
+        '"IEA" energy outlook',
+        '"IEA" energy policy',
+        '"국제에너지기구" 원전',
+        '"국제에너지기구" 원자력',
+        '"국제에너지기구" 에너지',
+        '"IEA" 원전',
+        '"IEA" 원자력',
+        '"IEA" 전력',
+
+        # OECD Nuclear Energy Agency (NEA)
+        '"Nuclear Energy Agency" nuclear',
+        '"OECD Nuclear Energy Agency"',
+        '"OECD/NEA" nuclear',
+        '"NEA" nuclear energy',
+        '"NEA" nuclear power',
+        '"NEA" reactor',
+        '"NEA" nuclear safety',
+        '"NEA" radioactive waste',
+        '"경제협력개발기구 원자력기구"',
+        '"OECD 원자력기구"',
+        '"NEA" 원전',
+        '"NEA" 원자력',
     ]),
     ("원전 관계부처", [
         # 산업통상부·기후에너지환경부·과학기술정보통신부의
@@ -327,6 +424,8 @@ GROUPS = [
 GROUP_TAB_LABELS = {
     "현대건설": "현대건설",
     "타 건설사": "주요 건설사",
+    "해외 원전 건설사": "해외 원전 건설사",
+    "해외 원전 엔지니어링사": "해외 원전 엔지니어링사",
     "한국수력원자력": "한수원",
     "한국전력": "한전",
     "한전 계열사": "한전 계열사",
@@ -339,7 +438,9 @@ GROUP_TAB_LABELS = {
     "TerraPower": "Terra",
     "Westinghouse": "WEC",
     "Fermi America": "Fermi America",
-    "원자력 협회·학회": "원자력 협회·학회",
+    "국내 원자력 협회·학회": "국내 원자력 협회·학회",
+    "해외 원자력 협회·학회": "해외 원자력 협회·학회",
+    "국제 원자력·에너지기구": "국제 원자력·에너지기구",
     "불가리아 코즐로두이 원전": "코즐로두이 원전",
 }
 
@@ -432,11 +533,13 @@ SOURCE_MASTER_REQUIRED_CORE = {
     "대한경제", "한국건설신문", "건설타임즈",
     "Reuters", "Associated Press", "Agence France-Presse", "BBC", "CNN", "CNBC",
     "Bloomberg", "Financial Times", "The Wall Street Journal", "The New York Times",
+    "Energy Intelligence",
     "The Washington Post", "The Guardian", "World Nuclear News", "NucNet",
     "Nuclear Engineering International", "Power Engineering", "POWER Magazine",
     "Bulgarian News Agency", "The Sofia Globe", "Yle News", "Helsinki Times",
     "Romania Insider", "AGERPRES English", "The Japan Times", "NHK WORLD-JAPAN",
     "Business Standard India", "The Hindu", "The Economic Times",
+    "ANI", "The News Mill", "Chemical Industry Digest",
     "Vietnam News", "VietnamPlus", "VietnamNet Global", "VnExpress International",
     "Arab News", "Saudi Gazette", "The National", "Gulf News", "Khaleej Times",
     "The Korea Herald", "The Korea Times", "Korea JoongAng Daily",
@@ -459,6 +562,9 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'El País',
     'National Post',
     'The Statesman',
+    'ANI',
+    'The News Mill',
+    'Chemical Industry Digest',
     'China Daily',
     'Global Times',
     'South China Morning Post',
@@ -539,6 +645,7 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'The Business Journals',
     'Legis1',
     'ETF Trends',
+    'Energy Intelligence',
     'Energy News Beat',
     'Pagosa Daily Post',
     'The Salt Lake Tribune',
@@ -826,6 +933,8 @@ DIRECT_NEWS_PAGES = [
     ("Nuclear Energy Institute", "https://www.nei.org/news", "en"),
     ("World Nuclear Association", "https://world-nuclear.org/news", "en"),
     ("IAEA News", "https://www.iaea.org/newscenter/news", "en"),
+    ("International Energy Agency", "https://www.iea.org/news", "en"),
+    ("OECD Nuclear Energy Agency", "https://www.oecd-nea.org/jcms/pl_15000/news", "en"),
     ("Power Engineering International", "https://www.powerengineeringint.com/", "en"),
     ("Energy Intelligence", "https://www.energyintel.com/", "en"),
     ("E&E News", "https://www.eenews.net/", "en"),
@@ -900,6 +1009,15 @@ DIRECT_NEWS_PAGES = [
     ("The Times of India", "https://timesofindia.indiatimes.com/business", "en"),
     ("The Economic Times", "https://economictimes.indiatimes.com/industry/energy", "en"),
     ("Business Standard India", "https://www.business-standard.com/industry/news", "en"),
+
+    # 사용자 확인 추가 매체: 인도/산업 뉴스
+    # The News Mill: 인도 및 Northeast India 뉴스, ANI 전재 기사 다수 포함
+    ("The News Mill", "https://thenewsmill.com/latest/", "en"),
+    # Chemical Industry Digest: 인도 화학·에너지·산업 전문매체
+    ("Chemical Industry Digest", "https://chemindigest.com/category/chemical_industry_digest/", "en"),
+    # ANI: 인도 주요 통신사. 사이트 접근 실패 시 해당 소스만 건너뛰고 전체 수집은 계속됨.
+    ("ANI", "https://aninews.in/", "en"),
+
     ("NDTV", "https://www.ndtv.com/business", "en"),
     ("Hindustan Times", "https://www.hindustantimes.com/business", "en"),
     ("VnExpress International", "https://e.vnexpress.net/nuclear-power/tag-760379.html", "en"),
@@ -1107,6 +1225,8 @@ DIRECT_NEWS_PAGES = [
     ('EESC', 'https://www.eesc.europa.eu/en', 'en'),
     ('www1.ru', 'https://www1.ru/', 'en'),
     ('Vietnam.vn', 'https://www.vietnam.vn/en', 'en'),
+    # 베트남어 원문 기사도 별도 탐색: 영문판에 노출되지 않는 Ninh Thuận 기사 보완
+    ('Vietnam.vn', 'https://www.vietnam.vn/', 'en'),
     ('NSP통신', 'https://www.nspna.com/', 'ko'),
     ('KNS뉴스통신', 'https://www.kns.tv/', 'ko'),
     ('시사월드', 'https://www.sisaworld.kr/', 'ko'),
@@ -1224,6 +1344,10 @@ PRIORITY_NUCLEAR_MARKET_TERMS = {
     # 베트남
     "vietnam", "vietnamese nuclear", "베트남 원전",
     "ninh thuan", "ninh thuận", "ninh-thuan",
+    "ninh thuận 1", "ninh thuận 2", "ninh thuan 1", "ninh thuan 2",
+    "dự án điện hạt nhân ninh thuận",
+    "nhà máy điện hạt nhân ninh thuận",
+    "điện hạt nhân ninh thuận",
     "닌투언", "닌투안", "evn", "vinatom", "vaea", "varans",
 
     # UAE
@@ -1272,6 +1396,10 @@ ENGLISH_NUCLEAR_CANDIDATE_TERMS = {
     "romania", "romanian nuclear", "cernavoda", "nuclearelectrica",
     "india", "indian nuclear", "kudankulam", "jaitapur", "npcil",
     "ninh thuan", "ninh thuận", "vietnam nuclear", "vietnamese nuclear",
+    # Vietnam.vn 베트남어 원문 제목 선필터
+    "điện hạt nhân", "nhà máy điện hạt nhân",
+    "dự án điện hạt nhân", "năng lượng hạt nhân",
+    "lò phản ứng hạt nhân", "điện nguyên tử",
     "barakah", "enec", "fanr", "nawah",
     "saudi nuclear", "k.a.care", "kacare",
     "sizewell c", "hinkley point c", "wylfa",
@@ -1322,6 +1450,8 @@ NUCLEAR_SPECIALIST_PUBLISHERS = {
     "Nuclear Energy Institute",
     "World Nuclear Association",
     "IAEA News",
+    "International Energy Agency",
+    "OECD Nuclear Energy Agency",
     "Nuclear Street",
     "Nuclear News Network",
     "Nuclear Monitor",
@@ -1351,6 +1481,16 @@ DIRECT_GROUP_KEYWORDS = {
         "hdc현대산업개발", "hanwha construction", "한화 건설부문",
         "두산에너빌리티", "doosan enerbility",
     ],
+    "해외 원전 건설사": [
+        "bechtel", "fluor corporation", "kiewit",
+        "bouygues", "bouygues construction",
+        "vinci construction", "aecon",
+    ],
+    "해외 원전 엔지니어링사": [
+        "atkinsréalis", "atkinsrealis", "snc-lavalin",
+        "jacobs", "sargent & lundy", "sargent and lundy",
+        "worley", "tractebel", "black & veatch", "black and veatch",
+    ],
     "한국수력원자력": [
         "한국수력원자력", "한수원", "khnp",
     ],
@@ -1373,13 +1513,40 @@ DIRECT_GROUP_KEYWORDS = {
         "한미 투자", "u.s. investment", "us investment",
         "korea-us investment", "nuclear investment fund",
     ],
-    "원자력 협회·학회": [
+    "국내 원자력 협회·학회": [
         "한국원자력산업협회", "korean atomic industrial forum",
         "한국원전수출산업협회", "korea nuclear association",
         "한국원자력학회", "korean nuclear society",
         "한국방사성폐기물학회", "korean radioactive waste society",
         "대한방사선방어학회", "korean association for radiation protection",
-        "세계원자력협회", "world nuclear association",
+        "한국방사선진흥협회", "korea association for radiation application", "kara",
+        "한국방사선산업학회", "korean society of radiation industry",
+        "한국여성원자력전문인협회", "women in nuclear korea", "win korea",
+    ],
+    "해외 원자력 협회·학회": [
+        "american nuclear society",
+        "nuclear energy institute",
+        "u.s. nuclear industry council", "us nuclear industry council", "usnic",
+        "u.s. women in nuclear", "us women in nuclear",
+        "north american young generation in nuclear", "naygn",
+        "world nuclear association",
+        "european nuclear society",
+        "canadian nuclear association",
+        "canadian nuclear society",
+        "nuclear institute",
+    ],
+    "국제 원자력·에너지기구": [
+        "international atomic energy agency",
+        "국제원자력기구",
+        "iaea",
+        "osart",
+        "international energy agency",
+        "국제에너지기구",
+        "nuclear energy agency",
+        "oecd nuclear energy agency",
+        "oecd/nea",
+        "oecd 원자력기구",
+        "경제협력개발기구 원자력기구",
     ],
     "불가리아 코즐로두이 원전": [
         "kozloduy nuclear power plant", "kozloduy npp",
@@ -1414,6 +1581,17 @@ DIRECT_GROUP_KEYWORDS = {
         "nuclear power", "nuclear energy", "nuclear power plant",
         "nuclear construction", "nuclear project", "nuclear new build",
         "new nuclear build",
+
+        # 베트남어 원전/원자력 표현
+        "điện hạt nhân",
+        "nhà máy điện hạt nhân",
+        "dự án điện hạt nhân",
+        "năng lượng hạt nhân",
+        "lò phản ứng hạt nhân",
+        "điện nguyên tử",
+        "ninh thuận",
+        "ninh thuan",
+
         # 영문 단독 nuclear/reactor는 해외 그룹으로 분류
         "nuclear", "reactor",
     ],
@@ -1430,6 +1608,12 @@ CIVIL_NUCLEAR_RELEVANCE_TERMS = {
     "차세대원자로", "차세대 원자로",
     "nuclear power", "nuclear energy", "nuclear plant",
     "nuclear power plant", "nuclear station", "nuclear reactor",
+
+    # 베트남어 민수 원전 핵심어
+    "điện hạt nhân", "nhà máy điện hạt nhân",
+    "dự án điện hạt nhân", "năng lượng hạt nhân",
+    "lò phản ứng hạt nhân", "điện nguyên tử",
+    "ninh thuận", "ninh thuan",
     "reactor", "smr", "small modular reactor", "advanced reactor",
     "microreactor", "new nuclear", "nuclear new build",
     "nuclear construction", "nuclear project",
@@ -1462,8 +1646,12 @@ DIRECT_GROUP_PRIORITY = [
     "Holtec",
     "TerraPower",
     "Westinghouse",
-    "원자력 협회·학회",
+    "국내 원자력 협회·학회",
+    "해외 원자력 협회·학회",
+    "국제 원자력·에너지기구",
     "불가리아 코즐로두이 원전",
+    "해외 원전 건설사",
+    "해외 원전 엔지니어링사",
     "타 건설사",
     "한국수력원자력",
     "한국전력",
@@ -3480,6 +3668,19 @@ BLOCKED_CAMPAIGN_SLOGAN_TERMS = {
 }
 
 
+def is_excluded_fastcompany_china_renewable_article(title: str, summary: str = "") -> bool:
+    """사용자 지정 제외 기사: Fast Company 중국 원전/재생에너지 그리드 기사."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    return (
+        "nuclear power is china's key for transitioning to a fully renewable grid design" in haystack
+        or (
+            "china" in haystack
+            and "fully renewable grid" in haystack
+            and "nuclear power" in haystack
+        )
+    )
+
+
 def is_excluded_national_singing_contest_article(title: str, summary: str = "") -> bool:
     """'전국노래자랑'이 포함된 기사는 수집 목적과 무관하므로 전역 제외합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
@@ -3817,7 +4018,7 @@ WESTINGHOUSE_EXPLICIT_TERMS = {
     "웨스팅하우스",
 }
 
-NUCLEAR_ASSOCIATION_SOCIETY_TERMS = {
+DOMESTIC_NUCLEAR_ASSOCIATION_SOCIETY_TERMS = {
     "한국원자력산업협회",
     "korean atomic industrial forum",
     "한국원전수출산업협회",
@@ -3828,8 +4029,31 @@ NUCLEAR_ASSOCIATION_SOCIETY_TERMS = {
     "korean radioactive waste society",
     "대한방사선방어학회",
     "korean association for radiation protection",
+    "한국방사선진흥협회",
+    "korea association for radiation application",
+    "한국방사선산업학회",
+    "korean society of radiation industry",
+    "한국여성원자력전문인협회",
+    "women in nuclear korea",
+    "win korea",
+}
+
+OVERSEAS_NUCLEAR_ASSOCIATION_SOCIETY_TERMS = {
+    "american nuclear society",
+    "nuclear energy institute",
+    "u.s. nuclear industry council",
+    "us nuclear industry council",
+    "usnic",
+    "u.s. women in nuclear",
+    "us women in nuclear",
+    "north american young generation in nuclear",
+    "naygn",
     "세계원자력협회",
     "world nuclear association",
+    "european nuclear society",
+    "canadian nuclear association",
+    "canadian nuclear society",
+    "nuclear institute",
 }
 
 KOZLODUY_PROJECT_TERMS = {
@@ -3855,10 +4079,62 @@ def _mentions_westinghouse_explicit(title: str, summary: str = "") -> bool:
     haystack = html.unescape(f"{title} {summary}").lower()
     return any(term in haystack for term in WESTINGHOUSE_EXPLICIT_TERMS)
 
-def _mentions_nuclear_association_society(title: str, summary: str = "") -> bool:
-    """원자력 관련 협회·학회가 명시된 기사를 식별합니다."""
+def _mentions_international_nuclear_energy_org(title: str, summary: str = "") -> bool:
+    """IAEA 또는 IEA 관련 기사를 식별합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
-    return any(term in haystack for term in NUCLEAR_ASSOCIATION_SOCIETY_TERMS)
+
+    if any(term in haystack for term in (
+        "international atomic energy agency",
+        "국제원자력기구",
+        "osart",
+    )):
+        return True
+
+    if re.search(r"\biaea\b", haystack, flags=re.IGNORECASE):
+        return True
+
+    if any(term in haystack for term in (
+        "international energy agency",
+        "국제에너지기구",
+    )):
+        return True
+
+    # IEA는 'idea' 같은 일반 단어와 오인되지 않도록 단어 경계로만 판정
+    if re.search(r"\biea\b", haystack, flags=re.IGNORECASE):
+        return True
+
+    if any(term in haystack for term in (
+        "nuclear energy agency",
+        "oecd nuclear energy agency",
+        "oecd/nea",
+        "oecd 원자력기구",
+        "경제협력개발기구 원자력기구",
+    )):
+        return True
+
+    # NEA는 일반 약어 충돌 가능성이 있어 원자력 문맥이 함께 있을 때만 인정
+    if re.search(r"\bnea\b", haystack, flags=re.IGNORECASE):
+        nuclear_context = (
+            "nuclear", "reactor", "원전", "원자력",
+            "radioactive waste", "방사성폐기물", "nuclear safety",
+        )
+        if any(term in haystack for term in nuclear_context):
+            return True
+
+    return False
+
+
+def _nuclear_association_society_group(title: str, summary: str = "") -> str | None:
+    """기사에 명시된 원자력 협회·학회를 국내/해외 탭으로 분리합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    if any(term in haystack for term in DOMESTIC_NUCLEAR_ASSOCIATION_SOCIETY_TERMS):
+        return "국내 원자력 협회·학회"
+
+    if any(term in haystack for term in OVERSEAS_NUCLEAR_ASSOCIATION_SOCIETY_TERMS):
+        return "해외 원자력 협회·학회"
+
+    return None
 
 def _mentions_kozloduy_project(title: str, summary: str = "") -> bool:
     """불가리아 코즐로두이 원전 및 7·8호기 프로젝트 기사를 식별합니다."""
@@ -3944,6 +4220,51 @@ def is_low_value_kepco_local_incident(title: str, summary: str = "") -> bool:
     return False
 
 
+
+FOREIGN_NUCLEAR_CONTRACTOR_PATTERNS = (
+    r"\bbechtel\b",
+    r"\bfluor corporation\b",
+    r"\bfluor\b",
+    r"\bkiewit\b",
+    r"\bbouygues(?: construction)?\b",
+    r"\bvinci construction\b",
+    r"\baecon\b",
+)
+
+FOREIGN_NUCLEAR_ENGINEERING_PATTERNS = (
+    r"\batkinsr[ée]alis\b",
+    r"\batkinsrealis\b",
+    r"\bsnc[- ]lavalin\b",
+    r"\bjacobs\b",
+    r"\bsargent\s*(?:&|and)\s*lundy\b",
+    r"\bworley\b",
+    r"\btractebel\b",
+    r"\bblack\s*(?:&|and)\s*veatch\b",
+)
+
+def _matches_any_company_pattern(haystack: str, patterns: tuple[str, ...]) -> bool:
+    return any(re.search(pattern, haystack, flags=re.IGNORECASE) for pattern in patterns)
+
+
+def _foreign_nuclear_company_group(title: str, summary: str = "") -> str | None:
+    """
+    해외 건설/엔지니어링사는 회사명만으로 분류하지 않습니다.
+    원전·원자로·SMR·원전해체 등 민수 원자력 문맥이 함께 있을 때만 전용 탭으로 보냅니다.
+    """
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    if not is_civil_nuclear_relevant(title, summary):
+        return None
+
+    if _matches_any_company_pattern(haystack, FOREIGN_NUCLEAR_CONTRACTOR_PATTERNS):
+        return "해외 원전 건설사"
+
+    if _matches_any_company_pattern(haystack, FOREIGN_NUCLEAR_ENGINEERING_PATTERNS):
+        return "해외 원전 엔지니어링사"
+
+    return None
+
+
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
     회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
@@ -3976,6 +4297,12 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     if _mentions_kepco_affiliate(title, summary):
         return "한전 계열사"
 
+    # 해외 원전 건설/엔지니어링 회사가 명시되고 실제 원전 문맥이 있으면
+    # 일반 Nuclear 또는 WEC 기사로 흩어지지 않도록 전용 탭을 우선 적용합니다.
+    foreign_nuclear_company_group = _foreign_nuclear_company_group(title, summary)
+    if foreign_nuclear_company_group:
+        return foreign_nuclear_company_group
+
     # Westinghouse 회사명이 직접 언급되면 WEC 탭 우선
     # AP1000만 언급된 코즐로두이 프로젝트 기사는 코즐로두이 탭으로 분류 가능
     if _mentions_westinghouse_explicit(title, summary):
@@ -4005,8 +4332,12 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     if any(term in haystack for term in FERMI_AMERICA_TERMS):
         return "Fermi America"
 
-    if _mentions_nuclear_association_society(title, summary):
-        return "원자력 협회·학회"
+    if _mentions_international_nuclear_energy_org(title, summary):
+        return "국제 원자력·에너지기구"
+
+    association_group = _nuclear_association_society_group(title, summary)
+    if association_group:
+        return association_group
 
     # 현대건설/WEC 등 회사 우선 분류에 걸리지 않은 프로젝트 기사만 코즐로두이 탭
     if _mentions_kozloduy_project(title, summary):
@@ -4073,6 +4404,9 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     if is_excluded_national_singing_contest_article(title, summary):
         return None
 
+    if is_excluded_fastcompany_china_renewable_article(title, summary):
+        return None
+
     # Palisades Goldcorp는 광산회사로 Holtec/Palisades 원전과 무관하므로
     # 어떤 검색경로·분류그룹으로 들어와도 전역에서 제외합니다.
     if is_palisades_goldcorp_non_nuclear_article(title, summary):
@@ -4091,6 +4425,10 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
     # 실제 Holtec 원전·SMR 관련성이 확인되어야 최종 유지합니다.
     if classified_group == "Holtec" and not is_valid_holtec_article(title, summary):
         return None
+
+    if classified_group in {"해외 원전 건설사", "해외 원전 엔지니어링사"}:
+        if not is_civil_nuclear_relevant(title, summary):
+            return None
 
     # 지역 낙뢰·정전·사고 자체가 중심이고 한전은 복구 주체로만 언급된 기사는
     # 한국전력 주요 동향 탭에서 제외합니다.
@@ -4174,6 +4512,8 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     if is_blocked_campaign_slogan(title, summary):
         return None
     if is_excluded_national_singing_contest_article(title, summary):
+        return None
+    if is_excluded_fastcompany_china_renewable_article(title, summary):
         return None
     if is_excluded_military_nuclear_article(title, summary):
         return None
@@ -5880,6 +6220,52 @@ def _related_coverage_html(article: Article) -> str:
 
 
 
+
+def _korean_business_meeting_event_key(article: Article) -> str | None:
+    """
+    국내 주요 인사 간 동일 회동/만찬 보도가 제목 표현 차이로 덜 묶이는 경우를 보완합니다.
+    특정 기사 제목 자체를 하드코딩하지 않고,
+    핵심 인물 + 회동 행위 + 공통 의제를 기준으로 사건 키를 생성합니다.
+    """
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+
+    people = []
+    person_terms = (
+        ("이재명", ("이재명", "대통령")),
+        ("최태원", ("최태원",)),
+    )
+    for canonical, aliases in person_terms:
+        if any(alias in hay for alias in aliases):
+            people.append(canonical)
+
+    # 이 사례는 두 핵심 인물이 모두 확인될 때만 강한 사건키 적용
+    if not {"이재명", "최태원"}.issubset(set(people)):
+        return None
+
+    meeting_terms = (
+        "만찬", "회동", "면담", "오찬", "회담", "미팅",
+        "전격만찬", "비공개만찬", "만찬회동", "만찬자리",
+    )
+    if not any(term in hay for term in meeting_terms):
+        return None
+
+    agenda_groups = []
+    agenda_map = (
+        ("대미투자", ("대미투자", "대미 투자", "미국투자", "미국 투자", "대미 투자 논의")),
+        ("반도체", ("반도체", "반도체투자", "반도체 투자")),
+        ("sk", ("sk그룹", "sk 그룹", "sk")),
+    )
+    for canonical, aliases in agenda_map:
+        if any(alias in hay for alias in aliases):
+            agenda_groups.append(canonical)
+
+    # 최소 1개 공통 의제가 있어야 같은 이벤트로 간주
+    if not agenda_groups:
+        return None
+
+    return "국내회동|이재명|최태원|" + "|".join(sorted(set(agenda_groups)))
+
+
 def _kepco_affiliate_press_event_key(article: Article) -> str | None:
     """
     한전 계열사 보도자료성 기사에서 제목 표현이 달라도 동일 행사를 묶기 위한 키.
@@ -5970,6 +6356,15 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     if a.group != b.group:
         return False
 
+    meeting_event_a_early = _korean_business_meeting_event_key(a)
+    meeting_event_b_early = _korean_business_meeting_event_key(b)
+    if (
+        meeting_event_a_early
+        and meeting_event_a_early == meeting_event_b_early
+        and abs((date_a_obj - date_b_obj).days) <= 1
+    ):
+        return True
+
     affiliate_event_a_early = _kepco_affiliate_press_event_key(a)
     affiliate_event_b_early = _kepco_affiliate_press_event_key(b)
 
@@ -6001,6 +6396,13 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     hay_a = normalized(f"{a.title or ''} {a.description or ''}")
     hay_b = normalized(f"{b.title or ''} {b.description or ''}")
+
+    # 국내 주요 인사 회동/만찬 기사:
+    # 제목 표현이 크게 달라도 핵심 인물 + 행위 + 의제가 같으면 동일 사건으로 묶음.
+    meeting_event_a = _korean_business_meeting_event_key(a)
+    meeting_event_b = _korean_business_meeting_event_key(b)
+    if meeting_event_a and meeting_event_a == meeting_event_b:
+        return True
 
     # 한전 계열사 보도자료는 동일 행사라도 제목이
     # '물품 지원/건강한 여름나기', '아이디어 공유/에너지 플랫폼 구축'처럼
@@ -8409,6 +8811,31 @@ def ensure_article_display_metadata(article: Article) -> None:
         article.publisher = "출처 미확인"
 
 
+def migrate_foreign_nuclear_company_group(article: Article) -> Article:
+    """기존 archive의 해외 원전 건설/엔지니어링사 관련 기사를 전용 탭으로 재분류합니다."""
+    mapped = _foreign_nuclear_company_group(article.title, article.description)
+    if mapped:
+        article.group = mapped
+    return article
+
+
+def migrate_international_nuclear_energy_org_group(article: Article) -> Article:
+    """기존 archive의 IAEA/IEA 관련 기사를 통합 국제기구 탭으로 재분류합니다."""
+    if (article.group or "") == "IAEA" or _mentions_international_nuclear_energy_org(article.title, article.description):
+        article.group = "국제 원자력·에너지기구"
+    return article
+
+
+def migrate_legacy_nuclear_association_group(article: Article) -> Article:
+    """기존 통합 '원자력 협회·학회' archive 항목을 국내/해외 탭으로 재분류합니다."""
+    if (article.group or "") != "원자력 협회·학회":
+        return article
+
+    mapped = _nuclear_association_society_group(article.title, article.description)
+    article.group = mapped or "국내 원자력 협회·학회"
+    return article
+
+
 def enforce_kepco_kdn_group(article: Article) -> Article:
     """
     한전KDN 최종 분류 안전장치.
@@ -8508,10 +8935,24 @@ def update_archive(
         merged_by_url: dict[str, Article] = {}
 
         for article in existing_items + current_items:
+            migrate_foreign_nuclear_company_group(article)
+            migrate_international_nuclear_energy_org_group(article)
+            migrate_legacy_nuclear_association_group(article)
+
+            # Palisades Goldcorp는 광산회사이며 Holtec/Palisades 원전과 무관.
+            # 이미 archive에 저장된 기사도 다음 실행에서 제거합니다.
+            if is_palisades_goldcorp_non_nuclear_article(article.title, article.description):
+                continue
+
             if is_excluded_national_singing_contest_article(article.title, article.description):
+                continue
+            if is_excluded_fastcompany_china_renewable_article(article.title, article.description):
                 continue
             if article.group == "한국전력" and is_low_value_kepco_local_incident(article.title, article.description):
                 continue
+            migrate_foreign_nuclear_company_group(article)
+            migrate_international_nuclear_energy_org_group(article)
+            migrate_legacy_nuclear_association_group(article)
             enforce_kepco_kdn_group(article)
             normalized_link = article.link.strip() if article.link else ""
             identity = normalized_link or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
@@ -23329,10 +23770,14 @@ def main() -> int:
             if (
                 article is not None
                 and not is_excluded_source(article.publisher, article.link)
+                and not is_palisades_goldcorp_non_nuclear_article(article.title, article.description)
                 and not is_excluded_national_singing_contest_article(article.title, article.description)
+                and not is_excluded_fastcompany_china_renewable_article(article.title, article.description)
                 and not (article.group == "한국전력" and is_low_value_kepco_local_incident(article.title, article.description))
                 and start <= article.published < end
             ):
+                if article.group == "Holtec" and not is_valid_holtec_article(article.title, article.description):
+                    continue
                 merged_items.append(article)
 
         # archive에서 화면으로 다시 불러올 때도 동일이슈 중복을 제거합니다.
