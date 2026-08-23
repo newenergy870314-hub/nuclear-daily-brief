@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# KEPCO AFFILIATE EVENT GROUPING V2: CROSS-DAY + WORDING VARIANTS 2026-08-23
 # KEPCO AFFILIATE PRESS EVENT GROUPING 2026-08-23
 # KEPCO LOW-VALUE LOCAL INCIDENT RELEVANCE FILTER 2026-08-23
 # GLOBAL EXCLUSION: 전국노래자랑 2026-08-22
@@ -5930,6 +5931,8 @@ def _kepco_affiliate_press_event_key(article: Article) -> str | None:
         for token in (
             "아이디어공유", "아이디어 공유", "공유회",
             "구축방안", "구축 방안", "방안모색", "방안 모색",
+            "발굴", "서비스발굴", "서비스 발굴",
+            "스마트주거서비스", "스마트 주거서비스",
         )
     )
     if housing_partner and housing_subject and housing_action:
@@ -5959,12 +5962,27 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     if not publisher_a or not publisher_b or publisher_a == publisher_b:
         return False
 
-    date_a = a.published.astimezone(KST).strftime("%Y-%m-%d")
-    date_b = b.published.astimezone(KST).strftime("%Y-%m-%d")
-    if date_a != date_b:
-        return False
+    date_a_obj = a.published.astimezone(KST).date()
+    date_b_obj = b.published.astimezone(KST).date()
+    date_a = date_a_obj.strftime("%Y-%m-%d")
+    date_b = date_b_obj.strftime("%Y-%m-%d")
 
     if a.group != b.group:
+        return False
+
+    affiliate_event_a_early = _kepco_affiliate_press_event_key(a)
+    affiliate_event_b_early = _kepco_affiliate_press_event_key(b)
+
+    # 같은 한전 계열사 보도자료가 자정 전후로 하루 차이 나게 게재되는 경우 허용.
+    # 정확히 같은 사건 키일 때만 ±1일을 허용해 과도한 병합을 막습니다.
+    if (
+        affiliate_event_a_early
+        and affiliate_event_a_early == affiliate_event_b_early
+        and abs((date_a_obj - date_b_obj).days) <= 1
+    ):
+        return True
+
+    if date_a != date_b:
         return False
 
     country_a = detect_article_country(a)
@@ -5987,8 +6005,8 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     # 한전 계열사 보도자료는 동일 행사라도 제목이
     # '물품 지원/건강한 여름나기', '아이디어 공유/에너지 플랫폼 구축'처럼
     # 크게 달라질 수 있으므로 사건 구조 키를 먼저 비교합니다.
-    affiliate_event_a = _kepco_affiliate_press_event_key(a)
-    affiliate_event_b = _kepco_affiliate_press_event_key(b)
+    affiliate_event_a = affiliate_event_a_early
+    affiliate_event_b = affiliate_event_b_early
     if affiliate_event_a and affiliate_event_a == affiliate_event_b:
         return True
 
@@ -6191,7 +6209,50 @@ def _group_confirmed_related_articles(
                 grouped_count += len(unique_members) - 1
                 _register_related_coverage(representative, unique_members)
 
-    return sorted(result, key=lambda x: x.published, reverse=True), grouped_count
+    result = sorted(result, key=lambda x: x.published, reverse=True)
+
+    # 한전 계열사 보도자료 2차 병합:
+    # 동일 사건 키가 언론사별 게재시각 차이로 ±1일에 걸친 경우만 추가 병합합니다.
+    affiliate_result: list[Article] = []
+    affiliate_grouped_count = 0
+
+    for article in result:
+        event_key = _kepco_affiliate_press_event_key(article)
+        if not event_key:
+            affiliate_result.append(article)
+            continue
+
+        article_day = article.published.astimezone(KST).date()
+        matched_idx = None
+
+        for idx, kept in enumerate(affiliate_result):
+            if (article.publisher or "").strip() == (kept.publisher or "").strip():
+                continue
+
+            kept_key = _kepco_affiliate_press_event_key(kept)
+            if kept_key != event_key:
+                continue
+
+            kept_day = kept.published.astimezone(KST).date()
+            if abs((article_day - kept_day).days) <= 1:
+                matched_idx = idx
+                break
+
+        if matched_idx is None:
+            affiliate_result.append(article)
+            continue
+
+        kept = affiliate_result[matched_idx]
+        members = [kept, article]
+        representative = max(members, key=_article_rep_score)
+        _register_related_coverage(representative, members)
+        affiliate_result[matched_idx] = representative
+        affiliate_grouped_count += 1
+
+    return (
+        sorted(affiliate_result, key=lambda x: x.published, reverse=True),
+        grouped_count + affiliate_grouped_count,
+    )
 
 
 def render_card(
