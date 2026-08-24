@@ -9659,6 +9659,101 @@ main {
   }
 }
 
+
+/* ============================================================
+   2026-08-25 PC ARTICLE CONTENT VISIBILITY FIX
+   - Desktop-only fix (>=900px); mobile layout remains unchanged.
+   - The desktop override had reintroduced a 3-column .preview-copy grid
+     while the article content itself was fixed to column 1. As a result,
+     the text area could collapse to ~20px on wide/maximized PC windows.
+   - Restore a single flexible text column and allow the card body to use
+     the full available width beside the thumbnail.
+   ============================================================ */
+@media (min-width:900px) {
+  .article-stack {
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  .preview-card {
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  .preview-copy {
+    width:auto !important;
+    max-width:none !important;
+    min-width:0 !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-template-rows:auto !important;
+    column-gap:0 !important;
+    overflow:visible !important;
+  }
+
+  .article-content-column {
+    grid-column:1 !important;
+    grid-row:1 !important;
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  .meta-row,
+  .headline,
+  .article-snippet {
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+}
+
+
+
+/* ============================================================
+   2026-08-25 PC WORKSPACE UX MODERNIZATION
+   - Desktop only (>=900px). Mobile remains untouched.
+   ============================================================ */
+@media (min-width:900px) {
+  .desktop-workspace-bar {
+    position:sticky; top:8px; z-index:120; display:flex; align-items:center;
+    justify-content:space-between; gap:12px; min-height:48px; margin:0 0 14px;
+    padding:8px 10px 8px 14px; border:1px solid rgba(33,73,120,.14);
+    border-radius:13px; background:rgba(249,252,255,.94);
+    box-shadow:0 8px 24px rgba(39,63,93,.10); backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
+  .desktop-workspace-summary { display:flex; align-items:center; gap:12px; min-width:0; }
+  .desktop-workspace-title { color:#16345d; font-size:12px; font-weight:900; white-space:nowrap; }
+  .desktop-metric { display:flex; align-items:baseline; gap:4px; color:#667085; font-size:10px; font-weight:700; white-space:nowrap; }
+  .desktop-metric strong { color:#16345d; font-size:13px; font-weight:900; }
+  .desktop-workspace-actions { display:flex; align-items:center; gap:6px; flex-wrap:nowrap; }
+  .desktop-mode-button,.desktop-density-button {
+    height:31px; padding:0 11px; border:1px solid #d7e0ea; border-radius:8px;
+    background:#fff; color:#475467; font-size:10.5px; font-weight:800; cursor:pointer;
+    white-space:nowrap; transition:background .14s ease,border-color .14s ease,color .14s ease;
+  }
+  .desktop-mode-button:hover,.desktop-density-button:hover { border-color:#9fb7d1; background:#f7fbff; }
+  .desktop-mode-button.active { border-color:#2f80d8; background:#eaf4ff; color:#1d5fa7; }
+  .desktop-shortcut-hint { margin-left:4px; color:#98a2b3; font-size:9px; font-weight:700; white-space:nowrap; }
+  .shortcut-key { display:inline-flex; align-items:center; justify-content:center; min-width:17px; height:17px; margin:0 1px; padding:0 4px; border:1px solid #d0d5dd; border-bottom-width:2px; border-radius:4px; background:#fff; color:#667085; font-size:8px; line-height:1; }
+  body.desktop-comfort-view .article-stack { grid-template-columns:minmax(0,1fr) !important; gap:10px !important; }
+  body.desktop-comfort-view .preview-card { grid-template-columns:minmax(0,1fr) 150px !important; min-height:150px !important; padding:8px 8px 8px 12px !important; }
+  body.desktop-comfort-view .card-side { width:150px !important; min-width:150px !important; }
+  body.desktop-comfort-view .preview-image { width:150px !important; height:150px !important; min-height:150px !important; }
+  body.desktop-comfort-view .headline { font-size:16px !important; -webkit-line-clamp:3 !important; }
+  body.desktop-comfort-view .article-snippet { font-size:12px !important; -webkit-line-clamp:4 !important; }
+  .desktop-group-navigator { display:none; }
+}
+@media (min-width:1500px) {
+  .desktop-group-navigator { position:fixed; top:92px; right:14px; z-index:105; display:flex; flex-direction:column; width:132px; max-height:calc(100vh - 120px); padding:9px; border:1px solid rgba(33,73,120,.14); border-radius:12px; background:rgba(249,252,255,.94); box-shadow:0 8px 24px rgba(39,63,93,.10); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); overflow:hidden; }
+  .desktop-group-navigator-title { padding:2px 4px 7px; color:#16345d; font-size:10px; font-weight:900; }
+  .desktop-group-navigator-list { display:flex; flex-direction:column; gap:4px; overflow:auto; scrollbar-width:thin; }
+  .desktop-group-jump { width:100%; min-height:28px; padding:5px 7px; border:0; border-radius:7px; background:transparent; color:#667085; font-size:9.5px; font-weight:800; text-align:left; cursor:pointer; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .desktop-group-jump:hover { background:#eef5fc; color:#1d5fa7; }
+}
+
 </style>
 </head>
 <body>
@@ -9667,7 +9762,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.25(화) 06:55 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.25(화) 07:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -12209,7 +12304,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70717"
   data-title="새울원전, 지역주민과 미래 그려…새울 아카데미 2기 배출"
   data-publisher="에너지타임즈"
@@ -12233,7 +12328,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>새울원전, 지역주민과 미래 그려…새울 아카데미 2기 배출</div>
+      <div class="headline">새울원전, 지역주민과 미래 그려…새울 아카데미 2기 배출</div>
       <div class="article-snippet">한국수력원자력(주) 새울원자력본부(본부장 김상우)가 지역주민 삶의 질을 높이는 한편 지역사회와 동반성장하기 위해 지난 20일 2026년도 새울 아카데미 2기 수료식과 명사 특강을 진행했다. 새울 아카데미 2기는 단순한 지식 전달을 넘어 지역주민과 새울원자력본부가 지역사회 미래를 함께 그려나가기 위해 기획된 지역 밀착형 교육프로그램으로 지난 6월 11일부터 8월 20일까지 두 달간 운영됐다. 이번 교육과정은 건강과 문화, 지역공동체 등 다양한 분야를 아우르는 강연과 실습형 교육으로 꾸며졌다.</div>
     </div>
   </div>
@@ -12242,7 +12337,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70715"
   data-title="새울원전, 장학생 637명 선발 장학금 6.1억 수여"
   data-publisher="에너지타임즈"
@@ -12266,7 +12361,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>새울원전, 장학생 637명 선발 장학금 6.1억 수여</div>
+      <div class="headline">새울원전, 장학생 637명 선발 장학금 6.1억 수여</div>
       <div class="article-snippet">한국수력원자력(주) 새울원자력본부(본부장 김상우)가 발전소 주변지역 학생들의 안정적인 학업여건을 조성하는 한편 지역인재 육성을 위해 장학생 637명을 선발하고 장학금 6억1300만 원을 전달하는 ‘2026년도 새울원자력본부 희망미래 장학금 수여식’을 지난 21일 개최했다. 이날 수여식에 새울원자력본부는 장학생 대표로 선정된 대학생과 고등학생 15명에게 장학증서와 함께 꽃다발을 전달했다.</div>
     </div>
   </div>
@@ -12644,207 +12739,9 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">17건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7559"
-  data-title="[KEPIC_One_Pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787502080"
-  data-country="KR"
-  data-search="[kepic_one_pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/55ad78cc512050337bb9c9d0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7558"
-  data-title="[KEPIC_One_Pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(CIM) 시스템"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501979"
-  data-country="KR"
-  data-search="[kepic_one_pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(cim) 시스템 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(CIM) 시스템</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/e3b8bc5abfc7ba6f85e27231.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7555"
-  data-title="[KEPIC_One_Pick] 혁신형 SMR 표준설계 인허가 추진 현황"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501700"
-  data-country="KR"
-  data-search="[kepic_one_pick] 혁신형 smr 표준설계 인허가 추진 현황 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 혁신형 SMR 표준설계 인허가 추진 현황</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f5aed2282909124899e92b46.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7554"
-  data-title="[KEPIC_One_Pick] 원전해체 제염기술 표준화 및 기술 적용 요건"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501561"
-  data-country="KR"
-  data-search="[kepic_one_pick] 원전해체 제염기술 표준화 및 기술 적용 요건 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 원전해체 제염기술 표준화 및 기술 적용 요건</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0a283824267e5763e1fac609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7553"
-  data-title="[KEPIC_One_Pick] SMR 기기검증(Equipment Qualification) 필요성 및 현황"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501431"
-  data-country="KR"
-  data-search="[kepic_one_pick] smr 기기검증(equipment qualification) 필요성 및 현황 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] SMR 기기검증(Equipment Qualification) 필요성 및 현황</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0e781f36ef542d24598cd0b3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7552"
-  data-title="[KEPIC_One_Pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501259"
-  data-country="KR"
-  data-search="[kepic_one_pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/38d1fba041be67f07ece7faf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260823010007518"
   data-title="한전 사장 후보군 윤곽… 이호현 불참에 정재훈·김영록 2파전"
@@ -12974,72 +12871,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7557"
-  data-title="[KEPIC_One_Pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787501864"
-  data-country="KR"
-  data-search="[kepic_one_pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/fbc96b264f7769305dc60753.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7551"
-  data-title="[KEPIC_One_Pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787501074"
-  data-country="KR"
-  data-search="[kepic_one_pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5b31be65d8b3b969f7c6325c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -14804,7 +14635,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">62건</span>
+    <span class="group-count">70건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -14870,6 +14701,204 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/6f09fec0b48750ecb41a53f2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7559"
+  data-title="[KEPIC_One_Pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787502080"
+  data-country="KR"
+  data-search="[kepic_one_pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/55ad78cc512050337bb9c9d0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7558"
+  data-title="[KEPIC_One_Pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(CIM) 시스템"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501979"
+  data-country="KR"
+  data-search="[kepic_one_pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(cim) 시스템 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(CIM) 시스템</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e3b8bc5abfc7ba6f85e27231.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7555"
+  data-title="[KEPIC_One_Pick] 혁신형 SMR 표준설계 인허가 추진 현황"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501700"
+  data-country="KR"
+  data-search="[kepic_one_pick] 혁신형 smr 표준설계 인허가 추진 현황 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 혁신형 SMR 표준설계 인허가 추진 현황</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f5aed2282909124899e92b46.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7554"
+  data-title="[KEPIC_One_Pick] 원전해체 제염기술 표준화 및 기술 적용 요건"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501561"
+  data-country="KR"
+  data-search="[kepic_one_pick] 원전해체 제염기술 표준화 및 기술 적용 요건 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 원전해체 제염기술 표준화 및 기술 적용 요건</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0a283824267e5763e1fac609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7553"
+  data-title="[KEPIC_One_Pick] SMR 기기검증(Equipment Qualification) 필요성 및 현황"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501431"
+  data-country="KR"
+  data-search="[kepic_one_pick] smr 기기검증(equipment qualification) 필요성 및 현황 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] SMR 기기검증(Equipment Qualification) 필요성 및 현황</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0e781f36ef542d24598cd0b3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7552"
+  data-title="[KEPIC_One_Pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501259"
+  data-country="KR"
+  data-search="[kepic_one_pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/38d1fba041be67f07ece7faf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -16652,6 +16681,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2a2d95a5f96a17241c15bb92.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7557"
+  data-title="[KEPIC_One_Pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787501864"
+  data-country="KR"
+  data-search="[kepic_one_pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fbc96b264f7769305dc60753.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7551"
+  data-title="[KEPIC_One_Pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787501074"
+  data-country="KR"
+  data-search="[kepic_one_pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5b31be65d8b3b969f7c6325c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -23087,7 +23182,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energyintel.com/000001a0-1f8b-ded9-abe6-bf8b823b0000"
   data-title="New Leadership of Data Start-Up Fermi America Quiet on Nuclear"
   data-publisher="Energy Intelligence"
@@ -23111,7 +23206,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>New Leadership of Data Start-Up Fermi America Quiet on Nuclear</div>
+      <div class="headline">New Leadership of Data Start-Up Fermi America Quiet on Nuclear</div>
       <div class="article-snippet">Fermi’s co-founder and CEO was ousted earlier this year after a public outburst involving the US Commerce Secretary over funding for nuclear reactors.</div>
     </div>
   </div>
@@ -23140,9 +23235,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.hansbiz.co.kr/news/articleView.html?idxno=858994"
+  data-title="[CEO열전]&#x27;원전르네상스 리더&#x27; 이한우 현대건설 대표"
+  data-publisher="한스경제"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787554800"
+  data-country="US"
+  data-search="[ceo열전]&#x27;원전르네상스 리더&#x27; 이한우 현대건설 대표 한스경제 현대건설 | 서울=한스경제 한나연 기자 | 이한우 현대건설 대표이사 부사장이 취임 2년차를 맞아 원전·smr(소형모듈원자로)을 중심으로 현대건설의 사업 체질 전환에 속도를 내고 있다. 주택과 건축, 전략기획 등을 두루 거친 30년 이상의 &#x27;현대건설맨&#x27;이지만 대표이사 취임 이후에는 에너지 사업을 회사의 미래 성장축으로 전면에 내세우고 있다.최근에는 미국 원자력 기업 테라파워와 손잡고 차세대 원전 최대 8기에 대한 설계·조달·시공(epc) 우선권을 확보하는 등 사업 기반도 구체화되고 있다. 국내에서도 핵심 도시정비사업을 잇달아 확보하며 본업 경"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한스경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[CEO열전]&#x27;원전르네상스 리더&#x27; 이한우 현대건설 대표</div>
+      <div class="article-snippet">| 서울=한스경제 한나연 기자 | 이한우 현대건설 대표이사 부사장이 취임 2년차를 맞아 원전·SMR(소형모듈원자로)을 중심으로 현대건설의 사업 체질 전환에 속도를 내고 있다. 주택과 건축, 전략기획 등을 두루 거친 30년 이상의 &#x27;현대건설맨&#x27;이지만 대표이사 취임 이후에는 에너지 사업을 회사의 미래 성장축으로 전면에 내세우고 있다.최근에는 미국 원자력 기업 테라파워와 손잡고 차세대 원전 최대 8기에 대한 설계·조달·시공(EPC) 우선권을 확보하는 등 사업 기반도 구체화되고 있다. 국내에서도 핵심 도시정비사업을 잇달아 확보하며 본업 경</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2106c636ebadcc1dc3a0b9b2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.pmnews.co.kr/124180"
   data-title="≪국토매일≫ 현대건설, K-디자인 어워드서 조경부문 최고상 영예"
@@ -23251,7 +23379,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260824501475"
   data-title="[르포] 분상제에 대우건설 브랜드 더했다…‘검암역 푸르지오 프라베뉴’"
   data-publisher="브릿지경제"
@@ -23275,12 +23403,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[르포] 분상제에 대우건설 브랜드 더했다…‘검암역 푸르지오 프라베뉴’</div>
+      <div class="headline">[르포] 분상제에 대우건설 브랜드 더했다…‘검암역 푸르지오 프라베뉴’</div>
       <div class="article-snippet">공항철도와 인천도시철도 2호선이 지나는 검암역 도보권에 441가구 규모의 ‘검암역 푸르지오 프라베뉴’가 들어선다. 서울 주요 지역으로 이동이 편리한 더블역세권 입지에 민간참여 공공분양 방식으로 공급되면서 청약을 앞두고 유니트와 분양 조건을 직접 확인하려는 실수요자들의</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ef16797f1f5208b536bb1cc8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2485822f46b8f2de900834d7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -23614,7 +23742,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=671613"
   data-title="롯데건설 공모채 3배 흥행에도…증액 없는 &#x27;오버금리&#x27; 500억 복귀"
   data-publisher="블로터"
@@ -23638,7 +23766,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>롯데건설 공모채 3배 흥행에도…증액 없는 &#x27;오버금리&#x27; 500억 복귀</div>
+      <div class="headline">롯데건설 공모채 3배 흥행에도…증액 없는 &#x27;오버금리&#x27; 500억 복귀</div>
       <div class="article-snippet">롯데건설이 500억원 규모의 공모 회사채 수요예측에서 모집액의 3배를 웃도는 주문을 받았다. 그럼에도 시장 예측 수익률보다 높은 이른바 오버금리로 일부 물량을 채웠어야 할 만큼 실질적인 조건은 썩 만족스럽지 못했다. 결국 1000억원까지 열어 뒀던 증액 계획도 결국 접게 되면서 롯데건</div>
     </div>
   </div>
@@ -23860,7 +23988,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">20건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -23896,7 +24024,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104748"
   data-title="‘Coal to SMR’의 잠재적 물량, 단기 143GW·장기 450GW 육박한다"
   data-publisher="에너지플랫폼뉴스"
@@ -23920,45 +24048,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘Coal to SMR’의 잠재적 물량, 단기 143GW·장기 450GW 육박한다</div>
+      <div class="headline">‘Coal to SMR’의 잠재적 물량, 단기 143GW·장기 450GW 육박한다</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 폐지 석탄화력 부지를 활용해 SMR로 전환하는, 이른바 ‘Coal-to-SMR’의 잠재 물량이 단기적으로 143GW, 장기적으로는 450GW까지 급증할 것이라는 전망이 제기됐다.24일 한전 경영연구원 홍원준 선임연구원의 ‘석탄발전 부지를 활용한 SMR 도입의 가능성과 과제’ 보고서에 따르면 전 세계 석탄발전은 노후화, 탈탄소, 경제성 악화로 퇴출국면에 진입했다.전세계 석탄발전 설비의 평균 가동연수는 22년으로, 유럽과 미국의 경우 가동 연수가 40년을 초과한 상황이다. 경제성 측면에서도 석탄발전은 재</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/8f3a8af1e798f8ebb5ba48ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7571"
-  data-title="[KEPIC_One_Pick] IEC 61508 SIL 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787541817"
-  data-country="KR"
-  data-search="[kepic_one_pick] iec 61508 sil 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] IEC 61508 SIL 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/12dfe7f71921f914fe78f765.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24029,39 +24124,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7574"
-  data-title="[KEPIC_One_Pick] 발전기 여자시스템 브러시 모니터링 시스템 개발"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787573201"
-  data-country="KR"
-  data-search="[kepic_one_pick] 발전기 여자시스템 브러시 모니터링 시스템 개발 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까지"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 발전기 여자시스템 브러시 모니터링 시스템 개발</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까지</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b55050b452c3de6caedbf6a3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260824010008002"
   data-title="노후 도서발전소 고장·화재 부담 커지자…한전, 재산보험 첫 도입"
   data-publisher="아시아투데이"
@@ -24085,7 +24147,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>노후 도서발전소 고장·화재 부담 커지자…한전, 재산보험 첫 도입</div>
+      <div class="headline">노후 도서발전소 고장·화재 부담 커지자…한전, 재산보험 첫 도입</div>
       <div class="article-snippet">한국전력이 노후화된 도서 자가발전시설의 고장과 화재, 환경오염 위험에 대응하기 위해 처음으로 전체 발전소를 대상으로 재산종합보험 가입에 나선다. 그간 도서 발전소는 일부 환경책임보험을 제외하면 발전설비 자체에 대한 보험이 전무했다.24일 전력업계에 따르면 한전은 현재..</div>
     </div>
   </div>
@@ -24094,7 +24156,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleView.html?idxno=326028"
   data-title="경남도회, 신성범 국회의원과 간담회 개최"
   data-publisher="대한전문건설신문"
@@ -24118,7 +24180,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>경남도회, 신성범 국회의원과 간담회 개최</div>
+      <div class="headline">경남도회, 신성범 국회의원과 간담회 개최</div>
       <div class="article-snippet">대한전문건설협회 경남도회(회장 김주생)는 지난 21일 신성범 국민의힘 국회의원(경남 산청군함양군거창군합천군)과 간담회를 가졌다.이날 간담회는 전문건설업계의 주요현안 및 애로사항을 설명하고 제도개선을 위한 협조를 요청하는 자리였다.신성범 의원 지역사무실에서 열린 간담회에는 김주생 회장,</div>
     </div>
   </div>
@@ -24127,7 +24189,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kwnews.co.kr/article/20260824500820"
   data-title="[동정]오성진 대한전문건설협회 강원특별자치도회장"
   data-publisher="강원일보"
@@ -24151,7 +24213,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[동정]오성진 대한전문건설협회 강원특별자치도회장</div>
+      <div class="headline">[동정]오성진 대한전문건설협회 강원특별자치도회장</div>
       <div class="article-snippet">◇오성진 대한전문건설협회 강원특별자치도회장은 25일 오전 11시, 오후 2시30분 영월군청과 원주시청에서 간담회를 진행, 전문건설업계 현안에 대해 건의.</div>
     </div>
   </div>
@@ -24970,7 +25032,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국제 원자력·에너지기구</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -25003,6 +25065,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/73c06bc6350028aecefa56c2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.worldenergynews.com:443/news/iea-birol-are-not-talking-about-second-777824"
+  data-title="IEA Birol: we are not talking about a second release from strategic oil reserves"
+  data-publisher="World Energy News"
+  data-group="국제 원자력·에너지기구"
+  data-language="en"
+  data-priority="2"
+  data-published="1787562131"
+  data-country="OTHER"
+  data-search="iea birol: we are not talking about a second release from strategic oil reserves world energy news 국제 원자력·에너지기구 fatih bibil, the iea&#x27;s chief, said on monday that they are not presently?discussing a?second?release of strategic oil reserv?es."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">World Energy News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>IEA Birol: we are not talking about a second release from strategic oil reserves</div>
+      <div class="article-snippet">Fatih Bibil, the IEA&#x27;s chief, said on Monday that they are not presently?discussing a?second?release of strategic oil reserv?es.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/34555acbdf65ca2595088144.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25261,7 +25356,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">34건</span>
+    <span class="group-count">36건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -25297,7 +25392,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankookilbo.com/news/article/A2026080614010000475?dtypecode=pancode_main"
   data-title="날개 단 반도체, 다 된 &#x27;탈원전&#x27; 돌려세웠다… &#x27;원전 재가동&#x27; 힘받는 대만-경제ㅣ한국일보"
   data-publisher="한국일보"
@@ -25321,7 +25416,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>날개 단 반도체, 다 된 &#x27;탈원전&#x27; 돌려세웠다… &#x27;원전 재가동&#x27; 힘받는 대만-경제ㅣ한국일보</div>
+      <div class="headline">날개 단 반도체, 다 된 &#x27;탈원전&#x27; 돌려세웠다… &#x27;원전 재가동&#x27; 힘받는 대만-경제ㅣ한국일보</div>
       <div class="article-snippet">(2026 타이완 리포트 ) 대만은 반도체 산업 전력 수요 증가로 원전 재가동 논의가 활발해졌고, 한국은 반도체 클러스터 전력 공급을 위한 변전소 설치를 두고 주민과 갈등이 이어지고 있다. |</div>
     </div>
   </div>
@@ -25396,7 +25491,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hidomin.com/news/articleView.html?idxno=718382"
   data-title="영덕 신규 원전건설 더 앞당겨야 한다 - 경북도민일보"
   data-publisher="경북도민일보"
@@ -25420,7 +25515,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>영덕 신규 원전건설 더 앞당겨야 한다 - 경북도민일보</div>
+      <div class="headline">영덕 신규 원전건설 더 앞당겨야 한다 - 경북도민일보</div>
       <div class="article-snippet">인공지능(AI) 시대에 원전의 중요성은 아무리 강조해도 지나치지 않는 부분이다. 삼성전자와 SK하이닉스가 광주에 건설하겠다는 반도체 공장도 그렇고 포스코 포항제철</div>
     </div>
   </div>
@@ -25429,7 +25524,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.fnnews.com/news/202608241826067692"
   data-title="노후원전 10기 중 연장 승인 1기뿐… 30GW 전력수급 어쩌나"
   data-publisher="파이낸셜뉴스"
@@ -25453,7 +25548,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>노후원전 10기 중 연장 승인 1기뿐… 30GW 전력수급 어쩌나</div>
+      <div class="headline">노후원전 10기 중 연장 승인 1기뿐… 30GW 전력수급 어쩌나</div>
       <div class="article-snippet">반도체·인공지능 전력수요가 폭발적으로 늘면서 이재명 정부는 기존 원전의 계속운전을 핵심 공급대책으로 꼽고 있다.오는 2030년까지 운전허가가 만료되는 원전 10기 가운데 실제로 계속운전 승인을 받은 곳은 단 한 곳뿐이다.새로 필요한 반도체·AI 전력이 국내 원..</div>
     </div>
   </div>
@@ -25594,7 +25689,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://biz.chosun.com/policy/policy_sub/2026/08/24/CEFRSUYRRRHPXPLQZR77HSKOHE/"
   data-title="[정책 인사이트] 방산·원전 지원할 ‘전략기금’ 만드는 정부… ‘수혜기업 이익 환수’ 조항 두고 이견"
   data-publisher="조선비즈"
@@ -25618,7 +25713,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[정책 인사이트] 방산·원전 지원할 ‘전략기금’ 만드는 정부… ‘수혜기업 이익 환수’ 조항 두고 이견</div>
+      <div class="headline">[정책 인사이트] 방산·원전 지원할 ‘전략기금’ 만드는 정부… ‘수혜기업 이익 환수’ 조항 두고 이견</div>
       <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
     </div>
   </div>
@@ -25727,6 +25822,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7571"
+  data-title="[KEPIC_One_Pick] IEC 61508 SIL 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787541817"
+  data-country="KR"
+  data-search="[kepic_one_pick] iec 61508 sil 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] IEC 61508 SIL 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/12dfe7f71921f914fe78f765.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.etnews.com/20260821000201"
   data-title="&#x27;방재&#x27; 넘어 기술기업으로…프라임이엔씨, &#x27;특수안전&#x27; 앞세워 제2도약"
   data-publisher="전자신문"
@@ -25759,7 +25887,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kbmaeil.com/article/20260824500608"
   data-title="전력수요 27GW 폭증…영덕 원전 역할 더 커지나"
   data-publisher="경북매일"
@@ -25783,7 +25911,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>전력수요 27GW 폭증…영덕 원전 역할 더 커지나</div>
+      <div class="headline">전력수요 27GW 폭증…영덕 원전 역할 더 커지나</div>
       <div class="article-snippet">제12차 전력수급기본계획 수립 과정에서 2040년 전력수요 전망이 크게 상향되면서 신규 원전 후보지로 선정된 영덕의 역할 확대 가능성에 지역사회의 관심이 쏠리고 있다. 특히 영덕은 제11차 전력수급기본계획에 반영된 신규 대형원전 2기의 후보지로 이미 선정된 만큼 향후</div>
     </div>
   </div>
@@ -26119,6 +26247,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c530790e24cdda30ad036c2f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7574"
+  data-title="[KEPIC_One_Pick] 발전기 여자시스템 브러시 모니터링 시스템 개발"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787573201"
+  data-country="KR"
+  data-search="[kepic_one_pick] 발전기 여자시스템 브러시 모니터링 시스템 개발 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 발전기 여자시스템 브러시 모니터링 시스템 개발</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까지</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b55050b452c3de6caedbf6a3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26830,7 +26991,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">71건</span>
+    <span class="group-count">72건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27229,7 +27390,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://asia.nikkei.com/business/energy/vietnam-s-parliament-approves-first-nuclear-project"
   data-title="Vietnam&#x27;s parliament approves first nuclear project"
   data-publisher="Nikkei Asia"
@@ -27253,7 +27414,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Vietnam&#x27;s parliament approves first nuclear project</div>
+      <div class="headline">Vietnam&#x27;s parliament approves first nuclear project</div>
       <div class="article-snippet">Rosatom to build 2.4-GW Ninh Thuan 1 as Hanoi seeks to bolster energy security</div>
     </div>
   </div>
@@ -27427,6 +27588,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.nbcnews.com/world/russia/nuclear-energy-making-global-comeback-cfr-rcna594077"
+  data-title="Why nuclear energy is making a global comeback"
+  data-publisher="NBC News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787564046"
+  data-country="US"
+  data-search="why nuclear energy is making a global comeback nbc news nuclear power·nuclear energy the united states leads in nuclear energy production, accounting for about 30% of global electricity generation."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">NBC News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Why nuclear energy is making a global comeback</div>
+      <div class="article-snippet">The United States leads in nuclear energy production, accounting for about 30% of global electricity generation.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6d725d6ad17664e812b68903.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.koreaherald.com/article/10850429"
   data-title="[Key Points] Trump-Kim outreach raises new nuclear risks for Seoul"
@@ -27460,7 +27654,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.romania-insider.com/romania-measures-cernavoda-back-online-august-2026"
   data-title="Romanian authorities strive to bring online Cernavoda nuclear power plant"
   data-publisher="Romania Insider"
@@ -27484,7 +27678,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Romanian authorities strive to bring online Cernavoda nuclear power plant</div>
+      <div class="headline">Romanian authorities strive to bring online Cernavoda nuclear power plant</div>
       <div class="article-snippet">The Romanian water management company Apele Romane will build a dam to increase the level of the Danube at Cernavoda nuclear power plant after dredging works with the same purpose, while the state-controlled company Hidroelectrica has released more water from its Olt River hydropower plants to...</div>
     </div>
   </div>
@@ -28087,7 +28281,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.globalbankingandfinance.com/uk-police-arrest-12-linking-crash-killed-seven-organised/"
   data-title="UK&#x27;s Burnham says glorifying dangerous driving on social media is"
   data-publisher="Global Banking &amp; Finance Review"
@@ -28111,7 +28305,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>UK&#x27;s Burnham says glorifying dangerous driving on social media is</div>
+      <div class="headline">UK&#x27;s Burnham says glorifying dangerous driving on social media is</div>
       <div class="article-snippet">UK Prime Minister Andy Burnham calls glorifying dangerous driving on social media &#x27;reprehensible&#x27; after a deadly car crash in northeast England kills seven.</div>
     </div>
   </div>
@@ -28417,7 +28611,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.channelnewsasia.com/business/zillow-settles-ftc-claims-it-paid-redfin-stop-competing-apartment-listings-6337986"
   data-title="Zillow settles FTC claims it paid Redfin to stop competing on apartment listings"
   data-publisher="Channel NewsAsia"
@@ -28441,7 +28635,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Zillow settles FTC claims it paid Redfin to stop competing on apartment listings</div>
+      <div class="headline">Zillow settles FTC claims it paid Redfin to stop competing on apartment listings</div>
       <div class="article-snippet">Aug 24 : The U.S. Federal Trade Commission and a group of states settled with Zillow ahead of trial on Monday, ending claims the online real estate platform illegally paid Rocket Companies&#x27; Redfin $100 million to stop competing in apartment rental listings.The FTC and five states were ready to argue at trial</div>
     </div>
   </div>
@@ -28747,7 +28941,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kurdistan24.net/en/story/934722/kurdistan-investment-chief-pledges-support-for-women-entrepreneurs"
   data-title="Kurdistan Investment Chief Pledges Support for Women Entrepreneurs"
   data-publisher="Kurdistan24"
@@ -28771,7 +28965,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Kurdistan Investment Chief Pledges Support for Women Entrepreneurs</div>
+      <div class="headline">Kurdistan Investment Chief Pledges Support for Women Entrepreneurs</div>
       <div class="article-snippet">Kurdistan Region Investment Board Chairman Mohammed Shukri pledged greater support for women entrepreneurs, linking their participation to economic growth.</div>
     </div>
   </div>
@@ -29044,7 +29238,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.romania-insider.com/aquila-cris-tim-ftse-all-cap-august-2026"
   data-title="Two more Romanian companies to join FTSE Global All Cap indices"
   data-publisher="Romania Insider"
@@ -29068,7 +29262,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Two more Romanian companies to join FTSE Global All Cap indices</div>
+      <div class="headline">Two more Romanian companies to join FTSE Global All Cap indices</div>
       <div class="article-snippet">FMCG distribution group Aquila Part Prod Com (BVB: AQ) and cold cuts producer Cris-Tim Family Holding (BVB: CFH) will join the FTSE Global All Cap indices from September 21, 2026, taking the number of Romanian companies represented in the benchmark to 10 for the first time, according to...</div>
     </div>
   </div>
@@ -29251,7 +29445,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www1.ru/news/2026/08/24/dambu-dlia-oxlazdeniia-sistem-aes-kozlodui-postroiat-v-bolgarii.html"
   data-title="Дамбу для охлаждения системы АЭС «Козлодуй» построят в Болгарии"
   data-publisher="www1.ru"
@@ -29275,7 +29469,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Дамбу для охлаждения системы АЭС «Козлодуй» построят в Болгарии</div>
+      <div class="headline">Дамбу для охлаждения системы АЭС «Козлодуй» построят в Болгарии</div>
       <div class="article-snippet">Гидротехническое сооружение необходимо, чтобы поднять уровень Дуная возле станции</div>
     </div>
   </div>
@@ -29575,7 +29769,7 @@ main {
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787608500"
+  data-published="1787612100"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -29601,7 +29795,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260824_0003760437"
   data-title="공정위 과징금 결정액 2.5조 돌파…국고채 등 대형사건 남아"
   data-publisher="뉴시스"
@@ -29625,7 +29819,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>공정위 과징금 결정액 2.5조 돌파…국고채 등 대형사건 남아</div>
+      <div class="headline">공정위 과징금 결정액 2.5조 돌파…국고채 등 대형사건 남아</div>
       <div class="article-snippet">[세종=뉴시스]임하은 기자 = 올해 대형 담합 사건에 대한 제재가 잇따르면서 공정거래위원회가 8월까지 부과하기로 결정한 과징금이 2조5000억원을 넘어선 것으로 나타났다. 국고채 입찰담합과 배달의민족·쿠팡이츠의 최혜대우 요구 의혹 등 굵직한 사건의 결론도 남아 있어 올해 과징금 의결액은 더 불어날 전망이다. 25일 공정위 의결 현황 등에 따르면 올해 상반기 공정위가 의결한 과징금은 총 약 1조7502억원으로 집계됐다. 여기에 7월 전분·전분당 가격담합 과징금 7475억7800만원과 솔리드웍스 판매사 담합 23억7200만원, 한국전력공사 파형관 구매 입찰담합 8억680</div>
     </div>
   </div>
@@ -29715,16 +29909,16 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/08/202608250646313248fbbec65dfb_1"
-  data-title="서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹"
+  data-title="프랑스, 서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
   data-published="1787608534"
   data-country="FR"
-  data-search="서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹 글로벌이코노믹 원자력 프랑스 정부는 2026년 8월 22일(현지시각) 서유럽 최대 규모인 그라벨린 부지에 신규 epr2 원자로 2기를 건설하기 위한 1단계 예비 작업을 승인했다. 프랑스 경제 매체 카피탈은 지난 23일(현지시각) 정부가 기초 토공사를 허용하는 법령을 공표했으나, 원자로 본체와 방사성 물질 안"
+  data-search="프랑스, 서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹 글로벌이코노믹 원자력 프랑스 정부는 2026년 8월 22일(현지시각) 서유럽 최대 규모인 그라벨린 부지에 신규 epr2 원자로 2기를 건설하기 위한 1단계 예비 작업을 승인했다. 프랑스 경제 매체 카피탈은 지난 23일(현지시각) 정부가 기초 토공사를 허용하는 법령을 공표했으나, 원자로 본체와 방사성 물질 안"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -29739,7 +29933,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹</div>
+      <div class="headline">프랑스, 서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹</div>
       <div class="article-snippet">프랑스 정부는 2026년 8월 22일(현지시각) 서유럽 최대 규모인 그라벨린 부지에 신규 EPR2 원자로 2기를 건설하기 위한 1단계 예비 작업을 승인했다. 프랑스 경제 매체 카피탈은 지난 23일(현지시각) 정부가 기초 토공사를 허용하는 법령을 공표했으나, 원자로 본체와 방사성 물질 안</div>
     </div>
   </div>
@@ -29748,7 +29942,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7577"
   data-title="고준위委, 분야별 전문위원회 본격 가동…부지·저장·처분·소통 35명 위촉"
   data-publisher="인사이트N파워"
@@ -29772,7 +29966,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고준위委, 분야별 전문위원회 본격 가동…부지·저장·처분·소통 35명 위촉</div>
+      <div class="headline">고준위委, 분야별 전문위원회 본격 가동…부지·저장·처분·소통 35명 위촉</div>
       <div class="article-snippet">고준위방사성폐기물 관리정책의 전문적 검토를 담당할 분야별 전문위원회가 본격 가동된다. 부지부터 저장·운반, 처분, 소통까지 4개 분야 전문가들이 한자리 모여 주요 현안을 심층 검토한다.고준위방사성폐기물관리위원회 부지·저장·운반·처분·소통 분야 전문위원회를 구성하고 지난 21일 &#x27;제1차 분야별 전문위원회&#x27;를 개최했다고 밝혔다. 분야별 전문위원회는 ‘고준위 방사성폐기물 관리에 관한 특별법’에 따라 고준위위원회 산하에 설치·운영되는 전문가 심의기구로, 고준위 방폐물 관리정책에 대한 조사·연구와 전문적 검토를 담당한다.전문위원회는 ▲부지</div>
     </div>
   </div>
@@ -29800,46 +29994,13 @@ main {
   </button>
   <div class="article-stack">
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787608522"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787608263"
+  data-published="1787612374"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -29866,13 +30027,46 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787612099"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.bbc.com/audio/play/p0p62p97"
   data-title="BBC Audio | Global News Podcast | Britain hands over long-range missile blueprints to Ukraine"
   data-publisher="BBC News"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787608743"
+  data-published="1787612374"
   data-country="GB"
   data-search="bbc audio | global news podcast | britain hands over long-range missile blueprints to ukraine bbc news nuclear power·nuclear energy british prime minister on a visit to kyiv promises to step up support for ukraine"
   tabindex="0" role="link">
@@ -29999,7 +30193,7 @@ main {
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787608500"
+  data-published="1787612100"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -30025,7 +30219,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260824_0003760437"
   data-title="공정위 과징금 결정액 2.5조 돌파…국고채 등 대형사건 남아"
   data-publisher="뉴시스"
@@ -30049,7 +30243,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>공정위 과징금 결정액 2.5조 돌파…국고채 등 대형사건 남아</div>
+      <div class="headline">공정위 과징금 결정액 2.5조 돌파…국고채 등 대형사건 남아</div>
       <div class="article-snippet">[세종=뉴시스]임하은 기자 = 올해 대형 담합 사건에 대한 제재가 잇따르면서 공정거래위원회가 8월까지 부과하기로 결정한 과징금이 2조5000억원을 넘어선 것으로 나타났다. 국고채 입찰담합과 배달의민족·쿠팡이츠의 최혜대우 요구 의혹 등 굵직한 사건의 결론도 남아 있어 올해 과징금 의결액은 더 불어날 전망이다. 25일 공정위 의결 현황 등에 따르면 올해 상반기 공정위가 의결한 과징금은 총 약 1조7502억원으로 집계됐다. 여기에 7월 전분·전분당 가격담합 과징금 7475억7800만원과 솔리드웍스 판매사 담합 23억7200만원, 한국전력공사 파형관 구매 입찰담합 8억680</div>
     </div>
   </div>
@@ -30139,16 +30333,16 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/08/202608250646313248fbbec65dfb_1"
-  data-title="서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹"
+  data-title="프랑스, 서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
   data-published="1787608534"
   data-country="FR"
-  data-search="서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹 글로벌이코노믹 원자력 프랑스 정부는 2026년 8월 22일(현지시각) 서유럽 최대 규모인 그라벨린 부지에 신규 epr2 원자로 2기를 건설하기 위한 1단계 예비 작업을 승인했다. 프랑스 경제 매체 카피탈은 지난 23일(현지시각) 정부가 기초 토공사를 허용하는 법령을 공표했으나, 원자로 본체와 방사성 물질 안"
+  data-search="프랑스, 서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹 글로벌이코노믹 원자력 프랑스 정부는 2026년 8월 22일(현지시각) 서유럽 최대 규모인 그라벨린 부지에 신규 epr2 원자로 2기를 건설하기 위한 1단계 예비 작업을 승인했다. 프랑스 경제 매체 카피탈은 지난 23일(현지시각) 정부가 기초 토공사를 허용하는 법령을 공표했으나, 원자로 본체와 방사성 물질 안"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -30163,7 +30357,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹</div>
+      <div class="headline">프랑스, 서유럽 최대 원전 117조 증설 착수…해파리 셧다운에 발목 잡힌 냉각망 - 글로벌이코노믹</div>
       <div class="article-snippet">프랑스 정부는 2026년 8월 22일(현지시각) 서유럽 최대 규모인 그라벨린 부지에 신규 EPR2 원자로 2기를 건설하기 위한 1단계 예비 작업을 승인했다. 프랑스 경제 매체 카피탈은 지난 23일(현지시각) 정부가 기초 토공사를 허용하는 법령을 공표했으나, 원자로 본체와 방사성 물질 안</div>
     </div>
   </div>
@@ -30172,7 +30366,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.inpnews.kr/news/articleView.html?idxno=7577"
   data-title="고준위委, 분야별 전문위원회 본격 가동…부지·저장·처분·소통 35명 위촉"
   data-publisher="인사이트N파워"
@@ -30196,7 +30390,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>고준위委, 분야별 전문위원회 본격 가동…부지·저장·처분·소통 35명 위촉</div>
+      <div class="headline">고준위委, 분야별 전문위원회 본격 가동…부지·저장·처분·소통 35명 위촉</div>
       <div class="article-snippet">고준위방사성폐기물 관리정책의 전문적 검토를 담당할 분야별 전문위원회가 본격 가동된다. 부지부터 저장·운반, 처분, 소통까지 4개 분야 전문가들이 한자리 모여 주요 현안을 심층 검토한다.고준위방사성폐기물관리위원회 부지·저장·운반·처분·소통 분야 전문위원회를 구성하고 지난 21일 &#x27;제1차 분야별 전문위원회&#x27;를 개최했다고 밝혔다. 분야별 전문위원회는 ‘고준위 방사성폐기물 관리에 관한 특별법’에 따라 고준위위원회 산하에 설치·운영되는 전문가 심의기구로, 고준위 방폐물 관리정책에 대한 조사·연구와 전문적 검토를 담당한다.전문위원회는 ▲부지</div>
     </div>
   </div>
@@ -30224,46 +30418,13 @@ main {
   </button>
   <div class="article-stack">
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787608522"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787608263"
+  data-published="1787612374"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -30290,13 +30451,46 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787612099"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.bbc.com/audio/play/p0p62p97"
   data-title="BBC Audio | Global News Podcast | Britain hands over long-range missile blueprints to Ukraine"
   data-publisher="BBC News"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787608743"
+  data-published="1787612374"
   data-country="GB"
   data-search="bbc audio | global news podcast | britain hands over long-range missile blueprints to ukraine bbc news nuclear power·nuclear energy british prime minister on a visit to kyiv promises to step up support for ukraine"
   tabindex="0" role="link">
@@ -30386,9 +30580,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.hansbiz.co.kr/news/articleView.html?idxno=858994"
+  data-title="[CEO열전]&#x27;원전르네상스 리더&#x27; 이한우 현대건설 대표"
+  data-publisher="한스경제"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787554800"
+  data-country="US"
+  data-search="[ceo열전]&#x27;원전르네상스 리더&#x27; 이한우 현대건설 대표 한스경제 현대건설 | 서울=한스경제 한나연 기자 | 이한우 현대건설 대표이사 부사장이 취임 2년차를 맞아 원전·smr(소형모듈원자로)을 중심으로 현대건설의 사업 체질 전환에 속도를 내고 있다. 주택과 건축, 전략기획 등을 두루 거친 30년 이상의 &#x27;현대건설맨&#x27;이지만 대표이사 취임 이후에는 에너지 사업을 회사의 미래 성장축으로 전면에 내세우고 있다.최근에는 미국 원자력 기업 테라파워와 손잡고 차세대 원전 최대 8기에 대한 설계·조달·시공(epc) 우선권을 확보하는 등 사업 기반도 구체화되고 있다. 국내에서도 핵심 도시정비사업을 잇달아 확보하며 본업 경"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한스경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[CEO열전]&#x27;원전르네상스 리더&#x27; 이한우 현대건설 대표</div>
+      <div class="article-snippet">| 서울=한스경제 한나연 기자 | 이한우 현대건설 대표이사 부사장이 취임 2년차를 맞아 원전·SMR(소형모듈원자로)을 중심으로 현대건설의 사업 체질 전환에 속도를 내고 있다. 주택과 건축, 전략기획 등을 두루 거친 30년 이상의 &#x27;현대건설맨&#x27;이지만 대표이사 취임 이후에는 에너지 사업을 회사의 미래 성장축으로 전면에 내세우고 있다.최근에는 미국 원자력 기업 테라파워와 손잡고 차세대 원전 최대 8기에 대한 설계·조달·시공(EPC) 우선권을 확보하는 등 사업 기반도 구체화되고 있다. 국내에서도 핵심 도시정비사업을 잇달아 확보하며 본업 경</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2106c636ebadcc1dc3a0b9b2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.pmnews.co.kr/124180"
   data-title="≪국토매일≫ 현대건설, K-디자인 어워드서 조경부문 최고상 영예"
@@ -30563,7 +30790,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260824501475"
   data-title="[르포] 분상제에 대우건설 브랜드 더했다…‘검암역 푸르지오 프라베뉴’"
   data-publisher="브릿지경제"
@@ -30587,12 +30814,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[르포] 분상제에 대우건설 브랜드 더했다…‘검암역 푸르지오 프라베뉴’</div>
+      <div class="headline">[르포] 분상제에 대우건설 브랜드 더했다…‘검암역 푸르지오 프라베뉴’</div>
       <div class="article-snippet">공항철도와 인천도시철도 2호선이 지나는 검암역 도보권에 441가구 규모의 ‘검암역 푸르지오 프라베뉴’가 들어선다. 서울 주요 지역으로 이동이 편리한 더블역세권 입지에 민간참여 공공분양 방식으로 공급되면서 청약을 앞두고 유니트와 분양 조건을 직접 확인하려는 실수요자들의</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ef16797f1f5208b536bb1cc8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/2485822f46b8f2de900834d7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31817,7 +32044,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=671613"
   data-title="롯데건설 공모채 3배 흥행에도…증액 없는 &#x27;오버금리&#x27; 500억 복귀"
   data-publisher="블로터"
@@ -31841,7 +32068,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>롯데건설 공모채 3배 흥행에도…증액 없는 &#x27;오버금리&#x27; 500억 복귀</div>
+      <div class="headline">롯데건설 공모채 3배 흥행에도…증액 없는 &#x27;오버금리&#x27; 500억 복귀</div>
       <div class="article-snippet">롯데건설이 500억원 규모의 공모 회사채 수요예측에서 모집액의 3배를 웃도는 주문을 받았다. 그럼에도 시장 예측 수익률보다 높은 이른바 오버금리로 일부 물량을 채웠어야 할 만큼 실질적인 조건은 썩 만족스럽지 못했다. 결국 1000억원까지 열어 뒀던 증액 계획도 결국 접게 되면서 롯데건</div>
     </div>
   </div>
@@ -32195,7 +32422,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">23건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32231,7 +32458,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104748"
   data-title="‘Coal to SMR’의 잠재적 물량, 단기 143GW·장기 450GW 육박한다"
   data-publisher="에너지플랫폼뉴스"
@@ -32255,45 +32482,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘Coal to SMR’의 잠재적 물량, 단기 143GW·장기 450GW 육박한다</div>
+      <div class="headline">‘Coal to SMR’의 잠재적 물량, 단기 143GW·장기 450GW 육박한다</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 폐지 석탄화력 부지를 활용해 SMR로 전환하는, 이른바 ‘Coal-to-SMR’의 잠재 물량이 단기적으로 143GW, 장기적으로는 450GW까지 급증할 것이라는 전망이 제기됐다.24일 한전 경영연구원 홍원준 선임연구원의 ‘석탄발전 부지를 활용한 SMR 도입의 가능성과 과제’ 보고서에 따르면 전 세계 석탄발전은 노후화, 탈탄소, 경제성 악화로 퇴출국면에 진입했다.전세계 석탄발전 설비의 평균 가동연수는 22년으로, 유럽과 미국의 경우 가동 연수가 40년을 초과한 상황이다. 경제성 측면에서도 석탄발전은 재</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/8f3a8af1e798f8ebb5ba48ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7571"
-  data-title="[KEPIC_One_Pick] IEC 61508 SIL 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787541817"
-  data-country="KR"
-  data-search="[kepic_one_pick] iec 61508 sil 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] IEC 61508 SIL 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/12dfe7f71921f914fe78f765.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32364,39 +32558,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7574"
-  data-title="[KEPIC_One_Pick] 발전기 여자시스템 브러시 모니터링 시스템 개발"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787573201"
-  data-country="KR"
-  data-search="[kepic_one_pick] 발전기 여자시스템 브러시 모니터링 시스템 개발 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까지"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 발전기 여자시스템 브러시 모니터링 시스템 개발</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까지</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b55050b452c3de6caedbf6a3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.kyongbuk.co.kr/news/articleView.html?idxno=4082002"
   data-title="OCI파워·한전, ‘국산 태양광 인버터’ 경쟁력 키운다"
   data-publisher="경북일보"
@@ -32429,7 +32590,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260824010008002"
   data-title="노후 도서발전소 고장·화재 부담 커지자…한전, 재산보험 첫 도입"
   data-publisher="아시아투데이"
@@ -32453,7 +32614,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>노후 도서발전소 고장·화재 부담 커지자…한전, 재산보험 첫 도입</div>
+      <div class="headline">노후 도서발전소 고장·화재 부담 커지자…한전, 재산보험 첫 도입</div>
       <div class="article-snippet">한국전력이 노후화된 도서 자가발전시설의 고장과 화재, 환경오염 위험에 대응하기 위해 처음으로 전체 발전소를 대상으로 재산종합보험 가입에 나선다. 그간 도서 발전소는 일부 환경책임보험을 제외하면 발전설비 자체에 대한 보험이 전무했다.24일 전력업계에 따르면 한전은 현재..</div>
     </div>
   </div>
@@ -32462,7 +32623,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.koscaj.com/news/articleView.html?idxno=326028"
   data-title="경남도회, 신성범 국회의원과 간담회 개최"
   data-publisher="대한전문건설신문"
@@ -32486,7 +32647,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>경남도회, 신성범 국회의원과 간담회 개최</div>
+      <div class="headline">경남도회, 신성범 국회의원과 간담회 개최</div>
       <div class="article-snippet">대한전문건설협회 경남도회(회장 김주생)는 지난 21일 신성범 국민의힘 국회의원(경남 산청군함양군거창군합천군)과 간담회를 가졌다.이날 간담회는 전문건설업계의 주요현안 및 애로사항을 설명하고 제도개선을 위한 협조를 요청하는 자리였다.신성범 의원 지역사무실에서 열린 간담회에는 김주생 회장,</div>
     </div>
   </div>
@@ -32561,7 +32722,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kwnews.co.kr/article/20260824500820"
   data-title="[동정]오성진 대한전문건설협회 강원특별자치도회장"
   data-publisher="강원일보"
@@ -32585,7 +32746,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[동정]오성진 대한전문건설협회 강원특별자치도회장</div>
+      <div class="headline">[동정]오성진 대한전문건설협회 강원특별자치도회장</div>
       <div class="article-snippet">◇오성진 대한전문건설협회 강원특별자치도회장은 25일 오전 11시, 오후 2시30분 영월군청과 원주시청에서 간담회를 진행, 전문건설업계 현안에 대해 건의.</div>
     </div>
   </div>
@@ -33536,7 +33697,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국제 원자력·에너지기구</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33569,6 +33730,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/73c06bc6350028aecefa56c2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.worldenergynews.com:443/news/iea-birol-are-not-talking-about-second-777824"
+  data-title="IEA Birol: we are not talking about a second release from strategic oil reserves"
+  data-publisher="World Energy News"
+  data-group="국제 원자력·에너지기구"
+  data-language="en"
+  data-priority="2"
+  data-published="1787562131"
+  data-country="OTHER"
+  data-search="iea birol: we are not talking about a second release from strategic oil reserves world energy news 국제 원자력·에너지기구 fatih bibil, the iea&#x27;s chief, said on monday that they are not presently?discussing a?second?release of strategic oil reserv?es."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">World Energy News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>IEA Birol: we are not talking about a second release from strategic oil reserves</div>
+      <div class="article-snippet">Fatih Bibil, the IEA&#x27;s chief, said on Monday that they are not presently?discussing a?second?release of strategic oil reserv?es.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/34555acbdf65ca2595088144.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33893,7 +34087,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">37건</span>
+    <span class="group-count">39건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33929,7 +34123,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankookilbo.com/news/article/A2026080614010000475?dtypecode=pancode_main"
   data-title="날개 단 반도체, 다 된 &#x27;탈원전&#x27; 돌려세웠다… &#x27;원전 재가동&#x27; 힘받는 대만-경제ㅣ한국일보"
   data-publisher="한국일보"
@@ -33953,7 +34147,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>날개 단 반도체, 다 된 &#x27;탈원전&#x27; 돌려세웠다… &#x27;원전 재가동&#x27; 힘받는 대만-경제ㅣ한국일보</div>
+      <div class="headline">날개 단 반도체, 다 된 &#x27;탈원전&#x27; 돌려세웠다… &#x27;원전 재가동&#x27; 힘받는 대만-경제ㅣ한국일보</div>
       <div class="article-snippet">(2026 타이완 리포트 ) 대만은 반도체 산업 전력 수요 증가로 원전 재가동 논의가 활발해졌고, 한국은 반도체 클러스터 전력 공급을 위한 변전소 설치를 두고 주민과 갈등이 이어지고 있다. |</div>
     </div>
   </div>
@@ -34028,7 +34222,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hidomin.com/news/articleView.html?idxno=718382"
   data-title="영덕 신규 원전건설 더 앞당겨야 한다 - 경북도민일보"
   data-publisher="경북도민일보"
@@ -34052,7 +34246,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>영덕 신규 원전건설 더 앞당겨야 한다 - 경북도민일보</div>
+      <div class="headline">영덕 신규 원전건설 더 앞당겨야 한다 - 경북도민일보</div>
       <div class="article-snippet">인공지능(AI) 시대에 원전의 중요성은 아무리 강조해도 지나치지 않는 부분이다. 삼성전자와 SK하이닉스가 광주에 건설하겠다는 반도체 공장도 그렇고 포스코 포항제철</div>
     </div>
   </div>
@@ -34061,7 +34255,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.fnnews.com/news/202608241826067692"
   data-title="노후원전 10기 중 연장 승인 1기뿐… 30GW 전력수급 어쩌나"
   data-publisher="파이낸셜뉴스"
@@ -34085,7 +34279,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>노후원전 10기 중 연장 승인 1기뿐… 30GW 전력수급 어쩌나</div>
+      <div class="headline">노후원전 10기 중 연장 승인 1기뿐… 30GW 전력수급 어쩌나</div>
       <div class="article-snippet">반도체·인공지능 전력수요가 폭발적으로 늘면서 이재명 정부는 기존 원전의 계속운전을 핵심 공급대책으로 꼽고 있다.오는 2030년까지 운전허가가 만료되는 원전 10기 가운데 실제로 계속운전 승인을 받은 곳은 단 한 곳뿐이다.새로 필요한 반도체·AI 전력이 국내 원..</div>
     </div>
   </div>
@@ -34226,7 +34420,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://biz.chosun.com/policy/policy_sub/2026/08/24/CEFRSUYRRRHPXPLQZR77HSKOHE/"
   data-title="[정책 인사이트] 방산·원전 지원할 ‘전략기금’ 만드는 정부… ‘수혜기업 이익 환수’ 조항 두고 이견"
   data-publisher="조선비즈"
@@ -34250,7 +34444,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[정책 인사이트] 방산·원전 지원할 ‘전략기금’ 만드는 정부… ‘수혜기업 이익 환수’ 조항 두고 이견</div>
+      <div class="headline">[정책 인사이트] 방산·원전 지원할 ‘전략기금’ 만드는 정부… ‘수혜기업 이익 환수’ 조항 두고 이견</div>
       <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
     </div>
   </div>
@@ -34392,6 +34586,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7571"
+  data-title="[KEPIC_One_Pick] IEC 61508 SIL 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787541817"
+  data-country="KR"
+  data-search="[kepic_one_pick] iec 61508 sil 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] IEC 61508 SIL 인증 적합성 평가 기준과 원자력 안전기능의 차이점 분석</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/12dfe7f71921f914fe78f765.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.etnews.com/20260821000201"
   data-title="&#x27;방재&#x27; 넘어 기술기업으로…프라임이엔씨, &#x27;특수안전&#x27; 앞세워 제2도약"
   data-publisher="전자신문"
@@ -34424,7 +34651,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kbmaeil.com/article/20260824500608"
   data-title="전력수요 27GW 폭증…영덕 원전 역할 더 커지나"
   data-publisher="경북매일"
@@ -34448,7 +34675,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>전력수요 27GW 폭증…영덕 원전 역할 더 커지나</div>
+      <div class="headline">전력수요 27GW 폭증…영덕 원전 역할 더 커지나</div>
       <div class="article-snippet">제12차 전력수급기본계획 수립 과정에서 2040년 전력수요 전망이 크게 상향되면서 신규 원전 후보지로 선정된 영덕의 역할 확대 가능성에 지역사회의 관심이 쏠리고 있다. 특히 영덕은 제11차 전력수급기본계획에 반영된 신규 대형원전 2기의 후보지로 이미 선정된 만큼 향후</div>
     </div>
   </div>
@@ -34817,6 +35044,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c530790e24cdda30ad036c2f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7574"
+  data-title="[KEPIC_One_Pick] 발전기 여자시스템 브러시 모니터링 시스템 개발"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787573201"
+  data-country="KR"
+  data-search="[kepic_one_pick] 발전기 여자시스템 브러시 모니터링 시스템 개발 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 발전기 여자시스템 브러시 모니터링 시스템 개발</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까지</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b55050b452c3de6caedbf6a3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35561,7 +35821,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">75건</span>
+    <span class="group-count">76건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35960,7 +36220,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://asia.nikkei.com/business/energy/vietnam-s-parliament-approves-first-nuclear-project"
   data-title="Vietnam&#x27;s parliament approves first nuclear project"
   data-publisher="Nikkei Asia"
@@ -35984,7 +36244,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Vietnam&#x27;s parliament approves first nuclear project</div>
+      <div class="headline">Vietnam&#x27;s parliament approves first nuclear project</div>
       <div class="article-snippet">Rosatom to build 2.4-GW Ninh Thuan 1 as Hanoi seeks to bolster energy security</div>
     </div>
   </div>
@@ -36158,6 +36418,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.nbcnews.com/world/russia/nuclear-energy-making-global-comeback-cfr-rcna594077"
+  data-title="Why nuclear energy is making a global comeback"
+  data-publisher="NBC News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787564046"
+  data-country="US"
+  data-search="why nuclear energy is making a global comeback nbc news nuclear power·nuclear energy the united states leads in nuclear energy production, accounting for about 30% of global electricity generation."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">NBC News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Why nuclear energy is making a global comeback</div>
+      <div class="article-snippet">The United States leads in nuclear energy production, accounting for about 30% of global electricity generation.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6d725d6ad17664e812b68903.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.koreaherald.com/article/10850429"
   data-title="[Key Points] Trump-Kim outreach raises new nuclear risks for Seoul"
@@ -36191,7 +36484,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.romania-insider.com/romania-measures-cernavoda-back-online-august-2026"
   data-title="Romanian authorities strive to bring online Cernavoda nuclear power plant"
   data-publisher="Romania Insider"
@@ -36215,7 +36508,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Romanian authorities strive to bring online Cernavoda nuclear power plant</div>
+      <div class="headline">Romanian authorities strive to bring online Cernavoda nuclear power plant</div>
       <div class="article-snippet">The Romanian water management company Apele Romane will build a dam to increase the level of the Danube at Cernavoda nuclear power plant after dredging works with the same purpose, while the state-controlled company Hidroelectrica has released more water from its Olt River hydropower plants to...</div>
     </div>
   </div>
@@ -36851,7 +37144,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.globalbankingandfinance.com/uk-police-arrest-12-linking-crash-killed-seven-organised/"
   data-title="UK&#x27;s Burnham says glorifying dangerous driving on social media is"
   data-publisher="Global Banking &amp; Finance Review"
@@ -36875,7 +37168,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>UK&#x27;s Burnham says glorifying dangerous driving on social media is</div>
+      <div class="headline">UK&#x27;s Burnham says glorifying dangerous driving on social media is</div>
       <div class="article-snippet">UK Prime Minister Andy Burnham calls glorifying dangerous driving on social media &#x27;reprehensible&#x27; after a deadly car crash in northeast England kills seven.</div>
     </div>
   </div>
@@ -37181,7 +37474,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.channelnewsasia.com/business/zillow-settles-ftc-claims-it-paid-redfin-stop-competing-apartment-listings-6337986"
   data-title="Zillow settles FTC claims it paid Redfin to stop competing on apartment listings"
   data-publisher="Channel NewsAsia"
@@ -37205,7 +37498,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Zillow settles FTC claims it paid Redfin to stop competing on apartment listings</div>
+      <div class="headline">Zillow settles FTC claims it paid Redfin to stop competing on apartment listings</div>
       <div class="article-snippet">Aug 24 : The U.S. Federal Trade Commission and a group of states settled with Zillow ahead of trial on Monday, ending claims the online real estate platform illegally paid Rocket Companies&#x27; Redfin $100 million to stop competing in apartment rental listings.The FTC and five states were ready to argue at trial</div>
     </div>
   </div>
@@ -37544,7 +37837,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kurdistan24.net/en/story/934722/kurdistan-investment-chief-pledges-support-for-women-entrepreneurs"
   data-title="Kurdistan Investment Chief Pledges Support for Women Entrepreneurs"
   data-publisher="Kurdistan24"
@@ -37568,7 +37861,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Kurdistan Investment Chief Pledges Support for Women Entrepreneurs</div>
+      <div class="headline">Kurdistan Investment Chief Pledges Support for Women Entrepreneurs</div>
       <div class="article-snippet">Kurdistan Region Investment Board Chairman Mohammed Shukri pledged greater support for women entrepreneurs, linking their participation to economic growth.</div>
     </div>
   </div>
@@ -37907,7 +38200,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.romania-insider.com/aquila-cris-tim-ftse-all-cap-august-2026"
   data-title="Two more Romanian companies to join FTSE Global All Cap indices"
   data-publisher="Romania Insider"
@@ -37931,7 +38224,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Two more Romanian companies to join FTSE Global All Cap indices</div>
+      <div class="headline">Two more Romanian companies to join FTSE Global All Cap indices</div>
       <div class="article-snippet">FMCG distribution group Aquila Part Prod Com (BVB: AQ) and cold cuts producer Cris-Tim Family Holding (BVB: CFH) will join the FTSE Global All Cap indices from September 21, 2026, taking the number of Romanian companies represented in the benchmark to 10 for the first time, according to...</div>
     </div>
   </div>
@@ -38114,7 +38407,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www1.ru/news/2026/08/24/dambu-dlia-oxlazdeniia-sistem-aes-kozlodui-postroiat-v-bolgarii.html"
   data-title="Дамбу для охлаждения системы АЭС «Козлодуй» построят в Болгарии"
   data-publisher="www1.ru"
@@ -38138,7 +38431,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Дамбу для охлаждения системы АЭС «Козлодуй» построят в Болгарии</div>
+      <div class="headline">Дамбу для охлаждения системы АЭС «Козлодуй» построят в Болгарии</div>
       <div class="article-snippet">Гидротехническое сооружение необходимо, чтобы поднять уровень Дуная возле станции</div>
     </div>
   </div>
@@ -40896,7 +41189,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70717"
   data-title="새울원전, 지역주민과 미래 그려…새울 아카데미 2기 배출"
   data-publisher="에너지타임즈"
@@ -40920,7 +41213,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>새울원전, 지역주민과 미래 그려…새울 아카데미 2기 배출</div>
+      <div class="headline">새울원전, 지역주민과 미래 그려…새울 아카데미 2기 배출</div>
       <div class="article-snippet">한국수력원자력(주) 새울원자력본부(본부장 김상우)가 지역주민 삶의 질을 높이는 한편 지역사회와 동반성장하기 위해 지난 20일 2026년도 새울 아카데미 2기 수료식과 명사 특강을 진행했다. 새울 아카데미 2기는 단순한 지식 전달을 넘어 지역주민과 새울원자력본부가 지역사회 미래를 함께 그려나가기 위해 기획된 지역 밀착형 교육프로그램으로 지난 6월 11일부터 8월 20일까지 두 달간 운영됐다. 이번 교육과정은 건강과 문화, 지역공동체 등 다양한 분야를 아우르는 강연과 실습형 교육으로 꾸며졌다.</div>
     </div>
   </div>
@@ -40929,7 +41222,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70715"
   data-title="새울원전, 장학생 637명 선발 장학금 6.1억 수여"
   data-publisher="에너지타임즈"
@@ -40953,7 +41246,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>새울원전, 장학생 637명 선발 장학금 6.1억 수여</div>
+      <div class="headline">새울원전, 장학생 637명 선발 장학금 6.1억 수여</div>
       <div class="article-snippet">한국수력원자력(주) 새울원자력본부(본부장 김상우)가 발전소 주변지역 학생들의 안정적인 학업여건을 조성하는 한편 지역인재 육성을 위해 장학생 637명을 선발하고 장학금 6억1300만 원을 전달하는 ‘2026년도 새울원자력본부 희망미래 장학금 수여식’을 지난 21일 개최했다. 이날 수여식에 새울원자력본부는 장학생 대표로 선정된 대학생과 고등학생 15명에게 장학증서와 함께 꽃다발을 전달했다.</div>
     </div>
   </div>
@@ -41793,207 +42086,9 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">17건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7559"
-  data-title="[KEPIC_One_Pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787502080"
-  data-country="KR"
-  data-search="[kepic_one_pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/55ad78cc512050337bb9c9d0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7558"
-  data-title="[KEPIC_One_Pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(CIM) 시스템"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501979"
-  data-country="KR"
-  data-search="[kepic_one_pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(cim) 시스템 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(CIM) 시스템</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/e3b8bc5abfc7ba6f85e27231.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7555"
-  data-title="[KEPIC_One_Pick] 혁신형 SMR 표준설계 인허가 추진 현황"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501700"
-  data-country="KR"
-  data-search="[kepic_one_pick] 혁신형 smr 표준설계 인허가 추진 현황 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 혁신형 SMR 표준설계 인허가 추진 현황</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f5aed2282909124899e92b46.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7554"
-  data-title="[KEPIC_One_Pick] 원전해체 제염기술 표준화 및 기술 적용 요건"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501561"
-  data-country="KR"
-  data-search="[kepic_one_pick] 원전해체 제염기술 표준화 및 기술 적용 요건 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 원전해체 제염기술 표준화 및 기술 적용 요건</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0a283824267e5763e1fac609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7553"
-  data-title="[KEPIC_One_Pick] SMR 기기검증(Equipment Qualification) 필요성 및 현황"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501431"
-  data-country="KR"
-  data-search="[kepic_one_pick] smr 기기검증(equipment qualification) 필요성 및 현황 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] SMR 기기검증(Equipment Qualification) 필요성 및 현황</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0e781f36ef542d24598cd0b3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7552"
-  data-title="[KEPIC_One_Pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787501259"
-  data-country="KR"
-  data-search="[kepic_one_pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/38d1fba041be67f07ece7faf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260823010007518"
   data-title="한전 사장 후보군 윤곽… 이호현 불참에 정재훈·김영록 2파전"
@@ -42123,72 +42218,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7557"
-  data-title="[KEPIC_One_Pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787501864"
-  data-country="KR"
-  data-search="[kepic_one_pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/fbc96b264f7769305dc60753.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7551"
-  data-title="[KEPIC_One_Pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산"
-  data-publisher="인사이트N파워"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787501074"
-  data-country="KR"
-  data-search="[kepic_one_pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산 인사이트n파워 한국전력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">인사이트N파워</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[KEPIC_One_Pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산</div>
-      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5b31be65d8b3b969f7c6325c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -45735,7 +45764,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">77건</span>
+    <span class="group-count">85건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -45801,6 +45830,204 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/6f09fec0b48750ecb41a53f2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7559"
+  data-title="[KEPIC_One_Pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787502080"
+  data-country="KR"
+  data-search="[kepic_one_pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 사용후핵연료 인수기준 개발 및 기계적 건전성 평가</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/55ad78cc512050337bb9c9d0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7558"
+  data-title="[KEPIC_One_Pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(CIM) 시스템"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501979"
+  data-country="KR"
+  data-search="[kepic_one_pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(cim) 시스템 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 작업공간형 챔버 타입 금속 방사성폐기물 진공/대기 유도가열 용융(CIM) 시스템</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e3b8bc5abfc7ba6f85e27231.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7555"
+  data-title="[KEPIC_One_Pick] 혁신형 SMR 표준설계 인허가 추진 현황"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501700"
+  data-country="KR"
+  data-search="[kepic_one_pick] 혁신형 smr 표준설계 인허가 추진 현황 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 혁신형 SMR 표준설계 인허가 추진 현황</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f5aed2282909124899e92b46.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7554"
+  data-title="[KEPIC_One_Pick] 원전해체 제염기술 표준화 및 기술 적용 요건"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501561"
+  data-country="KR"
+  data-search="[kepic_one_pick] 원전해체 제염기술 표준화 및 기술 적용 요건 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 원전해체 제염기술 표준화 및 기술 적용 요건</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0a283824267e5763e1fac609.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7553"
+  data-title="[KEPIC_One_Pick] SMR 기기검증(Equipment Qualification) 필요성 및 현황"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501431"
+  data-country="KR"
+  data-search="[kepic_one_pick] smr 기기검증(equipment qualification) 필요성 및 현황 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] SMR 기기검증(Equipment Qualification) 필요성 및 현황</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0e781f36ef542d24598cd0b3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7552"
+  data-title="[KEPIC_One_Pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787501259"
+  data-country="KR"
+  data-search="[kepic_one_pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 원자력시설 공기정화계통의 정격유량 부적합 사례와 개선안</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/38d1fba041be67f07ece7faf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -48078,6 +48305,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2a2d95a5f96a17241c15bb92.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7557"
+  data-title="[KEPIC_One_Pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787501864"
+  data-country="KR"
+  data-search="[kepic_one_pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 대규모 실증으로 ‘앵커철근’ 보강 효과ㆍ적용 조건 검증</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/fbc96b264f7769305dc60753.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7551"
+  data-title="[KEPIC_One_Pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787501074"
+  data-country="KR"
+  data-search="[kepic_one_pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산 인사이트n파워 원자력 전력산업기술기준 ‘kepic(korea electric power industry code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 kepic 전담기구로 인정받은 뒤 같은 해 11월 kepic 1995년판을 처음 발행했다. 이후 5년 주기로 판(edition)을 발행하고 매년 추록(addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[KEPIC_One_Pick] 발전용 가스터빈 복합ㆍ열병합발전 운영 최적화 솔루션 실증 및 확산</div>
+      <div class="article-snippet">전력산업기술기준 ‘KEPIC(Korea Electric Power Industry Code)’은 전력산업 설비와 기기의 안전성과 신뢰성 및 품질 확보를 위해 설계, 제조, 시공, 운전, 시험 및 검사 등에 대한 방법과 절차를 규정한 전력산업계의 민간단체표준(Standard)이다. 대한전기산업연합회는 1995년 6월 정부로부터 KEPIC 전담기구로 인정받은 뒤 같은 해 11월 KEPIC 1995년판을 처음 발행했다. 이후 5년 주기로 판(Edition)을 발행하고 매년 추록(Addenda)을 통해 기술기준을 유지·보완해 왔다. 지금까</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5b31be65d8b3b969f7c6325c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -54975,7 +55268,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energyintel.com/000001a0-1f8b-ded9-abe6-bf8b823b0000"
   data-title="New Leadership of Data Start-Up Fermi America Quiet on Nuclear"
   data-publisher="Energy Intelligence"
@@ -54999,7 +55292,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>New Leadership of Data Start-Up Fermi America Quiet on Nuclear</div>
+      <div class="headline">New Leadership of Data Start-Up Fermi America Quiet on Nuclear</div>
       <div class="article-snippet">Fermi’s co-founder and CEO was ousted earlier this year after a public outburst involving the US Commerce Secretary over funding for nuclear reactors.</div>
     </div>
   </div>
@@ -160119,7 +160412,7 @@ function filterArticles(){
     let visible=[];
 
     cards.forEach(card=>{
-      const matchesSearch=!q||card.dataset.search.includes(q); const matchesCountry=!activeCountryFilter||card.dataset.country===activeCountryFilter; const show=matchesSearch&&matchesCountry;
+      const matchesSearch=!q||card.dataset.search.includes(q); const matchesCountry=!activeCountryFilter||card.dataset.country===activeCountryFilter; const matchesDesktopMode=(typeof desktopArticleMode === "undefined" || desktopArticleMode === "all") ? true : (desktopArticleMode === "unread" ? !card.classList.contains("read") : card.classList.contains("important")); const show=matchesSearch&&matchesCountry&&matchesDesktopMode;
       card.style.display=show?"":"none";
       if(show){
         visible.push(card);
@@ -160127,7 +160420,7 @@ function filterArticles(){
       }
     });
 
-    if(q||activeCountryFilter){
+    if(q||activeCountryFilter||(typeof desktopArticleMode !== "undefined" && desktopArticleMode !== "all")){
       visible.sort((a,b)=>{
         const priorityA=Number(a.dataset.priority??2);
         const priorityB=Number(b.dataset.priority??2);
@@ -160145,13 +160438,15 @@ function filterArticles(){
     }
   });
 
-  if(!q&&!activeCountryFilter){
+  if(!q&&!activeCountryFilter&&(typeof desktopArticleMode === "undefined" || desktopArticleMode === "all")){
     const currentOrder=languageOrderButton?.dataset.order||localStorage.getItem(languageOrderKey)||"ko-en";
     reorderLanguageArticles(currentOrder);
   }
 
-  document.getElementById("no-results").style.display=(q||activeCountryFilter)&&total===0?"block":"none";
+  document.getElementById("no-results").style.display=(q||activeCountryFilter||(typeof desktopArticleMode !== "undefined" && desktopArticleMode !== "all"))&&total===0?"block":"none";
   updateMasterButtonCount(panel);
+  if(typeof updateDesktopWorkspaceMetrics === "function") updateDesktopWorkspaceMetrics();
+  if(typeof rebuildDesktopGroupNavigator === "function") rebuildDesktopGroupNavigator();
 }
 function refreshActivePeriodUI(){
   filterArticles();
@@ -162827,6 +163122,68 @@ function layoutAndRenderCountryMap(){
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {once:true});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+
+/* 2026-08-25 PC WORKSPACE UX - desktop only */
+let desktopArticleMode = "all";
+const desktopDensityKey = "nuclearDailyBriefDesktopComfortView";
+function desktopIsActive() { return window.matchMedia("(min-width:900px)").matches; }
+function getDesktopVisibleCards() {
+  const panel=activePanel(); if(!panel)return [];
+  return [...panel.querySelectorAll(".preview-card")].filter(card=>{
+    if(card.style.display==="none")return false;
+    const group=card.closest(".news-group"); return !group||group.style.display!=="none";
+  });
+}
+function updateDesktopWorkspaceMetrics() {
+  if(!desktopIsActive())return; const panel=activePanel(); if(!panel)return;
+  const all=[...panel.querySelectorAll(".preview-card")]; const visible=getDesktopVisibleCards();
+  const unread=all.filter(card=>!card.classList.contains("read")).length;
+  const important=all.filter(card=>card.classList.contains("important")).length;
+  const a=document.getElementById("desktop-visible-count"),b=document.getElementById("desktop-unread-count"),c=document.getElementById("desktop-important-count");
+  if(a)a.textContent=String(visible.length); if(b)b.textContent=String(unread); if(c)c.textContent=String(important);
+}
+function setDesktopArticleMode(mode) {
+  desktopArticleMode=["all","unread","important"].includes(mode)?mode:"all";
+  document.querySelectorAll(".desktop-mode-button").forEach(button=>button.classList.toggle("active",button.dataset.desktopMode===desktopArticleMode));
+  if(typeof filterArticles==="function")filterArticles();
+}
+function applyDesktopDensity(comfort) {
+  document.body.classList.toggle("desktop-comfort-view",comfort); localStorage.setItem(desktopDensityKey,comfort?"1":"0");
+  const button=document.getElementById("desktop-density-toggle"); if(button){button.textContent=comfort?"2열 보기":"넓게 보기";button.setAttribute("aria-pressed",String(comfort));}
+}
+function rebuildDesktopGroupNavigator() {
+  if(!desktopIsActive())return; const list=document.getElementById("desktop-group-navigator-list"),panel=activePanel(); if(!list||!panel)return;
+  list.innerHTML="";
+  [...panel.querySelectorAll(".news-group")].filter(group=>group.style.display!=="none").forEach((group,index)=>{
+    const name=group.querySelector(".group-name")?.textContent?.trim()||`그룹 ${index+1}`;
+    const count=[...group.querySelectorAll(".preview-card")].filter(card=>card.style.display!=="none").length; if(count<=0)return;
+    const button=document.createElement("button"); button.type="button"; button.className="desktop-group-jump"; button.textContent=`${name} · ${count}`; button.title=`${name} 기사로 이동`;
+    button.addEventListener("click",()=>{group.classList.remove("collapsed");const title=group.querySelector(".group-title");if(title)title.setAttribute("aria-expanded","true");group.scrollIntoView({behavior:"smooth",block:"start"});}); list.appendChild(button);
+  });
+}
+function initDesktopWorkspace() {
+  if(!desktopIsActive()||document.getElementById("desktop-workspace-bar"))return; const main=document.querySelector("main"); if(!main)return;
+  const bar=document.createElement("section"); bar.id="desktop-workspace-bar"; bar.className="desktop-workspace-bar"; bar.setAttribute("aria-label","PC 빠른 보기 도구");
+  bar.innerHTML=`<div class="desktop-workspace-summary"><span class="desktop-workspace-title">PC 빠른 보기</span><span class="desktop-metric">표시 <strong id="desktop-visible-count">0</strong></span><span class="desktop-metric">안읽음 <strong id="desktop-unread-count">0</strong></span><span class="desktop-metric">중요 <strong id="desktop-important-count">0</strong></span></div><div class="desktop-workspace-actions"><button class="desktop-mode-button active" type="button" data-desktop-mode="all">전체</button><button class="desktop-mode-button" type="button" data-desktop-mode="unread">안읽음</button><button class="desktop-mode-button" type="button" data-desktop-mode="important">중요</button><button id="desktop-density-toggle" class="desktop-density-button" type="button" aria-pressed="false">넓게 보기</button><span class="desktop-shortcut-hint"><span class="shortcut-key">/</span>검색 <span class="shortcut-key">J</span><span class="shortcut-key">K</span>이동</span></div>`;
+  main.insertAdjacentElement("beforebegin",bar);
+  bar.querySelectorAll(".desktop-mode-button").forEach(button=>button.addEventListener("click",()=>setDesktopArticleMode(button.dataset.desktopMode||"all")));
+  document.getElementById("desktop-density-toggle")?.addEventListener("click",()=>applyDesktopDensity(!document.body.classList.contains("desktop-comfort-view")));
+  const nav=document.createElement("aside"); nav.id="desktop-group-navigator"; nav.className="desktop-group-navigator"; nav.innerHTML=`<div class="desktop-group-navigator-title">카테고리 바로가기</div><div id="desktop-group-navigator-list" class="desktop-group-navigator-list"></div>`; document.body.appendChild(nav);
+  applyDesktopDensity(localStorage.getItem(desktopDensityKey)==="1"); updateDesktopWorkspaceMetrics(); rebuildDesktopGroupNavigator();
+}
+function desktopMoveArticle(direction) {
+  if(!desktopIsActive())return; const cards=getDesktopVisibleCards(); if(!cards.length)return; const current=document.activeElement?.closest?.(".preview-card"); let index=current?cards.indexOf(current):-1;
+  if(direction>0)index=Math.min(cards.length-1,index+1);else index=index<=0?0:index-1; const target=cards[index]; if(target){target.focus({preventScroll:true});target.scrollIntoView({behavior:"smooth",block:"center"});}
+}
+document.addEventListener("keydown",event=>{
+  if(!desktopIsActive())return; const tag=document.activeElement?.tagName?.toLowerCase(); const editing=tag==="input"||tag==="textarea"||document.activeElement?.isContentEditable;
+  if(event.key==="/"&&!editing){event.preventDefault();document.getElementById("article-search")?.focus();return;} if(editing)return;
+  if(event.key==="j"||event.key==="J"){event.preventDefault();desktopMoveArticle(1);} if(event.key==="k"||event.key==="K"){event.preventDefault();desktopMoveArticle(-1);}
+});
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopWorkspace,{once:true});else initDesktopWorkspace();
+window.addEventListener("resize",()=>{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();});
 
 </script>
 </body>
