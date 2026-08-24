@@ -1,3 +1,6 @@
+# ADDED NHAN DAN VIETNAM SOURCE 2026-08-25
+# BIGGO FINANCE SOURCE URL FIX (finance.biggo.com) 2026-08-25
+# ADDED HANS ECONOMY (hansbiz.co.kr) DIRECT SOURCE 2026-08-25
 # VERIFIED FINAL BUILD 2026-08-19
 # PC DESKTOP RESPONSIVE OPTIMIZATION 2026-08-24
 # FOREIGN TAB LABELS RENAMED + MOVED BELOW KEPCO AFFILIATES 2026-08-24
@@ -526,7 +529,7 @@ SOURCE_MASTER_REQUIRED_CORE = {
     "연합뉴스", "뉴시스", "뉴스1", "조선일보", "중앙일보", "동아일보",
     "한겨레", "경향신문", "한국일보", "국민일보", "서울신문", "세계일보",
     "매일경제", "한국경제", "서울경제", "머니투데이", "이데일리",
-    "아시아경제", "아주경제", "글로벌이코노믹", "아시아투데이",
+    "아시아경제", "아주경제", "글로벌이코노믹", "아시아투데이", "한스경제",
     "뉴스핌", "아이뉴스24", "헤럴드경제", "파이낸셜뉴스", "조선비즈",
     "SBS Biz", "연합인포맥스", "KBS", "MBC", "SBS", "YTN", "JTBC", "MBN",
     "전기신문", "에너지신문", "에너지타임즈", "전력경제신문", "인사이트N파워",
@@ -542,7 +545,7 @@ SOURCE_MASTER_REQUIRED_CORE = {
     "Romania Insider", "AGERPRES English", "The Japan Times", "NHK WORLD-JAPAN",
     "Business Standard India", "The Hindu", "The Economic Times",
     "ANI", "The News Mill", "Chemical Industry Digest",
-    "Vietnam News", "VietnamPlus", "VietnamNet Global", "VnExpress International",
+    "Vietnam News", "VietnamPlus", "VietnamNet Global", "VnExpress International", "Nhan Dan",
     "Arab News", "Saudi Gazette", "The National", "Gulf News", "Khaleej Times",
     "The Korea Herald", "The Korea Times", "Korea JoongAng Daily",
 }
@@ -592,6 +595,7 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'Interesting Engineering',
     'Neutron Bytes',
     'UA.NEWS',
+    'Nhan Dan',
     'The Maritime Executive',
     'TVP World',
     'The Namibian',
@@ -729,6 +733,7 @@ DIRECT_NEWS_PAGES = [
     ("비즈워치", "https://news.bizwatch.co.kr/", "ko"),
     ("매일경제", "https://www.mk.co.kr/", "ko"),
     ("한국경제", "https://www.hankyung.com/", "ko"),
+    ("한스경제", "https://www.hansbiz.co.kr/", "ko"),
 
     # ─────────────────────────────────────────────
     # 국내 방송·보도 채널
@@ -1026,6 +1031,7 @@ DIRECT_NEWS_PAGES = [
     ("Vietnam News", "https://vietnamnews.vn/", "en"),
     ("VietnamPlus", "https://en.vietnamplus.vn/", "en"),
     ("VietnamNet Global", "https://vietnamnet.vn/en", "en"),
+    ("Nhan Dan", "https://en.nhandan.vn/", "en"),
     ("Channel NewsAsia", "https://www.channelnewsasia.com/business", "en"),
     ("The Straits Times", "https://www.straitstimes.com/business", "en"),
 
@@ -1171,7 +1177,7 @@ DIRECT_NEWS_PAGES = [
     ('WCAX', 'https://www.wcax.com/', 'en'),
     ('WWNY', 'https://www.wwnytv.com/', 'en'),
     ('University of Idaho', 'https://www.uidaho.edu/newsroom', 'en'),
-    ('BigGo Finance', 'https://biggo.com/', 'en'),
+    ('BigGo Finance', 'https://finance.biggo.com/', 'en'),
     ('Ahram Online', 'https://english.ahram.org.eg/', 'en'),
     ('Futurism', 'https://futurism.com/', 'en'),
     ('Investing.com', 'https://www.investing.com/news/', 'en'),
