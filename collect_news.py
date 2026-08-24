@@ -4511,6 +4511,24 @@ def is_government_senior_article(article: Article) -> bool:
 
 
 
+
+def _mentions_kepic(title: str, summary: str = "") -> bool:
+    """KEPIC(전력산업기술기준) 관련 기사 여부를 판정합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    compact = re.sub(r"[\s_\-]+", "", haystack)
+    return (
+        "kepic" in compact
+        or "전력산업기술기준" in compact
+        or "koreaelectricpowerindustrycode" in compact
+    )
+
+
+def enforce_kepic_nuclear_group(article: Article) -> Article:
+    """KEPIC 관련 기사는 항상 '원자력' 탭으로 분류합니다."""
+    if _mentions_kepic(article.title, article.description):
+        article.group = "원자력"
+    return article
+
 def classify_direct_article(title: str, summary: str) -> str | None:
     """언론사 직접 수집 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
@@ -4525,6 +4543,10 @@ def classify_direct_article(title: str, summary: str) -> str | None:
         return None
     if is_excluded_military_nuclear_article(title, summary):
         return None
+
+    # KEPIC(전력산업기술기준) 관련 기사는 별도 탭을 만들지 않고 원자력 탭으로 통합합니다.
+    if _mentions_kepic(title, summary):
+        return "원자력"
 
     # 현대건설은 모든 회사/프로젝트 그룹보다 최우선입니다.
     # 제목 또는 본문에 현대건설이 포함되면 다른 명칭이 함께 있어도 현대건설로 분류합니다.
@@ -8946,6 +8968,7 @@ def update_archive(
             migrate_foreign_nuclear_company_group(article)
             migrate_international_nuclear_energy_org_group(article)
             migrate_legacy_nuclear_association_group(article)
+            enforce_kepic_nuclear_group(article)
 
             # Palisades Goldcorp는 광산회사이며 Holtec/Palisades 원전과 무관.
             # 이미 archive에 저장된 기사도 다음 실행에서 제거합니다.
@@ -8961,6 +8984,7 @@ def update_archive(
             migrate_foreign_nuclear_company_group(article)
             migrate_international_nuclear_energy_org_group(article)
             migrate_legacy_nuclear_association_group(article)
+            enforce_kepic_nuclear_group(article)
             enforce_kepco_kdn_group(article)
             normalized_link = article.link.strip() if article.link else ""
             identity = normalized_link or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
@@ -18797,6 +18821,101 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   2026-08-25 PC ARTICLE CONTENT VISIBILITY FIX
+   - Desktop-only fix (>=900px); mobile layout remains unchanged.
+   - The desktop override had reintroduced a 3-column .preview-copy grid
+     while the article content itself was fixed to column 1. As a result,
+     the text area could collapse to ~20px on wide/maximized PC windows.
+   - Restore a single flexible text column and allow the card body to use
+     the full available width beside the thumbnail.
+   ============================================================ */
+@media (min-width:900px) {{
+  .article-stack {{
+    min-width:0 !important;
+    overflow:visible !important;
+  }}
+
+  .preview-card {{
+    min-width:0 !important;
+    overflow:visible !important;
+  }}
+
+  .preview-copy {{
+    width:auto !important;
+    max-width:none !important;
+    min-width:0 !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-template-rows:auto !important;
+    column-gap:0 !important;
+    overflow:visible !important;
+  }}
+
+  .article-content-column {{
+    grid-column:1 !important;
+    grid-row:1 !important;
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }}
+
+  .meta-row,
+  .headline,
+  .article-snippet {{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }}
+}}
+
+
+
+/* ============================================================
+   2026-08-25 PC WORKSPACE UX MODERNIZATION
+   - Desktop only (>=900px). Mobile remains untouched.
+   ============================================================ */
+@media (min-width:900px) {{
+  .desktop-workspace-bar {{
+    position:sticky; top:8px; z-index:120; display:flex; align-items:center;
+    justify-content:space-between; gap:12px; min-height:48px; margin:0 0 14px;
+    padding:8px 10px 8px 14px; border:1px solid rgba(33,73,120,.14);
+    border-radius:13px; background:rgba(249,252,255,.94);
+    box-shadow:0 8px 24px rgba(39,63,93,.10); backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }}
+  .desktop-workspace-summary {{ display:flex; align-items:center; gap:12px; min-width:0; }}
+  .desktop-workspace-title {{ color:#16345d; font-size:12px; font-weight:900; white-space:nowrap; }}
+  .desktop-metric {{ display:flex; align-items:baseline; gap:4px; color:#667085; font-size:10px; font-weight:700; white-space:nowrap; }}
+  .desktop-metric strong {{ color:#16345d; font-size:13px; font-weight:900; }}
+  .desktop-workspace-actions {{ display:flex; align-items:center; gap:6px; flex-wrap:nowrap; }}
+  .desktop-mode-button,.desktop-density-button {{
+    height:31px; padding:0 11px; border:1px solid #d7e0ea; border-radius:8px;
+    background:#fff; color:#475467; font-size:10.5px; font-weight:800; cursor:pointer;
+    white-space:nowrap; transition:background .14s ease,border-color .14s ease,color .14s ease;
+  }}
+  .desktop-mode-button:hover,.desktop-density-button:hover {{ border-color:#9fb7d1; background:#f7fbff; }}
+  .desktop-mode-button.active {{ border-color:#2f80d8; background:#eaf4ff; color:#1d5fa7; }}
+  .desktop-shortcut-hint {{ margin-left:4px; color:#98a2b3; font-size:9px; font-weight:700; white-space:nowrap; }}
+  .shortcut-key {{ display:inline-flex; align-items:center; justify-content:center; min-width:17px; height:17px; margin:0 1px; padding:0 4px; border:1px solid #d0d5dd; border-bottom-width:2px; border-radius:4px; background:#fff; color:#667085; font-size:8px; line-height:1; }}
+  body.desktop-comfort-view .article-stack {{ grid-template-columns:minmax(0,1fr) !important; gap:10px !important; }}
+  body.desktop-comfort-view .preview-card {{ grid-template-columns:minmax(0,1fr) 150px !important; min-height:150px !important; padding:8px 8px 8px 12px !important; }}
+  body.desktop-comfort-view .card-side {{ width:150px !important; min-width:150px !important; }}
+  body.desktop-comfort-view .preview-image {{ width:150px !important; height:150px !important; min-height:150px !important; }}
+  body.desktop-comfort-view .headline {{ font-size:16px !important; -webkit-line-clamp:3 !important; }}
+  body.desktop-comfort-view .article-snippet {{ font-size:12px !important; -webkit-line-clamp:4 !important; }}
+  .desktop-group-navigator {{ display:none; }}
+}}
+@media (min-width:1500px) {{
+  .desktop-group-navigator {{ position:fixed; top:92px; right:14px; z-index:105; display:flex; flex-direction:column; width:132px; max-height:calc(100vh - 120px); padding:9px; border:1px solid rgba(33,73,120,.14); border-radius:12px; background:rgba(249,252,255,.94); box-shadow:0 8px 24px rgba(39,63,93,.10); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); overflow:hidden; }}
+  .desktop-group-navigator-title {{ padding:2px 4px 7px; color:#16345d; font-size:10px; font-weight:900; }}
+  .desktop-group-navigator-list {{ display:flex; flex-direction:column; gap:4px; overflow:auto; scrollbar-width:thin; }}
+  .desktop-group-jump {{ width:100%; min-height:28px; padding:5px 7px; border:0; border-radius:7px; background:transparent; color:#667085; font-size:9.5px; font-weight:800; text-align:left; cursor:pointer; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
+  .desktop-group-jump:hover {{ background:#eef5fc; color:#1d5fa7; }}
+}}
+
 </style>
 </head>
 <body>
@@ -21248,7 +21367,7 @@ function filterArticles(){{
     let visible=[];
 
     cards.forEach(card=>{{
-      const matchesSearch=!q||card.dataset.search.includes(q); const matchesCountry=!activeCountryFilter||card.dataset.country===activeCountryFilter; const show=matchesSearch&&matchesCountry;
+      const matchesSearch=!q||card.dataset.search.includes(q); const matchesCountry=!activeCountryFilter||card.dataset.country===activeCountryFilter; const matchesDesktopMode=(typeof desktopArticleMode === "undefined" || desktopArticleMode === "all") ? true : (desktopArticleMode === "unread" ? !card.classList.contains("read") : card.classList.contains("important")); const show=matchesSearch&&matchesCountry&&matchesDesktopMode;
       card.style.display=show?"":"none";
       if(show){{
         visible.push(card);
@@ -21256,7 +21375,7 @@ function filterArticles(){{
       }}
     }});
 
-    if(q||activeCountryFilter){{
+    if(q||activeCountryFilter||(typeof desktopArticleMode !== "undefined" && desktopArticleMode !== "all")){{
       visible.sort((a,b)=>{{
         const priorityA=Number(a.dataset.priority??2);
         const priorityB=Number(b.dataset.priority??2);
@@ -21274,13 +21393,15 @@ function filterArticles(){{
     }}
   }});
 
-  if(!q&&!activeCountryFilter){{
+  if(!q&&!activeCountryFilter&&(typeof desktopArticleMode === "undefined" || desktopArticleMode === "all")){{
     const currentOrder=languageOrderButton?.dataset.order||localStorage.getItem(languageOrderKey)||"ko-en";
     reorderLanguageArticles(currentOrder);
   }}
 
-  document.getElementById("no-results").style.display=(q||activeCountryFilter)&&total===0?"block":"none";
+  document.getElementById("no-results").style.display=(q||activeCountryFilter||(typeof desktopArticleMode !== "undefined" && desktopArticleMode !== "all"))&&total===0?"block":"none";
   updateMasterButtonCount(panel);
+  if(typeof updateDesktopWorkspaceMetrics === "function") updateDesktopWorkspaceMetrics();
+  if(typeof rebuildDesktopGroupNavigator === "function") rebuildDesktopGroupNavigator();
 }}
 function refreshActivePeriodUI(){{
   filterArticles();
@@ -23956,6 +24077,68 @@ function layoutAndRenderCountryMap(){{
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+
+/* 2026-08-25 PC WORKSPACE UX - desktop only */
+let desktopArticleMode = "all";
+const desktopDensityKey = "nuclearDailyBriefDesktopComfortView";
+function desktopIsActive() {{ return window.matchMedia("(min-width:900px)").matches; }}
+function getDesktopVisibleCards() {{
+  const panel=activePanel(); if(!panel)return [];
+  return [...panel.querySelectorAll(".preview-card")].filter(card=>{{
+    if(card.style.display==="none")return false;
+    const group=card.closest(".news-group"); return !group||group.style.display!=="none";
+  }});
+}}
+function updateDesktopWorkspaceMetrics() {{
+  if(!desktopIsActive())return; const panel=activePanel(); if(!panel)return;
+  const all=[...panel.querySelectorAll(".preview-card")]; const visible=getDesktopVisibleCards();
+  const unread=all.filter(card=>!card.classList.contains("read")).length;
+  const important=all.filter(card=>card.classList.contains("important")).length;
+  const a=document.getElementById("desktop-visible-count"),b=document.getElementById("desktop-unread-count"),c=document.getElementById("desktop-important-count");
+  if(a)a.textContent=String(visible.length); if(b)b.textContent=String(unread); if(c)c.textContent=String(important);
+}}
+function setDesktopArticleMode(mode) {{
+  desktopArticleMode=["all","unread","important"].includes(mode)?mode:"all";
+  document.querySelectorAll(".desktop-mode-button").forEach(button=>button.classList.toggle("active",button.dataset.desktopMode===desktopArticleMode));
+  if(typeof filterArticles==="function")filterArticles();
+}}
+function applyDesktopDensity(comfort) {{
+  document.body.classList.toggle("desktop-comfort-view",comfort); localStorage.setItem(desktopDensityKey,comfort?"1":"0");
+  const button=document.getElementById("desktop-density-toggle"); if(button){{button.textContent=comfort?"2열 보기":"넓게 보기";button.setAttribute("aria-pressed",String(comfort));}}
+}}
+function rebuildDesktopGroupNavigator() {{
+  if(!desktopIsActive())return; const list=document.getElementById("desktop-group-navigator-list"),panel=activePanel(); if(!list||!panel)return;
+  list.innerHTML="";
+  [...panel.querySelectorAll(".news-group")].filter(group=>group.style.display!=="none").forEach((group,index)=>{{
+    const name=group.querySelector(".group-name")?.textContent?.trim()||`그룹 ${{index+1}}`;
+    const count=[...group.querySelectorAll(".preview-card")].filter(card=>card.style.display!=="none").length; if(count<=0)return;
+    const button=document.createElement("button"); button.type="button"; button.className="desktop-group-jump"; button.textContent=`${{name}} · ${{count}}`; button.title=`${{name}} 기사로 이동`;
+    button.addEventListener("click",()=>{{group.classList.remove("collapsed");const title=group.querySelector(".group-title");if(title)title.setAttribute("aria-expanded","true");group.scrollIntoView({{behavior:"smooth",block:"start"}});}}); list.appendChild(button);
+  }});
+}}
+function initDesktopWorkspace() {{
+  if(!desktopIsActive()||document.getElementById("desktop-workspace-bar"))return; const main=document.querySelector("main"); if(!main)return;
+  const bar=document.createElement("section"); bar.id="desktop-workspace-bar"; bar.className="desktop-workspace-bar"; bar.setAttribute("aria-label","PC 빠른 보기 도구");
+  bar.innerHTML=`<div class="desktop-workspace-summary"><span class="desktop-workspace-title">PC 빠른 보기</span><span class="desktop-metric">표시 <strong id="desktop-visible-count">0</strong></span><span class="desktop-metric">안읽음 <strong id="desktop-unread-count">0</strong></span><span class="desktop-metric">중요 <strong id="desktop-important-count">0</strong></span></div><div class="desktop-workspace-actions"><button class="desktop-mode-button active" type="button" data-desktop-mode="all">전체</button><button class="desktop-mode-button" type="button" data-desktop-mode="unread">안읽음</button><button class="desktop-mode-button" type="button" data-desktop-mode="important">중요</button><button id="desktop-density-toggle" class="desktop-density-button" type="button" aria-pressed="false">넓게 보기</button><span class="desktop-shortcut-hint"><span class="shortcut-key">/</span>검색 <span class="shortcut-key">J</span><span class="shortcut-key">K</span>이동</span></div>`;
+  main.insertAdjacentElement("beforebegin",bar);
+  bar.querySelectorAll(".desktop-mode-button").forEach(button=>button.addEventListener("click",()=>setDesktopArticleMode(button.dataset.desktopMode||"all")));
+  document.getElementById("desktop-density-toggle")?.addEventListener("click",()=>applyDesktopDensity(!document.body.classList.contains("desktop-comfort-view")));
+  const nav=document.createElement("aside"); nav.id="desktop-group-navigator"; nav.className="desktop-group-navigator"; nav.innerHTML=`<div class="desktop-group-navigator-title">카테고리 바로가기</div><div id="desktop-group-navigator-list" class="desktop-group-navigator-list"></div>`; document.body.appendChild(nav);
+  applyDesktopDensity(localStorage.getItem(desktopDensityKey)==="1"); updateDesktopWorkspaceMetrics(); rebuildDesktopGroupNavigator();
+}}
+function desktopMoveArticle(direction) {{
+  if(!desktopIsActive())return; const cards=getDesktopVisibleCards(); if(!cards.length)return; const current=document.activeElement?.closest?.(".preview-card"); let index=current?cards.indexOf(current):-1;
+  if(direction>0)index=Math.min(cards.length-1,index+1);else index=index<=0?0:index-1; const target=cards[index]; if(target){{target.focus({{preventScroll:true}});target.scrollIntoView({{behavior:"smooth",block:"center"}});}}
+}}
+document.addEventListener("keydown",event=>{{
+  if(!desktopIsActive())return; const tag=document.activeElement?.tagName?.toLowerCase(); const editing=tag==="input"||tag==="textarea"||document.activeElement?.isContentEditable;
+  if(event.key==="/"&&!editing){{event.preventDefault();document.getElementById("article-search")?.focus();return;}} if(editing)return;
+  if(event.key==="j"||event.key==="J"){{event.preventDefault();desktopMoveArticle(1);}} if(event.key==="k"||event.key==="K"){{event.preventDefault();desktopMoveArticle(-1);}}
+}});
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopWorkspace,{{once:true}});else initDesktopWorkspace();
+window.addEventListener("resize",()=>{{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();}});
 
 </script>
 </body>
