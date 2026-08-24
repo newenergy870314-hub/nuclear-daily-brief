@@ -1,3 +1,4 @@
+# TABLET 3-STEP RESPONSIVE: MOBILE <=767 / TABLET 768-1199 / PC >=1200 2026-08-25
 # ADDED NHAN DAN VIETNAM SOURCE 2026-08-25
 # BIGGO FINANCE SOURCE URL FIX (finance.biggo.com) 2026-08-25
 # ADDED HANS ECONOMY (hansbiz.co.kr) DIRECT SOURCE 2026-08-25
@@ -8829,8 +8830,29 @@ def infer_publisher_from_url(*urls: str) -> str:
     return ""
 
 
+def _decode_html_entities_for_display(value: str, max_rounds: int = 3) -> str:
+    """
+    화면에 &quot; / &#39; / &amp; 같은 HTML entity가 문자 그대로 노출되지 않도록
+    중첩 인코딩까지 안전하게 복원합니다.
+
+    예: &amp;quot;안전 최우선&amp;quot; -> "안전 최우선"
+    """
+    text = str(value or "")
+    for _ in range(max_rounds):
+        decoded = html.unescape(text)
+        if decoded == text:
+            break
+        text = decoded
+    return text
+
+
 def ensure_article_display_metadata(article: Article) -> None:
     """과거 archive 등에서 비어 있는 표시용 언론사명을 안전하게 복원합니다."""
+    # RSS/뉴스페이지/기존 archive에서 HTML entity가 한 번 또는 여러 번
+    # 인코딩된 상태로 들어온 경우 표시 전에 정상 문자로 통일합니다.
+    article.title = _decode_html_entities_for_display(article.title).strip()
+    article.description = _decode_html_entities_for_display(article.description).strip()
+    article.publisher = _decode_html_entities_for_display(article.publisher).strip()
     if not article.publisher.strip():
         article.publisher = infer_publisher_from_url(
             article.link,
@@ -9167,6 +9189,7 @@ def build_html(
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#b2c7d9">
 <title>원자력 주요기사</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
@@ -18527,12 +18550,167 @@ main {{
 
 
 /* ============================================================
+   2026-08-25 TABLET RESPONSIVE LAYOUT
+   - Mobile: <=767px (existing stabilized layout)
+   - Tablet: 768px-1199px (single-column, touch/read focused)
+   - Desktop: >=1200px (wide monitoring/workspace UI)
+   ============================================================ */
+@media (min-width:768px) and (max-width:1199px) {{
+  body {{
+    background:#d7e3ef !important;
+  }}
+
+  .phone {{
+    width:calc(100% - 24px) !important;
+    max-width:1080px !important;
+    margin:0 auto !important;
+    padding-bottom:32px !important;
+  }}
+
+  /* Tablet header: roomy enough for touch, without desktop density. */
+  .topbar {{
+    margin:10px 0 12px !important;
+    padding:12px 14px !important;
+    border-radius:15px !important;
+  }}
+  .topbar h1 {{
+    font-size:20px !important;
+  }}
+  .header-toggle {{
+    min-width:78px !important;
+    height:36px !important;
+  }}
+  .search-input {{
+    height:42px !important;
+    font-size:13px !important;
+    border-radius:10px !important;
+  }}
+  .header-controls {{
+    display:block !important;
+    max-height:none !important;
+  }}
+  .topbar.collapsed .header-controls {{
+    max-height:0 !important;
+  }}
+  .tabs {{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:7px !important;
+  }}
+  .tab-button {{
+    min-height:38px !important;
+    height:38px !important;
+    font-size:12px !important;
+  }}
+  .utility-row {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+    max-width:none !important;
+  }}
+  .utility-box {{
+    height:42px !important;
+  }}
+
+  /* Tablet map: larger than mobile, smaller than desktop. */
+  .world-map-panel {{
+    margin-bottom:14px !important;
+    padding:12px !important;
+    border-radius:15px !important;
+  }}
+  .country-map-visual.globe-mode {{
+    height:430px !important;
+    min-height:430px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    left:50% !important;
+    right:auto !important;
+    width:min(calc(100% - 20px),820px) !important;
+    height:auto !important;
+    aspect-ratio:2 / 1 !important;
+    transform:translateX(-50%) !important;
+    transform-origin:center top !important;
+  }}
+  #continent-rail {{
+    left:10px !important;
+    right:10px !important;
+    width:auto !important;
+    height:46px !important;
+    max-height:46px !important;
+    transform:none !important;
+  }}
+  .continent-button {{
+    min-height:38px !important;
+    height:38px !important;
+    padding:4px 6px !important;
+  }}
+  .continent-button-name {{ font-size:10px !important; }}
+  .continent-button-count {{ font-size:9px !important; }}
+
+  /* Tablet articles stay one-column for reading and touch. */
+  .article-stack {{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:9px !important;
+    margin-top:8px !important;
+    margin-bottom:8px !important;
+  }}
+  .preview-card {{
+    grid-template-columns:minmax(0,1fr) 132px !important;
+    gap:10px !important;
+    min-height:132px !important;
+    height:auto !important;
+    padding:7px 7px 7px 11px !important;
+    border-radius:8px !important;
+  }}
+  .preview-copy {{
+    min-width:0 !important;
+    min-height:118px !important;
+  }}
+  .headline {{
+    font-size:15px !important;
+    line-height:1.32 !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .article-snippet {{
+    font-size:11.5px !important;
+    line-height:1.43 !important;
+    -webkit-line-clamp:4 !important;
+  }}
+  .important-button {{
+    min-width:30px !important;
+    width:30px !important;
+    min-height:28px !important;
+    height:28px !important;
+    font-size:17px !important;
+    line-height:28px !important;
+  }}
+  .card-side {{
+    width:132px !important;
+    min-width:132px !important;
+  }}
+  .preview-image {{
+    width:132px !important;
+    height:132px !important;
+    min-height:132px !important;
+  }}
+  .group-title {{
+    min-height:38px !important;
+  }}
+
+  /* PC-only workspace/navigation must never appear on tablet. */
+  .desktop-workspace-bar,
+  .desktop-group-navigator {{
+    display:none !important;
+  }}
+}}
+
+
+/* ============================================================
    2026-08-24 PC DESKTOP RESPONSIVE OPTIMIZATION
-   - Mobile layout below 900px remains unchanged.
+   - Mobile/tablet layout below 1200px remains separate from desktop.
    - Desktop gets a wider centered canvas, larger map,
      horizontal controls, and two-column article cards.
    ============================================================ */
-@media (min-width:900px) {{
+@media (min-width:1200px) {{
   body {{
     background:#c4d6e8 !important;
   }}
@@ -18824,14 +19002,14 @@ main {{
 
 /* ============================================================
    2026-08-25 PC ARTICLE CONTENT VISIBILITY FIX
-   - Desktop-only fix (>=900px); mobile layout remains unchanged.
+   - Desktop-only fix (>=1200px); mobile/tablet layouts remain unchanged.
    - The desktop override had reintroduced a 3-column .preview-copy grid
      while the article content itself was fixed to column 1. As a result,
      the text area could collapse to ~20px on wide/maximized PC windows.
    - Restore a single flexible text column and allow the card body to use
      the full available width beside the thumbnail.
    ============================================================ */
-@media (min-width:900px) {{
+@media (min-width:1200px) {{
   .article-stack {{
     min-width:0 !important;
     overflow:visible !important;
@@ -18875,9 +19053,9 @@ main {{
 
 /* ============================================================
    2026-08-25 PC WORKSPACE UX MODERNIZATION
-   - Desktop only (>=900px). Mobile remains untouched.
+   - Desktop only (>=1200px). Mobile/tablet remain untouched.
    ============================================================ */
-@media (min-width:900px) {{
+@media (min-width:1200px) {{
   .desktop-workspace-bar {{
     position:sticky; top:8px; z-index:120; display:flex; align-items:center;
     justify-content:space-between; gap:12px; min-height:48px; margin:0 0 14px;
@@ -18914,6 +19092,250 @@ main {{
   .desktop-group-navigator-list {{ display:flex; flex-direction:column; gap:4px; overflow:auto; scrollbar-width:thin; }}
   .desktop-group-jump {{ width:100%; min-height:28px; padding:5px 7px; border:0; border-radius:7px; background:transparent; color:#667085; font-size:9.5px; font-weight:800; text-align:left; cursor:pointer; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
   .desktop-group-jump:hover {{ background:#eef5fc; color:#1d5fa7; }}
+}}
+
+
+
+/* ============================================================
+   2026-08-25 PC WIDE READING + ALWAYS-ACCESSIBLE IMPORTANT UX
+   - Desktop uses the available monitor width instead of a narrow 1320px canvas.
+   - Pretendard-first typography and larger desktop news text.
+   - Mobile-style top favorites panel is hidden on PC; sticky workspace Important filter remains.
+   - Important button is anchored before thumbnail with a protected gap.
+   - Floating back-to-top control is desktop-only.
+   ============================================================ */
+@media (min-width:1200px) {{
+  html, body {{
+    font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+      "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif !important;
+  }}
+  body {{
+    background:#c8d8e8 !important;
+  }}
+  .phone {{
+    width:calc(100vw - 24px) !important;
+    max-width:none !important;
+    margin:0 12px !important;
+  }}
+  .topbar {{
+    padding:16px 20px 15px !important;
+  }}
+  .topbar h1 {{
+    font-size:25px !important;
+    font-weight:850 !important;
+    letter-spacing:-.035em !important;
+  }}
+  .updated {{ font-size:11.5px !important; }}
+  .search-input {{
+    height:44px !important;
+    font-size:14.5px !important;
+    font-weight:500 !important;
+  }}
+  .tab-button {{ font-size:13px !important; }}
+  .utility-label, .language-order-toggle, .date-display {{ font-size:11.5px !important; }}
+
+  /* PC uses the sticky Important filter instead of a second top-only favorites block. */
+  .favorites-panel-top {{ display:none !important; }}
+
+  .desktop-workspace-bar {{
+    top:8px !important;
+    min-height:54px !important;
+    padding:9px 12px 9px 16px !important;
+    border-radius:14px !important;
+  }}
+  .desktop-workspace-title {{ font-size:13px !important; }}
+  .desktop-metric {{ font-size:11px !important; }}
+  .desktop-metric strong {{ font-size:14px !important; }}
+  .desktop-mode-button, .desktop-density-button {{
+    height:34px !important;
+    padding:0 13px !important;
+    font-size:11.5px !important;
+  }}
+
+  .group-title {{
+    height:40px !important;
+    padding:0 17px !important;
+  }}
+  .group-name, .group-count, .group-arrow {{ height:40px !important; }}
+  .group-name {{ font-size:15px !important; }}
+  .group-count {{ font-size:14px !important; }}
+
+  .article-stack {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:14px !important;
+  }}
+  .preview-card {{
+    position:relative !important;
+    grid-template-columns:minmax(0,1fr) 136px !important;
+    gap:14px !important;
+    min-height:146px !important;
+    padding:9px 9px 9px 13px !important;
+    border-radius:10px !important;
+  }}
+  .preview-copy {{
+    min-height:128px !important;
+    padding:3px 0 !important;
+  }}
+  .article-content-column {{
+    position:relative !important;
+    padding-right:44px !important;
+  }}
+  .meta-row {{
+    min-height:25px !important;
+    height:25px !important;
+    padding-right:2px !important;
+    overflow:hidden !important;
+  }}
+  .publisher, .status-inline {{
+    font-size:12px !important;
+    line-height:1.2 !important;
+  }}
+  .meta-divider {{ font-size:11px !important; }}
+  .headline {{
+    margin-top:6px !important;
+    font-size:17px !important;
+    font-weight:760 !important;
+    line-height:1.38 !important;
+    letter-spacing:-.018em !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .article-snippet {{
+    margin-top:7px !important;
+    font-size:13.5px !important;
+    font-weight:450 !important;
+    line-height:1.58 !important;
+    letter-spacing:-.008em !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .card-side {{
+    width:136px !important;
+    min-width:136px !important;
+  }}
+  .preview-image {{
+    width:136px !important;
+    height:136px !important;
+    min-height:136px !important;
+  }}
+
+  /* Important control has its own protected area and cannot collide with thumbnail. */
+  .important-button {{
+    position:absolute !important;
+    top:0 !important;
+    right:0 !important;
+    z-index:4 !important;
+    width:36px !important;
+    min-width:36px !important;
+    height:26px !important;
+    min-height:26px !important;
+    padding:0 7px !important;
+    border-radius:7px !important;
+    font-size:11px !important;
+    line-height:24px !important;
+    white-space:nowrap !important;
+  }}
+
+  body.desktop-comfort-view .headline {{ font-size:18px !important; }}
+  body.desktop-comfort-view .article-snippet {{ font-size:14px !important; line-height:1.62 !important; }}
+  body.desktop-comfort-view .preview-card {{ grid-template-columns:minmax(0,1fr) 160px !important; }}
+  body.desktop-comfort-view .card-side, body.desktop-comfort-view .preview-image {{ width:160px !important; min-width:160px !important; }}
+  body.desktop-comfort-view .preview-image {{ height:160px !important; min-height:160px !important; }}
+
+  /* Fixed side navigator would overlap a true full-width canvas, so keep article canvas clear. */
+  .desktop-group-navigator {{ display:none !important; }}
+
+  .desktop-back-to-top {{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:180;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    min-width:48px;
+    height:48px;
+    padding:0 14px;
+    border:1px solid rgba(29,95,167,.24);
+    border-radius:24px;
+    background:rgba(255,255,255,.94);
+    color:#1d5fa7;
+    box-shadow:0 8px 24px rgba(30,55,85,.20);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    font:800 12px/1 "Pretendard Variable", Pretendard, sans-serif;
+    cursor:pointer;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    transition:opacity .18s ease, transform .18s ease, visibility .18s ease, box-shadow .18s ease;
+  }}
+  .desktop-back-to-top.visible {{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }}
+  .desktop-back-to-top:hover {{
+    box-shadow:0 10px 28px rgba(30,55,85,.28);
+    transform:translateY(-2px);
+  }}
+  .desktop-back-to-top-arrow {{ font-size:17px; line-height:1; }}
+}}
+
+/* On large/full-HD monitors, use the extra width for a third readable column. */
+@media (min-width:1700px) {{
+  .article-stack {{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:14px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-25 MAP COUNTRY LABEL VISIBILITY / READABILITY FIX
+   - Mobile / Tablet / PC common
+   - Show flag + country + article count on the map itself
+   ============================================================ */
+#country-map-label-layer.country-map-label-layer {{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  z-index:40 !important;
+  pointer-events:none !important;
+}}
+.precise-country-label {{
+  min-height:20px !important;
+  padding:3px 6px !important;
+  gap:4px !important;
+  font-size:8.5px !important;
+  box-shadow:0 2px 7px rgba(42,76,103,.14) !important;
+}}
+.precise-country-label .flag {{ font-size:10px !important; }}
+.precise-country-label .name,
+.precise-country-label .count {{ font-size:8.4px !important; }}
+.precise-country-label .count {{ color:#0f7fb8 !important; }}
+.precise-country-dot {{ z-index:41 !important; }}
+.precise-country-connector {{ z-index:40 !important; }}
+.precise-country-label {{ z-index:42 !important; }}
+
+@media (min-width:768px) and (max-width:1199px) {{
+  .precise-country-label {{ min-height:22px !important; padding:3px 7px !important; }}
+  .precise-country-label .flag {{ font-size:11px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:9px !important; }}
+}}
+
+@media (min-width:1200px) {{
+  .precise-country-label {{ min-height:24px !important; padding:4px 8px !important; gap:5px !important; }}
+  .precise-country-label .flag {{ font-size:13px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:10.5px !important; }}
+}}
+
+@media (max-width:430px) {{
+  .precise-country-label {{ min-height:18px !important; padding:2px 4px !important; gap:3px !important; }}
+  .precise-country-label .flag {{ font-size:8.8px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:7.6px !important; }}
 }}
 
 </style>
@@ -23982,10 +24404,26 @@ function renderHtmlCountryLabels(items){{
   const layer = document.getElementById('country-map-label-layer');
   if(!visual || !svg || !layer) return;
   layer.innerHTML='';
-  if(activeContinentFilter==='ALL') return;
 
-  const baseCountries = items
-    .filter(v => v.continent===activeContinentFilter && v.count>0);
+  /* 2026-08-25 MAP COUNTRY LABEL VISIBILITY FIX
+     전체(ALL) 상태에서도 국기 · 국가명 · 기사건수를 표시합니다.
+     좁은 화면에서는 대륙별 상위 국가만 우선 노출해 겹침을 줄이고,
+     특정 대륙을 선택하면 해당 대륙의 기사 보유 국가를 모두 표시합니다. */
+  let baseCountries = items.filter(v => v.count>0);
+  if(activeContinentFilter!=='ALL'){{
+    baseCountries = baseCountries.filter(v => v.continent===activeContinentFilter);
+  }} else {{
+    const width = window.innerWidth || document.documentElement.clientWidth || 390;
+    const perContinent = width >= 1200 ? 4 : (width >= 768 ? 3 : 2);
+    const grouped = new Map();
+    baseCountries.forEach(item=>{{
+      if(!grouped.has(item.continent)) grouped.set(item.continent,[]);
+      grouped.get(item.continent).push(item);
+    }});
+    baseCountries = [...grouped.values()].flatMap(group=>
+      group.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko')).slice(0,perContinent)
+    );
+  }}
   if(!baseCountries.length) return;
 
   const countries = finalSortCountriesForMap(baseCountries, activeContinentFilter);
@@ -24083,7 +24521,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 /* 2026-08-25 PC WORKSPACE UX - desktop only */
 let desktopArticleMode = "all";
 const desktopDensityKey = "nuclearDailyBriefDesktopComfortView";
-function desktopIsActive() {{ return window.matchMedia("(min-width:900px)").matches; }}
+function desktopIsActive() {{ return window.matchMedia("(min-width:1200px)").matches; }}
 function getDesktopVisibleCards() {{
   const panel=activePanel(); if(!panel)return [];
   return [...panel.querySelectorAll(".preview-card")].filter(card=>{{
@@ -24121,7 +24559,7 @@ function rebuildDesktopGroupNavigator() {{
 function initDesktopWorkspace() {{
   if(!desktopIsActive()||document.getElementById("desktop-workspace-bar"))return; const main=document.querySelector("main"); if(!main)return;
   const bar=document.createElement("section"); bar.id="desktop-workspace-bar"; bar.className="desktop-workspace-bar"; bar.setAttribute("aria-label","PC 빠른 보기 도구");
-  bar.innerHTML=`<div class="desktop-workspace-summary"><span class="desktop-workspace-title">PC 빠른 보기</span><span class="desktop-metric">표시 <strong id="desktop-visible-count">0</strong></span><span class="desktop-metric">안읽음 <strong id="desktop-unread-count">0</strong></span><span class="desktop-metric">중요 <strong id="desktop-important-count">0</strong></span></div><div class="desktop-workspace-actions"><button class="desktop-mode-button active" type="button" data-desktop-mode="all">전체</button><button class="desktop-mode-button" type="button" data-desktop-mode="unread">안읽음</button><button class="desktop-mode-button" type="button" data-desktop-mode="important">중요</button><button id="desktop-density-toggle" class="desktop-density-button" type="button" aria-pressed="false">넓게 보기</button><span class="desktop-shortcut-hint"><span class="shortcut-key">/</span>검색 <span class="shortcut-key">J</span><span class="shortcut-key">K</span>이동</span></div>`;
+  bar.innerHTML=`<div class="desktop-workspace-summary"><span class="desktop-workspace-title">PC 빠른 보기</span><span class="desktop-metric">표시 <strong id="desktop-visible-count">0</strong></span><span class="desktop-metric">안읽음 <strong id="desktop-unread-count">0</strong></span><span class="desktop-metric">중요 <strong id="desktop-important-count">0</strong></span></div><div class="desktop-workspace-actions"><button class="desktop-mode-button active" type="button" data-desktop-mode="all">전체</button><button class="desktop-mode-button" type="button" data-desktop-mode="unread">안읽음</button><button class="desktop-mode-button" type="button" data-desktop-mode="important">중요기사</button><button id="desktop-density-toggle" class="desktop-density-button" type="button" aria-pressed="false">넓게 보기</button><span class="desktop-shortcut-hint"><span class="shortcut-key">/</span>검색 <span class="shortcut-key">J</span><span class="shortcut-key">K</span>이동</span></div>`;
   main.insertAdjacentElement("beforebegin",bar);
   bar.querySelectorAll(".desktop-mode-button").forEach(button=>button.addEventListener("click",()=>setDesktopArticleMode(button.dataset.desktopMode||"all")));
   document.getElementById("desktop-density-toggle")?.addEventListener("click",()=>applyDesktopDensity(!document.body.classList.contains("desktop-comfort-view")));
@@ -24137,8 +24575,38 @@ document.addEventListener("keydown",event=>{{
   if(event.key==="/"&&!editing){{event.preventDefault();document.getElementById("article-search")?.focus();return;}} if(editing)return;
   if(event.key==="j"||event.key==="J"){{event.preventDefault();desktopMoveArticle(1);}} if(event.key==="k"||event.key==="K"){{event.preventDefault();desktopMoveArticle(-1);}}
 }});
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopWorkspace,{{once:true}});else initDesktopWorkspace();
-window.addEventListener("resize",()=>{{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();}});
+function initDesktopBackToTop() {{
+  let button=document.getElementById("desktop-back-to-top");
+  if(!desktopIsActive()){{
+    if(button)button.remove();
+    return;
+  }}
+  if(!button){{
+    button=document.createElement("button");
+    button.id="desktop-back-to-top";
+    button.className="desktop-back-to-top";
+    button.type="button";
+    button.setAttribute("aria-label","페이지 맨 위로 이동");
+    button.innerHTML=`<span class="desktop-back-to-top-arrow">↑</span><span>맨 위로</span>`;
+    button.addEventListener("click",()=>window.scrollTo({{top:0,behavior:"smooth"}}));
+    document.body.appendChild(button);
+  }}
+  const update=()=>{{
+    if(!desktopIsActive()){{button.classList.remove("visible");return;}}
+    button.classList.toggle("visible",window.scrollY>520);
+  }};
+  if(!window.__desktopBackToTopBound){{
+    window.addEventListener("scroll",update,{{passive:true}});
+    window.__desktopBackToTopBound=true;
+  }}
+  update();
+}}
+function initDesktopExperience() {{
+  initDesktopWorkspace();
+  initDesktopBackToTop();
+}}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopExperience,{{once:true}});else initDesktopExperience();
+window.addEventListener("resize",()=>{{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();initDesktopBackToTop();}});
 
 </script>
 </body>
