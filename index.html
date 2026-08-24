@@ -9362,6 +9362,303 @@ main {
   }
 }
 
+
+
+/* ============================================================
+   2026-08-24 PC DESKTOP RESPONSIVE OPTIMIZATION
+   - Mobile layout below 900px remains unchanged.
+   - Desktop gets a wider centered canvas, larger map,
+     horizontal controls, and two-column article cards.
+   ============================================================ */
+@media (min-width:900px) {
+  body {
+    background:#c4d6e8 !important;
+  }
+
+  .phone {
+    width:min(calc(100% - 40px),1320px) !important;
+    max-width:1320px !important;
+    margin:0 auto !important;
+    padding:0 0 42px !important;
+  }
+
+  /* Header / search / controls */
+  .topbar {
+    margin:14px 0 14px !important;
+    padding:14px 18px 13px !important;
+    border-radius:18px !important;
+  }
+  .topbar-title-row {
+    min-height:36px !important;
+  }
+  .topbar h1 {
+    font-size:22px !important;
+    letter-spacing:-.45px !important;
+  }
+  .updated {
+    font-size:10px !important;
+  }
+  .header-toggle {
+    min-width:82px !important;
+    height:34px !important;
+    padding:0 12px !important;
+    font-size:11px !important;
+  }
+  .search-wrap {
+    margin-top:8px !important;
+  }
+  .search-input {
+    height:40px !important;
+    padding:0 14px !important;
+    font-size:13px !important;
+    border-radius:10px !important;
+  }
+
+  .header-controls {
+    display:grid !important;
+    grid-template-columns:minmax(280px,.85fr) minmax(360px,1.15fr) !important;
+    gap:10px !important;
+    align-items:center !important;
+    max-height:72px !important;
+    margin-top:8px !important;
+  }
+  .topbar.collapsed .header-controls {
+    max-height:0 !important;
+    margin-top:0 !important;
+  }
+  .tabs {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:7px !important;
+    margin:0 !important;
+  }
+  .tab-button {
+    height:34px !important;
+    font-size:12px !important;
+    border-radius:8px !important;
+  }
+  .utility-row {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:7px !important;
+    margin:0 !important;
+  }
+  .utility-box {
+    height:34px !important;
+    padding:0 8px !important;
+    border-radius:8px !important;
+  }
+  .utility-label {
+    font-size:10px !important;
+  }
+  .language-order-toggle,
+  .date-control {
+    height:25px !important;
+    border-radius:6px !important;
+  }
+  .language-order-toggle,
+  .date-display {
+    font-size:10.5px !important;
+    line-height:25px !important;
+  }
+
+  /* Important articles */
+  .favorites-panel {
+    margin:0 0 14px !important;
+    padding:12px 14px !important;
+    border-radius:12px !important;
+  }
+  .favorites-list {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }
+
+  /* Country map: larger on desktop, but not stretched edge-to-edge. */
+  .world-map-panel {
+    margin:0 0 16px !important;
+    padding:15px 16px 16px !important;
+    border-radius:18px !important;
+  }
+  .world-map-head {
+    margin-bottom:8px !important;
+  }
+  .world-map-title {
+    font-size:14px !important;
+  }
+  .world-map-summary,
+  .country-filter-note {
+    font-size:10px !important;
+  }
+  .country-map-visual.globe-mode {
+    height:558px !important;
+    min-height:558px !important;
+    border-radius:14px !important;
+  }
+  .country-map-visual .world-map-inline.globe-texture-source {
+    left:50% !important;
+    right:auto !important;
+    top:10px !important;
+    bottom:auto !important;
+    width:min(calc(100% - 32px),1000px) !important;
+    height:auto !important;
+    aspect-ratio:2 / 1 !important;
+    transform:translateX(-50%) !important;
+    transform-origin:center top !important;
+  }
+
+  #continent-rail {
+    left:50% !important;
+    right:auto !important;
+    bottom:4px !important;
+    width:min(calc(100% - 32px),1000px) !important;
+    height:48px !important;
+    max-height:48px !important;
+    padding:4px 6px !important;
+    transform:translateX(-50%) !important;
+    border-radius:10px !important;
+  }
+  .continent-rail-scroll {
+    gap:5px !important;
+  }
+  .continent-button {
+    min-height:40px !important;
+    height:40px !important;
+    padding:4px 8px !important;
+    border-radius:8px !important;
+    gap:3px !important;
+  }
+  .continent-button-name {
+    font-size:11px !important;
+  }
+  .continent-button-count {
+    font-size:9.5px !important;
+  }
+  .precise-country-label,
+  .clean-map-country-label {
+    font-size:9.5px !important;
+  }
+
+  /* Main article area */
+  main {
+    padding:0 0 42px !important;
+  }
+  .period-action-row {
+    min-height:38px !important;
+  }
+  .period-inline-label {
+    font-size:13px !important;
+  }
+  .period-inline-range {
+    font-size:10.5px !important;
+  }
+  .group-master-button {
+    width:112px !important;
+    min-width:112px !important;
+    height:32px !important;
+    font-size:10.5px !important;
+  }
+
+  .news-group {
+    margin-bottom:18px !important;
+  }
+  .group-title {
+    height:34px !important;
+    padding:0 16px !important;
+    border-radius:10px !important;
+  }
+  .group-name,
+  .group-count,
+  .group-arrow {
+    height:34px !important;
+  }
+  .group-name {
+    font-size:13px !important;
+  }
+  .group-count {
+    font-size:12.5px !important;
+  }
+  .group-arrow {
+    font-size:11px !important;
+  }
+
+  /* Desktop information density: two article cards per row. */
+  .article-stack {
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px 14px !important;
+    margin-top:9px !important;
+    margin-bottom:9px !important;
+  }
+  .preview-card {
+    grid-template-columns:minmax(0,1fr) 118px !important;
+    gap:9px !important;
+    min-height:126px !important;
+    height:auto !important;
+    padding:6px 6px 6px 9px !important;
+    border-radius:8px !important;
+  }
+  .preview-copy {
+    grid-template-columns:20px minmax(0,1fr) 24px !important;
+    column-gap:6px !important;
+    min-height:114px !important;
+    padding:3px 0 !important;
+  }
+  .meta-row {
+    height:21px !important;
+  }
+  .article-order-inline,
+  .publisher,
+  .status-inline {
+    font-size:10.5px !important;
+  }
+  .important-button {
+    width:24px !important;
+    height:21px !important;
+    font-size:16px !important;
+    line-height:21px !important;
+  }
+  .headline {
+    margin-top:3px !important;
+    font-size:14.5px !important;
+    line-height:1.30 !important;
+    -webkit-line-clamp:2 !important;
+  }
+  .article-snippet {
+    margin-top:4px !important;
+    font-size:11.5px !important;
+    line-height:1.42 !important;
+    -webkit-line-clamp:3 !important;
+  }
+  .card-side {
+    width:118px !important;
+    min-width:118px !important;
+  }
+  .preview-image {
+    width:118px !important;
+    height:118px !important;
+    min-height:118px !important;
+    border-radius:0 !important;
+  }
+
+  /* Mouse-oriented polish for desktop only. */
+  .preview-card {
+    transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease !important;
+  }
+  .preview-card:hover {
+    transform:translateY(-1px) !important;
+    box-shadow:0 5px 15px rgba(35,57,93,.08) !important;
+  }
+  .group-title:hover,
+  .tab-button:hover,
+  .continent-button:hover {
+    filter:brightness(.985) !important;
+  }
+}
+
+@media (min-width:1400px) {
+  .phone {
+    width:1320px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -9370,7 +9667,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.24(월) 08:40 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.24(월) 10:30 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -30636,9 +30933,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260824101750984"
+  data-title="대우건설 이강석 대표, 첫 현장 행보서 &amp;quot;안전 최우선&amp;quot; 강조"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787534346"
+  data-country="OTHER"
+  data-search="대우건설 이강석 대표, 첫 현장 행보서 &amp;quot;안전 최우선&amp;quot; 강조 아주경제 타 건설사 이강석 대우건설 신임 대표가 19일 오전 양주역 푸르지오 센터파크 현장을 찾아 안전점검을 진행했다. [사진=대우건설] 이강석 대우건설 신임 대표가 취임 후 첫 현장 행보로 건설현장을 찾아 안전관리 강화를 주문했다. 새 대표 체제 출범 직후부터 &amp;lsquo;안전 최우선&amp;rsquo; 메시지를 전면에 내세우며 현장 중심 경영에 시동을 건 모습이다. &amp;nbsp; 대우건설은 이 대표가 신임 대표이사 취임 이후 첫 현장 일정으로 공사 현장을 방문해 안전관리 현황을 점검했다고 24일 밝혔다. &amp;nbsp; 이 대표는 현장 관계자들에게 안전이 공정과 품질에 앞서는 최우선 가치라는 점"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hankyung.com/article/2026082477706" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">대우건설 이강석 대표, 취임 후 첫 현장 행보 &#x27;안전 최우선&#x27;</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대우건설 이강석 대표, 첫 현장 행보서 &amp;quot;안전 최우선&amp;quot; 강조</div>
+      <div class="article-snippet">이강석 대우건설 신임 대표가 19일 오전 양주역 푸르지오 센터파크 현장을 찾아 안전점검을 진행했다. [사진=대우건설] 이강석 대우건설 신임 대표가 취임 후 첫 현장 행보로 건설현장을 찾아 안전관리 강화를 주문했다. 새 대표 체제 출범 직후부터 &amp;lsquo;안전 최우선&amp;rsquo; 메시지를 전면에 내세우며 현장 중심 경영에 시동을 건 모습이다. &amp;nbsp; 대우건설은 이 대표가 신임 대표이사 취임 이후 첫 현장 일정으로 공사 현장을 방문해 안전관리 현황을 점검했다고 24일 밝혔다. &amp;nbsp; 이 대표는 현장 관계자들에게 안전이 공정과 품질에 앞서는 최우선 가치라는 점</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f0ad2fc53b212a68da29d9b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://newsfield.net/%eb%8c%80%ec%9a%b0%ea%b1%b4%ec%84%a4-7363%ec%96%b5-%eb%b6%80%ec%82%b0-%eb%82%a8%ec%b2%9c%eb%8f%99-%ec%82%ac%ec%97%85-%eb%b6%84%ec%96%91%eb%b6%88-%ec%a0%84%ed%99%98p-cbo/"
   data-title="대우건설, 7363억 부산 사업 공사비 ‘분양불’로…분양 지연 땐 회수 부담"
@@ -30672,6 +31002,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260824_0003759512"
+  data-title="GS건설, 2년 연속 세계 3대 디자인상 모두 수상"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787533969"
+  data-country="US"
+  data-search="gs건설, 2년 연속 세계 3대 디자인상 모두 수상 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = gs건설이 미국 idea 디자인 어워드에서 수상하며 2년 연속 세계 3대 디자인상을 모두 석권했다. gs건설은 &#x27;idea 2026&#x27;에서 조명 디자인 &#x27;이그니스(ignis)&#x27;와 조명·스피커 일체형 직부등 &#x27;토드(tode)&#x27;가 퍼니처&amp;라이트닝 부문 브론즈상을 받았다고 24일 밝혔다. 자이(xi) 브랜드 아이덴티티 시스템(bis)은 브랜딩 부문, 히든라이팅 시스템 &#x27;glowveil&#x27;과 다운라이트 &#x27;sequence&#x27;, &#x27;매그닷(magdot)&#x27;은 조명 부문 파이널리스트에 각각 선정됐다. 총 6개 작품이 수상 또는 파이널리스트에 이름을 올렸다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12134497" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">‘디자인 명가’ GS건설, 세계 3대 디자인 어워드 2년 연속 싹쓸이</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260824043200003?section=economy/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">GS건설, 2년 연속 세계 3대 디자인 어워드 수상 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=479917" target="_blank" rel="noopener"><span class="related-coverage-publisher">핀포인트뉴스</span><span class="related-coverage-title">GS건설, &#x27;자이&#x27; 2년 연속 세계 3대 디자인상</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 2년 연속 세계 3대 디자인상 모두 수상</div>
+      <div class="article-snippet">[서울=뉴시스] 박성환 기자 = GS건설이 미국 IDEA 디자인 어워드에서 수상하며 2년 연속 세계 3대 디자인상을 모두 석권했다. GS건설은 &#x27;IDEA 2026&#x27;에서 조명 디자인 &#x27;이그니스(IGNIS)&#x27;와 조명·스피커 일체형 직부등 &#x27;토드(Tode)&#x27;가 퍼니처&amp;라이트닝 부문 브론즈상을 받았다고 24일 밝혔다. 자이(Xi) 브랜드 아이덴티티 시스템(BIS)은 브랜딩 부문, 히든라이팅 시스템 &#x27;Glowveil&#x27;과 다운라이트 &#x27;Sequence&#x27;, &#x27;매그닷(magDot)&#x27;은 조명 부문 파이널리스트에 각각 선정됐다. 총 6개 작품이 수상 또는 파이널리스트에 이름을 올렸다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/06acc930be9f2c6d8653fd13.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308823"
   data-title="[건설 포트폴리오 점검] GS건설, 안정에 기초한 &#x27;주거 집중구조&#x27; - FETV"
@@ -30702,6 +31065,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/dd8d65e7185028c8904abf92.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260824102436017"
+  data-title="포스코이앤씨 &#x27;오티에르 반포&#x27;, 레드닷·K-디자인 어워드 4관왕"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787534809"
+  data-country="OTHER"
+  data-search="포스코이앤씨 &#x27;오티에르 반포&#x27;, 레드닷·k-디자인 어워드 4관왕 아주경제 타 건설사 한강 물결 형상화 및 컬러 bipv가 통합 적용되어 레드닷 어워드를 수상한 &amp;#39;오티에르 반포&amp;#39; 외관 전경. [사진=포스코이앤씨] 포스코이앤씨의 하이엔드 아파트 &amp;lsquo;오티에르 반포&amp;rsquo;가 레드닷 디자인 어워드와 k-디자인 어워드에서 총 4개 본상을 수상했다. 외관 고급화에 그치지 않고 에너지 절감과 이동 편의, 커뮤니티 경험을 결합한 &amp;lsquo;문제 해결형 디자인&amp;rsquo;이 국제적으로 인정받았다는 평가다. &amp;nbsp; 포스코이앤씨는 오티에르 반포가 &amp;lsquo;레드닷 디자인 어워드 2026&amp;rsquo; 2개 부문과 &amp;lsquo;k-디자인"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=308901" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">포스코이앤씨, 오티에르 반포 국제 디자인상 4개 부문 수상 - FETV</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260824039100003?section=economy/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">포스코이앤씨 오티에르 반포, 레드닷·K-디자인 어워드 4관왕 | 연합뉴스</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨 &#x27;오티에르 반포&#x27;, 레드닷·K-디자인 어워드 4관왕</div>
+      <div class="article-snippet">한강 물결 형상화 및 컬러 BIPV가 통합 적용되어 레드닷 어워드를 수상한 &amp;#39;오티에르 반포&amp;#39; 외관 전경. [사진=포스코이앤씨] 포스코이앤씨의 하이엔드 아파트 &amp;lsquo;오티에르 반포&amp;rsquo;가 레드닷 디자인 어워드와 K-디자인 어워드에서 총 4개 본상을 수상했다. 외관 고급화에 그치지 않고 에너지 절감과 이동 편의, 커뮤니티 경험을 결합한 &amp;lsquo;문제 해결형 디자인&amp;rsquo;이 국제적으로 인정받았다는 평가다. &amp;nbsp; 포스코이앤씨는 오티에르 반포가 &amp;lsquo;레드닷 디자인 어워드 2026&amp;rsquo; 2개 부문과 &amp;lsquo;K-디자인</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f59ea6a818545063ac0c467f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260824_0003759450"
+  data-title="포스코이앤씨, 부산 &#x27;더샵 트리센트&#x27; 정당계약 진행"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787531488"
+  data-country="OTHER"
+  data-search="포스코이앤씨, 부산 &#x27;더샵 트리센트&#x27; 정당계약 진행 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = 포스코이앤씨는 오는 26일까지 부산 남구 문현동에 공급하는 &#x27;더샵 트리센트&#x27;의 정당계약을 진행한다고 24일 밝혔다. 앞서 지난달 31일 문을 연 견본주택에는 주말까지 사흘간 약 8000명이 방문했다. 이후 진행된 1순위 청약에서는 최고 25.35대 1의 경쟁률을 기록했다. 합리적인 분양가와 대연동과 문현동의 생활 인프라를 함께 이용할 수 있는 입지 등이 수요자들의 관심이 높았다는 평가다. 단지는 부산 지하철 2호선 지게골역과 가까운 역세권 입지를 갖췄다. 수영로와 번영로, 동서고가도로 등을 이용해 센텀시티와 해운대 등 부산 주요 지역으"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨, 부산 &#x27;더샵 트리센트&#x27; 정당계약 진행</div>
+      <div class="article-snippet">[서울=뉴시스] 박성환 기자 = 포스코이앤씨는 오는 26일까지 부산 남구 문현동에 공급하는 &#x27;더샵 트리센트&#x27;의 정당계약을 진행한다고 24일 밝혔다. 앞서 지난달 31일 문을 연 견본주택에는 주말까지 사흘간 약 8000명이 방문했다. 이후 진행된 1순위 청약에서는 최고 25.35대 1의 경쟁률을 기록했다. 합리적인 분양가와 대연동과 문현동의 생활 인프라를 함께 이용할 수 있는 입지 등이 수요자들의 관심이 높았다는 평가다. 단지는 부산 지하철 2호선 지게골역과 가까운 역세권 입지를 갖췄다. 수영로와 번영로, 동서고가도로 등을 이용해 센텀시티와 해운대 등 부산 주요 지역으</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bd3406ce006264d4b503f800.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30822,7 +31251,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00009&amp;news_seq_no=5214279"
   data-title="열대야인데 전기가 &#x27;뚝&#x27;…부산 아파트 370가구 밤새 진땀"
   data-publisher="MBN"
@@ -30846,7 +31275,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>열대야인데 전기가 &#x27;뚝&#x27;…부산 아파트 370가구 밤새 진땀</div>
+      <div class="headline">열대야인데 전기가 &#x27;뚝&#x27;…부산 아파트 370가구 밤새 진땀</div>
       <div class="article-snippet">열대야를 동반한 폭염 속 부산 동래구의 한 아파트에서 정전이 발생해 주민들이 불편을 겪었습니다.오늘(24일) 부산시 등에 따르면 어젯밤 8시 47분쯤 부산 동래구 복천동의 한 아파트에서 지하 변전실 침수로 변압기와 비상 발전기가 파손됐습니다.이 사고로 아파트 2개 동 370가구에 전기 공급이 끊겼습니다.주민 1명이 승강기에 갇혔다가 구조됐고 찜통더위에 에어컨을 켜지 못한 주민들이 밤사이 불편을 겪었습니다.부산은 밤사이 최저기온이 26.9도로 열대야 현상이 나타났습니다.해당 아파트는 이날 오전 4시쯤 변전실 배수 작업을 완료했고 한국전력이 전력공급 재개를 위해 복구 지</div>
     </div>
   </div>
@@ -30888,7 +31317,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30898,7 +31327,7 @@ main {
   data-group="국내 원자력 협회·학회"
   data-language="en"
   data-priority="2"
-  data-published="1787525702"
+  data-published="1787535335"
   data-country="OTHER"
   data-search="silenced | investigations | news24 news24 국내 원자력 협회·학회 get the latest investigative news about the murder of babita deokaran and the tembisa hospital tenders."
   tabindex="0" role="link">
@@ -30921,6 +31350,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/59eebc1deda1f5aae5466c82.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.aljazeera.com/video/newsfeed/2026/8/24/large-forest-fire-burns-close-to-residential-areas-in-ankara?traffic_source=rss"
+  data-title="Large forest fire burns close to residential areas in Ankara"
+  data-publisher="Al Jazeera"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1787531400"
+  data-country="TR"
+  data-search="large forest fire burns close to residential areas in ankara al jazeera 국내 원자력 협회·학회 a large forest fire is threatening homes near residential areas of mamak on the outskirts of the turkish capital."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Al Jazeera</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Large forest fire burns close to residential areas in Ankara</div>
+      <div class="article-snippet">A large forest fire is threatening homes near residential areas of Mamak on the outskirts of the Turkish capital.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f50aab9cc446081981f0bcb2.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -30999,9 +31461,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260824049900017?section=politics/all"
+  data-title="방사선 피폭 상해, 원자력의학원이 전문 치료한다 | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787534217"
+  data-country="KR"
+  data-search="방사선 피폭 상해, 원자력의학원이 전문 치료한다 | 연합뉴스 연합뉴스 원자력 (서울=연합뉴스) 조승한 기자 = 한국원자력의학원이 법적으로 방사선 사고나 업무상 피폭으로 인한 상해를 전문 치료하는 병원으로 지정됐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>방사선 피폭 상해, 원자력의학원이 전문 치료한다 | 연합뉴스</div>
+      <div class="article-snippet">(서울=연합뉴스) 조승한 기자 = 한국원자력의학원이 법적으로 방사선 사고나 업무상 피폭으로 인한 상해를 전문 치료하는 병원으로 지정됐다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/182da2aac0d32979dae0a47a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7570"
+  data-title="전남 해남 규모 3.1 지진…“한빛원전 영향 없어”"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787530949"
+  data-country="KR"
+  data-search="전남 해남 규모 3.1 지진…“한빛원전 영향 없어” 인사이트n파워 원자력 전남 해남군 인근에서 규모 3.1의 지진이 발생했지만 인근 한빛원전을 비롯한 국내 원자로시설의 안전에는 이상이 없는 것으로 확인됐다.기상청에 따르면 23일 오전 6시 43분 1초 전남 해남군 서북서쪽 21km 지역에서 규모 3.1의 지진이 발생했다. 발생 깊이는 21km로 관측됐다. 이번 지진으로 전남지역에서는 실내의 많은 사람이 흔들림을 느끼는 수준인 최대진도 ⅳ가 관측됐다.지진 발생 직후 원자력안전위원회는 “국내 모든 원자로시설에 대한 긴급 현장 안전점검을 실시한 결과 시설 안전성에 이상이 없는 것으로 확인됐다”고 밝혔다.진앙에"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>전남 해남 규모 3.1 지진…“한빛원전 영향 없어”</div>
+      <div class="article-snippet">전남 해남군 인근에서 규모 3.1의 지진이 발생했지만 인근 한빛원전을 비롯한 국내 원자로시설의 안전에는 이상이 없는 것으로 확인됐다.기상청에 따르면 23일 오전 6시 43분 1초 전남 해남군 서북서쪽 21km 지역에서 규모 3.1의 지진이 발생했다. 발생 깊이는 21km로 관측됐다. 이번 지진으로 전남지역에서는 실내의 많은 사람이 흔들림을 느끼는 수준인 최대진도 Ⅳ가 관측됐다.지진 발생 직후 원자력안전위원회는 “국내 모든 원자로시설에 대한 긴급 현장 안전점검을 실시한 결과 시설 안전성에 이상이 없는 것으로 확인됐다”고 밝혔다.진앙에</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89350a61c1463a2d2f1dafcb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hankyung.com/article/202608247610i"
   data-title="데이터센터 전력난에…아일랜드, 27년 만에 원전 카드 만지작"
@@ -31101,7 +31629,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/08/202608240633103786fbbec65dfb_1"
   data-title="체코, 두코바니 신규 원전 2029년 착공… 17개 공급 패키지 조달로 시동 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
@@ -31125,7 +31653,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>체코, 두코바니 신규 원전 2029년 착공… 17개 공급 패키지 조달로 시동 - 글로벌이코노믹</div>
+      <div class="headline">체코, 두코바니 신규 원전 2029년 착공… 17개 공급 패키지 조달로 시동 - 글로벌이코노믹</div>
       <div class="article-snippet">체코 두코바니 신규 원자력 발전소 건설 사업이 현지 부지 조사를 마치고 2029년 본공사를 시작한다. 체코 매체 지흘라브스카 드르브나는 2026년 8월 23일(현지시각) 인허가 절차가 진행 중이며 현지 기업이 17개 공급 패키지를 확보했다고 보도했다.체코 정부의 인증 비용 지원 정책은</div>
     </div>
   </div>
@@ -31166,6 +31694,72 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/c530790e24cdda30ad036c2f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260824_0003759617"
+  data-title="박정성 신임 통상본부장 취임…&quot;대미 협상, 한미 FTA 버금가는 새로운 판 형성&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787534415"
+  data-country="KR"
+  data-search="박정성 신임 통상본부장 취임…&quot;대미 협상, 한미 fta 버금가는 새로운 판 형성&quot; 뉴시스 원자력 [세종=뉴시스]손차민 기자 = 박정성 신임 산업통상부 통상교섭본부장이 &quot;한-미간 통상 리스크 관리에 전사적인 노력을 기울여야 한다&quot;며 &quot;전략적 투자 협의를 통해 과거 한미 자유무역협정(fta)에 버금가는 새로운 양자 협력의 판을 형성할 것&quot;이라고 24일 밝혔다. 박 본부장은 이날 오전 정부세종청사에서 취임식을 열고 &quot;한-미간 전략적 투자 이행이 양국간 관계에서 가장 큰 도전이자 기회로 떠올랐다&quot;며 이같이 말했다. 그는 &quot;미국이 촉발한 관세 재편과 전략산업 내재화 움직임은 미-중 간 전략적 경쟁을 상수화하고 있고, 여타 중견국가들간 연대의 움직임도 촉발하는 등 통상질서"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260824102643020" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">박정성 신임 통상본부장 &amp;quot;한미 전략투자, FTA 버금가는 협력판 될 것&amp;quot;</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>박정성 신임 통상본부장 취임…&quot;대미 협상, 한미 FTA 버금가는 새로운 판 형성&quot;</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 박정성 신임 산업통상부 통상교섭본부장이 &quot;한-미간 통상 리스크 관리에 전사적인 노력을 기울여야 한다&quot;며 &quot;전략적 투자 협의를 통해 과거 한미 자유무역협정(FTA)에 버금가는 새로운 양자 협력의 판을 형성할 것&quot;이라고 24일 밝혔다. 박 본부장은 이날 오전 정부세종청사에서 취임식을 열고 &quot;한-미간 전략적 투자 이행이 양국간 관계에서 가장 큰 도전이자 기회로 떠올랐다&quot;며 이같이 말했다. 그는 &quot;미국이 촉발한 관세 재편과 전략산업 내재화 움직임은 미-중 간 전략적 경쟁을 상수화하고 있고, 여타 중견국가들간 연대의 움직임도 촉발하는 등 통상질서</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3aec0e8320d87921f6e27e4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260824_0003759350"
+  data-title="트럼프 측근 &quot;김정은 만나기 전 李대통령과 먼저 회담해야&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787534275"
+  data-country="US"
+  data-search="트럼프 측근 &quot;김정은 만나기 전 李대통령과 먼저 회담해야&quot; 뉴시스 원자력 [서울=뉴시스] 신효령 기자 = 도널드 트럼프 미국 대통령이 김정은 북한 국무위원장과 다시 만나기 전에 이재명 대통령과 먼저 회담하고 대북 전략을 조율해야 한다는 트럼프 측근의 제언이 나왔다. 미 보수성향 싱크탱크인 미국우선주의정책연구소(afpi)의 프레드 플라이츠 부소장은 지난 21일(현지시간) 미 보수매체 &#x27;아메리칸 그레이트니스&#x27; 기고문에서 &#x27;트럼프가 김정은을 다시 만나기 전에 먼저 이뤄져야 할 5가지&#x27;를 제시했다. 플라이츠는 트럼프 1기 행정부에서 대통령 부보좌관과 백악관 국가안보회의(nsc) 비서실장을 지냈다. 트럼프 대통령의 핵심 측근으로 꼽히는 인사다. 플"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>트럼프 측근 &quot;김정은 만나기 전 李대통령과 먼저 회담해야&quot;</div>
+      <div class="article-snippet">[서울=뉴시스] 신효령 기자 = 도널드 트럼프 미국 대통령이 김정은 북한 국무위원장과 다시 만나기 전에 이재명 대통령과 먼저 회담하고 대북 전략을 조율해야 한다는 트럼프 측근의 제언이 나왔다. 미 보수성향 싱크탱크인 미국우선주의정책연구소(AFPI)의 프레드 플라이츠 부소장은 지난 21일(현지시간) 미 보수매체 &#x27;아메리칸 그레이트니스&#x27; 기고문에서 &#x27;트럼프가 김정은을 다시 만나기 전에 먼저 이뤄져야 할 5가지&#x27;를 제시했다. 플라이츠는 트럼프 1기 행정부에서 대통령 부보좌관과 백악관 국가안보회의(NSC) 비서실장을 지냈다. 트럼프 대통령의 핵심 측근으로 꼽히는 인사다. 플</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0072e35019e15efca3fb234e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -31173,9 +31767,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.epetimes.com/news/articleView.html?idxno=33020"
+  data-title="SMRe 7 ̷嵿..."
+  data-publisher="전력경제신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787540400"
+  data-country="OTHER"
+  data-search="smre 7 ̷嵿... 전력경제신문 smr 7 õ ʈ ···ΰյ ̷ ô ÷ܱ “smr··e ̷ ûe ȯ” ؽʈ-ai, ‘ ƽ’ 뵵 ÷ ޸ ° õ pjt ‘üұ ѹα’ ϼ"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전력경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SMRe 7 ̷嵿...</div>
+      <div class="article-snippet">7 õ Ʈ ···ΰյ ̷ ô ÷ܱ “SMR··e ̷ ûe Ȯ” ؽƮ-AI, ‘ Ƽ’ 뵵 ÷ ޸ ° õ PJT ‘üҰ ѹα’ ϼ</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/23a42af6d9dbfc5c857477a6.gif" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.epetimes.com/news/articleView.html?idxno=33019"
+  data-title="SMR 7 ̷ ѡ Ѹ"
+  data-publisher="전력경제신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787540400"
+  data-country="OTHER"
+  data-search="smr 7 ̷ ѡ ѹ 전력경제신문 smr , ‘7 õ pjt’ ǥ ڷ 2035 ȭ ѱ ’30 û ȯ ȭ ⱹ"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전력경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SMR 7 ̷ ѡ Ѹ</div>
+      <div class="article-snippet">, ‘7 õ PJT’ ǥ ڷ 2035 ȭ ѱ ’30 û Ȯ ȭ ⱹ</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/23a42af6d9dbfc5c857477a6.gif" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260822_0003758569"
   data-title="[오늘의 주요일정]대구경북(8월24일 월요일)"
@@ -31215,7 +31875,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31251,21 +31911,21 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
+<article class="preview-card new-article"
+  data-url="https://www.enerdata.net/publications/daily-energy-news/russia-announces-plans-30-gw-new-nuclear-power-capacity.html"
+  data-title="Russia announces plans for 30 GW of new nuclear power capacity"
+  data-publisher="Enerdata"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787528640"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  data-published="1787572800"
+  data-country="RU"
+  data-search="russia announces plans for 30 gw of new nuclear power capacity enerdata nuclear power·nuclear energy russian president vladimir putin has announced plans to expand the deployment of nuclear power plants across the country’s far east, siberia and urals (russian government statement, 20/08/2026). according to the statement, russia intends to commission approximately 30 gw of new nuclear capacity, including small nuclear"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
+        <div class="publisher">Enerdata</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -31275,12 +31935,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+      <div class="headline"><span class="new-badge">NEW</span>Russia announces plans for 30 GW of new nuclear power capacity</div>
+      <div class="article-snippet">Russian President Vladimir Putin has announced plans to expand the deployment of nuclear power plants across the country’s Far East, Siberia and Urals (Russian government statement, 20/08/2026). According to the statement, Russia intends to commission approximately 30 GW of new nuclear capacity, including small nuclear</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/3aa560c81d4a60bf3899c933.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31291,7 +31951,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787527809"
+  data-published="1787535323"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -31318,13 +31978,46 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787535320"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-oil-gas-extraction-tracker"
   data-title="Global Oil and Gas Extraction Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787527165"
+  data-published="1787535150"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
@@ -31347,6 +32040,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.japantimes.co.jp/news/2026/08/24/japan/fukushima-seafood-treated-water-three-years-impact/"
+  data-title="Three years on, Fukushima’s fishers still deal with impact of treated water release"
+  data-publisher="The Japan Times"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787532600"
+  data-country="JP"
+  data-search="three years on, fukushima’s fishers still deal with impact of treated water release the japan times nuclear power·nuclear energy three years after the first release of treated water from the fukushima no. 1 nuclear power plant, the region&#x27;s fisheries say long-term solutions have yet to materialize."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Japan Times</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Three years on, Fukushima’s fishers still deal with impact of treated water release</div>
+      <div class="article-snippet">Three years after the first release of treated water from the Fukushima No. 1 nuclear power plant, the region&#x27;s fisheries say long-term solutions have yet to materialize.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cb0cdd7d93aa68348a65e1b0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31380,6 +32106,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e3c63b25ae77c002588ef272.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.koreajoongangdaily.com/korea/trumps-social-media-posts-could-reshape-northeast-asias-security-landscape-experts-warn/12838774"
+  data-title="Trump&#x27;s social media posts could reshape Northeast Asia&#x27;s security landscape, experts warn"
+  data-publisher="Korea JoongAng Daily"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787522400"
+  data-country="KR"
+  data-search="trump&#x27;s social media posts could reshape northeast asia&#x27;s security landscape, experts warn korea joongang daily nuclear power·nuclear energy experts are concerned that north korea could exploit the gap between u.s. president donald trump&#x27;s remarks and the u.s. government&#x27;s official position on its complete denuclearization."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Korea JoongAng Daily</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Trump&#x27;s social media posts could reshape Northeast Asia&#x27;s security landscape, experts warn</div>
+      <div class="article-snippet">Experts are concerned that North Korea could exploit the gap between U.S. President Donald Trump&#x27;s remarks and the U.S. government&#x27;s official position on its complete denuclearization.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/db405176739f98ef4cfdc045.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31489,9 +32248,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260824101750984"
+  data-title="대우건설 이강석 대표, 첫 현장 행보서 &amp;quot;안전 최우선&amp;quot; 강조"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787534346"
+  data-country="OTHER"
+  data-search="대우건설 이강석 대표, 첫 현장 행보서 &amp;quot;안전 최우선&amp;quot; 강조 아주경제 타 건설사 이강석 대우건설 신임 대표가 19일 오전 양주역 푸르지오 센터파크 현장을 찾아 안전점검을 진행했다. [사진=대우건설] 이강석 대우건설 신임 대표가 취임 후 첫 현장 행보로 건설현장을 찾아 안전관리 강화를 주문했다. 새 대표 체제 출범 직후부터 &amp;lsquo;안전 최우선&amp;rsquo; 메시지를 전면에 내세우며 현장 중심 경영에 시동을 건 모습이다. &amp;nbsp; 대우건설은 이 대표가 신임 대표이사 취임 이후 첫 현장 일정으로 공사 현장을 방문해 안전관리 현황을 점검했다고 24일 밝혔다. &amp;nbsp; 이 대표는 현장 관계자들에게 안전이 공정과 품질에 앞서는 최우선 가치라는 점"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hankyung.com/article/2026082477706" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">대우건설 이강석 대표, 취임 후 첫 현장 행보 &#x27;안전 최우선&#x27;</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대우건설 이강석 대표, 첫 현장 행보서 &amp;quot;안전 최우선&amp;quot; 강조</div>
+      <div class="article-snippet">이강석 대우건설 신임 대표가 19일 오전 양주역 푸르지오 센터파크 현장을 찾아 안전점검을 진행했다. [사진=대우건설] 이강석 대우건설 신임 대표가 취임 후 첫 현장 행보로 건설현장을 찾아 안전관리 강화를 주문했다. 새 대표 체제 출범 직후부터 &amp;lsquo;안전 최우선&amp;rsquo; 메시지를 전면에 내세우며 현장 중심 경영에 시동을 건 모습이다. &amp;nbsp; 대우건설은 이 대표가 신임 대표이사 취임 이후 첫 현장 일정으로 공사 현장을 방문해 안전관리 현황을 점검했다고 24일 밝혔다. &amp;nbsp; 이 대표는 현장 관계자들에게 안전이 공정과 품질에 앞서는 최우선 가치라는 점</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f0ad2fc53b212a68da29d9b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.hankyung.com/article/2026082477706"
+  data-title="대우건설 이강석 대표, 취임 후 첫 현장 행보 &#x27;안전 최우선&#x27;"
+  data-publisher="한국경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787530308"
+  data-country="KR"
+  data-search="대우건설 이강석 대표, 취임 후 첫 현장 행보 &#x27;안전 최우선&#x27; 한국경제 타 건설사 "
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">대우건설 이강석 대표, 취임 후 첫 현장 행보 &#x27;안전 최우선&#x27;</div>
+      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://newsfield.net/%eb%8c%80%ec%9a%b0%ea%b1%b4%ec%84%a4-7363%ec%96%b5-%eb%b6%80%ec%82%b0-%eb%82%a8%ec%b2%9c%eb%8f%99-%ec%82%ac%ec%97%85-%eb%b6%84%ec%96%91%eb%b6%88-%ec%a0%84%ed%99%98p-cbo/"
   data-title="대우건설, 7363억 부산 사업 공사비 ‘분양불’로…분양 지연 땐 회수 부담"
@@ -31526,6 +32351,138 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.mk.co.kr/news/realestate/12134497"
+  data-title="‘디자인 명가’ GS건설, 세계 3대 디자인 어워드 2년 연속 싹쓸이"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787534889"
+  data-country="US"
+  data-search="‘디자인 명가’ gs건설, 세계 3대 디자인 어워드 2년 연속 싹쓸이 매일경제 타 건설사 gs건설이 2년 연속 세계 3대 디자인 어워드를 모두 석권하며 ‘자이(xi)’ 브랜드의 글로벌 디자인 경쟁력과 가치를 다시 한번 공인받았다. gs건설은 미국에서 발표된 ‘idea .."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">‘디자인 명가’ GS건설, 세계 3대 디자인 어워드 2년 연속 싹쓸이</div>
+      <div class="article-snippet">GS건설이 2년 연속 세계 3대 디자인 어워드를 모두 석권하며 ‘자이(Xi)’ 브랜드의 글로벌 디자인 경쟁력과 가치를 다시 한번 공인받았다. GS건설은 미국에서 발표된 ‘IDEA ..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://pimg.mk.co.kr/news/cms/202608/24/news-p.v1.20260824.21fe552b3b0041c9ba76ce3b645641a4_R.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260824_0003759512"
+  data-title="GS건설, 2년 연속 세계 3대 디자인상 모두 수상"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787533969"
+  data-country="US"
+  data-search="gs건설, 2년 연속 세계 3대 디자인상 모두 수상 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = gs건설이 미국 idea 디자인 어워드에서 수상하며 2년 연속 세계 3대 디자인상을 모두 석권했다. gs건설은 &#x27;idea 2026&#x27;에서 조명 디자인 &#x27;이그니스(ignis)&#x27;와 조명·스피커 일체형 직부등 &#x27;토드(tode)&#x27;가 퍼니처&amp;라이트닝 부문 브론즈상을 받았다고 24일 밝혔다. 자이(xi) 브랜드 아이덴티티 시스템(bis)은 브랜딩 부문, 히든라이팅 시스템 &#x27;glowveil&#x27;과 다운라이트 &#x27;sequence&#x27;, &#x27;매그닷(magdot)&#x27;은 조명 부문 파이널리스트에 각각 선정됐다. 총 6개 작품이 수상 또는 파이널리스트에 이름을 올렸다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12134497" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">‘디자인 명가’ GS건설, 세계 3대 디자인 어워드 2년 연속 싹쓸이</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260824043200003?section=economy/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">GS건설, 2년 연속 세계 3대 디자인 어워드 수상 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=479917" target="_blank" rel="noopener"><span class="related-coverage-publisher">핀포인트뉴스</span><span class="related-coverage-title">GS건설, &#x27;자이&#x27; 2년 연속 세계 3대 디자인상</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 2년 연속 세계 3대 디자인상 모두 수상</div>
+      <div class="article-snippet">[서울=뉴시스] 박성환 기자 = GS건설이 미국 IDEA 디자인 어워드에서 수상하며 2년 연속 세계 3대 디자인상을 모두 석권했다. GS건설은 &#x27;IDEA 2026&#x27;에서 조명 디자인 &#x27;이그니스(IGNIS)&#x27;와 조명·스피커 일체형 직부등 &#x27;토드(Tode)&#x27;가 퍼니처&amp;라이트닝 부문 브론즈상을 받았다고 24일 밝혔다. 자이(Xi) 브랜드 아이덴티티 시스템(BIS)은 브랜딩 부문, 히든라이팅 시스템 &#x27;Glowveil&#x27;과 다운라이트 &#x27;Sequence&#x27;, &#x27;매그닷(magDot)&#x27;은 조명 부문 파이널리스트에 각각 선정됐다. 총 6개 작품이 수상 또는 파이널리스트에 이름을 올렸다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/06acc930be9f2c6d8653fd13.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.yna.co.kr/view/AKR20260824043200003?section=economy/all"
+  data-title="GS건설, 2년 연속 세계 3대 디자인 어워드 수상 | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787533202"
+  data-country="US"
+  data-search="gs건설, 2년 연속 세계 3대 디자인 어워드 수상 | 연합뉴스 연합뉴스 타 건설사 (서울=연합뉴스) 임기창 기자 = gs건설은 세계 3대 디자인상 중 하나인 미국 &#x27;idea 2026&#x27; 디자인 어워드에서 6개 작품이 브론즈상과 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">GS건설, 2년 연속 세계 3대 디자인 어워드 수상 | 연합뉴스</div>
+      <div class="article-snippet">(서울=연합뉴스) 임기창 기자 = GS건설은 세계 3대 디자인상 중 하나인 미국 &#x27;IDEA 2026&#x27; 디자인 어워드에서 6개 작품이 브론즈상과 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://img2.yna.co.kr/etc/inner/KR/2026/08/24/AKR20260824043200003_01_i_P4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=479917"
+  data-title="GS건설, &#x27;자이&#x27; 2년 연속 세계 3대 디자인상"
+  data-publisher="핀포인트뉴스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787532707"
+  data-country="US"
+  data-search="gs건설, &#x27;자이&#x27; 2년 연속 세계 3대 디자인상 핀포인트뉴스 타 건설사 gs건설의 자이(xi)가 제품부터 브랜드 체계까지 디자인 영역을 넓혀 국제 무대에서 성과를 냈다. 개별 주거 상품의 디자인을 넘어 브랜드를 실제 공간과 고객 접점에 구현하는 방식까지 평가받았다는 점이 이번 수상의 특징이다.gs건설은 미국 현지에서 발표된 ‘idea 2026’에서 조명 디자인 ‘이그니스(ignis)’와 조명·스피커 일체형 직부등 ‘토드(tode)’가 퍼니처&amp;라이트닝 부문 브론즈(bronze)를 각각 수상했다고 24일 밝혔다.자이 브랜드 아이덴티티 시스템 bis(brand identity system)는 브랜딩 부문,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">핀포인트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">GS건설, &#x27;자이&#x27; 2년 연속 세계 3대 디자인상</div>
+      <div class="article-snippet">GS건설의 자이(Xi)가 제품부터 브랜드 체계까지 디자인 영역을 넓혀 국제 무대에서 성과를 냈다. 개별 주거 상품의 디자인을 넘어 브랜드를 실제 공간과 고객 접점에 구현하는 방식까지 평가받았다는 점이 이번 수상의 특징이다.GS건설은 미국 현지에서 발표된 ‘IDEA 2026’에서 조명 디자인 ‘이그니스(IGNIS)’와 조명·스피커 일체형 직부등 ‘토드(Tode)’가 퍼니처&amp;라이트닝 부문 브론즈(Bronze)를 각각 수상했다고 24일 밝혔다.자이 브랜드 아이덴티티 시스템 BIS(Brand Identity System)는 브랜딩 부문,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.pinpointnews.co.kr/news/thumbnail/202608/479917_466663_5142_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308823"
   data-title="[건설 포트폴리오 점검] GS건설, 안정에 기초한 &#x27;주거 집중구조&#x27; - FETV"
   data-publisher="FETV"
@@ -31555,6 +32512,138 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/dd8d65e7185028c8904abf92.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260824102436017"
+  data-title="포스코이앤씨 &#x27;오티에르 반포&#x27;, 레드닷·K-디자인 어워드 4관왕"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787534809"
+  data-country="OTHER"
+  data-search="포스코이앤씨 &#x27;오티에르 반포&#x27;, 레드닷·k-디자인 어워드 4관왕 아주경제 타 건설사 한강 물결 형상화 및 컬러 bipv가 통합 적용되어 레드닷 어워드를 수상한 &amp;#39;오티에르 반포&amp;#39; 외관 전경. [사진=포스코이앤씨] 포스코이앤씨의 하이엔드 아파트 &amp;lsquo;오티에르 반포&amp;rsquo;가 레드닷 디자인 어워드와 k-디자인 어워드에서 총 4개 본상을 수상했다. 외관 고급화에 그치지 않고 에너지 절감과 이동 편의, 커뮤니티 경험을 결합한 &amp;lsquo;문제 해결형 디자인&amp;rsquo;이 국제적으로 인정받았다는 평가다. &amp;nbsp; 포스코이앤씨는 오티에르 반포가 &amp;lsquo;레드닷 디자인 어워드 2026&amp;rsquo; 2개 부문과 &amp;lsquo;k-디자인"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=308901" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">포스코이앤씨, 오티에르 반포 국제 디자인상 4개 부문 수상 - FETV</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260824039100003?section=economy/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">포스코이앤씨 오티에르 반포, 레드닷·K-디자인 어워드 4관왕 | 연합뉴스</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨 &#x27;오티에르 반포&#x27;, 레드닷·K-디자인 어워드 4관왕</div>
+      <div class="article-snippet">한강 물결 형상화 및 컬러 BIPV가 통합 적용되어 레드닷 어워드를 수상한 &amp;#39;오티에르 반포&amp;#39; 외관 전경. [사진=포스코이앤씨] 포스코이앤씨의 하이엔드 아파트 &amp;lsquo;오티에르 반포&amp;rsquo;가 레드닷 디자인 어워드와 K-디자인 어워드에서 총 4개 본상을 수상했다. 외관 고급화에 그치지 않고 에너지 절감과 이동 편의, 커뮤니티 경험을 결합한 &amp;lsquo;문제 해결형 디자인&amp;rsquo;이 국제적으로 인정받았다는 평가다. &amp;nbsp; 포스코이앤씨는 오티에르 반포가 &amp;lsquo;레드닷 디자인 어워드 2026&amp;rsquo; 2개 부문과 &amp;lsquo;K-디자인</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f59ea6a818545063ac0c467f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308901"
+  data-title="포스코이앤씨, 오티에르 반포 국제 디자인상 4개 부문 수상 - FETV"
+  data-publisher="FETV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787533562"
+  data-country="OTHER"
+  data-search="포스코이앤씨, 오티에르 반포 국제 디자인상 4개 부문 수상 - fetv fetv 타 건설사 [fetv=임요한 기자] 포스코이앤씨가 서울 서초구 하이엔드 아파트 오티에르 반포로 국제 디자인 공모전 두 곳에서 모두 4개 부문 본상을 받았다.독일 레드닷 디자"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">FETV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">포스코이앤씨, 오티에르 반포 국제 디자인상 4개 부문 수상 - FETV</div>
+      <div class="article-snippet">[FETV=임요한 기자] 포스코이앤씨가 서울 서초구 하이엔드 아파트 오티에르 반포로 국제 디자인 공모전 두 곳에서 모두 4개 부문 본상을 받았다.독일 레드닷 디자</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.fetv.co.kr/news/photo/202608/308901_308612_16.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.yna.co.kr/view/AKR20260824039100003?section=economy/all"
+  data-title="포스코이앤씨 오티에르 반포, 레드닷·K-디자인 어워드 4관왕 | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787531875"
+  data-country="OTHER"
+  data-search="포스코이앤씨 오티에르 반포, 레드닷·k-디자인 어워드 4관왕 | 연합뉴스 연합뉴스 타 건설사 (서울=연합뉴스) 서미숙 기자 = 포스코이앤씨는 자사가 건설한 서울 서초구 &#x27;오티에르 반포&#x27; 아파트가 레드닷 디자인 어워드와 k-디자인 어워드에..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">포스코이앤씨 오티에르 반포, 레드닷·K-디자인 어워드 4관왕 | 연합뉴스</div>
+      <div class="article-snippet">(서울=연합뉴스) 서미숙 기자 = 포스코이앤씨는 자사가 건설한 서울 서초구 &#x27;오티에르 반포&#x27; 아파트가 레드닷 디자인 어워드와 K-디자인 어워드에...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://img0.yna.co.kr/etc/inner/KR/2026/08/24/AKR20260824039100003_01_i_P4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260824_0003759450"
+  data-title="포스코이앤씨, 부산 &#x27;더샵 트리센트&#x27; 정당계약 진행"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787531488"
+  data-country="OTHER"
+  data-search="포스코이앤씨, 부산 &#x27;더샵 트리센트&#x27; 정당계약 진행 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = 포스코이앤씨는 오는 26일까지 부산 남구 문현동에 공급하는 &#x27;더샵 트리센트&#x27;의 정당계약을 진행한다고 24일 밝혔다. 앞서 지난달 31일 문을 연 견본주택에는 주말까지 사흘간 약 8000명이 방문했다. 이후 진행된 1순위 청약에서는 최고 25.35대 1의 경쟁률을 기록했다. 합리적인 분양가와 대연동과 문현동의 생활 인프라를 함께 이용할 수 있는 입지 등이 수요자들의 관심이 높았다는 평가다. 단지는 부산 지하철 2호선 지게골역과 가까운 역세권 입지를 갖췄다. 수영로와 번영로, 동서고가도로 등을 이용해 센텀시티와 해운대 등 부산 주요 지역으"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨, 부산 &#x27;더샵 트리센트&#x27; 정당계약 진행</div>
+      <div class="article-snippet">[서울=뉴시스] 박성환 기자 = 포스코이앤씨는 오는 26일까지 부산 남구 문현동에 공급하는 &#x27;더샵 트리센트&#x27;의 정당계약을 진행한다고 24일 밝혔다. 앞서 지난달 31일 문을 연 견본주택에는 주말까지 사흘간 약 8000명이 방문했다. 이후 진행된 1순위 청약에서는 최고 25.35대 1의 경쟁률을 기록했다. 합리적인 분양가와 대연동과 문현동의 생활 인프라를 함께 이용할 수 있는 입지 등이 수요자들의 관심이 높았다는 평가다. 단지는 부산 지하철 2호선 지게골역과 가까운 역세권 입지를 갖췄다. 수영로와 번영로, 동서고가도로 등을 이용해 센텀시티와 해운대 등 부산 주요 지역으</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bd3406ce006264d4b503f800.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31675,7 +32764,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00009&amp;news_seq_no=5214279"
   data-title="열대야인데 전기가 &#x27;뚝&#x27;…부산 아파트 370가구 밤새 진땀"
   data-publisher="MBN"
@@ -31699,7 +32788,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>열대야인데 전기가 &#x27;뚝&#x27;…부산 아파트 370가구 밤새 진땀</div>
+      <div class="headline">열대야인데 전기가 &#x27;뚝&#x27;…부산 아파트 370가구 밤새 진땀</div>
       <div class="article-snippet">열대야를 동반한 폭염 속 부산 동래구의 한 아파트에서 정전이 발생해 주민들이 불편을 겪었습니다.오늘(24일) 부산시 등에 따르면 어젯밤 8시 47분쯤 부산 동래구 복천동의 한 아파트에서 지하 변전실 침수로 변압기와 비상 발전기가 파손됐습니다.이 사고로 아파트 2개 동 370가구에 전기 공급이 끊겼습니다.주민 1명이 승강기에 갇혔다가 구조됐고 찜통더위에 에어컨을 켜지 못한 주민들이 밤사이 불편을 겪었습니다.부산은 밤사이 최저기온이 26.9도로 열대야 현상이 나타났습니다.해당 아파트는 이날 오전 4시쯤 변전실 배수 작업을 완료했고 한국전력이 전력공급 재개를 위해 복구 지</div>
     </div>
   </div>
@@ -31741,7 +32830,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31751,7 +32840,7 @@ main {
   data-group="국내 원자력 협회·학회"
   data-language="en"
   data-priority="2"
-  data-published="1787525702"
+  data-published="1787535335"
   data-country="OTHER"
   data-search="silenced | investigations | news24 news24 국내 원자력 협회·학회 get the latest investigative news about the murder of babita deokaran and the tembisa hospital tenders."
   tabindex="0" role="link">
@@ -31774,6 +32863,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/59eebc1deda1f5aae5466c82.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.aljazeera.com/video/newsfeed/2026/8/24/large-forest-fire-burns-close-to-residential-areas-in-ankara?traffic_source=rss"
+  data-title="Large forest fire burns close to residential areas in Ankara"
+  data-publisher="Al Jazeera"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1787531400"
+  data-country="TR"
+  data-search="large forest fire burns close to residential areas in ankara al jazeera 국내 원자력 협회·학회 a large forest fire is threatening homes near residential areas of mamak on the outskirts of the turkish capital."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Al Jazeera</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Large forest fire burns close to residential areas in Ankara</div>
+      <div class="article-snippet">A large forest fire is threatening homes near residential areas of Mamak on the outskirts of the Turkish capital.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f50aab9cc446081981f0bcb2.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -31852,9 +32974,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260824049900017?section=politics/all"
+  data-title="방사선 피폭 상해, 원자력의학원이 전문 치료한다 | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787534217"
+  data-country="KR"
+  data-search="방사선 피폭 상해, 원자력의학원이 전문 치료한다 | 연합뉴스 연합뉴스 원자력 (서울=연합뉴스) 조승한 기자 = 한국원자력의학원이 법적으로 방사선 사고나 업무상 피폭으로 인한 상해를 전문 치료하는 병원으로 지정됐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>방사선 피폭 상해, 원자력의학원이 전문 치료한다 | 연합뉴스</div>
+      <div class="article-snippet">(서울=연합뉴스) 조승한 기자 = 한국원자력의학원이 법적으로 방사선 사고나 업무상 피폭으로 인한 상해를 전문 치료하는 병원으로 지정됐다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/182da2aac0d32979dae0a47a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7570"
+  data-title="전남 해남 규모 3.1 지진…“한빛원전 영향 없어”"
+  data-publisher="인사이트N파워"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787530949"
+  data-country="KR"
+  data-search="전남 해남 규모 3.1 지진…“한빛원전 영향 없어” 인사이트n파워 원자력 전남 해남군 인근에서 규모 3.1의 지진이 발생했지만 인근 한빛원전을 비롯한 국내 원자로시설의 안전에는 이상이 없는 것으로 확인됐다.기상청에 따르면 23일 오전 6시 43분 1초 전남 해남군 서북서쪽 21km 지역에서 규모 3.1의 지진이 발생했다. 발생 깊이는 21km로 관측됐다. 이번 지진으로 전남지역에서는 실내의 많은 사람이 흔들림을 느끼는 수준인 최대진도 ⅳ가 관측됐다.지진 발생 직후 원자력안전위원회는 “국내 모든 원자로시설에 대한 긴급 현장 안전점검을 실시한 결과 시설 안전성에 이상이 없는 것으로 확인됐다”고 밝혔다.진앙에"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>전남 해남 규모 3.1 지진…“한빛원전 영향 없어”</div>
+      <div class="article-snippet">전남 해남군 인근에서 규모 3.1의 지진이 발생했지만 인근 한빛원전을 비롯한 국내 원자로시설의 안전에는 이상이 없는 것으로 확인됐다.기상청에 따르면 23일 오전 6시 43분 1초 전남 해남군 서북서쪽 21km 지역에서 규모 3.1의 지진이 발생했다. 발생 깊이는 21km로 관측됐다. 이번 지진으로 전남지역에서는 실내의 많은 사람이 흔들림을 느끼는 수준인 최대진도 Ⅳ가 관측됐다.지진 발생 직후 원자력안전위원회는 “국내 모든 원자로시설에 대한 긴급 현장 안전점검을 실시한 결과 시설 안전성에 이상이 없는 것으로 확인됐다”고 밝혔다.진앙에</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89350a61c1463a2d2f1dafcb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hankyung.com/article/202608247610i"
   data-title="데이터센터 전력난에…아일랜드, 27년 만에 원전 카드 만지작"
@@ -31954,7 +33142,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/08/202608240633103786fbbec65dfb_1"
   data-title="체코, 두코바니 신규 원전 2029년 착공… 17개 공급 패키지 조달로 시동 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
@@ -31978,7 +33166,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>체코, 두코바니 신규 원전 2029년 착공… 17개 공급 패키지 조달로 시동 - 글로벌이코노믹</div>
+      <div class="headline">체코, 두코바니 신규 원전 2029년 착공… 17개 공급 패키지 조달로 시동 - 글로벌이코노믹</div>
       <div class="article-snippet">체코 두코바니 신규 원자력 발전소 건설 사업이 현지 부지 조사를 마치고 2029년 본공사를 시작한다. 체코 매체 지흘라브스카 드르브나는 2026년 8월 23일(현지시각) 인허가 절차가 진행 중이며 현지 기업이 17개 공급 패키지를 확보했다고 보도했다.체코 정부의 인증 비용 지원 정책은</div>
     </div>
   </div>
@@ -32019,6 +33207,105 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/c530790e24cdda30ad036c2f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260824102643020"
+  data-title="박정성 신임 통상본부장 &amp;quot;한미 전략투자, FTA 버금가는 협력판 될 것&amp;quot;"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787534875"
+  data-country="KR"
+  data-search="박정성 신임 통상본부장 &amp;quot;한미 전략투자, fta 버금가는 협력판 될 것&amp;quot; 아주경제 원자력 박정성 산업통상부 통상교섭본부장. [사진=산업통상부] 박정성 신임 산업통상부 통상교섭본부장이 24일 &amp;quot;한&amp;middot;미 전략적 투자 이행이 양국간 가장 큰 도전이자 기회로 떠올랐다&amp;quot;며 &amp;quot;전략적 투자를 통해 과거 한&amp;middot;미 자유무역협정(fta)에 버금가는 새로운 양자 협력의 판을 형성할 것&amp;quot;이라고 말했다. 박 본부장은 이날 정부세종청사에서 열린 취임식에서 &amp;quot;미국이 촉발한 관세 재편과 전략산업 내재화 움직임은 미&amp;middot;중 간 전략적 경쟁을 상수화하고 여타 중견국가들간 연대의 움직임도 촉발하는 등 통상질서 재편"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">박정성 신임 통상본부장 &amp;quot;한미 전략투자, FTA 버금가는 협력판 될 것&amp;quot;</div>
+      <div class="article-snippet">박정성 산업통상부 통상교섭본부장. [사진=산업통상부] 박정성 신임 산업통상부 통상교섭본부장이 24일 &amp;quot;한&amp;middot;미 전략적 투자 이행이 양국간 가장 큰 도전이자 기회로 떠올랐다&amp;quot;며 &amp;quot;전략적 투자를 통해 과거 한&amp;middot;미 자유무역협정(FTA)에 버금가는 새로운 양자 협력의 판을 형성할 것&amp;quot;이라고 말했다. 박 본부장은 이날 정부세종청사에서 열린 취임식에서 &amp;quot;미국이 촉발한 관세 재편과 전략산업 내재화 움직임은 미&amp;middot;중 간 전략적 경쟁을 상수화하고 여타 중견국가들간 연대의 움직임도 촉발하는 등 통상질서 재편</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260824_0003759617"
+  data-title="박정성 신임 통상본부장 취임…&quot;대미 협상, 한미 FTA 버금가는 새로운 판 형성&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787534415"
+  data-country="KR"
+  data-search="박정성 신임 통상본부장 취임…&quot;대미 협상, 한미 fta 버금가는 새로운 판 형성&quot; 뉴시스 원자력 [세종=뉴시스]손차민 기자 = 박정성 신임 산업통상부 통상교섭본부장이 &quot;한-미간 통상 리스크 관리에 전사적인 노력을 기울여야 한다&quot;며 &quot;전략적 투자 협의를 통해 과거 한미 자유무역협정(fta)에 버금가는 새로운 양자 협력의 판을 형성할 것&quot;이라고 24일 밝혔다. 박 본부장은 이날 오전 정부세종청사에서 취임식을 열고 &quot;한-미간 전략적 투자 이행이 양국간 관계에서 가장 큰 도전이자 기회로 떠올랐다&quot;며 이같이 말했다. 그는 &quot;미국이 촉발한 관세 재편과 전략산업 내재화 움직임은 미-중 간 전략적 경쟁을 상수화하고 있고, 여타 중견국가들간 연대의 움직임도 촉발하는 등 통상질서"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260824102643020" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">박정성 신임 통상본부장 &amp;quot;한미 전략투자, FTA 버금가는 협력판 될 것&amp;quot;</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>박정성 신임 통상본부장 취임…&quot;대미 협상, 한미 FTA 버금가는 새로운 판 형성&quot;</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 박정성 신임 산업통상부 통상교섭본부장이 &quot;한-미간 통상 리스크 관리에 전사적인 노력을 기울여야 한다&quot;며 &quot;전략적 투자 협의를 통해 과거 한미 자유무역협정(FTA)에 버금가는 새로운 양자 협력의 판을 형성할 것&quot;이라고 24일 밝혔다. 박 본부장은 이날 오전 정부세종청사에서 취임식을 열고 &quot;한-미간 전략적 투자 이행이 양국간 관계에서 가장 큰 도전이자 기회로 떠올랐다&quot;며 이같이 말했다. 그는 &quot;미국이 촉발한 관세 재편과 전략산업 내재화 움직임은 미-중 간 전략적 경쟁을 상수화하고 있고, 여타 중견국가들간 연대의 움직임도 촉발하는 등 통상질서</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3aec0e8320d87921f6e27e4b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260824_0003759350"
+  data-title="트럼프 측근 &quot;김정은 만나기 전 李대통령과 먼저 회담해야&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787534275"
+  data-country="US"
+  data-search="트럼프 측근 &quot;김정은 만나기 전 李대통령과 먼저 회담해야&quot; 뉴시스 원자력 [서울=뉴시스] 신효령 기자 = 도널드 트럼프 미국 대통령이 김정은 북한 국무위원장과 다시 만나기 전에 이재명 대통령과 먼저 회담하고 대북 전략을 조율해야 한다는 트럼프 측근의 제언이 나왔다. 미 보수성향 싱크탱크인 미국우선주의정책연구소(afpi)의 프레드 플라이츠 부소장은 지난 21일(현지시간) 미 보수매체 &#x27;아메리칸 그레이트니스&#x27; 기고문에서 &#x27;트럼프가 김정은을 다시 만나기 전에 먼저 이뤄져야 할 5가지&#x27;를 제시했다. 플라이츠는 트럼프 1기 행정부에서 대통령 부보좌관과 백악관 국가안보회의(nsc) 비서실장을 지냈다. 트럼프 대통령의 핵심 측근으로 꼽히는 인사다. 플"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>트럼프 측근 &quot;김정은 만나기 전 李대통령과 먼저 회담해야&quot;</div>
+      <div class="article-snippet">[서울=뉴시스] 신효령 기자 = 도널드 트럼프 미국 대통령이 김정은 북한 국무위원장과 다시 만나기 전에 이재명 대통령과 먼저 회담하고 대북 전략을 조율해야 한다는 트럼프 측근의 제언이 나왔다. 미 보수성향 싱크탱크인 미국우선주의정책연구소(AFPI)의 프레드 플라이츠 부소장은 지난 21일(현지시간) 미 보수매체 &#x27;아메리칸 그레이트니스&#x27; 기고문에서 &#x27;트럼프가 김정은을 다시 만나기 전에 먼저 이뤄져야 할 5가지&#x27;를 제시했다. 플라이츠는 트럼프 1기 행정부에서 대통령 부보좌관과 백악관 국가안보회의(NSC) 비서실장을 지냈다. 트럼프 대통령의 핵심 측근으로 꼽히는 인사다. 플</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0072e35019e15efca3fb234e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -32026,9 +33313,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.epetimes.com/news/articleView.html?idxno=33020"
+  data-title="SMRe 7 ̷嵿..."
+  data-publisher="전력경제신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787540400"
+  data-country="OTHER"
+  data-search="smre 7 ̷嵿... 전력경제신문 smr 7 õ ʈ ···ΰյ ̷ ô ÷ܱ “smr··e ̷ ûe ȯ” ؽʈ-ai, ‘ ƽ’ 뵵 ÷ ޸ ° õ pjt ‘üұ ѹα’ ϼ"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전력경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SMRe 7 ̷嵿...</div>
+      <div class="article-snippet">7 õ Ʈ ···ΰյ ̷ ô ÷ܱ “SMR··e ̷ ûe Ȯ” ؽƮ-AI, ‘ Ƽ’ 뵵 ÷ ޸ ° õ PJT ‘üҰ ѹα’ ϼ</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/23a42af6d9dbfc5c857477a6.gif" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.epetimes.com/news/articleView.html?idxno=33019"
+  data-title="SMR 7 ̷ ѡ Ѹ"
+  data-publisher="전력경제신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787540400"
+  data-country="OTHER"
+  data-search="smr 7 ̷ ѡ ѹ 전력경제신문 smr , ‘7 õ pjt’ ǥ ڷ 2035 ȭ ѱ ’30 û ȯ ȭ ⱹ"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전력경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SMR 7 ̷ ѡ Ѹ</div>
+      <div class="article-snippet">, ‘7 õ PJT’ ǥ ڷ 2035 ȭ ѱ ’30 û Ȯ ȭ ⱹ</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/23a42af6d9dbfc5c857477a6.gif" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260822_0003758569"
   data-title="[오늘의 주요일정]대구경북(8월24일 월요일)"
@@ -32068,7 +33421,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32104,21 +33457,21 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
+<article class="preview-card new-article"
+  data-url="https://www.enerdata.net/publications/daily-energy-news/russia-announces-plans-30-gw-new-nuclear-power-capacity.html"
+  data-title="Russia announces plans for 30 GW of new nuclear power capacity"
+  data-publisher="Enerdata"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787528640"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  data-published="1787572800"
+  data-country="RU"
+  data-search="russia announces plans for 30 gw of new nuclear power capacity enerdata nuclear power·nuclear energy russian president vladimir putin has announced plans to expand the deployment of nuclear power plants across the country’s far east, siberia and urals (russian government statement, 20/08/2026). according to the statement, russia intends to commission approximately 30 gw of new nuclear capacity, including small nuclear"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
+        <div class="publisher">Enerdata</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -32128,12 +33481,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+      <div class="headline"><span class="new-badge">NEW</span>Russia announces plans for 30 GW of new nuclear power capacity</div>
+      <div class="article-snippet">Russian President Vladimir Putin has announced plans to expand the deployment of nuclear power plants across the country’s Far East, Siberia and Urals (Russian government statement, 20/08/2026). According to the statement, Russia intends to commission approximately 30 GW of new nuclear capacity, including small nuclear</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/3aa560c81d4a60bf3899c933.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32144,7 +33497,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787527809"
+  data-published="1787535323"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -32171,13 +33524,46 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787535320"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-oil-gas-extraction-tracker"
   data-title="Global Oil and Gas Extraction Tracker"
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787527165"
+  data-published="1787535150"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
@@ -32200,6 +33586,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.japantimes.co.jp/news/2026/08/24/japan/fukushima-seafood-treated-water-three-years-impact/"
+  data-title="Three years on, Fukushima’s fishers still deal with impact of treated water release"
+  data-publisher="The Japan Times"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787532600"
+  data-country="JP"
+  data-search="three years on, fukushima’s fishers still deal with impact of treated water release the japan times nuclear power·nuclear energy three years after the first release of treated water from the fukushima no. 1 nuclear power plant, the region&#x27;s fisheries say long-term solutions have yet to materialize."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Japan Times</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Three years on, Fukushima’s fishers still deal with impact of treated water release</div>
+      <div class="article-snippet">Three years after the first release of treated water from the Fukushima No. 1 nuclear power plant, the region&#x27;s fisheries say long-term solutions have yet to materialize.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cb0cdd7d93aa68348a65e1b0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32233,6 +33652,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e3c63b25ae77c002588ef272.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.koreajoongangdaily.com/korea/trumps-social-media-posts-could-reshape-northeast-asias-security-landscape-experts-warn/12838774"
+  data-title="Trump&#x27;s social media posts could reshape Northeast Asia&#x27;s security landscape, experts warn"
+  data-publisher="Korea JoongAng Daily"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787522400"
+  data-country="KR"
+  data-search="trump&#x27;s social media posts could reshape northeast asia&#x27;s security landscape, experts warn korea joongang daily nuclear power·nuclear energy experts are concerned that north korea could exploit the gap between u.s. president donald trump&#x27;s remarks and the u.s. government&#x27;s official position on its complete denuclearization."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Korea JoongAng Daily</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Trump&#x27;s social media posts could reshape Northeast Asia&#x27;s security landscape, experts warn</div>
+      <div class="article-snippet">Experts are concerned that North Korea could exploit the gap between U.S. President Donald Trump&#x27;s remarks and the U.S. government&#x27;s official position on its complete denuclearization.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/db405176739f98ef4cfdc045.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
