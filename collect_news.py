@@ -1,4 +1,5 @@
 # VERIFIED FINAL BUILD 2026-08-19
+# PC DESKTOP RESPONSIVE OPTIMIZATION 2026-08-24
 # FOREIGN TAB LABELS RENAMED + MOVED BELOW KEPCO AFFILIATES 2026-08-24
 # CHOI TAE-WON / PRESIDENT MEETING EVENT GROUPING V2 2026-08-24
 # VIETNAM.VN NATIVE VIETNAMESE NUCLEAR COVERAGE 2026-08-24
@@ -18490,6 +18491,303 @@ main {{
     right:3px !important;
     padding-left:3px !important;
     padding-right:3px !important;
+  }}
+}}
+
+
+
+/* ============================================================
+   2026-08-24 PC DESKTOP RESPONSIVE OPTIMIZATION
+   - Mobile layout below 900px remains unchanged.
+   - Desktop gets a wider centered canvas, larger map,
+     horizontal controls, and two-column article cards.
+   ============================================================ */
+@media (min-width:900px) {{
+  body {{
+    background:#c4d6e8 !important;
+  }}
+
+  .phone {{
+    width:min(calc(100% - 40px),1320px) !important;
+    max-width:1320px !important;
+    margin:0 auto !important;
+    padding:0 0 42px !important;
+  }}
+
+  /* Header / search / controls */
+  .topbar {{
+    margin:14px 0 14px !important;
+    padding:14px 18px 13px !important;
+    border-radius:18px !important;
+  }}
+  .topbar-title-row {{
+    min-height:36px !important;
+  }}
+  .topbar h1 {{
+    font-size:22px !important;
+    letter-spacing:-.45px !important;
+  }}
+  .updated {{
+    font-size:10px !important;
+  }}
+  .header-toggle {{
+    min-width:82px !important;
+    height:34px !important;
+    padding:0 12px !important;
+    font-size:11px !important;
+  }}
+  .search-wrap {{
+    margin-top:8px !important;
+  }}
+  .search-input {{
+    height:40px !important;
+    padding:0 14px !important;
+    font-size:13px !important;
+    border-radius:10px !important;
+  }}
+
+  .header-controls {{
+    display:grid !important;
+    grid-template-columns:minmax(280px,.85fr) minmax(360px,1.15fr) !important;
+    gap:10px !important;
+    align-items:center !important;
+    max-height:72px !important;
+    margin-top:8px !important;
+  }}
+  .topbar.collapsed .header-controls {{
+    max-height:0 !important;
+    margin-top:0 !important;
+  }}
+  .tabs {{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:7px !important;
+    margin:0 !important;
+  }}
+  .tab-button {{
+    height:34px !important;
+    font-size:12px !important;
+    border-radius:8px !important;
+  }}
+  .utility-row {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:7px !important;
+    margin:0 !important;
+  }}
+  .utility-box {{
+    height:34px !important;
+    padding:0 8px !important;
+    border-radius:8px !important;
+  }}
+  .utility-label {{
+    font-size:10px !important;
+  }}
+  .language-order-toggle,
+  .date-control {{
+    height:25px !important;
+    border-radius:6px !important;
+  }}
+  .language-order-toggle,
+  .date-display {{
+    font-size:10.5px !important;
+    line-height:25px !important;
+  }}
+
+  /* Important articles */
+  .favorites-panel {{
+    margin:0 0 14px !important;
+    padding:12px 14px !important;
+    border-radius:12px !important;
+  }}
+  .favorites-list {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+  }}
+
+  /* Country map: larger on desktop, but not stretched edge-to-edge. */
+  .world-map-panel {{
+    margin:0 0 16px !important;
+    padding:15px 16px 16px !important;
+    border-radius:18px !important;
+  }}
+  .world-map-head {{
+    margin-bottom:8px !important;
+  }}
+  .world-map-title {{
+    font-size:14px !important;
+  }}
+  .world-map-summary,
+  .country-filter-note {{
+    font-size:10px !important;
+  }}
+  .country-map-visual.globe-mode {{
+    height:558px !important;
+    min-height:558px !important;
+    border-radius:14px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    left:50% !important;
+    right:auto !important;
+    top:10px !important;
+    bottom:auto !important;
+    width:min(calc(100% - 32px),1000px) !important;
+    height:auto !important;
+    aspect-ratio:2 / 1 !important;
+    transform:translateX(-50%) !important;
+    transform-origin:center top !important;
+  }}
+
+  #continent-rail {{
+    left:50% !important;
+    right:auto !important;
+    bottom:4px !important;
+    width:min(calc(100% - 32px),1000px) !important;
+    height:48px !important;
+    max-height:48px !important;
+    padding:4px 6px !important;
+    transform:translateX(-50%) !important;
+    border-radius:10px !important;
+  }}
+  .continent-rail-scroll {{
+    gap:5px !important;
+  }}
+  .continent-button {{
+    min-height:40px !important;
+    height:40px !important;
+    padding:4px 8px !important;
+    border-radius:8px !important;
+    gap:3px !important;
+  }}
+  .continent-button-name {{
+    font-size:11px !important;
+  }}
+  .continent-button-count {{
+    font-size:9.5px !important;
+  }}
+  .precise-country-label,
+  .clean-map-country-label {{
+    font-size:9.5px !important;
+  }}
+
+  /* Main article area */
+  main {{
+    padding:0 0 42px !important;
+  }}
+  .period-action-row {{
+    min-height:38px !important;
+  }}
+  .period-inline-label {{
+    font-size:13px !important;
+  }}
+  .period-inline-range {{
+    font-size:10.5px !important;
+  }}
+  .group-master-button {{
+    width:112px !important;
+    min-width:112px !important;
+    height:32px !important;
+    font-size:10.5px !important;
+  }}
+
+  .news-group {{
+    margin-bottom:18px !important;
+  }}
+  .group-title {{
+    height:34px !important;
+    padding:0 16px !important;
+    border-radius:10px !important;
+  }}
+  .group-name,
+  .group-count,
+  .group-arrow {{
+    height:34px !important;
+  }}
+  .group-name {{
+    font-size:13px !important;
+  }}
+  .group-count {{
+    font-size:12.5px !important;
+  }}
+  .group-arrow {{
+    font-size:11px !important;
+  }}
+
+  /* Desktop information density: two article cards per row. */
+  .article-stack {{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px 14px !important;
+    margin-top:9px !important;
+    margin-bottom:9px !important;
+  }}
+  .preview-card {{
+    grid-template-columns:minmax(0,1fr) 118px !important;
+    gap:9px !important;
+    min-height:126px !important;
+    height:auto !important;
+    padding:6px 6px 6px 9px !important;
+    border-radius:8px !important;
+  }}
+  .preview-copy {{
+    grid-template-columns:20px minmax(0,1fr) 24px !important;
+    column-gap:6px !important;
+    min-height:114px !important;
+    padding:3px 0 !important;
+  }}
+  .meta-row {{
+    height:21px !important;
+  }}
+  .article-order-inline,
+  .publisher,
+  .status-inline {{
+    font-size:10.5px !important;
+  }}
+  .important-button {{
+    width:24px !important;
+    height:21px !important;
+    font-size:16px !important;
+    line-height:21px !important;
+  }}
+  .headline {{
+    margin-top:3px !important;
+    font-size:14.5px !important;
+    line-height:1.30 !important;
+    -webkit-line-clamp:2 !important;
+  }}
+  .article-snippet {{
+    margin-top:4px !important;
+    font-size:11.5px !important;
+    line-height:1.42 !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .card-side {{
+    width:118px !important;
+    min-width:118px !important;
+  }}
+  .preview-image {{
+    width:118px !important;
+    height:118px !important;
+    min-height:118px !important;
+    border-radius:0 !important;
+  }}
+
+  /* Mouse-oriented polish for desktop only. */
+  .preview-card {{
+    transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease !important;
+  }}
+  .preview-card:hover {{
+    transform:translateY(-1px) !important;
+    box-shadow:0 5px 15px rgba(35,57,93,.08) !important;
+  }}
+  .group-title:hover,
+  .tab-button:hover,
+  .continent-button:hover {{
+    filter:brightness(.985) !important;
+  }}
+}}
+
+@media (min-width:1400px) {{
+  .phone {{
+    width:1320px !important;
   }}
 }}
 
