@@ -10598,6 +10598,54 @@ main {
     transform:none !important;
   }
 }
+
+
+/* 2026-08-25 CONTINENT TABS ALWAYS VISIBLE - FINAL OVERRIDE */
+#continent-rail.continent-rail-persistent,
+#continent-rail {
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:absolute !important;
+  left:8px !important;
+  right:8px !important;
+  bottom:8px !important;
+  width:auto !important;
+  max-width:calc(100% - 16px) !important;
+  min-height:38px !important;
+  height:auto !important;
+  padding:4px !important;
+  box-sizing:border-box !important;
+  z-index:120 !important;
+  overflow:visible !important;
+}
+#continent-rail .continent-rail-scroll {
+  display:grid !important;
+  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+  gap:4px !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:auto !important;
+  min-height:30px !important;
+  overflow:visible !important;
+  box-sizing:border-box !important;
+}
+#continent-rail .continent-button {
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  min-width:0 !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+}
+@media (max-width:767px) {
+  #continent-rail.continent-rail-persistent, #continent-rail {
+    left:6px !important; right:6px !important; bottom:6px !important;
+    max-width:calc(100% - 12px) !important;
+  }
+  #continent-rail .continent-rail-scroll { gap:3px !important; }
+}
 </style>
 </head>
 <body>
@@ -10606,7 +10654,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.25(화) 15:30 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.25(화) 15:40 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -10652,6 +10700,9 @@ main {
 
     <div class="country-map-content">
       <div class="country-map-visual globe-mode" aria-label="대륙별 국가 기사 2D 세계지도">
+      <div id="continent-rail" class="continent-rail-persistent" aria-label="대륙 선택">
+        <div class="continent-rail-scroll" aria-label="대륙 선택"></div>
+      </div>
       <div id="globe-stage" class="globe-stage" aria-label="대륙 선택형 2D 세계지도">
         <div id="globe-sphere" class="globe-sphere">
           <canvas id="globe-canvas" class="globe-canvas" width="420" height="420" aria-hidden="true"></canvas>
@@ -13846,7 +13897,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ffdc1ff81332240ba2a3df43.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/3e3169524d4372b7a34f0063.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -20780,7 +20831,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.upr.org/2026-08-23/many-wyoming-freedom-caucus-representatives-lose-to-more-moderate-republicans-in-primaries"
   data-title="Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries"
   data-publisher="Utah Public Radio"
@@ -20804,7 +20855,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries</div>
+      <div class="headline">Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries</div>
       <div class="article-snippet">Wyoming has been a showcase for the Freedom Caucus, which bills itself as seeking to promote &quot;Judeo-Christian values&quot; and end most property taxes. But the movement suffered losses in recent primaries.</div>
     </div>
   </div>
@@ -30906,42 +30957,9 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
-  data-url="https://www.greened.kr/news/articleView.html?idxno=348386"
-  data-title="현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문"
-  data-publisher="녹색경제신문"
-  data-group="현대건설"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787637265"
-  data-country="KR"
-  data-search="현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문 녹색경제신문 현대건설 [녹색경제신문 = 문홍주 기자]건설업계의 사업영역이 인공지능(ai)과 로봇, 데이터센터, 원자력발전 등으로 넓어지면서 건설사가 찾는 인재의 범위도 확대되고 있다. 전통적인 건축·토목 시공 역량뿐 아니라 기술을 활용해 현장 문제를 해결하고 자신의 경험을 직무와 연결할 수 있는 능력이 주요 평가 요소로 떠올랐다.25일 서울 강남구 건설회관에서 열린 ‘2026 스마트건설 청년인재 채용설명회’에는 현대건설과 대우건설을 비롯한 주요 건설사와 국토교통부 산하 공기업·기관 등 25개사가 참여했다. 대한건설협회와 건설산업사회공헌재단이 주최하고 국"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">녹색경제신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문</div>
-      <div class="article-snippet">[녹색경제신문 = 문홍주 기자]건설업계의 사업영역이 인공지능(AI)과 로봇, 데이터센터, 원자력발전 등으로 넓어지면서 건설사가 찾는 인재의 범위도 확대되고 있다. 전통적인 건축·토목 시공 역량뿐 아니라 기술을 활용해 현장 문제를 해결하고 자신의 경험을 직무와 연결할 수 있는 능력이 주요 평가 요소로 떠올랐다.25일 서울 강남구 건설회관에서 열린 ‘2026 스마트건설 청년인재 채용설명회’에는 현대건설과 대우건설을 비롯한 주요 건설사와 국토교통부 산하 공기업·기관 등 25개사가 참여했다. 대한건설협회와 건설산업사회공헌재단이 주최하고 국</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4f97606c6eadb3b0025c373a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.inews24.com/view/1997937"
   data-title="[특징주] 현대건설, 8% &#x27;급등&#x27;⋯하반기 &#x27;원전 역량&#x27; 부각"
@@ -31080,7 +31098,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31215,6 +31233,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761777"
+  data-title="충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787639719"
+  data-country="KR"
+  data-search="충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot; 뉴시스 타 건설사 [청주=뉴시스] 임선우 기자 = 충북도가 미래 에너지산업에 심혈을 쏟는다. 도는 25일 서울 양재 엘타워에서 열린 &#x27;2026 기후에너지 일자리 박람회&#x27;에서 기후에너지환경부, 강원특별자치도, 부산광역시, 전남광주특별시, 한국에너지기술평가원 등과 &#x27;기후에너지산업 인력양성 및 청년 일자리 창출을 위한 업무협약&#x27;을 했다. lg에너지솔루션, sk이노베이션, 삼성물산, gs건설, 에코프로 등 국내 주요 에너지 기업도 참여했다. 이들은 향후 3년간 ▲에너지 인력양성사업 추진 협력(맞춤형 교육과정 운영 및 인재 육성) ▲일자리 창출 및 정보 공유(채용설명회, 특강, 일자리 박람회"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;</div>
+      <div class="article-snippet">[청주=뉴시스] 임선우 기자 = 충북도가 미래 에너지산업에 심혈을 쏟는다. 도는 25일 서울 양재 엘타워에서 열린 &#x27;2026 기후에너지 일자리 박람회&#x27;에서 기후에너지환경부, 강원특별자치도, 부산광역시, 전남광주특별시, 한국에너지기술평가원 등과 &#x27;기후에너지산업 인력양성 및 청년 일자리 창출을 위한 업무협약&#x27;을 했다. LG에너지솔루션, SK이노베이션, 삼성물산, GS건설, 에코프로 등 국내 주요 에너지 기업도 참여했다. 이들은 향후 3년간 ▲에너지 인력양성사업 추진 협력(맞춤형 교육과정 운영 및 인재 육성) ▲일자리 창출 및 정보 공유(채용설명회, 특강, 일자리 박람회</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f92c9f79cb62a07db7df1879.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.industrynews.co.kr/news/articleView.html?idxno=84943"
   data-title="대우건설, 사회공헌 브랜드 ‘베터 투게더’로 국내외 상생 활동 확대 - 인더스트리뉴스"
@@ -31302,7 +31353,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 13개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energy-news.co.kr/news/articleView.html?idxno=227633" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지신문</span><span class="related-coverage-title">배관·배선 공정 하나로...공동주택 전기공사 방식 바뀌나</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=175725" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">가온전선·DL이앤씨, 배관·전선 하나로 통합…내년 본격 적용 - 알파경제</span></a><a class="related-coverage-link" href="https://www.e2news.com/news/articleView.html?idxno=333547" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투뉴스</span><span class="related-coverage-title">가온전선, DL이앤씨와 공동주택 배관 일체형 ACF 전력線 상용화</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500150" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">가온전선-DL이앤씨, 케이블 신공법 공동주택 검증 완료…전기 공사비 최대 30% ↓</span></a><a class="related-coverage-link" href="https://www.cnbnews.com/news/articleView.html?idxno=1012642" target="_blank" rel="noopener"><span class="related-coverage-publisher">CNB뉴스</span><span class="related-coverage-title">가온전선-DL이앤씨, 공동개발 케이블 신공법 현장 검증 - CNB뉴스</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260825_0003760977" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">가온전선, DL이앤씨와 케이블 신공법 공동주택 검증…내년 본격 적용</span></a><a class="related-coverage-link" href="https://www.snmnews.com/news/articleView.html?idxno=573731" target="_blank" rel="noopener"><span class="related-coverage-publisher">철강금속신문</span><span class="related-coverage-title">가온전선·DL이앤씨, ACF 케이블 공동주택 현장 검증 완료…상용화 본격화</span></a><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371585" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">배관일체형 ACF 케이블 내년부터 DL이앤씨 신축주택에 본격 적용</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210749" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">가온전선, DL이앤씨와 케이블 신공법 공동주택 검증</span></a><a class="related-coverage-link" href="https://www.2news.co.kr/news/articleView.html?idxno=22451" target="_blank" rel="noopener"><span class="related-coverage-publisher">2news.co.kr</span><span class="related-coverage-title">가온전선·DL이앤씨, 차세대 ACF 케이블 상용화 가속 - 에너지뉴스</span></a><a class="related-coverage-link" href="https://www.bloter.net/news/articleView.html?idxno=671703" target="_blank" rel="noopener"><span class="related-coverage-publisher">블로터</span><span class="related-coverage-title">가온전선, &#x27;배관 없는 케이블&#x27;로 공사비 30% 낮춘다…내년 도입</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026082508212537004" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">가온전선·DL이앤씨, 케이블 신공법 내년 공동주택 본격 적용</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">&quot;주택 공사비 낮춘다&quot;…가온전선·DL이앤씨, 신공법 검증 완료</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 14개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energy-news.co.kr/news/articleView.html?idxno=227633" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지신문</span><span class="related-coverage-title">배관·배선 공정 하나로...공동주택 전기공사 방식 바뀌나</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=175725" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">가온전선·DL이앤씨, 배관·전선 하나로 통합…내년 본격 적용 - 알파경제</span></a><a class="related-coverage-link" href="https://www.e2news.com/news/articleView.html?idxno=333547" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투뉴스</span><span class="related-coverage-title">가온전선, DL이앤씨와 공동주택 배관 일체형 ACF 전력線 상용화</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500150" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">가온전선-DL이앤씨, 케이블 신공법 공동주택 검증 완료…전기 공사비 최대 30% ↓</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2462677" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">가온전선·DL이앤씨, 배관·배선 하나로···전기 공사비 최대 30% 낮춘다</span></a><a class="related-coverage-link" href="https://www.cnbnews.com/news/articleView.html?idxno=1012642" target="_blank" rel="noopener"><span class="related-coverage-publisher">CNB뉴스</span><span class="related-coverage-title">가온전선-DL이앤씨, 공동개발 케이블 신공법 현장 검증 - CNB뉴스</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260825_0003760977" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">가온전선, DL이앤씨와 케이블 신공법 공동주택 검증…내년 본격 적용</span></a><a class="related-coverage-link" href="https://www.snmnews.com/news/articleView.html?idxno=573731" target="_blank" rel="noopener"><span class="related-coverage-publisher">철강금속신문</span><span class="related-coverage-title">가온전선·DL이앤씨, ACF 케이블 공동주택 현장 검증 완료…상용화 본격화</span></a><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371585" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">배관일체형 ACF 케이블 내년부터 DL이앤씨 신축주택에 본격 적용</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210749" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">가온전선, DL이앤씨와 케이블 신공법 공동주택 검증</span></a><a class="related-coverage-link" href="https://www.2news.co.kr/news/articleView.html?idxno=22451" target="_blank" rel="noopener"><span class="related-coverage-publisher">2news.co.kr</span><span class="related-coverage-title">가온전선·DL이앤씨, 차세대 ACF 케이블 상용화 가속 - 에너지뉴스</span></a><a class="related-coverage-link" href="https://www.bloter.net/news/articleView.html?idxno=671703" target="_blank" rel="noopener"><span class="related-coverage-publisher">블로터</span><span class="related-coverage-title">가온전선, &#x27;배관 없는 케이블&#x27;로 공사비 30% 낮춘다…내년 도입</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026082508212537004" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">가온전선·DL이앤씨, 케이블 신공법 내년 공동주택 본격 적용</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">&quot;주택 공사비 낮춘다&quot;…가온전선·DL이앤씨, 신공법 검증 완료</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">가온전선-DL이앤씨, 케이블 신공법 공동주택 검증 완료…내년 본격 적용</div>
@@ -31314,7 +31365,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1398971"
   data-title="[건설업계 브리핑] GS건설·호반그룹·LH·SH"
   data-publisher="데일리한국"
@@ -31338,7 +31389,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[건설업계 브리핑] GS건설·호반그룹·LH·SH</div>
+      <div class="headline">[건설업계 브리핑] GS건설·호반그룹·LH·SH</div>
       <div class="article-snippet">[데일리한국 전준형 기자]◇ GS건설, 카를로 라티와 기후위기 대응 주거 연구GS건설은 건축가 카를로 라티 교수가 이끄는 건축·디자인 그룹 CRA와 기후위기 대응 미래형 주거 솔루션을 공동 연구했다고 25일 밝혔다. 양측은 폭우·폭염·미세먼지 관련 데이터와 센서 기술, 주택 시공·운영 경험을 결합해 대응 방안을 모색했다. GS건설은 실증과 기술 검증을 거쳐 자이 주요 사업지에 관련 기술을 적용하는 방안을 검토할 계획이다.◇ 호반그룹, 방글라데시 식수환경 개선 지원호반그룹이 워터테크 기업 지오그리드와 방글라데시 케라니간지 지역 공공기</div>
     </div>
   </div>
@@ -31347,7 +31398,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1721587"
   data-title="GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터"
   data-publisher="EBN산업경제"
@@ -31371,7 +31422,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터</div>
+      <div class="headline">GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터</div>
       <div class="article-snippet">GS건설이 미국 &#x27;IDEA 2026&#x27; 수상을 통해 세계 3대 디자인 어워드 그랜드슬램을 2년 연속 달성하며 압도적인 주거 디자인 경쟁력을 과시했다. 서울역 일대를</div>
     </div>
   </div>
@@ -31434,7 +31485,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.m-i.kr/news/articleView.html?idxno=1405647" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일일보</span><span class="related-coverage-title">GS건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">GS건설, 기후위기 대응 주거 솔루션 연구…실증 거쳐 적용</div>
@@ -31509,6 +31560,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/db8f308736b0d7fa76451ee9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761954"
+  data-title="경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787639936"
+  data-country="OTHER"
+  data-search="경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot; 뉴시스 타 건설사 [창원=뉴시스]홍정명 기자 = 경남도는 25일 도청에서 박완수 도지사와 이부환 한화에어로스페이스 사업부문 신임 대표이사가 우주항공·방산 분야 현안과 협력 방안을 논의했다고 밝혔다. 이 자리에서 한화에어로스페이스는 경남지역 재난안전망 구축 지원금 2억원을 경남도에 기탁했으며, 전달식에는 박 지사와 이부환 대표이사, 문지훈 부사장, 신문현 경상남도자원봉사센터장, 정영식 경남사회복지공동모금회장 등이 참석했다. 박 지사는 한화에어로스페이스의 지원에 감사를 전하고, 피해 주민의 일상 회복과 현장에서 복구 활동을 이어가는 자원봉사자들에게 실질적인 도움이 될 수 있도록 민·관·기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;</div>
+      <div class="article-snippet">[창원=뉴시스]홍정명 기자 = 경남도는 25일 도청에서 박완수 도지사와 이부환 한화에어로스페이스 사업부문 신임 대표이사가 우주항공·방산 분야 현안과 협력 방안을 논의했다고 밝혔다. 이 자리에서 한화에어로스페이스는 경남지역 재난안전망 구축 지원금 2억원을 경남도에 기탁했으며, 전달식에는 박 지사와 이부환 대표이사, 문지훈 부사장, 신문현 경상남도자원봉사센터장, 정영식 경남사회복지공동모금회장 등이 참석했다. 박 지사는 한화에어로스페이스의 지원에 감사를 전하고, 피해 주민의 일상 회복과 현장에서 복구 활동을 이어가는 자원봉사자들에게 실질적인 도움이 될 수 있도록 민·관·기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/624cbdfe2fad95df9d621e5b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31641,7 +31725,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371602" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</span></a><a class="related-coverage-link" href="http://www.energytimes.kr/news/articleView.html?idxno=70730" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210808" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영</span></a><a class="related-coverage-link" href="https://www.dailydgnews.com/news/article.html?no=261077" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리대구경북뉴스</span><span class="related-coverage-title">[데일리대구경북뉴스] 한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202486" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014597" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 9개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hansbiz.co.kr/news/articleView.html?idxno=859304" target="_blank" rel="noopener"><span class="related-coverage-publisher">한스경제</span><span class="related-coverage-title">한수원, ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210808" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영</span></a><a class="related-coverage-link" href="https://www.dailydgnews.com/news/article.html?no=261077" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리대구경북뉴스</span><span class="related-coverage-title">[데일리대구경북뉴스] 한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=104771" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">한수원, ‘조직문화혁신 주니어보드’ 신설…직원이 주도해 회사 청사진 그린다</span></a><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371602" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202486" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.energytimes.kr/news/articleView.html?idxno=70730" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313145" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">젊은 직원이 미래과제 발굴…한수원, &#x27;주니어보드&#x27; 가동 - 건설타임즈</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014597" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범</div>
@@ -31725,7 +31809,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">12건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31828,6 +31912,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
+  data-title="대한전문건설신문"
+  data-publisher="대한전문건설신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787640000"
+  data-country="KR"
+  data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">대한전문건설신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">대한전문건설신문</div>
+      <div class="article-snippet">건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003261629&amp;PAGE_CD=N0002&amp;CMPT_CD=M0117"
+  data-title="송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다"
+  data-publisher="오마이뉴스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787624520"
+  data-country="KR"
+  data-search="송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다 오마이뉴스 한국전력 송전탑 반대 대책위 주민과 한국전력이 동등한 위치에서 공개적으로 송전선로 관련 주민 설명회를 열어 주목된다.지난 24일 충남 예산군 예산문화원에서는 345kv 군산-신천안 송전선로 건설사업 설명회가 진행됐다. 해당 선로는 광시면,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">오마이뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다</div>
+      <div class="article-snippet">송전탑 반대 대책위 주민과 한국전력이 동등한 위치에서 공개적으로 송전선로 관련 주민 설명회를 열어 주목된다.지난 24일 충남 예산군 예산문화원에서는 345kV 군산-신천안 송전선로 건설사업 설명회가 진행됐다. 해당 선로는 광시면,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/401425f1077c0e7868140820.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761418"
   data-title="전력사용량으로 1인가구 안부 살핀다…한전, 충주 60가구 시범사업"
   data-publisher="뉴시스"
@@ -31890,39 +32040,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/f3997e27934ac1343a241130.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
-  data-title="대한전문건설신문"
-  data-publisher="대한전문건설신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787619300"
-  data-country="KR"
-  data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">대한전문건설신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">대한전문건설신문</div>
-      <div class="article-snippet">건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32013,7 +32130,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ngetnews.com/news/articleView.html?idxno=552672" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스저널리즘</span><span class="related-coverage-title">LS전선·대한전선, 덴마크 초고압 케이블 전 물량 수주</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">[단독] LS전선·대한전선, 덴마크 초고압 케이블 물량 ‘싹쓸이’…2075억원 수주</div>
@@ -32133,14 +32250,14 @@ main {
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70732"
+<article class="preview-card new-article"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70732"
   data-title="한전KDN, 협력사 근로자 몸·마음까지 챙겨"
   data-publisher="에너지타임즈"
   data-group="한전 계열사"
   data-language="ko"
   data-priority="2"
-  data-published="1787662282"
+  data-published="1787629882"
   data-country="KR"
   data-search="한전kdn, 협력사 근로자 몸·마음까지 챙겨 에너지타임즈 한전 계열사 한전kdn(주)(사장 박상형)이 직원과 협력사가 안심하는 안전일터 조성을 위해 지난 21일 본사(전남광주 나주시 소재)에서 ‘ceo와 함께하는 안전·보건 상생 프로젝트’를 개최했다. 이날 행사는 본사 구내식당 협력사 근로자를 대상으로 진행됐으며, 아로마 오일을 활용한 괄사 마사지 체험 프로그램이 운영됐다."
   tabindex="0" role="link">
@@ -32157,7 +32274,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline">한전KDN, 협력사 근로자 몸·마음까지 챙겨</div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 협력사 근로자 몸·마음까지 챙겨</div>
       <div class="article-snippet">한전KDN(주)(사장 박상형)이 직원과 협력사가 안심하는 안전일터 조성을 위해 지난 21일 본사(전남광주 나주시 소재)에서 ‘CEO와 함께하는 안전·보건 상생 프로젝트’를 개최했다. 이날 행사는 본사 구내식당 협력사 근로자를 대상으로 진행됐으며, 아로마 오일을 활용한 괄사 마사지 체험 프로그램이 운영됐다.</div>
     </div>
   </div>
@@ -32166,14 +32283,14 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70731"
+<article class="preview-card new-article"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70731"
   data-title="한전KDN, 협력사 목소리로 불공정 관행 걷어낸다"
   data-publisher="에너지타임즈"
   data-group="한전 계열사"
   data-language="ko"
   data-priority="2"
-  data-published="1787661491"
+  data-published="1787629091"
   data-country="KR"
   data-search="한전kdn, 협력사 목소리로 불공정 관행 걷어낸다 에너지타임즈 한전 계열사 한전kdn이 협력사를 단순한 거래 상대가 아닌 함께 성장하는 동반자로 보고 현장에서 체감할 수 있는 공정거래와 청렴·윤리문화 확산에 나섰다. 한전kdn(주)(사장 박상형)은 협력사와 거래 과정에 발생할 수 있는 불공정하고 불합리한 업무관행을 발굴해 개선하는 한편 청렴과 공정을 기반으로 한 상생협력 문화를 정착시키기 위해 지난 24일 본사(전남광주 나주시 소재)에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다."
   tabindex="0" role="link">
@@ -32190,7 +32307,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline">한전KDN, 협력사 목소리로 불공정 관행 걷어낸다</div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 협력사 목소리로 불공정 관행 걷어낸다</div>
       <div class="article-snippet">한전KDN이 협력사를 단순한 거래 상대가 아닌 함께 성장하는 동반자로 보고 현장에서 체감할 수 있는 공정거래와 청렴·윤리문화 확산에 나섰다. 한전KDN(주)(사장 박상형)은 협력사와 거래 과정에 발생할 수 있는 불공정하고 불합리한 업무관행을 발굴해 개선하는 한편 청렴과 공정을 기반으로 한 상생협력 문화를 정착시키기 위해 지난 24일 본사(전남광주 나주시 소재)에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다.</div>
     </div>
   </div>
@@ -32220,7 +32337,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202489" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한전KDN, 협력사 목소리 반영한 정책 수립… 공정과 청렴의 경영환경 구축 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014602" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전KDN, 협력사 목소리 반영 정책으로 ‘공정과 청렴 경영환경 구축’ 본격화</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5847" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전KDN, 협력사와 청렴소통 강화…공정거래 현장 확산 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=104773" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">한전KDN, 지역 협력사 참여하는 ‘청렴소통 간담회’ 통해 목소리 경청</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202489" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한전KDN, 협력사 목소리 반영한 정책 수립… 공정과 청렴의 경영환경 구축 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014602" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전KDN, 협력사 목소리 반영 정책으로 ‘공정과 청렴 경영환경 구축’ 본격화</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5847" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전KDN, 협력사와 청렴소통 강화…공정거래 현장 확산 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">한전KDN, 청렴·윤리 정책에 협력사 목소리 적극 반영</div>
@@ -32289,7 +32406,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32324,6 +32441,39 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.handelsblatt.com/politik/international/griechenland-warum-die-energiewende-fuer-neue-spannungen-mit-der-tuerkei-sorgt/100248899.html"
+  data-title="Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt"
+  data-publisher="Handelsblatt"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1787623435"
+  data-country="OTHER"
+  data-search="griechenland: warum die energiewende für neue spannungen mit der türkei sorgt handelsblatt 국내 원자력 협회·학회 athen und ankara streiten über einen griechischen raumordnungsplan für wind- und solarprojekte. dahinter steht ein ungelöster konflikt um die seegrenzen in der ägäis."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Handelsblatt</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt</div>
+      <div class="article-snippet">Athen und Ankara streiten über einen griechischen Raumordnungsplan für Wind- und Solarprojekte. Dahinter steht ein ungelöster Konflikt um die Seegrenzen in der Ägäis.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/072e8d8c6df7950e876c46e2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -32343,36 +32493,36 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260825000136"
-  data-title="원자력연, IAEA와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최"
-  data-publisher="전자신문"
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104774"
+  data-title="원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련"
+  data-publisher="에너지플랫폼뉴스"
   data-group="국제 원자력·에너지기구"
   data-language="ko"
   data-priority="0"
-  data-published="1787621425"
+  data-published="1787631642"
   data-country="KR"
-  data-search="원자력연, iaea와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최 전자신문 국제 원자력·에너지기구 한국원자력연구원 산하 양성자과학연구단이 가속기 분야에서 협력에 기반한 국제적인 영향력 확대에 나서고 있다. 국제 교육협력 활동으로 아시아 각국 인력의 실무 역량을 높이는 한편, 협력 네트워크를 구축하고 있다. 원자력연 양성자과학연구단은 국제원자력기구(iaea)와 함께 아시아 각국 원자력 분야 학생, 연구자 등을 대상으로 &#x27;가속기 기술 및 활용에 관한 교육 워크숍&#x27;을 개최했다고 25일 밝혔다. 원자력연이 축적한 가속기 운용 경험을 아시아 지역 연"
+  data-search="원자력연구원·iaea, 가속기 기술·활용 확산 위해 상호 교류의 장 마련 에너지플랫폼뉴스 국제 원자력·에너지기구 [에너지플랫폼뉴스 박병인 기자] 원자력연구원과 iaea가 가속기 기술과 노하우를 확산하기 위해 교류의 장을 마련했다.한국원자력연구원 양성자과학연구단은 국제원자력기구(iaea)와 공동으로 아시아 각국의 원자력 분야 학생, 연구자 등을 대상으로 ‘가속기 기술 및 활용에 관한 교육 워크숍(training workshop on hands-on operation and maintenance of electrostatic accelerators)’을 개최했다고 25일 밝혔다.이번 워크숍은 연구원이 축적해 온 가속기 운용 경험을 아시아 지역 연"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">전자신문</div>
+        <div class="publisher">에너지플랫폼뉴스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5842" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연, IAEA와 가속기 기술 교육 워크숍 개최 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260825000136" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">원자력연, IAEA와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5842" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연, IAEA와 가속기 기술 교육 워크숍 개최 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline">원자력연, IAEA와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최</div>
-      <div class="article-snippet">한국원자력연구원 산하 양성자과학연구단이 가속기 분야에서 협력에 기반한 국제적인 영향력 확대에 나서고 있다. 국제 교육협력 활동으로 아시아 각국 인력의 실무 역량을 높이는 한편, 협력 네트워크를 구축하고 있다. 원자력연 양성자과학연구단은 국제원자력기구(IAEA)와 함께 아시아 각국 원자력 분야 학생, 연구자 등을 대상으로 &#x27;가속기 기술 및 활용에 관한 교육 워크숍&#x27;을 개최했다고 25일 밝혔다. 원자력연이 축적한 가속기 운용 경험을 아시아 지역 연</div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 원자력연구원과 IAEA가 가속기 기술과 노하우를 확산하기 위해 교류의 장을 마련했다.한국원자력연구원 양성자과학연구단은 국제원자력기구(IAEA)와 공동으로 아시아 각국의 원자력 분야 학생, 연구자 등을 대상으로 ‘가속기 기술 및 활용에 관한 교육 워크숍(Training Workshop on Hands-on Operation and Maintenance of Electrostatic Accelerators)’을 개최했다고 25일 밝혔다.이번 워크숍은 연구원이 축적해 온 가속기 운용 경험을 아시아 지역 연</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0c3b1b5d72b8d6ba2dbb1770.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/9bd485243de605d2d8811538.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32427,7 +32577,7 @@ main {
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mt.co.kr/world/2026/08/25/2026082510364565198"
   data-title="美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이"
   data-publisher="머니투데이"
@@ -32451,7 +32601,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이</div>
+      <div class="headline">美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이</div>
       <div class="article-snippet">미국 공화당 측에서 한국 정부의 미국 기업 규제와 대미 투자를 문제 삼는 발언이 다시 나왔다. 브라이언 매스트 미 하원 외교위원장은 23일(현지시간) 폭스뉴스 인터뷰에서 한국 정부가 &quot;쿠팡 같은 미국 기업들에 타격을 가하고 있다&quot;고 주장했다.</div>
     </div>
   </div>
@@ -32532,7 +32682,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">12건</span>
+    <span class="group-count">15건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32598,6 +32748,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/e9daf2b14827bd6717cfd0a4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761725"
+  data-title="日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787639880"
+  data-country="JP"
+  data-search="日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot; 뉴시스 원자력 [서울=뉴시스]이준형 인턴 기자 = 지난 2011년 후쿠시마 제1원자력발전소 사고 수습 작업에 투입된 작업자 중 일본 정부의 백혈병 산재 인정 기준인 &#x27;연간 피폭 선량 5밀리시버트(msv)&#x27;를 초과한 인원이 누적 5만3000여 명에 달하는 것으로 집계됐다. 24일(현지 시간) 일본 지지통신은 도쿄전력이 원자력규제위원회에 제출한 &#x27;방사선 관리 등 보고서&#x27; 데이터를 집계한 결과, 사고 이후 올해 3월까지 약 15년간 연간 5msv를 초과해 피폭된 작업자가 누적 5만3145명으로 확인됐다고 보도했다. 집계에 따르면 연간 피폭 선량이 50msv를 초과한 고위험 작업자는 20"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]이준형 인턴 기자 = 지난 2011년 후쿠시마 제1원자력발전소 사고 수습 작업에 투입된 작업자 중 일본 정부의 백혈병 산재 인정 기준인 &#x27;연간 피폭 선량 5밀리시버트(mSv)&#x27;를 초과한 인원이 누적 5만3000여 명에 달하는 것으로 집계됐다. 24일(현지 시간) 일본 지지통신은 도쿄전력이 원자력규제위원회에 제출한 &#x27;방사선 관리 등 보고서&#x27; 데이터를 집계한 결과, 사고 이후 올해 3월까지 약 15년간 연간 5mSv를 초과해 피폭된 작업자가 누적 5만3145명으로 확인됐다고 보도했다. 집계에 따르면 연간 피폭 선량이 50mSv를 초과한 고위험 작업자는 20</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/aa7dac620a92cd5ff617962b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankookilbo.com/news/article/A2026082514410003543?dtypecode=pancode_main"
+  data-title="베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보"
+  data-publisher="한국일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787637900"
+  data-country="VN"
+  data-search="베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보 한국일보 원자력 베트남 국회가 자국 최초의 원자력 발전 프로젝트 건설 결의안을 공식 승인했다. 러시아와의 1호기 협력을 본격화하는 동시에, 일본의 철수로 공석이 된 2호기에 한국이 뛰어들 수 있는 법적 발판도 마련됐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보</div>
+      <div class="article-snippet">베트남 국회가 자국 최초의 원자력 발전 프로젝트 건설 결의안을 공식 승인했다. 러시아와의 1호기 협력을 본격화하는 동시에, 일본의 철수로 공석이 된 2호기에 한국이 뛰어들 수 있는 법적 발판도 마련됐다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6c3464fd032022c0d52f6d9f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32668,6 +32884,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.news2day.co.kr/article/20260825500082"
+  data-title="[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上"
+  data-publisher="뉴스투데이"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787626800"
+  data-country="KR"
+  data-search="[n2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上 뉴스투데이 원자력 [뉴스투데이=진영재 기자] ■ 원전株, 2040년 전력수요 상향 전망에 &#x27;들썩&#x27; 원자력발전 관련 종목들이 전력수요 전망 상향 기대에 힘입어 장 초반 13%대 급등하면서 시장의 주목을 받고 있다. 25일 한국거래소에 따르면 지투파워는 이날 오전 9시 36분 현재 코스닥시"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上</div>
+      <div class="article-snippet">[뉴스투데이=진영재 기자] ■ 원전株, 2040년 전력수요 상향 전망에 &#x27;들썩&#x27; 원자력발전 관련 종목들이 전력수요 전망 상향 기대에 힘입어 장 초반 13%대 급등하면서 시장의 주목을 받고 있다. 25일 한국거래소에 따르면 지투파워는 이날 오전 9시 36분 현재 코스닥시</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bf3d60add441d32a56f51e48.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.asiae.co.kr/article/2026082509410163030"
   data-title="&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭"
   data-publisher="아시아경제"
@@ -32691,7 +32940,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭</div>
+      <div class="headline">&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭</div>
       <div class="article-snippet">편집자주인공지능(AI) 시대, 정부가 3대 메가프로젝트 일환으로 2035년까지 총 18.</div>
     </div>
   </div>
@@ -32721,7 +32970,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250115" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=636365" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260825000623" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">영덕군, 신규원전 명칭 공모한다</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hidomin.com/news/articleView.html?idxno=718456" target="_blank" rel="noopener"><span class="related-coverage-publisher">경북도민일보</span><span class="related-coverage-title">영덕군, 신규 원자력발전소 명칭 군민 공모 - 경북도민일보</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250115" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=636365" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260825000623" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">영덕군, 신규원전 명칭 공모한다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">[데일리대구경북뉴스] 영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</div>
@@ -32937,10 +33186,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16491"
   data-title="&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;"
   data-publisher="ESG경제"
@@ -32964,12 +33213,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;</div>
+      <div class="headline">&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;</div>
       <div class="article-snippet">[ESG경제신문=김제원 기자] 인공지능(AI) 데이터센터 확산으로 전력 수요가 급증하면서 소형모듈원전(SMR)을 둘러싼 글로벌 경쟁이 빨라지고 있다. 미국이 4세대 SMR 상용화에서 선두를 달리는 가운데 한국은 기술 격차를 좁히는 동시에 제조·건설 분야의 기존 경쟁력을 활용해 글로벌 공급망 진입을 확대해야 한다는 분석이 나왔다.포스코경영연구원(POSRI)은 24일 ‘AI 전력 수요가 앞당긴 SMR시대, 한국의 기회는?’ 보고서를 발간했다. POSRI는 AI발 전력 수요 급증과 저탄소 전력 확보 필요성이 SMR 시장 형성을 앞당기고</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d2a43e7cbefa0bfe4e306f43.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.theguru.co.kr/news/article.html?no=106200"
+  data-title="美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결"
+  data-publisher="더구루"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787624524"
+  data-country="CN"
+  data-search="美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결 더구루 smr [더구루=길소연 기자] 영국 해양 원자력 전문 기업인 코어파워(core power)가 미국 정부와 손잡고 상업용 원자력 추진 선박을 개발한다. 트럼프 행정부가 중국의 상선 건조 시장 지배력에 맞서기 위해 원자력 추진 상선 건조를 계획하는데 코어파워가 함께한다. 미국 정부는 소형모듈원자로(smr)를 탑재한 원자력추진 상선단을 개발해 중국이 장악한 글로벌 해운"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">더구루</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결</div>
+      <div class="article-snippet">[더구루=길소연 기자] 영국 해양 원자력 전문 기업인 코어파워(Core Power)가 미국 정부와 손잡고 상업용 원자력 추진 선박을 개발한다. 트럼프 행정부가 중국의 상선 건조 시장 지배력에 맞서기 위해 원자력 추진 상선 건조를 계획하는데 코어파워가 함께한다. 미국 정부는 소형모듈원자로(SMR)를 탑재한 원자력추진 상선단을 개발해 중국이 장악한 글로벌 해운</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89950077f03a75b287530f7c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33045,7 +33327,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">22건</span>
+    <span class="group-count">23건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33180,7 +33462,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://montelnews.com/news/d4dfa024-4dd1-47e2-a985-d64279eb696f/operator-brings-forward-restart-of-last-offline-unit-at-2-gw-paks"
   data-title="Operator brings forward restart of last offline unit at 2 GW Paks"
   data-publisher="Montel News"
@@ -33204,7 +33486,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Operator brings forward restart of last offline unit at 2 GW Paks</div>
+      <div class="headline">Operator brings forward restart of last offline unit at 2 GW Paks</div>
       <div class="article-snippet">Amid rising water levels on the drought-hit river Danube, which it uses for cooling, both turbines at the reactor should be fully operational by 12:00 CET, it added. A maintenance outage at the same reactor due next month had also been extended by eight days, effective 17 September to 1</div>
     </div>
   </div>
@@ -33510,7 +33792,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.orfonline.org/research/afghanistan-after-the-taliban-takeover-consolidation-repression-and-the-new-regional-equation"
   data-title="Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation"
   data-publisher="ORF Middle East"
@@ -33534,7 +33816,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation</div>
+      <div class="headline">Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation</div>
       <div class="article-snippet">Five years after the Taliban’s return, Afghanistan has achieved greater internal security but remains politically repressive, economically fragile and internationally unrecognised.</div>
     </div>
   </div>
@@ -33543,7 +33825,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://ua.news/en/world/ssha-v-oon-zaklikali-rf-ta-ukrayinu-pripiniti-udari-ta-povernutisia-do-peregovoriv"
   data-title="At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations"
   data-publisher="UA.NEWS"
@@ -33567,7 +33849,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations</div>
+      <div class="headline">At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations</div>
       <div class="article-snippet">Dan Negrea, Deputy Permanent Representative of the United States to the United Nations, called on Russia and Ukraine to cease attacks that harm civilians and infrastructure, and to return to the negotiating table.</div>
     </div>
   </div>
@@ -33642,7 +33924,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/anh-hung-lao-dong-nguyen-thi-nga-duoc-bau-lam-chu-tich-hoi-doanh-nhan-tu-nhan-viet-nam"
   data-title="Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association."
   data-publisher="Vietnam.vn"
@@ -33666,7 +33948,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association.</div>
+      <div class="headline">Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association.</div>
       <div class="article-snippet">The Central Executive Committee of the Vietnam Private Business Association (VPBA) has issued a resolution electing Labor Hero Nguyen Thi Nga, Chairwoman of BRG Group and Acting Chairwoman of VPBA, as the President of the Association.</div>
     </div>
   </div>
@@ -33741,6 +34023,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.rt.com/russia/644609-zelensky-concentration-camp-nebenzia/"
+  data-title="Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow"
+  data-publisher="RT"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787622252"
+  data-country="UA"
+  data-search="ukraine has morphed into zelensky’s ‘concentration camp’ – moscow rt nuclear power·nuclear energy kiev has descended into repression at home and “outright terror” against russian civilians, with western assistance, moscow’s envoy to the un, vassily nebenzia, has said"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">RT</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow</div>
+      <div class="article-snippet">Kiev has descended into repression at home and “outright terror” against Russian civilians, with Western assistance, Moscow’s envoy to the UN, Vassily Nebenzia, has said</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bf7c8d59de5c4a1a89c8f82c.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://oilprice.com/Energy/Energy-General/The-Biggest-Victims-Of-Trumps-Economic-D-Day-On-Iran.html"
   data-title="The Biggest Victims Of Trump’s Economic D-Day On Iran | OilPrice.com"
@@ -33798,18 +34113,84 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">TerraPower</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.globalbankingandfinance.com/british-firm-offers-restart-mothballed-australian-manganese/"
+  data-title="British Firm Proposes Restart of Australian Manganese Smelter"
+  data-publisher="Global Banking &amp; Finance Review"
+  data-group="TerraPower"
+  data-language="en"
+  data-priority="0"
+  data-published="1787629872"
+  data-country="AU"
+  data-search="british firm proposes restart of australian manganese smelter global banking &amp; finance review terrapower natrium redox technologies bids to restart tasmania&#x27;s only manganese smelter, supplying global battery and ev markets with green technology."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Banking &amp; Finance Review</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>British Firm Proposes Restart of Australian Manganese Smelter</div>
+      <div class="article-snippet">Natrium Redox Technologies bids to restart Tasmania&#x27;s only manganese smelter, supplying global battery and EV markets with green technology.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/eac44c64ad7b7e3d142757e2.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Westinghouse">
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Westinghouse</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.fnnews.com/news/202608251527119992"
+  data-title="美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;"
+  data-publisher="파이낸셜뉴스"
+  data-group="Westinghouse"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787639233"
+  data-country="KR"
+  data-search="美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot; 파이낸셜뉴스 westinghouse (세종=뉴스1) 이정현 기자 = 미국 정부가 한국에 미국 원전 기업 웨스팅하우스(wec) 지분 인수를 제안했다는 관측이 제기됐다. 미국이 인공지능(ai) 인프라 확대를 위해 추진 중인 원전 건설 사업에 한국의 자본력과 시공 역량을 활용하려는 취지라는 분석이다.25일 원.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">파이낸셜뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;</div>
+      <div class="article-snippet">(세종=뉴스1) 이정현 기자 = 미국 정부가 한국에 미국 원전 기업 웨스팅하우스(WEC) 지분 인수를 제안했다는 관측이 제기됐다. 미국이 인공지능(AI) 인프라 확대를 위해 추진 중인 원전 건설 사업에 한국의 자본력과 시공 역량을 활용하려는 취지라는 분석이다.25일 원..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/77fdb38931f96930964e8a00.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.munhwa.com/article/11611866"
   data-title="웨스팅하우스 지분 인수 카드와 원전동맹 실질화 방안[사설]"
@@ -34003,42 +34384,9 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
-  data-url="https://www.greened.kr/news/articleView.html?idxno=348386"
-  data-title="현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문"
-  data-publisher="녹색경제신문"
-  data-group="현대건설"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787637265"
-  data-country="KR"
-  data-search="현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문 녹색경제신문 현대건설 [녹색경제신문 = 문홍주 기자]건설업계의 사업영역이 인공지능(ai)과 로봇, 데이터센터, 원자력발전 등으로 넓어지면서 건설사가 찾는 인재의 범위도 확대되고 있다. 전통적인 건축·토목 시공 역량뿐 아니라 기술을 활용해 현장 문제를 해결하고 자신의 경험을 직무와 연결할 수 있는 능력이 주요 평가 요소로 떠올랐다.25일 서울 강남구 건설회관에서 열린 ‘2026 스마트건설 청년인재 채용설명회’에는 현대건설과 대우건설을 비롯한 주요 건설사와 국토교통부 산하 공기업·기관 등 25개사가 참여했다. 대한건설협회와 건설산업사회공헌재단이 주최하고 국"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">녹색경제신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문</div>
-      <div class="article-snippet">[녹색경제신문 = 문홍주 기자]건설업계의 사업영역이 인공지능(AI)과 로봇, 데이터센터, 원자력발전 등으로 넓어지면서 건설사가 찾는 인재의 범위도 확대되고 있다. 전통적인 건축·토목 시공 역량뿐 아니라 기술을 활용해 현장 문제를 해결하고 자신의 경험을 직무와 연결할 수 있는 능력이 주요 평가 요소로 떠올랐다.25일 서울 강남구 건설회관에서 열린 ‘2026 스마트건설 청년인재 채용설명회’에는 현대건설과 대우건설을 비롯한 주요 건설사와 국토교통부 산하 공기업·기관 등 25개사가 참여했다. 대한건설협회와 건설산업사회공헌재단이 주최하고 국</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4f97606c6eadb3b0025c373a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.inews24.com/view/1997937"
   data-title="[특징주] 현대건설, 8% &#x27;급등&#x27;⋯하반기 &#x27;원전 역량&#x27; 부각"
@@ -34177,7 +34525,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">33건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34309,6 +34657,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/f22c67bae61372e1e2eb5f95.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761777"
+  data-title="충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787639719"
+  data-country="KR"
+  data-search="충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot; 뉴시스 타 건설사 [청주=뉴시스] 임선우 기자 = 충북도가 미래 에너지산업에 심혈을 쏟는다. 도는 25일 서울 양재 엘타워에서 열린 &#x27;2026 기후에너지 일자리 박람회&#x27;에서 기후에너지환경부, 강원특별자치도, 부산광역시, 전남광주특별시, 한국에너지기술평가원 등과 &#x27;기후에너지산업 인력양성 및 청년 일자리 창출을 위한 업무협약&#x27;을 했다. lg에너지솔루션, sk이노베이션, 삼성물산, gs건설, 에코프로 등 국내 주요 에너지 기업도 참여했다. 이들은 향후 3년간 ▲에너지 인력양성사업 추진 협력(맞춤형 교육과정 운영 및 인재 육성) ▲일자리 창출 및 정보 공유(채용설명회, 특강, 일자리 박람회"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;</div>
+      <div class="article-snippet">[청주=뉴시스] 임선우 기자 = 충북도가 미래 에너지산업에 심혈을 쏟는다. 도는 25일 서울 양재 엘타워에서 열린 &#x27;2026 기후에너지 일자리 박람회&#x27;에서 기후에너지환경부, 강원특별자치도, 부산광역시, 전남광주특별시, 한국에너지기술평가원 등과 &#x27;기후에너지산업 인력양성 및 청년 일자리 창출을 위한 업무협약&#x27;을 했다. LG에너지솔루션, SK이노베이션, 삼성물산, GS건설, 에코프로 등 국내 주요 에너지 기업도 참여했다. 이들은 향후 3년간 ▲에너지 인력양성사업 추진 협력(맞춤형 교육과정 운영 및 인재 육성) ▲일자리 창출 및 정보 공유(채용설명회, 특강, 일자리 박람회</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f92c9f79cb62a07db7df1879.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34507,6 +34888,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/08/25/.cache/512/20260825500156.png?v=20260825094126" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2462677"
+  data-title="가온전선·DL이앤씨, 배관·배선 하나로···전기 공사비 최대 30% 낮춘다"
+  data-publisher="이뉴스투데이"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787625000"
+  data-country="OTHER"
+  data-search="가온전선·dl이앤씨, 배관·배선 하나로···전기 공사비 최대 30% 낮춘다 이뉴스투데이 타 건설사 [이뉴스투데이 노태하 기자] 가온전선과 dl이앤씨가 공동 개발한 배관 일체형 케이블 신공법이 공동주택 현장 검증을 마치고 본격적인 상용화에 나선다.가온전선은 dl이앤씨와 신축 공동주택 현장에 배관 일체형 acf(aluminum clad flex) 케이블을 시범 적용해 성능과 시공성 검"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">가온전선·DL이앤씨, 배관·배선 하나로···전기 공사비 최대 30% 낮춘다</div>
+      <div class="article-snippet">[이뉴스투데이 노태하 기자] 가온전선과 DL이앤씨가 공동 개발한 배관 일체형 케이블 신공법이 공동주택 현장 검증을 마치고 본격적인 상용화에 나선다.가온전선은 DL이앤씨와 신축 공동주택 현장에 배관 일체형 ACF(Aluminum Clad Flex) 케이블을 시범 적용해 성능과 시공성 검</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.enewstoday.co.kr/news/thumbnail/202608/2462677_1303919_413_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34762,7 +35176,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 13개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energy-news.co.kr/news/articleView.html?idxno=227633" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지신문</span><span class="related-coverage-title">배관·배선 공정 하나로...공동주택 전기공사 방식 바뀌나</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=175725" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">가온전선·DL이앤씨, 배관·전선 하나로 통합…내년 본격 적용 - 알파경제</span></a><a class="related-coverage-link" href="https://www.e2news.com/news/articleView.html?idxno=333547" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투뉴스</span><span class="related-coverage-title">가온전선, DL이앤씨와 공동주택 배관 일체형 ACF 전력線 상용화</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500150" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">가온전선-DL이앤씨, 케이블 신공법 공동주택 검증 완료…전기 공사비 최대 30% ↓</span></a><a class="related-coverage-link" href="https://www.cnbnews.com/news/articleView.html?idxno=1012642" target="_blank" rel="noopener"><span class="related-coverage-publisher">CNB뉴스</span><span class="related-coverage-title">가온전선-DL이앤씨, 공동개발 케이블 신공법 현장 검증 - CNB뉴스</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260825_0003760977" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">가온전선, DL이앤씨와 케이블 신공법 공동주택 검증…내년 본격 적용</span></a><a class="related-coverage-link" href="https://www.snmnews.com/news/articleView.html?idxno=573731" target="_blank" rel="noopener"><span class="related-coverage-publisher">철강금속신문</span><span class="related-coverage-title">가온전선·DL이앤씨, ACF 케이블 공동주택 현장 검증 완료…상용화 본격화</span></a><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371585" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">배관일체형 ACF 케이블 내년부터 DL이앤씨 신축주택에 본격 적용</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210749" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">가온전선, DL이앤씨와 케이블 신공법 공동주택 검증</span></a><a class="related-coverage-link" href="https://www.2news.co.kr/news/articleView.html?idxno=22451" target="_blank" rel="noopener"><span class="related-coverage-publisher">2news.co.kr</span><span class="related-coverage-title">가온전선·DL이앤씨, 차세대 ACF 케이블 상용화 가속 - 에너지뉴스</span></a><a class="related-coverage-link" href="https://www.bloter.net/news/articleView.html?idxno=671703" target="_blank" rel="noopener"><span class="related-coverage-publisher">블로터</span><span class="related-coverage-title">가온전선, &#x27;배관 없는 케이블&#x27;로 공사비 30% 낮춘다…내년 도입</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026082508212537004" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">가온전선·DL이앤씨, 케이블 신공법 내년 공동주택 본격 적용</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">&quot;주택 공사비 낮춘다&quot;…가온전선·DL이앤씨, 신공법 검증 완료</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 14개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energy-news.co.kr/news/articleView.html?idxno=227633" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지신문</span><span class="related-coverage-title">배관·배선 공정 하나로...공동주택 전기공사 방식 바뀌나</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=175725" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">가온전선·DL이앤씨, 배관·전선 하나로 통합…내년 본격 적용 - 알파경제</span></a><a class="related-coverage-link" href="https://www.e2news.com/news/articleView.html?idxno=333547" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투뉴스</span><span class="related-coverage-title">가온전선, DL이앤씨와 공동주택 배관 일체형 ACF 전력線 상용화</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500150" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">가온전선-DL이앤씨, 케이블 신공법 공동주택 검증 완료…전기 공사비 최대 30% ↓</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2462677" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">가온전선·DL이앤씨, 배관·배선 하나로···전기 공사비 최대 30% 낮춘다</span></a><a class="related-coverage-link" href="https://www.cnbnews.com/news/articleView.html?idxno=1012642" target="_blank" rel="noopener"><span class="related-coverage-publisher">CNB뉴스</span><span class="related-coverage-title">가온전선-DL이앤씨, 공동개발 케이블 신공법 현장 검증 - CNB뉴스</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260825_0003760977" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">가온전선, DL이앤씨와 케이블 신공법 공동주택 검증…내년 본격 적용</span></a><a class="related-coverage-link" href="https://www.snmnews.com/news/articleView.html?idxno=573731" target="_blank" rel="noopener"><span class="related-coverage-publisher">철강금속신문</span><span class="related-coverage-title">가온전선·DL이앤씨, ACF 케이블 공동주택 현장 검증 완료…상용화 본격화</span></a><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371585" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">배관일체형 ACF 케이블 내년부터 DL이앤씨 신축주택에 본격 적용</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210749" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">가온전선, DL이앤씨와 케이블 신공법 공동주택 검증</span></a><a class="related-coverage-link" href="https://www.2news.co.kr/news/articleView.html?idxno=22451" target="_blank" rel="noopener"><span class="related-coverage-publisher">2news.co.kr</span><span class="related-coverage-title">가온전선·DL이앤씨, 차세대 ACF 케이블 상용화 가속 - 에너지뉴스</span></a><a class="related-coverage-link" href="https://www.bloter.net/news/articleView.html?idxno=671703" target="_blank" rel="noopener"><span class="related-coverage-publisher">블로터</span><span class="related-coverage-title">가온전선, &#x27;배관 없는 케이블&#x27;로 공사비 30% 낮춘다…내년 도입</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026082508212537004" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">가온전선·DL이앤씨, 케이블 신공법 내년 공동주택 본격 적용</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">&quot;주택 공사비 낮춘다&quot;…가온전선·DL이앤씨, 신공법 검증 완료</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">가온전선-DL이앤씨, 케이블 신공법 공동주택 검증 완료…내년 본격 적용</div>
@@ -34873,7 +35287,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1398971"
   data-title="[건설업계 브리핑] GS건설·호반그룹·LH·SH"
   data-publisher="데일리한국"
@@ -34897,7 +35311,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[건설업계 브리핑] GS건설·호반그룹·LH·SH</div>
+      <div class="headline">[건설업계 브리핑] GS건설·호반그룹·LH·SH</div>
       <div class="article-snippet">[데일리한국 전준형 기자]◇ GS건설, 카를로 라티와 기후위기 대응 주거 연구GS건설은 건축가 카를로 라티 교수가 이끄는 건축·디자인 그룹 CRA와 기후위기 대응 미래형 주거 솔루션을 공동 연구했다고 25일 밝혔다. 양측은 폭우·폭염·미세먼지 관련 데이터와 센서 기술, 주택 시공·운영 경험을 결합해 대응 방안을 모색했다. GS건설은 실증과 기술 검증을 거쳐 자이 주요 사업지에 관련 기술을 적용하는 방안을 검토할 계획이다.◇ 호반그룹, 방글라데시 식수환경 개선 지원호반그룹이 워터테크 기업 지오그리드와 방글라데시 케라니간지 지역 공공기</div>
     </div>
   </div>
@@ -34906,7 +35320,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1721587"
   data-title="GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터"
   data-publisher="EBN산업경제"
@@ -34930,7 +35344,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터</div>
+      <div class="headline">GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터</div>
       <div class="article-snippet">GS건설이 미국 &#x27;IDEA 2026&#x27; 수상을 통해 세계 3대 디자인 어워드 그랜드슬램을 2년 연속 달성하며 압도적인 주거 디자인 경쟁력을 과시했다. 서울역 일대를</div>
     </div>
   </div>
@@ -35006,6 +35420,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.m-i.kr/news/articleView.html?idxno=1405647"
+  data-title="GS건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구"
+  data-publisher="매일일보"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787623736"
+  data-country="OTHER"
+  data-search="gs건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구 매일일보 타 건설사 매일일보 = 장원석 기자 | gs건설이 폭염과 폭우, 미세먼지 등 기후위기에 대응할 수 있는 미래형 주거 솔루션 개발에 나선다. 데이터와 센서 기술을 활용해 기후변화가 주거환경에 미치는 영향을 분석하고, 향후 검증된 기술을 자이(xi) 아파트에 적용한다는 계획이다.gs건설은 세계적인 건축가 카를로 라티(carlo ratti) 교수가 이끄는 건축·혁신 디자인 그룹 cra-carlo ratti associati와 ‘미래형 기후위기 대응 주거 개념’을 주제로 공동연구를 진행했다고 25일 밝혔다.이번 연구는 폭우와 폭염, 미세먼지 등 갈수"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">GS건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구</div>
+      <div class="article-snippet">매일일보 = 장원석 기자 | GS건설이 폭염과 폭우, 미세먼지 등 기후위기에 대응할 수 있는 미래형 주거 솔루션 개발에 나선다. 데이터와 센서 기술을 활용해 기후변화가 주거환경에 미치는 영향을 분석하고, 향후 검증된 기술을 자이(Xi) 아파트에 적용한다는 계획이다.GS건설은 세계적인 건축가 카를로 라티(Carlo Ratti) 교수가 이끄는 건축·혁신 디자인 그룹 CRA-Carlo Ratti Associati와 ‘미래형 기후위기 대응 주거 개념’을 주제로 공동연구를 진행했다고 25일 밝혔다.이번 연구는 폭우와 폭염, 미세먼지 등 갈수</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.m-i.kr/news/thumbnail/202608/1405647_1193719_3317_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308996"
   data-title="GS건설, 세계적 건축가 카를로 라티와 &#x27;기후위기 아파트&#x27; 만든다 - FETV"
   data-publisher="FETV"
@@ -35059,7 +35506,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.m-i.kr/news/articleView.html?idxno=1405647" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일일보</span><span class="related-coverage-title">GS건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">GS건설, 기후위기 대응 주거 솔루션 연구…실증 거쳐 적용</div>
@@ -35236,6 +35683,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761954"
+  data-title="경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787639936"
+  data-country="OTHER"
+  data-search="경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot; 뉴시스 타 건설사 [창원=뉴시스]홍정명 기자 = 경남도는 25일 도청에서 박완수 도지사와 이부환 한화에어로스페이스 사업부문 신임 대표이사가 우주항공·방산 분야 현안과 협력 방안을 논의했다고 밝혔다. 이 자리에서 한화에어로스페이스는 경남지역 재난안전망 구축 지원금 2억원을 경남도에 기탁했으며, 전달식에는 박 지사와 이부환 대표이사, 문지훈 부사장, 신문현 경상남도자원봉사센터장, 정영식 경남사회복지공동모금회장 등이 참석했다. 박 지사는 한화에어로스페이스의 지원에 감사를 전하고, 피해 주민의 일상 회복과 현장에서 복구 활동을 이어가는 자원봉사자들에게 실질적인 도움이 될 수 있도록 민·관·기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;</div>
+      <div class="article-snippet">[창원=뉴시스]홍정명 기자 = 경남도는 25일 도청에서 박완수 도지사와 이부환 한화에어로스페이스 사업부문 신임 대표이사가 우주항공·방산 분야 현안과 협력 방안을 논의했다고 밝혔다. 이 자리에서 한화에어로스페이스는 경남지역 재난안전망 구축 지원금 2억원을 경남도에 기탁했으며, 전달식에는 박 지사와 이부환 대표이사, 문지훈 부사장, 신문현 경상남도자원봉사센터장, 정영식 경남사회복지공동모금회장 등이 참석했다. 박 지사는 한화에어로스페이스의 지원에 감사를 전하고, 피해 주민의 일상 회복과 현장에서 복구 활동을 이어가는 자원봉사자들에게 실질적인 도움이 될 수 있도록 민·관·기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/624cbdfe2fad95df9d621e5b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260825143829042"
   data-title="&#x27;큰손&#x27; 투자지도 바뀌었다…SK하이닉스·현대차 뜨고 카카오·알테오젠 빠져"
@@ -35275,24 +35755,24 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">14건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
-  data-url="https://www.electimes.com/news/articleView.html?idxno=371602"
-  data-title="한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동"
-  data-publisher="전기신문"
+  data-url="https://www.hansbiz.co.kr/news/articleView.html?idxno=859304"
+  data-title="한수원, ʻ조직문화혁신 주니어보드ʼ 출범"
+  data-publisher="한스경제"
   data-group="한국수력원자력"
   data-language="ko"
   data-priority="0"
-  data-published="1787662692"
+  data-published="1787639577"
   data-country="KR"
-  data-search="한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동 전기신문 한국수력원자력 한수원이 젊은 직원과 현장의 목소리를 경영에 반영하는 직원 주도형 조직문화 혁신에 나섰다.25일 한국수력원자력(사장 김회천)은 젊은 직원들의 창의적인 시각과 현장의 다양한 의견을 회사 경영에 반영하기 위해 ‘조직문화혁신 주니어보드’를 신설했다고 밝혔다.주니어보드는 차장과 과장, 대리·주임 등 세 그룹으로 구성됐다. 각 그룹이 리더를 직접 선정하고, 회사의 미래 방향과 변화가 필요한 분야를 찾아 과제 발굴부터 실행까지 주도한다.직군과 경력, 본사와 사업소를 아우르는 직원들의 의견을 폭넓게 수렴해 구체적인 혁신 아이디어로 발전시키는 역"
+  data-search="한수원, ʻ조직문화혁신 주니어보드ʼ 출범 한스경제 한국수력원자력 | 서울=한스경제 김창수 기자 | 한국수력원자력은 김회천 사장이 젊은 직원들의 창의적인 시각과 현장의 다양한 의견을 경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다고 25일 밝혔다.주니어보드는 차장, 과장, 대리와 주임 등 세 그룹으로 구성된다. 각 그룹은 리더를 자체적으로 선정하며, 리더와 그룹원들이 함께 회사의 미래 방향을 논의한다. 이들은 변화가 필요한 분야를 직접 발굴해 과제를 선정하고 실행까지 주도한다.또한, 주니어보드는 직군, 경력, 본사와 사업소 등 다양한 배경의 직원 의견을 수렴해 구체적인 혁신 아이디어로 발전"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">전기신문</div>
+        <div class="publisher">한스경제</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -35302,45 +35782,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</div>
-      <div class="article-snippet">한수원이 젊은 직원과 현장의 목소리를 경영에 반영하는 직원 주도형 조직문화 혁신에 나섰다.25일 한국수력원자력(사장 김회천)은 젊은 직원들의 창의적인 시각과 현장의 다양한 의견을 회사 경영에 반영하기 위해 ‘조직문화혁신 주니어보드’를 신설했다고 밝혔다.주니어보드는 차장과 과장, 대리·주임 등 세 그룹으로 구성됐다. 각 그룹이 리더를 직접 선정하고, 회사의 미래 방향과 변화가 필요한 분야를 찾아 과제 발굴부터 실행까지 주도한다.직군과 경력, 본사와 사업소를 아우르는 직원들의 의견을 폭넓게 수렴해 구체적인 혁신 아이디어로 발전시키는 역</div>
+      <div class="headline">한수원, ʻ조직문화혁신 주니어보드ʼ 출범</div>
+      <div class="article-snippet">| 서울=한스경제 김창수 기자 | 한국수력원자력은 김회천 사장이 젊은 직원들의 창의적인 시각과 현장의 다양한 의견을 경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다고 25일 밝혔다.주니어보드는 차장, 과장, 대리와 주임 등 세 그룹으로 구성된다. 각 그룹은 리더를 자체적으로 선정하며, 리더와 그룹원들이 함께 회사의 미래 방향을 논의한다. 이들은 변화가 필요한 분야를 직접 발굴해 과제를 선정하고 실행까지 주도한다.또한, 주니어보드는 직군, 경력, 본사와 사업소 등 다양한 배경의 직원 의견을 수렴해 구체적인 혁신 아이디어로 발전</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70730"
-  data-title="직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축"
-  data-publisher="에너지타임즈"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1787660909"
-  data-country="KR"
-  data-search="직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축 에너지타임즈 한국수력원자력 한수원이 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 경영에 반영하기 위해 상향식 혁신체계를 구축한다. 한국수력원자력(주)(사장 김회천)은 조직문화 혁신을 위해 조직문화 혁신 주니어보드를 신설하고 지난 24일 발대식을 개최했다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지타임즈</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</div>
-      <div class="article-snippet">한수원이 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 경영에 반영하기 위해 상향식 혁신체계를 구축한다. 한국수력원자력(주)(사장 김회천)은 조직문화 혁신을 위해 조직문화 혁신 주니어보드를 신설하고 지난 24일 발대식을 개최했다.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+    <div class="preview-image"><img src="https://cdn.hansbiz.co.kr/news/thumbnail/202608/859304_880856_629_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35411,6 +35858,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104771"
+  data-title="한수원, ‘조직문화혁신 주니어보드’ 신설…직원이 주도해 회사 청사진 그린다"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787630793"
+  data-country="KR"
+  data-search="한수원, ‘조직문화혁신 주니어보드’ 신설…직원이 주도해 회사 청사진 그린다 에너지플랫폼뉴스 한국수력원자력 [에너지플랫폼뉴스 박병인 기자] 한수원이 차장급 이하 직원들이 주도해 회사 청사진을 모색하는 ‘조직문화혁신 주니어보드’를 운영한다.한국수력원자력 김회천 사장이 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 회사경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다.차장, 과장, 대리․주임 등 세 그룹으로 이루어진 주니어보드는 각 그룹별 리더를 스스로 선정하고, 리더와 그룹원들이 함께 회사의 미래 방향을 고민하는 직원주도형 혁신 그룹으로, 직원들이 스스로 변화가 필요한 분야를 찾아 과제를 발굴하고 실행까지 주도하는 것이 특징이"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">한수원, ‘조직문화혁신 주니어보드’ 신설…직원이 주도해 회사 청사진 그린다</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한수원이 차장급 이하 직원들이 주도해 회사 청사진을 모색하는 ‘조직문화혁신 주니어보드’를 운영한다.한국수력원자력 김회천 사장이 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 회사경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다.차장, 과장, 대리․주임 등 세 그룹으로 이루어진 주니어보드는 각 그룹별 리더를 스스로 선정하고, 리더와 그룹원들이 함께 회사의 미래 방향을 고민하는 직원주도형 혁신 그룹으로, 직원들이 스스로 변화가 필요한 분야를 찾아 과제를 발굴하고 실행까지 주도하는 것이 특징이</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.e-platform.net/news/thumbnail/202608/104771_77020_63_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=371602"
+  data-title="한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동"
+  data-publisher="전기신문"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787630292"
+  data-country="KR"
+  data-search="한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동 전기신문 한국수력원자력 한수원이 젊은 직원과 현장의 목소리를 경영에 반영하는 직원 주도형 조직문화 혁신에 나섰다.25일 한국수력원자력(사장 김회천)은 젊은 직원들의 창의적인 시각과 현장의 다양한 의견을 회사 경영에 반영하기 위해 ‘조직문화혁신 주니어보드’를 신설했다고 밝혔다.주니어보드는 차장과 과장, 대리·주임 등 세 그룹으로 구성됐다. 각 그룹이 리더를 직접 선정하고, 회사의 미래 방향과 변화가 필요한 분야를 찾아 과제 발굴부터 실행까지 주도한다.직군과 경력, 본사와 사업소를 아우르는 직원들의 의견을 폭넓게 수렴해 구체적인 혁신 아이디어로 발전시키는 역"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</div>
+      <div class="article-snippet">한수원이 젊은 직원과 현장의 목소리를 경영에 반영하는 직원 주도형 조직문화 혁신에 나섰다.25일 한국수력원자력(사장 김회천)은 젊은 직원들의 창의적인 시각과 현장의 다양한 의견을 회사 경영에 반영하기 위해 ‘조직문화혁신 주니어보드’를 신설했다고 밝혔다.주니어보드는 차장과 과장, 대리·주임 등 세 그룹으로 구성됐다. 각 그룹이 리더를 직접 선정하고, 회사의 미래 방향과 변화가 필요한 분야를 찾아 과제 발굴부터 실행까지 주도한다.직군과 경력, 본사와 사업소를 아우르는 직원들의 의견을 폭넓게 수렴해 구체적인 혁신 아이디어로 발전시키는 역</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.electimes.com/news/thumbnail/202608/371602_584541_5547_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202486"
   data-title="한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리"
   data-publisher="에너지데일리"
@@ -35440,6 +35953,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://cdn.energydaily.co.kr/news/photo/202608/202486_202134_3034.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70730"
+  data-title="직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축"
+  data-publisher="에너지타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787628509"
+  data-country="KR"
+  data-search="직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축 에너지타임즈 한국수력원자력 한수원이 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 경영에 반영하기 위해 상향식 혁신체계를 구축한다. 한국수력원자력(주)(사장 김회천)은 조직문화 혁신을 위해 조직문화 혁신 주니어보드를 신설하고 지난 24일 발대식을 개최했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</div>
+      <div class="article-snippet">한수원이 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 경영에 반영하기 위해 상향식 혁신체계를 구축한다. 한국수력원자력(주)(사장 김회천)은 조직문화 혁신을 위해 조직문화 혁신 주니어보드를 신설하고 지난 24일 발대식을 개최했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="http://www.energytimes.kr/news/thumbnail/202608/70730_39483_2816_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313145"
+  data-title="젊은 직원이 미래과제 발굴…한수원, &#x27;주니어보드&#x27; 가동 - 건설타임즈"
+  data-publisher="건설타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787624509"
+  data-country="KR"
+  data-search="젊은 직원이 미래과제 발굴…한수원, &#x27;주니어보드&#x27; 가동 - 건설타임즈 건설타임즈 한국수력원자력 (건설타임즈) 김주열 기자 = 한국수력원자력이 조직문화 혁신을 위해 현장 직원이 직접 참여하는 ‘주니어보드’를 출범했다고 25일 밝혔다.이번 조직은 젊은 직원들이"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">건설타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">젊은 직원이 미래과제 발굴…한수원, &#x27;주니어보드&#x27; 가동 - 건설타임즈</div>
+      <div class="article-snippet">(건설타임즈) 김주열 기자 = 한국수력원자력이 조직문화 혁신을 위해 현장 직원이 직접 참여하는 ‘주니어보드’를 출범했다고 25일 밝혔다.이번 조직은 젊은 직원들이</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.constimes.co.kr/news/photo/202608/313145_71013_2131.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35563,7 +36142,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371602" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</span></a><a class="related-coverage-link" href="http://www.energytimes.kr/news/articleView.html?idxno=70730" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210808" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영</span></a><a class="related-coverage-link" href="https://www.dailydgnews.com/news/article.html?no=261077" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리대구경북뉴스</span><span class="related-coverage-title">[데일리대구경북뉴스] 한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202486" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014597" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 9개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hansbiz.co.kr/news/articleView.html?idxno=859304" target="_blank" rel="noopener"><span class="related-coverage-publisher">한스경제</span><span class="related-coverage-title">한수원, ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210808" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영</span></a><a class="related-coverage-link" href="https://www.dailydgnews.com/news/article.html?no=261077" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리대구경북뉴스</span><span class="related-coverage-title">[데일리대구경북뉴스] 한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=104771" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">한수원, ‘조직문화혁신 주니어보드’ 신설…직원이 주도해 회사 청사진 그린다</span></a><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371602" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202486" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.energytimes.kr/news/articleView.html?idxno=70730" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313145" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">젊은 직원이 미래과제 발굴…한수원, &#x27;주니어보드&#x27; 가동 - 건설타임즈</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014597" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범</div>
@@ -35647,7 +36226,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">12건</span>
+    <span class="group-count">14건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35750,6 +36329,105 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
+  data-title="대한전문건설신문"
+  data-publisher="대한전문건설신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787640000"
+  data-country="KR"
+  data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">대한전문건설신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">대한전문건설신문</div>
+      <div class="article-snippet">건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ngetnews.com/news/articleView.html?idxno=552672"
+  data-title="LS전선·대한전선, 덴마크 초고압 케이블 전 물량 수주"
+  data-publisher="뉴스저널리즘"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787625506"
+  data-country="DK"
+  data-search="ls전선·대한전선, 덴마크 초고압 케이블 전 물량 수주 뉴스저널리즘 한국전력 ls전선과 대한전선이 덴마크 국영 송전망 운영사가 발주한 약 2075억원 규모 초고압 케이블 물량을 모두 확보했다. 유럽 전력망 투자가 확대되는 가운데 국내 전선업체 2곳이 3개 입찰 물량을 나눠 수주하며 현지 사업 기반을 넓혔다.25일 유럽연합(eu) 공공조달 자료에 따르면 ls전선"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스저널리즘</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">LS전선·대한전선, 덴마크 초고압 케이블 전 물량 수주</div>
+      <div class="article-snippet">LS전선과 대한전선이 덴마크 국영 송전망 운영사가 발주한 약 2075억원 규모 초고압 케이블 물량을 모두 확보했다. 유럽 전력망 투자가 확대되는 가운데 국내 전선업체 2곳이 3개 입찰 물량을 나눠 수주하며 현지 사업 기반을 넓혔다.25일 유럽연합(EU) 공공조달 자료에 따르면 LS전선</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.ngetnews.com/news/thumbnail/202608/552672_120634_2713_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003261629&amp;PAGE_CD=N0002&amp;CMPT_CD=M0117"
+  data-title="송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다"
+  data-publisher="오마이뉴스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787624520"
+  data-country="KR"
+  data-search="송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다 오마이뉴스 한국전력 송전탑 반대 대책위 주민과 한국전력이 동등한 위치에서 공개적으로 송전선로 관련 주민 설명회를 열어 주목된다.지난 24일 충남 예산군 예산문화원에서는 345kv 군산-신천안 송전선로 건설사업 설명회가 진행됐다. 해당 선로는 광시면,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">오마이뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다</div>
+      <div class="article-snippet">송전탑 반대 대책위 주민과 한국전력이 동등한 위치에서 공개적으로 송전선로 관련 주민 설명회를 열어 주목된다.지난 24일 충남 예산군 예산문화원에서는 345kV 군산-신천안 송전선로 건설사업 설명회가 진행됐다. 해당 선로는 광시면,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/401425f1077c0e7868140820.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761418"
   data-title="전력사용량으로 1인가구 안부 살핀다…한전, 충주 60가구 시범사업"
   data-publisher="뉴시스"
@@ -35812,39 +36490,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/f3997e27934ac1343a241130.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.koscaj.com/news/articleList.html?sc_serial_code=SRN65&amp;view_type=sm"
-  data-title="대한전문건설신문"
-  data-publisher="대한전문건설신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787619300"
-  data-country="KR"
-  data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">대한전문건설신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">대한전문건설신문</div>
-      <div class="article-snippet">건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35935,7 +36580,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ngetnews.com/news/articleView.html?idxno=552672" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스저널리즘</span><span class="related-coverage-title">LS전선·대한전선, 덴마크 초고압 케이블 전 물량 수주</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">[단독] LS전선·대한전선, 덴마크 초고압 케이블 물량 ‘싹쓸이’…2075억원 수주</div>
@@ -36052,17 +36697,50 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
-  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70732"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104773"
+  data-title="한전KDN, 지역 협력사 참여하는 ‘청렴소통 간담회’ 통해 목소리 경청"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787631386"
+  data-country="KR"
+  data-search="한전kdn, 지역 협력사 참여하는 ‘청렴소통 간담회’ 통해 목소리 경청 에너지플랫폼뉴스 한전 계열사 [에너지플랫폼뉴스 박병인 기자] 한전kdn이 전남광주지역 협력사들이 참여하는 ‘청렴소통 간담회’를 통해 청렴, 윤리 문화를 확산하는데 앞장섰다.에너지ict 전문 공기업 한전kdn(사장 박상형)은 24일 전남광주통합특별시 빛가람혁신도시 소재 본사 대회의실에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다.한전kdn은 협력사를 단순한 거래 상대방이 아닌 함께 성장하는 동반자로 인식하고 현장에서 체감할 수 있는 공정거래 및 청렴·윤리 문화를 확산하기 위해 간담회를 마련했다. 이날 간담회에는 전남광주통합특별시 소재 15개 협력사가 참석"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">한전KDN, 지역 협력사 참여하는 ‘청렴소통 간담회’ 통해 목소리 경청</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전KDN이 전남광주지역 협력사들이 참여하는 ‘청렴소통 간담회’를 통해 청렴, 윤리 문화를 확산하는데 앞장섰다.에너지ICT 전문 공기업 한전KDN(사장 박상형)은 24일 전남광주통합특별시 빛가람혁신도시 소재 본사 대회의실에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다.한전KDN은 협력사를 단순한 거래 상대방이 아닌 함께 성장하는 동반자로 인식하고 현장에서 체감할 수 있는 공정거래 및 청렴·윤리 문화를 확산하기 위해 간담회를 마련했다. 이날 간담회에는 전남광주통합특별시 소재 15개 협력사가 참석</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.e-platform.net/news/thumbnail/202608/104773_77022_1619_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70732"
   data-title="한전KDN, 협력사 근로자 몸·마음까지 챙겨"
   data-publisher="에너지타임즈"
   data-group="한전 계열사"
   data-language="ko"
   data-priority="2"
-  data-published="1787662282"
+  data-published="1787629882"
   data-country="KR"
   data-search="한전kdn, 협력사 근로자 몸·마음까지 챙겨 에너지타임즈 한전 계열사 한전kdn(주)(사장 박상형)이 직원과 협력사가 안심하는 안전일터 조성을 위해 지난 21일 본사(전남광주 나주시 소재)에서 ‘ceo와 함께하는 안전·보건 상생 프로젝트’를 개최했다. 이날 행사는 본사 구내식당 협력사 근로자를 대상으로 진행됐으며, 아로마 오일을 활용한 괄사 마사지 체험 프로그램이 운영됐다."
   tabindex="0" role="link">
@@ -36079,45 +36757,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline">한전KDN, 협력사 근로자 몸·마음까지 챙겨</div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 협력사 근로자 몸·마음까지 챙겨</div>
       <div class="article-snippet">한전KDN(주)(사장 박상형)이 직원과 협력사가 안심하는 안전일터 조성을 위해 지난 21일 본사(전남광주 나주시 소재)에서 ‘CEO와 함께하는 안전·보건 상생 프로젝트’를 개최했다. 이날 행사는 본사 구내식당 협력사 근로자를 대상으로 진행됐으며, 아로마 오일을 활용한 괄사 마사지 체험 프로그램이 운영됐다.</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4050d3b2613a64dc0c21f20c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70731"
-  data-title="한전KDN, 협력사 목소리로 불공정 관행 걷어낸다"
-  data-publisher="에너지타임즈"
-  data-group="한전 계열사"
-  data-language="ko"
-  data-priority="2"
-  data-published="1787661491"
-  data-country="KR"
-  data-search="한전kdn, 협력사 목소리로 불공정 관행 걷어낸다 에너지타임즈 한전 계열사 한전kdn이 협력사를 단순한 거래 상대가 아닌 함께 성장하는 동반자로 보고 현장에서 체감할 수 있는 공정거래와 청렴·윤리문화 확산에 나섰다. 한전kdn(주)(사장 박상형)은 협력사와 거래 과정에 발생할 수 있는 불공정하고 불합리한 업무관행을 발굴해 개선하는 한편 청렴과 공정을 기반으로 한 상생협력 문화를 정착시키기 위해 지난 24일 본사(전남광주 나주시 소재)에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지타임즈</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">한전KDN, 협력사 목소리로 불공정 관행 걷어낸다</div>
-      <div class="article-snippet">한전KDN이 협력사를 단순한 거래 상대가 아닌 함께 성장하는 동반자로 보고 현장에서 체감할 수 있는 공정거래와 청렴·윤리문화 확산에 나섰다. 한전KDN(주)(사장 박상형)은 협력사와 거래 과정에 발생할 수 있는 불공정하고 불합리한 업무관행을 발굴해 개선하는 한편 청렴과 공정을 기반으로 한 상생협력 문화를 정착시키기 위해 지난 24일 본사(전남광주 나주시 소재)에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0046b884b3a6ba4256b526f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36151,6 +36796,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://cdn.energydaily.co.kr/news/photo/202608/202489_202137_4642.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.energytimes.kr/news/articleView.html?idxno=70731"
+  data-title="한전KDN, 협력사 목소리로 불공정 관행 걷어낸다"
+  data-publisher="에너지타임즈"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1787629091"
+  data-country="KR"
+  data-search="한전kdn, 협력사 목소리로 불공정 관행 걷어낸다 에너지타임즈 한전 계열사 한전kdn이 협력사를 단순한 거래 상대가 아닌 함께 성장하는 동반자로 보고 현장에서 체감할 수 있는 공정거래와 청렴·윤리문화 확산에 나섰다. 한전kdn(주)(사장 박상형)은 협력사와 거래 과정에 발생할 수 있는 불공정하고 불합리한 업무관행을 발굴해 개선하는 한편 청렴과 공정을 기반으로 한 상생협력 문화를 정착시키기 위해 지난 24일 본사(전남광주 나주시 소재)에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 협력사 목소리로 불공정 관행 걷어낸다</div>
+      <div class="article-snippet">한전KDN이 협력사를 단순한 거래 상대가 아닌 함께 성장하는 동반자로 보고 현장에서 체감할 수 있는 공정거래와 청렴·윤리문화 확산에 나섰다. 한전KDN(주)(사장 박상형)은 협력사와 거래 과정에 발생할 수 있는 불공정하고 불합리한 업무관행을 발굴해 개선하는 한편 청렴과 공정을 기반으로 한 상생협력 문화를 정착시키기 위해 지난 24일 본사(전남광주 나주시 소재)에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0046b884b3a6ba4256b526f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36241,7 +36919,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202489" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한전KDN, 협력사 목소리 반영한 정책 수립… 공정과 청렴의 경영환경 구축 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014602" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전KDN, 협력사 목소리 반영 정책으로 ‘공정과 청렴 경영환경 구축’ 본격화</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5847" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전KDN, 협력사와 청렴소통 강화…공정거래 현장 확산 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=104773" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">한전KDN, 지역 협력사 참여하는 ‘청렴소통 간담회’ 통해 목소리 경청</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202489" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한전KDN, 협력사 목소리 반영한 정책 수립… 공정과 청렴의 경영환경 구축 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014602" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전KDN, 협력사 목소리 반영 정책으로 ‘공정과 청렴 경영환경 구축’ 본격화</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5847" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전KDN, 협력사와 청렴소통 강화…공정거래 현장 확산 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">한전KDN, 청렴·윤리 정책에 협력사 목소리 적극 반영</div>
@@ -36310,7 +36988,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36345,6 +37023,39 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.handelsblatt.com/politik/international/griechenland-warum-die-energiewende-fuer-neue-spannungen-mit-der-tuerkei-sorgt/100248899.html"
+  data-title="Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt"
+  data-publisher="Handelsblatt"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1787623435"
+  data-country="OTHER"
+  data-search="griechenland: warum die energiewende für neue spannungen mit der türkei sorgt handelsblatt 국내 원자력 협회·학회 athen und ankara streiten über einen griechischen raumordnungsplan für wind- und solarprojekte. dahinter steht ein ungelöster konflikt um die seegrenzen in der ägäis."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Handelsblatt</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt</div>
+      <div class="article-snippet">Athen und Ankara streiten über einen griechischen Raumordnungsplan für Wind- und Solarprojekte. Dahinter steht ein ungelöster Konflikt um die Seegrenzen in der Ägäis.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/072e8d8c6df7950e876c46e2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -36361,9 +37072,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국제 원자력·에너지기구</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=104774"
+  data-title="원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="국제 원자력·에너지기구"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787631642"
+  data-country="KR"
+  data-search="원자력연구원·iaea, 가속기 기술·활용 확산 위해 상호 교류의 장 마련 에너지플랫폼뉴스 국제 원자력·에너지기구 [에너지플랫폼뉴스 박병인 기자] 원자력연구원과 iaea가 가속기 기술과 노하우를 확산하기 위해 교류의 장을 마련했다.한국원자력연구원 양성자과학연구단은 국제원자력기구(iaea)와 공동으로 아시아 각국의 원자력 분야 학생, 연구자 등을 대상으로 ‘가속기 기술 및 활용에 관한 교육 워크숍(training workshop on hands-on operation and maintenance of electrostatic accelerators)’을 개최했다고 25일 밝혔다.이번 워크숍은 연구원이 축적해 온 가속기 운용 경험을 아시아 지역 연"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260825000136" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">원자력연, IAEA와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5842" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연, IAEA와 가속기 기술 교육 워크숍 개최 - 에너지안전신문</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 원자력연구원과 IAEA가 가속기 기술과 노하우를 확산하기 위해 교류의 장을 마련했다.한국원자력연구원 양성자과학연구단은 국제원자력기구(IAEA)와 공동으로 아시아 각국의 원자력 분야 학생, 연구자 등을 대상으로 ‘가속기 기술 및 활용에 관한 교육 워크숍(Training Workshop on Hands-on Operation and Maintenance of Electrostatic Accelerators)’을 개최했다고 25일 밝혔다.이번 워크숍은 연구원이 축적해 온 가속기 운용 경험을 아시아 지역 연</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9bd485243de605d2d8811538.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260825000136"
   data-title="원자력연, IAEA와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최"
@@ -36385,7 +37129,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5842" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연, IAEA와 가속기 기술 교육 워크숍 개최 - 에너지안전신문</span></a></div>
+        
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">원자력연, IAEA와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최</div>
@@ -36481,7 +37225,7 @@ main {
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mt.co.kr/world/2026/08/25/2026082510364565198"
   data-title="美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이"
   data-publisher="머니투데이"
@@ -36505,7 +37249,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이</div>
+      <div class="headline">美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이</div>
       <div class="article-snippet">미국 공화당 측에서 한국 정부의 미국 기업 규제와 대미 투자를 문제 삼는 발언이 다시 나왔다. 브라이언 매스트 미 하원 외교위원장은 23일(현지시간) 폭스뉴스 인터뷰에서 한국 정부가 &quot;쿠팡 같은 미국 기업들에 타격을 가하고 있다&quot;고 주장했다.</div>
     </div>
   </div>
@@ -36586,7 +37330,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36655,6 +37399,72 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761725"
+  data-title="日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787639880"
+  data-country="JP"
+  data-search="日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot; 뉴시스 원자력 [서울=뉴시스]이준형 인턴 기자 = 지난 2011년 후쿠시마 제1원자력발전소 사고 수습 작업에 투입된 작업자 중 일본 정부의 백혈병 산재 인정 기준인 &#x27;연간 피폭 선량 5밀리시버트(msv)&#x27;를 초과한 인원이 누적 5만3000여 명에 달하는 것으로 집계됐다. 24일(현지 시간) 일본 지지통신은 도쿄전력이 원자력규제위원회에 제출한 &#x27;방사선 관리 등 보고서&#x27; 데이터를 집계한 결과, 사고 이후 올해 3월까지 약 15년간 연간 5msv를 초과해 피폭된 작업자가 누적 5만3145명으로 확인됐다고 보도했다. 집계에 따르면 연간 피폭 선량이 50msv를 초과한 고위험 작업자는 20"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]이준형 인턴 기자 = 지난 2011년 후쿠시마 제1원자력발전소 사고 수습 작업에 투입된 작업자 중 일본 정부의 백혈병 산재 인정 기준인 &#x27;연간 피폭 선량 5밀리시버트(mSv)&#x27;를 초과한 인원이 누적 5만3000여 명에 달하는 것으로 집계됐다. 24일(현지 시간) 일본 지지통신은 도쿄전력이 원자력규제위원회에 제출한 &#x27;방사선 관리 등 보고서&#x27; 데이터를 집계한 결과, 사고 이후 올해 3월까지 약 15년간 연간 5mSv를 초과해 피폭된 작업자가 누적 5만3145명으로 확인됐다고 보도했다. 집계에 따르면 연간 피폭 선량이 50mSv를 초과한 고위험 작업자는 20</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/aa7dac620a92cd5ff617962b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankookilbo.com/news/article/A2026082514410003543?dtypecode=pancode_main"
+  data-title="베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보"
+  data-publisher="한국일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787637900"
+  data-country="VN"
+  data-search="베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보 한국일보 원자력 베트남 국회가 자국 최초의 원자력 발전 프로젝트 건설 결의안을 공식 승인했다. 러시아와의 1호기 협력을 본격화하는 동시에, 일본의 철수로 공석이 된 2호기에 한국이 뛰어들 수 있는 법적 발판도 마련됐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보</div>
+      <div class="article-snippet">베트남 국회가 자국 최초의 원자력 발전 프로젝트 건설 결의안을 공식 승인했다. 러시아와의 1호기 협력을 본격화하는 동시에, 일본의 철수로 공석이 된 2호기에 한국이 뛰어들 수 있는 법적 발판도 마련됐다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6c3464fd032022c0d52f6d9f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761822"
   data-title="NH농협은행 경남본부, &#x27;경남특화 생산적 금융&#x27; 지원 강화"
@@ -36718,6 +37528,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ed9a6e10fed7fcd23d39f225.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.hidomin.com/news/articleView.html?idxno=718456"
+  data-title="영덕군, 신규 원자력발전소 명칭 군민 공모 - 경북도민일보"
+  data-publisher="경북도민일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787635755"
+  data-country="OTHER"
+  data-search="영덕군, 신규 원자력발전소 명칭 군민 공모 - 경북도민일보 경북도민일보 원자력 영덕군이 군민을 대상으로 신규 원자력발전소 명칭 공모를 추진한다. 군은 오는 27일부터 9월 10일까지 2주간 군민을 대상으로 ‘신규 원자력발전소 명칭’ 공모를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">경북도민일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">영덕군, 신규 원자력발전소 명칭 군민 공모 - 경북도민일보</div>
+      <div class="article-snippet">영덕군이 군민을 대상으로 신규 원자력발전소 명칭 공모를 추진한다. 군은 오는 27일부터 9월 10일까지 2주간 군민을 대상으로 ‘신규 원자력발전소 명칭’ 공모를</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.hidomin.com/news/photo/202608/718456_420492_2915.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36821,6 +37664,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.news2day.co.kr/article/20260825500082"
+  data-title="[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上"
+  data-publisher="뉴스투데이"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787626800"
+  data-country="KR"
+  data-search="[n2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上 뉴스투데이 원자력 [뉴스투데이=진영재 기자] ■ 원전株, 2040년 전력수요 상향 전망에 &#x27;들썩&#x27; 원자력발전 관련 종목들이 전력수요 전망 상향 기대에 힘입어 장 초반 13%대 급등하면서 시장의 주목을 받고 있다. 25일 한국거래소에 따르면 지투파워는 이날 오전 9시 36분 현재 코스닥시"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上</div>
+      <div class="article-snippet">[뉴스투데이=진영재 기자] ■ 원전株, 2040년 전력수요 상향 전망에 &#x27;들썩&#x27; 원자력발전 관련 종목들이 전력수요 전망 상향 기대에 힘입어 장 초반 13%대 급등하면서 시장의 주목을 받고 있다. 25일 한국거래소에 따르면 지투파워는 이날 오전 9시 36분 현재 코스닥시</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bf3d60add441d32a56f51e48.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.asiae.co.kr/article/2026082509410163030"
   data-title="&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭"
   data-publisher="아시아경제"
@@ -36844,7 +37720,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭</div>
+      <div class="headline">&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭</div>
       <div class="article-snippet">편집자주인공지능(AI) 시대, 정부가 3대 메가프로젝트 일환으로 2035년까지 총 18.</div>
     </div>
   </div>
@@ -36874,7 +37750,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250115" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=636365" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260825000623" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">영덕군, 신규원전 명칭 공모한다</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hidomin.com/news/articleView.html?idxno=718456" target="_blank" rel="noopener"><span class="related-coverage-publisher">경북도민일보</span><span class="related-coverage-title">영덕군, 신규 원자력발전소 명칭 군민 공모 - 경북도민일보</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250115" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=636365" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260825000623" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">영덕군, 신규원전 명칭 공모한다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">[데일리대구경북뉴스] 영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</div>
@@ -37156,10 +38032,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16491"
   data-title="&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;"
   data-publisher="ESG경제"
@@ -37183,12 +38059,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;</div>
+      <div class="headline">&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;</div>
       <div class="article-snippet">[ESG경제신문=김제원 기자] 인공지능(AI) 데이터센터 확산으로 전력 수요가 급증하면서 소형모듈원전(SMR)을 둘러싼 글로벌 경쟁이 빨라지고 있다. 미국이 4세대 SMR 상용화에서 선두를 달리는 가운데 한국은 기술 격차를 좁히는 동시에 제조·건설 분야의 기존 경쟁력을 활용해 글로벌 공급망 진입을 확대해야 한다는 분석이 나왔다.포스코경영연구원(POSRI)은 24일 ‘AI 전력 수요가 앞당긴 SMR시대, 한국의 기회는?’ 보고서를 발간했다. POSRI는 AI발 전력 수요 급증과 저탄소 전력 확보 필요성이 SMR 시장 형성을 앞당기고</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d2a43e7cbefa0bfe4e306f43.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.theguru.co.kr/news/article.html?no=106200"
+  data-title="美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결"
+  data-publisher="더구루"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787624524"
+  data-country="CN"
+  data-search="美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결 더구루 smr [더구루=길소연 기자] 영국 해양 원자력 전문 기업인 코어파워(core power)가 미국 정부와 손잡고 상업용 원자력 추진 선박을 개발한다. 트럼프 행정부가 중국의 상선 건조 시장 지배력에 맞서기 위해 원자력 추진 상선 건조를 계획하는데 코어파워가 함께한다. 미국 정부는 소형모듈원자로(smr)를 탑재한 원자력추진 상선단을 개발해 중국이 장악한 글로벌 해운"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">더구루</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결</div>
+      <div class="article-snippet">[더구루=길소연 기자] 영국 해양 원자력 전문 기업인 코어파워(Core Power)가 미국 정부와 손잡고 상업용 원자력 추진 선박을 개발한다. 트럼프 행정부가 중국의 상선 건조 시장 지배력에 맞서기 위해 원자력 추진 상선 건조를 계획하는데 코어파워가 함께한다. 미국 정부는 소형모듈원자로(SMR)를 탑재한 원자력추진 상선단을 개발해 중국이 장악한 글로벌 해운</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89950077f03a75b287530f7c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37264,7 +38173,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">22건</span>
+    <span class="group-count">23건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -37399,7 +38308,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://montelnews.com/news/d4dfa024-4dd1-47e2-a985-d64279eb696f/operator-brings-forward-restart-of-last-offline-unit-at-2-gw-paks"
   data-title="Operator brings forward restart of last offline unit at 2 GW Paks"
   data-publisher="Montel News"
@@ -37423,7 +38332,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Operator brings forward restart of last offline unit at 2 GW Paks</div>
+      <div class="headline">Operator brings forward restart of last offline unit at 2 GW Paks</div>
       <div class="article-snippet">Amid rising water levels on the drought-hit river Danube, which it uses for cooling, both turbines at the reactor should be fully operational by 12:00 CET, it added. A maintenance outage at the same reactor due next month had also been extended by eight days, effective 17 September to 1</div>
     </div>
   </div>
@@ -37729,7 +38638,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.orfonline.org/research/afghanistan-after-the-taliban-takeover-consolidation-repression-and-the-new-regional-equation"
   data-title="Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation"
   data-publisher="ORF Middle East"
@@ -37753,7 +38662,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation</div>
+      <div class="headline">Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation</div>
       <div class="article-snippet">Five years after the Taliban’s return, Afghanistan has achieved greater internal security but remains politically repressive, economically fragile and internationally unrecognised.</div>
     </div>
   </div>
@@ -37762,7 +38671,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://ua.news/en/world/ssha-v-oon-zaklikali-rf-ta-ukrayinu-pripiniti-udari-ta-povernutisia-do-peregovoriv"
   data-title="At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations"
   data-publisher="UA.NEWS"
@@ -37786,7 +38695,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations</div>
+      <div class="headline">At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations</div>
       <div class="article-snippet">Dan Negrea, Deputy Permanent Representative of the United States to the United Nations, called on Russia and Ukraine to cease attacks that harm civilians and infrastructure, and to return to the negotiating table.</div>
     </div>
   </div>
@@ -37861,7 +38770,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.vietnam.vn/en/anh-hung-lao-dong-nguyen-thi-nga-duoc-bau-lam-chu-tich-hoi-doanh-nhan-tu-nhan-viet-nam"
   data-title="Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association."
   data-publisher="Vietnam.vn"
@@ -37885,7 +38794,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association.</div>
+      <div class="headline">Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association.</div>
       <div class="article-snippet">The Central Executive Committee of the Vietnam Private Business Association (VPBA) has issued a resolution electing Labor Hero Nguyen Thi Nga, Chairwoman of BRG Group and Acting Chairwoman of VPBA, as the President of the Association.</div>
     </div>
   </div>
@@ -37960,6 +38869,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.rt.com/russia/644609-zelensky-concentration-camp-nebenzia/"
+  data-title="Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow"
+  data-publisher="RT"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787622252"
+  data-country="UA"
+  data-search="ukraine has morphed into zelensky’s ‘concentration camp’ – moscow rt nuclear power·nuclear energy kiev has descended into repression at home and “outright terror” against russian civilians, with western assistance, moscow’s envoy to the un, vassily nebenzia, has said"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">RT</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow</div>
+      <div class="article-snippet">Kiev has descended into repression at home and “outright terror” against Russian civilians, with Western assistance, Moscow’s envoy to the UN, Vassily Nebenzia, has said</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bf7c8d59de5c4a1a89c8f82c.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://oilprice.com/Energy/Energy-General/The-Biggest-Victims-Of-Trumps-Economic-D-Day-On-Iran.html"
   data-title="The Biggest Victims Of Trump’s Economic D-Day On Iran | OilPrice.com"
@@ -38017,18 +38959,84 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">TerraPower</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.globalbankingandfinance.com/british-firm-offers-restart-mothballed-australian-manganese/"
+  data-title="British Firm Proposes Restart of Australian Manganese Smelter"
+  data-publisher="Global Banking &amp; Finance Review"
+  data-group="TerraPower"
+  data-language="en"
+  data-priority="0"
+  data-published="1787629872"
+  data-country="AU"
+  data-search="british firm proposes restart of australian manganese smelter global banking &amp; finance review terrapower natrium redox technologies bids to restart tasmania&#x27;s only manganese smelter, supplying global battery and ev markets with green technology."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Banking &amp; Finance Review</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>British Firm Proposes Restart of Australian Manganese Smelter</div>
+      <div class="article-snippet">Natrium Redox Technologies bids to restart Tasmania&#x27;s only manganese smelter, supplying global battery and EV markets with green technology.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/eac44c64ad7b7e3d142757e2.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Westinghouse">
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Westinghouse</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.fnnews.com/news/202608251527119992"
+  data-title="美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;"
+  data-publisher="파이낸셜뉴스"
+  data-group="Westinghouse"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787639233"
+  data-country="KR"
+  data-search="美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot; 파이낸셜뉴스 westinghouse (세종=뉴스1) 이정현 기자 = 미국 정부가 한국에 미국 원전 기업 웨스팅하우스(wec) 지분 인수를 제안했다는 관측이 제기됐다. 미국이 인공지능(ai) 인프라 확대를 위해 추진 중인 원전 건설 사업에 한국의 자본력과 시공 역량을 활용하려는 취지라는 분석이다.25일 원.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">파이낸셜뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;</div>
+      <div class="article-snippet">(세종=뉴스1) 이정현 기자 = 미국 정부가 한국에 미국 원전 기업 웨스팅하우스(WEC) 지분 인수를 제안했다는 관측이 제기됐다. 미국이 인공지능(AI) 인프라 확대를 위해 추진 중인 원전 건설 사업에 한국의 자본력과 시공 역량을 활용하려는 취지라는 분석이다.25일 원..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/77fdb38931f96930964e8a00.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.munhwa.com/article/11611866"
   data-title="웨스팅하우스 지분 인수 카드와 원전동맹 실질화 방안[사설]"
@@ -50321,7 +51329,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/ffdc1ff81332240ba2a3df43.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/3e3169524d4372b7a34f0063.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -59994,7 +61002,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.upr.org/2026-08-23/many-wyoming-freedom-caucus-representatives-lose-to-more-moderate-republicans-in-primaries"
   data-title="Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries"
   data-publisher="Utah Public Radio"
@@ -60018,7 +61026,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries</div>
+      <div class="headline">Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries</div>
       <div class="article-snippet">Wyoming has been a showcase for the Freedom Caucus, which bills itself as seeking to promote &quot;Judeo-Christian values&quot; and end most property taxes. But the movement suffered losses in recent primaries.</div>
     </div>
   </div>
@@ -169445,10 +170453,14 @@ function renderContinentRail2D(items){
   if(!visual)return;
   let rail=document.getElementById('continent-rail');
   if(!rail){rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}
+  rail.style.setProperty('display','flex','important');
+  rail.style.setProperty('visibility','visible','important');
+  rail.style.setProperty('opacity','1','important');
+  const safeItems=Array.isArray(items)?items:[];
   const counts={};
   const articles={};
   FINAL_CONTINENT_DOCK_ORDER.forEach(c=>{counts[c]=0;articles[c]=0;});
-  items.forEach(item=>{
+  safeItems.forEach(item=>{
     if(!item.continent||!CONTINENT_META[item.continent]||item.count<=0)return;
     counts[item.continent]=(counts[item.continent]||0)+1;
     articles[item.continent]=(articles[item.continent]||0)+item.count;
@@ -171126,10 +172138,15 @@ function renderHtmlCountryLabels(items){
 }
 
 function layoutAndRenderCountryMap(){
-  const items=collect2DCountryItems();
-  if(!items.length)return;
-  maybeInitializeContinentFilter(items);
+  const items=collect2DCountryItems() || [];
+  /* 대륙 탭은 국가 데이터 유무와 관계없이 항상 먼저 표시 */
   renderContinentRail2D(items);
+  if(!items.length){
+    const layer=document.getElementById('country-map-label-layer');
+    if(layer)layer.innerHTML='';
+    return;
+  }
+  maybeInitializeContinentFilter(items);
   renderSelectedContinentHighlight();
   if(typeof ensureMapStateChip==='function')ensureMapStateChip(items);
   renderHtmlCountryLabels(items);
