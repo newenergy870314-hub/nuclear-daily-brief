@@ -5967,6 +5967,120 @@ COUNTRY_HOME_ENTITY_TERMS = {
 }
 
 
+# 2026-08-25 국가 판별 보강 — "기타" 최소화
+# 기존 지도에 이미 등록된 국가만 대상으로 프로젝트/도시/기관/기업 별칭을 추가합니다.
+COUNTRY_PROJECT_TERMS.update({
+    "US": COUNTRY_PROJECT_TERMS["US"] + (
+        "vogtle", "보글", "diablo canyon", "디아블로 캐니언", "three mile island", "스리마일섬",
+        "vc summer", "v.c. summer", "서머 원전", "kemmerer", "케머러", "natrium", "나트륨 실증로",
+        "clinch river", "browns ferry", "watts bar", "calvert cliffs", "susquehanna",
+    ),
+    "GB": COUNTRY_PROJECT_TERMS["GB"] + (
+        "wylfa", "윌파", "oldbury", "올드버리", "bradwell", "브래드웰", "heysham", "헤이셤",
+        "hartlepool", "하틀풀",
+    ),
+    "FR": COUNTRY_PROJECT_TERMS["FR"] + (
+        "penly", "팡리", "belleville", "벨빌", "civaux", "시보", "gravelines", "그라블린",
+    ),
+    "CA": COUNTRY_PROJECT_TERMS["CA"] + (
+        "bruce nuclear", "브루스 원전", "pickering", "피커링", "point lepreau", "포인트 레프로",
+    ),
+    "JP": COUNTRY_PROJECT_TERMS["JP"] + (
+        "takahama", "다카하마", "mihama", "미하마", "sendai nuclear", "센다이 원전", "hamaoka", "하마오카",
+    ),
+    "SE": COUNTRY_PROJECT_TERMS["SE"] + ("oskarshamn", "오스카샴",),
+    "FI": COUNTRY_PROJECT_TERMS["FI"] + ("lovisa", "로비사",),
+    "PL": COUNTRY_PROJECT_TERMS["PL"] + ("choczewo", "호체보", "pej nuclear",),
+    "RO": COUNTRY_PROJECT_TERMS["RO"] + ("doicesti", "도이체슈티", "roPower", "ropower nuclear",),
+    "BG": COUNTRY_PROJECT_TERMS["BG"] + ("knpp", "kozloduy new builds",),
+    "UA": COUNTRY_PROJECT_TERMS["UA"] + ("south ukraine nuclear", "zaporizhzhia", "자포리자",),
+    "AE": COUNTRY_PROJECT_TERMS["AE"] + ("abu dhabi nuclear", "아부다비 원전",),
+    "CN": COUNTRY_PROJECT_TERMS["CN"] + (
+        "fangchenggang", "팡청강", "changjiang", "창장", "zhangzhou", "장저우", "shidaowan", "스다오완",
+    ),
+    "IN": COUNTRY_PROJECT_TERMS["IN"] + ("gorakhpur nuclear", "고라크푸르", "rawatbhata", "라와트바타",),
+    "RU": COUNTRY_PROJECT_TERMS["RU"] + ("beloyarsk", "벨로야르스크", "novovoronezh", "노보보로네시",),
+    "TR": COUNTRY_PROJECT_TERMS["TR"] + ("akkuyu npp", "아쿠유 npp",),
+    "ZA": COUNTRY_PROJECT_TERMS["ZA"] + ("thyspunt", "투이스푼트",),
+})
+
+COUNTRY_GOVERNMENT_TERMS.update({
+    "BG": ("bulgarian ministry of energy", "bulgarian government", "불가리아 에너지부",),
+    "RO": ("romanian government", "romanian ministry of energy", "루마니아 에너지부",),
+    "CZ": ("czech government", "czech ministry of industry and trade", "체코 정부",),
+    "PL": ("polish government", "polish ministry of industry", "폴란드 정부",),
+    "FI": COUNTRY_GOVERNMENT_TERMS.get("FI", ()) + ("stuk", "finnish government",),
+    "SE": COUNTRY_GOVERNMENT_TERMS.get("SE", ()) + ("ssm", "swedish government",),
+    "NL": COUNTRY_GOVERNMENT_TERMS.get("NL", ()) + ("dutch government", "anvs",),
+    "BE": COUNTRY_GOVERNMENT_TERMS.get("BE", ()) + ("belgian government", "fanc",),
+    "CH": COUNTRY_GOVERNMENT_TERMS.get("CH", ()) + ("swiss government", "ensi",),
+    "AU": COUNTRY_GOVERNMENT_TERMS.get("AU", ()) + ("australian government", "arpansa",),
+    "BR": COUNTRY_GOVERNMENT_TERMS.get("BR", ()) + ("brazilian government", "cnen",),
+    "AR": COUNTRY_GOVERNMENT_TERMS.get("AR", ()) + ("argentine government", "arn nuclear",),
+})
+
+COUNTRY_HOME_ENTITY_TERMS.update({
+    "US": COUNTRY_HOME_ENTITY_TERMS["US"] + (
+        "nuscale", "뉴스케일", "terrapower", "테라파워", "ge hitachi nuclear energy", "geh",
+        "constellation energy", "x-energy", "x energy", "kairos power", "tva",
+    ),
+    "KR": COUNTRY_HOME_ENTITY_TERMS["KR"] + (
+        "한국원자력연구원", "kaeri", "한국원자력안전기술원", "kins", "한국전력기술", "kepco e&c",
+        "한전기술", "한전원자력연료", "knf", "한국원자력산업협회", "kaif", "kna",
+    ),
+    "GB": COUNTRY_HOME_ENTITY_TERMS.get("GB", ()) + ("rolls-royce smr", "rolls royce smr", "롤스로이스 smr",),
+    "FR": COUNTRY_HOME_ENTITY_TERMS["FR"] + ("orano", "오라노", "cea",),
+    "CA": COUNTRY_HOME_ENTITY_TERMS["CA"] + ("ontario power generation", "opg", "bruce power",),
+    "JP": COUNTRY_HOME_ENTITY_TERMS.get("JP", ()) + ("tepco", "도쿄전력", "kansai electric", "간사이전력",),
+    "SE": COUNTRY_HOME_ENTITY_TERMS.get("SE", ()) + ("vattenfall", "바텐폴",),
+    "FI": COUNTRY_HOME_ENTITY_TERMS.get("FI", ()) + ("fortum", "포텀",),
+    "CZ": COUNTRY_HOME_ENTITY_TERMS.get("CZ", ()) + ("čez", "cez", "체코전력",),
+    "PL": COUNTRY_HOME_ENTITY_TERMS.get("PL", ()) + ("polskie elektrownie jądrowe", "pej",),
+    "BG": COUNTRY_HOME_ENTITY_TERMS.get("BG", ()) + ("kozloduy npp new builds", "knpp nb",),
+    "UA": COUNTRY_HOME_ENTITY_TERMS.get("UA", ()) + ("energoatom", "에네르고아톰",),
+    "RO": COUNTRY_HOME_ENTITY_TERMS.get("RO", ()) + ("nuclearelectrica", "sn nuclearelectrica",),
+    "SE": COUNTRY_HOME_ENTITY_TERMS.get("SE", ()) + ("vattenfall",),
+    "ZA": COUNTRY_HOME_ENTITY_TERMS.get("ZA", ()) + ("eskom", "에스콤",),
+    "AU": COUNTRY_HOME_ENTITY_TERMS.get("AU", ()) + ("ansto",),
+})
+
+# 원전/에너지 기사에서 도시명이 직접 나오는 경우를 보조 단서로 사용합니다.
+COUNTRY_EXPLICIT_TERMS.update({
+    "US": COUNTRY_EXPLICIT_TERMS["US"] + ("washington dc", "washington, d.c.", "new york", "illinois", "wyoming",),
+    "GB": COUNTRY_EXPLICIT_TERMS["GB"] + ("london", "런던",),
+    "BG": COUNTRY_EXPLICIT_TERMS["BG"] + ("sofia", "소피아",),
+    "UA": COUNTRY_EXPLICIT_TERMS["UA"] + ("kyiv", "kiev", "키이우",),
+    "AE": COUNTRY_EXPLICIT_TERMS["AE"] + ("abu dhabi", "아부다비",),
+    "VN": COUNTRY_EXPLICIT_TERMS["VN"] + ("hanoi", "하노이",),
+    "RO": COUNTRY_EXPLICIT_TERMS["RO"] + ("bucharest", "부쿠레슈티",),
+    "CZ": COUNTRY_EXPLICIT_TERMS["CZ"] + ("prague", "프라하",),
+    "PL": COUNTRY_EXPLICIT_TERMS["PL"] + ("warsaw", "바르샤바",),
+    "FI": COUNTRY_EXPLICIT_TERMS["FI"] + ("helsinki", "헬싱키",),
+    "CA": COUNTRY_EXPLICIT_TERMS["CA"] + ("ottawa", "오타와",),
+    "FR": COUNTRY_EXPLICIT_TERMS["FR"] + ("paris", "파리",),
+    "SE": COUNTRY_EXPLICIT_TERMS["SE"] + ("stockholm", "스톡홀름",),
+    "CN": COUNTRY_EXPLICIT_TERMS["CN"] + ("beijing", "베이징",),
+    "IN": COUNTRY_EXPLICIT_TERMS["IN"] + ("new delhi", "뉴델리",),
+    "AU": COUNTRY_EXPLICIT_TERMS["AU"] + ("canberra", "캔버라",),
+    "BR": COUNTRY_EXPLICIT_TERMS["BR"] + ("brasilia", "브라질리아",),
+    "AR": COUNTRY_EXPLICIT_TERMS["AR"] + ("buenos aires", "부에노스아이레스",),
+    "CL": COUNTRY_EXPLICIT_TERMS["CL"] + ("santiago", "산티아고",),
+    "PE": COUNTRY_EXPLICIT_TERMS["PE"] + ("lima", "리마",),
+    "CO": COUNTRY_EXPLICIT_TERMS["CO"] + ("bogota", "bogotá", "보고타",),
+    "RU": COUNTRY_EXPLICIT_TERMS["RU"] + ("moscow", "모스크바",),
+    "TR": COUNTRY_EXPLICIT_TERMS["TR"] + ("ankara", "앙카라",),
+    "SA": COUNTRY_EXPLICIT_TERMS["SA"] + ("riyadh", "리야드",),
+    "ZA": COUNTRY_EXPLICIT_TERMS["ZA"] + ("pretoria", "프리토리아", "cape town", "케이프타운",),
+    "NL": COUNTRY_EXPLICIT_TERMS["NL"] + ("amsterdam", "암스테르담", "the hague", "헤이그",),
+    "BE": COUNTRY_EXPLICIT_TERMS["BE"] + ("brussels", "브뤼셀",),
+    "CH": COUNTRY_EXPLICIT_TERMS["CH"] + ("bern", "베른",),
+    "SK": COUNTRY_EXPLICIT_TERMS["SK"] + ("bratislava", "브라티슬라바",),
+    "DK": COUNTRY_EXPLICIT_TERMS["DK"] + ("copenhagen", "코펜하겐",),
+    "MY": COUNTRY_EXPLICIT_TERMS["MY"] + ("kuala lumpur", "쿠알라룸푸르",),
+    "TH": COUNTRY_EXPLICIT_TERMS["TH"] + ("bangkok", "방콕",),
+})
+
+
 def _article_country_text(article: Article) -> tuple[str, str]:
     title = article.title.lower()
     full = " ".join(
@@ -19144,6 +19258,48 @@ main {{
 }}
 
 /* 2026-08-25 CORRECTION: removed erroneous 3x2 mobile continent override; preserve approved one-line bottom dock with South America. */
+/* 2026-08-25 FINAL MOBILE CONTINENT COUNT VISIBILITY */
+@media (max-width:899px) {{
+  #continent-rail .continent-rail-scroll {{
+    align-items:stretch !important;
+  }}
+  #continent-rail .continent-button {{
+    min-height:34px !important;
+    height:34px !important;
+    padding:3px 2px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:2px !important;
+    overflow:visible !important;
+  }}
+  #continent-rail .continent-button-name {{
+    display:block !important;
+    font-size:7.4px !important;
+    font-weight:900 !important;
+    line-height:1.05 !important;
+    color:#355873 !important;
+    white-space:nowrap !important;
+  }}
+  #continent-rail .continent-button-count {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    font-size:8.4px !important;
+    font-weight:950 !important;
+    line-height:1 !important;
+    color:#2583b5 !important;
+    white-space:nowrap !important;
+  }}
+  #continent-rail .continent-button.active .continent-button-count {{
+    color:#d84b4b !important;
+  }}
+}}
+@media (max-width:380px) {{
+  #continent-rail .continent-button-name {{ font-size:6.7px !important; }}
+  #continent-rail .continent-button-count {{ font-size:7.7px !important; }}
+}}
 </style>
 </head>
 <body>
