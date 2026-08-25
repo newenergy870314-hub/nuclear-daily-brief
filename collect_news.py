@@ -1,3 +1,14 @@
+# HOLTEC HIGHLIGHTS OFFICIAL SOURCE + FORCE HOLTEC TAB 2026-08-26
+# DUPLICATE GROUPING: MINISTRY PERSONNEL + BRIAN MAST/COUPANG EVENT 2026-08-26
+# NEW TABS: 차세대원자로 + 원전해체 / CLASSIFICATION PRIORITY REFINED 2026-08-26
+# UI TAB ORDER: SUPPORTING NUCLEAR TABS BELOW SMR 2026-08-26
+# WEEKEND DAILY WINDOWS + MONDAY FRI-MON REPORT WINDOW 2026-08-26
+# KST MIDNIGHT PERIOD AUTO ROLLOVER 2026-08-26
+# ADDED EESI (Environmental and Energy Study Institute) SOURCE 2026-08-26
+# ADDED VNECONOMY / VIETNAM ECONOMIC TIMES ENGLISH SOURCE 2026-08-26
+# WESTINGHOUSE PRIORITY: eVinci / explicit WEC articles -> Westinghouse tab first 2026-08-26
+# ADDED MARKETBEAT ENGLISH SOURCE 2026-08-26
+# KHNP SAME EVENT GROUPING: ORGANIZATIONAL CULTURE / JUNIOR BOARD 2026-08-25
 # ADDED NHAN DAN VIETNAM SOURCE 2026-08-25
 # BIGGO FINANCE SOURCE URL FIX (finance.biggo.com) 2026-08-25
 # ADDED HANS ECONOMY (hansbiz.co.kr) DIRECT SOURCE 2026-08-25
@@ -143,6 +154,8 @@ ALWAYS_SHOW_GROUPS = {
     "원전 대미투자",
     "원자력",
     "SMR",
+    "차세대원자로",
+    "원전해체",
     "Nuclear Power·Nuclear Energy",
     "Holtec",
     "TerraPower",
@@ -217,6 +230,102 @@ GROUPS = [
         '"한전KDN"', '"KEPCO KDN"', '"KEPCO-KDN"',
         # 한전원자력연료
         '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
+    ]),
+    ("원전 관계부처", [
+        # 산업통상부·기후에너지환경부·과학기술정보통신부의
+        # 장관·차관급 이상 인사 및 정책 관련 기사
+        '"산업통상부" 장관',
+        '"산업통상부" 차관',
+        '"산업통상부" 통상교섭본부장',
+        '"산업통상자원부" 장관',
+        '"산업통상자원부" 통상교섭본부장',
+        '"산업통상자원부" 차관',
+        '"기후에너지환경부" 장관',
+        '"기후에너지환경부" 차관',
+        '"기후부" 장관',
+        '"기후부" 차관',
+        '"과학기술정보통신부" 장관',
+        '"과학기술정보통신부" 차관',
+        '"과기정통부" 장관',
+        '"과기정통부" 차관',
+        '"과기부" 장관',
+        '"과기부" 차관',
+        '"Ministry of Trade, Industry and Energy" minister',
+        '"Ministry of Climate, Energy and Environment" minister',
+        '"Ministry of Science and ICT" minister',
+        '"Ministry of Science and ICT" vice minister',
+        '"산업통상부" 인사',
+        '"산업통상자원부" 인사',
+        '"기후에너지환경부" 인사',
+        '"과학기술정보통신부" 인사',
+        '"과기정통부" 인사',
+        '"산업통상부" 임명',
+        '"기후에너지환경부" 임명',
+        '"과학기술정보통신부" 임명',
+        '"Ministry of Trade, Industry and Energy" appointment',
+        '"Ministry of Climate, Energy and Environment" appointment',
+        '"Ministry of Science and ICT" appointment',
+        '"김정관" 장관',
+        '"문신학" 차관',
+        '"양기욱" 산업자원안보실장',
+        '"여한구" 통상교섭본부장',
+        '"강감찬" 무역투자실장',
+        '"김창희" 원전전략기획관',
+        '"김정관"',
+        '"문신학"',
+        '"양기욱"',
+        '"여한구"',
+        '"강감찬"',
+        '"김창희"',
+    ]),
+    ("원전 대미투자", [
+        '"대미투자" 원전',
+        '"대미 투자" 원전',
+        '"미국 투자" 원전',
+        '"대미투자" 원자력',
+        '"대미 투자" 원자력',
+        '"미국 투자" 원자력',
+        '"대미투자펀드" 원전',
+        '"대미 투자 펀드" 원전',
+        '"한미 투자" 원전',
+        '"한미 정상회담" 원전 투자',
+        '"미국 원전" 투자',
+        '"미국 원자력" 투자',
+        '"U.S. investment" nuclear',
+        '"US investment" nuclear',
+        '"Korea investment" U.S. nuclear',
+        '"Korea-US investment" nuclear',
+        '"nuclear investment fund" Korea U.S.',
+    ]),
+    ("원자력", [
+        "원전", "원자력", "원자력발전", "원자력발전소",
+        "대형원전", "신규 원전", "원전 건설", "원전 프로젝트", "원전 수출",
+        "신한울 원전", "신한울원전",
+        "신한울 1호기", "신한울 2호기",
+        "신한울 3호기", "신한울 4호기",
+        "신한울 1·2호기", "신한울 3·4호기",
+        "Shin Hanul nuclear", "Shin Hanul NPP",
+    ]),
+    ("SMR", [
+        "SMR", "소형모듈원자로", '"Small Modular Reactor"',
+        '"Small Modular Reactors"', "SMR plant", "SMR project",
+    ]),
+    ("차세대원자로", [
+        "차세대원자로", "차세대 원자로",
+        '"Advanced Reactor"', '"Advanced Reactors"',
+        "Microreactor", "Micro-reactor", "micro reactor",
+        "TRISO reactor", "TRISO fuel reactor",
+        "transportable reactor", "deployable reactor",
+        "floating nuclear reactor", "mobile nuclear reactor",
+        "advanced nuclear reactor",
+    ]),
+    ("원전해체", [
+        "원전해체", "원전 해체", "폐로",
+        "nuclear decommissioning", "reactor decommissioning",
+        "decommissioning nuclear", "decommissioning reactor",
+        "nuclear dismantling", "reactor dismantling",
+        "nuclear waste facility", "radioactive waste facility",
+        "nuclear site cleanup", "nuclear clean-up",
     ]),
     ("해외 건설사", [
         # 해외 EPC/Construction 회사는 일반 인프라 기사가 아니라 원전 문맥이 있는 기사만 수집
@@ -307,85 +416,6 @@ GROUPS = [
         '"NEA" 원전',
         '"NEA" 원자력',
     ]),
-    ("원전 관계부처", [
-        # 산업통상부·기후에너지환경부·과학기술정보통신부의
-        # 장관·차관급 이상 인사 및 정책 관련 기사
-        '"산업통상부" 장관',
-        '"산업통상부" 차관',
-        '"산업통상부" 통상교섭본부장',
-        '"산업통상자원부" 장관',
-        '"산업통상자원부" 통상교섭본부장',
-        '"산업통상자원부" 차관',
-        '"기후에너지환경부" 장관',
-        '"기후에너지환경부" 차관',
-        '"기후부" 장관',
-        '"기후부" 차관',
-        '"과학기술정보통신부" 장관',
-        '"과학기술정보통신부" 차관',
-        '"과기정통부" 장관',
-        '"과기정통부" 차관',
-        '"과기부" 장관',
-        '"과기부" 차관',
-        '"Ministry of Trade, Industry and Energy" minister',
-        '"Ministry of Climate, Energy and Environment" minister',
-        '"Ministry of Science and ICT" minister',
-        '"Ministry of Science and ICT" vice minister',
-        '"산업통상부" 인사',
-        '"산업통상자원부" 인사',
-        '"기후에너지환경부" 인사',
-        '"과학기술정보통신부" 인사',
-        '"과기정통부" 인사',
-        '"산업통상부" 임명',
-        '"기후에너지환경부" 임명',
-        '"과학기술정보통신부" 임명',
-        '"Ministry of Trade, Industry and Energy" appointment',
-        '"Ministry of Climate, Energy and Environment" appointment',
-        '"Ministry of Science and ICT" appointment',
-        '"김정관" 장관',
-        '"문신학" 차관',
-        '"양기욱" 산업자원안보실장',
-        '"여한구" 통상교섭본부장',
-        '"강감찬" 무역투자실장',
-        '"김창희" 원전전략기획관',
-        '"김정관"',
-        '"문신학"',
-        '"양기욱"',
-        '"여한구"',
-        '"강감찬"',
-        '"김창희"',
-    ]),
-    ("원전 대미투자", [
-        '"대미투자" 원전',
-        '"대미 투자" 원전',
-        '"미국 투자" 원전',
-        '"대미투자" 원자력',
-        '"대미 투자" 원자력',
-        '"미국 투자" 원자력',
-        '"대미투자펀드" 원전',
-        '"대미 투자 펀드" 원전',
-        '"한미 투자" 원전',
-        '"한미 정상회담" 원전 투자',
-        '"미국 원전" 투자',
-        '"미국 원자력" 투자',
-        '"U.S. investment" nuclear',
-        '"US investment" nuclear',
-        '"Korea investment" U.S. nuclear',
-        '"Korea-US investment" nuclear',
-        '"nuclear investment fund" Korea U.S.',
-    ]),
-    ("원자력", [
-        "원전", "원자력", "원자력발전", "원자력발전소",
-        "대형원전", "신규 원전", "원전 건설", "원전 프로젝트", "원전 수출",
-        "신한울 원전", "신한울원전",
-        "신한울 1호기", "신한울 2호기",
-        "신한울 3호기", "신한울 4호기",
-        "신한울 1·2호기", "신한울 3·4호기",
-        "Shin Hanul nuclear", "Shin Hanul NPP",
-    ]),
-    ("SMR", [
-        "SMR", "소형모듈원자로", '"Small Modular Reactor"',
-        "차세대원자로", '"Advanced Reactor"', "Microreactor",
-    ]),
     ("Nuclear Power·Nuclear Energy", [
         '"Nuclear Power"', '"Nuclear Energy"', '"Nuclear Power Plant"',
         '"Nuclear Construction"', '"Nuclear Project"',
@@ -438,6 +468,8 @@ GROUP_TAB_LABELS = {
     "원전 대미투자": "대미투자",
     "원자력": "원자력",
     "SMR": "SMR",
+    "차세대원자로": "차세대원자로",
+    "원전해체": "원전해체",
     "Nuclear Power·Nuclear Energy": "Nuclear",
     "Holtec": "Holtec",
     "TerraPower": "Terra",
@@ -545,9 +577,9 @@ SOURCE_MASTER_REQUIRED_CORE = {
     "Romania Insider", "AGERPRES English", "The Japan Times", "NHK WORLD-JAPAN",
     "Business Standard India", "The Hindu", "The Economic Times",
     "ANI", "The News Mill", "Chemical Industry Digest",
-    "Vietnam News", "VietnamPlus", "VietnamNet Global", "VnExpress International", "Nhan Dan",
+    "Vietnam News", "VietnamPlus", "VietnamNet Global", "VnExpress International", "Nhan Dan", "VnEconomy",
     "Arab News", "Saudi Gazette", "The National", "Gulf News", "Khaleej Times",
-    "The Korea Herald", "The Korea Times", "Korea JoongAng Daily",
+    "The Korea Herald", "The Korea Times", "Korea JoongAng Daily", "Holtec International",
 }
 
 SOURCE_MASTER_PDF_PRIORITY = {
@@ -596,6 +628,8 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'Neutron Bytes',
     'UA.NEWS',
     'Nhan Dan',
+    'VnEconomy',
+    'Environmental and Energy Study Institute',
     'The Maritime Executive',
     'TVP World',
     'The Namibian',
@@ -643,6 +677,7 @@ SOURCE_MASTER_PDF_PRIORITY = {
     'SightLine | U308',
     'The Pennsylvania State University',
     'Yahoo Finance',
+    'MarketBeat',
     'KSL NewsRadio',
     'KSL News',
     'TradingView',
@@ -874,6 +909,7 @@ DIRECT_NEWS_PAGES = [
     # 해외 원자력·전력·에너지 전문매체
     # ─────────────────────────────────────────────
     ("World Nuclear News", "https://www.world-nuclear-news.org/", "en"),
+    ("Holtec International", "https://holtecinternational.com/category/holtec-highlights/", "en"),
     ("Nuclear Engineering International", "https://www.neimagazine.com/news/", "en"),
     ("NucNet", "https://www.nucnet.org/news", "en"),
     ("POWER Magazine", "https://www.powermag.com/", "en"),
@@ -936,6 +972,10 @@ DIRECT_NEWS_PAGES = [
     ("The New York Times", "https://www.nytimes.com/", "en"),
     ("Nikkei Asia", "https://asia.nikkei.com/", "en"),
     ("The Japan Times", "https://www.japantimes.co.jp/", "en"),
+    ("VnEconomy", "https://en.vneconomy.vn/", "en"),
+    ("VnEconomy", "https://en.vneconomy.vn/business.htm", "en"),
+    ("Environmental and Energy Study Institute", "https://www.eesi.org/", "en"),
+    ("Environmental and Energy Study Institute", "https://www.eesi.org/topics/nuclear-energy/description", "en"),
     ("NHK WORLD-JAPAN", "https://www3.nhk.or.jp/nhkworld/", "en"),
     ("Nuclear Energy Institute", "https://www.nei.org/news", "en"),
     ("World Nuclear Association", "https://world-nuclear.org/news", "en"),
@@ -1190,6 +1230,7 @@ DIRECT_NEWS_PAGES = [
     ('SightLine | U308', 'https://sightlineu3o8.com/', 'en'),
     ('The Pennsylvania State University', 'https://www.psu.edu/news/', 'en'),
     ('Yahoo Finance', 'https://finance.yahoo.com/', 'en'),
+    ('MarketBeat', 'https://www.marketbeat.com/', 'en'),
     ('KSL NewsRadio', 'https://kslnewsradio.com/', 'en'),
     ('KSL News', 'https://www.ksl.com/news', 'en'),
     ('TradingView', 'https://www.tradingview.com/news/', 'en'),
@@ -1453,6 +1494,7 @@ NUCLEAR_SPECIALIST_PUBLISHERS = {
     "Global Energy Monitor",
     "인사이트N파워",
     "World Nuclear News",
+    "Holtec International",
     "Nuclear Engineering International",
     "NucNet",
     "Nuclear Energy Institute",
@@ -1572,6 +1614,7 @@ DIRECT_GROUP_KEYWORDS = {
     ],
     "Westinghouse": [
         "westinghouse", "웨스팅하우스", "ap1000", "ap300",
+        "evinci", "e-vinci", "e vinci",
     ],
     "Fermi America": [
         "fermi america", "페르미 아메리카", "페르미아메리카",
@@ -1582,8 +1625,24 @@ DIRECT_GROUP_KEYWORDS = {
     ],
     "SMR": [
         "smr", "소형모듈원자로", "소형 모듈 원자로",
-        "small modular reactor", "차세대원자로", "advanced reactor",
-        "microreactor",
+        "small modular reactor", "small modular reactors",
+    ],
+    "차세대원자로": [
+        "차세대원자로", "차세대 원자로",
+        "advanced reactor", "advanced reactors",
+        "advanced nuclear reactor",
+        "microreactor", "micro-reactor", "micro reactor",
+        "triso reactor", "triso fuel reactor",
+        "transportable reactor", "deployable reactor",
+        "floating nuclear reactor", "mobile nuclear reactor",
+    ],
+    "원전해체": [
+        "원전해체", "원전 해체", "폐로",
+        "nuclear decommissioning", "reactor decommissioning",
+        "decommissioning nuclear", "decommissioning reactor",
+        "nuclear dismantling", "reactor dismantling",
+        "nuclear waste facility", "radioactive waste facility",
+        "nuclear site cleanup", "nuclear clean-up",
     ],
     "Nuclear Power·Nuclear Energy": [
         "nuclear power", "nuclear energy", "nuclear power plant",
@@ -1666,6 +1725,8 @@ DIRECT_GROUP_PRIORITY = [
     "한전 계열사",
     "원전 관계부처",
     "SMR",
+    "차세대원자로",
+    "원전해체",
     "Nuclear Power·Nuclear Energy",
     "원자력",
 ]
@@ -1834,84 +1895,76 @@ class Article:
     description: str = ""
 
 
+def _report_window_for_date(report_date) -> tuple[datetime, datetime]:
+    """
+    보고일 기준 기사 구간을 반환합니다.
+
+    - 화~일요일: 전일 06:00 ~ 당일 06:00
+    - 월요일: 금요일 06:00 ~ 월요일 06:00
+
+    따라서 토요일과 일요일도 각각 독립적인 하루 보고일로 유지하고,
+    월요일에만 주말 전체를 다시 포함합니다.
+    """
+    end = datetime(
+        report_date.year,
+        report_date.month,
+        report_date.day,
+        6, 0, 0,
+        tzinfo=KST,
+    )
+    if report_date.weekday() == 0:  # Monday
+        start = end - timedelta(days=3)
+    else:
+        start = end - timedelta(days=1)
+    return start, end
+
+
 def period(now: datetime) -> tuple[datetime, datetime]:
     """
-    실행 시점의 한국시간을 기준으로 '금일' 구간을 매일 자동 갱신합니다.
+    KST 달력 날짜를 기준으로 현재 '금일' 보고구간을 반환합니다.
+    전일/금일/익일 표시는 날짜가 바뀌는 00:00에 자동 전환되며,
+    기사 구간의 경계시각은 항상 06:00입니다.
 
     예)
-    2026-08-05 06:00 이후 실행:
-      2026-08-04 06:00 ~ 2026-08-05 06:00
-    2026-08-06 06:00 이후 실행:
-      2026-08-05 06:00 ~ 2026-08-06 06:00
-
-    월요일은 주말을 포함하여 금요일 06:00 ~ 월요일 06:00으로 계산합니다.
+    토요일 금일 = 금요일 06:00 ~ 토요일 06:00
+    일요일 금일 = 토요일 06:00 ~ 일요일 06:00
+    월요일 금일 = 금요일 06:00 ~ 월요일 06:00
+    화요일 금일 = 월요일 06:00 ~ 화요일 06:00
     """
-    now_kst = now.astimezone(KST)
-    report_end = now_kst.replace(hour=6, minute=0, second=0, microsecond=0)
-
-    if now_kst < report_end:
-        report_end -= timedelta(days=1)
-
-    if report_end.weekday() == 5:
-        report_end -= timedelta(days=1)
-    elif report_end.weekday() == 6:
-        report_end -= timedelta(days=2)
-
-    if report_end.weekday() == 0:
-        report_start = report_end - timedelta(days=3)
-    else:
-        report_start = report_end - timedelta(days=1)
-
-    return report_start, report_end
+    report_date = now.astimezone(KST).date()
+    return _report_window_for_date(report_date)
 
 
 def _previous_report_boundary(boundary: datetime) -> datetime:
-    """
-    직전 보고 기준시각(06:00)을 반환합니다.
-    월요일 06:00의 직전 기준시각은 금요일 06:00입니다.
-    """
-    previous = boundary - timedelta(days=1)
-    while previous.weekday() >= 5:  # 토(5), 일(6) 건너뜀
-        previous -= timedelta(days=1)
-    return previous
+    """직전 달력일의 06:00 기준시각을 반환합니다. 주말도 건너뛰지 않습니다."""
+    return boundary - timedelta(days=1)
 
 
 def _next_report_boundary(boundary: datetime) -> datetime:
-    """
-    다음 보고 기준시각(06:00)을 반환합니다.
-    금요일 06:00의 다음 기준시각은 월요일 06:00입니다.
-    """
-    following = boundary + timedelta(days=1)
-    while following.weekday() >= 5:  # 토(5), 일(6) 건너뜀
-        following += timedelta(days=1)
-    return following
+    """다음 달력일의 06:00 기준시각을 반환합니다. 주말도 건너뛰지 않습니다."""
+    return boundary + timedelta(days=1)
 
 
 def brief_periods(now: datetime) -> dict[str, tuple[datetime, datetime]]:
     """
-    전일·금일·익일을 '보고구간' 기준으로 반환합니다.
+    KST 달력일 기준으로 전일·금일·익일 보고구간을 계산합니다.
+    각 탭은 해당 '보고일'의 규칙을 독립적으로 적용합니다.
 
-    예) 화요일:
-      전일 = 금요일 06:00 ~ 월요일 06:00
-      금일 = 월요일 06:00 ~ 화요일 06:00
-      익일 = 화요일 06:00 ~ 수요일 06:00
+    예) 일요일:
+      전일(토) = 금요일 06:00 ~ 토요일 06:00
+      금일(일) = 토요일 06:00 ~ 일요일 06:00
+      익일(월) = 금요일 06:00 ~ 월요일 06:00
 
-    예) 금요일:
-      금일 = 목요일 06:00 ~ 금요일 06:00
-      익일 = 금요일 06:00 ~ 월요일 06:00
+    예) 월요일:
+      전일(일) = 토요일 06:00 ~ 일요일 06:00
+      금일(월) = 금요일 06:00 ~ 월요일 06:00
+      익일(화) = 월요일 06:00 ~ 화요일 06:00
     """
-    today_start, today_end = period(now)
-
-    previous_end = today_start
-    previous_start = _previous_report_boundary(previous_end)
-
-    next_start = today_end
-    next_end = _next_report_boundary(next_start)
-
+    today = now.astimezone(KST).date()
     return {
-        "전일": (previous_start, previous_end),
-        "금일": (today_start, today_end),
-        "익일": (next_start, next_end),
+        "전일": _report_window_for_date(today - timedelta(days=1)),
+        "금일": _report_window_for_date(today),
+        "익일": _report_window_for_date(today + timedelta(days=1)),
     }
 
 
@@ -3484,7 +3537,17 @@ GROUP_CORE_PRIORITY_TERMS = {
     },
     "SMR": {
         "smr", "small modular reactor", "소형모듈원자로",
-        "소형 모듈 원자로", "advanced reactor", "차세대원자로",
+        "소형 모듈 원자로",
+    },
+    "차세대원자로": {
+        "차세대원자로", "차세대 원자로", "advanced reactor",
+        "advanced nuclear reactor", "microreactor", "micro-reactor",
+        "triso reactor", "deployable reactor", "floating nuclear reactor",
+    },
+    "원전해체": {
+        "원전해체", "원전 해체", "폐로", "nuclear decommissioning",
+        "reactor decommissioning", "nuclear dismantling",
+        "nuclear waste facility", "radioactive waste facility",
     },
     "원자력": {
         "원전", "원자력", "원자로",
@@ -4023,7 +4086,12 @@ def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
 WESTINGHOUSE_EXPLICIT_TERMS = {
     "westinghouse",
     "westinghouse electric company",
+    "westinghouse electric",
     "웨스팅하우스",
+    # Westinghouse 고유 원자로/제품명: 회사명이 제목에 없어도 WEC 탭 우선
+    "evinci",
+    "e-vinci",
+    "e vinci",
 }
 
 DOMESTIC_NUCLEAR_ASSOCIATION_SOCIETY_TERMS = {
@@ -4431,7 +4499,7 @@ def parse_entry(entry, language: str, group: str) -> Article | None:
 
     # 어느 검색경로에서 들어왔든 Holtec 탭으로 분류된 기사는
     # 실제 Holtec 원전·SMR 관련성이 확인되어야 최종 유지합니다.
-    if classified_group == "Holtec" and not is_valid_holtec_article(title, summary):
+    if classified_group == "Holtec" and publisher != "Holtec International" and not is_valid_holtec_article(title, summary):
         return None
 
     if classified_group in {"해외 건설사", "해외 설계사"}:
@@ -4529,6 +4597,45 @@ def enforce_kepic_nuclear_group(article: Article) -> Article:
         article.group = "원자력"
     return article
 
+
+ADVANCED_REACTOR_CLASSIFY_TERMS = (
+    "차세대원자로", "차세대 원자로",
+    "advanced reactor", "advanced reactors", "advanced nuclear reactor",
+    "microreactor", "micro-reactor", "micro reactor",
+    "triso reactor", "triso fuel reactor",
+    "transportable reactor", "deployable reactor",
+    "floating nuclear reactor", "mobile nuclear reactor",
+)
+
+DECOMMISSIONING_CLASSIFY_TERMS = (
+    "원전해체", "원전 해체", "폐로",
+    "nuclear decommissioning", "reactor decommissioning",
+    "decommissioning nuclear", "decommissioning reactor",
+    "nuclear dismantling", "reactor dismantling",
+    "nuclear site cleanup", "nuclear clean-up",
+    "nuclear waste facility", "radioactive waste facility",
+)
+
+SMR_CLASSIFY_TERMS = (
+    "smr", "small modular reactor", "small modular reactors",
+    "소형모듈원자로", "소형 모듈 원자로",
+)
+
+def _generic_nuclear_subgroup(title: str, summary: str = "") -> str | None:
+    """
+    회사/프로젝트 전용 탭에 걸리지 않은 원전 기사 세부 분류.
+    우선순위: 명시적 SMR > 원전해체 > 차세대원자로.
+    """
+    haystack = html.unescape(f"{title} {summary}").lower()
+
+    if any(term in haystack for term in SMR_CLASSIFY_TERMS):
+        return "SMR"
+    if any(term in haystack for term in DECOMMISSIONING_CLASSIFY_TERMS):
+        return "원전해체"
+    if any(term in haystack for term in ADVANCED_REACTOR_CLASSIFY_TERMS):
+        return "차세대원자로"
+    return None
+
 def classify_direct_article(title: str, summary: str) -> str | None:
     """언론사 직접 수집 기사를 기존 웹페이지 그룹 중 하나로 분류합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
@@ -4559,6 +4666,10 @@ def classify_direct_article(title: str, summary: str) -> str | None:
         if priority_group == "한국전력" and is_low_value_kepco_local_incident(title, summary):
             return None
         return priority_group
+
+    nuclear_subgroup = _generic_nuclear_subgroup(title, summary)
+    if nuclear_subgroup:
+        return nuclear_subgroup
 
     has_hangul = bool(re.search(r"[가-힣]", f"{title} {summary}"))
 
@@ -5200,7 +5311,18 @@ def _fetch_direct_page_article(
     if not description:
         description = _best_paragraph_description(parser, title, publisher)
 
-    group = classify_direct_article(title, description)
+    # Holtec 공식 Holtec Highlights는 회사 공식 발행물 자체가 수집 대상입니다.
+    # 제목에 일반 원전 키워드가 없더라도 Holtec 탭으로 우선 분류합니다.
+    is_official_holtec_highlight = (
+        publisher == "Holtec International"
+        and "holtecinternational.com" in source_url.lower()
+        and "holtec-highlights" in source_url.lower()
+    )
+    if is_official_holtec_highlight:
+        group = "Holtec"
+    else:
+        group = classify_direct_article(title, description)
+
     if group is None:
         return None, "not_relevant"
     if group == "현대건설" and is_hyundai_volleyball_article(title, description):
@@ -6357,6 +6479,113 @@ def _kepco_affiliate_press_event_key(article: Article) -> str | None:
     return None
 
 
+
+def _ministry_personnel_event_key(article: Article) -> str | None:
+    """
+    관계부처의 동일 인사발령 보도를 언론사가 달라도 하나로 묶기 위한 사건 키.
+    같은 날짜 + 같은 부처 + 동일 인사유형 신호가 있을 때만 적용합니다.
+    """
+    if (article.group or "") != "원전 관계부처":
+        return None
+
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\\s+", "", hay)
+
+    ministry = None
+    ministry_aliases = (
+        ("기후에너지환경부", ("기후에너지환경부", "기후부")),
+        ("산업통상부", ("산업통상부", "산업통상자원부", "산업부")),
+        ("과학기술정보통신부", ("과학기술정보통신부", "과기정통부", "과기부")),
+    )
+    for canonical, aliases in ministry_aliases:
+        if any(alias.replace(" ", "") in compact for alias in aliases):
+            ministry = canonical
+            break
+    if not ministry:
+        return None
+
+    personnel_terms = (
+        "인사", "인사발령", "신규보임", "전보", "보임", "임명", "승진",
+        "과장급", "국장급", "실장급", "과장급신규보임", "과장급전보",
+    )
+    if not any(term.replace(" ", "") in compact for term in personnel_terms):
+        return None
+
+    # 단순 인사 관련 일반 기사까지 합치지 않도록 발령 형태 신호를 하나 더 요구.
+    action_terms = ("신규보임", "전보", "보임", "임명", "승진", "인사발령")
+    if not any(term.replace(" ", "") in compact for term in action_terms):
+        return None
+
+    return f"관계부처인사|{ministry}|{article.published.astimezone(KST).strftime('%Y-%m-%d')}"
+
+
+def _us_house_mast_coupang_event_key(article: Article) -> str | None:
+    """
+    브라이언 매스트 미 하원 외교위원장의 쿠팡/대미투자 관련 동일 발언 보도를 묶습니다.
+    별도의 반도체 현지생산 압박 등 다른 미국 이슈는 포함하지 않습니다.
+    """
+    if (article.group or "") != "원전 대미투자":
+        return None
+
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\\s+", "", hay)
+
+    mast_terms = (
+        "브라이언매스트", "brianmast", "하원외교위원장", "미하원외교위원장",
+    )
+    if not any(term in compact for term in mast_terms):
+        return None
+
+    if "쿠팡" not in compact and "coupang" not in compact:
+        return None
+
+    context_terms = (
+        "대미투자", "미국기업", "한국정부", "한미훈련", "압박", "피해줘", "피해",
+    )
+    if not any(term in compact for term in context_terms):
+        return None
+
+    return f"미하원외교위원장|브라이언매스트|쿠팡대미투자|{article.published.astimezone(KST).strftime('%Y-%m-%d')}"
+
+
+def _khnp_org_culture_event_key(article: Article) -> str | None:
+    """
+    한수원 동일 보도자료 중 제목 표현이 크게 달라지는 조직문화혁신/주니어보드 기사를
+    하나의 사건으로 묶기 위한 보수적 사건 키입니다.
+
+    예: "조직문화혁신 주니어보드 신설", "실천하고 변화하는 조직문화혁신 주니어보드" 등.
+    한수원 기사이면서 김희천/조직문화혁신/주니어보드 핵심 신호가 충분히 겹칠 때만 적용합니다.
+    """
+    if (article.group or "") != "한국수력원자력":
+        return None
+
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", hay)
+
+    has_khnp = any(
+        token in compact
+        for token in ("한국수력원자력", "한수원", "khnp")
+    )
+    if not has_khnp:
+        return None
+
+    signals = 0
+    if "김희천" in compact:
+        signals += 1
+    if "조직문화혁신" in compact or ("조직문화" in compact and "혁신" in compact):
+        signals += 1
+    if "주니어보드" in compact or "juniorboard" in compact:
+        signals += 1
+    if "직원주도" in compact or "실천하고변화" in compact or "실천과변화" in compact:
+        signals += 1
+
+    # 회사명만 같은 일반 인사/문화 기사가 섞이지 않도록 핵심 신호 2개 이상을 요구합니다.
+    if signals < 2:
+        return None
+
+    return "KHNP|김희천|조직문화혁신|주니어보드"
+
+
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
@@ -6385,6 +6614,25 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     if a.group != b.group:
         return False
+
+    # 관계부처 동일 인사발령은 언론사가 달라도 같은 사건으로 묶습니다.
+    ministry_event_a = _ministry_personnel_event_key(a)
+    ministry_event_b = _ministry_personnel_event_key(b)
+    if ministry_event_a and ministry_event_a == ministry_event_b and date_a == date_b:
+        return True
+
+    # 브라이언 매스트 美 하원 외교위원장의 쿠팡/대미투자 관련 동일 발언 보도 묶음.
+    mast_event_a = _us_house_mast_coupang_event_key(a)
+    mast_event_b = _us_house_mast_coupang_event_key(b)
+    if mast_event_a and mast_event_a == mast_event_b and date_a == date_b:
+        return True
+
+    # 한수원 조직문화혁신/주니어보드 동일 보도자료는 제목 표현이 크게 달라도
+    # 대표기사 1건 + "외 N개 언론사 보도"로 묶습니다.
+    khnp_event_a = _khnp_org_culture_event_key(a)
+    khnp_event_b = _khnp_org_culture_event_key(b)
+    if khnp_event_a and khnp_event_a == khnp_event_b and date_a == date_b:
+        return True
 
     meeting_event_a_early = _korean_business_meeting_event_key(a)
     meeting_event_b_early = _korean_business_meeting_event_key(b)
@@ -8222,6 +8470,66 @@ def _woori_tech_khnp_event_key(article: Article) -> str | None:
     return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
+
+def _hyundai_nuclear_stock_rally_event_key(article: Article) -> str | None:
+    """
+    같은 날짜의 '현대건설 + 원전 기대/수혜 + 주가 급등·강세' 기사는
+    언론사가 달라도 동일한 증시 이벤트로 묶습니다.
+
+    브랜드평판, 데이터센터 등 다른 현대건설 이슈가 섞이지 않도록
+    현대건설/원전/주가 3축이 모두 확인될 때만 event key를 반환합니다.
+    """
+    haystack = html.unescape(
+        f"{article.title or ''} {(article.description or '')[:320]}"
+    ).lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    hyundai_terms = (
+        "현대건설",
+        "hyundai e&c",
+        "hyundai engineering & construction",
+        "hdec",
+    )
+    nuclear_terms = (
+        "원전",
+        "원자력",
+        "nuclear",
+        "nuclear power",
+        "원전건설",
+        "원전수혜",
+        "원전기대",
+        "원전역량",
+    )
+    stock_terms = (
+        "특징주",
+        "주가",
+        "급등",
+        "강세",
+        "상승",
+        "오름",
+        "증권가",
+        "수혜주",
+        "원전주",
+        "stock",
+        "shares",
+        "rally",
+        "surge",
+        "jump",
+        "gain",
+    )
+
+    def has_any(terms):
+        return any(
+            term in haystack or term.replace(" ", "") in compact
+            for term in terms
+        )
+
+    if not (has_any(hyundai_terms) and has_any(nuclear_terms) and has_any(stock_terms)):
+        return None
+
+    return article.published.astimezone(KST).strftime("%Y-%m-%d")
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
 
@@ -8401,11 +8709,34 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if _article_rep_score(article) > _article_rep_score(kept):
             macheon5_unique[macheon5_idx] = article
 
+    # 현대건설 + 원전 기대/수혜 + 주가 급등/강세 동일 증시 이벤트
+    # 같은 날 여러 언론사가 다른 제목으로 보도해도 대표기사 1건만 유지.
+    hyundai_stock_unique: list[Article] = []
+    hyundai_stock_key_to_idx: dict[str, int] = {}
+    hyundai_nuclear_stock_removed = 0
+
+    for article in macheon5_unique:
+        event_key = _hyundai_nuclear_stock_rally_event_key(article)
+        if event_key is None:
+            hyundai_stock_unique.append(article)
+            continue
+
+        if event_key not in hyundai_stock_key_to_idx:
+            hyundai_stock_key_to_idx[event_key] = len(hyundai_stock_unique)
+            hyundai_stock_unique.append(article)
+            continue
+
+        hyundai_nuclear_stock_removed += 1
+        idx = hyundai_stock_key_to_idx[event_key]
+        kept = hyundai_stock_unique[idx]
+        if _article_rep_score(article) > _article_rep_score(kept):
+            hyundai_stock_unique[idx] = article
+
     # 주요 건설사 탭: 동일 날짜+동일 회사만으로 묶지 않고,
     # 사건 유형 + 프로젝트/대상 식별 근거까지 충분히 일치할 때만 대표기사 1건 유지.
     # 애매한 기사는 삭제하지 않고 모두 남깁니다.
     construction_award_unique, construction_award_removed = _deduplicate_major_construction_events(
-        macheon5_unique
+        hyundai_stock_unique
     )
 
     # 같은 날짜 + 같은 건설사 + 노조 관련 보도는 대표기사 1건만 유지
@@ -9023,21 +9354,10 @@ def update_archive(
 def archive_window_for_date(report_date) -> tuple[datetime, datetime]:
     """
     선택한 보고일의 기사 구간을 계산합니다.
-    월요일은 금요일 06:00부터 월요일 06:00까지,
-    화~금요일은 전일 06:00부터 당일 06:00까지입니다.
+    토·일도 각각 독립 보고일로 유지하며, 월요일만 금요일 06:00부터
+    월요일 06:00까지의 주말 통합 구간을 사용합니다.
     """
-    end = datetime(
-        report_date.year,
-        report_date.month,
-        report_date.day,
-        6, 0, 0,
-        tzinfo=KST,
-    )
-    if report_date.weekday() == 0:
-        start = end - timedelta(days=3)
-    else:
-        start = end - timedelta(days=1)
-    return start, end
+    return _report_window_for_date(report_date)
 
 
 def backfill_missing_archive_dates(
@@ -9046,18 +9366,14 @@ def backfill_missing_archive_dates(
 ) -> dict[str, dict]:
     """
     기능 적용 이전 날짜를 한 번에 너무 많이 수집하지 않도록
-    실행할 때마다 최대 2개 보고일을 과거 방향으로 채웁니다.
-    주말은 월요일 보고에 포함되므로 별도 보고일로 만들지 않습니다.
+    실행할 때마다 설정된 개수만큼 과거 방향으로 채웁니다.
+    토요일·일요일도 각각 별도 보고일로 보관합니다.
     """
     today = generated_at.astimezone(KST).date()
     candidates = []
 
     for offset in range(1, ARCHIVE_DAYS + 1):
         report_date = today - timedelta(days=offset)
-
-        # 토요일·일요일은 월요일 보고에 포함
-        if report_date.weekday() >= 5:
-            continue
 
         key = report_date.isoformat()
         if key not in archive:
@@ -18821,6 +19137,52 @@ main {{
   }}
 }}
 
+
+/* 2026-08-26 GLOBAL FLOATING BACK-TO-TOP BUTTON */
+#global-back-to-top {{
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: calc(84px + env(safe-area-inset-bottom));
+  z-index: 9999;
+  min-width: 48px;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid rgba(22, 58, 95, .18);
+  border-radius: 999px;
+  background: rgba(255,255,255,.96);
+  color: #173b61;
+  font: 800 13px/1 "Pretendard","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  box-shadow: 0 8px 24px rgba(18, 52, 86, .18);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+  -webkit-tap-highlight-color: transparent;
+}}
+#global-back-to-top.is-visible {{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}}
+#global-back-to-top:active {{
+  transform: translateY(1px) scale(.98);
+}}
+@media (max-width: 767px) {{
+  #global-back-to-top {{
+    right: 14px;
+    bottom: calc(92px + env(safe-area-inset-bottom));
+    min-width: 46px;
+    height: 46px;
+    padding: 0 12px;
+    font-size: 12.5px;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -23981,6 +24343,61 @@ requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
 
+/* KST CALENDAR-DAY AUTO ROLLOVER
+   페이지를 밤새 열어둬도 서울 날짜가 바뀌면 새 index.html을 한 번 다시 읽어
+   전일/금일/익일 탭과 날짜를 새 요일 기준으로 자동 전환합니다. */
+(function bindKstDateRollover(){{
+  const kstDateKey=()=>new Intl.DateTimeFormat('en-CA',{{
+    timeZone:'Asia/Seoul', year:'numeric', month:'2-digit', day:'2-digit'
+  }}).format(new Date());
+  let loadedKstDate=kstDateKey();
+  window.setInterval(()=>{{
+    const currentKstDate=kstDateKey();
+    if(currentKstDate===loadedKstDate)return;
+    const guardKey='nuclear-brief-rollover-'+currentKstDate;
+    if(sessionStorage.getItem(guardKey)==='1'){{
+      loadedKstDate=currentKstDate;
+      return;
+    }}
+    sessionStorage.setItem(guardKey,'1');
+    window.location.reload();
+  }}, 60000);
+}})();
+
+
+/* 2026-08-26 GLOBAL FLOATING BACK-TO-TOP BUTTON */
+(function initGlobalBackToTop(){{
+  function ensureButton(){{
+    let btn=document.getElementById('global-back-to-top');
+    if(btn)return btn;
+    btn=document.createElement('button');
+    btn.id='global-back-to-top';
+    btn.type='button';
+    btn.setAttribute('aria-label','맨 위로 이동');
+    btn.innerHTML='<span aria-hidden="true">↑</span><span>맨 위로</span>';
+    document.body.appendChild(btn);
+    btn.addEventListener('click',()=>{{
+      window.scrollTo({{top:0,behavior:'smooth'}});
+    }});
+    return btn;
+  }}
+
+  function update(){{
+    const btn=ensureButton();
+    const y=window.scrollY || document.documentElement.scrollTop || 0;
+    btn.classList.toggle('is-visible', y > 700);
+  }}
+
+  if(document.readyState==='loading'){{
+    document.addEventListener('DOMContentLoaded',()=>{{ ensureButton(); update(); }},{{once:true}});
+  }}else{{
+    ensureButton();
+    update();
+  }}
+  window.addEventListener('scroll',update,{{passive:true}});
+  window.addEventListener('resize',update,{{passive:true}});
+}})();
+
 </script>
 </body>
 </html>
@@ -24105,7 +24522,11 @@ def main() -> int:
                 and not (article.group == "한국전력" and is_low_value_kepco_local_incident(article.title, article.description))
                 and start <= article.published < end
             ):
-                if article.group == "Holtec" and not is_valid_holtec_article(article.title, article.description):
+                if (
+                    article.group == "Holtec"
+                    and article.publisher != "Holtec International"
+                    and not is_valid_holtec_article(article.title, article.description)
+                ):
                     continue
                 merged_items.append(article)
 
