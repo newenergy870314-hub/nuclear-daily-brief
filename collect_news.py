@@ -19708,7 +19708,7 @@ main {{
 
 
 
-/* 2026-08-25 OLD WORKING MAP VISIBILITY RESTORE — no redesign */
+/* 2026-08-25 FINAL COUNTRY LABEL LAYER VISIBILITY OVERRIDE */
 #country-map-label-layer.country-map-label-layer {{
   display:block !important;
   visibility:visible !important;
@@ -19716,59 +19716,70 @@ main {{
   pointer-events:none !important;
   z-index:80 !important;
 }}
-#continent-rail {{
-  display:flex !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  z-index:90 !important;
-}}
-.precise-country-label {{
+#country-map-label-layer .precise-country-label {{
   display:inline-flex !important;
   visibility:visible !important;
   opacity:1 !important;
   pointer-events:auto !important;
+  position:absolute !important;
 }}
 
-/* 2026-08-25 CONTINENT TABS INSIDE MAP CARD — final containment fix */
-.country-map-visual {{
-  overflow:hidden !important;
-}}
+
+/* ============================================================
+   2026-08-25 MAP CONTINENT RAIL — INSIDE CARD WITHOUT CLIPPING
+   Keep the previously working JS runtime intact.
+   ============================================================ */
 #continent-rail {{
-  left:10px !important;
-  right:10px !important;
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:absolute !important;
+  bottom:8px !important;
+  left:8px !important;
+  right:8px !important;
   width:auto !important;
-  max-width:calc(100% - 20px) !important;
-  box-sizing:border-box !important;
+  max-width:calc(100% - 16px) !important;
   margin:0 !important;
-  padding-left:4px !important;
-  padding-right:4px !important;
+  transform:none !important;
+  box-sizing:border-box !important;
+  z-index:90 !important;
 }}
 .continent-rail-scroll {{
   width:100% !important;
   max-width:100% !important;
   min-width:0 !important;
   box-sizing:border-box !important;
-  overflow:hidden !important;
+  overflow:visible !important;
 }}
-.continent-button {{
-  min-width:0 !important;
-  max-width:100% !important;
-  box-sizing:border-box !important;
+.country-map-visual.globe-mode {{
+  position:relative !important;
+  /* do NOT use overflow:hidden here: it clipped the working continent rail */
+  overflow:visible !important;
 }}
-@media (max-width:430px) {{
+@media (max-width:767px) {{
   #continent-rail {{
-    left:8px !important;
-    right:8px !important;
-    max-width:calc(100% - 16px) !important;
-    padding-left:3px !important;
-    padding-right:3px !important;
-  }}
-}}
-@media (max-width:380px) {{
-  #continent-rail {{
+    bottom:7px !important;
     left:7px !important;
     right:7px !important;
     max-width:calc(100% - 14px) !important;
+  }}
+}}
+@media (min-width:768px) and (max-width:1199px) {{
+  #continent-rail {{
+    bottom:8px !important;
+    left:10px !important;
+    right:10px !important;
+    max-width:calc(100% - 20px) !important;
+    transform:none !important;
+  }}
+}}
+@media (min-width:1200px) {{
+  #continent-rail {{
+    bottom:8px !important;
+    left:16px !important;
+    right:16px !important;
+    max-width:calc(100% - 32px) !important;
+    transform:none !important;
   }}
 }}
 </style>
@@ -24845,16 +24856,11 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
 }}
 
 
-function renderHtmlCountryLabels(items){{
-  const visual = document.querySelector('.country-map-visual.globe-mode');
-  const svg = document.querySelector('.world-map-inline.globe-texture-source');
-  const layer = document.getElementById('country-map-label-layer');
-  if(!visual || !svg || !layer) return;
-  layer.innerHTML='';
-
-  /* ============================================================
-     2026-08-25 MAP COUNTRY LABELS RESTORED FROM WORKING 2026-08-22 BUILD
-     ============================================================ */
+/* ============================================================
+   2026-08-25 MAP COUNTRY LABELS ACTUAL RUNTIME FIX
+   - Restored renderer must be GLOBAL, not nested inside an older renderer.
+   - HTML label layer is re-enabled after old native-SVG retirement CSS.
+   ============================================================ */
 function maybeInitializeContinentFilter(items){{
   if(activeContinentFilter && activeContinentFilter!=='ALL')return;
   const {{articleCounts}}=getContinentCounts(items);
@@ -25143,415 +25149,6 @@ document.addEventListener("keydown",event=>{{
 
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopImportantDrawer,{{once:true}});else initDesktopImportantDrawer();
 window.addEventListener("resize",initDesktopImportantDrawer);
-
-
-/* ============================================================
-   2026-08-25 RESTORE EXACT PREVIOUSLY WORKING MAP RUNTIME
-   Source: collect_news_FINAL_KR_JP_ACTUAL_MAP_NEARBY_20260822.py
-   No redesign: restore prior continent tabs + country flag/name/count map behavior.
-   ============================================================ */
-/* ============================================================
-   2026-08-21 FINAL OVERRIDE — MEA EASTWARD HIGHLIGHT + NEAR COUNTRY LABELS
-   ============================================================ */
-function getContinentNativeRegion(code){{
-  const regions = {{
-    NA:{{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' }},
-    SA:{{ points:'248,190 316,188 370,214 404,262 414,318 406,374 388,430 358,486 318,496 288,460 272,412 262,358 256,304 250,248' }},
-    EU:{{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' }},
-    AS:{{ points:'620,46 660,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 704,238 686,246 670,270 662,302 650,322 640,300 636,270 634,236 634,198 632,156 628,112 624,78' }},
-    /* 중동·아프리카는 아라비아반도 쪽으로 더 넓게 잡아 중동이 빠지지 않게 조정 */
-    MEA:{{ points:'386,144 468,146 550,164 618,196 670,236 712,286 728,346 716,410 680,462 626,494 558,496 500,484 458,454 426,408 406,352 392,292 384,230' }},
-    OC:{{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }}
-  }};
-  return regions[code] || null;
-}}
-
-const FINAL_COUNTRY_LABEL_PRESETS = {{
-  US:[[18,-10],[20,8],[28,-24]],
-  CA:[[26,-16],[30,0],[22,14]],
-  BR:[[-26,10],[-32,-8],[-18,26]],
-  AR:[[18,14],[20,-6]],
-  CL:[[22,0],[24,16]],
-  CO:[[22,-8],[24,10]],
-  PE:[[20,10],[22,-6]],
-  GB:[[-34,-12],[-30,6],[-42,-24]],
-  FR:[[20,12],[22,-6],[-28,10]],
-  NL:[[24,-14],[26,2]],
-  BE:[[-30,8],[-28,-6]],
-  CH:[[24,12],[26,-4]],
-  SE:[[18,-18],[22,0]],
-  FI:[[22,-20],[24,-4]],
-  PL:[[24,-10],[26,8]],
-  CZ:[[30,-10],[30,8]],
-  SI:[[28,10],[28,-6]],
-  RO:[[24,-8],[26,8]],
-  BG:[[-34,6],[-34,-10]],
-  UA:[[32,-4],[34,10]],
-  TR:[[30,12],[30,-4]],
-  DK:[[20,-16],[26,-4]],
-  SK:[[30,10],[30,-6]],
-  RU:[[-8,-34],[18,-32],[30,-26],[-24,-24]],
-  AE:[[34,-4],[36,12],[28,22]],
-  SA:[[30,18],[34,0],[24,32]],
-  ZA:[[0,-26],[24,-8],[-24,-8]],
-  CN:[[0,4],[8,8],[-8,10],[0,16]],
-  IN:[[-42,18],[-46,34],[-32,2]],
-  VN:[[40,16],[38,30],[30,4]],
-  TH:[[32,18],[30,32],[26,4]],
-  MY:[[26,18],[30,4]],
-  SG:[[30,14],[34,0]],
-  KR:[[6,-2],[8,8],[-6,-2],[-8,8]],
-  JP:[[8,-4],[10,6],[-8,-4],[-10,8]],
-  AU:[[34,-4],[30,14]],
-}};
-
-const FINAL_CONTINENT_RENDER_ORDER = {{
-  EU:['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','DK','SK'],
-  AS:['RU','KR','JP','CN','IN','VN','TH','MY','SG'],
-  MEA:['AE','SA','ZA'],
-  NA:['US','CA'],
-  SA:['BR','AR','CL','CO','PE'],
-  OC:['AU']
-}};
-
-function finalSortCountriesForMap(countries, continent){{
-  const pref = FINAL_CONTINENT_RENDER_ORDER[continent] || [];
-  return [...countries].sort((a,b)=>{{
-    const ai = pref.indexOf(a.code);
-    const bi = pref.indexOf(b.code);
-    const ap = ai < 0 ? 999 : ai;
-    const bp = bi < 0 ? 999 : bi;
-    return ap - bp || b.count - a.count || a.name.localeCompare(b.name,'ko');
-  }});
-}}
-
-function finalBoxIntersectsAnchor(box, anchors, selfCode){{
-  for(const pt of anchors){{
-    if(pt.code===selfCode) continue;
-    const pad = 6;
-    if(pt.x >= box.left-pad && pt.x <= box.right+pad && pt.y >= box.top-pad && pt.y <= box.bottom+pad){{
-      return true;
-    }}
-  }}
-  return false;
-}}
-
-function finalBuildBox(ax,ay,w,h,bounds,dx,dy){{
-  let left = ax + dx - w/2;
-  let top = ay + dy - h/2;
-  left = Math.max(bounds.left, Math.min(bounds.right - w, left));
-  top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
-  return {{ left, top, right:left+w, bottom:top+h, w, h }};
-}}
-
-function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
-  const presets = FINAL_COUNTRY_LABEL_PRESETS[itemCode] || [];
-  let best = null;
-
-  const consider = (box) => {{
-    const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 8);
-    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
-    const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
-    const dist = Math.hypot((box.left + w/2)-ax, (box.top + h/2)-ay);
-    const edgePenalty = (
-      box.left <= bounds.left+1 || box.top <= bounds.top+1 ||
-      box.right >= bounds.right-1 || box.bottom >= bounds.bottom-1
-    ) ? 10 : 0;
-    const score = collisions*1000000 + anchorHit*30000 + dist + edgePenalty;
-    if(!best || score < best.score) best = {{ ...box, score, collisions, anchorHit }};
-    return collisions===0 && anchorHit===0;
-  }};
-
-  for(const [dx,dy] of presets){{
-    for(const [nx,ny] of [[0,0],[0,-4],[0,4],[-4,0],[4,0],[-8,0],[8,0]]){{
-      const box = finalBuildBox(ax,ay,w,h,bounds,dx+nx,dy+ny);
-      if(consider(box)) return box;
-    }}
-  }}
-
-  const angles = [0,-20,20,-45,45,-70,70,180,-140,140,-110,110];
-  const radii = [18,26,34,44,56,70,86,104,124];
-  for(const r of radii){{
-    for(const deg of angles){{
-      const rad = deg * Math.PI / 180;
-      const dx = Math.cos(rad) * r;
-      const dy = Math.sin(rad) * r;
-      const box = finalBuildBox(ax,ay,w,h,bounds,dx,dy);
-      if(consider(box)) return box;
-    }}
-  }}
-
-  /* 마지막 안전장치:
-     국가 버튼끼리 절대 겹치지 않도록 지도 내부를 촘촘히 탐색합니다.
-     가까운 위치를 우선하되, collision=0인 위치만 선택합니다. */
-  const scanCandidates = [];
-  const stepX = 8;
-  const stepY = Math.max(10, h + 5);
-  for(let top=bounds.top; top<=bounds.bottom-h; top+=stepY){{
-    for(let left=bounds.left; left<=bounds.right-w; left+=stepX){{
-      const box={{left,top,right:left+w,bottom:top+h,w,h}};
-      const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 9);
-      const collisions = occupied.reduce(
-        (n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0
-      );
-      if(collisions>0) continue;
-      if(finalBoxIntersectsAnchor(box, anchors, itemCode)) continue;
-      const cx=left+w/2, cy=top+h/2;
-      const dist=Math.hypot(cx-ax,cy-ay);
-      scanCandidates.push({{...box,dist}});
-    }}
-  }}
-  if(scanCandidates.length){{
-    scanCandidates.sort((a,b)=>a.dist-b.dist);
-    return scanCandidates[0];
-  }}
-
-  /* 공간이 정말 부족한 극단적 경우에만 기존 best를 사용 */
-  return best || finalBuildBox(ax,ay,w,h,bounds,0,0);
-}}
-
-function finalAddConnector(layer, ax, ay, box){{
-  const cx = Math.max(box.left, Math.min(ax, box.right));
-  const cy = Math.max(box.top, Math.min(ay, box.bottom));
-  const dx = cx - ax;
-  const dy = cy - ay;
-  const len = Math.hypot(dx, dy);
-  if(len < 12) return;
-  const line = document.createElement('span');
-  line.className = 'precise-country-connector';
-  line.style.left = `${{ax}}px`;
-  line.style.top = `${{ay}}px`;
-  line.style.width = `${{Math.max(0, len - 3)}}px`;
-  line.style.transform = `rotate(${{Math.atan2(dy,dx)*180/Math.PI}}deg)`;
-  line.style.opacity = '0.65';
-  layer.appendChild(line);
-}}
-
-
-function finalRectsOverlap(a,b,pad=4){{
-  return !(
-    a.right + pad <= b.left ||
-    a.left >= b.right + pad ||
-    a.bottom + pad <= b.top ||
-    a.top >= b.bottom + pad
-  );
-}}
-
-
-
-function finalResolveRenderedCountryOverlaps(layer,bounds){{
-  const labels = [...layer.querySelectorAll('.precise-country-label[data-country-code]')];
-  if(labels.length < 2) return;
-
-  const layerRect = layer.getBoundingClientRect();
-  const localRect = (el) => {{
-    const r = el.getBoundingClientRect();
-    return {{
-      left:r.left-layerRect.left,
-      top:r.top-layerRect.top,
-      right:r.right-layerRect.left,
-      bottom:r.bottom-layerRect.top,
-      width:r.width,
-      height:r.height
-    }};
-  }};
-
-  const anchorFor = (el) => {{
-    const code = el.dataset.countryCode;
-    const item = collect2DCountryItems().find(v=>v.code===code);
-    if(!item) return null;
-    const visual=document.querySelector('.country-map-visual.globe-mode');
-    const svg=document.querySelector('.world-map-inline.globe-texture-source');
-    if(!visual||!svg) return null;
-
-    const vp=getExactMapViewport(svg,visual);
-    const p=getCountryMapAnchor(item);
-    const visualRect=visual.getBoundingClientRect();
-
-    /* getExactMapViewport()는 visual 기준 좌표이고,
-       label rect는 layer 기준 좌표이므로 같은 좌표계로 변환 */
-    const screenX=visualRect.left + vp.left + (p.x/100)*vp.width;
-    const screenY=visualRect.top + vp.top + (p.y/100)*vp.height;
-
-    return {{
-      x:screenX-layerRect.left,
-      y:screenY-layerRect.top
-    }};
-  }};
-
-  /* 기사 수/국가 순서는 기존 렌더 순서를 존중.
-     각 버튼은 자기 나라 근처에 두되, 실제 DOM 기준으로 겹치면
-     가까운 빈자리로만 미세 이동합니다. */
-  const placed = [];
-  labels.forEach((el,index)=>{{
-    let box = localRect(el);
-    const anchor = anchorFor(el);
-    if(!anchor){{
-      placed.push(box);
-      return;
-    }}
-
-    const overlapsPlaced = (candidate,pad=6) =>
-      placed.some(r=>finalRectsOverlap(candidate,r,pad));
-
-    if(!overlapsPlaced(box,6)){{
-      placed.push(box);
-      return;
-    }}
-
-    const startLeft = parseFloat(el.style.left) || box.left;
-    const startTop = parseFloat(el.style.top) || box.top;
-
-    const candidates = [];
-    const radii = [6,10,14,18,24,30,36];
-    const dirs = [
-      [1,0],[-1,0],[0,-1],[0,1],
-      [1,-1],[1,1],[-1,-1],[-1,1]
-    ];
-
-    for(const r of radii){{
-      for(const [dx,dy] of dirs){{
-        let left = startLeft + dx*r;
-        let top = startTop + dy*r;
-        left = Math.max(bounds.left, Math.min(bounds.right-box.width,left));
-        top = Math.max(bounds.top, Math.min(bounds.bottom-box.height,top));
-        const candidate = {{
-          left,top,
-          right:left+box.width,
-          bottom:top+box.height,
-          width:box.width,
-          height:box.height
-        }};
-        if(overlapsPlaced(candidate,6)) continue;
-        const cx=left+box.width/2;
-        const cy=top+box.height/2;
-        const distance=Math.hypot(cx-anchor.x,cy-anchor.y);
-
-        /* 국가 버튼은 자기 나라 주변에만 유지.
-           한국/일본은 특히 동아시아 실제 위치에서 멀리 이동 금지. */
-        const maxDistance = (el.dataset.countryCode==='KR' || el.dataset.countryCode==='JP')
-          ? 52
-          : 72;
-        if(distance > maxDistance) continue;
-
-        candidates.push({{...candidate,distance}});
-      }}
-    }}
-
-    if(candidates.length){{
-      candidates.sort((a,b)=>a.distance-b.distance);
-      const best=candidates[0];
-      el.style.left=`${{best.left}}px`;
-      el.style.top=`${{best.top}}px`;
-      box=best;
-    }}
-    /* 가까운 빈자리가 없으면 원래의 국가 주변 위치를 유지 */
-    placed.push(box);
-  }});
-}}
-
-
-function renderHtmlCountryLabels(items){{
-  const visual = document.querySelector('.country-map-visual.globe-mode');
-  const svg = document.querySelector('.world-map-inline.globe-texture-source');
-  const layer = document.getElementById('country-map-label-layer');
-  if(!visual || !svg || !layer) return;
-  layer.innerHTML='';
-  if(activeContinentFilter==='ALL') return;
-
-  const baseCountries = items
-    .filter(v => v.continent===activeContinentFilter && v.count>0);
-  if(!baseCountries.length) return;
-
-  const countries = finalSortCountriesForMap(baseCountries, activeContinentFilter);
-  const vp = getExactMapViewport(svg, visual);
-  const dock = document.getElementById('continent-rail');
-  const vr = visual.getBoundingClientRect();
-  const dr = dock?.getBoundingClientRect();
-  const dockTop = dr ? dr.top-vr.top : visual.clientHeight-42;
-  const bounds = {{
-    left: Math.max(12, vp.left + 6),
-    top: Math.max(10, vp.top + 6),
-    right: Math.min(vp.left + vp.width - 6, visual.clientWidth - 10),
-    bottom: Math.min(dockTop - 10, vp.top + vp.height - 6)
-  }};
-
-  const anchors = countries.map(item=>{{
-    const p = getCountryMapAnchor(item);
-    return {{
-      code:item.code,
-      x: vp.left + (p.x/100)*vp.width,
-      y: vp.top + (p.y/100)*vp.height
-    }};
-  }});
-
-  const occupied = [];
-  for(const item of countries){{
-    const anchor = anchors.find(v=>v.code===item.code);
-    if(!anchor) continue;
-    const ax = anchor.x;
-    const ay = anchor.y;
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'precise-country-label' + (activeCountryFilter===item.code ? ' active' : '');
-    btn.dataset.countryCode = item.code;
-    btn.style.visibility='hidden';
-    btn.innerHTML = `<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
-    btn.setAttribute('aria-label', `${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
-    layer.appendChild(btn);
-
-    const w = Math.ceil(btn.getBoundingClientRect().width || 72);
-    const h = Math.ceil(btn.getBoundingClientRect().height || 24);
-    const box = finalChooseLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors);
-    occupied.push(box);
-
-    btn.style.left = `${{box.left}}px`;
-    btn.style.top = `${{box.top}}px`;
-    btn.style.visibility = 'visible';
-    btn.style.zIndex = '5';
-    btn.addEventListener('click', (event)=>{{
-      event.preventDefault();
-      event.stopPropagation();
-      setCountryFilter(item.code);
-    }});
-
-    finalAddConnector(layer, ax, ay, box);
-
-    const dot = document.createElement('span');
-    dot.className = 'precise-country-dot' + (activeCountryFilter===item.code ? ' active' : '');
-    dot.style.left = `${{ax}}px`;
-    dot.style.top = `${{ay}}px`;
-    dot.style.width = '9px';
-    dot.style.height = '9px';
-    dot.style.marginLeft = '-4.5px';
-    dot.style.marginTop = '-4.5px';
-    dot.style.zIndex = '6';
-    layer.appendChild(dot);
-  }}
-
-  /* 실제 DOM 렌더링 후 한국/일본이 겹치는지 다시 확인하고, 겹칠 때만 미세 이동 */
-  requestAnimationFrame(() => requestAnimationFrame(() => finalResolveRenderedCountryOverlaps(layer,bounds)));
-}}
-
-function layoutAndRenderCountryMap(){{
-  const items = collect2DCountryItems();
-  if(!items.length) return;
-  if(!activeContinentFilter) activeContinentFilter='ALL';
-  renderContinentRail2D(items);
-  renderSelectedContinentHighlight();
-  ensureMapStateChip(items);
-  renderHtmlCountryLabels(items);
-  const ranking = document.getElementById('continent-country-ranking');
-  if(ranking){{ ranking.hidden=true; ranking.innerHTML=''; }}
-  const caption = document.querySelector('.country-map-caption');
-  if(caption) caption.style.display='none';
-  const note = document.getElementById('country-filter-note');
-  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
-}}
-requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
-window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
-window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
 
 </script>
 </body>
