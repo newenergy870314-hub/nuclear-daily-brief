@@ -9959,6 +9959,103 @@ main {
   #continent-rail .continent-button-count { font-size:5.45px !important; }
   .precise-country-label,.clean-map-country-label { font-size:7px !important; padding:2px 4px !important; }
 }
+
+/* HARD FINAL MOBILE CONTINENT TABS — 2026-08-25 */
+@media (max-width: 767px) {
+  .country-map-visual.globe-mode {
+    position:relative !important;
+    min-height:300px !important;
+    height:300px !important;
+    overflow:hidden !important;
+  }
+  #continent-rail {
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:absolute !important;
+    left:8px !important;
+    right:8px !important;
+    top:auto !important;
+    bottom:8px !important;
+    width:auto !important;
+    height:auto !important;
+    min-height:0 !important;
+    padding:6px !important;
+    gap:5px !important;
+    flex-direction:column !important;
+    z-index:50 !important;
+    border:1px solid rgba(160,187,207,.35) !important;
+    border-radius:12px !important;
+    background:rgba(255,255,255,.96) !important;
+    box-shadow:0 3px 10px rgba(17,24,39,.10) !important;
+  }
+  #continent-rail .continent-rail-head {
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    min-height:24px !important;
+    padding:0 2px !important;
+    border:0 !important;
+  }
+  #continent-rail .continent-rail-scroll {
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:5px !important;
+    overflow:visible !important;
+    padding:0 !important;
+  }
+  #continent-rail .continent-button {
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-width:0 !important;
+    min-height:31px !important;
+    height:31px !important;
+    padding:4px 5px !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:3px !important;
+    border:1px solid rgba(170,193,210,.55) !important;
+    border-radius:9px !important;
+    background:#fff !important;
+    color:#244865 !important;
+    font-size:9px !important;
+  }
+  #continent-rail .continent-button.active {
+    background:#eef8ff !important;
+    border-color:#76b7dd !important;
+  }
+  #continent-rail .continent-button-name {
+    display:block !important;
+    font-size:9px !important;
+    font-weight:900 !important;
+    line-height:1.05 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+  #continent-rail .continent-button-count {
+    display:block !important;
+    flex:0 0 auto !important;
+    font-size:8px !important;
+    font-weight:900 !important;
+    color:#1e88c9 !important;
+  }
+  #continent-rail .continent-all-button {
+    display:inline-flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    height:23px !important;
+    min-height:23px !important;
+    padding:0 8px !important;
+    border-radius:999px !important;
+  }
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {
+    bottom:112px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -9967,7 +10064,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.25(화) 14:05 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.25(화) 14:20 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -10013,6 +10110,20 @@ main {
 
     <div class="country-map-content">
       <div class="country-map-visual globe-mode" aria-label="대륙별 국가 기사 2D 세계지도">
+      <div id="continent-rail" class="continent-rail-static" aria-label="대륙 선택">
+        <div class="continent-rail-head">
+          <span class="continent-rail-title">대륙별</span>
+          <button type="button" class="continent-all-button active" data-continent="ALL">전체</button>
+        </div>
+        <div class="continent-rail-scroll">
+          <button type="button" class="continent-button" data-continent="NA"><span class="continent-button-name">북미</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="SA"><span class="continent-button-name">남미</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="EU"><span class="continent-button-name">유럽</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="AS"><span class="continent-button-name">아시아</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="MEA"><span class="continent-button-name">중동·아프리카</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="OC"><span class="continent-button-name">오세아니아</span><span class="continent-button-count">0건</span></button>
+        </div>
+      </div>
       <div id="globe-stage" class="globe-stage" aria-label="대륙 선택형 2D 세계지도">
         <div id="globe-sphere" class="globe-sphere">
           <canvas id="globe-canvas" class="globe-canvas" width="420" height="420" aria-hidden="true"></canvas>
@@ -30411,7 +30522,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/stock/12135428"
   data-title="특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 5.34% ↑ - 매일경제"
   data-publisher="매일경제"
@@ -30435,7 +30546,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 5.34% ↑ - 매일경제</div>
+      <div class="headline">특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 5.34% ↑ - 매일경제</div>
       <div class="article-snippet">25일 원자력발전소 해체 테마가 전일 대비 4.63% 상승하면서 강세를 보이는 가운데 관련주로 주목받고 있는 두산에너빌리티(034020)가 전일 대비 5.34% 상승하며 급등하고 있다. 두산에너빌리티는 대표적인 원자력, 풍력 등 발전설비업체로 알려져 있다.◆원자력발전소 해체 테마 오름세로 반전 +4.63% 최근 5일 외인/기관 -1371.42억원 순매도원자..</div>
     </div>
   </div>
@@ -30510,7 +30621,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308996"
   data-title="GS건설, 세계적 건축가 카를로 라티와 &#x27;기후위기 아파트&#x27; 만든다 - FETV"
   data-publisher="FETV"
@@ -30534,7 +30645,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 세계적 건축가 카를로 라티와 &#x27;기후위기 아파트&#x27; 만든다 - FETV</div>
+      <div class="headline">GS건설, 세계적 건축가 카를로 라티와 &#x27;기후위기 아파트&#x27; 만든다 - FETV</div>
       <div class="article-snippet">[FETV=임요한 기자] GS건설이 기후위기에 견디는 주택을 만들기 위해 해외 설계 조직과 손을 잡았다.GS건설은 이탈리아 건축·혁신 디자인 그룹 카를로 라티 사</div>
     </div>
   </div>
@@ -31347,7 +31458,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.lefigaro.fr/bd/blake-et-mortimer-la-science-chez-jacobs-pour-le-meilleur-et-pour-le-pire-20260825"
   data-title="Blake et Mortimer : la science chez Jacobs, pour le meilleur et pour le pire"
   data-publisher="Le Figaro"
@@ -31371,7 +31482,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Blake et Mortimer : la science chez Jacobs, pour le meilleur et pour le pire</div>
+      <div class="headline">Blake et Mortimer : la science chez Jacobs, pour le meilleur et pour le pire</div>
       <div class="article-snippet">Dès Le Secret de l’Espadon, le créateur de Blake et Mortimer imagine des inventions futuristes d’une précision et d’un réalisme stupéfiants, tout en s’interrogeant sur les dérives potentielles du progrès après l’horreur atomique d’Hiroshima.</div>
     </div>
   </div>
@@ -32053,7 +32164,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787633166"
+  data-published="1787635347"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -32383,7 +32494,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787634547"
+  data-published="1787635344"
   data-country="GB"
   data-search="bbc audio | global news podcast | britain hands over long-range missile blueprints to ukraine bbc news nuclear power·nuclear energy british prime minister on a visit to kyiv promises to step up support for ukraine"
   tabindex="0" role="link">
@@ -32544,7 +32655,7 @@ main {
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.munhwa.com/article/11611866"
   data-title="웨스팅하우스 지분 인수 카드와 원전동맹 실질화 방안[사설]"
   data-publisher="문화일보"
@@ -32568,7 +32679,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>웨스팅하우스 지분 인수 카드와 원전동맹 실질화 방안[사설]</div>
+      <div class="headline">웨스팅하우스 지분 인수 카드와 원전동맹 실질화 방안[사설]</div>
       <div class="article-snippet">미국 정부가 캐나다 사모펀드 소유의 원전기업인 웨스팅하우스의 지분 공동 인수 방안을 제시해 정부와 한전 등이 검토 중이라고 한다. 투자 규모 등을 논의하는 단계는 아니지만, 대미 투자 2000억 달러의 일부를 투입하는 안도 논의되는 것으로 알려졌다. 산업통상부는 미측의</div>
     </div>
   </div>
@@ -32914,7 +33025,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/stock/12135428"
   data-title="특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 5.34% ↑ - 매일경제"
   data-publisher="매일경제"
@@ -32938,7 +33049,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 5.34% ↑ - 매일경제</div>
+      <div class="headline">특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 5.34% ↑ - 매일경제</div>
       <div class="article-snippet">25일 원자력발전소 해체 테마가 전일 대비 4.63% 상승하면서 강세를 보이는 가운데 관련주로 주목받고 있는 두산에너빌리티(034020)가 전일 대비 5.34% 상승하며 급등하고 있다. 두산에너빌리티는 대표적인 원자력, 풍력 등 발전설비업체로 알려져 있다.◆원자력발전소 해체 테마 오름세로 반전 +4.63% 최근 5일 외인/기관 -1371.42억원 순매도원자..</div>
     </div>
   </div>
@@ -33508,7 +33619,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308996"
   data-title="GS건설, 세계적 건축가 카를로 라티와 &#x27;기후위기 아파트&#x27; 만든다 - FETV"
   data-publisher="FETV"
@@ -33532,7 +33643,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 세계적 건축가 카를로 라티와 &#x27;기후위기 아파트&#x27; 만든다 - FETV</div>
+      <div class="headline">GS건설, 세계적 건축가 카를로 라티와 &#x27;기후위기 아파트&#x27; 만든다 - FETV</div>
       <div class="article-snippet">[FETV=임요한 기자] GS건설이 기후위기에 견디는 주택을 만들기 위해 해외 설계 조직과 손을 잡았다.GS건설은 이탈리아 건축·혁신 디자인 그룹 카를로 라티 사</div>
     </div>
   </div>
@@ -34708,7 +34819,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.lefigaro.fr/bd/blake-et-mortimer-la-science-chez-jacobs-pour-le-meilleur-et-pour-le-pire-20260825"
   data-title="Blake et Mortimer : la science chez Jacobs, pour le meilleur et pour le pire"
   data-publisher="Le Figaro"
@@ -34732,7 +34843,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Blake et Mortimer : la science chez Jacobs, pour le meilleur et pour le pire</div>
+      <div class="headline">Blake et Mortimer : la science chez Jacobs, pour le meilleur et pour le pire</div>
       <div class="article-snippet">Dès Le Secret de l’Espadon, le créateur de Blake et Mortimer imagine des inventions futuristes d’une précision et d’un réalisme stupéfiants, tout en s’interrogeant sur les dérives potentielles du progrès après l’horreur atomique d’Hiroshima.</div>
     </div>
   </div>
@@ -35513,7 +35624,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787633166"
+  data-published="1787635347"
   data-country="OTHER"
   data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
   tabindex="0" role="link">
@@ -35843,7 +35954,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787634547"
+  data-published="1787635344"
   data-country="GB"
   data-search="bbc audio | global news podcast | britain hands over long-range missile blueprints to ukraine bbc news nuclear power·nuclear energy british prime minister on a visit to kyiv promises to step up support for ukraine"
   tabindex="0" role="link">
@@ -36004,7 +36115,7 @@ main {
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.munhwa.com/article/11611866"
   data-title="웨스팅하우스 지분 인수 카드와 원전동맹 실질화 방안[사설]"
   data-publisher="문화일보"
@@ -36028,7 +36139,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>웨스팅하우스 지분 인수 카드와 원전동맹 실질화 방안[사설]</div>
+      <div class="headline">웨스팅하우스 지분 인수 카드와 원전동맹 실질화 방안[사설]</div>
       <div class="article-snippet">미국 정부가 캐나다 사모펀드 소유의 원전기업인 웨스팅하우스의 지분 공동 인수 방안을 제시해 정부와 한전 등이 검토 중이라고 한다. 투자 규모 등을 논의하는 단계는 아니지만, 대미 투자 2000억 달러의 일부를 투입하는 안도 논의되는 것으로 알려졌다. 산업통상부는 미측의</div>
     </div>
   </div>
@@ -166558,7 +166669,7 @@ function getCountryContinent(code){
 }
 
 function ensure2DContinentRail(){
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   if(!visual)return null;
   visual.classList.add('two-d-mode');
   let rail=document.getElementById('continent-rail');
@@ -166625,7 +166736,7 @@ function renderContinentRail2D(items){
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const { articleCounts, countryCounts } = getContinentCounts(items);
-  const order=['NA','EU','AS','MEA','OC'];
+  const order=['NA','SA','EU','AS','MEA','OC'];
   const activeMeta = CONTINENT_META[activeContinentFilter] || CONTINENT_META.ALL;
   rail.innerHTML = `
     <div class="continent-rail-head">
@@ -166894,7 +167005,7 @@ function renderContinentRail2D(items){
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const {articleCounts}=getContinentCounts(items);
-  const order=['NA','EU','AS','MEA','OC'];
+  const order=['NA','SA','EU','AS','MEA','OC'];
   rail.innerHTML=`
     <div class="continent-rail-head">
       <span class="continent-rail-title">대륙별</span>
@@ -166965,7 +167076,7 @@ function computeCleanLabelPositions(items, viewport){
 }
 
 function renderHtmlCountryLabels(items){
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -167081,7 +167192,7 @@ function renderContinentRail2D(items){
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const {articleCounts}=getContinentCounts(items);
-  const order=['NA','EU','AS','MEA','OC'];
+  const order=['NA','SA','EU','AS','MEA','OC'];
   const selected=activeContinentFilter!=='ALL';
   rail.innerHTML=`
     <div class="continent-rail-head">
@@ -167248,7 +167359,7 @@ function addPreciseConnector(layer,ax,ay,box){
 }
 
 function renderHtmlCountryLabels(items){
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -167343,7 +167454,7 @@ function getCountryMapAnchor(item){
 const FINAL_CONTINENT_DOCK_ORDER = ['NA','SA','EU','AS','MEA','OC'];
 
 function ensureMapStateChip(items){
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   if(!visual)return;
   let chip=document.getElementById('map-continent-state');
   if(!chip){
@@ -167370,7 +167481,7 @@ function ensureMapStateChip(items){
 }
 
 function renderContinentRail2D(items){
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   if(!visual)return;
   let rail=document.getElementById('continent-rail');
   if(!rail){rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}
@@ -167477,7 +167588,7 @@ function addExactConnector(layer,ax,ay,box){
 }
 
 function renderHtmlCountryLabels(items){
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -168885,7 +168996,7 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){
     const code = el.dataset.countryCode;
     const item = collect2DCountryItems().find(v=>v.code===code);
     if(!item) return null;
-    const visual=document.querySelector('.country-map-visual.globe-mode');
+    const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
     const svg=document.querySelector('.world-map-inline.globe-texture-source');
     if(!visual||!svg) return null;
 
@@ -169112,7 +169223,7 @@ function collect2DCountryItems(){
 
 function layoutAndRenderCountryMap(){
   const items=collect2DCountryItems();
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   if(!visual) return;
   if(!activeContinentFilter) activeContinentFilter='ALL';
   renderContinentRail2D(items);
