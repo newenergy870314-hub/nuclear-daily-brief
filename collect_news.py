@@ -19706,6 +19706,23 @@ main {{
   .desktop-back-to-top {{ right:24px !important; bottom:24px !important; }}
 }}
 
+
+
+/* 2026-08-25 FINAL COUNTRY LABEL LAYER VISIBILITY OVERRIDE */
+#country-map-label-layer.country-map-label-layer {{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:none !important;
+  z-index:80 !important;
+}}
+#country-map-label-layer .precise-country-label {{
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  position:absolute !important;
+}}
 </style>
 </head>
 <body>
@@ -24780,16 +24797,11 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
 }}
 
 
-function renderHtmlCountryLabels(items){{
-  const visual = document.querySelector('.country-map-visual.globe-mode');
-  const svg = document.querySelector('.world-map-inline.globe-texture-source');
-  const layer = document.getElementById('country-map-label-layer');
-  if(!visual || !svg || !layer) return;
-  layer.innerHTML='';
-
-  /* ============================================================
-     2026-08-25 MAP COUNTRY LABELS RESTORED FROM WORKING 2026-08-22 BUILD
-     ============================================================ */
+/* ============================================================
+   2026-08-25 MAP COUNTRY LABELS ACTUAL RUNTIME FIX
+   - Restored renderer must be GLOBAL, not nested inside an older renderer.
+   - HTML label layer is re-enabled after old native-SVG retirement CSS.
+   ============================================================ */
 function maybeInitializeContinentFilter(items){{
   if(activeContinentFilter && activeContinentFilter!=='ALL')return;
   const {{articleCounts}}=getContinentCounts(items);
