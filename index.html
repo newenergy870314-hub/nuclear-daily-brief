@@ -10370,6 +10370,175 @@ main {
   .precise-country-label.map-label-hard-fix .name,
   .precise-country-label.map-label-hard-fix .count { font-size:10.5px !important; }
 }
+
+/* ============================================================
+   2026-08-25 PC HEADER + IMPORTANT UX REFINEMENT
+   - Make the Important destination obvious on maximized desktop screens.
+   - Give the article Important control enough width for "☆ 중요 / ★ 중요".
+   - Refine search / language order / date typography for desktop readability.
+   - Mobile and tablet remain unchanged.
+   ============================================================ */
+@media (min-width:1200px) {
+  /* More deliberate newsroom/dashboard typography in the utility header. */
+  .search-input {
+    height:50px !important;
+    padding:0 17px !important;
+    border:1px solid #c9d5e2 !important;
+    border-radius:12px !important;
+    background:#ffffff !important;
+    color:#172b43 !important;
+    font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+      "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif !important;
+    font-size:16px !important;
+    font-weight:600 !important;
+    letter-spacing:-.012em !important;
+    box-shadow:0 2px 7px rgba(31,58,87,.05) !important;
+  }
+  .search-input::placeholder {
+    color:#8794a5 !important;
+    font-weight:500 !important;
+  }
+  .search-input:focus {
+    border-color:#6d9dca !important;
+    box-shadow:0 0 0 3px rgba(55,116,173,.10) !important;
+  }
+
+  .header-controls {
+    gap:12px !important;
+    margin-top:10px !important;
+  }
+  .utility-row { gap:10px !important; }
+  .utility-box {
+    height:42px !important;
+    padding:0 10px !important;
+    border:1px solid #d7e0ea !important;
+    border-radius:10px !important;
+    background:#f8fafc !important;
+  }
+  .utility-label {
+    color:#64748b !important;
+    font-size:12px !important;
+    font-weight:750 !important;
+    letter-spacing:-.01em !important;
+  }
+  .language-order-toggle,
+  .date-control {
+    height:32px !important;
+    border-radius:8px !important;
+    background:#fff !important;
+  }
+  .language-order-toggle {
+    padding:0 13px !important;
+    color:#1f4168 !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:800 !important;
+    letter-spacing:-.015em !important;
+    line-height:32px !important;
+  }
+  .date-display {
+    padding:0 26px 0 11px !important;
+    color:#1f4168 !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:800 !important;
+    font-variant-numeric:tabular-nums !important;
+    letter-spacing:.005em !important;
+    line-height:32px !important;
+  }
+  .date-calendar {
+    right:9px !important;
+    color:#6b7f96 !important;
+    font-size:12px !important;
+  }
+
+  /* The card action must fit the full Korean label without clipping. */
+  .article-content-column { padding-right:82px !important; }
+  .important-button {
+    width:auto !important;
+    min-width:70px !important;
+    height:32px !important;
+    min-height:32px !important;
+    padding:0 11px !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:3px !important;
+    border-radius:9px !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:12.5px !important;
+    font-weight:850 !important;
+    line-height:1 !important;
+    letter-spacing:-.015em !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
+  }
+
+  /* Persistent, obvious location for saved Important articles. */
+  .desktop-important-launcher {
+    top:88px !important;
+    right:22px !important;
+    transform:none !important;
+    min-width:178px !important;
+    min-height:48px !important;
+    padding:0 14px 0 15px !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+    border-radius:12px !important;
+    border:1px solid #e1bb3e !important;
+    background:rgba(255,250,222,.98) !important;
+    color:#795900 !important;
+    box-shadow:0 8px 22px rgba(72,55,8,.18) !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:850 !important;
+    letter-spacing:-.015em !important;
+  }
+  .desktop-important-launcher:hover {
+    transform:translateY(-1px) !important;
+    box-shadow:0 11px 26px rgba(72,55,8,.23) !important;
+  }
+  .desktop-important-launcher-star { font-size:19px !important; }
+  .desktop-important-launcher-count {
+    margin-left:auto !important;
+    min-width:25px !important;
+    height:25px !important;
+    font-size:11.5px !important;
+  }
+
+  .desktop-important-drawer {
+    width:min(500px,40vw) !important;
+  }
+  .desktop-important-drawer-head {
+    min-height:78px !important;
+    padding:15px 18px !important;
+  }
+  .desktop-important-drawer-title { font-size:19px !important; }
+  .desktop-important-drawer-sub { font-size:12.5px !important; line-height:1.45 !important; }
+  .desktop-important-publisher { font-size:12.5px !important; }
+  .desktop-important-headline { font-size:16.5px !important; line-height:1.48 !important; }
+
+  /* Keep the back-to-top button clear of the Important drawer launcher. */
+  .desktop-back-to-top { right:24px !important; bottom:24px !important; }
+}
+
+
+
+/* 2026-08-25 FINAL COUNTRY LABEL LAYER VISIBILITY OVERRIDE */
+#country-map-label-layer.country-map-label-layer {
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:none !important;
+  z-index:80 !important;
+}
+#country-map-label-layer .precise-country-label {
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  position:absolute !important;
+}
 </style>
 </head>
 <body>
@@ -10378,7 +10547,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.25(화) 09:25 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.25(화) 09:40 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -24057,7 +24226,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a708f87b2784956648d24deb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/8ffb438211e19a0dd707e4dd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24739,7 +24908,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kwnews.co.kr/article/20260824500509"
   data-title="[동정]김용호 대한전문건설협회 강원특별자치도회 원주시협의회장"
   data-publisher="강원일보"
@@ -24763,7 +24932,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[동정]김용호 대한전문건설협회 강원특별자치도회 원주시협의회장</div>
+      <div class="headline">[동정]김용호 대한전문건설협회 강원특별자치도회 원주시협의회장</div>
       <div class="article-snippet">◇김용호 대한전문건설협회 강원특별자치도회 원주시협의회장은 25일 오후 2시30분 원주시청 시장 집무실에서 천사운동 후원금 전달식에 참석.</div>
     </div>
   </div>
@@ -28864,7 +29033,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.cbsnews.com/news/ftc-settles-zillow-antitrust-case-redfin/"
   data-title="Redfin and Zillow must change unlawful agreement that hurts competition, FTC says"
   data-publisher="CBS News"
@@ -28888,7 +29057,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Redfin and Zillow must change unlawful agreement that hurts competition, FTC says</div>
+      <div class="headline">Redfin and Zillow must change unlawful agreement that hurts competition, FTC says</div>
       <div class="article-snippet">Federal regulators alleged that a $100 million deal between Redfin and Zillow stifled competition for apartment listings.</div>
     </div>
   </div>
@@ -30588,7 +30757,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30658,6 +30827,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/realestate/12135416"
+  data-title="데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787618124"
+  data-country="OTHER"
+  data-search="데이터로 폭우·폭염 잡는다…gs건설, ‘기후위기 대응’ 미래주거 연구 매일경제 타 건설사 gs건설이 폭염과 폭우, 미세먼지 등 갈수록 심화하는 기후위기에 대응하기 위한 미래형 주거 솔루션 연구에 나섰다. gs건설은 세계적인 건축가 카를로 라티(carlo ratti) 교.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</div>
+      <div class="article-snippet">GS건설이 폭염과 폭우, 미세먼지 등 갈수록 심화하는 기후위기에 대응하기 위한 미래형 주거 솔루션 연구에 나섰다. GS건설은 세계적인 건축가 카를로 라티(Carlo Ratti) 교..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9b82429acd1b9b978b53c6fc.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313126"
   data-title="GS건설, 기후리스크 반영한 주거설계 체계 구축…‘자이’ 실증 적용 추진 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -30681,7 +30883,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 기후리스크 반영한 주거설계 체계 구축…‘자이’ 실증 적용 추진 - 건설타임즈</div>
+      <div class="headline">GS건설, 기후리스크 반영한 주거설계 체계 구축…‘자이’ 실증 적용 추진 - 건설타임즈</div>
       <div class="article-snippet">(건설타임즈) 박상민 기자 = GS건설이 폭염·집중호우·미세먼지 등 기후변화를 주택 설계와 운영 단계에 직접 반영하는 ‘기후 대응형 주거모델’ 구축에 나섰다.향후</div>
     </div>
   </div>
@@ -30690,7 +30892,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.shinailbo.co.kr/news/articleView.html?idxno=5054398"
   data-title="원가 관리 강화한 포스코이앤씨…상반기 영업익 &#x27;흑자 전환&#x27; - 신아일보"
   data-publisher="신아일보"
@@ -30714,7 +30916,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원가 관리 강화한 포스코이앤씨…상반기 영업익 &#x27;흑자 전환&#x27; - 신아일보</div>
+      <div class="headline">원가 관리 강화한 포스코이앤씨…상반기 영업익 &#x27;흑자 전환&#x27; - 신아일보</div>
       <div class="article-snippet">상반기 포스코이앤씨가 건축 사업을 중심으로 수익성 및 원가 관리를 강화하면서 영업이익과 당기순이익 모두 흑자 전환했다. 이 회사는 하반기 수도권 도정과 그룹·해외</div>
     </div>
   </div>
@@ -30729,9 +30931,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761164"
+  data-title="한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범"
+  data-publisher="뉴시스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787618322"
+  data-country="KR"
+  data-search="한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범 뉴시스 한국수력원자력 [세종=뉴시스]손차민 기자 = 김회천 한국수력원자력 사장은 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 회사경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다고 25일 밝혔다. 차장, 과장, 대리·주임 등 세 그룹으로 이루어진 주니어보드는 각 그룹별 리더를 스스로 선정하고, 리더와 그룹원들이 함께 회사의 미래 방향을 고민하는 직원주도형 혁신 그룹이다. 직원들이 스스로 변화가 필요한 분야를 찾아 과제를 발굴하고 실행까지 주도하는 것이 특징이다. 한수원은 이번 주니어보드 출범을 통해 세대와 직급을 넘어 자유롭게 소통하고, 현장의 아이디어가 실제 경영과 정책의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 김회천 한국수력원자력 사장은 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 회사경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다고 25일 밝혔다. 차장, 과장, 대리·주임 등 세 그룹으로 이루어진 주니어보드는 각 그룹별 리더를 스스로 선정하고, 리더와 그룹원들이 함께 회사의 미래 방향을 고민하는 직원주도형 혁신 그룹이다. 직원들이 스스로 변화가 필요한 분야를 찾아 과제를 발굴하고 실행까지 주도하는 것이 특징이다. 한수원은 이번 주니어보드 출범을 통해 세대와 직급을 넘어 자유롭게 소통하고, 현장의 아이디어가 실제 경영과 정책의</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/73776c1e7d15955ccef7c9b8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.sentv.co.kr/article/view/sentv202608240213"
   data-title="한국수력원자력, 노·사·협력사 함께 현장 안전 챙김"
@@ -30847,7 +31082,7 @@ main {
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787617500"
+  data-published="1787618400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -31185,7 +31420,7 @@ main {
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/202608250354i"
   data-title="미·英 손잡고 원자력 상선 개발…中 조선 패권 겨냥"
   data-publisher="한국경제"
@@ -31209,7 +31444,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>미·英 손잡고 원자력 상선 개발…中 조선 패권 겨냥</div>
+      <div class="headline">미·英 손잡고 원자력 상선 개발…中 조선 패권 겨냥</div>
       <div class="article-snippet">미·英 손잡고 원자력 상선 개발…中 조선 패권 겨냥, 김주완 기자, 경제</div>
     </div>
   </div>
@@ -31356,9 +31591,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://shippingtelegraph.com/ship-technology/us-dot-and-port-of-corpus-christi-to-explore-nuclear-maritime-technologies/"
+  data-title="US DOT and Port of Corpus Christi to explore nuclear maritime technologies | Ship Technology | Shipping Telegraph"
+  data-publisher="Shipping Telegraph"
+  data-group="SMR"
+  data-language="en"
+  data-priority="0"
+  data-published="1787618460"
+  data-country="US"
+  data-search="us dot and port of corpus christi to explore nuclear maritime technologies | ship technology | shipping telegraph shipping telegraph smr the u.s. department of transportation and port of corpus christi kick off a new partnership focused on small modular reactor"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Shipping Telegraph</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>US DOT and Port of Corpus Christi to explore nuclear maritime technologies | Ship Technology | Shipping Telegraph</div>
+      <div class="article-snippet">The U.S. department of transportation and Port of Corpus Christi kick off a new partnership focused on small modular reactor</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c9cd7931b3bb7e870eb3bb0b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
@@ -31368,6 +31636,39 @@ main {
     <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787618303"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
@@ -31401,7 +31702,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://finance.yahoo.com/energy/articles/oklos-ceo-says-used-nuclear-002000629.html"
   data-title="Oklo&#x27;s CEO Says Used Nuclear Fuel in the U.S. Is Worth More Than Saudi Arabia&#x27;s Oil Reserves. Here&#x27;s His Case."
   data-publisher="Yahoo Finance"
@@ -31425,45 +31726,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Oklo&#x27;s CEO Says Used Nuclear Fuel in the U.S. Is Worth More Than Saudi Arabia&#x27;s Oil Reserves. Here&#x27;s His Case.</div>
+      <div class="headline">Oklo&#x27;s CEO Says Used Nuclear Fuel in the U.S. Is Worth More Than Saudi Arabia&#x27;s Oil Reserves. Here&#x27;s His Case.</div>
       <div class="article-snippet">Oklo says U.S. used nuclear fuel holds massive untapped energy. Here&#x27;s the plan, the support for the claim, and the biggest risks.</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5d65d66a8e7f4c07f149bf1b.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787616473"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31573,7 +31841,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787617707"
+  data-published="1787618502"
   data-country="GB"
   data-search="bbc audio | global news podcast | britain hands over long-range missile blueprints to ukraine bbc news nuclear power·nuclear energy british prime minister on a visit to kyiv promises to step up support for ukraine"
   tabindex="0" role="link">
@@ -31738,7 +32006,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31803,7 +32071,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/08/25/.cache/512/20260825500156.png?v=20260825092812" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/08/25/.cache/512/20260825500156.png?v=20260825094126" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31973,6 +32241,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/realestate/12135416"
+  data-title="데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787618124"
+  data-country="OTHER"
+  data-search="데이터로 폭우·폭염 잡는다…gs건설, ‘기후위기 대응’ 미래주거 연구 매일경제 타 건설사 gs건설이 폭염과 폭우, 미세먼지 등 갈수록 심화하는 기후위기에 대응하기 위한 미래형 주거 솔루션 연구에 나섰다. gs건설은 세계적인 건축가 카를로 라티(carlo ratti) 교.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</div>
+      <div class="article-snippet">GS건설이 폭염과 폭우, 미세먼지 등 갈수록 심화하는 기후위기에 대응하기 위한 미래형 주거 솔루션 연구에 나섰다. GS건설은 세계적인 건축가 카를로 라티(Carlo Ratti) 교..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9b82429acd1b9b978b53c6fc.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313126"
   data-title="GS건설, 기후리스크 반영한 주거설계 체계 구축…‘자이’ 실증 적용 추진 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -31996,7 +32297,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 기후리스크 반영한 주거설계 체계 구축…‘자이’ 실증 적용 추진 - 건설타임즈</div>
+      <div class="headline">GS건설, 기후리스크 반영한 주거설계 체계 구축…‘자이’ 실증 적용 추진 - 건설타임즈</div>
       <div class="article-snippet">(건설타임즈) 박상민 기자 = GS건설이 폭염·집중호우·미세먼지 등 기후변화를 주택 설계와 운영 단계에 직접 반영하는 ‘기후 대응형 주거모델’ 구축에 나섰다.향후</div>
     </div>
   </div>
@@ -32005,7 +32306,40 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
+  data-url="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/"
+  data-title="GS건설, ‘기후위기 대응’ 미래주거 공동 연구"
+  data-publisher="조선비즈"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787616868"
+  data-country="OTHER"
+  data-search="gs건설, ‘기후위기 대응’ 미래주거 공동 연구 조선비즈 타 건설사 "
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">조선비즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</div>
+      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://biz.chosun.com/resizer/v2/FPAFNONI2NBBNMAJAZN6KFXURU.jpg?auth=4bb38649897de286e50404f61959352f6fdb8fc15eab8d3abc9e4f20e3f85b52&amp;width=1200&amp;height=630&amp;smart=true" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.shinailbo.co.kr/news/articleView.html?idxno=5054398"
   data-title="원가 관리 강화한 포스코이앤씨…상반기 영업익 &#x27;흑자 전환&#x27; - 신아일보"
   data-publisher="신아일보"
@@ -32029,7 +32363,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원가 관리 강화한 포스코이앤씨…상반기 영업익 &#x27;흑자 전환&#x27; - 신아일보</div>
+      <div class="headline">원가 관리 강화한 포스코이앤씨…상반기 영업익 &#x27;흑자 전환&#x27; - 신아일보</div>
       <div class="article-snippet">상반기 포스코이앤씨가 건축 사업을 중심으로 수익성 및 원가 관리를 강화하면서 영업이익과 당기순이익 모두 흑자 전환했다. 이 회사는 하반기 수도권 도정과 그룹·해외</div>
     </div>
   </div>
@@ -32044,9 +32378,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761164"
+  data-title="한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범"
+  data-publisher="뉴시스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787618322"
+  data-country="KR"
+  data-search="한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범 뉴시스 한국수력원자력 [세종=뉴시스]손차민 기자 = 김회천 한국수력원자력 사장은 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 회사경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다고 25일 밝혔다. 차장, 과장, 대리·주임 등 세 그룹으로 이루어진 주니어보드는 각 그룹별 리더를 스스로 선정하고, 리더와 그룹원들이 함께 회사의 미래 방향을 고민하는 직원주도형 혁신 그룹이다. 직원들이 스스로 변화가 필요한 분야를 찾아 과제를 발굴하고 실행까지 주도하는 것이 특징이다. 한수원은 이번 주니어보드 출범을 통해 세대와 직급을 넘어 자유롭게 소통하고, 현장의 아이디어가 실제 경영과 정책의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 김회천 한국수력원자력 사장은 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 회사경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다고 25일 밝혔다. 차장, 과장, 대리·주임 등 세 그룹으로 이루어진 주니어보드는 각 그룹별 리더를 스스로 선정하고, 리더와 그룹원들이 함께 회사의 미래 방향을 고민하는 직원주도형 혁신 그룹이다. 직원들이 스스로 변화가 필요한 분야를 찾아 과제를 발굴하고 실행까지 주도하는 것이 특징이다. 한수원은 이번 주니어보드 출범을 통해 세대와 직급을 넘어 자유롭게 소통하고, 현장의 아이디어가 실제 경영과 정책의</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/73776c1e7d15955ccef7c9b8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.sentv.co.kr/article/view/sentv202608240213"
   data-title="한국수력원자력, 노·사·협력사 함께 현장 안전 챙김"
@@ -32162,7 +32529,7 @@ main {
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787617500"
+  data-published="1787618400"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -32500,7 +32867,7 @@ main {
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/202608250354i"
   data-title="미·英 손잡고 원자력 상선 개발…中 조선 패권 겨냥"
   data-publisher="한국경제"
@@ -32524,7 +32891,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>미·英 손잡고 원자력 상선 개발…中 조선 패권 겨냥</div>
+      <div class="headline">미·英 손잡고 원자력 상선 개발…中 조선 패권 겨냥</div>
       <div class="article-snippet">미·英 손잡고 원자력 상선 개발…中 조선 패권 겨냥, 김주완 기자, 경제</div>
     </div>
   </div>
@@ -32671,9 +33038,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://shippingtelegraph.com/ship-technology/us-dot-and-port-of-corpus-christi-to-explore-nuclear-maritime-technologies/"
+  data-title="US DOT and Port of Corpus Christi to explore nuclear maritime technologies | Ship Technology | Shipping Telegraph"
+  data-publisher="Shipping Telegraph"
+  data-group="SMR"
+  data-language="en"
+  data-priority="0"
+  data-published="1787618460"
+  data-country="US"
+  data-search="us dot and port of corpus christi to explore nuclear maritime technologies | ship technology | shipping telegraph shipping telegraph smr the u.s. department of transportation and port of corpus christi kick off a new partnership focused on small modular reactor"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Shipping Telegraph</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>US DOT and Port of Corpus Christi to explore nuclear maritime technologies | Ship Technology | Shipping Telegraph</div>
+      <div class="article-snippet">The U.S. department of transportation and Port of Corpus Christi kick off a new partnership focused on small modular reactor</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c9cd7931b3bb7e870eb3bb0b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
@@ -32683,6 +33083,39 @@ main {
     <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787618303"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
@@ -32716,7 +33149,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://finance.yahoo.com/energy/articles/oklos-ceo-says-used-nuclear-002000629.html"
   data-title="Oklo&#x27;s CEO Says Used Nuclear Fuel in the U.S. Is Worth More Than Saudi Arabia&#x27;s Oil Reserves. Here&#x27;s His Case."
   data-publisher="Yahoo Finance"
@@ -32740,45 +33173,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Oklo&#x27;s CEO Says Used Nuclear Fuel in the U.S. Is Worth More Than Saudi Arabia&#x27;s Oil Reserves. Here&#x27;s His Case.</div>
+      <div class="headline">Oklo&#x27;s CEO Says Used Nuclear Fuel in the U.S. Is Worth More Than Saudi Arabia&#x27;s Oil Reserves. Here&#x27;s His Case.</div>
       <div class="article-snippet">Oklo says U.S. used nuclear fuel holds massive untapped energy. Here&#x27;s the plan, the support for the claim, and the biggest risks.</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5d65d66a8e7f4c07f149bf1b.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787616473"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32888,7 +33288,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="2"
-  data-published="1787617707"
+  data-published="1787618502"
   data-country="GB"
   data-search="bbc audio | global news podcast | britain hands over long-range missile blueprints to ukraine bbc news nuclear power·nuclear energy british prime minister on a visit to kyiv promises to step up support for ukraine"
   tabindex="0" role="link">
@@ -33283,7 +33683,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a708f87b2784956648d24deb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/8ffb438211e19a0dd707e4dd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35021,7 +35421,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kwnews.co.kr/article/20260824500509"
   data-title="[동정]김용호 대한전문건설협회 강원특별자치도회 원주시협의회장"
   data-publisher="강원일보"
@@ -35045,7 +35445,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[동정]김용호 대한전문건설협회 강원특별자치도회 원주시협의회장</div>
+      <div class="headline">[동정]김용호 대한전문건설협회 강원특별자치도회 원주시협의회장</div>
       <div class="article-snippet">◇김용호 대한전문건설협회 강원특별자치도회 원주시협의회장은 25일 오후 2시30분 원주시청 시장 집무실에서 천사운동 후원금 전달식에 참석.</div>
     </div>
   </div>
@@ -39575,7 +39975,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.cbsnews.com/news/ftc-settles-zillow-antitrust-case-redfin/"
   data-title="Redfin and Zillow must change unlawful agreement that hurts competition, FTC says"
   data-publisher="CBS News"
@@ -39599,7 +39999,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Redfin and Zillow must change unlawful agreement that hurts competition, FTC says</div>
+      <div class="headline">Redfin and Zillow must change unlawful agreement that hurts competition, FTC says</div>
       <div class="article-snippet">Federal regulators alleged that a $100 million deal between Redfin and Zillow stifled competition for apartment listings.</div>
     </div>
   </div>
@@ -163165,10 +163565,24 @@ document.querySelectorAll(".tab-button").forEach(button => {
     const panel = document.getElementById("tab-" + label);
     if(!panel) return;
 
-    document.querySelectorAll(".tab-button").forEach(item => item.classList.remove("active"));
+    const wasActive = button.classList.contains("active") && panel.classList.contains("active");
+
+    // Same-tab click toggles the currently open article panel closed/open.
+    if(wasActive) {
+      button.classList.remove("active");
+      panel.classList.remove("active");
+      button.setAttribute("aria-expanded", "false");
+      return;
+    }
+
+    document.querySelectorAll(".tab-button").forEach(item => {
+      item.classList.remove("active");
+      item.setAttribute("aria-expanded", "false");
+    });
     document.querySelectorAll(".tab-panel").forEach(item => item.classList.remove("active"));
 
     button.classList.add("active");
+    button.setAttribute("aria-expanded", "true");
     panel.classList.add("active");
 
     const periodDate = panel.getAttribute("data-report-date");
@@ -165716,16 +166130,11 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){
 }
 
 
-function renderHtmlCountryLabels(items){
-  const visual = document.querySelector('.country-map-visual.globe-mode');
-  const svg = document.querySelector('.world-map-inline.globe-texture-source');
-  const layer = document.getElementById('country-map-label-layer');
-  if(!visual || !svg || !layer) return;
-  layer.innerHTML='';
-
-  /* ============================================================
-     2026-08-25 MAP COUNTRY LABELS RESTORED FROM WORKING 2026-08-22 BUILD
-     ============================================================ */
+/* ============================================================
+   2026-08-25 MAP COUNTRY LABELS ACTUAL RUNTIME FIX
+   - Restored renderer must be GLOBAL, not nested inside an older renderer.
+   - HTML label layer is re-enabled after old native-SVG retirement CSS.
+   ============================================================ */
 function maybeInitializeContinentFilter(items){
   if(activeContinentFilter && activeContinentFilter!=='ALL')return;
   const {articleCounts}=getContinentCounts(items);
@@ -165973,7 +166382,7 @@ function initDesktopImportantDrawer() {
   launcher.id="desktop-important-launcher";
   launcher.className="desktop-important-launcher";
   launcher.type="button";
-  launcher.innerHTML='<span class="desktop-important-launcher-star">★</span><span>중요기사</span><span class="desktop-important-launcher-count desktop-important-live-count">0</span>';
+  launcher.innerHTML='<span class="desktop-important-launcher-star">★</span><span>중요기사 보관함</span><span class="desktop-important-launcher-count desktop-important-live-count">0</span>';
   launcher.addEventListener("click",openDesktopImportantDrawer);
   document.body.appendChild(launcher);
 
@@ -165985,7 +166394,7 @@ function initDesktopImportantDrawer() {
   const drawer=document.createElement("aside");
   drawer.id="desktop-important-drawer"; drawer.className="desktop-important-drawer";
   drawer.setAttribute("aria-label","중요기사 보관함");
-  drawer.innerHTML=`<div class="desktop-important-drawer-head"><div><div class="desktop-important-drawer-title">★ 중요기사 <span class="desktop-important-live-count">0</span>건</div><div class="desktop-important-drawer-sub">어디서든 바로 열어 저장한 기사를 확인할 수 있습니다.</div></div><button class="desktop-important-close" type="button" aria-label="중요기사 보관함 닫기">×</button></div><div id="desktop-important-drawer-list" class="desktop-important-drawer-list"></div>`;
+  drawer.innerHTML=`<div class="desktop-important-drawer-head"><div><div class="desktop-important-drawer-title">★ 중요기사 <span class="desktop-important-live-count">0</span>건</div><div class="desktop-important-drawer-sub">기사의 ★ 중요 버튼을 누르면 이 보관함에 바로 저장됩니다.</div></div><button class="desktop-important-close" type="button" aria-label="중요기사 보관함 닫기">×</button></div><div id="desktop-important-drawer-list" class="desktop-important-drawer-list"></div>`;
   drawer.querySelector(".desktop-important-close")?.addEventListener("click",closeDesktopImportantDrawer);
   document.body.appendChild(drawer);
   renderDesktopImportantDrawer();
