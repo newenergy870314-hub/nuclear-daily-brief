@@ -8829,29 +8829,8 @@ def infer_publisher_from_url(*urls: str) -> str:
     return ""
 
 
-def _decode_html_entities_for_display(value: str, max_rounds: int = 3) -> str:
-    """
-    화면에 &quot; / &#39; / &amp; 같은 HTML entity가 문자 그대로 노출되지 않도록
-    중첩 인코딩까지 안전하게 복원합니다.
-
-    예: &amp;quot;안전 최우선&amp;quot; -> "안전 최우선"
-    """
-    text = str(value or "")
-    for _ in range(max_rounds):
-        decoded = html.unescape(text)
-        if decoded == text:
-            break
-        text = decoded
-    return text
-
-
 def ensure_article_display_metadata(article: Article) -> None:
     """과거 archive 등에서 비어 있는 표시용 언론사명을 안전하게 복원합니다."""
-    # RSS/뉴스페이지/기존 archive에서 HTML entity가 한 번 또는 여러 번
-    # 인코딩된 상태로 들어온 경우 표시 전에 정상 문자로 통일합니다.
-    article.title = _decode_html_entities_for_display(article.title).strip()
-    article.description = _decode_html_entities_for_display(article.description).strip()
-    article.publisher = _decode_html_entities_for_display(article.publisher).strip()
     if not article.publisher.strip():
         article.publisher = infer_publisher_from_url(
             article.link,
