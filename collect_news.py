@@ -19142,6 +19142,103 @@ main {{
   #continent-rail .continent-button-count {{ font-size:5.45px !important; }}
   .precise-country-label,.clean-map-country-label {{ font-size:7px !important; padding:2px 4px !important; }}
 }}
+
+/* HARD FINAL MOBILE CONTINENT TABS — 2026-08-25 */
+@media (max-width: 767px) {{
+  .country-map-visual.globe-mode {{
+    position:relative !important;
+    min-height:300px !important;
+    height:300px !important;
+    overflow:hidden !important;
+  }}
+  #continent-rail {{
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:absolute !important;
+    left:8px !important;
+    right:8px !important;
+    top:auto !important;
+    bottom:8px !important;
+    width:auto !important;
+    height:auto !important;
+    min-height:0 !important;
+    padding:6px !important;
+    gap:5px !important;
+    flex-direction:column !important;
+    z-index:50 !important;
+    border:1px solid rgba(160,187,207,.35) !important;
+    border-radius:12px !important;
+    background:rgba(255,255,255,.96) !important;
+    box-shadow:0 3px 10px rgba(17,24,39,.10) !important;
+  }}
+  #continent-rail .continent-rail-head {{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    min-height:24px !important;
+    padding:0 2px !important;
+    border:0 !important;
+  }}
+  #continent-rail .continent-rail-scroll {{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:5px !important;
+    overflow:visible !important;
+    padding:0 !important;
+  }}
+  #continent-rail .continent-button {{
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-width:0 !important;
+    min-height:31px !important;
+    height:31px !important;
+    padding:4px 5px !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:3px !important;
+    border:1px solid rgba(170,193,210,.55) !important;
+    border-radius:9px !important;
+    background:#fff !important;
+    color:#244865 !important;
+    font-size:9px !important;
+  }}
+  #continent-rail .continent-button.active {{
+    background:#eef8ff !important;
+    border-color:#76b7dd !important;
+  }}
+  #continent-rail .continent-button-name {{
+    display:block !important;
+    font-size:9px !important;
+    font-weight:900 !important;
+    line-height:1.05 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }}
+  #continent-rail .continent-button-count {{
+    display:block !important;
+    flex:0 0 auto !important;
+    font-size:8px !important;
+    font-weight:900 !important;
+    color:#1e88c9 !important;
+  }}
+  #continent-rail .continent-all-button {{
+    display:inline-flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    height:23px !important;
+    min-height:23px !important;
+    padding:0 8px !important;
+    border-radius:999px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source,
+  #country-map-label-layer.country-map-label-layer {{
+    bottom:112px !important;
+  }}
+}}
 </style>
 </head>
 <body>
@@ -19196,6 +19293,20 @@ main {{
 
     <div class="country-map-content">
       <div class="country-map-visual globe-mode" aria-label="대륙별 국가 기사 2D 세계지도">
+      <div id="continent-rail" class="continent-rail-static" aria-label="대륙 선택">
+        <div class="continent-rail-head">
+          <span class="continent-rail-title">대륙별</span>
+          <button type="button" class="continent-all-button active" data-continent="ALL">전체</button>
+        </div>
+        <div class="continent-rail-scroll">
+          <button type="button" class="continent-button" data-continent="NA"><span class="continent-button-name">북미</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="SA"><span class="continent-button-name">남미</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="EU"><span class="continent-button-name">유럽</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="AS"><span class="continent-button-name">아시아</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="MEA"><span class="continent-button-name">중동·아프리카</span><span class="continent-button-count">0건</span></button>
+          <button type="button" class="continent-button" data-continent="OC"><span class="continent-button-name">오세아니아</span><span class="continent-button-count">0건</span></button>
+        </div>
+      </div>
       <div id="globe-stage" class="globe-stage" aria-label="대륙 선택형 2D 세계지도">
         <div id="globe-sphere" class="globe-sphere">
           <canvas id="globe-canvas" class="globe-canvas" width="420" height="420" aria-hidden="true"></canvas>
@@ -21792,7 +21903,7 @@ function getCountryContinent(code){{
 }}
 
 function ensure2DContinentRail(){{
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   if(!visual)return null;
   visual.classList.add('two-d-mode');
   let rail=document.getElementById('continent-rail');
@@ -21859,7 +21970,7 @@ function renderContinentRail2D(items){{
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const {{ articleCounts, countryCounts }} = getContinentCounts(items);
-  const order=['NA','EU','AS','MEA','OC'];
+  const order=['NA','SA','EU','AS','MEA','OC'];
   const activeMeta = CONTINENT_META[activeContinentFilter] || CONTINENT_META.ALL;
   rail.innerHTML = `
     <div class="continent-rail-head">
@@ -22128,7 +22239,7 @@ function renderContinentRail2D(items){{
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const {{articleCounts}}=getContinentCounts(items);
-  const order=['NA','EU','AS','MEA','OC'];
+  const order=['NA','SA','EU','AS','MEA','OC'];
   rail.innerHTML=`
     <div class="continent-rail-head">
       <span class="continent-rail-title">대륙별</span>
@@ -22199,7 +22310,7 @@ function computeCleanLabelPositions(items, viewport){{
 }}
 
 function renderHtmlCountryLabels(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -22315,7 +22426,7 @@ function renderContinentRail2D(items){{
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const {{articleCounts}}=getContinentCounts(items);
-  const order=['NA','EU','AS','MEA','OC'];
+  const order=['NA','SA','EU','AS','MEA','OC'];
   const selected=activeContinentFilter!=='ALL';
   rail.innerHTML=`
     <div class="continent-rail-head">
@@ -22482,7 +22593,7 @@ function addPreciseConnector(layer,ax,ay,box){{
 }}
 
 function renderHtmlCountryLabels(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -22577,7 +22688,7 @@ function getCountryMapAnchor(item){{
 const FINAL_CONTINENT_DOCK_ORDER = ['NA','SA','EU','AS','MEA','OC'];
 
 function ensureMapStateChip(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   if(!visual)return;
   let chip=document.getElementById('map-continent-state');
   if(!chip){{
@@ -22604,7 +22715,7 @@ function ensureMapStateChip(items){{
 }}
 
 function renderContinentRail2D(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   if(!visual)return;
   let rail=document.getElementById('continent-rail');
   if(!rail){{rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}}
@@ -22711,7 +22822,7 @@ function addExactConnector(layer,ax,ay,box){{
 }}
 
 function renderHtmlCountryLabels(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -24112,7 +24223,7 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
     const code = el.dataset.countryCode;
     const item = collect2DCountryItems().find(v=>v.code===code);
     if(!item) return null;
-    const visual=document.querySelector('.country-map-visual.globe-mode');
+    const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
     const svg=document.querySelector('.world-map-inline.globe-texture-source');
     if(!visual||!svg) return null;
 
@@ -24339,7 +24450,7 @@ function collect2DCountryItems(){{
 
 function layoutAndRenderCountryMap(){{
   const items=collect2DCountryItems();
-  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
   if(!visual) return;
   if(!activeContinentFilter) activeContinentFilter='ALL';
   renderContinentRail2D(items);
