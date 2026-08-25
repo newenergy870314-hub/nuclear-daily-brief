@@ -19830,6 +19830,531 @@ main {{
   }}
   #continent-rail .continent-rail-scroll {{ gap:3px !important; }}
 }}
+
+
+   2026-08-22 CONTINENT DOCK — BOTTOM / COMPACT RECTANGLE
+   - place selector as low as possible in the country-news panel
+   - reduce unused button space
+   - keep buttons as compact horizontal rectangles
+   - maximize visible map area above the dock
+   ============================================================ */
+#continent-rail {{
+  left:6px !important;
+  right:6px !important;
+  bottom:1px !important;
+  height:42px !important;
+  max-height:42px !important;
+  padding:3px !important;
+  border-radius:10px !important;
+}}
+
+.continent-rail-scroll {{
+  height:100% !important;
+  align-items:stretch !important;
+  gap:3px !important;
+}}
+
+.continent-button {{
+  min-width:0 !important;
+  min-height:34px !important;
+  height:34px !important;
+  padding:2px 4px !important;
+  border-radius:8px !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+}}
+
+.continent-button-name {{
+  width:auto !important;
+  font-size:9.4px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}}
+
+.continent-button-count {{
+  width:auto !important;
+  font-size:8.4px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+
+/* Pull the map down close to the selector while preserving a clear gap. */
+.country-map-visual .world-map-inline.globe-texture-source {{
+  bottom:47px !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:5px !important;
+    right:5px !important;
+    bottom:1px !important;
+    height:40px !important;
+    max-height:40px !important;
+    padding:3px !important;
+  }}
+  .continent-rail-scroll {{
+    gap:2px !important;
+  }}
+  .continent-button {{
+    min-height:32px !important;
+    height:32px !important;
+    padding:2px 3px !important;
+    border-radius:7px !important;
+    gap:2px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.8px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.9px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:45px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    left:4px !important;
+    right:4px !important;
+    bottom:1px !important;
+    height:39px !important;
+    max-height:39px !important;
+  }}
+  .continent-button {{
+    min-height:31px !important;
+    height:31px !important;
+    padding:2px 2px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.3px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.5px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:44px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 ABSOLUTE FINAL — CONTINENT DOCK TRUE BOTTOM + COMPACT RECT BUTTONS
+   - dock sits at the very bottom of the country-news panel
+   - buttons size to content instead of stretching across leftover space
+   - map occupies the freed space above
+   ============================================================ */
+#continent-rail {{
+  left:4px !important;
+  right:4px !important;
+  bottom:0 !important;
+  height:37px !important;
+  max-height:37px !important;
+  padding:2px 3px !important;
+  border-radius:8px !important;
+}}
+.continent-rail-scroll {{
+  display:grid !important;
+  width:100% !important;
+  height:100% !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  overflow:visible !important;
+}}
+.continent-button {{
+  width:auto !important;
+  min-width:0 !important;
+  max-width:none !important;
+  min-height:31px !important;
+  height:31px !important;
+  padding:2px 6px !important;
+  border-radius:7px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  box-sizing:border-box !important;
+}}
+.continent-button-name {{
+  width:auto !important;
+  max-width:none !important;
+  font-size:9.1px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}}
+.continent-button-count {{
+  width:auto !important;
+  max-width:none !important;
+  font-size:8.0px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+.country-map-visual .world-map-inline.globe-texture-source {{
+  bottom:40px !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:3px !important;
+    right:3px !important;
+    bottom:0 !important;
+    height:36px !important;
+    max-height:36px !important;
+    padding:2px !important;
+  }}
+  .continent-rail-scroll {{
+    gap:2px !important;
+  }}
+  .continent-button {{
+    min-height:30px !important;
+    height:30px !important;
+    padding:2px 5px !important;
+    gap:2px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.55px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.55px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:39px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    height:35px !important;
+    max-height:35px !important;
+  }}
+  .continent-button {{
+    min-height:29px !important;
+    height:29px !important;
+    padding:2px 4px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.0px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.15px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    bottom:38px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB EDGE SAFE-PADDING FIX
+   - prevent first/last continent tabs from looking clipped
+   - keep compact rectangular buttons and bottom placement
+   ============================================================ */
+#continent-rail {{
+  left:8px !important;
+  right:8px !important;
+  padding-left:5px !important;
+  padding-right:5px !important;
+  box-sizing:border-box !important;
+}}
+
+.continent-rail-scroll {{
+  width:100% !important;
+  box-sizing:border-box !important;
+  padding-left:2px !important;
+  padding-right:2px !important;
+  overflow:visible !important;
+}}
+
+.continent-button:first-child {{
+  margin-left:1px !important;
+}}
+
+.continent-button:last-child {{
+  margin-right:1px !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:7px !important;
+    right:7px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }}
+
+  .continent-rail-scroll {{
+    padding-left:2px !important;
+    padding-right:2px !important;
+    gap:2px !important;
+  }}
+
+  .continent-button:first-child {{
+    margin-left:1px !important;
+  }}
+
+  .continent-button:last-child {{
+    margin-right:1px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    left:6px !important;
+    right:6px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TABS — TRUE EDGE CLIP FIX
+   Cause: max-content columns were wider than the available dock
+   and centered, so both ends overflowed outside the visible panel.
+   ============================================================ */
+#continent-rail {{
+  left:10px !important;
+  right:10px !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+  box-sizing:border-box !important;
+}}
+
+.continent-rail-scroll {{
+  display:grid !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+  box-sizing:border-box !important;
+  justify-content:stretch !important;
+  overflow:visible !important;
+}}
+
+.continent-button {{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+  box-sizing:border-box !important;
+}}
+
+.continent-button:first-child {{
+  margin-left:0 !important;
+}}
+.continent-button:last-child {{
+  margin-right:0 !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:9px !important;
+    right:9px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }}
+  .continent-rail-scroll {{
+    gap:2px !important;
+  }}
+  .continent-button {{
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }}
+  .continent-button-name {{
+    font-size:8.35px !important;
+  }}
+  .continent-button-count {{
+    font-size:7.35px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    left:8px !important;
+    right:8px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }}
+  .continent-button {{
+    padding-left:2px !important;
+    padding-right:2px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB NAME/COUNT GAP FINAL
+   ============================================================ */
+.continent-button {{
+  column-gap:5px !important;
+  row-gap:0 !important;
+}}
+.continent-button-name,
+.continent-button-count {{
+  flex:0 0 auto !important;
+}}
+@media (max-width:430px) {{
+  .continent-button {{
+    column-gap:4px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB TWO-LINE FINAL LAYOUT
+   1st row: continent name
+   2nd row: article count
+   ============================================================ */
+#continent-rail {{
+  height:44px !important;
+  max-height:44px !important;
+}}
+
+.continent-button {{
+  min-height:36px !important;
+  height:36px !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:2px !important;
+  padding:3px 3px !important;
+}}
+
+.continent-button-name {{
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  font-size:9.2px !important;
+  line-height:1.02 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}}
+
+.continent-button-count {{
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  font-size:8.2px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    height:43px !important;
+    max-height:43px !important;
+  }}
+
+  .continent-button {{
+    min-height:35px !important;
+    height:35px !important;
+    gap:1px !important;
+    padding:3px 2px !important;
+  }}
+
+  .continent-button-name {{
+    font-size:8.7px !important;
+  }}
+
+  .continent-button-count {{
+    font-size:7.8px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    height:42px !important;
+    max-height:42px !important;
+  }}
+
+  .continent-button {{
+    min-height:34px !important;
+    height:34px !important;
+  }}
+
+  .continent-button-name {{
+    font-size:8.2px !important;
+  }}
+
+  .continent-button-count {{
+    font-size:7.4px !important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT RAIL WIDER FINAL
+   - use almost the full width of the country-news panel
+   - keep only a small safe margin on both sides
+   - give all six continent buttons more room
+   ============================================================ */
+#continent-rail {{
+  left:4px !important;
+  right:4px !important;
+  width:auto !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+}}
+
+.continent-rail-scroll {{
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}}
+
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:3px !important;
+    right:3px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }}
+}}
+
+@media (max-width:380px) {{
+  #continent-rail {{
+    left:3px !important;
+    right:3px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }}
+}}
+
+</style>
+</head>
+<body>
+<div class="phone">
+  <header class="topbar" id="topbar">
+    <div class="topbar-title-row">
+
+
+/* 2026-08-25 POSITION ONLY — keep restored 2026-08-22 dock inside map card */
+.country-map-visual.globe-mode {{
+  position:relative !important;
+  overflow:hidden !important;
+}}
+#continent-rail {{
+  left:6px !important;
+  right:6px !important;
+  bottom:6px !important;
+  max-width:calc(100% - 12px) !important;
+  box-sizing:border-box !important;
+}}
+
 </style>
 </head>
 <body>
@@ -25021,6 +25546,69 @@ function forceCountryMapLabelRefresh(){{requestAnimationFrame(()=>requestAnimati
 forceCountryMapLabelRefresh();
 window.addEventListener('load',()=>{{forceCountryMapLabelRefresh();setTimeout(forceCountryMapLabelRefresh,250);setTimeout(forceCountryMapLabelRefresh,900);}},{{once:true}});
 window.addEventListener('resize',forceCountryMapLabelRefresh);
+
+/* 2026-08-25 EXACT RESTORE: 2026-08-22 WORKING CONTINENT TABS
+   Do not redesign this function; this is the known-good dock behavior. */
+function renderContinentRail2D(items){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  if(!visual)return;
+  let rail=document.getElementById('continent-rail');
+  if(!rail){{rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}}
+  const counts={{}};
+  const articles={{}};
+  FINAL_CONTINENT_DOCK_ORDER.forEach(c=>{{counts[c]=0;articles[c]=0;}});
+  items.forEach(item=>{{
+    if(!item.continent||!CONTINENT_META[item.continent]||item.count<=0)return;
+    counts[item.continent]=(counts[item.continent]||0)+1;
+    articles[item.continent]=(articles[item.continent]||0)+item.count;
+  }});
+  rail.innerHTML='<div class="continent-rail-scroll" aria-label="대륙 선택"></div>';
+  const scroll=rail.querySelector('.continent-rail-scroll');
+
+  /* 기사 많은 대륙부터 표시하고, 0건 대륙은 항상 뒤쪽에 배치.
+     기사 수가 같으면 기존 대륙 순서를 유지합니다. */
+  const rankedContinentOrder = FINAL_CONTINENT_DOCK_ORDER
+    .filter(code=>code!=='ALL')
+    .map((code,index)=>({{code,index,count:Number(articles[code]||0)}}))
+    .sort((a,b)=>b.count-a.count || a.index-b.index)
+    .map(entry=>entry.code);
+
+  /* 6개 대륙 버튼은 모두 항상 표시.
+     기사 많은 순서는 유지하되, 짧은 이름은 좁게 / 긴 이름은 넓게 배분합니다. */
+  /* 버튼 폭은 컨텐츠 길이에 맞춰 compact하게 사용합니다.
+     6개 버튼 모두 보이되, 빈 공간을 억지로 동일 분할하지 않습니다. */
+  const dockWidthMap = {{ NA:0.88, EU:0.88, AS:0.98, SA:0.90, OC:1.12, MEA:1.24 }};
+  scroll.style.setProperty(
+    'grid-template-columns',
+    rankedContinentOrder
+      .map(code=>`minmax(0, ${{dockWidthMap[code]||1}}fr)`)
+      .join(' '),
+    'important'
+  );
+  scroll.style.setProperty('justify-content', 'stretch', 'important');
+
+  rankedContinentOrder.forEach(code=>{{
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='continent-button'+(activeContinentFilter===code?' active':'');
+    btn.innerHTML=`<span class="continent-button-name">${{CONTINENT_META[code].name}}</span><span class="continent-button-count">${{articles[code]||0}}건</span>`;
+    btn.addEventListener('click',()=>{{
+      const isSameContinent = activeContinentFilter===code;
+      if(isSameContinent){{
+        activeContinentFilter='ALL';
+        activeCountryFilter='';
+      }} else {{
+        activeContinentFilter=code;
+        if(activeCountryFilter && getCountryContinent(activeCountryFilter)!==code)activeCountryFilter='';
+      }}
+      filterArticles();
+      updateCountryMapCounts();
+      layoutAndRenderCountryMap();
+    }});
+    scroll.appendChild(btn);
+  }});
+}}
+
 
 /* 2026-08-25 PC WORKSPACE UX - desktop only */
 let desktopArticleMode = "all";
