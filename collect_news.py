@@ -1,4 +1,3 @@
-# TABLET 3-STEP RESPONSIVE: MOBILE <=767 / TABLET 768-1199 / PC >=1200 2026-08-25
 # ADDED NHAN DAN VIETNAM SOURCE 2026-08-25
 # BIGGO FINANCE SOURCE URL FIX (finance.biggo.com) 2026-08-25
 # ADDED HANS ECONOMY (hansbiz.co.kr) DIRECT SOURCE 2026-08-25
@@ -6745,7 +6744,7 @@ def render_card(
           <span class="important-label">중요</span>
         </div>
         {_related_coverage_html(article)}
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">{new_badge}{escape(article.title)}</div>
       {snippet_html}
@@ -9189,7 +9188,6 @@ def build_html(
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#b2c7d9">
 <title>원자력 주요기사</title>
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
@@ -18550,167 +18548,12 @@ main {{
 
 
 /* ============================================================
-   2026-08-25 TABLET RESPONSIVE LAYOUT
-   - Mobile: <=767px (existing stabilized layout)
-   - Tablet: 768px-1199px (single-column, touch/read focused)
-   - Desktop: >=1200px (wide monitoring/workspace UI)
-   ============================================================ */
-@media (min-width:768px) and (max-width:1199px) {{
-  body {{
-    background:#d7e3ef !important;
-  }}
-
-  .phone {{
-    width:calc(100% - 24px) !important;
-    max-width:1080px !important;
-    margin:0 auto !important;
-    padding-bottom:32px !important;
-  }}
-
-  /* Tablet header: roomy enough for touch, without desktop density. */
-  .topbar {{
-    margin:10px 0 12px !important;
-    padding:12px 14px !important;
-    border-radius:15px !important;
-  }}
-  .topbar h1 {{
-    font-size:20px !important;
-  }}
-  .header-toggle {{
-    min-width:78px !important;
-    height:36px !important;
-  }}
-  .search-input {{
-    height:42px !important;
-    font-size:13px !important;
-    border-radius:10px !important;
-  }}
-  .header-controls {{
-    display:block !important;
-    max-height:none !important;
-  }}
-  .topbar.collapsed .header-controls {{
-    max-height:0 !important;
-  }}
-  .tabs {{
-    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-    gap:7px !important;
-  }}
-  .tab-button {{
-    min-height:38px !important;
-    height:38px !important;
-    font-size:12px !important;
-  }}
-  .utility-row {{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:8px !important;
-    max-width:none !important;
-  }}
-  .utility-box {{
-    height:42px !important;
-  }}
-
-  /* Tablet map: larger than mobile, smaller than desktop. */
-  .world-map-panel {{
-    margin-bottom:14px !important;
-    padding:12px !important;
-    border-radius:15px !important;
-  }}
-  .country-map-visual.globe-mode {{
-    height:430px !important;
-    min-height:430px !important;
-  }}
-  .country-map-visual .world-map-inline.globe-texture-source {{
-    left:50% !important;
-    right:auto !important;
-    width:min(calc(100% - 20px),820px) !important;
-    height:auto !important;
-    aspect-ratio:2 / 1 !important;
-    transform:translateX(-50%) !important;
-    transform-origin:center top !important;
-  }}
-  #continent-rail {{
-    left:10px !important;
-    right:10px !important;
-    width:auto !important;
-    height:46px !important;
-    max-height:46px !important;
-    transform:none !important;
-  }}
-  .continent-button {{
-    min-height:38px !important;
-    height:38px !important;
-    padding:4px 6px !important;
-  }}
-  .continent-button-name {{ font-size:10px !important; }}
-  .continent-button-count {{ font-size:9px !important; }}
-
-  /* Tablet articles stay one-column for reading and touch. */
-  .article-stack {{
-    display:grid !important;
-    grid-template-columns:minmax(0,1fr) !important;
-    gap:9px !important;
-    margin-top:8px !important;
-    margin-bottom:8px !important;
-  }}
-  .preview-card {{
-    grid-template-columns:minmax(0,1fr) 132px !important;
-    gap:10px !important;
-    min-height:132px !important;
-    height:auto !important;
-    padding:7px 7px 7px 11px !important;
-    border-radius:8px !important;
-  }}
-  .preview-copy {{
-    min-width:0 !important;
-    min-height:118px !important;
-  }}
-  .headline {{
-    font-size:15px !important;
-    line-height:1.32 !important;
-    -webkit-line-clamp:3 !important;
-  }}
-  .article-snippet {{
-    font-size:11.5px !important;
-    line-height:1.43 !important;
-    -webkit-line-clamp:4 !important;
-  }}
-  .important-button {{
-    min-width:30px !important;
-    width:30px !important;
-    min-height:28px !important;
-    height:28px !important;
-    font-size:17px !important;
-    line-height:28px !important;
-  }}
-  .card-side {{
-    width:132px !important;
-    min-width:132px !important;
-  }}
-  .preview-image {{
-    width:132px !important;
-    height:132px !important;
-    min-height:132px !important;
-  }}
-  .group-title {{
-    min-height:38px !important;
-  }}
-
-  /* PC-only workspace/navigation must never appear on tablet. */
-  .desktop-workspace-bar,
-  .desktop-group-navigator {{
-    display:none !important;
-  }}
-}}
-
-
-/* ============================================================
    2026-08-24 PC DESKTOP RESPONSIVE OPTIMIZATION
-   - Mobile/tablet layout below 1200px remains separate from desktop.
+   - Mobile layout below 900px remains unchanged.
    - Desktop gets a wider centered canvas, larger map,
      horizontal controls, and two-column article cards.
    ============================================================ */
-@media (min-width:1200px) {{
+@media (min-width:900px) {{
   body {{
     background:#c4d6e8 !important;
   }}
@@ -19002,14 +18845,14 @@ main {{
 
 /* ============================================================
    2026-08-25 PC ARTICLE CONTENT VISIBILITY FIX
-   - Desktop-only fix (>=1200px); mobile/tablet layouts remain unchanged.
+   - Desktop-only fix (>=900px); mobile layout remains unchanged.
    - The desktop override had reintroduced a 3-column .preview-copy grid
      while the article content itself was fixed to column 1. As a result,
      the text area could collapse to ~20px on wide/maximized PC windows.
    - Restore a single flexible text column and allow the card body to use
      the full available width beside the thumbnail.
    ============================================================ */
-@media (min-width:1200px) {{
+@media (min-width:900px) {{
   .article-stack {{
     min-width:0 !important;
     overflow:visible !important;
@@ -19053,9 +18896,9 @@ main {{
 
 /* ============================================================
    2026-08-25 PC WORKSPACE UX MODERNIZATION
-   - Desktop only (>=1200px). Mobile/tablet remain untouched.
+   - Desktop only (>=900px). Mobile remains untouched.
    ============================================================ */
-@media (min-width:1200px) {{
+@media (min-width:900px) {{
   .desktop-workspace-bar {{
     position:sticky; top:8px; z-index:120; display:flex; align-items:center;
     justify-content:space-between; gap:12px; min-height:48px; margin:0 0 14px;
@@ -19097,631 +18940,207 @@ main {{
 
 
 /* ============================================================
-   2026-08-25 PC WIDE READING + ALWAYS-ACCESSIBLE IMPORTANT UX
-   - Desktop uses the available monitor width instead of a narrow 1320px canvas.
-   - Pretendard-first typography and larger desktop news text.
-   - Mobile-style top favorites panel is hidden on PC; sticky workspace Important filter remains.
-   - Important button is anchored before thumbnail with a protected gap.
-   - Floating back-to-top control is desktop-only.
+   2026-08-25 PC ARTICLE TAB CONTROL HEIGHT ALIGNMENT
+   - 전일 / 금일 / 익일 / 순서 / 날짜의 바깥 컨트롤 세로폭을 동일하게 고정
+   - 모바일 레이아웃은 변경하지 않음
    ============================================================ */
-@media (min-width:1200px) {{
-  html, body {{
-    font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
-      "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif !important;
+@media (min-width:900px) {{
+  .tabs,
+  .utility-row {{
+    align-items:stretch !important;
   }}
-  body {{
-    background:#c8d8e8 !important;
-  }}
-  .phone {{
-    width:calc(100vw - 24px) !important;
-    max-width:none !important;
-    margin:0 12px !important;
-  }}
-  .topbar {{
-    padding:16px 20px 15px !important;
-  }}
-  .topbar h1 {{
-    font-size:25px !important;
-    font-weight:850 !important;
-    letter-spacing:-.035em !important;
-  }}
-  .updated {{ font-size:11.5px !important; }}
-  .search-input {{
-    height:44px !important;
-    font-size:14.5px !important;
-    font-weight:500 !important;
-  }}
-  .tab-button {{ font-size:13px !important; }}
-  .utility-label, .language-order-toggle, .date-display {{ font-size:11.5px !important; }}
 
-  /* PC uses the sticky Important filter instead of a second top-only favorites block. */
-  .favorites-panel-top {{ display:none !important; }}
-
-  .desktop-workspace-bar {{
-    top:8px !important;
-    min-height:54px !important;
-    padding:9px 12px 9px 16px !important;
-    border-radius:14px !important;
-  }}
-  .desktop-workspace-title {{ font-size:13px !important; }}
-  .desktop-metric {{ font-size:11px !important; }}
-  .desktop-metric strong {{ font-size:14px !important; }}
-  .desktop-mode-button, .desktop-density-button {{
+  .tab-button,
+  .utility-box {{
     height:34px !important;
-    padding:0 13px !important;
-    font-size:11.5px !important;
+    min-height:34px !important;
+    max-height:34px !important;
   }}
+}}
 
-  .group-title {{
-    height:40px !important;
-    padding:0 17px !important;
-  }}
-  .group-name, .group-count, .group-arrow {{ height:40px !important; }}
-  .group-name {{ font-size:15px !important; }}
-  .group-count {{ font-size:14px !important; }}
 
-  .article-stack {{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:14px !important;
+/* 2026-08-25 FINAL PC MAP / IMPORTANT VISIBILITY */
+@media (min-width:900px){{
+  #continent-rail{{display:block !important;visibility:visible !important;opacity:1 !important;}}
+  #country-map-label-layer.country-map-label-layer{{display:block !important;visibility:visible !important;opacity:1 !important;z-index:12 !important;}}
+  .precise-country-label,.clean-map-country-label{{display:inline-flex !important;visibility:visible !important;opacity:1 !important;}}
+  .favorites-panel-top{{position:relative !important;z-index:18 !important;}}
+  .favorites-panel-top.desktop-important-flash{{box-shadow:0 0 0 3px rgba(230,200,91,.25),0 5px 16px rgba(17,24,39,.08) !important;}}
+}}
+
+
+
+/* ============================================================
+   2026-08-25 FINAL MOBILE MAP RESTORE
+   Restore the previously approved mobile world map + bottom continent dock.
+   Keep desktop layout untouched.
+   ============================================================ */
+@media (max-width:899px) {{
+  #world-map-panel.world-map-panel {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
   }}
-  .preview-card {{
+  .country-map-visual.globe-mode {{
     position:relative !important;
-    grid-template-columns:minmax(0,1fr) 136px !important;
-    gap:14px !important;
-    min-height:146px !important;
-    padding:9px 9px 9px 13px !important;
-    border-radius:10px !important;
-  }}
-  .preview-copy {{
-    min-height:128px !important;
-    padding:3px 0 !important;
-  }}
-  .article-content-column {{
-    position:relative !important;
-    padding-right:44px !important;
-  }}
-  .meta-row {{
-    min-height:25px !important;
-    height:25px !important;
-    padding-right:2px !important;
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    height:244px !important;
+    min-height:244px !important;
     overflow:hidden !important;
   }}
-  .publisher, .status-inline {{
-    font-size:12px !important;
-    line-height:1.2 !important;
-  }}
-  .meta-divider {{ font-size:11px !important; }}
-  .headline {{
-    margin-top:6px !important;
-    font-size:17px !important;
-    font-weight:760 !important;
-    line-height:1.38 !important;
-    letter-spacing:-.018em !important;
-    -webkit-line-clamp:3 !important;
-  }}
-  .article-snippet {{
-    margin-top:7px !important;
-    font-size:13.5px !important;
-    font-weight:450 !important;
-    line-height:1.58 !important;
-    letter-spacing:-.008em !important;
-    -webkit-line-clamp:3 !important;
-  }}
-  .card-side {{
-    width:136px !important;
-    min-width:136px !important;
-  }}
-  .preview-image {{
-    width:136px !important;
-    height:136px !important;
-    min-height:136px !important;
-  }}
-
-  /* Important control has its own protected area and cannot collide with thumbnail. */
-  .important-button {{
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
     position:absolute !important;
-    top:0 !important;
-    right:0 !important;
-    z-index:4 !important;
-    width:36px !important;
-    min-width:36px !important;
-    height:26px !important;
-    min-height:26px !important;
-    padding:0 7px !important;
-    border-radius:7px !important;
-    font-size:11px !important;
-    line-height:24px !important;
-    white-space:nowrap !important;
+    left:6px !important;
+    right:auto !important;
+    top:35px !important;
+    bottom:auto !important;
+    width:calc(100% - 12px) !important;
+    height:auto !important;
+    aspect-ratio:2 / 1 !important;
+    transform:none !important;
+    transform-origin:center center !important;
+    z-index:1 !important;
   }}
-
-  body.desktop-comfort-view .headline {{ font-size:18px !important; }}
-  body.desktop-comfort-view .article-snippet {{ font-size:14px !important; line-height:1.62 !important; }}
-  body.desktop-comfort-view .preview-card {{ grid-template-columns:minmax(0,1fr) 160px !important; }}
-  body.desktop-comfort-view .card-side, body.desktop-comfort-view .preview-image {{ width:160px !important; min-width:160px !important; }}
-  body.desktop-comfort-view .preview-image {{ height:160px !important; min-height:160px !important; }}
-
-  /* Fixed side navigator would overlap a true full-width canvas, so keep article canvas clear. */
-  .desktop-group-navigator {{ display:none !important; }}
-
-  .desktop-back-to-top {{
-    position:fixed;
-    right:24px;
-    bottom:24px;
-    z-index:180;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    min-width:48px;
-    height:48px;
-    padding:0 14px;
-    border:1px solid rgba(29,95,167,.24);
-    border-radius:24px;
-    background:rgba(255,255,255,.94);
-    color:#1d5fa7;
-    box-shadow:0 8px 24px rgba(30,55,85,.20);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    font:800 12px/1 "Pretendard Variable", Pretendard, sans-serif;
-    cursor:pointer;
-    opacity:0;
-    visibility:hidden;
-    transform:translateY(8px);
-    transition:opacity .18s ease, transform .18s ease, visibility .18s ease, box-shadow .18s ease;
+  #country-map-label-layer.country-map-label-layer {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    transform:none !important;
+    pointer-events:none !important;
+    overflow:visible !important;
+    z-index:7 !important;
   }}
-  .desktop-back-to-top.visible {{
-    opacity:1;
-    visibility:visible;
-    transform:translateY(0);
-  }}
-  .desktop-back-to-top:hover {{
-    box-shadow:0 10px 28px rgba(30,55,85,.28);
-    transform:translateY(-2px);
-  }}
-  .desktop-back-to-top-arrow {{ font-size:17px; line-height:1; }}
-}}
-
-/* On large/full-HD monitors, use the extra width for a third readable column. */
-@media (min-width:1700px) {{
-  .article-stack {{
-    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-    gap:14px !important;
-  }}
-}}
-
-
-
-/* ============================================================
-   2026-08-25 PC READING SCALE + IMPORTANT ARTICLE SIDE DRAWER
-   - Larger newsroom-style reading scale on desktop.
-   - Important articles are accessible from a persistent right-side control.
-   - Clicking an Important button opens the drawer immediately so the save
-     destination is visually obvious.
-   ============================================================ */
-@media (min-width:1200px) {{
-  .topbar h1 {{ font-size:27px !important; }}
-  .updated {{ font-size:12px !important; }}
-  .search-input {{ height:46px !important; font-size:15px !important; }}
-  .tab-button {{ font-size:13.5px !important; font-weight:800 !important; }}
-  .utility-label, .language-order-toggle, .date-display {{ font-size:12px !important; }}
-
-  .desktop-workspace-bar {{ min-height:58px !important; padding:10px 14px 10px 17px !important; }}
-  .desktop-workspace-title {{ font-size:14px !important; }}
-  .desktop-metric {{ font-size:12px !important; }}
-  .desktop-metric strong {{ font-size:15.5px !important; }}
-  .desktop-mode-button, .desktop-density-button {{ height:36px !important; font-size:12.5px !important; }}
-
-  .group-title {{ height:44px !important; }}
-  .group-name, .group-count, .group-arrow {{ height:44px !important; }}
-  .group-name {{ font-size:16px !important; }}
-  .group-count {{ font-size:14.5px !important; }}
-
-  .preview-card {{
-    min-height:158px !important;
-    grid-template-columns:minmax(0,1fr) 146px !important;
-    gap:16px !important;
-    padding:11px 11px 11px 15px !important;
-  }}
-  .preview-copy {{ min-height:136px !important; }}
-  .article-content-column {{ padding-right:50px !important; }}
-  .meta-row {{ min-height:27px !important; height:27px !important; }}
-  .publisher, .status-inline {{ font-size:13px !important; font-weight:750 !important; }}
-  .meta-divider {{ font-size:12px !important; }}
-  .headline {{
-    margin-top:7px !important;
-    font-size:19px !important;
-    font-weight:780 !important;
-    line-height:1.40 !important;
-    letter-spacing:-.022em !important;
-    -webkit-line-clamp:3 !important;
-  }}
-  .article-snippet {{
-    margin-top:8px !important;
-    font-size:14.5px !important;
-    line-height:1.62 !important;
-    letter-spacing:-.01em !important;
-    -webkit-line-clamp:3 !important;
-  }}
-  .card-side {{ width:146px !important; min-width:146px !important; }}
-  .preview-image {{ width:146px !important; height:146px !important; min-height:146px !important; }}
-  .important-button {{
-    width:42px !important;
-    min-width:42px !important;
-    height:29px !important;
-    min-height:29px !important;
-    padding:0 8px !important;
-    border:1px solid #d7dee8 !important;
-    border-radius:8px !important;
-    background:#fff !important;
-    color:#667085 !important;
-    font-size:11.5px !important;
-    line-height:27px !important;
-    box-shadow:0 1px 3px rgba(17,24,39,.06) !important;
-  }}
-  .preview-card.important .important-button {{
-    border-color:#e5b92f !important;
-    background:#fff8d6 !important;
-    color:#9a6b00 !important;
-  }}
-
-  body.desktop-comfort-view .headline {{ font-size:20px !important; }}
-  body.desktop-comfort-view .article-snippet {{ font-size:15.5px !important; }}
-
-  .desktop-important-launcher {{
-    position:fixed;
-    right:22px;
-    top:50%;
-    z-index:205;
-    transform:translateY(-50%);
-    display:flex;
-    align-items:center;
-    gap:7px;
-    min-height:46px;
-    padding:0 14px;
-    border:1px solid #e6c44f;
-    border-radius:23px;
-    background:rgba(255,250,224,.97);
-    color:#8a6400;
-    box-shadow:0 8px 24px rgba(79,62,9,.16);
-    font:850 12.5px/1 "Pretendard Variable", Pretendard, sans-serif;
-    cursor:pointer;
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-  }}
-  .desktop-important-launcher:hover {{ transform:translateY(-50%) translateX(-2px); box-shadow:0 10px 28px rgba(79,62,9,.22); }}
-  .desktop-important-launcher-star {{ font-size:18px; line-height:1; }}
-  .desktop-important-launcher-count {{
-    display:inline-flex; align-items:center; justify-content:center;
-    min-width:23px; height:23px; padding:0 6px; border-radius:12px;
-    background:#b88600; color:#fff; font-size:11px; font-weight:900;
-  }}
-
-  .desktop-important-scrim {{
-    position:fixed; inset:0; z-index:209; display:none;
-    background:rgba(24,39,58,.14); backdrop-filter:blur(1px);
-  }}
-  .desktop-important-scrim.open {{ display:block; }}
-  .desktop-important-drawer {{
-    position:fixed;
-    top:0; right:0; bottom:0;
-    z-index:210;
-    width:min(430px,38vw);
-    display:flex;
-    flex-direction:column;
-    background:#f8fafc;
-    border-left:1px solid #d7e0ea;
-    box-shadow:-14px 0 38px rgba(31,49,72,.18);
-    transform:translateX(104%);
-    transition:transform .22s ease;
-  }}
-  .desktop-important-drawer.open {{ transform:translateX(0); }}
-  .desktop-important-drawer-head {{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    min-height:68px; padding:13px 16px 12px 18px;
-    border-bottom:1px solid #e1e7ef; background:#fffdf2;
-  }}
-  .desktop-important-drawer-title {{ font-size:17px; font-weight:900; color:#3d4653; }}
-  .desktop-important-drawer-sub {{ margin-top:3px; font-size:11px; color:#7a8493; font-weight:650; }}
-  .desktop-important-close {{
-    width:36px; height:36px; border:1px solid #d8dee7; border-radius:18px;
-    background:#fff; color:#566273; font-size:20px; line-height:34px; cursor:pointer;
-  }}
-  .desktop-important-drawer-list {{
-    flex:1 1 auto; min-height:0; overflow:auto; padding:12px; scrollbar-width:thin;
-  }}
-  .desktop-important-empty {{
-    margin:26px 8px; padding:24px 18px; border:1px dashed #ccd5e0; border-radius:12px;
-    background:#fff; color:#7b8796; font-size:13px; line-height:1.55; text-align:center;
-  }}
-  .desktop-important-item {{
-    display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px;
-    margin-bottom:9px; padding:13px 13px 12px 14px;
-    border:1px solid #e2e7ee; border-left:4px solid #e1b62e;
-    border-radius:10px; background:#fff; cursor:pointer;
-    box-shadow:0 2px 7px rgba(25,43,65,.05);
-  }}
-  .desktop-important-item:hover {{ border-color:#d9bf62; box-shadow:0 5px 14px rgba(25,43,65,.09); }}
-  .desktop-important-publisher {{ font-size:11.5px; font-weight:800; color:#7a8493; }}
-  .desktop-important-headline {{ margin-top:5px; font-size:15.5px; font-weight:800; line-height:1.43; color:#173b67; }}
-  .desktop-important-remove {{
-    align-self:start; min-width:44px; height:30px; padding:0 8px;
-    border:1px solid #eadb9c; border-radius:7px; background:#fffaf0;
-    color:#956e00; font-size:10.5px; font-weight:800; cursor:pointer;
-  }}
-  .desktop-important-remove:hover {{ background:#fff2bf; }}
-
-  .desktop-important-saved-flash {{ animation:desktopImportantSavedFlash .7s ease; }}
-  @keyframes desktopImportantSavedFlash {{
-    0% {{ box-shadow:0 0 0 0 rgba(224,177,25,.46); }}
-    100% {{ box-shadow:0 0 0 10px rgba(224,177,25,0); }}
-  }}
-}}
-
-/* ============================================================
-   2026-08-25 MAP COUNTRY LABEL VISIBILITY / READABILITY FIX
-   - Mobile / Tablet / PC common
-   - Show flag + country + article count on the map itself
-   ============================================================ */
-#country-map-label-layer.country-map-label-layer {{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  z-index:40 !important;
-  pointer-events:none !important;
-}}
-.precise-country-label {{
-  min-height:20px !important;
-  padding:3px 6px !important;
-  gap:4px !important;
-  font-size:8.5px !important;
-  box-shadow:0 2px 7px rgba(42,76,103,.14) !important;
-}}
-.precise-country-label .flag {{ font-size:10px !important; }}
-.precise-country-label .name,
-.precise-country-label .count {{ font-size:8.4px !important; }}
-.precise-country-label .count {{ color:#0f7fb8 !important; }}
-.precise-country-dot {{ z-index:41 !important; }}
-.precise-country-connector {{ z-index:40 !important; }}
-.precise-country-label {{ z-index:42 !important; }}
-
-@media (min-width:768px) and (max-width:1199px) {{
-  .precise-country-label {{ min-height:22px !important; padding:3px 7px !important; }}
-  .precise-country-label .flag {{ font-size:11px !important; }}
-  .precise-country-label .name,
-  .precise-country-label .count {{ font-size:9px !important; }}
-}}
-
-@media (min-width:1200px) {{
-  .precise-country-label {{ min-height:24px !important; padding:4px 8px !important; gap:5px !important; }}
-  .precise-country-label .flag {{ font-size:13px !important; }}
-  .precise-country-label .name,
-  .precise-country-label .count {{ font-size:10.5px !important; }}
-}}
-
-@media (max-width:430px) {{
-  .precise-country-label {{ min-height:18px !important; padding:2px 4px !important; gap:3px !important; }}
-  .precise-country-label .flag {{ font-size:8.8px !important; }}
-  .precise-country-label .name,
-  .precise-country-label .count {{ font-size:7.6px !important; }}
-}}
-
-
-/* 2026-08-25 MAP LABEL HARD FIX V2 - final cascade */
-#country-map-label-layer.country-map-label-layer {{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  position:absolute !important;
-  inset:0 !important;
-  z-index:80 !important;
-  pointer-events:none !important;
-  overflow:visible !important;
-}}
-.precise-country-label.map-label-hard-fix {{
-  display:flex !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  position:absolute !important;
-  align-items:center !important;
-  justify-content:center !important;
-  gap:3px !important;
-  height:21px !important;
-  min-height:21px !important;
-  padding:2px 4px !important;
-  border:1px solid rgba(103,143,174,.55) !important;
-  border-radius:7px !important;
-  background:rgba(255,255,255,.96) !important;
-  box-shadow:0 2px 7px rgba(31,67,96,.18) !important;
-  color:#244865 !important;
-  pointer-events:auto !important;
-  white-space:nowrap !important;
-  overflow:hidden !important;
-  box-sizing:border-box !important;
-}}
-.precise-country-label.map-label-hard-fix .flag {{ font-size:10px !important; flex:0 0 auto !important; }}
-.precise-country-label.map-label-hard-fix .name {{ font-size:7.8px !important; font-weight:900 !important; overflow:hidden !important; text-overflow:ellipsis !important; }}
-.precise-country-label.map-label-hard-fix .count {{ font-size:7.8px !important; font-weight:950 !important; color:#0f7fb8 !important; flex:0 0 auto !important; }}
-.precise-country-label.map-label-hard-fix.active {{ background:#fff2bd !important; border-color:#d8ba35 !important; }}
-@media (min-width:768px) and (max-width:1199px) {{
-  .precise-country-label.map-label-hard-fix {{ height:25px !important; min-height:25px !important; padding:3px 6px !important; gap:4px !important; }}
-  .precise-country-label.map-label-hard-fix .flag {{ font-size:12px !important; }}
-  .precise-country-label.map-label-hard-fix .name,
-  .precise-country-label.map-label-hard-fix .count {{ font-size:9px !important; }}
-}}
-@media (min-width:1200px) {{
-  .precise-country-label.map-label-hard-fix {{ height:28px !important; min-height:28px !important; padding:4px 7px !important; gap:5px !important; border-radius:8px !important; }}
-  .precise-country-label.map-label-hard-fix .flag {{ font-size:14px !important; }}
-  .precise-country-label.map-label-hard-fix .name,
-  .precise-country-label.map-label-hard-fix .count {{ font-size:10.5px !important; }}
-}}
-
-/* ============================================================
-   2026-08-25 PC HEADER + IMPORTANT UX REFINEMENT
-   - Make the Important destination obvious on maximized desktop screens.
-   - Give the article Important control enough width for "☆ 중요 / ★ 중요".
-   - Refine search / language order / date typography for desktop readability.
-   - Mobile and tablet remain unchanged.
-   ============================================================ */
-@media (min-width:1200px) {{
-  /* More deliberate newsroom/dashboard typography in the utility header. */
-  .search-input {{
-    height:50px !important;
-    padding:0 17px !important;
-    border:1px solid #c9d5e2 !important;
-    border-radius:12px !important;
-    background:#ffffff !important;
-    color:#172b43 !important;
-    font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
-      "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif !important;
-    font-size:16px !important;
-    font-weight:600 !important;
-    letter-spacing:-.012em !important;
-    box-shadow:0 2px 7px rgba(31,58,87,.05) !important;
-  }}
-  .search-input::placeholder {{
-    color:#8794a5 !important;
-    font-weight:500 !important;
-  }}
-  .search-input:focus {{
-    border-color:#6d9dca !important;
-    box-shadow:0 0 0 3px rgba(55,116,173,.10) !important;
-  }}
-
-  .header-controls {{
-    gap:12px !important;
-    margin-top:10px !important;
-  }}
-  .utility-row {{ gap:10px !important; }}
-  .utility-box {{
-    height:42px !important;
-    padding:0 10px !important;
-    border:1px solid #d7e0ea !important;
-    border-radius:10px !important;
-    background:#f8fafc !important;
-  }}
-  .utility-label {{
-    color:#64748b !important;
-    font-size:12px !important;
-    font-weight:750 !important;
-    letter-spacing:-.01em !important;
-  }}
-  .language-order-toggle,
-  .date-control {{
-    height:32px !important;
-    border-radius:8px !important;
-    background:#fff !important;
-  }}
-  .language-order-toggle {{
-    padding:0 13px !important;
-    color:#1f4168 !important;
-    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
-    font-size:13.5px !important;
-    font-weight:800 !important;
-    letter-spacing:-.015em !important;
-    line-height:32px !important;
-  }}
-  .date-display {{
-    padding:0 26px 0 11px !important;
-    color:#1f4168 !important;
-    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
-    font-size:13.5px !important;
-    font-weight:800 !important;
-    font-variant-numeric:tabular-nums !important;
-    letter-spacing:.005em !important;
-    line-height:32px !important;
-  }}
-  .date-calendar {{
-    right:9px !important;
-    color:#6b7f96 !important;
-    font-size:12px !important;
-  }}
-
-  /* The card action must fit the full Korean label without clipping. */
-  .article-content-column {{ padding-right:82px !important; }}
-  .important-button {{
+  #continent-rail {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:absolute !important;
+    left:5px !important;
+    right:5px !important;
+    bottom:5px !important;
+    top:auto !important;
     width:auto !important;
-    min-width:70px !important;
-    height:32px !important;
-    min-height:32px !important;
-    padding:0 11px !important;
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
+    height:35px !important;
+    max-height:35px !important;
+    padding:3px !important;
+    margin:0 !important;
+    transform:none !important;
+    border:1px solid rgba(148,185,208,.28) !important;
+    border-radius:13px !important;
+    background:rgba(255,255,255,.95) !important;
+    box-shadow:0 4px 12px rgba(48,87,116,.08) !important;
+    backdrop-filter:blur(5px) !important;
+    z-index:15 !important;
+  }}
+  #continent-rail .continent-rail-head,
+  #continent-rail .continent-back-button,
+  #continent-rail .continent-all-button {{ display:none !important; }}
+  #continent-rail .continent-rail-scroll {{
+    display:grid !important;
+    grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+    align-items:stretch !important;
     gap:3px !important;
-    border-radius:9px !important;
-    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
-    font-size:12.5px !important;
-    font-weight:850 !important;
-    line-height:1 !important;
-    letter-spacing:-.015em !important;
-    white-space:nowrap !important;
+    width:100% !important;
+    height:100% !important;
+    padding:0 !important;
     overflow:visible !important;
   }}
-
-  /* Persistent, obvious location for saved Important articles. */
-  .desktop-important-launcher {{
-    top:88px !important;
-    right:22px !important;
+  #continent-rail .continent-button {{
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-width:0 !important;
+    width:auto !important;
+    min-height:27px !important;
+    height:27px !important;
+    padding:1px !important;
+    margin:0 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:2px !important;
+    border:1px solid rgba(190,207,219,.54) !important;
+    border-radius:9px !important;
+    background:linear-gradient(180deg,#fff,#f8fbfd) !important;
+    color:#355873 !important;
+    text-align:center !important;
+    white-space:nowrap !important;
+  }}
+  #continent-rail .continent-button-name {{
+    display:block !important;
+    min-width:0 !important;
+    font-size:6.1px !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+    letter-spacing:-.28px !important;
+    white-space:nowrap !important;
+    word-break:keep-all !important;
+  }}
+  #continent-rail .continent-button-count {{
+    display:block !important;
+    flex:0 0 auto !important;
+    font-size:5.75px !important;
+    font-weight:950 !important;
+    line-height:1 !important;
+    color:#2785b6 !important;
+    white-space:nowrap !important;
+  }}
+  #continent-rail .continent-button-meta {{ display:none !important; }}
+  #continent-rail .continent-button.active {{
+    border-color:#45a5d4 !important;
+    background:linear-gradient(180deg,#eef9fe,#e6f5fc) !important;
+    box-shadow:inset 0 0 0 1px rgba(42,145,194,.10) !important;
+  }}
+  #continent-rail .continent-button.active .continent-button-name {{ color:#116c98 !important; }}
+  #continent-rail .continent-button.active .continent-button-count {{ color:#d84b4b !important; }}
+  .map-continent-state {{
+    display:inline-flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:absolute !important;
+    right:10px !important;
+    left:auto !important;
+    top:8px !important;
+    bottom:auto !important;
+    z-index:16 !important;
+    height:24px !important;
+    padding:0 8px !important;
+    align-items:center !important;
+    gap:5px !important;
+    border:1px solid rgba(151,187,210,.28) !important;
+    border-radius:999px !important;
+    background:rgba(255,255,255,.94) !important;
+    box-shadow:0 2px 7px rgba(49,87,115,.06) !important;
     transform:none !important;
-    min-width:178px !important;
-    min-height:48px !important;
-    padding:0 14px 0 15px !important;
-    justify-content:flex-start !important;
-    gap:8px !important;
-    border-radius:12px !important;
-    border:1px solid #e1bb3e !important;
-    background:rgba(255,250,222,.98) !important;
-    color:#795900 !important;
-    box-shadow:0 8px 22px rgba(72,55,8,.18) !important;
-    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
-    font-size:13.5px !important;
-    font-weight:850 !important;
-    letter-spacing:-.015em !important;
   }}
-  .desktop-important-launcher:hover {{
-    transform:translateY(-1px) !important;
-    box-shadow:0 11px 26px rgba(72,55,8,.23) !important;
+  .precise-country-dot {{ display:block !important; visibility:visible !important; opacity:1 !important; }}
+  .precise-country-connector {{ display:block !important; visibility:visible !important; opacity:1 !important; }}
+  .precise-country-label,
+  .clean-map-country-label {{
+    display:inline-flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    min-height:19px !important;
+    padding:2px 5px !important;
+    font-size:7.4px !important;
+    z-index:17 !important;
   }}
-  .desktop-important-launcher-star {{ font-size:19px !important; }}
-  .desktop-important-launcher-count {{
-    margin-left:auto !important;
-    min-width:25px !important;
-    height:25px !important;
-    font-size:11.5px !important;
-  }}
-
-  .desktop-important-drawer {{
-    width:min(500px,40vw) !important;
-  }}
-  .desktop-important-drawer-head {{
-    min-height:78px !important;
-    padding:15px 18px !important;
-  }}
-  .desktop-important-drawer-title {{ font-size:19px !important; }}
-  .desktop-important-drawer-sub {{ font-size:12.5px !important; line-height:1.45 !important; }}
-  .desktop-important-publisher {{ font-size:12.5px !important; }}
-  .desktop-important-headline {{ font-size:16.5px !important; line-height:1.48 !important; }}
-
-  /* Keep the back-to-top button clear of the Important drawer launcher. */
-  .desktop-back-to-top {{ right:24px !important; bottom:24px !important; }}
+  #continent-country-ranking,
+  .country-map-caption {{ display:none !important; }}
 }}
-
-
-
-/* 2026-08-25 FINAL COUNTRY LABEL LAYER VISIBILITY OVERRIDE */
-#country-map-label-layer.country-map-label-layer {{
-  display:block !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  pointer-events:none !important;
-  z-index:80 !important;
-}}
-#country-map-label-layer .precise-country-label {{
-  display:inline-flex !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  pointer-events:auto !important;
-  position:absolute !important;
+@media (max-width:380px) {{
+  .country-map-visual.globe-mode {{ height:238px !important; min-height:238px !important; }}
+  #continent-rail .continent-button-name {{ font-size:5.8px !important; letter-spacing:-.30px !important; }}
+  #continent-rail .continent-button-count {{ font-size:5.45px !important; }}
+  .precise-country-label,.clean-map-country-label {{ font-size:7px !important; padding:2px 4px !important; }}
 }}
 </style>
 </head>
@@ -20587,7 +20006,7 @@ main {{
 
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
-  <footer>기사 카드를 누르면 원문으로 이동합니다. ‘☆ 중요’을 누르면 중요 기사에 저장됩니다.</footer>
+  <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
 </div>
 <script>
 
@@ -20744,14 +20163,14 @@ function applyState(card){{
 
   const importantButton=card.querySelector(".important-button");
   if(importantButton){{
-    importantButton.textContent=isImportant ? "★ 중요" : "☆ 중요";
+    importantButton.textContent=isImportant ? "중요 ✓" : "중요";
     importantButton.setAttribute(
       "aria-label",
       isImportant ? "중요 기사 표시 해제" : "중요 기사로 표시"
     );
     importantButton.title=isImportant
       ? "누르면 중요 표시가 해제됩니다."
-      : "누르면 중요 기사에 저장됩니다.";
+      : "누르면 상단 중요 기사에 모아집니다.";
   }}
 
   if(isRead){{
@@ -20828,6 +20247,7 @@ document.querySelectorAll(".preview-card").forEach(card=>{{
       }});
 
       renderFavorites();
+      revealDesktopImportantArea();
     }});
   }}
 
@@ -22232,24 +21652,10 @@ document.querySelectorAll(".tab-button").forEach(button => {{
     const panel = document.getElementById("tab-" + label);
     if(!panel) return;
 
-    const wasActive = button.classList.contains("active") && panel.classList.contains("active");
-
-    // Same-tab click toggles the currently open article panel closed/open.
-    if(wasActive) {{
-      button.classList.remove("active");
-      panel.classList.remove("active");
-      button.setAttribute("aria-expanded", "false");
-      return;
-    }}
-
-    document.querySelectorAll(".tab-button").forEach(item => {{
-      item.classList.remove("active");
-      item.setAttribute("aria-expanded", "false");
-    }});
+    document.querySelectorAll(".tab-button").forEach(item => item.classList.remove("active"));
     document.querySelectorAll(".tab-panel").forEach(item => item.classList.remove("active"));
 
     button.classList.add("active");
-    button.setAttribute("aria-expanded", "true");
     panel.classList.add("active");
 
     const periodDate = panel.getAttribute("data-report-date");
@@ -23560,7 +22966,7 @@ function layoutAndRenderCountryMap(){{
 
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
-window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));\nif (window.matchMedia('(max-width:899px)').matches) {{\n  window.addEventListener('load', () => {{\n    requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));\n    setTimeout(layoutAndRenderCountryMap, 120);\n  }});\n}}\n
 
 
 
@@ -24797,116 +24203,177 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
 }}
 
 
-/* ============================================================
-   2026-08-25 MAP COUNTRY LABELS ACTUAL RUNTIME FIX
-   - Restored renderer must be GLOBAL, not nested inside an older renderer.
-   - HTML label layer is re-enabled after old native-SVG retirement CSS.
-   ============================================================ */
-function maybeInitializeContinentFilter(items){{
-  if(activeContinentFilter && activeContinentFilter!=='ALL')return;
-  const {{articleCounts}}=getContinentCounts(items);
-  const ranked=Object.entries(articleCounts)
-    .filter(([key,value])=>key!=='ALL' && Number(value)>0)
-    .sort((a,b)=>Number(b[1])-Number(a[1]));
-  if(ranked.length)activeContinentFilter=ranked[0][0];
-}}
-
 function renderHtmlCountryLabels(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode');
-  const svg=document.querySelector('.world-map-inline.globe-texture-source');
-  const layer=document.getElementById('country-map-label-layer');
-  if(!visual || !svg || !layer)return;
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svg = document.querySelector('.world-map-inline.globe-texture-source');
+  const layer = document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer) return;
   layer.innerHTML='';
-  layer.style.setProperty('display','block','important');
-  layer.style.setProperty('visibility','visible','important');
-  layer.style.setProperty('opacity','1','important');
-  layer.style.setProperty('pointer-events','none','important');
-  layer.style.setProperty('z-index','80','important');
-  if(activeContinentFilter==='ALL')return;
+  if(activeContinentFilter==='ALL') return;
 
-  const baseCountries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
-  if(!baseCountries.length)return;
-  const countries=(typeof finalSortCountriesForMap==='function')
-    ? finalSortCountriesForMap(baseCountries,activeContinentFilter)
-    : baseCountries.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
+  const baseCountries = items
+    .filter(v => v.continent===activeContinentFilter && v.count>0);
+  if(!baseCountries.length) return;
 
-  const vp=(typeof getExactMapViewport==='function')
-    ? getExactMapViewport(svg,visual)
-    : getPreciseMapViewport(svg,visual);
-  const dock=document.getElementById('continent-rail');
-  const vr=visual.getBoundingClientRect();
-  const dr=dock?.getBoundingClientRect();
-  const dockTop=dr ? dr.top-vr.top : visual.clientHeight-42;
-  const bounds={{
-    left:Math.max(12,vp.left+6),
-    top:Math.max(10,vp.top+6),
-    right:Math.min(vp.left+vp.width-6,visual.clientWidth-10),
-    bottom:Math.min(dockTop-10,vp.top+vp.height-6)
+  const countries = finalSortCountriesForMap(baseCountries, activeContinentFilter);
+  const vp = getExactMapViewport(svg, visual);
+  const dock = document.getElementById('continent-rail');
+  const vr = visual.getBoundingClientRect();
+  const dr = dock?.getBoundingClientRect();
+  const dockTop = dr ? dr.top-vr.top : visual.clientHeight-42;
+  const bounds = {{
+    left: Math.max(12, vp.left + 6),
+    top: Math.max(10, vp.top + 6),
+    right: Math.min(vp.left + vp.width - 6, visual.clientWidth - 10),
+    bottom: Math.min(dockTop - 10, vp.top + vp.height - 6)
   }};
 
-  const anchors=countries.map(item=>{{
-    const p=getCountryMapAnchor(item);
-    return {{code:item.code,x:vp.left+(p.x/100)*vp.width,y:vp.top+(p.y/100)*vp.height}};
+  const anchors = countries.map(item=>{{
+    const p = getCountryMapAnchor(item);
+    return {{
+      code:item.code,
+      x: vp.left + (p.x/100)*vp.width,
+      y: vp.top + (p.y/100)*vp.height
+    }};
   }});
-  const occupied=[];
+
+  const occupied = [];
   for(const item of countries){{
-    const anchor=anchors.find(v=>v.code===item.code);
-    if(!anchor)continue;
-    const ax=anchor.x, ay=anchor.y;
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='precise-country-label'+(activeCountryFilter===item.code?' active':'');
-    btn.dataset.countryCode=item.code;
+    const anchor = anchors.find(v=>v.code===item.code);
+    if(!anchor) continue;
+    const ax = anchor.x;
+    const ay = anchor.y;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'precise-country-label' + (activeCountryFilter===item.code ? ' active' : '');
+    btn.dataset.countryCode = item.code;
     btn.style.visibility='hidden';
-    btn.style.pointerEvents='auto';
-    btn.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
-    btn.setAttribute('aria-label',`${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    btn.innerHTML = `<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label', `${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
     layer.appendChild(btn);
-    const w=Math.ceil(btn.getBoundingClientRect().width || 72);
-    const h=Math.ceil(btn.getBoundingClientRect().height || 24);
-    const box=(typeof finalChooseLabelBox==='function')
-      ? finalChooseLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors)
-      : {{left:Math.max(bounds.left,Math.min(bounds.right-w,ax+10)),top:Math.max(bounds.top,Math.min(bounds.bottom-h,ay-h/2)),right:0,bottom:0,w,h}};
-    if(!box.right)box.right=box.left+w;
-    if(!box.bottom)box.bottom=box.top+h;
+
+    const w = Math.ceil(btn.getBoundingClientRect().width || 72);
+    const h = Math.ceil(btn.getBoundingClientRect().height || 24);
+    const box = finalChooseLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors);
     occupied.push(box);
-    btn.style.left=`${{box.left}}px`;
-    btn.style.top=`${{box.top}}px`;
-    btn.style.visibility='visible';
-    btn.style.opacity='1';
-    btn.style.zIndex='82';
-    btn.addEventListener('click',event=>{{event.preventDefault();event.stopPropagation();setCountryFilter(item.code);}});
+
+    btn.style.left = `${{box.left}}px`;
+    btn.style.top = `${{box.top}}px`;
+    btn.style.visibility = 'visible';
+    btn.style.zIndex = '5';
+    btn.addEventListener('click', (event)=>{{
+      event.preventDefault();
+      event.stopPropagation();
+      setCountryFilter(item.code);
+    }});
+
+    finalAddConnector(layer, ax, ay, box);
+
+    const dot = document.createElement('span');
+    dot.className = 'precise-country-dot' + (activeCountryFilter===item.code ? ' active' : '');
+    dot.style.left = `${{ax}}px`;
+    dot.style.top = `${{ay}}px`;
+    dot.style.width = '9px';
+    dot.style.height = '9px';
+    dot.style.marginLeft = '-4.5px';
+    dot.style.marginTop = '-4.5px';
+    dot.style.zIndex = '6';
+    layer.appendChild(dot);
   }}
-  if(typeof finalResolveRenderedCountryOverlaps==='function'){{
-    requestAnimationFrame(()=>requestAnimationFrame(()=>finalResolveRenderedCountryOverlaps(layer,bounds)));
-  }}
+
+  /* 실제 DOM 렌더링 후 한국/일본이 겹치는지 다시 확인하고, 겹칠 때만 미세 이동 */
+  requestAnimationFrame(() => requestAnimationFrame(() => finalResolveRenderedCountryOverlaps(layer,bounds)));
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items = collect2DCountryItems();
+  if(!items.length) return;
+  if(!activeContinentFilter) activeContinentFilter='ALL';
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking = document.getElementById('continent-country-ranking');
+  if(ranking){{ ranking.hidden=true; ranking.innerHTML=''; }}
+  const caption = document.querySelector('.country-map-caption');
+  if(caption) caption.style.display='none';
+  const note = document.getElementById('country-filter-note');
+  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
+}}
+requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
+window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
+window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
+
+
+
+
+/* 2026-08-25 FINAL MAP VISIBILITY + IMPORTANT UX FIX */
+function collect2DCountryItems(){{
+  const panel = activePanel();
+  if(!panel) return [];
+  const counts = {{}};
+  panel.querySelectorAll('.preview-card[data-country]').forEach(card=>{{
+    const code=(card.dataset.country||'').trim();
+    if(!code || code==='OTHER') return;
+    counts[code]=(counts[code]||0)+1;
+  }});
+  const items=[];
+  Object.entries(counts).forEach(([code,count])=>{{
+    if(count<=0) return;
+    const pin=document.querySelector(`#country-chip-rail .country-pin[data-country-filter="${{CSS.escape(code)}}"]`);
+    const meta=COUNTRY_GLOBE_META[code] || {{}};
+    const lon=Number.isFinite(meta.lon) ? meta.lon : Number(pin?.dataset.lon);
+    const lat=Number.isFinite(meta.lat) ? meta.lat : Number(pin?.dataset.lat);
+    if(!Number.isFinite(lon) || !Number.isFinite(lat)) return;
+    items.push({{
+      code,
+      name:meta.name || COUNTRY_NAMES[code] || code,
+      flag:meta.flag || pin?.querySelector('.flag')?.textContent || '🌐',
+      lon, lat, count,
+      continent:getCountryContinent(code)
+    }});
+  }});
+  return items.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
 }}
 
 function layoutAndRenderCountryMap(){{
   const items=collect2DCountryItems();
-  if(!items.length)return;
-  maybeInitializeContinentFilter(items);
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  if(!visual) return;
+  if(!activeContinentFilter) activeContinentFilter='ALL';
   renderContinentRail2D(items);
+  const rail=document.getElementById('continent-rail');
+  if(rail) rail.style.display='block';
   renderSelectedContinentHighlight();
-  if(typeof ensureMapStateChip==='function')ensureMapStateChip(items);
+  ensureMapStateChip(items);
   renderHtmlCountryLabels(items);
+  const layer=document.getElementById('country-map-label-layer');
+  if(layer) layer.style.display='block';
   const ranking=document.getElementById('continent-country-ranking');
-  if(ranking){{ranking.hidden=true;ranking.innerHTML='';}}
+  if(ranking){{ ranking.hidden=true; ranking.innerHTML=''; }}
   const caption=document.querySelector('.country-map-caption');
-  if(caption)caption.style.display='none';
+  if(caption) caption.style.display='none';
   const note=document.getElementById('country-filter-note');
-  if(note)note.textContent='지도에서 국기 · 국가명 · 기사건수를 확인하고 국가를 누르면 해당 기사만 표시됩니다';
+  if(note) note.textContent=items.length
+    ? (activeContinentFilter==='ALL' ? '대륙을 선택하면 해당 국가를 지도에 표시합니다' : '국가를 누르면 해당 기사만 표시됩니다')
+    : '표시할 국가별 기사가 없습니다';
 }}
 
-function forceCountryMapLabelRefresh(){{requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));}}
-forceCountryMapLabelRefresh();
-window.addEventListener('load',()=>{{forceCountryMapLabelRefresh();setTimeout(forceCountryMapLabelRefresh,250);setTimeout(forceCountryMapLabelRefresh,900);}},{{once:true}});
-window.addEventListener('resize',forceCountryMapLabelRefresh);
+function revealDesktopImportantArea(){{
+  if(!window.matchMedia('(min-width:900px)').matches) return;
+  const fav=document.getElementById('favorites-panel');
+  if(fav && !fav.hidden){{
+    fav.classList.add('desktop-important-flash');
+    setTimeout(()=>fav.classList.remove('desktop-important-flash'),900);
+  }}
+  if(typeof updateDesktopWorkspaceMetrics==='function') updateDesktopWorkspaceMetrics();
+}}
 
 /* 2026-08-25 PC WORKSPACE UX - desktop only */
 let desktopArticleMode = "all";
 const desktopDensityKey = "nuclearDailyBriefDesktopComfortView";
-function desktopIsActive() {{ return window.matchMedia("(min-width:1200px)").matches; }}
+function desktopIsActive() {{ return window.matchMedia("(min-width:900px)").matches; }}
 function getDesktopVisibleCards() {{
   const panel=activePanel(); if(!panel)return [];
   return [...panel.querySelectorAll(".preview-card")].filter(card=>{{
@@ -24944,7 +24411,7 @@ function rebuildDesktopGroupNavigator() {{
 function initDesktopWorkspace() {{
   if(!desktopIsActive()||document.getElementById("desktop-workspace-bar"))return; const main=document.querySelector("main"); if(!main)return;
   const bar=document.createElement("section"); bar.id="desktop-workspace-bar"; bar.className="desktop-workspace-bar"; bar.setAttribute("aria-label","PC 빠른 보기 도구");
-  bar.innerHTML=`<div class="desktop-workspace-summary"><span class="desktop-workspace-title">PC 빠른 보기</span><span class="desktop-metric">표시 <strong id="desktop-visible-count">0</strong></span><span class="desktop-metric">안읽음 <strong id="desktop-unread-count">0</strong></span><span class="desktop-metric">중요 <strong id="desktop-important-count">0</strong></span></div><div class="desktop-workspace-actions"><button class="desktop-mode-button active" type="button" data-desktop-mode="all">전체</button><button class="desktop-mode-button" type="button" data-desktop-mode="unread">안읽음</button><button class="desktop-mode-button" type="button" data-desktop-mode="important">중요기사</button><button id="desktop-density-toggle" class="desktop-density-button" type="button" aria-pressed="false">넓게 보기</button><span class="desktop-shortcut-hint"><span class="shortcut-key">/</span>검색 <span class="shortcut-key">J</span><span class="shortcut-key">K</span>이동</span></div>`;
+  bar.innerHTML=`<div class="desktop-workspace-summary"><span class="desktop-workspace-title">PC 빠른 보기</span><span class="desktop-metric">표시 <strong id="desktop-visible-count">0</strong></span><span class="desktop-metric">안읽음 <strong id="desktop-unread-count">0</strong></span><span class="desktop-metric">중요 <strong id="desktop-important-count">0</strong></span></div><div class="desktop-workspace-actions"><button class="desktop-mode-button active" type="button" data-desktop-mode="all">전체</button><button class="desktop-mode-button" type="button" data-desktop-mode="unread">안읽음</button><button class="desktop-mode-button" type="button" data-desktop-mode="important">중요</button><button id="desktop-density-toggle" class="desktop-density-button" type="button" aria-pressed="false">넓게 보기</button><span class="desktop-shortcut-hint"><span class="shortcut-key">/</span>검색 <span class="shortcut-key">J</span><span class="shortcut-key">K</span>이동</span></div>`;
   main.insertAdjacentElement("beforebegin",bar);
   bar.querySelectorAll(".desktop-mode-button").forEach(button=>button.addEventListener("click",()=>setDesktopArticleMode(button.dataset.desktopMode||"all")));
   document.getElementById("desktop-density-toggle")?.addEventListener("click",()=>applyDesktopDensity(!document.body.classList.contains("desktop-comfort-view")));
@@ -24960,136 +24427,8 @@ document.addEventListener("keydown",event=>{{
   if(event.key==="/"&&!editing){{event.preventDefault();document.getElementById("article-search")?.focus();return;}} if(editing)return;
   if(event.key==="j"||event.key==="J"){{event.preventDefault();desktopMoveArticle(1);}} if(event.key==="k"||event.key==="K"){{event.preventDefault();desktopMoveArticle(-1);}}
 }});
-function initDesktopBackToTop() {{
-  let button=document.getElementById("desktop-back-to-top");
-  if(!desktopIsActive()){{
-    if(button)button.remove();
-    return;
-  }}
-  if(!button){{
-    button=document.createElement("button");
-    button.id="desktop-back-to-top";
-    button.className="desktop-back-to-top";
-    button.type="button";
-    button.setAttribute("aria-label","페이지 맨 위로 이동");
-    button.innerHTML=`<span class="desktop-back-to-top-arrow">↑</span><span>맨 위로</span>`;
-    button.addEventListener("click",()=>window.scrollTo({{top:0,behavior:"smooth"}}));
-    document.body.appendChild(button);
-  }}
-  const update=()=>{{
-    if(!desktopIsActive()){{button.classList.remove("visible");return;}}
-    button.classList.toggle("visible",window.scrollY>520);
-  }};
-  if(!window.__desktopBackToTopBound){{
-    window.addEventListener("scroll",update,{{passive:true}});
-    window.__desktopBackToTopBound=true;
-  }}
-  update();
-}}
-function initDesktopExperience() {{
-  initDesktopWorkspace();
-  initDesktopBackToTop();
-}}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopExperience,{{once:true}});else initDesktopExperience();
-window.addEventListener("resize",()=>{{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();initDesktopBackToTop();}});
-
-
-/* 2026-08-25 DESKTOP IMPORTANT ARTICLE DRAWER */
-function getDesktopImportantCards() {{
-  const panel=activePanel();
-  if(!panel)return [];
-  return [...panel.querySelectorAll(".preview-card")].filter(card=>importantArticles.has(card.dataset.url));
-}}
-function renderDesktopImportantDrawer() {{
-  if(!desktopIsActive())return;
-  const list=document.getElementById("desktop-important-drawer-list");
-  const countNodes=document.querySelectorAll(".desktop-important-live-count");
-  const cards=getDesktopImportantCards();
-  countNodes.forEach(node=>node.textContent=String(cards.length));
-  if(!list)return;
-  list.innerHTML="";
-  if(!cards.length){{
-    list.innerHTML='<div class="desktop-important-empty">중요 표시한 기사가 아직 없습니다.<br>기사 카드의 <strong>중요</strong> 버튼을 누르면 여기에 바로 저장됩니다.</div>';
-    return;
-  }}
-  cards.forEach(card=>{{
-    const item=document.createElement("div");
-    item.className="desktop-important-item";
-    item.innerHTML=`<div><div class="desktop-important-publisher">${{card.dataset.publisher||""}}</div><div class="desktop-important-headline">${{card.dataset.title||""}}</div></div><button class="desktop-important-remove" type="button">해제</button>`;
-    item.addEventListener("click",event=>{{if(!event.target.closest(".desktop-important-remove"))openArticle(card);}});
-    item.querySelector(".desktop-important-remove")?.addEventListener("click",event=>{{
-      event.preventDefault(); event.stopPropagation();
-      importantArticles.delete(card.dataset.url); saveState();
-      document.querySelectorAll(".preview-card").forEach(cardItem=>{{if(cardItem.dataset.url===card.dataset.url)applyState(cardItem);}});
-      renderFavorites(); renderDesktopImportantDrawer(); updateDesktopWorkspaceMetrics();
-      showImportantToast("중요 표시를 해제했습니다.");
-    }});
-    list.appendChild(item);
-  }});
-}}
-function openDesktopImportantDrawer() {{
-  if(!desktopIsActive())return;
-  document.getElementById("desktop-important-drawer")?.classList.add("open");
-  document.getElementById("desktop-important-scrim")?.classList.add("open");
-  renderDesktopImportantDrawer();
-}}
-function closeDesktopImportantDrawer() {{
-  document.getElementById("desktop-important-drawer")?.classList.remove("open");
-  document.getElementById("desktop-important-scrim")?.classList.remove("open");
-}}
-function initDesktopImportantDrawer() {{
-  if(!desktopIsActive()){{
-    document.getElementById("desktop-important-launcher")?.remove();
-    document.getElementById("desktop-important-drawer")?.remove();
-    document.getElementById("desktop-important-scrim")?.remove();
-    return;
-  }}
-  if(document.getElementById("desktop-important-drawer")){{renderDesktopImportantDrawer();return;}}
-  const launcher=document.createElement("button");
-  launcher.id="desktop-important-launcher";
-  launcher.className="desktop-important-launcher";
-  launcher.type="button";
-  launcher.innerHTML='<span class="desktop-important-launcher-star">★</span><span>중요기사 보관함</span><span class="desktop-important-launcher-count desktop-important-live-count">0</span>';
-  launcher.addEventListener("click",openDesktopImportantDrawer);
-  document.body.appendChild(launcher);
-
-  const scrim=document.createElement("div");
-  scrim.id="desktop-important-scrim"; scrim.className="desktop-important-scrim";
-  scrim.addEventListener("click",closeDesktopImportantDrawer);
-  document.body.appendChild(scrim);
-
-  const drawer=document.createElement("aside");
-  drawer.id="desktop-important-drawer"; drawer.className="desktop-important-drawer";
-  drawer.setAttribute("aria-label","중요기사 보관함");
-  drawer.innerHTML=`<div class="desktop-important-drawer-head"><div><div class="desktop-important-drawer-title">★ 중요기사 <span class="desktop-important-live-count">0</span>건</div><div class="desktop-important-drawer-sub">기사의 ★ 중요 버튼을 누르면 이 보관함에 바로 저장됩니다.</div></div><button class="desktop-important-close" type="button" aria-label="중요기사 보관함 닫기">×</button></div><div id="desktop-important-drawer-list" class="desktop-important-drawer-list"></div>`;
-  drawer.querySelector(".desktop-important-close")?.addEventListener("click",closeDesktopImportantDrawer);
-  document.body.appendChild(drawer);
-  renderDesktopImportantDrawer();
-}}
-
-document.addEventListener("click",event=>{{
-  const button=event.target.closest?.(".important-button");
-  if(!button||!desktopIsActive())return;
-  const card=button.closest(".preview-card");
-  setTimeout(()=>{{
-    renderDesktopImportantDrawer();
-    updateDesktopWorkspaceMetrics();
-    if(card?.classList.contains("important")){{
-      const launcher=document.getElementById("desktop-important-launcher");
-      launcher?.classList.remove("desktop-important-saved-flash");
-      void launcher?.offsetWidth;
-      launcher?.classList.add("desktop-important-saved-flash");
-      openDesktopImportantDrawer();
-    }}
-  }},0);
-}});
-
-document.addEventListener("keydown",event=>{{
-  if(event.key==="Escape")closeDesktopImportantDrawer();
-}});
-
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopImportantDrawer,{{once:true}});else initDesktopImportantDrawer();
-window.addEventListener("resize",initDesktopImportantDrawer);
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopWorkspace,{{once:true}});else initDesktopWorkspace();
+window.addEventListener("resize",()=>{{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();}});
 
 </script>
 </body>
