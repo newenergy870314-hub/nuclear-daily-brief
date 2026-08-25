@@ -10524,7 +10524,7 @@ main {
 
 
 
-/* 2026-08-25 OLD WORKING MAP VISIBILITY RESTORE — no redesign */
+/* 2026-08-25 FINAL COUNTRY LABEL LAYER VISIBILITY OVERRIDE */
 #country-map-label-layer.country-map-label-layer {
   display:block !important;
   visibility:visible !important;
@@ -10532,59 +10532,70 @@ main {
   pointer-events:none !important;
   z-index:80 !important;
 }
-#continent-rail {
-  display:flex !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  z-index:90 !important;
-}
-.precise-country-label {
+#country-map-label-layer .precise-country-label {
   display:inline-flex !important;
   visibility:visible !important;
   opacity:1 !important;
   pointer-events:auto !important;
+  position:absolute !important;
 }
 
-/* 2026-08-25 CONTINENT TABS INSIDE MAP CARD — final containment fix */
-.country-map-visual {
-  overflow:hidden !important;
-}
+
+/* ============================================================
+   2026-08-25 MAP CONTINENT RAIL — INSIDE CARD WITHOUT CLIPPING
+   Keep the previously working JS runtime intact.
+   ============================================================ */
 #continent-rail {
-  left:10px !important;
-  right:10px !important;
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:absolute !important;
+  bottom:8px !important;
+  left:8px !important;
+  right:8px !important;
   width:auto !important;
-  max-width:calc(100% - 20px) !important;
-  box-sizing:border-box !important;
+  max-width:calc(100% - 16px) !important;
   margin:0 !important;
-  padding-left:4px !important;
-  padding-right:4px !important;
+  transform:none !important;
+  box-sizing:border-box !important;
+  z-index:90 !important;
 }
 .continent-rail-scroll {
   width:100% !important;
   max-width:100% !important;
   min-width:0 !important;
   box-sizing:border-box !important;
-  overflow:hidden !important;
+  overflow:visible !important;
 }
-.continent-button {
-  min-width:0 !important;
-  max-width:100% !important;
-  box-sizing:border-box !important;
+.country-map-visual.globe-mode {
+  position:relative !important;
+  /* do NOT use overflow:hidden here: it clipped the working continent rail */
+  overflow:visible !important;
 }
-@media (max-width:430px) {
+@media (max-width:767px) {
   #continent-rail {
-    left:8px !important;
-    right:8px !important;
-    max-width:calc(100% - 16px) !important;
-    padding-left:3px !important;
-    padding-right:3px !important;
-  }
-}
-@media (max-width:380px) {
-  #continent-rail {
+    bottom:7px !important;
     left:7px !important;
     right:7px !important;
     max-width:calc(100% - 14px) !important;
+  }
+}
+@media (min-width:768px) and (max-width:1199px) {
+  #continent-rail {
+    bottom:8px !important;
+    left:10px !important;
+    right:10px !important;
+    max-width:calc(100% - 20px) !important;
+    transform:none !important;
+  }
+}
+@media (min-width:1200px) {
+  #continent-rail {
+    bottom:8px !important;
+    left:16px !important;
+    right:16px !important;
+    max-width:calc(100% - 32px) !important;
+    transform:none !important;
   }
 }
 </style>
@@ -10595,7 +10606,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.25(화) 15:20 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.25(화) 15:30 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -18819,7 +18830,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">146건</span>
+    <span class="group-count">147건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -20766,6 +20777,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c60e554817270232eacfaf2f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.upr.org/2026-08-23/many-wyoming-freedom-caucus-representatives-lose-to-more-moderate-republicans-in-primaries"
+  data-title="Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries"
+  data-publisher="Utah Public Radio"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787488424"
+  data-country="OTHER"
+  data-search="many wyoming &#x27;freedom caucus&#x27; representatives lose to more moderate republicans in primaries utah public radio nuclear power·nuclear energy wyoming has been a showcase for the freedom caucus, which bills itself as seeking to promote &quot;judeo-christian values&quot; and end most property taxes. but the movement suffered losses in recent primaries."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Utah Public Radio</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries</div>
+      <div class="article-snippet">Wyoming has been a showcase for the Freedom Caucus, which bills itself as seeking to promote &quot;Judeo-Christian values&quot; and end most property taxes. But the movement suffered losses in recent primaries.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/921643fdd23fee4caf252529.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30137,7 +30181,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://aninews.in/news/world/asia/nsa-ajit-doval-arrives-in-beijing-for-india-china-border-talks20260824132816/"
   data-title="NSA Ajit Doval arrives in Beijing for India-China border talks"
   data-publisher="ANI"
@@ -30161,7 +30205,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.thestatesman.com/world/nsa-ajit-doval-in-beijing-for-special-representatives-talks-on-india-china-boundary-question-1503630620.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Statesman</span><span class="related-coverage-title">NSA Ajit Doval in Beijing for Special Representatives’ Talks on India-China Boundary Question - The Statesman</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>NSA Ajit Doval arrives in Beijing for India-China border talks</div>
+      <div class="headline">NSA Ajit Doval arrives in Beijing for India-China border talks</div>
       <div class="article-snippet">National Security Advisor Ajit Doval arrived in Beijing for a two-day visit on Monday afternoon at the invitation of Foreign Minister Wang Yi. The leaders are set to hold the 25th round of Special Representatives&#x27; Talks on the India-China boundary question on Tuesday.</div>
     </div>
   </div>
@@ -30862,9 +30906,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.greened.kr/news/articleView.html?idxno=348386"
+  data-title="현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문"
+  data-publisher="녹색경제신문"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787637265"
+  data-country="KR"
+  data-search="현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문 녹색경제신문 현대건설 [녹색경제신문 = 문홍주 기자]건설업계의 사업영역이 인공지능(ai)과 로봇, 데이터센터, 원자력발전 등으로 넓어지면서 건설사가 찾는 인재의 범위도 확대되고 있다. 전통적인 건축·토목 시공 역량뿐 아니라 기술을 활용해 현장 문제를 해결하고 자신의 경험을 직무와 연결할 수 있는 능력이 주요 평가 요소로 떠올랐다.25일 서울 강남구 건설회관에서 열린 ‘2026 스마트건설 청년인재 채용설명회’에는 현대건설과 대우건설을 비롯한 주요 건설사와 국토교통부 산하 공기업·기관 등 25개사가 참여했다. 대한건설협회와 건설산업사회공헌재단이 주최하고 국"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">녹색경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문</div>
+      <div class="article-snippet">[녹색경제신문 = 문홍주 기자]건설업계의 사업영역이 인공지능(AI)과 로봇, 데이터센터, 원자력발전 등으로 넓어지면서 건설사가 찾는 인재의 범위도 확대되고 있다. 전통적인 건축·토목 시공 역량뿐 아니라 기술을 활용해 현장 문제를 해결하고 자신의 경험을 직무와 연결할 수 있는 능력이 주요 평가 요소로 떠올랐다.25일 서울 강남구 건설회관에서 열린 ‘2026 스마트건설 청년인재 채용설명회’에는 현대건설과 대우건설을 비롯한 주요 건설사와 국토교통부 산하 공기업·기관 등 25개사가 참여했다. 대한건설협회와 건설산업사회공헌재단이 주최하고 국</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4f97606c6eadb3b0025c373a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.inews24.com/view/1997937"
   data-title="[특징주] 현대건설, 8% &#x27;급등&#x27;⋯하반기 &#x27;원전 역량&#x27; 부각"
@@ -31003,7 +31080,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">12건</span>
+    <span class="group-count">14건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31138,7 +31215,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.industrynews.co.kr/news/articleView.html?idxno=84943"
   data-title="대우건설, 사회공헌 브랜드 ‘베터 투게더’로 국내외 상생 활동 확대 - 인더스트리뉴스"
   data-publisher="인더스트리뉴스"
@@ -31162,7 +31239,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, 사회공헌 브랜드 ‘베터 투게더’로 국내외 상생 활동 확대 - 인더스트리뉴스</div>
+      <div class="headline">대우건설, 사회공헌 브랜드 ‘베터 투게더’로 국내외 상생 활동 확대 - 인더스트리뉴스</div>
       <div class="article-snippet">[인더스트리뉴스 한원석 기자] 최근 기업의 사회공헌 활동이 단순 기부와 일회성 지원을 넘어 기업의 역량과 임직원 참여를 바탕으로 환경과 지역사회에 실질적인 변화를</div>
     </div>
   </div>
@@ -31237,6 +31314,72 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1398971"
+  data-title="[건설업계 브리핑] GS건설·호반그룹·LH·SH"
+  data-publisher="데일리한국"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787637000"
+  data-country="OTHER"
+  data-search="[건설업계 브리핑] gs건설·호반그룹·lh·sh 데일리한국 타 건설사 [데일리한국 전준형 기자]◇ gs건설, 카를로 라티와 기후위기 대응 주거 연구gs건설은 건축가 카를로 라티 교수가 이끄는 건축·디자인 그룹 cra와 기후위기 대응 미래형 주거 솔루션을 공동 연구했다고 25일 밝혔다. 양측은 폭우·폭염·미세먼지 관련 데이터와 센서 기술, 주택 시공·운영 경험을 결합해 대응 방안을 모색했다. gs건설은 실증과 기술 검증을 거쳐 자이 주요 사업지에 관련 기술을 적용하는 방안을 검토할 계획이다.◇ 호반그룹, 방글라데시 식수환경 개선 지원호반그룹이 워터테크 기업 지오그리드와 방글라데시 케라니간지 지역 공공기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리한국</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[건설업계 브리핑] GS건설·호반그룹·LH·SH</div>
+      <div class="article-snippet">[데일리한국 전준형 기자]◇ GS건설, 카를로 라티와 기후위기 대응 주거 연구GS건설은 건축가 카를로 라티 교수가 이끄는 건축·디자인 그룹 CRA와 기후위기 대응 미래형 주거 솔루션을 공동 연구했다고 25일 밝혔다. 양측은 폭우·폭염·미세먼지 관련 데이터와 센서 기술, 주택 시공·운영 경험을 결합해 대응 방안을 모색했다. GS건설은 실증과 기술 검증을 거쳐 자이 주요 사업지에 관련 기술을 적용하는 방안을 검토할 계획이다.◇ 호반그룹, 방글라데시 식수환경 개선 지원호반그룹이 워터테크 기업 지오그리드와 방글라데시 케라니간지 지역 공공기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a9e38ad0902a0bf7db2633ee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1721587"
+  data-title="GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787635715"
+  data-country="US"
+  data-search="gs건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(ebn)뉴스센터 ebn산업경제 타 건설사 gs건설이 미국 &#x27;idea 2026&#x27; 수상을 통해 세계 3대 디자인 어워드 그랜드슬램을 2년 연속 달성하며 압도적인 주거 디자인 경쟁력을 과시했다. 서울역 일대를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">GS건설이 미국 &#x27;IDEA 2026&#x27; 수상을 통해 세계 3대 디자인 어워드 그랜드슬램을 2년 연속 달성하며 압도적인 주거 디자인 경쟁력을 과시했다. 서울역 일대를</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ef2892f811a717d5997b53f1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.fetv.co.kr/news/articleView.html?idxno=308996"
   data-title="GS건설, 세계적 건축가 카를로 라티와 &#x27;기후위기 아파트&#x27; 만든다 - FETV"
@@ -31291,7 +31434,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">GS건설, 기후위기 대응 주거 솔루션 연구…실증 거쳐 적용</div>
@@ -31498,7 +31641,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371602" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</span></a><a class="related-coverage-link" href="http://www.energytimes.kr/news/articleView.html?idxno=70730" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</span></a><a class="related-coverage-link" href="https://www.dailydgnews.com/news/article.html?no=261077" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리대구경북뉴스</span><span class="related-coverage-title">[데일리대구경북뉴스] 한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202486" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014597" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371602" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</span></a><a class="related-coverage-link" href="http://www.energytimes.kr/news/articleView.html?idxno=70730" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210808" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영</span></a><a class="related-coverage-link" href="https://www.dailydgnews.com/news/article.html?no=261077" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리대구경북뉴스</span><span class="related-coverage-title">[데일리대구경북뉴스] 한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202486" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014597" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범</div>
@@ -32281,9 +32424,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.mt.co.kr/world/2026/08/25/2026082510364565198"
+  data-title="美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이"
+  data-publisher="머니투데이"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787634250"
+  data-country="KR"
+  data-search="美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이 머니투데이 원전 대미투자 미국 공화당 측에서 한국 정부의 미국 기업 규제와 대미 투자를 문제 삼는 발언이 다시 나왔다. 브라이언 매스트 미 하원 외교위원장은 23일(현지시간) 폭스뉴스 인터뷰에서 한국 정부가 &quot;쿠팡 같은 미국 기업들에 타격을 가하고 있다&quot;고 주장했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">머니투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이</div>
+      <div class="article-snippet">미국 공화당 측에서 한국 정부의 미국 기업 규제와 대미 투자를 문제 삼는 발언이 다시 나왔다. 브라이언 매스트 미 하원 외교위원장은 23일(현지시간) 폭스뉴스 인터뷰에서 한국 정부가 &quot;쿠팡 같은 미국 기업들에 타격을 가하고 있다&quot;고 주장했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d00d995c0bed4666741fa748.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260825000018"
   data-title="美 하원 외교위원장 “韓 정부, 쿠팡 등 미국 기업에 피해 줘”"
@@ -32359,7 +32535,7 @@ main {
     <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371571"
   data-title="(기자의 눈)최대전력수요 165GW 시대…이를 감당하기 위해서는"
   data-publisher="전기신문"
@@ -32383,7 +32559,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>(기자의 눈)최대전력수요 165GW 시대…이를 감당하기 위해서는</div>
+      <div class="headline">(기자의 눈)최대전력수요 165GW 시대…이를 감당하기 위해서는</div>
       <div class="article-snippet">‘3대 메가프로젝트’에 소요되는 전력수요를 반영해보니 2040년에 최대전력이 158.4~165GW에 달할 것이라는 전망치가 나왔다. 메가프로젝트 계획이 발표되지 않았던 4개월 전 전망치보다 무려 26.6~26.8GW나 높은 수치다. 이 증가분을 충당하려면 현재 건설 중인 1.4GW급 대형 원자력발전소 19기를 더 지어야 한다는 계산이 나온다.문제는 이 엄청난 규모의 전력수요를 원전이나, 재생에너지 등 특정 발전원으로만 모두 충당할 수 없다는 점이다.정부는 2030년까지 재생에너지 발전설비를 100GW로 확대하고 2040년엔 200GW까지 늘린다는 계획이다. 하지만 재</div>
     </div>
   </div>
@@ -32491,21 +32667,21 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.newspim.com/news/view/20260825000623"
-  data-title="영덕군, 신규원전 명칭 공모한다"
-  data-publisher="뉴스핌"
+<article class="preview-card new-article"
+  data-url="https://www.asiae.co.kr/article/2026082509410163030"
+  data-title="&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭"
+  data-publisher="아시아경제"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
-  data-published="1787631420"
-  data-country="OTHER"
-  data-search="영덕군, 신규원전 명칭 공모한다 뉴스핌 원자력 [영덕=뉴스핌] 남효선 기자 = 신규 원전 2기 건설예정지로 지정된 경북 영덕군이 군민을 대상으로 신규 원전 명칭을 공모한다.영덕군은 이달 27일부터 다음 달 10일까지 2주간 영덕 군민을 대상으로 신규 원전의 명칭을 공모한다고 25일 밝혔다.경북 영덕군청사 전경[사진"
+  data-published="1787624183"
+  data-country="KR"
+  data-search="&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[aidc 시대의 공존법]⑭ 아시아경제 원자력 편집자주인공지능(ai) 시대, 정부가 3대 메가프로젝트 일환으로 2035년까지 총 18."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">뉴스핌</div>
+        <div class="publisher">아시아경제</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -32515,12 +32691,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline">영덕군, 신규원전 명칭 공모한다</div>
-      <div class="article-snippet">[영덕=뉴스핌] 남효선 기자 = 신규 원전 2기 건설예정지로 지정된 경북 영덕군이 군민을 대상으로 신규 원전 명칭을 공모한다.영덕군은 이달 27일부터 다음 달 10일까지 2주간 영덕 군민을 대상으로 신규 원전의 명칭을 공모한다고 25일 밝혔다.경북 영덕군청사 전경[사진</div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭</div>
+      <div class="article-snippet">편집자주인공지능(AI) 시대, 정부가 3대 메가프로젝트 일환으로 2035년까지 총 18.</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/40fcd4ce49ff99ae2ad4af45.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/a01207a82ca408a5ee5bdcc0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32545,7 +32721,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250115" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=636365" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260825000623" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">영덕군, 신규원전 명칭 공모한다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">[데일리대구경북뉴스] 영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</div>
@@ -32761,9 +32937,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16491"
+  data-title="&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;"
+  data-publisher="ESG경제"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787636146"
+  data-country="KR"
+  data-search="&quot;smr 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot; esg경제 smr [esg경제신문=김제원 기자] 인공지능(ai) 데이터센터 확산으로 전력 수요가 급증하면서 소형모듈원전(smr)을 둘러싼 글로벌 경쟁이 빨라지고 있다. 미국이 4세대 smr 상용화에서 선두를 달리는 가운데 한국은 기술 격차를 좁히는 동시에 제조·건설 분야의 기존 경쟁력을 활용해 글로벌 공급망 진입을 확대해야 한다는 분석이 나왔다.포스코경영연구원(posri)은 24일 ‘ai 전력 수요가 앞당긴 smr시대, 한국의 기회는?’ 보고서를 발간했다. posri는 ai발 전력 수요 급증과 저탄소 전력 확보 필요성이 smr 시장 형성을 앞당기고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">ESG경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;</div>
+      <div class="article-snippet">[ESG경제신문=김제원 기자] 인공지능(AI) 데이터센터 확산으로 전력 수요가 급증하면서 소형모듈원전(SMR)을 둘러싼 글로벌 경쟁이 빨라지고 있다. 미국이 4세대 SMR 상용화에서 선두를 달리는 가운데 한국은 기술 격차를 좁히는 동시에 제조·건설 분야의 기존 경쟁력을 활용해 글로벌 공급망 진입을 확대해야 한다는 분석이 나왔다.포스코경영연구원(POSRI)은 24일 ‘AI 전력 수요가 앞당긴 SMR시대, 한국의 기회는?’ 보고서를 발간했다. POSRI는 AI발 전력 수요 급증과 저탄소 전력 확보 필요성이 SMR 시장 형성을 앞당기고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d2a43e7cbefa0bfe4e306f43.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://shippingtelegraph.com/ship-technology/us-dot-and-port-of-corpus-christi-to-explore-nuclear-maritime-technologies/"
   data-title="US DOT and Port of Corpus Christi to explore nuclear maritime technologies | Ship Technology | Shipping Telegraph"
@@ -32797,7 +33006,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bangkokpost.com/business/general/3307404/plan-to-allow-private-sector-role-in-nuclear-smr-projects"
   data-title="Plan to allow private sector role in nuclear SMR projects"
   data-publisher="Bangkok Post"
@@ -32821,7 +33030,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Plan to allow private sector role in nuclear SMR projects</div>
+      <div class="headline">Plan to allow private sector role in nuclear SMR projects</div>
       <div class="article-snippet">&lt;p&gt;Thailand may allow private investors to develop and operate small modular reactors (SMRs) under the country&#x27;s upcoming Power Development Plan (PDP), in a bid to replace ageing fossil-fuel small power producers (SPPs), according to an energy official who asked not to be named.&lt;/p&gt;</div>
     </div>
   </div>
@@ -32836,7 +33045,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">18건</span>
+    <span class="group-count">22건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32939,6 +33148,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787639539"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://montelnews.com/news/d4dfa024-4dd1-47e2-a985-d64279eb696f/operator-brings-forward-restart-of-last-offline-unit-at-2-gw-paks"
+  data-title="Operator brings forward restart of last offline unit at 2 GW Paks"
+  data-publisher="Montel News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787638587"
+  data-country="OTHER"
+  data-search="operator brings forward restart of last offline unit at 2 gw paks montel news nuclear power·nuclear energy amid rising water levels on the drought-hit river danube, which it uses for cooling, both turbines at the reactor should be fully operational by 12:00 cet, it added. a maintenance outage at the same reactor due next month had also been extended by eight days, effective 17 september to 1"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Montel News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Operator brings forward restart of last offline unit at 2 GW Paks</div>
+      <div class="article-snippet">Amid rising water levels on the drought-hit river Danube, which it uses for cooling, both turbines at the reactor should be fully operational by 12:00 CET, it added. A maintenance outage at the same reactor due next month had also been extended by eight days, effective 17 September to 1</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/aafa0e8b13f49e9ec308127f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
@@ -33001,39 +33276,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787635347"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33268,6 +33510,72 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.orfonline.org/research/afghanistan-after-the-taliban-takeover-consolidation-repression-and-the-new-regional-equation"
+  data-title="Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation"
+  data-publisher="ORF Middle East"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787657644"
+  data-country="OTHER"
+  data-search="afghanistan after the taliban takeover: consolidation, repression and the new regional equation orf middle east nuclear power·nuclear energy five years after the taliban’s return, afghanistan has achieved greater internal security but remains politically repressive, economically fragile and internationally unrecognised."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">ORF Middle East</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation</div>
+      <div class="article-snippet">Five years after the Taliban’s return, Afghanistan has achieved greater internal security but remains politically repressive, economically fragile and internationally unrecognised.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/331541743fb854b202750ed2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://ua.news/en/world/ssha-v-oon-zaklikali-rf-ta-ukrayinu-pripiniti-udari-ta-povernutisia-do-peregovoriv"
+  data-title="At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations"
+  data-publisher="UA.NEWS"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787646774"
+  data-country="US"
+  data-search="at the un, the u.s. called on russia and ukraine to halt hostilities and return to negotiations ua.news nuclear power·nuclear energy dan negrea, deputy permanent representative of the united states to the united nations, called on russia and ukraine to cease attacks that harm civilians and infrastructure, and to return to the negotiating table."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">UA.NEWS</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations</div>
+      <div class="article-snippet">Dan Negrea, Deputy Permanent Representative of the United States to the United Nations, called on Russia and Ukraine to cease attacks that harm civilians and infrastructure, and to return to the negotiating table.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f7378016cf596b5e413e2209.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.bbc.com/audio/play/p0p62p97"
   data-title="BBC Audio | Global News Podcast | Britain hands over long-range missile blueprints to Ukraine"
@@ -33331,6 +33639,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c97e0a157b48c38886ea0474.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/anh-hung-lao-dong-nguyen-thi-nga-duoc-bau-lam-chu-tich-hoi-doanh-nhan-tu-nhan-viet-nam"
+  data-title="Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association."
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787634600"
+  data-country="VN"
+  data-search="labor hero nguyen thi nga was elected president of the vietnam private entrepreneurs association. vietnam.vn nuclear power·nuclear energy the central executive committee of the vietnam private business association (vpba) has issued a resolution electing labor hero nguyen thi nga, chairwoman of brg group and acting chairwoman of vpba, as the president of the association."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association.</div>
+      <div class="article-snippet">The Central Executive Committee of the Vietnam Private Business Association (VPBA) has issued a resolution electing Labor Hero Nguyen Thi Nga, Chairwoman of BRG Group and Acting Chairwoman of VPBA, as the President of the Association.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/11d3f27babbb0382897e583c.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33662,9 +34003,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.greened.kr/news/articleView.html?idxno=348386"
+  data-title="현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문"
+  data-publisher="녹색경제신문"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787637265"
+  data-country="KR"
+  data-search="현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문 녹색경제신문 현대건설 [녹색경제신문 = 문홍주 기자]건설업계의 사업영역이 인공지능(ai)과 로봇, 데이터센터, 원자력발전 등으로 넓어지면서 건설사가 찾는 인재의 범위도 확대되고 있다. 전통적인 건축·토목 시공 역량뿐 아니라 기술을 활용해 현장 문제를 해결하고 자신의 경험을 직무와 연결할 수 있는 능력이 주요 평가 요소로 떠올랐다.25일 서울 강남구 건설회관에서 열린 ‘2026 스마트건설 청년인재 채용설명회’에는 현대건설과 대우건설을 비롯한 주요 건설사와 국토교통부 산하 공기업·기관 등 25개사가 참여했다. 대한건설협회와 건설산업사회공헌재단이 주최하고 국"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">녹색경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대·대우건설이 찾는 청년 인재는?…원전·데이터센터로 넓어진 채용문</div>
+      <div class="article-snippet">[녹색경제신문 = 문홍주 기자]건설업계의 사업영역이 인공지능(AI)과 로봇, 데이터센터, 원자력발전 등으로 넓어지면서 건설사가 찾는 인재의 범위도 확대되고 있다. 전통적인 건축·토목 시공 역량뿐 아니라 기술을 활용해 현장 문제를 해결하고 자신의 경험을 직무와 연결할 수 있는 능력이 주요 평가 요소로 떠올랐다.25일 서울 강남구 건설회관에서 열린 ‘2026 스마트건설 청년인재 채용설명회’에는 현대건설과 대우건설을 비롯한 주요 건설사와 국토교통부 산하 공기업·기관 등 25개사가 참여했다. 대한건설협회와 건설산업사회공헌재단이 주최하고 국</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4f97606c6eadb3b0025c373a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.inews24.com/view/1997937"
   data-title="[특징주] 현대건설, 8% &#x27;급등&#x27;⋯하반기 &#x27;원전 역량&#x27; 부각"
@@ -33803,7 +34177,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">30건</span>
+    <span class="group-count">33건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33938,7 +34312,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.industrynews.co.kr/news/articleView.html?idxno=84943"
   data-title="대우건설, 사회공헌 브랜드 ‘베터 투게더’로 국내외 상생 활동 확대 - 인더스트리뉴스"
   data-publisher="인더스트리뉴스"
@@ -33962,7 +34336,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, 사회공헌 브랜드 ‘베터 투게더’로 국내외 상생 활동 확대 - 인더스트리뉴스</div>
+      <div class="headline">대우건설, 사회공헌 브랜드 ‘베터 투게더’로 국내외 상생 활동 확대 - 인더스트리뉴스</div>
       <div class="article-snippet">[인더스트리뉴스 한원석 기자] 최근 기업의 사회공헌 활동이 단순 기부와 일회성 지원을 넘어 기업의 역량과 임직원 참여를 바탕으로 환경과 지역사회에 실질적인 변화를</div>
     </div>
   </div>
@@ -34467,6 +34841,105 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.econovill.com/news/articleView.html?idxno=748849"
+  data-title="GS건설, 기후위기 대응 주거 솔루션 연구 나선다"
+  data-publisher="이코노믹리뷰"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787637043"
+  data-country="OTHER"
+  data-search="gs건설, 기후위기 대응 주거 솔루션 연구 나선다 이코노믹리뷰 타 건설사 gs건설이 기후위기 대응을 위한 주거 솔루션 연구에 나선다. 향후 실증 및 기술 검증을 거쳐 주거 브랜드 자이 주요 사업지에 적용을 검토한다는 방침이다.gs건설은 세계적인 건축가 카를로 라티(carlo ratti) 교수가 이끄는 건축·혁신 디자인 그룹 cra-carlo ratti associati와 함께 ‘미래형 기후위기 대응 주거 개념’을 주제로, 공동연구를 진행했다고 25일 밝혔다.양사는 공동으로 폭우·폭염·미세먼지 등 주요 기후 변수별 데이터를 토대로 국내외 주거환경을 분석하고, 여기에 cra의 데이터 분석 및 센서 기반 설계"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이코노믹리뷰</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</div>
+      <div class="article-snippet">GS건설이 기후위기 대응을 위한 주거 솔루션 연구에 나선다. 향후 실증 및 기술 검증을 거쳐 주거 브랜드 자이 주요 사업지에 적용을 검토한다는 방침이다.GS건설은 세계적인 건축가 카를로 라티(Carlo Ratti) 교수가 이끄는 건축·혁신 디자인 그룹 CRA-Carlo Ratti Associati와 함께 ‘미래형 기후위기 대응 주거 개념’을 주제로, 공동연구를 진행했다고 25일 밝혔다.양사는 공동으로 폭우·폭염·미세먼지 등 주요 기후 변수별 데이터를 토대로 국내외 주거환경을 분석하고, 여기에 CRA의 데이터 분석 및 센서 기반 설계</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.econovill.com/news/thumbnail/202608/748849_723798_5032_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1398971"
+  data-title="[건설업계 브리핑] GS건설·호반그룹·LH·SH"
+  data-publisher="데일리한국"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787637000"
+  data-country="OTHER"
+  data-search="[건설업계 브리핑] gs건설·호반그룹·lh·sh 데일리한국 타 건설사 [데일리한국 전준형 기자]◇ gs건설, 카를로 라티와 기후위기 대응 주거 연구gs건설은 건축가 카를로 라티 교수가 이끄는 건축·디자인 그룹 cra와 기후위기 대응 미래형 주거 솔루션을 공동 연구했다고 25일 밝혔다. 양측은 폭우·폭염·미세먼지 관련 데이터와 센서 기술, 주택 시공·운영 경험을 결합해 대응 방안을 모색했다. gs건설은 실증과 기술 검증을 거쳐 자이 주요 사업지에 관련 기술을 적용하는 방안을 검토할 계획이다.◇ 호반그룹, 방글라데시 식수환경 개선 지원호반그룹이 워터테크 기업 지오그리드와 방글라데시 케라니간지 지역 공공기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리한국</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[건설업계 브리핑] GS건설·호반그룹·LH·SH</div>
+      <div class="article-snippet">[데일리한국 전준형 기자]◇ GS건설, 카를로 라티와 기후위기 대응 주거 연구GS건설은 건축가 카를로 라티 교수가 이끄는 건축·디자인 그룹 CRA와 기후위기 대응 미래형 주거 솔루션을 공동 연구했다고 25일 밝혔다. 양측은 폭우·폭염·미세먼지 관련 데이터와 센서 기술, 주택 시공·운영 경험을 결합해 대응 방안을 모색했다. GS건설은 실증과 기술 검증을 거쳐 자이 주요 사업지에 관련 기술을 적용하는 방안을 검토할 계획이다.◇ 호반그룹, 방글라데시 식수환경 개선 지원호반그룹이 워터테크 기업 지오그리드와 방글라데시 케라니간지 지역 공공기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a9e38ad0902a0bf7db2633ee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1721587"
+  data-title="GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787635715"
+  data-country="US"
+  data-search="gs건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(ebn)뉴스센터 ebn산업경제 타 건설사 gs건설이 미국 &#x27;idea 2026&#x27; 수상을 통해 세계 3대 디자인 어워드 그랜드슬램을 2년 연속 달성하며 압도적인 주거 디자인 경쟁력을 과시했다. 서울역 일대를"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">GS건설이 미국 &#x27;IDEA 2026&#x27; 수상을 통해 세계 3대 디자인 어워드 그랜드슬램을 2년 연속 달성하며 압도적인 주거 디자인 경쟁력을 과시했다. 서울역 일대를</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ef2892f811a717d5997b53f1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.viva100.com/article/20260825500183"
   data-title="GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대"
   data-publisher="브릿지경제"
@@ -34586,7 +35059,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">GS건설, 기후위기 대응 주거 솔루션 연구…실증 거쳐 적용</div>
@@ -34802,7 +35275,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34868,6 +35341,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.srtimes.kr/news/articleView.html?idxno=210808"
+  data-title="한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영"
+  data-publisher="SR타임스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787635983"
+  data-country="KR"
+  data-search="한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영 sr타임스 한국수력원자력 [srt(에스알 타임스) 유정근 기자] 한국수력원자력(한수원)이 젊은 직원들을 비롯한 다양한 직원들의 의견을 회사 경영과 정책에 반영한다.한수원은 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 회사경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다고 25일 밝혔다.주니어보드"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">SR타임스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영</div>
+      <div class="article-snippet">[SRT(에스알 타임스) 유정근 기자] 한국수력원자력(한수원)이 젊은 직원들을 비롯한 다양한 직원들의 의견을 회사 경영과 정책에 반영한다.한수원은 젊은 직원들의 창의적인 시각과 현장의 다양한 목소리를 회사경영에 반영하기 위해 조직문화혁신 주니어보드를 신설했다고 25일 밝혔다.주니어보드</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.srtimes.kr/news/thumbnail/202608/210808_215721_3228_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35057,7 +35563,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371602" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</span></a><a class="related-coverage-link" href="http://www.energytimes.kr/news/articleView.html?idxno=70730" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</span></a><a class="related-coverage-link" href="https://www.dailydgnews.com/news/article.html?no=261077" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리대구경북뉴스</span><span class="related-coverage-title">[데일리대구경북뉴스] 한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202486" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014597" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=371602" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">한수원, 젊은 직원 주도 ‘조직문화 혁신’ 시동</span></a><a class="related-coverage-link" href="http://www.energytimes.kr/news/articleView.html?idxno=70730" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">직원이 혁신과제 발굴·실행…한수원, 상향식 혁신체계 구축</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=210808" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">한수원, 조직문화혁신 주니어보드 신설…회사경영에 현장 목소리 반영</span></a><a class="related-coverage-link" href="https://www.dailydgnews.com/news/article.html?no=261077" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리대구경북뉴스</span><span class="related-coverage-title">[데일리대구경북뉴스] 한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202486" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한수원, 젊은 직원들이 새로운 시각으로 혁신을 주도한다 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1014597" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한수원, 스스로 실천하고 변화하는 ʻ조직문화혁신 주니어보드ʼ 출범</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">한수원, 실천하고 변화하는 &#x27;조직문화혁신 주니어보드&#x27; 출범</div>
@@ -35677,7 +36183,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5ede50c75fcff60af0b235bf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.kns.tv/news/thumbnail/202608/1014602_908724_3553_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35972,9 +36478,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.mt.co.kr/world/2026/08/25/2026082510364565198"
+  data-title="美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이"
+  data-publisher="머니투데이"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787634250"
+  data-country="KR"
+  data-search="美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이 머니투데이 원전 대미투자 미국 공화당 측에서 한국 정부의 미국 기업 규제와 대미 투자를 문제 삼는 발언이 다시 나왔다. 브라이언 매스트 미 하원 외교위원장은 23일(현지시간) 폭스뉴스 인터뷰에서 한국 정부가 &quot;쿠팡 같은 미국 기업들에 타격을 가하고 있다&quot;고 주장했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">머니투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美하원 외교위원장, 쿠팡·대미투자 압박…한미훈련엔 &quot;무슨 이득?&quot; - 머니투데이</div>
+      <div class="article-snippet">미국 공화당 측에서 한국 정부의 미국 기업 규제와 대미 투자를 문제 삼는 발언이 다시 나왔다. 브라이언 매스트 미 하원 외교위원장은 23일(현지시간) 폭스뉴스 인터뷰에서 한국 정부가 &quot;쿠팡 같은 미국 기업들에 타격을 가하고 있다&quot;고 주장했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d00d995c0bed4666741fa748.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260825000018"
   data-title="美 하원 외교위원장 “韓 정부, 쿠팡 등 미국 기업에 피해 줘”"
@@ -36047,10 +36586,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">17건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=371571"
   data-title="(기자의 눈)최대전력수요 165GW 시대…이를 감당하기 위해서는"
   data-publisher="전기신문"
@@ -36074,7 +36613,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>(기자의 눈)최대전력수요 165GW 시대…이를 감당하기 위해서는</div>
+      <div class="headline">(기자의 눈)최대전력수요 165GW 시대…이를 감당하기 위해서는</div>
       <div class="article-snippet">‘3대 메가프로젝트’에 소요되는 전력수요를 반영해보니 2040년에 최대전력이 158.4~165GW에 달할 것이라는 전망치가 나왔다. 메가프로젝트 계획이 발표되지 않았던 4개월 전 전망치보다 무려 26.6~26.8GW나 높은 수치다. 이 증가분을 충당하려면 현재 건설 중인 1.4GW급 대형 원자력발전소 19기를 더 지어야 한다는 계산이 나온다.문제는 이 엄청난 규모의 전력수요를 원전이나, 재생에너지 등 특정 발전원으로만 모두 충당할 수 없다는 점이다.정부는 2030년까지 재생에너지 발전설비를 100GW로 확대하고 2040년엔 200GW까지 늘린다는 계획이다. 하지만 재</div>
     </div>
   </div>
@@ -36183,6 +36722,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.sentv.co.kr/article/view/sentv202608250115"
+  data-title="영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모"
+  data-publisher="서울경제TV"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787635050"
+  data-country="OTHER"
+  data-search="영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모 서울경제tv 원자력 영덕군은 군민과 함께 만들어가는 신규 원자력발전소를 위해 오는 27일부터 다음 달 10일까지 2주간 영덕군민을 대상으로 신규 원전의 명칭을 공모한다"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</div>
+      <div class="article-snippet">영덕군은 군민과 함께 만들어가는 신규 원자력발전소를 위해 오는 27일부터 다음 달 10일까지 2주간 영덕군민을 대상으로 신규 원전의 명칭을 공모한다</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.sentv.co.kr/data/sentv/image/2026/08/25/sentv20260825000107.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.seoulfn.com/news/articleView.html?idxno=636365"
+  data-title="영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스"
+  data-publisher="서울파이낸스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787634358"
+  data-country="OTHER"
+  data-search="영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스 서울파이낸스 원자력 [서울파이낸스 (영덕) 원용길 기자] 영덕군이 새롭게 들어설 원자력발전소의 이름을 군민들의 손으로 직접 짓는다.영덕군은 오는 27일부터 다음 달 10일까지 2주간"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울파이낸스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스</div>
+      <div class="article-snippet">[서울파이낸스 (영덕) 원용길 기자] 영덕군이 새롭게 들어설 원자력발전소의 이름을 군민들의 손으로 직접 짓는다.영덕군은 오는 27일부터 다음 달 10일까지 2주간</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.seoulfn.com/news/photo/202608/636365_438107_2013.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newspim.com/news/view/20260825000623"
   data-title="영덕군, 신규원전 명칭 공모한다"
   data-publisher="뉴스핌"
@@ -36215,6 +36820,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.asiae.co.kr/article/2026082509410163030"
+  data-title="&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭"
+  data-publisher="아시아경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787624183"
+  data-country="KR"
+  data-search="&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[aidc 시대의 공존법]⑭ 아시아경제 원자력 편집자주인공지능(ai) 시대, 정부가 3대 메가프로젝트 일환으로 2035년까지 총 18."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아시아경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;탈원전 정책은 독일의 실수…한국 반복 말아야&quot;[AIDC 시대의 공존법]⑭</div>
+      <div class="article-snippet">편집자주인공지능(AI) 시대, 정부가 3대 메가프로젝트 일환으로 2035년까지 총 18.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a01207a82ca408a5ee5bdcc0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=261072"
   data-title="[데일리대구경북뉴스] 영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모"
@@ -36236,7 +36874,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202608250115" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=636365" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">영덕군, 신규 원전 명칭 공모··· &quot;지역발전 상징성 담는다&quot; - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260825000623" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">영덕군, 신규원전 명칭 공모한다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">[데일리대구경북뉴스] 영덕군, 군민 대상 ‘신규 원자력발전소 명칭’ 공모</div>
@@ -36518,9 +37156,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esgeconomy.com/news/articleView.html?idxno=16491"
+  data-title="&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;"
+  data-publisher="ESG경제"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787636146"
+  data-country="KR"
+  data-search="&quot;smr 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot; esg경제 smr [esg경제신문=김제원 기자] 인공지능(ai) 데이터센터 확산으로 전력 수요가 급증하면서 소형모듈원전(smr)을 둘러싼 글로벌 경쟁이 빨라지고 있다. 미국이 4세대 smr 상용화에서 선두를 달리는 가운데 한국은 기술 격차를 좁히는 동시에 제조·건설 분야의 기존 경쟁력을 활용해 글로벌 공급망 진입을 확대해야 한다는 분석이 나왔다.포스코경영연구원(posri)은 24일 ‘ai 전력 수요가 앞당긴 smr시대, 한국의 기회는?’ 보고서를 발간했다. posri는 ai발 전력 수요 급증과 저탄소 전력 확보 필요성이 smr 시장 형성을 앞당기고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">ESG경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;SMR 기술격차 美와 약 4년…韓, 사업화 속도 내야&quot;</div>
+      <div class="article-snippet">[ESG경제신문=김제원 기자] 인공지능(AI) 데이터센터 확산으로 전력 수요가 급증하면서 소형모듈원전(SMR)을 둘러싼 글로벌 경쟁이 빨라지고 있다. 미국이 4세대 SMR 상용화에서 선두를 달리는 가운데 한국은 기술 격차를 좁히는 동시에 제조·건설 분야의 기존 경쟁력을 활용해 글로벌 공급망 진입을 확대해야 한다는 분석이 나왔다.포스코경영연구원(POSRI)은 24일 ‘AI 전력 수요가 앞당긴 SMR시대, 한국의 기회는?’ 보고서를 발간했다. POSRI는 AI발 전력 수요 급증과 저탄소 전력 확보 필요성이 SMR 시장 형성을 앞당기고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d2a43e7cbefa0bfe4e306f43.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://shippingtelegraph.com/ship-technology/us-dot-and-port-of-corpus-christi-to-explore-nuclear-maritime-technologies/"
   data-title="US DOT and Port of Corpus Christi to explore nuclear maritime technologies | Ship Technology | Shipping Telegraph"
@@ -36554,7 +37225,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bangkokpost.com/business/general/3307404/plan-to-allow-private-sector-role-in-nuclear-smr-projects"
   data-title="Plan to allow private sector role in nuclear SMR projects"
   data-publisher="Bangkok Post"
@@ -36578,7 +37249,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Plan to allow private sector role in nuclear SMR projects</div>
+      <div class="headline">Plan to allow private sector role in nuclear SMR projects</div>
       <div class="article-snippet">&lt;p&gt;Thailand may allow private investors to develop and operate small modular reactors (SMRs) under the country&#x27;s upcoming Power Development Plan (PDP), in a bid to replace ageing fossil-fuel small power producers (SPPs), according to an energy official who asked not to be named.&lt;/p&gt;</div>
     </div>
   </div>
@@ -36593,7 +37264,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">18건</span>
+    <span class="group-count">22건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36696,6 +37367,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787639539"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://montelnews.com/news/d4dfa024-4dd1-47e2-a985-d64279eb696f/operator-brings-forward-restart-of-last-offline-unit-at-2-gw-paks"
+  data-title="Operator brings forward restart of last offline unit at 2 GW Paks"
+  data-publisher="Montel News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787638587"
+  data-country="OTHER"
+  data-search="operator brings forward restart of last offline unit at 2 gw paks montel news nuclear power·nuclear energy amid rising water levels on the drought-hit river danube, which it uses for cooling, both turbines at the reactor should be fully operational by 12:00 cet, it added. a maintenance outage at the same reactor due next month had also been extended by eight days, effective 17 september to 1"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Montel News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Operator brings forward restart of last offline unit at 2 GW Paks</div>
+      <div class="article-snippet">Amid rising water levels on the drought-hit river Danube, which it uses for cooling, both turbines at the reactor should be fully operational by 12:00 CET, it added. A maintenance outage at the same reactor due next month had also been extended by eight days, effective 17 September to 1</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/aafa0e8b13f49e9ec308127f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
@@ -36758,39 +37495,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787635347"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37025,6 +37729,72 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.orfonline.org/research/afghanistan-after-the-taliban-takeover-consolidation-repression-and-the-new-regional-equation"
+  data-title="Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation"
+  data-publisher="ORF Middle East"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787657644"
+  data-country="OTHER"
+  data-search="afghanistan after the taliban takeover: consolidation, repression and the new regional equation orf middle east nuclear power·nuclear energy five years after the taliban’s return, afghanistan has achieved greater internal security but remains politically repressive, economically fragile and internationally unrecognised."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">ORF Middle East</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Afghanistan After the Taliban Takeover: Consolidation, Repression and the New Regional Equation</div>
+      <div class="article-snippet">Five years after the Taliban’s return, Afghanistan has achieved greater internal security but remains politically repressive, economically fragile and internationally unrecognised.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/331541743fb854b202750ed2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://ua.news/en/world/ssha-v-oon-zaklikali-rf-ta-ukrayinu-pripiniti-udari-ta-povernutisia-do-peregovoriv"
+  data-title="At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations"
+  data-publisher="UA.NEWS"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787646774"
+  data-country="US"
+  data-search="at the un, the u.s. called on russia and ukraine to halt hostilities and return to negotiations ua.news nuclear power·nuclear energy dan negrea, deputy permanent representative of the united states to the united nations, called on russia and ukraine to cease attacks that harm civilians and infrastructure, and to return to the negotiating table."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">UA.NEWS</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>At the UN, the U.S. called on Russia and Ukraine to halt hostilities and return to negotiations</div>
+      <div class="article-snippet">Dan Negrea, Deputy Permanent Representative of the United States to the United Nations, called on Russia and Ukraine to cease attacks that harm civilians and infrastructure, and to return to the negotiating table.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f7378016cf596b5e413e2209.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.bbc.com/audio/play/p0p62p97"
   data-title="BBC Audio | Global News Podcast | Britain hands over long-range missile blueprints to Ukraine"
@@ -37088,6 +37858,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c97e0a157b48c38886ea0474.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/anh-hung-lao-dong-nguyen-thi-nga-duoc-bau-lam-chu-tich-hoi-doanh-nhan-tu-nhan-viet-nam"
+  data-title="Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association."
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787634600"
+  data-country="VN"
+  data-search="labor hero nguyen thi nga was elected president of the vietnam private entrepreneurs association. vietnam.vn nuclear power·nuclear energy the central executive committee of the vietnam private business association (vpba) has issued a resolution electing labor hero nguyen thi nga, chairwoman of brg group and acting chairwoman of vpba, as the president of the association."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Labor Hero Nguyen Thi Nga was elected President of the Vietnam Private Entrepreneurs Association.</div>
+      <div class="article-snippet">The Central Executive Committee of the Vietnam Private Business Association (VPBA) has issued a resolution electing Labor Hero Nguyen Thi Nga, Chairwoman of BRG Group and Acting Chairwoman of VPBA, as the President of the Association.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/11d3f27babbb0382897e583c.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -45105,7 +45908,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://aninews.in/news/world/asia/nsa-ajit-doval-arrives-in-beijing-for-india-china-border-talks20260824132816/"
   data-title="NSA Ajit Doval arrives in Beijing for India-China border talks"
   data-publisher="ANI"
@@ -45129,7 +45932,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.thestatesman.com/world/nsa-ajit-doval-in-beijing-for-special-representatives-talks-on-india-china-boundary-question-1503630620.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Statesman</span><span class="related-coverage-title">NSA Ajit Doval in Beijing for Special Representatives’ Talks on India-China Boundary Question - The Statesman</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>NSA Ajit Doval arrives in Beijing for India-China border talks</div>
+      <div class="headline">NSA Ajit Doval arrives in Beijing for India-China border talks</div>
       <div class="article-snippet">National Security Advisor Ajit Doval arrived in Beijing for a two-day visit on Monday afternoon at the invitation of Foreign Minister Wang Yi. The leaders are set to hold the 25th round of Special Representatives&#x27; Talks on the India-China boundary question on Tuesday.</div>
     </div>
   </div>
@@ -57109,7 +57912,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">150건</span>
+    <span class="group-count">151건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -59188,6 +59991,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.upr.org/2026-08-23/many-wyoming-freedom-caucus-representatives-lose-to-more-moderate-republicans-in-primaries"
+  data-title="Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries"
+  data-publisher="Utah Public Radio"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787488424"
+  data-country="OTHER"
+  data-search="many wyoming &#x27;freedom caucus&#x27; representatives lose to more moderate republicans in primaries utah public radio nuclear power·nuclear energy wyoming has been a showcase for the freedom caucus, which bills itself as seeking to promote &quot;judeo-christian values&quot; and end most property taxes. but the movement suffered losses in recent primaries."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Utah Public Radio</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Many Wyoming &#x27;Freedom Caucus&#x27; representatives lose to more moderate Republicans in primaries</div>
+      <div class="article-snippet">Wyoming has been a showcase for the Freedom Caucus, which bills itself as seeking to promote &quot;Judeo-Christian values&quot; and end most property taxes. But the movement suffered losses in recent primaries.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/921643fdd23fee4caf252529.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -170204,16 +171040,11 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){
 }
 
 
-function renderHtmlCountryLabels(items){
-  const visual = document.querySelector('.country-map-visual.globe-mode');
-  const svg = document.querySelector('.world-map-inline.globe-texture-source');
-  const layer = document.getElementById('country-map-label-layer');
-  if(!visual || !svg || !layer) return;
-  layer.innerHTML='';
-
-  /* ============================================================
-     2026-08-25 MAP COUNTRY LABELS RESTORED FROM WORKING 2026-08-22 BUILD
-     ============================================================ */
+/* ============================================================
+   2026-08-25 MAP COUNTRY LABELS ACTUAL RUNTIME FIX
+   - Restored renderer must be GLOBAL, not nested inside an older renderer.
+   - HTML label layer is re-enabled after old native-SVG retirement CSS.
+   ============================================================ */
 function maybeInitializeContinentFilter(items){
   if(activeContinentFilter && activeContinentFilter!=='ALL')return;
   const {articleCounts}=getContinentCounts(items);
@@ -170502,415 +171333,6 @@ document.addEventListener("keydown",event=>{
 
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopImportantDrawer,{once:true});else initDesktopImportantDrawer();
 window.addEventListener("resize",initDesktopImportantDrawer);
-
-
-/* ============================================================
-   2026-08-25 RESTORE EXACT PREVIOUSLY WORKING MAP RUNTIME
-   Source: collect_news_FINAL_KR_JP_ACTUAL_MAP_NEARBY_20260822.py
-   No redesign: restore prior continent tabs + country flag/name/count map behavior.
-   ============================================================ */
-/* ============================================================
-   2026-08-21 FINAL OVERRIDE — MEA EASTWARD HIGHLIGHT + NEAR COUNTRY LABELS
-   ============================================================ */
-function getContinentNativeRegion(code){
-  const regions = {
-    NA:{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' },
-    SA:{ points:'248,190 316,188 370,214 404,262 414,318 406,374 388,430 358,486 318,496 288,460 272,412 262,358 256,304 250,248' },
-    EU:{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' },
-    AS:{ points:'620,46 660,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 704,238 686,246 670,270 662,302 650,322 640,300 636,270 634,236 634,198 632,156 628,112 624,78' },
-    /* 중동·아프리카는 아라비아반도 쪽으로 더 넓게 잡아 중동이 빠지지 않게 조정 */
-    MEA:{ points:'386,144 468,146 550,164 618,196 670,236 712,286 728,346 716,410 680,462 626,494 558,496 500,484 458,454 426,408 406,352 392,292 384,230' },
-    OC:{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }
-  };
-  return regions[code] || null;
-}
-
-const FINAL_COUNTRY_LABEL_PRESETS = {
-  US:[[18,-10],[20,8],[28,-24]],
-  CA:[[26,-16],[30,0],[22,14]],
-  BR:[[-26,10],[-32,-8],[-18,26]],
-  AR:[[18,14],[20,-6]],
-  CL:[[22,0],[24,16]],
-  CO:[[22,-8],[24,10]],
-  PE:[[20,10],[22,-6]],
-  GB:[[-34,-12],[-30,6],[-42,-24]],
-  FR:[[20,12],[22,-6],[-28,10]],
-  NL:[[24,-14],[26,2]],
-  BE:[[-30,8],[-28,-6]],
-  CH:[[24,12],[26,-4]],
-  SE:[[18,-18],[22,0]],
-  FI:[[22,-20],[24,-4]],
-  PL:[[24,-10],[26,8]],
-  CZ:[[30,-10],[30,8]],
-  SI:[[28,10],[28,-6]],
-  RO:[[24,-8],[26,8]],
-  BG:[[-34,6],[-34,-10]],
-  UA:[[32,-4],[34,10]],
-  TR:[[30,12],[30,-4]],
-  DK:[[20,-16],[26,-4]],
-  SK:[[30,10],[30,-6]],
-  RU:[[-8,-34],[18,-32],[30,-26],[-24,-24]],
-  AE:[[34,-4],[36,12],[28,22]],
-  SA:[[30,18],[34,0],[24,32]],
-  ZA:[[0,-26],[24,-8],[-24,-8]],
-  CN:[[0,4],[8,8],[-8,10],[0,16]],
-  IN:[[-42,18],[-46,34],[-32,2]],
-  VN:[[40,16],[38,30],[30,4]],
-  TH:[[32,18],[30,32],[26,4]],
-  MY:[[26,18],[30,4]],
-  SG:[[30,14],[34,0]],
-  KR:[[6,-2],[8,8],[-6,-2],[-8,8]],
-  JP:[[8,-4],[10,6],[-8,-4],[-10,8]],
-  AU:[[34,-4],[30,14]],
-};
-
-const FINAL_CONTINENT_RENDER_ORDER = {
-  EU:['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','DK','SK'],
-  AS:['RU','KR','JP','CN','IN','VN','TH','MY','SG'],
-  MEA:['AE','SA','ZA'],
-  NA:['US','CA'],
-  SA:['BR','AR','CL','CO','PE'],
-  OC:['AU']
-};
-
-function finalSortCountriesForMap(countries, continent){
-  const pref = FINAL_CONTINENT_RENDER_ORDER[continent] || [];
-  return [...countries].sort((a,b)=>{
-    const ai = pref.indexOf(a.code);
-    const bi = pref.indexOf(b.code);
-    const ap = ai < 0 ? 999 : ai;
-    const bp = bi < 0 ? 999 : bi;
-    return ap - bp || b.count - a.count || a.name.localeCompare(b.name,'ko');
-  });
-}
-
-function finalBoxIntersectsAnchor(box, anchors, selfCode){
-  for(const pt of anchors){
-    if(pt.code===selfCode) continue;
-    const pad = 6;
-    if(pt.x >= box.left-pad && pt.x <= box.right+pad && pt.y >= box.top-pad && pt.y <= box.bottom+pad){
-      return true;
-    }
-  }
-  return false;
-}
-
-function finalBuildBox(ax,ay,w,h,bounds,dx,dy){
-  let left = ax + dx - w/2;
-  let top = ay + dy - h/2;
-  left = Math.max(bounds.left, Math.min(bounds.right - w, left));
-  top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
-  return { left, top, right:left+w, bottom:top+h, w, h };
-}
-
-function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){
-  const presets = FINAL_COUNTRY_LABEL_PRESETS[itemCode] || [];
-  let best = null;
-
-  const consider = (box) => {
-    const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 8);
-    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
-    const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
-    const dist = Math.hypot((box.left + w/2)-ax, (box.top + h/2)-ay);
-    const edgePenalty = (
-      box.left <= bounds.left+1 || box.top <= bounds.top+1 ||
-      box.right >= bounds.right-1 || box.bottom >= bounds.bottom-1
-    ) ? 10 : 0;
-    const score = collisions*1000000 + anchorHit*30000 + dist + edgePenalty;
-    if(!best || score < best.score) best = { ...box, score, collisions, anchorHit };
-    return collisions===0 && anchorHit===0;
-  };
-
-  for(const [dx,dy] of presets){
-    for(const [nx,ny] of [[0,0],[0,-4],[0,4],[-4,0],[4,0],[-8,0],[8,0]]){
-      const box = finalBuildBox(ax,ay,w,h,bounds,dx+nx,dy+ny);
-      if(consider(box)) return box;
-    }
-  }
-
-  const angles = [0,-20,20,-45,45,-70,70,180,-140,140,-110,110];
-  const radii = [18,26,34,44,56,70,86,104,124];
-  for(const r of radii){
-    for(const deg of angles){
-      const rad = deg * Math.PI / 180;
-      const dx = Math.cos(rad) * r;
-      const dy = Math.sin(rad) * r;
-      const box = finalBuildBox(ax,ay,w,h,bounds,dx,dy);
-      if(consider(box)) return box;
-    }
-  }
-
-  /* 마지막 안전장치:
-     국가 버튼끼리 절대 겹치지 않도록 지도 내부를 촘촘히 탐색합니다.
-     가까운 위치를 우선하되, collision=0인 위치만 선택합니다. */
-  const scanCandidates = [];
-  const stepX = 8;
-  const stepY = Math.max(10, h + 5);
-  for(let top=bounds.top; top<=bounds.bottom-h; top+=stepY){
-    for(let left=bounds.left; left<=bounds.right-w; left+=stepX){
-      const box={left,top,right:left+w,bottom:top+h,w,h};
-      const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 9);
-      const collisions = occupied.reduce(
-        (n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0
-      );
-      if(collisions>0) continue;
-      if(finalBoxIntersectsAnchor(box, anchors, itemCode)) continue;
-      const cx=left+w/2, cy=top+h/2;
-      const dist=Math.hypot(cx-ax,cy-ay);
-      scanCandidates.push({...box,dist});
-    }
-  }
-  if(scanCandidates.length){
-    scanCandidates.sort((a,b)=>a.dist-b.dist);
-    return scanCandidates[0];
-  }
-
-  /* 공간이 정말 부족한 극단적 경우에만 기존 best를 사용 */
-  return best || finalBuildBox(ax,ay,w,h,bounds,0,0);
-}
-
-function finalAddConnector(layer, ax, ay, box){
-  const cx = Math.max(box.left, Math.min(ax, box.right));
-  const cy = Math.max(box.top, Math.min(ay, box.bottom));
-  const dx = cx - ax;
-  const dy = cy - ay;
-  const len = Math.hypot(dx, dy);
-  if(len < 12) return;
-  const line = document.createElement('span');
-  line.className = 'precise-country-connector';
-  line.style.left = `${ax}px`;
-  line.style.top = `${ay}px`;
-  line.style.width = `${Math.max(0, len - 3)}px`;
-  line.style.transform = `rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`;
-  line.style.opacity = '0.65';
-  layer.appendChild(line);
-}
-
-
-function finalRectsOverlap(a,b,pad=4){
-  return !(
-    a.right + pad <= b.left ||
-    a.left >= b.right + pad ||
-    a.bottom + pad <= b.top ||
-    a.top >= b.bottom + pad
-  );
-}
-
-
-
-function finalResolveRenderedCountryOverlaps(layer,bounds){
-  const labels = [...layer.querySelectorAll('.precise-country-label[data-country-code]')];
-  if(labels.length < 2) return;
-
-  const layerRect = layer.getBoundingClientRect();
-  const localRect = (el) => {
-    const r = el.getBoundingClientRect();
-    return {
-      left:r.left-layerRect.left,
-      top:r.top-layerRect.top,
-      right:r.right-layerRect.left,
-      bottom:r.bottom-layerRect.top,
-      width:r.width,
-      height:r.height
-    };
-  };
-
-  const anchorFor = (el) => {
-    const code = el.dataset.countryCode;
-    const item = collect2DCountryItems().find(v=>v.code===code);
-    if(!item) return null;
-    const visual=document.querySelector('.country-map-visual.globe-mode');
-    const svg=document.querySelector('.world-map-inline.globe-texture-source');
-    if(!visual||!svg) return null;
-
-    const vp=getExactMapViewport(svg,visual);
-    const p=getCountryMapAnchor(item);
-    const visualRect=visual.getBoundingClientRect();
-
-    /* getExactMapViewport()는 visual 기준 좌표이고,
-       label rect는 layer 기준 좌표이므로 같은 좌표계로 변환 */
-    const screenX=visualRect.left + vp.left + (p.x/100)*vp.width;
-    const screenY=visualRect.top + vp.top + (p.y/100)*vp.height;
-
-    return {
-      x:screenX-layerRect.left,
-      y:screenY-layerRect.top
-    };
-  };
-
-  /* 기사 수/국가 순서는 기존 렌더 순서를 존중.
-     각 버튼은 자기 나라 근처에 두되, 실제 DOM 기준으로 겹치면
-     가까운 빈자리로만 미세 이동합니다. */
-  const placed = [];
-  labels.forEach((el,index)=>{
-    let box = localRect(el);
-    const anchor = anchorFor(el);
-    if(!anchor){
-      placed.push(box);
-      return;
-    }
-
-    const overlapsPlaced = (candidate,pad=6) =>
-      placed.some(r=>finalRectsOverlap(candidate,r,pad));
-
-    if(!overlapsPlaced(box,6)){
-      placed.push(box);
-      return;
-    }
-
-    const startLeft = parseFloat(el.style.left) || box.left;
-    const startTop = parseFloat(el.style.top) || box.top;
-
-    const candidates = [];
-    const radii = [6,10,14,18,24,30,36];
-    const dirs = [
-      [1,0],[-1,0],[0,-1],[0,1],
-      [1,-1],[1,1],[-1,-1],[-1,1]
-    ];
-
-    for(const r of radii){
-      for(const [dx,dy] of dirs){
-        let left = startLeft + dx*r;
-        let top = startTop + dy*r;
-        left = Math.max(bounds.left, Math.min(bounds.right-box.width,left));
-        top = Math.max(bounds.top, Math.min(bounds.bottom-box.height,top));
-        const candidate = {
-          left,top,
-          right:left+box.width,
-          bottom:top+box.height,
-          width:box.width,
-          height:box.height
-        };
-        if(overlapsPlaced(candidate,6)) continue;
-        const cx=left+box.width/2;
-        const cy=top+box.height/2;
-        const distance=Math.hypot(cx-anchor.x,cy-anchor.y);
-
-        /* 국가 버튼은 자기 나라 주변에만 유지.
-           한국/일본은 특히 동아시아 실제 위치에서 멀리 이동 금지. */
-        const maxDistance = (el.dataset.countryCode==='KR' || el.dataset.countryCode==='JP')
-          ? 52
-          : 72;
-        if(distance > maxDistance) continue;
-
-        candidates.push({...candidate,distance});
-      }
-    }
-
-    if(candidates.length){
-      candidates.sort((a,b)=>a.distance-b.distance);
-      const best=candidates[0];
-      el.style.left=`${best.left}px`;
-      el.style.top=`${best.top}px`;
-      box=best;
-    }
-    /* 가까운 빈자리가 없으면 원래의 국가 주변 위치를 유지 */
-    placed.push(box);
-  });
-}
-
-
-function renderHtmlCountryLabels(items){
-  const visual = document.querySelector('.country-map-visual.globe-mode');
-  const svg = document.querySelector('.world-map-inline.globe-texture-source');
-  const layer = document.getElementById('country-map-label-layer');
-  if(!visual || !svg || !layer) return;
-  layer.innerHTML='';
-  if(activeContinentFilter==='ALL') return;
-
-  const baseCountries = items
-    .filter(v => v.continent===activeContinentFilter && v.count>0);
-  if(!baseCountries.length) return;
-
-  const countries = finalSortCountriesForMap(baseCountries, activeContinentFilter);
-  const vp = getExactMapViewport(svg, visual);
-  const dock = document.getElementById('continent-rail');
-  const vr = visual.getBoundingClientRect();
-  const dr = dock?.getBoundingClientRect();
-  const dockTop = dr ? dr.top-vr.top : visual.clientHeight-42;
-  const bounds = {
-    left: Math.max(12, vp.left + 6),
-    top: Math.max(10, vp.top + 6),
-    right: Math.min(vp.left + vp.width - 6, visual.clientWidth - 10),
-    bottom: Math.min(dockTop - 10, vp.top + vp.height - 6)
-  };
-
-  const anchors = countries.map(item=>{
-    const p = getCountryMapAnchor(item);
-    return {
-      code:item.code,
-      x: vp.left + (p.x/100)*vp.width,
-      y: vp.top + (p.y/100)*vp.height
-    };
-  });
-
-  const occupied = [];
-  for(const item of countries){
-    const anchor = anchors.find(v=>v.code===item.code);
-    if(!anchor) continue;
-    const ax = anchor.x;
-    const ay = anchor.y;
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'precise-country-label' + (activeCountryFilter===item.code ? ' active' : '');
-    btn.dataset.countryCode = item.code;
-    btn.style.visibility='hidden';
-    btn.innerHTML = `<span class="flag">${item.flag}</span><span class="name">${item.name}</span><span class="count">${item.count}건</span>`;
-    btn.setAttribute('aria-label', `${item.name} ${item.count}건. 해당 국가 기사 보기`);
-    layer.appendChild(btn);
-
-    const w = Math.ceil(btn.getBoundingClientRect().width || 72);
-    const h = Math.ceil(btn.getBoundingClientRect().height || 24);
-    const box = finalChooseLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors);
-    occupied.push(box);
-
-    btn.style.left = `${box.left}px`;
-    btn.style.top = `${box.top}px`;
-    btn.style.visibility = 'visible';
-    btn.style.zIndex = '5';
-    btn.addEventListener('click', (event)=>{
-      event.preventDefault();
-      event.stopPropagation();
-      setCountryFilter(item.code);
-    });
-
-    finalAddConnector(layer, ax, ay, box);
-
-    const dot = document.createElement('span');
-    dot.className = 'precise-country-dot' + (activeCountryFilter===item.code ? ' active' : '');
-    dot.style.left = `${ax}px`;
-    dot.style.top = `${ay}px`;
-    dot.style.width = '9px';
-    dot.style.height = '9px';
-    dot.style.marginLeft = '-4.5px';
-    dot.style.marginTop = '-4.5px';
-    dot.style.zIndex = '6';
-    layer.appendChild(dot);
-  }
-
-  /* 실제 DOM 렌더링 후 한국/일본이 겹치는지 다시 확인하고, 겹칠 때만 미세 이동 */
-  requestAnimationFrame(() => requestAnimationFrame(() => finalResolveRenderedCountryOverlaps(layer,bounds)));
-}
-
-function layoutAndRenderCountryMap(){
-  const items = collect2DCountryItems();
-  if(!items.length) return;
-  if(!activeContinentFilter) activeContinentFilter='ALL';
-  renderContinentRail2D(items);
-  renderSelectedContinentHighlight();
-  ensureMapStateChip(items);
-  renderHtmlCountryLabels(items);
-  const ranking = document.getElementById('continent-country-ranking');
-  if(ranking){ ranking.hidden=true; ranking.innerHTML=''; }
-  const caption = document.querySelector('.country-map-caption');
-  if(caption) caption.style.display='none';
-  const note = document.getElementById('country-filter-note');
-  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
-}
-requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
-window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {once:true});
-window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
 
 </script>
 </body>
