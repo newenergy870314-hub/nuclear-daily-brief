@@ -10646,6 +10646,531 @@ main {
   }
   #continent-rail .continent-rail-scroll { gap:3px !important; }
 }
+
+
+   2026-08-22 CONTINENT DOCK — BOTTOM / COMPACT RECTANGLE
+   - place selector as low as possible in the country-news panel
+   - reduce unused button space
+   - keep buttons as compact horizontal rectangles
+   - maximize visible map area above the dock
+   ============================================================ */
+#continent-rail {
+  left:6px !important;
+  right:6px !important;
+  bottom:1px !important;
+  height:42px !important;
+  max-height:42px !important;
+  padding:3px !important;
+  border-radius:10px !important;
+}
+
+.continent-rail-scroll {
+  height:100% !important;
+  align-items:stretch !important;
+  gap:3px !important;
+}
+
+.continent-button {
+  min-width:0 !important;
+  min-height:34px !important;
+  height:34px !important;
+  padding:2px 4px !important;
+  border-radius:8px !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+}
+
+.continent-button-name {
+  width:auto !important;
+  font-size:9.4px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}
+
+.continent-button-count {
+  width:auto !important;
+  font-size:8.4px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+
+/* Pull the map down close to the selector while preserving a clear gap. */
+.country-map-visual .world-map-inline.globe-texture-source {
+  bottom:47px !important;
+}
+
+@media (max-width:430px) {
+  #continent-rail {
+    left:5px !important;
+    right:5px !important;
+    bottom:1px !important;
+    height:40px !important;
+    max-height:40px !important;
+    padding:3px !important;
+  }
+  .continent-rail-scroll {
+    gap:2px !important;
+  }
+  .continent-button {
+    min-height:32px !important;
+    height:32px !important;
+    padding:2px 3px !important;
+    border-radius:7px !important;
+    gap:2px !important;
+  }
+  .continent-button-name {
+    font-size:8.8px !important;
+  }
+  .continent-button-count {
+    font-size:7.9px !important;
+  }
+  .country-map-visual .world-map-inline.globe-texture-source {
+    bottom:45px !important;
+  }
+}
+
+@media (max-width:380px) {
+  #continent-rail {
+    left:4px !important;
+    right:4px !important;
+    bottom:1px !important;
+    height:39px !important;
+    max-height:39px !important;
+  }
+  .continent-button {
+    min-height:31px !important;
+    height:31px !important;
+    padding:2px 2px !important;
+  }
+  .continent-button-name {
+    font-size:8.3px !important;
+  }
+  .continent-button-count {
+    font-size:7.5px !important;
+  }
+  .country-map-visual .world-map-inline.globe-texture-source {
+    bottom:44px !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-22 ABSOLUTE FINAL — CONTINENT DOCK TRUE BOTTOM + COMPACT RECT BUTTONS
+   - dock sits at the very bottom of the country-news panel
+   - buttons size to content instead of stretching across leftover space
+   - map occupies the freed space above
+   ============================================================ */
+#continent-rail {
+  left:4px !important;
+  right:4px !important;
+  bottom:0 !important;
+  height:37px !important;
+  max-height:37px !important;
+  padding:2px 3px !important;
+  border-radius:8px !important;
+}
+.continent-rail-scroll {
+  display:grid !important;
+  width:100% !important;
+  height:100% !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  overflow:visible !important;
+}
+.continent-button {
+  width:auto !important;
+  min-width:0 !important;
+  max-width:none !important;
+  min-height:31px !important;
+  height:31px !important;
+  padding:2px 6px !important;
+  border-radius:7px !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  box-sizing:border-box !important;
+}
+.continent-button-name {
+  width:auto !important;
+  max-width:none !important;
+  font-size:9.1px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}
+.continent-button-count {
+  width:auto !important;
+  max-width:none !important;
+  font-size:8.0px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+.country-map-visual .world-map-inline.globe-texture-source {
+  bottom:40px !important;
+}
+
+@media (max-width:430px) {
+  #continent-rail {
+    left:3px !important;
+    right:3px !important;
+    bottom:0 !important;
+    height:36px !important;
+    max-height:36px !important;
+    padding:2px !important;
+  }
+  .continent-rail-scroll {
+    gap:2px !important;
+  }
+  .continent-button {
+    min-height:30px !important;
+    height:30px !important;
+    padding:2px 5px !important;
+    gap:2px !important;
+  }
+  .continent-button-name {
+    font-size:8.55px !important;
+  }
+  .continent-button-count {
+    font-size:7.55px !important;
+  }
+  .country-map-visual .world-map-inline.globe-texture-source {
+    bottom:39px !important;
+  }
+}
+
+@media (max-width:380px) {
+  #continent-rail {
+    height:35px !important;
+    max-height:35px !important;
+  }
+  .continent-button {
+    min-height:29px !important;
+    height:29px !important;
+    padding:2px 4px !important;
+  }
+  .continent-button-name {
+    font-size:8.0px !important;
+  }
+  .continent-button-count {
+    font-size:7.15px !important;
+  }
+  .country-map-visual .world-map-inline.globe-texture-source {
+    bottom:38px !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB EDGE SAFE-PADDING FIX
+   - prevent first/last continent tabs from looking clipped
+   - keep compact rectangular buttons and bottom placement
+   ============================================================ */
+#continent-rail {
+  left:8px !important;
+  right:8px !important;
+  padding-left:5px !important;
+  padding-right:5px !important;
+  box-sizing:border-box !important;
+}
+
+.continent-rail-scroll {
+  width:100% !important;
+  box-sizing:border-box !important;
+  padding-left:2px !important;
+  padding-right:2px !important;
+  overflow:visible !important;
+}
+
+.continent-button:first-child {
+  margin-left:1px !important;
+}
+
+.continent-button:last-child {
+  margin-right:1px !important;
+}
+
+@media (max-width:430px) {
+  #continent-rail {
+    left:7px !important;
+    right:7px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }
+
+  .continent-rail-scroll {
+    padding-left:2px !important;
+    padding-right:2px !important;
+    gap:2px !important;
+  }
+
+  .continent-button:first-child {
+    margin-left:1px !important;
+  }
+
+  .continent-button:last-child {
+    margin-right:1px !important;
+  }
+}
+
+@media (max-width:380px) {
+  #continent-rail {
+    left:6px !important;
+    right:6px !important;
+    padding-left:4px !important;
+    padding-right:4px !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TABS — TRUE EDGE CLIP FIX
+   Cause: max-content columns were wider than the available dock
+   and centered, so both ends overflowed outside the visible panel.
+   ============================================================ */
+#continent-rail {
+  left:10px !important;
+  right:10px !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+  box-sizing:border-box !important;
+}
+
+.continent-rail-scroll {
+  display:grid !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+  box-sizing:border-box !important;
+  justify-content:stretch !important;
+  overflow:visible !important;
+}
+
+.continent-button {
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+  box-sizing:border-box !important;
+}
+
+.continent-button:first-child {
+  margin-left:0 !important;
+}
+.continent-button:last-child {
+  margin-right:0 !important;
+}
+
+@media (max-width:430px) {
+  #continent-rail {
+    left:9px !important;
+    right:9px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }
+  .continent-rail-scroll {
+    gap:2px !important;
+  }
+  .continent-button {
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }
+  .continent-button-name {
+    font-size:8.35px !important;
+  }
+  .continent-button-count {
+    font-size:7.35px !important;
+  }
+}
+
+@media (max-width:380px) {
+  #continent-rail {
+    left:8px !important;
+    right:8px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }
+  .continent-button {
+    padding-left:2px !important;
+    padding-right:2px !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB NAME/COUNT GAP FINAL
+   ============================================================ */
+.continent-button {
+  column-gap:5px !important;
+  row-gap:0 !important;
+}
+.continent-button-name,
+.continent-button-count {
+  flex:0 0 auto !important;
+}
+@media (max-width:430px) {
+  .continent-button {
+    column-gap:4px !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT TAB TWO-LINE FINAL LAYOUT
+   1st row: continent name
+   2nd row: article count
+   ============================================================ */
+#continent-rail {
+  height:44px !important;
+  max-height:44px !important;
+}
+
+.continent-button {
+  min-height:36px !important;
+  height:36px !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:2px !important;
+  padding:3px 3px !important;
+}
+
+.continent-button-name {
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  font-size:9.2px !important;
+  line-height:1.02 !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+}
+
+.continent-button-count {
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  font-size:8.2px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+
+@media (max-width:430px) {
+  #continent-rail {
+    height:43px !important;
+    max-height:43px !important;
+  }
+
+  .continent-button {
+    min-height:35px !important;
+    height:35px !important;
+    gap:1px !important;
+    padding:3px 2px !important;
+  }
+
+  .continent-button-name {
+    font-size:8.7px !important;
+  }
+
+  .continent-button-count {
+    font-size:7.8px !important;
+  }
+}
+
+@media (max-width:380px) {
+  #continent-rail {
+    height:42px !important;
+    max-height:42px !important;
+  }
+
+  .continent-button {
+    min-height:34px !important;
+    height:34px !important;
+  }
+
+  .continent-button-name {
+    font-size:8.2px !important;
+  }
+
+  .continent-button-count {
+    font-size:7.4px !important;
+  }
+}
+
+
+/* ============================================================
+   2026-08-22 CONTINENT RAIL WIDER FINAL
+   - use almost the full width of the country-news panel
+   - keep only a small safe margin on both sides
+   - give all six continent buttons more room
+   ============================================================ */
+#continent-rail {
+  left:4px !important;
+  right:4px !important;
+  width:auto !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+}
+
+.continent-rail-scroll {
+  width:100% !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+
+@media (max-width:430px) {
+  #continent-rail {
+    left:3px !important;
+    right:3px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }
+}
+
+@media (max-width:380px) {
+  #continent-rail {
+    left:3px !important;
+    right:3px !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="phone">
+  <header class="topbar" id="topbar">
+    <div class="topbar-title-row">
+
+
+/* 2026-08-25 POSITION ONLY — keep restored 2026-08-22 dock inside map card */
+.country-map-visual.globe-mode {
+  position:relative !important;
+  overflow:hidden !important;
+}
+#continent-rail {
+  left:6px !important;
+  right:6px !important;
+  bottom:6px !important;
+  max-width:calc(100% - 12px) !important;
+  box-sizing:border-box !important;
+}
+
 </style>
 </head>
 <body>
@@ -10654,7 +11179,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.25(화) 15:40 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.25(화) 15:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -31234,6 +31759,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761966"
+  data-title="&#x27;여의도 시범&#x27;도 래미안 유력…삼성물산 단독 응찰"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787640353"
+  data-country="KR"
+  data-search="&#x27;여의도 시범&#x27;도 래미안 유력…삼성물산 단독 응찰 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = 여의도 최대 재건축 사업지로 꼽히는 여의도 시범아파트 재건축 시공사 선정 입찰이 삼성물산 건설부문의 단독 응찰로 유찰됐다. 25일 정비업계에 따르면 사업시행자인 한국자산신탁이 진행한 서울 영등포구 여의도 시범아파트 주택재건축정비사업 시공사 선정 입찰에 삼성물산이 단독으로 참여했다. 도시 및 주거환경정비법에 따라 재건축 시공사 선정 입찰은 2개사 이상이 참여해야 성립하기 때문에 이번 입찰은 유찰됐다. 시범아파트는 재건축을 통해 최고 59~65층, 총 2491가구 규모의 초고층 단지로 탈바꿈할 예정이다. 총공사비는 약 2조원, 3.3㎡당"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;여의도 시범&#x27;도 래미안 유력…삼성물산 단독 응찰</div>
+      <div class="article-snippet">[서울=뉴시스] 박성환 기자 = 여의도 최대 재건축 사업지로 꼽히는 여의도 시범아파트 재건축 시공사 선정 입찰이 삼성물산 건설부문의 단독 응찰로 유찰됐다. 25일 정비업계에 따르면 사업시행자인 한국자산신탁이 진행한 서울 영등포구 여의도 시범아파트 주택재건축정비사업 시공사 선정 입찰에 삼성물산이 단독으로 참여했다. 도시 및 주거환경정비법에 따라 재건축 시공사 선정 입찰은 2개사 이상이 참여해야 성립하기 때문에 이번 입찰은 유찰됐다. 시범아파트는 재건축을 통해 최고 59~65층, 총 2491가구 규모의 초고층 단지로 탈바꿈할 예정이다. 총공사비는 약 2조원, 3.3㎡당</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b2231f78b603f3807d1cbc4d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761777"
   data-title="충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;"
   data-publisher="뉴시스"
@@ -31257,7 +31815,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;</div>
+      <div class="headline">충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;</div>
       <div class="article-snippet">[청주=뉴시스] 임선우 기자 = 충북도가 미래 에너지산업에 심혈을 쏟는다. 도는 25일 서울 양재 엘타워에서 열린 &#x27;2026 기후에너지 일자리 박람회&#x27;에서 기후에너지환경부, 강원특별자치도, 부산광역시, 전남광주특별시, 한국에너지기술평가원 등과 &#x27;기후에너지산업 인력양성 및 청년 일자리 창출을 위한 업무협약&#x27;을 했다. LG에너지솔루션, SK이노베이션, 삼성물산, GS건설, 에코프로 등 국내 주요 에너지 기업도 참여했다. 이들은 향후 3년간 ▲에너지 인력양성사업 추진 협력(맞춤형 교육과정 운영 및 인재 육성) ▲일자리 창출 및 정보 공유(채용설명회, 특강, 일자리 박람회</div>
     </div>
   </div>
@@ -31366,39 +31924,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1398971"
-  data-title="[건설업계 브리핑] GS건설·호반그룹·LH·SH"
-  data-publisher="데일리한국"
-  data-group="타 건설사"
-  data-language="ko"
-  data-priority="1"
-  data-published="1787637000"
-  data-country="OTHER"
-  data-search="[건설업계 브리핑] gs건설·호반그룹·lh·sh 데일리한국 타 건설사 [데일리한국 전준형 기자]◇ gs건설, 카를로 라티와 기후위기 대응 주거 연구gs건설은 건축가 카를로 라티 교수가 이끄는 건축·디자인 그룹 cra와 기후위기 대응 미래형 주거 솔루션을 공동 연구했다고 25일 밝혔다. 양측은 폭우·폭염·미세먼지 관련 데이터와 센서 기술, 주택 시공·운영 경험을 결합해 대응 방안을 모색했다. gs건설은 실증과 기술 검증을 거쳐 자이 주요 사업지에 관련 기술을 적용하는 방안을 검토할 계획이다.◇ 호반그룹, 방글라데시 식수환경 개선 지원호반그룹이 워터테크 기업 지오그리드와 방글라데시 케라니간지 지역 공공기"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">데일리한국</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">[건설업계 브리핑] GS건설·호반그룹·LH·SH</div>
-      <div class="article-snippet">[데일리한국 전준형 기자]◇ GS건설, 카를로 라티와 기후위기 대응 주거 연구GS건설은 건축가 카를로 라티 교수가 이끄는 건축·디자인 그룹 CRA와 기후위기 대응 미래형 주거 솔루션을 공동 연구했다고 25일 밝혔다. 양측은 폭우·폭염·미세먼지 관련 데이터와 센서 기술, 주택 시공·운영 경험을 결합해 대응 방안을 모색했다. GS건설은 실증과 기술 검증을 거쳐 자이 주요 사업지에 관련 기술을 적용하는 방안을 검토할 계획이다.◇ 호반그룹, 방글라데시 식수환경 개선 지원호반그룹이 워터테크 기업 지오그리드와 방글라데시 케라니간지 지역 공공기</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a9e38ad0902a0bf7db2633ee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1721587"
   data-title="GS건설, 3대 디자인상 2년 연속 석권…서계통합구역 랜드마크 설계 역량 입증 - 이비엔(EBN)뉴스센터"
   data-publisher="EBN산업경제"
@@ -31485,7 +32010,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.m-i.kr/news/articleView.html?idxno=1405647" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일일보</span><span class="related-coverage-title">GS건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 10개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sedaily.com/article/20083081" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">GS건설, 해외 건축가와 미래주거 연구</span></a><a class="related-coverage-link" href="https://www.goodkyung.com/news/articleView.html?idxno=290593" target="_blank" rel="noopener"><span class="related-coverage-publisher">굿모닝경제</span><span class="related-coverage-title">[굿모닝! 25일 건설업계 소식] GS건설·호반그룹·반도건설·LH - 굿모닝경제</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://daily.hankooki.com/news/articleView.html?idxno=1398971" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리한국</span><span class="related-coverage-title">[건설업계 브리핑] GS건설·호반그룹·LH·SH</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.m-i.kr/news/articleView.html?idxno=1405647" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일일보</span><span class="related-coverage-title">GS건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">GS건설, 기후위기 대응 주거 솔루션 연구…실증 거쳐 적용</div>
@@ -31563,7 +32088,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761954"
   data-title="경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;"
   data-publisher="뉴시스"
@@ -31587,7 +32112,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;</div>
+      <div class="headline">경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;</div>
       <div class="article-snippet">[창원=뉴시스]홍정명 기자 = 경남도는 25일 도청에서 박완수 도지사와 이부환 한화에어로스페이스 사업부문 신임 대표이사가 우주항공·방산 분야 현안과 협력 방안을 논의했다고 밝혔다. 이 자리에서 한화에어로스페이스는 경남지역 재난안전망 구축 지원금 2억원을 경남도에 기탁했으며, 전달식에는 박 지사와 이부환 대표이사, 문지훈 부사장, 신문현 경상남도자원봉사센터장, 정영식 경남사회복지공동모금회장 등이 참석했다. 박 지사는 한화에어로스페이스의 지원에 감사를 전하고, 피해 주민의 일상 회복과 현장에서 복구 활동을 이어가는 자원봉사자들에게 실질적인 도움이 될 수 있도록 민·관·기</div>
     </div>
   </div>
@@ -31809,7 +32334,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">14건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31918,7 +32443,7 @@ main {
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787640000"
+  data-published="1787640900"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -31945,6 +32470,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761969"
+  data-title="원주환경청, 녹색기업 13곳과 재생에너지 확대 &#x27;맞손&#x27;"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787640323"
+  data-country="KR"
+  data-search="원주환경청, 녹색기업 13곳과 재생에너지 확대 &#x27;맞손&#x27; 뉴시스 한국전력 [원주=뉴시스]이덕화 기자 = 기후에너지환경부 이를 확인받아 이행 실적으로 활용할 수 있도록 한 제도다.이 녹색기업과 재생에너지 보급 확대를 위한 협력체계를 마련하고 기업의 k-re100 참여 지원에 나선다. 원주지방환경청은 26일 청사 대회의실에서 녹색기업 13개사와 한국전력공사 강원본부와 한국에너지공단 강원지역본부 등이 참여하는 대표자 간담회와 업무협약식을 연다고 25일 밝혔다. k-re100은 국내 기업 등이 재생에너지를 사용하고 사용확인서를 발급받아 re100 이행 등에 활용할 수 있도록 한 제도다. 간담회에서는 강원·충북북부 녹색기업협의회의 활동 내용과 계획"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원주환경청, 녹색기업 13곳과 재생에너지 확대 &#x27;맞손&#x27;</div>
+      <div class="article-snippet">[원주=뉴시스]이덕화 기자 = 기후에너지환경부 이를 확인받아 이행 실적으로 활용할 수 있도록 한 제도다.이 녹색기업과 재생에너지 보급 확대를 위한 협력체계를 마련하고 기업의 K-RE100 참여 지원에 나선다. 원주지방환경청은 26일 청사 대회의실에서 녹색기업 13개사와 한국전력공사 강원본부와 한국에너지공단 강원지역본부 등이 참여하는 대표자 간담회와 업무협약식을 연다고 25일 밝혔다. K-RE100은 국내 기업 등이 재생에너지를 사용하고 사용확인서를 발급받아 RE100 이행 등에 활용할 수 있도록 한 제도다. 간담회에서는 강원·충북북부 녹색기업협의회의 활동 내용과 계획</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f212deb6bf65c3cd21e5ddd7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003261629&amp;PAGE_CD=N0002&amp;CMPT_CD=M0117"
   data-title="송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다"
   data-publisher="오마이뉴스"
@@ -31968,7 +32526,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다</div>
+      <div class="headline">송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다</div>
       <div class="article-snippet">송전탑 반대 대책위 주민과 한국전력이 동등한 위치에서 공개적으로 송전선로 관련 주민 설명회를 열어 주목된다.지난 24일 충남 예산군 예산문화원에서는 345kV 군산-신천안 송전선로 건설사업 설명회가 진행됐다. 해당 선로는 광시면,</div>
     </div>
   </div>
@@ -32250,7 +32808,7 @@ main {
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70732"
   data-title="한전KDN, 협력사 근로자 몸·마음까지 챙겨"
   data-publisher="에너지타임즈"
@@ -32274,7 +32832,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 협력사 근로자 몸·마음까지 챙겨</div>
+      <div class="headline">한전KDN, 협력사 근로자 몸·마음까지 챙겨</div>
       <div class="article-snippet">한전KDN(주)(사장 박상형)이 직원과 협력사가 안심하는 안전일터 조성을 위해 지난 21일 본사(전남광주 나주시 소재)에서 ‘CEO와 함께하는 안전·보건 상생 프로젝트’를 개최했다. 이날 행사는 본사 구내식당 협력사 근로자를 대상으로 진행됐으며, 아로마 오일을 활용한 괄사 마사지 체험 프로그램이 운영됐다.</div>
     </div>
   </div>
@@ -32283,7 +32841,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70731"
   data-title="한전KDN, 협력사 목소리로 불공정 관행 걷어낸다"
   data-publisher="에너지타임즈"
@@ -32307,7 +32865,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 협력사 목소리로 불공정 관행 걷어낸다</div>
+      <div class="headline">한전KDN, 협력사 목소리로 불공정 관행 걷어낸다</div>
       <div class="article-snippet">한전KDN이 협력사를 단순한 거래 상대가 아닌 함께 성장하는 동반자로 보고 현장에서 체감할 수 있는 공정거래와 청렴·윤리문화 확산에 나섰다. 한전KDN(주)(사장 박상형)은 협력사와 거래 과정에 발생할 수 있는 불공정하고 불합리한 업무관행을 발굴해 개선하는 한편 청렴과 공정을 기반으로 한 상생협력 문화를 정착시키기 위해 지난 24일 본사(전남광주 나주시 소재)에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다.</div>
     </div>
   </div>
@@ -32406,7 +32964,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32443,6 +33001,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://bologna.repubblica.it/cronaca/2026/08/25/news/eventi_25_agosto_bologna_cosa_fare_stasera-425544969/?ref=-BH-I0-P-S1-T1"
+  data-title="Eventi 25 agosto a Bologna e dintorni: (S)nodi festival, karaoke di quartiere o “La vita va così”"
+  data-publisher="La Repubblica"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1787626800"
+  data-country="OTHER"
+  data-search="eventi 25 agosto a bologna e dintorni: (s)nodi festival, karaoke di quartiere o “la vita va così” la repubblica 국내 원자력 협회·학회 tutti gli spettacoli e gli appuntamenti di musica, arte, cultura, teatro in città e nella regione"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">La Repubblica</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Eventi 25 agosto a Bologna e dintorni: (S)nodi festival, karaoke di quartiere o “La vita va così”</div>
+      <div class="article-snippet">Tutti gli spettacoli e gli appuntamenti di musica, arte, cultura, teatro in città e nella regione</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e71dd5d8429174ea8f25bb28.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.handelsblatt.com/politik/international/griechenland-warum-die-energiewende-fuer-neue-spannungen-mit-der-tuerkei-sorgt/100248899.html"
   data-title="Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt"
   data-publisher="Handelsblatt"
@@ -32466,7 +33057,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt</div>
+      <div class="headline">Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt</div>
       <div class="article-snippet">Athen und Ankara streiten über einen griechischen Raumordnungsplan für Wind- und Solarprojekte. Dahinter steht ein ungelöster Konflikt um die Seegrenzen in der Ägäis.</div>
     </div>
   </div>
@@ -32493,7 +33084,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104774"
   data-title="원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련"
   data-publisher="에너지플랫폼뉴스"
@@ -32517,7 +33108,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260825000136" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">원자력연, IAEA와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5842" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연, IAEA와 가속기 기술 교육 워크숍 개최 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련</div>
+      <div class="headline">원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 원자력연구원과 IAEA가 가속기 기술과 노하우를 확산하기 위해 교류의 장을 마련했다.한국원자력연구원 양성자과학연구단은 국제원자력기구(IAEA)와 공동으로 아시아 각국의 원자력 분야 학생, 연구자 등을 대상으로 ‘가속기 기술 및 활용에 관한 교육 워크숍(Training Workshop on Hands-on Operation and Maintenance of Electrostatic Accelerators)’을 개최했다고 25일 밝혔다.이번 워크숍은 연구원이 축적해 온 가속기 운용 경험을 아시아 지역 연</div>
     </div>
   </div>
@@ -32751,7 +33342,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761725"
   data-title="日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;"
   data-publisher="뉴시스"
@@ -32775,7 +33366,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;</div>
+      <div class="headline">日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;</div>
       <div class="article-snippet">[서울=뉴시스]이준형 인턴 기자 = 지난 2011년 후쿠시마 제1원자력발전소 사고 수습 작업에 투입된 작업자 중 일본 정부의 백혈병 산재 인정 기준인 &#x27;연간 피폭 선량 5밀리시버트(mSv)&#x27;를 초과한 인원이 누적 5만3000여 명에 달하는 것으로 집계됐다. 24일(현지 시간) 일본 지지통신은 도쿄전력이 원자력규제위원회에 제출한 &#x27;방사선 관리 등 보고서&#x27; 데이터를 집계한 결과, 사고 이후 올해 3월까지 약 15년간 연간 5mSv를 초과해 피폭된 작업자가 누적 5만3145명으로 확인됐다고 보도했다. 집계에 따르면 연간 피폭 선량이 50mSv를 초과한 고위험 작업자는 20</div>
     </div>
   </div>
@@ -32784,7 +33375,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankookilbo.com/news/article/A2026082514410003543?dtypecode=pancode_main"
   data-title="베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보"
   data-publisher="한국일보"
@@ -32808,7 +33399,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보</div>
+      <div class="headline">베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보</div>
       <div class="article-snippet">베트남 국회가 자국 최초의 원자력 발전 프로젝트 건설 결의안을 공식 승인했다. 러시아와의 1호기 협력을 본격화하는 동시에, 일본의 철수로 공석이 된 2호기에 한국이 뛰어들 수 있는 법적 발판도 마련됐다.</div>
     </div>
   </div>
@@ -32883,7 +33474,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.news2day.co.kr/article/20260825500082"
   data-title="[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上"
   data-publisher="뉴스투데이"
@@ -32907,7 +33498,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上</div>
+      <div class="headline">[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上</div>
       <div class="article-snippet">[뉴스투데이=진영재 기자] ■ 원전株, 2040년 전력수요 상향 전망에 &#x27;들썩&#x27; 원자력발전 관련 종목들이 전력수요 전망 상향 기대에 힘입어 장 초반 13%대 급등하면서 시장의 주목을 받고 있다. 25일 한국거래소에 따르면 지투파워는 이날 오전 9시 36분 현재 코스닥시</div>
     </div>
   </div>
@@ -33222,7 +33813,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106200"
   data-title="美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결"
   data-publisher="더구루"
@@ -33246,7 +33837,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결</div>
+      <div class="headline">美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결</div>
       <div class="article-snippet">[더구루=길소연 기자] 영국 해양 원자력 전문 기업인 코어파워(Core Power)가 미국 정부와 손잡고 상업용 원자력 추진 선박을 개발한다. 트럼프 행정부가 중국의 상선 건조 시장 지배력에 맞서기 위해 원자력 추진 상선 건조를 계획하는데 코어파워가 함께한다. 미국 정부는 소형모듈원자로(SMR)를 탑재한 원자력추진 상선단을 개발해 중국이 장악한 글로벌 해운</div>
     </div>
   </div>
@@ -33327,7 +33918,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">23건</span>
+    <span class="group-count">24건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33430,6 +34021,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787640989"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
   data-title="Global Nuclear Power Tracker"
   data-publisher="Global Energy Monitor"
@@ -33492,39 +34116,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/aafa0e8b13f49e9ec308127f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787636659"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34023,7 +34614,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.rt.com/russia/644609-zelensky-concentration-camp-nebenzia/"
   data-title="Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow"
   data-publisher="RT"
@@ -34047,7 +34638,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow</div>
+      <div class="headline">Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow</div>
       <div class="article-snippet">Kiev has descended into repression at home and “outright terror” against Russian civilians, with Western assistance, Moscow’s envoy to the UN, Vassily Nebenzia, has said</div>
     </div>
   </div>
@@ -34088,6 +34679,39 @@ main {
     <div class="preview-image"><img src="https://d32r1sh890xpii.cloudfront.net/article/1200x675/2026-08-24_lfcxpsm5hk.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.repubblica.it/politica/2026/08/25/news/heinrich_bedford_strohm_capo_luterani_migranti_ong_intervista-425545299/"
+  data-title="Bedford-Strohm: “L’Italia sta bullizzando chi salva le vite in mare, traditi i valori cristiani”"
+  data-publisher="La Repubblica"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787612400"
+  data-country="OTHER"
+  data-search="bedford-strohm: “l’italia sta bullizzando chi salva le vite in mare, traditi i valori cristiani” la repubblica nuclear power·nuclear energy intervista al vescovo luterano che guida il consiglio mondiale delle chiese protestanti: “non si contino solo le espulsioni”"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">La Repubblica</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Bedford-Strohm: “L’Italia sta bullizzando chi salva le vite in mare, traditi i valori cristiani”</div>
+      <div class="article-snippet">Intervista al vescovo luterano che guida il consiglio mondiale delle Chiese protestanti: “Non si contino solo le espulsioni”</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5824b757e3f232a31e7c14ef.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -34116,7 +34740,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.globalbankingandfinance.com/british-firm-offers-restart-mothballed-australian-manganese/"
   data-title="British Firm Proposes Restart of Australian Manganese Smelter"
   data-publisher="Global Banking &amp; Finance Review"
@@ -34140,7 +34764,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>British Firm Proposes Restart of Australian Manganese Smelter</div>
+      <div class="headline">British Firm Proposes Restart of Australian Manganese Smelter</div>
       <div class="article-snippet">Natrium Redox Technologies bids to restart Tasmania&#x27;s only manganese smelter, supplying global battery and EV markets with green technology.</div>
     </div>
   </div>
@@ -34158,7 +34782,7 @@ main {
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.fnnews.com/news/202608251527119992"
   data-title="美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;"
   data-publisher="파이낸셜뉴스"
@@ -34182,7 +34806,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;</div>
+      <div class="headline">美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;</div>
       <div class="article-snippet">(세종=뉴스1) 이정현 기자 = 미국 정부가 한국에 미국 원전 기업 웨스팅하우스(WEC) 지분 인수를 제안했다는 관측이 제기됐다. 미국이 인공지능(AI) 인프라 확대를 위해 추진 중인 원전 건설 사업에 한국의 자본력과 시공 역량을 활용하려는 취지라는 분석이다.25일 원..</div>
     </div>
   </div>
@@ -34525,7 +35149,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">37건</span>
+    <span class="group-count">40건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34661,6 +35285,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761966"
+  data-title="&#x27;여의도 시범&#x27;도 래미안 유력…삼성물산 단독 응찰"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787640353"
+  data-country="KR"
+  data-search="&#x27;여의도 시범&#x27;도 래미안 유력…삼성물산 단독 응찰 뉴시스 타 건설사 [서울=뉴시스] 박성환 기자 = 여의도 최대 재건축 사업지로 꼽히는 여의도 시범아파트 재건축 시공사 선정 입찰이 삼성물산 건설부문의 단독 응찰로 유찰됐다. 25일 정비업계에 따르면 사업시행자인 한국자산신탁이 진행한 서울 영등포구 여의도 시범아파트 주택재건축정비사업 시공사 선정 입찰에 삼성물산이 단독으로 참여했다. 도시 및 주거환경정비법에 따라 재건축 시공사 선정 입찰은 2개사 이상이 참여해야 성립하기 때문에 이번 입찰은 유찰됐다. 시범아파트는 재건축을 통해 최고 59~65층, 총 2491가구 규모의 초고층 단지로 탈바꿈할 예정이다. 총공사비는 약 2조원, 3.3㎡당"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;여의도 시범&#x27;도 래미안 유력…삼성물산 단독 응찰</div>
+      <div class="article-snippet">[서울=뉴시스] 박성환 기자 = 여의도 최대 재건축 사업지로 꼽히는 여의도 시범아파트 재건축 시공사 선정 입찰이 삼성물산 건설부문의 단독 응찰로 유찰됐다. 25일 정비업계에 따르면 사업시행자인 한국자산신탁이 진행한 서울 영등포구 여의도 시범아파트 주택재건축정비사업 시공사 선정 입찰에 삼성물산이 단독으로 참여했다. 도시 및 주거환경정비법에 따라 재건축 시공사 선정 입찰은 2개사 이상이 참여해야 성립하기 때문에 이번 입찰은 유찰됐다. 시범아파트는 재건축을 통해 최고 59~65층, 총 2491가구 규모의 초고층 단지로 탈바꿈할 예정이다. 총공사비는 약 2조원, 3.3㎡당</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b2231f78b603f3807d1cbc4d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761777"
   data-title="충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;"
   data-publisher="뉴시스"
@@ -34684,7 +35341,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;</div>
+      <div class="headline">충북도 &quot;에너지산업 인재 양성으로 청년 일자리 창출&quot;</div>
       <div class="article-snippet">[청주=뉴시스] 임선우 기자 = 충북도가 미래 에너지산업에 심혈을 쏟는다. 도는 25일 서울 양재 엘타워에서 열린 &#x27;2026 기후에너지 일자리 박람회&#x27;에서 기후에너지환경부, 강원특별자치도, 부산광역시, 전남광주특별시, 한국에너지기술평가원 등과 &#x27;기후에너지산업 인력양성 및 청년 일자리 창출을 위한 업무협약&#x27;을 했다. LG에너지솔루션, SK이노베이션, 삼성물산, GS건설, 에코프로 등 국내 주요 에너지 기업도 참여했다. 이들은 향후 3년간 ▲에너지 인력양성사업 추진 협력(맞춤형 교육과정 운영 및 인재 육성) ▲일자리 창출 및 정보 공유(채용설명회, 특강, 일자리 박람회</div>
     </div>
   </div>
@@ -35255,6 +35912,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.sedaily.com/article/20083081"
+  data-title="GS건설, 해외 건축가와 미래주거 연구"
+  data-publisher="서울경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787640523"
+  data-country="OTHER"
+  data-search="gs건설, 해외 건축가와 미래주거 연구 서울경제 타 건설사 gs건설이 기후위기에 대응하기 위한 미래형 주거 솔루션 연구에 나선다. gs건설은 세계적인 건축가 카를로 라티 교수가 이끄는 건축·혁신 디자인 그룹(cra)과 ‘미래형 기후위기 대응 주거 개념’을 주제로 공동연구를 진행했다고 25일 밝혔다. 이번 연구는 기후변화가 주거"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">GS건설, 해외 건축가와 미래주거 연구</div>
+      <div class="article-snippet">GS건설이 기후위기에 대응하기 위한 미래형 주거 솔루션 연구에 나선다. GS건설은 세계적인 건축가 카를로 라티 교수가 이끄는 건축·혁신 디자인 그룹(CRA)과 ‘미래형 기후위기 대응 주거 개념’을 주제로 공동연구를 진행했다고 25일 밝혔다. 이번 연구는 기후변화가 주거</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://wimg.sedaily.com/news/cms/2026/08/25/news-p.v1.20260825.adfd02bc03904ad5b8a87a2ded50f1cf_R.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.goodkyung.com/news/articleView.html?idxno=290593"
+  data-title="[굿모닝! 25일 건설업계 소식] GS건설·호반그룹·반도건설·LH - 굿모닝경제"
+  data-publisher="굿모닝경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787638555"
+  data-country="OTHER"
+  data-search="[굿모닝! 25일 건설업계 소식] gs건설·호반그룹·반도건설·lh - 굿모닝경제 굿모닝경제 타 건설사 gs건설은 세계적인 건축가 카를로 라티 교수가 이끄는 건축·혁신 디자인 그룹 cra(carlo ratti associati)와 함께 &#x27;미래형 기후위기 대응 주거"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">굿모닝경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">[굿모닝! 25일 건설업계 소식] GS건설·호반그룹·반도건설·LH - 굿모닝경제</div>
+      <div class="article-snippet">GS건설은 세계적인 건축가 카를로 라티 교수가 이끄는 건축·혁신 디자인 그룹 CRA(Carlo Ratti Associati)와 함께 &#x27;미래형 기후위기 대응 주거</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.goodkyung.com/news/thumbnail/202608/290593_263170_245_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.econovill.com/news/articleView.html?idxno=748849"
   data-title="GS건설, 기후위기 대응 주거 솔루션 연구 나선다"
   data-publisher="이코노믹리뷰"
@@ -35506,7 +36229,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.m-i.kr/news/articleView.html?idxno=1405647" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일일보</span><span class="related-coverage-title">GS건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 10개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sedaily.com/article/20083081" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">GS건설, 해외 건축가와 미래주거 연구</span></a><a class="related-coverage-link" href="https://www.goodkyung.com/news/articleView.html?idxno=290593" target="_blank" rel="noopener"><span class="related-coverage-publisher">굿모닝경제</span><span class="related-coverage-title">[굿모닝! 25일 건설업계 소식] GS건설·호반그룹·반도건설·LH - 굿모닝경제</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=748849" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">GS건설, 기후위기 대응 주거 솔루션 연구 나선다</span></a><a class="related-coverage-link" href="https://daily.hankooki.com/news/articleView.html?idxno=1398971" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리한국</span><span class="related-coverage-title">[건설업계 브리핑] GS건설·호반그룹·LH·SH</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260825500183" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">GS건설, 기후위기 대응 미래 주거 연구…신재생에너지 개발 사업도 확대</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=717929" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">GS건설, 카를로 라티 CRA와 기후위기 대응 주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.m-i.kr/news/articleView.html?idxno=1405647" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일일보</span><span class="related-coverage-title">GS건설, 세계적 건축가와 기후위기 대응 미래주거 공동 연구</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260825010008195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">기후위기 대응 미래주거모델 찾는다…GS건설, 글로벌 디자인 그룹과 공동 연구</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12135416" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">데이터로 폭우·폭염 잡는다…GS건설, ‘기후위기 대응’ 미래주거 연구</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/08/25/FM5YGVBLGZCZTNWYILCIUWN35Q/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">GS건설, ‘기후위기 대응’ 미래주거 공동 연구</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">GS건설, 기후위기 대응 주거 솔루션 연구…실증 거쳐 적용</div>
@@ -35683,7 +36406,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761954"
   data-title="경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;"
   data-publisher="뉴시스"
@@ -35707,7 +36430,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;</div>
+      <div class="headline">경남도-한화에어로스페이스 &quot;우주항공·방산 협력 강화&quot;</div>
       <div class="article-snippet">[창원=뉴시스]홍정명 기자 = 경남도는 25일 도청에서 박완수 도지사와 이부환 한화에어로스페이스 사업부문 신임 대표이사가 우주항공·방산 분야 현안과 협력 방안을 논의했다고 밝혔다. 이 자리에서 한화에어로스페이스는 경남지역 재난안전망 구축 지원금 2억원을 경남도에 기탁했으며, 전달식에는 박 지사와 이부환 대표이사, 문지훈 부사장, 신문현 경상남도자원봉사센터장, 정영식 경남사회복지공동모금회장 등이 참석했다. 박 지사는 한화에어로스페이스의 지원에 감사를 전하고, 피해 주민의 일상 회복과 현장에서 복구 활동을 이어가는 자원봉사자들에게 실질적인 도움이 될 수 있도록 민·관·기</div>
     </div>
   </div>
@@ -36226,7 +36949,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">15건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36335,7 +37058,7 @@ main {
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
-  data-published="1787640000"
+  data-published="1787640900"
   data-country="KR"
   data-search="대한전문건설신문 대한전문건설신문 한국전력 건설산업 전문 주간신문,실시간 건설관련뉴스,오피니언,입찰정보,전문 광장"
   tabindex="0" role="link">
@@ -36358,6 +37081,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2390b6a96c7f6f0340dc9452.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260825_0003761969"
+  data-title="원주환경청, 녹색기업 13곳과 재생에너지 확대 &#x27;맞손&#x27;"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1787640323"
+  data-country="KR"
+  data-search="원주환경청, 녹색기업 13곳과 재생에너지 확대 &#x27;맞손&#x27; 뉴시스 한국전력 [원주=뉴시스]이덕화 기자 = 기후에너지환경부 이를 확인받아 이행 실적으로 활용할 수 있도록 한 제도다.이 녹색기업과 재생에너지 보급 확대를 위한 협력체계를 마련하고 기업의 k-re100 참여 지원에 나선다. 원주지방환경청은 26일 청사 대회의실에서 녹색기업 13개사와 한국전력공사 강원본부와 한국에너지공단 강원지역본부 등이 참여하는 대표자 간담회와 업무협약식을 연다고 25일 밝혔다. k-re100은 국내 기업 등이 재생에너지를 사용하고 사용확인서를 발급받아 re100 이행 등에 활용할 수 있도록 한 제도다. 간담회에서는 강원·충북북부 녹색기업협의회의 활동 내용과 계획"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원주환경청, 녹색기업 13곳과 재생에너지 확대 &#x27;맞손&#x27;</div>
+      <div class="article-snippet">[원주=뉴시스]이덕화 기자 = 기후에너지환경부 이를 확인받아 이행 실적으로 활용할 수 있도록 한 제도다.이 녹색기업과 재생에너지 보급 확대를 위한 협력체계를 마련하고 기업의 K-RE100 참여 지원에 나선다. 원주지방환경청은 26일 청사 대회의실에서 녹색기업 13개사와 한국전력공사 강원본부와 한국에너지공단 강원지역본부 등이 참여하는 대표자 간담회와 업무협약식을 연다고 25일 밝혔다. K-RE100은 국내 기업 등이 재생에너지를 사용하고 사용확인서를 발급받아 RE100 이행 등에 활용할 수 있도록 한 제도다. 간담회에서는 강원·충북북부 녹색기업협의회의 활동 내용과 계획</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f212deb6bf65c3cd21e5ddd7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36394,7 +37150,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003261629&amp;PAGE_CD=N0002&amp;CMPT_CD=M0117"
   data-title="송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다"
   data-publisher="오마이뉴스"
@@ -36418,7 +37174,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다</div>
+      <div class="headline">송전탑 설명회, 한전 일방통행 깨고 주민 목소리 담았다</div>
       <div class="article-snippet">송전탑 반대 대책위 주민과 한국전력이 동등한 위치에서 공개적으로 송전선로 관련 주민 설명회를 열어 주목된다.지난 24일 충남 예산군 예산문화원에서는 345kV 군산-신천안 송전선로 건설사업 설명회가 진행됐다. 해당 선로는 광시면,</div>
     </div>
   </div>
@@ -36733,7 +37489,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70732"
   data-title="한전KDN, 협력사 근로자 몸·마음까지 챙겨"
   data-publisher="에너지타임즈"
@@ -36757,7 +37513,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 협력사 근로자 몸·마음까지 챙겨</div>
+      <div class="headline">한전KDN, 협력사 근로자 몸·마음까지 챙겨</div>
       <div class="article-snippet">한전KDN(주)(사장 박상형)이 직원과 협력사가 안심하는 안전일터 조성을 위해 지난 21일 본사(전남광주 나주시 소재)에서 ‘CEO와 함께하는 안전·보건 상생 프로젝트’를 개최했다. 이날 행사는 본사 구내식당 협력사 근로자를 대상으로 진행됐으며, 아로마 오일을 활용한 괄사 마사지 체험 프로그램이 운영됐다.</div>
     </div>
   </div>
@@ -36799,7 +37555,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70731"
   data-title="한전KDN, 협력사 목소리로 불공정 관행 걷어낸다"
   data-publisher="에너지타임즈"
@@ -36823,7 +37579,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 협력사 목소리로 불공정 관행 걷어낸다</div>
+      <div class="headline">한전KDN, 협력사 목소리로 불공정 관행 걷어낸다</div>
       <div class="article-snippet">한전KDN이 협력사를 단순한 거래 상대가 아닌 함께 성장하는 동반자로 보고 현장에서 체감할 수 있는 공정거래와 청렴·윤리문화 확산에 나섰다. 한전KDN(주)(사장 박상형)은 협력사와 거래 과정에 발생할 수 있는 불공정하고 불합리한 업무관행을 발굴해 개선하는 한편 청렴과 공정을 기반으로 한 상생협력 문화를 정착시키기 위해 지난 24일 본사(전남광주 나주시 소재)에서 지역 협력사를 대상으로 청렴소통 간담회를 개최했다.</div>
     </div>
   </div>
@@ -36988,7 +37744,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -37025,6 +37781,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://bologna.repubblica.it/cronaca/2026/08/25/news/eventi_25_agosto_bologna_cosa_fare_stasera-425544969/?ref=-BH-I0-P-S1-T1"
+  data-title="Eventi 25 agosto a Bologna e dintorni: (S)nodi festival, karaoke di quartiere o “La vita va così”"
+  data-publisher="La Repubblica"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1787626800"
+  data-country="OTHER"
+  data-search="eventi 25 agosto a bologna e dintorni: (s)nodi festival, karaoke di quartiere o “la vita va così” la repubblica 국내 원자력 협회·학회 tutti gli spettacoli e gli appuntamenti di musica, arte, cultura, teatro in città e nella regione"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">La Repubblica</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Eventi 25 agosto a Bologna e dintorni: (S)nodi festival, karaoke di quartiere o “La vita va così”</div>
+      <div class="article-snippet">Tutti gli spettacoli e gli appuntamenti di musica, arte, cultura, teatro in città e nella regione</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e71dd5d8429174ea8f25bb28.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.handelsblatt.com/politik/international/griechenland-warum-die-energiewende-fuer-neue-spannungen-mit-der-tuerkei-sorgt/100248899.html"
   data-title="Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt"
   data-publisher="Handelsblatt"
@@ -37048,7 +37837,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt</div>
+      <div class="headline">Griechenland: Warum die Energiewende für neue Spannungen mit der Türkei sorgt</div>
       <div class="article-snippet">Athen und Ankara streiten über einen griechischen Raumordnungsplan für Wind- und Solarprojekte. Dahinter steht ein ungelöster Konflikt um die Seegrenzen in der Ägäis.</div>
     </div>
   </div>
@@ -37075,7 +37864,7 @@ main {
     <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=104774"
   data-title="원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련"
   data-publisher="에너지플랫폼뉴스"
@@ -37099,7 +37888,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260825000136" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">원자력연, IAEA와 공동으로 아시아 연구자 대상 &#x27;가속기 활용 교육 워크숍&#x27; 개최</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=5842" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연, IAEA와 가속기 기술 교육 워크숍 개최 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련</div>
+      <div class="headline">원자력연구원·IAEA, 가속기 기술·활용 확산 위해 상호 교류의 장 마련</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 원자력연구원과 IAEA가 가속기 기술과 노하우를 확산하기 위해 교류의 장을 마련했다.한국원자력연구원 양성자과학연구단은 국제원자력기구(IAEA)와 공동으로 아시아 각국의 원자력 분야 학생, 연구자 등을 대상으로 ‘가속기 기술 및 활용에 관한 교육 워크숍(Training Workshop on Hands-on Operation and Maintenance of Electrostatic Accelerators)’을 개최했다고 25일 밝혔다.이번 워크숍은 연구원이 축적해 온 가속기 운용 경험을 아시아 지역 연</div>
     </div>
   </div>
@@ -37399,7 +38188,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260825_0003761725"
   data-title="日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;"
   data-publisher="뉴시스"
@@ -37423,7 +38212,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;</div>
+      <div class="headline">日 후쿠시마 피폭 작업자 &#x27;5만3000명&#x27;…&quot;산재 신청 더 늘어날 것&quot;</div>
       <div class="article-snippet">[서울=뉴시스]이준형 인턴 기자 = 지난 2011년 후쿠시마 제1원자력발전소 사고 수습 작업에 투입된 작업자 중 일본 정부의 백혈병 산재 인정 기준인 &#x27;연간 피폭 선량 5밀리시버트(mSv)&#x27;를 초과한 인원이 누적 5만3000여 명에 달하는 것으로 집계됐다. 24일(현지 시간) 일본 지지통신은 도쿄전력이 원자력규제위원회에 제출한 &#x27;방사선 관리 등 보고서&#x27; 데이터를 집계한 결과, 사고 이후 올해 3월까지 약 15년간 연간 5mSv를 초과해 피폭된 작업자가 누적 5만3145명으로 확인됐다고 보도했다. 집계에 따르면 연간 피폭 선량이 50mSv를 초과한 고위험 작업자는 20</div>
     </div>
   </div>
@@ -37432,7 +38221,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankookilbo.com/news/article/A2026082514410003543?dtypecode=pancode_main"
   data-title="베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보"
   data-publisher="한국일보"
@@ -37456,7 +38245,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보</div>
+      <div class="headline">베트남 국회, 첫 원전 사업 승인… &#x27;원전 르네상스&#x27; 속도전-국제ㅣ한국일보</div>
       <div class="article-snippet">베트남 국회가 자국 최초의 원자력 발전 프로젝트 건설 결의안을 공식 승인했다. 러시아와의 1호기 협력을 본격화하는 동시에, 일본의 철수로 공석이 된 2호기에 한국이 뛰어들 수 있는 법적 발판도 마련됐다.</div>
     </div>
   </div>
@@ -37663,7 +38452,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.news2day.co.kr/article/20260825500082"
   data-title="[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上"
   data-publisher="뉴스투데이"
@@ -37687,7 +38476,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上</div>
+      <div class="headline">[N2 증시 풍향계] 원전株 &#x27;강세&#x27;…한화머시너리앤서비스홀딩스·비트플래닛 &#x27;급등&#x27;, 이건산업 &#x27;上</div>
       <div class="article-snippet">[뉴스투데이=진영재 기자] ■ 원전株, 2040년 전력수요 상향 전망에 &#x27;들썩&#x27; 원자력발전 관련 종목들이 전력수요 전망 상향 기대에 힘입어 장 초반 13%대 급등하면서 시장의 주목을 받고 있다. 25일 한국거래소에 따르면 지투파워는 이날 오전 9시 36분 현재 코스닥시</div>
     </div>
   </div>
@@ -38068,7 +38857,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106200"
   data-title="美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결"
   data-publisher="더구루"
@@ -38092,7 +38881,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결</div>
+      <div class="headline">美, 원자력 추진 상선단 구축 추진…英 코어파워와 파트너십 체결</div>
       <div class="article-snippet">[더구루=길소연 기자] 영국 해양 원자력 전문 기업인 코어파워(Core Power)가 미국 정부와 손잡고 상업용 원자력 추진 선박을 개발한다. 트럼프 행정부가 중국의 상선 건조 시장 지배력에 맞서기 위해 원자력 추진 상선 건조를 계획하는데 코어파워가 함께한다. 미국 정부는 소형모듈원자로(SMR)를 탑재한 원자력추진 상선단을 개발해 중국이 장악한 글로벌 해운</div>
     </div>
   </div>
@@ -38173,7 +38962,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">23건</span>
+    <span class="group-count">24건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -38276,6 +39065,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://globalenergymonitor.org/renewables-and-other-power"
+  data-title="Renewables and other power "
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787640989"
+  data-country="OTHER"
+  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline">Renewables and other power </div>
+      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
   data-title="Global Nuclear Power Tracker"
   data-publisher="Global Energy Monitor"
@@ -38338,39 +39160,6 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/aafa0e8b13f49e9ec308127f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://globalenergymonitor.org/renewables-and-other-power"
-  data-title="Renewables and other power "
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787636659"
-  data-country="OTHER"
-  data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
-      </div>
-      <div class="headline">Renewables and other power </div>
-      <div class="article-snippet">Wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. Other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/89761d5bbd127e8e6461008c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38869,7 +39658,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.rt.com/russia/644609-zelensky-concentration-camp-nebenzia/"
   data-title="Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow"
   data-publisher="RT"
@@ -38893,7 +39682,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow</div>
+      <div class="headline">Ukraine has morphed into Zelensky’s ‘concentration camp’ – Moscow</div>
       <div class="article-snippet">Kiev has descended into repression at home and “outright terror” against Russian civilians, with Western assistance, Moscow’s envoy to the UN, Vassily Nebenzia, has said</div>
     </div>
   </div>
@@ -38934,6 +39723,39 @@ main {
     <div class="preview-image"><img src="https://d32r1sh890xpii.cloudfront.net/article/1200x675/2026-08-24_lfcxpsm5hk.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.repubblica.it/politica/2026/08/25/news/heinrich_bedford_strohm_capo_luterani_migranti_ong_intervista-425545299/"
+  data-title="Bedford-Strohm: “L’Italia sta bullizzando chi salva le vite in mare, traditi i valori cristiani”"
+  data-publisher="La Repubblica"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787612400"
+  data-country="OTHER"
+  data-search="bedford-strohm: “l’italia sta bullizzando chi salva le vite in mare, traditi i valori cristiani” la repubblica nuclear power·nuclear energy intervista al vescovo luterano che guida il consiglio mondiale delle chiese protestanti: “non si contino solo le espulsioni”"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">La Repubblica</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Bedford-Strohm: “L’Italia sta bullizzando chi salva le vite in mare, traditi i valori cristiani”</div>
+      <div class="article-snippet">Intervista al vescovo luterano che guida il consiglio mondiale delle Chiese protestanti: “Non si contino solo le espulsioni”</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5824b757e3f232a31e7c14ef.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -38962,7 +39784,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.globalbankingandfinance.com/british-firm-offers-restart-mothballed-australian-manganese/"
   data-title="British Firm Proposes Restart of Australian Manganese Smelter"
   data-publisher="Global Banking &amp; Finance Review"
@@ -38986,7 +39808,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>British Firm Proposes Restart of Australian Manganese Smelter</div>
+      <div class="headline">British Firm Proposes Restart of Australian Manganese Smelter</div>
       <div class="article-snippet">Natrium Redox Technologies bids to restart Tasmania&#x27;s only manganese smelter, supplying global battery and EV markets with green technology.</div>
     </div>
   </div>
@@ -39004,7 +39826,7 @@ main {
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.fnnews.com/news/202608251527119992"
   data-title="美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;"
   data-publisher="파이낸셜뉴스"
@@ -39028,7 +39850,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;</div>
+      <div class="headline">美, 한국에 웨스팅하우스 지분 인수 제안설…산업부 &quot;사실과 달라&quot;</div>
       <div class="article-snippet">(세종=뉴스1) 이정현 기자 = 미국 정부가 한국에 미국 원전 기업 웨스팅하우스(WEC) 지분 인수를 제안했다는 관측이 제기됐다. 미국이 인공지능(AI) 인프라 확대를 위해 추진 중인 원전 건설 사업에 한국의 자본력과 시공 역량을 활용하려는 취지라는 분석이다.25일 원..</div>
     </div>
   </div>
@@ -172162,6 +172984,69 @@ function forceCountryMapLabelRefresh(){requestAnimationFrame(()=>requestAnimatio
 forceCountryMapLabelRefresh();
 window.addEventListener('load',()=>{forceCountryMapLabelRefresh();setTimeout(forceCountryMapLabelRefresh,250);setTimeout(forceCountryMapLabelRefresh,900);},{once:true});
 window.addEventListener('resize',forceCountryMapLabelRefresh);
+
+/* 2026-08-25 EXACT RESTORE: 2026-08-22 WORKING CONTINENT TABS
+   Do not redesign this function; this is the known-good dock behavior. */
+function renderContinentRail2D(items){
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  if(!visual)return;
+  let rail=document.getElementById('continent-rail');
+  if(!rail){rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}
+  const counts={};
+  const articles={};
+  FINAL_CONTINENT_DOCK_ORDER.forEach(c=>{counts[c]=0;articles[c]=0;});
+  items.forEach(item=>{
+    if(!item.continent||!CONTINENT_META[item.continent]||item.count<=0)return;
+    counts[item.continent]=(counts[item.continent]||0)+1;
+    articles[item.continent]=(articles[item.continent]||0)+item.count;
+  });
+  rail.innerHTML='<div class="continent-rail-scroll" aria-label="대륙 선택"></div>';
+  const scroll=rail.querySelector('.continent-rail-scroll');
+
+  /* 기사 많은 대륙부터 표시하고, 0건 대륙은 항상 뒤쪽에 배치.
+     기사 수가 같으면 기존 대륙 순서를 유지합니다. */
+  const rankedContinentOrder = FINAL_CONTINENT_DOCK_ORDER
+    .filter(code=>code!=='ALL')
+    .map((code,index)=>({code,index,count:Number(articles[code]||0)}))
+    .sort((a,b)=>b.count-a.count || a.index-b.index)
+    .map(entry=>entry.code);
+
+  /* 6개 대륙 버튼은 모두 항상 표시.
+     기사 많은 순서는 유지하되, 짧은 이름은 좁게 / 긴 이름은 넓게 배분합니다. */
+  /* 버튼 폭은 컨텐츠 길이에 맞춰 compact하게 사용합니다.
+     6개 버튼 모두 보이되, 빈 공간을 억지로 동일 분할하지 않습니다. */
+  const dockWidthMap = { NA:0.88, EU:0.88, AS:0.98, SA:0.90, OC:1.12, MEA:1.24 };
+  scroll.style.setProperty(
+    'grid-template-columns',
+    rankedContinentOrder
+      .map(code=>`minmax(0, ${dockWidthMap[code]||1}fr)`)
+      .join(' '),
+    'important'
+  );
+  scroll.style.setProperty('justify-content', 'stretch', 'important');
+
+  rankedContinentOrder.forEach(code=>{
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='continent-button'+(activeContinentFilter===code?' active':'');
+    btn.innerHTML=`<span class="continent-button-name">${CONTINENT_META[code].name}</span><span class="continent-button-count">${articles[code]||0}건</span>`;
+    btn.addEventListener('click',()=>{
+      const isSameContinent = activeContinentFilter===code;
+      if(isSameContinent){
+        activeContinentFilter='ALL';
+        activeCountryFilter='';
+      } else {
+        activeContinentFilter=code;
+        if(activeCountryFilter && getCountryContinent(activeCountryFilter)!==code)activeCountryFilter='';
+      }
+      filterArticles();
+      updateCountryMapCounts();
+      layoutAndRenderCountryMap();
+    });
+    scroll.appendChild(btn);
+  });
+}
+
 
 /* 2026-08-25 PC WORKSPACE UX - desktop only */
 let desktopArticleMode = "all";
