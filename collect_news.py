@@ -19782,6 +19782,54 @@ main {{
     transform:none !important;
   }}
 }}
+
+
+/* 2026-08-25 CONTINENT TABS ALWAYS VISIBLE - FINAL OVERRIDE */
+#continent-rail.continent-rail-persistent,
+#continent-rail {{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:absolute !important;
+  left:8px !important;
+  right:8px !important;
+  bottom:8px !important;
+  width:auto !important;
+  max-width:calc(100% - 16px) !important;
+  min-height:38px !important;
+  height:auto !important;
+  padding:4px !important;
+  box-sizing:border-box !important;
+  z-index:120 !important;
+  overflow:visible !important;
+}}
+#continent-rail .continent-rail-scroll {{
+  display:grid !important;
+  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+  gap:4px !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  height:auto !important;
+  min-height:30px !important;
+  overflow:visible !important;
+  box-sizing:border-box !important;
+}}
+#continent-rail .continent-button {{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  min-width:0 !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+}}
+@media (max-width:767px) {{
+  #continent-rail.continent-rail-persistent, #continent-rail {{
+    left:6px !important; right:6px !important; bottom:6px !important;
+    max-width:calc(100% - 12px) !important;
+  }}
+  #continent-rail .continent-rail-scroll {{ gap:3px !important; }}
+}}
 </style>
 </head>
 <body>
@@ -19836,6 +19884,9 @@ main {{
 
     <div class="country-map-content">
       <div class="country-map-visual globe-mode" aria-label="대륙별 국가 기사 2D 세계지도">
+      <div id="continent-rail" class="continent-rail-persistent" aria-label="대륙 선택">
+        <div class="continent-rail-scroll" aria-label="대륙 선택"></div>
+      </div>
       <div id="globe-stage" class="globe-stage" aria-label="대륙 선택형 2D 세계지도">
         <div id="globe-sphere" class="globe-sphere">
           <canvas id="globe-canvas" class="globe-canvas" width="420" height="420" aria-hidden="true"></canvas>
@@ -23261,10 +23312,14 @@ function renderContinentRail2D(items){{
   if(!visual)return;
   let rail=document.getElementById('continent-rail');
   if(!rail){{rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}}
+  rail.style.setProperty('display','flex','important');
+  rail.style.setProperty('visibility','visible','important');
+  rail.style.setProperty('opacity','1','important');
+  const safeItems=Array.isArray(items)?items:[];
   const counts={{}};
   const articles={{}};
   FINAL_CONTINENT_DOCK_ORDER.forEach(c=>{{counts[c]=0;articles[c]=0;}});
-  items.forEach(item=>{{
+  safeItems.forEach(item=>{{
     if(!item.continent||!CONTINENT_META[item.continent]||item.count<=0)return;
     counts[item.continent]=(counts[item.continent]||0)+1;
     articles[item.continent]=(articles[item.continent]||0)+item.count;
@@ -24942,10 +24997,15 @@ function renderHtmlCountryLabels(items){{
 }}
 
 function layoutAndRenderCountryMap(){{
-  const items=collect2DCountryItems();
-  if(!items.length)return;
-  maybeInitializeContinentFilter(items);
+  const items=collect2DCountryItems() || [];
+  /* 대륙 탭은 국가 데이터 유무와 관계없이 항상 먼저 표시 */
   renderContinentRail2D(items);
+  if(!items.length){{
+    const layer=document.getElementById('country-map-label-layer');
+    if(layer)layer.innerHTML='';
+    return;
+  }}
+  maybeInitializeContinentFilter(items);
   renderSelectedContinentHighlight();
   if(typeof ensureMapStateChip==='function')ensureMapStateChip(items);
   renderHtmlCountryLabels(items);
