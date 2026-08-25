@@ -9960,102 +9960,7 @@ main {
   .precise-country-label,.clean-map-country-label { font-size:7px !important; padding:2px 4px !important; }
 }
 
-/* HARD FINAL MOBILE CONTINENT TABS — 2026-08-25 */
-@media (max-width: 767px) {
-  .country-map-visual.globe-mode {
-    position:relative !important;
-    min-height:300px !important;
-    height:300px !important;
-    overflow:hidden !important;
-  }
-  #continent-rail {
-    display:flex !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    position:absolute !important;
-    left:8px !important;
-    right:8px !important;
-    top:auto !important;
-    bottom:8px !important;
-    width:auto !important;
-    height:auto !important;
-    min-height:0 !important;
-    padding:6px !important;
-    gap:5px !important;
-    flex-direction:column !important;
-    z-index:50 !important;
-    border:1px solid rgba(160,187,207,.35) !important;
-    border-radius:12px !important;
-    background:rgba(255,255,255,.96) !important;
-    box-shadow:0 3px 10px rgba(17,24,39,.10) !important;
-  }
-  #continent-rail .continent-rail-head {
-    display:flex !important;
-    align-items:center !important;
-    justify-content:space-between !important;
-    min-height:24px !important;
-    padding:0 2px !important;
-    border:0 !important;
-  }
-  #continent-rail .continent-rail-scroll {
-    display:grid !important;
-    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-    gap:5px !important;
-    overflow:visible !important;
-    padding:0 !important;
-  }
-  #continent-rail .continent-button {
-    display:flex !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    min-width:0 !important;
-    min-height:31px !important;
-    height:31px !important;
-    padding:4px 5px !important;
-    align-items:center !important;
-    justify-content:space-between !important;
-    gap:3px !important;
-    border:1px solid rgba(170,193,210,.55) !important;
-    border-radius:9px !important;
-    background:#fff !important;
-    color:#244865 !important;
-    font-size:9px !important;
-  }
-  #continent-rail .continent-button.active {
-    background:#eef8ff !important;
-    border-color:#76b7dd !important;
-  }
-  #continent-rail .continent-button-name {
-    display:block !important;
-    font-size:9px !important;
-    font-weight:900 !important;
-    line-height:1.05 !important;
-    overflow:hidden !important;
-    text-overflow:ellipsis !important;
-  }
-  #continent-rail .continent-button-count {
-    display:block !important;
-    flex:0 0 auto !important;
-    font-size:8px !important;
-    font-weight:900 !important;
-    color:#1e88c9 !important;
-  }
-  #continent-rail .continent-all-button {
-    display:inline-flex !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    align-items:center !important;
-    justify-content:center !important;
-    height:23px !important;
-    min-height:23px !important;
-    padding:0 8px !important;
-    border-radius:999px !important;
-  }
-  .country-map-visual .world-map-inline.globe-texture-source,
-  #country-map-label-layer.country-map-label-layer {
-    bottom:112px !important;
-  }
-}
+/* 2026-08-25 CORRECTION: removed erroneous 3x2 mobile continent override; preserve approved one-line bottom dock with South America. */
 </style>
 </head>
 <body>
@@ -10064,7 +9969,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 8.25(화) 14:20 KST</span>
+        <span class="updated updated-inline">업데이트됨 8.25(화) 14:35 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -30453,9 +30358,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsway.co.kr/news/view?ud=2026082514262406229"
+  data-title="두산에너빌리티 10%대 상승···북미 원전 수주 기대감↑ - 뉴스웨이"
+  data-publisher="뉴스웨이"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787635904"
+  data-country="US"
+  data-search="두산에너빌리티 10%대 상승···북미 원전 수주 기대감↑ - 뉴스웨이 뉴스웨이 타 건설사 두산에너빌리티 주가가 미국 정부의 북미 신규 원전 사업 지원으로 10% 이상 상승했다. doe의 장납기 기자재 조달 대출 프로그램 발표에 힘입어 원전 기자재 조기 발주가 가능해질 것으로 전망된다. 실적 역시 매출과 영업이익 모두 큰 폭으로 개선될 것으로 증권가는 보고 있다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스웨이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티 10%대 상승···북미 원전 수주 기대감↑ - 뉴스웨이</div>
+      <div class="article-snippet">두산에너빌리티 주가가 미국 정부의 북미 신규 원전 사업 지원으로 10% 이상 상승했다. DOE의 장납기 기자재 조달 대출 프로그램 발표에 힘입어 원전 기자재 조기 발주가 가능해질 것으로 전망된다. 실적 역시 매출과 영업이익 모두 큰 폭으로 개선될 것으로 증권가는 보고 있다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8e2d4de2d961f62f810602ad.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=175659"
   data-title="두산에너빌리티, 북미 신규 원전 시장 가시화는 시간 문제 - 알파경제"
@@ -32055,7 +31993,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32158,46 +32096,13 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787635347"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787633163"
+  data-published="1787636234"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -32230,7 +32135,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787632832"
+  data-published="1787636231"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
@@ -32253,6 +32158,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787635347"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32517,6 +32455,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c3c9777ce1a89ca2d50457ac.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.aljazeera.com/video/newsfeed/2026/8/25/two-us-carrier-groups-in-middle-east-strain-navy-resources?traffic_source=rss"
+  data-title="Two US carrier groups in Middle East strain navy resources"
+  data-publisher="Al Jazeera"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787635164"
+  data-country="OTHER"
+  data-search="two us carrier groups in middle east strain navy resources al jazeera nuclear power·nuclear energy deploying two us carrier strike groups to the middle east represents a significant concentration of firepower"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Al Jazeera</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Two US carrier groups in Middle East strain navy resources</div>
+      <div class="article-snippet">Deploying two US carrier strike groups to the Middle East represents a significant concentration of firepower</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c97e0a157b48c38886ea0474.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32956,9 +32927,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">27건</span>
+    <span class="group-count">28건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsway.co.kr/news/view?ud=2026082514262406229"
+  data-title="두산에너빌리티 10%대 상승···북미 원전 수주 기대감↑ - 뉴스웨이"
+  data-publisher="뉴스웨이"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1787635904"
+  data-country="US"
+  data-search="두산에너빌리티 10%대 상승···북미 원전 수주 기대감↑ - 뉴스웨이 뉴스웨이 타 건설사 두산에너빌리티 주가가 미국 정부의 북미 신규 원전 사업 지원으로 10% 이상 상승했다. doe의 장납기 기자재 조달 대출 프로그램 발표에 힘입어 원전 기자재 조기 발주가 가능해질 것으로 전망된다. 실적 역시 매출과 영업이익 모두 큰 폭으로 개선될 것으로 증권가는 보고 있다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스웨이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티 10%대 상승···북미 원전 수주 기대감↑ - 뉴스웨이</div>
+      <div class="article-snippet">두산에너빌리티 주가가 미국 정부의 북미 신규 원전 사업 지원으로 10% 이상 상승했다. DOE의 장납기 기자재 조달 대출 프로그램 발표에 힘입어 원전 기자재 조기 발주가 가능해질 것으로 전망된다. 실적 역시 매출과 영업이익 모두 큰 폭으로 개선될 것으로 증권가는 보고 있다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8e2d4de2d961f62f810602ad.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=175659"
   data-title="두산에너빌리티, 북미 신규 원전 시장 가시화는 시간 문제 - 알파경제"
@@ -35515,7 +35519,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35618,46 +35622,13 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
-  data-title="Global Nuclear Power Tracker"
-  data-publisher="Global Energy Monitor"
-  data-group="Nuclear Power·Nuclear Energy"
-  data-language="en"
-  data-priority="0"
-  data-published="1787635347"
-  data-country="OTHER"
-  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Global Energy Monitor</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Global Nuclear Power Tracker</div>
-      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://globalenergymonitor.org/renewables-and-other-power"
   data-title="Renewables and other power "
   data-publisher="Global Energy Monitor"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787633163"
+  data-published="1787636234"
   data-country="OTHER"
   data-search="renewables and other power  global energy monitor nuclear power·nuclear energy wind and solar capacity serves a vital energy transition role as the world seeks to triple renewables by 2030. other power sources, including hydropower, geothermal, bioenergy, and nuclear are also important pieces of the puzzle."
   tabindex="0" role="link">
@@ -35690,7 +35661,7 @@ main {
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1787632832"
+  data-published="1787636231"
   data-country="OTHER"
   data-search="global oil and gas extraction tracker global energy monitor nuclear power·nuclear energy covering oil and gas fields from discovery to decommissioning, goget provides data on the location, ownership, production, and reserves of oil and gas extraction projects."
   tabindex="0" role="link">
@@ -35713,6 +35684,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/5b580bb9169368391e68a44a.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://globalenergymonitor.org/projects/global-nuclear-power-tracker"
+  data-title="Global Nuclear Power Tracker"
+  data-publisher="Global Energy Monitor"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1787635347"
+  data-country="OTHER"
+  data-search="global nuclear power tracker global energy monitor nuclear power·nuclear energy the global nuclear power tracker (gnpt) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Energy Monitor</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Global Nuclear Power Tracker</div>
+      <div class="article-snippet">The Global Nuclear Power Tracker (GNPT) is a worldwide dataset of nuclear power facilities and includes information such as status, technology type, location, construction start date, project owner, operator, and more.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/58cc9341ad55134592169424.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35977,6 +35981,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c3c9777ce1a89ca2d50457ac.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.aljazeera.com/video/newsfeed/2026/8/25/two-us-carrier-groups-in-middle-east-strain-navy-resources?traffic_source=rss"
+  data-title="Two US carrier groups in Middle East strain navy resources"
+  data-publisher="Al Jazeera"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="2"
+  data-published="1787635164"
+  data-country="OTHER"
+  data-search="two us carrier groups in middle east strain navy resources al jazeera nuclear power·nuclear energy deploying two us carrier strike groups to the middle east represents a significant concentration of firepower"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Al Jazeera</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Two US carrier groups in Middle East strain navy resources</div>
+      <div class="article-snippet">Deploying two US carrier strike groups to the Middle East represents a significant concentration of firepower</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c97e0a157b48c38886ea0474.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
