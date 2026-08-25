@@ -6745,7 +6745,7 @@ def render_card(
           <span class="important-label">중요</span>
         </div>
         {_related_coverage_html(article)}
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">{new_badge}{escape(article.title)}</div>
       {snippet_html}
@@ -19290,6 +19290,173 @@ main {{
 }}
 
 
+
+/* ============================================================
+   2026-08-25 PC READING SCALE + IMPORTANT ARTICLE SIDE DRAWER
+   - Larger newsroom-style reading scale on desktop.
+   - Important articles are accessible from a persistent right-side control.
+   - Clicking an Important button opens the drawer immediately so the save
+     destination is visually obvious.
+   ============================================================ */
+@media (min-width:1200px) {{
+  .topbar h1 {{ font-size:27px !important; }}
+  .updated {{ font-size:12px !important; }}
+  .search-input {{ height:46px !important; font-size:15px !important; }}
+  .tab-button {{ font-size:13.5px !important; font-weight:800 !important; }}
+  .utility-label, .language-order-toggle, .date-display {{ font-size:12px !important; }}
+
+  .desktop-workspace-bar {{ min-height:58px !important; padding:10px 14px 10px 17px !important; }}
+  .desktop-workspace-title {{ font-size:14px !important; }}
+  .desktop-metric {{ font-size:12px !important; }}
+  .desktop-metric strong {{ font-size:15.5px !important; }}
+  .desktop-mode-button, .desktop-density-button {{ height:36px !important; font-size:12.5px !important; }}
+
+  .group-title {{ height:44px !important; }}
+  .group-name, .group-count, .group-arrow {{ height:44px !important; }}
+  .group-name {{ font-size:16px !important; }}
+  .group-count {{ font-size:14.5px !important; }}
+
+  .preview-card {{
+    min-height:158px !important;
+    grid-template-columns:minmax(0,1fr) 146px !important;
+    gap:16px !important;
+    padding:11px 11px 11px 15px !important;
+  }}
+  .preview-copy {{ min-height:136px !important; }}
+  .article-content-column {{ padding-right:50px !important; }}
+  .meta-row {{ min-height:27px !important; height:27px !important; }}
+  .publisher, .status-inline {{ font-size:13px !important; font-weight:750 !important; }}
+  .meta-divider {{ font-size:12px !important; }}
+  .headline {{
+    margin-top:7px !important;
+    font-size:19px !important;
+    font-weight:780 !important;
+    line-height:1.40 !important;
+    letter-spacing:-.022em !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .article-snippet {{
+    margin-top:8px !important;
+    font-size:14.5px !important;
+    line-height:1.62 !important;
+    letter-spacing:-.01em !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .card-side {{ width:146px !important; min-width:146px !important; }}
+  .preview-image {{ width:146px !important; height:146px !important; min-height:146px !important; }}
+  .important-button {{
+    width:42px !important;
+    min-width:42px !important;
+    height:29px !important;
+    min-height:29px !important;
+    padding:0 8px !important;
+    border:1px solid #d7dee8 !important;
+    border-radius:8px !important;
+    background:#fff !important;
+    color:#667085 !important;
+    font-size:11.5px !important;
+    line-height:27px !important;
+    box-shadow:0 1px 3px rgba(17,24,39,.06) !important;
+  }}
+  .preview-card.important .important-button {{
+    border-color:#e5b92f !important;
+    background:#fff8d6 !important;
+    color:#9a6b00 !important;
+  }}
+
+  body.desktop-comfort-view .headline {{ font-size:20px !important; }}
+  body.desktop-comfort-view .article-snippet {{ font-size:15.5px !important; }}
+
+  .desktop-important-launcher {{
+    position:fixed;
+    right:22px;
+    top:50%;
+    z-index:205;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    gap:7px;
+    min-height:46px;
+    padding:0 14px;
+    border:1px solid #e6c44f;
+    border-radius:23px;
+    background:rgba(255,250,224,.97);
+    color:#8a6400;
+    box-shadow:0 8px 24px rgba(79,62,9,.16);
+    font:850 12.5px/1 "Pretendard Variable", Pretendard, sans-serif;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+  }}
+  .desktop-important-launcher:hover {{ transform:translateY(-50%) translateX(-2px); box-shadow:0 10px 28px rgba(79,62,9,.22); }}
+  .desktop-important-launcher-star {{ font-size:18px; line-height:1; }}
+  .desktop-important-launcher-count {{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:23px; height:23px; padding:0 6px; border-radius:12px;
+    background:#b88600; color:#fff; font-size:11px; font-weight:900;
+  }}
+
+  .desktop-important-scrim {{
+    position:fixed; inset:0; z-index:209; display:none;
+    background:rgba(24,39,58,.14); backdrop-filter:blur(1px);
+  }}
+  .desktop-important-scrim.open {{ display:block; }}
+  .desktop-important-drawer {{
+    position:fixed;
+    top:0; right:0; bottom:0;
+    z-index:210;
+    width:min(430px,38vw);
+    display:flex;
+    flex-direction:column;
+    background:#f8fafc;
+    border-left:1px solid #d7e0ea;
+    box-shadow:-14px 0 38px rgba(31,49,72,.18);
+    transform:translateX(104%);
+    transition:transform .22s ease;
+  }}
+  .desktop-important-drawer.open {{ transform:translateX(0); }}
+  .desktop-important-drawer-head {{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    min-height:68px; padding:13px 16px 12px 18px;
+    border-bottom:1px solid #e1e7ef; background:#fffdf2;
+  }}
+  .desktop-important-drawer-title {{ font-size:17px; font-weight:900; color:#3d4653; }}
+  .desktop-important-drawer-sub {{ margin-top:3px; font-size:11px; color:#7a8493; font-weight:650; }}
+  .desktop-important-close {{
+    width:36px; height:36px; border:1px solid #d8dee7; border-radius:18px;
+    background:#fff; color:#566273; font-size:20px; line-height:34px; cursor:pointer;
+  }}
+  .desktop-important-drawer-list {{
+    flex:1 1 auto; min-height:0; overflow:auto; padding:12px; scrollbar-width:thin;
+  }}
+  .desktop-important-empty {{
+    margin:26px 8px; padding:24px 18px; border:1px dashed #ccd5e0; border-radius:12px;
+    background:#fff; color:#7b8796; font-size:13px; line-height:1.55; text-align:center;
+  }}
+  .desktop-important-item {{
+    display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px;
+    margin-bottom:9px; padding:13px 13px 12px 14px;
+    border:1px solid #e2e7ee; border-left:4px solid #e1b62e;
+    border-radius:10px; background:#fff; cursor:pointer;
+    box-shadow:0 2px 7px rgba(25,43,65,.05);
+  }}
+  .desktop-important-item:hover {{ border-color:#d9bf62; box-shadow:0 5px 14px rgba(25,43,65,.09); }}
+  .desktop-important-publisher {{ font-size:11.5px; font-weight:800; color:#7a8493; }}
+  .desktop-important-headline {{ margin-top:5px; font-size:15.5px; font-weight:800; line-height:1.43; color:#173b67; }}
+  .desktop-important-remove {{
+    align-self:start; min-width:44px; height:30px; padding:0 8px;
+    border:1px solid #eadb9c; border-radius:7px; background:#fffaf0;
+    color:#956e00; font-size:10.5px; font-weight:800; cursor:pointer;
+  }}
+  .desktop-important-remove:hover {{ background:#fff2bf; }}
+
+  .desktop-important-saved-flash {{ animation:desktopImportantSavedFlash .7s ease; }}
+  @keyframes desktopImportantSavedFlash {{
+    0% {{ box-shadow:0 0 0 0 rgba(224,177,25,.46); }}
+    100% {{ box-shadow:0 0 0 10px rgba(224,177,25,0); }}
+  }}
+}}
+
 /* ============================================================
    2026-08-25 MAP COUNTRY LABEL VISIBILITY / READABILITY FIX
    - Mobile / Tablet / PC common
@@ -19338,6 +19505,55 @@ main {{
   .precise-country-label .count {{ font-size:7.6px !important; }}
 }}
 
+
+/* 2026-08-25 MAP LABEL HARD FIX V2 - final cascade */
+#country-map-label-layer.country-map-label-layer {{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:80 !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+}}
+.precise-country-label.map-label-hard-fix {{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:absolute !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  height:21px !important;
+  min-height:21px !important;
+  padding:2px 4px !important;
+  border:1px solid rgba(103,143,174,.55) !important;
+  border-radius:7px !important;
+  background:rgba(255,255,255,.96) !important;
+  box-shadow:0 2px 7px rgba(31,67,96,.18) !important;
+  color:#244865 !important;
+  pointer-events:auto !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+}}
+.precise-country-label.map-label-hard-fix .flag {{ font-size:10px !important; flex:0 0 auto !important; }}
+.precise-country-label.map-label-hard-fix .name {{ font-size:7.8px !important; font-weight:900 !important; overflow:hidden !important; text-overflow:ellipsis !important; }}
+.precise-country-label.map-label-hard-fix .count {{ font-size:7.8px !important; font-weight:950 !important; color:#0f7fb8 !important; flex:0 0 auto !important; }}
+.precise-country-label.map-label-hard-fix.active {{ background:#fff2bd !important; border-color:#d8ba35 !important; }}
+@media (min-width:768px) and (max-width:1199px) {{
+  .precise-country-label.map-label-hard-fix {{ height:25px !important; min-height:25px !important; padding:3px 6px !important; gap:4px !important; }}
+  .precise-country-label.map-label-hard-fix .flag {{ font-size:12px !important; }}
+  .precise-country-label.map-label-hard-fix .name,
+  .precise-country-label.map-label-hard-fix .count {{ font-size:9px !important; }}
+}}
+@media (min-width:1200px) {{
+  .precise-country-label.map-label-hard-fix {{ height:28px !important; min-height:28px !important; padding:4px 7px !important; gap:5px !important; border-radius:8px !important; }}
+  .precise-country-label.map-label-hard-fix .flag {{ font-size:14px !important; }}
+  .precise-country-label.map-label-hard-fix .name,
+  .precise-country-label.map-label-hard-fix .count {{ font-size:10.5px !important; }}
+}}
 </style>
 </head>
 <body>
@@ -20202,7 +20418,7 @@ main {{
 
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
-  <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
+  <footer>기사 카드를 누르면 원문으로 이동합니다. ‘☆ 중요’을 누르면 중요 기사에 저장됩니다.</footer>
 </div>
 <script>
 
@@ -20359,14 +20575,14 @@ function applyState(card){{
 
   const importantButton=card.querySelector(".important-button");
   if(importantButton){{
-    importantButton.textContent=isImportant ? "중요 ✓" : "중요";
+    importantButton.textContent=isImportant ? "★ 중요" : "☆ 중요";
     importantButton.setAttribute(
       "aria-label",
       isImportant ? "중요 기사 표시 해제" : "중요 기사로 표시"
     );
     importantButton.title=isImportant
       ? "누르면 중요 표시가 해제됩니다."
-      : "누르면 상단 중요 기사에 모아집니다.";
+      : "누르면 중요 기사에 저장됩니다.";
   }}
 
   if(isRead){{
@@ -24518,6 +24734,148 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
 
 
+
+/* ============================================================
+   2026-08-25 MAP LABEL HARD FIX V2
+   - FINAL override: flag + country + article count must be visible
+     on Mobile / Tablet / PC, including the initial ALL view.
+   - Do not depend on country chip visibility. Hidden chip buttons may
+     still contain valid article counts used by the map.
+   ============================================================ */
+function collectCountryMapItemsGuaranteed(){{
+  syncCountryPinMeta();
+  const items=[];
+  document.querySelectorAll('#country-chip-rail .country-pin[data-country-filter]').forEach(button=>{{
+    const code=button.dataset.countryFilter;
+    if(!code || code==='OTHER')return;
+    const count=Number((button.querySelector('.country-count')?.textContent||'0').replace(/[^0-9]/g,''))||0;
+    if(count<=0)return;
+    const meta=COUNTRY_GLOBE_META[code] || {{}};
+    const nameNode=[...button.querySelectorAll('span')].find(node=>!node.classList.contains('flag')&&!node.classList.contains('country-count'));
+    const lon=Number.isFinite(meta.lon) ? meta.lon : Number(button.dataset.lon);
+    const lat=Number.isFinite(meta.lat) ? meta.lat : Number(button.dataset.lat);
+    if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
+    items.push({{
+      code,
+      name:meta.name || COUNTRY_NAMES[code] || nameNode?.textContent || code,
+      flag:meta.flag || button.querySelector('.flag')?.textContent || '🌐',
+      lon,lat,count,
+      continent:getCountryContinent(code)
+    }});
+  }});
+  return items.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
+}}
+
+function selectCountryLabelsForCurrentViewport(items){{
+  if(activeContinentFilter && activeContinentFilter!=='ALL'){{
+    return items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  }}
+  const width=window.innerWidth || document.documentElement.clientWidth || 390;
+  const perContinent=width>=1200 ? 5 : (width>=768 ? 4 : 3);
+  const groups=new Map();
+  items.filter(v=>v.count>0).forEach(item=>{{
+    if(!groups.has(item.continent))groups.set(item.continent,[]);
+    groups.get(item.continent).push(item);
+  }});
+  return [...groups.values()].flatMap(group=>
+    group.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko')).slice(0,perContinent)
+  );
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const svg=document.querySelector('.world-map-inline.globe-texture-source');
+  const layer=document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer)return;
+
+  layer.innerHTML='';
+  layer.style.setProperty('display','block','important');
+  layer.style.setProperty('visibility','visible','important');
+  layer.style.setProperty('opacity','1','important');
+  layer.style.setProperty('z-index','80','important');
+
+  const selected=selectCountryLabelsForCurrentViewport(items);
+  if(!selected.length)return;
+
+  const vr=visual.getBoundingClientRect();
+  const sr=svg.getBoundingClientRect();
+  if(sr.width<20 || sr.height<20)return;
+  const left0=sr.left-vr.left;
+  const top0=sr.top-vr.top;
+  const occupied=[];
+  const width=window.innerWidth || 390;
+  const labelW=width>=1200 ? 104 : (width>=768 ? 92 : 78);
+  const labelH=width>=1200 ? 28 : (width>=768 ? 25 : 21);
+  const pad=width>=1200 ? 6 : 4;
+
+  const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+  const overlaps=(a,b)=>!(a.right+pad<=b.left||a.left>=b.right+pad||a.bottom+pad<=b.top||a.top>=b.bottom+pad);
+
+  selected.forEach((item,index)=>{{
+    const p=(typeof getCountryMapAnchor==='function') ? getCountryMapAnchor(item) : project2DPoint(item.lon,item.lat);
+    let ax=left0+(p.x/100)*sr.width;
+    let ay=top0+(p.y/100)*sr.height;
+    let left=clamp(ax-labelW/2,left0+2,left0+sr.width-labelW-2);
+    let top=clamp(ay-labelH-5,top0+2,top0+sr.height-labelH-2);
+
+    const candidates=[
+      [0,-labelH-5],[8,-labelH-8],[-labelW-8,-labelH-8],
+      [10,5],[-labelW-10,5],[18,-labelH/2],[-labelW-18,-labelH/2],
+      [0,14],[22,14],[-labelW-22,14]
+    ];
+    let chosen=null;
+    for(const [dx,dy] of candidates){{
+      const l=clamp(ax+dx,left0+2,left0+sr.width-labelW-2);
+      const t=clamp(ay+dy,top0+2,top0+sr.height-labelH-2);
+      const box={{left:l,top:t,right:l+labelW,bottom:t+labelH}};
+      if(!occupied.some(o=>overlaps(box,o))){{chosen=box;break;}}
+    }}
+    if(!chosen)chosen={{left,top,right:left+labelW,bottom:top+labelH}};
+    occupied.push(chosen);
+
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='precise-country-label map-label-hard-fix'+(activeCountryFilter===item.code?' active':'');
+    btn.dataset.countryCode=item.code;
+    btn.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.style.left=`${{chosen.left}}px`;
+    btn.style.top=`${{chosen.top}}px`;
+    btn.style.width=`${{labelW}}px`;
+    btn.style.minWidth=`${{labelW}}px`;
+    btn.style.zIndex='82';
+    btn.style.visibility='visible';
+    btn.style.opacity='1';
+    btn.addEventListener('click',event=>{{event.preventDefault();event.stopPropagation();setCountryFilter(item.code);}});
+    layer.appendChild(btn);
+  }});
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items=collectCountryMapItemsGuaranteed();
+  if(!activeContinentFilter)activeContinentFilter='ALL';
+  if(typeof renderContinentRail2D==='function')renderContinentRail2D(items);
+  if(typeof renderSelectedContinentHighlight==='function')renderSelectedContinentHighlight();
+  if(typeof ensureMapStateChip==='function')ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking=document.getElementById('continent-country-ranking');
+  if(ranking){{ranking.hidden=true;ranking.innerHTML='';}}
+  const caption=document.querySelector('.country-map-caption');
+  if(caption)caption.style.display='none';
+  const note=document.getElementById('country-filter-note');
+  if(note)note.textContent=activeContinentFilter==='ALL'?'지도에서 국가를 선택하세요':'국가를 누르면 해당 기사만 표시됩니다';
+}}
+
+function forceCountryMapLabelRefresh(){{
+  requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));
+}}
+forceCountryMapLabelRefresh();
+window.addEventListener('load',()=>{{
+  forceCountryMapLabelRefresh();
+  setTimeout(forceCountryMapLabelRefresh,250);
+  setTimeout(forceCountryMapLabelRefresh,900);
+}},{{once:true}});
+window.addEventListener('resize',forceCountryMapLabelRefresh);
+
 /* 2026-08-25 PC WORKSPACE UX - desktop only */
 let desktopArticleMode = "all";
 const desktopDensityKey = "nuclearDailyBriefDesktopComfortView";
@@ -24607,6 +24965,104 @@ function initDesktopExperience() {{
 }}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopExperience,{{once:true}});else initDesktopExperience();
 window.addEventListener("resize",()=>{{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();initDesktopBackToTop();}});
+
+
+/* 2026-08-25 DESKTOP IMPORTANT ARTICLE DRAWER */
+function getDesktopImportantCards() {{
+  const panel=activePanel();
+  if(!panel)return [];
+  return [...panel.querySelectorAll(".preview-card")].filter(card=>importantArticles.has(card.dataset.url));
+}}
+function renderDesktopImportantDrawer() {{
+  if(!desktopIsActive())return;
+  const list=document.getElementById("desktop-important-drawer-list");
+  const countNodes=document.querySelectorAll(".desktop-important-live-count");
+  const cards=getDesktopImportantCards();
+  countNodes.forEach(node=>node.textContent=String(cards.length));
+  if(!list)return;
+  list.innerHTML="";
+  if(!cards.length){{
+    list.innerHTML='<div class="desktop-important-empty">중요 표시한 기사가 아직 없습니다.<br>기사 카드의 <strong>중요</strong> 버튼을 누르면 여기에 바로 저장됩니다.</div>';
+    return;
+  }}
+  cards.forEach(card=>{{
+    const item=document.createElement("div");
+    item.className="desktop-important-item";
+    item.innerHTML=`<div><div class="desktop-important-publisher">${{card.dataset.publisher||""}}</div><div class="desktop-important-headline">${{card.dataset.title||""}}</div></div><button class="desktop-important-remove" type="button">해제</button>`;
+    item.addEventListener("click",event=>{{if(!event.target.closest(".desktop-important-remove"))openArticle(card);}});
+    item.querySelector(".desktop-important-remove")?.addEventListener("click",event=>{{
+      event.preventDefault(); event.stopPropagation();
+      importantArticles.delete(card.dataset.url); saveState();
+      document.querySelectorAll(".preview-card").forEach(cardItem=>{{if(cardItem.dataset.url===card.dataset.url)applyState(cardItem);}});
+      renderFavorites(); renderDesktopImportantDrawer(); updateDesktopWorkspaceMetrics();
+      showImportantToast("중요 표시를 해제했습니다.");
+    }});
+    list.appendChild(item);
+  }});
+}}
+function openDesktopImportantDrawer() {{
+  if(!desktopIsActive())return;
+  document.getElementById("desktop-important-drawer")?.classList.add("open");
+  document.getElementById("desktop-important-scrim")?.classList.add("open");
+  renderDesktopImportantDrawer();
+}}
+function closeDesktopImportantDrawer() {{
+  document.getElementById("desktop-important-drawer")?.classList.remove("open");
+  document.getElementById("desktop-important-scrim")?.classList.remove("open");
+}}
+function initDesktopImportantDrawer() {{
+  if(!desktopIsActive()){{
+    document.getElementById("desktop-important-launcher")?.remove();
+    document.getElementById("desktop-important-drawer")?.remove();
+    document.getElementById("desktop-important-scrim")?.remove();
+    return;
+  }}
+  if(document.getElementById("desktop-important-drawer")){{renderDesktopImportantDrawer();return;}}
+  const launcher=document.createElement("button");
+  launcher.id="desktop-important-launcher";
+  launcher.className="desktop-important-launcher";
+  launcher.type="button";
+  launcher.innerHTML='<span class="desktop-important-launcher-star">★</span><span>중요기사</span><span class="desktop-important-launcher-count desktop-important-live-count">0</span>';
+  launcher.addEventListener("click",openDesktopImportantDrawer);
+  document.body.appendChild(launcher);
+
+  const scrim=document.createElement("div");
+  scrim.id="desktop-important-scrim"; scrim.className="desktop-important-scrim";
+  scrim.addEventListener("click",closeDesktopImportantDrawer);
+  document.body.appendChild(scrim);
+
+  const drawer=document.createElement("aside");
+  drawer.id="desktop-important-drawer"; drawer.className="desktop-important-drawer";
+  drawer.setAttribute("aria-label","중요기사 보관함");
+  drawer.innerHTML=`<div class="desktop-important-drawer-head"><div><div class="desktop-important-drawer-title">★ 중요기사 <span class="desktop-important-live-count">0</span>건</div><div class="desktop-important-drawer-sub">어디서든 바로 열어 저장한 기사를 확인할 수 있습니다.</div></div><button class="desktop-important-close" type="button" aria-label="중요기사 보관함 닫기">×</button></div><div id="desktop-important-drawer-list" class="desktop-important-drawer-list"></div>`;
+  drawer.querySelector(".desktop-important-close")?.addEventListener("click",closeDesktopImportantDrawer);
+  document.body.appendChild(drawer);
+  renderDesktopImportantDrawer();
+}}
+
+document.addEventListener("click",event=>{{
+  const button=event.target.closest?.(".important-button");
+  if(!button||!desktopIsActive())return;
+  const card=button.closest(".preview-card");
+  setTimeout(()=>{{
+    renderDesktopImportantDrawer();
+    updateDesktopWorkspaceMetrics();
+    if(card?.classList.contains("important")){{
+      const launcher=document.getElementById("desktop-important-launcher");
+      launcher?.classList.remove("desktop-important-saved-flash");
+      void launcher?.offsetWidth;
+      launcher?.classList.add("desktop-important-saved-flash");
+      openDesktopImportantDrawer();
+    }}
+  }},0);
+}});
+
+document.addEventListener("keydown",event=>{{
+  if(event.key==="Escape")closeDesktopImportantDrawer();
+}});
+
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopImportantDrawer,{{once:true}});else initDesktopImportantDrawer();
+window.addEventListener("resize",initDesktopImportantDrawer);
 
 </script>
 </body>
