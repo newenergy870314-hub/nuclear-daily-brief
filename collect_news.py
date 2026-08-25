@@ -19709,25 +19709,68 @@ main {{
 
 
 /* 2026-08-25 OLD WORKING MAP VISIBILITY RESTORE — no redesign */
-#country-map-label-layer.country-map-label-layer {
+#country-map-label-layer.country-map-label-layer {{
   display:block !important;
   visibility:visible !important;
   opacity:1 !important;
   pointer-events:none !important;
   z-index:80 !important;
-}
-#continent-rail {
+}}
+#continent-rail {{
   display:flex !important;
   visibility:visible !important;
   opacity:1 !important;
   z-index:90 !important;
-}
-.precise-country-label {
+}}
+.precise-country-label {{
   display:inline-flex !important;
-  visibility:visible;
+  visibility:visible !important;
   opacity:1 !important;
   pointer-events:auto !important;
-}
+}}
+
+/* 2026-08-25 CONTINENT TABS INSIDE MAP CARD — final containment fix */
+.country-map-visual {{
+  overflow:hidden !important;
+}}
+#continent-rail {{
+  left:10px !important;
+  right:10px !important;
+  width:auto !important;
+  max-width:calc(100% - 20px) !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+}}
+.continent-rail-scroll {{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+}}
+.continent-button {{
+  min-width:0 !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}}
+@media (max-width:430px) {{
+  #continent-rail {{
+    left:8px !important;
+    right:8px !important;
+    max-width:calc(100% - 16px) !important;
+    padding-left:3px !important;
+    padding-right:3px !important;
+  }}
+}}
+@media (max-width:380px) {{
+  #continent-rail {{
+    left:7px !important;
+    right:7px !important;
+    max-width:calc(100% - 14px) !important;
+  }}
+}}
 </style>
 </head>
 <body>
