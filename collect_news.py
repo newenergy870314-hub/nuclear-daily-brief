@@ -24621,165 +24621,16 @@ function renderHtmlCountryLabels(items){{
   if(!visual || !svg || !layer) return;
   layer.innerHTML='';
 
-  /* 2026-08-25 MAP COUNTRY LABEL VISIBILITY FIX
-     전체(ALL) 상태에서도 국기 · 국가명 · 기사건수를 표시합니다.
-     좁은 화면에서는 대륙별 상위 국가만 우선 노출해 겹침을 줄이고,
-     특정 대륙을 선택하면 해당 대륙의 기사 보유 국가를 모두 표시합니다. */
-  let baseCountries = items.filter(v => v.count>0);
-  if(activeContinentFilter!=='ALL'){{
-    baseCountries = baseCountries.filter(v => v.continent===activeContinentFilter);
-  }} else {{
-    const width = window.innerWidth || document.documentElement.clientWidth || 390;
-    const perContinent = width >= 1200 ? 4 : (width >= 768 ? 3 : 2);
-    const grouped = new Map();
-    baseCountries.forEach(item=>{{
-      if(!grouped.has(item.continent)) grouped.set(item.continent,[]);
-      grouped.get(item.continent).push(item);
-    }});
-    baseCountries = [...grouped.values()].flatMap(group=>
-      group.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko')).slice(0,perContinent)
-    );
-  }}
-  if(!baseCountries.length) return;
-
-  const countries = finalSortCountriesForMap(baseCountries, activeContinentFilter);
-  const vp = getExactMapViewport(svg, visual);
-  const dock = document.getElementById('continent-rail');
-  const vr = visual.getBoundingClientRect();
-  const dr = dock?.getBoundingClientRect();
-  const dockTop = dr ? dr.top-vr.top : visual.clientHeight-42;
-  const bounds = {{
-    left: Math.max(12, vp.left + 6),
-    top: Math.max(10, vp.top + 6),
-    right: Math.min(vp.left + vp.width - 6, visual.clientWidth - 10),
-    bottom: Math.min(dockTop - 10, vp.top + vp.height - 6)
-  }};
-
-  const anchors = countries.map(item=>{{
-    const p = getCountryMapAnchor(item);
-    return {{
-      code:item.code,
-      x: vp.left + (p.x/100)*vp.width,
-      y: vp.top + (p.y/100)*vp.height
-    }};
-  }});
-
-  const occupied = [];
-  for(const item of countries){{
-    const anchor = anchors.find(v=>v.code===item.code);
-    if(!anchor) continue;
-    const ax = anchor.x;
-    const ay = anchor.y;
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'precise-country-label' + (activeCountryFilter===item.code ? ' active' : '');
-    btn.dataset.countryCode = item.code;
-    btn.style.visibility='hidden';
-    btn.innerHTML = `<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
-    btn.setAttribute('aria-label', `${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
-    layer.appendChild(btn);
-
-    const w = Math.ceil(btn.getBoundingClientRect().width || 72);
-    const h = Math.ceil(btn.getBoundingClientRect().height || 24);
-    const box = finalChooseLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors);
-    occupied.push(box);
-
-    btn.style.left = `${{box.left}}px`;
-    btn.style.top = `${{box.top}}px`;
-    btn.style.visibility = 'visible';
-    btn.style.zIndex = '5';
-    btn.addEventListener('click', (event)=>{{
-      event.preventDefault();
-      event.stopPropagation();
-      setCountryFilter(item.code);
-    }});
-
-    finalAddConnector(layer, ax, ay, box);
-
-    const dot = document.createElement('span');
-    dot.className = 'precise-country-dot' + (activeCountryFilter===item.code ? ' active' : '');
-    dot.style.left = `${{ax}}px`;
-    dot.style.top = `${{ay}}px`;
-    dot.style.width = '9px';
-    dot.style.height = '9px';
-    dot.style.marginLeft = '-4.5px';
-    dot.style.marginTop = '-4.5px';
-    dot.style.zIndex = '6';
-    layer.appendChild(dot);
-  }}
-
-  /* 실제 DOM 렌더링 후 한국/일본이 겹치는지 다시 확인하고, 겹칠 때만 미세 이동 */
-  requestAnimationFrame(() => requestAnimationFrame(() => finalResolveRenderedCountryOverlaps(layer,bounds)));
-}}
-
-function layoutAndRenderCountryMap(){{
-  const items = collect2DCountryItems();
-  if(!items.length) return;
-  if(!activeContinentFilter) activeContinentFilter='ALL';
-  renderContinentRail2D(items);
-  renderSelectedContinentHighlight();
-  ensureMapStateChip(items);
-  renderHtmlCountryLabels(items);
-  const ranking = document.getElementById('continent-country-ranking');
-  if(ranking){{ ranking.hidden=true; ranking.innerHTML=''; }}
-  const caption = document.querySelector('.country-map-caption');
-  if(caption) caption.style.display='none';
-  const note = document.getElementById('country-filter-note');
-  if(note) note.textContent = activeContinentFilter === 'ALL' ? '대륙을 선택하세요' : '국가를 누르면 해당 기사만 표시됩니다';
-}}
-requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
-window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
-window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
-
-
-
-
-/* ============================================================
-   2026-08-25 MAP LABEL HARD FIX V2
-   - FINAL override: flag + country + article count must be visible
-     on Mobile / Tablet / PC, including the initial ALL view.
-   - Do not depend on country chip visibility. Hidden chip buttons may
-     still contain valid article counts used by the map.
-   ============================================================ */
-function collectCountryMapItemsGuaranteed(){{
-  syncCountryPinMeta();
-  const items=[];
-  document.querySelectorAll('#country-chip-rail .country-pin[data-country-filter]').forEach(button=>{{
-    const code=button.dataset.countryFilter;
-    if(!code || code==='OTHER')return;
-    const count=Number((button.querySelector('.country-count')?.textContent||'0').replace(/[^0-9]/g,''))||0;
-    if(count<=0)return;
-    const meta=COUNTRY_GLOBE_META[code] || {{}};
-    const nameNode=[...button.querySelectorAll('span')].find(node=>!node.classList.contains('flag')&&!node.classList.contains('country-count'));
-    const lon=Number.isFinite(meta.lon) ? meta.lon : Number(button.dataset.lon);
-    const lat=Number.isFinite(meta.lat) ? meta.lat : Number(button.dataset.lat);
-    if(!Number.isFinite(lon)||!Number.isFinite(lat))return;
-    items.push({{
-      code,
-      name:meta.name || COUNTRY_NAMES[code] || nameNode?.textContent || code,
-      flag:meta.flag || button.querySelector('.flag')?.textContent || '🌐',
-      lon,lat,count,
-      continent:getCountryContinent(code)
-    }});
-  }});
-  return items.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
-}}
-
-function selectCountryLabelsForCurrentViewport(items){{
-  if(activeContinentFilter && activeContinentFilter!=='ALL'){{
-    return items.filter(v=>v.continent===activeContinentFilter && v.count>0);
-  }}
-  const width=window.innerWidth || document.documentElement.clientWidth || 390;
-  const perContinent=width>=1200 ? 5 : (width>=768 ? 4 : 3);
-  const groups=new Map();
-  items.filter(v=>v.count>0).forEach(item=>{{
-    if(!groups.has(item.continent))groups.set(item.continent,[]);
-    groups.get(item.continent).push(item);
-  }});
-  return [...groups.values()].flatMap(group=>
-    group.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko')).slice(0,perContinent)
-  );
+  /* ============================================================
+     2026-08-25 MAP COUNTRY LABELS RESTORED FROM WORKING 2026-08-22 BUILD
+     ============================================================ */
+function maybeInitializeContinentFilter(items){{
+  if(activeContinentFilter && activeContinentFilter!=='ALL')return;
+  const {{articleCounts}}=getContinentCounts(items);
+  const ranked=Object.entries(articleCounts)
+    .filter(([key,value])=>key!=='ALL' && Number(value)>0)
+    .sort((a,b)=>Number(b[1])-Number(a[1]));
+  if(ranked.length)activeContinentFilter=ranked[0][0];
 }}
 
 function renderHtmlCountryLabels(items){{
@@ -24787,74 +24638,78 @@ function renderHtmlCountryLabels(items){{
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual || !svg || !layer)return;
-
   layer.innerHTML='';
   layer.style.setProperty('display','block','important');
   layer.style.setProperty('visibility','visible','important');
   layer.style.setProperty('opacity','1','important');
+  layer.style.setProperty('pointer-events','none','important');
   layer.style.setProperty('z-index','80','important');
+  if(activeContinentFilter==='ALL')return;
 
-  const selected=selectCountryLabelsForCurrentViewport(items);
-  if(!selected.length)return;
+  const baseCountries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  if(!baseCountries.length)return;
+  const countries=(typeof finalSortCountriesForMap==='function')
+    ? finalSortCountriesForMap(baseCountries,activeContinentFilter)
+    : baseCountries.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
 
+  const vp=(typeof getExactMapViewport==='function')
+    ? getExactMapViewport(svg,visual)
+    : getPreciseMapViewport(svg,visual);
+  const dock=document.getElementById('continent-rail');
   const vr=visual.getBoundingClientRect();
-  const sr=svg.getBoundingClientRect();
-  if(sr.width<20 || sr.height<20)return;
-  const left0=sr.left-vr.left;
-  const top0=sr.top-vr.top;
+  const dr=dock?.getBoundingClientRect();
+  const dockTop=dr ? dr.top-vr.top : visual.clientHeight-42;
+  const bounds={{
+    left:Math.max(12,vp.left+6),
+    top:Math.max(10,vp.top+6),
+    right:Math.min(vp.left+vp.width-6,visual.clientWidth-10),
+    bottom:Math.min(dockTop-10,vp.top+vp.height-6)
+  }};
+
+  const anchors=countries.map(item=>{{
+    const p=getCountryMapAnchor(item);
+    return {{code:item.code,x:vp.left+(p.x/100)*vp.width,y:vp.top+(p.y/100)*vp.height}};
+  }});
   const occupied=[];
-  const width=window.innerWidth || 390;
-  const labelW=width>=1200 ? 104 : (width>=768 ? 92 : 78);
-  const labelH=width>=1200 ? 28 : (width>=768 ? 25 : 21);
-  const pad=width>=1200 ? 6 : 4;
-
-  const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
-  const overlaps=(a,b)=>!(a.right+pad<=b.left||a.left>=b.right+pad||a.bottom+pad<=b.top||a.top>=b.bottom+pad);
-
-  selected.forEach((item,index)=>{{
-    const p=(typeof getCountryMapAnchor==='function') ? getCountryMapAnchor(item) : project2DPoint(item.lon,item.lat);
-    let ax=left0+(p.x/100)*sr.width;
-    let ay=top0+(p.y/100)*sr.height;
-    let left=clamp(ax-labelW/2,left0+2,left0+sr.width-labelW-2);
-    let top=clamp(ay-labelH-5,top0+2,top0+sr.height-labelH-2);
-
-    const candidates=[
-      [0,-labelH-5],[8,-labelH-8],[-labelW-8,-labelH-8],
-      [10,5],[-labelW-10,5],[18,-labelH/2],[-labelW-18,-labelH/2],
-      [0,14],[22,14],[-labelW-22,14]
-    ];
-    let chosen=null;
-    for(const [dx,dy] of candidates){{
-      const l=clamp(ax+dx,left0+2,left0+sr.width-labelW-2);
-      const t=clamp(ay+dy,top0+2,top0+sr.height-labelH-2);
-      const box={{left:l,top:t,right:l+labelW,bottom:t+labelH}};
-      if(!occupied.some(o=>overlaps(box,o))){{chosen=box;break;}}
-    }}
-    if(!chosen)chosen={{left,top,right:left+labelW,bottom:top+labelH}};
-    occupied.push(chosen);
-
+  for(const item of countries){{
+    const anchor=anchors.find(v=>v.code===item.code);
+    if(!anchor)continue;
+    const ax=anchor.x, ay=anchor.y;
     const btn=document.createElement('button');
     btn.type='button';
-    btn.className='precise-country-label map-label-hard-fix'+(activeCountryFilter===item.code?' active':'');
+    btn.className='precise-country-label'+(activeCountryFilter===item.code?' active':'');
     btn.dataset.countryCode=item.code;
+    btn.style.visibility='hidden';
+    btn.style.pointerEvents='auto';
     btn.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
-    btn.style.left=`${{chosen.left}}px`;
-    btn.style.top=`${{chosen.top}}px`;
-    btn.style.width=`${{labelW}}px`;
-    btn.style.minWidth=`${{labelW}}px`;
-    btn.style.zIndex='82';
+    btn.setAttribute('aria-label',`${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+    const w=Math.ceil(btn.getBoundingClientRect().width || 72);
+    const h=Math.ceil(btn.getBoundingClientRect().height || 24);
+    const box=(typeof finalChooseLabelBox==='function')
+      ? finalChooseLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors)
+      : {{left:Math.max(bounds.left,Math.min(bounds.right-w,ax+10)),top:Math.max(bounds.top,Math.min(bounds.bottom-h,ay-h/2)),right:0,bottom:0,w,h}};
+    if(!box.right)box.right=box.left+w;
+    if(!box.bottom)box.bottom=box.top+h;
+    occupied.push(box);
+    btn.style.left=`${{box.left}}px`;
+    btn.style.top=`${{box.top}}px`;
     btn.style.visibility='visible';
     btn.style.opacity='1';
+    btn.style.zIndex='82';
     btn.addEventListener('click',event=>{{event.preventDefault();event.stopPropagation();setCountryFilter(item.code);}});
-    layer.appendChild(btn);
-  }});
+  }}
+  if(typeof finalResolveRenderedCountryOverlaps==='function'){{
+    requestAnimationFrame(()=>requestAnimationFrame(()=>finalResolveRenderedCountryOverlaps(layer,bounds)));
+  }}
 }}
 
 function layoutAndRenderCountryMap(){{
-  const items=collectCountryMapItemsGuaranteed();
-  if(!activeContinentFilter)activeContinentFilter='ALL';
-  if(typeof renderContinentRail2D==='function')renderContinentRail2D(items);
-  if(typeof renderSelectedContinentHighlight==='function')renderSelectedContinentHighlight();
+  const items=collect2DCountryItems();
+  if(!items.length)return;
+  maybeInitializeContinentFilter(items);
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
   if(typeof ensureMapStateChip==='function')ensureMapStateChip(items);
   renderHtmlCountryLabels(items);
   const ranking=document.getElementById('continent-country-ranking');
@@ -24862,18 +24717,12 @@ function layoutAndRenderCountryMap(){{
   const caption=document.querySelector('.country-map-caption');
   if(caption)caption.style.display='none';
   const note=document.getElementById('country-filter-note');
-  if(note)note.textContent=activeContinentFilter==='ALL'?'지도에서 국가를 선택하세요':'국가를 누르면 해당 기사만 표시됩니다';
+  if(note)note.textContent='지도에서 국기 · 국가명 · 기사건수를 확인하고 국가를 누르면 해당 기사만 표시됩니다';
 }}
 
-function forceCountryMapLabelRefresh(){{
-  requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));
-}}
+function forceCountryMapLabelRefresh(){{requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));}}
 forceCountryMapLabelRefresh();
-window.addEventListener('load',()=>{{
-  forceCountryMapLabelRefresh();
-  setTimeout(forceCountryMapLabelRefresh,250);
-  setTimeout(forceCountryMapLabelRefresh,900);
-}},{{once:true}});
+window.addEventListener('load',()=>{{forceCountryMapLabelRefresh();setTimeout(forceCountryMapLabelRefresh,250);setTimeout(forceCountryMapLabelRefresh,900);}},{{once:true}});
 window.addEventListener('resize',forceCountryMapLabelRefresh);
 
 /* 2026-08-25 PC WORKSPACE UX - desktop only */
