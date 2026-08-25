@@ -19554,6 +19554,158 @@ main {{
   .precise-country-label.map-label-hard-fix .name,
   .precise-country-label.map-label-hard-fix .count {{ font-size:10.5px !important; }}
 }}
+
+/* ============================================================
+   2026-08-25 PC HEADER + IMPORTANT UX REFINEMENT
+   - Make the Important destination obvious on maximized desktop screens.
+   - Give the article Important control enough width for "☆ 중요 / ★ 중요".
+   - Refine search / language order / date typography for desktop readability.
+   - Mobile and tablet remain unchanged.
+   ============================================================ */
+@media (min-width:1200px) {{
+  /* More deliberate newsroom/dashboard typography in the utility header. */
+  .search-input {{
+    height:50px !important;
+    padding:0 17px !important;
+    border:1px solid #c9d5e2 !important;
+    border-radius:12px !important;
+    background:#ffffff !important;
+    color:#172b43 !important;
+    font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+      "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif !important;
+    font-size:16px !important;
+    font-weight:600 !important;
+    letter-spacing:-.012em !important;
+    box-shadow:0 2px 7px rgba(31,58,87,.05) !important;
+  }}
+  .search-input::placeholder {{
+    color:#8794a5 !important;
+    font-weight:500 !important;
+  }}
+  .search-input:focus {{
+    border-color:#6d9dca !important;
+    box-shadow:0 0 0 3px rgba(55,116,173,.10) !important;
+  }}
+
+  .header-controls {{
+    gap:12px !important;
+    margin-top:10px !important;
+  }}
+  .utility-row {{ gap:10px !important; }}
+  .utility-box {{
+    height:42px !important;
+    padding:0 10px !important;
+    border:1px solid #d7e0ea !important;
+    border-radius:10px !important;
+    background:#f8fafc !important;
+  }}
+  .utility-label {{
+    color:#64748b !important;
+    font-size:12px !important;
+    font-weight:750 !important;
+    letter-spacing:-.01em !important;
+  }}
+  .language-order-toggle,
+  .date-control {{
+    height:32px !important;
+    border-radius:8px !important;
+    background:#fff !important;
+  }}
+  .language-order-toggle {{
+    padding:0 13px !important;
+    color:#1f4168 !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:800 !important;
+    letter-spacing:-.015em !important;
+    line-height:32px !important;
+  }}
+  .date-display {{
+    padding:0 26px 0 11px !important;
+    color:#1f4168 !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:800 !important;
+    font-variant-numeric:tabular-nums !important;
+    letter-spacing:.005em !important;
+    line-height:32px !important;
+  }}
+  .date-calendar {{
+    right:9px !important;
+    color:#6b7f96 !important;
+    font-size:12px !important;
+  }}
+
+  /* The card action must fit the full Korean label without clipping. */
+  .article-content-column {{ padding-right:82px !important; }}
+  .important-button {{
+    width:auto !important;
+    min-width:70px !important;
+    height:32px !important;
+    min-height:32px !important;
+    padding:0 11px !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:3px !important;
+    border-radius:9px !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:12.5px !important;
+    font-weight:850 !important;
+    line-height:1 !important;
+    letter-spacing:-.015em !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
+  }}
+
+  /* Persistent, obvious location for saved Important articles. */
+  .desktop-important-launcher {{
+    top:88px !important;
+    right:22px !important;
+    transform:none !important;
+    min-width:178px !important;
+    min-height:48px !important;
+    padding:0 14px 0 15px !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+    border-radius:12px !important;
+    border:1px solid #e1bb3e !important;
+    background:rgba(255,250,222,.98) !important;
+    color:#795900 !important;
+    box-shadow:0 8px 22px rgba(72,55,8,.18) !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:850 !important;
+    letter-spacing:-.015em !important;
+  }}
+  .desktop-important-launcher:hover {{
+    transform:translateY(-1px) !important;
+    box-shadow:0 11px 26px rgba(72,55,8,.23) !important;
+  }}
+  .desktop-important-launcher-star {{ font-size:19px !important; }}
+  .desktop-important-launcher-count {{
+    margin-left:auto !important;
+    min-width:25px !important;
+    height:25px !important;
+    font-size:11.5px !important;
+  }}
+
+  .desktop-important-drawer {{
+    width:min(500px,40vw) !important;
+  }}
+  .desktop-important-drawer-head {{
+    min-height:78px !important;
+    padding:15px 18px !important;
+  }}
+  .desktop-important-drawer-title {{ font-size:19px !important; }}
+  .desktop-important-drawer-sub {{ font-size:12.5px !important; line-height:1.45 !important; }}
+  .desktop-important-publisher {{ font-size:12.5px !important; }}
+  .desktop-important-headline {{ font-size:16.5px !important; line-height:1.48 !important; }}
+
+  /* Keep the back-to-top button clear of the Important drawer launcher. */
+  .desktop-back-to-top {{ right:24px !important; bottom:24px !important; }}
+}}
+
 </style>
 </head>
 <body>
@@ -22063,10 +22215,24 @@ document.querySelectorAll(".tab-button").forEach(button => {{
     const panel = document.getElementById("tab-" + label);
     if(!panel) return;
 
-    document.querySelectorAll(".tab-button").forEach(item => item.classList.remove("active"));
+    const wasActive = button.classList.contains("active") && panel.classList.contains("active");
+
+    // Same-tab click toggles the currently open article panel closed/open.
+    if(wasActive) {{
+      button.classList.remove("active");
+      panel.classList.remove("active");
+      button.setAttribute("aria-expanded", "false");
+      return;
+    }}
+
+    document.querySelectorAll(".tab-button").forEach(item => {{
+      item.classList.remove("active");
+      item.setAttribute("aria-expanded", "false");
+    }});
     document.querySelectorAll(".tab-panel").forEach(item => item.classList.remove("active"));
 
     button.classList.add("active");
+    button.setAttribute("aria-expanded", "true");
     panel.classList.add("active");
 
     const periodDate = panel.getAttribute("data-report-date");
@@ -24871,7 +25037,7 @@ function initDesktopImportantDrawer() {{
   launcher.id="desktop-important-launcher";
   launcher.className="desktop-important-launcher";
   launcher.type="button";
-  launcher.innerHTML='<span class="desktop-important-launcher-star">★</span><span>중요기사</span><span class="desktop-important-launcher-count desktop-important-live-count">0</span>';
+  launcher.innerHTML='<span class="desktop-important-launcher-star">★</span><span>중요기사 보관함</span><span class="desktop-important-launcher-count desktop-important-live-count">0</span>';
   launcher.addEventListener("click",openDesktopImportantDrawer);
   document.body.appendChild(launcher);
 
@@ -24883,7 +25049,7 @@ function initDesktopImportantDrawer() {{
   const drawer=document.createElement("aside");
   drawer.id="desktop-important-drawer"; drawer.className="desktop-important-drawer";
   drawer.setAttribute("aria-label","중요기사 보관함");
-  drawer.innerHTML=`<div class="desktop-important-drawer-head"><div><div class="desktop-important-drawer-title">★ 중요기사 <span class="desktop-important-live-count">0</span>건</div><div class="desktop-important-drawer-sub">어디서든 바로 열어 저장한 기사를 확인할 수 있습니다.</div></div><button class="desktop-important-close" type="button" aria-label="중요기사 보관함 닫기">×</button></div><div id="desktop-important-drawer-list" class="desktop-important-drawer-list"></div>`;
+  drawer.innerHTML=`<div class="desktop-important-drawer-head"><div><div class="desktop-important-drawer-title">★ 중요기사 <span class="desktop-important-live-count">0</span>건</div><div class="desktop-important-drawer-sub">기사의 ★ 중요 버튼을 누르면 이 보관함에 바로 저장됩니다.</div></div><button class="desktop-important-close" type="button" aria-label="중요기사 보관함 닫기">×</button></div><div id="desktop-important-drawer-list" class="desktop-important-drawer-list"></div>`;
   drawer.querySelector(".desktop-important-close")?.addEventListener("click",closeDesktopImportantDrawer);
   document.body.appendChild(drawer);
   renderDesktopImportantDrawer();
