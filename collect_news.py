@@ -1,3 +1,4 @@
+# HOLTEC HIGHLIGHTS COMPLETE COLLECTION: CATEGORY + NEWS + YEAR ARCHIVE + HH URL PRIORITY 2026-08-26
 # HOLTEC HIGHLIGHTS OFFICIAL SOURCE + FORCE HOLTEC TAB 2026-08-26
 # DUPLICATE GROUPING: MINISTRY PERSONNEL + BRIAN MAST/COUPANG EVENT 2026-08-26
 # NEW TABS: 차세대원자로 + 원전해체 / CLASSIFICATION PRIORITY REFINED 2026-08-26
@@ -910,6 +911,8 @@ DIRECT_NEWS_PAGES = [
     # ─────────────────────────────────────────────
     ("World Nuclear News", "https://www.world-nuclear-news.org/", "en"),
     ("Holtec International", "https://holtecinternational.com/category/holtec-highlights/", "en"),
+    ("Holtec International", "https://holtecinternational.com/news/", "en"),
+    ("Holtec International", "https://holtecinternational.com/2026/", "en"),
     ("Nuclear Engineering International", "https://www.neimagazine.com/news/", "en"),
     ("NucNet", "https://www.nucnet.org/news", "en"),
     ("POWER Magazine", "https://www.powermag.com/", "en"),
@@ -4944,6 +4947,13 @@ def _looks_like_article_url(url: str, publisher: str) -> bool:
         if "nucnet.org/news/tagged/" in lower:
             return False
         return "nucnet.org/news/" in lower and lower.rstrip("/") != "https://www.nucnet.org/news"
+    if publisher == "Holtec International":
+        # Holtec Highlights 개별 게시물은 /hh-41-16/ 같은 고유 URL을 사용합니다.
+        # 이 URL은 제목/키워드와 관계없이 최우선 기사 후보로 인정합니다.
+        if re.search(r"holtecinternational\.com/hh-\d+-\d+/?(?:[?#].*)?$", lower):
+            return True
+        # news / yearly archive에서 발견한 일반 Holtec 기사 URL도 원문 확인 대상으로 허용합니다.
+        return "holtecinternational.com/" in lower
     return True
 
 
@@ -5313,10 +5323,19 @@ def _fetch_direct_page_article(
 
     # Holtec 공식 Holtec Highlights는 회사 공식 발행물 자체가 수집 대상입니다.
     # 제목에 일반 원전 키워드가 없더라도 Holtec 탭으로 우선 분류합니다.
+    final_lower = (final_url or "").lower()
+    source_lower = (source_url or "").lower()
+    is_holtec_hh_url = bool(
+        re.search(r"holtecinternational\.com/hh-\d+-\d+/?(?:[?#].*)?$", final_lower)
+    )
     is_official_holtec_highlight = (
         publisher == "Holtec International"
-        and "holtecinternational.com" in source_url.lower()
-        and "holtec-highlights" in source_url.lower()
+        and (
+            is_holtec_hh_url
+            or "holtec-highlights" in source_lower
+            or source_lower.rstrip("/") == "https://holtecinternational.com/news"
+            or re.search(r"holtecinternational\.com/20\d{2}/?$", source_lower)
+        )
     )
     if is_official_holtec_highlight:
         group = "Holtec"
@@ -5429,6 +5448,22 @@ def _fetch_one_direct_news_page(
 
     stats["links"] = len(parser_links)
 
+    # Holtec 공식 페이지에는 메뉴/제품/회사 링크가 많습니다.
+    # /hh-숫자-숫자/ Holtec Highlights 개별글을 맨 앞으로 보내
+    # 후보 50건 제한 때문에 최신 HH 게시물이 밀려나는 일을 방지합니다.
+    if publisher == "Holtec International" and parser_links:
+        hh_links = []
+        other_links = []
+        for _link, _title in parser_links:
+            if re.search(
+                r"holtecinternational\.com/hh-\d+-\d+/?(?:[?#].*)?$",
+                (_link or "").lower(),
+            ):
+                hh_links.append((_link, _title))
+            else:
+                other_links.append((_link, _title))
+        parser_links = hh_links + other_links
+
     candidates: list[tuple[str, str]] = []
     seen: set[str] = set()
     is_nuclear_specialist = publisher in NUCLEAR_SPECIALIST_PUBLISHERS
@@ -5440,13 +5475,25 @@ def _fetch_one_direct_news_page(
             continue
         seen.add(link)
 
-        min_title_len = 4 if is_nuclear_specialist else 8
-        if len(title.strip()) < min_title_len:
+        is_holtec_hh_link = (
+            publisher == "Holtec International"
+            and bool(
+                re.search(
+                    r"holtecinternational\.com/hh-\d+-\d+/?(?:[?#].*)?$",
+                    (link or "").lower(),
+                )
+            )
+        )
+
+        min_title_len = 1 if is_holtec_hh_link else (4 if is_nuclear_specialist else 8)
+        if len(title.strip()) < min_title_len and not is_holtec_hh_link:
             continue
 
         title_lower = html.unescape(title).lower()
 
-        if is_nuclear_specialist:
+        if is_holtec_hh_link:
+            candidate_ok = True
+        elif is_nuclear_specialist:
             candidate_ok = True
         elif language == "en":
             candidate_ok = (
@@ -5473,9 +5520,13 @@ def _fetch_one_direct_news_page(
 
         candidates.append((link, title))
         page_limit = (
-            DIRECT_SPECIALIST_CANDIDATE_LIMIT
-            if is_nuclear_specialist
-            else DIRECT_GENERAL_CANDIDATE_LIMIT
+            120
+            if publisher == "Holtec International"
+            else (
+                DIRECT_SPECIALIST_CANDIDATE_LIMIT
+                if is_nuclear_specialist
+                else DIRECT_GENERAL_CANDIDATE_LIMIT
+            )
         )
         if len(candidates) >= page_limit:
             break
