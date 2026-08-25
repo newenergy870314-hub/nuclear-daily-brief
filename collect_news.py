@@ -1,3 +1,4 @@
+# TABLET 3-STEP RESPONSIVE: MOBILE <=767 / TABLET 768-1199 / PC >=1200 2026-08-25
 # ADDED NHAN DAN VIETNAM SOURCE 2026-08-25
 # BIGGO FINANCE SOURCE URL FIX (finance.biggo.com) 2026-08-25
 # ADDED HANS ECONOMY (hansbiz.co.kr) DIRECT SOURCE 2026-08-25
@@ -5967,120 +5968,6 @@ COUNTRY_HOME_ENTITY_TERMS = {
 }
 
 
-# 2026-08-25 국가 판별 보강 — "기타" 최소화
-# 기존 지도에 이미 등록된 국가만 대상으로 프로젝트/도시/기관/기업 별칭을 추가합니다.
-COUNTRY_PROJECT_TERMS.update({
-    "US": COUNTRY_PROJECT_TERMS["US"] + (
-        "vogtle", "보글", "diablo canyon", "디아블로 캐니언", "three mile island", "스리마일섬",
-        "vc summer", "v.c. summer", "서머 원전", "kemmerer", "케머러", "natrium", "나트륨 실증로",
-        "clinch river", "browns ferry", "watts bar", "calvert cliffs", "susquehanna",
-    ),
-    "GB": COUNTRY_PROJECT_TERMS["GB"] + (
-        "wylfa", "윌파", "oldbury", "올드버리", "bradwell", "브래드웰", "heysham", "헤이셤",
-        "hartlepool", "하틀풀",
-    ),
-    "FR": COUNTRY_PROJECT_TERMS["FR"] + (
-        "penly", "팡리", "belleville", "벨빌", "civaux", "시보", "gravelines", "그라블린",
-    ),
-    "CA": COUNTRY_PROJECT_TERMS["CA"] + (
-        "bruce nuclear", "브루스 원전", "pickering", "피커링", "point lepreau", "포인트 레프로",
-    ),
-    "JP": COUNTRY_PROJECT_TERMS["JP"] + (
-        "takahama", "다카하마", "mihama", "미하마", "sendai nuclear", "센다이 원전", "hamaoka", "하마오카",
-    ),
-    "SE": COUNTRY_PROJECT_TERMS["SE"] + ("oskarshamn", "오스카샴",),
-    "FI": COUNTRY_PROJECT_TERMS["FI"] + ("lovisa", "로비사",),
-    "PL": COUNTRY_PROJECT_TERMS["PL"] + ("choczewo", "호체보", "pej nuclear",),
-    "RO": COUNTRY_PROJECT_TERMS["RO"] + ("doicesti", "도이체슈티", "roPower", "ropower nuclear",),
-    "BG": COUNTRY_PROJECT_TERMS["BG"] + ("knpp", "kozloduy new builds",),
-    "UA": COUNTRY_PROJECT_TERMS["UA"] + ("south ukraine nuclear", "zaporizhzhia", "자포리자",),
-    "AE": COUNTRY_PROJECT_TERMS["AE"] + ("abu dhabi nuclear", "아부다비 원전",),
-    "CN": COUNTRY_PROJECT_TERMS["CN"] + (
-        "fangchenggang", "팡청강", "changjiang", "창장", "zhangzhou", "장저우", "shidaowan", "스다오완",
-    ),
-    "IN": COUNTRY_PROJECT_TERMS["IN"] + ("gorakhpur nuclear", "고라크푸르", "rawatbhata", "라와트바타",),
-    "RU": COUNTRY_PROJECT_TERMS["RU"] + ("beloyarsk", "벨로야르스크", "novovoronezh", "노보보로네시",),
-    "TR": COUNTRY_PROJECT_TERMS["TR"] + ("akkuyu npp", "아쿠유 npp",),
-    "ZA": COUNTRY_PROJECT_TERMS["ZA"] + ("thyspunt", "투이스푼트",),
-})
-
-COUNTRY_GOVERNMENT_TERMS.update({
-    "BG": ("bulgarian ministry of energy", "bulgarian government", "불가리아 에너지부",),
-    "RO": ("romanian government", "romanian ministry of energy", "루마니아 에너지부",),
-    "CZ": ("czech government", "czech ministry of industry and trade", "체코 정부",),
-    "PL": ("polish government", "polish ministry of industry", "폴란드 정부",),
-    "FI": COUNTRY_GOVERNMENT_TERMS.get("FI", ()) + ("stuk", "finnish government",),
-    "SE": COUNTRY_GOVERNMENT_TERMS.get("SE", ()) + ("ssm", "swedish government",),
-    "NL": COUNTRY_GOVERNMENT_TERMS.get("NL", ()) + ("dutch government", "anvs",),
-    "BE": COUNTRY_GOVERNMENT_TERMS.get("BE", ()) + ("belgian government", "fanc",),
-    "CH": COUNTRY_GOVERNMENT_TERMS.get("CH", ()) + ("swiss government", "ensi",),
-    "AU": COUNTRY_GOVERNMENT_TERMS.get("AU", ()) + ("australian government", "arpansa",),
-    "BR": COUNTRY_GOVERNMENT_TERMS.get("BR", ()) + ("brazilian government", "cnen",),
-    "AR": COUNTRY_GOVERNMENT_TERMS.get("AR", ()) + ("argentine government", "arn nuclear",),
-})
-
-COUNTRY_HOME_ENTITY_TERMS.update({
-    "US": COUNTRY_HOME_ENTITY_TERMS["US"] + (
-        "nuscale", "뉴스케일", "terrapower", "테라파워", "ge hitachi nuclear energy", "geh",
-        "constellation energy", "x-energy", "x energy", "kairos power", "tva",
-    ),
-    "KR": COUNTRY_HOME_ENTITY_TERMS["KR"] + (
-        "한국원자력연구원", "kaeri", "한국원자력안전기술원", "kins", "한국전력기술", "kepco e&c",
-        "한전기술", "한전원자력연료", "knf", "한국원자력산업협회", "kaif", "kna",
-    ),
-    "GB": COUNTRY_HOME_ENTITY_TERMS.get("GB", ()) + ("rolls-royce smr", "rolls royce smr", "롤스로이스 smr",),
-    "FR": COUNTRY_HOME_ENTITY_TERMS["FR"] + ("orano", "오라노", "cea",),
-    "CA": COUNTRY_HOME_ENTITY_TERMS["CA"] + ("ontario power generation", "opg", "bruce power",),
-    "JP": COUNTRY_HOME_ENTITY_TERMS.get("JP", ()) + ("tepco", "도쿄전력", "kansai electric", "간사이전력",),
-    "SE": COUNTRY_HOME_ENTITY_TERMS.get("SE", ()) + ("vattenfall", "바텐폴",),
-    "FI": COUNTRY_HOME_ENTITY_TERMS.get("FI", ()) + ("fortum", "포텀",),
-    "CZ": COUNTRY_HOME_ENTITY_TERMS.get("CZ", ()) + ("čez", "cez", "체코전력",),
-    "PL": COUNTRY_HOME_ENTITY_TERMS.get("PL", ()) + ("polskie elektrownie jądrowe", "pej",),
-    "BG": COUNTRY_HOME_ENTITY_TERMS.get("BG", ()) + ("kozloduy npp new builds", "knpp nb",),
-    "UA": COUNTRY_HOME_ENTITY_TERMS.get("UA", ()) + ("energoatom", "에네르고아톰",),
-    "RO": COUNTRY_HOME_ENTITY_TERMS.get("RO", ()) + ("nuclearelectrica", "sn nuclearelectrica",),
-    "SE": COUNTRY_HOME_ENTITY_TERMS.get("SE", ()) + ("vattenfall",),
-    "ZA": COUNTRY_HOME_ENTITY_TERMS.get("ZA", ()) + ("eskom", "에스콤",),
-    "AU": COUNTRY_HOME_ENTITY_TERMS.get("AU", ()) + ("ansto",),
-})
-
-# 원전/에너지 기사에서 도시명이 직접 나오는 경우를 보조 단서로 사용합니다.
-COUNTRY_EXPLICIT_TERMS.update({
-    "US": COUNTRY_EXPLICIT_TERMS["US"] + ("washington dc", "washington, d.c.", "new york", "illinois", "wyoming",),
-    "GB": COUNTRY_EXPLICIT_TERMS["GB"] + ("london", "런던",),
-    "BG": COUNTRY_EXPLICIT_TERMS["BG"] + ("sofia", "소피아",),
-    "UA": COUNTRY_EXPLICIT_TERMS["UA"] + ("kyiv", "kiev", "키이우",),
-    "AE": COUNTRY_EXPLICIT_TERMS["AE"] + ("abu dhabi", "아부다비",),
-    "VN": COUNTRY_EXPLICIT_TERMS["VN"] + ("hanoi", "하노이",),
-    "RO": COUNTRY_EXPLICIT_TERMS["RO"] + ("bucharest", "부쿠레슈티",),
-    "CZ": COUNTRY_EXPLICIT_TERMS["CZ"] + ("prague", "프라하",),
-    "PL": COUNTRY_EXPLICIT_TERMS["PL"] + ("warsaw", "바르샤바",),
-    "FI": COUNTRY_EXPLICIT_TERMS["FI"] + ("helsinki", "헬싱키",),
-    "CA": COUNTRY_EXPLICIT_TERMS["CA"] + ("ottawa", "오타와",),
-    "FR": COUNTRY_EXPLICIT_TERMS["FR"] + ("paris", "파리",),
-    "SE": COUNTRY_EXPLICIT_TERMS["SE"] + ("stockholm", "스톡홀름",),
-    "CN": COUNTRY_EXPLICIT_TERMS["CN"] + ("beijing", "베이징",),
-    "IN": COUNTRY_EXPLICIT_TERMS["IN"] + ("new delhi", "뉴델리",),
-    "AU": COUNTRY_EXPLICIT_TERMS["AU"] + ("canberra", "캔버라",),
-    "BR": COUNTRY_EXPLICIT_TERMS["BR"] + ("brasilia", "브라질리아",),
-    "AR": COUNTRY_EXPLICIT_TERMS["AR"] + ("buenos aires", "부에노스아이레스",),
-    "CL": COUNTRY_EXPLICIT_TERMS["CL"] + ("santiago", "산티아고",),
-    "PE": COUNTRY_EXPLICIT_TERMS["PE"] + ("lima", "리마",),
-    "CO": COUNTRY_EXPLICIT_TERMS["CO"] + ("bogota", "bogotá", "보고타",),
-    "RU": COUNTRY_EXPLICIT_TERMS["RU"] + ("moscow", "모스크바",),
-    "TR": COUNTRY_EXPLICIT_TERMS["TR"] + ("ankara", "앙카라",),
-    "SA": COUNTRY_EXPLICIT_TERMS["SA"] + ("riyadh", "리야드",),
-    "ZA": COUNTRY_EXPLICIT_TERMS["ZA"] + ("pretoria", "프리토리아", "cape town", "케이프타운",),
-    "NL": COUNTRY_EXPLICIT_TERMS["NL"] + ("amsterdam", "암스테르담", "the hague", "헤이그",),
-    "BE": COUNTRY_EXPLICIT_TERMS["BE"] + ("brussels", "브뤼셀",),
-    "CH": COUNTRY_EXPLICIT_TERMS["CH"] + ("bern", "베른",),
-    "SK": COUNTRY_EXPLICIT_TERMS["SK"] + ("bratislava", "브라티슬라바",),
-    "DK": COUNTRY_EXPLICIT_TERMS["DK"] + ("copenhagen", "코펜하겐",),
-    "MY": COUNTRY_EXPLICIT_TERMS["MY"] + ("kuala lumpur", "쿠알라룸푸르",),
-    "TH": COUNTRY_EXPLICIT_TERMS["TH"] + ("bangkok", "방콕",),
-})
-
-
 def _article_country_text(article: Article) -> tuple[str, str]:
     title = article.title.lower()
     full = " ".join(
@@ -6858,7 +6745,7 @@ def render_card(
           <span class="important-label">중요</span>
         </div>
         {_related_coverage_html(article)}
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">☆ 중요</button>
       </div>
       <div class="headline">{new_badge}{escape(article.title)}</div>
       {snippet_html}
@@ -9302,6 +9189,7 @@ def build_html(
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#b2c7d9">
 <title>원자력 주요기사</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 * {{ box-sizing: border-box; }}
 body {{ margin: 0; background: #c4d6e8; color: #111827; font-family: Arial, "Malgun Gothic", sans-serif; }}
@@ -18662,12 +18550,167 @@ main {{
 
 
 /* ============================================================
+   2026-08-25 TABLET RESPONSIVE LAYOUT
+   - Mobile: <=767px (existing stabilized layout)
+   - Tablet: 768px-1199px (single-column, touch/read focused)
+   - Desktop: >=1200px (wide monitoring/workspace UI)
+   ============================================================ */
+@media (min-width:768px) and (max-width:1199px) {{
+  body {{
+    background:#d7e3ef !important;
+  }}
+
+  .phone {{
+    width:calc(100% - 24px) !important;
+    max-width:1080px !important;
+    margin:0 auto !important;
+    padding-bottom:32px !important;
+  }}
+
+  /* Tablet header: roomy enough for touch, without desktop density. */
+  .topbar {{
+    margin:10px 0 12px !important;
+    padding:12px 14px !important;
+    border-radius:15px !important;
+  }}
+  .topbar h1 {{
+    font-size:20px !important;
+  }}
+  .header-toggle {{
+    min-width:78px !important;
+    height:36px !important;
+  }}
+  .search-input {{
+    height:42px !important;
+    font-size:13px !important;
+    border-radius:10px !important;
+  }}
+  .header-controls {{
+    display:block !important;
+    max-height:none !important;
+  }}
+  .topbar.collapsed .header-controls {{
+    max-height:0 !important;
+  }}
+  .tabs {{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:7px !important;
+  }}
+  .tab-button {{
+    min-height:38px !important;
+    height:38px !important;
+    font-size:12px !important;
+  }}
+  .utility-row {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:8px !important;
+    max-width:none !important;
+  }}
+  .utility-box {{
+    height:42px !important;
+  }}
+
+  /* Tablet map: larger than mobile, smaller than desktop. */
+  .world-map-panel {{
+    margin-bottom:14px !important;
+    padding:12px !important;
+    border-radius:15px !important;
+  }}
+  .country-map-visual.globe-mode {{
+    height:430px !important;
+    min-height:430px !important;
+  }}
+  .country-map-visual .world-map-inline.globe-texture-source {{
+    left:50% !important;
+    right:auto !important;
+    width:min(calc(100% - 20px),820px) !important;
+    height:auto !important;
+    aspect-ratio:2 / 1 !important;
+    transform:translateX(-50%) !important;
+    transform-origin:center top !important;
+  }}
+  #continent-rail {{
+    left:10px !important;
+    right:10px !important;
+    width:auto !important;
+    height:46px !important;
+    max-height:46px !important;
+    transform:none !important;
+  }}
+  .continent-button {{
+    min-height:38px !important;
+    height:38px !important;
+    padding:4px 6px !important;
+  }}
+  .continent-button-name {{ font-size:10px !important; }}
+  .continent-button-count {{ font-size:9px !important; }}
+
+  /* Tablet articles stay one-column for reading and touch. */
+  .article-stack {{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:9px !important;
+    margin-top:8px !important;
+    margin-bottom:8px !important;
+  }}
+  .preview-card {{
+    grid-template-columns:minmax(0,1fr) 132px !important;
+    gap:10px !important;
+    min-height:132px !important;
+    height:auto !important;
+    padding:7px 7px 7px 11px !important;
+    border-radius:8px !important;
+  }}
+  .preview-copy {{
+    min-width:0 !important;
+    min-height:118px !important;
+  }}
+  .headline {{
+    font-size:15px !important;
+    line-height:1.32 !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .article-snippet {{
+    font-size:11.5px !important;
+    line-height:1.43 !important;
+    -webkit-line-clamp:4 !important;
+  }}
+  .important-button {{
+    min-width:30px !important;
+    width:30px !important;
+    min-height:28px !important;
+    height:28px !important;
+    font-size:17px !important;
+    line-height:28px !important;
+  }}
+  .card-side {{
+    width:132px !important;
+    min-width:132px !important;
+  }}
+  .preview-image {{
+    width:132px !important;
+    height:132px !important;
+    min-height:132px !important;
+  }}
+  .group-title {{
+    min-height:38px !important;
+  }}
+
+  /* PC-only workspace/navigation must never appear on tablet. */
+  .desktop-workspace-bar,
+  .desktop-group-navigator {{
+    display:none !important;
+  }}
+}}
+
+
+/* ============================================================
    2026-08-24 PC DESKTOP RESPONSIVE OPTIMIZATION
-   - Mobile layout below 900px remains unchanged.
+   - Mobile/tablet layout below 1200px remains separate from desktop.
    - Desktop gets a wider centered canvas, larger map,
      horizontal controls, and two-column article cards.
    ============================================================ */
-@media (min-width:900px) {{
+@media (min-width:1200px) {{
   body {{
     background:#c4d6e8 !important;
   }}
@@ -18959,14 +19002,14 @@ main {{
 
 /* ============================================================
    2026-08-25 PC ARTICLE CONTENT VISIBILITY FIX
-   - Desktop-only fix (>=900px); mobile layout remains unchanged.
+   - Desktop-only fix (>=1200px); mobile/tablet layouts remain unchanged.
    - The desktop override had reintroduced a 3-column .preview-copy grid
      while the article content itself was fixed to column 1. As a result,
      the text area could collapse to ~20px on wide/maximized PC windows.
    - Restore a single flexible text column and allow the card body to use
      the full available width beside the thumbnail.
    ============================================================ */
-@media (min-width:900px) {{
+@media (min-width:1200px) {{
   .article-stack {{
     min-width:0 !important;
     overflow:visible !important;
@@ -19010,9 +19053,9 @@ main {{
 
 /* ============================================================
    2026-08-25 PC WORKSPACE UX MODERNIZATION
-   - Desktop only (>=900px). Mobile remains untouched.
+   - Desktop only (>=1200px). Mobile/tablet remain untouched.
    ============================================================ */
-@media (min-width:900px) {{
+@media (min-width:1200px) {{
   .desktop-workspace-bar {{
     position:sticky; top:8px; z-index:120; display:flex; align-items:center;
     justify-content:space-between; gap:12px; min-height:48px; margin:0 0 14px;
@@ -19054,252 +19097,637 @@ main {{
 
 
 /* ============================================================
-   2026-08-25 PC ARTICLE TAB CONTROL HEIGHT ALIGNMENT
-   - 전일 / 금일 / 익일 / 순서 / 날짜의 바깥 컨트롤 세로폭을 동일하게 고정
-   - 모바일 레이아웃은 변경하지 않음
+   2026-08-25 PC WIDE READING + ALWAYS-ACCESSIBLE IMPORTANT UX
+   - Desktop uses the available monitor width instead of a narrow 1320px canvas.
+   - Pretendard-first typography and larger desktop news text.
+   - Mobile-style top favorites panel is hidden on PC; sticky workspace Important filter remains.
+   - Important button is anchored before thumbnail with a protected gap.
+   - Floating back-to-top control is desktop-only.
    ============================================================ */
-@media (min-width:900px) {{
-  .tabs,
-  .utility-row {{
-    align-items:stretch !important;
+@media (min-width:1200px) {{
+  html, body {{
+    font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+      "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif !important;
+  }}
+  body {{
+    background:#c8d8e8 !important;
+  }}
+  .phone {{
+    width:calc(100vw - 24px) !important;
+    max-width:none !important;
+    margin:0 12px !important;
+  }}
+  .topbar {{
+    padding:16px 20px 15px !important;
+  }}
+  .topbar h1 {{
+    font-size:25px !important;
+    font-weight:850 !important;
+    letter-spacing:-.035em !important;
+  }}
+  .updated {{ font-size:11.5px !important; }}
+  .search-input {{
+    height:44px !important;
+    font-size:14.5px !important;
+    font-weight:500 !important;
+  }}
+  .tab-button {{ font-size:13px !important; }}
+  .utility-label, .language-order-toggle, .date-display {{ font-size:11.5px !important; }}
+
+  /* PC uses the sticky Important filter instead of a second top-only favorites block. */
+  .favorites-panel-top {{ display:none !important; }}
+
+  .desktop-workspace-bar {{
+    top:8px !important;
+    min-height:54px !important;
+    padding:9px 12px 9px 16px !important;
+    border-radius:14px !important;
+  }}
+  .desktop-workspace-title {{ font-size:13px !important; }}
+  .desktop-metric {{ font-size:11px !important; }}
+  .desktop-metric strong {{ font-size:14px !important; }}
+  .desktop-mode-button, .desktop-density-button {{
+    height:34px !important;
+    padding:0 13px !important;
+    font-size:11.5px !important;
   }}
 
-  .tab-button,
-  .utility-box {{
-    height:34px !important;
-    min-height:34px !important;
-    max-height:34px !important;
+  .group-title {{
+    height:40px !important;
+    padding:0 17px !important;
   }}
+  .group-name, .group-count, .group-arrow {{ height:40px !important; }}
+  .group-name {{ font-size:15px !important; }}
+  .group-count {{ font-size:14px !important; }}
+
+  .article-stack {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:14px !important;
+  }}
+  .preview-card {{
+    position:relative !important;
+    grid-template-columns:minmax(0,1fr) 136px !important;
+    gap:14px !important;
+    min-height:146px !important;
+    padding:9px 9px 9px 13px !important;
+    border-radius:10px !important;
+  }}
+  .preview-copy {{
+    min-height:128px !important;
+    padding:3px 0 !important;
+  }}
+  .article-content-column {{
+    position:relative !important;
+    padding-right:44px !important;
+  }}
+  .meta-row {{
+    min-height:25px !important;
+    height:25px !important;
+    padding-right:2px !important;
+    overflow:hidden !important;
+  }}
+  .publisher, .status-inline {{
+    font-size:12px !important;
+    line-height:1.2 !important;
+  }}
+  .meta-divider {{ font-size:11px !important; }}
+  .headline {{
+    margin-top:6px !important;
+    font-size:17px !important;
+    font-weight:760 !important;
+    line-height:1.38 !important;
+    letter-spacing:-.018em !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .article-snippet {{
+    margin-top:7px !important;
+    font-size:13.5px !important;
+    font-weight:450 !important;
+    line-height:1.58 !important;
+    letter-spacing:-.008em !important;
+    -webkit-line-clamp:3 !important;
+  }}
+  .card-side {{
+    width:136px !important;
+    min-width:136px !important;
+  }}
+  .preview-image {{
+    width:136px !important;
+    height:136px !important;
+    min-height:136px !important;
+  }}
+
+  /* Important control has its own protected area and cannot collide with thumbnail. */
+  .important-button {{
+    position:absolute !important;
+    top:0 !important;
+    right:0 !important;
+    z-index:4 !important;
+    width:36px !important;
+    min-width:36px !important;
+    height:26px !important;
+    min-height:26px !important;
+    padding:0 7px !important;
+    border-radius:7px !important;
+    font-size:11px !important;
+    line-height:24px !important;
+    white-space:nowrap !important;
+  }}
+
+  body.desktop-comfort-view .headline {{ font-size:18px !important; }}
+  body.desktop-comfort-view .article-snippet {{ font-size:14px !important; line-height:1.62 !important; }}
+  body.desktop-comfort-view .preview-card {{ grid-template-columns:minmax(0,1fr) 160px !important; }}
+  body.desktop-comfort-view .card-side, body.desktop-comfort-view .preview-image {{ width:160px !important; min-width:160px !important; }}
+  body.desktop-comfort-view .preview-image {{ height:160px !important; min-height:160px !important; }}
+
+  /* Fixed side navigator would overlap a true full-width canvas, so keep article canvas clear. */
+  .desktop-group-navigator {{ display:none !important; }}
+
+  .desktop-back-to-top {{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:180;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    min-width:48px;
+    height:48px;
+    padding:0 14px;
+    border:1px solid rgba(29,95,167,.24);
+    border-radius:24px;
+    background:rgba(255,255,255,.94);
+    color:#1d5fa7;
+    box-shadow:0 8px 24px rgba(30,55,85,.20);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    font:800 12px/1 "Pretendard Variable", Pretendard, sans-serif;
+    cursor:pointer;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    transition:opacity .18s ease, transform .18s ease, visibility .18s ease, box-shadow .18s ease;
+  }}
+  .desktop-back-to-top.visible {{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }}
+  .desktop-back-to-top:hover {{
+    box-shadow:0 10px 28px rgba(30,55,85,.28);
+    transform:translateY(-2px);
+  }}
+  .desktop-back-to-top-arrow {{ font-size:17px; line-height:1; }}
 }}
 
-
-/* 2026-08-25 FINAL PC MAP / IMPORTANT VISIBILITY */
-@media (min-width:900px){{
-  #continent-rail{{display:block !important;visibility:visible !important;opacity:1 !important;}}
-  #country-map-label-layer.country-map-label-layer{{display:block !important;visibility:visible !important;opacity:1 !important;z-index:12 !important;}}
-  .precise-country-label,.clean-map-country-label{{display:inline-flex !important;visibility:visible !important;opacity:1 !important;}}
-  .favorites-panel-top{{position:relative !important;z-index:18 !important;}}
-  .favorites-panel-top.desktop-important-flash{{box-shadow:0 0 0 3px rgba(230,200,91,.25),0 5px 16px rgba(17,24,39,.08) !important;}}
+/* On large/full-HD monitors, use the extra width for a third readable column. */
+@media (min-width:1700px) {{
+  .article-stack {{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:14px !important;
+  }}
 }}
 
 
 
 /* ============================================================
-   2026-08-25 FINAL MOBILE MAP RESTORE
-   Restore the previously approved mobile world map + bottom continent dock.
-   Keep desktop layout untouched.
+   2026-08-25 PC READING SCALE + IMPORTANT ARTICLE SIDE DRAWER
+   - Larger newsroom-style reading scale on desktop.
+   - Important articles are accessible from a persistent right-side control.
+   - Clicking an Important button opens the drawer immediately so the save
+     destination is visually obvious.
    ============================================================ */
-@media (max-width:899px) {{
-  #world-map-panel.world-map-panel {{
-    display:block !important;
-    visibility:visible !important;
-    opacity:1 !important;
+@media (min-width:1200px) {{
+  .topbar h1 {{ font-size:27px !important; }}
+  .updated {{ font-size:12px !important; }}
+  .search-input {{ height:46px !important; font-size:15px !important; }}
+  .tab-button {{ font-size:13.5px !important; font-weight:800 !important; }}
+  .utility-label, .language-order-toggle, .date-display {{ font-size:12px !important; }}
+
+  .desktop-workspace-bar {{ min-height:58px !important; padding:10px 14px 10px 17px !important; }}
+  .desktop-workspace-title {{ font-size:14px !important; }}
+  .desktop-metric {{ font-size:12px !important; }}
+  .desktop-metric strong {{ font-size:15.5px !important; }}
+  .desktop-mode-button, .desktop-density-button {{ height:36px !important; font-size:12.5px !important; }}
+
+  .group-title {{ height:44px !important; }}
+  .group-name, .group-count, .group-arrow {{ height:44px !important; }}
+  .group-name {{ font-size:16px !important; }}
+  .group-count {{ font-size:14.5px !important; }}
+
+  .preview-card {{
+    min-height:158px !important;
+    grid-template-columns:minmax(0,1fr) 146px !important;
+    gap:16px !important;
+    padding:11px 11px 11px 15px !important;
   }}
-  .country-map-visual.globe-mode {{
-    position:relative !important;
-    display:block !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    height:244px !important;
-    min-height:244px !important;
-    overflow:hidden !important;
+  .preview-copy {{ min-height:136px !important; }}
+  .article-content-column {{ padding-right:50px !important; }}
+  .meta-row {{ min-height:27px !important; height:27px !important; }}
+  .publisher, .status-inline {{ font-size:13px !important; font-weight:750 !important; }}
+  .meta-divider {{ font-size:12px !important; }}
+  .headline {{
+    margin-top:7px !important;
+    font-size:19px !important;
+    font-weight:780 !important;
+    line-height:1.40 !important;
+    letter-spacing:-.022em !important;
+    -webkit-line-clamp:3 !important;
   }}
-  .country-map-visual .world-map-inline.globe-texture-source {{
-    display:block !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    position:absolute !important;
-    left:6px !important;
-    right:auto !important;
-    top:35px !important;
-    bottom:auto !important;
-    width:calc(100% - 12px) !important;
-    height:auto !important;
-    aspect-ratio:2 / 1 !important;
-    transform:none !important;
-    transform-origin:center center !important;
-    z-index:1 !important;
+  .article-snippet {{
+    margin-top:8px !important;
+    font-size:14.5px !important;
+    line-height:1.62 !important;
+    letter-spacing:-.01em !important;
+    -webkit-line-clamp:3 !important;
   }}
-  #country-map-label-layer.country-map-label-layer {{
-    display:block !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    position:absolute !important;
-    inset:0 !important;
-    width:100% !important;
-    height:100% !important;
-    transform:none !important;
-    pointer-events:none !important;
-    overflow:visible !important;
-    z-index:7 !important;
-  }}
-  #continent-rail {{
-    display:block !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    position:absolute !important;
-    left:5px !important;
-    right:5px !important;
-    bottom:5px !important;
-    top:auto !important;
-    width:auto !important;
-    height:35px !important;
-    max-height:35px !important;
-    padding:3px !important;
-    margin:0 !important;
-    transform:none !important;
-    border:1px solid rgba(148,185,208,.28) !important;
-    border-radius:13px !important;
-    background:rgba(255,255,255,.95) !important;
-    box-shadow:0 4px 12px rgba(48,87,116,.08) !important;
-    backdrop-filter:blur(5px) !important;
-    z-index:15 !important;
-  }}
-  #continent-rail .continent-rail-head,
-  #continent-rail .continent-back-button,
-  #continent-rail .continent-all-button {{ display:none !important; }}
-  #continent-rail .continent-rail-scroll {{
-    display:grid !important;
-    grid-template-columns:repeat(6,minmax(0,1fr)) !important;
-    align-items:stretch !important;
-    gap:3px !important;
-    width:100% !important;
-    height:100% !important;
-    padding:0 !important;
-    overflow:visible !important;
-  }}
-  #continent-rail .continent-button {{
-    display:flex !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    min-width:0 !important;
-    width:auto !important;
-    min-height:27px !important;
-    height:27px !important;
-    padding:1px !important;
-    margin:0 !important;
-    align-items:center !important;
-    justify-content:center !important;
-    gap:2px !important;
-    border:1px solid rgba(190,207,219,.54) !important;
-    border-radius:9px !important;
-    background:linear-gradient(180deg,#fff,#f8fbfd) !important;
-    color:#355873 !important;
-    text-align:center !important;
-    white-space:nowrap !important;
-  }}
-  #continent-rail .continent-button-name {{
-    display:block !important;
-    min-width:0 !important;
-    font-size:6.1px !important;
-    font-weight:900 !important;
-    line-height:1 !important;
-    letter-spacing:-.28px !important;
-    white-space:nowrap !important;
-    word-break:keep-all !important;
-  }}
-  #continent-rail .continent-button-count {{
-    display:block !important;
-    flex:0 0 auto !important;
-    font-size:5.75px !important;
-    font-weight:950 !important;
-    line-height:1 !important;
-    color:#2785b6 !important;
-    white-space:nowrap !important;
-  }}
-  #continent-rail .continent-button-meta {{ display:none !important; }}
-  #continent-rail .continent-button.active {{
-    border-color:#45a5d4 !important;
-    background:linear-gradient(180deg,#eef9fe,#e6f5fc) !important;
-    box-shadow:inset 0 0 0 1px rgba(42,145,194,.10) !important;
-  }}
-  #continent-rail .continent-button.active .continent-button-name {{ color:#116c98 !important; }}
-  #continent-rail .continent-button.active .continent-button-count {{ color:#d84b4b !important; }}
-  .map-continent-state {{
-    display:inline-flex !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    position:absolute !important;
-    right:10px !important;
-    left:auto !important;
-    top:8px !important;
-    bottom:auto !important;
-    z-index:16 !important;
-    height:24px !important;
+  .card-side {{ width:146px !important; min-width:146px !important; }}
+  .preview-image {{ width:146px !important; height:146px !important; min-height:146px !important; }}
+  .important-button {{
+    width:42px !important;
+    min-width:42px !important;
+    height:29px !important;
+    min-height:29px !important;
     padding:0 8px !important;
-    align-items:center !important;
-    gap:5px !important;
-    border:1px solid rgba(151,187,210,.28) !important;
-    border-radius:999px !important;
-    background:rgba(255,255,255,.94) !important;
-    box-shadow:0 2px 7px rgba(49,87,115,.06) !important;
-    transform:none !important;
+    border:1px solid #d7dee8 !important;
+    border-radius:8px !important;
+    background:#fff !important;
+    color:#667085 !important;
+    font-size:11.5px !important;
+    line-height:27px !important;
+    box-shadow:0 1px 3px rgba(17,24,39,.06) !important;
   }}
-  .precise-country-dot {{ display:block !important; visibility:visible !important; opacity:1 !important; }}
-  .precise-country-connector {{ display:block !important; visibility:visible !important; opacity:1 !important; }}
-  .precise-country-label,
-  .clean-map-country-label {{
-    display:inline-flex !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    min-height:19px !important;
-    padding:2px 5px !important;
-    font-size:7.4px !important;
-    z-index:17 !important;
+  .preview-card.important .important-button {{
+    border-color:#e5b92f !important;
+    background:#fff8d6 !important;
+    color:#9a6b00 !important;
   }}
-  #continent-country-ranking,
-  .country-map-caption {{ display:none !important; }}
-}}
-@media (max-width:380px) {{
-  .country-map-visual.globe-mode {{ height:238px !important; min-height:238px !important; }}
-  #continent-rail .continent-button-name {{ font-size:5.8px !important; letter-spacing:-.30px !important; }}
-  #continent-rail .continent-button-count {{ font-size:5.45px !important; }}
-  .precise-country-label,.clean-map-country-label {{ font-size:7px !important; padding:2px 4px !important; }}
+
+  body.desktop-comfort-view .headline {{ font-size:20px !important; }}
+  body.desktop-comfort-view .article-snippet {{ font-size:15.5px !important; }}
+
+  .desktop-important-launcher {{
+    position:fixed;
+    right:22px;
+    top:50%;
+    z-index:205;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    gap:7px;
+    min-height:46px;
+    padding:0 14px;
+    border:1px solid #e6c44f;
+    border-radius:23px;
+    background:rgba(255,250,224,.97);
+    color:#8a6400;
+    box-shadow:0 8px 24px rgba(79,62,9,.16);
+    font:850 12.5px/1 "Pretendard Variable", Pretendard, sans-serif;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+  }}
+  .desktop-important-launcher:hover {{ transform:translateY(-50%) translateX(-2px); box-shadow:0 10px 28px rgba(79,62,9,.22); }}
+  .desktop-important-launcher-star {{ font-size:18px; line-height:1; }}
+  .desktop-important-launcher-count {{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:23px; height:23px; padding:0 6px; border-radius:12px;
+    background:#b88600; color:#fff; font-size:11px; font-weight:900;
+  }}
+
+  .desktop-important-scrim {{
+    position:fixed; inset:0; z-index:209; display:none;
+    background:rgba(24,39,58,.14); backdrop-filter:blur(1px);
+  }}
+  .desktop-important-scrim.open {{ display:block; }}
+  .desktop-important-drawer {{
+    position:fixed;
+    top:0; right:0; bottom:0;
+    z-index:210;
+    width:min(430px,38vw);
+    display:flex;
+    flex-direction:column;
+    background:#f8fafc;
+    border-left:1px solid #d7e0ea;
+    box-shadow:-14px 0 38px rgba(31,49,72,.18);
+    transform:translateX(104%);
+    transition:transform .22s ease;
+  }}
+  .desktop-important-drawer.open {{ transform:translateX(0); }}
+  .desktop-important-drawer-head {{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    min-height:68px; padding:13px 16px 12px 18px;
+    border-bottom:1px solid #e1e7ef; background:#fffdf2;
+  }}
+  .desktop-important-drawer-title {{ font-size:17px; font-weight:900; color:#3d4653; }}
+  .desktop-important-drawer-sub {{ margin-top:3px; font-size:11px; color:#7a8493; font-weight:650; }}
+  .desktop-important-close {{
+    width:36px; height:36px; border:1px solid #d8dee7; border-radius:18px;
+    background:#fff; color:#566273; font-size:20px; line-height:34px; cursor:pointer;
+  }}
+  .desktop-important-drawer-list {{
+    flex:1 1 auto; min-height:0; overflow:auto; padding:12px; scrollbar-width:thin;
+  }}
+  .desktop-important-empty {{
+    margin:26px 8px; padding:24px 18px; border:1px dashed #ccd5e0; border-radius:12px;
+    background:#fff; color:#7b8796; font-size:13px; line-height:1.55; text-align:center;
+  }}
+  .desktop-important-item {{
+    display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px;
+    margin-bottom:9px; padding:13px 13px 12px 14px;
+    border:1px solid #e2e7ee; border-left:4px solid #e1b62e;
+    border-radius:10px; background:#fff; cursor:pointer;
+    box-shadow:0 2px 7px rgba(25,43,65,.05);
+  }}
+  .desktop-important-item:hover {{ border-color:#d9bf62; box-shadow:0 5px 14px rgba(25,43,65,.09); }}
+  .desktop-important-publisher {{ font-size:11.5px; font-weight:800; color:#7a8493; }}
+  .desktop-important-headline {{ margin-top:5px; font-size:15.5px; font-weight:800; line-height:1.43; color:#173b67; }}
+  .desktop-important-remove {{
+    align-self:start; min-width:44px; height:30px; padding:0 8px;
+    border:1px solid #eadb9c; border-radius:7px; background:#fffaf0;
+    color:#956e00; font-size:10.5px; font-weight:800; cursor:pointer;
+  }}
+  .desktop-important-remove:hover {{ background:#fff2bf; }}
+
+  .desktop-important-saved-flash {{ animation:desktopImportantSavedFlash .7s ease; }}
+  @keyframes desktopImportantSavedFlash {{
+    0% {{ box-shadow:0 0 0 0 rgba(224,177,25,.46); }}
+    100% {{ box-shadow:0 0 0 10px rgba(224,177,25,0); }}
+  }}
 }}
 
-/* 2026-08-25 CORRECTION: removed erroneous 3x2 mobile continent override; preserve approved one-line bottom dock with South America. */
-/* 2026-08-25 FINAL MOBILE CONTINENT COUNT VISIBILITY */
-@media (max-width:899px) {{
-  #continent-rail .continent-rail-scroll {{
-    align-items:stretch !important;
+/* ============================================================
+   2026-08-25 MAP COUNTRY LABEL VISIBILITY / READABILITY FIX
+   - Mobile / Tablet / PC common
+   - Show flag + country + article count on the map itself
+   ============================================================ */
+#country-map-label-layer.country-map-label-layer {{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  z-index:40 !important;
+  pointer-events:none !important;
+}}
+.precise-country-label {{
+  min-height:20px !important;
+  padding:3px 6px !important;
+  gap:4px !important;
+  font-size:8.5px !important;
+  box-shadow:0 2px 7px rgba(42,76,103,.14) !important;
+}}
+.precise-country-label .flag {{ font-size:10px !important; }}
+.precise-country-label .name,
+.precise-country-label .count {{ font-size:8.4px !important; }}
+.precise-country-label .count {{ color:#0f7fb8 !important; }}
+.precise-country-dot {{ z-index:41 !important; }}
+.precise-country-connector {{ z-index:40 !important; }}
+.precise-country-label {{ z-index:42 !important; }}
+
+@media (min-width:768px) and (max-width:1199px) {{
+  .precise-country-label {{ min-height:22px !important; padding:3px 7px !important; }}
+  .precise-country-label .flag {{ font-size:11px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:9px !important; }}
+}}
+
+@media (min-width:1200px) {{
+  .precise-country-label {{ min-height:24px !important; padding:4px 8px !important; gap:5px !important; }}
+  .precise-country-label .flag {{ font-size:13px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:10.5px !important; }}
+}}
+
+@media (max-width:430px) {{
+  .precise-country-label {{ min-height:18px !important; padding:2px 4px !important; gap:3px !important; }}
+  .precise-country-label .flag {{ font-size:8.8px !important; }}
+  .precise-country-label .name,
+  .precise-country-label .count {{ font-size:7.6px !important; }}
+}}
+
+
+/* 2026-08-25 MAP LABEL HARD FIX V2 - final cascade */
+#country-map-label-layer.country-map-label-layer {{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:absolute !important;
+  inset:0 !important;
+  z-index:80 !important;
+  pointer-events:none !important;
+  overflow:visible !important;
+}}
+.precise-country-label.map-label-hard-fix {{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:absolute !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:3px !important;
+  height:21px !important;
+  min-height:21px !important;
+  padding:2px 4px !important;
+  border:1px solid rgba(103,143,174,.55) !important;
+  border-radius:7px !important;
+  background:rgba(255,255,255,.96) !important;
+  box-shadow:0 2px 7px rgba(31,67,96,.18) !important;
+  color:#244865 !important;
+  pointer-events:auto !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+}}
+.precise-country-label.map-label-hard-fix .flag {{ font-size:10px !important; flex:0 0 auto !important; }}
+.precise-country-label.map-label-hard-fix .name {{ font-size:7.8px !important; font-weight:900 !important; overflow:hidden !important; text-overflow:ellipsis !important; }}
+.precise-country-label.map-label-hard-fix .count {{ font-size:7.8px !important; font-weight:950 !important; color:#0f7fb8 !important; flex:0 0 auto !important; }}
+.precise-country-label.map-label-hard-fix.active {{ background:#fff2bd !important; border-color:#d8ba35 !important; }}
+@media (min-width:768px) and (max-width:1199px) {{
+  .precise-country-label.map-label-hard-fix {{ height:25px !important; min-height:25px !important; padding:3px 6px !important; gap:4px !important; }}
+  .precise-country-label.map-label-hard-fix .flag {{ font-size:12px !important; }}
+  .precise-country-label.map-label-hard-fix .name,
+  .precise-country-label.map-label-hard-fix .count {{ font-size:9px !important; }}
+}}
+@media (min-width:1200px) {{
+  .precise-country-label.map-label-hard-fix {{ height:28px !important; min-height:28px !important; padding:4px 7px !important; gap:5px !important; border-radius:8px !important; }}
+  .precise-country-label.map-label-hard-fix .flag {{ font-size:14px !important; }}
+  .precise-country-label.map-label-hard-fix .name,
+  .precise-country-label.map-label-hard-fix .count {{ font-size:10.5px !important; }}
+}}
+
+/* ============================================================
+   2026-08-25 PC HEADER + IMPORTANT UX REFINEMENT
+   - Make the Important destination obvious on maximized desktop screens.
+   - Give the article Important control enough width for "☆ 중요 / ★ 중요".
+   - Refine search / language order / date typography for desktop readability.
+   - Mobile and tablet remain unchanged.
+   ============================================================ */
+@media (min-width:1200px) {{
+  /* More deliberate newsroom/dashboard typography in the utility header. */
+  .search-input {{
+    height:50px !important;
+    padding:0 17px !important;
+    border:1px solid #c9d5e2 !important;
+    border-radius:12px !important;
+    background:#ffffff !important;
+    color:#172b43 !important;
+    font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+      "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif !important;
+    font-size:16px !important;
+    font-weight:600 !important;
+    letter-spacing:-.012em !important;
+    box-shadow:0 2px 7px rgba(31,58,87,.05) !important;
   }}
-  #continent-rail .continent-button {{
-    min-height:34px !important;
-    height:34px !important;
-    padding:3px 2px !important;
-    display:flex !important;
-    flex-direction:column !important;
+  .search-input::placeholder {{
+    color:#8794a5 !important;
+    font-weight:500 !important;
+  }}
+  .search-input:focus {{
+    border-color:#6d9dca !important;
+    box-shadow:0 0 0 3px rgba(55,116,173,.10) !important;
+  }}
+
+  .header-controls {{
+    gap:12px !important;
+    margin-top:10px !important;
+  }}
+  .utility-row {{ gap:10px !important; }}
+  .utility-box {{
+    height:42px !important;
+    padding:0 10px !important;
+    border:1px solid #d7e0ea !important;
+    border-radius:10px !important;
+    background:#f8fafc !important;
+  }}
+  .utility-label {{
+    color:#64748b !important;
+    font-size:12px !important;
+    font-weight:750 !important;
+    letter-spacing:-.01em !important;
+  }}
+  .language-order-toggle,
+  .date-control {{
+    height:32px !important;
+    border-radius:8px !important;
+    background:#fff !important;
+  }}
+  .language-order-toggle {{
+    padding:0 13px !important;
+    color:#1f4168 !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:800 !important;
+    letter-spacing:-.015em !important;
+    line-height:32px !important;
+  }}
+  .date-display {{
+    padding:0 26px 0 11px !important;
+    color:#1f4168 !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:800 !important;
+    font-variant-numeric:tabular-nums !important;
+    letter-spacing:.005em !important;
+    line-height:32px !important;
+  }}
+  .date-calendar {{
+    right:9px !important;
+    color:#6b7f96 !important;
+    font-size:12px !important;
+  }}
+
+  /* The card action must fit the full Korean label without clipping. */
+  .article-content-column {{ padding-right:82px !important; }}
+  .important-button {{
+    width:auto !important;
+    min-width:70px !important;
+    height:32px !important;
+    min-height:32px !important;
+    padding:0 11px !important;
+    display:inline-flex !important;
     align-items:center !important;
     justify-content:center !important;
-    gap:2px !important;
+    gap:3px !important;
+    border-radius:9px !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:12.5px !important;
+    font-weight:850 !important;
+    line-height:1 !important;
+    letter-spacing:-.015em !important;
+    white-space:nowrap !important;
     overflow:visible !important;
   }}
-  #continent-rail .continent-button-name {{
-    display:block !important;
-    font-size:7.4px !important;
-    font-weight:900 !important;
-    line-height:1.05 !important;
-    color:#355873 !important;
-    white-space:nowrap !important;
+
+  /* Persistent, obvious location for saved Important articles. */
+  .desktop-important-launcher {{
+    top:88px !important;
+    right:22px !important;
+    transform:none !important;
+    min-width:178px !important;
+    min-height:48px !important;
+    padding:0 14px 0 15px !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+    border-radius:12px !important;
+    border:1px solid #e1bb3e !important;
+    background:rgba(255,250,222,.98) !important;
+    color:#795900 !important;
+    box-shadow:0 8px 22px rgba(72,55,8,.18) !important;
+    font-family:"Pretendard Variable", Pretendard, sans-serif !important;
+    font-size:13.5px !important;
+    font-weight:850 !important;
+    letter-spacing:-.015em !important;
   }}
-  #continent-rail .continent-button-count {{
-    display:block !important;
-    visibility:visible !important;
-    opacity:1 !important;
-    font-size:8.4px !important;
-    font-weight:950 !important;
-    line-height:1 !important;
-    color:#2583b5 !important;
-    white-space:nowrap !important;
+  .desktop-important-launcher:hover {{
+    transform:translateY(-1px) !important;
+    box-shadow:0 11px 26px rgba(72,55,8,.23) !important;
   }}
-  #continent-rail .continent-button.active .continent-button-count {{
-    color:#d84b4b !important;
+  .desktop-important-launcher-star {{ font-size:19px !important; }}
+  .desktop-important-launcher-count {{
+    margin-left:auto !important;
+    min-width:25px !important;
+    height:25px !important;
+    font-size:11.5px !important;
   }}
+
+  .desktop-important-drawer {{
+    width:min(500px,40vw) !important;
+  }}
+  .desktop-important-drawer-head {{
+    min-height:78px !important;
+    padding:15px 18px !important;
+  }}
+  .desktop-important-drawer-title {{ font-size:19px !important; }}
+  .desktop-important-drawer-sub {{ font-size:12.5px !important; line-height:1.45 !important; }}
+  .desktop-important-publisher {{ font-size:12.5px !important; }}
+  .desktop-important-headline {{ font-size:16.5px !important; line-height:1.48 !important; }}
+
+  /* Keep the back-to-top button clear of the Important drawer launcher. */
+  .desktop-back-to-top {{ right:24px !important; bottom:24px !important; }}
 }}
-@media (max-width:380px) {{
-  #continent-rail .continent-button-name {{ font-size:6.7px !important; }}
-  #continent-rail .continent-button-count {{ font-size:7.7px !important; }}
-}}
+
+
+
+/* 2026-08-25 OLD WORKING MAP VISIBILITY RESTORE — no redesign */
+#country-map-label-layer.country-map-label-layer {
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:none !important;
+  z-index:80 !important;
+}
+#continent-rail {
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  z-index:90 !important;
+}
+.precise-country-label {
+  display:inline-flex !important;
+  visibility:visible;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
 </style>
 </head>
 <body>
@@ -19354,20 +19782,6 @@ main {{
 
     <div class="country-map-content">
       <div class="country-map-visual globe-mode" aria-label="대륙별 국가 기사 2D 세계지도">
-      <div id="continent-rail" class="continent-rail-static" aria-label="대륙 선택">
-        <div class="continent-rail-head">
-          <span class="continent-rail-title">대륙별</span>
-          <button type="button" class="continent-all-button active" data-continent="ALL">전체</button>
-        </div>
-        <div class="continent-rail-scroll">
-          <button type="button" class="continent-button" data-continent="NA"><span class="continent-button-name">북미</span><span class="continent-button-count">0건</span></button>
-          <button type="button" class="continent-button" data-continent="SA"><span class="continent-button-name">남미</span><span class="continent-button-count">0건</span></button>
-          <button type="button" class="continent-button" data-continent="EU"><span class="continent-button-name">유럽</span><span class="continent-button-count">0건</span></button>
-          <button type="button" class="continent-button" data-continent="AS"><span class="continent-button-name">아시아</span><span class="continent-button-count">0건</span></button>
-          <button type="button" class="continent-button" data-continent="MEA"><span class="continent-button-name">중동·아프리카</span><span class="continent-button-count">0건</span></button>
-          <button type="button" class="continent-button" data-continent="OC"><span class="continent-button-name">오세아니아</span><span class="continent-button-count">0건</span></button>
-        </div>
-      </div>
       <div id="globe-stage" class="globe-stage" aria-label="대륙 선택형 2D 세계지도">
         <div id="globe-sphere" class="globe-sphere">
           <canvas id="globe-canvas" class="globe-canvas" width="420" height="420" aria-hidden="true"></canvas>
@@ -20178,7 +20592,7 @@ main {{
 
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
-  <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
+  <footer>기사 카드를 누르면 원문으로 이동합니다. ‘☆ 중요’을 누르면 중요 기사에 저장됩니다.</footer>
 </div>
 <script>
 
@@ -20335,14 +20749,14 @@ function applyState(card){{
 
   const importantButton=card.querySelector(".important-button");
   if(importantButton){{
-    importantButton.textContent=isImportant ? "중요 ✓" : "중요";
+    importantButton.textContent=isImportant ? "★ 중요" : "☆ 중요";
     importantButton.setAttribute(
       "aria-label",
       isImportant ? "중요 기사 표시 해제" : "중요 기사로 표시"
     );
     importantButton.title=isImportant
       ? "누르면 중요 표시가 해제됩니다."
-      : "누르면 상단 중요 기사에 모아집니다.";
+      : "누르면 중요 기사에 저장됩니다.";
   }}
 
   if(isRead){{
@@ -20419,7 +20833,6 @@ document.querySelectorAll(".preview-card").forEach(card=>{{
       }});
 
       renderFavorites();
-      revealDesktopImportantArea();
     }});
   }}
 
@@ -21824,10 +22237,24 @@ document.querySelectorAll(".tab-button").forEach(button => {{
     const panel = document.getElementById("tab-" + label);
     if(!panel) return;
 
-    document.querySelectorAll(".tab-button").forEach(item => item.classList.remove("active"));
+    const wasActive = button.classList.contains("active") && panel.classList.contains("active");
+
+    // Same-tab click toggles the currently open article panel closed/open.
+    if(wasActive) {{
+      button.classList.remove("active");
+      panel.classList.remove("active");
+      button.setAttribute("aria-expanded", "false");
+      return;
+    }}
+
+    document.querySelectorAll(".tab-button").forEach(item => {{
+      item.classList.remove("active");
+      item.setAttribute("aria-expanded", "false");
+    }});
     document.querySelectorAll(".tab-panel").forEach(item => item.classList.remove("active"));
 
     button.classList.add("active");
+    button.setAttribute("aria-expanded", "true");
     panel.classList.add("active");
 
     const periodDate = panel.getAttribute("data-report-date");
@@ -21964,7 +22391,7 @@ function getCountryContinent(code){{
 }}
 
 function ensure2DContinentRail(){{
-  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
+  const visual=document.querySelector('.country-map-visual.globe-mode');
   if(!visual)return null;
   visual.classList.add('two-d-mode');
   let rail=document.getElementById('continent-rail');
@@ -22031,7 +22458,7 @@ function renderContinentRail2D(items){{
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const {{ articleCounts, countryCounts }} = getContinentCounts(items);
-  const order=['NA','SA','EU','AS','MEA','OC'];
+  const order=['NA','EU','AS','MEA','OC'];
   const activeMeta = CONTINENT_META[activeContinentFilter] || CONTINENT_META.ALL;
   rail.innerHTML = `
     <div class="continent-rail-head">
@@ -22300,7 +22727,7 @@ function renderContinentRail2D(items){{
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const {{articleCounts}}=getContinentCounts(items);
-  const order=['NA','SA','EU','AS','MEA','OC'];
+  const order=['NA','EU','AS','MEA','OC'];
   rail.innerHTML=`
     <div class="continent-rail-head">
       <span class="continent-rail-title">대륙별</span>
@@ -22371,7 +22798,7 @@ function computeCleanLabelPositions(items, viewport){{
 }}
 
 function renderHtmlCountryLabels(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
+  const visual=document.querySelector('.country-map-visual.globe-mode');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -22487,7 +22914,7 @@ function renderContinentRail2D(items){{
   const rail=ensure2DContinentRail();
   if(!rail)return;
   const {{articleCounts}}=getContinentCounts(items);
-  const order=['NA','SA','EU','AS','MEA','OC'];
+  const order=['NA','EU','AS','MEA','OC'];
   const selected=activeContinentFilter!=='ALL';
   rail.innerHTML=`
     <div class="continent-rail-head">
@@ -22654,7 +23081,7 @@ function addPreciseConnector(layer,ax,ay,box){{
 }}
 
 function renderHtmlCountryLabels(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
+  const visual=document.querySelector('.country-map-visual.globe-mode');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -22749,7 +23176,7 @@ function getCountryMapAnchor(item){{
 const FINAL_CONTINENT_DOCK_ORDER = ['NA','SA','EU','AS','MEA','OC'];
 
 function ensureMapStateChip(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
+  const visual=document.querySelector('.country-map-visual.globe-mode');
   if(!visual)return;
   let chip=document.getElementById('map-continent-state');
   if(!chip){{
@@ -22776,7 +23203,7 @@ function ensureMapStateChip(items){{
 }}
 
 function renderContinentRail2D(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
+  const visual=document.querySelector('.country-map-visual.globe-mode');
   if(!visual)return;
   let rail=document.getElementById('continent-rail');
   if(!rail){{rail=document.createElement('div');rail.id='continent-rail';visual.appendChild(rail);}}
@@ -22883,7 +23310,7 @@ function addExactConnector(layer,ax,ay,box){{
 }}
 
 function renderHtmlCountryLabels(items){{
-  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
+  const visual=document.querySelector('.country-map-visual.globe-mode');
   const svg=document.querySelector('.world-map-inline.globe-texture-source');
   const layer=document.getElementById('country-map-label-layer');
   if(!visual||!svg||!layer)return;
@@ -23138,7 +23565,7 @@ function layoutAndRenderCountryMap(){{
 
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
-window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));\nif (window.matchMedia('(max-width:899px)').matches) {{\n  window.addEventListener('load', () => {{\n    requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));\n    setTimeout(layoutAndRenderCountryMap, 120);\n  }});\n}}\n
+window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
 
 
 
@@ -24284,7 +24711,613 @@ function finalResolveRenderedCountryOverlaps(layer,bounds){{
     const code = el.dataset.countryCode;
     const item = collect2DCountryItems().find(v=>v.code===code);
     if(!item) return null;
-    const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
+    const visual=document.querySelector('.country-map-visual.globe-mode');
+    const svg=document.querySelector('.world-map-inline.globe-texture-source');
+    if(!visual||!svg) return null;
+
+    const vp=getExactMapViewport(svg,visual);
+    const p=getCountryMapAnchor(item);
+    const visualRect=visual.getBoundingClientRect();
+
+    /* getExactMapViewport()는 visual 기준 좌표이고,
+       label rect는 layer 기준 좌표이므로 같은 좌표계로 변환 */
+    const screenX=visualRect.left + vp.left + (p.x/100)*vp.width;
+    const screenY=visualRect.top + vp.top + (p.y/100)*vp.height;
+
+    return {{
+      x:screenX-layerRect.left,
+      y:screenY-layerRect.top
+    }};
+  }};
+
+  /* 기사 수/국가 순서는 기존 렌더 순서를 존중.
+     각 버튼은 자기 나라 근처에 두되, 실제 DOM 기준으로 겹치면
+     가까운 빈자리로만 미세 이동합니다. */
+  const placed = [];
+  labels.forEach((el,index)=>{{
+    let box = localRect(el);
+    const anchor = anchorFor(el);
+    if(!anchor){{
+      placed.push(box);
+      return;
+    }}
+
+    const overlapsPlaced = (candidate,pad=6) =>
+      placed.some(r=>finalRectsOverlap(candidate,r,pad));
+
+    if(!overlapsPlaced(box,6)){{
+      placed.push(box);
+      return;
+    }}
+
+    const startLeft = parseFloat(el.style.left) || box.left;
+    const startTop = parseFloat(el.style.top) || box.top;
+
+    const candidates = [];
+    const radii = [6,10,14,18,24,30,36];
+    const dirs = [
+      [1,0],[-1,0],[0,-1],[0,1],
+      [1,-1],[1,1],[-1,-1],[-1,1]
+    ];
+
+    for(const r of radii){{
+      for(const [dx,dy] of dirs){{
+        let left = startLeft + dx*r;
+        let top = startTop + dy*r;
+        left = Math.max(bounds.left, Math.min(bounds.right-box.width,left));
+        top = Math.max(bounds.top, Math.min(bounds.bottom-box.height,top));
+        const candidate = {{
+          left,top,
+          right:left+box.width,
+          bottom:top+box.height,
+          width:box.width,
+          height:box.height
+        }};
+        if(overlapsPlaced(candidate,6)) continue;
+        const cx=left+box.width/2;
+        const cy=top+box.height/2;
+        const distance=Math.hypot(cx-anchor.x,cy-anchor.y);
+
+        /* 국가 버튼은 자기 나라 주변에만 유지.
+           한국/일본은 특히 동아시아 실제 위치에서 멀리 이동 금지. */
+        const maxDistance = (el.dataset.countryCode==='KR' || el.dataset.countryCode==='JP')
+          ? 52
+          : 72;
+        if(distance > maxDistance) continue;
+
+        candidates.push({{...candidate,distance}});
+      }}
+    }}
+
+    if(candidates.length){{
+      candidates.sort((a,b)=>a.distance-b.distance);
+      const best=candidates[0];
+      el.style.left=`${{best.left}}px`;
+      el.style.top=`${{best.top}}px`;
+      box=best;
+    }}
+    /* 가까운 빈자리가 없으면 원래의 국가 주변 위치를 유지 */
+    placed.push(box);
+  }});
+}}
+
+
+function renderHtmlCountryLabels(items){{
+  const visual = document.querySelector('.country-map-visual.globe-mode');
+  const svg = document.querySelector('.world-map-inline.globe-texture-source');
+  const layer = document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer) return;
+  layer.innerHTML='';
+
+  /* ============================================================
+     2026-08-25 MAP COUNTRY LABELS RESTORED FROM WORKING 2026-08-22 BUILD
+     ============================================================ */
+function maybeInitializeContinentFilter(items){{
+  if(activeContinentFilter && activeContinentFilter!=='ALL')return;
+  const {{articleCounts}}=getContinentCounts(items);
+  const ranked=Object.entries(articleCounts)
+    .filter(([key,value])=>key!=='ALL' && Number(value)>0)
+    .sort((a,b)=>Number(b[1])-Number(a[1]));
+  if(ranked.length)activeContinentFilter=ranked[0][0];
+}}
+
+function renderHtmlCountryLabels(items){{
+  const visual=document.querySelector('.country-map-visual.globe-mode');
+  const svg=document.querySelector('.world-map-inline.globe-texture-source');
+  const layer=document.getElementById('country-map-label-layer');
+  if(!visual || !svg || !layer)return;
+  layer.innerHTML='';
+  layer.style.setProperty('display','block','important');
+  layer.style.setProperty('visibility','visible','important');
+  layer.style.setProperty('opacity','1','important');
+  layer.style.setProperty('pointer-events','none','important');
+  layer.style.setProperty('z-index','80','important');
+  if(activeContinentFilter==='ALL')return;
+
+  const baseCountries=items.filter(v=>v.continent===activeContinentFilter && v.count>0);
+  if(!baseCountries.length)return;
+  const countries=(typeof finalSortCountriesForMap==='function')
+    ? finalSortCountriesForMap(baseCountries,activeContinentFilter)
+    : baseCountries.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
+
+  const vp=(typeof getExactMapViewport==='function')
+    ? getExactMapViewport(svg,visual)
+    : getPreciseMapViewport(svg,visual);
+  const dock=document.getElementById('continent-rail');
+  const vr=visual.getBoundingClientRect();
+  const dr=dock?.getBoundingClientRect();
+  const dockTop=dr ? dr.top-vr.top : visual.clientHeight-42;
+  const bounds={{
+    left:Math.max(12,vp.left+6),
+    top:Math.max(10,vp.top+6),
+    right:Math.min(vp.left+vp.width-6,visual.clientWidth-10),
+    bottom:Math.min(dockTop-10,vp.top+vp.height-6)
+  }};
+
+  const anchors=countries.map(item=>{{
+    const p=getCountryMapAnchor(item);
+    return {{code:item.code,x:vp.left+(p.x/100)*vp.width,y:vp.top+(p.y/100)*vp.height}};
+  }});
+  const occupied=[];
+  for(const item of countries){{
+    const anchor=anchors.find(v=>v.code===item.code);
+    if(!anchor)continue;
+    const ax=anchor.x, ay=anchor.y;
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='precise-country-label'+(activeCountryFilter===item.code?' active':'');
+    btn.dataset.countryCode=item.code;
+    btn.style.visibility='hidden';
+    btn.style.pointerEvents='auto';
+    btn.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    btn.setAttribute('aria-label',`${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
+    layer.appendChild(btn);
+    const w=Math.ceil(btn.getBoundingClientRect().width || 72);
+    const h=Math.ceil(btn.getBoundingClientRect().height || 24);
+    const box=(typeof finalChooseLabelBox==='function')
+      ? finalChooseLabelBox(w,h,ax,ay,bounds,occupied,item.code,anchors)
+      : {{left:Math.max(bounds.left,Math.min(bounds.right-w,ax+10)),top:Math.max(bounds.top,Math.min(bounds.bottom-h,ay-h/2)),right:0,bottom:0,w,h}};
+    if(!box.right)box.right=box.left+w;
+    if(!box.bottom)box.bottom=box.top+h;
+    occupied.push(box);
+    btn.style.left=`${{box.left}}px`;
+    btn.style.top=`${{box.top}}px`;
+    btn.style.visibility='visible';
+    btn.style.opacity='1';
+    btn.style.zIndex='82';
+    btn.addEventListener('click',event=>{{event.preventDefault();event.stopPropagation();setCountryFilter(item.code);}});
+  }}
+  if(typeof finalResolveRenderedCountryOverlaps==='function'){{
+    requestAnimationFrame(()=>requestAnimationFrame(()=>finalResolveRenderedCountryOverlaps(layer,bounds)));
+  }}
+}}
+
+function layoutAndRenderCountryMap(){{
+  const items=collect2DCountryItems();
+  if(!items.length)return;
+  maybeInitializeContinentFilter(items);
+  renderContinentRail2D(items);
+  renderSelectedContinentHighlight();
+  if(typeof ensureMapStateChip==='function')ensureMapStateChip(items);
+  renderHtmlCountryLabels(items);
+  const ranking=document.getElementById('continent-country-ranking');
+  if(ranking){{ranking.hidden=true;ranking.innerHTML='';}}
+  const caption=document.querySelector('.country-map-caption');
+  if(caption)caption.style.display='none';
+  const note=document.getElementById('country-filter-note');
+  if(note)note.textContent='지도에서 국기 · 국가명 · 기사건수를 확인하고 국가를 누르면 해당 기사만 표시됩니다';
+}}
+
+function forceCountryMapLabelRefresh(){{requestAnimationFrame(()=>requestAnimationFrame(layoutAndRenderCountryMap));}}
+forceCountryMapLabelRefresh();
+window.addEventListener('load',()=>{{forceCountryMapLabelRefresh();setTimeout(forceCountryMapLabelRefresh,250);setTimeout(forceCountryMapLabelRefresh,900);}},{{once:true}});
+window.addEventListener('resize',forceCountryMapLabelRefresh);
+
+/* 2026-08-25 PC WORKSPACE UX - desktop only */
+let desktopArticleMode = "all";
+const desktopDensityKey = "nuclearDailyBriefDesktopComfortView";
+function desktopIsActive() {{ return window.matchMedia("(min-width:1200px)").matches; }}
+function getDesktopVisibleCards() {{
+  const panel=activePanel(); if(!panel)return [];
+  return [...panel.querySelectorAll(".preview-card")].filter(card=>{{
+    if(card.style.display==="none")return false;
+    const group=card.closest(".news-group"); return !group||group.style.display!=="none";
+  }});
+}}
+function updateDesktopWorkspaceMetrics() {{
+  if(!desktopIsActive())return; const panel=activePanel(); if(!panel)return;
+  const all=[...panel.querySelectorAll(".preview-card")]; const visible=getDesktopVisibleCards();
+  const unread=all.filter(card=>!card.classList.contains("read")).length;
+  const important=all.filter(card=>card.classList.contains("important")).length;
+  const a=document.getElementById("desktop-visible-count"),b=document.getElementById("desktop-unread-count"),c=document.getElementById("desktop-important-count");
+  if(a)a.textContent=String(visible.length); if(b)b.textContent=String(unread); if(c)c.textContent=String(important);
+}}
+function setDesktopArticleMode(mode) {{
+  desktopArticleMode=["all","unread","important"].includes(mode)?mode:"all";
+  document.querySelectorAll(".desktop-mode-button").forEach(button=>button.classList.toggle("active",button.dataset.desktopMode===desktopArticleMode));
+  if(typeof filterArticles==="function")filterArticles();
+}}
+function applyDesktopDensity(comfort) {{
+  document.body.classList.toggle("desktop-comfort-view",comfort); localStorage.setItem(desktopDensityKey,comfort?"1":"0");
+  const button=document.getElementById("desktop-density-toggle"); if(button){{button.textContent=comfort?"2열 보기":"넓게 보기";button.setAttribute("aria-pressed",String(comfort));}}
+}}
+function rebuildDesktopGroupNavigator() {{
+  if(!desktopIsActive())return; const list=document.getElementById("desktop-group-navigator-list"),panel=activePanel(); if(!list||!panel)return;
+  list.innerHTML="";
+  [...panel.querySelectorAll(".news-group")].filter(group=>group.style.display!=="none").forEach((group,index)=>{{
+    const name=group.querySelector(".group-name")?.textContent?.trim()||`그룹 ${{index+1}}`;
+    const count=[...group.querySelectorAll(".preview-card")].filter(card=>card.style.display!=="none").length; if(count<=0)return;
+    const button=document.createElement("button"); button.type="button"; button.className="desktop-group-jump"; button.textContent=`${{name}} · ${{count}}`; button.title=`${{name}} 기사로 이동`;
+    button.addEventListener("click",()=>{{group.classList.remove("collapsed");const title=group.querySelector(".group-title");if(title)title.setAttribute("aria-expanded","true");group.scrollIntoView({{behavior:"smooth",block:"start"}});}}); list.appendChild(button);
+  }});
+}}
+function initDesktopWorkspace() {{
+  if(!desktopIsActive()||document.getElementById("desktop-workspace-bar"))return; const main=document.querySelector("main"); if(!main)return;
+  const bar=document.createElement("section"); bar.id="desktop-workspace-bar"; bar.className="desktop-workspace-bar"; bar.setAttribute("aria-label","PC 빠른 보기 도구");
+  bar.innerHTML=`<div class="desktop-workspace-summary"><span class="desktop-workspace-title">PC 빠른 보기</span><span class="desktop-metric">표시 <strong id="desktop-visible-count">0</strong></span><span class="desktop-metric">안읽음 <strong id="desktop-unread-count">0</strong></span><span class="desktop-metric">중요 <strong id="desktop-important-count">0</strong></span></div><div class="desktop-workspace-actions"><button class="desktop-mode-button active" type="button" data-desktop-mode="all">전체</button><button class="desktop-mode-button" type="button" data-desktop-mode="unread">안읽음</button><button class="desktop-mode-button" type="button" data-desktop-mode="important">중요기사</button><button id="desktop-density-toggle" class="desktop-density-button" type="button" aria-pressed="false">넓게 보기</button><span class="desktop-shortcut-hint"><span class="shortcut-key">/</span>검색 <span class="shortcut-key">J</span><span class="shortcut-key">K</span>이동</span></div>`;
+  main.insertAdjacentElement("beforebegin",bar);
+  bar.querySelectorAll(".desktop-mode-button").forEach(button=>button.addEventListener("click",()=>setDesktopArticleMode(button.dataset.desktopMode||"all")));
+  document.getElementById("desktop-density-toggle")?.addEventListener("click",()=>applyDesktopDensity(!document.body.classList.contains("desktop-comfort-view")));
+  const nav=document.createElement("aside"); nav.id="desktop-group-navigator"; nav.className="desktop-group-navigator"; nav.innerHTML=`<div class="desktop-group-navigator-title">카테고리 바로가기</div><div id="desktop-group-navigator-list" class="desktop-group-navigator-list"></div>`; document.body.appendChild(nav);
+  applyDesktopDensity(localStorage.getItem(desktopDensityKey)==="1"); updateDesktopWorkspaceMetrics(); rebuildDesktopGroupNavigator();
+}}
+function desktopMoveArticle(direction) {{
+  if(!desktopIsActive())return; const cards=getDesktopVisibleCards(); if(!cards.length)return; const current=document.activeElement?.closest?.(".preview-card"); let index=current?cards.indexOf(current):-1;
+  if(direction>0)index=Math.min(cards.length-1,index+1);else index=index<=0?0:index-1; const target=cards[index]; if(target){{target.focus({{preventScroll:true}});target.scrollIntoView({{behavior:"smooth",block:"center"}});}}
+}}
+document.addEventListener("keydown",event=>{{
+  if(!desktopIsActive())return; const tag=document.activeElement?.tagName?.toLowerCase(); const editing=tag==="input"||tag==="textarea"||document.activeElement?.isContentEditable;
+  if(event.key==="/"&&!editing){{event.preventDefault();document.getElementById("article-search")?.focus();return;}} if(editing)return;
+  if(event.key==="j"||event.key==="J"){{event.preventDefault();desktopMoveArticle(1);}} if(event.key==="k"||event.key==="K"){{event.preventDefault();desktopMoveArticle(-1);}}
+}});
+function initDesktopBackToTop() {{
+  let button=document.getElementById("desktop-back-to-top");
+  if(!desktopIsActive()){{
+    if(button)button.remove();
+    return;
+  }}
+  if(!button){{
+    button=document.createElement("button");
+    button.id="desktop-back-to-top";
+    button.className="desktop-back-to-top";
+    button.type="button";
+    button.setAttribute("aria-label","페이지 맨 위로 이동");
+    button.innerHTML=`<span class="desktop-back-to-top-arrow">↑</span><span>맨 위로</span>`;
+    button.addEventListener("click",()=>window.scrollTo({{top:0,behavior:"smooth"}}));
+    document.body.appendChild(button);
+  }}
+  const update=()=>{{
+    if(!desktopIsActive()){{button.classList.remove("visible");return;}}
+    button.classList.toggle("visible",window.scrollY>520);
+  }};
+  if(!window.__desktopBackToTopBound){{
+    window.addEventListener("scroll",update,{{passive:true}});
+    window.__desktopBackToTopBound=true;
+  }}
+  update();
+}}
+function initDesktopExperience() {{
+  initDesktopWorkspace();
+  initDesktopBackToTop();
+}}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopExperience,{{once:true}});else initDesktopExperience();
+window.addEventListener("resize",()=>{{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();initDesktopBackToTop();}});
+
+
+/* 2026-08-25 DESKTOP IMPORTANT ARTICLE DRAWER */
+function getDesktopImportantCards() {{
+  const panel=activePanel();
+  if(!panel)return [];
+  return [...panel.querySelectorAll(".preview-card")].filter(card=>importantArticles.has(card.dataset.url));
+}}
+function renderDesktopImportantDrawer() {{
+  if(!desktopIsActive())return;
+  const list=document.getElementById("desktop-important-drawer-list");
+  const countNodes=document.querySelectorAll(".desktop-important-live-count");
+  const cards=getDesktopImportantCards();
+  countNodes.forEach(node=>node.textContent=String(cards.length));
+  if(!list)return;
+  list.innerHTML="";
+  if(!cards.length){{
+    list.innerHTML='<div class="desktop-important-empty">중요 표시한 기사가 아직 없습니다.<br>기사 카드의 <strong>중요</strong> 버튼을 누르면 여기에 바로 저장됩니다.</div>';
+    return;
+  }}
+  cards.forEach(card=>{{
+    const item=document.createElement("div");
+    item.className="desktop-important-item";
+    item.innerHTML=`<div><div class="desktop-important-publisher">${{card.dataset.publisher||""}}</div><div class="desktop-important-headline">${{card.dataset.title||""}}</div></div><button class="desktop-important-remove" type="button">해제</button>`;
+    item.addEventListener("click",event=>{{if(!event.target.closest(".desktop-important-remove"))openArticle(card);}});
+    item.querySelector(".desktop-important-remove")?.addEventListener("click",event=>{{
+      event.preventDefault(); event.stopPropagation();
+      importantArticles.delete(card.dataset.url); saveState();
+      document.querySelectorAll(".preview-card").forEach(cardItem=>{{if(cardItem.dataset.url===card.dataset.url)applyState(cardItem);}});
+      renderFavorites(); renderDesktopImportantDrawer(); updateDesktopWorkspaceMetrics();
+      showImportantToast("중요 표시를 해제했습니다.");
+    }});
+    list.appendChild(item);
+  }});
+}}
+function openDesktopImportantDrawer() {{
+  if(!desktopIsActive())return;
+  document.getElementById("desktop-important-drawer")?.classList.add("open");
+  document.getElementById("desktop-important-scrim")?.classList.add("open");
+  renderDesktopImportantDrawer();
+}}
+function closeDesktopImportantDrawer() {{
+  document.getElementById("desktop-important-drawer")?.classList.remove("open");
+  document.getElementById("desktop-important-scrim")?.classList.remove("open");
+}}
+function initDesktopImportantDrawer() {{
+  if(!desktopIsActive()){{
+    document.getElementById("desktop-important-launcher")?.remove();
+    document.getElementById("desktop-important-drawer")?.remove();
+    document.getElementById("desktop-important-scrim")?.remove();
+    return;
+  }}
+  if(document.getElementById("desktop-important-drawer")){{renderDesktopImportantDrawer();return;}}
+  const launcher=document.createElement("button");
+  launcher.id="desktop-important-launcher";
+  launcher.className="desktop-important-launcher";
+  launcher.type="button";
+  launcher.innerHTML='<span class="desktop-important-launcher-star">★</span><span>중요기사 보관함</span><span class="desktop-important-launcher-count desktop-important-live-count">0</span>';
+  launcher.addEventListener("click",openDesktopImportantDrawer);
+  document.body.appendChild(launcher);
+
+  const scrim=document.createElement("div");
+  scrim.id="desktop-important-scrim"; scrim.className="desktop-important-scrim";
+  scrim.addEventListener("click",closeDesktopImportantDrawer);
+  document.body.appendChild(scrim);
+
+  const drawer=document.createElement("aside");
+  drawer.id="desktop-important-drawer"; drawer.className="desktop-important-drawer";
+  drawer.setAttribute("aria-label","중요기사 보관함");
+  drawer.innerHTML=`<div class="desktop-important-drawer-head"><div><div class="desktop-important-drawer-title">★ 중요기사 <span class="desktop-important-live-count">0</span>건</div><div class="desktop-important-drawer-sub">기사의 ★ 중요 버튼을 누르면 이 보관함에 바로 저장됩니다.</div></div><button class="desktop-important-close" type="button" aria-label="중요기사 보관함 닫기">×</button></div><div id="desktop-important-drawer-list" class="desktop-important-drawer-list"></div>`;
+  drawer.querySelector(".desktop-important-close")?.addEventListener("click",closeDesktopImportantDrawer);
+  document.body.appendChild(drawer);
+  renderDesktopImportantDrawer();
+}}
+
+document.addEventListener("click",event=>{{
+  const button=event.target.closest?.(".important-button");
+  if(!button||!desktopIsActive())return;
+  const card=button.closest(".preview-card");
+  setTimeout(()=>{{
+    renderDesktopImportantDrawer();
+    updateDesktopWorkspaceMetrics();
+    if(card?.classList.contains("important")){{
+      const launcher=document.getElementById("desktop-important-launcher");
+      launcher?.classList.remove("desktop-important-saved-flash");
+      void launcher?.offsetWidth;
+      launcher?.classList.add("desktop-important-saved-flash");
+      openDesktopImportantDrawer();
+    }}
+  }},0);
+}});
+
+document.addEventListener("keydown",event=>{{
+  if(event.key==="Escape")closeDesktopImportantDrawer();
+}});
+
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopImportantDrawer,{{once:true}});else initDesktopImportantDrawer();
+window.addEventListener("resize",initDesktopImportantDrawer);
+
+
+/* ============================================================
+   2026-08-25 RESTORE EXACT PREVIOUSLY WORKING MAP RUNTIME
+   Source: collect_news_FINAL_KR_JP_ACTUAL_MAP_NEARBY_20260822.py
+   No redesign: restore prior continent tabs + country flag/name/count map behavior.
+   ============================================================ */
+/* ============================================================
+   2026-08-21 FINAL OVERRIDE — MEA EASTWARD HIGHLIGHT + NEAR COUNTRY LABELS
+   ============================================================ */
+function getContinentNativeRegion(code){{
+  const regions = {{
+    NA:{{ points:'8,40 160,28 286,56 352,106 360,182 338,246 274,274 214,278 158,258 110,224 62,182 24,126' }},
+    SA:{{ points:'248,190 316,188 370,214 404,262 414,318 406,374 388,430 358,486 318,496 288,460 272,412 262,358 256,304 250,248' }},
+    EU:{{ points:'390,54 458,48 530,60 592,86 620,120 606,154 560,166 514,160 468,146 424,120 394,88' }},
+    AS:{{ points:'620,46 660,44 764,60 892,82 984,126 998,198 972,242 928,266 872,272 816,268 772,260 732,246 704,238 686,246 670,270 662,302 650,322 640,300 636,270 634,236 634,198 632,156 628,112 624,78' }},
+    /* 중동·아프리카는 아라비아반도 쪽으로 더 넓게 잡아 중동이 빠지지 않게 조정 */
+    MEA:{{ points:'386,144 468,146 550,164 618,196 670,236 712,286 728,346 716,410 680,462 626,494 558,496 500,484 458,454 426,408 406,352 392,292 384,230' }},
+    OC:{{ points:'736,298 798,286 874,304 936,344 956,392 930,438 878,454 820,444 772,406 744,354' }}
+  }};
+  return regions[code] || null;
+}}
+
+const FINAL_COUNTRY_LABEL_PRESETS = {{
+  US:[[18,-10],[20,8],[28,-24]],
+  CA:[[26,-16],[30,0],[22,14]],
+  BR:[[-26,10],[-32,-8],[-18,26]],
+  AR:[[18,14],[20,-6]],
+  CL:[[22,0],[24,16]],
+  CO:[[22,-8],[24,10]],
+  PE:[[20,10],[22,-6]],
+  GB:[[-34,-12],[-30,6],[-42,-24]],
+  FR:[[20,12],[22,-6],[-28,10]],
+  NL:[[24,-14],[26,2]],
+  BE:[[-30,8],[-28,-6]],
+  CH:[[24,12],[26,-4]],
+  SE:[[18,-18],[22,0]],
+  FI:[[22,-20],[24,-4]],
+  PL:[[24,-10],[26,8]],
+  CZ:[[30,-10],[30,8]],
+  SI:[[28,10],[28,-6]],
+  RO:[[24,-8],[26,8]],
+  BG:[[-34,6],[-34,-10]],
+  UA:[[32,-4],[34,10]],
+  TR:[[30,12],[30,-4]],
+  DK:[[20,-16],[26,-4]],
+  SK:[[30,10],[30,-6]],
+  RU:[[-8,-34],[18,-32],[30,-26],[-24,-24]],
+  AE:[[34,-4],[36,12],[28,22]],
+  SA:[[30,18],[34,0],[24,32]],
+  ZA:[[0,-26],[24,-8],[-24,-8]],
+  CN:[[0,4],[8,8],[-8,10],[0,16]],
+  IN:[[-42,18],[-46,34],[-32,2]],
+  VN:[[40,16],[38,30],[30,4]],
+  TH:[[32,18],[30,32],[26,4]],
+  MY:[[26,18],[30,4]],
+  SG:[[30,14],[34,0]],
+  KR:[[6,-2],[8,8],[-6,-2],[-8,8]],
+  JP:[[8,-4],[10,6],[-8,-4],[-10,8]],
+  AU:[[34,-4],[30,14]],
+}};
+
+const FINAL_CONTINENT_RENDER_ORDER = {{
+  EU:['GB','FR','NL','BE','CH','SE','FI','PL','CZ','SI','RO','BG','UA','TR','DK','SK'],
+  AS:['RU','KR','JP','CN','IN','VN','TH','MY','SG'],
+  MEA:['AE','SA','ZA'],
+  NA:['US','CA'],
+  SA:['BR','AR','CL','CO','PE'],
+  OC:['AU']
+}};
+
+function finalSortCountriesForMap(countries, continent){{
+  const pref = FINAL_CONTINENT_RENDER_ORDER[continent] || [];
+  return [...countries].sort((a,b)=>{{
+    const ai = pref.indexOf(a.code);
+    const bi = pref.indexOf(b.code);
+    const ap = ai < 0 ? 999 : ai;
+    const bp = bi < 0 ? 999 : bi;
+    return ap - bp || b.count - a.count || a.name.localeCompare(b.name,'ko');
+  }});
+}}
+
+function finalBoxIntersectsAnchor(box, anchors, selfCode){{
+  for(const pt of anchors){{
+    if(pt.code===selfCode) continue;
+    const pad = 6;
+    if(pt.x >= box.left-pad && pt.x <= box.right+pad && pt.y >= box.top-pad && pt.y <= box.bottom+pad){{
+      return true;
+    }}
+  }}
+  return false;
+}}
+
+function finalBuildBox(ax,ay,w,h,bounds,dx,dy){{
+  let left = ax + dx - w/2;
+  let top = ay + dy - h/2;
+  left = Math.max(bounds.left, Math.min(bounds.right - w, left));
+  top = Math.max(bounds.top, Math.min(bounds.bottom - h, top));
+  return {{ left, top, right:left+w, bottom:top+h, w, h }};
+}}
+
+function finalChooseLabelBox(w,h,ax,ay,bounds,occupied,itemCode,anchors){{
+  const presets = FINAL_COUNTRY_LABEL_PRESETS[itemCode] || [];
+  let best = null;
+
+  const consider = (box) => {{
+    const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 8);
+    const collisions = occupied.reduce((n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0);
+    const anchorHit = finalBoxIntersectsAnchor(box, anchors, itemCode) ? 1 : 0;
+    const dist = Math.hypot((box.left + w/2)-ax, (box.top + h/2)-ay);
+    const edgePenalty = (
+      box.left <= bounds.left+1 || box.top <= bounds.top+1 ||
+      box.right >= bounds.right-1 || box.bottom >= bounds.bottom-1
+    ) ? 10 : 0;
+    const score = collisions*1000000 + anchorHit*30000 + dist + edgePenalty;
+    if(!best || score < best.score) best = {{ ...box, score, collisions, anchorHit }};
+    return collisions===0 && anchorHit===0;
+  }};
+
+  for(const [dx,dy] of presets){{
+    for(const [nx,ny] of [[0,0],[0,-4],[0,4],[-4,0],[4,0],[-8,0],[8,0]]){{
+      const box = finalBuildBox(ax,ay,w,h,bounds,dx+nx,dy+ny);
+      if(consider(box)) return box;
+    }}
+  }}
+
+  const angles = [0,-20,20,-45,45,-70,70,180,-140,140,-110,110];
+  const radii = [18,26,34,44,56,70,86,104,124];
+  for(const r of radii){{
+    for(const deg of angles){{
+      const rad = deg * Math.PI / 180;
+      const dx = Math.cos(rad) * r;
+      const dy = Math.sin(rad) * r;
+      const box = finalBuildBox(ax,ay,w,h,bounds,dx,dy);
+      if(consider(box)) return box;
+    }}
+  }}
+
+  /* 마지막 안전장치:
+     국가 버튼끼리 절대 겹치지 않도록 지도 내부를 촘촘히 탐색합니다.
+     가까운 위치를 우선하되, collision=0인 위치만 선택합니다. */
+  const scanCandidates = [];
+  const stepX = 8;
+  const stepY = Math.max(10, h + 5);
+  for(let top=bounds.top; top<=bounds.bottom-h; top+=stepY){{
+    for(let left=bounds.left; left<=bounds.right-w; left+=stepX){{
+      const box={{left,top,right:left+w,bottom:top+h,w,h}};
+      const collisionPad = (itemCode==='KR' || itemCode==='JP') ? 12 : ((itemCode==='RU' || itemCode==='CN') ? 12 : 9);
+      const collisions = occupied.reduce(
+        (n,o)=>n + (labelBoxesOverlap(box,o,collisionPad) ? 1 : 0), 0
+      );
+      if(collisions>0) continue;
+      if(finalBoxIntersectsAnchor(box, anchors, itemCode)) continue;
+      const cx=left+w/2, cy=top+h/2;
+      const dist=Math.hypot(cx-ax,cy-ay);
+      scanCandidates.push({{...box,dist}});
+    }}
+  }}
+  if(scanCandidates.length){{
+    scanCandidates.sort((a,b)=>a.dist-b.dist);
+    return scanCandidates[0];
+  }}
+
+  /* 공간이 정말 부족한 극단적 경우에만 기존 best를 사용 */
+  return best || finalBuildBox(ax,ay,w,h,bounds,0,0);
+}}
+
+function finalAddConnector(layer, ax, ay, box){{
+  const cx = Math.max(box.left, Math.min(ax, box.right));
+  const cy = Math.max(box.top, Math.min(ay, box.bottom));
+  const dx = cx - ax;
+  const dy = cy - ay;
+  const len = Math.hypot(dx, dy);
+  if(len < 12) return;
+  const line = document.createElement('span');
+  line.className = 'precise-country-connector';
+  line.style.left = `${{ax}}px`;
+  line.style.top = `${{ay}}px`;
+  line.style.width = `${{Math.max(0, len - 3)}}px`;
+  line.style.transform = `rotate(${{Math.atan2(dy,dx)*180/Math.PI}}deg)`;
+  line.style.opacity = '0.65';
+  layer.appendChild(line);
+}}
+
+
+function finalRectsOverlap(a,b,pad=4){{
+  return !(
+    a.right + pad <= b.left ||
+    a.left >= b.right + pad ||
+    a.bottom + pad <= b.top ||
+    a.top >= b.bottom + pad
+  );
+}}
+
+
+
+function finalResolveRenderedCountryOverlaps(layer,bounds){{
+  const labels = [...layer.querySelectorAll('.precise-country-label[data-country-code]')];
+  if(labels.length < 2) return;
+
+  const layerRect = layer.getBoundingClientRect();
+  const localRect = (el) => {{
+    const r = el.getBoundingClientRect();
+    return {{
+      left:r.left-layerRect.left,
+      top:r.top-layerRect.top,
+      right:r.right-layerRect.left,
+      bottom:r.bottom-layerRect.top,
+      width:r.width,
+      height:r.height
+    }};
+  }};
+
+  const anchorFor = (el) => {{
+    const code = el.dataset.countryCode;
+    const item = collect2DCountryItems().find(v=>v.code===code);
+    if(!item) return null;
+    const visual=document.querySelector('.country-map-visual.globe-mode');
     const svg=document.querySelector('.world-map-inline.globe-texture-source');
     if(!visual||!svg) return null;
 
@@ -24476,131 +25509,6 @@ function layoutAndRenderCountryMap(){{
 requestAnimationFrame(() => requestAnimationFrame(layoutAndRenderCountryMap));
 window.addEventListener('load', () => requestAnimationFrame(layoutAndRenderCountryMap), {{once:true}});
 window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCountryMap));
-
-
-
-
-/* 2026-08-25 FINAL MAP VISIBILITY + IMPORTANT UX FIX */
-function collect2DCountryItems(){{
-  const panel = activePanel();
-  if(!panel) return [];
-  const counts = {{}};
-  panel.querySelectorAll('.preview-card[data-country]').forEach(card=>{{
-    const code=(card.dataset.country||'').trim();
-    if(!code || code==='OTHER') return;
-    counts[code]=(counts[code]||0)+1;
-  }});
-  const items=[];
-  Object.entries(counts).forEach(([code,count])=>{{
-    if(count<=0) return;
-    const pin=document.querySelector(`#country-chip-rail .country-pin[data-country-filter="${{CSS.escape(code)}}"]`);
-    const meta=COUNTRY_GLOBE_META[code] || {{}};
-    const lon=Number.isFinite(meta.lon) ? meta.lon : Number(pin?.dataset.lon);
-    const lat=Number.isFinite(meta.lat) ? meta.lat : Number(pin?.dataset.lat);
-    if(!Number.isFinite(lon) || !Number.isFinite(lat)) return;
-    items.push({{
-      code,
-      name:meta.name || COUNTRY_NAMES[code] || code,
-      flag:meta.flag || pin?.querySelector('.flag')?.textContent || '🌐',
-      lon, lat, count,
-      continent:getCountryContinent(code)
-    }});
-  }});
-  return items.sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name,'ko'));
-}}
-
-function layoutAndRenderCountryMap(){{
-  const items=collect2DCountryItems();
-  const visual=document.querySelector('.country-map-visual.globe-mode') || document.querySelector('.country-map-visual');
-  if(!visual) return;
-  if(!activeContinentFilter) activeContinentFilter='ALL';
-  renderContinentRail2D(items);
-  const rail=document.getElementById('continent-rail');
-  if(rail) rail.style.display='block';
-  renderSelectedContinentHighlight();
-  ensureMapStateChip(items);
-  renderHtmlCountryLabels(items);
-  const layer=document.getElementById('country-map-label-layer');
-  if(layer) layer.style.display='block';
-  const ranking=document.getElementById('continent-country-ranking');
-  if(ranking){{ ranking.hidden=true; ranking.innerHTML=''; }}
-  const caption=document.querySelector('.country-map-caption');
-  if(caption) caption.style.display='none';
-  const note=document.getElementById('country-filter-note');
-  if(note) note.textContent=items.length
-    ? (activeContinentFilter==='ALL' ? '대륙을 선택하면 해당 국가를 지도에 표시합니다' : '국가를 누르면 해당 기사만 표시됩니다')
-    : '표시할 국가별 기사가 없습니다';
-}}
-
-function revealDesktopImportantArea(){{
-  if(!window.matchMedia('(min-width:900px)').matches) return;
-  const fav=document.getElementById('favorites-panel');
-  if(fav && !fav.hidden){{
-    fav.classList.add('desktop-important-flash');
-    setTimeout(()=>fav.classList.remove('desktop-important-flash'),900);
-  }}
-  if(typeof updateDesktopWorkspaceMetrics==='function') updateDesktopWorkspaceMetrics();
-}}
-
-/* 2026-08-25 PC WORKSPACE UX - desktop only */
-let desktopArticleMode = "all";
-const desktopDensityKey = "nuclearDailyBriefDesktopComfortView";
-function desktopIsActive() {{ return window.matchMedia("(min-width:900px)").matches; }}
-function getDesktopVisibleCards() {{
-  const panel=activePanel(); if(!panel)return [];
-  return [...panel.querySelectorAll(".preview-card")].filter(card=>{{
-    if(card.style.display==="none")return false;
-    const group=card.closest(".news-group"); return !group||group.style.display!=="none";
-  }});
-}}
-function updateDesktopWorkspaceMetrics() {{
-  if(!desktopIsActive())return; const panel=activePanel(); if(!panel)return;
-  const all=[...panel.querySelectorAll(".preview-card")]; const visible=getDesktopVisibleCards();
-  const unread=all.filter(card=>!card.classList.contains("read")).length;
-  const important=all.filter(card=>card.classList.contains("important")).length;
-  const a=document.getElementById("desktop-visible-count"),b=document.getElementById("desktop-unread-count"),c=document.getElementById("desktop-important-count");
-  if(a)a.textContent=String(visible.length); if(b)b.textContent=String(unread); if(c)c.textContent=String(important);
-}}
-function setDesktopArticleMode(mode) {{
-  desktopArticleMode=["all","unread","important"].includes(mode)?mode:"all";
-  document.querySelectorAll(".desktop-mode-button").forEach(button=>button.classList.toggle("active",button.dataset.desktopMode===desktopArticleMode));
-  if(typeof filterArticles==="function")filterArticles();
-}}
-function applyDesktopDensity(comfort) {{
-  document.body.classList.toggle("desktop-comfort-view",comfort); localStorage.setItem(desktopDensityKey,comfort?"1":"0");
-  const button=document.getElementById("desktop-density-toggle"); if(button){{button.textContent=comfort?"2열 보기":"넓게 보기";button.setAttribute("aria-pressed",String(comfort));}}
-}}
-function rebuildDesktopGroupNavigator() {{
-  if(!desktopIsActive())return; const list=document.getElementById("desktop-group-navigator-list"),panel=activePanel(); if(!list||!panel)return;
-  list.innerHTML="";
-  [...panel.querySelectorAll(".news-group")].filter(group=>group.style.display!=="none").forEach((group,index)=>{{
-    const name=group.querySelector(".group-name")?.textContent?.trim()||`그룹 ${{index+1}}`;
-    const count=[...group.querySelectorAll(".preview-card")].filter(card=>card.style.display!=="none").length; if(count<=0)return;
-    const button=document.createElement("button"); button.type="button"; button.className="desktop-group-jump"; button.textContent=`${{name}} · ${{count}}`; button.title=`${{name}} 기사로 이동`;
-    button.addEventListener("click",()=>{{group.classList.remove("collapsed");const title=group.querySelector(".group-title");if(title)title.setAttribute("aria-expanded","true");group.scrollIntoView({{behavior:"smooth",block:"start"}});}}); list.appendChild(button);
-  }});
-}}
-function initDesktopWorkspace() {{
-  if(!desktopIsActive()||document.getElementById("desktop-workspace-bar"))return; const main=document.querySelector("main"); if(!main)return;
-  const bar=document.createElement("section"); bar.id="desktop-workspace-bar"; bar.className="desktop-workspace-bar"; bar.setAttribute("aria-label","PC 빠른 보기 도구");
-  bar.innerHTML=`<div class="desktop-workspace-summary"><span class="desktop-workspace-title">PC 빠른 보기</span><span class="desktop-metric">표시 <strong id="desktop-visible-count">0</strong></span><span class="desktop-metric">안읽음 <strong id="desktop-unread-count">0</strong></span><span class="desktop-metric">중요 <strong id="desktop-important-count">0</strong></span></div><div class="desktop-workspace-actions"><button class="desktop-mode-button active" type="button" data-desktop-mode="all">전체</button><button class="desktop-mode-button" type="button" data-desktop-mode="unread">안읽음</button><button class="desktop-mode-button" type="button" data-desktop-mode="important">중요</button><button id="desktop-density-toggle" class="desktop-density-button" type="button" aria-pressed="false">넓게 보기</button><span class="desktop-shortcut-hint"><span class="shortcut-key">/</span>검색 <span class="shortcut-key">J</span><span class="shortcut-key">K</span>이동</span></div>`;
-  main.insertAdjacentElement("beforebegin",bar);
-  bar.querySelectorAll(".desktop-mode-button").forEach(button=>button.addEventListener("click",()=>setDesktopArticleMode(button.dataset.desktopMode||"all")));
-  document.getElementById("desktop-density-toggle")?.addEventListener("click",()=>applyDesktopDensity(!document.body.classList.contains("desktop-comfort-view")));
-  const nav=document.createElement("aside"); nav.id="desktop-group-navigator"; nav.className="desktop-group-navigator"; nav.innerHTML=`<div class="desktop-group-navigator-title">카테고리 바로가기</div><div id="desktop-group-navigator-list" class="desktop-group-navigator-list"></div>`; document.body.appendChild(nav);
-  applyDesktopDensity(localStorage.getItem(desktopDensityKey)==="1"); updateDesktopWorkspaceMetrics(); rebuildDesktopGroupNavigator();
-}}
-function desktopMoveArticle(direction) {{
-  if(!desktopIsActive())return; const cards=getDesktopVisibleCards(); if(!cards.length)return; const current=document.activeElement?.closest?.(".preview-card"); let index=current?cards.indexOf(current):-1;
-  if(direction>0)index=Math.min(cards.length-1,index+1);else index=index<=0?0:index-1; const target=cards[index]; if(target){{target.focus({{preventScroll:true}});target.scrollIntoView({{behavior:"smooth",block:"center"}});}}
-}}
-document.addEventListener("keydown",event=>{{
-  if(!desktopIsActive())return; const tag=document.activeElement?.tagName?.toLowerCase(); const editing=tag==="input"||tag==="textarea"||document.activeElement?.isContentEditable;
-  if(event.key==="/"&&!editing){{event.preventDefault();document.getElementById("article-search")?.focus();return;}} if(editing)return;
-  if(event.key==="j"||event.key==="J"){{event.preventDefault();desktopMoveArticle(1);}} if(event.key==="k"||event.key==="K"){{event.preventDefault();desktopMoveArticle(-1);}}
-}});
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initDesktopWorkspace,{{once:true}});else initDesktopWorkspace();
-window.addEventListener("resize",()=>{{if(desktopIsActive())initDesktopWorkspace();updateDesktopWorkspaceMetrics();}});
 
 </script>
 </body>
