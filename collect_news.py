@@ -1,4 +1,3 @@
-# EXCLUDE GARBLED / MOJIBAKE ARTICLE PREVIEWS 2026-08-26
 # THUMBNAIL 1PX LIGHT-GRAY BORDER 2026-08-26
 # NUCLEAR TAB COUNTRY-CLUSTER SORT 2026-08-26
 # FINAL FIX: US HOUSE FOREIGN AFFAIRS / COUPANG / KOREA INVESTMENT PRESSURE SAME-EVENT GROUPING 2026-08-26
@@ -9068,67 +9067,6 @@ def is_low_relevance_kepco_article(title: str, summary: str) -> bool:
     )
 
 
-
-def is_garbled_article_text(article: Article) -> bool:
-    """
-    원문 HTML 문자셋/메타 파싱 오류로 제목·미리보기가 깨진 기사만 보수적으로 제외합니다.
-
-    정상적인 영문 기술명, 숫자, 약어(KEPIC, SMR, AP1000 등)는 허용하고,
-    아래와 같이 '문장성이 거의 없고 깨진 기호/토큰이 과도한 경우'만 제외합니다.
-    """
-    title = html.unescape(article.title or "").strip()
-    desc = html.unescape(article.description or "").strip()
-
-    combined = f"{title} {desc}".strip()
-    if not combined:
-        return False
-
-    # 흔한 mojibake / 깨진 인코딩 흔적
-    mojibake_markers = (
-        " ", "ã", "â", "ð", "þ", "æ", "å", "ø",
-        "ì", "ë", "ê", "î", "ï", "ò", "ô", "ö",
-        "ù", "û", "ü", "ý", "ÿ",
-    )
-    mojibake_hits = sum(combined.count(ch) for ch in mojibake_markers)
-
-    # HTML/인코딩 오류에서 자주 보이는 의미 없는 짧은 토큰·기호 비율
-    tokens = re.findall(r"\S+", combined)
-    if not tokens:
-        return False
-
-    weird_tokens = 0
-    for tok in tokens:
-        stripped = re.sub(r"[가-힣A-Za-z0-9]+", "", tok)
-        # 기호가 토큰 절반 이상이거나, 알파벳/숫자가 무작위로 짧게 끊긴 형태
-        if len(tok) >= 2 and len(stripped) / max(len(tok), 1) >= 0.5:
-            weird_tokens += 1
-            continue
-        if re.fullmatch(r"(?:[A-Za-z]\d|\d[A-Za-z]){2,}", tok):
-            weird_tokens += 1
-
-    weird_ratio = weird_tokens / max(len(tokens), 1)
-
-    # 정상적인 문장성 확인: 한글 단어 또는 3자 이상 영단어
-    meaningful_words = re.findall(r"[가-힣]{2,}|[A-Za-z]{3,}", combined)
-    meaningful_ratio = len(meaningful_words) / max(len(tokens), 1)
-
-    # 제목/미리보기 모두 지나치게 깨졌을 때만 제외
-    if mojibake_hits >= 4 and meaningful_ratio < 0.55:
-        return True
-
-    if len(tokens) >= 8 and weird_ratio >= 0.32 and meaningful_ratio < 0.50:
-        return True
-
-    # 사용자가 확인한 것처럼 정상 키워드 일부만 남고 나머지가 깨진 형태
-    # 예: "20 KEPIC-Week ..." + 미리보기에 무의미한 문자/숫자 토큰이 연속
-    compact_desc = re.sub(r"\s+", " ", desc)
-    noisy_runs = re.findall(r"(?:\b[A-Za-z]{1,2}\b|\b\d{1,3}\b|[»«¼½¾ ])", compact_desc)
-    if len(desc) >= 40 and len(noisy_runs) >= 8 and meaningful_ratio < 0.55:
-        return True
-
-    return False
-
-
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
 
@@ -9138,7 +9076,6 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if not is_excluded_source(article.publisher, article.link, article.source_url)
         and not is_westinghouse_air_brake_article(article.title, article.description)
         and not is_khnp_elementary_article(article)
-        and not is_garbled_article_text(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
         and not (
