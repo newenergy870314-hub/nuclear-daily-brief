@@ -1,3 +1,4 @@
+# FINAL NUCLEAR TAB TITLE-SUBJECT COUNTRY SORT 2026-08-26
 # EXCLUDE GARBLED / MOJIBAKE ARTICLE PREVIEWS 2026-08-26
 # THUMBNAIL 1PX LIGHT-GRAY BORDER 2026-08-26
 # NUCLEAR TAB COUNTRY-CLUSTER SORT 2026-08-26
@@ -7358,21 +7359,192 @@ NUCLEAR_COUNTRY_SORT_RANK = {
 }
 
 
+
+NUCLEAR_TITLE_COUNTRY_MARKERS = (
+    ("US", ("美", "미국", "미 정부", "미 하원", "미 상원", "u.s.", "us ", "united states")),
+    ("GB", ("英", "영국", "britain", "united kingdom", "uk ")),
+    ("CN", ("中", "중국", "china", "chinese")),
+    ("JP", ("日", "일본", "japan", "japanese")),
+    ("FR", ("佛", "프랑스", "france", "french")),
+    ("KR", ("韓", "한국", "대한민국", "south korea", "korea")),
+    ("VN", ("베트남", "vietnam", "vietnamese")),
+    ("RU", ("러시아", "russia", "russian")),
+    ("CA", ("캐나다", "canada", "canadian")),
+    ("BG", ("불가리아", "bulgaria", "bulgarian")),
+    ("RO", ("루마니아", "romania", "romanian")),
+    ("CZ", ("체코", "czech", "czechia")),
+    ("PL", ("폴란드", "poland", "polish")),
+    ("UA", ("우크라이나", "ukraine", "ukrainian")),
+    ("AE", ("UAE", "아랍에미리트", "united arab emirates")),
+    ("SA", ("사우디", "사우디아라비아", "saudi arabia", "saudi")),
+    ("IN", ("인도", "india", "indian")),
+    ("AU", ("호주", "australia", "australian")),
+)
+
+
+def _title_has_marker(title: str, marker: str) -> bool:
+    if not title or not marker:
+        return False
+
+    # 한자 1글자 국가 약칭은 그대로 검색
+    if len(marker) == 1 and marker in "美英中日佛韓":
+        return marker in title
+
+    return _contains_country_term(title, marker)
+
+
+def _title_country_mentions(title: str) -> list[tuple[int, str, str]]:
+    """
+    제목에 나타난 국가 표현을 등장 위치 순으로 반환합니다.
+    (위치, 국가코드, 실제 매칭 표현)
+    """
+    lowered = title.lower()
+    hits: list[tuple[int, str, str]] = []
+
+    for code, markers in NUCLEAR_TITLE_COUNTRY_MARKERS:
+        best_pos = None
+        best_marker = None
+        for marker in markers:
+            if not _title_has_marker(title, marker):
+                continue
+
+            if len(marker) == 1 and marker in "美英中日佛韓":
+                pos = title.find(marker)
+            else:
+                pos = lowered.find(marker.lower())
+
+            if pos >= 0 and (best_pos is None or pos < best_pos):
+                best_pos = pos
+                best_marker = marker
+
+        if best_pos is not None:
+            hits.append((best_pos, code, best_marker or ""))
+
+    return sorted(hits, key=lambda x: x[0])
+
+
+def detect_nuclear_tab_primary_country(article: Article) -> str:
+    """
+    '원자력' 탭 전용 대표국가 판정.
+
+    일반 지도용 국가 판정과 달리 제목에서 실제 기사 행위 주체를 우선합니다.
+    특히 美/英/中/日/佛/韓 같은 제목용 한자 국가표기를 인식합니다.
+
+    예:
+      - 한국원자력연구원장 ... -> KR
+      - 中 따라 잡겠다며 ... 카드 꺼낸 美 -> US
+      - 베트남 국회 첫 원전사업 승인 ... -> VN
+      - 美·英 손잡고 ... 中 조선패권 겨냥 -> US
+    """
+    title = html.unescape(article.title or "").strip()
+    compact = re.sub(r"\s+", "", title)
+    lowered = title.lower()
+    mentions = _title_country_mentions(title)
+
+    if not mentions:
+        return detect_article_country(article)
+
+    codes = [code for _, code, _ in mentions]
+
+    # 1) 국가 정부/국회/규제기관이 명확히 제목의 사건 주체인 경우
+    subject_patterns = (
+        ("VN", ("베트남국회", "베트남정부", "vietnamnationalassembly", "vietnamesegovernment")),
+        ("US", ("미국정부", "미정부", "미하원", "미상원", "미에너지부", "미원자력규제위원회")),
+        ("KR", ("한국정부", "대한민국정부", "한국국회", "원자력안전위원회", "원안위")),
+        ("GB", ("영국정부", "영국의회")),
+        ("JP", ("일본정부", "일본의회")),
+        ("CN", ("중국정부", "중국국무원")),
+    )
+    for code, patterns in subject_patterns:
+        if any(p.replace(" ", "").lower() in compact.lower() for p in patterns):
+            return code
+
+    # 2) 명확한 국내기관이 핵심 주체인 제목
+    korean_core_entities = (
+        "한국원자력연구원", "한국수력원자력", "한수원",
+        "한국전력", "원자력안전위원회", "원안위",
+        "한국원자력환경공단", "한국원자력연료", "한전원자력연료",
+    )
+    if any(entity in title for entity in korean_core_entities):
+        return "KR"
+
+    # 3) 'A 따라잡겠다며 ... B가/美가 카드 꺼내' 구조:
+    # 앞 국가는 비교대상이고 뒤 국가가 실제 행위 주체.
+    rivalry_terms = (
+        "따라잡", "견제", "겨냥", "맞서", "대항", "추격",
+        "패권", "경쟁", "압박", "counter", "rival", "challenge",
+    )
+    action_terms = (
+        "꺼낸", "꺼내", "개발", "추진", "나선", "나서", "발표",
+        "승인", "도입", "투자", "건설", "계획", "협력", "손잡",
+    )
+
+    if len(mentions) >= 2:
+        first_pos, first_code, _ = mentions[0]
+        last_pos, last_code, _ = mentions[-1]
+
+        # 제목 후반 국가가 행동의 주체이고, 전반 국가는 비교/견제 대상인 문장
+        tail = compact[last_pos:].lower() if last_pos < len(compact) else compact.lower()
+        if (
+            any(term in compact.lower() for term in rivalry_terms)
+            and any(term in compact.lower() for term in action_terms)
+            and first_code != last_code
+        ):
+            # "美·英 손잡고 ... 中 겨냥"처럼 첫 두 국가가 공동주체인 경우는 첫 국가 유지
+            first_two_prefix = re.match(r"^\s*[美英中日佛韓]\s*[·ㆍ&\-]\s*[美英中日佛韓]", title)
+            if first_two_prefix:
+                return mentions[0][1]
+
+            # "... 中 ... 카드 꺼낸 美"처럼 행동 주체가 뒤에 오는 경우
+            if any(x in compact for x in ("꺼낸美", "꺼내든美", "나선美", "추진하는美", "개발나선美")):
+                return "US"
+            if any(x in compact for x in ("꺼낸英", "나선英")):
+                return "GB"
+            if any(x in compact for x in ("꺼낸中", "나선中")):
+                return "CN"
+            if any(x in compact for x in ("꺼낸日", "나선日")):
+                return "JP"
+
+    # 4) 공동주체가 제목 맨 앞에 '美·英', '韓·美'처럼 나오면 첫 국가를 대표국가로 사용
+    joint_prefix = re.match(r"^\s*([美英中日佛韓])\s*[·ㆍ&\-]\s*([美英中日佛韓])", title)
+    if joint_prefix:
+        han_to_code = {
+            "美": "US", "英": "GB", "中": "CN",
+            "日": "JP", "佛": "FR", "韓": "KR",
+        }
+        return han_to_code.get(joint_prefix.group(1), mentions[0][1])
+
+    # 5) '베트남 국회 첫 원전사업 승인. 韓 ... 러시아·중국 ...'처럼
+    # 첫 국가가 사건의 장소/주체로 명확하면 첫 제목 국가를 대표국가로 사용.
+    first_pos, first_code, _ = mentions[0]
+    if first_pos <= max(8, int(len(title) * 0.25)):
+        return first_code
+
+    # 6) 그 외에는 기존 국가 판정 결과를 우선하되, OTHER면 제목 첫 국가 사용
+    detected = detect_article_country(article)
+    if detected != "OTHER":
+        return detected
+
+    return mentions[0][1]
+
+
 def _nuclear_country_sort_key(article: Article) -> tuple[int, str, float]:
     """
-    원자력 탭 정렬:
-    1) 국가 그룹 순서
-    2) 같은 국가끼리 연속
-    3) 같은 국가 안에서는 최신순
-    4) 국가 불명(OTHER)은 마지막
+    원자력 탭:
+    제목의 핵심 행위 주체 국가를 기준으로 같은 국가끼리 연속 배치하고,
+    같은 국가 안에서는 최신순을 유지합니다.
     """
-    country = detect_article_country(article)
-    rank = NUCLEAR_COUNTRY_SORT_RANK.get(country, len(NUCLEAR_COUNTRY_SORT_ORDER) + 100)
+    country = detect_nuclear_tab_primary_country(article)
+    rank = NUCLEAR_COUNTRY_SORT_RANK.get(
+        country,
+        len(NUCLEAR_COUNTRY_SORT_ORDER) + 100,
+    )
     return (
         rank,
         country,
         -article.published.timestamp(),
     )
+
 
 
 def render_group_unified(
