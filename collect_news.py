@@ -1,5 +1,3 @@
-# HOTFIX: PREVENT GLOBAL ARTICLE-ZERO FROM OVER-AGGRESSIVE GARBLED FILTER 2026-08-26
-# FINAL FIX: NUCLEAR FALSE POSITIVES + STRONGER GARBLED FILTER 2026-08-26
 # FINAL NUCLEAR TAB CORE RELEVANCE FILTER 2026-08-26
 # EXCLUDE UNRESOLVED HTML ENTITIES IN ARTICLE TITLE/PREVIEW 2026-08-26
 # FINAL NUCLEAR TAB TITLE-SUBJECT COUNTRY SORT 2026-08-26
@@ -9390,9 +9388,6 @@ NON_NUCLEAR_TOPIC_TERMS = (
     # 철도/교통
     "코레일", "한국철도공사", "철도기업", "철도", "열차",
     "csee", "유지보수 기술 교류",
-    # 금융/은행/지역경제
-    "농협은행", "nh농협은행", "은행 경남본부", "금융 지원 강화",
-    "생산적 금융", "금융지원", "금융 지원", "지역금융",
     # 일반 산업/IT
     "반도체 산단", "반도체 산업", "민생경제", "수출기업 지원",
 )
@@ -9439,91 +9434,6 @@ def is_low_relevance_nuclear_tab_article(article: Article) -> bool:
     return True
 
 
-
-def is_strongly_garbled_article_text(article: Article) -> bool:
-    """
-    화면에서 정상 기사로 보기 어려운 수준의 깨진 제목/미리보기를 추가 차단합니다.
-    KEPIC, SMR, AP1000 같은 정상 기술 약어 자체는 제외 근거가 아니며,
-    의미 없는 짧은 토큰/숫자/기호가 연속적으로 나타나는 경우만 차단합니다.
-    """
-    title = _fully_unescape_html_entities(article.title or "").strip()
-    desc = _fully_unescape_html_entities(article.description or "").strip()
-    combined = f"{title} {desc}".strip()
-
-    if not combined:
-        return False
-
-    # Unicode replacement char / 제어문자 / 비정상 mojibake 흔적
-    replacement_hits = combined.count(" ")
-    control_hits = sum(
-        1 for ch in combined
-        if ord(ch) < 32 and ch not in "\n\r\t"
-    )
-
-    # 정상 문자 대비 특수기호 밀도
-    visible = [ch for ch in combined if not ch.isspace()]
-    weird_chars = [
-        ch for ch in visible
-        if not (
-            ch.isalnum()
-            or ("가" <= ch <= "힣")
-            or ch in ".,:;!?%()[]{}+-–—·ㆍ/'\""
-        )
-    ]
-    weird_char_ratio = len(weird_chars) / max(len(visible), 1)
-
-    tokens = re.findall(r"\S+", combined)
-    short_noise = 0
-    for tok in tokens:
-        clean = tok.strip(".,:;!?%()[]{}+-–—·ㆍ/'\"")
-        # 1~2자 영문/숫자 토큰이 반복적으로 흩어지는 형태
-        if re.fullmatch(r"[A-Za-z0-9]{1,2}", clean):
-            short_noise += 1
-        # 글자와 숫자가 무작위로 섞인 짧은 토큰
-        elif (
-            len(clean) <= 6
-            and re.search(r"[A-Za-z]", clean)
-            and re.search(r"\d", clean)
-            and not re.fullmatch(r"(?:AP\d{3,4}|SMR\d*|KEPIC|CIGRE\d*|ISO\d*)", clean, re.I)
-        ):
-            short_noise += 1
-
-    short_noise_ratio = short_noise / max(len(tokens), 1)
-
-    # 한글/정상 영단어 기반 문장성
-    meaningful_words = re.findall(r"[가-힣]{2,}|[A-Za-z]{3,}", combined)
-    meaningful_ratio = len(meaningful_words) / max(len(tokens), 1)
-
-    if replacement_hits >= 2:
-        return True
-    if control_hits >= 1:
-        return True
-    if len(visible) >= 40 and weird_char_ratio >= 0.10 and meaningful_ratio < 0.55:
-        return True
-    if len(tokens) >= 8 and short_noise_ratio >= 0.30 and meaningful_ratio < 0.55:
-        return True
-
-    # 사용자가 확인한 KEPIC-Week 카드처럼 제목은 일부 정상인데
-    # 미리보기 후반이 깨진 짧은 영숫자/기호 조합으로 이어지는 경우
-    if "kepic-week" in title.lower() or "kepic week" in title.lower():
-        desc_tokens = re.findall(r"\S+", desc)
-        desc_noise = sum(
-            1 for tok in desc_tokens
-            if (
-                re.fullmatch(r"[A-Za-z0-9]{1,2}", tok.strip(".,:;!?%()[]{}+-–—·ㆍ/'\""))
-                or " " in tok
-                or "»" in tok
-                or "«" in tok
-            )
-        )
-        # KEPIC라는 정상 기술명만으로는 절대 제외하지 않고,
-        # 실제 깨진 토큰이 충분히 확인될 때만 제거
-        if len(desc_tokens) >= 8 and desc_noise >= 5:
-            return True
-
-    return False
-
-
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -9536,18 +9446,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_westinghouse_air_brake_article(article.title, article.description)
         and not is_khnp_elementary_article(article)
         and not is_unresolved_html_entity_article(article)
-        # 강한 깨짐 필터는 전체 기사에 적용하지 않습니다.
-        # 전역에는 기존의 보수적인 깨짐 필터만 유지합니다.
         and not is_garbled_article_text(article)
-        # 실제 문제가 확인된 전력경제신문/KEPIC-Week 계열만 강한 필터 적용
-        and not (
-            is_strongly_garbled_article_text(article)
-            and (
-                "전력경제신문" in (article.publisher or "")
-                or "kepic-week" in (article.title or "").lower()
-                or "kepic week" in (article.title or "").lower()
-            )
-        )
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
         and not (
