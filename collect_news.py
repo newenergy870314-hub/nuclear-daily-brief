@@ -1,4 +1,3 @@
-# FINAL NUCLEAR TAB CORE RELEVANCE FILTER 2026-08-26
 # EXCLUDE UNRESOLVED HTML ENTITIES IN ARTICLE TITLE/PREVIEW 2026-08-26
 # FINAL NUCLEAR TAB TITLE-SUBJECT COUNTRY SORT 2026-08-26
 # EXCLUDE GARBLED / MOJIBAKE ARTICLE PREVIEWS 2026-08-26
@@ -9347,93 +9346,6 @@ def normalize_article_display_entities(article: Article) -> Article:
     return article
 
 
-
-NUCLEAR_TITLE_STRONG_TERMS = (
-    "원전", "원자력", "원자로", "핵연료", "사용후핵연료",
-    "방사성폐기물", "고준위폐기물", "저준위폐기물",
-    "원전해체", "원전 해체", "계속운전", "재가동",
-    "소형모듈원자로", "소형 모듈 원자로", "smr",
-    "차세대원자로", "차세대 원자로",
-    "nuclear power", "nuclear energy", "nuclear plant",
-    "nuclear reactor", "nuclear station",
-)
-
-NUCLEAR_CORE_ENTITY_TERMS = (
-    "한국원자력연구원", "kaeri",
-    "한국수력원자력", "한수원", "khnp",
-    "원자력안전위원회", "원안위",
-    "한국원자력환경공단",
-    "한전원자력연료", "한국원자력연료",
-    "한국원자력산업협회", "한국원자력학회",
-    "nrc", "nuclear regulatory commission",
-    "iaea", "international atomic energy agency",
-)
-
-NUCLEAR_CONTEXT_TERMS = (
-    "원전 건설", "원전건설", "원전 사업", "원전사업",
-    "원전 수주", "원전수주", "원전 수출", "원전수출",
-    "원전 운영", "원전운영", "원전 정비", "원전정비",
-    "원전 안전", "원전안전", "원전 인허가", "원전인허가",
-    "원자력 정책", "원자력정책", "원자력 규제", "원자력규제",
-    "핵연료", "사용후핵연료", "방사성폐기물",
-    "원자로", "reactor", "nuclear",
-    "발전소", "원전 프로젝트", "원전프로젝트",
-)
-
-NON_NUCLEAR_TOPIC_TERMS = (
-    # 문화/예술/사회
-    "개인전", "미술전", "전시회", "작품전", "미술관", "갤러리",
-    "안중근", "광주민주화운동", "서태지",
-    "공연", "영화", "연예", "축제",
-    # 철도/교통
-    "코레일", "한국철도공사", "철도기업", "철도", "열차",
-    "csee", "유지보수 기술 교류",
-    # 일반 산업/IT
-    "반도체 산단", "반도체 산업", "민생경제", "수출기업 지원",
-)
-
-
-def is_low_relevance_nuclear_tab_article(article: Article) -> bool:
-    """
-    '원자력' 탭 오분류 방지.
-
-    제목이 원자력 핵심 주제를 직접 말하는 기사는 유지합니다.
-    제목에 원자력 핵심성이 없고 미리보기의 우연한 키워드에만 의존하는 경우는
-    실제 원자력 기관/사업 맥락이 충분할 때만 유지합니다.
-    """
-    title = html.unescape(article.title or "").strip().lower()
-    desc = html.unescape(article.description or "").strip().lower()
-    combined = f"{title} {desc}"
-
-    # 제목 자체가 명확한 원자력 기사면 유지
-    if any(term in title for term in NUCLEAR_TITLE_STRONG_TERMS):
-        return False
-
-    # 원자력 핵심 기관이 제목의 주체면 유지
-    if any(term in title for term in NUCLEAR_CORE_ENTITY_TERMS):
-        return False
-
-    # 제목이 명백한 비원자력 주제이면,
-    # 미리보기 속 단발성 원자력 단어로는 원자력 탭에 넣지 않음
-    if any(term in title for term in NON_NUCLEAR_TOPIC_TERMS):
-        return True
-
-    entity_hits = sum(1 for term in NUCLEAR_CORE_ENTITY_TERMS if term in combined)
-    context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in combined)
-    title_context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in title)
-
-    # 제목에 원자력 맥락이 하나라도 있고 전체 기사에도 충분한 맥락이 있으면 유지
-    if title_context_hits >= 1 and context_hits >= 2:
-        return False
-
-    # 제목에 원자력 표현이 없으면, 미리보기만으로는 훨씬 엄격하게:
-    # 핵심 기관 + 복수의 원자력 사업/기술 맥락이 동시에 있어야 유지
-    if entity_hits >= 1 and context_hits >= 3:
-        return False
-
-    return True
-
-
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -9449,10 +9361,6 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_garbled_article_text(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
-        and not (
-            article.group == "원자력"
-            and is_low_relevance_nuclear_tab_article(article)
-        )
         and not (
             article.group == "한국수력원자력"
             and is_low_relevance_khnp_article(article.title, article.description or "")
