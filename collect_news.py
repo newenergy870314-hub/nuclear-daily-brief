@@ -1,3 +1,5 @@
+# FINAL MINIMIZED RELEVANCE FILTERS - MAXIMUM RECALL 2026-08-26
+# FINAL GLOBAL RELEVANCE RELAXED - DIRECT RELATION FIRST 2026-08-26
 # FINAL STOCK / SECURITIES FILTER RELAXED 2026-08-26
 # FINAL RELAXED RELEVANCE FILTERS 2026-08-26
 # FINAL BALANCED FILTER RECOVERY 2026-08-26
@@ -9101,12 +9103,14 @@ def _count_term_hits(text: str, terms: tuple[str, ...]) -> int:
 
 def _is_core_entity_article(title: str, summary: str, entity_terms: tuple[str, ...], context_terms: tuple[str, ...]) -> bool:
     """
-    관련성 필터 완화 버전.
+    전 기사탭 관련성 완화 기준.
 
-    원칙:
-    - 제목에 해당 회사/기관명이 직접 나오면 핵심 기사로 인정
-    - 제목에 없더라도 미리보기에 회사/기관이 나오고 관련 사업 맥락이 1개 이상이면 인정
-    - 단순 1회 언급 + 관련 맥락도 전혀 없는 경우만 제외
+    핵심 원칙:
+    - 제목에 해당 회사/기관명이 직접 나오면 무조건 관련 기사로 인정
+    - 제목에 회사/기관명이 없어도, 미리보기에 해당 주체가 나오고
+      사건/사업/현안/협력/갈등/지역상생 등 실제 관계 맥락이 하나라도 있으면 인정
+    - 회사/기관명이 미리보기에서 반복 등장하면 핵심 주체로 인정
+    - 명백히 단순 나열/스쳐 지나가는 언급만 제외
     """
     t = html.unescape(title or "")
     s = html.unescape(summary or "")
@@ -9116,16 +9120,13 @@ def _is_core_entity_article(title: str, summary: str, entity_terms: tuple[str, .
     title_context = _count_term_hits(t, context_terms)
     summary_context = _count_term_hits(s, context_terms)
 
-    # 제목에 핵심 회사/기관이 직접 등장하면 우선 유지
     if title_entity >= 1:
         return True
 
-    # 미리보기에 회사/기관이 등장하고 실제 사업/업무 맥락이 하나라도 있으면 유지
-    if summary_entity >= 1 and (title_context + summary_context) >= 1:
+    if summary_entity >= 2:
         return True
 
-    # 회사/기관명이 미리보기에 반복적으로 등장하면 핵심 주체일 가능성이 높으므로 유지
-    if summary_entity >= 2:
+    if summary_entity >= 1 and (title_context + summary_context) >= 1:
         return True
 
     return False
@@ -9143,6 +9144,10 @@ def is_low_relevance_khnp_article(title: str, summary: str) -> bool:
         "수주", "계약", "협약", "mou", "기술", "사업", "프로젝트",
         "운영", "정비", "안전", "인허가", "규제", "투자", "건설",
         "착공", "준공", "인사", "취임", "임명", "승진", "조직",
+        "현안", "협력", "협의", "면담", "요청", "갈등",
+        "상생", "상생협력", "상생협력금", "주민 소통", "주민소통",
+        "건식저장시설", "건식 저장시설", "사용후핵연료 저장",
+        "지역사회", "기장군", "울주군", "경주시", "영광군", "울진군",
     )
     return not _is_core_entity_article(title, summary, entity_terms, context_terms)
 
@@ -9254,6 +9259,7 @@ def is_low_relevance_kepco_article(title: str, summary: str) -> bool:
         "신재생", "재생에너지", "에너지",
         "요금", "전기요금",
         "인사", "취임", "임명", "조직",
+        "현안", "협력", "협의", "상생", "갈등", "요청", "면담",
     )
 
     return not _is_core_entity_article(
@@ -9420,43 +9426,29 @@ NON_NUCLEAR_TOPIC_TERMS = (
 
 def is_low_relevance_nuclear_tab_article(article: Article) -> bool:
     """
-    '원자력' 탭 관련성 필터 완화 버전.
-
-    명확한 문화/철도/금융 등 비원자력 제목은 계속 제외하지만,
-    정상 원자력 기사까지 과도하게 제거하지 않도록 기준을 완화합니다.
+    원자력 탭 완화 기준:
+    관련 기사 누락 최소화를 우선하고, 명백한 무관 기사만 제외합니다.
     """
     title = html.unescape(article.title or "").strip().lower()
     desc = html.unescape(article.description or "").strip().lower()
     combined = f"{title} {desc}"
 
-    # 제목 자체가 명확한 원자력 기사면 유지
-    if any(term in title for term in NUCLEAR_TITLE_STRONG_TERMS):
-        return False
-
-    # 원자력 핵심 기관이 제목의 주체면 유지
-    if any(term in title for term in NUCLEAR_CORE_ENTITY_TERMS):
-        return False
-
-    # 제목이 명백한 비원자력 주제면 제외
+    # 명백한 비원자력 제목은 계속 제외
     if any(term in title for term in NON_NUCLEAR_TOPIC_TERMS):
         return True
 
-    entity_hits = sum(1 for term in NUCLEAR_CORE_ENTITY_TERMS if term in combined)
-    context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in combined)
-    title_context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in title)
-
-    # 제목에 원자력 관련 맥락이 하나라도 있으면 유지
-    if title_context_hits >= 1:
+    # 제목에 원자력 핵심어가 하나라도 있으면 유지
+    if any(term in title for term in NUCLEAR_TITLE_STRONG_TERMS):
         return False
 
-    # 미리보기까지 포함해 원자력 핵심기관 또는 복수의 원자력 맥락이 있으면 유지
-    if entity_hits >= 1 and context_hits >= 1:
+    # 핵심 원자력 기관이 제목 또는 미리보기에 있으면 유지
+    if any(term in combined for term in NUCLEAR_CORE_ENTITY_TERMS):
         return False
 
-    if context_hits >= 2:
+    # 제목/미리보기 어디든 원자력 맥락이 있으면 우선 유지
+    if any(term in combined for term in NUCLEAR_CONTEXT_TERMS):
         return False
 
-    # 원자력 핵심성이 거의 없는 경우만 제외
     return True
 
 
@@ -9623,6 +9615,31 @@ def is_pure_stock_recommendation_article(title: str, summary: str = "") -> bool:
     return any(term in hay for term in pure_terms)
 
 
+
+def is_confirmed_nuclear_false_positive(article: Article) -> bool:
+    """
+    사용자가 실제 화면에서 확인한 명백한 원자력 탭 오분류만 좁게 제외합니다.
+    광범위한 관련성 점수/맥락 필터는 사용하지 않습니다.
+    """
+    if (article.group or "") != "원자력":
+        return False
+
+    title = html.unescape(article.title or "").lower()
+    desc = html.unescape(article.description or "").lower()
+    hay = f"{title} {desc}"
+
+    explicit_false_positive_terms = (
+        # 문화/예술
+        "안중근", "광주민주화운동", "서태지", "개인전", "미술전", "갤러리",
+        # 철도
+        "코레일", "한국철도공사", "철도기업", "csee", "철도 유지보수",
+        # 금융
+        "nh농협은행", "농협은행", "생산적 금융", "금융지원 강화",
+    )
+
+    return any(term in hay for term in explicit_false_positive_terms)
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -9635,24 +9652,9 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_westinghouse_air_brake_article(article.title, article.description)
         and not is_khnp_elementary_article(article)
         and not is_targeted_bad_display_article(article)
+        and not is_confirmed_nuclear_false_positive(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
-        and not (
-            article.group == "원자력"
-            and is_low_relevance_nuclear_tab_article(article)
-        )
-        and not (
-            article.group == "한국수력원자력"
-            and is_low_relevance_khnp_article(article.title, article.description or "")
-        )
-        and not (
-            article.group == "한국전력"
-            and is_low_relevance_kepco_article(article.title, article.description or "")
-        )
-        and not (
-            article.group == "타 건설사"
-            and is_low_relevance_major_construction_article(article.title, article.description or "")
-        )
         and not is_generic_redevelopment_only_article(article.title, article.description or "")
         and not is_company_sports_article(article)
         and not is_general_sports_article(article)
