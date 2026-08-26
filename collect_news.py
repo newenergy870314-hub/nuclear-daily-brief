@@ -1,4 +1,3 @@
-# BACK-TO-TOP ALWAYS VISIBLE AT BOTTOM-RIGHT 2026-08-26
 # SMART BACK-TO-TOP UX: HIDE ON DOWN-SCROLL, SHOW ON UP-SCROLL 2026-08-26
 # HOLTEC HIGHLIGHTS COMPLETE COLLECTION: CATEGORY + NEWS + YEAR ARCHIVE + HH URL PRIORITY 2026-08-26
 # HOLTEC HIGHLIGHTS OFFICIAL SOURCE + FORCE HOLTEC TAB 2026-08-26
@@ -19194,8 +19193,8 @@ main {{
 /* 2026-08-26 SMART GLOBAL BACK-TO-TOP BUTTON */
 #global-back-to-top {{
   position: fixed;
-  right: max(8px, env(safe-area-inset-right));
-  bottom: calc(8px + env(safe-area-inset-bottom));
+  right: max(14px, env(safe-area-inset-right));
+  bottom: calc(18px + env(safe-area-inset-bottom));
   z-index: 9999;
   min-width: 48px;
   height: 48px;
@@ -19227,30 +19226,23 @@ main {{
 }}
 @media (max-width: 767px) {{
   #global-back-to-top {{
-    right: max(6px, env(safe-area-inset-right));
-    bottom: calc(6px + env(safe-area-inset-bottom));
-    width: auto;
-    min-width: 76px;
-    height: 38px;
-    padding: 0 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    gap: 4px;
+    right: max(10px, env(safe-area-inset-right));
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 18px;
+    gap: 0;
   }}
-  #global-back-to-top .back-to-top-arrow {{
-    font-size: 15px;
-    line-height: 1;
-  }}
-  #global-back-to-top .back-to-top-label {{
-    display: inline;
-    white-space: nowrap;
-  }}
+  #global-back-to-top .back-to-top-label {{ display:none; }}
 }}
 @media (min-width:768px) and (max-width:1199px) {{
-  #global-back-to-top {{ right:max(8px, env(safe-area-inset-right)); bottom:calc(8px + env(safe-area-inset-bottom)); height:46px; min-width:46px; padding:0 12px; }}
+  #global-back-to-top {{ right:14px; bottom:calc(14px + env(safe-area-inset-bottom)); height:46px; min-width:46px; padding:0 12px; }}
 }}
 @media (min-width:1200px) {{
-  #global-back-to-top {{ right:8px; bottom:8px; }}
+  #global-back-to-top {{ right:20px; bottom:18px; }}
 }}
 </style>
 </head>
@@ -24434,8 +24426,9 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 }})();
 
 
-/* 2026-08-26 BACK-TO-TOP ALWAYS AVAILABLE AFTER SCROLL */
+/* 2026-08-26 SMART GLOBAL BACK-TO-TOP BUTTON */
 (function initGlobalBackToTop(){{
+  let lastY=window.scrollY||0;
   let ticking=false;
   function ensureButton(){{
     let btn=document.getElementById('global-back-to-top');
@@ -24453,7 +24446,16 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     ticking=false;
     const btn=ensureButton();
     const y=window.scrollY||document.documentElement.scrollTop||0;
-    btn.classList.toggle('is-visible', y>=700);
+    const delta=y-lastY;
+    const isMobile=window.matchMedia('(max-width: 767px)').matches;
+    if(y<700){{ btn.classList.remove('is-visible'); lastY=y; return; }}
+    if(isMobile){{
+      if(delta>6)btn.classList.remove('is-visible');
+      else if(delta<-6)btn.classList.add('is-visible');
+    }}else{{
+      btn.classList.add('is-visible');
+    }}
+    lastY=y;
   }}
   function requestUpdate(){{ if(ticking)return; ticking=true; requestAnimationFrame(updateVisibility); }}
   if(document.readyState==='loading'){{
