@@ -1,3 +1,4 @@
+# NUCLEAR TAB COUNTRY-CLUSTER SORT 2026-08-26
 # FINAL FIX: US HOUSE FOREIGN AFFAIRS / COUPANG / KOREA INVESTMENT PRESSURE SAME-EVENT GROUPING 2026-08-26
 # FINAL FIX: KEPCO MCS AFFILIATE ENFORCEMENT AT ARCHIVE/RENDER STAGES 2026-08-26
 # FINAL CIGRE + KEPCO-EPRI DUPLICATE GROUPING 2026-08-26
@@ -7322,6 +7323,56 @@ def _other_construction_company_rank(article: Article) -> tuple[int, str]:
     return len(OTHER_CONSTRUCTION_COMPANY_ORDER), "기타"
 
 
+
+# '원자력' 탭 전용 국가별 정렬 순서.
+# 같은 국가 기사를 연속 배치하고, 국가 내부에서는 최신순을 유지합니다.
+# 큰 흐름: 북미(미국 우선) -> 유럽 -> 중동 -> 아시아 -> 오세아니아 -> 중남미 -> 아프리카 -> 기타
+NUCLEAR_COUNTRY_SORT_ORDER = (
+    # 북미
+    "US", "CA",
+
+    # 유럽
+    "GB", "FR", "BG", "RO", "CZ", "PL", "SI", "FI", "SE",
+    "NL", "BE", "CH", "SK", "DK", "UA", "RU", "TR",
+
+    # 중동
+    "AE", "SA",
+
+    # 아시아
+    "KR", "JP", "CN", "IN", "VN", "MY", "TH", "SG",
+
+    # 오세아니아
+    "AU",
+
+    # 중남미
+    "BR", "AR", "CL", "PE", "CO",
+
+    # 아프리카
+    "ZA",
+)
+
+NUCLEAR_COUNTRY_SORT_RANK = {
+    code: idx for idx, code in enumerate(NUCLEAR_COUNTRY_SORT_ORDER)
+}
+
+
+def _nuclear_country_sort_key(article: Article) -> tuple[int, str, float]:
+    """
+    원자력 탭 정렬:
+    1) 국가 그룹 순서
+    2) 같은 국가끼리 연속
+    3) 같은 국가 안에서는 최신순
+    4) 국가 불명(OTHER)은 마지막
+    """
+    country = detect_article_country(article)
+    rank = NUCLEAR_COUNTRY_SORT_RANK.get(country, len(NUCLEAR_COUNTRY_SORT_ORDER) + 100)
+    return (
+        rank,
+        country,
+        -article.published.timestamp(),
+    )
+
+
 def render_group_unified(
     group: str,
     articles: list[Article],
@@ -7335,6 +7386,10 @@ def render_group_unified(
     def order_articles(items: list[Article]) -> list[Article]:
         if not items:
             return []
+
+        # 원자력 탭은 국가별로 묶고, 같은 국가 안에서는 최신순으로 정렬
+        if group == "원자력":
+            return sorted(items, key=_nuclear_country_sort_key)
 
         # 주요 건설사 탭은 같은 회사 기사끼리 묶고, 회사 내부는 최신순으로 정렬
         if group == "타 건설사":
@@ -7361,10 +7416,14 @@ def render_group_unified(
             ordered.extend(bucket)
         return ordered
 
-    ordered_articles = (
-        order_articles(korean_articles)
-        + order_articles(english_articles)
-    )
+    if group == "원자력":
+        # 국가 그룹핑이 언어 분리 때문에 깨지지 않도록 원자력 탭은 전체 기사를 한 번에 정렬
+        ordered_articles = order_articles(korean_articles + english_articles)
+    else:
+        ordered_articles = (
+            order_articles(korean_articles)
+            + order_articles(english_articles)
+        )
 
     cards = ''.join(
         render_card(
