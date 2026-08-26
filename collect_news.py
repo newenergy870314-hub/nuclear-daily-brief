@@ -1,3 +1,4 @@
+# FINAL FIX: US HOUSE FOREIGN AFFAIRS / COUPANG / KOREA INVESTMENT PRESSURE SAME-EVENT GROUPING 2026-08-26
 # FINAL FIX: KEPCO MCS AFFILIATE ENFORCEMENT AT ARCHIVE/RENDER STAGES 2026-08-26
 # FINAL CIGRE + KEPCO-EPRI DUPLICATE GROUPING 2026-08-26
 # CIGRE SAME-EVENT CROSS-DATE GROUPING FIX 2026-08-26
@@ -6790,6 +6791,43 @@ def _kepco_epri_grid_cooperation_event_key(article: Article) -> str | None:
     return None
 
 
+
+def _us_house_coupang_pressure_event_key(article: Article) -> str | None:
+    """
+    美 하원 외교위원장 브라이언 매스트의
+    쿠팡/미국기업 피해 주장 + 한국 대미투자 압박 관련 동일 보도를 묶습니다.
+
+    메모리칩 현지생산 압박 등 다른 대미 압박 이슈는 별도 유지합니다.
+    """
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", hay)
+
+    mast_terms = (
+        "브라이언매스트", "브라이언매스트외교위원장",
+        "매스트외교위원장", "brianmast"
+    )
+    house_terms = (
+        "미하원외교위원장", "하원외교위원장",
+        "미국하원외교위원장", "houseforeignaffairs"
+    )
+    coupang_terms = ("쿠팡", "coupang")
+    pressure_terms = (
+        "대미투자", "투자압박", "미국기업", "피해줘",
+        "피해주", "압박", "무슨이득", "투자"
+    )
+
+    has_mast = any(x in compact for x in mast_terms)
+    has_house = any(x in compact for x in house_terms)
+    has_coupang = any(x in compact for x in coupang_terms)
+    has_pressure = any(x in compact for x in pressure_terms)
+
+    # 핵심 사건: Brian Mast/미 하원 외교위원장 + Coupang + 대미투자/미국기업 압박
+    if (has_mast or has_house) and has_coupang and has_pressure:
+        return "US_HOUSE_FOREIGN_AFFAIRS|BRIAN_MAST|COUPANG|KOREA_INVESTMENT_PRESSURE"
+
+    return None
+
+
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
@@ -6818,6 +6856,14 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     if a.group != b.group:
         return False
+
+    # 美 하원 외교위원장 Brian Mast의 쿠팡/대미투자 압박 동일 보도
+    mast_event_a = _us_house_coupang_pressure_event_key(a)
+    mast_event_b = _us_house_coupang_pressure_event_key(b)
+    if mast_event_a and mast_event_a == mast_event_b:
+        # 동일 발언 보도는 언론사 게시 시차를 고려해 최대 2일 차이까지 동일 사건 처리
+        if abs((date_a_obj - date_b_obj).days) <= 2:
+            return True
 
     # 한전-EPRI 재생에너지 계통 수용성/기술개발 협력:
     # 기사 제목에 CIGRE가 없어도 같은 보도자료/협력 건이면 최대 2일 차이까지 묶습니다.
