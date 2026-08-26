@@ -1,3 +1,4 @@
+# FINAL FIX: RESTORE NUCLEAR_TITLE_COUNTRY_MARKERS 2026-08-27
 # FINAL EXCLUDE UNRELATED MINISTRY-AWARD FALSE POSITIVES 2026-08-27
 # FINAL EXCLUDE LOCAL SPECIALTY-CONSTRUCTION FALSE POSITIVE 2026-08-27
 # FINAL SAME-PUBLISHER FOLLOW-UP GROUPING ENHANCED 2026-08-27
@@ -7690,6 +7691,49 @@ def _title_has_marker(title: str, marker: str) -> bool:
         return marker in title
 
     return _contains_country_term(title, marker)
+
+
+
+# 원자력 탭 제목 기준 국가 판정용 표기.
+# 한글/영문 국가명뿐 아니라 기사 제목에서 자주 쓰는 한자 약칭도 포함합니다.
+NUCLEAR_TITLE_COUNTRY_MARKERS = (
+    ("US", ("미국", "美", "u.s.", "u.s", "usa", "united states", "american")),
+    ("CA", ("캐나다", "canada", "canadian")),
+    ("GB", ("영국", "英", "uk", "u.k.", "united kingdom", "britain", "british")),
+    ("FR", ("프랑스", "佛", "france", "french")),
+    ("BG", ("불가리아", "bulgaria", "bulgarian")),
+    ("RO", ("루마니아", "romania", "romanian")),
+    ("CZ", ("체코", "czech", "czechia")),
+    ("PL", ("폴란드", "poland", "polish")),
+    ("SI", ("슬로베니아", "slovenia", "slovenian")),
+    ("FI", ("핀란드", "finland", "finnish")),
+    ("SE", ("스웨덴", "sweden", "swedish")),
+    ("NL", ("네덜란드", "netherlands", "dutch")),
+    ("BE", ("벨기에", "belgium", "belgian")),
+    ("CH", ("스위스", "switzerland", "swiss")),
+    ("SK", ("슬로바키아", "slovakia", "slovak")),
+    ("DK", ("덴마크", "denmark", "danish")),
+    ("UA", ("우크라이나", "ukraine", "ukrainian")),
+    ("RU", ("러시아", "러", "russia", "russian")),
+    ("TR", ("튀르키예", "터키", "turkey", "türkiye", "turkiye")),
+    ("AE", ("아랍에미리트", "uae", "u.a.e.", "united arab emirates")),
+    ("SA", ("사우디", "사우디아라비아", "saudi", "saudi arabia")),
+    ("KR", ("한국", "대한민국", "韓", "korea", "south korea", "korean")),
+    ("JP", ("일본", "日", "japan", "japanese")),
+    ("CN", ("중국", "中", "china", "chinese")),
+    ("IN", ("인도", "india", "indian")),
+    ("VN", ("베트남", "vietnam", "vietnamese")),
+    ("MY", ("말레이시아", "malaysia", "malaysian")),
+    ("TH", ("태국", "thailand", "thai")),
+    ("SG", ("싱가포르", "singapore", "singaporean")),
+    ("AU", ("호주", "australia", "australian")),
+    ("BR", ("브라질", "brazil", "brazilian")),
+    ("AR", ("아르헨티나", "argentina", "argentine")),
+    ("CL", ("칠레", "chile", "chilean")),
+    ("PE", ("페루", "peru", "peruvian")),
+    ("CO", ("콜롬비아", "colombia", "colombian")),
+    ("ZA", ("남아공", "남아프리카공화국", "south africa", "south african")),
+)
 
 
 def _title_country_mentions(title: str) -> list[tuple[int, str, str]]:
