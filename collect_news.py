@@ -1,3 +1,10 @@
+# FINAL HOLTEC HIGHLIGHTS PATH DISPLAY 2026-08-26
+# FINAL RESTORE: DOMESTIC NUCLEAR ASSOCIATION/SOCIETY TAB 2026-08-26
+# FINAL EXPLICIT EXCLUSION: NAMYANG DAIRY 2026-08-26
+# FINAL UI: INTL ORG MERGED + LABEL FIXES 2026-08-26
+# FINAL UI MERGE: NUCLEAR + DECOMMISSIONING + ASSOCIATIONS 2026-08-26
+# FINAL UI: FOREIGN CONTRACTOR/DESIGN TABS REMOVED + ASSOCIATIONS MERGED 2026-08-26
+# FINAL UI MERGE: SMR (차세대 원자로 포함) 2026-08-26
 # FINAL ENHANCED SAME-EVENT GROUPING / MINIMUM FILTER 2026-08-26
 # FINAL POLICY: MINIMUM FILTER + SAME-EVENT GROUPING + STOCK NEWS LAST 2026-08-26
 # FINAL EXECUTIVE / CEO ACTIVITY PRIORITY CLASSIFICATION 2026-08-26
@@ -178,8 +185,6 @@ ALWAYS_SHOW_GROUPS = {
     "한국수력원자력",
     "한국전력",
     "한전 계열사",
-    "해외 건설사",
-    "해외 설계사",
     "원전 관계부처",
     "원전 대미투자",
     "원자력",
@@ -499,18 +504,18 @@ GROUP_TAB_LABELS = {
     "원전 관계부처": "원전 관계부처(산업통상부·기후부·과기부)",
     "원전 대미투자": "대미투자",
     "원자력": "원자력",
-    "SMR": "SMR",
+    "SMR": "SMR (차세대 원자로 포함)",
     "차세대원자로": "차세대원자로",
     "원전해체": "원전해체",
     "Nuclear Power·Nuclear Energy": "Nuclear",
     "Holtec": "Holtec",
-    "TerraPower": "Terra",
+    "TerraPower": "TerraPower",
     "Westinghouse": "WEC",
     "Fermi America": "Fermi America",
     "국내 원자력 협회·학회": "국내 원자력 협회·학회",
-    "해외 원자력 협회·학회": "해외 원자력 협회·학회",
+    "해외 원자력 협회·학회": "원자력 협회·학회",
     "국제 원자력·에너지기구": "국제 원자력·에너지기구",
-    "불가리아 코즐로두이 원전": "코즐로두이 원전",
+    "불가리아 코즐로두이 원전": "불가리아 코즐로두이 원전",
 }
 
 
@@ -4386,21 +4391,28 @@ def _matches_any_company_pattern(haystack: str, patterns: tuple[str, ...]) -> bo
 
 def _foreign_nuclear_company_group(title: str, summary: str = "") -> str | None:
     """
-    해외 건설/엔지니어링사는 회사명만으로 분류하지 않습니다.
-    원전·원자로·SMR·원전해체 등 민수 원자력 문맥이 함께 있을 때만 전용 탭으로 보냅니다.
+    해외 원전 건설/엔지니어링 회사 관련 기사 분류.
+
+    별도 '해외 건설사' / '해외 설계사' 탭은 사용하지 않습니다.
+    - 한글 기사 -> 원자력
+    - 영문/해외 기사 -> Nuclear Power·Nuclear Energy
+
+    회사 전용 검색어는 계속 유지해 기사 수집 누락을 막습니다.
     """
     haystack = html.unescape(f"{title} {summary}").lower()
 
     if not is_civil_nuclear_relevant(title, summary):
         return None
 
-    if _matches_any_company_pattern(haystack, FOREIGN_NUCLEAR_CONTRACTOR_PATTERNS):
-        return "해외 건설사"
+    is_foreign_company = (
+        _matches_any_company_pattern(haystack, FOREIGN_NUCLEAR_CONTRACTOR_PATTERNS)
+        or _matches_any_company_pattern(haystack, FOREIGN_NUCLEAR_ENGINEERING_PATTERNS)
+    )
+    if not is_foreign_company:
+        return None
 
-    if _matches_any_company_pattern(haystack, FOREIGN_NUCLEAR_ENGINEERING_PATTERNS):
-        return "해외 설계사"
-
-    return None
+    has_hangul = bool(re.search(r"[가-힣]", f"{title} {summary}"))
+    return "원자력" if has_hangul else "Nuclear Power·Nuclear Energy"
 
 
 
@@ -7799,10 +7811,25 @@ def render_group_unified(
         cards = '<div class="empty">해당 시간대에 수집된 기사가 없습니다.</div>'
 
     article_total = len(ordered_articles)
+
+    source_path_html = ""
+    if group == "Holtec":
+        source_path_html = (
+            '<div class="group-source-path">'
+            '<span class="group-source-path-label">공식 출처</span>'
+            '<a href="https://holtecinternational.com/category/holtec-highlights/" '
+            'target="_blank" rel="noopener noreferrer">'
+            'Holtec International → Media Room → News &amp; Media → Holtec Highlights'
+            '</a>'
+            '</div>'
+        )
+
     if group == "원전 관계부처":
         display_group = "원전 관계부처(산업통상부·기후부·과기부)"
     elif group == "타 건설사":
         display_group = "주요 건설사"
+    elif group == "SMR":
+        display_group = "SMR (차세대 원자로 포함)"
     else:
         display_group = group
 
@@ -7813,7 +7840,7 @@ def render_group_unified(
     <span class="group-name">{escape(display_group)}</span>
     <span class="group-count">{article_total}건</span>
   </button>
-  <div class="article-stack">{cards}</div>
+  <div class="article-stack">{source_path_html}{cards}</div>
 </section>
 """
 
@@ -9809,6 +9836,24 @@ def is_confirmed_nuclear_false_positive(article: Article) -> bool:
     return any(term in hay for term in explicit_false_positive_terms)
 
 
+
+EXPLICIT_IRRELEVANT_COMPANY_TERMS = (
+    "남양유업",
+    "namyang dairy",
+)
+
+
+def is_explicit_irrelevant_company_article(article: Article) -> bool:
+    """
+    사용자가 직접 확인한 명백한 비관련 일반기업 기사만 좁게 제외합니다.
+    광범위한 업종/기업 필터는 사용하지 않습니다.
+    """
+    hay = html.unescape(
+        f"{article.title or ''} {article.description or ''}"
+    ).lower()
+    return any(term in hay for term in EXPLICIT_IRRELEVANT_COMPANY_TERMS)
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -9822,6 +9867,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_khnp_elementary_article(article)
         and not is_targeted_bad_display_article(article)
         and not is_confirmed_nuclear_false_positive(article)
+        and not is_explicit_irrelevant_company_article(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
         and not is_generic_redevelopment_only_article(article.title, article.description or "")
@@ -10336,12 +10382,51 @@ def render_news_sections(
             continue
         grouped[article.group].append(article)
 
+    # 과거 archive 등에 남아 있는 해외 건설사/설계사 그룹도 화면 직전에 안전하게 재분류합니다.
+    legacy_foreign_articles = grouped.get("해외 건설사", []) + grouped.get("해외 설계사", [])
+    for article in legacy_foreign_articles:
+        has_hangul = bool(re.search(r"[가-힣]", f"{article.title} {article.description or ''}"))
+        target_group = "원자력" if has_hangul else "Nuclear Power·Nuclear Energy"
+        grouped.setdefault(target_group, []).append(article)
+
+    # 국제 원자력·에너지기구 기사도 별도 탭을 만들지 않고 언어 기준으로 통합합니다.
+    intl_org_articles = grouped.get("국제 원자력·에너지기구", [])
+    for article in intl_org_articles:
+        has_hangul = bool(re.search(r"[가-힣]", f"{article.title} {article.description or ''}"))
+        target_group = "원자력" if has_hangul else "Nuclear Power·Nuclear Energy"
+        grouped.setdefault(target_group, []).append(article)
+
     sections = []
     for group, _ in GROUPS:
+        # 화면에서 통합/제거되는 내부 그룹은 별도 탭을 만들지 않습니다.
+        if group in {
+            "차세대원자로",
+            "원전해체",
+            "해외 건설사",
+            "해외 설계사",
+            "해외 원자력 협회·학회",
+            "국제 원자력·에너지기구",
+        }:
+            continue
+
+        display_articles = grouped[group]
+
+        # SMR + 차세대원자로
+        if group == "SMR":
+            display_articles = grouped["SMR"] + grouped["차세대원자로"]
+
+        # 원자력 + 원전해체 + 국내/해외 원자력 협회·학회
+        if group == "원자력":
+            display_articles = (
+                grouped["원자력"]
+                + grouped["원전해체"]
+                + grouped["해외 원자력 협회·학회"]
+            )
+
         # 등록된 기사 탭은 기사 수가 0건이어도 항상 표시합니다.
         section = render_group_unified(
             group,
-            grouped[group],
+            display_articles,
             new_urls,
         )
         section = section.replace(
@@ -10459,10 +10544,18 @@ def ensure_article_display_metadata(article: Article) -> None:
 
 
 def migrate_foreign_nuclear_company_group(article: Article) -> Article:
-    """기존 archive의 해외 원전 건설/엔지니어링사 관련 기사를 전용 탭으로 재분류합니다."""
+    """
+    기존 archive의 해외 원전 건설/엔지니어링사 기사를
+    별도 회사 탭 대신 언어 기준 원자력/Nuclear 탭으로 재분류합니다.
+    """
     mapped = _foreign_nuclear_company_group(article.title, article.description)
     if mapped:
         article.group = mapped
+    elif (article.group or "") in {"해외 건설사", "해외 설계사"}:
+        has_hangul = bool(
+            re.search(r"[가-힣]", f"{article.title} {article.description or ''}")
+        )
+        article.group = "원자력" if has_hangul else "Nuclear Power·Nuclear Energy"
     return article
 
 
@@ -10950,6 +11043,33 @@ main {{ padding: 12px 12px 34px; }}
 .group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
+
+.group-source-path {{
+  grid-column: 1 / -1;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 10px;
+  border:1px solid rgba(31,79,138,.12);
+  border-radius:8px;
+  background:rgba(31,79,138,.04);
+  font-size:10.5px;
+  line-height:1.35;
+}}
+.group-source-path-label {{
+  flex:0 0 auto;
+  font-weight:800;
+  color:#1f4f8a;
+}}
+.group-source-path a {{
+  min-width:0;
+  color:inherit;
+  text-decoration:none;
+  overflow-wrap:anywhere;
+}}
+.group-source-path a:hover {{
+  text-decoration:underline;
+}}
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) 86px; gap:6px; align-items:stretch; min-height:98px; padding:3px 2px 3px 6px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 2px 7px rgba(15,23,42,.05); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
