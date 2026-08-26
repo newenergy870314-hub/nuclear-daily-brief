@@ -1,3 +1,8 @@
+# FINAL EXCLUDE UNRELATED MINISTRY-AWARD FALSE POSITIVES 2026-08-27
+# FINAL EXCLUDE LOCAL SPECIALTY-CONSTRUCTION FALSE POSITIVE 2026-08-27
+# FINAL SAME-PUBLISHER FOLLOW-UP GROUPING ENHANCED 2026-08-27
+# FINAL MAJOR CONSTRUCTION TAB: TITLE-FIRST COMPANY SORT 2026-08-27
+# FINAL TITLE-COMPANY PRIORITY ENFORCED 2026-08-27
 # FINAL HOLTEC HIGHLIGHTS PATH DISPLAY 2026-08-26
 # FINAL RESTORE: DOMESTIC NUCLEAR ASSOCIATION/SOCIETY TAB 2026-08-26
 # FINAL EXPLICIT EXCLUSION: NAMYANG DAIRY 2026-08-26
@@ -4508,6 +4513,75 @@ def classify_executive_activity_group(title: str, summary: str = "") -> str | No
     return None
 
 
+
+OTHER_CONSTRUCTION_TITLE_PRIORITY_ORDER = (
+    ("두산에너빌리티", ("두산에너빌리티", "doosan enerbility")),
+    ("삼성물산", ("삼성물산", "samsung c&t")),
+    ("대우건설", ("대우건설", "daewoo e&c")),
+    ("현대엔지니어링", ("현대엔지니어링", "hyundai engineering")),
+    ("DL이앤씨", ("dl이앤씨", "dl e&c")),
+    ("GS건설", ("gs건설", "gs e&c")),
+    ("SK에코플랜트", ("sk에코플랜트", "sk ecoplant")),
+    ("포스코이앤씨", ("포스코이앤씨", "posco e&c")),
+    ("롯데건설", ("롯데건설", "lotte e&c", "lotte engineering & construction")),
+    ("HDC현대산업개발", ("hdc현대산업개발", "현대산업개발", "hdc hyundai development")),
+    ("한화 건설부문", ("한화 건설부문", "한화건설", "hanwha construction")),
+)
+
+
+def detect_title_primary_construction_company(title: str) -> str | None:
+    """
+    기사 제목에 직접 등장하는 국내 건설사 중 핵심 회사를 판정합니다.
+
+    제목 회사명 > 본문/미리보기 회사명 원칙을 최종 분류까지 강제합니다.
+    여러 회사가 제목에 있으면 제목에서 먼저 등장한 회사명을 핵심 주체로 봅니다.
+    """
+    hay = html.unescape(title or "").lower()
+
+    candidates: list[tuple[int, str]] = []
+
+    # 현대건설
+    hyundai_terms = (
+        "현대건설",
+        "hyundai e&c",
+        "hyundai engineering & construction",
+        "hdec",
+    )
+    for term in hyundai_terms:
+        idx = hay.find(term)
+        if idx >= 0:
+            # 현대건설기계는 현대건설로 보지 않음
+            if term == "현대건설" and "현대건설기계" in hay:
+                machine_idx = hay.find("현대건설기계")
+                if machine_idx == idx:
+                    continue
+            candidates.append((idx, "현대건설"))
+
+    # 타 주요 건설사
+    for canonical, aliases in OTHER_CONSTRUCTION_TITLE_PRIORITY_ORDER:
+        for term in aliases:
+            idx = hay.find(term.lower())
+            if idx >= 0:
+                candidates.append((idx, "타 건설사"))
+
+    if not candidates:
+        return None
+
+    candidates.sort(key=lambda x: x[0])
+    return candidates[0][1]
+
+
+def enforce_title_company_group(article: Article) -> Article:
+    """
+    최종 안전장치:
+    제목에 직접 나온 회사가 있으면 기존 group 값을 덮어써 제목 기준으로 고정합니다.
+    """
+    title_group = detect_title_primary_construction_company(article.title or "")
+    if title_group:
+        article.group = title_group
+    return article
+
+
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
     회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
@@ -4523,6 +4597,11 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     Fermi America 등 전용 그룹을 적용합니다.
     """
     haystack = html.unescape(f"{title} {summary}").lower()
+
+    # 최우선: 기사 제목에 직접 등장하는 건설사
+    title_company_group = detect_title_primary_construction_company(title)
+    if title_company_group:
+        return title_company_group
 
     # 대표이사/사장/CEO 등 핵심 경영진의 주요 활동은 해당 회사/기관 탭으로 우선 분류
     executive_group = classify_executive_activity_group(title, summary)
@@ -4831,6 +4910,11 @@ def classify_direct_article(title: str, summary: str) -> str | None:
         return None
     if is_excluded_military_nuclear_article(title, summary):
         return None
+
+    # 최우선: 제목에 직접 등장하는 건설사 기준
+    title_company_group = detect_title_primary_construction_company(title)
+    if title_company_group:
+        return title_company_group
 
     # 대표이사/사장/CEO 등 핵심 경영진 주요 활동은 회사/기관 탭을 우선
     executive_group = classify_executive_activity_group(title, summary)
@@ -6979,6 +7063,93 @@ def _us_house_coupang_pressure_event_key(article: Article) -> str | None:
     return None
 
 
+
+def _same_publisher_followup_event(a: Article, b: Article) -> bool:
+    """
+    같은 언론사의 후속/종합 기사도 동일 사건이면 하나로 묶습니다.
+
+    단, 같은 언론사 기사라는 이유만으로 묶지 않고 다음을 강하게 확인합니다.
+    - 같은 기사 탭
+    - 게시일 차이 최대 1일
+    - 국가가 명확히 다르면 제외
+    - 사건 단계가 명확히 다르면 제외
+    - 핵심 토큰/제목 유사도/전체 유사도가 충분히 높아야 함
+    - 장소/재난/프로젝트/기관 등 구체 앵커가 겹치면 추가 가중
+    """
+    publisher_a = (a.publisher or "").strip()
+    publisher_b = (b.publisher or "").strip()
+    if not publisher_a or not publisher_b or publisher_a != publisher_b:
+        return False
+
+    if a.group != b.group:
+        return False
+
+    day_a = a.published.astimezone(KST).date()
+    day_b = b.published.astimezone(KST).date()
+    if abs((day_a - day_b).days) > 1:
+        return False
+
+    country_a = detect_article_country(a)
+    country_b = detect_article_country(b)
+    if (
+        country_a not in {"", "OTHER"}
+        and country_b not in {"", "OTHER"}
+        and country_a != country_b
+    ):
+        return False
+
+    stage_a = _thumbnail_event_stage(a)
+    stage_b = _thumbnail_event_stage(b)
+    if stage_a and stage_b and stage_a != stage_b:
+        return False
+
+    hay_a = normalized(f"{a.title or ''} {a.description or ''}")
+    hay_b = normalized(f"{b.title or ''} {b.description or ''}")
+
+    tokens_a = _thumbnail_event_tokens(a)
+    tokens_b = _thumbnail_event_tokens(b)
+    if not tokens_a or not tokens_b:
+        return False
+
+    common = tokens_a & tokens_b
+    containment = len(common) / max(1, min(len(tokens_a), len(tokens_b)))
+    title_similarity = semantic_duplicate_score(a.title or "", b.title or "")
+    full_similarity = article_ngram_similarity(a, b)
+
+    # 구체 사건/장소/프로젝트 앵커
+    anchor_patterns = (
+        r"[가-힣A-Za-z0-9]+(?:지구|구역|사업|프로젝트|원전|발전소|호기|센터|공장|현장|시설)",
+        r"[가-힣]{2,10}(?:시|군|구|주|도)",
+        r"(?:홍수|산사태|지진|태풍|폭우|산불|침수|붕괴|폭발|화재)",
+        r"(?:네팔|티베트|라오스|베트남|우크라이나|미국|중국|일본|한국)",
+        r"(?:한국수력원자력|한수원|한국전력|한전|현대건설|대우건설|두산에너빌리티|삼성물산|GS건설|포스코이앤씨|SK에코플랜트)",
+    )
+
+    anchors_a: set[str] = set()
+    anchors_b: set[str] = set()
+    for pattern in anchor_patterns:
+        anchors_a.update(re.findall(pattern, hay_a, flags=re.I))
+        anchors_b.update(re.findall(pattern, hay_b, flags=re.I))
+    common_anchors = {x for x in anchors_a & anchors_b if len(x) >= 2}
+
+    # 같은 언론사 후속보도는 제목이 업데이트되며 숫자가 달라질 수 있으므로
+    # 숫자 변화 자체는 별개 사건으로 보지 않습니다.
+    if common_anchors:
+        if len(common) >= 4 and containment >= 0.55 and full_similarity >= 0.38:
+            return True
+        if len(common) >= 3 and containment >= 0.68 and title_similarity >= 0.40:
+            return True
+
+    # 앵커 추출이 안 돼도 제목/본문 유사도가 매우 높으면 동일 후속보도로 인정
+    if len(common) >= 5 and containment >= 0.68 and full_similarity >= 0.48:
+        return True
+
+    if title_similarity >= 0.62 and full_similarity >= 0.44:
+        return True
+
+    return False
+
+
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
@@ -6997,8 +7168,13 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     publisher_a = (a.publisher or "").strip()
     publisher_b = (b.publisher or "").strip()
-    if not publisher_a or not publisher_b or publisher_a == publisher_b:
+    if not publisher_a or not publisher_b:
         return False
+
+    # 같은 언론사 기사도 동일 사건의 후속/종합 보도라면 묶습니다.
+    # 다만 오병합 방지를 위해 별도의 더 강한 기준을 사용합니다.
+    if publisher_a == publisher_b:
+        return _same_publisher_followup_event(a, b)
 
     date_a_obj = a.published.astimezone(KST).date()
     date_b_obj = b.published.astimezone(KST).date()
@@ -7284,7 +7460,7 @@ def _group_confirmed_related_articles(
 
         for i in range(n):
             for j in range(i + 1, n):
-                if not publishers[i] or not publishers[j] or publishers[i] == publishers[j]:
+                if not publishers[i] or not publishers[j]:
                     continue
 
                 # 명시적 event-key 중 일부가 ±2일까지 허용되므로 후보 비교도 2일까지만.
@@ -7481,76 +7657,28 @@ OTHER_CONSTRUCTION_COMPANY_ORDER = [
 
 def _other_construction_company_rank(article: Article) -> tuple[int, str]:
     """
-    주요 건설사 탭에서 같은 회사 기사끼리 붙도록 회사별 정렬 키를 반환합니다.
-    회사 내부에서는 최신 기사 순으로 정렬됩니다.
-    """
-    haystack = normalized(f"{article.title} {article.description} {article.publisher}")
-    compact = re.sub(r"\s+", "", haystack)
+    주요 건설사 탭 회사별 정렬 기준.
 
-    for idx, (company, aliases) in enumerate(OTHER_CONSTRUCTION_COMPANY_ORDER):
-        for alias in aliases:
-            alias_norm = normalized(alias)
-            alias_compact = re.sub(r"\s+", "", alias_norm)
-            if alias_norm in haystack or alias_compact in compact:
-                return idx, company
+    1순위: 기사 제목에 직접 등장하는 회사명
+    2순위: 제목에 회사명이 없을 때만 미리보기/본문/언론사 보조 판정
+    """
+    title_hay = html.unescape(article.title or "").lower()
+    full_hay = html.unescape(
+        f"{article.title or ''} {article.description or ''} {article.publisher or ''}"
+    ).lower()
+
+    # 기존 회사 정렬 순서를 그대로 사용
+    for idx, (company_name, aliases) in enumerate(OTHER_CONSTRUCTION_COMPANY_ORDER):
+        # 1차: 제목 기준
+        if any(alias.lower() in title_hay for alias in aliases):
+            return idx, company_name
+
+    # 2차: 제목에 회사명이 없을 때만 본문/미리보기 기준
+    for idx, (company_name, aliases) in enumerate(OTHER_CONSTRUCTION_COMPANY_ORDER):
+        if any(alias.lower() in full_hay for alias in aliases):
+            return idx, company_name
 
     return len(OTHER_CONSTRUCTION_COMPANY_ORDER), "기타"
-
-
-
-# '원자력' 탭 전용 국가별 정렬 순서.
-# 같은 국가 기사를 연속 배치하고, 국가 내부에서는 최신순을 유지합니다.
-# 큰 흐름: 북미(미국 우선) -> 유럽 -> 중동 -> 아시아 -> 오세아니아 -> 중남미 -> 아프리카 -> 기타
-NUCLEAR_COUNTRY_SORT_ORDER = (
-    # 북미
-    "US", "CA",
-
-    # 유럽
-    "GB", "FR", "BG", "RO", "CZ", "PL", "SI", "FI", "SE",
-    "NL", "BE", "CH", "SK", "DK", "UA", "RU", "TR",
-
-    # 중동
-    "AE", "SA",
-
-    # 아시아
-    "KR", "JP", "CN", "IN", "VN", "MY", "TH", "SG",
-
-    # 오세아니아
-    "AU",
-
-    # 중남미
-    "BR", "AR", "CL", "PE", "CO",
-
-    # 아프리카
-    "ZA",
-)
-
-NUCLEAR_COUNTRY_SORT_RANK = {
-    code: idx for idx, code in enumerate(NUCLEAR_COUNTRY_SORT_ORDER)
-}
-
-
-
-NUCLEAR_TITLE_COUNTRY_MARKERS = (
-    ("US", ("美", "미국", "미 정부", "미 하원", "미 상원", "u.s.", "us ", "united states")),
-    ("GB", ("英", "영국", "britain", "united kingdom", "uk ")),
-    ("CN", ("中", "중국", "china", "chinese")),
-    ("JP", ("日", "일본", "japan", "japanese")),
-    ("FR", ("佛", "프랑스", "france", "french")),
-    ("KR", ("韓", "한국", "대한민국", "south korea", "korea")),
-    ("VN", ("베트남", "vietnam", "vietnamese")),
-    ("RU", ("러시아", "russia", "russian")),
-    ("CA", ("캐나다", "canada", "canadian")),
-    ("BG", ("불가리아", "bulgaria", "bulgarian")),
-    ("RO", ("루마니아", "romania", "romanian")),
-    ("CZ", ("체코", "czech", "czechia")),
-    ("PL", ("폴란드", "poland", "polish")),
-    ("UA", ("우크라이나", "ukraine", "ukrainian")),
-    ("AE", ("UAE", "아랍에미리트", "united arab emirates")),
-    ("SA", ("사우디", "사우디아라비아", "saudi arabia", "saudi")),
-    ("IN", ("인도", "india", "indian")),
-    ("AU", ("호주", "australia", "australian")),
-)
 
 
 def _title_has_marker(title: str, marker: str) -> bool:
@@ -9854,6 +9982,84 @@ def is_explicit_irrelevant_company_article(article: Article) -> bool:
     return any(term in hay for term in EXPLICIT_IRRELEVANT_COMPANY_TERMS)
 
 
+
+def is_local_specialty_construction_false_positive(article: Article) -> bool:
+    """
+    대한전문건설협회/지역 전문건설산업 활성화 기사 중
+    한국전력/전력사업과 직접 관련 없는 명백한 오탐만 제외합니다.
+
+    예:
+    - 대한전문건설협회 경북도회 + 칠곡군수 면담
+    - 지역 전문건설업체 발주 확대/지역산업 활성화
+    """
+    title = html.unescape(article.title or "").lower()
+    desc = html.unescape(article.description or "").lower()
+    hay = f"{title} {desc}"
+
+    specialty_terms = (
+        "대한전문건설협회",
+        "전문건설협회",
+        "전문건설업",
+        "전문건설산업",
+        "지역 전문건설",
+        "지역전문건설",
+    )
+    local_terms = (
+        "시장", "군수", "구청장", "도지사", "지자체",
+        "시청", "군청", "도청", "지역경제", "지역산업",
+        "지역 업체", "지역업체", "발주 확대", "수주 확대",
+        "활성화", "간담회", "면담",
+    )
+    direct_kepco_terms = (
+        "한국전력공사", "한국전력", "한전", "kepco",
+        "전력망", "송전", "배전", "변전", "전력계통",
+        "전력사업", "전력공급", "전력설비",
+    )
+
+    has_specialty = any(term in hay for term in specialty_terms)
+    has_local = any(term in hay for term in local_terms)
+    has_direct_kepco = any(term in hay for term in direct_kepco_terms)
+
+    return has_specialty and has_local and not has_direct_kepco
+
+
+
+def is_unrelated_ministry_award_false_positive(article: Article) -> bool:
+    """
+    원전 관계부처 탭에서 '장관상/기관장상 수상'이라는 이유만으로 잡힌
+    비원전·비에너지 시상/어워드 기사를 좁게 제외합니다.
+
+    예:
+    - 국방부 모바일 플랫폼 '장병e음', ICT 어워드 과기정통부장관상 수상
+      -> 기사 핵심은 국방/ICT 서비스이며 원전·에너지·전력과 무관
+    """
+    if (article.group or "") != "원전 관계부처":
+        return False
+
+    title = html.unescape(article.title or "").lower()
+    desc = html.unescape(article.description or "").lower()
+    hay = f"{title} {desc}"
+
+    award_terms = (
+        "장관상", "기관장상", "대상 수상", "최우수상", "우수상",
+        "award", "awards", "수상", "시상식", "어워드",
+    )
+
+    nuclear_energy_terms = (
+        "원전", "원자력", "smr", "소형모듈원자로", "차세대 원자로",
+        "nuclear", "reactor",
+        "전력", "전력망", "송전", "배전", "변전", "전력계통",
+        "에너지", "발전소", "재생에너지", "신재생에너지",
+        "수소", "전기요금", "전력정책", "에너지정책",
+        "원자력안전", "방사성폐기물", "사용후핵연료",
+    )
+
+    has_award = any(term in hay for term in award_terms)
+    has_relevant_context = any(term in hay for term in nuclear_energy_terms)
+
+    return has_award and not has_relevant_context
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -9868,6 +10074,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_targeted_bad_display_article(article)
         and not is_confirmed_nuclear_false_positive(article)
         and not is_explicit_irrelevant_company_article(article)
+        and not is_local_specialty_construction_false_positive(article)
+        and not is_unrelated_ministry_award_false_positive(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
         and not is_generic_redevelopment_only_article(article.title, article.description or "")
@@ -10378,6 +10586,10 @@ def render_news_sections(
 
     grouped: dict[str, list[Article]] = {name: [] for name, _ in GROUPS}
     for article in visible:
+        # 최종 화면 직전에도 제목 회사명 기준을 다시 강제해
+        # 본문/미리보기의 현대건설 언급이 제목의 대우건설/GS건설 등을 덮지 못하게 합니다.
+        enforce_title_company_group(article)
+
         if article.group not in grouped:
             continue
         grouped[article.group].append(article)
