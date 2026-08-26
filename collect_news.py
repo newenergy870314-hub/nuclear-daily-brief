@@ -1,3 +1,8 @@
+# FINAL EXCLUDE SPECIALTY CONSTRUCTION DONATION FALSE POSITIVE 2026-08-27
+# FINAL EXCLUDE SAMSUNG C&T FASHION FALSE POSITIVES 2026-08-27
+# FINAL EXCLUDE NON-NUCLEAR FALSE POSITIVES FROM NUCLEAR TAB 2026-08-27
+# FINAL EXCLUDE GLOBAL ENERGY MONITOR 2026-08-27
+# FINAL MOBILE DATE FONT 10PX 2026-08-27
 # FINAL HOLTEC SMALL SOURCE NOTE 2026-08-27
 # FINAL HOLTEC: REAL ARTICLE ONLY / EXCLUDE YEAR ARCHIVES 2026-08-27
 # FINAL EXCLUDE NEWSIS '오늘의 주요일정' 2026-08-27
@@ -10123,16 +10128,16 @@ def is_explicit_irrelevant_company_article(article: Article) -> bool:
 
 def is_local_specialty_construction_false_positive(article: Article) -> bool:
     """
-    대한전문건설협회/지역 전문건설산업 활성화 기사 중
-    한국전력/전력사업과 직접 관련 없는 명백한 오탐만 제외합니다.
-
-    예:
-    - 대한전문건설협회 경북도회 + 칠곡군수 면담
-    - 지역 전문건설업체 발주 확대/지역산업 활성화
+    대한전문건설협회/전문건설업계의 지역 활동·기부·후원·간담회 기사가
+    한국전력 관련 기사로 오분류되는 경우를 제외합니다.
+    실제 한전·전력망·송배전 관련 내용이 있으면 유지합니다.
     """
+    if article.group != "한국전력":
+        return False
+
     title = html.unescape(article.title or "").lower()
-    desc = html.unescape(article.description or "").lower()
-    hay = f"{title} {desc}"
+    summary = html.unescape(article.summary or "").lower()
+    blob = f"{title} {summary}"
 
     specialty_terms = (
         "대한전문건설협회",
@@ -10142,23 +10147,56 @@ def is_local_specialty_construction_false_positive(article: Article) -> bool:
         "지역 전문건설",
         "지역전문건설",
     )
-    local_terms = (
-        "시장", "군수", "구청장", "도지사", "지자체",
-        "시청", "군청", "도청", "지역경제", "지역산업",
-        "지역 업체", "지역업체", "발주 확대", "수주 확대",
-        "활성화", "간담회", "면담",
-    )
+    if not any(term in blob for term in specialty_terms):
+        return False
+
     direct_kepco_terms = (
-        "한국전력공사", "한국전력", "한전", "kepco",
-        "전력망", "송전", "배전", "변전", "전력계통",
-        "전력사업", "전력공급", "전력설비",
+        "한국전력공사",
+        "한국전력",
+        "한전",
+        "kepco",
+        "전력망",
+        "송전",
+        "배전",
+        "변전",
+        "전력계통",
+        "전력사업",
+        "전력공급",
+        "전력설비",
+    )
+    if any(term in blob for term in direct_kepco_terms):
+        return False
+
+    local_activity_terms = (
+        "시장",
+        "군수",
+        "구청장",
+        "도지사",
+        "지자체",
+        "시청",
+        "군청",
+        "도청",
+        "지역경제",
+        "지역산업",
+        "지역 업체",
+        "발주 확대",
+        "수주 확대",
+        "활성화",
+        "간담회",
+        "면담",
+        "후원",
+        "후원금",
+        "기부",
+        "기부금",
+        "성금",
+        "나눔",
+        "봉사",
+        "이웃돕기",
+        "사회공헌",
+        "천사운동",
     )
 
-    has_specialty = any(term in hay for term in specialty_terms)
-    has_local = any(term in hay for term in local_terms)
-    has_direct_kepco = any(term in hay for term in direct_kepco_terms)
-
-    return has_specialty and has_local and not has_direct_kepco
+    return any(term in blob for term in local_activity_terms)
 
 
 
@@ -10216,6 +10254,139 @@ def is_newsis_daily_schedule_article(article: Article) -> bool:
     return is_newsis and any(term.lower() in title for term in schedule_terms)
 
 
+
+def is_global_energy_monitor_article(article: Article) -> bool:
+    """Global Energy Monitor 소스는 기사 목록에서 제외합니다."""
+    publisher = html.unescape(article.publisher or "").strip().lower()
+    return publisher == "global energy monitor"
+
+
+
+def is_non_nuclear_false_positive_in_nuclear_tab(article: Article) -> bool:
+    """
+    Nuclear Power·Nuclear Energy 탭에 잘못 들어온 일반 정치/사회/경제 기사를 제외합니다.
+    언론사 전체를 차단하지 않고, 제목·요약에 직접적인 원자력 문맥이 전혀 없을 때만 제외합니다.
+    """
+    if article.group != "Nuclear Power·Nuclear Energy":
+        return False
+
+    title = html.unescape(article.title or "").lower()
+    summary = html.unescape(article.summary or "").lower()
+    text_blob = f"{title} {summary}"
+
+    nuclear_core_terms = (
+        "nuclear",
+        "reactor",
+        "small modular reactor",
+        "smr",
+        "microreactor",
+        "micro reactor",
+        "atomic energy",
+        "atomic power",
+        "uranium",
+        "plutonium",
+        "radioactive waste",
+        "spent fuel",
+        "nuclear fuel",
+        "nuclear power plant",
+        "nuclear plant",
+        "nuclear energy",
+        "nuclear electricity",
+        "fusion",
+        "fission",
+        "원전",
+        "원자력",
+        "원자로",
+        "소형모듈원자로",
+        "차세대 원자로",
+        "핵연료",
+        "사용후핵연료",
+        "방사성폐기물",
+        "우라늄",
+    )
+
+    return not any(term in text_blob for term in nuclear_core_terms)
+
+
+
+def is_samsung_cnt_fashion_false_positive(article: Article) -> bool:
+    """
+    삼성물산 패션부문 기사(브랜드/컬렉션/의류 등)를 주요 건설사 기사에서 제외합니다.
+    삼성물산 건설부문·EPC·원전·프로젝트 관련 기사는 유지합니다.
+    """
+    if article.group != "타 건설사":
+        return False
+
+    title = html.unescape(article.title or "").lower()
+    summary = html.unescape(article.summary or "").lower()
+    blob = f"{title} {summary}"
+
+    samsung_terms = (
+        "삼성물산",
+        "samsung c&t",
+        "samsung ct",
+    )
+    if not any(term in blob for term in samsung_terms):
+        return False
+
+    construction_protect_terms = (
+        "건설부문",
+        "건설",
+        "construction",
+        "engineering",
+        "epc",
+        "원전",
+        "원자력",
+        "nuclear",
+        "reactor",
+        "smr",
+        "플랜트",
+        "plant",
+        "프로젝트",
+        "project",
+        "수주",
+        "착공",
+        "준공",
+        "현장",
+        "시공",
+        "설계",
+        "조달",
+        "인프라",
+        "infrastructure",
+    )
+    if any(term in blob for term in construction_protect_terms):
+        return False
+
+    fashion_terms = (
+        "패션부문",
+        "패션",
+        "fashion",
+        "브랜드",
+        "brand",
+        "컬렉션",
+        "collection",
+        "의류",
+        "clothing",
+        "apparel",
+        "키즈",
+        "아미",
+        "ami",
+        "빈폴",
+        "beanpole",
+        "구호",
+        "kuho",
+        "에잇세컨즈",
+        "8seconds",
+        "르메르",
+        "준지",
+        "juun.j",
+        "ssf샵",
+        "ssf shop",
+    )
+
+    return any(term in blob for term in fashion_terms)
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -10233,6 +10404,9 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_local_specialty_construction_false_positive(article)
         and not is_unrelated_ministry_award_false_positive(article)
         and not is_newsis_daily_schedule_article(article)
+        and not is_global_energy_monitor_article(article)
+        and not is_non_nuclear_false_positive_in_nuclear_tab(article)
+        and not is_samsung_cnt_fashion_false_positive(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
         and not is_generic_redevelopment_only_article(article.title, article.description or "")
@@ -12017,7 +12191,7 @@ header,
   }}
   .date-display {{
     padding:0 14px 0 4px;
-    font-size:9px;
+    font-size:10px;
     line-height:21px;
   }}
   .date-calendar {{
