@@ -1,3 +1,6 @@
+# FINAL HOLTEC SMALL SOURCE NOTE 2026-08-27
+# FINAL HOLTEC: REAL ARTICLE ONLY / EXCLUDE YEAR ARCHIVES 2026-08-27
+# FINAL EXCLUDE NEWSIS '오늘의 주요일정' 2026-08-27
 # FINAL FIX: RESTORE NUCLEAR COUNTRY SORT CONSTANTS 2026-08-27
 # FINAL FIX: RESTORE NUCLEAR_TITLE_COUNTRY_MARKERS 2026-08-27
 # FINAL EXCLUDE UNRELATED MINISTRY-AWARD FALSE POSITIVES 2026-08-27
@@ -5222,10 +5225,35 @@ def _looks_like_article_url(url: str, publisher: str) -> bool:
         return "nucnet.org/news/" in lower and lower.rstrip("/") != "https://www.nucnet.org/news"
     if publisher == "Holtec International":
         # Holtec Highlights 개별 게시물은 /hh-41-16/ 같은 고유 URL을 사용합니다.
-        # 이 URL은 제목/키워드와 관계없이 최우선 기사 후보로 인정합니다.
         if re.search(r"holtecinternational\.com/hh-\d+-\d+/?(?:[?#].*)?$", lower):
             return True
-        # news / yearly archive에서 발견한 일반 Holtec 기사 URL도 원문 확인 대상으로 허용합니다.
+
+        # 연도별 archive/menu 자체는 기사가 아닙니다.
+        # 예: /2023/, /2024/, /2025/, /2026/
+        if re.search(r"holtecinternational\.com/20\d{2}/?(?:[?#].*)?$", lower):
+            return False
+
+        # 목록/메뉴 페이지도 기사 후보에서 제외합니다.
+        holtec_nav_paths = (
+            "holtecinternational.com/news",
+            "holtecinternational.com/category/",
+            "holtecinternational.com/tag/",
+            "holtecinternational.com/author/",
+            "holtecinternational.com/media",
+            "holtecinternational.com/about",
+            "holtecinternational.com/contact",
+            "holtecinternational.com/products",
+            "holtecinternational.com/services",
+        )
+        stripped = lower.rstrip("/")
+        if any(stripped == path.rstrip("/") for path in holtec_nav_paths):
+            return False
+        if any(token in lower for token in (
+            "/category/", "/tag/", "/author/", "/page/",
+        )):
+            return False
+
+        # 그 외 Holtec 내부의 실제 slug형 개별 페이지는 원문 확인 대상으로 허용합니다.
         return "holtecinternational.com/" in lower
     return True
 
@@ -5584,6 +5612,21 @@ def _fetch_direct_page_article(
     if not title or len(title) < 4:
         return None, "no_title"
 
+    # Holtec 연도 archive/menu가 article처럼 잡히는 오탐을 최종 차단합니다.
+    if publisher == "Holtec International":
+        holtec_final_lower = (final_url or "").lower().rstrip("/")
+        title_compact = re.sub(r"\s+", "", title).strip()
+
+        if (
+            re.fullmatch(r"20\d{2}", title_compact)
+            or re.search(r"holtecinternational\.com/20\d{2}$", holtec_final_lower)
+            or holtec_final_lower in {
+                "https://holtecinternational.com/news",
+                "https://holtecinternational.com/category/holtec-highlights",
+            }
+        ):
+            return None, "excluded"
+
     description_raw = (
         parser.values.get("og:description")
         or parser.values.get("twitter:description")
@@ -5726,16 +5769,32 @@ def _fetch_one_direct_news_page(
     # 후보 50건 제한 때문에 최신 HH 게시물이 밀려나는 일을 방지합니다.
     if publisher == "Holtec International" and parser_links:
         hh_links = []
-        other_links = []
+        article_links = []
+        nav_links = []
+
         for _link, _title in parser_links:
+            lower_link = (_link or "").lower()
+            compact_title = re.sub(r"\s+", "", html.unescape(_title or "")).strip()
+
             if re.search(
                 r"holtecinternational\.com/hh-\d+-\d+/?(?:[?#].*)?$",
-                (_link or "").lower(),
+                lower_link,
             ):
                 hh_links.append((_link, _title))
+            elif (
+                re.fullmatch(r"20\d{2}", compact_title)
+                or re.search(r"holtecinternational\.com/20\d{2}/?(?:[?#].*)?$", lower_link)
+                or any(x in lower_link for x in (
+                    "/category/", "/tag/", "/author/", "/page/",
+                ))
+            ):
+                nav_links.append((_link, _title))
             else:
-                other_links.append((_link, _title))
-        parser_links = hh_links + other_links
+                article_links.append((_link, _title))
+
+        # 실제 HH/기사형 링크를 먼저 검사하고 archive/menu 링크는 뒤로 보냅니다.
+        # 뒤 단계의 _looks_like_article_url에서 archive/menu는 최종 제외됩니다.
+        parser_links = hh_links + article_links + nav_links
 
     candidates: list[tuple[str, str]] = []
     seen: set[str] = set()
@@ -7590,6 +7649,16 @@ def render_card(
     ).lower()
     primary_country = detect_article_country(article)
 
+    holtec_source_note = ""
+    if article.group == "Holtec":
+        holtec_source_note = (
+            '<div class="holtec-source-note">'
+            '공식출처: '
+            '<a href="https://holtecinternational.com/category/holtec-highlights/" '
+            'target="_blank" rel="noopener noreferrer">Holtec Highlights</a>'
+            '</div>'
+        )
+
     return f"""
 <article class="preview-card{' new-article' if is_new else ''}"
   data-url="{escape(article.link)}"
@@ -7617,6 +7686,7 @@ def render_card(
       </div>
       <div class="headline">{new_badge}{escape(article.title)}</div>
       {snippet_html}
+      {holtec_source_note}
     </div>
   </div>
   <div class="card-side">
@@ -7958,6 +8028,13 @@ def render_group_unified(
         if group == "원자력":
             return sorted(items, key=_nuclear_country_sort_key)
 
+        # Holtec 공식 게시물은 실제 발행일 기준 최신순을 최우선으로 유지합니다.
+        if group == "Holtec":
+            return sorted(
+                items,
+                key=lambda item: -item.published.timestamp(),
+            )
+
         # 주요 건설사 탭은 같은 회사 기사끼리 묶고, 회사 내부는 최신순으로 정렬
         if group == "타 건설사":
             return sorted(
@@ -8012,16 +8089,6 @@ def render_group_unified(
     article_total = len(ordered_articles)
 
     source_path_html = ""
-    if group == "Holtec":
-        source_path_html = (
-            '<div class="group-source-path">'
-            '<span class="group-source-path-label">공식 출처</span>'
-            '<a href="https://holtecinternational.com/category/holtec-highlights/" '
-            'target="_blank" rel="noopener noreferrer">'
-            'Holtec International → Media Room → News &amp; Media → Holtec Highlights'
-            '</a>'
-            '</div>'
-        )
 
     if group == "원전 관계부처":
         display_group = "원전 관계부처(산업통상부·기후부·과기부)"
@@ -8039,7 +8106,7 @@ def render_group_unified(
     <span class="group-name">{escape(display_group)}</span>
     <span class="group-count">{article_total}건</span>
   </button>
-  <div class="article-stack">{source_path_html}{cards}</div>
+  <div class="article-stack">{cards}</div>
 </section>
 """
 
@@ -10131,6 +10198,24 @@ def is_unrelated_ministry_award_false_positive(article: Article) -> bool:
     return has_award and not has_relevant_context
 
 
+
+def is_newsis_daily_schedule_article(article: Article) -> bool:
+    """
+    뉴시스의 '오늘의 주요일정' 같은 일정 안내형 콘텐츠를 제외합니다.
+    다른 뉴시스 일반 기사는 건드리지 않습니다.
+    """
+    publisher = html.unescape(article.publisher or "").strip().lower()
+    title = html.unescape(article.title or "").strip().lower()
+
+    is_newsis = publisher in {"뉴시스", "newsis"} or "newsis" in publisher
+    schedule_terms = (
+        "오늘의 주요일정",
+        "[오늘의 주요일정]",
+    )
+
+    return is_newsis and any(term.lower() in title for term in schedule_terms)
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -10147,6 +10232,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_explicit_irrelevant_company_article(article)
         and not is_local_specialty_construction_false_positive(article)
         and not is_unrelated_ministry_award_false_positive(article)
+        and not is_newsis_daily_schedule_article(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
         and not is_generic_redevelopment_only_article(article.title, article.description or "")
@@ -11327,32 +11413,21 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
 
-.group-source-path {{
-  grid-column: 1 / -1;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  padding:7px 10px;
-  border:1px solid rgba(31,79,138,.12);
-  border-radius:8px;
-  background:rgba(31,79,138,.04);
-  font-size:10.5px;
-  line-height:1.35;
+.holtec-source-note {{
+  margin-top:3px;
+  font-size:9px;
+  line-height:1.2;
+  color:#7d8794;
 }}
-.group-source-path-label {{
-  flex:0 0 auto;
-  font-weight:800;
-  color:#1f4f8a;
-}}
-.group-source-path a {{
-  min-width:0;
-  color:inherit;
+.holtec-source-note a {{
+  color:#667589;
+  font-weight:600;
   text-decoration:none;
-  overflow-wrap:anywhere;
 }}
-.group-source-path a:hover {{
+.holtec-source-note a:hover {{
   text-decoration:underline;
 }}
+
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) 86px; gap:6px; align-items:stretch; min-height:98px; padding:3px 2px 3px 6px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 2px 7px rgba(15,23,42,.05); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
 .preview-card.read {{ background: #ebeff3; opacity: .92; }}
