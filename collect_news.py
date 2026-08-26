@@ -1,3 +1,4 @@
+# FINAL STOCK / SECURITIES FILTER RELAXED 2026-08-26
 # FINAL RELAXED RELEVANCE FILTERS 2026-08-26
 # FINAL BALANCED FILTER RECOVERY 2026-08-26
 # FINAL VERIFIED: MAJOR CONSTRUCTION COMPANY CLUSTER SORT 2026-08-26
@@ -1813,17 +1814,24 @@ BLOCKED_HARMFUL_SOURCE_KEYWORDS = {
 
 # 증권사 리포트·주가 전망·투자의견 관련 기사 제외
 BLOCKED_STOCK_KEYWORDS = {
-    "목표주가", "투자의견", "매수 유지", "매도 유지",
-    "중립 유지", "보유 유지", "매수 의견", "매도 의견",
-    "목표가", "적정주가", "주가 전망", "주가 상승",
-    "주가 하락", "증권사", "리포트", "컨센서스",
-    "실적 전망", "어닝", "밸류에이션", "시가총액",
-    "주식", "종목", "코스피", "코스닥",
-    "target price", "price target", "buy rating",
-    "sell rating", "hold rating", "overweight",
-    "underweight", "stock outlook", "equity research",
-    "brokerage", "analyst report",
+    # 증권/주가 관련 표현 자체는 더 이상 광범위하게 차단하지 않습니다.
+    # 아래처럼 원전·건설 사업과 무관한 순수 주식 추천/매매성 표현만 차단합니다.
+    "오늘의 추천주",
+    "추천 종목",
+    "급등주 추천",
+    "상한가 종목",
+    "단타",
+    "매수 추천",
+    "매도 추천",
+    "주식 투자 추천",
+    "종목 추천",
+    "테마주 추천",
+    "stock pick",
+    "stocks to buy",
+    "buy now",
+    "trading signal",
 }
+
 
 
 EXCLUDED_PUBLISHERS = {
@@ -9565,6 +9573,54 @@ def is_targeted_bad_display_article(article: Article) -> bool:
         return True
 
     return False
+
+
+
+def is_relevant_business_stock_article(title: str, summary: str = "") -> bool:
+    """
+    원전/건설/수주/프로젝트 등 실제 사업 이슈와 연결된 증권·주가 기사는 유지합니다.
+    단순 추천주/매매성 기사만 제외 대상으로 둡니다.
+    """
+    hay = html.unescape(f"{title or ''} {summary or ''}").lower()
+
+    business_terms = (
+        "원전", "원자력", "smr", "nuclear",
+        "수주", "계약", "epc", "프로젝트", "착공", "준공",
+        "건설", "플랜트", "발전소", "해외사업", "투자",
+        "웨스팅하우스", "westinghouse",
+        "홀텍", "holtec",
+        "두산에너빌리티", "현대건설", "삼성물산", "대우건설",
+        "포스코이앤씨", "posco e&c", "gs건설", "sk에코플랜트",
+    )
+    stock_terms = (
+        "주가", "급등", "강세", "상승", "하락",
+        "증권사", "리포트", "목표주가", "투자의견",
+        "코스피", "코스닥", "stock", "shares", "rally",
+    )
+
+    return (
+        any(term in hay for term in stock_terms)
+        and any(term in hay for term in business_terms)
+    )
+
+
+def is_pure_stock_recommendation_article(title: str, summary: str = "") -> bool:
+    """
+    사업 맥락 없이 추천주/매매 유도 성격이 강한 순수 증권기사만 제외합니다.
+    """
+    hay = html.unescape(f"{title or ''} {summary or ''}").lower()
+
+    pure_terms = (
+        "오늘의 추천주", "추천 종목", "급등주 추천", "상한가 종목",
+        "단타", "매수 추천", "매도 추천", "주식 투자 추천",
+        "종목 추천", "테마주 추천",
+        "stock pick", "stocks to buy", "buy now", "trading signal",
+    )
+
+    if is_relevant_business_stock_article(title, summary):
+        return False
+
+    return any(term in hay for term in pure_terms)
 
 
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
