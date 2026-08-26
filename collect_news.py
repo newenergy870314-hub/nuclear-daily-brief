@@ -1,4 +1,3 @@
-# EXCLUDE UNRESOLVED HTML ENTITIES IN ARTICLE TITLE/PREVIEW 2026-08-26
 # FINAL NUCLEAR TAB TITLE-SUBJECT COUNTRY SORT 2026-08-26
 # EXCLUDE GARBLED / MOJIBAKE ARTICLE PREVIEWS 2026-08-26
 # THUMBNAIL 1PX LIGHT-GRAY BORDER 2026-08-26
@@ -9302,53 +9301,7 @@ def is_garbled_article_text(article: Article) -> bool:
     return False
 
 
-
-def _fully_unescape_html_entities(value: str, max_rounds: int = 3) -> str:
-    """
-    &quot; / &amp;quot; 같은 HTML entity를 최대 3회까지 복원합니다.
-    이중/삼중 인코딩된 값도 가능한 범위에서 정상 문자로 되돌립니다.
-    """
-    current = value or ""
-    for _ in range(max_rounds):
-        decoded = html.unescape(current)
-        if decoded == current:
-            break
-        current = decoded
-    return current
-
-
-def is_unresolved_html_entity_article(article: Article) -> bool:
-    """
-    제목/미리보기를 반복 unescape한 뒤에도 HTML entity 코드가 남아 있으면
-    공개 화면 품질을 위해 해당 기사 자체를 제외합니다.
-    """
-    title = _fully_unescape_html_entities(article.title or "")
-    desc = _fully_unescape_html_entities(article.description or "")
-
-    # 실제 화면에 노출되면 안 되는 대표적인 entity 패턴
-    unresolved_pattern = re.compile(
-        r"&(?:quot|amp|apos|lt|gt|nbsp|#0*34|#x0*22);",
-        re.I,
-    )
-
-    return bool(
-        unresolved_pattern.search(title)
-        or unresolved_pattern.search(desc)
-    )
-
-
-def normalize_article_display_entities(article: Article) -> Article:
-    """
-    정상 복원 가능한 HTML entity는 기사 데이터 자체에 반영합니다.
-    """
-    article.title = _fully_unescape_html_entities(article.title or "")
-    article.description = _fully_unescape_html_entities(article.description or "")
-    return article
-
-
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
-    # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
-    articles = [normalize_article_display_entities(article) for article in articles]
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
 
     # 최종 출력/archive 공통 제외 필터를 먼저 적용해야 이후 정렬·중복제거에도 반영됩니다.
@@ -9357,7 +9310,6 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if not is_excluded_source(article.publisher, article.link, article.source_url)
         and not is_westinghouse_air_brake_article(article.title, article.description)
         and not is_khnp_elementary_article(article)
-        and not is_unresolved_html_entity_article(article)
         and not is_garbled_article_text(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
