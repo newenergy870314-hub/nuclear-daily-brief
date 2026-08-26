@@ -1,3 +1,4 @@
+# FINAL RELAXED RELEVANCE FILTERS 2026-08-26
 # FINAL BALANCED FILTER RECOVERY 2026-08-26
 # FINAL VERIFIED: MAJOR CONSTRUCTION COMPANY CLUSTER SORT 2026-08-26
 # FINAL FIX: NUCLEAR FALSE POSITIVES + STRONGER GARBLED FILTER 2026-08-26
@@ -9092,23 +9093,31 @@ def _count_term_hits(text: str, terms: tuple[str, ...]) -> int:
 
 def _is_core_entity_article(title: str, summary: str, entity_terms: tuple[str, ...], context_terms: tuple[str, ...]) -> bool:
     """
-    제목을 가장 강하게 보고, 미리보기는 보조로 사용합니다.
-    - 제목에 핵심 주체가 있으면 관련 맥락 1개만 있어도 인정
-    - 제목에 없으면 미리보기에서 주체가 반복/강하게 나타나고 관련 맥락도 충분해야 인정
-    - 본문/미리보기에서 회사명이 1회 스쳐 지나가는 수준은 제외
+    관련성 필터 완화 버전.
+
+    원칙:
+    - 제목에 해당 회사/기관명이 직접 나오면 핵심 기사로 인정
+    - 제목에 없더라도 미리보기에 회사/기관이 나오고 관련 사업 맥락이 1개 이상이면 인정
+    - 단순 1회 언급 + 관련 맥락도 전혀 없는 경우만 제외
     """
     t = html.unescape(title or "")
     s = html.unescape(summary or "")
+
     title_entity = _count_term_hits(t, entity_terms)
     summary_entity = _count_term_hits(s, entity_terms)
     title_context = _count_term_hits(t, context_terms)
     summary_context = _count_term_hits(s, context_terms)
 
+    # 제목에 핵심 회사/기관이 직접 등장하면 우선 유지
     if title_entity >= 1:
-        return (title_context + summary_context) >= 1
+        return True
 
-    # 제목에 없으면 훨씬 엄격하게
-    if summary_entity >= 2 and (title_context + summary_context) >= 2:
+    # 미리보기에 회사/기관이 등장하고 실제 사업/업무 맥락이 하나라도 있으면 유지
+    if summary_entity >= 1 and (title_context + summary_context) >= 1:
+        return True
+
+    # 회사/기관명이 미리보기에 반복적으로 등장하면 핵심 주체일 가능성이 높으므로 유지
+    if summary_entity >= 2:
         return True
 
     return False
@@ -9403,11 +9412,10 @@ NON_NUCLEAR_TOPIC_TERMS = (
 
 def is_low_relevance_nuclear_tab_article(article: Article) -> bool:
     """
-    '원자력' 탭 오분류 방지.
+    '원자력' 탭 관련성 필터 완화 버전.
 
-    제목이 원자력 핵심 주제를 직접 말하는 기사는 유지합니다.
-    제목에 원자력 핵심성이 없고 미리보기의 우연한 키워드에만 의존하는 경우는
-    실제 원자력 기관/사업 맥락이 충분할 때만 유지합니다.
+    명확한 문화/철도/금융 등 비원자력 제목은 계속 제외하지만,
+    정상 원자력 기사까지 과도하게 제거하지 않도록 기준을 완화합니다.
     """
     title = html.unescape(article.title or "").strip().lower()
     desc = html.unescape(article.description or "").strip().lower()
@@ -9421,8 +9429,7 @@ def is_low_relevance_nuclear_tab_article(article: Article) -> bool:
     if any(term in title for term in NUCLEAR_CORE_ENTITY_TERMS):
         return False
 
-    # 제목이 명백한 비원자력 주제이면,
-    # 미리보기 속 단발성 원자력 단어로는 원자력 탭에 넣지 않음
+    # 제목이 명백한 비원자력 주제면 제외
     if any(term in title for term in NON_NUCLEAR_TOPIC_TERMS):
         return True
 
@@ -9430,15 +9437,18 @@ def is_low_relevance_nuclear_tab_article(article: Article) -> bool:
     context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in combined)
     title_context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in title)
 
-    # 제목에 원자력 맥락이 하나라도 있고 전체 기사에도 충분한 맥락이 있으면 유지
-    if title_context_hits >= 1 and context_hits >= 2:
+    # 제목에 원자력 관련 맥락이 하나라도 있으면 유지
+    if title_context_hits >= 1:
         return False
 
-    # 제목에 원자력 표현이 없으면, 미리보기만으로는 훨씬 엄격하게:
-    # 핵심 기관 + 복수의 원자력 사업/기술 맥락이 동시에 있어야 유지
-    if entity_hits >= 1 and context_hits >= 3:
+    # 미리보기까지 포함해 원자력 핵심기관 또는 복수의 원자력 맥락이 있으면 유지
+    if entity_hits >= 1 and context_hits >= 1:
         return False
 
+    if context_hits >= 2:
+        return False
+
+    # 원자력 핵심성이 거의 없는 경우만 제외
     return True
 
 
