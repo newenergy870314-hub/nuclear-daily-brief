@@ -1,3 +1,7 @@
+# KEPCO TAB CORE-SUBJECT RELEVANCE REFINED 2026-08-26
+# EXCLUDE KOSCAJ SITE-TITLE / SITE-META FALSE ARTICLES 2026-08-26
+# FINAL RELEVANCE CLASSIFICATION REFINED: TITLE-WEIGHTED + CORE-SUBJECT FILTERS 2026-08-26
+# EXCLUDE KHNP / NUCLEAR SITE BLOOD DONATION COMMUNITY EVENTS 2026-08-26
 # BACK-TO-TOP ALWAYS VISIBLE AT BOTTOM-RIGHT 2026-08-26
 # SMART BACK-TO-TOP UX: HIDE ON DOWN-SCROLL, SHOW ON UP-SCROLL 2026-08-26
 # HOLTEC HIGHLIGHTS COMPLETE COLLECTION: CATEGORY + NEWS + YEAR ARCHIVE + HH URL PRIORITY 2026-08-26
@@ -8583,6 +8587,215 @@ def _hyundai_nuclear_stock_rally_event_key(article: Article) -> str | None:
     return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
+
+def is_khnp_blood_donation_event(article: Article) -> bool:
+    """
+    한수원/원전본부의 지역사회 헌혈행사·혈액원 협력성 기사를 제외합니다.
+    원전 사업·기술·정책 모니터링과 직접 관련 없는 CSR성 지역행사만 대상으로 합니다.
+    """
+    haystack = html.unescape(
+        f"{article.title or ''} {(article.description or '')[:320]}"
+    ).lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    nuclear_org_terms = (
+        "한국수력원자력", "한수원",
+        "원자력본부", "원전본부",
+        "한울본부", "한울원자력본부",
+        "고리본부", "고리원자력본부",
+        "월성본부", "월성원자력본부",
+        "새울본부", "새울원자력본부",
+        "한빛본부", "한빛원자력본부",
+        "khnp",
+    )
+    donation_terms = (
+        "헌혈", "사랑의 헌혈",
+        "헌혈 행사", "헌혈행사",
+        "헌혈 캠페인", "헌혈캠페인",
+        "혈액원",
+        "blood donation", "blood drive",
+    )
+
+    has_org = any(
+        term in haystack or term.replace(" ", "") in compact
+        for term in nuclear_org_terms
+    )
+    has_donation = any(
+        term in haystack or term.replace(" ", "") in compact
+        for term in donation_terms
+    )
+    return has_org and has_donation
+
+
+
+def _count_term_hits(text: str, terms: tuple[str, ...]) -> int:
+    lowered = html.unescape(text or "").lower()
+    compact = re.sub(r"\s+", "", lowered)
+    count = 0
+    for term in terms:
+        t = term.lower()
+        if t in lowered or t.replace(" ", "") in compact:
+            count += 1
+    return count
+
+
+def _is_core_entity_article(title: str, summary: str, entity_terms: tuple[str, ...], context_terms: tuple[str, ...]) -> bool:
+    """
+    제목을 가장 강하게 보고, 미리보기는 보조로 사용합니다.
+    - 제목에 핵심 주체가 있으면 관련 맥락 1개만 있어도 인정
+    - 제목에 없으면 미리보기에서 주체가 반복/강하게 나타나고 관련 맥락도 충분해야 인정
+    - 본문/미리보기에서 회사명이 1회 스쳐 지나가는 수준은 제외
+    """
+    t = html.unescape(title or "")
+    s = html.unescape(summary or "")
+    title_entity = _count_term_hits(t, entity_terms)
+    summary_entity = _count_term_hits(s, entity_terms)
+    title_context = _count_term_hits(t, context_terms)
+    summary_context = _count_term_hits(s, context_terms)
+
+    if title_entity >= 1:
+        return (title_context + summary_context) >= 1
+
+    # 제목에 없으면 훨씬 엄격하게
+    if summary_entity >= 2 and (title_context + summary_context) >= 2:
+        return True
+
+    return False
+
+
+def is_low_relevance_khnp_article(title: str, summary: str) -> bool:
+    entity_terms = (
+        "한국수력원자력", "한수원", "khnp",
+        "한울본부", "한울원자력본부", "고리본부", "고리원자력본부",
+        "월성본부", "월성원자력본부", "새울본부", "새울원자력본부",
+        "한빛본부", "한빛원자력본부",
+    )
+    context_terms = (
+        "원전", "원자력", "발전소", "reactor", "nuclear",
+        "수주", "계약", "협약", "mou", "기술", "사업", "프로젝트",
+        "운영", "정비", "안전", "인허가", "규제", "투자", "건설",
+        "착공", "준공", "인사", "취임", "임명", "승진", "조직",
+    )
+    return not _is_core_entity_article(title, summary, entity_terms, context_terms)
+
+
+def is_low_relevance_major_construction_article(title: str, summary: str) -> bool:
+    """
+    타 건설사 탭은 회사명이 단순 언급된 기사나 '재개발' 일반기사로 들어오지 않도록 엄격화.
+    """
+    entity_terms = (
+        "삼성물산", "samsung c&t",
+        "대우건설", "daewoo e&c",
+        "dl이앤씨", "dl e&c",
+        "gs건설", "gs e&c",
+        "sk에코플랜트", "sk ecoplant",
+        "포스코이앤씨", "posco e&c",
+        "롯데건설", "lotte e&c",
+        "현대엔지니어링", "hyundai engineering",
+        "hdc현대산업개발", "hdc hyundai development",
+        "한화 건설부문", "hanwha construction",
+        "두산에너빌리티", "doosan enerbility",
+    )
+    context_terms = (
+        "건설", "시공", "수주", "공사", "epc", "계약", "프로젝트",
+        "착공", "준공", "인프라", "플랜트", "원전", "원자력", "nuclear",
+        "발전소", "주택", "도시정비", "재개발", "재건축",
+        "사업비", "투자", "공급", "설계", "조달",
+    )
+    return not _is_core_entity_article(title, summary, entity_terms, context_terms)
+
+
+def is_generic_redevelopment_only_article(title: str, summary: str) -> bool:
+    """
+    '재개발/재건축' 단어만으로 건설기사로 오인되는 일반 사회·동물·환경 기사를 제외.
+    """
+    haystack = html.unescape(f"{title or ''} {summary or ''}").lower()
+    redevelopment_terms = ("재개발", "재건축", "도시정비")
+    unrelated_terms = (
+        "길고양이", "고양이", "들개", "동물보호", "동물 안전",
+        "동물안전", "생명", "동물", "animal", "stray cat", "stray dog",
+    )
+    construction_business_terms = (
+        "건설사", "시공사", "수주", "공사", "epc", "사업비", "착공", "준공",
+        "현대건설", "삼성물산", "대우건설", "dl이앤씨", "gs건설",
+        "포스코이앤씨", "롯데건설", "sk에코플랜트",
+    )
+    return (
+        any(x in haystack for x in redevelopment_terms)
+        and any(x in haystack for x in unrelated_terms)
+        and not any(x in haystack for x in construction_business_terms)
+    )
+
+
+def is_koscaj_site_meta_false_article(article: Article) -> bool:
+    """
+    대한전문건설신문(koscaj.com)의 홈페이지/목록 페이지 메타정보가
+    개별 기사처럼 수집되는 오수집을 제외합니다.
+    """
+    title = html.unescape(article.title or "").strip().lower()
+    desc = html.unescape(article.description or "").strip().lower()
+    link = (article.link or "").strip().lower()
+
+    site_title_terms = (
+        "대한전문건설신문",
+        "대한 전문건설신문",
+    )
+    site_meta_terms = (
+        "건설산업 전문 주간신문",
+        "실시간 건설관련뉴스",
+        "오피니언",
+        "입찰정보",
+        "전문 광장",
+    )
+
+    # 언론사명 자체가 제목으로 들어온 경우
+    if title in site_title_terms:
+        return True
+
+    # 사이트 소개용 메타 description이 기사 미리보기로 들어온 경우
+    meta_hits = sum(1 for term in site_meta_terms if term in desc)
+    if meta_hits >= 2:
+        return True
+
+    # koscaj 사이트에서 제목이 언론사명에 가깝고 기사성이 없는 경우
+    if "koscaj.com" in link and "대한전문건설신문" in title and meta_hits >= 1:
+        return True
+
+    return False
+
+
+
+def is_low_relevance_kepco_article(title: str, summary: str) -> bool:
+    """
+    한국전력 탭은 '전력/전기' 같은 일반 단어가 아니라
+    한국전력(한전/KEPCO)이 실제 핵심 주체인 기사만 인정합니다.
+    """
+    entity_terms = (
+        "한국전력",
+        "한국전력공사",
+        "한전",
+        "kepco",
+    )
+    context_terms = (
+        "전력망", "송전", "배전", "송배전", "계통",
+        "전력구매", "전력판매", "전력시장",
+        "발전", "변전", "변전소", "전력설비",
+        "해외사업", "수주", "계약", "협약", "mou",
+        "투자", "프로젝트", "사업", "기술", "실증",
+        "원전", "원자력", "nuclear",
+        "신재생", "재생에너지", "에너지",
+        "요금", "전기요금",
+        "인사", "취임", "임명", "조직",
+    )
+
+    return not _is_core_entity_article(
+        title,
+        summary,
+        entity_terms,
+        context_terms,
+    )
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
 
@@ -8592,6 +8805,21 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if not is_excluded_source(article.publisher, article.link, article.source_url)
         and not is_westinghouse_air_brake_article(article.title, article.description)
         and not is_khnp_elementary_article(article)
+        and not is_koscaj_site_meta_false_article(article)
+        and not is_khnp_blood_donation_event(article)
+        and not (
+            article.group == "한국수력원자력"
+            and is_low_relevance_khnp_article(article.title, article.description or "")
+        )
+        and not (
+            article.group == "한국전력"
+            and is_low_relevance_kepco_article(article.title, article.description or "")
+        )
+        and not (
+            article.group == "타 건설사"
+            and is_low_relevance_major_construction_article(article.title, article.description or "")
+        )
+        and not is_generic_redevelopment_only_article(article.title, article.description or "")
         and not is_company_sports_article(article)
         and not is_general_sports_article(article)
         and not is_danal_investment_partners_article(article)
