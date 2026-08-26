@@ -1,3 +1,6 @@
+# FINAL CIGRE + KEPCO-EPRI DUPLICATE GROUPING 2026-08-26
+# CIGRE SAME-EVENT CROSS-DATE GROUPING FIX 2026-08-26
+# KEPCO MCS -> KEPCO AFFILIATE PRIORITY 2026-08-26
 # CIGRE 2026 SAME-EVENT COVERAGE GROUPING 2026-08-26
 # KEPCO TAB CORE-SUBJECT RELEVANCE REFINED 2026-08-26
 # EXCLUDE KOSCAJ SITE-TITLE / SITE-META FALSE ARTICLES 2026-08-26
@@ -236,6 +239,8 @@ GROUPS = [
         '"한전KPS"', '"KEPCO KPS"', '"KEPCO-KPS"',
         # 한전KDN
         '"한전KDN"', '"KEPCO KDN"', '"KEPCO-KDN"',
+        # 한전MCS
+        '"한전MCS"', '"한전 MCS"', '"KEPCO MCS"', '"KEPCO-MCS"',
         # 한전원자력연료
         '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
     ]),
@@ -1561,6 +1566,7 @@ DIRECT_GROUP_KEYWORDS = {
         "한국전력기술", "kepco e&c", "kepco engineering & construction",
         "한전kps", "kepco kps", "kepco-kps",
         "한전kdn", "kepco kdn", "kepco-kdn",
+        "한전mcs", "한전 mcs", "kepco mcs", "kepco-mcs",
         "한전원자력연료", "kepco nuclear fuel",
     ],
     "원전 관계부처": [
@@ -1731,8 +1737,8 @@ DIRECT_GROUP_PRIORITY = [
     "해외 설계사",
     "타 건설사",
     "한국수력원자력",
-    "한국전력",
     "한전 계열사",
+    "한국전력",
     "원전 관계부처",
     "SMR",
     "차세대원자로",
@@ -4020,6 +4026,12 @@ KEPCO_AFFILIATE_ALIASES = {
         "kepco kdn",
         "kepco-kdn",
     ),
+    "한전MCS": (
+        "한전mcs",
+        "한전 mcs",
+        "kepco mcs",
+        "kepco-mcs",
+    ),
     "한전원자력연료": (
         "한전원자력연료",
         "kepco nuclear fuel",
@@ -4044,6 +4056,18 @@ def _mentions_kepco_affiliate(title: str, summary: str = "") -> bool:
 
     return False
 
+
+
+
+def _mentions_kepco_mcs(title: str, summary: str = "") -> bool:
+    """한전MCS가 명시된 기사는 한국전력 본체가 아닌 '한전 계열사'로 분류합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+    return (
+        "한전mcs" in compact
+        or "kepcomcs" in compact
+        or "kepco-mcs" in haystack
+    )
 
 
 def _mentions_kepco_kdn(title: str, summary: str = "") -> bool:
@@ -4079,6 +4103,8 @@ def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
         "kepco nuclear fuel",
         "kepco kdn",
         "kepco-kdn",
+        "kepco mcs",
+        "kepco-mcs",
     )
     parent_haystack = haystack
     for phrase in affiliate_phrases:
@@ -4371,8 +4397,9 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
-    # 한전KDN은 기사에 한국전력이 함께 언급되어도 '한전 계열사'로 고정
-    if _mentions_kepco_kdn(title, summary):
+    # 한전KDN / 한전MCS는 회사명 자체에 '한전/KEPCO'가 포함되므로
+    # 한국전력 본체로 오인하지 않고 '한전 계열사'를 우선합니다.
+    if _mentions_kepco_kdn(title, summary) or _mentions_kepco_mcs(title, summary):
         return "한전 계열사"
 
     # 그 외에는 한국전력 본체와 계열사가 함께 언급되면 한국전력 탭을 우선
@@ -6717,9 +6744,49 @@ def _cigre_company_event_key(article: Article) -> str | None:
         # 일반 CIGRE 보도는 과도하게 합치지 않음
         return None
 
-    date_key = article.published.astimezone(KST).strftime("%Y-%m-%d")
     entity_key = "+".join(sorted(set(entities)))
-    return f"CIGRE|{date_key}|{entity_key}|{topic}"
+    return f"CIGRE|{entity_key}|{topic}"
+
+
+
+def _kepco_epri_grid_cooperation_event_key(article: Article) -> str | None:
+    """
+    한전-미국 EPRI의 재생에너지 계통 수용성/기술개발 협력 동일 보도 묶음.
+
+    CIGRE 문구가 제목/미리보기에 없어도 동일 사건이면 잡습니다.
+    반대로 LS전선/CIGRE 해저케이블 기사와는 주체·주제가 달라 절대 같은 키가 되지 않습니다.
+    """
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", hay)
+
+    has_kepco = any(
+        x in compact
+        for x in ("한국전력", "한국전력공사", "한전", "kepco")
+    )
+    has_epri = any(
+        x in compact
+        for x in ("epri", "미국전력연구원", "electricpowerresearchinstitute")
+    )
+    if not (has_kepco and has_epri):
+        return None
+
+    renewable_grid_terms = (
+        "재생에너지", "신재생에너지",
+        "계통수용성", "계통수용", "전력계통",
+        "gridintegration", "gridhosting", "hostingcapacity",
+    )
+    cooperation_terms = (
+        "기술개발", "공동개발", "공동연구",
+        "협력", "맞손", "협약", "mou", "실증",
+    )
+
+    has_grid_topic = any(x.replace(" ", "") in compact for x in renewable_grid_terms)
+    has_cooperation = any(x.replace(" ", "") in compact for x in cooperation_terms)
+
+    if has_grid_topic and has_cooperation:
+        return "KEPCO|EPRI|RENEWABLE_GRID_INTEGRATION_COOPERATION"
+
+    return None
 
 
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
@@ -6751,12 +6818,23 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     if a.group != b.group:
         return False
 
+    # 한전-EPRI 재생에너지 계통 수용성/기술개발 협력:
+    # 기사 제목에 CIGRE가 없어도 같은 보도자료/협력 건이면 최대 2일 차이까지 묶습니다.
+    epri_event_a = _kepco_epri_grid_cooperation_event_key(a)
+    epri_event_b = _kepco_epri_grid_cooperation_event_key(b)
+    if epri_event_a and epri_event_a == epri_event_b:
+        if abs((date_a_obj - date_b_obj).days) <= 2:
+            return True
+
     # CIGRE/시그레 동일 행사 보도:
     # 같은 날짜 + 같은 회사/기관 조합 + 같은 발표 주제일 때만 묶습니다.
     cigre_event_a = _cigre_company_event_key(a)
     cigre_event_b = _cigre_company_event_key(b)
     if cigre_event_a and cigre_event_a == cigre_event_b:
-        return True
+        # 동일 CIGRE 행사 보도는 언론사별 게시 시점 차이로 날짜가 하루 이상
+        # 달라질 수 있으므로, 최대 2일 차이까지 같은 사건으로 묶습니다.
+        if abs((date_a_obj - date_b_obj).days) <= 2:
+            return True
 
     # 관계부처 동일 인사발령은 언론사가 달라도 같은 사건으로 묶습니다.
     ministry_event_a = _ministry_personnel_event_key(a)
