@@ -1,3 +1,6 @@
+# FINAL FIX: NUCLEAR FALSE POSITIVES + STRONGER GARBLED FILTER 2026-08-26
+# FINAL NUCLEAR TAB CORE RELEVANCE FILTER 2026-08-26
+# EXCLUDE UNRESOLVED HTML ENTITIES IN ARTICLE TITLE/PREVIEW 2026-08-26
 # FINAL NUCLEAR TAB TITLE-SUBJECT COUNTRY SORT 2026-08-26
 # EXCLUDE GARBLED / MOJIBAKE ARTICLE PREVIEWS 2026-08-26
 # THUMBNAIL 1PX LIGHT-GRAY BORDER 2026-08-26
@@ -9301,7 +9304,226 @@ def is_garbled_article_text(article: Article) -> bool:
     return False
 
 
+
+def _fully_unescape_html_entities(value: str, max_rounds: int = 3) -> str:
+    """
+    &quot; / &amp;quot; 같은 HTML entity를 최대 3회까지 복원합니다.
+    이중/삼중 인코딩된 값도 가능한 범위에서 정상 문자로 되돌립니다.
+    """
+    current = value or ""
+    for _ in range(max_rounds):
+        decoded = html.unescape(current)
+        if decoded == current:
+            break
+        current = decoded
+    return current
+
+
+def is_unresolved_html_entity_article(article: Article) -> bool:
+    """
+    제목/미리보기를 반복 unescape한 뒤에도 HTML entity 코드가 남아 있으면
+    공개 화면 품질을 위해 해당 기사 자체를 제외합니다.
+    """
+    title = _fully_unescape_html_entities(article.title or "")
+    desc = _fully_unescape_html_entities(article.description or "")
+
+    # 실제 화면에 노출되면 안 되는 대표적인 entity 패턴
+    unresolved_pattern = re.compile(
+        r"&(?:quot|amp|apos|lt|gt|nbsp|#0*34|#x0*22);",
+        re.I,
+    )
+
+    return bool(
+        unresolved_pattern.search(title)
+        or unresolved_pattern.search(desc)
+    )
+
+
+def normalize_article_display_entities(article: Article) -> Article:
+    """
+    정상 복원 가능한 HTML entity는 기사 데이터 자체에 반영합니다.
+    """
+    article.title = _fully_unescape_html_entities(article.title or "")
+    article.description = _fully_unescape_html_entities(article.description or "")
+    return article
+
+
+
+NUCLEAR_TITLE_STRONG_TERMS = (
+    "원전", "원자력", "원자로", "핵연료", "사용후핵연료",
+    "방사성폐기물", "고준위폐기물", "저준위폐기물",
+    "원전해체", "원전 해체", "계속운전", "재가동",
+    "소형모듈원자로", "소형 모듈 원자로", "smr",
+    "차세대원자로", "차세대 원자로",
+    "nuclear power", "nuclear energy", "nuclear plant",
+    "nuclear reactor", "nuclear station",
+)
+
+NUCLEAR_CORE_ENTITY_TERMS = (
+    "한국원자력연구원", "kaeri",
+    "한국수력원자력", "한수원", "khnp",
+    "원자력안전위원회", "원안위",
+    "한국원자력환경공단",
+    "한전원자력연료", "한국원자력연료",
+    "한국원자력산업협회", "한국원자력학회",
+    "nrc", "nuclear regulatory commission",
+    "iaea", "international atomic energy agency",
+)
+
+NUCLEAR_CONTEXT_TERMS = (
+    "원전 건설", "원전건설", "원전 사업", "원전사업",
+    "원전 수주", "원전수주", "원전 수출", "원전수출",
+    "원전 운영", "원전운영", "원전 정비", "원전정비",
+    "원전 안전", "원전안전", "원전 인허가", "원전인허가",
+    "원자력 정책", "원자력정책", "원자력 규제", "원자력규제",
+    "핵연료", "사용후핵연료", "방사성폐기물",
+    "원자로", "reactor", "nuclear",
+    "발전소", "원전 프로젝트", "원전프로젝트",
+)
+
+NON_NUCLEAR_TOPIC_TERMS = (
+    # 문화/예술/사회
+    "개인전", "미술전", "전시회", "작품전", "미술관", "갤러리",
+    "안중근", "광주민주화운동", "서태지",
+    "공연", "영화", "연예", "축제",
+    # 철도/교통
+    "코레일", "한국철도공사", "철도기업", "철도", "열차",
+    "csee", "유지보수 기술 교류",
+    # 금융/은행/지역경제
+    "농협은행", "nh농협은행", "은행 경남본부", "금융 지원 강화",
+    "생산적 금융", "금융지원", "금융 지원", "지역금융",
+    # 일반 산업/IT
+    "반도체 산단", "반도체 산업", "민생경제", "수출기업 지원",
+)
+
+
+def is_low_relevance_nuclear_tab_article(article: Article) -> bool:
+    """
+    '원자력' 탭 오분류 방지.
+
+    제목이 원자력 핵심 주제를 직접 말하는 기사는 유지합니다.
+    제목에 원자력 핵심성이 없고 미리보기의 우연한 키워드에만 의존하는 경우는
+    실제 원자력 기관/사업 맥락이 충분할 때만 유지합니다.
+    """
+    title = html.unescape(article.title or "").strip().lower()
+    desc = html.unescape(article.description or "").strip().lower()
+    combined = f"{title} {desc}"
+
+    # 제목 자체가 명확한 원자력 기사면 유지
+    if any(term in title for term in NUCLEAR_TITLE_STRONG_TERMS):
+        return False
+
+    # 원자력 핵심 기관이 제목의 주체면 유지
+    if any(term in title for term in NUCLEAR_CORE_ENTITY_TERMS):
+        return False
+
+    # 제목이 명백한 비원자력 주제이면,
+    # 미리보기 속 단발성 원자력 단어로는 원자력 탭에 넣지 않음
+    if any(term in title for term in NON_NUCLEAR_TOPIC_TERMS):
+        return True
+
+    entity_hits = sum(1 for term in NUCLEAR_CORE_ENTITY_TERMS if term in combined)
+    context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in combined)
+    title_context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in title)
+
+    # 제목에 원자력 맥락이 하나라도 있고 전체 기사에도 충분한 맥락이 있으면 유지
+    if title_context_hits >= 1 and context_hits >= 2:
+        return False
+
+    # 제목에 원자력 표현이 없으면, 미리보기만으로는 훨씬 엄격하게:
+    # 핵심 기관 + 복수의 원자력 사업/기술 맥락이 동시에 있어야 유지
+    if entity_hits >= 1 and context_hits >= 3:
+        return False
+
+    return True
+
+
+
+def is_strongly_garbled_article_text(article: Article) -> bool:
+    """
+    화면에서 정상 기사로 보기 어려운 수준의 깨진 제목/미리보기를 추가 차단합니다.
+    KEPIC, SMR, AP1000 같은 정상 기술 약어 자체는 제외 근거가 아니며,
+    의미 없는 짧은 토큰/숫자/기호가 연속적으로 나타나는 경우만 차단합니다.
+    """
+    title = _fully_unescape_html_entities(article.title or "").strip()
+    desc = _fully_unescape_html_entities(article.description or "").strip()
+    combined = f"{title} {desc}".strip()
+
+    if not combined:
+        return False
+
+    # Unicode replacement char / 제어문자 / 비정상 mojibake 흔적
+    replacement_hits = combined.count(" ")
+    control_hits = sum(
+        1 for ch in combined
+        if ord(ch) < 32 and ch not in "\n\r\t"
+    )
+
+    # 정상 문자 대비 특수기호 밀도
+    visible = [ch for ch in combined if not ch.isspace()]
+    weird_chars = [
+        ch for ch in visible
+        if not (
+            ch.isalnum()
+            or ("가" <= ch <= "힣")
+            or ch in ".,:;!?%()[]{}+-–—·ㆍ/'\""
+        )
+    ]
+    weird_char_ratio = len(weird_chars) / max(len(visible), 1)
+
+    tokens = re.findall(r"\S+", combined)
+    short_noise = 0
+    for tok in tokens:
+        clean = tok.strip(".,:;!?%()[]{}+-–—·ㆍ/'\"")
+        # 1~2자 영문/숫자 토큰이 반복적으로 흩어지는 형태
+        if re.fullmatch(r"[A-Za-z0-9]{1,2}", clean):
+            short_noise += 1
+        # 글자와 숫자가 무작위로 섞인 짧은 토큰
+        elif (
+            len(clean) <= 6
+            and re.search(r"[A-Za-z]", clean)
+            and re.search(r"\d", clean)
+            and not re.fullmatch(r"(?:AP\d{3,4}|SMR\d*|KEPIC|CIGRE\d*|ISO\d*)", clean, re.I)
+        ):
+            short_noise += 1
+
+    short_noise_ratio = short_noise / max(len(tokens), 1)
+
+    # 한글/정상 영단어 기반 문장성
+    meaningful_words = re.findall(r"[가-힣]{2,}|[A-Za-z]{3,}", combined)
+    meaningful_ratio = len(meaningful_words) / max(len(tokens), 1)
+
+    if replacement_hits >= 2:
+        return True
+    if control_hits >= 1:
+        return True
+    if len(visible) >= 40 and weird_char_ratio >= 0.10 and meaningful_ratio < 0.55:
+        return True
+    if len(tokens) >= 8 and short_noise_ratio >= 0.30 and meaningful_ratio < 0.55:
+        return True
+
+    # 사용자가 확인한 KEPIC-Week 카드처럼 제목은 일부 정상인데
+    # 미리보기 후반이 깨진 짧은 영숫자/기호 조합으로 이어지는 경우
+    if "kepic-week" in title.lower() or "kepic week" in title.lower():
+        desc_tokens = re.findall(r"\S+", desc)
+        desc_noise = sum(
+            1 for tok in desc_tokens
+            if (
+                re.fullmatch(r"[A-Za-z0-9]{1,2}", tok.strip(".,:;!?%()[]{}+-–—·ㆍ/'\""))
+                or " " in tok
+                or "»" in tok
+                or "«" in tok
+            )
+        )
+        if len(desc_tokens) >= 6 and desc_noise >= 4:
+            return True
+
+    return False
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
+    # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
+    articles = [normalize_article_display_entities(article) for article in articles]
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
 
     # 최종 출력/archive 공통 제외 필터를 먼저 적용해야 이후 정렬·중복제거에도 반영됩니다.
@@ -9310,9 +9532,15 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if not is_excluded_source(article.publisher, article.link, article.source_url)
         and not is_westinghouse_air_brake_article(article.title, article.description)
         and not is_khnp_elementary_article(article)
+        and not is_unresolved_html_entity_article(article)
+        and not is_strongly_garbled_article_text(article)
         and not is_garbled_article_text(article)
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
+        and not (
+            article.group == "원자력"
+            and is_low_relevance_nuclear_tab_article(article)
+        )
         and not (
             article.group == "한국수력원자력"
             and is_low_relevance_khnp_article(article.title, article.description or "")
