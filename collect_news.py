@@ -1,3 +1,4 @@
+# FINAL FIX: KEPCO MCS AFFILIATE ENFORCEMENT AT ARCHIVE/RENDER STAGES 2026-08-26
 # FINAL CIGRE + KEPCO-EPRI DUPLICATE GROUPING 2026-08-26
 # CIGRE SAME-EVENT CROSS-DATE GROUPING FIX 2026-08-26
 # KEPCO MCS -> KEPCO AFFILIATE PRIORITY 2026-08-26
@@ -9644,16 +9645,21 @@ def migrate_legacy_nuclear_association_group(article: Article) -> Article:
 
 def enforce_kepco_kdn_group(article: Article) -> Article:
     """
-    한전KDN 최종 분류 안전장치.
+    한전KDN / 한전MCS 최종 분류 안전장치.
 
-    제목/미리보기 중 하나라도 아래 표기가 있으면 기존 group 값과 무관하게
+    회사명 자체에 '한전/KEPCO'가 포함되어 한국전력 본체로 오인될 수 있으므로,
+    제목/미리보기에 아래 회사가 명시되면 기존 group 값과 무관하게
     반드시 '한전 계열사'로 고정합니다.
-      - 한전KDN / 한전 KDN
-      - KEPCO KDN / KEPCO-KDN
+
+      - 한전KDN / 한전 KDN / KEPCO KDN / KEPCO-KDN
+      - 한전MCS / 한전 MCS / KEPCO MCS / KEPCO-MCS
 
     신규 수집, archive 복원, 최종 렌더 직전 모두에서 재사용합니다.
     """
-    if _mentions_kepco_kdn(article.title, article.description):
+    if (
+        _mentions_kepco_kdn(article.title, article.description)
+        or _mentions_kepco_mcs(article.title, article.description)
+    ):
         article.group = "한전 계열사"
     return article
 
