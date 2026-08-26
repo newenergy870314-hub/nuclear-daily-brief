@@ -1,3 +1,4 @@
+# CIGRE 2026 SAME-EVENT COVERAGE GROUPING 2026-08-26
 # KEPCO TAB CORE-SUBJECT RELEVANCE REFINED 2026-08-26
 # EXCLUDE KOSCAJ SITE-TITLE / SITE-META FALSE ARTICLES 2026-08-26
 # FINAL RELEVANCE CLASSIFICATION REFINED: TITLE-WEIGHTED + CORE-SUBJECT FILTERS 2026-08-26
@@ -6643,6 +6644,84 @@ def _khnp_org_culture_event_key(article: Article) -> str | None:
     return "KHNP|김희천|조직문화혁신|주니어보드"
 
 
+
+def _cigre_company_event_key(article: Article) -> str | None:
+    """
+    CIGRE/시그레 동일 행사 보도를 회사 + 핵심 주제 기준으로 묶습니다.
+
+    같은 행사라는 이유만으로 전부 합치지 않고,
+    회사/기관 조합과 발표 주제가 함께 같을 때만 동일 사건 키를 만듭니다.
+    예:
+    - 한전 + LS전선 + 해저케이블 통합 자산관리 플랫폼
+    - 대한전선 + CIGRE + 해저케이블/턴키 솔루션
+    - 한전 + EPRI + 재생에너지 계통 기술협력 (위 사건들과 별도)
+    """
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", hay)
+
+    if not any(token in compact for token in ("cigre", "시그레")):
+        return None
+
+    entity_aliases = (
+        ("KEPCO", ("한국전력", "한국전력공사", "한전", "kepco")),
+        ("LS전선", ("ls전선", "lscable", "ls cable")),
+        ("대한전선", ("대한전선", "taihan", "taihan cable")),
+        ("EPRI", ("epri", "미국전력연구원")),
+        ("효성중공업", ("효성중공업", "hyosung heavy industries")),
+        ("LS일렉트릭", ("ls일렉트릭", "ls electric")),
+    )
+
+    entities = []
+    for canonical, aliases in entity_aliases:
+        if any(alias.replace(" ", "") in compact for alias in aliases):
+            entities.append(canonical)
+
+    if not entities:
+        return None
+
+    topic = None
+
+    # 한전-LS전선의 SFL-R × CAMS / 해저케이블 통합 자산관리 플랫폼
+    if (
+        any(x in compact for x in ("해저케이블", "submarinecable", "subseacable"))
+        and any(x in compact for x in (
+            "자산관리", "통합자산관리", "assetmanagement",
+            "sfl-r", "sflr", "cams", "플랫폼",
+        ))
+    ):
+        topic = "해저케이블자산관리"
+
+    # 대한전선의 CIGRE 해저케이블 턴키/솔루션 전시
+    elif (
+        "대한전선" in entities
+        and any(x in compact for x in ("해저케이블", "submarinecable", "subseacable"))
+        and any(x in compact for x in (
+            "턴키", "turnkey", "솔루션", "solution",
+            "전시", "선보여", "참가", "유럽공략",
+        ))
+    ):
+        topic = "대한전선해저케이블솔루션"
+
+    # 한전-EPRI 재생에너지 계통 수용성/기술개발 협력
+    elif (
+        "KEPCO" in entities
+        and "EPRI" in entities
+        and any(x in compact for x in (
+            "재생에너지", "계통수용", "계통수용성",
+            "기술개발", "협력", "맞손", "mou",
+        ))
+    ):
+        topic = "한전EPRI재생에너지계통협력"
+
+    else:
+        # 일반 CIGRE 보도는 과도하게 합치지 않음
+        return None
+
+    date_key = article.published.astimezone(KST).strftime("%Y-%m-%d")
+    entity_key = "+".join(sorted(set(entities)))
+    return f"CIGRE|{date_key}|{entity_key}|{topic}"
+
+
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
@@ -6671,6 +6750,13 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     if a.group != b.group:
         return False
+
+    # CIGRE/시그레 동일 행사 보도:
+    # 같은 날짜 + 같은 회사/기관 조합 + 같은 발표 주제일 때만 묶습니다.
+    cigre_event_a = _cigre_company_event_key(a)
+    cigre_event_b = _cigre_company_event_key(b)
+    if cigre_event_a and cigre_event_a == cigre_event_b:
+        return True
 
     # 관계부처 동일 인사발령은 언론사가 달라도 같은 사건으로 묶습니다.
     ministry_event_a = _ministry_personnel_event_key(a)
