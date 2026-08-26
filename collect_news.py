@@ -1,3 +1,4 @@
+# FINAL ENHANCED SAME-EVENT GROUPING / MINIMUM FILTER 2026-08-26
 # FINAL POLICY: MINIMUM FILTER + SAME-EVENT GROUPING + STOCK NEWS LAST 2026-08-26
 # FINAL EXECUTIVE / CEO ACTIVITY PRIORITY CLASSIFICATION 2026-08-26
 # FINAL MAJOR-CONSTRUCTION TITLE PRIORITY 2026-08-26
@@ -7061,7 +7062,10 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     ):
         return True
 
-    if date_a != date_b:
+    # 일반 동일사건 기사도 언론사별 게시시각/자정 경계 차이를 고려해
+    # 최대 ±1일까지 비교합니다. 2일 차이는 위의 명시적 event-key가 같은 경우만 허용합니다.
+    date_gap_days = abs((date_a_obj - date_b_obj).days)
+    if date_gap_days > 1:
         return False
 
     country_a = detect_article_country(a)
@@ -7105,9 +7109,11 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     # 같은 보도자료 계열일 가능성이 높습니다.
     anchor_patterns = (
         r"[가-힣A-Za-z0-9]+(?:\d+)?단지",
-        r"[가-힣A-Za-z0-9]+(?:지구|구역|사업|프로젝트|원전|발전소|호기|센터|공장|현장)",
+        r"[가-힣A-Za-z0-9]+(?:지구|구역|사업|프로젝트|원전|발전소|호기|센터|공장|현장|시설)",
+        r"[가-힣]{2,8}(?:시|군|구)",
+        r"(?:건식저장시설|건식 저장시설|사용후핵연료|상생협력금|협력금)",
         r"(?:신한은행|국민은행|우리은행|하나은행|농협은행|기업은행|산업은행)",
-        r"(?:현대엘리베이터|현대엔지니어링|대우건설|DL이앤씨|삼성물산|롯데건설|포스코이앤씨|SK에코플랜트)",
+        r"(?:한국수력원자력|한수원|한국전력|한전|현대건설|현대엔지니어링|대우건설|DL이앤씨|삼성물산|GS건설|롯데건설|포스코이앤씨|SK에코플랜트|두산에너빌리티)",
     )
 
     anchors_a: set[str] = set()
@@ -7120,13 +7126,19 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     # 행위 앵커는 표현이 달라도 같은 이벤트 단계인지 보기 위한 보조 신호.
     action_groups = (
-        ("업무협약", "협약", "mou", "맞손", "협력"),
-        ("금융", "자금조달", "금융지원", "사업비", "대출"),
-        ("공동개발", "기술개발", "개발", "공동 기술개발"),
-        ("수주", "선정", "우선협상대상자"),
+        ("업무협약", "협약", "mou", "맞손", "협력", "협력 논의", "협력논의"),
+        ("면담", "회동", "간담회", "논의", "협의", "회의", "만나"),
+        ("요청", "촉구", "건의", "제안", "주문"),
+        ("갈등", "반발", "논란", "상생", "상생협력", "주민소통", "주민 소통"),
+        ("금융", "자금조달", "금융지원", "사업비", "대출", "지원금", "협력금"),
+        ("공동개발", "기술개발", "개발", "공동 기술개발", "실증", "연구개발"),
+        ("수주", "선정", "우선협상대상자", "낙찰"),
         ("계약", "본계약", "체결"),
         ("착공", "기공"),
         ("준공", "완공"),
+        ("승인", "허가", "인가", "인허가"),
+        ("발표", "공개", "출범", "개최"),
+        ("점검", "현장점검", "현장 점검", "방문"),
     )
 
     def action_signature(hay: str) -> set[int]:
@@ -7172,19 +7184,27 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
         if len(common) >= 4 and containment >= 0.58 and full_similarity >= 0.42:
             return True
 
-    # 목동12단지 같은 구체 프로젝트/단지 앵커가 공통이고
-    # 금융/협약 등 행위축도 겹치면 제목이 크게 달라도 같은 사건으로 묶음.
+    # 구체 프로젝트/기관/지역/시설 앵커 + 같은 행위축이 있으면
+    # 언론사별 제목 표현이 상당히 달라도 동일 사건으로 묶습니다.
     if common_anchors and common_actions:
-        if len(common) >= 3 and containment >= 0.45 and full_similarity >= 0.34:
+        if len(common) >= 2 and containment >= 0.38 and full_similarity >= 0.30:
             return True
-        if len(common) >= 4 and title_similarity >= 0.36:
+        if len(common) >= 3 and title_similarity >= 0.31:
             return True
 
-    # 일반 판정은 보수적으로 유지
-    if len(common) >= 5 and containment >= 0.58 and full_similarity >= 0.42:
+    # 공통 앵커가 있으면서 핵심 사건 토큰이 충분하면,
+    # 행위 표현 자체가 달라도 같은 보도자료/사건으로 인정합니다.
+    if common_anchors:
+        if len(common) >= 4 and containment >= 0.50 and full_similarity >= 0.35:
+            return True
+        if len(common) >= 3 and containment >= 0.62 and title_similarity >= 0.38:
+            return True
+
+    # 일반 판정도 한 단계 완화하되 회사명 하나만 같은 수준으로는 묶지 않습니다.
+    if len(common) >= 4 and containment >= 0.52 and full_similarity >= 0.36:
         return True
 
-    if len(common) >= 4 and containment >= 0.68 and full_similarity >= 0.50:
+    if len(common) >= 3 and containment >= 0.66 and full_similarity >= 0.44:
         return True
 
     return False
@@ -7209,11 +7229,11 @@ def _group_confirmed_related_articles(
 
     ordered = sorted(articles, key=lambda x: x.published, reverse=True)
 
-    # 날짜 + 탭이 다르면 동일기사로 묶이지 않으므로 애초에 비교하지 않습니다.
-    buckets: dict[tuple[str, str], list[Article]] = {}
+    # 같은 사건이 자정 전후/다음 날 재보도되는 경우까지 묶기 위해
+    # 탭 단위로 후보군을 만들고 pair 단계에서 날짜 차이(최대 2일)를 제한합니다.
+    buckets: dict[str, list[Article]] = {}
     for article in ordered:
-        day = article.published.astimezone(KST).strftime("%Y-%m-%d")
-        key = (day, article.group or "")
+        key = article.group or ""
         buckets.setdefault(key, []).append(article)
 
     result: list[Article] = []
@@ -7248,10 +7268,15 @@ def _group_confirmed_related_articles(
         # 국가/언론사 등 매우 싼 조건을 먼저 걸러 비싼 similarity 계산을 줄입니다.
         countries = [detect_article_country(a) for a in bucket_articles]
         publishers = [(a.publisher or "").strip() for a in bucket_articles]
+        article_days = [a.published.astimezone(KST).date() for a in bucket_articles]
 
         for i in range(n):
             for j in range(i + 1, n):
                 if not publishers[i] or not publishers[j] or publishers[i] == publishers[j]:
+                    continue
+
+                # 명시적 event-key 중 일부가 ±2일까지 허용되므로 후보 비교도 2일까지만.
+                if abs((article_days[i] - article_days[j]).days) > 2:
                     continue
 
                 country_i = countries[i]
