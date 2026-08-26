@@ -1,3 +1,4 @@
+# HOTFIX: PREVENT GLOBAL ARTICLE-ZERO FROM OVER-AGGRESSIVE GARBLED FILTER 2026-08-26
 # FINAL FIX: NUCLEAR FALSE POSITIVES + STRONGER GARBLED FILTER 2026-08-26
 # FINAL NUCLEAR TAB CORE RELEVANCE FILTER 2026-08-26
 # EXCLUDE UNRESOLVED HTML ENTITIES IN ARTICLE TITLE/PREVIEW 2026-08-26
@@ -9515,7 +9516,9 @@ def is_strongly_garbled_article_text(article: Article) -> bool:
                 or "«" in tok
             )
         )
-        if len(desc_tokens) >= 6 and desc_noise >= 4:
+        # KEPIC라는 정상 기술명만으로는 절대 제외하지 않고,
+        # 실제 깨진 토큰이 충분히 확인될 때만 제거
+        if len(desc_tokens) >= 8 and desc_noise >= 5:
             return True
 
     return False
@@ -9533,8 +9536,18 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_westinghouse_air_brake_article(article.title, article.description)
         and not is_khnp_elementary_article(article)
         and not is_unresolved_html_entity_article(article)
-        and not is_strongly_garbled_article_text(article)
+        # 강한 깨짐 필터는 전체 기사에 적용하지 않습니다.
+        # 전역에는 기존의 보수적인 깨짐 필터만 유지합니다.
         and not is_garbled_article_text(article)
+        # 실제 문제가 확인된 전력경제신문/KEPIC-Week 계열만 강한 필터 적용
+        and not (
+            is_strongly_garbled_article_text(article)
+            and (
+                "전력경제신문" in (article.publisher or "")
+                or "kepic-week" in (article.title or "").lower()
+                or "kepic week" in (article.title or "").lower()
+            )
+        )
         and not is_koscaj_site_meta_false_article(article)
         and not is_khnp_blood_donation_event(article)
         and not (
