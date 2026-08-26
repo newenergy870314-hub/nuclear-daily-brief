@@ -1,3 +1,4 @@
+# THUMBNAIL 1PX LIGHT-GRAY BORDER 2026-08-26
 # NUCLEAR TAB COUNTRY-CLUSTER SORT 2026-08-26
 # FINAL FIX: US HOUSE FOREIGN AFFAIRS / COUPANG / KOREA INVESTMENT PRESSURE SAME-EVENT GROUPING 2026-08-26
 # FINAL FIX: KEPCO MCS AFFILIATE ENFORCEMENT AT ARCHIVE/RENDER STAGES 2026-08-26
@@ -19755,6 +19756,13 @@ main {{
 @media (min-width:1200px) {{
   #global-back-to-top {{ right:8px; bottom:8px; }}
 }}
+
+/* 2026-08-26 THUMBNAIL LIGHT-GRAY BORDER */
+.preview-image {{
+  border: 1px solid #d9d9d9 !important;
+  box-sizing: border-box !important;
+}}
+
 </style>
 </head>
 <body>
