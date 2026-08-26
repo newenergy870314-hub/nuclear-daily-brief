@@ -1,3 +1,23 @@
+# FINAL BALANCED FILTER RECOVERY 2026-08-26
+# FINAL VERIFIED: MAJOR CONSTRUCTION COMPANY CLUSTER SORT 2026-08-26
+# FINAL FIX: NUCLEAR FALSE POSITIVES + STRONGER GARBLED FILTER 2026-08-26
+# FINAL NUCLEAR TAB CORE RELEVANCE FILTER 2026-08-26
+# EXCLUDE UNRESOLVED HTML ENTITIES IN ARTICLE TITLE/PREVIEW 2026-08-26
+# FINAL NUCLEAR TAB TITLE-SUBJECT COUNTRY SORT 2026-08-26
+# EXCLUDE GARBLED / MOJIBAKE ARTICLE PREVIEWS 2026-08-26
+# THUMBNAIL 1PX LIGHT-GRAY BORDER 2026-08-26
+# NUCLEAR TAB COUNTRY-CLUSTER SORT 2026-08-26
+# FINAL FIX: US HOUSE FOREIGN AFFAIRS / COUPANG / KOREA INVESTMENT PRESSURE SAME-EVENT GROUPING 2026-08-26
+# FINAL FIX: KEPCO MCS AFFILIATE ENFORCEMENT AT ARCHIVE/RENDER STAGES 2026-08-26
+# FINAL CIGRE + KEPCO-EPRI DUPLICATE GROUPING 2026-08-26
+# CIGRE SAME-EVENT CROSS-DATE GROUPING FIX 2026-08-26
+# KEPCO MCS -> KEPCO AFFILIATE PRIORITY 2026-08-26
+# CIGRE 2026 SAME-EVENT COVERAGE GROUPING 2026-08-26
+# KEPCO TAB CORE-SUBJECT RELEVANCE REFINED 2026-08-26
+# EXCLUDE KOSCAJ SITE-TITLE / SITE-META FALSE ARTICLES 2026-08-26
+# FINAL RELEVANCE CLASSIFICATION REFINED: TITLE-WEIGHTED + CORE-SUBJECT FILTERS 2026-08-26
+# EXCLUDE KHNP / NUCLEAR SITE BLOOD DONATION COMMUNITY EVENTS 2026-08-26
+# BACK-TO-TOP ALWAYS VISIBLE AT BOTTOM-RIGHT 2026-08-26
 # SMART BACK-TO-TOP UX: HIDE ON DOWN-SCROLL, SHOW ON UP-SCROLL 2026-08-26
 # HOLTEC HIGHLIGHTS COMPLETE COLLECTION: CATEGORY + NEWS + YEAR ARCHIVE + HH URL PRIORITY 2026-08-26
 # HOLTEC HIGHLIGHTS OFFICIAL SOURCE + FORCE HOLTEC TAB 2026-08-26
@@ -230,6 +250,8 @@ GROUPS = [
         '"한전KPS"', '"KEPCO KPS"', '"KEPCO-KPS"',
         # 한전KDN
         '"한전KDN"', '"KEPCO KDN"', '"KEPCO-KDN"',
+        # 한전MCS
+        '"한전MCS"', '"한전 MCS"', '"KEPCO MCS"', '"KEPCO-MCS"',
         # 한전원자력연료
         '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
     ]),
@@ -1555,6 +1577,7 @@ DIRECT_GROUP_KEYWORDS = {
         "한국전력기술", "kepco e&c", "kepco engineering & construction",
         "한전kps", "kepco kps", "kepco-kps",
         "한전kdn", "kepco kdn", "kepco-kdn",
+        "한전mcs", "한전 mcs", "kepco mcs", "kepco-mcs",
         "한전원자력연료", "kepco nuclear fuel",
     ],
     "원전 관계부처": [
@@ -1725,8 +1748,8 @@ DIRECT_GROUP_PRIORITY = [
     "해외 설계사",
     "타 건설사",
     "한국수력원자력",
-    "한국전력",
     "한전 계열사",
+    "한국전력",
     "원전 관계부처",
     "SMR",
     "차세대원자로",
@@ -4014,6 +4037,12 @@ KEPCO_AFFILIATE_ALIASES = {
         "kepco kdn",
         "kepco-kdn",
     ),
+    "한전MCS": (
+        "한전mcs",
+        "한전 mcs",
+        "kepco mcs",
+        "kepco-mcs",
+    ),
     "한전원자력연료": (
         "한전원자력연료",
         "kepco nuclear fuel",
@@ -4038,6 +4067,18 @@ def _mentions_kepco_affiliate(title: str, summary: str = "") -> bool:
 
     return False
 
+
+
+
+def _mentions_kepco_mcs(title: str, summary: str = "") -> bool:
+    """한전MCS가 명시된 기사는 한국전력 본체가 아닌 '한전 계열사'로 분류합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+    return (
+        "한전mcs" in compact
+        or "kepcomcs" in compact
+        or "kepco-mcs" in haystack
+    )
 
 
 def _mentions_kepco_kdn(title: str, summary: str = "") -> bool:
@@ -4073,6 +4114,8 @@ def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
         "kepco nuclear fuel",
         "kepco kdn",
         "kepco-kdn",
+        "kepco mcs",
+        "kepco-mcs",
     )
     parent_haystack = haystack
     for phrase in affiliate_phrases:
@@ -4365,8 +4408,9 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
-    # 한전KDN은 기사에 한국전력이 함께 언급되어도 '한전 계열사'로 고정
-    if _mentions_kepco_kdn(title, summary):
+    # 한전KDN / 한전MCS는 회사명 자체에 '한전/KEPCO'가 포함되므로
+    # 한국전력 본체로 오인하지 않고 '한전 계열사'를 우선합니다.
+    if _mentions_kepco_kdn(title, summary) or _mentions_kepco_mcs(title, summary):
         return "한전 계열사"
 
     # 그 외에는 한국전력 본체와 계열사가 함께 언급되면 한국전력 탭을 우선
@@ -6638,6 +6682,161 @@ def _khnp_org_culture_event_key(article: Article) -> str | None:
     return "KHNP|김희천|조직문화혁신|주니어보드"
 
 
+
+def _cigre_company_event_key(article: Article) -> str | None:
+    """
+    CIGRE/시그레 동일 행사 보도를 회사 + 핵심 주제 기준으로 묶습니다.
+
+    같은 행사라는 이유만으로 전부 합치지 않고,
+    회사/기관 조합과 발표 주제가 함께 같을 때만 동일 사건 키를 만듭니다.
+    예:
+    - 한전 + LS전선 + 해저케이블 통합 자산관리 플랫폼
+    - 대한전선 + CIGRE + 해저케이블/턴키 솔루션
+    - 한전 + EPRI + 재생에너지 계통 기술협력 (위 사건들과 별도)
+    """
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", hay)
+
+    if not any(token in compact for token in ("cigre", "시그레")):
+        return None
+
+    entity_aliases = (
+        ("KEPCO", ("한국전력", "한국전력공사", "한전", "kepco")),
+        ("LS전선", ("ls전선", "lscable", "ls cable")),
+        ("대한전선", ("대한전선", "taihan", "taihan cable")),
+        ("EPRI", ("epri", "미국전력연구원")),
+        ("효성중공업", ("효성중공업", "hyosung heavy industries")),
+        ("LS일렉트릭", ("ls일렉트릭", "ls electric")),
+    )
+
+    entities = []
+    for canonical, aliases in entity_aliases:
+        if any(alias.replace(" ", "") in compact for alias in aliases):
+            entities.append(canonical)
+
+    if not entities:
+        return None
+
+    topic = None
+
+    # 한전-LS전선의 SFL-R × CAMS / 해저케이블 통합 자산관리 플랫폼
+    if (
+        any(x in compact for x in ("해저케이블", "submarinecable", "subseacable"))
+        and any(x in compact for x in (
+            "자산관리", "통합자산관리", "assetmanagement",
+            "sfl-r", "sflr", "cams", "플랫폼",
+        ))
+    ):
+        topic = "해저케이블자산관리"
+
+    # 대한전선의 CIGRE 해저케이블 턴키/솔루션 전시
+    elif (
+        "대한전선" in entities
+        and any(x in compact for x in ("해저케이블", "submarinecable", "subseacable"))
+        and any(x in compact for x in (
+            "턴키", "turnkey", "솔루션", "solution",
+            "전시", "선보여", "참가", "유럽공략",
+        ))
+    ):
+        topic = "대한전선해저케이블솔루션"
+
+    # 한전-EPRI 재생에너지 계통 수용성/기술개발 협력
+    elif (
+        "KEPCO" in entities
+        and "EPRI" in entities
+        and any(x in compact for x in (
+            "재생에너지", "계통수용", "계통수용성",
+            "기술개발", "협력", "맞손", "mou",
+        ))
+    ):
+        topic = "한전EPRI재생에너지계통협력"
+
+    else:
+        # 일반 CIGRE 보도는 과도하게 합치지 않음
+        return None
+
+    entity_key = "+".join(sorted(set(entities)))
+    return f"CIGRE|{entity_key}|{topic}"
+
+
+
+def _kepco_epri_grid_cooperation_event_key(article: Article) -> str | None:
+    """
+    한전-미국 EPRI의 재생에너지 계통 수용성/기술개발 협력 동일 보도 묶음.
+
+    CIGRE 문구가 제목/미리보기에 없어도 동일 사건이면 잡습니다.
+    반대로 LS전선/CIGRE 해저케이블 기사와는 주체·주제가 달라 절대 같은 키가 되지 않습니다.
+    """
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", hay)
+
+    has_kepco = any(
+        x in compact
+        for x in ("한국전력", "한국전력공사", "한전", "kepco")
+    )
+    has_epri = any(
+        x in compact
+        for x in ("epri", "미국전력연구원", "electricpowerresearchinstitute")
+    )
+    if not (has_kepco and has_epri):
+        return None
+
+    renewable_grid_terms = (
+        "재생에너지", "신재생에너지",
+        "계통수용성", "계통수용", "전력계통",
+        "gridintegration", "gridhosting", "hostingcapacity",
+    )
+    cooperation_terms = (
+        "기술개발", "공동개발", "공동연구",
+        "협력", "맞손", "협약", "mou", "실증",
+    )
+
+    has_grid_topic = any(x.replace(" ", "") in compact for x in renewable_grid_terms)
+    has_cooperation = any(x.replace(" ", "") in compact for x in cooperation_terms)
+
+    if has_grid_topic and has_cooperation:
+        return "KEPCO|EPRI|RENEWABLE_GRID_INTEGRATION_COOPERATION"
+
+    return None
+
+
+
+def _us_house_coupang_pressure_event_key(article: Article) -> str | None:
+    """
+    美 하원 외교위원장 브라이언 매스트의
+    쿠팡/미국기업 피해 주장 + 한국 대미투자 압박 관련 동일 보도를 묶습니다.
+
+    메모리칩 현지생산 압박 등 다른 대미 압박 이슈는 별도 유지합니다.
+    """
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", hay)
+
+    mast_terms = (
+        "브라이언매스트", "브라이언매스트외교위원장",
+        "매스트외교위원장", "brianmast"
+    )
+    house_terms = (
+        "미하원외교위원장", "하원외교위원장",
+        "미국하원외교위원장", "houseforeignaffairs"
+    )
+    coupang_terms = ("쿠팡", "coupang")
+    pressure_terms = (
+        "대미투자", "투자압박", "미국기업", "피해줘",
+        "피해주", "압박", "무슨이득", "투자"
+    )
+
+    has_mast = any(x in compact for x in mast_terms)
+    has_house = any(x in compact for x in house_terms)
+    has_coupang = any(x in compact for x in coupang_terms)
+    has_pressure = any(x in compact for x in pressure_terms)
+
+    # 핵심 사건: Brian Mast/미 하원 외교위원장 + Coupang + 대미투자/미국기업 압박
+    if (has_mast or has_house) and has_coupang and has_pressure:
+        return "US_HOUSE_FOREIGN_AFFAIRS|BRIAN_MAST|COUPANG|KOREA_INVESTMENT_PRESSURE"
+
+    return None
+
+
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
@@ -6666,6 +6865,32 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     if a.group != b.group:
         return False
+
+    # 美 하원 외교위원장 Brian Mast의 쿠팡/대미투자 압박 동일 보도
+    mast_event_a = _us_house_coupang_pressure_event_key(a)
+    mast_event_b = _us_house_coupang_pressure_event_key(b)
+    if mast_event_a and mast_event_a == mast_event_b:
+        # 동일 발언 보도는 언론사 게시 시차를 고려해 최대 2일 차이까지 동일 사건 처리
+        if abs((date_a_obj - date_b_obj).days) <= 2:
+            return True
+
+    # 한전-EPRI 재생에너지 계통 수용성/기술개발 협력:
+    # 기사 제목에 CIGRE가 없어도 같은 보도자료/협력 건이면 최대 2일 차이까지 묶습니다.
+    epri_event_a = _kepco_epri_grid_cooperation_event_key(a)
+    epri_event_b = _kepco_epri_grid_cooperation_event_key(b)
+    if epri_event_a and epri_event_a == epri_event_b:
+        if abs((date_a_obj - date_b_obj).days) <= 2:
+            return True
+
+    # CIGRE/시그레 동일 행사 보도:
+    # 같은 날짜 + 같은 회사/기관 조합 + 같은 발표 주제일 때만 묶습니다.
+    cigre_event_a = _cigre_company_event_key(a)
+    cigre_event_b = _cigre_company_event_key(b)
+    if cigre_event_a and cigre_event_a == cigre_event_b:
+        # 동일 CIGRE 행사 보도는 언론사별 게시 시점 차이로 날짜가 하루 이상
+        # 달라질 수 있으므로, 최대 2일 차이까지 같은 사건으로 묶습니다.
+        if abs((date_a_obj - date_b_obj).days) <= 2:
+            return True
 
     # 관계부처 동일 인사발령은 언론사가 달라도 같은 사건으로 묶습니다.
     ministry_event_a = _ministry_personnel_event_key(a)
@@ -7106,6 +7331,227 @@ def _other_construction_company_rank(article: Article) -> tuple[int, str]:
     return len(OTHER_CONSTRUCTION_COMPANY_ORDER), "기타"
 
 
+
+# '원자력' 탭 전용 국가별 정렬 순서.
+# 같은 국가 기사를 연속 배치하고, 국가 내부에서는 최신순을 유지합니다.
+# 큰 흐름: 북미(미국 우선) -> 유럽 -> 중동 -> 아시아 -> 오세아니아 -> 중남미 -> 아프리카 -> 기타
+NUCLEAR_COUNTRY_SORT_ORDER = (
+    # 북미
+    "US", "CA",
+
+    # 유럽
+    "GB", "FR", "BG", "RO", "CZ", "PL", "SI", "FI", "SE",
+    "NL", "BE", "CH", "SK", "DK", "UA", "RU", "TR",
+
+    # 중동
+    "AE", "SA",
+
+    # 아시아
+    "KR", "JP", "CN", "IN", "VN", "MY", "TH", "SG",
+
+    # 오세아니아
+    "AU",
+
+    # 중남미
+    "BR", "AR", "CL", "PE", "CO",
+
+    # 아프리카
+    "ZA",
+)
+
+NUCLEAR_COUNTRY_SORT_RANK = {
+    code: idx for idx, code in enumerate(NUCLEAR_COUNTRY_SORT_ORDER)
+}
+
+
+
+NUCLEAR_TITLE_COUNTRY_MARKERS = (
+    ("US", ("美", "미국", "미 정부", "미 하원", "미 상원", "u.s.", "us ", "united states")),
+    ("GB", ("英", "영국", "britain", "united kingdom", "uk ")),
+    ("CN", ("中", "중국", "china", "chinese")),
+    ("JP", ("日", "일본", "japan", "japanese")),
+    ("FR", ("佛", "프랑스", "france", "french")),
+    ("KR", ("韓", "한국", "대한민국", "south korea", "korea")),
+    ("VN", ("베트남", "vietnam", "vietnamese")),
+    ("RU", ("러시아", "russia", "russian")),
+    ("CA", ("캐나다", "canada", "canadian")),
+    ("BG", ("불가리아", "bulgaria", "bulgarian")),
+    ("RO", ("루마니아", "romania", "romanian")),
+    ("CZ", ("체코", "czech", "czechia")),
+    ("PL", ("폴란드", "poland", "polish")),
+    ("UA", ("우크라이나", "ukraine", "ukrainian")),
+    ("AE", ("UAE", "아랍에미리트", "united arab emirates")),
+    ("SA", ("사우디", "사우디아라비아", "saudi arabia", "saudi")),
+    ("IN", ("인도", "india", "indian")),
+    ("AU", ("호주", "australia", "australian")),
+)
+
+
+def _title_has_marker(title: str, marker: str) -> bool:
+    if not title or not marker:
+        return False
+
+    # 한자 1글자 국가 약칭은 그대로 검색
+    if len(marker) == 1 and marker in "美英中日佛韓":
+        return marker in title
+
+    return _contains_country_term(title, marker)
+
+
+def _title_country_mentions(title: str) -> list[tuple[int, str, str]]:
+    """
+    제목에 나타난 국가 표현을 등장 위치 순으로 반환합니다.
+    (위치, 국가코드, 실제 매칭 표현)
+    """
+    lowered = title.lower()
+    hits: list[tuple[int, str, str]] = []
+
+    for code, markers in NUCLEAR_TITLE_COUNTRY_MARKERS:
+        best_pos = None
+        best_marker = None
+        for marker in markers:
+            if not _title_has_marker(title, marker):
+                continue
+
+            if len(marker) == 1 and marker in "美英中日佛韓":
+                pos = title.find(marker)
+            else:
+                pos = lowered.find(marker.lower())
+
+            if pos >= 0 and (best_pos is None or pos < best_pos):
+                best_pos = pos
+                best_marker = marker
+
+        if best_pos is not None:
+            hits.append((best_pos, code, best_marker or ""))
+
+    return sorted(hits, key=lambda x: x[0])
+
+
+def detect_nuclear_tab_primary_country(article: Article) -> str:
+    """
+    '원자력' 탭 전용 대표국가 판정.
+
+    일반 지도용 국가 판정과 달리 제목에서 실제 기사 행위 주체를 우선합니다.
+    특히 美/英/中/日/佛/韓 같은 제목용 한자 국가표기를 인식합니다.
+
+    예:
+      - 한국원자력연구원장 ... -> KR
+      - 中 따라 잡겠다며 ... 카드 꺼낸 美 -> US
+      - 베트남 국회 첫 원전사업 승인 ... -> VN
+      - 美·英 손잡고 ... 中 조선패권 겨냥 -> US
+    """
+    title = html.unescape(article.title or "").strip()
+    compact = re.sub(r"\s+", "", title)
+    lowered = title.lower()
+    mentions = _title_country_mentions(title)
+
+    if not mentions:
+        return detect_article_country(article)
+
+    codes = [code for _, code, _ in mentions]
+
+    # 1) 국가 정부/국회/규제기관이 명확히 제목의 사건 주체인 경우
+    subject_patterns = (
+        ("VN", ("베트남국회", "베트남정부", "vietnamnationalassembly", "vietnamesegovernment")),
+        ("US", ("미국정부", "미정부", "미하원", "미상원", "미에너지부", "미원자력규제위원회")),
+        ("KR", ("한국정부", "대한민국정부", "한국국회", "원자력안전위원회", "원안위")),
+        ("GB", ("영국정부", "영국의회")),
+        ("JP", ("일본정부", "일본의회")),
+        ("CN", ("중국정부", "중국국무원")),
+    )
+    for code, patterns in subject_patterns:
+        if any(p.replace(" ", "").lower() in compact.lower() for p in patterns):
+            return code
+
+    # 2) 명확한 국내기관이 핵심 주체인 제목
+    korean_core_entities = (
+        "한국원자력연구원", "한국수력원자력", "한수원",
+        "한국전력", "원자력안전위원회", "원안위",
+        "한국원자력환경공단", "한국원자력연료", "한전원자력연료",
+    )
+    if any(entity in title for entity in korean_core_entities):
+        return "KR"
+
+    # 3) 'A 따라잡겠다며 ... B가/美가 카드 꺼내' 구조:
+    # 앞 국가는 비교대상이고 뒤 국가가 실제 행위 주체.
+    rivalry_terms = (
+        "따라잡", "견제", "겨냥", "맞서", "대항", "추격",
+        "패권", "경쟁", "압박", "counter", "rival", "challenge",
+    )
+    action_terms = (
+        "꺼낸", "꺼내", "개발", "추진", "나선", "나서", "발표",
+        "승인", "도입", "투자", "건설", "계획", "협력", "손잡",
+    )
+
+    if len(mentions) >= 2:
+        first_pos, first_code, _ = mentions[0]
+        last_pos, last_code, _ = mentions[-1]
+
+        # 제목 후반 국가가 행동의 주체이고, 전반 국가는 비교/견제 대상인 문장
+        tail = compact[last_pos:].lower() if last_pos < len(compact) else compact.lower()
+        if (
+            any(term in compact.lower() for term in rivalry_terms)
+            and any(term in compact.lower() for term in action_terms)
+            and first_code != last_code
+        ):
+            # "美·英 손잡고 ... 中 겨냥"처럼 첫 두 국가가 공동주체인 경우는 첫 국가 유지
+            first_two_prefix = re.match(r"^\s*[美英中日佛韓]\s*[·ㆍ&\-]\s*[美英中日佛韓]", title)
+            if first_two_prefix:
+                return mentions[0][1]
+
+            # "... 中 ... 카드 꺼낸 美"처럼 행동 주체가 뒤에 오는 경우
+            if any(x in compact for x in ("꺼낸美", "꺼내든美", "나선美", "추진하는美", "개발나선美")):
+                return "US"
+            if any(x in compact for x in ("꺼낸英", "나선英")):
+                return "GB"
+            if any(x in compact for x in ("꺼낸中", "나선中")):
+                return "CN"
+            if any(x in compact for x in ("꺼낸日", "나선日")):
+                return "JP"
+
+    # 4) 공동주체가 제목 맨 앞에 '美·英', '韓·美'처럼 나오면 첫 국가를 대표국가로 사용
+    joint_prefix = re.match(r"^\s*([美英中日佛韓])\s*[·ㆍ&\-]\s*([美英中日佛韓])", title)
+    if joint_prefix:
+        han_to_code = {
+            "美": "US", "英": "GB", "中": "CN",
+            "日": "JP", "佛": "FR", "韓": "KR",
+        }
+        return han_to_code.get(joint_prefix.group(1), mentions[0][1])
+
+    # 5) '베트남 국회 첫 원전사업 승인. 韓 ... 러시아·중국 ...'처럼
+    # 첫 국가가 사건의 장소/주체로 명확하면 첫 제목 국가를 대표국가로 사용.
+    first_pos, first_code, _ = mentions[0]
+    if first_pos <= max(8, int(len(title) * 0.25)):
+        return first_code
+
+    # 6) 그 외에는 기존 국가 판정 결과를 우선하되, OTHER면 제목 첫 국가 사용
+    detected = detect_article_country(article)
+    if detected != "OTHER":
+        return detected
+
+    return mentions[0][1]
+
+
+def _nuclear_country_sort_key(article: Article) -> tuple[int, str, float]:
+    """
+    원자력 탭:
+    제목의 핵심 행위 주체 국가를 기준으로 같은 국가끼리 연속 배치하고,
+    같은 국가 안에서는 최신순을 유지합니다.
+    """
+    country = detect_nuclear_tab_primary_country(article)
+    rank = NUCLEAR_COUNTRY_SORT_RANK.get(
+        country,
+        len(NUCLEAR_COUNTRY_SORT_ORDER) + 100,
+    )
+    return (
+        rank,
+        country,
+        -article.published.timestamp(),
+    )
+
+
+
 def render_group_unified(
     group: str,
     articles: list[Article],
@@ -7119,6 +7565,10 @@ def render_group_unified(
     def order_articles(items: list[Article]) -> list[Article]:
         if not items:
             return []
+
+        # 원자력 탭은 국가별로 묶고, 같은 국가 안에서는 최신순으로 정렬
+        if group == "원자력":
+            return sorted(items, key=_nuclear_country_sort_key)
 
         # 주요 건설사 탭은 같은 회사 기사끼리 묶고, 회사 내부는 최신순으로 정렬
         if group == "타 건설사":
@@ -7145,10 +7595,16 @@ def render_group_unified(
             ordered.extend(bucket)
         return ordered
 
-    ordered_articles = (
-        order_articles(korean_articles)
-        + order_articles(english_articles)
-    )
+    if group in ("원자력", "타 건설사"):
+        # 원자력: 국가별 그룹핑이 언어 분리 때문에 깨지지 않도록 전체 기사 통합 정렬
+        # 주요 건설사: 포스코이앤씨/POSCO E&C처럼 한·영 표기가 달라도
+        # 같은 회사 기사끼리 완전히 붙도록 전체 기사 통합 정렬
+        ordered_articles = order_articles(korean_articles + english_articles)
+    else:
+        ordered_articles = (
+            order_articles(korean_articles)
+            + order_articles(english_articles)
+        )
 
     cards = ''.join(
         render_card(
@@ -8582,7 +9038,528 @@ def _hyundai_nuclear_stock_rally_event_key(article: Article) -> str | None:
     return article.published.astimezone(KST).strftime("%Y-%m-%d")
 
 
+
+def is_khnp_blood_donation_event(article: Article) -> bool:
+    """
+    한수원/원전본부의 지역사회 헌혈행사·혈액원 협력성 기사를 제외합니다.
+    원전 사업·기술·정책 모니터링과 직접 관련 없는 CSR성 지역행사만 대상으로 합니다.
+    """
+    haystack = html.unescape(
+        f"{article.title or ''} {(article.description or '')[:320]}"
+    ).lower()
+    compact = re.sub(r"\s+", "", haystack)
+
+    nuclear_org_terms = (
+        "한국수력원자력", "한수원",
+        "원자력본부", "원전본부",
+        "한울본부", "한울원자력본부",
+        "고리본부", "고리원자력본부",
+        "월성본부", "월성원자력본부",
+        "새울본부", "새울원자력본부",
+        "한빛본부", "한빛원자력본부",
+        "khnp",
+    )
+    donation_terms = (
+        "헌혈", "사랑의 헌혈",
+        "헌혈 행사", "헌혈행사",
+        "헌혈 캠페인", "헌혈캠페인",
+        "혈액원",
+        "blood donation", "blood drive",
+    )
+
+    has_org = any(
+        term in haystack or term.replace(" ", "") in compact
+        for term in nuclear_org_terms
+    )
+    has_donation = any(
+        term in haystack or term.replace(" ", "") in compact
+        for term in donation_terms
+    )
+    return has_org and has_donation
+
+
+
+def _count_term_hits(text: str, terms: tuple[str, ...]) -> int:
+    lowered = html.unescape(text or "").lower()
+    compact = re.sub(r"\s+", "", lowered)
+    count = 0
+    for term in terms:
+        t = term.lower()
+        if t in lowered or t.replace(" ", "") in compact:
+            count += 1
+    return count
+
+
+def _is_core_entity_article(title: str, summary: str, entity_terms: tuple[str, ...], context_terms: tuple[str, ...]) -> bool:
+    """
+    제목을 가장 강하게 보고, 미리보기는 보조로 사용합니다.
+    - 제목에 핵심 주체가 있으면 관련 맥락 1개만 있어도 인정
+    - 제목에 없으면 미리보기에서 주체가 반복/강하게 나타나고 관련 맥락도 충분해야 인정
+    - 본문/미리보기에서 회사명이 1회 스쳐 지나가는 수준은 제외
+    """
+    t = html.unescape(title or "")
+    s = html.unescape(summary or "")
+    title_entity = _count_term_hits(t, entity_terms)
+    summary_entity = _count_term_hits(s, entity_terms)
+    title_context = _count_term_hits(t, context_terms)
+    summary_context = _count_term_hits(s, context_terms)
+
+    if title_entity >= 1:
+        return (title_context + summary_context) >= 1
+
+    # 제목에 없으면 훨씬 엄격하게
+    if summary_entity >= 2 and (title_context + summary_context) >= 2:
+        return True
+
+    return False
+
+
+def is_low_relevance_khnp_article(title: str, summary: str) -> bool:
+    entity_terms = (
+        "한국수력원자력", "한수원", "khnp",
+        "한울본부", "한울원자력본부", "고리본부", "고리원자력본부",
+        "월성본부", "월성원자력본부", "새울본부", "새울원자력본부",
+        "한빛본부", "한빛원자력본부",
+    )
+    context_terms = (
+        "원전", "원자력", "발전소", "reactor", "nuclear",
+        "수주", "계약", "협약", "mou", "기술", "사업", "프로젝트",
+        "운영", "정비", "안전", "인허가", "규제", "투자", "건설",
+        "착공", "준공", "인사", "취임", "임명", "승진", "조직",
+    )
+    return not _is_core_entity_article(title, summary, entity_terms, context_terms)
+
+
+def is_low_relevance_major_construction_article(title: str, summary: str) -> bool:
+    """
+    타 건설사 탭은 회사명이 단순 언급된 기사나 '재개발' 일반기사로 들어오지 않도록 엄격화.
+    """
+    entity_terms = (
+        "삼성물산", "samsung c&t",
+        "대우건설", "daewoo e&c",
+        "dl이앤씨", "dl e&c",
+        "gs건설", "gs e&c",
+        "sk에코플랜트", "sk ecoplant",
+        "포스코이앤씨", "posco e&c",
+        "롯데건설", "lotte e&c",
+        "현대엔지니어링", "hyundai engineering",
+        "hdc현대산업개발", "hdc hyundai development",
+        "한화 건설부문", "hanwha construction",
+        "두산에너빌리티", "doosan enerbility",
+    )
+    context_terms = (
+        "건설", "시공", "수주", "공사", "epc", "계약", "프로젝트",
+        "착공", "준공", "인프라", "플랜트", "원전", "원자력", "nuclear",
+        "발전소", "주택", "도시정비", "재개발", "재건축",
+        "사업비", "투자", "공급", "설계", "조달",
+    )
+    return not _is_core_entity_article(title, summary, entity_terms, context_terms)
+
+
+def is_generic_redevelopment_only_article(title: str, summary: str) -> bool:
+    """
+    '재개발/재건축' 단어만으로 건설기사로 오인되는 일반 사회·동물·환경 기사를 제외.
+    """
+    haystack = html.unescape(f"{title or ''} {summary or ''}").lower()
+    redevelopment_terms = ("재개발", "재건축", "도시정비")
+    unrelated_terms = (
+        "길고양이", "고양이", "들개", "동물보호", "동물 안전",
+        "동물안전", "생명", "동물", "animal", "stray cat", "stray dog",
+    )
+    construction_business_terms = (
+        "건설사", "시공사", "수주", "공사", "epc", "사업비", "착공", "준공",
+        "현대건설", "삼성물산", "대우건설", "dl이앤씨", "gs건설",
+        "포스코이앤씨", "롯데건설", "sk에코플랜트",
+    )
+    return (
+        any(x in haystack for x in redevelopment_terms)
+        and any(x in haystack for x in unrelated_terms)
+        and not any(x in haystack for x in construction_business_terms)
+    )
+
+
+def is_koscaj_site_meta_false_article(article: Article) -> bool:
+    """
+    대한전문건설신문(koscaj.com)의 홈페이지/목록 페이지 메타정보가
+    개별 기사처럼 수집되는 오수집을 제외합니다.
+    """
+    title = html.unescape(article.title or "").strip().lower()
+    desc = html.unescape(article.description or "").strip().lower()
+    link = (article.link or "").strip().lower()
+
+    site_title_terms = (
+        "대한전문건설신문",
+        "대한 전문건설신문",
+    )
+    site_meta_terms = (
+        "건설산업 전문 주간신문",
+        "실시간 건설관련뉴스",
+        "오피니언",
+        "입찰정보",
+        "전문 광장",
+    )
+
+    # 언론사명 자체가 제목으로 들어온 경우
+    if title in site_title_terms:
+        return True
+
+    # 사이트 소개용 메타 description이 기사 미리보기로 들어온 경우
+    meta_hits = sum(1 for term in site_meta_terms if term in desc)
+    if meta_hits >= 2:
+        return True
+
+    # koscaj 사이트에서 제목이 언론사명에 가깝고 기사성이 없는 경우
+    if "koscaj.com" in link and "대한전문건설신문" in title and meta_hits >= 1:
+        return True
+
+    return False
+
+
+
+def is_low_relevance_kepco_article(title: str, summary: str) -> bool:
+    """
+    한국전력 탭은 '전력/전기' 같은 일반 단어가 아니라
+    한국전력(한전/KEPCO)이 실제 핵심 주체인 기사만 인정합니다.
+    """
+    entity_terms = (
+        "한국전력",
+        "한국전력공사",
+        "한전",
+        "kepco",
+    )
+    context_terms = (
+        "전력망", "송전", "배전", "송배전", "계통",
+        "전력구매", "전력판매", "전력시장",
+        "발전", "변전", "변전소", "전력설비",
+        "해외사업", "수주", "계약", "협약", "mou",
+        "투자", "프로젝트", "사업", "기술", "실증",
+        "원전", "원자력", "nuclear",
+        "신재생", "재생에너지", "에너지",
+        "요금", "전기요금",
+        "인사", "취임", "임명", "조직",
+    )
+
+    return not _is_core_entity_article(
+        title,
+        summary,
+        entity_terms,
+        context_terms,
+    )
+
+
+
+def is_garbled_article_text(article: Article) -> bool:
+    """
+    원문 HTML 문자셋/메타 파싱 오류로 제목·미리보기가 깨진 기사만 보수적으로 제외합니다.
+
+    정상적인 영문 기술명, 숫자, 약어(KEPIC, SMR, AP1000 등)는 허용하고,
+    아래와 같이 '문장성이 거의 없고 깨진 기호/토큰이 과도한 경우'만 제외합니다.
+    """
+    title = html.unescape(article.title or "").strip()
+    desc = html.unescape(article.description or "").strip()
+
+    combined = f"{title} {desc}".strip()
+    if not combined:
+        return False
+
+    # 흔한 mojibake / 깨진 인코딩 흔적
+    mojibake_markers = (
+        " ", "ã", "â", "ð", "þ", "æ", "å", "ø",
+        "ì", "ë", "ê", "î", "ï", "ò", "ô", "ö",
+        "ù", "û", "ü", "ý", "ÿ",
+    )
+    mojibake_hits = sum(combined.count(ch) for ch in mojibake_markers)
+
+    # HTML/인코딩 오류에서 자주 보이는 의미 없는 짧은 토큰·기호 비율
+    tokens = re.findall(r"\S+", combined)
+    if not tokens:
+        return False
+
+    weird_tokens = 0
+    for tok in tokens:
+        stripped = re.sub(r"[가-힣A-Za-z0-9]+", "", tok)
+        # 기호가 토큰 절반 이상이거나, 알파벳/숫자가 무작위로 짧게 끊긴 형태
+        if len(tok) >= 2 and len(stripped) / max(len(tok), 1) >= 0.5:
+            weird_tokens += 1
+            continue
+        if re.fullmatch(r"(?:[A-Za-z]\d|\d[A-Za-z]){2,}", tok):
+            weird_tokens += 1
+
+    weird_ratio = weird_tokens / max(len(tokens), 1)
+
+    # 정상적인 문장성 확인: 한글 단어 또는 3자 이상 영단어
+    meaningful_words = re.findall(r"[가-힣]{2,}|[A-Za-z]{3,}", combined)
+    meaningful_ratio = len(meaningful_words) / max(len(tokens), 1)
+
+    # 제목/미리보기 모두 지나치게 깨졌을 때만 제외
+    if mojibake_hits >= 4 and meaningful_ratio < 0.55:
+        return True
+
+    if len(tokens) >= 8 and weird_ratio >= 0.32 and meaningful_ratio < 0.50:
+        return True
+
+    # 사용자가 확인한 것처럼 정상 키워드 일부만 남고 나머지가 깨진 형태
+    # 예: "20 KEPIC-Week ..." + 미리보기에 무의미한 문자/숫자 토큰이 연속
+    compact_desc = re.sub(r"\s+", " ", desc)
+    noisy_runs = re.findall(r"(?:\b[A-Za-z]{1,2}\b|\b\d{1,3}\b|[»«¼½¾ ])", compact_desc)
+    if len(desc) >= 40 and len(noisy_runs) >= 8 and meaningful_ratio < 0.55:
+        return True
+
+    return False
+
+
+
+def _fully_unescape_html_entities(value: str, max_rounds: int = 3) -> str:
+    """
+    &quot; / &amp;quot; 같은 HTML entity를 최대 3회까지 복원합니다.
+    이중/삼중 인코딩된 값도 가능한 범위에서 정상 문자로 되돌립니다.
+    """
+    current = value or ""
+    for _ in range(max_rounds):
+        decoded = html.unescape(current)
+        if decoded == current:
+            break
+        current = decoded
+    return current
+
+
+def is_unresolved_html_entity_article(article: Article) -> bool:
+    """
+    제목/미리보기를 반복 unescape한 뒤에도 HTML entity 코드가 남아 있으면
+    공개 화면 품질을 위해 해당 기사 자체를 제외합니다.
+    """
+    title = _fully_unescape_html_entities(article.title or "")
+    desc = _fully_unescape_html_entities(article.description or "")
+
+    # 실제 화면에 노출되면 안 되는 대표적인 entity 패턴
+    unresolved_pattern = re.compile(
+        r"&(?:quot|amp|apos|lt|gt|nbsp|#0*34|#x0*22);",
+        re.I,
+    )
+
+    return bool(
+        unresolved_pattern.search(title)
+        or unresolved_pattern.search(desc)
+    )
+
+
+def normalize_article_display_entities(article: Article) -> Article:
+    """
+    정상 복원 가능한 HTML entity는 기사 데이터 자체에 반영합니다.
+    """
+    article.title = _fully_unescape_html_entities(article.title or "")
+    article.description = _fully_unescape_html_entities(article.description or "")
+    return article
+
+
+
+NUCLEAR_TITLE_STRONG_TERMS = (
+    "원전", "원자력", "원자로", "핵연료", "사용후핵연료",
+    "방사성폐기물", "고준위폐기물", "저준위폐기물",
+    "원전해체", "원전 해체", "계속운전", "재가동",
+    "소형모듈원자로", "소형 모듈 원자로", "smr",
+    "차세대원자로", "차세대 원자로",
+    "nuclear power", "nuclear energy", "nuclear plant",
+    "nuclear reactor", "nuclear station",
+)
+
+NUCLEAR_CORE_ENTITY_TERMS = (
+    "한국원자력연구원", "kaeri",
+    "한국수력원자력", "한수원", "khnp",
+    "원자력안전위원회", "원안위",
+    "한국원자력환경공단",
+    "한전원자력연료", "한국원자력연료",
+    "한국원자력산업협회", "한국원자력학회",
+    "nrc", "nuclear regulatory commission",
+    "iaea", "international atomic energy agency",
+)
+
+NUCLEAR_CONTEXT_TERMS = (
+    "원전 건설", "원전건설", "원전 사업", "원전사업",
+    "원전 수주", "원전수주", "원전 수출", "원전수출",
+    "원전 운영", "원전운영", "원전 정비", "원전정비",
+    "원전 안전", "원전안전", "원전 인허가", "원전인허가",
+    "원자력 정책", "원자력정책", "원자력 규제", "원자력규제",
+    "핵연료", "사용후핵연료", "방사성폐기물",
+    "원자로", "reactor", "nuclear",
+    "발전소", "원전 프로젝트", "원전프로젝트",
+)
+
+NON_NUCLEAR_TOPIC_TERMS = (
+    # 문화/예술/사회
+    "개인전", "미술전", "전시회", "작품전", "미술관", "갤러리",
+    "안중근", "광주민주화운동", "서태지",
+    "공연", "영화", "연예", "축제",
+    # 철도/교통
+    "코레일", "한국철도공사", "철도기업", "철도", "열차",
+    "csee", "유지보수 기술 교류",
+    # 금융/은행/지역경제
+    "농협은행", "nh농협은행", "은행 경남본부", "금융 지원 강화",
+    "생산적 금융", "금융지원", "금융 지원", "지역금융",
+    # 일반 산업/IT
+    "반도체 산단", "반도체 산업", "민생경제", "수출기업 지원",
+)
+
+
+def is_low_relevance_nuclear_tab_article(article: Article) -> bool:
+    """
+    '원자력' 탭 오분류 방지.
+
+    제목이 원자력 핵심 주제를 직접 말하는 기사는 유지합니다.
+    제목에 원자력 핵심성이 없고 미리보기의 우연한 키워드에만 의존하는 경우는
+    실제 원자력 기관/사업 맥락이 충분할 때만 유지합니다.
+    """
+    title = html.unescape(article.title or "").strip().lower()
+    desc = html.unescape(article.description or "").strip().lower()
+    combined = f"{title} {desc}"
+
+    # 제목 자체가 명확한 원자력 기사면 유지
+    if any(term in title for term in NUCLEAR_TITLE_STRONG_TERMS):
+        return False
+
+    # 원자력 핵심 기관이 제목의 주체면 유지
+    if any(term in title for term in NUCLEAR_CORE_ENTITY_TERMS):
+        return False
+
+    # 제목이 명백한 비원자력 주제이면,
+    # 미리보기 속 단발성 원자력 단어로는 원자력 탭에 넣지 않음
+    if any(term in title for term in NON_NUCLEAR_TOPIC_TERMS):
+        return True
+
+    entity_hits = sum(1 for term in NUCLEAR_CORE_ENTITY_TERMS if term in combined)
+    context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in combined)
+    title_context_hits = sum(1 for term in NUCLEAR_CONTEXT_TERMS if term in title)
+
+    # 제목에 원자력 맥락이 하나라도 있고 전체 기사에도 충분한 맥락이 있으면 유지
+    if title_context_hits >= 1 and context_hits >= 2:
+        return False
+
+    # 제목에 원자력 표현이 없으면, 미리보기만으로는 훨씬 엄격하게:
+    # 핵심 기관 + 복수의 원자력 사업/기술 맥락이 동시에 있어야 유지
+    if entity_hits >= 1 and context_hits >= 3:
+        return False
+
+    return True
+
+
+
+def is_strongly_garbled_article_text(article: Article) -> bool:
+    """
+    화면에서 정상 기사로 보기 어려운 수준의 깨진 제목/미리보기를 추가 차단합니다.
+    KEPIC, SMR, AP1000 같은 정상 기술 약어 자체는 제외 근거가 아니며,
+    의미 없는 짧은 토큰/숫자/기호가 연속적으로 나타나는 경우만 차단합니다.
+    """
+    title = _fully_unescape_html_entities(article.title or "").strip()
+    desc = _fully_unescape_html_entities(article.description or "").strip()
+    combined = f"{title} {desc}".strip()
+
+    if not combined:
+        return False
+
+    # Unicode replacement char / 제어문자 / 비정상 mojibake 흔적
+    replacement_hits = combined.count(" ")
+    control_hits = sum(
+        1 for ch in combined
+        if ord(ch) < 32 and ch not in "\n\r\t"
+    )
+
+    # 정상 문자 대비 특수기호 밀도
+    visible = [ch for ch in combined if not ch.isspace()]
+    weird_chars = [
+        ch for ch in visible
+        if not (
+            ch.isalnum()
+            or ("가" <= ch <= "힣")
+            or ch in ".,:;!?%()[]{}+-–—·ㆍ/'\""
+        )
+    ]
+    weird_char_ratio = len(weird_chars) / max(len(visible), 1)
+
+    tokens = re.findall(r"\S+", combined)
+    short_noise = 0
+    for tok in tokens:
+        clean = tok.strip(".,:;!?%()[]{}+-–—·ㆍ/'\"")
+        # 1~2자 영문/숫자 토큰이 반복적으로 흩어지는 형태
+        if re.fullmatch(r"[A-Za-z0-9]{1,2}", clean):
+            short_noise += 1
+        # 글자와 숫자가 무작위로 섞인 짧은 토큰
+        elif (
+            len(clean) <= 6
+            and re.search(r"[A-Za-z]", clean)
+            and re.search(r"\d", clean)
+            and not re.fullmatch(r"(?:AP\d{3,4}|SMR\d*|KEPIC|CIGRE\d*|ISO\d*)", clean, re.I)
+        ):
+            short_noise += 1
+
+    short_noise_ratio = short_noise / max(len(tokens), 1)
+
+    # 한글/정상 영단어 기반 문장성
+    meaningful_words = re.findall(r"[가-힣]{2,}|[A-Za-z]{3,}", combined)
+    meaningful_ratio = len(meaningful_words) / max(len(tokens), 1)
+
+    if replacement_hits >= 2:
+        return True
+    if control_hits >= 1:
+        return True
+    if len(visible) >= 40 and weird_char_ratio >= 0.10 and meaningful_ratio < 0.55:
+        return True
+    if len(tokens) >= 8 and short_noise_ratio >= 0.30 and meaningful_ratio < 0.55:
+        return True
+
+    # 사용자가 확인한 KEPIC-Week 카드처럼 제목은 일부 정상인데
+    # 미리보기 후반이 깨진 짧은 영숫자/기호 조합으로 이어지는 경우
+    if "kepic-week" in title.lower() or "kepic week" in title.lower():
+        desc_tokens = re.findall(r"\S+", desc)
+        desc_noise = sum(
+            1 for tok in desc_tokens
+            if (
+                re.fullmatch(r"[A-Za-z0-9]{1,2}", tok.strip(".,:;!?%()[]{}+-–—·ㆍ/'\""))
+                or " " in tok
+                or "»" in tok
+                or "«" in tok
+            )
+        )
+        if len(desc_tokens) >= 6 and desc_noise >= 4:
+            return True
+
+    return False
+
+
+
+def is_targeted_bad_display_article(article: Article) -> bool:
+    """
+    전체 기사에 대한 강한 깨짐 필터는 사용하지 않고,
+    실제로 문제가 확인된 유형만 제한적으로 제외합니다.
+    """
+    title = _fully_unescape_html_entities(article.title or "").strip()
+    desc = _fully_unescape_html_entities(article.description or "").strip()
+    publisher = (article.publisher or "").strip()
+
+    unresolved_pattern = re.compile(
+        r"&(?:quot|amp|apos|lt|gt|nbsp|#0*34|#x0*22);",
+        re.I,
+    )
+    if unresolved_pattern.search(title) or unresolved_pattern.search(desc):
+        return True
+
+    is_power_economy = "전력경제신문" in publisher
+    is_kepic_week = (
+        "kepic-week" in title.lower()
+        or "kepic week" in title.lower()
+    )
+
+    if (is_power_economy or is_kepic_week) and (
+        is_strongly_garbled_article_text(article)
+        or is_garbled_article_text(article)
+    ):
+        return True
+
+    return False
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
+    # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
+    articles = [normalize_article_display_entities(article) for article in articles]
     """완전 중복(같은 URL / 같은 매체·같은 제목)만 제거합니다."""
 
     # 최종 출력/archive 공통 제외 필터를 먼저 적용해야 이후 정렬·중복제거에도 반영됩니다.
@@ -8591,6 +9568,26 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         if not is_excluded_source(article.publisher, article.link, article.source_url)
         and not is_westinghouse_air_brake_article(article.title, article.description)
         and not is_khnp_elementary_article(article)
+        and not is_targeted_bad_display_article(article)
+        and not is_koscaj_site_meta_false_article(article)
+        and not is_khnp_blood_donation_event(article)
+        and not (
+            article.group == "원자력"
+            and is_low_relevance_nuclear_tab_article(article)
+        )
+        and not (
+            article.group == "한국수력원자력"
+            and is_low_relevance_khnp_article(article.title, article.description or "")
+        )
+        and not (
+            article.group == "한국전력"
+            and is_low_relevance_kepco_article(article.title, article.description or "")
+        )
+        and not (
+            article.group == "타 건설사"
+            and is_low_relevance_major_construction_article(article.title, article.description or "")
+        )
+        and not is_generic_redevelopment_only_article(article.title, article.description or "")
         and not is_company_sports_article(article)
         and not is_general_sports_article(article)
         and not is_danal_investment_partners_article(article)
@@ -9251,16 +10248,21 @@ def migrate_legacy_nuclear_association_group(article: Article) -> Article:
 
 def enforce_kepco_kdn_group(article: Article) -> Article:
     """
-    한전KDN 최종 분류 안전장치.
+    한전KDN / 한전MCS 최종 분류 안전장치.
 
-    제목/미리보기 중 하나라도 아래 표기가 있으면 기존 group 값과 무관하게
+    회사명 자체에 '한전/KEPCO'가 포함되어 한국전력 본체로 오인될 수 있으므로,
+    제목/미리보기에 아래 회사가 명시되면 기존 group 값과 무관하게
     반드시 '한전 계열사'로 고정합니다.
-      - 한전KDN / 한전 KDN
-      - KEPCO KDN / KEPCO-KDN
+
+      - 한전KDN / 한전 KDN / KEPCO KDN / KEPCO-KDN
+      - 한전MCS / 한전 MCS / KEPCO MCS / KEPCO-MCS
 
     신규 수집, archive 복원, 최종 렌더 직전 모두에서 재사용합니다.
     """
-    if _mentions_kepco_kdn(article.title, article.description):
+    if (
+        _mentions_kepco_kdn(article.title, article.description)
+        or _mentions_kepco_mcs(article.title, article.description)
+    ):
         article.group = "한전 계열사"
     return article
 
@@ -19193,8 +20195,8 @@ main {{
 /* 2026-08-26 SMART GLOBAL BACK-TO-TOP BUTTON */
 #global-back-to-top {{
   position: fixed;
-  right: max(14px, env(safe-area-inset-right));
-  bottom: calc(18px + env(safe-area-inset-bottom));
+  right: max(8px, env(safe-area-inset-right));
+  bottom: calc(8px + env(safe-area-inset-bottom));
   z-index: 9999;
   min-width: 48px;
   height: 48px;
@@ -19226,24 +20228,38 @@ main {{
 }}
 @media (max-width: 767px) {{
   #global-back-to-top {{
-    right: max(10px, env(safe-area-inset-right));
-    bottom: calc(10px + env(safe-area-inset-bottom));
-    width: 42px;
-    min-width: 42px;
-    height: 42px;
-    padding: 0;
-    border-radius: 50%;
-    font-size: 18px;
-    gap: 0;
+    right: max(6px, env(safe-area-inset-right));
+    bottom: calc(6px + env(safe-area-inset-bottom));
+    width: auto;
+    min-width: 76px;
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    gap: 4px;
   }}
-  #global-back-to-top .back-to-top-label {{ display:none; }}
+  #global-back-to-top .back-to-top-arrow {{
+    font-size: 15px;
+    line-height: 1;
+  }}
+  #global-back-to-top .back-to-top-label {{
+    display: inline;
+    white-space: nowrap;
+  }}
 }}
 @media (min-width:768px) and (max-width:1199px) {{
-  #global-back-to-top {{ right:14px; bottom:calc(14px + env(safe-area-inset-bottom)); height:46px; min-width:46px; padding:0 12px; }}
+  #global-back-to-top {{ right:max(8px, env(safe-area-inset-right)); bottom:calc(8px + env(safe-area-inset-bottom)); height:46px; min-width:46px; padding:0 12px; }}
 }}
 @media (min-width:1200px) {{
-  #global-back-to-top {{ right:20px; bottom:18px; }}
+  #global-back-to-top {{ right:8px; bottom:8px; }}
 }}
+
+/* 2026-08-26 THUMBNAIL LIGHT-GRAY BORDER */
+.preview-image {{
+  border: 1px solid #d9d9d9 !important;
+  box-sizing: border-box !important;
+}}
+
 </style>
 </head>
 <body>
@@ -24426,9 +25442,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 }})();
 
 
-/* 2026-08-26 SMART GLOBAL BACK-TO-TOP BUTTON */
+/* 2026-08-26 BACK-TO-TOP ALWAYS AVAILABLE AFTER SCROLL */
 (function initGlobalBackToTop(){{
-  let lastY=window.scrollY||0;
   let ticking=false;
   function ensureButton(){{
     let btn=document.getElementById('global-back-to-top');
@@ -24446,16 +25461,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     ticking=false;
     const btn=ensureButton();
     const y=window.scrollY||document.documentElement.scrollTop||0;
-    const delta=y-lastY;
-    const isMobile=window.matchMedia('(max-width: 767px)').matches;
-    if(y<700){{ btn.classList.remove('is-visible'); lastY=y; return; }}
-    if(isMobile){{
-      if(delta>6)btn.classList.remove('is-visible');
-      else if(delta<-6)btn.classList.add('is-visible');
-    }}else{{
-      btn.classList.add('is-visible');
-    }}
-    lastY=y;
+    btn.classList.toggle('is-visible', y>=700);
   }}
   function requestUpdate(){{ if(ticking)return; ticking=true; requestAnimationFrame(updateVisibility); }}
   if(document.readyState==='loading'){{
