@@ -1,3 +1,6 @@
+# FINAL POLICY: MINIMUM FILTER + SAME-EVENT GROUPING + STOCK NEWS LAST 2026-08-26
+# FINAL EXECUTIVE / CEO ACTIVITY PRIORITY CLASSIFICATION 2026-08-26
+# FINAL MAJOR-CONSTRUCTION TITLE PRIORITY 2026-08-26
 # FINAL MINIMIZED RELEVANCE FILTERS - MAXIMUM RECALL 2026-08-26
 # FINAL GLOBAL RELEVANCE RELAXED - DIRECT RELATION FIRST 2026-08-26
 # FINAL STOCK / SECURITIES FILTER RELAXED 2026-08-26
@@ -4399,6 +4402,99 @@ def _foreign_nuclear_company_group(title: str, summary: str = "") -> str | None:
     return None
 
 
+
+def mentions_other_construction_company_in_title(title: str) -> bool:
+    """
+    기사 제목에 현대건설이 아닌 국내 주요 건설사명이 직접 나오면
+    '주요 건설사'(내부 group='타 건설사')를 우선합니다.
+
+    본문/미리보기에 현대건설이 함께 언급되더라도 제목의 핵심 주체가
+    대우건설, 포스코이앤씨, GS건설 등 타 건설사이면 주요 건설사로 분류합니다.
+    """
+    haystack = html.unescape(title or "").lower()
+
+    # 현대건설 자체는 여기서 제외하고 OTHER_CONSTRUCTION_TERMS만 판정
+    return any(term.lower() in haystack for term in OTHER_CONSTRUCTION_TERMS)
+
+
+
+EXECUTIVE_ROLE_TERMS = (
+    "대표이사", "대표 이사", "사장", "회장", "부회장",
+    "ceo", "chief executive officer",
+)
+
+EXECUTIVE_ACTIVITY_TERMS = (
+    "취임", "임명", "선임", "연임", "면담", "회동",
+    "협약", "mou", "협력", "간담회", "회의", "현장점검",
+    "현장 점검", "방문", "수주", "계약", "프로젝트",
+    "투자", "발표", "기념식", "행사", "포럼", "세미나",
+    "경영", "신년사", "메시지", "발언", "강조", "주문",
+    "점검", "회의 주재", "업무협약", "전략", "비전",
+)
+
+
+def _has_executive_role(text: str) -> bool:
+    hay = html.unescape(text or "").lower()
+    return any(term in hay for term in EXECUTIVE_ROLE_TERMS)
+
+
+def _has_executive_activity(title: str, summary: str = "") -> bool:
+    hay = html.unescape(f"{title} {summary}").lower()
+    return any(term in hay for term in EXECUTIVE_ACTIVITY_TERMS)
+
+
+def classify_executive_activity_group(title: str, summary: str = "") -> str | None:
+    """
+    대표이사/사장/CEO 등 핵심 경영진의 주요 활동 기사를 회사 탭으로 분류합니다.
+
+    원칙:
+    - 회사명/기관명 + 핵심 직함이 기사에 연결되어 있어야 함
+    - 취임/면담/협력/현장점검/수주/경영활동 등 주요 활동은 유지
+    - 회사명 없이 인물명만 있는 경우는 동명이인 오탐 방지를 위해 여기서는 강제 분류하지 않음
+    """
+    title_clean = html.unescape(title or "")
+    summary_clean = html.unescape(summary or "")
+    hay = f"{title_clean} {summary_clean}".lower()
+
+    if not _has_executive_role(hay):
+        return None
+
+    # 현대건설 경영진
+    if mentions_hyundai_ec(title_clean, summary_clean):
+        return "현대건설"
+
+    # 한수원 경영진
+    khnp_terms = (
+        "한국수력원자력", "한수원", "khnp",
+        "한울원자력본부", "고리원자력본부", "월성원자력본부",
+        "새울원자력본부", "한빛원자력본부",
+    )
+    if any(term in hay for term in khnp_terms):
+        return "한국수력원자력"
+
+    # 한국전력 경영진
+    kepco_terms = (
+        "한국전력공사", "한국전력", "한전", "kepco",
+    )
+    # 한전MCS/KDN 등 계열사는 본체보다 먼저 구분
+    if _mentions_kepco_kdn(title_clean, summary_clean) or _mentions_kepco_mcs(title_clean, summary_clean):
+        return "한전 계열사"
+    if _mentions_kepco_affiliate(title_clean, summary_clean) and not _mentions_kepco_parent(title_clean, summary_clean):
+        return "한전 계열사"
+    if any(term in hay for term in kepco_terms):
+        return "한국전력"
+
+    # 국내 주요 건설사 경영진
+    if mentions_other_construction_company_in_title(title_clean):
+        return "타 건설사"
+
+    # 제목에 없더라도 미리보기에서 회사명 + 대표/사장 직함이 연결된 경우 인정
+    if any(term.lower() in hay for term in OTHER_CONSTRUCTION_TERMS):
+        return "타 건설사"
+
+    return None
+
+
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
     회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
@@ -4415,7 +4511,17 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     """
     haystack = html.unescape(f"{title} {summary}").lower()
 
-    # 1순위: 현대건설 (건설기계 오탐 제외)
+    # 대표이사/사장/CEO 등 핵심 경영진의 주요 활동은 해당 회사/기관 탭으로 우선 분류
+    executive_group = classify_executive_activity_group(title, summary)
+    if executive_group:
+        return executive_group
+
+    # 기사 제목에 타 주요 건설사가 직접 나오면 그 회사가 핵심 주체이므로
+    # 본문/미리보기에 현대건설이 함께 있어도 '주요 건설사'를 우선합니다.
+    if mentions_other_construction_company_in_title(title):
+        return "타 건설사"
+
+    # 그 다음 현대건설 (건설기계 오탐 제외)
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
@@ -4492,12 +4598,15 @@ def classify_construction_group(group: str, title: str, summary: str) -> str | N
 
     haystack = html.unescape(f"{title} {summary}").lower()
 
-    # 타 건설사 검색 결과 안에 현대건설이 함께 잡힌 경우에는
-    # 기존 원칙대로 현대건설을 최우선으로 재분류합니다.
+    # 제목에 타 건설사명이 직접 나오면 '주요 건설사'로 고정합니다.
+    if mentions_other_construction_company_in_title(title):
+        return "타 건설사"
+
+    # 제목에는 타 건설사가 없고 현대건설이 핵심으로 잡힌 경우만 현대건설로 재분류합니다.
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
 
-    # 타 건설사명/영문명이 확인되면 원전 여부와 관계없이 유지합니다.
+    # 타 건설사명/영문명이 본문/미리보기에 확인되면 원전 여부와 관계없이 유지합니다.
     if any(term in haystack for term in OTHER_CONSTRUCTION_TERMS):
         return "타 건설사"
 
@@ -4710,12 +4819,21 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     if is_excluded_military_nuclear_article(title, summary):
         return None
 
+    # 대표이사/사장/CEO 등 핵심 경영진 주요 활동은 회사/기관 탭을 우선
+    executive_group = classify_executive_activity_group(title, summary)
+    if executive_group:
+        return executive_group
+
     # KEPIC(전력산업기술기준) 관련 기사는 별도 탭을 만들지 않고 원자력 탭으로 통합합니다.
     if _mentions_kepic(title, summary):
         return "원자력"
 
-    # 현대건설은 모든 회사/프로젝트 그룹보다 최우선입니다.
-    # 제목 또는 본문에 현대건설이 포함되면 다른 명칭이 함께 있어도 현대건설로 분류합니다.
+    # 제목에 현대건설이 아닌 주요 건설사명이 직접 나오면 주요 건설사 탭을 우선합니다.
+    # 예: 제목='대우건설 ...' + 미리보기='현대건설 ...' -> 주요 건설사
+    if mentions_other_construction_company_in_title(title):
+        return "타 건설사"
+
+    # 제목에 타 건설사가 없을 때 현대건설을 우선합니다.
     # 단, '현대건설기계'는 별도 회사이므로 현대건설로 오인하지 않습니다.
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
@@ -7544,7 +7662,7 @@ def detect_nuclear_tab_primary_country(article: Article) -> str:
     return mentions[0][1]
 
 
-def _nuclear_country_sort_key(article: Article) -> tuple[int, str, float]:
+def _nuclear_country_sort_key(article: Article) -> tuple[int, str, int, float]:
     """
     원자력 탭:
     제목의 핵심 행위 주체 국가를 기준으로 같은 국가끼리 연속 배치하고,
@@ -7558,9 +7676,32 @@ def _nuclear_country_sort_key(article: Article) -> tuple[int, str, float]:
     return (
         rank,
         country,
+        1 if is_stock_market_low_priority_article(article) else 0,
         -article.published.timestamp(),
     )
 
+
+
+
+STOCK_MARKET_LOW_PRIORITY_TERMS = (
+    "주가", "급등", "급락", "강세", "약세", "상승세", "하락세",
+    "상한가", "하한가", "증권사", "목표주가", "투자의견",
+    "매수 의견", "매도의견", "리포트", "코스피", "코스닥",
+    "stock", "shares", "share price", "rally", "surge", "soar",
+    "plunge", "slump", "brokerage", "target price",
+)
+
+
+def is_stock_market_low_priority_article(article: Article) -> bool:
+    """
+    주가/증권성 기사라고 삭제하지 않습니다.
+    해당 회사·원전·건설 기사로 분류된 상태는 그대로 유지하되
+    각 기사탭의 뒤쪽에 배치하기 위한 정렬 플래그만 반환합니다.
+    """
+    hay = html.unescape(
+        f"{article.title or ''} {article.description or ''}"
+    ).lower()
+    return any(term in hay for term in STOCK_MARKET_LOW_PRIORITY_TERMS)
 
 
 def render_group_unified(
@@ -7587,6 +7728,7 @@ def render_group_unified(
                 items,
                 key=lambda item: (
                     _other_construction_company_rank(item)[0],
+                    1 if is_stock_market_low_priority_article(item) else 0,
                     -item.published.timestamp(),
                 ),
             )
@@ -7600,8 +7742,10 @@ def render_group_unified(
         for priority in (0, 1, 2):
             bucket = sorted(
                 buckets.get(priority, []),
-                key=lambda item: item.published,
-                reverse=True,
+                key=lambda item: (
+                    1 if is_stock_market_low_priority_article(item) else 0,
+                    -item.published.timestamp(),
+                ),
             )
             ordered.extend(bucket)
         return ordered
