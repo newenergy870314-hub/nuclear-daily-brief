@@ -1,3 +1,4 @@
+# SMART BACK-TO-TOP UX: HIDE ON DOWN-SCROLL, SHOW ON UP-SCROLL 2026-08-26
 # HOLTEC HIGHLIGHTS COMPLETE COLLECTION: CATEGORY + NEWS + YEAR ARCHIVE + HH URL PRIORITY 2026-08-26
 # HOLTEC HIGHLIGHTS OFFICIAL SOURCE + FORCE HOLTEC TAB 2026-08-26
 # DUPLICATE GROUPING: MINISTRY PERSONNEL + BRIAN MAST/COUPANG EVENT 2026-08-26
@@ -19189,11 +19190,11 @@ main {{
 }}
 
 
-/* 2026-08-26 GLOBAL FLOATING BACK-TO-TOP BUTTON */
+/* 2026-08-26 SMART GLOBAL BACK-TO-TOP BUTTON */
 #global-back-to-top {{
   position: fixed;
-  right: max(16px, env(safe-area-inset-right));
-  bottom: calc(84px + env(safe-area-inset-bottom));
+  right: max(14px, env(safe-area-inset-right));
+  bottom: calc(18px + env(safe-area-inset-bottom));
   z-index: 9999;
   min-width: 48px;
   height: 48px;
@@ -19211,8 +19212,8 @@ main {{
   gap: 5px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(8px);
-  transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+  transform: translateY(10px);
+  transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
   -webkit-tap-highlight-color: transparent;
 }}
 #global-back-to-top.is-visible {{
@@ -19221,19 +19222,28 @@ main {{
   transform: translateY(0);
 }}
 #global-back-to-top:active {{
-  transform: translateY(1px) scale(.98);
+  transform: translateY(1px) scale(.97);
 }}
 @media (max-width: 767px) {{
   #global-back-to-top {{
-    right: 14px;
-    bottom: calc(92px + env(safe-area-inset-bottom));
-    min-width: 46px;
-    height: 46px;
-    padding: 0 12px;
-    font-size: 12.5px;
+    right: max(10px, env(safe-area-inset-right));
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 18px;
+    gap: 0;
   }}
+  #global-back-to-top .back-to-top-label {{ display:none; }}
 }}
-
+@media (min-width:768px) and (max-width:1199px) {{
+  #global-back-to-top {{ right:14px; bottom:calc(14px + env(safe-area-inset-bottom)); height:46px; min-width:46px; padding:0 12px; }}
+}}
+@media (min-width:1200px) {{
+  #global-back-to-top {{ right:20px; bottom:18px; }}
+}}
 </style>
 </head>
 <body>
@@ -24416,8 +24426,10 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 }})();
 
 
-/* 2026-08-26 GLOBAL FLOATING BACK-TO-TOP BUTTON */
+/* 2026-08-26 SMART GLOBAL BACK-TO-TOP BUTTON */
 (function initGlobalBackToTop(){{
+  let lastY=window.scrollY||0;
+  let ticking=false;
   function ensureButton(){{
     let btn=document.getElementById('global-back-to-top');
     if(btn)return btn;
@@ -24425,30 +24437,33 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     btn.id='global-back-to-top';
     btn.type='button';
     btn.setAttribute('aria-label','맨 위로 이동');
-    btn.innerHTML='<span aria-hidden="true">↑</span><span>맨 위로</span>';
+    btn.innerHTML='<span class="back-to-top-arrow" aria-hidden="true">↑</span><span class="back-to-top-label">맨 위로</span>';
     document.body.appendChild(btn);
-    btn.addEventListener('click',()=>{{
-      window.scrollTo({{top:0,behavior:'smooth'}});
-    }});
+    btn.addEventListener('click',()=>{{ window.scrollTo({{top:0,behavior:'smooth'}}); }});
     return btn;
   }}
-
-  function update(){{
+  function updateVisibility(){{
+    ticking=false;
     const btn=ensureButton();
-    const y=window.scrollY || document.documentElement.scrollTop || 0;
-    btn.classList.toggle('is-visible', y > 700);
+    const y=window.scrollY||document.documentElement.scrollTop||0;
+    const delta=y-lastY;
+    const isMobile=window.matchMedia('(max-width: 767px)').matches;
+    if(y<700){{ btn.classList.remove('is-visible'); lastY=y; return; }}
+    if(isMobile){{
+      if(delta>6)btn.classList.remove('is-visible');
+      else if(delta<-6)btn.classList.add('is-visible');
+    }}else{{
+      btn.classList.add('is-visible');
+    }}
+    lastY=y;
   }}
-
+  function requestUpdate(){{ if(ticking)return; ticking=true; requestAnimationFrame(updateVisibility); }}
   if(document.readyState==='loading'){{
-    document.addEventListener('DOMContentLoaded',()=>{{ ensureButton(); update(); }},{{once:true}});
-  }}else{{
-    ensureButton();
-    update();
-  }}
-  window.addEventListener('scroll',update,{{passive:true}});
-  window.addEventListener('resize',update,{{passive:true}});
+    document.addEventListener('DOMContentLoaded',()=>{{ ensureButton(); updateVisibility(); }},{{once:true}});
+  }}else{{ ensureButton(); updateVisibility(); }}
+  window.addEventListener('scroll',requestUpdate,{{passive:true}});
+  window.addEventListener('resize',requestUpdate,{{passive:true}});
 }})();
-
 </script>
 </body>
 </html>
