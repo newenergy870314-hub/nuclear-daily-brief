@@ -1,3 +1,4 @@
+# FINAL FIX: RESTORE NUCLEAR COUNTRY SORT CONSTANTS 2026-08-27
 # FINAL FIX: RESTORE NUCLEAR_TITLE_COUNTRY_MARKERS 2026-08-27
 # FINAL EXCLUDE UNRELATED MINISTRY-AWARD FALSE POSITIVES 2026-08-27
 # FINAL EXCLUDE LOCAL SPECIALTY-CONSTRUCTION FALSE POSITIVE 2026-08-27
@@ -7696,6 +7697,32 @@ def _title_has_marker(title: str, marker: str) -> bool:
 
 # 원자력 탭 제목 기준 국가 판정용 표기.
 # 한글/영문 국가명뿐 아니라 기사 제목에서 자주 쓰는 한자 약칭도 포함합니다.
+
+# 원자력 탭 국가별 표시 순서
+NUCLEAR_COUNTRY_SORT_ORDER = (
+    # North America
+    "US", "CA",
+    # Europe
+    "GB", "FR", "BG", "RO", "CZ", "PL", "SI", "FI", "SE", "NL", "BE", "CH", "SK", "DK", "UA", "RU", "TR",
+    # Middle East
+    "AE", "SA",
+    # Asia
+    "KR", "JP", "CN", "IN", "VN", "MY", "TH", "SG",
+    # Oceania
+    "AU",
+    # Latin America
+    "BR", "AR", "CL", "PE", "CO",
+    # Africa
+    "ZA",
+    # Unknown / other
+    "OTHER",
+)
+
+NUCLEAR_COUNTRY_SORT_RANK = {
+    code: idx for idx, code in enumerate(NUCLEAR_COUNTRY_SORT_ORDER)
+}
+
+
 NUCLEAR_TITLE_COUNTRY_MARKERS = (
     ("US", ("미국", "美", "u.s.", "u.s", "usa", "united states", "american")),
     ("CA", ("캐나다", "canada", "canadian")),
