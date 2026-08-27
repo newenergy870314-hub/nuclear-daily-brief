@@ -1,3 +1,5 @@
+# FINAL KEPCO TITLE PRIORITY CLASSIFICATION 2026-08-27
+# FINAL MAJOR CONSTRUCTION TAB: TITLE COMPANY BASED SORT 2026-08-27
 # FINAL FIX ARTICLE SUMMARY ATTRIBUTEERROR 2026-08-27
 # FINAL NUCLEAR TAB: COUNTRY -> IMPORTANCE -> RECENCY 2026-08-27
 # FINAL EXCLUDE SPECIALTY CONSTRUCTION DONATION FALSE POSITIVE 2026-08-27
@@ -7738,26 +7740,30 @@ def _other_construction_company_rank(article: Article) -> tuple[int, str]:
     """
     주요 건설사 탭 회사별 정렬 기준.
 
-    1순위: 기사 제목에 직접 등장하는 회사명
-    2순위: 제목에 회사명이 없을 때만 미리보기/본문/언론사 보조 판정
+    - 기사 제목에 직접 등장한 건설사만 정렬 기준으로 사용합니다.
+    - 본문/미리보기/언론사에만 나온 회사명은 정렬 기준으로 사용하지 않습니다.
+    - 제목에 여러 주요 건설사가 있으면 제목에서 가장 먼저 등장한 회사를 대표 회사로 봅니다.
+    - 제목에 주요 건설사명이 없으면 '기타'로 보내 뒤쪽에 배치합니다.
     """
     title_hay = html.unescape(article.title or "").lower()
-    full_hay = html.unescape(
-        f"{article.title or ''} {article.description or ''} {article.publisher or ''}"
-    ).lower()
 
-    # 기존 회사 정렬 순서를 그대로 사용
-    for idx, (company_name, aliases) in enumerate(OTHER_CONSTRUCTION_COMPANY_ORDER):
-        # 1차: 제목 기준
-        if any(alias.lower() in title_hay for alias in aliases):
-            return idx, company_name
+    # (제목 내 등장 위치, 회사 정렬순위, 회사명)
+    candidates: list[tuple[int, int, str]] = []
 
-    # 2차: 제목에 회사명이 없을 때만 본문/미리보기 기준
-    for idx, (company_name, aliases) in enumerate(OTHER_CONSTRUCTION_COMPANY_ORDER):
-        if any(alias.lower() in full_hay for alias in aliases):
-            return idx, company_name
+    for rank, (company_name, aliases) in enumerate(OTHER_CONSTRUCTION_COMPANY_ORDER):
+        for alias in aliases:
+            pos = title_hay.find(alias.lower())
+            if pos >= 0:
+                candidates.append((pos, rank, company_name))
 
-    return len(OTHER_CONSTRUCTION_COMPANY_ORDER), "기타"
+    if not candidates:
+        return len(OTHER_CONSTRUCTION_COMPANY_ORDER), "기타"
+
+    # 제목에서 먼저 등장한 회사가 대표 회사.
+    # 같은 위치에서 중복 alias가 잡히면 기존 회사 정렬순위를 보조 기준으로 사용.
+    candidates.sort(key=lambda x: (x[0], x[1]))
+    _, rank, company_name = candidates[0]
+    return rank, company_name
 
 
 def _title_has_marker(title: str, marker: str) -> bool:
@@ -8090,7 +8096,7 @@ def render_group_unified(
                 key=lambda item: -item.published.timestamp(),
             )
 
-        # 주요 건설사 탭은 같은 회사 기사끼리 묶고, 회사 내부는 최신순으로 정렬
+        # 주요 건설사 탭은 기사 제목에 나온 건설사 기준으로 묶고, 회사 내부는 최신순으로 정렬
         if group == "타 건설사":
             return sorted(
                 items,
@@ -10437,6 +10443,40 @@ def is_samsung_cnt_fashion_false_positive(article: Article) -> bool:
     return any(term in blob for term in fashion_terms)
 
 
+
+def enforce_title_kepco_priority(article: Article) -> Article:
+    """
+    기사 제목에 한국전력/한전/KEPCO가 직접 등장하면 한국전력 그룹을 우선 적용합니다.
+    본문에 한수원 또는 전직 한수원 인사가 언급되어도 제목의 핵심 주체가 한전이면
+    한국수력원자력 그룹으로 오분류되지 않도록 합니다.
+
+    한전MCS·한전KDN·한전KPS·한전원자력연료·한국전력기술 등
+    명시적인 한전 계열사명은 기존 '한전 계열사' 분류를 보호합니다.
+    """
+    title = html.unescape(article.title or "").lower()
+
+    affiliate_terms = (
+        "한전mcs", "한전 mcs", "kepco mcs",
+        "한전kdn", "한전 kdn", "kepco kdn",
+        "한전kps", "한전 kps", "kepco kps",
+        "한전원자력연료", "한전 원자력연료", "한전 원자력 연료",
+        "kepco nuclear fuel",
+        "한국전력기술", "kepco e&c", "kepco engineering",
+    )
+    if any(term in title for term in affiliate_terms):
+        return article
+
+    # 한국전력 본체가 제목의 직접 주체인 경우
+    if (
+        "한국전력" in title
+        or "kepco" in title
+        or re.search(r"(?<![가-힣a-z0-9])한전(?![가-힣a-z0-9])", title)
+    ):
+        article.group = "한국전력"
+
+    return article
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -10970,6 +11010,7 @@ def render_news_sections(
         # 최종 화면 직전에도 제목 회사명 기준을 다시 강제해
         # 본문/미리보기의 현대건설 언급이 제목의 대우건설/GS건설 등을 덮지 못하게 합니다.
         enforce_title_company_group(article)
+        enforce_title_kepco_priority(article)
 
         if article.group not in grouped:
             continue
