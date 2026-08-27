@@ -1,3 +1,5 @@
+# FINAL HOLTEC YEAR-TITLE HARD EXCLUDE 2026-08-27
+# FINAL EXCLUDE ASAHI SHIMBUN 2026-08-27
 # FINAL KEPCO TITLE PRIORITY CLASSIFICATION 2026-08-27
 # FINAL MAJOR CONSTRUCTION TAB: TITLE COMPANY BASED SORT 2026-08-27
 # FINAL FIX ARTICLE SUMMARY ATTRIBUTEERROR 2026-08-27
@@ -10477,6 +10479,48 @@ def enforce_title_kepco_priority(article: Article) -> Article:
     return article
 
 
+
+def is_asahi_shimbun_article(article: Article) -> bool:
+    """
+    Asahi Shimbun / The Asahi Shimbun 기사만 전체 결과에서 제외합니다.
+    다른 일본 언론사는 유지합니다.
+    """
+    publisher = html.unescape(article.publisher or "").strip().lower()
+
+    normalized = re.sub(r"\s+", " ", publisher)
+
+    return normalized in {
+        "asahi shimbun",
+        "the asahi shimbun",
+        "朝日新聞",
+    }
+
+
+
+def is_holtec_year_title_archive_false_positive(article: Article) -> bool:
+    """
+    Holtec에서 제목이 '2023', '2024', '2025', '2026'처럼
+    연도 4자리만 있는 항목은 실제 뉴스 기사가 아니라
+    연도별 아카이브/네비게이션 항목으로 보고 무조건 제외합니다.
+    """
+    publisher = html.unescape(article.publisher or "").strip().lower()
+    source_url = (getattr(article, "source_url", "") or "").lower()
+    link = (getattr(article, "link", "") or "").lower()
+
+    is_holtec = (
+        "holtec" in publisher
+        or "holtecinternational.com" in source_url
+        or "holtecinternational.com" in link
+    )
+    if not is_holtec:
+        return False
+
+    title = html.unescape(article.title or "").strip()
+
+    # 제목 전체가 4자리 연도인 경우만 강제 제외
+    return re.fullmatch(r"(?:19|20)\d{2}", title) is not None
+
+
 def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     # 화면에 쓰기 전에 HTML entity를 가능한 범위에서 먼저 정상 복원합니다.
     articles = [normalize_article_display_entities(article) for article in articles]
@@ -10495,6 +10539,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_unrelated_ministry_award_false_positive(article)
         and not is_newsis_daily_schedule_article(article)
         and not is_global_energy_monitor_article(article)
+        and not is_asahi_shimbun_article(article)
+        and not is_holtec_year_title_archive_false_positive(article)
         and not is_non_nuclear_false_positive_in_nuclear_tab(article)
         and not is_samsung_cnt_fashion_false_positive(article)
         and not is_koscaj_site_meta_false_article(article)
