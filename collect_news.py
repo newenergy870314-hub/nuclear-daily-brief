@@ -1,3 +1,5 @@
+# FINAL FIX ARTICLE SUMMARY ATTRIBUTEERROR 2026-08-27
+# FINAL NUCLEAR TAB: COUNTRY -> IMPORTANCE -> RECENCY 2026-08-27
 # FINAL EXCLUDE SPECIALTY CONSTRUCTION DONATION FALSE POSITIVE 2026-08-27
 # FINAL EXCLUDE SAMSUNG C&T FASHION FALSE POSITIVES 2026-08-27
 # FINAL EXCLUDE NON-NUCLEAR FALSE POSITIVES FROM NUCLEAR TAB 2026-08-27
@@ -7973,11 +7975,59 @@ def detect_nuclear_tab_primary_country(article: Article) -> str:
     return mentions[0][1]
 
 
+def _nuclear_article_importance_rank(article: Article) -> int:
+    """
+    원자력 탭의 같은 국가 내 기사 중요도.
+    0: 핵심 정책·인허가·수주·계약·착공·대형원전/SMR 프로젝트
+    1: 주요 기술·협력·운영·안전·연료/폐기물 이슈
+    2: 일반 원자력 기사
+    3: 주가·증권성 기사
+    """
+    if is_stock_market_low_priority_article(article):
+        return 3
+
+    title = html.unescape(article.title or "").lower()
+    summary = html.unescape(getattr(article, "summary", None) or getattr(article, "snippet", None) or getattr(article, "description", None) or "").lower()
+    blob = f"{title} {summary}"
+
+    top_priority_terms = (
+        "정책", "정부 발표", "정부", "법안", "입법", "규제", "규제당국",
+        "승인", "허가", "인허가", "license", "licensing", "approval",
+        "permit", "regulation", "regulatory", "government", "policy",
+        "프로젝트", "project", "수주", "계약", "contract", "협약", "mou",
+        "착공", "first concrete", "construction start", "준공", "상업운전",
+        "commercial operation", "cod", "투자", "investment", "funding",
+        "financing", "선정", "selected", "award", "awarded",
+        "대형원전", "대형 원전", "nuclear power plant", "nuclear plant",
+        "smr", "small modular reactor", "advanced reactor", "차세대 원자로",
+        "신규 원전", "new nuclear", "원전 건설",
+    )
+
+    medium_priority_terms = (
+        "원자로", "reactor",
+        "핵연료", "nuclear fuel", "우라늄", "uranium",
+        "사용후핵연료", "spent fuel", "방사성폐기물", "radioactive waste",
+        "공급망", "supply chain",
+        "협력", "cooperation", "파트너십", "partnership",
+        "기술", "technology", "실증", "demonstration",
+        "운영", "operation", "정비", "maintenance",
+        "안전", "safety", "보안", "security",
+        "해체", "decommissioning", "연구", "research", "개발", "development",
+        "계속운전", "life extension", "재가동", "restart",
+    )
+
+    if any(term in blob for term in top_priority_terms):
+        return 0
+    if any(term in blob for term in medium_priority_terms):
+        return 1
+    return 2
+
+
 def _nuclear_country_sort_key(article: Article) -> tuple[int, str, int, float]:
     """
     원자력 탭:
-    제목의 핵심 행위 주체 국가를 기준으로 같은 국가끼리 연속 배치하고,
-    같은 국가 안에서는 최신순을 유지합니다.
+    국가별로 묶은 뒤, 같은 국가 안에서는 중요도순,
+    같은 중요도 안에서는 최신순으로 배치합니다.
     """
     country = detect_nuclear_tab_primary_country(article)
     rank = NUCLEAR_COUNTRY_SORT_RANK.get(
@@ -7987,7 +8037,7 @@ def _nuclear_country_sort_key(article: Article) -> tuple[int, str, int, float]:
     return (
         rank,
         country,
-        1 if is_stock_market_low_priority_article(article) else 0,
+        _nuclear_article_importance_rank(article),
         -article.published.timestamp(),
     )
 
@@ -10136,7 +10186,7 @@ def is_local_specialty_construction_false_positive(article: Article) -> bool:
         return False
 
     title = html.unescape(article.title or "").lower()
-    summary = html.unescape(article.summary or "").lower()
+    summary = html.unescape(getattr(article, "summary", None) or getattr(article, "snippet", None) or getattr(article, "description", None) or "").lower()
     blob = f"{title} {summary}"
 
     specialty_terms = (
@@ -10271,7 +10321,7 @@ def is_non_nuclear_false_positive_in_nuclear_tab(article: Article) -> bool:
         return False
 
     title = html.unescape(article.title or "").lower()
-    summary = html.unescape(article.summary or "").lower()
+    summary = html.unescape(getattr(article, "summary", None) or getattr(article, "snippet", None) or getattr(article, "description", None) or "").lower()
     text_blob = f"{title} {summary}"
 
     nuclear_core_terms = (
@@ -10318,7 +10368,7 @@ def is_samsung_cnt_fashion_false_positive(article: Article) -> bool:
         return False
 
     title = html.unescape(article.title or "").lower()
-    summary = html.unescape(article.summary or "").lower()
+    summary = html.unescape(getattr(article, "summary", None) or getattr(article, "snippet", None) or getattr(article, "description", None) or "").lower()
     blob = f"{title} {summary}"
 
     samsung_terms = (
