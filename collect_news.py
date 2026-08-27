@@ -1,3 +1,4 @@
+# FINAL DAEWOO-VIETNAM MINISTER MEETING DUPLICATE GROUPING 2026-08-27
 # FINAL HOLTEC YEAR-TITLE HARD EXCLUDE 2026-08-27
 # FINAL EXCLUDE ASAHI SHIMBUN 2026-08-27
 # FINAL KEPCO TITLE PRIORITY CLASSIFICATION 2026-08-27
@@ -7136,6 +7137,49 @@ def _us_house_coupang_pressure_event_key(article: Article) -> str | None:
 
 
 
+
+def _daewoo_vietnam_minister_meeting_event_key(article: Article) -> str | None:
+    """
+    대우건설 정원주 회장과 베트남 산업통상부 장관의
+    원전/LNG/에너지 인프라 협력 면담 보도를 동일 사건으로 묶기 위한 키.
+
+    언론사별 제목 표현이 달라도 아래 핵심 구조가 모두 확인되면 같은 사건으로 봅니다.
+    - 대우건설
+    - 베트남
+    - 산업통상부 장관(또는 Ministry/Minister of Industry and Trade)
+    - 면담/회동/협력 논의
+    """
+    if (article.group or "") not in {"타 건설사", "주요 건설사"}:
+        return None
+
+    hay = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", hay)
+
+    company_ok = any(x in compact for x in (
+        "대우건설", "daewooe&c", "daewooengineeringconstruction",
+    ))
+    country_ok = any(x in compact for x in (
+        "베트남", "vietnam",
+    ))
+    counterpart_ok = any(x in compact for x in (
+        "산업통상부장관",
+        "베트남산업통상부",
+        "산업무역부장관",
+        "산업무역부",
+        "ministerofindustryandtrade",
+        "ministryofindustryandtrade",
+    ))
+    meeting_ok = any(x in compact for x in (
+        "면담", "회동", "회담", "미팅", "만나", "협력논의", "논의",
+        "meeting", "metwith", "talks",
+    ))
+
+    if company_ok and country_ok and counterpart_ok and meeting_ok:
+        return "DAEWOO_EC|VIETNAM|INDUSTRY_TRADE_MINISTER|MEETING"
+
+    return None
+
+
 def _same_publisher_followup_event(a: Article, b: Article) -> bool:
     """
     같은 언론사의 후속/종합 기사도 동일 사건이면 하나로 묶습니다.
@@ -7255,6 +7299,16 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     if a.group != b.group:
         return False
+
+    # 대우건설 정원주 회장-베트남 산업통상부 장관 면담 동일 보도
+    daewoo_vn_event_a = _daewoo_vietnam_minister_meeting_event_key(a)
+    daewoo_vn_event_b = _daewoo_vietnam_minister_meeting_event_key(b)
+    if (
+        daewoo_vn_event_a
+        and daewoo_vn_event_a == daewoo_vn_event_b
+        and abs((date_a_obj - date_b_obj).days) <= 1
+    ):
+        return True
 
     # 美 하원 외교위원장 Brian Mast의 쿠팡/대미투자 압박 동일 보도
     mast_event_a = _us_house_coupang_pressure_event_key(a)
