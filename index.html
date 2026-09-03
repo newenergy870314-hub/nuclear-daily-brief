@@ -9730,6 +9730,24 @@ main {
   box-sizing: border-box !important;
 }
 
+
+/* ============================================================
+   2026-09-04 PC ARTICLE TEXT WIDTH FIX
+   Desktop only. Mobile/tablet rules remain unchanged.
+   ============================================================ */
+@media (min-width:900px) {
+  .preview-copy {
+    grid-template-columns:minmax(0,1fr) !important;
+    column-gap:0 !important;
+  }
+
+  .article-content-column {
+    grid-column:1 !important;
+    width:100% !important;
+    min-width:0 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -9738,7 +9756,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 9.4(금) 07:55 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.4(금) 08:10 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -21629,7 +21647,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/098c8ac21f93dd7d8d35f928.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/e328c928c4b2a64b183373c8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -22703,7 +22721,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/8f3769c9206dd8bb6fc8b76d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/75e6326f52c6b202519bda87.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -23588,7 +23606,7 @@ main {
     <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.sidae.com/article/2026090407234946948"
   data-title="김정관 &quot;미 반도체 관세, 한국 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;"
   data-publisher="머니S"
@@ -23612,7 +23630,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;미 반도체 관세, 한국 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</div>
+      <div class="headline">김정관 &quot;미 반도체 관세, 한국 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</div>
       <div class="article-snippet">김정관 산업통상부 장관이 한국의 대미투자 1호 사업에 대해 &quot;9월 중에 발표한다는 계획에 변함이 없다&quot;고 밝혔다. 4일(이하 한국시각) 뉴스1에 따르면 김 장관은 이날 미국 워싱턴D.C에서 열린 &#x27;미국기업 투자신고식 및 투자가 라운드테이블&#x27;에 참석한 후 특파원단을 만나 &quot;앞서 이번달 중으로 얘기를 했는데 그 일정에 따라서 지금 진행되고 있다&quot;며 &quot;특별하게 큰 이슈가 있기보다는 여러 가지 국내 절차들이 조금씩 있어서 그런 과정들을 거치면 이번달 중에는 마무리할 생각이고 (계획에) 변함이 없다&quot;고 말했다. 이어 미국의 반도체 관세 압박에 대해서는 &quot;기존 한·미 협의 부분</div>
     </div>
   </div>
@@ -23621,7 +23639,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.khan.co.kr/article/202609040636001"
   data-title="김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”"
   data-publisher="경향신문"
@@ -23645,7 +23663,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”</div>
+      <div class="headline">김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”</div>
       <div class="article-snippet">김정관 산업통상부 장관이 도널드 트럼프 미국 행정부가 검토하는 반도체 관세와 관련해 한국을 경쟁국보다 불리하지 않게 대우한다는 원칙하에 논의가 진행되고 있다고 밝혔다. 김 장관은 3일(현지시간) 워싱턴에서 열린 미국 기업의 투자 유치 행사에서 취재진을 만나 “지난 10월 관세 협상을 할 때 이미 (미국이) 그같이 이야기한 적이 있다”며 한·미 정상회담...</div>
     </div>
   </div>
@@ -23726,7 +23744,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -23860,6 +23878,72 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/89c7fd41602291691815786a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etoday.co.kr/news/view/2621779?trc=main_market_lnews"
+  data-title="[증시키워드] 조선·원전주 급등…반도체 관망"
+  data-publisher="이투데이"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788476700"
+  data-country="OTHER"
+  data-search="[증시키워드] 조선·원전주 급등…반도체 관망 이투데이 원자력 ▲4일 네이버페이증권 검색 상위 종목. (출처=네이버페이증권)국내 증시에서 글로벌 지정학적 긴장감 고조와 슈퍼사이클 진입 기대에 힘입은 조선주와"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[증시키워드] 조선·원전주 급등…반도체 관망</div>
+      <div class="article-snippet">▲4일 네이버페이증권 검색 상위 종목. (출처=네이버페이증권)국내 증시에서 글로벌 지정학적 긴장감 고조와 슈퍼사이클 진입 기대에 힘입은 조선주와</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bb6a0ff0c964df1c2d37d8a8.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260904074957407"
+  data-title="[아주증시포커스] 규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 外"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788475932"
+  data-country="OTHER"
+  data-search="[아주증시포커스] 규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 外 아주경제 원자력 [사진=아주경제db] ◆아주경제 주요뉴스 ▷규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 -지난 7월 동전주와 시가총액 미달 기업에 대한 상장폐지 요건이 강화된 이후 코스닥 상장사 코이즈가 첫 퇴출기업으로 확정돼 3일부터 정리매매에 들어감. -금융당국은 코스피 300억원, 코스닥 200억원 미만의 시가총액이 30거래일 연속 이어지거나 주가가 30거래일 연속 1000원 미만인 경우 관리종목으로 지정하는 등 상장유지 요건을 강화했음. -코이즈에 이어 원풍물산·신라에스지·케이엠제약&amp;m"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[아주증시포커스] 규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 外</div>
+      <div class="article-snippet">[사진=아주경제DB] ◆아주경제 주요뉴스 ▷규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 -지난 7월 동전주와 시가총액 미달 기업에 대한 상장폐지 요건이 강화된 이후 코스닥 상장사 코이즈가 첫 퇴출기업으로 확정돼 3일부터 정리매매에 들어감. -금융당국은 코스피 300억원, 코스닥 200억원 미만의 시가총액이 30거래일 연속 이어지거나 주가가 30거래일 연속 1000원 미만인 경우 관리종목으로 지정하는 등 상장유지 요건을 강화했음. -코이즈에 이어 원풍물산·신라에스지·케이엠제약&amp;m</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a9df6ea9055ffe74d78f41dd.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -23870,7 +23954,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/09/20260904071203807fbbec65dfb_1"
   data-title="美, 전력망·SMR 인프라 설비 증설 러시…韓 변압기 가치사슬 부각 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
@@ -23894,7 +23978,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美, 전력망·SMR 인프라 설비 증설 러시…韓 변압기 가치사슬 부각 - 글로벌이코노믹</div>
+      <div class="headline">美, 전력망·SMR 인프라 설비 증설 러시…韓 변압기 가치사슬 부각 - 글로벌이코노믹</div>
       <div class="article-snippet">전력관리 기업 이튼이 2026년 9월 3일(현지시각) 미국 아칸소주 노스리틀록에 2억 4200만 달러(약 3285억 1500만 원)를 투자해 전기 인클로저 생산능력을 2배로 확대한다고 발표했다.리뉴어블에너지월드는 같은 날 현지 보도에서 데이터센터 확산과 전력화 추세로 2050년까지 미국</div>
     </div>
   </div>
@@ -24405,7 +24489,7 @@ main {
     <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.sidae.com/article/2026090407234946948"
   data-title="김정관 &quot;미 반도체 관세, 한국 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;"
   data-publisher="머니S"
@@ -24429,7 +24513,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;미 반도체 관세, 한국 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</div>
+      <div class="headline">김정관 &quot;미 반도체 관세, 한국 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</div>
       <div class="article-snippet">김정관 산업통상부 장관이 한국의 대미투자 1호 사업에 대해 &quot;9월 중에 발표한다는 계획에 변함이 없다&quot;고 밝혔다. 4일(이하 한국시각) 뉴스1에 따르면 김 장관은 이날 미국 워싱턴D.C에서 열린 &#x27;미국기업 투자신고식 및 투자가 라운드테이블&#x27;에 참석한 후 특파원단을 만나 &quot;앞서 이번달 중으로 얘기를 했는데 그 일정에 따라서 지금 진행되고 있다&quot;며 &quot;특별하게 큰 이슈가 있기보다는 여러 가지 국내 절차들이 조금씩 있어서 그런 과정들을 거치면 이번달 중에는 마무리할 생각이고 (계획에) 변함이 없다&quot;고 말했다. 이어 미국의 반도체 관세 압박에 대해서는 &quot;기존 한·미 협의 부분</div>
     </div>
   </div>
@@ -24438,7 +24522,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.khan.co.kr/article/202609040636001"
   data-title="김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”"
   data-publisher="경향신문"
@@ -24462,7 +24546,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”</div>
+      <div class="headline">김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”</div>
       <div class="article-snippet">김정관 산업통상부 장관이 도널드 트럼프 미국 행정부가 검토하는 반도체 관세와 관련해 한국을 경쟁국보다 불리하지 않게 대우한다는 원칙하에 논의가 진행되고 있다고 밝혔다. 김 장관은 3일(현지시간) 워싱턴에서 열린 미국 기업의 투자 유치 행사에서 취재진을 만나 “지난 10월 관세 협상을 할 때 이미 (미국이) 그같이 이야기한 적이 있다”며 한·미 정상회담...</div>
     </div>
   </div>
@@ -24543,7 +24627,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -24677,6 +24761,72 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/89c7fd41602291691815786a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etoday.co.kr/news/view/2621779?trc=main_market_lnews"
+  data-title="[증시키워드] 조선·원전주 급등…반도체 관망"
+  data-publisher="이투데이"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788476700"
+  data-country="OTHER"
+  data-search="[증시키워드] 조선·원전주 급등…반도체 관망 이투데이 원자력 ▲4일 네이버페이증권 검색 상위 종목. (출처=네이버페이증권)국내 증시에서 글로벌 지정학적 긴장감 고조와 슈퍼사이클 진입 기대에 힘입은 조선주와"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[증시키워드] 조선·원전주 급등…반도체 관망</div>
+      <div class="article-snippet">▲4일 네이버페이증권 검색 상위 종목. (출처=네이버페이증권)국내 증시에서 글로벌 지정학적 긴장감 고조와 슈퍼사이클 진입 기대에 힘입은 조선주와</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bb6a0ff0c964df1c2d37d8a8.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260904074957407"
+  data-title="[아주증시포커스] 규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 外"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788475932"
+  data-country="OTHER"
+  data-search="[아주증시포커스] 규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 外 아주경제 원자력 [사진=아주경제db] ◆아주경제 주요뉴스 ▷규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 -지난 7월 동전주와 시가총액 미달 기업에 대한 상장폐지 요건이 강화된 이후 코스닥 상장사 코이즈가 첫 퇴출기업으로 확정돼 3일부터 정리매매에 들어감. -금융당국은 코스피 300억원, 코스닥 200억원 미만의 시가총액이 30거래일 연속 이어지거나 주가가 30거래일 연속 1000원 미만인 경우 관리종목으로 지정하는 등 상장유지 요건을 강화했음. -코이즈에 이어 원풍물산·신라에스지·케이엠제약&amp;m"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[아주증시포커스] 규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 外</div>
+      <div class="article-snippet">[사진=아주경제DB] ◆아주경제 주요뉴스 ▷규정강화 후 상폐 1호 &#x27;코이즈&#x27;…시총 미달·동전주 84곳 퇴출 경고등 -지난 7월 동전주와 시가총액 미달 기업에 대한 상장폐지 요건이 강화된 이후 코스닥 상장사 코이즈가 첫 퇴출기업으로 확정돼 3일부터 정리매매에 들어감. -금융당국은 코스피 300억원, 코스닥 200억원 미만의 시가총액이 30거래일 연속 이어지거나 주가가 30거래일 연속 1000원 미만인 경우 관리종목으로 지정하는 등 상장유지 요건을 강화했음. -코이즈에 이어 원풍물산·신라에스지·케이엠제약&amp;m</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a9df6ea9055ffe74d78f41dd.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -24687,7 +24837,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/09/20260904071203807fbbec65dfb_1"
   data-title="美, 전력망·SMR 인프라 설비 증설 러시…韓 변압기 가치사슬 부각 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
@@ -24711,7 +24861,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>美, 전력망·SMR 인프라 설비 증설 러시…韓 변압기 가치사슬 부각 - 글로벌이코노믹</div>
+      <div class="headline">美, 전력망·SMR 인프라 설비 증설 러시…韓 변압기 가치사슬 부각 - 글로벌이코노믹</div>
       <div class="article-snippet">전력관리 기업 이튼이 2026년 9월 3일(현지시각) 미국 아칸소주 노스리틀록에 2억 4200만 달러(약 3285억 1500만 원)를 투자해 전기 인클로저 생산능력을 2배로 확대한다고 발표했다.리뉴어블에너지월드는 같은 날 현지 보도에서 데이터센터 확산과 전력화 추세로 2050년까지 미국</div>
     </div>
   </div>
@@ -26130,7 +26280,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/03/.cache/512/20260903501328.jpg?v=20260904075643" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/03/.cache/512/20260903501328.jpg?v=20260904081104" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34377,7 +34527,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/098c8ac21f93dd7d8d35f928.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/e328c928c4b2a64b183373c8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35517,7 +35667,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/8f3769c9206dd8bb6fc8b76d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/75e6326f52c6b202519bda87.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
