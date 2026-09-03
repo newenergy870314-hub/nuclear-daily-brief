@@ -1,3 +1,4 @@
+# FINAL PC ARTICLE TEXT WIDTH FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL REMOVE HOLTEC SOURCE NOTE FROM ARTICLE CARDS 2026-09-03
 # FINAL DAEWOO-VIETNAM MINISTER MEETING DUPLICATE GROUPING 2026-08-27
 # FINAL HOLTEC YEAR-TITLE HARD EXCLUDE 2026-08-27
@@ -21315,6 +21316,24 @@ main {{
 .preview-image {{
   border: 1px solid #d9d9d9 !important;
   box-sizing: border-box !important;
+}}
+
+
+/* ============================================================
+   2026-09-04 PC ARTICLE TEXT WIDTH FIX
+   Desktop only. Mobile/tablet rules remain unchanged.
+   ============================================================ */
+@media (min-width:900px) {{
+  .preview-copy {{
+    grid-template-columns:minmax(0,1fr) !important;
+    column-gap:0 !important;
+  }}
+
+  .article-content-column {{
+    grid-column:1 !important;
+    width:100% !important;
+    min-width:0 !important;
+  }}
 }}
 
 </style>
