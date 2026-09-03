@@ -1,3 +1,4 @@
+# FINAL REMOVE HOLTEC SOURCE NOTE FROM ARTICLE CARDS 2026-09-03
 # FINAL DAEWOO-VIETNAM MINISTER MEETING DUPLICATE GROUPING 2026-08-27
 # FINAL HOLTEC YEAR-TITLE HARD EXCLUDE 2026-08-27
 # FINAL EXCLUDE ASAHI SHIMBUN 2026-08-27
@@ -7714,15 +7715,6 @@ def render_card(
     ).lower()
     primary_country = detect_article_country(article)
 
-    holtec_source_note = ""
-    if article.group == "Holtec":
-        holtec_source_note = (
-            '<div class="holtec-source-note">'
-            '공식출처: '
-            '<a href="https://holtecinternational.com/category/holtec-highlights/" '
-            'target="_blank" rel="noopener noreferrer">Holtec Highlights</a>'
-            '</div>'
-        )
 
     return f"""
 <article class="preview-card{' new-article' if is_new else ''}"
@@ -7751,7 +7743,6 @@ def render_card(
       </div>
       <div class="headline">{new_badge}{escape(article.title)}</div>
       {snippet_html}
-      {holtec_source_note}
     </div>
   </div>
   <div class="card-side">
@@ -11778,20 +11769,6 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
 
-.holtec-source-note {{
-  margin-top:3px;
-  font-size:9px;
-  line-height:1.2;
-  color:#7d8794;
-}}
-.holtec-source-note a {{
-  color:#667589;
-  font-weight:600;
-  text-decoration:none;
-}}
-.holtec-source-note a:hover {{
-  text-decoration:underline;
-}}
 
 .news-group.collapsed .article-stack {{ display: none; }}
 .preview-card {{ position:relative; display:grid; grid-template-columns:minmax(0,1fr) 86px; gap:6px; align-items:stretch; min-height:98px; padding:3px 2px 3px 6px; border-radius:0; background:#fbfaf7; border:1px solid rgba(35,57,93,.09); box-shadow:0 2px 7px rgba(15,23,42,.05); overflow:visible; transition:opacity .15s ease, background .15s ease; }}
