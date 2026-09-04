@@ -1,3 +1,8 @@
+# FINAL PC DATE/PERIOD CONTROLS FIX / MOBILE UNCHANGED 2026-09-04
+# FINAL PC REMOVE MASTER EXPAND/COLLAPSE + INDIVIDUAL GROUP TOGGLE FIX / MOBILE UNCHANGED 2026-09-04
+# FINAL PC SMART TODAY FOCUS SCORING / MOBILE UNCHANGED 2026-09-04
+# FINAL PC RIGHT ANALYTICS PANEL INDEPENDENT SCROLL / MOBILE UNCHANGED 2026-09-04
+# FINAL PC TIMELINE USES EXISTING ARTICLE POPUP / MOBILE UNCHANGED 2026-09-04
 # FINAL PC TIMELINE DIRECT ORIGINAL-ARTICLE OPEN / MOBILE UNCHANGED 2026-09-04
 # FINAL PC TIMELINE VISUAL CARDS / MOBILE UNCHANGED 2026-09-04
 # FINAL PC DESKTOP DETECTION FIX / WINDOWS SCALE SAFE 2026-09-04
@@ -21949,6 +21954,168 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   PC RIGHT ANALYTICS PANEL - INDEPENDENT SCROLL 2026-09-04
+   Desktop only - mobile unchanged
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+  #pc-insight-rail {{
+    position:sticky !important;
+    top:14px !important;
+    height:calc(100vh - 28px) !important;
+    max-height:calc(100vh - 28px) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    overscroll-behavior:contain !important;
+    scrollbar-gutter:stable !important;
+    padding-right:5px !important;
+    align-self:start !important;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar {{
+    width:8px;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar-track {{
+    background:transparent;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar-thumb {{
+    background:#b8c9da;
+    border-radius:999px;
+    border:2px solid transparent;
+    background-clip:padding-box;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar-thumb:hover {{
+    background:#8fa8bf;
+    border:2px solid transparent;
+    background-clip:padding-box;
+  }}
+
+  /* Keep timeline cards compact inside the independent rail */
+  .pc-timeline-card .pc-timeline-wrap {{
+    max-height:none !important;
+    overflow:visible !important;
+  }}
+
+  /* Subtle cue that the right side can scroll separately */
+  #pc-insight-rail:before {{
+    content:"";
+    position:sticky;
+    top:0;
+    display:block;
+    height:1px;
+    z-index:5;
+    background:transparent;
+  }}
+}}
+
+
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+  #pc-focus-list .pc-focus-item {{
+    border-left:4px solid #2a639d;
+  }}
+
+  #pc-focus-list .pc-focus-item:nth-child(1) {{
+    background:linear-gradient(90deg,#f5f9fd 0%,#ffffff 100%);
+    border-left-color:#d69a00;
+  }}
+
+  #pc-focus-list .pc-focus-item:nth-child(2) {{
+    border-left-color:#4d7eac;
+  }}
+
+  #pc-focus-list .pc-focus-item:nth-child(3) {{
+    border-left-color:#7e9cb9;
+  }}
+
+  #pc-focus-list .pc-focus-name {{
+    font-size:11.5px !important;
+  }}
+
+  #pc-focus-list .pc-focus-meta {{
+    display:inline-flex;
+    align-items:center;
+    min-height:20px;
+    margin-top:7px !important;
+    padding:3px 7px;
+    border-radius:999px;
+    background:#eef4fa;
+    color:#486984;
+    font-weight:850;
+  }}
+}}
+
+
+/* ============================================================
+   PC GROUP UX: REMOVE MASTER EXPAND/COLLAPSE / KEEP INDIVIDUAL TOGGLE
+   Desktop only - mobile unchanged
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+  /* PC에서는 전체 펼치기/전체 접기 컨트롤 제거 */
+  .group-master-control,
+  .period-action-row .group-master-button,
+  .group-master-button {{
+    display:none !important;
+  }}
+
+  /* 개별 그룹 접기/펼치기는 확실히 동작하도록 보장 */
+  .news-group.collapsed .article-stack {{
+    display:none !important;
+  }}
+
+  .news-group:not(.collapsed) .article-stack {{
+    display:grid !important;
+  }}
+
+  .group-title {{
+    cursor:pointer !important;
+    user-select:none !important;
+  }}
+}}
+
+
+/* ============================================================
+   PC DATE / PERIOD CONTROL FIX 2026-09-04
+   Desktop only - mobile unchanged
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+  .header-controls,
+  .tabs,
+  .utility-row,
+  .date-picker-box,
+  .date-control {{
+    position:relative !important;
+    z-index:20 !important;
+    pointer-events:auto !important;
+  }}
+
+  .tab-button,
+  .language-order-toggle,
+  .date-picker-box,
+  .date-control,
+  .date-input {{
+    pointer-events:auto !important;
+    cursor:pointer !important;
+  }}
+
+  .date-input {{
+    z-index:30 !important;
+    opacity:0 !important;
+  }}
+
+  .date-picker-box {{
+    user-select:none !important;
+  }}
+
+  .tab-button {{
+    position:relative !important;
+    z-index:25 !important;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -22830,7 +22997,7 @@ main {{
   <section class="pc-rail-card">
     <div class="pc-rail-head">
       <div class="pc-rail-title">오늘의 포커스</div>
-      <div class="pc-rail-sub">보도량·최근성</div>
+      <div class="pc-rail-sub">중요도·확산도·최근성</div>
     </div>
     <div id="pc-focus-list" class="pc-focus-list"></div>
   </section>
@@ -24574,6 +24741,32 @@ if(archiveDateControl && archiveInput){{
 function openArchiveDate(value){{
   if(!value) return false;
 
+  // 먼저 전일/금일/익일 등 현재 기간 패널에서 같은 날짜를 찾습니다.
+  const currentPanel=[...document.querySelectorAll(".tab-panel[data-report-date]")]
+    .find(item=>item.getAttribute("data-report-date")===value);
+
+  if(currentPanel){{
+    document.querySelectorAll(".tab-button").forEach(item=>item.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(item=>item.classList.remove("active"));
+
+    currentPanel.classList.add("active");
+
+    const label=(currentPanel.id || "").replace(/^tab-/, "");
+    const currentButton=[...document.querySelectorAll(".tab-button")]
+      .find(item=>item.getAttribute("data-tab")===label);
+    if(currentButton) currentButton.classList.add("active");
+
+    if(archiveInput){{
+      archiveInput.value=value;
+      updateArchiveDateDisplay(value);
+    }}
+    if(typeof refreshActivePeriodUI==="function") refreshActivePeriodUI();
+
+    currentPanel.scrollIntoView({{behavior:"smooth", block:"start"}});
+    return true;
+  }}
+
+  // 현재 기간에 없으면 저장된 archive 패널을 엽니다.
   const panel=document.getElementById("archive-" + value);
   if(!panel){{
     alert("선택한 날짜의 저장된 기사가 없습니다.");
@@ -27362,10 +27555,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         item.appendChild(content);
         item.appendChild(thumb);
         item.addEventListener("click", function() {{
-          var url = (card.dataset.url || "").trim();
-          if (url) {{
-            window.open(url, "_blank", "noopener,noreferrer");
-          }}
+          openArticle(card);
         }});
         box.appendChild(item);
       }});
@@ -27408,45 +27598,141 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     var focus = document.getElementById("pc-focus-list");
     if (focus) {{
       focus.innerHTML = "";
-      Object.entries(groups)
-        .sort(function(a,b) {{ return b[1]-a[1]; }})
-        .slice(0,3)
-        .forEach(function(entry) {{
-          var groupCards = cards
-            .filter(function(c) {{ return groupOf(c) === entry[0]; }})
-            .sort(function(a,b) {{ return tsOf(b)-tsOf(a); }});
-          var latest = groupCards[0];
 
-          var item = document.createElement("div");
-          item.className = "pc-focus-item";
+      function focusImportanceScore(card) {{
+        var txt = (titleOf(card) + " " + (card.dataset.snippet || "")).toLowerCase();
+        var score = 0;
 
-          var top = document.createElement("div");
-          top.className = "pc-focus-top";
+        var critical = [
+          /수주|계약|contract|award|mou|협약|협력/,
+          /인허가|허가|승인|license|permit|approval|regulat/,
+          /착공|first concrete|construction start|commercial operation|상업운전/,
+          /투자|investment|funding|fund/,
+          /정부|장관|차관|정책|policy|minister/
+        ];
+        critical.forEach(function(rx) {{ if (rx.test(txt)) score += 10; }});
 
-          var name = document.createElement("div");
-          name.className = "pc-focus-name";
-          name.textContent = entry[0] === "타 건설사" ? "주요 건설사" : entry[0];
+        if (/현대건설|hyundai e&c|hyundai engineering & construction|hdec/i.test(txt)) score += 12;
+        if (/대미투자|대미 투자|미국 투자|한미 투자|u\.s\. investment|us investment/i.test(txt)) score += 11;
+        if (/kozloduy|코즐로두이/i.test(txt)) score += 10;
+        if (/holtec|홀텍|palisades|팰리세이즈/i.test(txt)) score += 9;
+        if (/fermi america|project matador|페르미|퍼미|마타도르/i.test(txt)) score += 9;
+        if (/\bsmr\b|소형모듈원자로|small modular reactor/i.test(txt)) score += 6;
 
-          var count = document.createElement("div");
-          count.className = "pc-focus-count";
-          count.textContent = entry[1] + "건";
+        if (/주가|증권|목표주가|매수|매도|stock|shares|market cap|etf/i.test(txt)) score -= 12;
 
-          var title = document.createElement("div");
-          title.className = "pc-focus-title";
-          title.textContent = latest ? titleOf(latest) : "";
+        return score;
+      }}
 
-          var meta = document.createElement("div");
-          meta.className = "pc-focus-meta";
-          meta.textContent = latest ? [dateLabel(latest), publisherOf(latest)].filter(Boolean).join(" · ") : "";
+      function relatedCoverageScore(card) {{
+        var txt = card.textContent || "";
+        var score = 0;
+        var m = txt.match(/외\s*(\d+)\s*개\s*언론사/);
+        if (m) score += Math.min(Number(m[1]) * 4, 20);
+        if (/관련기사\s*\d+건|보도\s*\d+건/i.test(txt)) score += 6;
+        return score;
+      }}
 
-          top.appendChild(name);
-          top.appendChild(count);
-          item.appendChild(top);
-          item.appendChild(title);
-          item.appendChild(meta);
-          item.addEventListener("click", function() {{ scrollCard(latest); }});
-          focus.appendChild(item);
-        }});
+      function recencyScore(card) {{
+        var ts = tsOf(card);
+        if (!ts) return 0;
+        var ageHours = (Date.now()/1000 - ts) / 3600;
+        if (ageHours <= 6) return 10;
+        if (ageHours <= 12) return 8;
+        if (ageHours <= 24) return 6;
+        if (ageHours <= 48) return 3;
+        return 0;
+      }}
+
+      var issueMap = {{}};
+
+      cards.forEach(function(card) {{
+        var g = groupOf(card);
+        var title = titleOf(card);
+
+        var issueKey = g + "::" + title
+          .toLowerCase()
+          .replace(/[^\w가-힣]+/g, " ")
+          .replace(/\s+/g, " ")
+          .trim()
+          .split(" ")
+          .slice(0, 8)
+          .join(" ");
+
+        if (!issueMap[issueKey]) {{
+          issueMap[issueKey] = {{
+            group:g,
+            cards:[],
+            title:title,
+            score:0
+          }};
+        }}
+
+        issueMap[issueKey].cards.push(card);
+      }});
+
+      var rankedIssues = Object.values(issueMap).map(function(issue) {{
+        var base = issue.cards.reduce(function(sum, card) {{
+          return sum + focusImportanceScore(card) + relatedCoverageScore(card) + recencyScore(card);
+        }}, 0);
+
+        var volumeBonus = Math.min(issue.cards.length * 4, 20);
+        var publisherSet = new Set(issue.cards.map(publisherOf).filter(Boolean));
+        var spreadBonus = Math.min(publisherSet.size * 5, 25);
+
+        issue.score = base + volumeBonus + spreadBonus;
+
+        issue.cards.sort(function(a,b) {{ return tsOf(b) - tsOf(a); }});
+        issue.latest = issue.cards[0];
+        issue.publishers = publisherSet.size;
+        return issue;
+      }})
+      .sort(function(a,b) {{ return b.score - a.score; }})
+      .slice(0,3);
+
+      rankedIssues.forEach(function(issue, idx) {{
+        var latest = issue.latest;
+
+        var item = document.createElement("div");
+        item.className = "pc-focus-item";
+
+        var top = document.createElement("div");
+        top.className = "pc-focus-top";
+
+        var name = document.createElement("div");
+        name.className = "pc-focus-name";
+        name.textContent = (idx + 1) + ". " + (issue.group === "타 건설사" ? "주요 건설사" : issue.group);
+
+        var count = document.createElement("div");
+        count.className = "pc-focus-count";
+        count.textContent = issue.cards.length + "건";
+
+        var title = document.createElement("div");
+        title.className = "pc-focus-title";
+        title.textContent = issue.title;
+
+        var meta = document.createElement("div");
+        meta.className = "pc-focus-meta";
+
+        var reasons = [];
+        var latestTxt = (issue.title || "").toLowerCase();
+        if (/수주|계약|contract|award|mou|협약/i.test(latestTxt)) reasons.push("계약·수주");
+        if (/인허가|허가|승인|license|permit|approval/i.test(latestTxt)) reasons.push("인허가");
+        if (/투자|investment|fund/i.test(latestTxt)) reasons.push("투자");
+        if (/정부|장관|차관|정책|policy|minister/i.test(latestTxt)) reasons.push("정책");
+        if (issue.publishers >= 2) reasons.push(issue.publishers + "개 언론사");
+        if (reasons.length === 0) reasons.push("보도 집중");
+
+        meta.textContent = reasons.slice(0,3).join(" · ");
+
+        top.appendChild(name);
+        top.appendChild(count);
+        item.appendChild(top);
+        item.appendChild(title);
+        item.appendChild(meta);
+        item.addEventListener("click", function() {{ scrollCard(latest); }});
+        focus.appendChild(item);
+      }});
 
       if (!focus.children.length) {{
         var empty = document.createElement("div");
@@ -27510,6 +27796,132 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   if (archiveDate) archiveDate.addEventListener("change", scheduleRefresh);
 
   window.addEventListener("resize", scheduleRefresh);
+}})();
+</script>
+
+
+<script>
+(function() {{
+  function isPcGroupMode() {{
+    return window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches;
+  }}
+
+  function expandPcPanelOnce(panel) {{
+    if (!isPcGroupMode() || !panel || panel.dataset.pcGroupsInitialized === "1") return;
+
+    panel.querySelectorAll(".news-group").forEach(function(group) {{
+      group.classList.remove("collapsed");
+
+      var title = group.querySelector(".group-title");
+      if (title) title.setAttribute("aria-expanded", "true");
+
+      var arrow = group.querySelector(".group-arrow");
+      if (arrow) arrow.textContent = "▲";
+    }});
+
+    panel.dataset.pcGroupsInitialized = "1";
+  }}
+
+  function initActivePcPanel() {{
+    var panel = document.querySelector(".tab-panel.active");
+    expandPcPanelOnce(panel);
+  }}
+
+  if (document.readyState === "loading") {{
+    document.addEventListener("DOMContentLoaded", function() {{
+      window.setTimeout(initActivePcPanel, 50);
+    }});
+  }} else {{
+    window.setTimeout(initActivePcPanel, 50);
+  }}
+
+  /* 다른 기사 탭을 처음 열 때도 기본 펼침 상태로 시작 */
+  document.addEventListener("click", function(event) {{
+    if (!event.target.closest(".tab-button")) return;
+    window.setTimeout(initActivePcPanel, 60);
+  }});
+
+  window.addEventListener("resize", function() {{
+    if (isPcGroupMode()) window.setTimeout(initActivePcPanel, 60);
+  }});
+}})();
+</script>
+
+
+<script>
+(function() {{
+  function isPcDateMode() {{
+    return window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches;
+  }}
+
+  function initPcDateControls() {{
+    if (!isPcDateMode()) return;
+
+    var input = document.getElementById("archive-date");
+    var control = document.querySelector(".date-control");
+    var box = document.querySelector(".date-picker-box");
+
+    if (input && control && control.dataset.pcDateBound !== "1") {{
+      control.dataset.pcDateBound = "1";
+
+      control.addEventListener("click", function(event) {{
+        event.stopPropagation();
+        if (typeof input.showPicker === "function") {{
+          try {{
+            input.showPicker();
+            return;
+          }} catch (_error) {{}}
+        }}
+        input.focus();
+        input.click();
+      }});
+
+      if (box) {{
+        box.addEventListener("click", function(event) {{
+          if (event.target.closest(".date-control")) return;
+          event.preventDefault();
+          control.click();
+        }});
+      }}
+    }}
+
+    document.querySelectorAll(".tab-button").forEach(function(button) {{
+      if (button.dataset.pcPeriodBound === "1") return;
+      button.dataset.pcPeriodBound = "1";
+
+      button.addEventListener("click", function() {{
+        var label = button.getAttribute("data-tab");
+        var panel = document.getElementById("tab-" + label);
+        if (!panel) return;
+
+        document.querySelectorAll(".tab-button").forEach(function(x) {{ x.classList.remove("active"); }});
+        document.querySelectorAll(".tab-panel").forEach(function(x) {{ x.classList.remove("active"); }});
+
+        button.classList.add("active");
+        panel.classList.add("active");
+
+        var periodDate = panel.getAttribute("data-report-date");
+        if (periodDate && input) {{
+          input.value = periodDate;
+          if (typeof updateArchiveDateDisplay === "function") updateArchiveDateDisplay(periodDate);
+        }}
+
+        if (typeof refreshActivePeriodUI === "function") refreshActivePeriodUI();
+      }}, true);
+    }});
+  }}
+
+  if (document.readyState === "loading") {{
+    document.addEventListener("DOMContentLoaded", function() {{
+      window.setTimeout(initPcDateControls, 80);
+    }});
+  }} else {{
+    window.setTimeout(initPcDateControls, 80);
+  }}
+
+  window.addEventListener("resize", function() {{
+    if (isPcDateMode()) window.setTimeout(initPcDateControls, 80);
+  }});
 }})();
 </script>
 
