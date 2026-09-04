@@ -9750,156 +9750,140 @@ main {
 
 
 /* ============================================================
-   FINAL PC DASHBOARD / MOBILE UNCHANGED 2026-09-04
-   Desktop only: >=1200px
+   FINAL PC DASHBOARD - ACTUAL DOM VERSION / MOBILE UNCHANGED
+   Applies only to desktop >= 1200px
    ============================================================ */
 @media (min-width:1200px) {
-  body {
-    background:#c9dcef;
-  }
-
   .phone {
-    width:min(96vw, 1580px) !important;
+    width:min(calc(100% - 32px),1580px) !important;
     max-width:1580px !important;
-    margin:0 auto !important;
   }
 
-  .article-list,
-  .articles-wrap,
-  .article-groups,
-  .group-list {
-    width:100% !important;
-    max-width:none !important;
-  }
-
-  .article-grid,
-  .cards-grid,
-  .group-articles {
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:14px !important;
-  }
-
-  .article-card,
-  .news-card,
-  .preview-card {
-    min-width:0 !important;
-    overflow:visible !important;
-  }
-
-  .preview-copy {
-    grid-template-columns:minmax(0,1fr) 118px !important;
+  main {
+    display:grid !important;
+    grid-template-columns:minmax(0,2.15fr) minmax(330px,.85fr) !important;
+    gap:18px !important;
     align-items:start !important;
+    padding:0 0 42px !important;
+  }
+
+  #no-results {
+    grid-column:1 / -1 !important;
+  }
+
+  .tab-panel {
+    grid-column:1 !important;
+    min-width:0 !important;
+  }
+
+  #pc-analysis-panel {
+    display:flex !important;
+    grid-column:2 !important;
+    grid-row:1 !important;
+    position:sticky !important;
+    top:18px !important;
+    min-width:0 !important;
+    flex-direction:column !important;
     gap:12px !important;
   }
 
-  .article-content-column {
-    grid-column:1 !important;
-    min-width:0 !important;
-    width:auto !important;
-  }
-
-  .important-button,
-  .important-btn,
-  .importance-btn,
-  .star-btn {
-    white-space:nowrap !important;
-    overflow:visible !important;
-    max-width:none !important;
-  }
-
-  .pc-dashboard-shell {
-    display:grid !important;
-    grid-template-columns:minmax(0,2.15fr) minmax(320px,.85fr);
-    gap:18px;
-    align-items:start;
-    width:100%;
-    margin:14px 0 18px;
-  }
-
-  .pc-dashboard-main,
-  .pc-dashboard-side {
-    min-width:0;
-  }
-
-  .pc-dashboard-side {
-    position:sticky;
-    top:18px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }
-
-  .pc-panel {
-    background:#f7fbff;
-    border:1px solid rgba(35,69,111,.14);
-    border-radius:16px;
-    box-shadow:0 4px 14px rgba(36,65,99,.08);
+  .pc-analysis-card {
+    background:#f8fbff;
+    border:1px solid rgba(35,57,93,.14);
+    border-radius:14px;
+    box-shadow:0 4px 14px rgba(35,57,93,.07);
     padding:14px;
   }
 
-  .pc-panel-title {
+  .pc-analysis-head {
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:8px;
-    font-weight:800;
-    color:#233f67;
-    font-size:15px;
     margin-bottom:10px;
   }
 
-  .pc-panel-sub {
-    color:#6f8198;
-    font-size:11px;
-    font-weight:600;
+  .pc-analysis-title {
+    color:#23395d;
+    font-size:15px;
+    font-weight:900;
+  }
+
+  .pc-analysis-sub {
+    color:#7b899c;
+    font-size:10.5px;
+    font-weight:700;
+    white-space:nowrap;
   }
 
   .pc-kpi-grid {
     display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:10px;
-    margin-bottom:12px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
   }
 
   .pc-kpi {
     background:#fff;
-    border:1px solid rgba(35,69,111,.12);
-    border-radius:12px;
-    padding:12px;
+    border:1px solid rgba(35,57,93,.10);
+    border-radius:10px;
+    padding:10px 11px;
   }
 
   .pc-kpi-label {
-    font-size:11px;
-    color:#738399;
-    font-weight:700;
+    color:#7a8798;
+    font-size:10px;
+    font-weight:800;
     margin-bottom:4px;
   }
 
   .pc-kpi-value {
-    font-size:20px;
-    color:#18385f;
-    font-weight:900;
+    color:#173b61;
+    font-size:21px;
     line-height:1;
+    font-weight:900;
+  }
+
+  .pc-chip-wrap {
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+
+  .pc-chip {
+    border:1px solid #c8d7e8;
+    background:#fff;
+    color:#31597f;
+    border-radius:999px;
+    padding:6px 9px;
+    font-size:10.5px;
+    font-weight:850;
+    cursor:pointer;
+  }
+
+  .pc-chip:hover {
+    background:#edf5fc;
   }
 
   .pc-timeline {
     position:relative;
-    padding-left:16px;
+    padding-left:17px;
+    max-height:520px;
+    overflow:auto;
   }
 
   .pc-timeline:before {
     content:"";
     position:absolute;
     left:5px;
-    top:2px;
-    bottom:2px;
+    top:3px;
+    bottom:3px;
     width:2px;
-    background:#d6e4f2;
+    background:#d7e3ef;
   }
 
   .pc-timeline-item {
     position:relative;
-    padding:0 0 12px 10px;
+    padding:0 0 13px 10px;
     cursor:pointer;
   }
 
@@ -9911,49 +9895,123 @@ main {
     width:8px;
     height:8px;
     border-radius:50%;
-    background:#275e9a;
-    box-shadow:0 0 0 3px #e8f1fa;
+    background:#2b639e;
+    box-shadow:0 0 0 3px #e9f1f9;
   }
 
   .pc-timeline-date {
-    font-size:10px;
-    color:#7a8aa0;
-    font-weight:700;
+    color:#8a96a6;
+    font-size:9.5px;
+    font-weight:750;
     margin-bottom:2px;
   }
 
   .pc-timeline-title {
-    font-size:12px;
-    line-height:1.35;
-    color:#203e63;
-    font-weight:800;
+    color:#244669;
+    font-size:11.5px;
+    line-height:1.38;
+    font-weight:850;
   }
 
   .pc-timeline-meta {
-    font-size:10px;
-    color:#8795a8;
+    color:#8a96a6;
+    font-size:9.5px;
     margin-top:2px;
   }
 
-  .pc-chip-row {
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
+  /* Real article DOM: preview-card > preview-copy + card-side */
+  .article-stack {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px 14px !important;
   }
 
-  .pc-chip {
-    border:1px solid #c9d9ea;
-    background:#fff;
-    color:#31597f;
-    border-radius:999px;
-    padding:6px 9px;
-    font-size:11px;
-    font-weight:800;
-    cursor:pointer;
+  .preview-card {
+    grid-template-columns:minmax(0,1fr) 118px !important;
+    min-width:0 !important;
+    overflow:visible !important;
   }
 
-  .pc-chip:hover {
-    background:#edf5fc;
+  .preview-copy {
+    display:block !important;
+    min-width:0 !important;
+    width:100% !important;
+    overflow:visible !important;
+  }
+
+  .article-content-column {
+    display:block !important;
+    min-width:0 !important;
+    width:100% !important;
+  }
+
+  .meta-row {
+    display:flex !important;
+    align-items:center !important;
+    gap:5px !important;
+    width:100% !important;
+    min-width:0 !important;
+    min-height:22px !important;
+  }
+
+  .publisher {
+    min-width:0 !important;
+    max-width:42% !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }
+
+  .status-inline {
+    flex:0 0 auto !important;
+  }
+
+  .related-coverage,
+  .coverage-badge {
+    flex:0 1 auto !important;
+    min-width:0 !important;
+  }
+
+  .important-button {
+    position:static !important;
+    flex:0 0 auto !important;
+    margin-left:auto !important;
+    width:auto !important;
+    min-width:34px !important;
+    height:22px !important;
+    padding:0 5px !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
+    font-size:11px !important;
+    line-height:22px !important;
+  }
+
+  .headline {
+    font-size:14.5px !important;
+    line-height:1.32 !important;
+    -webkit-line-clamp:2 !important;
+  }
+
+  .article-snippet {
+    font-size:11.5px !important;
+    line-height:1.42 !important;
+    -webkit-line-clamp:3 !important;
+  }
+
+  .card-side {
+    width:118px !important;
+    min-width:118px !important;
+  }
+
+  .preview-image {
+    width:118px !important;
+    height:118px !important;
+    min-height:118px !important;
+  }
+}
+
+@media (max-width:1199px) {
+  #pc-analysis-panel {
+    display:none !important;
   }
 }
 
@@ -9965,7 +10023,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 9.4(금) 09:40 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.4(금) 09:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -21922,7 +21980,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/05eee281d0bb5fc73341ee76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/098c8ac21f93dd7d8d35f928.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -23029,7 +23087,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/66bbd78bf6360c44d4fbc0cf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/1fbe9189c7c77889a2d9987a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -23734,10 +23792,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.news2day.co.kr/article/20260904500057"
+  data-title="인천대-두산에너빌리티 ‘원전 인재 협력’…인재 선점과 취업역량 강화 노린다"
+  data-publisher="뉴스투데이"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788490800"
+  data-country="KR"
+  data-search="인천대-두산에너빌리티 ‘원전 인재 협력’…인재 선점과 취업역량 강화 노린다 뉴스투데이 타 건설사 [뉴스투데이=이은지 기자] 인천대학교 산학협력단이 두산에너빌리티와 원자력 기술 분야의 공동연구와 전문인력 양성을 위한 협력체계 구축에 나선다. 인천대 산학협력단은 3일 inu이노베이션센터에서 두산에너빌리티와 원자력 설계 관련 공동연구 및 협력관계 구축을 위한 업무협약("
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>인천대-두산에너빌리티 ‘원전 인재 협력’…인재 선점과 취업역량 강화 노린다</div>
+      <div class="article-snippet">[뉴스투데이=이은지 기자] 인천대학교 산학협력단이 두산에너빌리티와 원자력 기술 분야의 공동연구와 전문인력 양성을 위한 협력체계 구축에 나선다. 인천대 산학협력단은 3일 INU이노베이션센터에서 두산에너빌리티와 원자력 설계 관련 공동연구 및 협력관계 구축을 위한 업무협약(</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/421d27ad8c17ada208346d54.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106692"
   data-title="1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력"
   data-publisher="더구루"
@@ -23761,7 +23852,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력</div>
+      <div class="headline">1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력</div>
       <div class="article-snippet">[더구루=김수현 기자] 공사비 1조8000억원에 규모의 서울 강북권 최대 정비사업지인 미아2재정비촉진구역 재개발 사업의 시공사 입찰참여확약서 접수 마감일이 다가오는 가운데, 삼성물산의 단독 입찰 가능성에 무게가 실린다. 4일 정비업계에 따르면 강북구 미아2구역 재개발조합은 지난달 28일 현장설명회를 개최한 데 이어, 오는 6일까지 현장설명회에 참여했던 건설</div>
     </div>
   </div>
@@ -23836,7 +23927,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776023"
   data-title="대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관"
   data-publisher="뉴시스"
@@ -23860,7 +23951,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관</div>
+      <div class="headline">대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관</div>
       <div class="article-snippet">[서울=뉴시스]정유선 기자 = 대우건설은 충청남도 천안시에 공급하는 &#x27;두정역 푸르지오 그랑피크&#x27;의 견본주택을 개관한다고 4일 밝혔다. 이 단지는 천안시 서북구 성정동 일원에 지하 3층~지상 35층, 10개동, 총 1438가구 규모의 대단지로 조성된다. 전용면적은 59㎡부터 74㎡, 84㎡, 101㎡, 114㎡까지 다양하게 구성됐다. 분양가는 3.3㎡당 1485만원선으로 책정됐다. 오는 14일 특별공급을 시작으로 15일 1순위, 16일 2순위 청약을 받는다. 당첨자 발표는 22일이며, 정당계약은 10월 5일부터 8일까지 나흘간 진행된다. 1순위 청약은 천안시를 포함해</div>
     </div>
   </div>
@@ -23869,7 +23960,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776063"
   data-title="GS건설, 부산 연제갤러리자이 조성…연산교차로 &#x27;교통요지&#x27;"
   data-publisher="뉴시스"
@@ -23893,7 +23984,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 부산 연제갤러리자이 조성…연산교차로 &#x27;교통요지&#x27;</div>
+      <div class="headline">GS건설, 부산 연제갤러리자이 조성…연산교차로 &#x27;교통요지&#x27;</div>
       <div class="article-snippet">[서울=뉴시스]이연희 기자 = GS건설은 부산 대표 교통·상업 중심지인 연산교차로 일대에 &#x27;연제갤러리자이&#x27;를 짓는다고 4일 밝혔다. 연제갤러리자이는 연제구 연산동에 다양한 평면의 전용면적 84㎡ 단일 주택형, 총 499가구 규모로 조성된다. 연산교차로 인근에서 오랫동안 자이 브랜드 단지를 소개해온 전시 공간을 개발하는 것이다. 이는 22년 만에 리뉴얼한 자이 브랜드가 부산에서 처음 적용되는 사례다. 최고 43층으로 연산동의 새로운 스카이라인을 형성하게 된다. GS건설에서 부산최초로 도입하는 유니자이 등 자이만의 외관 디자인을 적용한다. 커뮤니티는 &#x27;클럽 자이안&#x27;에 교</div>
     </div>
   </div>
@@ -23977,7 +24068,7 @@ main {
     <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776065"
   data-title="원안위, &#x27;자동정지&#x27; 새울 3호기 조사 마무리…재가동 승인"
   data-publisher="뉴시스"
@@ -24001,7 +24092,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, &#x27;자동정지&#x27; 새울 3호기 조사 마무리…재가동 승인</div>
+      <div class="headline">원안위, &#x27;자동정지&#x27; 새울 3호기 조사 마무리…재가동 승인</div>
       <div class="article-snippet">[세종=뉴시스]이수정 기자 = 원자력안전위원회가 지난달 11일 시운전 시험 중 자동정지된 새울 3호기의 사건조사를 마무리하고 4일 잔여 시운전 시험을 위한 재가동을 승인했다. 원안위는 조사 결과 원자로 출력 80%에서 송전을 차단하는 시운전 시험 후 원자로 출력을 복구하는 과정에서 운전원이 터빈제어밸브 위치제한기의 설정치를 잘못 입력한 것으로 파악됐다고 밝혔다. 당시 운전원은 예상치 못한 터빈발전기 출력 변동을 제한하기 위해 설정치를 입력했지만 밸브가 닫히는 방향으로 값을 잘못 입력하면서 원자로가 자동정지했다. 당시 원자로 출력은 33.9%였다. 한국수력원자력은 같은</div>
     </div>
   </div>
@@ -24010,7 +24101,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.h2news.kr/news/articleView.html?idxno=14253"
   data-title="공영곤 한수원 수소융복합처장 “조직 개편으로 전문성·추진역량 강화”"
   data-publisher="월간수소경제"
@@ -24034,7 +24125,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>공영곤 한수원 수소융복합처장 “조직 개편으로 전문성·추진역량 강화”</div>
+      <div class="headline">공영곤 한수원 수소융복합처장 “조직 개편으로 전문성·추진역량 강화”</div>
       <div class="article-snippet">최근 한국수력원자력은 인공지능(AI)과 재생에너지, 청정수소, 양수발전 등 에너지전환 정책과 관련한 핵심 국정과제 분야 전담 조직을 새로 구축해 전문성을 높였다. 특히 재생에너지·청정수소 추진조직은 분야별 전담 체계로 재편해 전문성과 추진역량을 동시에 강화했다.이는 기존 조직의 역할을</div>
     </div>
   </div>
@@ -24115,10 +24206,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=372067"
   data-title="스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’"
   data-publisher="전기신문"
@@ -24142,12 +24233,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’</div>
+      <div class="headline">스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’</div>
       <div class="article-snippet">스마트그리드협회와 전력거래소가 분산에너지 생태계 조성을 위해 손잡았다.3일 한국스마트그리드협회(회장 구자균)는 한국전력거래소(이사장 김성진)와 함께 서울 삼성동 코엑스에서 ‘분산자원 확대 대응 및 전력신산업 활성화를 위한 업무협약(MOU)’을 체결했다고 밝혔다.이번 협약은 재생에너지 급증에 따른 계통 제약을 극복하고 분산에너지 생태계를 조기에 안착시키기 위해 마련됐다. 양 기관은 협약을 통해 ▲지능형전력망 및 분산자원 기술·제품·서비스 표준화 및 시험·인증 체계 고도화 ▲가상발전소(VPP) 자원 통합계량 표준화 및 계량·봉인 인증체</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/8cf54e3ff426f089143025c8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=372068"
+  data-title="한전, EPRI와 송변전 핵심기술 협력"
+  data-publisher="전기신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788482919"
+  data-country="KR"
+  data-search="한전, epri와 송변전 핵심기술 협력 전기신문 한국전력 한국전력이 미국 전력연구원(epri)과 손잡고 송변전 설비의 안정적 운영과 진단기술 고도화에 나선다.한전(사장 김동철)은 epri와 미국 현지에서 ±500kv hvdc 선로 운영기술 고도화를 위한 업무협약과 변압기 부싱 진단기술 고도화를 위한 공동연구 계약을 최근 체결했다고 4일 밝혔다.양 기관은 초고압 직류송전(hvdc) 선로 운영부터 변압기 진단까지 기술협력을 강화해 전력설비 핵심기술 경쟁력을 높일 계획이다.hvdc 송전선로의 애자는 먼지와 염분 등 외부 오염물질이 장기간 쌓이면 절연성능이 저하될 수 있다. 특히 hvdc는 기존"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전, EPRI와 송변전 핵심기술 협력</div>
+      <div class="article-snippet">한국전력이 미국 전력연구원(EPRI)과 손잡고 송변전 설비의 안정적 운영과 진단기술 고도화에 나선다.한전(사장 김동철)은 EPRI와 미국 현지에서 ±500kV HVDC 선로 운영기술 고도화를 위한 업무협약과 변압기 부싱 진단기술 고도화를 위한 공동연구 계약을 최근 체결했다고 4일 밝혔다.양 기관은 초고압 직류송전(HVDC) 선로 운영부터 변압기 진단까지 기술협력을 강화해 전력설비 핵심기술 경쟁력을 높일 계획이다.HVDC 송전선로의 애자는 먼지와 염분 등 외부 오염물질이 장기간 쌓이면 절연성능이 저하될 수 있다. 특히 HVDC는 기존</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/af3ba14fa373ef885659c340.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24259,7 +24383,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776106"
   data-title="전남광주, 세네갈에 &#x27;재생에너지 노하우&#x27; 전수한다"
   data-publisher="뉴시스"
@@ -24283,7 +24407,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904083555519" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">전남광주특별시, KOICA ODA 선정…세네갈에 &#x27;에너지 자립모델&#x27; 구축</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>전남광주, 세네갈에 &#x27;재생에너지 노하우&#x27; 전수한다</div>
+      <div class="headline">전남광주, 세네갈에 &#x27;재생에너지 노하우&#x27; 전수한다</div>
       <div class="article-snippet">[무안=뉴시스]맹대환 기자 = 전남광주특별시가 농촌지역 재생에너지 생산 노하우를 세네갈에 전수한다. 4일 전남광주통합특별시에 따르면 한국국제협력단(KOICA)의 공적개발원조(ODA) 공공협력사업 공모에서 통합특별시의 &#x27;세네갈 농촌 개발을 위한 에너지 자립 역량 강화사업&#x27;이 본사업으로 선정됐다. 이번 사업은 한전KDN이 주관하고 통합특별시, 동신대, 전남테크노파크, 아이오티플러스 등이 참여한다. 올해부터 2030년까지 5년간 총 69억원 규모로 세네갈 농촌지역에 재생에너지를 기반으로 한 에너지·물·농업 융합형 자립모델을 구축한다. 통합특별시가 구축·운영하며 기술적 성능</div>
     </div>
   </div>
@@ -24363,11 +24487,11 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/151491db171c433884ad14e2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/072965655c619a7258b428cd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.m-i.kr/news/articleView.html?idxno=1410020"
   data-title="김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;"
   data-publisher="매일일보"
@@ -24391,7 +24515,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;</div>
+      <div class="headline">김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;</div>
       <div class="article-snippet">매일일보 = 김수빈 기자 | 김정관 산업통상부 장관은 3일(현지시간) 도널드 트럼프 미국 행정부가 검토 중인 반도체 관세와 관련해 한국에 경쟁국보다 불리하지 않은 대우를 한다는 원칙 아래 협의를 이어가고 있다고 밝혔다.김 장관은 이날 워싱턴DC에서 열린 &#x27;미국 투자신고식&#x27; 이후 취재진과 만나 이같이 말했다.김 장관은 &quot;지난 10월 관세 협상을 할 때 우리나라 반도체에 대해서는 경쟁국에 비해 불리하지 않은 대우를 하겠다고 (미국이) 이미 얘기를 한 적이 있다&quot;며 &quot;그 정신 하에 계속 논의하고 있다고 생각한다&quot;고 전했다. 최근 미국 측</div>
     </div>
   </div>
@@ -24649,7 +24773,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/09/202609040924524649fbbec65dfb_1"
   data-title="로이드·머스크, 대서양 원자력 회랑 가동... 표준 경쟁 점화 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
@@ -24673,7 +24797,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>로이드·머스크, 대서양 원자력 회랑 가동... 표준 경쟁 점화 - 글로벌이코노믹</div>
+      <div class="headline">로이드·머스크, 대서양 원자력 회랑 가동... 표준 경쟁 점화 - 글로벌이코노믹</div>
       <div class="article-snippet">로이드선급과 머스크, 펠릭스토우항, 찰스턴항은 2026년 9월 영국과 미국 사이 대서양 횡단 노선에 원자력 추진 컨테이너선을 투입하기 위한 &#x27;핑크 회랑&#x27; 연구 프로젝트 1건을 공식 발족했다.스플래시247은 2026년 9월 3일(현지시각) 이번 프로젝트는 실제 선박 발주가 아니라 양국 주</div>
     </div>
   </div>
@@ -25036,9 +25160,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://shippingtelegraph.com/container-news/uk-us-pink-corridor-project-to-explore-nuclear-powered-containership-trading/"
+  data-title="UK-US pink corridor project to explore nuclear-powered containership trading | Container news | Shipping Telegraph"
+  data-publisher="Shipping Telegraph"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788483000"
+  data-country="OTHER"
+  data-search="uk-us pink corridor project to explore nuclear-powered containership trading | container news | shipping telegraph shipping telegraph nuclear power·nuclear energy lloyd’s register, a.p. moller - maersk (maersk), the port of charleston on the us east coast and uk’s container port of"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Shipping Telegraph</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>UK-US pink corridor project to explore nuclear-powered containership trading | Container news | Shipping Telegraph</div>
+      <div class="article-snippet">Lloyd’s Register, A.P. Moller - Maersk (Maersk), the port of Charleston on the US east coast and UK’s container port of</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b2df42db81a6c7d243f2c989.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.timesfreepress.com/news/2026/sep/03/tennessee-valley-will-be-like-silicon-valley-for/"
   data-title="Tennessee Valley will be like Silicon Valley for nuclear, top official says | Chattanooga Times Free Press"
@@ -25102,6 +25259,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/44c5e9d9a19df1d49af43497.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://finance.yahoo.com/energy/articles/pick-best-nuclear-stocks-september-002208867.html"
+  data-title="Our Pick Of The Best Nuclear Stocks In September 2026"
+  data-publisher="Yahoo Finance"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788481328"
+  data-country="OTHER"
+  data-search="our pick of the best nuclear stocks in september 2026 yahoo finance nuclear power·nuclear energy energy driven price pressures remain in focus for central banks, which keeps reliable power sources in the spotlight. that puts nuclear linked energy stocks on many watchlists, as investors look for businesses tied to long term electricity demand rather than short term fuel price swings. this article walks through thre"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Yahoo Finance</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Our Pick Of The Best Nuclear Stocks In September 2026</div>
+      <div class="article-snippet">Energy driven price pressures remain in focus for central banks, which keeps reliable power sources in the spotlight. That puts nuclear linked energy stocks on many watchlists, as investors look for businesses tied to long term electricity demand rather than short term fuel price swings. This article walks through thre</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4c60022a1a72265ae5cc210d.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25310,10 +25500,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.news2day.co.kr/article/20260904500057"
+  data-title="인천대-두산에너빌리티 ‘원전 인재 협력’…인재 선점과 취업역량 강화 노린다"
+  data-publisher="뉴스투데이"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788490800"
+  data-country="KR"
+  data-search="인천대-두산에너빌리티 ‘원전 인재 협력’…인재 선점과 취업역량 강화 노린다 뉴스투데이 타 건설사 [뉴스투데이=이은지 기자] 인천대학교 산학협력단이 두산에너빌리티와 원자력 기술 분야의 공동연구와 전문인력 양성을 위한 협력체계 구축에 나선다. 인천대 산학협력단은 3일 inu이노베이션센터에서 두산에너빌리티와 원자력 설계 관련 공동연구 및 협력관계 구축을 위한 업무협약("
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>인천대-두산에너빌리티 ‘원전 인재 협력’…인재 선점과 취업역량 강화 노린다</div>
+      <div class="article-snippet">[뉴스투데이=이은지 기자] 인천대학교 산학협력단이 두산에너빌리티와 원자력 기술 분야의 공동연구와 전문인력 양성을 위한 협력체계 구축에 나선다. 인천대 산학협력단은 3일 INU이노베이션센터에서 두산에너빌리티와 원자력 설계 관련 공동연구 및 협력관계 구축을 위한 업무협약(</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/421d27ad8c17ada208346d54.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106692"
   data-title="1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력"
   data-publisher="더구루"
@@ -25337,7 +25560,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력</div>
+      <div class="headline">1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력</div>
       <div class="article-snippet">[더구루=김수현 기자] 공사비 1조8000억원에 규모의 서울 강북권 최대 정비사업지인 미아2재정비촉진구역 재개발 사업의 시공사 입찰참여확약서 접수 마감일이 다가오는 가운데, 삼성물산의 단독 입찰 가능성에 무게가 실린다. 4일 정비업계에 따르면 강북구 미아2구역 재개발조합은 지난달 28일 현장설명회를 개최한 데 이어, 오는 6일까지 현장설명회에 참여했던 건설</div>
     </div>
   </div>
@@ -25478,7 +25701,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776023"
   data-title="대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관"
   data-publisher="뉴시스"
@@ -25502,7 +25725,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관</div>
+      <div class="headline">대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관</div>
       <div class="article-snippet">[서울=뉴시스]정유선 기자 = 대우건설은 충청남도 천안시에 공급하는 &#x27;두정역 푸르지오 그랑피크&#x27;의 견본주택을 개관한다고 4일 밝혔다. 이 단지는 천안시 서북구 성정동 일원에 지하 3층~지상 35층, 10개동, 총 1438가구 규모의 대단지로 조성된다. 전용면적은 59㎡부터 74㎡, 84㎡, 101㎡, 114㎡까지 다양하게 구성됐다. 분양가는 3.3㎡당 1485만원선으로 책정됐다. 오는 14일 특별공급을 시작으로 15일 1순위, 16일 2순위 청약을 받는다. 당첨자 발표는 22일이며, 정당계약은 10월 5일부터 8일까지 나흘간 진행된다. 1순위 청약은 천안시를 포함해</div>
     </div>
   </div>
@@ -25577,7 +25800,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776063"
   data-title="GS건설, 부산 연제갤러리자이 조성…연산교차로 &#x27;교통요지&#x27;"
   data-publisher="뉴시스"
@@ -25601,7 +25824,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>GS건설, 부산 연제갤러리자이 조성…연산교차로 &#x27;교통요지&#x27;</div>
+      <div class="headline">GS건설, 부산 연제갤러리자이 조성…연산교차로 &#x27;교통요지&#x27;</div>
       <div class="article-snippet">[서울=뉴시스]이연희 기자 = GS건설은 부산 대표 교통·상업 중심지인 연산교차로 일대에 &#x27;연제갤러리자이&#x27;를 짓는다고 4일 밝혔다. 연제갤러리자이는 연제구 연산동에 다양한 평면의 전용면적 84㎡ 단일 주택형, 총 499가구 규모로 조성된다. 연산교차로 인근에서 오랫동안 자이 브랜드 단지를 소개해온 전시 공간을 개발하는 것이다. 이는 22년 만에 리뉴얼한 자이 브랜드가 부산에서 처음 적용되는 사례다. 최고 43층으로 연산동의 새로운 스카이라인을 형성하게 된다. GS건설에서 부산최초로 도입하는 유니자이 등 자이만의 외관 디자인을 적용한다. 커뮤니티는 &#x27;클럽 자이안&#x27;에 교</div>
     </div>
   </div>
@@ -25685,7 +25908,7 @@ main {
     <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776065"
   data-title="원안위, &#x27;자동정지&#x27; 새울 3호기 조사 마무리…재가동 승인"
   data-publisher="뉴시스"
@@ -25709,7 +25932,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원안위, &#x27;자동정지&#x27; 새울 3호기 조사 마무리…재가동 승인</div>
+      <div class="headline">원안위, &#x27;자동정지&#x27; 새울 3호기 조사 마무리…재가동 승인</div>
       <div class="article-snippet">[세종=뉴시스]이수정 기자 = 원자력안전위원회가 지난달 11일 시운전 시험 중 자동정지된 새울 3호기의 사건조사를 마무리하고 4일 잔여 시운전 시험을 위한 재가동을 승인했다. 원안위는 조사 결과 원자로 출력 80%에서 송전을 차단하는 시운전 시험 후 원자로 출력을 복구하는 과정에서 운전원이 터빈제어밸브 위치제한기의 설정치를 잘못 입력한 것으로 파악됐다고 밝혔다. 당시 운전원은 예상치 못한 터빈발전기 출력 변동을 제한하기 위해 설정치를 입력했지만 밸브가 닫히는 방향으로 값을 잘못 입력하면서 원자로가 자동정지했다. 당시 원자로 출력은 33.9%였다. 한국수력원자력은 같은</div>
     </div>
   </div>
@@ -25718,7 +25941,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.h2news.kr/news/articleView.html?idxno=14253"
   data-title="공영곤 한수원 수소융복합처장 “조직 개편으로 전문성·추진역량 강화”"
   data-publisher="월간수소경제"
@@ -25742,7 +25965,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>공영곤 한수원 수소융복합처장 “조직 개편으로 전문성·추진역량 강화”</div>
+      <div class="headline">공영곤 한수원 수소융복합처장 “조직 개편으로 전문성·추진역량 강화”</div>
       <div class="article-snippet">최근 한국수력원자력은 인공지능(AI)과 재생에너지, 청정수소, 양수발전 등 에너지전환 정책과 관련한 핵심 국정과제 분야 전담 조직을 새로 구축해 전문성을 높였다. 특히 재생에너지·청정수소 추진조직은 분야별 전담 체계로 재편해 전문성과 추진역량을 동시에 강화했다.이는 기존 조직의 역할을</div>
     </div>
   </div>
@@ -25823,10 +26046,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=372067"
   data-title="스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’"
   data-publisher="전기신문"
@@ -25850,12 +26073,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’</div>
+      <div class="headline">스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’</div>
       <div class="article-snippet">스마트그리드협회와 전력거래소가 분산에너지 생태계 조성을 위해 손잡았다.3일 한국스마트그리드협회(회장 구자균)는 한국전력거래소(이사장 김성진)와 함께 서울 삼성동 코엑스에서 ‘분산자원 확대 대응 및 전력신산업 활성화를 위한 업무협약(MOU)’을 체결했다고 밝혔다.이번 협약은 재생에너지 급증에 따른 계통 제약을 극복하고 분산에너지 생태계를 조기에 안착시키기 위해 마련됐다. 양 기관은 협약을 통해 ▲지능형전력망 및 분산자원 기술·제품·서비스 표준화 및 시험·인증 체계 고도화 ▲가상발전소(VPP) 자원 통합계량 표준화 및 계량·봉인 인증체</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/8cf54e3ff426f089143025c8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=372068"
+  data-title="한전, EPRI와 송변전 핵심기술 협력"
+  data-publisher="전기신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788482919"
+  data-country="KR"
+  data-search="한전, epri와 송변전 핵심기술 협력 전기신문 한국전력 한국전력이 미국 전력연구원(epri)과 손잡고 송변전 설비의 안정적 운영과 진단기술 고도화에 나선다.한전(사장 김동철)은 epri와 미국 현지에서 ±500kv hvdc 선로 운영기술 고도화를 위한 업무협약과 변압기 부싱 진단기술 고도화를 위한 공동연구 계약을 최근 체결했다고 4일 밝혔다.양 기관은 초고압 직류송전(hvdc) 선로 운영부터 변압기 진단까지 기술협력을 강화해 전력설비 핵심기술 경쟁력을 높일 계획이다.hvdc 송전선로의 애자는 먼지와 염분 등 외부 오염물질이 장기간 쌓이면 절연성능이 저하될 수 있다. 특히 hvdc는 기존"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전, EPRI와 송변전 핵심기술 협력</div>
+      <div class="article-snippet">한국전력이 미국 전력연구원(EPRI)과 손잡고 송변전 설비의 안정적 운영과 진단기술 고도화에 나선다.한전(사장 김동철)은 EPRI와 미국 현지에서 ±500kV HVDC 선로 운영기술 고도화를 위한 업무협약과 변압기 부싱 진단기술 고도화를 위한 공동연구 계약을 최근 체결했다고 4일 밝혔다.양 기관은 초고압 직류송전(HVDC) 선로 운영부터 변압기 진단까지 기술협력을 강화해 전력설비 핵심기술 경쟁력을 높일 계획이다.HVDC 송전선로의 애자는 먼지와 염분 등 외부 오염물질이 장기간 쌓이면 절연성능이 저하될 수 있다. 특히 HVDC는 기존</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/af3ba14fa373ef885659c340.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26000,7 +26256,7 @@ main {
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776106"
   data-title="전남광주, 세네갈에 &#x27;재생에너지 노하우&#x27; 전수한다"
   data-publisher="뉴시스"
@@ -26024,7 +26280,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904083555519" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">전남광주특별시, KOICA ODA 선정…세네갈에 &#x27;에너지 자립모델&#x27; 구축</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>전남광주, 세네갈에 &#x27;재생에너지 노하우&#x27; 전수한다</div>
+      <div class="headline">전남광주, 세네갈에 &#x27;재생에너지 노하우&#x27; 전수한다</div>
       <div class="article-snippet">[무안=뉴시스]맹대환 기자 = 전남광주특별시가 농촌지역 재생에너지 생산 노하우를 세네갈에 전수한다. 4일 전남광주통합특별시에 따르면 한국국제협력단(KOICA)의 공적개발원조(ODA) 공공협력사업 공모에서 통합특별시의 &#x27;세네갈 농촌 개발을 위한 에너지 자립 역량 강화사업&#x27;이 본사업으로 선정됐다. 이번 사업은 한전KDN이 주관하고 통합특별시, 동신대, 전남테크노파크, 아이오티플러스 등이 참여한다. 올해부터 2030년까지 5년간 총 69억원 규모로 세네갈 농촌지역에 재생에너지를 기반으로 한 에너지·물·농업 융합형 자립모델을 구축한다. 통합특별시가 구축·운영하며 기술적 성능</div>
     </div>
   </div>
@@ -26137,11 +26393,11 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/151491db171c433884ad14e2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/072965655c619a7258b428cd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.m-i.kr/news/articleView.html?idxno=1410020"
   data-title="김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;"
   data-publisher="매일일보"
@@ -26165,7 +26421,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;</div>
+      <div class="headline">김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;</div>
       <div class="article-snippet">매일일보 = 김수빈 기자 | 김정관 산업통상부 장관은 3일(현지시간) 도널드 트럼프 미국 행정부가 검토 중인 반도체 관세와 관련해 한국에 경쟁국보다 불리하지 않은 대우를 한다는 원칙 아래 협의를 이어가고 있다고 밝혔다.김 장관은 이날 워싱턴DC에서 열린 &#x27;미국 투자신고식&#x27; 이후 취재진과 만나 이같이 말했다.김 장관은 &quot;지난 10월 관세 협상을 할 때 우리나라 반도체에 대해서는 경쟁국에 비해 불리하지 않은 대우를 하겠다고 (미국이) 이미 얘기를 한 적이 있다&quot;며 &quot;그 정신 하에 계속 논의하고 있다고 생각한다&quot;고 전했다. 최근 미국 측</div>
     </div>
   </div>
@@ -26687,7 +26943,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/09/202609040924524649fbbec65dfb_1"
   data-title="로이드·머스크, 대서양 원자력 회랑 가동... 표준 경쟁 점화 - 글로벌이코노믹"
   data-publisher="글로벌이코노믹"
@@ -26711,7 +26967,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>로이드·머스크, 대서양 원자력 회랑 가동... 표준 경쟁 점화 - 글로벌이코노믹</div>
+      <div class="headline">로이드·머스크, 대서양 원자력 회랑 가동... 표준 경쟁 점화 - 글로벌이코노믹</div>
       <div class="article-snippet">로이드선급과 머스크, 펠릭스토우항, 찰스턴항은 2026년 9월 영국과 미국 사이 대서양 횡단 노선에 원자력 추진 컨테이너선을 투입하기 위한 &#x27;핑크 회랑&#x27; 연구 프로젝트 1건을 공식 발족했다.스플래시247은 2026년 9월 3일(현지시각) 이번 프로젝트는 실제 선박 발주가 아니라 양국 주</div>
     </div>
   </div>
@@ -27074,9 +27330,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://shippingtelegraph.com/container-news/uk-us-pink-corridor-project-to-explore-nuclear-powered-containership-trading/"
+  data-title="UK-US pink corridor project to explore nuclear-powered containership trading | Container news | Shipping Telegraph"
+  data-publisher="Shipping Telegraph"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788483000"
+  data-country="OTHER"
+  data-search="uk-us pink corridor project to explore nuclear-powered containership trading | container news | shipping telegraph shipping telegraph nuclear power·nuclear energy lloyd’s register, a.p. moller - maersk (maersk), the port of charleston on the us east coast and uk’s container port of"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Shipping Telegraph</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>UK-US pink corridor project to explore nuclear-powered containership trading | Container news | Shipping Telegraph</div>
+      <div class="article-snippet">Lloyd’s Register, A.P. Moller - Maersk (Maersk), the port of Charleston on the US east coast and UK’s container port of</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b2df42db81a6c7d243f2c989.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.timesfreepress.com/news/2026/sep/03/tennessee-valley-will-be-like-silicon-valley-for/"
   data-title="Tennessee Valley will be like Silicon Valley for nuclear, top official says | Chattanooga Times Free Press"
@@ -27140,6 +27429,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/44c5e9d9a19df1d49af43497.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://finance.yahoo.com/energy/articles/pick-best-nuclear-stocks-september-002208867.html"
+  data-title="Our Pick Of The Best Nuclear Stocks In September 2026"
+  data-publisher="Yahoo Finance"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788481328"
+  data-country="OTHER"
+  data-search="our pick of the best nuclear stocks in september 2026 yahoo finance nuclear power·nuclear energy energy driven price pressures remain in focus for central banks, which keeps reliable power sources in the spotlight. that puts nuclear linked energy stocks on many watchlists, as investors look for businesses tied to long term electricity demand rather than short term fuel price swings. this article walks through thre"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Yahoo Finance</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Our Pick Of The Best Nuclear Stocks In September 2026</div>
+      <div class="article-snippet">Energy driven price pressures remain in focus for central banks, which keeps reliable power sources in the spotlight. That puts nuclear linked energy stocks on many watchlists, as investors look for businesses tied to long term electricity demand rather than short term fuel price swings. This article walks through thre</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4c60022a1a72265ae5cc210d.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28502,7 +28824,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/03/.cache/512/20260903501328.jpg?v=20260904094042" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/03/.cache/512/20260903501328.jpg?v=20260904095845" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36815,7 +37137,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/05eee281d0bb5fc73341ee76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/098c8ac21f93dd7d8d35f928.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37988,7 +38310,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/66bbd78bf6360c44d4fbc0cf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/1fbe9189c7c77889a2d9987a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -246590,6 +246912,45 @@ main {
 
   </div>
 </section>
+
+<aside id="pc-analysis-panel" aria-label="PC 분석 대시보드">
+  <section class="pc-analysis-card">
+    <div class="pc-analysis-head">
+      <div class="pc-analysis-title">현재 화면 요약</div>
+      <div class="pc-analysis-sub">PC 분석</div>
+    </div>
+    <div class="pc-kpi-grid">
+      <div class="pc-kpi"><div class="pc-kpi-label">기사</div><div id="pc-kpi-articles" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">중요기사</div><div id="pc-kpi-important" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">관련 국가</div><div id="pc-kpi-countries" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">기사 그룹</div><div id="pc-kpi-groups" class="pc-kpi-value">0</div></div>
+    </div>
+  </section>
+
+  <section class="pc-analysis-card">
+    <div class="pc-analysis-head">
+      <div class="pc-analysis-title">주요 이슈</div>
+      <div class="pc-analysis-sub">기사량 기준</div>
+    </div>
+    <div id="pc-topic-chips" class="pc-chip-wrap"></div>
+  </section>
+
+  <section class="pc-analysis-card">
+    <div class="pc-analysis-head">
+      <div class="pc-analysis-title">국가별 동향</div>
+      <div class="pc-analysis-sub">현재 선택 기사</div>
+    </div>
+    <div id="pc-country-chips" class="pc-chip-wrap"></div>
+  </section>
+
+  <section class="pc-analysis-card">
+    <div class="pc-analysis-head">
+      <div class="pc-analysis-title">이슈 타임라인</div>
+      <div class="pc-analysis-sub">최근 흐름</div>
+    </div>
+    <div id="pc-timeline" class="pc-timeline"></div>
+  </section>
+</aside>
 </main>
   <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
 </div>
@@ -250941,234 +251302,192 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
 <script>
 (function() {
-  function qsa(sel, root) {
-    root = root || document;
-    return Array.from(root.querySelectorAll(sel));
+  var COUNTRY_NAMES = {
+    US:"미국", CA:"캐나다", KR:"한국", JP:"일본", CN:"중국", GB:"영국",
+    FR:"프랑스", BG:"불가리아", RO:"루마니아", CZ:"체코", PL:"폴란드",
+    SI:"슬로베니아", FI:"핀란드", SE:"스웨덴", NL:"네덜란드", BE:"벨기에",
+    CH:"스위스", SK:"슬로바키아", DK:"덴마크", UA:"우크라이나", RU:"러시아",
+    TR:"튀르키예", AE:"UAE", SA:"사우디", IN:"인도", VN:"베트남",
+    MY:"말레이시아", TH:"태국", SG:"싱가포르", AU:"호주", BR:"브라질",
+    AR:"아르헨티나", CL:"칠레", PE:"페루", CO:"콜롬비아", ZA:"남아공"
+  };
+
+  function activePanel() {
+    return document.querySelector(".tab-panel.active");
   }
 
-  function getText(el) {
-    return (el && el.textContent ? el.textContent : "").replace(/\s+/g, " ").trim();
-  }
-
-  function findArticleCards() {
-    var selectors = [".article-card", ".news-card", ".preview-card", ".group-articles > *", ".article-grid > *", ".cards-grid > *"];
-    var seen = new Set();
-    var out = [];
-    selectors.forEach(function(sel) {
-      qsa(sel).forEach(function(el) {
-        if (!seen.has(el) && getText(el).length > 20) {
-          seen.add(el);
-          out.push(el);
-        }
-      });
+  function visibleCards() {
+    var panel = activePanel();
+    if (!panel) return [];
+    var cards = Array.from(panel.querySelectorAll(".preview-card"));
+    return cards.filter(function(card) {
+      return card.style.display !== "none" && !card.hidden;
     });
-    return out;
   }
 
-  function articleDate(card) {
-    var t = getText(card);
-    var m = t.match(/(20\d{2})[.\-/년]\s*(\d{1,2})[.\-/월]\s*(\d{1,2})/);
-    if (m) {
-      return m[1] + "." + String(m[2]).padStart(2,"0") + "." + String(m[3]).padStart(2,"0");
-    }
-    return "";
+  function groupName(card) {
+    var section = card.closest(".news-group");
+    if (!section) return card.dataset.group || "기타";
+    var name = section.querySelector(".group-name");
+    if (name && name.textContent.trim()) return name.textContent.trim();
+    var title = section.querySelector(".group-title");
+    return title ? title.textContent.replace(/[▼▲]\s*/g,"").replace(/\d+\s*건.*/g,"").trim() : (card.dataset.group || "기타");
   }
 
-  function articleTitle(card) {
-    var candidates = ["a.article-title", ".article-title", ".headline", ".title", "h1", "h2", "h3", "h4", "a"];
-    for (var i = 0; i < candidates.length; i++) {
-      var el = card.querySelector(candidates[i]);
-      var t = getText(el);
-      if (t.length >= 8) return t.slice(0, 120);
-    }
-    return getText(card).slice(0, 120);
+  function formatDate(ts) {
+    if (!ts) return "";
+    var d = new Date(Number(ts) * 1000);
+    if (Number.isNaN(d.getTime())) return "";
+    var m = String(d.getMonth()+1).padStart(2,"0");
+    var day = String(d.getDate()).padStart(2,"0");
+    var hh = String(d.getHours()).padStart(2,"0");
+    var mm = String(d.getMinutes()).padStart(2,"0");
+    return m + "." + day + " " + hh + ":" + mm;
   }
 
-  function articlePublisher(card) {
-    var candidates = [".publisher", ".source", ".media", ".press", ".article-publisher"];
-    for (var i = 0; i < candidates.length; i++) {
-      var t = getText(card.querySelector(candidates[i]));
-      if (t) return t.slice(0, 40);
-    }
-    var txt = getText(card);
-    var m = txt.match(/^([^·|]{2,30})\s*[·|]/);
-    return m ? m[1].trim() : "";
+  function titleOf(card) {
+    return card.dataset.title || ((card.querySelector(".headline") || {}).textContent || "").trim();
   }
 
-  function detectTopic(text) {
-    var rules = [
-      ["대미투자", /(대미투자|대미 투자|미국 투자|한미 투자|investment fund|U\.S\. investment|US investment)/i],
-      ["Kozloduy", /(Kozloduy|코즐로두이)/i],
-      ["Holtec", /(Holtec|홀텍|Palisades|팰리세이즈)/i],
-      ["Fermi America", /(Fermi America|Project Matador|페르미|퍼미|마타도르)/i],
-      ["SMR", /SMR|소형모듈원자로|Small Modular Reactor/i],
-      ["원자력", /원전|원자력|nuclear|reactor/i]
-    ];
-    for (var i = 0; i < rules.length; i++) {
-      if (rules[i][1].test(text)) return rules[i][0];
-    }
-    return "주요 이슈";
+  function publisherOf(card) {
+    return card.dataset.publisher || ((card.querySelector(".publisher") || {}).textContent || "").trim();
   }
 
-  function detectCountry(text) {
-    var rules = [
-      ["미국", /미국|U\.S\.|USA|United States|Michigan|Texas|Amarillo|Palisades/i],
-      ["불가리아", /불가리아|Bulgaria|Kozloduy|코즐로두이/i],
-      ["한국", /한국|대한민국|Korea|한수원|한전|현대건설/i],
-      ["영국", /영국|UK|United Kingdom|Britain/i],
-      ["캐나다", /캐나다|Canada/i],
-      ["프랑스", /프랑스|France/i],
-      ["체코", /체코|Czech/i],
-      ["폴란드", /폴란드|Poland/i],
-      ["루마니아", /루마니아|Romania/i],
-      ["일본", /일본|Japan/i],
-      ["중국", /중국|China/i],
-      ["베트남", /베트남|Vietnam/i]
-    ];
-    for (var i = 0; i < rules.length; i++) {
-      if (rules[i][1].test(text)) return rules[i][0];
-    }
-    return "";
+  function countryOf(card) {
+    var code = (card.dataset.country || "").trim();
+    return COUNTRY_NAMES[code] || code;
   }
 
-  function buildDashboard() {
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = String(value);
+  }
+
+  function makeChip(label, count, onClick) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "pc-chip";
+    b.textContent = label + " " + count;
+    b.addEventListener("click", onClick);
+    return b;
+  }
+
+  function scrollToFirstMatch(predicate) {
+    var card = visibleCards().find(predicate);
+    if (card) card.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+
+  function refreshPcDashboard() {
     if (!window.matchMedia("(min-width:1200px)").matches) return;
-    if (document.querySelector(".pc-dashboard-shell")) return;
 
-    var cards = findArticleCards();
-    if (!cards.length) return;
-
-    var rows = cards.map(function(card) {
-      var text = getText(card);
-      return {
-        title: articleTitle(card),
-        publisher: articlePublisher(card),
-        date: articleDate(card),
-        topic: detectTopic(text),
-        country: detectCountry(text),
-        important: /중요|★/.test(text),
-        card: card
-      };
-    });
-
-    var topicCounts = {};
+    var cards = visibleCards();
+    var groupCounts = {};
     var countryCounts = {};
-    rows.forEach(function(r) {
-      topicCounts[r.topic] = (topicCounts[r.topic] || 0) + 1;
-      if (r.country) countryCounts[r.country] = (countryCounts[r.country] || 0) + 1;
+    var important = 0;
+
+    cards.forEach(function(card) {
+      var g = groupName(card);
+      groupCounts[g] = (groupCounts[g] || 0) + 1;
+
+      var c = countryOf(card);
+      if (c) countryCounts[c] = (countryCounts[c] || 0) + 1;
+
+      if (card.classList.contains("important")) important += 1;
     });
 
-    var topicTop = Object.entries(topicCounts).sort(function(a,b) { return b[1]-a[1]; }).slice(0,6);
-    var countryTop = Object.entries(countryCounts).sort(function(a,b) { return b[1]-a[1]; }).slice(0,6);
-    var timeline = rows.filter(function(r) {
-      return r.title && (r.topic !== "주요 이슈" || r.important);
-    }).slice(0,8);
+    setText("pc-kpi-articles", cards.length);
+    setText("pc-kpi-important", important);
+    setText("pc-kpi-countries", Object.keys(countryCounts).length);
+    setText("pc-kpi-groups", Object.keys(groupCounts).length);
 
-    var shell = document.createElement("section");
-    shell.className = "pc-dashboard-shell";
+    var topicWrap = document.getElementById("pc-topic-chips");
+    if (topicWrap) {
+      topicWrap.innerHTML = "";
+      Object.entries(groupCounts)
+        .sort(function(a,b) { return b[1]-a[1]; })
+        .slice(0,7)
+        .forEach(function(entry) {
+          topicWrap.appendChild(makeChip(entry[0], entry[1], function() {
+            scrollToFirstMatch(function(card) { return groupName(card) === entry[0]; });
+          }));
+        });
+      if (!topicWrap.children.length) topicWrap.textContent = "표시할 이슈가 없습니다.";
+    }
 
-    var main = document.createElement("div");
-    main.className = "pc-dashboard-main";
+    var countryWrap = document.getElementById("pc-country-chips");
+    if (countryWrap) {
+      countryWrap.innerHTML = "";
+      Object.entries(countryCounts)
+        .sort(function(a,b) { return b[1]-a[1]; })
+        .slice(0,8)
+        .forEach(function(entry) {
+          countryWrap.appendChild(makeChip(entry[0], entry[1], function() {
+            scrollToFirstMatch(function(card) { return countryOf(card) === entry[0]; });
+          }));
+        });
+      if (!countryWrap.children.length) countryWrap.textContent = "국가 정보가 없습니다.";
+    }
 
-    var side = document.createElement("aside");
-    side.className = "pc-dashboard-side";
+    var timeline = document.getElementById("pc-timeline");
+    if (timeline) {
+      timeline.innerHTML = "";
+      cards.slice()
+        .sort(function(a,b) {
+          return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
+        })
+        .slice(0,10)
+        .forEach(function(card) {
+          var item = document.createElement("div");
+          item.className = "pc-timeline-item";
 
-    var kpi = document.createElement("div");
-    kpi.className = "pc-kpi-grid";
-    var importantCount = rows.filter(function(r) { return r.important; }).length;
-    var uniqueCountries = Object.keys(countryCounts).length;
-    var uniqueTopics = Object.keys(topicCounts).filter(function(x) { return x !== "주요 이슈"; }).length;
+          var date = document.createElement("div");
+          date.className = "pc-timeline-date";
+          date.textContent = formatDate(card.dataset.published) || "최근";
 
-    [
-      ["현재 기사", rows.length],
-      ["중요기사", importantCount],
-      ["관련 국가", uniqueCountries],
-      ["핵심 주제", uniqueTopics]
-    ].forEach(function(item) {
-      var el = document.createElement("div");
-      el.className = "pc-kpi";
-      el.innerHTML = '<div class="pc-kpi-label">' + item[0] + '</div><div class="pc-kpi-value">' + item[1] + '</div>';
-      kpi.appendChild(el);
-    });
+          var title = document.createElement("div");
+          title.className = "pc-timeline-title";
+          title.textContent = titleOf(card);
 
-    var topicPanel = document.createElement("div");
-    topicPanel.className = "pc-panel";
-    topicPanel.innerHTML = '<div class="pc-panel-title"><span>주요 이슈</span><span class="pc-panel-sub">기사량 기준</span></div>';
-    var chips = document.createElement("div");
-    chips.className = "pc-chip-row";
-    topicTop.forEach(function(item) {
-      var b = document.createElement("button");
-      b.className = "pc-chip";
-      b.type = "button";
-      b.textContent = item[0] + " " + item[1];
-      chips.appendChild(b);
-    });
-    topicPanel.appendChild(chips);
+          var meta = document.createElement("div");
+          meta.className = "pc-timeline-meta";
+          meta.textContent = [groupName(card), countryOf(card), publisherOf(card)].filter(Boolean).join(" · ");
 
-    var countryPanel = document.createElement("div");
-    countryPanel.className = "pc-panel";
-    countryPanel.innerHTML = '<div class="pc-panel-title"><span>국가별 동향</span><span class="pc-panel-sub">현재 화면</span></div>';
-    var countryChips = document.createElement("div");
-    countryChips.className = "pc-chip-row";
-    countryTop.forEach(function(item) {
-      var b = document.createElement("button");
-      b.className = "pc-chip";
-      b.type = "button";
-      b.textContent = item[0] + " " + item[1];
-      countryChips.appendChild(b);
-    });
-    countryPanel.appendChild(countryChips);
+          item.appendChild(date);
+          item.appendChild(title);
+          item.appendChild(meta);
+          item.addEventListener("click", function() {
+            card.scrollIntoView({behavior:"smooth", block:"center"});
+          });
 
-    var timelinePanel = document.createElement("div");
-    timelinePanel.className = "pc-panel";
-    timelinePanel.innerHTML = '<div class="pc-panel-title"><span>이슈 타임라인</span><span class="pc-panel-sub">최근 기사 흐름</span></div>';
-    var tl = document.createElement("div");
-    tl.className = "pc-timeline";
-
-    timeline.forEach(function(r) {
-      var item = document.createElement("div");
-      item.className = "pc-timeline-item";
-      item.innerHTML =
-        '<div class="pc-timeline-date">' + (r.date || "최근") + '</div>' +
-        '<div class="pc-timeline-title">' + r.title + '</div>' +
-        '<div class="pc-timeline-meta">' + [r.topic, r.country, r.publisher].filter(Boolean).join(" · ") + '</div>';
-      item.addEventListener("click", function() {
-        r.card.scrollIntoView({behavior:"smooth", block:"center"});
-      });
-      tl.appendChild(item);
-    });
-    timelinePanel.appendChild(tl);
-
-    main.appendChild(kpi);
-    side.appendChild(topicPanel);
-    side.appendChild(countryPanel);
-    side.appendChild(timelinePanel);
-
-    var candidates = [
-      document.querySelector(".article-groups"),
-      document.querySelector(".group-list"),
-      document.querySelector(".article-list"),
-      document.querySelector(".articles-wrap")
-    ].filter(Boolean);
-
-    var anchor = candidates[0];
-    if (!anchor || !anchor.parentNode) return;
-
-    anchor.parentNode.insertBefore(shell, anchor);
-    shell.appendChild(main);
-    shell.appendChild(side);
-    main.appendChild(anchor);
+          timeline.appendChild(item);
+        });
+      if (!timeline.children.length) timeline.textContent = "표시할 기사가 없습니다.";
+    }
   }
 
-  function run() {
-    try { buildDashboard(); } catch (e) { console.warn("PC dashboard init skipped:", e); }
+  function scheduleRefresh() {
+    window.setTimeout(refreshPcDashboard, 80);
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run);
+    document.addEventListener("DOMContentLoaded", scheduleRefresh);
   } else {
-    run();
+    scheduleRefresh();
   }
+
+  document.addEventListener("click", function(e) {
+    if (e.target.closest(".tab-button, .group-title, .group-master-button, .important-button, .country-button, .continent-button")) {
+      scheduleRefresh();
+    }
+  });
+
+  var search = document.getElementById("article-search");
+  if (search) search.addEventListener("input", scheduleRefresh);
+
+  var archiveDate = document.getElementById("archive-date");
+  if (archiveDate) archiveDate.addEventListener("change", scheduleRefresh);
+
+  window.addEventListener("resize", scheduleRefresh);
 })();
 </script>
 
