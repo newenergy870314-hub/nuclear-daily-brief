@@ -1,3 +1,5 @@
+# FINAL MOBILE RESTORE / PC FEATURES HIDDEN ON MOBILE 2026-09-04
+# FINAL PC HARD FIX ANALOG CLOCKS + FLAG IMAGES + FULL MAP / MOBILE UNCHANGED 2026-09-04
 # FINAL PC VISUAL TIMELINE + ANALOG WORLD CLOCK + FULL MAP FLAGS / MOBILE UNCHANGED 2026-09-04
 # FINAL PC RIGHT PANEL TABBED + STABLE CLICK / SINGLE-VIEW DASHBOARD 2026-09-04
 # FINAL PC VISUAL DASHBOARD CONCEPT MATCH / MOBILE UNCHANGED 2026-09-04
@@ -23886,6 +23888,193 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   PC HARD FIX — ANALOG CLOCKS + FULL 2D MAP + FLAG IMAGES
+   Mobile unchanged.
+   ============================================================ */
+@media (min-width:1000px) {{
+  .pc-world-time-card {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    flex:0 0 auto !important;
+  }}
+
+  .pc-world-clock-strip {{
+    display:grid !important;
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:8px !important;
+    min-height:106px !important;
+  }}
+
+  .pc-analog-clock-card {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }}
+
+  .pc-flag-img,
+  .map-flag-img {{
+    display:inline-block !important;
+    width:16px !important;
+    height:11px !important;
+    object-fit:cover !important;
+    border-radius:2px !important;
+    box-shadow:0 0 0 1px rgba(0,0,0,.10) !important;
+    vertical-align:middle !important;
+    flex:0 0 auto !important;
+  }}
+
+  .pc-clock-place {{
+    min-height:18px !important;
+  }}
+
+  /* Use the complete flat SVG map on PC, not the globe stage. */
+  #pc-rail-page-map #world-map-panel .globe-stage {{
+    display:none !important;
+  }}
+
+  #pc-rail-page-map #world-map-panel .world-map-inline.globe-texture-source {{
+    display:block !important;
+    position:relative !important;
+    width:100% !important;
+    height:auto !important;
+    aspect-ratio:2 / 1 !important;
+    max-height:none !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    margin:0 auto !important;
+    object-fit:contain !important;
+  }}
+
+  #pc-rail-page-map #world-map-panel .country-map-visual {{
+    height:auto !important;
+    min-height:0 !important;
+    overflow:visible !important;
+    padding:10px 8px 18px !important;
+  }}
+
+  #pc-rail-page-map #world-map-panel .country-map-content {{
+    overflow:visible !important;
+  }}
+
+  #pc-rail-page-map .clean-map-country-layer {{
+    position:absolute !important;
+    inset:0 !important;
+    z-index:8 !important;
+    pointer-events:none !important;
+  }}
+
+  #pc-rail-page-map .clean-map-country {{
+    pointer-events:none !important;
+  }}
+
+  #pc-rail-page-map .clean-map-country-label {{
+    pointer-events:auto !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    gap:4px !important;
+    min-height:24px !important;
+    padding:3px 6px !important;
+    white-space:nowrap !important;
+  }}
+
+  #pc-rail-page-map .clean-map-country-label .name {{
+    font-size:8.5px !important;
+    font-weight:900 !important;
+  }}
+
+  #pc-rail-page-map .clean-map-country-label .count {{
+    font-size:8px !important;
+    font-weight:950 !important;
+  }}
+
+  #pc-rail-page-map #country-chip-rail .flag {{
+    display:inline-flex !important;
+    align-items:center !important;
+    margin-right:3px !important;
+  }}
+}}
+
+
+/* ============================================================
+   MOBILE RESTORE — PC 전용 지도/분석 요소 모바일에서 완전 숨김
+   ============================================================ */
+@media (max-width: 999px) {{
+
+  /* PC 우측 분석 패널 */
+  #pc-insight-rail,
+  #pc-rail-tabs,
+  .pc-rail-tabs,
+  .pc-rail-page,
+  .pc-rail-card,
+  .pc-monitor-summary-card,
+  .pc-mini-analytics-card {{
+    display: none !important;
+  }}
+
+  /* PC 국가 분석 패널 */
+  #pc-country-overview,
+  .pc-country-overview,
+  #pc-country-selected,
+  .pc-country-selected,
+  #pc-country-ranking,
+  .pc-country-ranking,
+  #pc-country-reset,
+  .pc-country-reset {{
+    display: none !important;
+  }}
+
+  /* PC 국가 필터 상태 */
+  #pc-country-filter-result,
+  .pc-country-filter-result,
+  #pc-country-filter-clear,
+  .pc-country-filter-clear {{
+    display: none !important;
+  }}
+
+  /* PC 카테고리 요약 */
+  #pc-category-strip,
+  .pc-category-strip,
+  .pc-category-chip {{
+    display: none !important;
+  }}
+
+  /* PC 세계시간 / 아날로그 시계 */
+  .pc-world-time-card,
+  #pc-world-clock-strip,
+  .pc-world-clock-strip,
+  .pc-analog-clock-card,
+  .pc-clock-place,
+  .pc-clock-digital,
+  .pc-clock-zone {{
+    display: none !important;
+  }}
+
+  /* PC 지도 페이지용 별도 영역 */
+  #pc-rail-page-map,
+  #pc-map-page-host {{
+    display: none !important;
+  }}
+
+  /* PC 지도 분석용 보조 UI */
+  .pc-country-overview-head,
+  .pc-country-overview-title,
+  .pc-country-overview-sub,
+  .pc-country-selected-label,
+  .pc-country-selected-main,
+  .pc-country-rank-item,
+  .pc-country-rank-no,
+  .pc-country-rank-name,
+  .pc-country-rank-bar,
+  .pc-country-rank-fill,
+  .pc-country-rank-count,
+  .pc-country-overview-foot {{
+    display: none !important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -24879,7 +25068,56 @@ main {{
             <div class="pc-world-time-sub">현지시간 · 서머타임 자동 반영</div>
           </div>
         </div>
-        <div id="pc-world-clock-strip" class="pc-world-clock-strip"></div>
+        <div id="pc-world-clock-strip" class="pc-world-clock-strip">
+          <div class="pc-analog-clock-card" data-pc-clock-zone="Asia/Seoul">
+            <div class="pc-clock-place"><img class="pc-flag-img" src="https://flagcdn.com/w20/kr.png" alt=""><span>서울</span></div>
+            <div class="pc-analog-face">
+              <span class="pc-clock-mark3">3</span><span class="pc-clock-mark9">9</span>
+              <span class="pc-clock-hand pc-clock-hour"></span>
+              <span class="pc-clock-hand pc-clock-minute"></span>
+              <span class="pc-clock-hand pc-clock-second"></span>
+              <span class="pc-clock-center"></span>
+            </div>
+            <div class="pc-clock-digital">--:--</div>
+            <div class="pc-clock-zone">KST</div>
+          </div>
+          <div class="pc-analog-clock-card" data-pc-clock-zone="America/New_York">
+            <div class="pc-clock-place"><img class="pc-flag-img" src="https://flagcdn.com/w20/us.png" alt=""><span>뉴욕</span></div>
+            <div class="pc-analog-face">
+              <span class="pc-clock-mark3">3</span><span class="pc-clock-mark9">9</span>
+              <span class="pc-clock-hand pc-clock-hour"></span>
+              <span class="pc-clock-hand pc-clock-minute"></span>
+              <span class="pc-clock-hand pc-clock-second"></span>
+              <span class="pc-clock-center"></span>
+            </div>
+            <div class="pc-clock-digital">--:--</div>
+            <div class="pc-clock-zone">ET</div>
+          </div>
+          <div class="pc-analog-clock-card" data-pc-clock-zone="Europe/London">
+            <div class="pc-clock-place"><img class="pc-flag-img" src="https://flagcdn.com/w20/gb.png" alt=""><span>런던</span></div>
+            <div class="pc-analog-face">
+              <span class="pc-clock-mark3">3</span><span class="pc-clock-mark9">9</span>
+              <span class="pc-clock-hand pc-clock-hour"></span>
+              <span class="pc-clock-hand pc-clock-minute"></span>
+              <span class="pc-clock-hand pc-clock-second"></span>
+              <span class="pc-clock-center"></span>
+            </div>
+            <div class="pc-clock-digital">--:--</div>
+            <div class="pc-clock-zone">UK</div>
+          </div>
+          <div id="pc-selected-clock" class="pc-analog-clock-card" data-pc-clock-zone="Europe/Sofia">
+            <div class="pc-clock-place"><img id="pc-selected-clock-flag" class="pc-flag-img" src="https://flagcdn.com/w20/bg.png" alt=""><span id="pc-selected-clock-city">소피아</span></div>
+            <div class="pc-analog-face">
+              <span class="pc-clock-mark3">3</span><span class="pc-clock-mark9">9</span>
+              <span class="pc-clock-hand pc-clock-hour"></span>
+              <span class="pc-clock-hand pc-clock-minute"></span>
+              <span class="pc-clock-hand pc-clock-second"></span>
+              <span class="pc-clock-center"></span>
+            </div>
+            <div class="pc-clock-digital">--:--</div>
+            <div class="pc-clock-zone">현지</div>
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -25329,7 +25567,10 @@ function syncCountryPinMeta(){{
     button.dataset.lon=String(meta.lon);
     button.dataset.lat=String(meta.lat);
     const flagNode=button.querySelector('.flag');
-    if(flagNode && meta.flag)flagNode.textContent=meta.flag;
+    if(flagNode && meta.flag){{
+      flagNode.textContent='';
+      flagNode.innerHTML=`<img class="map-flag-img" src="https://flagcdn.com/w20/${{code.toLowerCase()}}.png" alt="">`;
+    }}
     const labelNode=[...button.querySelectorAll('span')].find(node=>!node.classList.contains('flag') && !node.classList.contains('country-count'));
     if(labelNode && meta.name)labelNode.textContent=meta.name;
   }});
@@ -27132,7 +27373,8 @@ function renderHtmlCountryLabels(items){{
     const button=document.createElement('button');
     button.type='button';
     button.className='clean-map-country-label';
-    button.innerHTML=`<span class="flag">${{item.flag}}</span><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
+    const flagSrc=`https://flagcdn.com/w20/${{item.code.toLowerCase()}}.png`;
+    button.innerHTML=`<img class="map-flag-img" src="${{flagSrc}}" alt=""><span class="name">${{item.name}}</span><span class="count">${{item.count}}건</span>`;
     button.setAttribute('aria-label',`${{item.name}} ${{item.count}}건. 해당 국가 기사 보기`);
     button.addEventListener('click',(event)=>{{
       event.preventDefault();
@@ -30406,12 +30648,22 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function renderPcWorldClocks() {{
     if(!window.matchMedia("(min-width:1000px)").matches) return;
-    var strip=document.getElementById("pc-world-clock-strip");
-    if(!strip) return;
-    var selected=pcClockSelectedMeta();
-    var clocks=PC_CLOCKS.concat([selected]);
-    strip.innerHTML=clocks.map(pcClockMarkup).join("");
+    updateSelectedPcClock();
     updatePcWorldClocks();
+  }}
+
+  function updateSelectedPcClock() {{
+    var code="";
+    try {{ code=activeCountryFilter || ""; }} catch(_e) {{}}
+    var nextCode=(code && COUNTRY_CLOCK_META[code]) ? code : "BG";
+    var info=COUNTRY_CLOCK_META[nextCode] || COUNTRY_CLOCK_META.BG;
+    var card=document.getElementById("pc-selected-clock");
+    if(!card || !info) return;
+    card.setAttribute("data-pc-clock-zone",info.timeZone);
+    var city=document.getElementById("pc-selected-clock-city");
+    if(city) city.textContent=info.city;
+    var flag=document.getElementById("pc-selected-clock-flag");
+    if(flag) flag.src="https://flagcdn.com/w20/"+nextCode.toLowerCase()+".png";
   }}
 
   function updatePcWorldClocks() {{
@@ -30457,7 +30709,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }}
 
   function refreshPcVisuals() {{
-    renderPcWorldClocks();
+    updateSelectedPcClock();
+    updatePcWorldClocks();
     ensurePcFlags();
   }}
 
