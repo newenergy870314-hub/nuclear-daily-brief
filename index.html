@@ -10153,6 +10153,210 @@ main {
   }
 }
 
+
+/* ============================================================
+   PC TIMELINE VISUAL CARDS 2026-09-04
+   Desktop only - mobile untouched
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {
+  .pc-timeline-card {
+    overflow:visible !important;
+  }
+
+  .pc-timeline-card .pc-rail-head {
+    min-height:54px;
+    padding:14px 16px 12px !important;
+  }
+
+  .pc-timeline-card .pc-rail-title {
+    font-size:17px !important;
+    letter-spacing:-.35px !important;
+  }
+
+  .pc-timeline-wrap {
+    padding:13px 14px 15px !important;
+  }
+
+  .pc-timeline {
+    padding-left:0 !important;
+  }
+
+  .pc-timeline:before {
+    display:none !important;
+  }
+
+  .pc-timeline-item {
+    display:grid !important;
+    grid-template-columns:70px minmax(0,1fr) 76px !important;
+    gap:10px !important;
+    align-items:center !important;
+    background:#fff !important;
+    border:1px solid #dfe8f2 !important;
+    border-radius:12px !important;
+    padding:10px !important;
+    margin-bottom:9px !important;
+    box-shadow:0 2px 7px rgba(35,64,98,.05) !important;
+    transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease !important;
+  }
+
+  .pc-timeline-item:hover {
+    transform:translateY(-1px);
+    box-shadow:0 5px 14px rgba(35,64,98,.11) !important;
+    border-color:#b9cde2 !important;
+  }
+
+  .pc-timeline-item:before {
+    display:none !important;
+  }
+
+  .pc-timeline-date {
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:center !important;
+    min-width:0 !important;
+    width:70px !important;
+    height:58px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border-radius:11px !important;
+    background:#e8f1fb !important;
+    color:#244f7b !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+  }
+
+  .pc-timeline-date .pc-date-day {
+    font-size:21px !important;
+    font-weight:950 !important;
+    letter-spacing:-.5px !important;
+  }
+
+  .pc-timeline-date .pc-date-month {
+    margin-top:5px !important;
+    font-size:9.5px !important;
+    font-weight:850 !important;
+    opacity:.82 !important;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-date {
+    background:#fff0bd !important;
+    color:#8d6200 !important;
+  }
+
+  .pc-timeline-content {
+    min-width:0 !important;
+  }
+
+  .pc-timeline-title {
+    color:#213e5d !important;
+    font-size:12.7px !important;
+    line-height:1.42 !important;
+    font-weight:900 !important;
+    letter-spacing:-.18px !important;
+    -webkit-line-clamp:2 !important;
+    margin:0 !important;
+  }
+
+  .pc-timeline-meta {
+    color:#8794a4 !important;
+    font-size:9.7px !important;
+    line-height:1.3 !important;
+    margin-top:5px !important;
+  }
+
+  .pc-timeline-thumb {
+    width:76px !important;
+    height:58px !important;
+    border-radius:9px !important;
+    overflow:hidden !important;
+    background:linear-gradient(135deg,#dbe6f0,#eef4f9) !important;
+    border:1px solid #d9e3ec !important;
+  }
+
+  .pc-timeline-thumb img {
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+  }
+
+  .pc-timeline-thumb.pc-no-image {
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    color:#6f8195 !important;
+    font-size:18px !important;
+    font-weight:900 !important;
+  }
+
+  .pc-timeline-card.hyundai .pc-timeline-item {
+    border-left:4px solid #2c669f !important;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-item {
+    border-left:4px solid #c88b00 !important;
+  }
+
+  .pc-timeline-section-note {
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:0 2px 10px;
+    color:#7c8a9b;
+    font-size:10px;
+    font-weight:750;
+  }
+
+  .pc-timeline-section-note:before {
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#2c669f;
+    flex:0 0 auto;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-section-note:before {
+    background:#c88b00;
+  }
+}
+
+
+/* ============================================================
+   PC TIMELINE DIRECT ARTICLE OPEN 2026-09-04
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {
+  .pc-timeline-item {
+    position:relative !important;
+  }
+
+  .pc-timeline-item:after {
+    content:"↗";
+    position:absolute;
+    right:7px;
+    top:5px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,.92);
+    border:1px solid #d7e3ef;
+    color:#52708e;
+    font-size:10px;
+    font-weight:900;
+    box-shadow:0 1px 3px rgba(35,64,98,.06);
+    pointer-events:none;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-item:after {
+    color:#946500;
+    border-color:#eadba8;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -10161,7 +10365,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 9.4(금) 11:10 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.4(금) 11:20 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -23925,35 +24129,35 @@ main {
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.etoday.co.kr/news/view/2621946?trc=ir_news"
-  data-title="현대건설, 성수동서 힐스테이트 20주년 팝업 운영"
-  data-publisher="이투데이"
+  data-url="https://www.newsis.com/view/NISX20260904_0003776390"
+  data-title="현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업"
+  data-publisher="뉴시스"
   data-group="현대건설"
   data-language="ko"
   data-priority="1"
-  data-published="1788487440"
+  data-published="1788488206"
   data-country="KR"
-  data-search="현대건설, 성수동서 힐스테이트 20주년 팝업 운영 이투데이 현대건설 29cm와 협업⋯4일부터 10일까지 진행신규 bi·주거 특화상품 소개하고 체험 공간 마련▲현대건설 힐스테이트 &#x27;find my hillstate&#x27; 팝업 스토어 사진 (사"
+  data-search="현대건설 힐스테이트, 성수서 첫 팝업…29cm와 협업 뉴시스 현대건설 [서울=뉴시스]이종성 기자 = 현대건설이 힐스테이트 브랜드 론칭 20주년을 맞아 서울 성수동에서 브랜드 팝업스토어를 연다. 현대건설은 패션·라이프스타일 플랫폼 무신사가 운영하는 29cm와 4일부터 10일까지 일주일간 &#x27;이구홈 성수&#x27; 1호점에서 힐스테이트 팝업스토어 &#x27;find my hillstate&#x27;를 운영한다고 이날 밝혔다. 이번 팝업은 &#x27;새로워진 힐스테이트를 통해 나의 라이프 취향을 발견하다&#x27;는 주제로 진행된다. 힐스테이트의 새로운 브랜드 아이덴티티(bi)와 핵심 가치를 브랜드 홍보존, 고객 체험존, 굿즈 전시존 등에 담았다. 현대건설은 리브랜딩 이후 &#x27;스타일리시"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">이투데이</div>
+        <div class="publisher">뉴시스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대건설, 성수동서 힐스테이트 20주년 팝업 운영</div>
-      <div class="article-snippet">29CM와 협업⋯4일부터 10일까지 진행신규 BI·주거 특화상품 소개하고 체험 공간 마련▲현대건설 힐스테이트 &#x27;FIND MY HILLSTATE&#x27; 팝업 스토어 사진 (사</div>
+      <div class="headline"><span class="new-badge">NEW</span>현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업</div>
+      <div class="article-snippet">[서울=뉴시스]이종성 기자 = 현대건설이 힐스테이트 브랜드 론칭 20주년을 맞아 서울 성수동에서 브랜드 팝업스토어를 연다. 현대건설은 패션·라이프스타일 플랫폼 무신사가 운영하는 29CM와 4일부터 10일까지 일주일간 &#x27;이구홈 성수&#x27; 1호점에서 힐스테이트 팝업스토어 &#x27;FIND MY HILLSTATE&#x27;를 운영한다고 이날 밝혔다. 이번 팝업은 &#x27;새로워진 힐스테이트를 통해 나의 라이프 취향을 발견하다&#x27;는 주제로 진행된다. 힐스테이트의 새로운 브랜드 아이덴티티(BI)와 핵심 가치를 브랜드 홍보존, 고객 체험존, 굿즈 전시존 등에 담았다. 현대건설은 리브랜딩 이후 &#x27;스타일리시</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1942a720a84def125b323c1d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/e907e3e7320201ab893a6400.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24218,7 +24422,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040002" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6041" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 4기 건설 전면에 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309632" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정 - FETV</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040002" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6041" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 4기 건설 전면에 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">삼성물산, 스웨덴 1.2GW급 신규 SMR 사업 공동개발협약…유럽 시장 공략 가속</div>
@@ -24284,7 +24488,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500153" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466708" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719405" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749850" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대우건설, 1438세대 규모 ‘두정역 푸르지오 그랑피크’ 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 8개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500153" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309634" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">대우건설, 천안에 1438가구 두정역 푸르지오 그랑피크 분양 - FETV</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466708" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719405" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749850" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대우건설, 1438세대 규모 ‘두정역 푸르지오 그랑피크’ 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관</div>
@@ -24416,7 +24620,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.2news.co.kr/news/articleView.html?idxno=23948" target="_blank" rel="noopener"><span class="related-coverage-publisher">2news.co.kr</span><span class="related-coverage-title">SK에코플랜트, 해상풍력 매각하고 AI·반도체로 사업 재편 - 에너지뉴스</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">AI·반도체 &#x27;올인&#x27; SK에코플랜트…중복상장 딛고 IPO 재추진 시점은</div>
@@ -24842,7 +25046,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5216973"
   data-title="김민석 &quot;공공기관 이전 차질 없게…지역 주민과 상생 방안 모색&quot;"
   data-publisher="MBN"
@@ -24866,12 +25070,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김민석 &quot;공공기관 이전 차질 없게…지역 주민과 상생 방안 모색&quot;</div>
+      <div class="headline">김민석 &quot;공공기관 이전 차질 없게…지역 주민과 상생 방안 모색&quot;</div>
       <div class="article-snippet">더불어민주당 김민석 대표는 오늘(4일) 정부의 행정·공공기관 이전 및 공공기관 기능 개혁 방안을 두고 &quot;기관 이전 및 기능 개혁이 원활하게 이뤄지도록 하겠다&quot;고 말했습니다.김 대표는 이날 충남 홍성 충남도청에서 열린 현장 최고위원회의에서 &quot;이전 기관의 직원들과 (기관이) 이전될 지역의 주민들이 상생하는 방법을 적극적으로 찾겠다&quot;면서 이같이 밝혔습니다.김 대표는 한국전력 자회사인 5개 발전공기업이 통합되는 것과 관련해서도 &quot;박수현 충남지사가 5개사 통합 본사의 충남 유치 등 여러 제언을 주셨다&quot;면서 &quot;무겁게 경청하며 저희가 할 수 있는 방향을 찾아보겠다&quot;고 강조했습니다</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+    <div class="preview-image"><img src="assets/thumbnails/d93b556512ef4afd1846966b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24896,7 +25100,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202862" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한전, 美 EPRI와 송변전 핵심기술 협력 확대한다 - 에너지데일리</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한전, EPRI와 송변전 핵심기술 협력</div>
@@ -25007,7 +25211,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776361"
   data-title="나주시장 &quot;정부 &#x27;2차 공공기관 이전&#x27;, 혁신도시 집적화 환영&quot;"
   data-publisher="뉴시스"
@@ -25031,7 +25235,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>나주시장 &quot;정부 &#x27;2차 공공기관 이전&#x27;, 혁신도시 집적화 환영&quot;</div>
+      <div class="headline">나주시장 &quot;정부 &#x27;2차 공공기관 이전&#x27;, 혁신도시 집적화 환영&quot;</div>
       <div class="article-snippet">[나주=뉴시스]이창우 기자 = 정부가 2차 공공기관 지방 이전을 기존 혁신도시 중심으로 추진하고 기능적으로 연관된 기관을 집적화하기로 하면서 나주시가 환영 입장을 밝혔다. 나주시는 4일 나주시장 명의의 입장문을 내고 정부가 전날 발표한 2차 공공기관 이전 추진 방향에 대해 &quot;12만 나주시민과 함께 뜨겁게 환영한다&quot;고 밝혔다. 정부는 수도권 공공기관 350여곳을 대상으로 올해 4분기 이전계획을 마련하고 2027년부터 속도감 있는 이전에 착수할 계획이다. 윤병태 나주시장은 &quot;기존 혁신도시를 중심으로 기관을 집적·집중 배치한다는 방침은 수도권 일극 체제를 넘어 균형성장 국</div>
     </div>
   </div>
@@ -25121,7 +25325,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -25154,6 +25358,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/f3f94d8cdb3cf3d48af941e9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.jnilbo.com/news/articleView.html?idxno=90000062462"
+  data-title="김정관 장관 &quot;미국 반도체 관세 불이익 없다&quot; - 전남일보"
+  data-publisher="전남일보"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788487460"
+  data-country="US"
+  data-search="김정관 장관 &quot;미국 반도체 관세 불이익 없다&quot; - 전남일보 전남일보 원전 관계부처 김정관 산업통상부 장관이 3일(현지시간) 워싱턴dc에서 열린 &#x27;미국 투자신고식 및 투자가 라운드테이블&#x27; 행사 후 미국의 반도체 관세와 관련해 한미 무역합의에 따라"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전남일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 장관 &quot;미국 반도체 관세 불이익 없다&quot; - 전남일보</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 3일(현지시간) 워싱턴DC에서 열린 &#x27;미국 투자신고식 및 투자가 라운드테이블&#x27; 행사 후 미국의 반도체 관세와 관련해 한미 무역합의에 따라</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4dcc9c6efbc229eef6ae2694.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25211,7 +25448,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 11개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inews24.com/view/2001939" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">김정관 &quot;韓도 대만식 반도체 관세 혜택 가능&quot;…美와 협의</span></a><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201217" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문</span></a><a class="related-coverage-link" href="https://www.daejonilbo.com/news/articleView.html?idxno=2298740" target="_blank" rel="noopener"><span class="related-coverage-publisher">대전일보</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202609040636001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의”</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 13개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0104_202609041034046084" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">김정관 산업부 장관 &quot;미국 반도체 관세, 한국에 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.inews24.com/view/2001939" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">김정관 &quot;韓도 대만식 반도체 관세 혜택 가능&quot;…美와 협의</span></a><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201217" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문</span></a><a class="related-coverage-link" href="https://www.newscj.com/news/articleView.html?idxno=3430044" target="_blank" rel="noopener"><span class="related-coverage-publisher">천지일보</span><span class="related-coverage-title">美 반도체 관세 검토… 김정관 “韓 불리하지 않게 협의”</span></a><a class="related-coverage-link" href="https://www.daejonilbo.com/news/articleView.html?idxno=2298740" target="_blank" rel="noopener"><span class="related-coverage-publisher">대전일보</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202609040636001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의”</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;</div>
@@ -25328,9 +25565,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.edaily.co.kr/News/Read?newsId=03312806645576840&amp;mediaCodeNo=257"
+  data-title="美, 2000억달러 대미투자 외 반도체도 제기…靑 “초기 논의 단계”"
+  data-publisher="이데일리"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788488033"
+  data-country="US"
+  data-search="美, 2000억달러 대미투자 외 반도체도 제기…靑 “초기 논의 단계” 이데일리 원전 대미투자 미국이 한미 간 2000억달러 규모 전략투자 협상과 맞물려 반도체 문제도 추가로 제기한 것으로 확인됐다. 대미투자와 반도체 관세·현지 생산 문제가 별도로 다뤄질 경우 한국이 미국으로부터 사실상 ‘중복 청구서’를 받을 수 있다는 우려가 나온다. 청와대 고위 관계자는 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美, 2000억달러 대미투자 외 반도체도 제기…靑 “초기 논의 단계”</div>
+      <div class="article-snippet">미국이 한미 간 2000억달러 규모 전략투자 협상과 맞물려 반도체 문제도 추가로 제기한 것으로 확인됐다. 대미투자와 반도체 관세·현지 생산 문제가 별도로 다뤄질 경우 한국이 미국으로부터 사실상 ‘중복 청구서’를 받을 수 있다는 우려가 나온다. 청와대 고위 관계자는 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b5845990fa2e657b048bdf5d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003775923"
   data-title="대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령"
@@ -25352,7 +25622,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090408540736379" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904504630" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;대미투자 9월 중 발표…美반도체 관세 ‘불리하지 않은 대우’ 논의”</span></a><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090408540736379" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.fnnews.com/news/202609040626334987" target="_blank" rel="noopener"><span class="related-coverage-publisher">파이낸셜뉴스</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 韓 불리하지 않게 논의... 대미투자 발표 9월 내 마무리&quot;</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령</div>
@@ -25430,21 +25700,21 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.fnnews.com/news/202609040626334987"
-  data-title="김정관 장관 &quot;美 반도체 관세, 韓 불리하지 않게 논의... 대미투자 발표 9월 내 마무리&quot;"
-  data-publisher="파이낸셜뉴스"
+<article class="preview-card new-article"
+  data-url="https://www.ytn.co.kr/_ln/0101_202609041121016956"
+  data-title="[속보] 청와대 &quot;호르무즈 파병 검토 중...전투·비전투 종합 검토&quot;"
+  data-publisher="YTN"
   data-group="원전 대미투자"
   data-language="ko"
-  data-priority="1"
-  data-published="1788471126"
-  data-country="KR"
-  data-search="김정관 장관 &quot;美 반도체 관세, 韓 불리하지 않게 논의... 대미투자 발표 9월 내 마무리&quot; 파이낸셜뉴스 원전 대미투자 미국 도널드 트럼프 행정부가 반도체 및 관련 완제품에 대한 관세 부과를 검토 중인 가운데, 김정관 산업통상자원부 장관은 한국이 주요 경쟁국에 비해 불리한 처우를 받지 않는 방향으로 한미 간 논의가 진행되고 있다고 밝혔다.김 장관은 3일 미국 워싱턴 dc에서 열린.."
+  data-priority="2"
+  data-published="1788488460"
+  data-country="OTHER"
+  data-search="[속보] 청와대 &quot;호르무즈 파병 검토 중...전투·비전투 종합 검토&quot; ytn 원전 대미투자 청와대 &quot;호르무즈 기여, 대비태세 손상 없게 운신&quot; &quot;호르무즈 파병 검토 중…전투·비전투 종합 검토&quot; &quot;파병, 미·영·프와 협의 단계…정해진 건 없어&quot; 청와대 &quot;한미 투자이슈에 반도체도 논의 대상&quot; ◇ 자세한 뉴스가 곧 이어집니다. ※ &#x27;당신의 제보가 뉴스가 됩니다&#x27; [카카오톡] ytn 검색해 채널 추가 [전화] 02-398-8585 [메일] social@ytn."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">파이낸셜뉴스</div>
+        <div class="publisher">YTN</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -25454,12 +25724,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">김정관 장관 &quot;美 반도체 관세, 韓 불리하지 않게 논의... 대미투자 발표 9월 내 마무리&quot;</div>
-      <div class="article-snippet">미국 도널드 트럼프 행정부가 반도체 및 관련 완제품에 대한 관세 부과를 검토 중인 가운데, 김정관 산업통상자원부 장관은 한국이 주요 경쟁국에 비해 불리한 처우를 받지 않는 방향으로 한미 간 논의가 진행되고 있다고 밝혔다.김 장관은 3일 미국 워싱턴 DC에서 열린..</div>
+      <div class="headline"><span class="new-badge">NEW</span>[속보] 청와대 &quot;호르무즈 파병 검토 중...전투·비전투 종합 검토&quot;</div>
+      <div class="article-snippet">청와대 &quot;호르무즈 기여, 대비태세 손상 없게 운신&quot; &quot;호르무즈 파병 검토 중…전투·비전투 종합 검토&quot; &quot;파병, 미·영·프와 협의 단계…정해진 건 없어&quot; 청와대 &quot;한미 투자이슈에 반도체도 논의 대상&quot; ◇ 자세한 뉴스가 곧 이어집니다. ※ &#x27;당신의 제보가 뉴스가 됩니다&#x27; [카카오톡] YTN 검색해 채널 추가 [전화] 02-398-8585 [메일] social@ytn.</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9295157987c016fda8281bea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/6252a37e31f78503cbbc7155.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260904072800001?section=politics/all"
+  data-title="[속보] 靑 &quot;한미 투자이슈에 반도체도 논의대상…장애요인 안되게 노력&quot; | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788487753"
+  data-country="OTHER"
+  data-search="[속보] 靑 &quot;한미 투자이슈에 반도체도 논의대상…장애요인 안되게 노력&quot; | 연합뉴스 연합뉴스 원전 대미투자 제보는 카카오톡 okjebo 2026/09/04 11:09 송고 2026년09월04일 11시09분 송고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[속보] 靑 &quot;한미 투자이슈에 반도체도 논의대상…장애요인 안되게 노력&quot; | 연합뉴스</div>
+      <div class="article-snippet">제보는 카카오톡 okjebo 2026/09/04 11:09 송고 2026년09월04일 11시09분 송고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bfe89c9ea078765dfa2c3a35.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25571,7 +25874,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260904103733978"
   data-title="李대통령, 6~9일 프랑스 순방…마크롱과 정상회담"
   data-publisher="아주경제"
@@ -25595,7 +25898,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>李대통령, 6~9일 프랑스 순방…마크롱과 정상회담</div>
+      <div class="headline">李대통령, 6~9일 프랑스 순방…마크롱과 정상회담</div>
       <div class="article-snippet">이재명 대통령이 지난 3일 청와대에서 열린 수석보좌관회의에서 발언하고 있다. [사진=연합뉴스] 이재명 대통령이 오는 6일부터 9일까지 에마뉘엘 마크롱 프랑스 대통령의 초청으로 프랑스를 방문한다. 이 대통령은 마크롱 대통령과 ‘뤼미에르 서밋’ 공동의장을 맡은 뒤 파리에서 정상회담과 만찬 등 국빈 방문 일정을 소화한다.   위성락 국가안보실장은 4일 춘추관에서 사전 브리핑을 통해 이 대통령의 순방 일정과 기대 성과를 발표했다.   위 실장은 “이번 프랑스 방문은 지난 4월 방한한 마크롱 대통령이 이 대통령을 ‘</div>
     </div>
   </div>
@@ -25604,7 +25907,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=105076"
   data-title="원자력연구원, MSR 해외 진출 성공…덴마크 Saltfoss에 30억원 규모 기술 수출"
   data-publisher="에너지플랫폼뉴스"
@@ -25625,10 +25928,10 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7698" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">“韓 MSR 기술 덴마크 간다”…원자력硏, 30억원 규모 기술 수출</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6050" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7698" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">“韓 MSR 기술 덴마크 간다”…원자력硏, 30억원 규모 기술 수출</span></a><a class="related-coverage-link" href="http://www.knpnews.com/news/articleView.html?idxno=34431" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국원자력신문</span><span class="related-coverage-title">원자력연구원 K-용융염원자로(MSR) 해외로 나간다</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6050" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원자력연구원, MSR 해외 진출 성공…덴마크 Saltfoss에 30억원 규모 기술 수출</div>
+      <div class="headline">원자력연구원, MSR 해외 진출 성공…덴마크 Saltfoss에 30억원 규모 기술 수출</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] MSR(용융염원자로) 개발을 이끌어온 원자력연구원이 덴마크 Saltfoss에 30억원 규모 기술 수출에 성공하면서 결실을 맺었다.한국원자력연구원은 덴마크 원자력에너지 기업 ‘솔트포스(Saltfoss, 구 Seaborg)’와 약 30억 원(226만2000 달러) 규모의 용융염원자로 핵연료 제조 및 재료 부식 평가 기술 수출 계약을 4일 체결했다고 밝혔다.이번 계약에 따라 연구원은 향후 2년간 솔트포스가 개발 중인 불화물 기반 MSR을 대상으로 ▲불화물 용융염 전처리 수행 ▲핵연료 제조 및 특성 평가 ▲</div>
     </div>
   </div>
@@ -26213,9 +26516,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.news24.com/investigations/silenced"
+  data-title="Silenced | Investigations | News24"
+  data-publisher="News24"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788488169"
+  data-country="OTHER"
+  data-search="silenced | investigations | news24 news24 국내 원자력 협회·학회 get the latest investigative news about the murder of babita deokaran and the tembisa hospital tenders."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">News24</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Silenced | Investigations | News24</div>
+      <div class="article-snippet">Get the latest investigative news about the murder of Babita Deokaran and the Tembisa Hospital tenders.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/59eebc1deda1f5aae5466c82.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
@@ -26474,7 +26810,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://neutronbytes.com/2026/09/03/palisades-begins-loading-fuel-at-palisades/"
   data-title="Palisades Begins Loading Fuel at Palisades"
   data-publisher="Neutron Bytes"
@@ -26498,7 +26834,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Palisades Begins Loading Fuel at Palisades</div>
+      <div class="headline">Palisades Begins Loading Fuel at Palisades</div>
       <div class="article-snippet">Palisades Begins Loading Fuel at Palisades Holtec Starts Construction of SMR HI-TEST Facility at INL Lightbridge Selected for DOE’s Launch Pad at INL Success Not a Given for All Microreactors…</div>
     </div>
   </div>
@@ -26553,7 +26889,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">12건</span>
+    <span class="group-count">14건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26655,6 +26991,72 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003776390"
+  data-title="현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업"
+  data-publisher="뉴시스"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788488206"
+  data-country="KR"
+  data-search="현대건설 힐스테이트, 성수서 첫 팝업…29cm와 협업 뉴시스 현대건설 [서울=뉴시스]이종성 기자 = 현대건설이 힐스테이트 브랜드 론칭 20주년을 맞아 서울 성수동에서 브랜드 팝업스토어를 연다. 현대건설은 패션·라이프스타일 플랫폼 무신사가 운영하는 29cm와 4일부터 10일까지 일주일간 &#x27;이구홈 성수&#x27; 1호점에서 힐스테이트 팝업스토어 &#x27;find my hillstate&#x27;를 운영한다고 이날 밝혔다. 이번 팝업은 &#x27;새로워진 힐스테이트를 통해 나의 라이프 취향을 발견하다&#x27;는 주제로 진행된다. 힐스테이트의 새로운 브랜드 아이덴티티(bi)와 핵심 가치를 브랜드 홍보존, 고객 체험존, 굿즈 전시존 등에 담았다. 현대건설은 리브랜딩 이후 &#x27;스타일리시"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업</div>
+      <div class="article-snippet">[서울=뉴시스]이종성 기자 = 현대건설이 힐스테이트 브랜드 론칭 20주년을 맞아 서울 성수동에서 브랜드 팝업스토어를 연다. 현대건설은 패션·라이프스타일 플랫폼 무신사가 운영하는 29CM와 4일부터 10일까지 일주일간 &#x27;이구홈 성수&#x27; 1호점에서 힐스테이트 팝업스토어 &#x27;FIND MY HILLSTATE&#x27;를 운영한다고 이날 밝혔다. 이번 팝업은 &#x27;새로워진 힐스테이트를 통해 나의 라이프 취향을 발견하다&#x27;는 주제로 진행된다. 힐스테이트의 새로운 브랜드 아이덴티티(BI)와 핵심 가치를 브랜드 홍보존, 고객 체험존, 굿즈 전시존 등에 담았다. 현대건설은 리브랜딩 이후 &#x27;스타일리시</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e907e3e7320201ab893a6400.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257"
+  data-title="&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략"
+  data-publisher="이데일리"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788487845"
+  data-country="KR"
+  data-search="&quot;아파트도 성수동 팝업&quot;…현대건설, 29cm 손잡고 mz 공략 이데일리 현대건설 현대건설이 아파트 브랜드 힐스테이트 론칭 20주년을 맞아 패션·라이프스타일 플랫폼 무신사가 운영하는 29cm와 손잡고 서울 성수동에 팝업 스토어를 연다고 4일 밝혔다. 사진=현대건설 제공이번 팝업 스토어는 4일부터 10일까지 ‘이구홈 성수 1호점’에서 ‘파인드 마이..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</div>
+      <div class="article-snippet">현대건설이 아파트 브랜드 힐스테이트 론칭 20주년을 맞아 패션·라이프스타일 플랫폼 무신사가 운영하는 29CM와 손잡고 서울 성수동에 팝업 스토어를 연다고 4일 밝혔다. 사진=현대건설 제공이번 팝업 스토어는 4일부터 10일까지 ‘이구홈 성수 1호점’에서 ‘파인드 마이...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://image.edaily.co.kr/images/Photo/files/NP/S/2026/09/PS26090400563.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.sedaily.com/article/20087166"
   data-title="현대건설, 울산 건설공사 현장에서 중대재해 발생"
@@ -26688,7 +27090,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etoday.co.kr/news/view/2621946?trc=ir_news"
   data-title="현대건설, 성수동서 힐스테이트 20주년 팝업 운영"
   data-publisher="이투데이"
@@ -26712,7 +27114,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대건설, 성수동서 힐스테이트 20주년 팝업 운영</div>
+      <div class="headline">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</div>
       <div class="article-snippet">29CM와 협업⋯4일부터 10일까지 진행신규 BI·주거 특화상품 소개하고 체험 공간 마련▲현대건설 힐스테이트 &#x27;FIND MY HILLSTATE&#x27; 팝업 스토어 사진 (사</div>
     </div>
   </div>
@@ -26958,7 +27360,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">23건</span>
+    <span class="group-count">26건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27127,6 +27529,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.fetv.co.kr/news/articleView.html?idxno=309632"
+  data-title="삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정 - FETV"
+  data-publisher="FETV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788485726"
+  data-country="SE"
+  data-search="삼성물산, 스웨덴 1.2gw smr 사업 전략적 파트너 선정 - fetv fetv 타 건설사 [fetv=임요한 기자] 삼성물산이 스웨덴에서 추진되는 1.2gw 규모 소형모듈원자로(smr) 사업의 전략적 파트너로 뽑혔다.삼성물산은 지난 3일 스웨덴 스톡홀름"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">FETV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정 - FETV</div>
+      <div class="article-snippet">[FETV=임요한 기자] 삼성물산이 스웨덴에서 추진되는 1.2GW 규모 소형모듈원자로(SMR) 사업의 전략적 파트너로 뽑혔다.삼성물산은 지난 3일 스웨덴 스톡홀름</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.fetv.co.kr/news/photo/202609/309632_309365_337.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106692"
   data-title="1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력"
   data-publisher="더구루"
@@ -27180,7 +27615,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040002" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6041" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 4기 건설 전면에 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309632" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정 - FETV</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040002" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6041" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 4기 건설 전면에 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">삼성물산, 스웨덴 1.2GW급 신규 SMR 사업 공동개발협약…유럽 시장 공략 가속</div>
@@ -27325,6 +27760,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.fetv.co.kr/news/articleView.html?idxno=309634"
+  data-title="대우건설, 천안에 1438가구 두정역 푸르지오 그랑피크 분양 - FETV"
+  data-publisher="FETV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788486031"
+  data-country="OTHER"
+  data-search="대우건설, 천안에 1438가구 두정역 푸르지오 그랑피크 분양 - fetv fetv 타 건설사 [fetv=임요한 기자] 대우건설이 충남 천안에서 1438가구 규모 아파트 분양에 나선다. 단지명은 두정역 푸르지오 그랑피크다. 견본주택은 4일 문을 열었다. 분"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">FETV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">대우건설, 천안에 1438가구 두정역 푸르지오 그랑피크 분양 - FETV</div>
+      <div class="article-snippet">[FETV=임요한 기자] 대우건설이 충남 천안에서 1438가구 규모 아파트 분양에 나선다. 단지명은 두정역 푸르지오 그랑피크다. 견본주택은 4일 문을 열었다. 분</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.fetv.co.kr/news/photo/202609/309634_309367_3915.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466708"
   data-title="대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관"
   data-publisher="이뉴스투데이"
@@ -27444,7 +27912,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500153" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466708" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719405" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749850" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대우건설, 1438세대 규모 ‘두정역 푸르지오 그랑피크’ 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 8개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500153" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309634" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">대우건설, 천안에 1438가구 두정역 푸르지오 그랑피크 분양 - FETV</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466708" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719405" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749850" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대우건설, 1438세대 규모 ‘두정역 푸르지오 그랑피크’ 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관</div>
@@ -27622,6 +28090,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.2news.co.kr/news/articleView.html?idxno=23948"
+  data-title="SK에코플랜트, 해상풍력 매각하고 AI·반도체로 사업 재편 - 에너지뉴스"
+  data-publisher="2news.co.kr"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788485700"
+  data-country="OTHER"
+  data-search="sk에코플랜트, 해상풍력 매각하고 ai·반도체로 사업 재편 - 에너지뉴스 2news.co.kr 타 건설사 sk에코플랜트가 비핵심 계열사 매각과 자회사 흡수합병을 단행하며 사업구조 개편에 속도를 내고 있다. 뉴스1에 따르면 회사는 해상풍력 사업을 정리해 재무 부담을 낮"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">2news.co.kr</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SK에코플랜트, 해상풍력 매각하고 AI·반도체로 사업 재편 - 에너지뉴스</div>
+      <div class="article-snippet">SK에코플랜트가 비핵심 계열사 매각과 자회사 흡수합병을 단행하며 사업구조 개편에 속도를 내고 있다. 뉴스1에 따르면 회사는 해상풍력 사업을 정리해 재무 부담을 낮</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.2news.co.kr/news/photo/202609/mn_23948_20260904103535_1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newstomato.com/ReadNews.aspx?no=1312382"
   data-title="[IB토마토]SK에코플랜트의 계산된 손절…500억 잃고 7058억 부담 넘겼다"
   data-publisher="뉴스토마토"
@@ -27675,7 +28176,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.2news.co.kr/news/articleView.html?idxno=23948" target="_blank" rel="noopener"><span class="related-coverage-publisher">2news.co.kr</span><span class="related-coverage-title">SK에코플랜트, 해상풍력 매각하고 AI·반도체로 사업 재편 - 에너지뉴스</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">AI·반도체 &#x27;올인&#x27; SK에코플랜트…중복상장 딛고 IPO 재추진 시점은</div>
@@ -27867,7 +28368,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">15건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28134,7 +28635,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5216973"
   data-title="김민석 &quot;공공기관 이전 차질 없게…지역 주민과 상생 방안 모색&quot;"
   data-publisher="MBN"
@@ -28158,12 +28659,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김민석 &quot;공공기관 이전 차질 없게…지역 주민과 상생 방안 모색&quot;</div>
+      <div class="headline">김민석 &quot;공공기관 이전 차질 없게…지역 주민과 상생 방안 모색&quot;</div>
       <div class="article-snippet">더불어민주당 김민석 대표는 오늘(4일) 정부의 행정·공공기관 이전 및 공공기관 기능 개혁 방안을 두고 &quot;기관 이전 및 기능 개혁이 원활하게 이뤄지도록 하겠다&quot;고 말했습니다.김 대표는 이날 충남 홍성 충남도청에서 열린 현장 최고위원회의에서 &quot;이전 기관의 직원들과 (기관이) 이전될 지역의 주민들이 상생하는 방법을 적극적으로 찾겠다&quot;면서 이같이 밝혔습니다.김 대표는 한국전력 자회사인 5개 발전공기업이 통합되는 것과 관련해서도 &quot;박수현 충남지사가 5개사 통합 본사의 충남 유치 등 여러 제언을 주셨다&quot;면서 &quot;무겁게 경청하며 저희가 할 수 있는 방향을 찾아보겠다&quot;고 강조했습니다</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+    <div class="preview-image"><img src="assets/thumbnails/d93b556512ef4afd1846966b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.energydaily.co.kr/news/articleView.html?idxno=202862"
+  data-title="한전, 美 EPRI와 송변전 핵심기술 협력 확대한다 - 에너지데일리"
+  data-publisher="에너지데일리"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788482935"
+  data-country="KR"
+  data-search="한전, 美 epri와 송변전 핵심기술 협력 확대한다 - 에너지데일리 에너지데일리 한국전력 [에너지데일리 송병훈 기자] 한국전력(사장 김동철)이 미국 전력연구원(epri)과 손잡고 송변전 설비의 안정적 운영과 진단기술 고도화에 나선다. 양 기관은 초고압"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전, 美 EPRI와 송변전 핵심기술 협력 확대한다 - 에너지데일리</div>
+      <div class="article-snippet">[에너지데일리 송병훈 기자] 한국전력(사장 김동철)이 미국 전력연구원(EPRI)과 손잡고 송변전 설비의 안정적 운영과 진단기술 고도화에 나선다. 양 기관은 초고압</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.energydaily.co.kr/news/photo/202609/202862_202511_4846.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28188,7 +28722,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202862" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한전, 美 EPRI와 송변전 핵심기술 협력 확대한다 - 에너지데일리</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한전, EPRI와 송변전 핵심기술 협력</div>
@@ -28332,7 +28866,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776361"
   data-title="나주시장 &quot;정부 &#x27;2차 공공기관 이전&#x27;, 혁신도시 집적화 환영&quot;"
   data-publisher="뉴시스"
@@ -28356,7 +28890,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>나주시장 &quot;정부 &#x27;2차 공공기관 이전&#x27;, 혁신도시 집적화 환영&quot;</div>
+      <div class="headline">나주시장 &quot;정부 &#x27;2차 공공기관 이전&#x27;, 혁신도시 집적화 환영&quot;</div>
       <div class="article-snippet">[나주=뉴시스]이창우 기자 = 정부가 2차 공공기관 지방 이전을 기존 혁신도시 중심으로 추진하고 기능적으로 연관된 기관을 집적화하기로 하면서 나주시가 환영 입장을 밝혔다. 나주시는 4일 나주시장 명의의 입장문을 내고 정부가 전날 발표한 2차 공공기관 이전 추진 방향에 대해 &quot;12만 나주시민과 함께 뜨겁게 환영한다&quot;고 밝혔다. 정부는 수도권 공공기관 350여곳을 대상으로 올해 4분기 이전계획을 마련하고 2027년부터 속도감 있는 이전에 착수할 계획이다. 윤병태 나주시장은 &quot;기존 혁신도시를 중심으로 기관을 집적·집중 배치한다는 방침은 수도권 일극 체제를 넘어 균형성장 국</div>
     </div>
   </div>
@@ -28479,7 +29013,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">20건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28512,6 +29046,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/f3f94d8cdb3cf3d48af941e9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.jnilbo.com/news/articleView.html?idxno=90000062462"
+  data-title="김정관 장관 &quot;미국 반도체 관세 불이익 없다&quot; - 전남일보"
+  data-publisher="전남일보"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788487460"
+  data-country="US"
+  data-search="김정관 장관 &quot;미국 반도체 관세 불이익 없다&quot; - 전남일보 전남일보 원전 관계부처 김정관 산업통상부 장관이 3일(현지시간) 워싱턴dc에서 열린 &#x27;미국 투자신고식 및 투자가 라운드테이블&#x27; 행사 후 미국의 반도체 관세와 관련해 한미 무역합의에 따라"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전남일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 장관 &quot;미국 반도체 관세 불이익 없다&quot; - 전남일보</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 3일(현지시간) 워싱턴DC에서 열린 &#x27;미국 투자신고식 및 투자가 라운드테이블&#x27; 행사 후 미국의 반도체 관세와 관련해 한미 무역합의에 따라</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4dcc9c6efbc229eef6ae2694.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ytn.co.kr/_ln/0104_202609041034046084"
+  data-title="김정관 산업부 장관 &quot;미국 반도체 관세, 한국에 불리하지 않게 논의&quot;"
+  data-publisher="YTN"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788485640"
+  data-country="KR"
+  data-search="김정관 산업부 장관 &quot;미국 반도체 관세, 한국에 불리하지 않게 논의&quot; ytn 원전 관계부처 김정관 산업통상부 장관은 트럼프 행정부의 반도체 관세 부과 검토와 관련해 한미가 계속 논의 중이라고 밝혔습니다. 특히 한국 반도체에 대해 경쟁국보다 불리하지 않은 대우를 한다는 정신에 입각해 얘기를 나눴고 한미 간 서로 공감대가 형성돼 있다고 밝혔습니다. 뉴욕에서 이승윤 특파원입니다. 워싱턴dc에서 열린 투자 유치 행사에서 김정관 산업통상부 장관에게 트럼프 행정부의 반도체 관세 부과 검토에 대한 질문이 쏟아졌습니다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">YTN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">김정관 산업부 장관 &quot;미국 반도체 관세, 한국에 불리하지 않게 논의&quot;</div>
+      <div class="article-snippet">김정관 산업통상부 장관은 트럼프 행정부의 반도체 관세 부과 검토와 관련해 한미가 계속 논의 중이라고 밝혔습니다. 특히 한국 반도체에 대해 경쟁국보다 불리하지 않은 대우를 한다는 정신에 입각해 얘기를 나눴고 한미 간 서로 공감대가 형성돼 있다고 밝혔습니다. 뉴욕에서 이승윤 특파원입니다. 워싱턴DC에서 열린 투자 유치 행사에서 김정관 산업통상부 장관에게 트럼프 행정부의 반도체 관세 부과 검토에 대한 질문이 쏟아졌습니다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://image.ytn.co.kr/general/jpg/2026/0904/202609041034046084_t.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28615,6 +29215,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.newscj.com/news/articleView.html?idxno=3430044"
+  data-title="美 반도체 관세 검토… 김정관 “韓 불리하지 않게 협의”"
+  data-publisher="천지일보"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788482695"
+  data-country="KR"
+  data-search="美 반도체 관세 검토… 김정관 “韓 불리하지 않게 협의” 천지일보 원전 관계부처 [천지일보=정다준 기자] 김정관 산업통상부 장관은 3일(현지시간) 미국의 반도체 관세 검토와 관련해 한국이 경쟁국보다 불리한 대우를 받지 않는다는 원칙을 바탕으로 협의가 이어지고 있다고 밝혔다.김 장관은 이날 워싱턴dc에서 열린 미국 투자신고식 후 기자들과 만나 “지난 10월 관세 협"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">천지일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">美 반도체 관세 검토… 김정관 “韓 불리하지 않게 협의”</div>
+      <div class="article-snippet">[천지일보=정다준 기자] 김정관 산업통상부 장관은 3일(현지시간) 미국의 반도체 관세 검토와 관련해 한국이 경쟁국보다 불리한 대우를 받지 않는다는 원칙을 바탕으로 협의가 이어지고 있다고 밝혔다.김 장관은 이날 워싱턴DC에서 열린 미국 투자신고식 후 기자들과 만나 “지난 10월 관세 협</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.newscj.com/news/thumbnail/202609/3430044_3544920_4440_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.daejonilbo.com/news/articleView.html?idxno=2298740"
   data-title="김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;"
   data-publisher="대전일보"
@@ -28668,7 +29301,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 11개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inews24.com/view/2001939" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">김정관 &quot;韓도 대만식 반도체 관세 혜택 가능&quot;…美와 협의</span></a><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201217" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문</span></a><a class="related-coverage-link" href="https://www.daejonilbo.com/news/articleView.html?idxno=2298740" target="_blank" rel="noopener"><span class="related-coverage-publisher">대전일보</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202609040636001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의”</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 13개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0104_202609041034046084" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">김정관 산업부 장관 &quot;미국 반도체 관세, 한국에 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.inews24.com/view/2001939" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">김정관 &quot;韓도 대만식 반도체 관세 혜택 가능&quot;…美와 협의</span></a><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201217" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문</span></a><a class="related-coverage-link" href="https://www.newscj.com/news/articleView.html?idxno=3430044" target="_blank" rel="noopener"><span class="related-coverage-publisher">천지일보</span><span class="related-coverage-title">美 반도체 관세 검토… 김정관 “韓 불리하지 않게 협의”</span></a><a class="related-coverage-link" href="https://www.daejonilbo.com/news/articleView.html?idxno=2298740" target="_blank" rel="noopener"><span class="related-coverage-publisher">대전일보</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202609040636001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의”</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;</div>
@@ -29049,9 +29682,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.edaily.co.kr/News/Read?newsId=03312806645576840&amp;mediaCodeNo=257"
+  data-title="美, 2000억달러 대미투자 외 반도체도 제기…靑 “초기 논의 단계”"
+  data-publisher="이데일리"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788488033"
+  data-country="US"
+  data-search="美, 2000억달러 대미투자 외 반도체도 제기…靑 “초기 논의 단계” 이데일리 원전 대미투자 미국이 한미 간 2000억달러 규모 전략투자 협상과 맞물려 반도체 문제도 추가로 제기한 것으로 확인됐다. 대미투자와 반도체 관세·현지 생산 문제가 별도로 다뤄질 경우 한국이 미국으로부터 사실상 ‘중복 청구서’를 받을 수 있다는 우려가 나온다. 청와대 고위 관계자는 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美, 2000억달러 대미투자 외 반도체도 제기…靑 “초기 논의 단계”</div>
+      <div class="article-snippet">미국이 한미 간 2000억달러 규모 전략투자 협상과 맞물려 반도체 문제도 추가로 제기한 것으로 확인됐다. 대미투자와 반도체 관세·현지 생산 문제가 별도로 다뤄질 경우 한국이 미국으로부터 사실상 ‘중복 청구서’를 받을 수 있다는 우려가 나온다. 청와대 고위 관계자는 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b5845990fa2e657b048bdf5d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003775923"
   data-title="대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령"
@@ -29073,7 +29739,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090408540736379" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904504630" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;대미투자 9월 중 발표…美반도체 관세 ‘불리하지 않은 대우’ 논의”</span></a><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090408540736379" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.fnnews.com/news/202609040626334987" target="_blank" rel="noopener"><span class="related-coverage-publisher">파이낸셜뉴스</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 韓 불리하지 않게 논의... 대미투자 발표 9월 내 마무리&quot;</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령</div>
@@ -29082,6 +29748,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/41ba53e006334a25ecc7577b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.segye.com/newsView/20260904504630"
+  data-title="김정관 &quot;대미투자 9월 중 발표…美반도체 관세 ‘불리하지 않은 대우’ 논의”"
+  data-publisher="세계일보"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788483596"
+  data-country="KR"
+  data-search="김정관 &quot;대미투자 9월 중 발표…美반도체 관세 ‘불리하지 않은 대우’ 논의” 세계일보 원전 대미투자 김정관 산업통상부 장관은 3일(현지시간) 도널드 트럼프 미국 행정부가 검토하는 반도체 관세와 관련해 한국을 경쟁국에 비해 불리하지 않은 대우를 한다는 원칙 하에 논의가 진행되고 있다고 밝혔다. 김 장관은 이날 워싱턴의 한 호텔에서 미국 기업 투자 유치 행사인 ‘미국 투자신고식’을 한 뒤 취재진을 만나 이같이 말했다. 김 장관은 “지난 10월에 관세 협상을 할 때 우리나라 반도체에 대해서는 경쟁국에 비해 불리하지 않은 대우를 하겠다고 (미국이) 이미 얘기를 한 적이 있고 그 정신 하에 계속 논의하고 있다고 생각한다”고 말했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">세계일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">김정관 &quot;대미투자 9월 중 발표…美반도체 관세 ‘불리하지 않은 대우’ 논의”</div>
+      <div class="article-snippet">김정관 산업통상부 장관은 3일(현지시간) 도널드 트럼프 미국 행정부가 검토하는 반도체 관세와 관련해 한국을 경쟁국에 비해 불리하지 않은 대우를 한다는 원칙 하에 논의가 진행되고 있다고 밝혔다. 김 장관은 이날 워싱턴의 한 호텔에서 미국 기업 투자 유치 행사인 ‘미국 투자신고식’을 한 뒤 취재진을 만나 이같이 말했다. 김 장관은 “지난 10월에 관세 협상을 할 때 우리나라 반도체에 대해서는 경쟁국에 비해 불리하지 않은 대우를 하겠다고 (미국이) 이미 얘기를 한 적이 있고 그 정신 하에 계속 논의하고 있다고 생각한다”고 말했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.segye.com/content/image/2026/09/04/20260904504755.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29114,7 +29813,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2979623751ab703f02ec86ff.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://nimage.newsway.co.kr/photo/2026/08/06/20260806001162_1200.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29217,6 +29916,72 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ytn.co.kr/_ln/0101_202609041121016956"
+  data-title="[속보] 청와대 &quot;호르무즈 파병 검토 중...전투·비전투 종합 검토&quot;"
+  data-publisher="YTN"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788488460"
+  data-country="OTHER"
+  data-search="[속보] 청와대 &quot;호르무즈 파병 검토 중...전투·비전투 종합 검토&quot; ytn 원전 대미투자 청와대 &quot;호르무즈 기여, 대비태세 손상 없게 운신&quot; &quot;호르무즈 파병 검토 중…전투·비전투 종합 검토&quot; &quot;파병, 미·영·프와 협의 단계…정해진 건 없어&quot; 청와대 &quot;한미 투자이슈에 반도체도 논의 대상&quot; ◇ 자세한 뉴스가 곧 이어집니다. ※ &#x27;당신의 제보가 뉴스가 됩니다&#x27; [카카오톡] ytn 검색해 채널 추가 [전화] 02-398-8585 [메일] social@ytn."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">YTN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[속보] 청와대 &quot;호르무즈 파병 검토 중...전투·비전투 종합 검토&quot;</div>
+      <div class="article-snippet">청와대 &quot;호르무즈 기여, 대비태세 손상 없게 운신&quot; &quot;호르무즈 파병 검토 중…전투·비전투 종합 검토&quot; &quot;파병, 미·영·프와 협의 단계…정해진 건 없어&quot; 청와대 &quot;한미 투자이슈에 반도체도 논의 대상&quot; ◇ 자세한 뉴스가 곧 이어집니다. ※ &#x27;당신의 제보가 뉴스가 됩니다&#x27; [카카오톡] YTN 검색해 채널 추가 [전화] 02-398-8585 [메일] social@ytn.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6252a37e31f78503cbbc7155.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260904072800001?section=politics/all"
+  data-title="[속보] 靑 &quot;한미 투자이슈에 반도체도 논의대상…장애요인 안되게 노력&quot; | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788487753"
+  data-country="OTHER"
+  data-search="[속보] 靑 &quot;한미 투자이슈에 반도체도 논의대상…장애요인 안되게 노력&quot; | 연합뉴스 연합뉴스 원전 대미투자 제보는 카카오톡 okjebo 2026/09/04 11:09 송고 2026년09월04일 11시09분 송고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[속보] 靑 &quot;한미 투자이슈에 반도체도 논의대상…장애요인 안되게 노력&quot; | 연합뉴스</div>
+      <div class="article-snippet">제보는 카카오톡 okjebo 2026/09/04 11:09 송고 2026년09월04일 11시09분 송고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/bfe89c9ea078765dfa2c3a35.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260903_0003774592"
   data-title="美 반도체 관세 韓 겨누나…통상전문가 &quot;실제 부과 쉽지 않아&quot;"
@@ -29256,7 +30021,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">20건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29325,7 +30090,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260904103733978"
   data-title="李대통령, 6~9일 프랑스 순방…마크롱과 정상회담"
   data-publisher="아주경제"
@@ -29349,7 +30114,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>李대통령, 6~9일 프랑스 순방…마크롱과 정상회담</div>
+      <div class="headline">李대통령, 6~9일 프랑스 순방…마크롱과 정상회담</div>
       <div class="article-snippet">이재명 대통령이 지난 3일 청와대에서 열린 수석보좌관회의에서 발언하고 있다. [사진=연합뉴스] 이재명 대통령이 오는 6일부터 9일까지 에마뉘엘 마크롱 프랑스 대통령의 초청으로 프랑스를 방문한다. 이 대통령은 마크롱 대통령과 ‘뤼미에르 서밋’ 공동의장을 맡은 뒤 파리에서 정상회담과 만찬 등 국빈 방문 일정을 소화한다.   위성락 국가안보실장은 4일 춘추관에서 사전 브리핑을 통해 이 대통령의 순방 일정과 기대 성과를 발표했다.   위 실장은 “이번 프랑스 방문은 지난 4월 방한한 마크롱 대통령이 이 대통령을 ‘</div>
     </div>
   </div>
@@ -29358,7 +30123,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=105076"
   data-title="원자력연구원, MSR 해외 진출 성공…덴마크 Saltfoss에 30억원 규모 기술 수출"
   data-publisher="에너지플랫폼뉴스"
@@ -29379,15 +30144,48 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7698" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">“韓 MSR 기술 덴마크 간다”…원자력硏, 30억원 규모 기술 수출</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6050" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7698" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">“韓 MSR 기술 덴마크 간다”…원자력硏, 30억원 규모 기술 수출</span></a><a class="related-coverage-link" href="http://www.knpnews.com/news/articleView.html?idxno=34431" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국원자력신문</span><span class="related-coverage-title">원자력연구원 K-용융염원자로(MSR) 해외로 나간다</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6050" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원자력연구원, MSR 해외 진출 성공…덴마크 Saltfoss에 30억원 규모 기술 수출</div>
+      <div class="headline">원자력연구원, MSR 해외 진출 성공…덴마크 Saltfoss에 30억원 규모 기술 수출</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] MSR(용융염원자로) 개발을 이끌어온 원자력연구원이 덴마크 Saltfoss에 30억원 규모 기술 수출에 성공하면서 결실을 맺었다.한국원자력연구원은 덴마크 원자력에너지 기업 ‘솔트포스(Saltfoss, 구 Seaborg)’와 약 30억 원(226만2000 달러) 규모의 용융염원자로 핵연료 제조 및 재료 부식 평가 기술 수출 계약을 4일 체결했다고 밝혔다.이번 계약에 따라 연구원은 향후 2년간 솔트포스가 개발 중인 불화물 기반 MSR을 대상으로 ▲불화물 용융염 전처리 수행 ▲핵연료 제조 및 특성 평가 ▲</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/386add3a36c426a272ea10fb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="http://www.knpnews.com/news/articleView.html?idxno=34431"
+  data-title="원자력연구원 K-용융염원자로(MSR) 해외로 나간다"
+  data-publisher="한국원자력신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788485836"
+  data-country="DK"
+  data-search="원자력연구원 k-용융염원자로(msr) 해외로 나간다 한국원자력신문 원자력 한국원자력연구원은 덴마크 원자력기업에 용융염원자로(msr) 핵연료 제조 및 재료 부식 평가 기술을 수출하는 쾌거를 일궈냈다.한국원자력연구원은 4일 덴마크 원자력에너지 기업 ‘솔트포스(saltfoss, 구 seaborg)’와 226만 2천 달러(약 30억 원) 규모의 용융염원자로(msr"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국원자력신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">원자력연구원 K-용융염원자로(MSR) 해외로 나간다</div>
+      <div class="article-snippet">한국원자력연구원은 덴마크 원자력기업에 용융염원자로(MSR) 핵연료 제조 및 재료 부식 평가 기술을 수출하는 쾌거를 일궈냈다.한국원자력연구원은 4일 덴마크 원자력에너지 기업 ‘솔트포스(Saltfoss, 구 Seaborg)’와 226만 2천 달러(약 30억 원) 규모의 용융염원자로(MSR</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.knpnews.com/news/thumbnail/202609/34431_35133_3634_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30066,9 +30864,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.news24.com/investigations/silenced"
+  data-title="Silenced | Investigations | News24"
+  data-publisher="News24"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788488169"
+  data-country="OTHER"
+  data-search="silenced | investigations | news24 news24 국내 원자력 협회·학회 get the latest investigative news about the murder of babita deokaran and the tembisa hospital tenders."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">News24</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Silenced | Investigations | News24</div>
+      <div class="article-snippet">Get the latest investigative news about the murder of Babita Deokaran and the Tembisa Hospital tenders.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/59eebc1deda1f5aae5466c82.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
@@ -30327,7 +31158,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://neutronbytes.com/2026/09/03/palisades-begins-loading-fuel-at-palisades/"
   data-title="Palisades Begins Loading Fuel at Palisades"
   data-publisher="Neutron Bytes"
@@ -30351,7 +31182,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Palisades Begins Loading Fuel at Palisades</div>
+      <div class="headline">Palisades Begins Loading Fuel at Palisades</div>
       <div class="article-snippet">Palisades Begins Loading Fuel at Palisades Holtec Starts Construction of SMR HI-TEST Facility at INL Lightbridge Selected for DOE’s Launch Pad at INL Success Not a Given for All Microreactors…</div>
     </div>
   </div>
@@ -77887,7 +78718,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
+<article class="preview-card new-article"
   data-url="https://www.news24.com/investigations/silenced"
   data-title="Silenced | Investigations | News24"
   data-publisher="News24"
@@ -77911,7 +78742,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Silenced | Investigations | News24</div>
+      <div class="headline"><span class="new-badge">NEW</span>Silenced | Investigations | News24</div>
       <div class="article-snippet">Get the latest investigative news about the murder of Babita Deokaran and the Tembisa Hospital tenders.</div>
     </div>
   </div>
@@ -90287,7 +91118,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
+<article class="preview-card new-article"
   data-url="https://www.news24.com/investigations/silenced"
   data-title="Silenced | Investigations | News24"
   data-publisher="News24"
@@ -90311,7 +91142,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Silenced | Investigations | News24</div>
+      <div class="headline"><span class="new-badge">NEW</span>Silenced | Investigations | News24</div>
       <div class="article-snippet">Get the latest investigative news about the murder of Babita Deokaran and the Tembisa Hospital tenders.</div>
     </div>
   </div>
@@ -95922,7 +96753,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
+<article class="preview-card new-article"
   data-url="https://www.news24.com/investigations/silenced"
   data-title="Silenced | Investigations | News24"
   data-publisher="News24"
@@ -95946,7 +96777,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Silenced | Investigations | News24</div>
+      <div class="headline"><span class="new-badge">NEW</span>Silenced | Investigations | News24</div>
       <div class="article-snippet">Get the latest investigative news about the murder of Babita Deokaran and the Tembisa Hospital tenders.</div>
     </div>
   </div>
@@ -103174,7 +104005,7 @@ main {
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
+<article class="preview-card new-article"
   data-url="https://www.news24.com/investigations/silenced"
   data-title="Silenced | Investigations | News24"
   data-publisher="News24"
@@ -103198,7 +104029,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Silenced | Investigations | News24</div>
+      <div class="headline"><span class="new-badge">NEW</span>Silenced | Investigations | News24</div>
       <div class="article-snippet">Get the latest investigative news about the murder of Babita Deokaran and the Tembisa Hospital tenders.</div>
     </div>
   </div>
@@ -115343,7 +116174,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
+<article class="preview-card new-article"
   data-url="https://www.news24.com/investigations/silenced"
   data-title="Silenced | Investigations | News24"
   data-publisher="News24"
@@ -115367,7 +116198,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Silenced | Investigations | News24</div>
+      <div class="headline"><span class="new-badge">NEW</span>Silenced | Investigations | News24</div>
       <div class="article-snippet">Get the latest investigative news about the murder of Babita Deokaran and the Tembisa Hospital tenders.</div>
     </div>
   </div>
@@ -254222,10 +255053,35 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     card.scrollIntoView({behavior:"smooth", block:"center"});
   }
 
+  function timelineImage(card) {
+    var img = card.querySelector(".preview-image img, .card-side img, img.preview-image, .preview-image");
+    if (!img) return "";
+    if (img.tagName === "IMG") return img.currentSrc || img.src || "";
+    var bg = window.getComputedStyle(img).backgroundImage || "";
+    var m = bg.match(/url\(["']?(.*?)["']?\)/);
+    return m ? m[1] : "";
+  }
+
+  function dateParts(card) {
+    var ts = tsOf(card);
+    if (!ts) return {day:"--", month:"최근"};
+    var d = new Date(ts * 1000);
+    if (Number.isNaN(d.getTime())) return {day:"--", month:"최근"};
+    return {
+      day:String(d.getDate()).padStart(2,"0"),
+      month:String(d.getMonth()+1).padStart(2,"0") + "월"
+    };
+  }
+
   function buildTimeline(containerId, cards, maxItems) {
     var box = document.getElementById(containerId);
     if (!box) return;
     box.innerHTML = "";
+
+    var note = document.createElement("div");
+    note.className = "pc-timeline-section-note";
+    note.textContent = "날짜별 주요 기사";
+    box.appendChild(note);
 
     cards.slice()
       .sort(function(a,b) { return tsOf(b) - tsOf(a); })
@@ -254234,9 +255090,23 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         var item = document.createElement("div");
         item.className = "pc-timeline-item";
 
+        var dp = dateParts(card);
         var date = document.createElement("div");
         date.className = "pc-timeline-date";
-        date.textContent = dateLabel(card);
+
+        var day = document.createElement("div");
+        day.className = "pc-date-day";
+        day.textContent = dp.day;
+
+        var month = document.createElement("div");
+        month.className = "pc-date-month";
+        month.textContent = dp.month;
+
+        date.appendChild(day);
+        date.appendChild(month);
+
+        var content = document.createElement("div");
+        content.className = "pc-timeline-content";
 
         var title = document.createElement("div");
         title.className = "pc-timeline-title";
@@ -254246,14 +255116,36 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         meta.className = "pc-timeline-meta";
         meta.textContent = [publisherOf(card), countryOf(card)].filter(Boolean).join(" · ");
 
+        content.appendChild(title);
+        content.appendChild(meta);
+
+        var thumb = document.createElement("div");
+        thumb.className = "pc-timeline-thumb";
+        var src = timelineImage(card);
+        if (src) {
+          var im = document.createElement("img");
+          im.src = src;
+          im.alt = "";
+          im.loading = "lazy";
+          thumb.appendChild(im);
+        } else {
+          thumb.classList.add("pc-no-image");
+          thumb.textContent = "NEWS";
+        }
+
         item.appendChild(date);
-        item.appendChild(title);
-        item.appendChild(meta);
-        item.addEventListener("click", function() { scrollCard(card); });
+        item.appendChild(content);
+        item.appendChild(thumb);
+        item.addEventListener("click", function() {
+          var url = (card.dataset.url || "").trim();
+          if (url) {
+            window.open(url, "_blank", "noopener,noreferrer");
+          }
+        });
         box.appendChild(item);
       });
 
-    if (!box.children.length) {
+    if (box.children.length === 1) {
       var empty = document.createElement("div");
       empty.className = "pc-empty";
       empty.textContent = "현재 선택 기간에 관련 기사가 없습니다.";
