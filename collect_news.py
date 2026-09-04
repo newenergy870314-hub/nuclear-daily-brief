@@ -1,3 +1,4 @@
+# FINAL PC DESKTOP DETECTION FIX / WINDOWS SCALE SAFE 2026-09-04
 # FINAL PC ANALYTICS UI + HYUNDAI/US INVESTMENT TIMELINES / MOBILE UNCHANGED 2026-09-04
 # FINAL PC ARTICLE TEXT WIDTH FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL REMOVE HOLTEC SOURCE NOTE FROM ARTICLE CARDS 2026-09-03
@@ -21340,9 +21341,9 @@ main {{
 
 /* ============================================================
    FINAL PC ANALYTICS UI / MOBILE UNCHANGED 2026-09-04
-   Desktop only: >=1200px
+   Desktop only: >=1000px + mouse/trackpad
    ============================================================ */
-@media (min-width:1200px) {{
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
   body {{
     background:#c7daed !important;
   }}
@@ -21736,7 +21737,7 @@ main {{
   }}
 }}
 
-@media (max-width:1199px) {{
+@media (max-width:999px), (hover:none), (pointer:coarse) {{
   #pc-insight-rail {{
     display:none !important;
   }}
@@ -27111,7 +27112,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }}
 
   function refreshPcInsights() {{
-    if (!window.matchMedia("(min-width:1200px)").matches) return;
+    if (!window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) return;
 
     var cards = cardsInActivePanel();
     var groups = {{}};
