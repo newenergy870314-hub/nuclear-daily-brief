@@ -1,3 +1,4 @@
+# FINAL PC RIGHT PANEL TABBED + STABLE CLICK / SINGLE-VIEW DASHBOARD 2026-09-04
 # FINAL PC VISUAL DASHBOARD CONCEPT MATCH / MOBILE UNCHANGED 2026-09-04
 # FINAL PC DASHBOARD MAP HARD-APPLY FIX / WIDTH-ONLY DESKTOP DETECTION 2026-09-04
 # FINAL PC DASHBOARD + INTERACTIVE COUNTRY MAP ANALYTICS / MOBILE UNCHANGED 2026-09-04
@@ -23294,6 +23295,211 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   PC RIGHT ANALYTICS - SINGLE VIEW TABBED PANEL 2026-09-04
+   Mobile remains untouched.
+   ============================================================ */
+@media (min-width:1000px) {{
+  #pc-insight-rail {{
+    position:sticky !important;
+    top:12px !important;
+    height:calc(100vh - 24px) !important;
+    max-height:calc(100vh - 24px) !important;
+    overflow:hidden !important;
+    padding-right:0 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:9px !important;
+    z-index:15 !important;
+  }}
+
+  #pc-insight-rail:before {{
+    display:none !important;
+  }}
+
+  .pc-monitor-summary-card {{
+    flex:0 0 auto !important;
+  }}
+
+  .pc-monitor-summary-card .pc-rail-head {{
+    padding:9px 12px 7px !important;
+  }}
+
+  .pc-monitor-summary-card .pc-kpi-grid {{
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:6px !important;
+    padding:8px 10px 10px !important;
+  }}
+
+  .pc-monitor-summary-card .pc-kpi {{
+    padding:7px 5px !important;
+  }}
+
+  .pc-monitor-summary-card .pc-kpi-label {{
+    font-size:8.5px !important;
+  }}
+
+  .pc-monitor-summary-card .pc-kpi-value {{
+    font-size:17px !important;
+  }}
+
+  .pc-rail-tabs {{
+    flex:0 0 auto !important;
+    display:grid !important;
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:5px !important;
+    padding:5px !important;
+    border:1px solid #dfe7ef !important;
+    border-radius:12px !important;
+    background:#fff !important;
+    box-shadow:0 3px 9px rgba(35,65,101,.05) !important;
+    position:relative !important;
+    z-index:30 !important;
+    pointer-events:auto !important;
+  }}
+
+  .pc-rail-tab {{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    height:31px !important;
+    min-width:0 !important;
+    border:0 !important;
+    border-radius:8px !important;
+    background:#f1f5f9 !important;
+    color:#61758a !important;
+    font-family:Pretendard,"Noto Sans KR","Malgun Gothic",sans-serif !important;
+    font-size:10.5px !important;
+    font-weight:900 !important;
+    cursor:pointer !important;
+    pointer-events:auto !important;
+    position:relative !important;
+    z-index:31 !important;
+    user-select:none !important;
+  }}
+
+  .pc-rail-tab:hover {{
+    background:#e8f0f8 !important;
+    color:#244d73 !important;
+  }}
+
+  .pc-rail-tab.active {{
+    background:#173b61 !important;
+    color:#fff !important;
+    box-shadow:0 2px 6px rgba(23,59,97,.18) !important;
+  }}
+
+  .pc-rail-page {{
+    display:none !important;
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    overflow:auto !important;
+    overscroll-behavior:contain !important;
+    scrollbar-gutter:stable !important;
+    padding-right:3px !important;
+    position:relative !important;
+    z-index:10 !important;
+  }}
+
+  .pc-rail-page.active {{
+    display:block !important;
+  }}
+
+  .pc-rail-page::-webkit-scrollbar {{
+    width:6px !important;
+  }}
+
+  .pc-rail-page::-webkit-scrollbar-thumb {{
+    background:#c3d0dc !important;
+    border-radius:999px !important;
+  }}
+
+  /* Focus must fit in a single panel without being squeezed */
+  #pc-rail-page-focus #pc-focus-list {{
+    grid-template-columns:1fr !important;
+    gap:8px !important;
+    padding:10px !important;
+  }}
+
+  #pc-rail-page-focus .pc-focus-item {{
+    min-height:82px !important;
+  }}
+
+  /* Timeline page: Hyundai + US investment are both visible and scroll as one page */
+  #pc-rail-page-timeline {{
+    overflow-y:auto !important;
+  }}
+
+  #pc-rail-page-timeline .pc-timeline-card {{
+    margin-bottom:10px !important;
+  }}
+
+  #pc-rail-page-timeline .pc-timeline-wrap {{
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+  }}
+
+  /* Trend page is intentionally vertical so mini cards do not get cropped */
+  #pc-rail-page-trend .pc-mini-analytics-grid {{
+    grid-template-columns:1fr !important;
+    gap:9px !important;
+  }}
+
+  #pc-rail-page-trend .pc-mini-panel {{
+    min-height:115px !important;
+  }}
+
+  /* Map page */
+  #pc-rail-page-map {{
+    overflow:hidden !important;
+  }}
+
+  #pc-map-page-host {{
+    height:100% !important;
+    min-height:0 !important;
+  }}
+
+  #pc-rail-page-map #world-map-panel {{
+    height:100% !important;
+    min-height:0 !important;
+    margin:0 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    overflow:auto !important;
+  }}
+
+  #pc-rail-page-map #world-map-panel .country-map-visual {{
+    flex:0 0 330px !important;
+    height:330px !important;
+    min-height:330px !important;
+  }}
+
+  #pc-rail-page-map #world-map-panel .globe-stage {{
+    min-height:305px !important;
+  }}
+
+  /* Prevent any overlay from intercepting right-side clicks */
+  #pc-insight-rail,
+  #pc-insight-rail * {{
+    box-sizing:border-box !important;
+  }}
+
+  #pc-insight-rail .pc-rail-card,
+  #pc-insight-rail .pc-focus-item,
+  #pc-insight-rail .pc-timeline-item,
+  #pc-insight-rail button {{
+    pointer-events:auto !important;
+  }}
+}}
+
+@media (max-width:999px) {{
+  .pc-rail-tabs,
+  .pc-rail-page {{
+    display:none !important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -24189,7 +24395,7 @@ main {{
   <button id="pc-country-filter-clear" class="pc-country-filter-clear" type="button">필터 해제</button>
 </div>{panels_html}
 <aside id="pc-insight-rail" aria-label="PC 원전 뉴스 분석 대시보드">
-  <section class="pc-rail-card">
+  <section class="pc-rail-card pc-monitor-summary-card">
     <div class="pc-rail-head">
       <div class="pc-rail-title">오늘의 모니터링</div>
       <div class="pc-rail-sub">현재 선택 화면</div>
@@ -24202,6 +24408,14 @@ main {{
     </div>
   </section>
 
+  <nav id="pc-rail-tabs" class="pc-rail-tabs" aria-label="PC 분석 메뉴">
+    <button class="pc-rail-tab active" type="button" data-pc-rail-tab="focus">포커스</button>
+    <button class="pc-rail-tab" type="button" data-pc-rail-tab="timeline">타임라인</button>
+    <button class="pc-rail-tab" type="button" data-pc-rail-tab="trend">동향</button>
+    <button class="pc-rail-tab" type="button" data-pc-rail-tab="map">국가</button>
+  </nav>
+
+  <div id="pc-rail-page-focus" class="pc-rail-page active" data-pc-rail-page="focus">
   <section class="pc-rail-card">
     <div class="pc-rail-head">
       <div class="pc-rail-title">오늘의 포커스</div>
@@ -24209,7 +24423,9 @@ main {{
     </div>
     <div id="pc-focus-list" class="pc-focus-list"></div>
   </section>
+  </div>
 
+  <div id="pc-rail-page-timeline" class="pc-rail-page" data-pc-rail-page="timeline">
   <section class="pc-rail-card pc-timeline-card hyundai">
     <div class="pc-rail-head">
       <div class="pc-rail-title">현대건설 타임라인</div>
@@ -24229,7 +24445,9 @@ main {{
       <div id="pc-invest-timeline" class="pc-timeline"></div>
     </div>
   </section>
+  </div>
 
+  <div id="pc-rail-page-trend" class="pc-rail-page" data-pc-rail-page="trend">
   <section class="pc-rail-card pc-mini-analytics-card">
     <div class="pc-rail-head">
       <div class="pc-rail-title">한눈에 보는 동향</div>
@@ -24264,6 +24482,11 @@ main {{
       </div>
     </div>
   </section>
+  </div>
+
+  <div id="pc-rail-page-map" class="pc-rail-page" data-pc-rail-page="map">
+    <div id="pc-map-page-host"></div>
+  </div>
 </aside>
 </main>
   <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
@@ -29450,9 +29673,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     }}
 
     if (isPcDashboard()) {{
-      if (mapPanel.parentNode !== rail) {{
-        rail.appendChild(mapPanel);
-      }}
+      /* Map placement is handled by the stable PC rail tab controller. */
+      return;
     }} else {{
       if (mapHome && mapHome.parentNode && mapPanel.parentNode !== mapHome.parentNode) {{
         mapHome.parentNode.insertBefore(mapPanel, mapHome.nextSibling);
@@ -29592,6 +29814,97 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   if (archive) archive.addEventListener("change", scheduleConceptRefresh);
 
   window.addEventListener("resize", scheduleConceptRefresh);
+}})();
+</script>
+
+
+<script>
+(function() {{
+  var pcRailState = "focus";
+  var pcMapHome = null;
+
+  function isPcRailMode() {{
+    return window.matchMedia("(min-width:1000px)").matches;
+  }}
+
+  function activatePcRailTab(name) {{
+    if (!isPcRailMode()) return;
+    if (!["focus","timeline","trend","map"].includes(name)) name = "focus";
+    pcRailState = name;
+
+    document.querySelectorAll(".pc-rail-tab").forEach(function(btn) {{
+      var active = btn.getAttribute("data-pc-rail-tab") === name;
+      btn.classList.toggle("active", active);
+      btn.setAttribute("aria-selected", active ? "true" : "false");
+    }});
+
+    document.querySelectorAll(".pc-rail-page").forEach(function(page) {{
+      page.classList.toggle("active", page.getAttribute("data-pc-rail-page") === name);
+    }});
+
+    moveMapToPcMapPage();
+
+    if (name === "map") {{
+      window.setTimeout(function() {{
+        if (typeof updatePcCountryDashboard === "function") updatePcCountryDashboard();
+      }}, 80);
+    }}
+  }}
+
+  function moveMapToPcMapPage() {{
+    var panel = document.getElementById("world-map-panel");
+    if (!panel) return;
+
+    if (!pcMapHome) {{
+      pcMapHome = document.createComment("pc-world-map-home");
+      if (panel.parentNode) panel.parentNode.insertBefore(pcMapHome, panel);
+    }}
+
+    if (isPcRailMode()) {{
+      var host = document.getElementById("pc-map-page-host");
+      if (host && panel.parentNode !== host) host.appendChild(panel);
+    }} else {{
+      if (pcMapHome && pcMapHome.parentNode && panel.parentNode !== pcMapHome.parentNode) {{
+        pcMapHome.parentNode.insertBefore(panel, pcMapHome.nextSibling);
+      }}
+    }}
+  }}
+
+  function initializePcRail() {{
+    if (!isPcRailMode()) {{
+      moveMapToPcMapPage();
+      return;
+    }}
+
+    var rail = document.getElementById("pc-insight-rail");
+    if (!rail) return;
+
+    // One delegated listener only. Avoids duplicate binding / missed clicks.
+    if (rail.dataset.pcStableTabsBound !== "1") {{
+      rail.dataset.pcStableTabsBound = "1";
+      rail.addEventListener("click", function(event) {{
+        var tab = event.target.closest(".pc-rail-tab");
+        if (!tab) return;
+        event.preventDefault();
+        event.stopPropagation();
+        activatePcRailTab(tab.getAttribute("data-pc-rail-tab"));
+      }}, false);
+    }}
+
+    activatePcRailTab(pcRailState);
+  }}
+
+  if (document.readyState === "loading") {{
+    document.addEventListener("DOMContentLoaded", function() {{
+      window.setTimeout(initializePcRail, 120);
+    }});
+  }} else {{
+    window.setTimeout(initializePcRail, 120);
+  }}
+
+  window.addEventListener("resize", function() {{
+    window.setTimeout(initializePcRail, 100);
+  }});
 }})();
 </script>
 
