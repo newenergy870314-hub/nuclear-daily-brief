@@ -1,4 +1,4 @@
-# FINAL PC DASHBOARD ACTUAL-DOM FIX / MOBILE UNCHANGED 2026-09-04
+# FINAL PC ANALYTICS UI + HYUNDAI/US INVESTMENT TIMELINES / MOBILE UNCHANGED 2026-09-04
 # FINAL PC ARTICLE TEXT WIDTH FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL REMOVE HOLTEC SOURCE NOTE FROM ARTICLE CARDS 2026-09-03
 # FINAL DAEWOO-VIETNAM MINISTER MEETING DUPLICATE GROUPING 2026-08-27
@@ -21339,21 +21339,26 @@ main {{
 
 
 /* ============================================================
-   FINAL PC DASHBOARD - ACTUAL DOM VERSION / MOBILE UNCHANGED
-   Applies only to desktop >= 1200px
+   FINAL PC ANALYTICS UI / MOBILE UNCHANGED 2026-09-04
+   Desktop only: >=1200px
    ============================================================ */
 @media (min-width:1200px) {{
+  body {{
+    background:#c7daed !important;
+  }}
+
   .phone {{
-    width:min(calc(100% - 32px),1580px) !important;
-    max-width:1580px !important;
+    width:min(calc(100vw - 34px),1680px) !important;
+    max-width:1680px !important;
+    margin:0 auto !important;
   }}
 
   main {{
     display:grid !important;
-    grid-template-columns:minmax(0,2.15fr) minmax(330px,.85fr) !important;
-    gap:18px !important;
+    grid-template-columns:minmax(0,1fr) 430px !important;
+    gap:20px !important;
     align-items:start !important;
-    padding:0 0 42px !important;
+    padding-bottom:48px !important;
   }}
 
   #no-results {{
@@ -21365,81 +21370,257 @@ main {{
     min-width:0 !important;
   }}
 
-  #pc-analysis-panel {{
+  #pc-insight-rail {{
     display:flex !important;
     grid-column:2 !important;
     grid-row:1 !important;
     position:sticky !important;
-    top:18px !important;
-    min-width:0 !important;
+    top:16px !important;
     flex-direction:column !important;
-    gap:12px !important;
+    gap:14px !important;
+    min-width:0 !important;
+    font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif !important;
   }}
 
-  .pc-analysis-card {{
+  .pc-rail-card {{
     background:#f8fbff;
-    border:1px solid rgba(35,57,93,.14);
-    border-radius:14px;
-    box-shadow:0 4px 14px rgba(35,57,93,.07);
-    padding:14px;
+    border:1px solid rgba(34,61,95,.13);
+    border-radius:16px;
+    box-shadow:0 6px 18px rgba(38,68,104,.08);
+    overflow:hidden;
   }}
 
-  .pc-analysis-head {{
+  .pc-rail-head {{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    gap:8px;
-    margin-bottom:10px;
+    justify-content:space-between;
+    gap:10px;
+    padding:14px 15px 11px;
+    border-bottom:1px solid #e2ebf4;
   }}
 
-  .pc-analysis-title {{
-    color:#23395d;
-    font-size:15px;
+  .pc-rail-title {{
+    color:#173b61;
+    font-size:16px;
+    line-height:1.2;
     font-weight:900;
+    letter-spacing:-.3px;
   }}
 
-  .pc-analysis-sub {{
-    color:#7b899c;
+  .pc-rail-sub {{
+    color:#8592a3;
     font-size:10.5px;
-    font-weight:700;
+    font-weight:750;
     white-space:nowrap;
   }}
 
   .pc-kpi-grid {{
     display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:repeat(4,minmax(0,1fr));
     gap:8px;
+    padding:12px 14px 14px;
   }}
 
   .pc-kpi {{
     background:#fff;
-    border:1px solid rgba(35,57,93,.10);
-    border-radius:10px;
-    padding:10px 11px;
+    border:1px solid #e0e8f1;
+    border-radius:11px;
+    padding:10px 8px;
+    text-align:center;
   }}
 
   .pc-kpi-label {{
-    color:#7a8798;
+    color:#7a899b;
     font-size:10px;
+    line-height:1.2;
     font-weight:800;
-    margin-bottom:4px;
+    margin-bottom:5px;
   }}
 
   .pc-kpi-value {{
     color:#173b61;
-    font-size:21px;
+    font-size:22px;
     line-height:1;
+    font-weight:950;
+  }}
+
+  .pc-focus-list {{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding:12px 14px 14px;
+  }}
+
+  .pc-focus-item {{
+    background:#fff;
+    border:1px solid #e1e9f2;
+    border-radius:11px;
+    padding:10px 11px;
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }}
+
+  .pc-focus-item:hover {{
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(43,82,125,.10);
+  }}
+
+  .pc-focus-top {{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    align-items:center;
+    margin-bottom:4px;
+  }}
+
+  .pc-focus-name {{
+    color:#21568b;
+    font-size:11px;
     font-weight:900;
   }}
 
-  .pc-chip-wrap {{
+  .pc-focus-count {{
+    color:#b77900;
+    background:#fff2bd;
+    border-radius:999px;
+    padding:2px 7px;
+    font-size:10px;
+    font-weight:900;
+  }}
+
+  .pc-focus-title {{
+    color:#263f5d;
+    font-size:12px;
+    line-height:1.42;
+    font-weight:800;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }}
+
+  .pc-focus-meta {{
+    color:#8a97a8;
+    font-size:9.5px;
+    margin-top:5px;
+  }}
+
+  .pc-timeline-card.hyundai .pc-rail-head {{
+    background:linear-gradient(90deg,#173b61 0%,#244e7a 100%);
+  }}
+
+  .pc-timeline-card.invest .pc-rail-head {{
+    background:linear-gradient(90deg,#8a5f00 0%,#b98000 100%);
+  }}
+
+  .pc-timeline-card.hyundai .pc-rail-title,
+  .pc-timeline-card.hyundai .pc-rail-sub,
+  .pc-timeline-card.invest .pc-rail-title,
+  .pc-timeline-card.invest .pc-rail-sub {{
+    color:#fff;
+  }}
+
+  .pc-timeline-wrap {{
+    padding:13px 14px 14px;
+  }}
+
+  .pc-timeline {{
+    position:relative;
+    padding-left:25px;
+  }}
+
+  .pc-timeline:before {{
+    content:"";
+    position:absolute;
+    left:7px;
+    top:5px;
+    bottom:6px;
+    width:2px;
+    background:#d8e4f0;
+  }}
+
+  .pc-timeline-item {{
+    position:relative;
+    padding:0 0 15px 0;
+    cursor:pointer;
+  }}
+
+  .pc-timeline-item:last-child {{
+    padding-bottom:0;
+  }}
+
+  .pc-timeline-item:before {{
+    content:"";
+    position:absolute;
+    left:-22px;
+    top:5px;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#2a6098;
+    border:2px solid #f8fbff;
+    box-shadow:0 0 0 2px #c8d9ea;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-item:before {{
+    background:#b67a00;
+    box-shadow:0 0 0 2px #ead59a;
+  }}
+
+  .pc-timeline-date {{
+    display:inline-flex;
+    align-items:center;
+    min-width:72px;
+    height:21px;
+    padding:0 7px;
+    border-radius:999px;
+    background:#eaf2f9;
+    color:#486783;
+    font-size:9.5px;
+    font-weight:900;
+    margin-bottom:5px;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-date {{
+    background:#fff2c8;
+    color:#916400;
+  }}
+
+  .pc-timeline-title {{
+    color:#213e5d;
+    font-size:12.5px;
+    line-height:1.42;
+    font-weight:900;
+    letter-spacing:-.15px;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }}
+
+  .pc-timeline-meta {{
+    color:#8795a5;
+    font-size:9.5px;
+    line-height:1.35;
+    margin-top:4px;
+  }}
+
+  .pc-empty {{
+    color:#8c98a7;
+    font-size:11px;
+    line-height:1.5;
+    padding:3px 0;
+  }}
+
+  .pc-concentration {{
     display:flex;
     flex-wrap:wrap;
-    gap:6px;
+    gap:7px;
+    padding:12px 14px 14px;
   }}
 
   .pc-chip {{
-    border:1px solid #c8d7e8;
+    border:1px solid #ccdae8;
     background:#fff;
     color:#31597f;
     border-radius:999px;
@@ -21450,87 +21631,35 @@ main {{
   }}
 
   .pc-chip:hover {{
-    background:#edf5fc;
+    background:#eef5fb;
   }}
 
-  .pc-timeline {{
-    position:relative;
-    padding-left:17px;
-    max-height:520px;
-    overflow:auto;
-  }}
-
-  .pc-timeline:before {{
-    content:"";
-    position:absolute;
-    left:5px;
-    top:3px;
-    bottom:3px;
-    width:2px;
-    background:#d7e3ef;
-  }}
-
-  .pc-timeline-item {{
-    position:relative;
-    padding:0 0 13px 10px;
-    cursor:pointer;
-  }}
-
-  .pc-timeline-item:before {{
-    content:"";
-    position:absolute;
-    left:-15px;
-    top:5px;
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#2b639e;
-    box-shadow:0 0 0 3px #e9f1f9;
-  }}
-
-  .pc-timeline-date {{
-    color:#8a96a6;
-    font-size:9.5px;
-    font-weight:750;
-    margin-bottom:2px;
-  }}
-
-  .pc-timeline-title {{
-    color:#244669;
-    font-size:11.5px;
-    line-height:1.38;
-    font-weight:850;
-  }}
-
-  .pc-timeline-meta {{
-    color:#8a96a6;
-    font-size:9.5px;
-    margin-top:2px;
-  }}
-
-  /* Real article DOM: preview-card > preview-copy + card-side */
+  /* Article readability */
   .article-stack {{
     grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:12px 14px !important;
+    gap:13px 15px !important;
   }}
 
   .preview-card {{
-    grid-template-columns:minmax(0,1fr) 118px !important;
+    grid-template-columns:minmax(0,1fr) 122px !important;
     min-width:0 !important;
+    min-height:132px !important;
+    padding:11px 11px 11px 13px !important;
+    border-radius:12px !important;
     overflow:visible !important;
   }}
 
   .preview-copy {{
     display:block !important;
-    min-width:0 !important;
     width:100% !important;
+    min-width:0 !important;
     overflow:visible !important;
   }}
 
   .article-content-column {{
     display:block !important;
-    min-width:0 !important;
     width:100% !important;
+    min-width:0 !important;
   }}
 
   .meta-row {{
@@ -21539,25 +21668,24 @@ main {{
     gap:5px !important;
     width:100% !important;
     min-width:0 !important;
-    min-height:22px !important;
+    height:24px !important;
+    margin-bottom:3px !important;
   }}
 
   .publisher {{
     min-width:0 !important;
-    max-width:42% !important;
+    max-width:44% !important;
     overflow:hidden !important;
     text-overflow:ellipsis !important;
     white-space:nowrap !important;
+    color:#4b5d70 !important;
+    font-size:10.5px !important;
+    font-weight:900 !important;
   }}
 
   .status-inline {{
     flex:0 0 auto !important;
-  }}
-
-  .related-coverage,
-  .coverage-badge {{
-    flex:0 1 auto !important;
-    min-width:0 !important;
+    font-size:9.5px !important;
   }}
 
   .important-button {{
@@ -21567,39 +21695,49 @@ main {{
     width:auto !important;
     min-width:34px !important;
     height:22px !important;
-    padding:0 5px !important;
-    white-space:nowrap !important;
-    overflow:visible !important;
+    padding:0 4px !important;
     font-size:11px !important;
     line-height:22px !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
   }}
 
   .headline {{
+    color:#005dc8 !important;
     font-size:14.5px !important;
-    line-height:1.32 !important;
+    line-height:1.36 !important;
+    font-weight:900 !important;
+    letter-spacing:-.18px !important;
     -webkit-line-clamp:2 !important;
   }}
 
   .article-snippet {{
-    font-size:11.5px !important;
-    line-height:1.42 !important;
+    color:#58697c !important;
+    font-size:11.4px !important;
+    line-height:1.47 !important;
     -webkit-line-clamp:3 !important;
+    margin-top:4px !important;
   }}
 
   .card-side {{
-    width:118px !important;
-    min-width:118px !important;
+    width:122px !important;
+    min-width:122px !important;
   }}
 
   .preview-image {{
-    width:118px !important;
-    height:118px !important;
-    min-height:118px !important;
+    width:122px !important;
+    height:110px !important;
+    min-height:110px !important;
+    border-radius:8px !important;
+  }}
+
+  .group-title {{
+    font-size:13px !important;
   }}
 }}
 
 @media (max-width:1199px) {{
-  #pc-analysis-panel {{
+  #pc-insight-rail {{
     display:none !important;
   }}
 }}
@@ -22468,42 +22606,54 @@ main {{
 
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}
-<aside id="pc-analysis-panel" aria-label="PC 분석 대시보드">
-  <section class="pc-analysis-card">
-    <div class="pc-analysis-head">
-      <div class="pc-analysis-title">현재 화면 요약</div>
-      <div class="pc-analysis-sub">PC 분석</div>
+<aside id="pc-insight-rail" aria-label="PC 원전 뉴스 분석 대시보드">
+  <section class="pc-rail-card">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">오늘의 모니터링</div>
+      <div class="pc-rail-sub">현재 선택 화면</div>
     </div>
     <div class="pc-kpi-grid">
       <div class="pc-kpi"><div class="pc-kpi-label">기사</div><div id="pc-kpi-articles" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">중요기사</div><div id="pc-kpi-important" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">관련 국가</div><div id="pc-kpi-countries" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">기사 그룹</div><div id="pc-kpi-groups" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">중요</div><div id="pc-kpi-important" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">국가</div><div id="pc-kpi-countries" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">언론사</div><div id="pc-kpi-publishers" class="pc-kpi-value">0</div></div>
     </div>
   </section>
 
-  <section class="pc-analysis-card">
-    <div class="pc-analysis-head">
-      <div class="pc-analysis-title">주요 이슈</div>
-      <div class="pc-analysis-sub">기사량 기준</div>
+  <section class="pc-rail-card">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">오늘의 포커스</div>
+      <div class="pc-rail-sub">보도량·최근성</div>
     </div>
-    <div id="pc-topic-chips" class="pc-chip-wrap"></div>
+    <div id="pc-focus-list" class="pc-focus-list"></div>
   </section>
 
-  <section class="pc-analysis-card">
-    <div class="pc-analysis-head">
-      <div class="pc-analysis-title">국가별 동향</div>
-      <div class="pc-analysis-sub">현재 선택 기사</div>
+  <section class="pc-rail-card pc-timeline-card hyundai">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">현대건설 타임라인</div>
+      <div class="pc-rail-sub">날짜별 주요 기사</div>
     </div>
-    <div id="pc-country-chips" class="pc-chip-wrap"></div>
+    <div class="pc-timeline-wrap">
+      <div id="pc-hyundai-timeline" class="pc-timeline"></div>
+    </div>
   </section>
 
-  <section class="pc-analysis-card">
-    <div class="pc-analysis-head">
-      <div class="pc-analysis-title">이슈 타임라인</div>
-      <div class="pc-analysis-sub">최근 흐름</div>
+  <section class="pc-rail-card pc-timeline-card invest">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">대미투자 타임라인</div>
+      <div class="pc-rail-sub">관련기사 흐름</div>
     </div>
-    <div id="pc-timeline" class="pc-timeline"></div>
+    <div class="pc-timeline-wrap">
+      <div id="pc-invest-timeline" class="pc-timeline"></div>
+    </div>
+  </section>
+
+  <section class="pc-rail-card">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">보도 집중 영역</div>
+      <div class="pc-rail-sub">기사 많은 순</div>
+    </div>
+    <div id="pc-concentration" class="pc-concentration"></div>
   </section>
 </aside>
 </main>
@@ -26868,44 +27018,19 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }};
 
   function activePanel() {{
-    return document.querySelector(".tab-panel.active");
+    return document.querySelector(".tab-panel.active") || document.querySelector(".tab-panel");
   }}
 
-  function visibleCards() {{
+  function cardsInActivePanel() {{
     var panel = activePanel();
     if (!panel) return [];
-    var cards = Array.from(panel.querySelectorAll(".preview-card"));
-    return cards.filter(function(card) {{
+    return Array.from(panel.querySelectorAll(".preview-card")).filter(function(card) {{
       return card.style.display !== "none" && !card.hidden;
     }});
   }}
 
-  function groupName(card) {{
-    var section = card.closest(".news-group");
-    if (!section) return card.dataset.group || "기타";
-    var name = section.querySelector(".group-name");
-    if (name && name.textContent.trim()) return name.textContent.trim();
-    var title = section.querySelector(".group-title");
-    return title ? title.textContent.replace(/[▼▲]\s*/g,"").replace(/\d+\s*건.*/g,"").trim() : (card.dataset.group || "기타");
-  }}
-
-  function formatDate(ts) {{
-    if (!ts) return "";
-    var d = new Date(Number(ts) * 1000);
-    if (Number.isNaN(d.getTime())) return "";
-    var m = String(d.getMonth()+1).padStart(2,"0");
-    var day = String(d.getDate()).padStart(2,"0");
-    var hh = String(d.getHours()).padStart(2,"0");
-    var mm = String(d.getMinutes()).padStart(2,"0");
-    return m + "." + day + " " + hh + ":" + mm;
-  }}
-
-  function titleOf(card) {{
-    return card.dataset.title || ((card.querySelector(".headline") || {{}}).textContent || "").trim();
-  }}
-
-  function publisherOf(card) {{
-    return card.dataset.publisher || ((card.querySelector(".publisher") || {{}}).textContent || "").trim();
+  function groupOf(card) {{
+    return (card.dataset.group || "").trim() || "기타";
   }}
 
   function countryOf(card) {{
@@ -26913,115 +27038,189 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     return COUNTRY_NAMES[code] || code;
   }}
 
+  function publisherOf(card) {{
+    return (card.dataset.publisher || ((card.querySelector(".publisher") || {{}}).textContent || "")).trim();
+  }}
+
+  function titleOf(card) {{
+    return (card.dataset.title || ((card.querySelector(".headline") || {{}}).textContent || "")).trim();
+  }}
+
+  function tsOf(card) {{
+    return Number(card.dataset.published || 0);
+  }}
+
+  function dateLabel(card) {{
+    var ts = tsOf(card);
+    if (!ts) return "최근";
+    var d = new Date(ts * 1000);
+    if (Number.isNaN(d.getTime())) return "최근";
+    return String(d.getMonth()+1).padStart(2,"0") + "." +
+           String(d.getDate()).padStart(2,"0") + " " +
+           String(d.getHours()).padStart(2,"0") + ":" +
+           String(d.getMinutes()).padStart(2,"0");
+  }}
+
   function setText(id, value) {{
     var el = document.getElementById(id);
     if (el) el.textContent = String(value);
   }}
 
-  function makeChip(label, count, onClick) {{
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "pc-chip";
-    b.textContent = label + " " + count;
-    b.addEventListener("click", onClick);
-    return b;
+  function scrollCard(card) {{
+    if (!card) return;
+    card.scrollIntoView({{behavior:"smooth", block:"center"}});
   }}
 
-  function scrollToFirstMatch(predicate) {{
-    var card = visibleCards().find(predicate);
-    if (card) card.scrollIntoView({{behavior:"smooth", block:"center"}});
+  function buildTimeline(containerId, cards, maxItems) {{
+    var box = document.getElementById(containerId);
+    if (!box) return;
+    box.innerHTML = "";
+
+    cards.slice()
+      .sort(function(a,b) {{ return tsOf(b) - tsOf(a); }})
+      .slice(0,maxItems)
+      .forEach(function(card) {{
+        var item = document.createElement("div");
+        item.className = "pc-timeline-item";
+
+        var date = document.createElement("div");
+        date.className = "pc-timeline-date";
+        date.textContent = dateLabel(card);
+
+        var title = document.createElement("div");
+        title.className = "pc-timeline-title";
+        title.textContent = titleOf(card);
+
+        var meta = document.createElement("div");
+        meta.className = "pc-timeline-meta";
+        meta.textContent = [publisherOf(card), countryOf(card)].filter(Boolean).join(" · ");
+
+        item.appendChild(date);
+        item.appendChild(title);
+        item.appendChild(meta);
+        item.addEventListener("click", function() {{ scrollCard(card); }});
+        box.appendChild(item);
+      }});
+
+    if (!box.children.length) {{
+      var empty = document.createElement("div");
+      empty.className = "pc-empty";
+      empty.textContent = "현재 선택 기간에 관련 기사가 없습니다.";
+      box.appendChild(empty);
+    }}
   }}
 
-  function refreshPcDashboard() {{
+  function refreshPcInsights() {{
     if (!window.matchMedia("(min-width:1200px)").matches) return;
 
-    var cards = visibleCards();
-    var groupCounts = {{}};
-    var countryCounts = {{}};
+    var cards = cardsInActivePanel();
+    var groups = {{}};
+    var countries = {{}};
+    var publishers = new Set();
     var important = 0;
 
     cards.forEach(function(card) {{
-      var g = groupName(card);
-      groupCounts[g] = (groupCounts[g] || 0) + 1;
+      var g = groupOf(card);
+      groups[g] = (groups[g] || 0) + 1;
 
       var c = countryOf(card);
-      if (c) countryCounts[c] = (countryCounts[c] || 0) + 1;
+      if (c) countries[c] = (countries[c] || 0) + 1;
 
-      if (card.classList.contains("important")) important += 1;
+      var p = publisherOf(card);
+      if (p) publishers.add(p);
+
+      if (card.classList.contains("important")) important++;
     }});
 
     setText("pc-kpi-articles", cards.length);
     setText("pc-kpi-important", important);
-    setText("pc-kpi-countries", Object.keys(countryCounts).length);
-    setText("pc-kpi-groups", Object.keys(groupCounts).length);
+    setText("pc-kpi-countries", Object.keys(countries).length);
+    setText("pc-kpi-publishers", publishers.size);
 
-    var topicWrap = document.getElementById("pc-topic-chips");
-    if (topicWrap) {{
-      topicWrap.innerHTML = "";
-      Object.entries(groupCounts)
+    var focus = document.getElementById("pc-focus-list");
+    if (focus) {{
+      focus.innerHTML = "";
+      Object.entries(groups)
+        .sort(function(a,b) {{ return b[1]-a[1]; }})
+        .slice(0,3)
+        .forEach(function(entry) {{
+          var groupCards = cards
+            .filter(function(c) {{ return groupOf(c) === entry[0]; }})
+            .sort(function(a,b) {{ return tsOf(b)-tsOf(a); }});
+          var latest = groupCards[0];
+
+          var item = document.createElement("div");
+          item.className = "pc-focus-item";
+
+          var top = document.createElement("div");
+          top.className = "pc-focus-top";
+
+          var name = document.createElement("div");
+          name.className = "pc-focus-name";
+          name.textContent = entry[0] === "타 건설사" ? "주요 건설사" : entry[0];
+
+          var count = document.createElement("div");
+          count.className = "pc-focus-count";
+          count.textContent = entry[1] + "건";
+
+          var title = document.createElement("div");
+          title.className = "pc-focus-title";
+          title.textContent = latest ? titleOf(latest) : "";
+
+          var meta = document.createElement("div");
+          meta.className = "pc-focus-meta";
+          meta.textContent = latest ? [dateLabel(latest), publisherOf(latest)].filter(Boolean).join(" · ") : "";
+
+          top.appendChild(name);
+          top.appendChild(count);
+          item.appendChild(top);
+          item.appendChild(title);
+          item.appendChild(meta);
+          item.addEventListener("click", function() {{ scrollCard(latest); }});
+          focus.appendChild(item);
+        }});
+
+      if (!focus.children.length) {{
+        var empty = document.createElement("div");
+        empty.className = "pc-empty";
+        empty.textContent = "표시할 주요 이슈가 없습니다.";
+        focus.appendChild(empty);
+      }}
+    }}
+
+    var hyundaiCards = cards.filter(function(c) {{
+      return groupOf(c) === "현대건설";
+    }});
+
+    var investCards = cards.filter(function(c) {{
+      return groupOf(c) === "원전 대미투자";
+    }});
+
+    buildTimeline("pc-hyundai-timeline", hyundaiCards, 5);
+    buildTimeline("pc-invest-timeline", investCards, 5);
+
+    var concentration = document.getElementById("pc-concentration");
+    if (concentration) {{
+      concentration.innerHTML = "";
+      Object.entries(groups)
         .sort(function(a,b) {{ return b[1]-a[1]; }})
         .slice(0,7)
         .forEach(function(entry) {{
-          topicWrap.appendChild(makeChip(entry[0], entry[1], function() {{
-            scrollToFirstMatch(function(card) {{ return groupName(card) === entry[0]; }});
-          }}));
-        }});
-      if (!topicWrap.children.length) topicWrap.textContent = "표시할 이슈가 없습니다.";
-    }}
-
-    var countryWrap = document.getElementById("pc-country-chips");
-    if (countryWrap) {{
-      countryWrap.innerHTML = "";
-      Object.entries(countryCounts)
-        .sort(function(a,b) {{ return b[1]-a[1]; }})
-        .slice(0,8)
-        .forEach(function(entry) {{
-          countryWrap.appendChild(makeChip(entry[0], entry[1], function() {{
-            scrollToFirstMatch(function(card) {{ return countryOf(card) === entry[0]; }});
-          }}));
-        }});
-      if (!countryWrap.children.length) countryWrap.textContent = "국가 정보가 없습니다.";
-    }}
-
-    var timeline = document.getElementById("pc-timeline");
-    if (timeline) {{
-      timeline.innerHTML = "";
-      cards.slice()
-        .sort(function(a,b) {{
-          return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
-        }})
-        .slice(0,10)
-        .forEach(function(card) {{
-          var item = document.createElement("div");
-          item.className = "pc-timeline-item";
-
-          var date = document.createElement("div");
-          date.className = "pc-timeline-date";
-          date.textContent = formatDate(card.dataset.published) || "최근";
-
-          var title = document.createElement("div");
-          title.className = "pc-timeline-title";
-          title.textContent = titleOf(card);
-
-          var meta = document.createElement("div");
-          meta.className = "pc-timeline-meta";
-          meta.textContent = [groupName(card), countryOf(card), publisherOf(card)].filter(Boolean).join(" · ");
-
-          item.appendChild(date);
-          item.appendChild(title);
-          item.appendChild(meta);
-          item.addEventListener("click", function() {{
-            card.scrollIntoView({{behavior:"smooth", block:"center"}});
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "pc-chip";
+          b.textContent = (entry[0] === "타 건설사" ? "주요 건설사" : entry[0]) + " " + entry[1];
+          b.addEventListener("click", function() {{
+            var first = cards.find(function(c) {{ return groupOf(c) === entry[0]; }});
+            scrollCard(first);
           }});
-
-          timeline.appendChild(item);
+          concentration.appendChild(b);
         }});
-      if (!timeline.children.length) timeline.textContent = "표시할 기사가 없습니다.";
     }}
   }}
 
   function scheduleRefresh() {{
-    window.setTimeout(refreshPcDashboard, 80);
+    window.setTimeout(refreshPcInsights, 100);
   }}
 
   if (document.readyState === "loading") {{
@@ -27031,7 +27230,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }}
 
   document.addEventListener("click", function(e) {{
-    if (e.target.closest(".tab-button, .group-title, .group-master-button, .important-button, .country-button, .continent-button")) {{
+    if (e.target.closest(".tab-button, .group-title, .important-button, .country-button, .continent-button")) {{
       scheduleRefresh();
     }}
   }});
