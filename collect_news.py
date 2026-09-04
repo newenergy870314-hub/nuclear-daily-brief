@@ -1,4 +1,4 @@
-# FINAL PC DASHBOARD + TIMELINE / MOBILE UNCHANGED 2026-09-04
+# FINAL PC DASHBOARD ACTUAL-DOM FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL PC ARTICLE TEXT WIDTH FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL REMOVE HOLTEC SOURCE NOTE FROM ARTICLE CARDS 2026-09-03
 # FINAL DAEWOO-VIETNAM MINISTER MEETING DUPLICATE GROUPING 2026-08-27
@@ -21339,156 +21339,140 @@ main {{
 
 
 /* ============================================================
-   FINAL PC DASHBOARD / MOBILE UNCHANGED 2026-09-04
-   Desktop only: >=1200px
+   FINAL PC DASHBOARD - ACTUAL DOM VERSION / MOBILE UNCHANGED
+   Applies only to desktop >= 1200px
    ============================================================ */
 @media (min-width:1200px) {{
-  body {{
-    background:#c9dcef;
-  }}
-
   .phone {{
-    width:min(96vw, 1580px) !important;
+    width:min(calc(100% - 32px),1580px) !important;
     max-width:1580px !important;
-    margin:0 auto !important;
   }}
 
-  .article-list,
-  .articles-wrap,
-  .article-groups,
-  .group-list {{
-    width:100% !important;
-    max-width:none !important;
-  }}
-
-  .article-grid,
-  .cards-grid,
-  .group-articles {{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:14px !important;
-  }}
-
-  .article-card,
-  .news-card,
-  .preview-card {{
-    min-width:0 !important;
-    overflow:visible !important;
-  }}
-
-  .preview-copy {{
-    grid-template-columns:minmax(0,1fr) 118px !important;
+  main {{
+    display:grid !important;
+    grid-template-columns:minmax(0,2.15fr) minmax(330px,.85fr) !important;
+    gap:18px !important;
     align-items:start !important;
+    padding:0 0 42px !important;
+  }}
+
+  #no-results {{
+    grid-column:1 / -1 !important;
+  }}
+
+  .tab-panel {{
+    grid-column:1 !important;
+    min-width:0 !important;
+  }}
+
+  #pc-analysis-panel {{
+    display:flex !important;
+    grid-column:2 !important;
+    grid-row:1 !important;
+    position:sticky !important;
+    top:18px !important;
+    min-width:0 !important;
+    flex-direction:column !important;
     gap:12px !important;
   }}
 
-  .article-content-column {{
-    grid-column:1 !important;
-    min-width:0 !important;
-    width:auto !important;
-  }}
-
-  .important-button,
-  .important-btn,
-  .importance-btn,
-  .star-btn {{
-    white-space:nowrap !important;
-    overflow:visible !important;
-    max-width:none !important;
-  }}
-
-  .pc-dashboard-shell {{
-    display:grid !important;
-    grid-template-columns:minmax(0,2.15fr) minmax(320px,.85fr);
-    gap:18px;
-    align-items:start;
-    width:100%;
-    margin:14px 0 18px;
-  }}
-
-  .pc-dashboard-main,
-  .pc-dashboard-side {{
-    min-width:0;
-  }}
-
-  .pc-dashboard-side {{
-    position:sticky;
-    top:18px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-  }}
-
-  .pc-panel {{
-    background:#f7fbff;
-    border:1px solid rgba(35,69,111,.14);
-    border-radius:16px;
-    box-shadow:0 4px 14px rgba(36,65,99,.08);
+  .pc-analysis-card {{
+    background:#f8fbff;
+    border:1px solid rgba(35,57,93,.14);
+    border-radius:14px;
+    box-shadow:0 4px 14px rgba(35,57,93,.07);
     padding:14px;
   }}
 
-  .pc-panel-title {{
+  .pc-analysis-head {{
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:8px;
-    font-weight:800;
-    color:#233f67;
-    font-size:15px;
     margin-bottom:10px;
   }}
 
-  .pc-panel-sub {{
-    color:#6f8198;
-    font-size:11px;
-    font-weight:600;
+  .pc-analysis-title {{
+    color:#23395d;
+    font-size:15px;
+    font-weight:900;
+  }}
+
+  .pc-analysis-sub {{
+    color:#7b899c;
+    font-size:10.5px;
+    font-weight:700;
+    white-space:nowrap;
   }}
 
   .pc-kpi-grid {{
     display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:10px;
-    margin-bottom:12px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
   }}
 
   .pc-kpi {{
     background:#fff;
-    border:1px solid rgba(35,69,111,.12);
-    border-radius:12px;
-    padding:12px;
+    border:1px solid rgba(35,57,93,.10);
+    border-radius:10px;
+    padding:10px 11px;
   }}
 
   .pc-kpi-label {{
-    font-size:11px;
-    color:#738399;
-    font-weight:700;
+    color:#7a8798;
+    font-size:10px;
+    font-weight:800;
     margin-bottom:4px;
   }}
 
   .pc-kpi-value {{
-    font-size:20px;
-    color:#18385f;
-    font-weight:900;
+    color:#173b61;
+    font-size:21px;
     line-height:1;
+    font-weight:900;
+  }}
+
+  .pc-chip-wrap {{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }}
+
+  .pc-chip {{
+    border:1px solid #c8d7e8;
+    background:#fff;
+    color:#31597f;
+    border-radius:999px;
+    padding:6px 9px;
+    font-size:10.5px;
+    font-weight:850;
+    cursor:pointer;
+  }}
+
+  .pc-chip:hover {{
+    background:#edf5fc;
   }}
 
   .pc-timeline {{
     position:relative;
-    padding-left:16px;
+    padding-left:17px;
+    max-height:520px;
+    overflow:auto;
   }}
 
   .pc-timeline:before {{
     content:"";
     position:absolute;
     left:5px;
-    top:2px;
-    bottom:2px;
+    top:3px;
+    bottom:3px;
     width:2px;
-    background:#d6e4f2;
+    background:#d7e3ef;
   }}
 
   .pc-timeline-item {{
     position:relative;
-    padding:0 0 12px 10px;
+    padding:0 0 13px 10px;
     cursor:pointer;
   }}
 
@@ -21500,49 +21484,123 @@ main {{
     width:8px;
     height:8px;
     border-radius:50%;
-    background:#275e9a;
-    box-shadow:0 0 0 3px #e8f1fa;
+    background:#2b639e;
+    box-shadow:0 0 0 3px #e9f1f9;
   }}
 
   .pc-timeline-date {{
-    font-size:10px;
-    color:#7a8aa0;
-    font-weight:700;
+    color:#8a96a6;
+    font-size:9.5px;
+    font-weight:750;
     margin-bottom:2px;
   }}
 
   .pc-timeline-title {{
-    font-size:12px;
-    line-height:1.35;
-    color:#203e63;
-    font-weight:800;
+    color:#244669;
+    font-size:11.5px;
+    line-height:1.38;
+    font-weight:850;
   }}
 
   .pc-timeline-meta {{
-    font-size:10px;
-    color:#8795a8;
+    color:#8a96a6;
+    font-size:9.5px;
     margin-top:2px;
   }}
 
-  .pc-chip-row {{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
+  /* Real article DOM: preview-card > preview-copy + card-side */
+  .article-stack {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px 14px !important;
   }}
 
-  .pc-chip {{
-    border:1px solid #c9d9ea;
-    background:#fff;
-    color:#31597f;
-    border-radius:999px;
-    padding:6px 9px;
-    font-size:11px;
-    font-weight:800;
-    cursor:pointer;
+  .preview-card {{
+    grid-template-columns:minmax(0,1fr) 118px !important;
+    min-width:0 !important;
+    overflow:visible !important;
   }}
 
-  .pc-chip:hover {{
-    background:#edf5fc;
+  .preview-copy {{
+    display:block !important;
+    min-width:0 !important;
+    width:100% !important;
+    overflow:visible !important;
+  }}
+
+  .article-content-column {{
+    display:block !important;
+    min-width:0 !important;
+    width:100% !important;
+  }}
+
+  .meta-row {{
+    display:flex !important;
+    align-items:center !important;
+    gap:5px !important;
+    width:100% !important;
+    min-width:0 !important;
+    min-height:22px !important;
+  }}
+
+  .publisher {{
+    min-width:0 !important;
+    max-width:42% !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }}
+
+  .status-inline {{
+    flex:0 0 auto !important;
+  }}
+
+  .related-coverage,
+  .coverage-badge {{
+    flex:0 1 auto !important;
+    min-width:0 !important;
+  }}
+
+  .important-button {{
+    position:static !important;
+    flex:0 0 auto !important;
+    margin-left:auto !important;
+    width:auto !important;
+    min-width:34px !important;
+    height:22px !important;
+    padding:0 5px !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
+    font-size:11px !important;
+    line-height:22px !important;
+  }}
+
+  .headline {{
+    font-size:14.5px !important;
+    line-height:1.32 !important;
+    -webkit-line-clamp:2 !important;
+  }}
+
+  .article-snippet {{
+    font-size:11.5px !important;
+    line-height:1.42 !important;
+    -webkit-line-clamp:3 !important;
+  }}
+
+  .card-side {{
+    width:118px !important;
+    min-width:118px !important;
+  }}
+
+  .preview-image {{
+    width:118px !important;
+    height:118px !important;
+    min-height:118px !important;
+  }}
+}}
+
+@media (max-width:1199px) {{
+  #pc-analysis-panel {{
+    display:none !important;
   }}
 }}
 
@@ -22409,7 +22467,46 @@ main {{
     </div>
 
   </section>
-  <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}</main>
+  <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}
+<aside id="pc-analysis-panel" aria-label="PC 분석 대시보드">
+  <section class="pc-analysis-card">
+    <div class="pc-analysis-head">
+      <div class="pc-analysis-title">현재 화면 요약</div>
+      <div class="pc-analysis-sub">PC 분석</div>
+    </div>
+    <div class="pc-kpi-grid">
+      <div class="pc-kpi"><div class="pc-kpi-label">기사</div><div id="pc-kpi-articles" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">중요기사</div><div id="pc-kpi-important" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">관련 국가</div><div id="pc-kpi-countries" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">기사 그룹</div><div id="pc-kpi-groups" class="pc-kpi-value">0</div></div>
+    </div>
+  </section>
+
+  <section class="pc-analysis-card">
+    <div class="pc-analysis-head">
+      <div class="pc-analysis-title">주요 이슈</div>
+      <div class="pc-analysis-sub">기사량 기준</div>
+    </div>
+    <div id="pc-topic-chips" class="pc-chip-wrap"></div>
+  </section>
+
+  <section class="pc-analysis-card">
+    <div class="pc-analysis-head">
+      <div class="pc-analysis-title">국가별 동향</div>
+      <div class="pc-analysis-sub">현재 선택 기사</div>
+    </div>
+    <div id="pc-country-chips" class="pc-chip-wrap"></div>
+  </section>
+
+  <section class="pc-analysis-card">
+    <div class="pc-analysis-head">
+      <div class="pc-analysis-title">이슈 타임라인</div>
+      <div class="pc-analysis-sub">최근 흐름</div>
+    </div>
+    <div id="pc-timeline" class="pc-timeline"></div>
+  </section>
+</aside>
+</main>
   <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
 </div>
 <script>
@@ -26760,234 +26857,192 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
 <script>
 (function() {{
-  function qsa(sel, root) {{
-    root = root || document;
-    return Array.from(root.querySelectorAll(sel));
+  var COUNTRY_NAMES = {{
+    US:"미국", CA:"캐나다", KR:"한국", JP:"일본", CN:"중국", GB:"영국",
+    FR:"프랑스", BG:"불가리아", RO:"루마니아", CZ:"체코", PL:"폴란드",
+    SI:"슬로베니아", FI:"핀란드", SE:"스웨덴", NL:"네덜란드", BE:"벨기에",
+    CH:"스위스", SK:"슬로바키아", DK:"덴마크", UA:"우크라이나", RU:"러시아",
+    TR:"튀르키예", AE:"UAE", SA:"사우디", IN:"인도", VN:"베트남",
+    MY:"말레이시아", TH:"태국", SG:"싱가포르", AU:"호주", BR:"브라질",
+    AR:"아르헨티나", CL:"칠레", PE:"페루", CO:"콜롬비아", ZA:"남아공"
+  }};
+
+  function activePanel() {{
+    return document.querySelector(".tab-panel.active");
   }}
 
-  function getText(el) {{
-    return (el && el.textContent ? el.textContent : "").replace(/\s+/g, " ").trim();
-  }}
-
-  function findArticleCards() {{
-    var selectors = [".article-card", ".news-card", ".preview-card", ".group-articles > *", ".article-grid > *", ".cards-grid > *"];
-    var seen = new Set();
-    var out = [];
-    selectors.forEach(function(sel) {{
-      qsa(sel).forEach(function(el) {{
-        if (!seen.has(el) && getText(el).length > 20) {{
-          seen.add(el);
-          out.push(el);
-        }}
-      }});
+  function visibleCards() {{
+    var panel = activePanel();
+    if (!panel) return [];
+    var cards = Array.from(panel.querySelectorAll(".preview-card"));
+    return cards.filter(function(card) {{
+      return card.style.display !== "none" && !card.hidden;
     }});
-    return out;
   }}
 
-  function articleDate(card) {{
-    var t = getText(card);
-    var m = t.match(/(20\d{{2}})[.\-/년]\s*(\d{{1,2}})[.\-/월]\s*(\d{{1,2}})/);
-    if (m) {{
-      return m[1] + "." + String(m[2]).padStart(2,"0") + "." + String(m[3]).padStart(2,"0");
-    }}
-    return "";
+  function groupName(card) {{
+    var section = card.closest(".news-group");
+    if (!section) return card.dataset.group || "기타";
+    var name = section.querySelector(".group-name");
+    if (name && name.textContent.trim()) return name.textContent.trim();
+    var title = section.querySelector(".group-title");
+    return title ? title.textContent.replace(/[▼▲]\s*/g,"").replace(/\d+\s*건.*/g,"").trim() : (card.dataset.group || "기타");
   }}
 
-  function articleTitle(card) {{
-    var candidates = ["a.article-title", ".article-title", ".headline", ".title", "h1", "h2", "h3", "h4", "a"];
-    for (var i = 0; i < candidates.length; i++) {{
-      var el = card.querySelector(candidates[i]);
-      var t = getText(el);
-      if (t.length >= 8) return t.slice(0, 120);
-    }}
-    return getText(card).slice(0, 120);
+  function formatDate(ts) {{
+    if (!ts) return "";
+    var d = new Date(Number(ts) * 1000);
+    if (Number.isNaN(d.getTime())) return "";
+    var m = String(d.getMonth()+1).padStart(2,"0");
+    var day = String(d.getDate()).padStart(2,"0");
+    var hh = String(d.getHours()).padStart(2,"0");
+    var mm = String(d.getMinutes()).padStart(2,"0");
+    return m + "." + day + " " + hh + ":" + mm;
   }}
 
-  function articlePublisher(card) {{
-    var candidates = [".publisher", ".source", ".media", ".press", ".article-publisher"];
-    for (var i = 0; i < candidates.length; i++) {{
-      var t = getText(card.querySelector(candidates[i]));
-      if (t) return t.slice(0, 40);
-    }}
-    var txt = getText(card);
-    var m = txt.match(/^([^·|]{{2,30}})\s*[·|]/);
-    return m ? m[1].trim() : "";
+  function titleOf(card) {{
+    return card.dataset.title || ((card.querySelector(".headline") || {{}}).textContent || "").trim();
   }}
 
-  function detectTopic(text) {{
-    var rules = [
-      ["대미투자", /(대미투자|대미 투자|미국 투자|한미 투자|investment fund|U\.S\. investment|US investment)/i],
-      ["Kozloduy", /(Kozloduy|코즐로두이)/i],
-      ["Holtec", /(Holtec|홀텍|Palisades|팰리세이즈)/i],
-      ["Fermi America", /(Fermi America|Project Matador|페르미|퍼미|마타도르)/i],
-      ["SMR", /\bSMR\b|소형모듈원자로|Small Modular Reactor/i],
-      ["원자력", /원전|원자력|nuclear|reactor/i]
-    ];
-    for (var i = 0; i < rules.length; i++) {{
-      if (rules[i][1].test(text)) return rules[i][0];
-    }}
-    return "주요 이슈";
+  function publisherOf(card) {{
+    return card.dataset.publisher || ((card.querySelector(".publisher") || {{}}).textContent || "").trim();
   }}
 
-  function detectCountry(text) {{
-    var rules = [
-      ["미국", /미국|U\.S\.|USA|United States|Michigan|Texas|Amarillo|Palisades/i],
-      ["불가리아", /불가리아|Bulgaria|Kozloduy|코즐로두이/i],
-      ["한국", /한국|대한민국|Korea|한수원|한전|현대건설/i],
-      ["영국", /영국|UK|United Kingdom|Britain/i],
-      ["캐나다", /캐나다|Canada/i],
-      ["프랑스", /프랑스|France/i],
-      ["체코", /체코|Czech/i],
-      ["폴란드", /폴란드|Poland/i],
-      ["루마니아", /루마니아|Romania/i],
-      ["일본", /일본|Japan/i],
-      ["중국", /중국|China/i],
-      ["베트남", /베트남|Vietnam/i]
-    ];
-    for (var i = 0; i < rules.length; i++) {{
-      if (rules[i][1].test(text)) return rules[i][0];
-    }}
-    return "";
+  function countryOf(card) {{
+    var code = (card.dataset.country || "").trim();
+    return COUNTRY_NAMES[code] || code;
   }}
 
-  function buildDashboard() {{
+  function setText(id, value) {{
+    var el = document.getElementById(id);
+    if (el) el.textContent = String(value);
+  }}
+
+  function makeChip(label, count, onClick) {{
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "pc-chip";
+    b.textContent = label + " " + count;
+    b.addEventListener("click", onClick);
+    return b;
+  }}
+
+  function scrollToFirstMatch(predicate) {{
+    var card = visibleCards().find(predicate);
+    if (card) card.scrollIntoView({{behavior:"smooth", block:"center"}});
+  }}
+
+  function refreshPcDashboard() {{
     if (!window.matchMedia("(min-width:1200px)").matches) return;
-    if (document.querySelector(".pc-dashboard-shell")) return;
 
-    var cards = findArticleCards();
-    if (!cards.length) return;
-
-    var rows = cards.map(function(card) {{
-      var text = getText(card);
-      return {{
-        title: articleTitle(card),
-        publisher: articlePublisher(card),
-        date: articleDate(card),
-        topic: detectTopic(text),
-        country: detectCountry(text),
-        important: /중요|★/.test(text),
-        card: card
-      }};
-    }});
-
-    var topicCounts = {{}};
+    var cards = visibleCards();
+    var groupCounts = {{}};
     var countryCounts = {{}};
-    rows.forEach(function(r) {{
-      topicCounts[r.topic] = (topicCounts[r.topic] || 0) + 1;
-      if (r.country) countryCounts[r.country] = (countryCounts[r.country] || 0) + 1;
+    var important = 0;
+
+    cards.forEach(function(card) {{
+      var g = groupName(card);
+      groupCounts[g] = (groupCounts[g] || 0) + 1;
+
+      var c = countryOf(card);
+      if (c) countryCounts[c] = (countryCounts[c] || 0) + 1;
+
+      if (card.classList.contains("important")) important += 1;
     }});
 
-    var topicTop = Object.entries(topicCounts).sort(function(a,b) {{ return b[1]-a[1]; }}).slice(0,6);
-    var countryTop = Object.entries(countryCounts).sort(function(a,b) {{ return b[1]-a[1]; }}).slice(0,6);
-    var timeline = rows.filter(function(r) {{
-      return r.title && (r.topic !== "주요 이슈" || r.important);
-    }}).slice(0,8);
+    setText("pc-kpi-articles", cards.length);
+    setText("pc-kpi-important", important);
+    setText("pc-kpi-countries", Object.keys(countryCounts).length);
+    setText("pc-kpi-groups", Object.keys(groupCounts).length);
 
-    var shell = document.createElement("section");
-    shell.className = "pc-dashboard-shell";
+    var topicWrap = document.getElementById("pc-topic-chips");
+    if (topicWrap) {{
+      topicWrap.innerHTML = "";
+      Object.entries(groupCounts)
+        .sort(function(a,b) {{ return b[1]-a[1]; }})
+        .slice(0,7)
+        .forEach(function(entry) {{
+          topicWrap.appendChild(makeChip(entry[0], entry[1], function() {{
+            scrollToFirstMatch(function(card) {{ return groupName(card) === entry[0]; }});
+          }}));
+        }});
+      if (!topicWrap.children.length) topicWrap.textContent = "표시할 이슈가 없습니다.";
+    }}
 
-    var main = document.createElement("div");
-    main.className = "pc-dashboard-main";
+    var countryWrap = document.getElementById("pc-country-chips");
+    if (countryWrap) {{
+      countryWrap.innerHTML = "";
+      Object.entries(countryCounts)
+        .sort(function(a,b) {{ return b[1]-a[1]; }})
+        .slice(0,8)
+        .forEach(function(entry) {{
+          countryWrap.appendChild(makeChip(entry[0], entry[1], function() {{
+            scrollToFirstMatch(function(card) {{ return countryOf(card) === entry[0]; }});
+          }}));
+        }});
+      if (!countryWrap.children.length) countryWrap.textContent = "국가 정보가 없습니다.";
+    }}
 
-    var side = document.createElement("aside");
-    side.className = "pc-dashboard-side";
+    var timeline = document.getElementById("pc-timeline");
+    if (timeline) {{
+      timeline.innerHTML = "";
+      cards.slice()
+        .sort(function(a,b) {{
+          return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
+        }})
+        .slice(0,10)
+        .forEach(function(card) {{
+          var item = document.createElement("div");
+          item.className = "pc-timeline-item";
 
-    var kpi = document.createElement("div");
-    kpi.className = "pc-kpi-grid";
-    var importantCount = rows.filter(function(r) {{ return r.important; }}).length;
-    var uniqueCountries = Object.keys(countryCounts).length;
-    var uniqueTopics = Object.keys(topicCounts).filter(function(x) {{ return x !== "주요 이슈"; }}).length;
+          var date = document.createElement("div");
+          date.className = "pc-timeline-date";
+          date.textContent = formatDate(card.dataset.published) || "최근";
 
-    [
-      ["현재 기사", rows.length],
-      ["중요기사", importantCount],
-      ["관련 국가", uniqueCountries],
-      ["핵심 주제", uniqueTopics]
-    ].forEach(function(item) {{
-      var el = document.createElement("div");
-      el.className = "pc-kpi";
-      el.innerHTML = '<div class="pc-kpi-label">' + item[0] + '</div><div class="pc-kpi-value">' + item[1] + '</div>';
-      kpi.appendChild(el);
-    }});
+          var title = document.createElement("div");
+          title.className = "pc-timeline-title";
+          title.textContent = titleOf(card);
 
-    var topicPanel = document.createElement("div");
-    topicPanel.className = "pc-panel";
-    topicPanel.innerHTML = '<div class="pc-panel-title"><span>주요 이슈</span><span class="pc-panel-sub">기사량 기준</span></div>';
-    var chips = document.createElement("div");
-    chips.className = "pc-chip-row";
-    topicTop.forEach(function(item) {{
-      var b = document.createElement("button");
-      b.className = "pc-chip";
-      b.type = "button";
-      b.textContent = item[0] + " " + item[1];
-      chips.appendChild(b);
-    }});
-    topicPanel.appendChild(chips);
+          var meta = document.createElement("div");
+          meta.className = "pc-timeline-meta";
+          meta.textContent = [groupName(card), countryOf(card), publisherOf(card)].filter(Boolean).join(" · ");
 
-    var countryPanel = document.createElement("div");
-    countryPanel.className = "pc-panel";
-    countryPanel.innerHTML = '<div class="pc-panel-title"><span>국가별 동향</span><span class="pc-panel-sub">현재 화면</span></div>';
-    var countryChips = document.createElement("div");
-    countryChips.className = "pc-chip-row";
-    countryTop.forEach(function(item) {{
-      var b = document.createElement("button");
-      b.className = "pc-chip";
-      b.type = "button";
-      b.textContent = item[0] + " " + item[1];
-      countryChips.appendChild(b);
-    }});
-    countryPanel.appendChild(countryChips);
+          item.appendChild(date);
+          item.appendChild(title);
+          item.appendChild(meta);
+          item.addEventListener("click", function() {{
+            card.scrollIntoView({{behavior:"smooth", block:"center"}});
+          }});
 
-    var timelinePanel = document.createElement("div");
-    timelinePanel.className = "pc-panel";
-    timelinePanel.innerHTML = '<div class="pc-panel-title"><span>이슈 타임라인</span><span class="pc-panel-sub">최근 기사 흐름</span></div>';
-    var tl = document.createElement("div");
-    tl.className = "pc-timeline";
-
-    timeline.forEach(function(r) {{
-      var item = document.createElement("div");
-      item.className = "pc-timeline-item";
-      item.innerHTML =
-        '<div class="pc-timeline-date">' + (r.date || "최근") + '</div>' +
-        '<div class="pc-timeline-title">' + r.title + '</div>' +
-        '<div class="pc-timeline-meta">' + [r.topic, r.country, r.publisher].filter(Boolean).join(" · ") + '</div>';
-      item.addEventListener("click", function() {{
-        r.card.scrollIntoView({{behavior:"smooth", block:"center"}});
-      }});
-      tl.appendChild(item);
-    }});
-    timelinePanel.appendChild(tl);
-
-    main.appendChild(kpi);
-    side.appendChild(topicPanel);
-    side.appendChild(countryPanel);
-    side.appendChild(timelinePanel);
-
-    var candidates = [
-      document.querySelector(".article-groups"),
-      document.querySelector(".group-list"),
-      document.querySelector(".article-list"),
-      document.querySelector(".articles-wrap")
-    ].filter(Boolean);
-
-    var anchor = candidates[0];
-    if (!anchor || !anchor.parentNode) return;
-
-    anchor.parentNode.insertBefore(shell, anchor);
-    shell.appendChild(main);
-    shell.appendChild(side);
-    main.appendChild(anchor);
+          timeline.appendChild(item);
+        }});
+      if (!timeline.children.length) timeline.textContent = "표시할 기사가 없습니다.";
+    }}
   }}
 
-  function run() {{
-    try {{ buildDashboard(); }} catch (e) {{ console.warn("PC dashboard init skipped:", e); }}
+  function scheduleRefresh() {{
+    window.setTimeout(refreshPcDashboard, 80);
   }}
 
   if (document.readyState === "loading") {{
-    document.addEventListener("DOMContentLoaded", run);
+    document.addEventListener("DOMContentLoaded", scheduleRefresh);
   }} else {{
-    run();
+    scheduleRefresh();
   }}
+
+  document.addEventListener("click", function(e) {{
+    if (e.target.closest(".tab-button, .group-title, .group-master-button, .important-button, .country-button, .continent-button")) {{
+      scheduleRefresh();
+    }}
+  }});
+
+  var search = document.getElementById("article-search");
+  if (search) search.addEventListener("input", scheduleRefresh);
+
+  var archiveDate = document.getElementById("archive-date");
+  if (archiveDate) archiveDate.addEventListener("change", scheduleRefresh);
+
+  window.addEventListener("resize", scheduleRefresh);
 }})();
 </script>
 
