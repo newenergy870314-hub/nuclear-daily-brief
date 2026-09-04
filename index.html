@@ -11487,6 +11487,658 @@ main {
   }
 }
 
+
+/* ============================================================
+   FINAL PC VISUAL LAYOUT / SCROLL / MAP / TIMELINE FIX
+   2026-09-04
+   PC only (>=1000px). Mobile untouched.
+   ============================================================ */
+@media (min-width:1000px) {
+  html {
+    scroll-behavior:smooth;
+  }
+
+  /* ----------------------------------------------------------
+     A. PC header: do not cover the map while the page scrolls
+     ---------------------------------------------------------- */
+  .topbar {
+    position:relative !important;
+    top:auto !important;
+    z-index:10 !important;
+    margin-bottom:18px !important;
+  }
+
+  #world-map-panel {
+    position:relative !important;
+    z-index:1 !important;
+    margin-top:0 !important;
+    scroll-margin-top:18px !important;
+
+    display:grid !important;
+    grid-template-columns:minmax(0,2.25fr) minmax(310px,.75fr) !important;
+    grid-template-areas:
+      "head head"
+      "map overview"
+      "selection overview" !important;
+    gap:12px 16px !important;
+
+    min-height:430px !important;
+    padding:16px !important;
+    overflow:visible !important;
+  }
+
+  #world-map-panel .country-map-content {
+    grid-area:map !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  #world-map-panel .country-map-visual {
+    position:relative !important;
+    width:100% !important;
+    height:350px !important;
+    min-height:350px !important;
+    overflow:hidden !important;
+    border-radius:14px !important;
+  }
+
+  #world-map-panel .globe-stage {
+    width:100% !important;
+    height:100% !important;
+    min-height:320px !important;
+    overflow:hidden !important;
+  }
+
+  #world-map-panel .continent-tabs,
+  #world-map-panel .country-chip-rail {
+    position:relative !important;
+    z-index:3 !important;
+  }
+
+  .pc-country-overview {
+    grid-area:overview !important;
+    min-height:350px !important;
+    max-height:350px !important;
+    overflow:hidden !important;
+  }
+
+  .pc-country-ranking {
+    min-height:0 !important;
+    max-height:235px !important;
+    overflow-y:auto !important;
+    padding-right:3px !important;
+    scrollbar-width:thin;
+  }
+
+  .pc-country-ranking::-webkit-scrollbar {
+    width:6px;
+  }
+
+  .pc-country-ranking::-webkit-scrollbar-thumb {
+    background:#c2d1df;
+    border-radius:999px;
+  }
+
+  /* ----------------------------------------------------------
+     B. Main PC layout
+     ---------------------------------------------------------- */
+  main {
+    grid-template-columns:minmax(0,1fr) 500px !important;
+    gap:18px !important;
+    align-items:start !important;
+    overflow:visible !important;
+  }
+
+  .tab-panel {
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  /* ----------------------------------------------------------
+     C. Right analytics rail = truly independent vertical scroll
+     ---------------------------------------------------------- */
+  #pc-insight-rail {
+    position:sticky !important;
+    top:14px !important;
+    align-self:start !important;
+
+    height:calc(100vh - 28px) !important;
+    max-height:calc(100vh - 28px) !important;
+    min-height:420px !important;
+
+    overflow-y:scroll !important;
+    overflow-x:hidden !important;
+    overscroll-behavior-y:contain !important;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-y !important;
+    scrollbar-width:thin;
+    scrollbar-color:#9fb5c9 transparent;
+
+    display:flex !important;
+    flex-direction:column !important;
+    gap:12px !important;
+    padding:0 7px 20px 0 !important;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar {
+    width:9px !important;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar-track {
+    background:transparent !important;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar-thumb {
+    background:#a9bfd2 !important;
+    border-radius:999px !important;
+    border:2px solid transparent !important;
+    background-clip:padding-box !important;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar-thumb:hover {
+    background:#819eb8 !important;
+    border:2px solid transparent !important;
+    background-clip:padding-box !important;
+  }
+
+  #pc-insight-rail > .pc-rail-card {
+    flex:0 0 auto !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  /* ----------------------------------------------------------
+     D. Focus cards: preserve the visual hierarchy
+     ---------------------------------------------------------- */
+  .pc-focus-list {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }
+
+  .pc-focus-item {
+    min-height:152px !important;
+  }
+
+  /* ----------------------------------------------------------
+     E. Timeline = one horizontal visual progression track
+        Events are never vertically cut.
+     ---------------------------------------------------------- */
+  .pc-timeline-card {
+    overflow:hidden !important;
+  }
+
+  .pc-timeline-wrap {
+    position:relative !important;
+    padding:13px 12px 14px !important;
+    overflow:hidden !important;
+  }
+
+  .pc-timeline {
+    position:relative !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:9px !important;
+
+    width:100% !important;
+    min-width:0 !important;
+    max-height:none !important;
+
+    padding:30px 3px 8px !important;
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+    overscroll-behavior-x:contain !important;
+    scroll-snap-type:x proximity;
+    scrollbar-width:thin;
+    scrollbar-color:#b9cad9 transparent;
+  }
+
+  .pc-timeline::-webkit-scrollbar {
+    height:7px !important;
+  }
+
+  .pc-timeline::-webkit-scrollbar-thumb {
+    background:#b9cad9 !important;
+    border-radius:999px !important;
+  }
+
+  .pc-timeline:before {
+    display:block !important;
+    content:"" !important;
+    position:absolute !important;
+    left:18px !important;
+    right:18px !important;
+    top:16px !important;
+    width:auto !important;
+    height:2px !important;
+    background:#b9cddd !important;
+    z-index:0 !important;
+  }
+
+  .pc-timeline-card.invest .pc-timeline:before {
+    background:#dfbf5c !important;
+  }
+
+  .pc-timeline-item {
+    position:relative !important;
+    flex:0 0 112px !important;
+    width:112px !important;
+    min-width:112px !important;
+    max-width:112px !important;
+    min-height:178px !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    gap:5px !important;
+
+    margin:0 !important;
+    padding:22px 7px 8px !important;
+
+    border:1px solid #dce6f0 !important;
+    border-left:1px solid #dce6f0 !important;
+    border-radius:11px !important;
+    background:linear-gradient(180deg,#fff,#f7fafc) !important;
+    box-shadow:none !important;
+    text-align:center !important;
+    scroll-snap-align:start;
+    overflow:visible !important;
+  }
+
+  .pc-timeline-item:before {
+    display:block !important;
+    content:"" !important;
+    position:absolute !important;
+    left:50% !important;
+    top:-19px !important;
+    transform:translateX(-50%) !important;
+    width:11px !important;
+    height:11px !important;
+    border-radius:50% !important;
+    background:#21649f !important;
+    border:3px solid #fff !important;
+    box-shadow:0 0 0 2px #b6cbdd !important;
+    z-index:2 !important;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-item:before {
+    background:#bd8200 !important;
+    box-shadow:0 0 0 2px #e0c269 !important;
+  }
+
+  .pc-event-date {
+    position:absolute !important;
+    top:-34px !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    z-index:4 !important;
+
+    min-width:51px !important;
+    height:21px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    padding:0 7px !important;
+    border-radius:999px !important;
+    background:#174f87 !important;
+    color:#fff !important;
+    font-size:9px !important;
+    font-weight:950 !important;
+    letter-spacing:.1px !important;
+    white-space:nowrap !important;
+  }
+
+  .pc-timeline-card.invest .pc-event-date {
+    background:#ae7600 !important;
+  }
+
+  .pc-event-avatar {
+    width:46px !important;
+    height:46px !important;
+    margin-top:1px !important;
+  }
+
+  .pc-event-person {
+    width:100% !important;
+    min-height:29px !important;
+    color:#324c66 !important;
+    font-size:9px !important;
+    line-height:1.32 !important;
+    font-weight:900 !important;
+    -webkit-line-clamp:2 !important;
+  }
+
+  .pc-event-icon {
+    width:29px !important;
+    height:29px !important;
+    font-size:14px !important;
+  }
+
+  .pc-event-label {
+    width:100% !important;
+    min-height:36px !important;
+    color:#183b60 !important;
+    font-size:10px !important;
+    line-height:1.3 !important;
+    font-weight:950 !important;
+    padding:0 1px !important;
+  }
+
+  .pc-event-stage {
+    width:100% !important;
+    min-height:23px !important;
+    margin-top:auto !important;
+    border-radius:6px !important;
+    font-size:8.3px !important;
+  }
+
+  .pc-event-coverage {
+    min-height:14px !important;
+    color:#8795a4 !important;
+    font-size:8px !important;
+    font-weight:800 !important;
+  }
+
+  .pc-timeline-item:after {
+    top:4px !important;
+    right:4px !important;
+  }
+
+  /* Timeline header tells the user horizontal events can be explored */
+  .pc-timeline-card .pc-rail-sub:after {
+    content:"  ·  좌우 스크롤" !important;
+    opacity:.8;
+  }
+
+  /* ----------------------------------------------------------
+     F. Readability on restored / non-maximized desktop windows
+     ---------------------------------------------------------- */
+  .preview-card {
+    min-width:0 !important;
+  }
+
+  .important-button {
+    flex:0 0 auto !important;
+    width:36px !important;
+    min-width:36px !important;
+    max-width:36px !important;
+    overflow:visible !important;
+  }
+}
+
+@media (min-width:1000px) and (max-width:1299px) {
+  #world-map-panel {
+    grid-template-columns:minmax(0,1fr) 280px !important;
+    min-height:400px !important;
+  }
+
+  #world-map-panel .country-map-visual {
+    height:315px !important;
+    min-height:315px !important;
+  }
+
+  .pc-country-overview {
+    min-height:315px !important;
+    max-height:315px !important;
+  }
+
+  main {
+    grid-template-columns:minmax(0,1fr) 400px !important;
+    gap:14px !important;
+  }
+
+  .pc-focus-list {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }
+
+  /* Important: do not revert timeline to 2-column grid */
+  .pc-timeline {
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:8px !important;
+  }
+
+  .pc-timeline-item {
+    flex-basis:108px !important;
+    width:108px !important;
+    min-width:108px !important;
+    max-width:108px !important;
+  }
+}
+
+
+/* ============================================================
+   PC DETAILED MAP + WORLD CLOCKS 2026-09-04
+   PC only. Mobile untouched.
+   ============================================================ */
+@media (min-width:1000px) {
+  #world-map-panel {
+    grid-template-areas:
+      "head head"
+      "time time"
+      "map overview"
+      "selection overview" !important;
+    grid-template-columns:minmax(0,2.35fr) minmax(320px,.65fr) !important;
+    gap:10px 16px !important;
+    min-height:520px !important;
+  }
+
+  #pc-world-time-bar {
+    grid-area:time !important;
+    display:grid !important;
+    grid-template-columns:105px repeat(6,minmax(0,1fr)) !important;
+    gap:7px !important;
+    align-items:stretch !important;
+    padding:0 1px 2px !important;
+  }
+
+  .pc-world-time-title {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 9px;
+    border-left:4px solid #1d5f9d;
+    color:#173b61;
+  }
+
+  .pc-world-time-title > span {
+    font-size:12px;
+    line-height:1.1;
+    font-weight:950;
+  }
+
+  .pc-world-time-title > small {
+    margin-top:3px;
+    color:#8996a5;
+    font-size:8px;
+    font-weight:800;
+  }
+
+  .pc-world-time-card {
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr) auto;
+    grid-template-areas:
+      "flag city day"
+      "flag time time";
+    align-items:center;
+    column-gap:6px;
+    row-gap:1px;
+    min-width:0;
+    min-height:49px;
+    padding:7px 8px;
+    border:1px solid #dce6ef;
+    border-radius:11px;
+    background:linear-gradient(180deg,#fff,#f6f9fc);
+  }
+
+  .pc-world-time-card.selected {
+    border-color:#d4c27d;
+    background:linear-gradient(180deg,#fffaf0,#fff5d8);
+  }
+
+  .pc-world-time-flag {
+    grid-area:flag;
+    font-size:17px;
+  }
+
+  .pc-world-time-city {
+    grid-area:city;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:#53677e;
+    font-size:9px;
+    font-weight:900;
+  }
+
+  .pc-world-time-value {
+    grid-area:time;
+    color:#173b61;
+    font-size:15px;
+    line-height:1;
+    font-weight:950;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:.3px;
+  }
+
+  .pc-world-time-day {
+    grid-area:day;
+    justify-self:end;
+    display:inline-flex;
+    align-items:center;
+    height:15px;
+    padding:0 5px;
+    border-radius:999px;
+    background:#edf2f6;
+    color:#6b7d90;
+    font-size:7px;
+    font-weight:900;
+  }
+
+  .pc-world-time-card.selected .pc-world-time-day {
+    background:#f6e7ab;
+    color:#8e6700;
+  }
+
+  #world-map-panel .country-map-visual {
+    height:405px !important;
+    min-height:405px !important;
+    border:1px solid #d3e0eb !important;
+    background:
+      linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,.28)),
+      radial-gradient(circle at 50% 48%,#f8fbfe 0%,#e9f2f8 57%,#dbe8f2 100%) !important;
+    box-shadow:inset 0 0 35px rgba(75,116,153,.06) !important;
+  }
+
+  #world-map-panel .country-map-visual:after {
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      linear-gradient(to right,rgba(73,112,145,.05) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(73,112,145,.05) 1px,transparent 1px);
+    background-size:10% 25%;
+    opacity:.65;
+  }
+
+  #world-map-panel .world-map-inline,
+  #world-map-panel .world-map-image {
+    transform:scale(1.035);
+    transform-origin:center center;
+  }
+
+  #world-map-panel .precise-country-label,
+  #world-map-panel .globe-country-label {
+    font-weight:950 !important;
+    filter:drop-shadow(0 1px 1px rgba(255,255,255,.95));
+  }
+
+  .pc-country-overview {
+    min-height:405px !important;
+    max-height:405px !important;
+    padding:13px !important;
+  }
+
+  .pc-country-ranking {
+    max-height:275px !important;
+  }
+
+  .pc-country-overview-head {
+    padding-bottom:8px;
+    border-bottom:1px solid #e7edf3;
+  }
+
+  .pc-country-selected {
+    margin-top:1px;
+  }
+
+  .pc-country-overview-foot {
+    border-top:1px solid #edf1f5;
+    margin-top:9px;
+    padding-top:8px;
+  }
+
+  /* map details legend */
+  .pc-map-legend {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-left:auto;
+    color:#7d8b9a;
+    font-size:8px;
+    font-weight:800;
+  }
+
+  .pc-map-legend-scale {
+    display:flex;
+    align-items:center;
+    gap:3px;
+  }
+
+  .pc-map-legend-box {
+    width:13px;
+    height:7px;
+    border-radius:2px;
+  }
+
+  .pc-map-legend-box.l1 { background:#dceaf5; }
+  .pc-map-legend-box.l2 { background:#8db8da; }
+  .pc-map-legend-box.l3 { background:#2f77b2; }
+}
+
+@media (min-width:1000px) and (max-width:1299px) {
+  #pc-world-time-bar {
+    grid-template-columns:90px repeat(3,minmax(0,1fr)) !important;
+  }
+
+  .pc-world-time-card:nth-of-type(5),
+  .pc-world-time-card:nth-of-type(6),
+  .pc-world-time-card:nth-of-type(7) {
+    display:none !important;
+  }
+
+  #world-map-panel .country-map-visual {
+    height:345px !important;
+    min-height:345px !important;
+  }
+
+  .pc-country-overview {
+    min-height:345px !important;
+    max-height:345px !important;
+  }
+
+  .pc-country-ranking {
+    max-height:215px !important;
+  }
+}
+
+@media (max-width:999px) {
+  #pc-world-time-bar {
+    display:none !important;
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -11498,8 +12150,8 @@ main {
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <div class="title-meta">
-        <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.4(금) 16:15 KST</span>
+        <h1>원자력 주요기사 <span class="pc-build-marker">PC VISUAL V2</span></h1>
+        <span class="updated updated-inline">업데이트됨 9.4(금) 16:45 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -11541,6 +12193,60 @@ main {
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
       <div id="country-filter-note" class="country-filter-note country-filter-note-inline">대륙을 선택하면 해당 국가를 지도에 표시합니다</div>
+    
+      <div class="pc-map-legend" aria-label="기사량 범례">
+        <span>기사량</span>
+        <span class="pc-map-legend-scale">
+          <i class="pc-map-legend-box l1"></i>
+          <i class="pc-map-legend-box l2"></i>
+          <i class="pc-map-legend-box l3"></i>
+        </span>
+        <span>적음 → 많음</span>
+      </div>
+</div>
+
+
+    <div id="pc-world-time-bar" class="pc-world-time-bar" aria-label="주요 원전시장 세계시간">
+      <div class="pc-world-time-title">
+        <span>세계시간</span>
+        <small>주요 원전시장</small>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="Asia/Seoul">
+        <span class="pc-world-time-flag">🇰🇷</span>
+        <span class="pc-world-time-city">서울</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">당일</span>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="America/New_York">
+        <span class="pc-world-time-flag">🇺🇸</span>
+        <span class="pc-world-time-city">워싱턴</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="Europe/London">
+        <span class="pc-world-time-flag">🇬🇧</span>
+        <span class="pc-world-time-city">런던</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="Europe/Sofia">
+        <span class="pc-world-time-flag">🇧🇬</span>
+        <span class="pc-world-time-city">소피아</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="Asia/Dubai">
+        <span class="pc-world-time-flag">🇦🇪</span>
+        <span class="pc-world-time-city">아부다비</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
+      <div class="pc-world-time-card selected" data-role="pc-selected-time" data-pc-timezone="Europe/Sofia">
+        <span id="pc-selected-time-flag" class="pc-world-time-flag">🌐</span>
+        <span id="pc-selected-time-city" class="pc-world-time-city">선택국가</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
     </div>
 
     <div class="country-map-content">
@@ -12460,7 +13166,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/04c0e3980cb1f2621609a7b9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/599249ac570d44fc5c3bbc76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25254,7 +25960,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776953"
   data-title="현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안"
   data-publisher="뉴시스"
@@ -25278,7 +25984,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안</div>
+      <div class="headline">현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안</div>
       <div class="article-snippet">[서울=뉴시스]이종성 기자 = 현대건설이 서울 양천구 목동10단지 재건축사업에 하이엔드 주거 브랜드 &#x27;디에이치(THE H)&#x27;를 목동 최초로 적용한 &#x27;디에이치 목동 에세르&#x27;를 단지명으로 제안했다. 4일 현대건설에 따르면 목동10단지 재건축사업 우선협상대상자인 현대건설은 목동의 교육도시 정체성과 10단지만의 상징성을 단지명에 담았다. 목동10단지는 현재 2160가구 규모로, 재건축을 통해 최고 40층·4248가구 규모의 단지로 조성될 예정이다. 예정 공사비는 약 2조6135억원이다. &#x27;에세르(ESER)&#x27;는 히브리어로 숫자 10을 뜻한다. 현대건설은 완성과 최고를 상징하는</div>
     </div>
   </div>
@@ -25911,7 +26617,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040154" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=54082" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.mk.co.kr/news/society/12144610" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[부음] 권환기씨 별세 외</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040154" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=54082" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</div>
@@ -26334,10 +27040,76 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">24건</span>
+    <span class="group-count">27건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003777047"
+  data-title="부여군의회 &quot;새만금~신서산송전선로 건설사업 결사반대&quot;"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788507939"
+  data-country="KR"
+  data-search="부여군의회 &quot;새만금~신서산송전선로 건설사업 결사반대&quot; 뉴시스 한국전력 [부여=뉴시스] 조명휘 기자 = 부여군의회가 4일 345㎸ 새만금~신서산송전선로 건설사업 결사 반대를 선언했다. 의회는 이날 제303회 임시회 제3차본회의에서 노승호(더불어민주당·가선거구) 의원이 대표발의한 &#x27;초고압 송전선로 건설사업 결사반대 결의안&#x27;을 의결했다. 결의안에서 의회는 &quot;후보경과지가 군민의 생명권과 재산권을 중대하게 위협하고, 세계유산도시 부여의 가치를 훼손할 우려가 크다&quot;며 이같이 선언했다. 특히 &quot;밤·과수 재배지를 관통하는 노선은 전국 최대의 밤 생산단지인 지역 농업 기반 자체를 흔들 것&quot;이라고 우려했다. 그러면서 &quot;한국전력공사와 기후에너지환경부는 요"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>부여군의회 &quot;새만금~신서산송전선로 건설사업 결사반대&quot;</div>
+      <div class="article-snippet">[부여=뉴시스] 조명휘 기자 = 부여군의회가 4일 345㎸ 새만금~신서산송전선로 건설사업 결사 반대를 선언했다. 의회는 이날 제303회 임시회 제3차본회의에서 노승호(더불어민주당·가선거구) 의원이 대표발의한 &#x27;초고압 송전선로 건설사업 결사반대 결의안&#x27;을 의결했다. 결의안에서 의회는 &quot;후보경과지가 군민의 생명권과 재산권을 중대하게 위협하고, 세계유산도시 부여의 가치를 훼손할 우려가 크다&quot;며 이같이 선언했다. 특히 &quot;밤·과수 재배지를 관통하는 노선은 전국 최대의 밤 생산단지인 지역 농업 기반 자체를 흔들 것&quot;이라고 우려했다. 그러면서 &quot;한국전력공사와 기후에너지환경부는 요</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0591fa3d24ec1dadedc6f8be.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.insightkorea.co.kr/news/articleView.html?idxno=253905"
+  data-title="[한전 딜레마①] 25년 만에 재통합...연 1.2조 아껴도 부채 210조"
+  data-publisher="인사이트코리아"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788506855"
+  data-country="KR"
+  data-search="[한전 딜레마①] 25년 만에 재통합...연 1.2조 아껴도 부채 210조 인사이트코리아 한국전력 25년 만의 전력공기업 통폐합으로 ‘메가 통합 한전‘ 출범이 가시화됐지만 시장의 우려는 짙다. 200조 원대 부채 해법과 수주 경쟁력 제고 등 통합 이후의 청사진이 여전히 안갯속이기 때문이다. 는 통합 공기업이 직면한 재무적 한계와 수주 경쟁력을 심층 진단하고 ai 시대에 걸맞은 바람"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트코리아</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[한전 딜레마①] 25년 만에 재통합...연 1.2조 아껴도 부채 210조</div>
+      <div class="article-snippet">25년 만의 전력공기업 통폐합으로 ‘메가 통합 한전‘ 출범이 가시화됐지만 시장의 우려는 짙다. 200조 원대 부채 해법과 수주 경쟁력 제고 등 통합 이후의 청사진이 여전히 안갯속이기 때문이다. 는 통합 공기업이 직면한 재무적 한계와 수주 경쟁력을 심층 진단하고 AI 시대에 걸맞은 바람</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1e5750f770c30605ba7f07e6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1402902"
   data-title="LS전선·대한전선, 해저 환경도 자동화…시공에 AI·로봇 접목"
   data-publisher="데일리한국"
@@ -26361,7 +27133,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>LS전선·대한전선, 해저 환경도 자동화…시공에 AI·로봇 접목</div>
+      <div class="headline">LS전선·대한전선, 해저 환경도 자동화…시공에 AI·로봇 접목</div>
       <div class="article-snippet">[데일리한국 이학림 기자] LS전선과 대한전선이 인공지능(AI)과 로봇 기술을 앞세워 해저케이블 시공 기술을 고도화하고 있다. 대규모 전력망 연계 사업이 확대되는 가운데 자동화·원격제어 기술과 고성능 수중 장비를 활용해 시공 효율성과 안정성을 높이고 해저케이블 사업 경쟁력을 강화한다.4일 업계에 따르면 LS전선은 자회사 LS마린솔루션을 통해 AI와 로봇 기술을 활용한 해저 시공 자동화에 나서고 있다.LS마린솔루션은 해저케이블 포설·매설 작업에 활용하는 원격조종 수중로봇(ROV)과 매설기 등 전문 장비를 보유하고 있다. 3m급 트렌처</div>
     </div>
   </div>
@@ -26424,7 +27196,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776500" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">내년 발전5사 통합 &#x27;한국발전&#x27; 출범…본사는 어디에</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904101048833" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">발전 5사 25년 만에 재통합…53GW급 &#x27;한국발전&#x27; 만든다</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776970" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">발전公 통합법인 &#x27;한국발전&#x27; 내년 10월 출범…노조 &quot;고용 안정 필요&quot;(종합)</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776500" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">내년 발전5사 통합 &#x27;한국발전&#x27; 출범…본사는 어디에</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904101048833" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">발전 5사 25년 만에 재통합…53GW급 &#x27;한국발전&#x27; 만든다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">발전公 통합법인 &#x27;한국발전&#x27; 내년 10월 출범…글로벌 8위 발전사 도약</div>
@@ -26754,7 +27526,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energytimes.kr/news/articleView.html?idxno=70825" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">한전 HVDC 운영기술 고도화…美 실제선로 장기 실증</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7703" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">한전-EPRI, 송변전 핵심기술 협력 확대…HVDC 운영ㆍ변압기 진단 고도화</span></a><a class="related-coverage-link" href="https://www.energytimes.kr/news/articleView.html?idxno=70825" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">한전 HVDC 운영기술 고도화…美 실제선로 장기 실증</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한전, 미국 EPRI와 ±500kV HVDC 선로 운영기술 고도화 협력기반 마련</div>
@@ -26964,6 +27736,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.econovill.com/news/articleView.html?idxno=749860"
+  data-title="공공기관 109개 줄인다…발전5사 합치고 LH는 둘로 쪼갠다"
+  data-publisher="이코노믹리뷰"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788471000"
+  data-country="KR"
+  data-search="공공기관 109개 줄인다…발전5사 합치고 lh는 둘로 쪼갠다 이코노믹리뷰 한국전력 정부가 공공기관 524개 가운데 109개를 감축하는 대규모 기능 개편에 나선다.한국전력 산하 발전 5개사를 하나로 통합하고 한국석유공사와 한국가스공사를 합친다. 부산·인천·울산·여수광양 등 4개 항만공사도 단일 공사로 묶는다.반면 한국토지주택공사(lh)는 하나의 기관을 둘로 나눠 택지개발·주택건설과 주거복지·자산비축 기능을 분리한다.정부는 수도권에 남아 있는 중앙행정기관과 공공기관의 지방 이전도 동시에 추진한다.법무부와 성평등가족부는 내년 상반기 세종시 이전을 시작하고 검찰청과 경찰청 등 별도 청사가 필요한 기관은 청사를 새로 지은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이코노믹리뷰</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>공공기관 109개 줄인다…발전5사 합치고 LH는 둘로 쪼갠다</div>
+      <div class="article-snippet">정부가 공공기관 524개 가운데 109개를 감축하는 대규모 기능 개편에 나선다.한국전력 산하 발전 5개사를 하나로 통합하고 한국석유공사와 한국가스공사를 합친다. 부산·인천·울산·여수광양 등 4개 항만공사도 단일 공사로 묶는다.반면 한국토지주택공사(LH)는 하나의 기관을 둘로 나눠 택지개발·주택건설과 주거복지·자산비축 기능을 분리한다.정부는 수도권에 남아 있는 중앙행정기관과 공공기관의 지방 이전도 동시에 추진한다.법무부와 성평등가족부는 내년 상반기 세종시 이전을 시작하고 검찰청과 경찰청 등 별도 청사가 필요한 기관은 청사를 새로 지은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6896174af496e5aff4c86696.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hankyung.com/article/202609033160i"
   data-title="삼전닉스에 25조 손 벌린 한전…전력망 투자 이대로 괜찮나 [여기는 논설실]"
@@ -26997,7 +27802,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776894"
   data-title="이원택 지사 &quot;화력발전소, 주민동의 위법하다면 밝혀낼 것&quot;"
   data-publisher="뉴시스"
@@ -27021,7 +27826,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이원택 지사 &quot;화력발전소, 주민동의 위법하다면 밝혀낼 것&quot;</div>
+      <div class="headline">이원택 지사 &quot;화력발전소, 주민동의 위법하다면 밝혀낼 것&quot;</div>
       <div class="article-snippet">[정읍=뉴시스] 김종효 기자 = 전북 정읍시 제1일반산업단지 내에 진행 중인 화력발전소 건설사업의 주민동의 절차가 왜곡됐다는 주장이 제기됐다. 지난달 12일 전북도로부터 화력발전소 건설을 위한 개발행위 연장허가의 조건부 승인이 나왔지만 행정과 주민들이 함께 동의절차의 불법성을 주장하며 소송을 예고하고 있어 사업의 변곡점이 될 전망이다. 4일 이원택 지사는 이학수 정읍시장, 임승식 도의원과 함께 사업 부지를 둘러보고 이어 사업을 반대하는 인근 마을을 찾아 주민들과 소통하며 대책 마련을 논의했다. &#x27;정읍 바이오매스 발전사업&#x27;이라 명명돼 건설이 추진 중인 화력발전소가 주민</div>
     </div>
   </div>
@@ -27159,7 +27964,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6058" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전KDN, KOICA ODA 선정... AI-에너지CIT로 세네갈 농촌 에너지 자립 주도 새창으로 읽기 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1016201" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전KDN, AI-에너지CIT로 세네갈 농촌 에너지 자립 주도…KOICA ODA 선정</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776644" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">한전KDN, 500만弗 규모 세네갈 농촌 에너지 자립 사업 추진</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904083555519" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">전남광주특별시, KOICA ODA 선정…세네갈에 &#x27;에너지 자립모델&#x27; 구축</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749922" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">한전KDN, 세네갈에 AI 마이크로그리드 심는다…500만달러 규모 ODA 수행</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6058" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전KDN, KOICA ODA 선정... AI-에너지CIT로 세네갈 농촌 에너지 자립 주도 새창으로 읽기 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1016201" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전KDN, AI-에너지CIT로 세네갈 농촌 에너지 자립 주도…KOICA ODA 선정</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776644" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">한전KDN, 500만弗 규모 세네갈 농촌 에너지 자립 사업 추진</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904083555519" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">전남광주특별시, KOICA ODA 선정…세네갈에 &#x27;에너지 자립모델&#x27; 구축</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">전남광주, 세네갈에 &#x27;재생에너지 노하우&#x27; 전수한다</div>
@@ -27234,7 +28039,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260904000315" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260904119300017?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">[인사] 과학기술정보통신부 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040165" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.dailian.co.kr/news/view/1686638/%EC%9D%B8%EC%82%AC-%EA%B3%BC%ED%95%99%EA%B8%B0%EC%88%A0%EC%A0%95%EB%B3%B4%ED%86%B5%EC%8B%A0%EB%B6%80-2026" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://www.inews24.com/view/2002195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://zdnet.co.kr/view/?no=20260904163625" target="_blank" rel="noopener"><span class="related-coverage-publisher">ZDNet Korea</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=54102" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[인사] 과학기술정보통신부 - 퍼블릭타임스</span></a><a class="related-coverage-link" href="https://www.etnews.com/20260904000315" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260904119300017?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">[인사] 과학기술정보통신부 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040165" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[인사]과학기술정보통신부</div>
@@ -27888,7 +28693,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">31건</span>
+    <span class="group-count">33건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28287,6 +29092,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260904140400055?section=industry/all"
+  data-title="환경단체 &quot;한빛핵발전소 부지 내 저장시설 건설계획 백지화하라&quot; | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788507649"
+  data-country="KR"
+  data-search="환경단체 &quot;한빛핵발전소 부지 내 저장시설 건설계획 백지화하라&quot; | 연합뉴스 연합뉴스 원자력 (고창=연합뉴스) 김문경 기자 = 한빛핵발전소대응호남권공동행동은 4일 전북 고창군 고준위핵폐기물 토론회장 앞에서 기자회견을 열고 &quot;핵발전소 부지..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>환경단체 &quot;한빛핵발전소 부지 내 저장시설 건설계획 백지화하라&quot; | 연합뉴스</div>
+      <div class="article-snippet">(고창=연합뉴스) 김문경 기자 = 한빛핵발전소대응호남권공동행동은 4일 전북 고창군 고준위핵폐기물 토론회장 앞에서 기자회견을 열고 &quot;핵발전소 부지...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d64512a9959d5aad0abe7a18.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hankookilbo.com/news/article/A2026090411230001690?dtypecode=pancode_main"
   data-title="핵잠·원자력협정 &#x27;삐걱&#x27;... 靑 &quot;한미 안보협상 쉽지 않아... 복원 노력&quot;-정치ㅣ한국일보"
@@ -28416,6 +29254,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d610bdb707e663e63948e6db.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227936"
+  data-title="[사설] 에경연 40년, ‘정책 지원’ 한계 넘어서야"
+  data-publisher="에너지신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788540249"
+  data-country="OTHER"
+  data-search="[사설] 에경연 40년, ‘정책 지원’ 한계 넘어서야 에너지신문 원자력 [에너지신문] 에너지경제연구원이 설립 40주년을 맞았다. 에경연은 1986년 출범한 이후 석유 수급과 에너지 안보, 전력시장, 기후변화, 재생에너지, 원전, 수소 등으로 연구 영역을 넓히며 국가 에너지정책 수립을 뒷받침해 왔다.산업 성장에 필요한 에너지를 안정적으로 확보하는 것이 과거의 핵심 과제였다면, 이제는 공급 안정과 탄소중립, 산업 경쟁력, 국민 부담을 동시에 풀어야 하는 훨씬 복잡한 숙제가 놓여 있다.에경연의 역할이 어느 때보다 중요한 상황에서, 이제는 정부 정책을 뒷받침하는 데 머물러서는 안 된다.정책 방향이 먼저 정해진"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[사설] 에경연 40년, ‘정책 지원’ 한계 넘어서야</div>
+      <div class="article-snippet">[에너지신문] 에너지경제연구원이 설립 40주년을 맞았다. 에경연은 1986년 출범한 이후 석유 수급과 에너지 안보, 전력시장, 기후변화, 재생에너지, 원전, 수소 등으로 연구 영역을 넓히며 국가 에너지정책 수립을 뒷받침해 왔다.산업 성장에 필요한 에너지를 안정적으로 확보하는 것이 과거의 핵심 과제였다면, 이제는 공급 안정과 탄소중립, 산업 경쟁력, 국민 부담을 동시에 풀어야 하는 훨씬 복잡한 숙제가 놓여 있다.에경연의 역할이 어느 때보다 중요한 상황에서, 이제는 정부 정책을 뒷받침하는 데 머물러서는 안 된다.정책 방향이 먼저 정해진</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ac9f7f8a11eab81248f9a6e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29094,7 +29965,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29127,6 +29998,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/b91cb3a6f4742b9daa2881ee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hurriyetdailynews.com/foreign-ministry-says-eu-institutions-undermine-trust-in-cyprus-226431"
+  data-title="Ankara slams EU plan to fund monument defaming Turkish military - Türkiye News"
+  data-publisher="Hurriyet Daily News"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788507195"
+  data-country="TR"
+  data-search="ankara slams eu plan to fund monument defaming turkish military - türkiye news hurriyet daily news 국내 원자력 협회·학회 the turkish foreign ministry has criticized an eu plan to sponsor the construction of a monument to defame the turkish military over the 1974 cyprus peace operation."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Hurriyet Daily News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Ankara slams EU plan to fund monument defaming Turkish military - Türkiye News</div>
+      <div class="article-snippet">The Turkish Foreign Ministry has criticized an EU plan to sponsor the construction of a monument to defame the Turkish military over the 1974 Cyprus Peace Operation.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/901d7cb01b10147b345f0a0d.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29202,7 +30106,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29235,6 +30139,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/cd85ab4286150cf42b88e9dc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/da-nang-chu-dong-nang-cao-nang-luc-ung-pho-su-co-buc-xa-hat-nhan"
+  data-title="Da Nang proactively enhances its capacity to respond to radiation and nuclear incidents."
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788497700"
+  data-country="VN"
+  data-search="da nang proactively enhances its capacity to respond to radiation and nuclear incidents. vietnam.vn nuclear power·nuclear energy da nang will strengthen the application of science, technology, and digital transformation in collecting, managing, and sharing information; monitoring, warning, and assessing affected areas; and supporting decision-making when incidents occur. simultaneously, it will promote awareness campaigns on radiation safety, ra"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Da Nang proactively enhances its capacity to respond to radiation and nuclear incidents.</div>
+      <div class="article-snippet">Da Nang will strengthen the application of science, technology, and digital transformation in collecting, managing, and sharing information; monitoring, warning, and assessing affected areas; and supporting decision-making when incidents occur. Simultaneously, it will promote awareness campaigns on radiation safety, ra</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f99110a5b95f6192183e2e8b.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29436,7 +30373,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.engineeringnews.co.za/article/iea-chief-says-nigeria-could-double-energy-investment-within-five-years-2026-09-04"
   data-title="IEA chief says Nigeria could double energy investment within five years"
   data-publisher="Engineering News"
@@ -29460,7 +30397,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>IEA chief says Nigeria could double energy investment within five years</div>
+      <div class="headline">IEA chief says Nigeria could double energy investment within five years</div>
       <div class="article-snippet">Nigeria could double investment into its energy sector within five years after joining the International Energy Agency, its chief Fatih Birol said on Thursday, as nations seek partners they can &quot;trust&quot; after supply disruptions from the wars in Iran and Ukraine. Speaking during a visit to Abuja, Birol told Reuters that</div>
     </div>
   </div>
@@ -29469,7 +30406,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.latribune.fr/article/afrique/15337660526793/uranium-la-namibie-attire-toujours-plus-d-investissements-sur-fond-dinstabilite-au-niger"
   data-title="Uranium : la Namibie attire toujours plus d’investissements, sur fond d&#x27;instabilité au Niger"
   data-publisher="La Tribune"
@@ -29493,7 +30430,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Uranium : la Namibie attire toujours plus d’investissements, sur fond d&#x27;instabilité au Niger</div>
+      <div class="headline">Uranium : la Namibie attire toujours plus d’investissements, sur fond d&#x27;instabilité au Niger</div>
       <div class="article-snippet">Le regain mondial d’intérêt pour le nucléaire remet les producteurs d’uranium au centre des stratégies d’approvisionnement. En Afrique, cette conjoncture profite particulièrement à la Namibie, au moment où les bouleversements politiques au Niger compliquent les investissements dans le pays sahélien.</div>
     </div>
   </div>
@@ -29668,7 +30605,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776953"
   data-title="현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안"
   data-publisher="뉴시스"
@@ -29692,7 +30629,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안</div>
+      <div class="headline">현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안</div>
       <div class="article-snippet">[서울=뉴시스]이종성 기자 = 현대건설이 서울 양천구 목동10단지 재건축사업에 하이엔드 주거 브랜드 &#x27;디에이치(THE H)&#x27;를 목동 최초로 적용한 &#x27;디에이치 목동 에세르&#x27;를 단지명으로 제안했다. 4일 현대건설에 따르면 목동10단지 재건축사업 우선협상대상자인 현대건설은 목동의 교육도시 정체성과 10단지만의 상징성을 단지명에 담았다. 목동10단지는 현재 2160가구 규모로, 재건축을 통해 최고 40층·4248가구 규모의 단지로 조성될 예정이다. 예정 공사비는 약 2조6135억원이다. &#x27;에세르(ESER)&#x27;는 히브리어로 숫자 10을 뜻한다. 현대건설은 완성과 최고를 상징하는</div>
     </div>
   </div>
@@ -30565,7 +31502,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">39건</span>
+    <span class="group-count">40건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31579,7 +32516,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040154" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=54082" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.mk.co.kr/news/society/12144610" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[부음] 권환기씨 별세 외</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040154" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=54082" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</div>
@@ -31786,6 +32723,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/8f715fc54fa263ffe91ba95f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.mk.co.kr/news/society/12144610"
+  data-title="[부음] 권환기씨 별세 외"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788507367"
+  data-country="OTHER"
+  data-search="[부음] 권환기씨 별세 외 매일경제 타 건설사 ▲권환기씨 별세, 곽숙희씨 배우자상, 권은희씨(신한은행 감사부) 부친상, 진민수씨(sk에코플랜트 홍보실) 장인상=4일 서울성모병원, 발인 6일 오전 9시 20분. (02)2258-.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[부음] 권환기씨 별세 외</div>
+      <div class="article-snippet">▲권환기씨 별세, 곽숙희씨 배우자상, 권은희씨(신한은행 감사부) 부친상, 진민수씨(SK에코플랜트 홍보실) 장인상=4일 서울성모병원, 발인 6일 오전 9시 20분. (02)2258-..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -32101,7 +33071,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">32건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32171,6 +33141,138 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003777047"
+  data-title="부여군의회 &quot;새만금~신서산송전선로 건설사업 결사반대&quot;"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788507939"
+  data-country="KR"
+  data-search="부여군의회 &quot;새만금~신서산송전선로 건설사업 결사반대&quot; 뉴시스 한국전력 [부여=뉴시스] 조명휘 기자 = 부여군의회가 4일 345㎸ 새만금~신서산송전선로 건설사업 결사 반대를 선언했다. 의회는 이날 제303회 임시회 제3차본회의에서 노승호(더불어민주당·가선거구) 의원이 대표발의한 &#x27;초고압 송전선로 건설사업 결사반대 결의안&#x27;을 의결했다. 결의안에서 의회는 &quot;후보경과지가 군민의 생명권과 재산권을 중대하게 위협하고, 세계유산도시 부여의 가치를 훼손할 우려가 크다&quot;며 이같이 선언했다. 특히 &quot;밤·과수 재배지를 관통하는 노선은 전국 최대의 밤 생산단지인 지역 농업 기반 자체를 흔들 것&quot;이라고 우려했다. 그러면서 &quot;한국전력공사와 기후에너지환경부는 요"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>부여군의회 &quot;새만금~신서산송전선로 건설사업 결사반대&quot;</div>
+      <div class="article-snippet">[부여=뉴시스] 조명휘 기자 = 부여군의회가 4일 345㎸ 새만금~신서산송전선로 건설사업 결사 반대를 선언했다. 의회는 이날 제303회 임시회 제3차본회의에서 노승호(더불어민주당·가선거구) 의원이 대표발의한 &#x27;초고압 송전선로 건설사업 결사반대 결의안&#x27;을 의결했다. 결의안에서 의회는 &quot;후보경과지가 군민의 생명권과 재산권을 중대하게 위협하고, 세계유산도시 부여의 가치를 훼손할 우려가 크다&quot;며 이같이 선언했다. 특히 &quot;밤·과수 재배지를 관통하는 노선은 전국 최대의 밤 생산단지인 지역 농업 기반 자체를 흔들 것&quot;이라고 우려했다. 그러면서 &quot;한국전력공사와 기후에너지환경부는 요</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0591fa3d24ec1dadedc6f8be.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7703"
+  data-title="한전-EPRI, 송변전 핵심기술 협력 확대…HVDC 운영ㆍ변압기 진단 고도화"
+  data-publisher="인사이트N파워"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788507437"
+  data-country="US"
+  data-search="한전-epri, 송변전 핵심기술 협력 확대…hvdc 운영ㆍ변압기 진단 고도화 인사이트n파워 한국전력 한국전력이 미국 전력연구원(epri)과 초고압직류송전(hvdc) 선로 운영부터 변압기 부싱 진단까지 송변전 핵심기술 협력을 확대한다. 국내에서 개발·검증한 변압기 진단시스템은 미국 현지 실증을 통해 북미시장 진출 기반을 마련한다.한전은 epri와 지난 8월 31일 미국 현지에서 ±500kv hvdc 선로 운영기술 고도화를 위한 업무협약을 체결한 데 이어 지난 2일 변압기 부싱 진단기술 고도화를 위한 공동연구 계약을 체결(사진)했다고 밝혔다. 이번 협력을 통해 양 기관은 hvdc 송전선로 애자의 상태진단과 유지보수 기술을 고도화하고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전-EPRI, 송변전 핵심기술 협력 확대…HVDC 운영ㆍ변압기 진단 고도화</div>
+      <div class="article-snippet">한국전력이 미국 전력연구원(EPRI)과 초고압직류송전(HVDC) 선로 운영부터 변압기 부싱 진단까지 송변전 핵심기술 협력을 확대한다. 국내에서 개발·검증한 변압기 진단시스템은 미국 현지 실증을 통해 북미시장 진출 기반을 마련한다.한전은 EPRI와 지난 8월 31일 미국 현지에서 ±500kV HVDC 선로 운영기술 고도화를 위한 업무협약을 체결한 데 이어 지난 2일 변압기 부싱 진단기술 고도화를 위한 공동연구 계약을 체결(사진)했다고 밝혔다. 이번 협력을 통해 양 기관은 HVDC 송전선로 애자의 상태진단과 유지보수 기술을 고도화하고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.inpnews.kr/news/thumbnail/202609/7703_7205_3628_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260904_0003776970"
+  data-title="발전公 통합법인 &#x27;한국발전&#x27; 내년 10월 출범…노조 &quot;고용 안정 필요&quot;(종합)"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788506954"
+  data-country="KR"
+  data-search="발전公 통합법인 &#x27;한국발전&#x27; 내년 10월 출범…노조 &quot;고용 안정 필요&quot;(종합) 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 정부가 발전 5사(남동·중부·서부·남부·동서발전)를 1개사 &#x27;한국발전&#x27;으로 통합한다. 연내 특별법을 제정하고 내년 10월 통합법인을 출범시킬 계획이다. 기후에너지환경부는 4일 서울 한국전력공사 남서울본부에서 &#x27;발전공기업 통합방안 간담회&#x27;를 개최했다. 이날 간담회에서는 발전 5사를 1개사로 통합해 한전 100% 자회사인 &#x27;한국발전&#x27;을 신설하는 방안과 향후 추진계획이 발표된다. 현재 발전 5사가 보유한 발전설비는 약 53gw(기가와트)로, 통합 시 글로벌 8위(중국 제외) 규모의 대형 발전회사로 도약하게 된다. 통합회사는 분산된 자본과 인력"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">발전公 통합법인 &#x27;한국발전&#x27; 내년 10월 출범…노조 &quot;고용 안정 필요&quot;(종합)</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 정부가 발전 5사(남동·중부·서부·남부·동서발전)를 1개사 &#x27;한국발전&#x27;으로 통합한다. 연내 특별법을 제정하고 내년 10월 통합법인을 출범시킬 계획이다. 기후에너지환경부는 4일 서울 한국전력공사 남서울본부에서 &#x27;발전공기업 통합방안 간담회&#x27;를 개최했다. 이날 간담회에서는 발전 5사를 1개사로 통합해 한전 100% 자회사인 &#x27;한국발전&#x27;을 신설하는 방안과 향후 추진계획이 발표된다. 현재 발전 5사가 보유한 발전설비는 약 53GW(기가와트)로, 통합 시 글로벌 8위(중국 제외) 규모의 대형 발전회사로 도약하게 된다. 통합회사는 분산된 자본과 인력</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://image.newsis.com/2026/09/04/NISI20260904_0002230641_web.jpg?rnd=20260904155922" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.insightkorea.co.kr/news/articleView.html?idxno=253905"
+  data-title="[한전 딜레마①] 25년 만에 재통합...연 1.2조 아껴도 부채 210조"
+  data-publisher="인사이트코리아"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788506855"
+  data-country="KR"
+  data-search="[한전 딜레마①] 25년 만에 재통합...연 1.2조 아껴도 부채 210조 인사이트코리아 한국전력 25년 만의 전력공기업 통폐합으로 ‘메가 통합 한전‘ 출범이 가시화됐지만 시장의 우려는 짙다. 200조 원대 부채 해법과 수주 경쟁력 제고 등 통합 이후의 청사진이 여전히 안갯속이기 때문이다. 는 통합 공기업이 직면한 재무적 한계와 수주 경쟁력을 심층 진단하고 ai 시대에 걸맞은 바람"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트코리아</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[한전 딜레마①] 25년 만에 재통합...연 1.2조 아껴도 부채 210조</div>
+      <div class="article-snippet">25년 만의 전력공기업 통폐합으로 ‘메가 통합 한전‘ 출범이 가시화됐지만 시장의 우려는 짙다. 200조 원대 부채 해법과 수주 경쟁력 제고 등 통합 이후의 청사진이 여전히 안갯속이기 때문이다. 는 통합 공기업이 직면한 재무적 한계와 수주 경쟁력을 심층 진단하고 AI 시대에 걸맞은 바람</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1e5750f770c30605ba7f07e6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1402902"
   data-title="LS전선·대한전선, 해저 환경도 자동화…시공에 AI·로봇 접목"
   data-publisher="데일리한국"
@@ -32194,7 +33296,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>LS전선·대한전선, 해저 환경도 자동화…시공에 AI·로봇 접목</div>
+      <div class="headline">LS전선·대한전선, 해저 환경도 자동화…시공에 AI·로봇 접목</div>
       <div class="article-snippet">[데일리한국 이학림 기자] LS전선과 대한전선이 인공지능(AI)과 로봇 기술을 앞세워 해저케이블 시공 기술을 고도화하고 있다. 대규모 전력망 연계 사업이 확대되는 가운데 자동화·원격제어 기술과 고성능 수중 장비를 활용해 시공 효율성과 안정성을 높이고 해저케이블 사업 경쟁력을 강화한다.4일 업계에 따르면 LS전선은 자회사 LS마린솔루션을 통해 AI와 로봇 기술을 활용한 해저 시공 자동화에 나서고 있다.LS마린솔루션은 해저케이블 포설·매설 작업에 활용하는 원격조종 수중로봇(ROV)과 매설기 등 전문 장비를 보유하고 있다. 3m급 트렌처</div>
     </div>
   </div>
@@ -32323,7 +33425,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776500" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">내년 발전5사 통합 &#x27;한국발전&#x27; 출범…본사는 어디에</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904101048833" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">발전 5사 25년 만에 재통합…53GW급 &#x27;한국발전&#x27; 만든다</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776970" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">발전公 통합법인 &#x27;한국발전&#x27; 내년 10월 출범…노조 &quot;고용 안정 필요&quot;(종합)</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776500" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">내년 발전5사 통합 &#x27;한국발전&#x27; 출범…본사는 어디에</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904101048833" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">발전 5사 25년 만에 재통합…53GW급 &#x27;한국발전&#x27; 만든다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">발전公 통합법인 &#x27;한국발전&#x27; 내년 10월 출범…글로벌 8위 발전사 도약</div>
@@ -32686,7 +33788,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.energytimes.kr/news/articleView.html?idxno=70825" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">한전 HVDC 운영기술 고도화…美 실제선로 장기 실증</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7703" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">한전-EPRI, 송변전 핵심기술 협력 확대…HVDC 운영ㆍ변압기 진단 고도화</span></a><a class="related-coverage-link" href="https://www.energytimes.kr/news/articleView.html?idxno=70825" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">한전 HVDC 운영기술 고도화…美 실제선로 장기 실증</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한전, 미국 EPRI와 ±500kV HVDC 선로 운영기술 고도화 협력기반 마련</div>
@@ -32962,6 +34064,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.econovill.com/news/articleView.html?idxno=749860"
+  data-title="공공기관 109개 줄인다…발전5사 합치고 LH는 둘로 쪼갠다"
+  data-publisher="이코노믹리뷰"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788471000"
+  data-country="KR"
+  data-search="공공기관 109개 줄인다…발전5사 합치고 lh는 둘로 쪼갠다 이코노믹리뷰 한국전력 정부가 공공기관 524개 가운데 109개를 감축하는 대규모 기능 개편에 나선다.한국전력 산하 발전 5개사를 하나로 통합하고 한국석유공사와 한국가스공사를 합친다. 부산·인천·울산·여수광양 등 4개 항만공사도 단일 공사로 묶는다.반면 한국토지주택공사(lh)는 하나의 기관을 둘로 나눠 택지개발·주택건설과 주거복지·자산비축 기능을 분리한다.정부는 수도권에 남아 있는 중앙행정기관과 공공기관의 지방 이전도 동시에 추진한다.법무부와 성평등가족부는 내년 상반기 세종시 이전을 시작하고 검찰청과 경찰청 등 별도 청사가 필요한 기관은 청사를 새로 지은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이코노믹리뷰</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>공공기관 109개 줄인다…발전5사 합치고 LH는 둘로 쪼갠다</div>
+      <div class="article-snippet">정부가 공공기관 524개 가운데 109개를 감축하는 대규모 기능 개편에 나선다.한국전력 산하 발전 5개사를 하나로 통합하고 한국석유공사와 한국가스공사를 합친다. 부산·인천·울산·여수광양 등 4개 항만공사도 단일 공사로 묶는다.반면 한국토지주택공사(LH)는 하나의 기관을 둘로 나눠 택지개발·주택건설과 주거복지·자산비축 기능을 분리한다.정부는 수도권에 남아 있는 중앙행정기관과 공공기관의 지방 이전도 동시에 추진한다.법무부와 성평등가족부는 내년 상반기 세종시 이전을 시작하고 검찰청과 경찰청 등 별도 청사가 필요한 기관은 청사를 새로 지은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6896174af496e5aff4c86696.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hankyung.com/article/202609033160i"
   data-title="삼전닉스에 25조 손 벌린 한전…전력망 투자 이대로 괜찮나 [여기는 논설실]"
@@ -33028,7 +34163,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776894"
   data-title="이원택 지사 &quot;화력발전소, 주민동의 위법하다면 밝혀낼 것&quot;"
   data-publisher="뉴시스"
@@ -33052,7 +34187,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이원택 지사 &quot;화력발전소, 주민동의 위법하다면 밝혀낼 것&quot;</div>
+      <div class="headline">이원택 지사 &quot;화력발전소, 주민동의 위법하다면 밝혀낼 것&quot;</div>
       <div class="article-snippet">[정읍=뉴시스] 김종효 기자 = 전북 정읍시 제1일반산업단지 내에 진행 중인 화력발전소 건설사업의 주민동의 절차가 왜곡됐다는 주장이 제기됐다. 지난달 12일 전북도로부터 화력발전소 건설을 위한 개발행위 연장허가의 조건부 승인이 나왔지만 행정과 주민들이 함께 동의절차의 불법성을 주장하며 소송을 예고하고 있어 사업의 변곡점이 될 전망이다. 4일 이원택 지사는 이학수 정읍시장, 임승식 도의원과 함께 사업 부지를 둘러보고 이어 사업을 반대하는 인근 마을을 찾아 주민들과 소통하며 대책 마련을 논의했다. &#x27;정읍 바이오매스 발전사업&#x27;이라 명명돼 건설이 추진 중인 화력발전소가 주민</div>
     </div>
   </div>
@@ -33166,9 +34301,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.econovill.com/news/articleView.html?idxno=749922"
+  data-title="한전KDN, 세네갈에 AI 마이크로그리드 심는다…500만달러 규모 ODA 수행"
+  data-publisher="이코노믹리뷰"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788506902"
+  data-country="KR"
+  data-search="한전kdn, 세네갈에 ai 마이크로그리드 심는다…500만달러 규모 oda 수행 이코노믹리뷰 한전 계열사 한전kdn이 자체 개발한 인공지능(ai) 기반 마이크로그리드 에너지관리시스템(mg-ems)을 세네갈 농촌에 구축하며 에너지 정보통신기술(ict)의 첫 해외 실증에 나선다.한전kdn은 한국국제협력단(koica)의 2026년도 공공협력 사업 공모에서 &#x27;세네갈 농촌 개발을 위한 에너지 자립 역량 강화사업&#x27;의 본사업 수행기관으로 최종 선정됐다고 4일 밝혔다.이번 사업은 지난해 추진한 &#x27;세네갈 재생에너지 기반 에너지자립마을 조성 사업&#x27;을 고도화하는 프로젝트다. 한전kdn은 동신대학교와 컨소시엄을 구성해 오는 11월부터 2030년 10월까지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이코노믹리뷰</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전KDN, 세네갈에 AI 마이크로그리드 심는다…500만달러 규모 ODA 수행</div>
+      <div class="article-snippet">한전KDN이 자체 개발한 인공지능(AI) 기반 마이크로그리드 에너지관리시스템(MG-EMS)을 세네갈 농촌에 구축하며 에너지 정보통신기술(ICT)의 첫 해외 실증에 나선다.한전KDN은 한국국제협력단(KOICA)의 2026년도 공공협력 사업 공모에서 &#x27;세네갈 농촌 개발을 위한 에너지 자립 역량 강화사업&#x27;의 본사업 수행기관으로 최종 선정됐다고 4일 밝혔다.이번 사업은 지난해 추진한 &#x27;세네갈 재생에너지 기반 에너지자립마을 조성 사업&#x27;을 고도화하는 프로젝트다. 한전KDN은 동신대학교와 컨소시엄을 구성해 오는 11월부터 2030년 10월까지</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.econovill.com/news/thumbnail/202609/749922_725226_1211_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6058"
   data-title="한전KDN, KOICA ODA 선정... AI-에너지CIT로 세네갈 농촌 에너지 자립 주도 새창으로 읽기 - 에너지안전신문"
@@ -33289,7 +34457,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6058" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전KDN, KOICA ODA 선정... AI-에너지CIT로 세네갈 농촌 에너지 자립 주도 새창으로 읽기 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1016201" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전KDN, AI-에너지CIT로 세네갈 농촌 에너지 자립 주도…KOICA ODA 선정</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776644" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">한전KDN, 500만弗 규모 세네갈 농촌 에너지 자립 사업 추진</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904083555519" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">전남광주특별시, KOICA ODA 선정…세네갈에 &#x27;에너지 자립모델&#x27; 구축</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749922" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">한전KDN, 세네갈에 AI 마이크로그리드 심는다…500만달러 규모 ODA 수행</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6058" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전KDN, KOICA ODA 선정... AI-에너지CIT로 세네갈 농촌 에너지 자립 주도 새창으로 읽기 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1016201" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전KDN, AI-에너지CIT로 세네갈 농촌 에너지 자립 주도…KOICA ODA 선정</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260904_0003776644" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">한전KDN, 500만弗 규모 세네갈 농촌 에너지 자립 사업 추진</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904083555519" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">전남광주특별시, KOICA ODA 선정…세네갈에 &#x27;에너지 자립모델&#x27; 구축</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">전남광주, 세네갈에 &#x27;재생에너지 노하우&#x27; 전수한다</div>
@@ -33373,9 +34541,141 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">28건</span>
+    <span class="group-count">32건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.dailian.co.kr/news/view/1686638/%EC%9D%B8%EC%82%AC-%EA%B3%BC%ED%95%99%EA%B8%B0%EC%88%A0%EC%A0%95%EB%B3%B4%ED%86%B5%EC%8B%A0%EB%B6%80-2026"
+  data-title="[인사] 과학기술정보통신부"
+  data-publisher="데일리안"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788507840"
+  data-country="KR"
+  data-search="[인사] 과학기술정보통신부 데일리안 원전 관계부처 ◇과장급 전보(9월 7일 자)▲미주아시아협력담당관 박병현▲인공지능전환지원과장 권은태"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[인사] 과학기술정보통신부</div>
+      <div class="article-snippet">◇과장급 전보(9월 7일 자)▲미주아시아협력담당관 박병현▲인공지능전환지원과장 권은태</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdnimage.dailian.co.kr/news/202509/news_1758789696_1554092_m_1.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.inews24.com/view/2002195"
+  data-title="[인사] 과학기술정보통신부"
+  data-publisher="아이뉴스24"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788507391"
+  data-country="KR"
+  data-search="[인사] 과학기술정보통신부 아이뉴스24 원전 관계부처 ◇과장급 전보 △미주아시아협력담당관 박병현 △인공지능전환지원과장 권은태"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아이뉴스24</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[인사] 과학기술정보통신부</div>
+      <div class="article-snippet">◇과장급 전보 △미주아시아협력담당관 박병현 △인공지능전환지원과장 권은태</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.inews24.com/images/logo540x280.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://zdnet.co.kr/view/?no=20260904163625"
+  data-title="[인사] 과학기술정보통신부"
+  data-publisher="ZDNet Korea"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788507385"
+  data-country="KR"
+  data-search="[인사] 과학기술정보통신부 zdnet korea 원전 관계부처 ◇과장급 전보 ▲미주아시아협력담당관 박병현 ▲인공지능전환지원과장 권은태- 2026년 9월4일자...."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">ZDNet Korea</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[인사] 과학기술정보통신부</div>
+      <div class="article-snippet">◇과장급 전보 ▲미주아시아협력담당관 박병현 ▲인공지능전환지원과장 권은태- 2026년 9월4일자....</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://zdnet.co.kr/images/default_img.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.public25.com/news/articleView.html?idxno=54102"
+  data-title="[인사] 과학기술정보통신부 - 퍼블릭타임스"
+  data-publisher="서울신문"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788505789"
+  data-country="KR"
+  data-search="[인사] 과학기술정보통신부 - 퍼블릭타임스 서울신문 원전 관계부처 ◇ 과장급 전보△ 미주아시아협력담당관 박병현 △ 인공지능전환지원과장 권은태노혁진 객원기자 rho@public25.com"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[인사] 과학기술정보통신부 - 퍼블릭타임스</div>
+      <div class="article-snippet">◇ 과장급 전보△ 미주아시아협력담당관 박병현 △ 인공지능전환지원과장 권은태노혁진 객원기자 rho@public25.com</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.public25.com/image/logo/snslogo_20250805040917.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260904000315"
   data-title="[인사] 과학기술정보통신부"
@@ -33463,7 +34763,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260904000315" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260904119300017?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">[인사] 과학기술정보통신부 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040165" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.dailian.co.kr/news/view/1686638/%EC%9D%B8%EC%82%AC-%EA%B3%BC%ED%95%99%EA%B8%B0%EC%88%A0%EC%A0%95%EB%B3%B4%ED%86%B5%EC%8B%A0%EB%B6%80-2026" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://www.inews24.com/view/2002195" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://zdnet.co.kr/view/?no=20260904163625" target="_blank" rel="noopener"><span class="related-coverage-publisher">ZDNet Korea</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=54102" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[인사] 과학기술정보통신부 - 퍼블릭타임스</span></a><a class="related-coverage-link" href="https://www.etnews.com/20260904000315" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260904119300017?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">[인사] 과학기술정보통신부 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040165" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">[인사] 과학기술정보통신부</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[인사]과학기술정보통신부</div>
@@ -34942,7 +36242,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">44건</span>
+    <span class="group-count">46건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35704,6 +37004,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260904140400055?section=industry/all"
+  data-title="환경단체 &quot;한빛핵발전소 부지 내 저장시설 건설계획 백지화하라&quot; | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788507649"
+  data-country="KR"
+  data-search="환경단체 &quot;한빛핵발전소 부지 내 저장시설 건설계획 백지화하라&quot; | 연합뉴스 연합뉴스 원자력 (고창=연합뉴스) 김문경 기자 = 한빛핵발전소대응호남권공동행동은 4일 전북 고창군 고준위핵폐기물 토론회장 앞에서 기자회견을 열고 &quot;핵발전소 부지..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>환경단체 &quot;한빛핵발전소 부지 내 저장시설 건설계획 백지화하라&quot; | 연합뉴스</div>
+      <div class="article-snippet">(고창=연합뉴스) 김문경 기자 = 한빛핵발전소대응호남권공동행동은 4일 전북 고창군 고준위핵폐기물 토론회장 앞에서 기자회견을 열고 &quot;핵발전소 부지...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d64512a9959d5aad0abe7a18.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.hankookilbo.com/news/article/A2026090411230001690?dtypecode=pancode_main"
   data-title="핵잠·원자력협정 &#x27;삐걱&#x27;... 靑 &quot;한미 안보협상 쉽지 않아... 복원 노력&quot;-정치ㅣ한국일보"
@@ -35866,6 +37199,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d610bdb707e663e63948e6db.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227936"
+  data-title="[사설] 에경연 40년, ‘정책 지원’ 한계 넘어서야"
+  data-publisher="에너지신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788540249"
+  data-country="OTHER"
+  data-search="[사설] 에경연 40년, ‘정책 지원’ 한계 넘어서야 에너지신문 원자력 [에너지신문] 에너지경제연구원이 설립 40주년을 맞았다. 에경연은 1986년 출범한 이후 석유 수급과 에너지 안보, 전력시장, 기후변화, 재생에너지, 원전, 수소 등으로 연구 영역을 넓히며 국가 에너지정책 수립을 뒷받침해 왔다.산업 성장에 필요한 에너지를 안정적으로 확보하는 것이 과거의 핵심 과제였다면, 이제는 공급 안정과 탄소중립, 산업 경쟁력, 국민 부담을 동시에 풀어야 하는 훨씬 복잡한 숙제가 놓여 있다.에경연의 역할이 어느 때보다 중요한 상황에서, 이제는 정부 정책을 뒷받침하는 데 머물러서는 안 된다.정책 방향이 먼저 정해진"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[사설] 에경연 40년, ‘정책 지원’ 한계 넘어서야</div>
+      <div class="article-snippet">[에너지신문] 에너지경제연구원이 설립 40주년을 맞았다. 에경연은 1986년 출범한 이후 석유 수급과 에너지 안보, 전력시장, 기후변화, 재생에너지, 원전, 수소 등으로 연구 영역을 넓히며 국가 에너지정책 수립을 뒷받침해 왔다.산업 성장에 필요한 에너지를 안정적으로 확보하는 것이 과거의 핵심 과제였다면, 이제는 공급 안정과 탄소중립, 산업 경쟁력, 국민 부담을 동시에 풀어야 하는 훨씬 복잡한 숙제가 놓여 있다.에경연의 역할이 어느 때보다 중요한 상황에서, 이제는 정부 정책을 뒷받침하는 데 머물러서는 안 된다.정책 방향이 먼저 정해진</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ac9f7f8a11eab81248f9a6e3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36577,7 +37943,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36610,6 +37976,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/b91cb3a6f4742b9daa2881ee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hurriyetdailynews.com/foreign-ministry-says-eu-institutions-undermine-trust-in-cyprus-226431"
+  data-title="Ankara slams EU plan to fund monument defaming Turkish military - Türkiye News"
+  data-publisher="Hurriyet Daily News"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788507195"
+  data-country="TR"
+  data-search="ankara slams eu plan to fund monument defaming turkish military - türkiye news hurriyet daily news 국내 원자력 협회·학회 the turkish foreign ministry has criticized an eu plan to sponsor the construction of a monument to defame the turkish military over the 1974 cyprus peace operation."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Hurriyet Daily News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Ankara slams EU plan to fund monument defaming Turkish military - Türkiye News</div>
+      <div class="article-snippet">The Turkish Foreign Ministry has criticized an EU plan to sponsor the construction of a monument to defame the Turkish military over the 1974 Cyprus Peace Operation.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/901d7cb01b10147b345f0a0d.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36685,7 +38084,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">10건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36718,6 +38117,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/cd85ab4286150cf42b88e9dc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.vietnam.vn/en/da-nang-chu-dong-nang-cao-nang-luc-ung-pho-su-co-buc-xa-hat-nhan"
+  data-title="Da Nang proactively enhances its capacity to respond to radiation and nuclear incidents."
+  data-publisher="Vietnam.vn"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788497700"
+  data-country="VN"
+  data-search="da nang proactively enhances its capacity to respond to radiation and nuclear incidents. vietnam.vn nuclear power·nuclear energy da nang will strengthen the application of science, technology, and digital transformation in collecting, managing, and sharing information; monitoring, warning, and assessing affected areas; and supporting decision-making when incidents occur. simultaneously, it will promote awareness campaigns on radiation safety, ra"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Vietnam.vn</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Da Nang proactively enhances its capacity to respond to radiation and nuclear incidents.</div>
+      <div class="article-snippet">Da Nang will strengthen the application of science, technology, and digital transformation in collecting, managing, and sharing information; monitoring, warning, and assessing affected areas; and supporting decision-making when incidents occur. Simultaneously, it will promote awareness campaigns on radiation safety, ra</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f99110a5b95f6192183e2e8b.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36919,7 +38351,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.engineeringnews.co.za/article/iea-chief-says-nigeria-could-double-energy-investment-within-five-years-2026-09-04"
   data-title="IEA chief says Nigeria could double energy investment within five years"
   data-publisher="Engineering News"
@@ -36943,7 +38375,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>IEA chief says Nigeria could double energy investment within five years</div>
+      <div class="headline">IEA chief says Nigeria could double energy investment within five years</div>
       <div class="article-snippet">Nigeria could double investment into its energy sector within five years after joining the International Energy Agency, its chief Fatih Birol said on Thursday, as nations seek partners they can &quot;trust&quot; after supply disruptions from the wars in Iran and Ukraine. Speaking during a visit to Abuja, Birol told Reuters that</div>
     </div>
   </div>
@@ -36952,7 +38384,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.latribune.fr/article/afrique/15337660526793/uranium-la-namibie-attire-toujours-plus-d-investissements-sur-fond-dinstabilite-au-niger"
   data-title="Uranium : la Namibie attire toujours plus d’investissements, sur fond d&#x27;instabilité au Niger"
   data-publisher="La Tribune"
@@ -36976,7 +38408,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Uranium : la Namibie attire toujours plus d’investissements, sur fond d&#x27;instabilité au Niger</div>
+      <div class="headline">Uranium : la Namibie attire toujours plus d’investissements, sur fond d&#x27;instabilité au Niger</div>
       <div class="article-snippet">Le regain mondial d’intérêt pour le nucléaire remet les producteurs d’uranium au centre des stratégies d’approvisionnement. En Afrique, cette conjoncture profite particulièrement à la Namibie, au moment où les bouleversements politiques au Niger compliquent les investissements dans le pays sahélien.</div>
     </div>
   </div>
@@ -48557,7 +49989,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/04c0e3980cb1f2621609a7b9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/599249ac570d44fc5c3bbc76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -261011,18 +262443,25 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }
 
   function personOf(card) {
-    var title = titleOf(card);
-    var candidates = [
-      /([가-힣](2, 4))\s*(회장|사장|대표|CEO|장관|차관|본부장|실장|국장|부사장|전무|상무)/,
-      /(President|Chairman|CEO|Minister|Secretary)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})/i
-    ];
-    for (var i=0;i<candidates.length;i++) {
-      var m=title.match(candidates[i]);
-      if (!m) continue;
-      if (i===0) return m[1]+" "+m[2];
-      return m[2]+" · "+m[1];
-    }
-    return "관계자";
+    var title=titleOf(card);
+    var snippet=(card.dataset.snippet || "");
+    var body=(card.textContent || "");
+    var source=(title+" "+snippet+" "+body).replace(/\s+/g," ");
+
+    var ko=/([가-힣](2, 4))\s*(회장|사장|대표이사|대표|CEO|장관|차관|본부장|실장|국장|부사장|전무|상무|의장)/;
+    var km=source.match(ko);
+    if (km) return km[1]+" "+km[2];
+
+    var en=/(President|Chairman|CEO|Minister|Secretary|Director|Governor)\s+([A-Z][A-Za-z.'-]+(?:\s+[A-Z][A-Za-z.'-]+){0,2})/i;
+    var em=source.match(en);
+    if (em) return em[2]+" · "+em[1];
+
+    if (/현대건설|hyundai e&c|hdec/i.test(source)) return "현대건설";
+    if (/산업통상|산업부|ministry of trade/i.test(source)) return "산업통상부";
+    if (/미 에너지부|department of energy|doe/i.test(source)) return "미 에너지부";
+    if (/holtec|홀텍/i.test(source)) return "Holtec";
+    if (/westinghouse|웨스팅하우스/i.test(source)) return "Westinghouse";
+    return "기관·기업";
   }
 
   function eventStageOf(card) {
@@ -261101,7 +262540,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         img.loading="lazy";
         avatar.appendChild(img);
       } else {
-        avatar.textContent=personOf(card).slice(0,2);
+        var personLabel=personOf(card);
+        avatar.textContent=(personLabel==="기관·기업" ? "●" : personLabel.slice(0,2));
       }
 
       var person=document.createElement("div");
@@ -261353,8 +262793,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       return groupOf(c) === "원전 대미투자";
     });
 
-    buildTimeline("pc-hyundai-timeline", hyundaiCards, 5);
-    buildTimeline("pc-invest-timeline", investCards, 5);
+    buildTimeline("pc-hyundai-timeline", hyundaiCards, 6);
+    buildTimeline("pc-invest-timeline", investCards, 6);
 
     var concentration = document.getElementById("pc-concentration");
     if (concentration) {
@@ -261770,6 +263210,156 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   });
 
   window.addEventListener("resize",schedulePcMapUpdate);
+})();
+</script>
+
+
+<script>
+(function() {
+  function isPcRailMode() {
+    return window.matchMedia("(min-width:1000px)").matches;
+  }
+
+  function bindPcRailWheel() {
+    var rail=document.getElementById("pc-insight-rail");
+    if (!rail || rail.dataset.wheelBound==="1") return;
+    rail.dataset.wheelBound="1";
+
+    rail.addEventListener("wheel",function(event) {
+      if (!isPcRailMode()) return;
+
+      var canScroll=rail.scrollHeight>rail.clientHeight+2;
+      if (!canScroll) return;
+
+      var atTop=rail.scrollTop<=0;
+      var atBottom=rail.scrollTop+rail.clientHeight>=rail.scrollHeight-1;
+
+      if ((event.deltaY<0 && atTop) || (event.deltaY>0 && atBottom)) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+      rail.scrollTop += event.deltaY;
+    },{passive:false});
+  }
+
+  if (document.readyState==="loading") {
+    document.addEventListener("DOMContentLoaded",function() {
+      window.setTimeout(bindPcRailWheel,80);
+    });
+  } else {
+    window.setTimeout(bindPcRailWheel,80);
+  }
+
+  window.addEventListener("resize",function() {
+    window.setTimeout(bindPcRailWheel,80);
+  });
+})();
+</script>
+
+
+<script>
+(function() {
+  var PC_TIMEZONE_BY_COUNTRY = {
+    KR:["Asia/Seoul","서울","🇰🇷"],
+    US:["America/New_York","워싱턴","🇺🇸"],
+    CA:["America/Toronto","토론토","🇨🇦"],
+    GB:["Europe/London","런던","🇬🇧"],
+    FR:["Europe/Paris","파리","🇫🇷"],
+    BG:["Europe/Sofia","소피아","🇧🇬"],
+    RO:["Europe/Bucharest","부쿠레슈티","🇷🇴"],
+    CZ:["Europe/Prague","프라하","🇨🇿"],
+    PL:["Europe/Warsaw","바르샤바","🇵🇱"],
+    SI:["Europe/Ljubljana","류블랴나","🇸🇮"],
+    FI:["Europe/Helsinki","헬싱키","🇫🇮"],
+    SE:["Europe/Stockholm","스톡홀름","🇸🇪"],
+    NL:["Europe/Amsterdam","암스테르담","🇳🇱"],
+    BE:["Europe/Brussels","브뤼셀","🇧🇪"],
+    CH:["Europe/Zurich","취리히","🇨🇭"],
+    SK:["Europe/Bratislava","브라티슬라바","🇸🇰"],
+    DK:["Europe/Copenhagen","코펜하겐","🇩🇰"],
+    UA:["Europe/Kyiv","키이우","🇺🇦"],
+    RU:["Europe/Moscow","모스크바","🇷🇺"],
+    TR:["Europe/Istanbul","이스탄불","🇹🇷"],
+    AE:["Asia/Dubai","아부다비","🇦🇪"],
+    SA:["Asia/Riyadh","리야드","🇸🇦"],
+    IN:["Asia/Kolkata","뉴델리","🇮🇳"],
+    CN:["Asia/Shanghai","베이징","🇨🇳"],
+    JP:["Asia/Tokyo","도쿄","🇯🇵"],
+    VN:["Asia/Ho_Chi_Minh","하노이","🇻🇳"],
+    AU:["Australia/Sydney","시드니","🇦🇺"],
+    BR:["America/Sao_Paulo","상파울루","🇧🇷"],
+    ZA:["Africa/Johannesburg","요하네스버그","🇿🇦"]
+  };
+
+  function pcTimeParts(zone) {
+    var parts=new Intl.DateTimeFormat("en-GB",{
+      timeZone:zone,
+      year:"numeric",month:"2-digit",day:"2-digit",
+      hour:"2-digit",minute:"2-digit",second:"2-digit",
+      hour12:false
+    }).formatToParts(new Date());
+    var v={};
+    parts.forEach(function(p){ if(p.type!=="literal") v[p.type]=Number(p.value); });
+    return v;
+  }
+
+  function pcDateSerial(v) {
+    return Date.UTC(v.year,v.month-1,v.day)/86400000;
+  }
+
+  function pcDayRelation(v,seoul) {
+    var d=pcDateSerial(v)-pcDateSerial(seoul);
+    if(d<0) return "전일";
+    if(d>0) return "익일";
+    return "당일";
+  }
+
+  function updatePcWorldTime() {
+    var seoul=pcTimeParts("Asia/Seoul");
+    document.querySelectorAll(".pc-world-time-card[data-pc-timezone]").forEach(function(card){
+      var zone=card.dataset.pcTimezone;
+      if(!zone) return;
+      var v=pcTimeParts(zone);
+      var time=card.querySelector(".pc-world-time-value");
+      var day=card.querySelector(".pc-world-time-day");
+      if(time) time.textContent=String(v.hour%24).padStart(2,"0")+":"+String(v.minute).padStart(2,"0");
+      if(day) day.textContent=pcDayRelation(v,seoul);
+    });
+  }
+
+  function syncPcSelectedTime() {
+    var card=document.querySelector('.pc-world-time-card[data-role="pc-selected-time"]');
+    if(!card) return;
+    var code="";
+    try { code=(typeof activeCountryFilter!=="undefined" ? activeCountryFilter : "") || ""; } catch(_e) {}
+    var info=PC_TIMEZONE_BY_COUNTRY[code] || ["UTC","선택국가","🌐"];
+    card.dataset.pcTimezone=info[0];
+    var flag=document.getElementById("pc-selected-time-flag");
+    var city=document.getElementById("pc-selected-time-city");
+    if(flag) flag.textContent=info[2];
+    if(city) city.textContent=info[1];
+    updatePcWorldTime();
+  }
+
+  function initPcWorldTime() {
+    updatePcWorldTime();
+    syncPcSelectedTime();
+    window.setInterval(updatePcWorldTime,30000);
+  }
+
+  if(document.readyState==="loading") {
+    document.addEventListener("DOMContentLoaded",initPcWorldTime);
+  } else {
+    initPcWorldTime();
+  }
+
+  document.addEventListener("click",function(e){
+    if(e.target.closest('[data-country-filter], [data-country-code], .globe-country-label, .precise-country-label, .map-country-card, #pc-country-reset, #pc-country-filter-clear')) {
+      window.setTimeout(syncPcSelectedTime,120);
+    }
+  });
 })();
 </script>
 
