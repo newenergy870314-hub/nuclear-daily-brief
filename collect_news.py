@@ -1,3 +1,5 @@
+# FINAL PC DETAILED MAP + WORLD CLOCKS / MOBILE UNCHANGED 2026-09-04
+# FINAL PC VISUAL V3: MAP + INDEPENDENT RAIL + FULL TIMELINES / MOBILE UNCHANGED 2026-09-04
 # FINAL PC VISUAL INTELLIGENCE DASHBOARD / PROGRESS TIMELINES / MOBILE UNCHANGED 2026-09-04
 # FINAL PC DASHBOARD MAP HARD-APPLY FIX / WIDTH-ONLY DESKTOP DETECTION 2026-09-04
 # FINAL PC DASHBOARD + INTERACTIVE COUNTRY MAP ANALYTICS / MOBILE UNCHANGED 2026-09-04
@@ -23089,6 +23091,658 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   FINAL PC VISUAL LAYOUT / SCROLL / MAP / TIMELINE FIX
+   2026-09-04
+   PC only (>=1000px). Mobile untouched.
+   ============================================================ */
+@media (min-width:1000px) {{
+  html {{
+    scroll-behavior:smooth;
+  }}
+
+  /* ----------------------------------------------------------
+     A. PC header: do not cover the map while the page scrolls
+     ---------------------------------------------------------- */
+  .topbar {{
+    position:relative !important;
+    top:auto !important;
+    z-index:10 !important;
+    margin-bottom:18px !important;
+  }}
+
+  #world-map-panel {{
+    position:relative !important;
+    z-index:1 !important;
+    margin-top:0 !important;
+    scroll-margin-top:18px !important;
+
+    display:grid !important;
+    grid-template-columns:minmax(0,2.25fr) minmax(310px,.75fr) !important;
+    grid-template-areas:
+      "head head"
+      "map overview"
+      "selection overview" !important;
+    gap:12px 16px !important;
+
+    min-height:430px !important;
+    padding:16px !important;
+    overflow:visible !important;
+  }}
+
+  #world-map-panel .country-map-content {{
+    grid-area:map !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }}
+
+  #world-map-panel .country-map-visual {{
+    position:relative !important;
+    width:100% !important;
+    height:350px !important;
+    min-height:350px !important;
+    overflow:hidden !important;
+    border-radius:14px !important;
+  }}
+
+  #world-map-panel .globe-stage {{
+    width:100% !important;
+    height:100% !important;
+    min-height:320px !important;
+    overflow:hidden !important;
+  }}
+
+  #world-map-panel .continent-tabs,
+  #world-map-panel .country-chip-rail {{
+    position:relative !important;
+    z-index:3 !important;
+  }}
+
+  .pc-country-overview {{
+    grid-area:overview !important;
+    min-height:350px !important;
+    max-height:350px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-country-ranking {{
+    min-height:0 !important;
+    max-height:235px !important;
+    overflow-y:auto !important;
+    padding-right:3px !important;
+    scrollbar-width:thin;
+  }}
+
+  .pc-country-ranking::-webkit-scrollbar {{
+    width:6px;
+  }}
+
+  .pc-country-ranking::-webkit-scrollbar-thumb {{
+    background:#c2d1df;
+    border-radius:999px;
+  }}
+
+  /* ----------------------------------------------------------
+     B. Main PC layout
+     ---------------------------------------------------------- */
+  main {{
+    grid-template-columns:minmax(0,1fr) 500px !important;
+    gap:18px !important;
+    align-items:start !important;
+    overflow:visible !important;
+  }}
+
+  .tab-panel {{
+    min-width:0 !important;
+    overflow:visible !important;
+  }}
+
+  /* ----------------------------------------------------------
+     C. Right analytics rail = truly independent vertical scroll
+     ---------------------------------------------------------- */
+  #pc-insight-rail {{
+    position:sticky !important;
+    top:14px !important;
+    align-self:start !important;
+
+    height:calc(100vh - 28px) !important;
+    max-height:calc(100vh - 28px) !important;
+    min-height:420px !important;
+
+    overflow-y:scroll !important;
+    overflow-x:hidden !important;
+    overscroll-behavior-y:contain !important;
+    -webkit-overflow-scrolling:touch;
+    touch-action:pan-y !important;
+    scrollbar-width:thin;
+    scrollbar-color:#9fb5c9 transparent;
+
+    display:flex !important;
+    flex-direction:column !important;
+    gap:12px !important;
+    padding:0 7px 20px 0 !important;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar {{
+    width:9px !important;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar-track {{
+    background:transparent !important;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar-thumb {{
+    background:#a9bfd2 !important;
+    border-radius:999px !important;
+    border:2px solid transparent !important;
+    background-clip:padding-box !important;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar-thumb:hover {{
+    background:#819eb8 !important;
+    border:2px solid transparent !important;
+    background-clip:padding-box !important;
+  }}
+
+  #pc-insight-rail > .pc-rail-card {{
+    flex:0 0 auto !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }}
+
+  /* ----------------------------------------------------------
+     D. Focus cards: preserve the visual hierarchy
+     ---------------------------------------------------------- */
+  .pc-focus-list {{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }}
+
+  .pc-focus-item {{
+    min-height:152px !important;
+  }}
+
+  /* ----------------------------------------------------------
+     E. Timeline = one horizontal visual progression track
+        Events are never vertically cut.
+     ---------------------------------------------------------- */
+  .pc-timeline-card {{
+    overflow:hidden !important;
+  }}
+
+  .pc-timeline-wrap {{
+    position:relative !important;
+    padding:13px 12px 14px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-timeline {{
+    position:relative !important;
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:9px !important;
+
+    width:100% !important;
+    min-width:0 !important;
+    max-height:none !important;
+
+    padding:30px 3px 8px !important;
+    overflow-x:auto !important;
+    overflow-y:visible !important;
+    overscroll-behavior-x:contain !important;
+    scroll-snap-type:x proximity;
+    scrollbar-width:thin;
+    scrollbar-color:#b9cad9 transparent;
+  }}
+
+  .pc-timeline::-webkit-scrollbar {{
+    height:7px !important;
+  }}
+
+  .pc-timeline::-webkit-scrollbar-thumb {{
+    background:#b9cad9 !important;
+    border-radius:999px !important;
+  }}
+
+  .pc-timeline:before {{
+    display:block !important;
+    content:"" !important;
+    position:absolute !important;
+    left:18px !important;
+    right:18px !important;
+    top:16px !important;
+    width:auto !important;
+    height:2px !important;
+    background:#b9cddd !important;
+    z-index:0 !important;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline:before {{
+    background:#dfbf5c !important;
+  }}
+
+  .pc-timeline-item {{
+    position:relative !important;
+    flex:0 0 112px !important;
+    width:112px !important;
+    min-width:112px !important;
+    max-width:112px !important;
+    min-height:178px !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    gap:5px !important;
+
+    margin:0 !important;
+    padding:22px 7px 8px !important;
+
+    border:1px solid #dce6f0 !important;
+    border-left:1px solid #dce6f0 !important;
+    border-radius:11px !important;
+    background:linear-gradient(180deg,#fff,#f7fafc) !important;
+    box-shadow:none !important;
+    text-align:center !important;
+    scroll-snap-align:start;
+    overflow:visible !important;
+  }}
+
+  .pc-timeline-item:before {{
+    display:block !important;
+    content:"" !important;
+    position:absolute !important;
+    left:50% !important;
+    top:-19px !important;
+    transform:translateX(-50%) !important;
+    width:11px !important;
+    height:11px !important;
+    border-radius:50% !important;
+    background:#21649f !important;
+    border:3px solid #fff !important;
+    box-shadow:0 0 0 2px #b6cbdd !important;
+    z-index:2 !important;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-item:before {{
+    background:#bd8200 !important;
+    box-shadow:0 0 0 2px #e0c269 !important;
+  }}
+
+  .pc-event-date {{
+    position:absolute !important;
+    top:-34px !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    z-index:4 !important;
+
+    min-width:51px !important;
+    height:21px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    padding:0 7px !important;
+    border-radius:999px !important;
+    background:#174f87 !important;
+    color:#fff !important;
+    font-size:9px !important;
+    font-weight:950 !important;
+    letter-spacing:.1px !important;
+    white-space:nowrap !important;
+  }}
+
+  .pc-timeline-card.invest .pc-event-date {{
+    background:#ae7600 !important;
+  }}
+
+  .pc-event-avatar {{
+    width:46px !important;
+    height:46px !important;
+    margin-top:1px !important;
+  }}
+
+  .pc-event-person {{
+    width:100% !important;
+    min-height:29px !important;
+    color:#324c66 !important;
+    font-size:9px !important;
+    line-height:1.32 !important;
+    font-weight:900 !important;
+    -webkit-line-clamp:2 !important;
+  }}
+
+  .pc-event-icon {{
+    width:29px !important;
+    height:29px !important;
+    font-size:14px !important;
+  }}
+
+  .pc-event-label {{
+    width:100% !important;
+    min-height:36px !important;
+    color:#183b60 !important;
+    font-size:10px !important;
+    line-height:1.3 !important;
+    font-weight:950 !important;
+    padding:0 1px !important;
+  }}
+
+  .pc-event-stage {{
+    width:100% !important;
+    min-height:23px !important;
+    margin-top:auto !important;
+    border-radius:6px !important;
+    font-size:8.3px !important;
+  }}
+
+  .pc-event-coverage {{
+    min-height:14px !important;
+    color:#8795a4 !important;
+    font-size:8px !important;
+    font-weight:800 !important;
+  }}
+
+  .pc-timeline-item:after {{
+    top:4px !important;
+    right:4px !important;
+  }}
+
+  /* Timeline header tells the user horizontal events can be explored */
+  .pc-timeline-card .pc-rail-sub:after {{
+    content:"  ·  좌우 스크롤" !important;
+    opacity:.8;
+  }}
+
+  /* ----------------------------------------------------------
+     F. Readability on restored / non-maximized desktop windows
+     ---------------------------------------------------------- */
+  .preview-card {{
+    min-width:0 !important;
+  }}
+
+  .important-button {{
+    flex:0 0 auto !important;
+    width:36px !important;
+    min-width:36px !important;
+    max-width:36px !important;
+    overflow:visible !important;
+  }}
+}}
+
+@media (min-width:1000px) and (max-width:1299px) {{
+  #world-map-panel {{
+    grid-template-columns:minmax(0,1fr) 280px !important;
+    min-height:400px !important;
+  }}
+
+  #world-map-panel .country-map-visual {{
+    height:315px !important;
+    min-height:315px !important;
+  }}
+
+  .pc-country-overview {{
+    min-height:315px !important;
+    max-height:315px !important;
+  }}
+
+  main {{
+    grid-template-columns:minmax(0,1fr) 400px !important;
+    gap:14px !important;
+  }}
+
+  .pc-focus-list {{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }}
+
+  /* Important: do not revert timeline to 2-column grid */
+  .pc-timeline {{
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    gap:8px !important;
+  }}
+
+  .pc-timeline-item {{
+    flex-basis:108px !important;
+    width:108px !important;
+    min-width:108px !important;
+    max-width:108px !important;
+  }}
+}}
+
+
+/* ============================================================
+   PC DETAILED MAP + WORLD CLOCKS 2026-09-04
+   PC only. Mobile untouched.
+   ============================================================ */
+@media (min-width:1000px) {{
+  #world-map-panel {{
+    grid-template-areas:
+      "head head"
+      "time time"
+      "map overview"
+      "selection overview" !important;
+    grid-template-columns:minmax(0,2.35fr) minmax(320px,.65fr) !important;
+    gap:10px 16px !important;
+    min-height:520px !important;
+  }}
+
+  #pc-world-time-bar {{
+    grid-area:time !important;
+    display:grid !important;
+    grid-template-columns:105px repeat(6,minmax(0,1fr)) !important;
+    gap:7px !important;
+    align-items:stretch !important;
+    padding:0 1px 2px !important;
+  }}
+
+  .pc-world-time-title {{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 9px;
+    border-left:4px solid #1d5f9d;
+    color:#173b61;
+  }}
+
+  .pc-world-time-title > span {{
+    font-size:12px;
+    line-height:1.1;
+    font-weight:950;
+  }}
+
+  .pc-world-time-title > small {{
+    margin-top:3px;
+    color:#8996a5;
+    font-size:8px;
+    font-weight:800;
+  }}
+
+  .pc-world-time-card {{
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr) auto;
+    grid-template-areas:
+      "flag city day"
+      "flag time time";
+    align-items:center;
+    column-gap:6px;
+    row-gap:1px;
+    min-width:0;
+    min-height:49px;
+    padding:7px 8px;
+    border:1px solid #dce6ef;
+    border-radius:11px;
+    background:linear-gradient(180deg,#fff,#f6f9fc);
+  }}
+
+  .pc-world-time-card.selected {{
+    border-color:#d4c27d;
+    background:linear-gradient(180deg,#fffaf0,#fff5d8);
+  }}
+
+  .pc-world-time-flag {{
+    grid-area:flag;
+    font-size:17px;
+  }}
+
+  .pc-world-time-city {{
+    grid-area:city;
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:#53677e;
+    font-size:9px;
+    font-weight:900;
+  }}
+
+  .pc-world-time-value {{
+    grid-area:time;
+    color:#173b61;
+    font-size:15px;
+    line-height:1;
+    font-weight:950;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:.3px;
+  }}
+
+  .pc-world-time-day {{
+    grid-area:day;
+    justify-self:end;
+    display:inline-flex;
+    align-items:center;
+    height:15px;
+    padding:0 5px;
+    border-radius:999px;
+    background:#edf2f6;
+    color:#6b7d90;
+    font-size:7px;
+    font-weight:900;
+  }}
+
+  .pc-world-time-card.selected .pc-world-time-day {{
+    background:#f6e7ab;
+    color:#8e6700;
+  }}
+
+  #world-map-panel .country-map-visual {{
+    height:405px !important;
+    min-height:405px !important;
+    border:1px solid #d3e0eb !important;
+    background:
+      linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,.28)),
+      radial-gradient(circle at 50% 48%,#f8fbfe 0%,#e9f2f8 57%,#dbe8f2 100%) !important;
+    box-shadow:inset 0 0 35px rgba(75,116,153,.06) !important;
+  }}
+
+  #world-map-panel .country-map-visual:after {{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      linear-gradient(to right,rgba(73,112,145,.05) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(73,112,145,.05) 1px,transparent 1px);
+    background-size:10% 25%;
+    opacity:.65;
+  }}
+
+  #world-map-panel .world-map-inline,
+  #world-map-panel .world-map-image {{
+    transform:scale(1.035);
+    transform-origin:center center;
+  }}
+
+  #world-map-panel .precise-country-label,
+  #world-map-panel .globe-country-label {{
+    font-weight:950 !important;
+    filter:drop-shadow(0 1px 1px rgba(255,255,255,.95));
+  }}
+
+  .pc-country-overview {{
+    min-height:405px !important;
+    max-height:405px !important;
+    padding:13px !important;
+  }}
+
+  .pc-country-ranking {{
+    max-height:275px !important;
+  }}
+
+  .pc-country-overview-head {{
+    padding-bottom:8px;
+    border-bottom:1px solid #e7edf3;
+  }}
+
+  .pc-country-selected {{
+    margin-top:1px;
+  }}
+
+  .pc-country-overview-foot {{
+    border-top:1px solid #edf1f5;
+    margin-top:9px;
+    padding-top:8px;
+  }}
+
+  /* map details legend */
+  .pc-map-legend {{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-left:auto;
+    color:#7d8b9a;
+    font-size:8px;
+    font-weight:800;
+  }}
+
+  .pc-map-legend-scale {{
+    display:flex;
+    align-items:center;
+    gap:3px;
+  }}
+
+  .pc-map-legend-box {{
+    width:13px;
+    height:7px;
+    border-radius:2px;
+  }}
+
+  .pc-map-legend-box.l1 {{ background:#dceaf5; }}
+  .pc-map-legend-box.l2 {{ background:#8db8da; }}
+  .pc-map-legend-box.l3 {{ background:#2f77b2; }}
+}}
+
+@media (min-width:1000px) and (max-width:1299px) {{
+  #pc-world-time-bar {{
+    grid-template-columns:90px repeat(3,minmax(0,1fr)) !important;
+  }}
+
+  .pc-world-time-card:nth-of-type(5),
+  .pc-world-time-card:nth-of-type(6),
+  .pc-world-time-card:nth-of-type(7) {{
+    display:none !important;
+  }}
+
+  #world-map-panel .country-map-visual {{
+    height:345px !important;
+    min-height:345px !important;
+  }}
+
+  .pc-country-overview {{
+    min-height:345px !important;
+    max-height:345px !important;
+  }}
+
+  .pc-country-ranking {{
+    max-height:215px !important;
+  }}
+}}
+
+@media (max-width:999px) {{
+  #pc-world-time-bar {{
+    display:none !important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -23100,7 +23754,7 @@ main {{
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <div class="title-meta">
-        <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
+        <h1>원자력 주요기사 <span class="pc-build-marker">PC VISUAL V2</span></h1>
         <span class="updated updated-inline">업데이트됨 {format_korean_date_time(generated_at)} KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
@@ -23143,6 +23797,60 @@ main {{
         <div id="world-map-summary" class="world-map-summary">전체 0건</div>
       </div>
       <div id="country-filter-note" class="country-filter-note country-filter-note-inline">대륙을 선택하면 해당 국가를 지도에 표시합니다</div>
+    
+      <div class="pc-map-legend" aria-label="기사량 범례">
+        <span>기사량</span>
+        <span class="pc-map-legend-scale">
+          <i class="pc-map-legend-box l1"></i>
+          <i class="pc-map-legend-box l2"></i>
+          <i class="pc-map-legend-box l3"></i>
+        </span>
+        <span>적음 → 많음</span>
+      </div>
+</div>
+
+
+    <div id="pc-world-time-bar" class="pc-world-time-bar" aria-label="주요 원전시장 세계시간">
+      <div class="pc-world-time-title">
+        <span>세계시간</span>
+        <small>주요 원전시장</small>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="Asia/Seoul">
+        <span class="pc-world-time-flag">🇰🇷</span>
+        <span class="pc-world-time-city">서울</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">당일</span>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="America/New_York">
+        <span class="pc-world-time-flag">🇺🇸</span>
+        <span class="pc-world-time-city">워싱턴</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="Europe/London">
+        <span class="pc-world-time-flag">🇬🇧</span>
+        <span class="pc-world-time-city">런던</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="Europe/Sofia">
+        <span class="pc-world-time-flag">🇧🇬</span>
+        <span class="pc-world-time-city">소피아</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
+      <div class="pc-world-time-card" data-pc-timezone="Asia/Dubai">
+        <span class="pc-world-time-flag">🇦🇪</span>
+        <span class="pc-world-time-city">아부다비</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
+      <div class="pc-world-time-card selected" data-role="pc-selected-time" data-pc-timezone="Europe/Sofia">
+        <span id="pc-selected-time-flag" class="pc-world-time-flag">🌐</span>
+        <span id="pc-selected-time-city" class="pc-world-time-city">선택국가</span>
+        <strong class="pc-world-time-value">--:--</strong>
+        <span class="pc-world-time-day">--</span>
+      </div>
     </div>
 
     <div class="country-map-content">
@@ -28494,18 +29202,25 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }}
 
   function personOf(card) {{
-    var title = titleOf(card);
-    var candidates = [
-      /([가-힣]{2,4})\s*(회장|사장|대표|CEO|장관|차관|본부장|실장|국장|부사장|전무|상무)/,
-      /(President|Chairman|CEO|Minister|Secretary)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){{0,2}})/i
-    ];
-    for (var i=0;i<candidates.length;i++) {{
-      var m=title.match(candidates[i]);
-      if (!m) continue;
-      if (i===0) return m[1]+" "+m[2];
-      return m[2]+" · "+m[1];
-    }}
-    return "관계자";
+    var title=titleOf(card);
+    var snippet=(card.dataset.snippet || "");
+    var body=(card.textContent || "");
+    var source=(title+" "+snippet+" "+body).replace(/\s+/g," ");
+
+    var ko=/([가-힣]{2,4})\s*(회장|사장|대표이사|대표|CEO|장관|차관|본부장|실장|국장|부사장|전무|상무|의장)/;
+    var km=source.match(ko);
+    if (km) return km[1]+" "+km[2];
+
+    var en=/(President|Chairman|CEO|Minister|Secretary|Director|Governor)\s+([A-Z][A-Za-z.'-]+(?:\s+[A-Z][A-Za-z.'-]+){{0,2}})/i;
+    var em=source.match(en);
+    if (em) return em[2]+" · "+em[1];
+
+    if (/현대건설|hyundai e&c|hdec/i.test(source)) return "현대건설";
+    if (/산업통상|산업부|ministry of trade/i.test(source)) return "산업통상부";
+    if (/미 에너지부|department of energy|\bdoe\b/i.test(source)) return "미 에너지부";
+    if (/holtec|홀텍/i.test(source)) return "Holtec";
+    if (/westinghouse|웨스팅하우스/i.test(source)) return "Westinghouse";
+    return "기관·기업";
   }}
 
   function eventStageOf(card) {{
@@ -28584,7 +29299,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         img.loading="lazy";
         avatar.appendChild(img);
       }} else {{
-        avatar.textContent=personOf(card).slice(0,2);
+        var personLabel=personOf(card);
+        avatar.textContent=(personLabel==="기관·기업" ? "●" : personLabel.slice(0,2));
       }}
 
       var person=document.createElement("div");
@@ -28836,8 +29552,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       return groupOf(c) === "원전 대미투자";
     }});
 
-    buildTimeline("pc-hyundai-timeline", hyundaiCards, 5);
-    buildTimeline("pc-invest-timeline", investCards, 5);
+    buildTimeline("pc-hyundai-timeline", hyundaiCards, 6);
+    buildTimeline("pc-invest-timeline", investCards, 6);
 
     var concentration = document.getElementById("pc-concentration");
     if (concentration) {{
@@ -29253,6 +29969,156 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }});
 
   window.addEventListener("resize",schedulePcMapUpdate);
+}})();
+</script>
+
+
+<script>
+(function() {{
+  function isPcRailMode() {{
+    return window.matchMedia("(min-width:1000px)").matches;
+  }}
+
+  function bindPcRailWheel() {{
+    var rail=document.getElementById("pc-insight-rail");
+    if (!rail || rail.dataset.wheelBound==="1") return;
+    rail.dataset.wheelBound="1";
+
+    rail.addEventListener("wheel",function(event) {{
+      if (!isPcRailMode()) return;
+
+      var canScroll=rail.scrollHeight>rail.clientHeight+2;
+      if (!canScroll) return;
+
+      var atTop=rail.scrollTop<=0;
+      var atBottom=rail.scrollTop+rail.clientHeight>=rail.scrollHeight-1;
+
+      if ((event.deltaY<0 && atTop) || (event.deltaY>0 && atBottom)) {{
+        return;
+      }}
+
+      event.preventDefault();
+      event.stopPropagation();
+      rail.scrollTop += event.deltaY;
+    }},{{passive:false}});
+  }}
+
+  if (document.readyState==="loading") {{
+    document.addEventListener("DOMContentLoaded",function() {{
+      window.setTimeout(bindPcRailWheel,80);
+    }});
+  }} else {{
+    window.setTimeout(bindPcRailWheel,80);
+  }}
+
+  window.addEventListener("resize",function() {{
+    window.setTimeout(bindPcRailWheel,80);
+  }});
+}})();
+</script>
+
+
+<script>
+(function() {{
+  var PC_TIMEZONE_BY_COUNTRY = {{
+    KR:["Asia/Seoul","서울","🇰🇷"],
+    US:["America/New_York","워싱턴","🇺🇸"],
+    CA:["America/Toronto","토론토","🇨🇦"],
+    GB:["Europe/London","런던","🇬🇧"],
+    FR:["Europe/Paris","파리","🇫🇷"],
+    BG:["Europe/Sofia","소피아","🇧🇬"],
+    RO:["Europe/Bucharest","부쿠레슈티","🇷🇴"],
+    CZ:["Europe/Prague","프라하","🇨🇿"],
+    PL:["Europe/Warsaw","바르샤바","🇵🇱"],
+    SI:["Europe/Ljubljana","류블랴나","🇸🇮"],
+    FI:["Europe/Helsinki","헬싱키","🇫🇮"],
+    SE:["Europe/Stockholm","스톡홀름","🇸🇪"],
+    NL:["Europe/Amsterdam","암스테르담","🇳🇱"],
+    BE:["Europe/Brussels","브뤼셀","🇧🇪"],
+    CH:["Europe/Zurich","취리히","🇨🇭"],
+    SK:["Europe/Bratislava","브라티슬라바","🇸🇰"],
+    DK:["Europe/Copenhagen","코펜하겐","🇩🇰"],
+    UA:["Europe/Kyiv","키이우","🇺🇦"],
+    RU:["Europe/Moscow","모스크바","🇷🇺"],
+    TR:["Europe/Istanbul","이스탄불","🇹🇷"],
+    AE:["Asia/Dubai","아부다비","🇦🇪"],
+    SA:["Asia/Riyadh","리야드","🇸🇦"],
+    IN:["Asia/Kolkata","뉴델리","🇮🇳"],
+    CN:["Asia/Shanghai","베이징","🇨🇳"],
+    JP:["Asia/Tokyo","도쿄","🇯🇵"],
+    VN:["Asia/Ho_Chi_Minh","하노이","🇻🇳"],
+    AU:["Australia/Sydney","시드니","🇦🇺"],
+    BR:["America/Sao_Paulo","상파울루","🇧🇷"],
+    ZA:["Africa/Johannesburg","요하네스버그","🇿🇦"]
+  }};
+
+  function pcTimeParts(zone) {{
+    var parts=new Intl.DateTimeFormat("en-GB",{{
+      timeZone:zone,
+      year:"numeric",month:"2-digit",day:"2-digit",
+      hour:"2-digit",minute:"2-digit",second:"2-digit",
+      hour12:false
+    }}).formatToParts(new Date());
+    var v={{}};
+    parts.forEach(function(p){{ if(p.type!=="literal") v[p.type]=Number(p.value); }});
+    return v;
+  }}
+
+  function pcDateSerial(v) {{
+    return Date.UTC(v.year,v.month-1,v.day)/86400000;
+  }}
+
+  function pcDayRelation(v,seoul) {{
+    var d=pcDateSerial(v)-pcDateSerial(seoul);
+    if(d<0) return "전일";
+    if(d>0) return "익일";
+    return "당일";
+  }}
+
+  function updatePcWorldTime() {{
+    var seoul=pcTimeParts("Asia/Seoul");
+    document.querySelectorAll(".pc-world-time-card[data-pc-timezone]").forEach(function(card){{
+      var zone=card.dataset.pcTimezone;
+      if(!zone) return;
+      var v=pcTimeParts(zone);
+      var time=card.querySelector(".pc-world-time-value");
+      var day=card.querySelector(".pc-world-time-day");
+      if(time) time.textContent=String(v.hour%24).padStart(2,"0")+":"+String(v.minute).padStart(2,"0");
+      if(day) day.textContent=pcDayRelation(v,seoul);
+    }});
+  }}
+
+  function syncPcSelectedTime() {{
+    var card=document.querySelector('.pc-world-time-card[data-role="pc-selected-time"]');
+    if(!card) return;
+    var code="";
+    try {{ code=(typeof activeCountryFilter!=="undefined" ? activeCountryFilter : "") || ""; }} catch(_e) {{}}
+    var info=PC_TIMEZONE_BY_COUNTRY[code] || ["UTC","선택국가","🌐"];
+    card.dataset.pcTimezone=info[0];
+    var flag=document.getElementById("pc-selected-time-flag");
+    var city=document.getElementById("pc-selected-time-city");
+    if(flag) flag.textContent=info[2];
+    if(city) city.textContent=info[1];
+    updatePcWorldTime();
+  }}
+
+  function initPcWorldTime() {{
+    updatePcWorldTime();
+    syncPcSelectedTime();
+    window.setInterval(updatePcWorldTime,30000);
+  }}
+
+  if(document.readyState==="loading") {{
+    document.addEventListener("DOMContentLoaded",initPcWorldTime);
+  }} else {{
+    initPcWorldTime();
+  }}
+
+  document.addEventListener("click",function(e){{
+    if(e.target.closest('[data-country-filter], [data-country-code], .globe-country-label, .precise-country-label, .map-country-card, #pc-country-reset, #pc-country-filter-clear')) {{
+      window.setTimeout(syncPcSelectedTime,120);
+    }}
+  }});
 }})();
 </script>
 
