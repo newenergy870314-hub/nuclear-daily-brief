@@ -1,3 +1,5 @@
+# FINAL PC RESTORED WINDOW RESPONSIVE + IMPORTANT BUTTON FIX / MOBILE UNCHANGED 2026-09-04
+# FINAL PC PRETENDARD WEBFONT / MOBILE UNCHANGED 2026-09-04
 # FINAL PC DATE/PERIOD CONTROLS FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL PC REMOVE MASTER EXPAND/COLLAPSE + INDIVIDUAL GROUP TOGGLE FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL PC SMART TODAY FOCUS SCORING / MOBILE UNCHANGED 2026-09-04
@@ -22116,7 +22118,149 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   PC PRETENDARD WEBFONT 2026-09-04
+   Desktop only - mobile unchanged
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+  body,
+  button,
+  input,
+  select,
+  textarea,
+  .phone,
+  .preview-card,
+  .headline,
+  .article-snippet,
+  .publisher,
+  .group-title,
+  #pc-insight-rail,
+  #pc-insight-rail * {{
+    font-family:
+      Pretendard,
+      "Noto Sans KR",
+      "Apple SD Gothic Neo",
+      "Malgun Gothic",
+      Arial,
+      sans-serif !important;
+  }}
+
+  body {{
+    font-kerning:normal;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }}
+}}
+
+
+/* ============================================================
+   PC RESTORED-WINDOW RESPONSIVE FIX 2026-09-04
+   Prevents IMPORTANT button clipping when browser is not maximized.
+   Mobile remains unchanged.
+   ============================================================ */
+
+/* 중간 크기 PC / 창 축소 상태 */
+@media (min-width:1000px) and (max-width:1299px) and (hover:hover) and (pointer:fine) {{
+  main {{
+    grid-template-columns:minmax(0,1fr) 350px !important;
+    gap:14px !important;
+  }}
+
+  /* 축소된 PC에서는 기사카드를 1열로 전환해 가독성/버튼 공간 확보 */
+  .article-stack {{
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:12px !important;
+  }}
+
+  .preview-card {{
+    grid-template-columns:minmax(0,1fr) 108px !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }}
+
+  .card-side {{
+    width:108px !important;
+    min-width:108px !important;
+  }}
+
+  .preview-image {{
+    width:108px !important;
+    height:102px !important;
+    min-height:102px !important;
+  }}
+
+  .meta-row {{
+    display:flex !important;
+    align-items:center !important;
+    gap:4px !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }}
+
+  .publisher {{
+    max-width:36% !important;
+    min-width:0 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }}
+
+  .status-inline {{
+    flex:0 0 auto !important;
+  }}
+
+  .related-coverage,
+  .coverage-badge {{
+    flex:0 1 auto !important;
+    min-width:0 !important;
+    max-width:92px !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }}
+
+  .important-button {{
+    position:relative !important;
+    flex:0 0 auto !important;
+    margin-left:auto !important;
+    min-width:36px !important;
+    width:36px !important;
+    max-width:36px !important;
+    padding:0 3px !important;
+    overflow:visible !important;
+    white-space:nowrap !important;
+    z-index:5 !important;
+  }}
+
+  #pc-insight-rail {{
+    min-width:0 !important;
+  }}
+}}
+
+/* 넓은 PC에서는 기존 2열 기사 유지 */
+@media (min-width:1300px) and (hover:hover) and (pointer:fine) {{
+  .article-stack {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }}
+
+  .important-button {{
+    flex:0 0 auto !important;
+    margin-left:auto !important;
+    min-width:36px !important;
+    width:36px !important;
+    max-width:36px !important;
+    overflow:visible !important;
+    white-space:nowrap !important;
+  }}
+}}
+
 </style>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+
 </head>
 <body>
 <div class="phone">
