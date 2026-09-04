@@ -11058,6 +11058,640 @@ main {
   .pc-build-marker { display:none !important; }
 }
 
+
+/* ============================================================
+   FINAL PC VISUAL DASHBOARD - CONCEPT MATCH 2026-09-04
+   Mobile/tablet remain unchanged.
+   ============================================================ */
+@media (min-width:1000px) {
+  /* remove temporary debug marker */
+  .pc-build-marker { display:none !important; }
+
+  body {
+    background:#eef3f8 !important;
+  }
+
+  .phone {
+    width:min(calc(100vw - 26px),1720px) !important;
+    max-width:1720px !important;
+    margin:0 auto !important;
+  }
+
+  /* Header: compact horizontal dashboard toolbar */
+  .topbar {
+    border-radius:0 0 14px 14px !important;
+    padding:13px 18px 11px !important;
+    box-shadow:0 5px 16px rgba(13,40,72,.10) !important;
+  }
+
+  .topbar-title-row {
+    min-height:42px !important;
+    gap:18px !important;
+  }
+
+  .topbar h1 {
+    font-size:24px !important;
+    letter-spacing:-.6px !important;
+  }
+
+  .update-text {
+    font-size:10px !important;
+  }
+
+  .header-controls {
+    display:grid !important;
+    grid-template-columns:minmax(340px,1.2fr) auto auto auto !important;
+    gap:10px !important;
+    align-items:center !important;
+    max-height:none !important;
+    opacity:1 !important;
+    margin-top:8px !important;
+    overflow:visible !important;
+  }
+
+  .topbar.collapsed .header-controls {
+    max-height:none !important;
+    opacity:1 !important;
+    margin-top:8px !important;
+    pointer-events:auto !important;
+  }
+
+  .search-box {
+    grid-column:1 !important;
+    margin:0 !important;
+  }
+
+  .period-tabs {
+    grid-column:2 !important;
+    margin:0 !important;
+    min-width:255px !important;
+  }
+
+  .utility-row {
+    grid-column:3 !important;
+    display:flex !important;
+    gap:8px !important;
+    margin:0 !important;
+  }
+
+  .date-picker-box {
+    min-width:210px !important;
+  }
+
+  #header-toggle {
+    grid-column:4 !important;
+    align-self:center !important;
+  }
+
+  /* Category strip below header, matching dashboard chips */
+  .pc-category-strip {
+    grid-column:1 !important;
+    display:flex !important;
+    gap:7px !important;
+    align-items:center !important;
+    flex-wrap:wrap !important;
+    margin:0 0 12px !important;
+    padding:8px 10px !important;
+    background:#fff !important;
+    border:1px solid #dde6ef !important;
+    border-radius:12px !important;
+    box-shadow:0 2px 8px rgba(35,65,101,.05) !important;
+  }
+
+  .pc-category-chip {
+    display:inline-flex !important;
+    align-items:center !important;
+    gap:5px !important;
+    min-height:27px !important;
+    padding:0 10px !important;
+    border-radius:8px !important;
+    border:1px solid transparent !important;
+    background:#f5f8fb !important;
+    color:#587086 !important;
+    font-size:10px !important;
+    font-weight:850 !important;
+    cursor:pointer !important;
+  }
+
+  .pc-category-chip strong {
+    color:#173b61 !important;
+    font-size:10.5px !important;
+  }
+
+  .pc-category-chip.active,
+  .pc-category-chip:hover {
+    background:#fff2a8 !important;
+    border-color:#eed35a !important;
+    color:#715700 !important;
+  }
+
+  /* Main: left news / right analytics like the visual mockup */
+  main {
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 520px !important;
+    gap:16px !important;
+    align-items:start !important;
+    padding:12px 0 44px !important;
+  }
+
+  .tab-panel {
+    grid-column:1 !important;
+    min-width:0 !important;
+  }
+
+  #pc-insight-rail {
+    grid-column:2 !important;
+    grid-row:1 / span 3 !important;
+    position:sticky !important;
+    top:12px !important;
+    height:calc(100vh - 24px) !important;
+    max-height:calc(100vh - 24px) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:12px !important;
+    padding-right:4px !important;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar { width:7px; }
+  #pc-insight-rail::-webkit-scrollbar-track { background:transparent; }
+  #pc-insight-rail::-webkit-scrollbar-thumb {
+    background:#c0cfdd;
+    border-radius:999px;
+  }
+
+  /* Right-side cards */
+  .pc-rail-card {
+    background:#fff !important;
+    border:1px solid #dfe7ef !important;
+    border-radius:14px !important;
+    box-shadow:0 3px 10px rgba(35,65,101,.06) !important;
+    overflow:hidden !important;
+  }
+
+  .pc-rail-head {
+    padding:11px 13px 9px !important;
+    border-bottom:1px solid #e8eef4 !important;
+  }
+
+  .pc-rail-title {
+    font-size:14px !important;
+    color:#173b61 !important;
+    font-weight:950 !important;
+  }
+
+  .pc-rail-sub {
+    font-size:9px !important;
+    color:#8a97a7 !important;
+  }
+
+  /* Today focus = visual 3-column hero cards */
+  #pc-focus-list {
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:8px !important;
+    padding:10px !important;
+  }
+
+  #pc-focus-list .pc-focus-item {
+    min-height:118px !important;
+    margin:0 !important;
+    padding:10px !important;
+    border:0 !important;
+    border-radius:11px !important;
+    background:
+      linear-gradient(180deg,rgba(19,59,97,.06),rgba(19,59,97,.01)),
+      #f2f7fc !important;
+    box-shadow:inset 0 0 0 1px #dde8f2 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:space-between !important;
+  }
+
+  #pc-focus-list .pc-focus-item:nth-child(1) {
+    background:
+      linear-gradient(180deg,rgba(32,88,145,.12),rgba(255,255,255,.5)),
+      #eef5fb !important;
+  }
+
+  #pc-focus-list .pc-focus-top {
+    margin-bottom:5px !important;
+  }
+
+  #pc-focus-list .pc-focus-name {
+    font-size:10.5px !important;
+    color:#1f5d97 !important;
+    font-weight:950 !important;
+  }
+
+  #pc-focus-list .pc-focus-count {
+    background:#173b61 !important;
+    color:#fff !important;
+    font-size:8.5px !important;
+    padding:2px 6px !important;
+  }
+
+  #pc-focus-list .pc-focus-title {
+    font-size:11.5px !important;
+    line-height:1.35 !important;
+    -webkit-line-clamp:3 !important;
+  }
+
+  #pc-focus-list .pc-focus-meta {
+    font-size:8.5px !important;
+    line-height:1.2 !important;
+    margin-top:6px !important;
+    padding:0 !important;
+    background:transparent !important;
+    color:#7d8b9b !important;
+  }
+
+  /* Timeline: horizontal progression, not a text list */
+  .pc-timeline-card .pc-timeline-wrap {
+    padding:10px 11px 12px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+  }
+
+  .pc-timeline-card .pc-timeline {
+    display:flex !important;
+    gap:7px !important;
+    min-width:max-content !important;
+    padding:0 !important;
+  }
+
+  .pc-timeline-card .pc-timeline:before { display:none !important; }
+
+  .pc-timeline-section-note {
+    display:none !important;
+  }
+
+  .pc-timeline-item {
+    position:relative !important;
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    grid-template-rows:auto 48px auto auto !important;
+    width:113px !important;
+    min-width:113px !important;
+    min-height:148px !important;
+    padding:7px !important;
+    margin:0 !important;
+    border:1px solid #dfe8f2 !important;
+    border-radius:10px !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }
+
+  .pc-timeline-card.hyundai .pc-timeline-item {
+    border-top:3px solid #2768a6 !important;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-item {
+    border-top:3px solid #c88900 !important;
+  }
+
+  .pc-timeline-item:before { display:none !important; }
+
+  .pc-timeline-date {
+    width:auto !important;
+    height:22px !important;
+    min-width:0 !important;
+    display:inline-flex !important;
+    flex-direction:row !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:2px !important;
+    padding:0 6px !important;
+    margin:0 0 5px !important;
+    border-radius:999px !important;
+    background:#1e5f9c !important;
+    color:#fff !important;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-date {
+    background:#bd8200 !important;
+    color:#fff !important;
+  }
+
+  .pc-date-day {
+    font-size:10px !important;
+    font-weight:950 !important;
+  }
+
+  .pc-date-month {
+    margin:0 !important;
+    font-size:8px !important;
+    font-weight:850 !important;
+  }
+
+  .pc-timeline-thumb {
+    width:48px !important;
+    height:48px !important;
+    justify-self:center !important;
+    border-radius:50% !important;
+    margin:0 0 6px !important;
+  }
+
+  .pc-timeline-content {
+    min-width:0 !important;
+  }
+
+  .pc-timeline-title {
+    text-align:center !important;
+    color:#243f5b !important;
+    font-size:9.5px !important;
+    line-height:1.28 !important;
+    font-weight:900 !important;
+    -webkit-line-clamp:2 !important;
+  }
+
+  .pc-timeline-meta {
+    text-align:center !important;
+    font-size:8px !important;
+    margin-top:4px !important;
+    color:#8c98a7 !important;
+  }
+
+  /* Map becomes a compact right-side analytics card */
+  #world-map-panel {
+    display:block !important;
+    margin:0 !important;
+    padding:11px !important;
+    border:1px solid #dfe7ef !important;
+    border-radius:14px !important;
+    background:#fff !important;
+    box-shadow:0 3px 10px rgba(35,65,101,.06) !important;
+  }
+
+  #world-map-panel .world-map-head {
+    margin-bottom:8px !important;
+  }
+
+  #world-map-panel .world-map-title {
+    font-size:14px !important;
+  }
+
+  #world-map-panel .country-map-visual {
+    height:210px !important;
+    min-height:210px !important;
+    border-radius:11px !important;
+  }
+
+  #world-map-panel .globe-stage {
+    min-height:190px !important;
+  }
+
+  #world-map-panel .pc-country-overview {
+    display:none !important;
+  }
+
+  #world-map-panel .country-chip-rail {
+    margin-top:7px !important;
+    gap:5px !important;
+  }
+
+  #world-map-panel .country-chip-rail .country-pin {
+    min-height:25px !important;
+    padding:0 7px !important;
+    font-size:8.5px !important;
+  }
+
+  /* Article group cards - closer to visual mockup */
+  .period-action-row {
+    min-height:36px !important;
+    padding:0 9px !important;
+    border-radius:10px !important;
+    background:#fff !important;
+    border:1px solid #e0e8f0 !important;
+    box-shadow:0 2px 7px rgba(35,65,101,.04) !important;
+    margin-bottom:7px !important;
+  }
+
+  .group-title {
+    background:#fff !important;
+    border:1px solid #e0e8f0 !important;
+    border-radius:10px !important;
+    min-height:34px !important;
+    padding:0 10px !important;
+    margin-bottom:7px !important;
+    box-shadow:0 2px 7px rgba(35,65,101,.04) !important;
+  }
+
+  .article-stack {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:9px !important;
+    margin-bottom:11px !important;
+  }
+
+  .preview-card {
+    min-height:126px !important;
+    padding:10px !important;
+    border:1px solid #e0e8f0 !important;
+    border-radius:10px !important;
+    background:#fff !important;
+    box-shadow:0 2px 7px rgba(35,65,101,.045) !important;
+  }
+
+  .headline {
+    font-size:13.5px !important;
+    line-height:1.34 !important;
+  }
+
+  .article-snippet {
+    font-size:10.5px !important;
+    line-height:1.4 !important;
+  }
+
+  /* Mini analytics grid */
+  .pc-mini-analytics-grid {
+    display:grid !important;
+    grid-template-columns:1.15fr 1.15fr .8fr !important;
+    gap:8px !important;
+    padding:10px !important;
+  }
+
+  .pc-mini-panel {
+    min-width:0 !important;
+    padding:9px !important;
+    border:1px solid #e4ebf2 !important;
+    border-radius:10px !important;
+    background:#fbfdff !important;
+  }
+
+  .pc-mini-title {
+    color:#31506d !important;
+    font-size:9.5px !important;
+    font-weight:900 !important;
+    margin-bottom:7px !important;
+  }
+
+  .pc-country-donut-wrap {
+    display:grid !important;
+    grid-template-columns:82px minmax(0,1fr) !important;
+    gap:8px !important;
+    align-items:center !important;
+  }
+
+  .pc-country-donut {
+    position:relative !important;
+    width:76px !important;
+    height:76px !important;
+    border-radius:50% !important;
+    background:conic-gradient(#2b67a0 0 45%,#75a2cb 45% 70%,#b8cee0 70% 86%,#d9e5ef 86% 100%);
+  }
+
+  .pc-country-donut:after {
+    content:"";
+    position:absolute;
+    inset:13px;
+    background:#fff;
+    border-radius:50%;
+  }
+
+  .pc-country-donut-center {
+    position:absolute !important;
+    z-index:2 !important;
+    inset:0 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+  }
+
+  .pc-country-donut-center strong {
+    font-size:15px !important;
+    color:#173b61 !important;
+    line-height:1 !important;
+  }
+
+  .pc-country-donut-center span {
+    font-size:8px !important;
+    color:#8090a1 !important;
+    margin-top:2px !important;
+  }
+
+  .pc-country-legend {
+    display:flex !important;
+    flex-direction:column !important;
+    gap:4px !important;
+  }
+
+  .pc-country-legend-row {
+    display:flex !important;
+    justify-content:space-between !important;
+    gap:6px !important;
+    font-size:8px !important;
+    color:#61768a !important;
+  }
+
+  .pc-keyword-bars {
+    display:flex !important;
+    flex-direction:column !important;
+    gap:5px !important;
+  }
+
+  .pc-keyword-row {
+    display:grid !important;
+    grid-template-columns:72px minmax(0,1fr) 26px !important;
+    gap:5px !important;
+    align-items:center !important;
+    font-size:8px !important;
+  }
+
+  .pc-keyword-label {
+    color:#536a80 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }
+
+  .pc-keyword-bar {
+    height:5px !important;
+    border-radius:999px !important;
+    background:#e4ebf2 !important;
+    overflow:hidden !important;
+  }
+
+  .pc-keyword-fill {
+    height:100% !important;
+    border-radius:inherit !important;
+    background:linear-gradient(90deg,#376fa8,#8aafd0) !important;
+  }
+
+  .pc-keyword-count {
+    text-align:right !important;
+    color:#31506d !important;
+    font-weight:900 !important;
+  }
+
+  .pc-today-big {
+    text-align:center !important;
+    padding:5px 0 8px !important;
+  }
+
+  .pc-today-big strong {
+    font-size:25px !important;
+    color:#164f89 !important;
+    line-height:1 !important;
+  }
+
+  .pc-today-big span {
+    font-size:9px !important;
+    color:#7b8997 !important;
+    margin-left:2px !important;
+  }
+
+  .pc-today-subgrid {
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:5px !important;
+  }
+
+  .pc-today-subgrid div {
+    display:flex !important;
+    justify-content:space-between !important;
+    align-items:center !important;
+    gap:5px !important;
+    padding:5px !important;
+    border-radius:7px !important;
+    background:#f3f7fb !important;
+    font-size:8px !important;
+  }
+
+  .pc-today-subgrid span {
+    color:#7c8a9a !important;
+  }
+
+  .pc-today-subgrid strong {
+    color:#244968 !important;
+    font-size:9px !important;
+  }
+}
+
+/* Restored-window PC: keep dashboard, but reduce right rail width */
+@media (min-width:1000px) and (max-width:1350px) {
+  main {
+    grid-template-columns:minmax(0,1fr) 390px !important;
+  }
+  #pc-focus-list {
+    grid-template-columns:1fr !important;
+  }
+  #pc-focus-list .pc-focus-item {
+    min-height:82px !important;
+  }
+  .pc-mini-analytics-grid {
+    grid-template-columns:1fr !important;
+  }
+}
+
+@media (max-width:999px) {
+  .pc-category-strip,
+  .pc-mini-analytics-card {
+    display:none !important;
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -11070,7 +11704,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.4(금) 14:30 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.4(금) 14:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -11946,6 +12580,7 @@ main {
 
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
+<div id="pc-category-strip" class="pc-category-strip" aria-label="PC 카테고리 요약"></div>
 <div id="pc-country-filter-result" class="pc-country-filter-result" aria-live="polite">
   <span id="pc-country-filter-result-flag">🌐</span>
   <span><strong id="pc-country-filter-result-name">전체 국가</strong> 기사 <span id="pc-country-filter-result-count">0건</span></span>
@@ -23085,7 +23720,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4c3e80f8fe09a910fe74d349.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/860ac9089f77611902ce101b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24192,7 +24827,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7d3c20d33af8c6fea51827e3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/c9f8def1003efdef2e352852.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24945,7 +25580,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 10개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904142406378" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">힐스테이트, 성수서 20주년 팝업…&#x27;집&#x27; 넘어 라이프스타일 브랜드로</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001771" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">현대건설, 힐스테이트 출시 20주년 팝업 오픈…29CM와 협업</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12144388" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">현대건설 힐스테이트, 성수 팝업으로  라이프스타일 브랜드 감도 높인다</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749915" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">현대건설 힐스테이트, 성수동에 팝업 연 이유</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723033" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">현대건설 힐스테이트, 성수에 떴다…29CM와 손잡고 2030 공략 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500326" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">현대건설, 힐스테이트 팝업 스토어 운영… 리브랜딩 방향성 알린다</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719445" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">현대건설, 29CM와 손잡고 힐스테이트 팝업…성수서 7일간 운영</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313414" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">현대건설, 성수서 힐스테이트 20주년 팝업…리브랜딩 체험 - 건설타임즈</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 13개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466791" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">현대건설, 무신사 29CM 협업···힐스테이트 브랜드 팝업 운영</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904142406378" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">힐스테이트, 성수서 20주년 팝업…&#x27;집&#x27; 넘어 라이프스타일 브랜드로</span></a><a class="related-coverage-link" href="https://www.m-i.kr/news/articleView.html?idxno=1410150" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일일보</span><span class="related-coverage-title">현대건설, 성수동에 팝어스토어 선봬</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001771" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">현대건설, 힐스테이트 출시 20주년 팝업 오픈…29CM와 협업</span></a><a class="related-coverage-link" href="https://www.goodkyung.com/news/articleView.html?idxno=291012" target="_blank" rel="noopener"><span class="related-coverage-publisher">굿모닝경제</span><span class="related-coverage-title">[굿모닝! 4일 건설업계 소식] 현대건설·대우건설·호반문화재단·LX하우시스 - 굿모닝경제</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12144388" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">현대건설 힐스테이트, 성수 팝업으로  라이프스타일 브랜드 감도 높인다</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749915" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">현대건설 힐스테이트, 성수동에 팝업 연 이유</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723033" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">현대건설 힐스테이트, 성수에 떴다…29CM와 손잡고 2030 공략 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500326" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">현대건설, 힐스테이트 팝업 스토어 운영… 리브랜딩 방향성 알린다</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719445" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">현대건설, 29CM와 손잡고 힐스테이트 팝업…성수서 7일간 운영</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313414" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">현대건설, 성수서 힐스테이트 20주년 팝업…리브랜딩 체험 - 건설타임즈</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업</div>
@@ -24978,7 +25613,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sedaily.com/article/20087166" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">현대건설, 울산 건설공사 현장에서 중대재해 발생</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904082659491" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000132" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637241" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">울산 샤힌 에틸렌시설 공사 현장서 근로자 1명 사망 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Securities/2026/09/202609040829292692923c501012_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">[개장 전 주요 공시] 현대건설·형지I&amp;C·BNK금융·에이프로젠바이오 등 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=180890" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904082659491" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">울산 샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</span></a><a class="related-coverage-link" href="https://www.sedaily.com/article/20087166" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">현대건설, 울산 건설공사 현장에서 중대재해 발생</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000132" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637241" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">울산 샤힌 에틸렌시설 공사 현장서 근로자 1명 사망 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Securities/2026/09/202609040829292692923c501012_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">[개장 전 주요 공시] 현대건설·형지I&amp;C·BNK금융·에이프로젠바이오 등 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=180890" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">울산 샤힌 에틸렌시설 건설현장서 노동자 1명 추락사</div>
@@ -25429,35 +26064,35 @@ main {
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.public25.com/news/articleView.html?idxno=54082"
-  data-title="[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스"
-  data-publisher="서울신문"
+  data-url="https://www.ngetnews.com/news/articleView.html?idxno=553037"
+  data-title="[부고] 진민수(SK에코플랜트 홍보실)씨 장인상"
+  data-publisher="뉴스저널리즘"
   data-group="타 건설사"
   data-language="ko"
   data-priority="1"
-  data-published="1788497776"
+  data-published="1788499484"
   data-country="OTHER"
-  data-search="[부고] 진민수씨(sk에코플랜트 홍보실) 장인상 - 퍼블릭타임스 서울신문 타 건설사 △ 권환기씨 별세, 곽숙희씨 남편상, 권은희씨(신한은행 감사부) 부친상, 진민수씨(sk에코플랜트 홍보실) 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일"
+  data-search="[부고] 진민수(sk에코플랜트 홍보실)씨 장인상 뉴스저널리즘 타 건설사 ▲ 권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(sk에코플랜트 홍보실)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일 오전 9시 20분, 장지 서울추모공원. ☎ 02-2258-5977"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">서울신문</div>
+        <div class="publisher">뉴스저널리즘</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=54082" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</div>
-      <div class="article-snippet">△ 권환기씨 별세, 곽숙희씨 남편상, 권은희씨(신한은행 감사부) 부친상, 진민수씨(SK에코플랜트 홍보실) 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일</div>
+      <div class="headline"><span class="new-badge">NEW</span>[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</div>
+      <div class="article-snippet">▲ 권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(SK에코플랜트 홍보실)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일 오전 9시 20분, 장지 서울추모공원. ☎ 02-2258-5977</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/295016dac75760168f6cd4e1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/d454fc816d65c26aaa4b228c.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25872,9 +26507,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">21건</span>
+    <span class="group-count">22건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058537"
+  data-title="&quot;밀어붙이기식 송전선로 안 돼&quot;…제천시, 한전에 &#x27;실질 보상·소통&#x27; 강력 촉구 - 신아일보"
+  data-publisher="신아일보"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788498191"
+  data-country="KR"
+  data-search="&quot;밀어붙이기식 송전선로 안 돼&quot;…제천시, 한전에 &#x27;실질 보상·소통&#x27; 강력 촉구 - 신아일보 신아일보 한국전력 충북 제천시가 지역사회의 거센 반발을 부르고 있는 &#x27;345kv 신평창-신원주 송전선로&#x27; 건설 사업과 관련해 시민들의 재산권과 생활권 사수에 직접 팔을 걷어붙였다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">신아일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;밀어붙이기식 송전선로 안 돼&quot;…제천시, 한전에 &#x27;실질 보상·소통&#x27; 강력 촉구 - 신아일보</div>
+      <div class="article-snippet">충북 제천시가 지역사회의 거센 반발을 부르고 있는 &#x27;345kV 신평창-신원주 송전선로&#x27; 건설 사업과 관련해 시민들의 재산권과 생활권 사수에 직접 팔을 걷어붙였다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5a389126e0c52b0c38f0216e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776226"
   data-title="발전公 통합법인 &#x27;한국발전&#x27; 내년 10월 출범…글로벌 8위 발전사 도약"
@@ -25908,7 +26576,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.public25.com/news/articleView.html?idxno=54013"
   data-title="한전, 하반기 신입사원 490명 선발 - 퍼블릭타임스"
   data-publisher="서울신문"
@@ -25932,7 +26600,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전, 하반기 신입사원 490명 선발 - 퍼블릭타임스</div>
+      <div class="headline">한전, 하반기 신입사원 490명 선발 - 퍼블릭타임스</div>
       <div class="article-snippet">퍼블릭타임스=‘글로벌 에너지·솔루션 리더’를 자처하는 한국전력공사가 2026년도 하반기 대졸수준 4(나)직급 신입사원 490명을 공개 채용한다.9일 오후 3시부터</div>
     </div>
   </div>
@@ -27294,7 +27962,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">28건</span>
+    <span class="group-count">29건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27396,7 +28064,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.inews24.com/view/2002081"
   data-title="李, 6~9일 프랑스 국빈 방문…&#x27;AI·우주·원자력&#x27; 협력 강화 모색"
   data-publisher="아이뉴스24"
@@ -27420,7 +28088,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003264596&amp;PAGE_CD=N0002&amp;CMPT_CD=M0118" target="_blank" rel="noopener"><span class="related-coverage-publisher">오마이뉴스</span><span class="related-coverage-title">마크롱 만나는 이 대통령, 원전 협력·호르무즈 작전 논의?</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058520" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">李대통령, 6~9일 프랑스 국빈방문…AI·원자력 논의 - 신아일보</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090409541264593" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">李대통령, 6~9일 프랑스 국빈방문…마크롱과 &#x27;AI·원자력&#x27; 협력</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904103733978" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">李대통령, 6~9일 프랑스 순방…마크롱과 정상회담</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>李, 6~9일 프랑스 국빈 방문…&#x27;AI·우주·원자력&#x27; 협력 강화 모색</div>
+      <div class="headline">李, 6~9일 프랑스 국빈 방문…&#x27;AI·우주·원자력&#x27; 협력 강화 모색</div>
       <div class="article-snippet">마크롱, &#x27;뤼미에르 서밋&#x27; 공동의장으로 초청 &quot;K-콘텐츠·韓 기업 유럽 시장 진출 기반 확대&quot; &quot;한-프, &#x27;글로벌 전략적 동반자 관계&#x27; 내실화&quot; 이재명 대통령이 에마뉘엘 마크롱 프랑스 대통령의 초청으로 오는 6일부터 9일까지 프랑스를 국빈 방문한다. 이 대통령은 마크롱 대통령과 정상회담을 하고 인공지능(AI)·우주·원자력·바이오 등 첨단산업 분야의 협력을 구체화할 방침이다. 위성락 청와대 국가안보실장은 4일 오전 청와대 춘추관에서 브리핑을 열어 이 대통령이 6일부터 나흘 동안 프랑스를 국빈 방문한다고 전했다. 이번 방문은 지난 4월 방한한 마크롱 대통령이 이 대통령을</div>
     </div>
   </div>
@@ -27492,6 +28160,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3c8cbbda5e1ff1305471b49e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.cctoday.co.kr/news/articleView.html?idxno=2236156"
+  data-title="한국원자력연구원, 덴마크 솔트포스에 MSR 기술 수출…30억 원 규모"
+  data-publisher="충청투데이"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788493500"
+  data-country="KR"
+  data-search="한국원자력연구원, 덴마크 솔트포스에 msr 기술 수출…30억 원 규모 충청투데이 원자력 [충청투데이 조진오 기자] 한국원자력연구원이 덴마크의 원자력에너지 기업인 ‘솔트포스(saltfoss)’와 약 30억 원 규모의 용융염원자로(msr) 핵연료 제조 및 재료 부식 평가 기술 수출 계약을 체결했다고 4일 밝혔다.이번 계약은 연구원이 보유한 연구 인프라와 기술력을 활용해 해외 기업에 연구개발(r&amp;d) 서비스를 제공하기 위해 마련됐다.계약 내용에 따라 연구원은 향후 2년간 솔트포스가 개발 중인 불화물 기반 msr을 대상으로 불화물 용융염 전처리 수행, 핵연료 제조 및 특성 평가, 자연순환 용융염 시험루프 구축·운전, 원자로"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">충청투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한국원자력연구원, 덴마크 솔트포스에 MSR 기술 수출…30억 원 규모</div>
+      <div class="article-snippet">[충청투데이 조진오 기자] 한국원자력연구원이 덴마크의 원자력에너지 기업인 ‘솔트포스(SaltFoss)’와 약 30억 원 규모의 용융염원자로(MSR) 핵연료 제조 및 재료 부식 평가 기술 수출 계약을 체결했다고 4일 밝혔다.이번 계약은 연구원이 보유한 연구 인프라와 기술력을 활용해 해외 기업에 연구개발(R&amp;D) 서비스를 제공하기 위해 마련됐다.계약 내용에 따라 연구원은 향후 2년간 솔트포스가 개발 중인 불화물 기반 MSR을 대상으로 불화물 용융염 전처리 수행, 핵연료 제조 및 특성 평가, 자연순환 용융염 시험루프 구축·운전, 원자로</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d2ff95707729ef219dd44eb0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27792,7 +28493,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260904130455196"
   data-title="[청문회 프리뷰] 흠결 논란 비켜간 강신철...정책 검증에 무게"
   data-publisher="아주경제"
@@ -27816,7 +28517,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[청문회 프리뷰] 흠결 논란 비켜간 강신철...정책 검증에 무게</div>
+      <div class="headline">[청문회 프리뷰] 흠결 논란 비켜간 강신철...정책 검증에 무게</div>
       <div class="article-snippet">강신철 국방부 장관 후보자가 지난 3일 청문회 준비 사무실이 차려진 서울 용산구 국방컨벤션으로 들어서며 취재진의 질문에 답하고 있다.[사진=연합뉴스] 오는 16일 열릴 강신철 국방부 장관 후보자에 대한 국회 인사청문회가 후보자의 신상·도덕성을 둘러싼 공방보다는, 국방정책의 방향성과 안보관을 검증하는 ‘정책 청문회’가 될 전망이다. 김승원 법무부 장관 후보자의 코로나19 치료제 임상시험 승인 청탁 의혹, 용혜인 성평등가족부 장관 후보자의 국회의원직 겸직 논란 등 타 부처 장관 후보자들을 둘러싼 공방이 청문회 전부터 가열되는 모습과는 대</div>
     </div>
   </div>
@@ -28509,9 +29210,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.romania-insider.com/abb-cernavoda-nuclear-plant-contract-sept-2206"
+  data-title="ABB selected to modernize automation systems of Unit 1 of Cernavodă nuclear power plant in Romania"
+  data-publisher="Romania Insider"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788501379"
+  data-country="RO"
+  data-search="abb selected to modernize automation systems of unit 1 of cernavodă nuclear power plant in romania romania insider nuclear power·nuclear energy abb, cited by economica.net, announced that it has been selected by engineering, procurement and construction (epc) contractor ansaldo nucleare to upgrade the control and safety systems of unit 1 at the cernavodă nuclear power plant in romania, supporting the long-term operation of one of the..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Romania Insider</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>ABB selected to modernize automation systems of Unit 1 of Cernavodă nuclear power plant in Romania</div>
+      <div class="article-snippet">ABB, cited by Economica.net, announced that it has been selected by engineering, procurement and construction (EPC) contractor Ansaldo Nucleare to upgrade the control and safety systems of Unit 1 at the Cernavodă Nuclear Power Plant in Romania, supporting the long-term operation of one of the...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cd85ab4286150cf42b88e9dc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://shippingtelegraph.com/container-news/uk-us-pink-corridor-project-to-explore-nuclear-powered-containership-trading/"
   data-title="UK-US pink corridor project to explore nuclear-powered containership trading | Container news | Shipping Telegraph"
@@ -28840,7 +29574,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">23건</span>
+    <span class="group-count">26건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28873,6 +29607,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d46b4a5c39a25d8022fca237.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260904082659491"
+  data-title="울산 샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망"
+  data-publisher="아주경제"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788500120"
+  data-country="KR"
+  data-search="울산 샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망 아주경제 현대건설 울산 샤힌프로젝트[사진=dl이앤씨] 현대건설이 시공하는 울산 샤힌프로젝트 현장에서 50대 작업자가 13ｍ 높이에서 추락해 숨지는 중대재해가 발생했다.   현대건설은 4일 공시를 통해 전날인 3일 오후 울산 울주군 온산읍 학남리 ‘샤힌 에틸렌시설 건설공사 pkg1’ 현장에서 사망사고가 발생했다고 밝혔다.   사고는 3일 오후 2시50분께 발생했다. 재해자는 뿜칠 작업을 지원하기 위해 안전난간대가 설치된 안쪽에서 몸을 내밀어 뿜칠 호스를 당기던 중 균형을 잃고 약 13ｍ 높이에서 추락한 것으로 파악됐다. 사고 직후 심정지 상태로 병"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">울산 샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</div>
+      <div class="article-snippet">울산 샤힌프로젝트[사진=DL이앤씨] 현대건설이 시공하는 울산 샤힌프로젝트 현장에서 50대 작업자가 13ｍ 높이에서 추락해 숨지는 중대재해가 발생했다.   현대건설은 4일 공시를 통해 전날인 3일 오후 울산 울주군 온산읍 학남리 ‘샤힌 에틸렌시설 건설공사 PKG1’ 현장에서 사망사고가 발생했다고 밝혔다.   사고는 3일 오후 2시50분께 발생했다. 재해자는 뿜칠 작업을 지원하기 위해 안전난간대가 설치된 안쪽에서 몸을 내밀어 뿜칠 호스를 당기던 중 균형을 잃고 약 13ｍ 높이에서 추락한 것으로 파악됐다. 사고 직후 심정지 상태로 병</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466791"
+  data-title="현대건설, 무신사 29CM 협업···힐스테이트 브랜드 팝업 운영"
+  data-publisher="이뉴스투데이"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788499742"
+  data-country="KR"
+  data-search="현대건설, 무신사 29cm 협업···힐스테이트 브랜드 팝업 운영 이뉴스투데이 현대건설 [이뉴스투데이 신지원 기자] 현대건설은 패션·라이프스타일 플랫폼 무신사(musinsa)가 운영하는 셀렉트숍인 29cm(이십구센티미터)와 협업하여 4일부터 10일까지 총 7일간, ‘이구홈 성수(29cm home seongsu) 1호점’에서 힐스테이트 브랜드 팝업 스토어를 운영한다고 4일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">현대건설, 무신사 29CM 협업···힐스테이트 브랜드 팝업 운영</div>
+      <div class="article-snippet">[이뉴스투데이 신지원 기자] 현대건설은 패션·라이프스타일 플랫폼 무신사(MUSINSA)가 운영하는 셀렉트숍인 29CM(이십구센티미터)와 협업하여 4일부터 10일까지 총 7일간, ‘이구홈 성수(29CM HOME SEONGSU) 1호점’에서 힐스테이트 브랜드 팝업 스토어를 운영한다고 4일</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.enewstoday.co.kr/news/thumbnail/202609/2466791_1308662_341_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28910,6 +29710,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.m-i.kr/news/articleView.html?idxno=1410150"
+  data-title="현대건설, 성수동에 팝어스토어 선봬"
+  data-publisher="매일일보"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788498412"
+  data-country="KR"
+  data-search="현대건설, 성수동에 팝어스토어 선봬 매일일보 현대건설 매일일보 = 장원석 기자 | 현대건설은 패션·라이프스타일 플랫폼 무신사(musinsa)가 운영하는 셀렉트숍인 29cm(이십구센티미터)와 협업하여 9월 4일부터 10일까지 총 7일간, ‘이구홈 성수(29cm home seongsu) 1호점’에서 힐스테이트 브랜드 팝업 스토어를 운영한다고 4일 밝혔다. 이번 팝업은 ‘새로워진 힐스테이트를 통해 나의 라이프 취향을 발견하다’라는 의미를 담은 타이틀 ‘find my hillstate’로 진행되며, 힐스테이트의 새로운 bi(brand identity)를 비롯해 3대 핵심 가치를 브랜드 홍보존"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">현대건설, 성수동에 팝어스토어 선봬</div>
+      <div class="article-snippet">매일일보 = 장원석 기자 | 현대건설은 패션·라이프스타일 플랫폼 무신사(MUSINSA)가 운영하는 셀렉트숍인 29CM(이십구센티미터)와 협업하여 9월 4일부터 10일까지 총 7일간, ‘이구홈 성수(29CM HOME SEONGSU) 1호점’에서 힐스테이트 브랜드 팝업 스토어를 운영한다고 4일 밝혔다. 이번 팝업은 ‘새로워진 힐스테이트를 통해 나의 라이프 취향을 발견하다’라는 의미를 담은 타이틀 ‘FIND MY HILLSTATE’로 진행되며, 힐스테이트의 새로운 BI(Brand Identity)를 비롯해 3대 핵심 가치를 브랜드 홍보존</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.m-i.kr/news/thumbnail/202609/1410150_1198394_5038_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001771"
   data-title="현대건설, 힐스테이트 출시 20주년 팝업 오픈…29CM와 협업"
   data-publisher="아시아투데이"
@@ -28939,6 +29772,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://img.asiatoday.co.kr/file/2026y/09m/04d/2026090401000347100017711.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.goodkyung.com/news/articleView.html?idxno=291012"
+  data-title="[굿모닝! 4일 건설업계 소식] 현대건설·대우건설·호반문화재단·LX하우시스 - 굿모닝경제"
+  data-publisher="굿모닝경제"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788497899"
+  data-country="KR"
+  data-search="[굿모닝! 4일 건설업계 소식] 현대건설·대우건설·호반문화재단·lx하우시스 - 굿모닝경제 굿모닝경제 현대건설 현대건설은 힐스테이트 론칭 20주년을 맞아 오는 10일까지 서울 성수동에서 무신사의 셀렉트숍 29cm와 협엽해 &#x27;이구홈 성수 1호점&#x27; 힐스테이트 브랜드 팝업스토어"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">굿모닝경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[굿모닝! 4일 건설업계 소식] 현대건설·대우건설·호반문화재단·LX하우시스 - 굿모닝경제</div>
+      <div class="article-snippet">현대건설은 힐스테이트 론칭 20주년을 맞아 오는 10일까지 서울 성수동에서 무신사의 셀렉트숍 29CM와 협엽해 &#x27;이구홈 성수 1호점&#x27; 힐스테이트 브랜드 팝업스토어</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.goodkyung.com/news/thumbnail/202609/291012_263849_3944_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29169,7 +30035,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/04/.cache/512/20260904500324.jpg?v=20260904141130" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/04/.cache/512/20260904500324.jpg?v=20260904145633" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29227,7 +30093,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 10개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904142406378" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">힐스테이트, 성수서 20주년 팝업…&#x27;집&#x27; 넘어 라이프스타일 브랜드로</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001771" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">현대건설, 힐스테이트 출시 20주년 팝업 오픈…29CM와 협업</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12144388" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">현대건설 힐스테이트, 성수 팝업으로  라이프스타일 브랜드 감도 높인다</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749915" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">현대건설 힐스테이트, 성수동에 팝업 연 이유</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723033" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">현대건설 힐스테이트, 성수에 떴다…29CM와 손잡고 2030 공략 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500326" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">현대건설, 힐스테이트 팝업 스토어 운영… 리브랜딩 방향성 알린다</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719445" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">현대건설, 29CM와 손잡고 힐스테이트 팝업…성수서 7일간 운영</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313414" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">현대건설, 성수서 힐스테이트 20주년 팝업…리브랜딩 체험 - 건설타임즈</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 13개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466791" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">현대건설, 무신사 29CM 협업···힐스테이트 브랜드 팝업 운영</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904142406378" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">힐스테이트, 성수서 20주년 팝업…&#x27;집&#x27; 넘어 라이프스타일 브랜드로</span></a><a class="related-coverage-link" href="https://www.m-i.kr/news/articleView.html?idxno=1410150" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일일보</span><span class="related-coverage-title">현대건설, 성수동에 팝어스토어 선봬</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001771" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">현대건설, 힐스테이트 출시 20주년 팝업 오픈…29CM와 협업</span></a><a class="related-coverage-link" href="https://www.goodkyung.com/news/articleView.html?idxno=291012" target="_blank" rel="noopener"><span class="related-coverage-publisher">굿모닝경제</span><span class="related-coverage-title">[굿모닝! 4일 건설업계 소식] 현대건설·대우건설·호반문화재단·LX하우시스 - 굿모닝경제</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12144388" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">현대건설 힐스테이트, 성수 팝업으로  라이프스타일 브랜드 감도 높인다</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749915" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">현대건설 힐스테이트, 성수동에 팝업 연 이유</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723033" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">현대건설 힐스테이트, 성수에 떴다…29CM와 손잡고 2030 공략 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500326" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">현대건설, 힐스테이트 팝업 스토어 운영… 리브랜딩 방향성 알린다</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719445" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">현대건설, 29CM와 손잡고 힐스테이트 팝업…성수서 7일간 운영</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313414" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">현대건설, 성수서 힐스테이트 20주년 팝업…리브랜딩 체험 - 건설타임즈</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업</div>
@@ -29372,39 +30238,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.ajunews.com/view/20260904082659491"
-  data-title="샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망"
-  data-publisher="아주경제"
-  data-group="현대건설"
-  data-language="ko"
-  data-priority="1"
-  data-published="1788485884"
-  data-country="KR"
-  data-search="샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망 아주경제 현대건설 울산 샤힌프로젝트[사진=dl이앤씨] 현대건설이 시공하는 울산 샤힌프로젝트 현장에서 50대 작업자가 13ｍ 높이에서 추락해 숨지는 중대재해가 발생했다.   현대건설은 4일 공시를 통해 전날인 3일 오후 울산 울주군 온산읍 학남리 ‘샤힌 에틸렌시설 건설공사 pkg1’ 현장에서 사망사고가 발생했다고 밝혔다.   사고는 3일 오후 2시50분께 발생했다. 재해자는 뿜칠 작업을 지원하기 위해 안전난간대가 설치된 안쪽에서 몸을 내밀어 뿜칠 호스를 당기던 중 균형을 잃고 약 13ｍ 높이에서 추락한 것으로 파악됐다. 사고 직후 심정지 상태로 병"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">아주경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</div>
-      <div class="article-snippet">울산 샤힌프로젝트[사진=DL이앤씨] 현대건설이 시공하는 울산 샤힌프로젝트 현장에서 50대 작업자가 13ｍ 높이에서 추락해 숨지는 중대재해가 발생했다.   현대건설은 4일 공시를 통해 전날인 3일 오후 울산 울주군 온산읍 학남리 ‘샤힌 에틸렌시설 건설공사 PKG1’ 현장에서 사망사고가 발생했다고 밝혔다.   사고는 3일 오후 2시50분께 발생했다. 재해자는 뿜칠 작업을 지원하기 위해 안전난간대가 설치된 안쪽에서 몸을 내밀어 뿜칠 호스를 당기던 중 균형을 잃고 약 13ｍ 높이에서 추락한 것으로 파악됐다. 사고 직후 심정지 상태로 병</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newspim.com/news/view/20260904000132"
   data-title="현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망"
   data-publisher="뉴스핌"
@@ -29524,7 +30357,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.sedaily.com/article/20087166" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">현대건설, 울산 건설공사 현장에서 중대재해 발생</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904082659491" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000132" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637241" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">울산 샤힌 에틸렌시설 공사 현장서 근로자 1명 사망 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Securities/2026/09/202609040829292692923c501012_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">[개장 전 주요 공시] 현대건설·형지I&amp;C·BNK금융·에이프로젠바이오 등 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=180890" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904082659491" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">울산 샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</span></a><a class="related-coverage-link" href="https://www.sedaily.com/article/20087166" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">현대건설, 울산 건설공사 현장에서 중대재해 발생</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000132" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637241" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">울산 샤힌 에틸렌시설 공사 현장서 근로자 1명 사망 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Securities/2026/09/202609040829292692923c501012_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">[개장 전 주요 공시] 현대건설·형지I&amp;C·BNK금융·에이프로젠바이오 등 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=180890" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">울산 샤힌 에틸렌시설 건설현장서 노동자 1명 추락사</div>
@@ -29608,7 +30441,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">35건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30135,7 +30968,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/04/.cache/512/20260904500150.jpg?v=20260904141130" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/04/.cache/512/20260904500150.jpg?v=20260904145633" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30536,6 +31369,72 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.ngetnews.com/news/articleView.html?idxno=553037"
+  data-title="[부고] 진민수(SK에코플랜트 홍보실)씨 장인상"
+  data-publisher="뉴스저널리즘"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788499484"
+  data-country="OTHER"
+  data-search="[부고] 진민수(sk에코플랜트 홍보실)씨 장인상 뉴스저널리즘 타 건설사 ▲ 권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(sk에코플랜트 홍보실)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일 오전 9시 20분, 장지 서울추모공원. ☎ 02-2258-5977"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스저널리즘</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=54082" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</div>
+      <div class="article-snippet">▲ 권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(SK에코플랜트 홍보실)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일 오전 9시 20분, 장지 서울추모공원. ☎ 02-2258-5977</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d454fc816d65c26aaa4b228c.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581"
+  data-title="[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보"
+  data-publisher="신아일보"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788498557"
+  data-country="OTHER"
+  data-search="[부고] 진민수(sk에코플랜트 홍보실)씨 장인상 - 신아일보 신아일보 타 건설사 ▲권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(sk에코플랜트 홍보실)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일 오"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">신아일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</div>
+      <div class="article-snippet">▲권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(SK에코플랜트 홍보실)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일 오</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.shinailbo.co.kr/image/logo/snslogotrans_20260213013714.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.public25.com/news/articleView.html?idxno=54082"
   data-title="[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스"
   data-publisher="서울신문"
@@ -30559,7 +31458,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</div>
+      <div class="headline">[부고] 진민수씨(SK에코플랜트 홍보실) 장인상 - 퍼블릭타임스</div>
       <div class="article-snippet">△ 권환기씨 별세, 곽숙희씨 남편상, 권은희씨(신한은행 감사부) 부친상, 진민수씨(SK에코플랜트 홍보실) 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일</div>
     </div>
   </div>
@@ -31012,7 +31911,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">28건</span>
+    <span class="group-count">29건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31078,6 +31977,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/8cf54e3ff426f089143025c8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058537"
+  data-title="&quot;밀어붙이기식 송전선로 안 돼&quot;…제천시, 한전에 &#x27;실질 보상·소통&#x27; 강력 촉구 - 신아일보"
+  data-publisher="신아일보"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788498191"
+  data-country="KR"
+  data-search="&quot;밀어붙이기식 송전선로 안 돼&quot;…제천시, 한전에 &#x27;실질 보상·소통&#x27; 강력 촉구 - 신아일보 신아일보 한국전력 충북 제천시가 지역사회의 거센 반발을 부르고 있는 &#x27;345kv 신평창-신원주 송전선로&#x27; 건설 사업과 관련해 시민들의 재산권과 생활권 사수에 직접 팔을 걷어붙였다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">신아일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;밀어붙이기식 송전선로 안 돼&quot;…제천시, 한전에 &#x27;실질 보상·소통&#x27; 강력 촉구 - 신아일보</div>
+      <div class="article-snippet">충북 제천시가 지역사회의 거센 반발을 부르고 있는 &#x27;345kV 신평창-신원주 송전선로&#x27; 건설 사업과 관련해 시민들의 재산권과 생활권 사수에 직접 팔을 걷어붙였다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5a389126e0c52b0c38f0216e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31147,7 +32079,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.public25.com/news/articleView.html?idxno=54013"
   data-title="한전, 하반기 신입사원 490명 선발 - 퍼블릭타임스"
   data-publisher="서울신문"
@@ -31171,7 +32103,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전, 하반기 신입사원 490명 선발 - 퍼블릭타임스</div>
+      <div class="headline">한전, 하반기 신입사원 490명 선발 - 퍼블릭타임스</div>
       <div class="article-snippet">퍼블릭타임스=‘글로벌 에너지·솔루션 리더’를 자처하는 한국전력공사가 2026년도 하반기 대졸수준 4(나)직급 신입사원 490명을 공개 채용한다.9일 오후 3시부터</div>
     </div>
   </div>
@@ -33480,7 +34412,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data1/resources/pc/common/images/etc/logo.png?v=20260904141130" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data1/resources/pc/common/images/etc/logo.png?v=20260904145633" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33556,7 +34488,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">40건</span>
+    <span class="group-count">41건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33658,7 +34590,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.inews24.com/view/2002081"
   data-title="李, 6~9일 프랑스 국빈 방문…&#x27;AI·우주·원자력&#x27; 협력 강화 모색"
   data-publisher="아이뉴스24"
@@ -33682,7 +34614,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003264596&amp;PAGE_CD=N0002&amp;CMPT_CD=M0118" target="_blank" rel="noopener"><span class="related-coverage-publisher">오마이뉴스</span><span class="related-coverage-title">마크롱 만나는 이 대통령, 원전 협력·호르무즈 작전 논의?</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058520" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">李대통령, 6~9일 프랑스 국빈방문…AI·원자력 논의 - 신아일보</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090409541264593" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">李대통령, 6~9일 프랑스 국빈방문…마크롱과 &#x27;AI·원자력&#x27; 협력</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904103733978" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">李대통령, 6~9일 프랑스 순방…마크롱과 정상회담</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>李, 6~9일 프랑스 국빈 방문…&#x27;AI·우주·원자력&#x27; 협력 강화 모색</div>
+      <div class="headline">李, 6~9일 프랑스 국빈 방문…&#x27;AI·우주·원자력&#x27; 협력 강화 모색</div>
       <div class="article-snippet">마크롱, &#x27;뤼미에르 서밋&#x27; 공동의장으로 초청 &quot;K-콘텐츠·韓 기업 유럽 시장 진출 기반 확대&quot; &quot;한-프, &#x27;글로벌 전략적 동반자 관계&#x27; 내실화&quot; 이재명 대통령이 에마뉘엘 마크롱 프랑스 대통령의 초청으로 오는 6일부터 9일까지 프랑스를 국빈 방문한다. 이 대통령은 마크롱 대통령과 정상회담을 하고 인공지능(AI)·우주·원자력·바이오 등 첨단산업 분야의 협력을 구체화할 방침이다. 위성락 청와대 국가안보실장은 4일 오전 청와대 춘추관에서 브리핑을 열어 이 대통령이 6일부터 나흘 동안 프랑스를 국빈 방문한다고 전했다. 이번 방문은 지난 4월 방한한 마크롱 대통령이 이 대통령을</div>
     </div>
   </div>
@@ -33985,6 +34917,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3c8cbbda5e1ff1305471b49e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.cctoday.co.kr/news/articleView.html?idxno=2236156"
+  data-title="한국원자력연구원, 덴마크 솔트포스에 MSR 기술 수출…30억 원 규모"
+  data-publisher="충청투데이"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788493500"
+  data-country="KR"
+  data-search="한국원자력연구원, 덴마크 솔트포스에 msr 기술 수출…30억 원 규모 충청투데이 원자력 [충청투데이 조진오 기자] 한국원자력연구원이 덴마크의 원자력에너지 기업인 ‘솔트포스(saltfoss)’와 약 30억 원 규모의 용융염원자로(msr) 핵연료 제조 및 재료 부식 평가 기술 수출 계약을 체결했다고 4일 밝혔다.이번 계약은 연구원이 보유한 연구 인프라와 기술력을 활용해 해외 기업에 연구개발(r&amp;d) 서비스를 제공하기 위해 마련됐다.계약 내용에 따라 연구원은 향후 2년간 솔트포스가 개발 중인 불화물 기반 msr을 대상으로 불화물 용융염 전처리 수행, 핵연료 제조 및 특성 평가, 자연순환 용융염 시험루프 구축·운전, 원자로"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">충청투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한국원자력연구원, 덴마크 솔트포스에 MSR 기술 수출…30억 원 규모</div>
+      <div class="article-snippet">[충청투데이 조진오 기자] 한국원자력연구원이 덴마크의 원자력에너지 기업인 ‘솔트포스(SaltFoss)’와 약 30억 원 규모의 용융염원자로(MSR) 핵연료 제조 및 재료 부식 평가 기술 수출 계약을 체결했다고 4일 밝혔다.이번 계약은 연구원이 보유한 연구 인프라와 기술력을 활용해 해외 기업에 연구개발(R&amp;D) 서비스를 제공하기 위해 마련됐다.계약 내용에 따라 연구원은 향후 2년간 솔트포스가 개발 중인 불화물 기반 MSR을 대상으로 불화물 용융염 전처리 수행, 핵연료 제조 및 특성 평가, 자연순환 용융염 시험루프 구축·운전, 원자로</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d2ff95707729ef219dd44eb0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34417,7 +35382,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260904130455196"
   data-title="[청문회 프리뷰] 흠결 논란 비켜간 강신철...정책 검증에 무게"
   data-publisher="아주경제"
@@ -34441,7 +35406,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[청문회 프리뷰] 흠결 논란 비켜간 강신철...정책 검증에 무게</div>
+      <div class="headline">[청문회 프리뷰] 흠결 논란 비켜간 강신철...정책 검증에 무게</div>
       <div class="article-snippet">강신철 국방부 장관 후보자가 지난 3일 청문회 준비 사무실이 차려진 서울 용산구 국방컨벤션으로 들어서며 취재진의 질문에 답하고 있다.[사진=연합뉴스] 오는 16일 열릴 강신철 국방부 장관 후보자에 대한 국회 인사청문회가 후보자의 신상·도덕성을 둘러싼 공방보다는, 국방정책의 방향성과 안보관을 검증하는 ‘정책 청문회’가 될 전망이다. 김승원 법무부 장관 후보자의 코로나19 치료제 임상시험 승인 청탁 의혹, 용혜인 성평등가족부 장관 후보자의 국회의원직 겸직 논란 등 타 부처 장관 후보자들을 둘러싼 공방이 청문회 전부터 가열되는 모습과는 대</div>
     </div>
   </div>
@@ -35167,9 +36132,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.romania-insider.com/abb-cernavoda-nuclear-plant-contract-sept-2206"
+  data-title="ABB selected to modernize automation systems of Unit 1 of Cernavodă nuclear power plant in Romania"
+  data-publisher="Romania Insider"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788501379"
+  data-country="RO"
+  data-search="abb selected to modernize automation systems of unit 1 of cernavodă nuclear power plant in romania romania insider nuclear power·nuclear energy abb, cited by economica.net, announced that it has been selected by engineering, procurement and construction (epc) contractor ansaldo nucleare to upgrade the control and safety systems of unit 1 at the cernavodă nuclear power plant in romania, supporting the long-term operation of one of the..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Romania Insider</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>ABB selected to modernize automation systems of Unit 1 of Cernavodă nuclear power plant in Romania</div>
+      <div class="article-snippet">ABB, cited by Economica.net, announced that it has been selected by engineering, procurement and construction (EPC) contractor Ansaldo Nucleare to upgrade the control and safety systems of Unit 1 at the Cernavodă Nuclear Power Plant in Romania, supporting the long-term operation of one of the...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cd85ab4286150cf42b88e9dc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://shippingtelegraph.com/container-news/uk-us-pink-corridor-project-to-explore-nuclear-powered-containership-trading/"
   data-title="UK-US pink corridor project to explore nuclear-powered containership trading | Container news | Shipping Telegraph"
@@ -45106,7 +46104,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4c3e80f8fe09a910fe74d349.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/860ac9089f77611902ce101b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -46279,7 +47277,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7d3c20d33af8c6fea51827e3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/c9f8def1003efdef2e352852.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -254924,12 +255922,39 @@ main {
     </div>
   </section>
 
-  <section class="pc-rail-card">
+  <section class="pc-rail-card pc-mini-analytics-card">
     <div class="pc-rail-head">
-      <div class="pc-rail-title">보도 집중 영역</div>
-      <div class="pc-rail-sub">기사 많은 순</div>
+      <div class="pc-rail-title">한눈에 보는 동향</div>
+      <div class="pc-rail-sub">현재 선택 화면</div>
     </div>
-    <div id="pc-concentration" class="pc-concentration"></div>
+    <div class="pc-mini-analytics-grid">
+      <div class="pc-mini-panel">
+        <div class="pc-mini-title">국가별 기사</div>
+        <div class="pc-country-donut-wrap">
+          <div id="pc-country-donut" class="pc-country-donut">
+            <div class="pc-country-donut-center">
+              <strong id="pc-country-donut-total">0</strong>
+              <span>건</span>
+            </div>
+          </div>
+          <div id="pc-country-legend" class="pc-country-legend"></div>
+        </div>
+      </div>
+      <div class="pc-mini-panel">
+        <div class="pc-mini-title">주요 키워드 TOP 6</div>
+        <div id="pc-keyword-bars" class="pc-keyword-bars"></div>
+      </div>
+      <div class="pc-mini-panel pc-today-summary">
+        <div class="pc-mini-title">오늘의 기사</div>
+        <div class="pc-today-big"><strong id="pc-today-total">0</strong><span>건</span></div>
+        <div class="pc-today-subgrid">
+          <div><span>중요</span><strong id="pc-today-important">0</strong></div>
+          <div><span>국가</span><strong id="pc-today-countries">0</strong></div>
+          <div><span>언론사</span><strong id="pc-today-publishers">0</strong></div>
+          <div><span>그룹</span><strong id="pc-today-groups">0</strong></div>
+        </div>
+      </div>
+    </div>
   </section>
 </aside>
 </main>
@@ -260069,6 +261094,196 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   });
 
   window.addEventListener("resize",schedulePcMapUpdate);
+})();
+</script>
+
+
+<script>
+(function() {
+  var mapHome = null;
+  var mapPanel = null;
+
+  function isPcDashboard() {
+    return window.matchMedia("(min-width:1000px)").matches;
+  }
+
+  function activePanelForDashboard() {
+    return document.querySelector(".tab-panel.active") || document.querySelector(".tab-panel");
+  }
+
+  function cardsForDashboard() {
+    var panel = activePanelForDashboard();
+    if (!panel) return [];
+    return Array.from(panel.querySelectorAll(".preview-card")).filter(function(card) {
+      return card.style.display !== "none" && !card.hidden;
+    });
+  }
+
+  function groupOfDashboard(card) {
+    return (card.dataset.group || "기타").trim();
+  }
+
+  function publisherOfDashboard(card) {
+    return (card.dataset.publisher || ((card.querySelector(".publisher") || {}).textContent || "")).trim();
+  }
+
+  function countryOfDashboard(card) {
+    return (card.dataset.country || "").trim();
+  }
+
+  function moveMapForPc() {
+    mapPanel = mapPanel || document.getElementById("world-map-panel");
+    var rail = document.getElementById("pc-insight-rail");
+    if (!mapPanel || !rail) return;
+
+    if (!mapHome) {
+      mapHome = document.createComment("world-map-panel-home");
+      mapPanel.parentNode.insertBefore(mapHome, mapPanel);
+    }
+
+    if (isPcDashboard()) {
+      if (mapPanel.parentNode !== rail) {
+        rail.appendChild(mapPanel);
+      }
+    } else {
+      if (mapHome && mapHome.parentNode && mapPanel.parentNode !== mapHome.parentNode) {
+        mapHome.parentNode.insertBefore(mapPanel, mapHome.nextSibling);
+      }
+    }
+  }
+
+  function buildCategoryStrip() {
+    var box = document.getElementById("pc-category-strip");
+    if (!box || !isPcDashboard()) return;
+    var cards = cardsForDashboard();
+    var counts = {};
+    cards.forEach(function(card) {
+      var g = groupOfDashboard(card);
+      counts[g] = (counts[g] || 0) + 1;
+    });
+
+    box.innerHTML = "";
+    var total = document.createElement("button");
+    total.className = "pc-category-chip active";
+    total.type = "button";
+    total.innerHTML = '전체 <strong>' + cards.length + '</strong>';
+    total.addEventListener("click", function() {
+      var first = activePanelForDashboard();
+      if (first) first.scrollIntoView({behavior:"smooth",block:"start"});
+    });
+    box.appendChild(total);
+
+    Object.entries(counts)
+      .sort(function(a,b) { return b[1]-a[1]; })
+      .slice(0,8)
+      .forEach(function(entry) {
+        var btn = document.createElement("button");
+        btn.className = "pc-category-chip";
+        btn.type = "button";
+        var label = entry[0] === "타 건설사" ? "주요 건설사" : entry[0];
+        btn.innerHTML = label + ' <strong>' + entry[1] + '</strong>';
+        btn.addEventListener("click", function() {
+          var target = cards.find(function(card) { return groupOfDashboard(card) === entry[0]; });
+          if (target) target.scrollIntoView({behavior:"smooth",block:"center"});
+        });
+        box.appendChild(btn);
+      });
+  }
+
+  function buildMiniAnalytics() {
+    if (!isPcDashboard()) return;
+    var cards = cardsForDashboard();
+    var countryCounts = {};
+    var groupCounts = {};
+    var publishers = new Set();
+    var important = 0;
+
+    cards.forEach(function(card) {
+      var c = countryOfDashboard(card);
+      if (c) countryCounts[c] = (countryCounts[c] || 0) + 1;
+      var g = groupOfDashboard(card);
+      groupCounts[g] = (groupCounts[g] || 0) + 1;
+      var p = publisherOfDashboard(card);
+      if (p) publishers.add(p);
+      if (card.classList.contains("important")) important++;
+    });
+
+    var totalEl = document.getElementById("pc-country-donut-total");
+    if (totalEl) totalEl.textContent = cards.length;
+
+    var legend = document.getElementById("pc-country-legend");
+    if (legend) {
+      legend.innerHTML = "";
+      Object.entries(countryCounts)
+        .sort(function(a,b) { return b[1]-a[1]; })
+        .slice(0,4)
+        .forEach(function(entry) {
+          var row = document.createElement("div");
+          row.className = "pc-country-legend-row";
+          row.innerHTML = '<span>' + entry[0] + '</span><strong>' + entry[1] + '</strong>';
+          legend.appendChild(row);
+        });
+    }
+
+    var bars = document.getElementById("pc-keyword-bars");
+    if (bars) {
+      bars.innerHTML = "";
+      var sorted = Object.entries(groupCounts).sort(function(a,b) { return b[1]-a[1]; }).slice(0,6);
+      var max = sorted.length ? sorted[0][1] : 1;
+      sorted.forEach(function(entry) {
+        var row = document.createElement("div");
+        row.className = "pc-keyword-row";
+        var label = entry[0] === "타 건설사" ? "주요 건설사" : entry[0];
+        row.innerHTML =
+          '<div class="pc-keyword-label">' + label + '</div>' +
+          '<div class="pc-keyword-bar"><div class="pc-keyword-fill" style="width:' + Math.max(7,(entry[1]/max)*100) + '%"></div></div>' +
+          '<div class="pc-keyword-count">' + entry[1] + '</div>';
+        bars.appendChild(row);
+      });
+    }
+
+    var setters = {
+      "pc-today-total": cards.length,
+      "pc-today-important": important,
+      "pc-today-countries": Object.keys(countryCounts).length,
+      "pc-today-publishers": publishers.size,
+      "pc-today-groups": Object.keys(groupCounts).length
+    };
+    Object.keys(setters).forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = setters[id];
+    });
+  }
+
+  function refreshConceptDashboard() {
+    moveMapForPc();
+    buildCategoryStrip();
+    buildMiniAnalytics();
+  }
+
+  function scheduleConceptRefresh() {
+    window.setTimeout(refreshConceptDashboard,120);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleConceptRefresh);
+  } else {
+    scheduleConceptRefresh();
+  }
+
+  document.addEventListener("click", function(event) {
+    if (event.target.closest(".tab-button,.group-title,.country-pin,.continent-button,.important-button")) {
+      scheduleConceptRefresh();
+    }
+  });
+
+  var search = document.getElementById("article-search");
+  if (search) search.addEventListener("input", scheduleConceptRefresh);
+
+  var archive = document.getElementById("archive-date");
+  if (archive) archive.addEventListener("change", scheduleConceptRefresh);
+
+  window.addEventListener("resize", scheduleConceptRefresh);
 })();
 </script>
 
