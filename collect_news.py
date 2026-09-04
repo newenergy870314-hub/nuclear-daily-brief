@@ -1,3 +1,5 @@
+# FINAL PC TIMELINE DIRECT ORIGINAL-ARTICLE OPEN / MOBILE UNCHANGED 2026-09-04
+# FINAL PC TIMELINE VISUAL CARDS / MOBILE UNCHANGED 2026-09-04
 # FINAL PC DESKTOP DETECTION FIX / WINDOWS SCALE SAFE 2026-09-04
 # FINAL PC ANALYTICS UI + HYUNDAI/US INVESTMENT TIMELINES / MOBILE UNCHANGED 2026-09-04
 # FINAL PC ARTICLE TEXT WIDTH FIX / MOBILE UNCHANGED 2026-09-04
@@ -21743,6 +21745,210 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   PC TIMELINE VISUAL CARDS 2026-09-04
+   Desktop only - mobile untouched
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+  .pc-timeline-card {{
+    overflow:visible !important;
+  }}
+
+  .pc-timeline-card .pc-rail-head {{
+    min-height:54px;
+    padding:14px 16px 12px !important;
+  }}
+
+  .pc-timeline-card .pc-rail-title {{
+    font-size:17px !important;
+    letter-spacing:-.35px !important;
+  }}
+
+  .pc-timeline-wrap {{
+    padding:13px 14px 15px !important;
+  }}
+
+  .pc-timeline {{
+    padding-left:0 !important;
+  }}
+
+  .pc-timeline:before {{
+    display:none !important;
+  }}
+
+  .pc-timeline-item {{
+    display:grid !important;
+    grid-template-columns:70px minmax(0,1fr) 76px !important;
+    gap:10px !important;
+    align-items:center !important;
+    background:#fff !important;
+    border:1px solid #dfe8f2 !important;
+    border-radius:12px !important;
+    padding:10px !important;
+    margin-bottom:9px !important;
+    box-shadow:0 2px 7px rgba(35,64,98,.05) !important;
+    transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease !important;
+  }}
+
+  .pc-timeline-item:hover {{
+    transform:translateY(-1px);
+    box-shadow:0 5px 14px rgba(35,64,98,.11) !important;
+    border-color:#b9cde2 !important;
+  }}
+
+  .pc-timeline-item:before {{
+    display:none !important;
+  }}
+
+  .pc-timeline-date {{
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:center !important;
+    min-width:0 !important;
+    width:70px !important;
+    height:58px !important;
+    padding:0 !important;
+    margin:0 !important;
+    border-radius:11px !important;
+    background:#e8f1fb !important;
+    color:#244f7b !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+  }}
+
+  .pc-timeline-date .pc-date-day {{
+    font-size:21px !important;
+    font-weight:950 !important;
+    letter-spacing:-.5px !important;
+  }}
+
+  .pc-timeline-date .pc-date-month {{
+    margin-top:5px !important;
+    font-size:9.5px !important;
+    font-weight:850 !important;
+    opacity:.82 !important;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-date {{
+    background:#fff0bd !important;
+    color:#8d6200 !important;
+  }}
+
+  .pc-timeline-content {{
+    min-width:0 !important;
+  }}
+
+  .pc-timeline-title {{
+    color:#213e5d !important;
+    font-size:12.7px !important;
+    line-height:1.42 !important;
+    font-weight:900 !important;
+    letter-spacing:-.18px !important;
+    -webkit-line-clamp:2 !important;
+    margin:0 !important;
+  }}
+
+  .pc-timeline-meta {{
+    color:#8794a4 !important;
+    font-size:9.7px !important;
+    line-height:1.3 !important;
+    margin-top:5px !important;
+  }}
+
+  .pc-timeline-thumb {{
+    width:76px !important;
+    height:58px !important;
+    border-radius:9px !important;
+    overflow:hidden !important;
+    background:linear-gradient(135deg,#dbe6f0,#eef4f9) !important;
+    border:1px solid #d9e3ec !important;
+  }}
+
+  .pc-timeline-thumb img {{
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+  }}
+
+  .pc-timeline-thumb.pc-no-image {{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    color:#6f8195 !important;
+    font-size:18px !important;
+    font-weight:900 !important;
+  }}
+
+  .pc-timeline-card.hyundai .pc-timeline-item {{
+    border-left:4px solid #2c669f !important;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-item {{
+    border-left:4px solid #c88b00 !important;
+  }}
+
+  .pc-timeline-section-note {{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:0 2px 10px;
+    color:#7c8a9b;
+    font-size:10px;
+    font-weight:750;
+  }}
+
+  .pc-timeline-section-note:before {{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#2c669f;
+    flex:0 0 auto;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-section-note:before {{
+    background:#c88b00;
+  }}
+}}
+
+
+/* ============================================================
+   PC TIMELINE DIRECT ARTICLE OPEN 2026-09-04
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+  .pc-timeline-item {{
+    position:relative !important;
+  }}
+
+  .pc-timeline-item:after {{
+    content:"↗";
+    position:absolute;
+    right:7px;
+    top:5px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,.92);
+    border:1px solid #d7e3ef;
+    color:#52708e;
+    font-size:10px;
+    font-weight:900;
+    box-shadow:0 1px 3px rgba(35,64,98,.06);
+    pointer-events:none;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-item:after {{
+    color:#946500;
+    border-color:#eadba8;
+  }}
+}}
+
 </style>
 </head>
 <body>
@@ -27072,10 +27278,35 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     card.scrollIntoView({{behavior:"smooth", block:"center"}});
   }}
 
+  function timelineImage(card) {{
+    var img = card.querySelector(".preview-image img, .card-side img, img.preview-image, .preview-image");
+    if (!img) return "";
+    if (img.tagName === "IMG") return img.currentSrc || img.src || "";
+    var bg = window.getComputedStyle(img).backgroundImage || "";
+    var m = bg.match(/url\(["']?(.*?)["']?\)/);
+    return m ? m[1] : "";
+  }}
+
+  function dateParts(card) {{
+    var ts = tsOf(card);
+    if (!ts) return {{day:"--", month:"최근"}};
+    var d = new Date(ts * 1000);
+    if (Number.isNaN(d.getTime())) return {{day:"--", month:"최근"}};
+    return {{
+      day:String(d.getDate()).padStart(2,"0"),
+      month:String(d.getMonth()+1).padStart(2,"0") + "월"
+    }};
+  }}
+
   function buildTimeline(containerId, cards, maxItems) {{
     var box = document.getElementById(containerId);
     if (!box) return;
     box.innerHTML = "";
+
+    var note = document.createElement("div");
+    note.className = "pc-timeline-section-note";
+    note.textContent = "날짜별 주요 기사";
+    box.appendChild(note);
 
     cards.slice()
       .sort(function(a,b) {{ return tsOf(b) - tsOf(a); }})
@@ -27084,9 +27315,23 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         var item = document.createElement("div");
         item.className = "pc-timeline-item";
 
+        var dp = dateParts(card);
         var date = document.createElement("div");
         date.className = "pc-timeline-date";
-        date.textContent = dateLabel(card);
+
+        var day = document.createElement("div");
+        day.className = "pc-date-day";
+        day.textContent = dp.day;
+
+        var month = document.createElement("div");
+        month.className = "pc-date-month";
+        month.textContent = dp.month;
+
+        date.appendChild(day);
+        date.appendChild(month);
+
+        var content = document.createElement("div");
+        content.className = "pc-timeline-content";
 
         var title = document.createElement("div");
         title.className = "pc-timeline-title";
@@ -27096,14 +27341,36 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         meta.className = "pc-timeline-meta";
         meta.textContent = [publisherOf(card), countryOf(card)].filter(Boolean).join(" · ");
 
+        content.appendChild(title);
+        content.appendChild(meta);
+
+        var thumb = document.createElement("div");
+        thumb.className = "pc-timeline-thumb";
+        var src = timelineImage(card);
+        if (src) {{
+          var im = document.createElement("img");
+          im.src = src;
+          im.alt = "";
+          im.loading = "lazy";
+          thumb.appendChild(im);
+        }} else {{
+          thumb.classList.add("pc-no-image");
+          thumb.textContent = "NEWS";
+        }}
+
         item.appendChild(date);
-        item.appendChild(title);
-        item.appendChild(meta);
-        item.addEventListener("click", function() {{ scrollCard(card); }});
+        item.appendChild(content);
+        item.appendChild(thumb);
+        item.addEventListener("click", function() {{
+          var url = (card.dataset.url || "").trim();
+          if (url) {{
+            window.open(url, "_blank", "noopener,noreferrer");
+          }}
+        }});
         box.appendChild(item);
       }});
 
-    if (!box.children.length) {{
+    if (box.children.length === 1) {{
       var empty = document.createElement("div");
       empty.className = "pc-empty";
       empty.textContent = "현재 선택 기간에 관련 기사가 없습니다.";
