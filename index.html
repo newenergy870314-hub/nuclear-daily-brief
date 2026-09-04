@@ -10357,6 +10357,168 @@ main {
   }
 }
 
+
+/* ============================================================
+   PC RIGHT ANALYTICS PANEL - INDEPENDENT SCROLL 2026-09-04
+   Desktop only - mobile unchanged
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {
+  #pc-insight-rail {
+    position:sticky !important;
+    top:14px !important;
+    height:calc(100vh - 28px) !important;
+    max-height:calc(100vh - 28px) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    overscroll-behavior:contain !important;
+    scrollbar-gutter:stable !important;
+    padding-right:5px !important;
+    align-self:start !important;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar {
+    width:8px;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar-track {
+    background:transparent;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar-thumb {
+    background:#b8c9da;
+    border-radius:999px;
+    border:2px solid transparent;
+    background-clip:padding-box;
+  }
+
+  #pc-insight-rail::-webkit-scrollbar-thumb:hover {
+    background:#8fa8bf;
+    border:2px solid transparent;
+    background-clip:padding-box;
+  }
+
+  /* Keep timeline cards compact inside the independent rail */
+  .pc-timeline-card .pc-timeline-wrap {
+    max-height:none !important;
+    overflow:visible !important;
+  }
+
+  /* Subtle cue that the right side can scroll separately */
+  #pc-insight-rail:before {
+    content:"";
+    position:sticky;
+    top:0;
+    display:block;
+    height:1px;
+    z-index:5;
+    background:transparent;
+  }
+}
+
+
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {
+  #pc-focus-list .pc-focus-item {
+    border-left:4px solid #2a639d;
+  }
+
+  #pc-focus-list .pc-focus-item:nth-child(1) {
+    background:linear-gradient(90deg,#f5f9fd 0%,#ffffff 100%);
+    border-left-color:#d69a00;
+  }
+
+  #pc-focus-list .pc-focus-item:nth-child(2) {
+    border-left-color:#4d7eac;
+  }
+
+  #pc-focus-list .pc-focus-item:nth-child(3) {
+    border-left-color:#7e9cb9;
+  }
+
+  #pc-focus-list .pc-focus-name {
+    font-size:11.5px !important;
+  }
+
+  #pc-focus-list .pc-focus-meta {
+    display:inline-flex;
+    align-items:center;
+    min-height:20px;
+    margin-top:7px !important;
+    padding:3px 7px;
+    border-radius:999px;
+    background:#eef4fa;
+    color:#486984;
+    font-weight:850;
+  }
+}
+
+
+/* ============================================================
+   PC GROUP UX: REMOVE MASTER EXPAND/COLLAPSE / KEEP INDIVIDUAL TOGGLE
+   Desktop only - mobile unchanged
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {
+  /* PC에서는 전체 펼치기/전체 접기 컨트롤 제거 */
+  .group-master-control,
+  .period-action-row .group-master-button,
+  .group-master-button {
+    display:none !important;
+  }
+
+  /* 개별 그룹 접기/펼치기는 확실히 동작하도록 보장 */
+  .news-group.collapsed .article-stack {
+    display:none !important;
+  }
+
+  .news-group:not(.collapsed) .article-stack {
+    display:grid !important;
+  }
+
+  .group-title {
+    cursor:pointer !important;
+    user-select:none !important;
+  }
+}
+
+
+/* ============================================================
+   PC DATE / PERIOD CONTROL FIX 2026-09-04
+   Desktop only - mobile unchanged
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {
+  .header-controls,
+  .tabs,
+  .utility-row,
+  .date-picker-box,
+  .date-control {
+    position:relative !important;
+    z-index:20 !important;
+    pointer-events:auto !important;
+  }
+
+  .tab-button,
+  .language-order-toggle,
+  .date-picker-box,
+  .date-control,
+  .date-input {
+    pointer-events:auto !important;
+    cursor:pointer !important;
+  }
+
+  .date-input {
+    z-index:30 !important;
+    opacity:0 !important;
+  }
+
+  .date-picker-box {
+    user-select:none !important;
+  }
+
+  .tab-button {
+    position:relative !important;
+    z-index:25 !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -10365,7 +10527,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 9.4(금) 12:10 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.4(금) 12:30 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -11301,7 +11463,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/04c0e3980cb1f2621609a7b9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/599249ac570d44fc5c3bbc76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -17903,7 +18065,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1bcf91c0e95e3626972ff002.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/5c115d6286c3dabe8304312a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24029,7 +24191,7 @@ main {
     <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=105082"
   data-title="﻿맥쿼리증권, 비에이치아이 미국 원전시장 수주 기대감 상승…투자의견 ‘매수’ 유지"
   data-publisher="에너지플랫폼뉴스"
@@ -24053,7 +24215,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>﻿맥쿼리증권, 비에이치아이 미국 원전시장 수주 기대감 상승…투자의견 ‘매수’ 유지</div>
+      <div class="headline">﻿맥쿼리증권, 비에이치아이 미국 원전시장 수주 기대감 상승…투자의견 ‘매수’ 유지</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 맥쿼리증권이 비에이치아이에 대해 미국 내 원전 시장이 실제 수주 국면으로 전환됨에 따라 선호주로 제시했다.맥쿼리증권은 4일 비에이치아이(BHI)에 대해 미국 원전 시장이 단순한 정책 기대 국면을 넘어 실제 수주 국면으로 전환함에 따라 두산에너빌리티, 현대건설 등과 함께 선호주로 제시한다고 밝혔다. 투자의견은 ‘매수’를 유지했으며, 목표주가는 107,000원을 제시했다. 맥쿼리증권 이재서 연구원은 ‘한국 원자력: 내러티브에서 수주로(Korea nuclear - From narrative to order</div>
     </div>
   </div>
@@ -24182,7 +24344,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313414" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">현대건설, 성수서 힐스테이트 20주년 팝업…리브랜딩 체험 - 건설타임즈</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719445" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">현대건설, 29CM와 손잡고 힐스테이트 팝업…성수서 7일간 운영</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313414" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">현대건설, 성수서 힐스테이트 20주년 팝업…리브랜딩 체험 - 건설타임즈</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업</div>
@@ -24455,7 +24617,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.koscaj.com/news/articleView.html?idxno=326286" target="_blank" rel="noopener"><span class="related-coverage-publisher">대한전문건설신문</span><span class="related-coverage-title">삼성물산, 스웨덴 SMR 4기 건설 참여···유럽 시장 첫 사업 성과</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309632" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정 - FETV</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040002" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6041" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 4기 건설 전면에 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ekn.kr/web/view.php?key=20260904022160589" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지경제신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 참여…유럽 원전시장 공략 본격화</span></a><a class="related-coverage-link" href="https://www.koscaj.com/news/articleView.html?idxno=326286" target="_blank" rel="noopener"><span class="related-coverage-publisher">대한전문건설신문</span><span class="related-coverage-title">삼성물산, 스웨덴 SMR 4기 건설 참여···유럽 시장 첫 사업 성과</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309632" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정 - FETV</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040002" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6041" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 4기 건설 전면에 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">삼성물산, 스웨덴 1.2GW급 신규 SMR 사업 공동개발협약…유럽 시장 공략 가속</div>
@@ -24500,7 +24662,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=672630"
   data-title="[이사회 권력지도] 대우건설, 차기 CEO ‘독립이사 5명’ 손에 달렸다"
   data-publisher="블로터"
@@ -24524,7 +24686,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[이사회 권력지도] 대우건설, 차기 CEO ‘독립이사 5명’ 손에 달렸다</div>
+      <div class="headline">[이사회 권력지도] 대우건설, 차기 CEO ‘독립이사 5명’ 손에 달렸다</div>
       <div class="article-snippet">대우건설의 새 최고경영자(CEO)와 차기 이사회 의장은 독립이사 5명이 다수인 이사회가 결정한다. 최대주주 일가는 김보현 전 대표 사임으로 유일한 사내이사 자리에서 빠졌다. 중흥토건 등 최대주주 측은 51.33% 지분으로 주주총회에서 이강석 대표이사 직무대행의 사내이사 선임을 주도할</div>
     </div>
   </div>
@@ -24731,7 +24893,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776478"
   data-title="정부, 네팔 &#x27;한국인 대피&#x27; 가능 경로 집중수색…헬기 재투입 추진"
   data-publisher="뉴시스"
@@ -24755,7 +24917,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>정부, 네팔 &#x27;한국인 대피&#x27; 가능 경로 집중수색…헬기 재투입 추진</div>
+      <div class="headline">정부, 네팔 &#x27;한국인 대피&#x27; 가능 경로 집중수색…헬기 재투입 추진</div>
       <div class="article-snippet">[서울=뉴시스] 유자비 기자 = 정부가 네팔 대홍수로 연락이 두절된 한국인 9명이 대피했을 가능성이 있는 경로를 중심으로 수색에 집중한다. 4일(현지시간) 헬기 수색을 재시도하고 둔체 지역에서 육로 수색도 나선다. 외교부 당국자는 4일 기자들과 만나 &quot;(오늘) 기상 상황을 보고 헬기 2대 수색을 추진할 것&quot;이라며 &quot;바타르 지역 네팔 군사령관과 오늘 추가로 협의해 합동 수색 방향을 협의하고 구체화할 계획&quot;이라고 말했다. 정부는 전날 네팔 측이 지원하는 헬기 2대를 투입하려 했으나 기상 악화로 1대는 이륙 후 조기 귀항했고, 나머지 1대는 이륙하지 못했다. 이날 헬기에는</div>
     </div>
   </div>
@@ -25178,7 +25340,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260904000152"
   data-title="스마트인재개발원, 한전 재직자 대상 생성형AI 교육…AX 역량 강화 지원"
   data-publisher="전자신문"
@@ -25202,7 +25364,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>스마트인재개발원, 한전 재직자 대상 생성형AI 교육…AX 역량 강화 지원</div>
+      <div class="headline">스마트인재개발원, 한전 재직자 대상 생성형AI 교육…AX 역량 강화 지원</div>
       <div class="article-snippet">스마트인재개발원(원장 반수경)은 고용노동부와 한국산업인력공단이 추진하는 K-하이테크 플랫폼 사업의 일환으로 지난 8월 31일부터 9월 4일까지 스마트인재개발원 남구캠퍼스에서 광주전남지역 한국전력공사 재직자 및 임직원 100명을 대상으로 &#x27;생성형 AI 활용 교육&#x27;을 진행했다. 이번 교육은 총 5일간 하루 6시간씩, 총 30시간 과정으로 운영했으며 생성형 인공지능(AI)을 실제 업무에 적용할 수 있는 실무 역량을 강화하는 데 중점을 두고 진행했다.</div>
     </div>
   </div>
@@ -25211,7 +25373,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=105087"
   data-title="한전, 미국 EPRI와 ±500kV HVDC 선로 운영기술 고도화 협력기반 마련"
   data-publisher="에너지플랫폼뉴스"
@@ -25232,10 +25394,10 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="http://www.energytimes.kr/news/articleView.html?idxno=70825" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">한전 HVDC 운영기술 고도화…美 실제선로 장기 실증</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전, 미국 EPRI와 ±500kV HVDC 선로 운영기술 고도화 협력기반 마련</div>
+      <div class="headline">한전, 미국 EPRI와 ±500kV HVDC 선로 운영기술 고도화 협력기반 마련</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전이 미국 전력연구원과 함께 HVDC(초고압 직류송전)에 대한 운영기술 고도화를 위해 상호 협력하기로 했다.한국전력(사장 김동철)이 미국 전력연구원(EPRI)과 손잡고 송변전 설비의 안정적 운영과 진단기술 고도화에 나선다. 양 기관은 초고압 직류송전 선로 운영부터 변압기 진단까지 기술협력을 강화해 전력설비 핵심기술 경쟁력을 높일 계획이다.한전은 EPRI와 미국 현지에서 ±500kV HVDC 선로 운영기술 고도화를 위한 업무협약을 지난 8월 31일 체결하고, 9월 2일에는 변압기 부싱 진단기술 고도화</div>
     </div>
   </div>
@@ -25622,7 +25784,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -25787,6 +25949,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/daf649d3ac11ac3fa90612c1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=181142"
+  data-title="김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제"
+  data-publisher="알파경제"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788490601"
+  data-country="US"
+  data-search="김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제 알파경제 원전 관계부처 [알파경제 = 문선정 기자] 미국이 현지 투자와 연계한 반도체 관세 정책을 검토하는 가운데 정부가 한국 기업이 경쟁국보다 불리한 대우를 받지 않도록 미국 측과 협"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">알파경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제</div>
+      <div class="article-snippet">[알파경제 = 문선정 기자] 미국이 현지 투자와 연계한 반도체 관세 정책을 검토하는 가운데 정부가 한국 기업이 경쟁국보다 불리한 대우를 받지 않도록 미국 측과 협</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/012e10efc2582bb04fa1b126.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26135,7 +26330,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">23건</span>
+    <span class="group-count">24건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26734,14 +26929,14 @@ main {
 
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6053"
-  data-title="원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문"
+  data-title="[단독] 원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문"
   data-publisher="에너지안전신문"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
   data-published="1788487210"
   data-country="OTHER"
-  data-search="원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문 에너지안전신문 원자력 ​글로벌 에너지 안보 환경이 급변하고 기술 혁신이 가속화되는 가운데, 원자력산업의 지속 가능한 성장과 안전을 담보하기 위한 새로운 리더십 패러다임이 제시됐다.​한"
+  data-search="[단독] 원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문 에너지안전신문 원자력 ​글로벌 에너지 안보 환경이 급변하고 기술 혁신이 가속화되는 가운데, 원자력산업의 지속 가능한 성장과 안전을 담보하기 위한 새로운 리더십 패러다임이 제시됐다.​한"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -26756,12 +26951,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문</div>
+      <div class="headline">[단독] 원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문</div>
       <div class="article-snippet">​글로벌 에너지 안보 환경이 급변하고 기술 혁신이 가속화되는 가운데, 원자력산업의 지속 가능한 성장과 안전을 담보하기 위한 새로운 리더십 패러다임이 제시됐다.​한</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a2d08965f01bda9060e99a51.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/02f32bbf686af5f1b42d1eb2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26828,6 +27023,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/0a4f2cc182eab0273bff8f51.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=181099"
+  data-title="한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제"
+  data-publisher="알파경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788486609"
+  data-country="OTHER"
+  data-search="한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제 알파경제 원자력 [알파경제 = 김혜실 기자] 한미글로벌이 반도체, 데이터센터, 원전 등 시장이 주목하는 요소를 두루 확대해가고 있어 긍정적이다. 4일 현대차증권은 한미글로벌에 대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">알파경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제</div>
+      <div class="article-snippet">[알파경제 = 김혜실 기자] 한미글로벌이 반도체, 데이터센터, 원전 등 시장이 주목하는 요소를 두루 확대해가고 있어 긍정적이다. 4일 현대차증권은 한미글로벌에 대</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8eb680316f9f289e17281d7d.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27450,10 +27678,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">16건</span>
+    <span class="group-count">17건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=105082"
   data-title="﻿맥쿼리증권, 비에이치아이 미국 원전시장 수주 기대감 상승…투자의견 ‘매수’ 유지"
   data-publisher="에너지플랫폼뉴스"
@@ -27477,7 +27705,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>﻿맥쿼리증권, 비에이치아이 미국 원전시장 수주 기대감 상승…투자의견 ‘매수’ 유지</div>
+      <div class="headline">﻿맥쿼리증권, 비에이치아이 미국 원전시장 수주 기대감 상승…투자의견 ‘매수’ 유지</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 맥쿼리증권이 비에이치아이에 대해 미국 내 원전 시장이 실제 수주 국면으로 전환됨에 따라 선호주로 제시했다.맥쿼리증권은 4일 비에이치아이(BHI)에 대해 미국 원전 시장이 단순한 정책 기대 국면을 넘어 실제 수주 국면으로 전환함에 따라 두산에너빌리티, 현대건설 등과 함께 선호주로 제시한다고 밝혔다. 투자의견은 ‘매수’를 유지했으며, 목표주가는 107,000원을 제시했다. 맥쿼리증권 이재서 연구원은 ‘한국 원자력: 내러티브에서 수주로(Korea nuclear - From narrative to order</div>
     </div>
   </div>
@@ -27586,6 +27814,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.cstimes.com/news/articleView.html?idxno=719445"
+  data-title="현대건설, 29CM와 손잡고 힐스테이트 팝업…성수서 7일간 운영"
+  data-publisher="컨슈머타임스"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788488358"
+  data-country="KR"
+  data-search="현대건설, 29cm와 손잡고 힐스테이트 팝업…성수서 7일간 운영 컨슈머타임스 현대건설 컨슈머타임스=정용규 기자 | 현대건설이 힐스테이트 론칭 20주년을 맞아 서울 성수동에 브랜드 팝업 스토어를 4일 열었다. 리브랜딩 방향을 체험할 수 있는 공간으로 오는 10일까지 7일간 운영된다.현대건설은 패션·라이프스타일 플랫폼 무신사가 운영하는 셀렉트숍 29cm(이십구센티미터)와 손잡고 이구홈 성수(29cm home seongsu) 1호점에서 &#x27;find my hillstate&#x27; 팝업 스토어를 운영한다고 4일 밝혔다. 새로워진 힐스테이트를 통해 방문객이 자신의 라이프 취향을 찾는다는 뜻을 행사명에 담았다.공간은 브랜드 홍보존, 고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">컨슈머타임스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">현대건설, 29CM와 손잡고 힐스테이트 팝업…성수서 7일간 운영</div>
+      <div class="article-snippet">컨슈머타임스=정용규 기자 | 현대건설이 힐스테이트 론칭 20주년을 맞아 서울 성수동에 브랜드 팝업 스토어를 4일 열었다. 리브랜딩 방향을 체험할 수 있는 공간으로 오는 10일까지 7일간 운영된다.현대건설은 패션·라이프스타일 플랫폼 무신사가 운영하는 셀렉트숍 29CM(이십구센티미터)와 손잡고 이구홈 성수(29CM HOME SEONGSU) 1호점에서 &#x27;FIND MY HILLSTATE&#x27; 팝업 스토어를 운영한다고 4일 밝혔다. 새로워진 힐스테이트를 통해 방문객이 자신의 라이프 취향을 찾는다는 뜻을 행사명에 담았다.공간은 브랜드 홍보존, 고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.cstimes.com/news/photo/202609/719445_640148_1637.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776390"
   data-title="현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업"
   data-publisher="뉴시스"
@@ -27606,7 +27867,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313414" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">현대건설, 성수서 힐스테이트 20주년 팝업…리브랜딩 체험 - 건설타임즈</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719445" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">현대건설, 29CM와 손잡고 힐스테이트 팝업…성수서 7일간 운영</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=03309526645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">&quot;아파트도 성수동 팝업&quot;…현대건설, 29CM 손잡고 MZ 공략</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621946?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">현대건설, 성수동서 힐스테이트 20주년 팝업 운영</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313414" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">현대건설, 성수서 힐스테이트 20주년 팝업…리브랜딩 체험 - 건설타임즈</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">현대건설 힐스테이트, 성수서 첫 팝업…29CM와 협업</div>
@@ -27987,7 +28248,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">29건</span>
+    <span class="group-count">30건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28020,6 +28281,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/421d27ad8c17ada208346d54.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ekn.kr/web/view.php?key=20260904022160589"
+  data-title="삼성물산, 스웨덴 1.2GW SMR 사업 참여…유럽 원전시장 공략 본격화"
+  data-publisher="에너지경제신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788490977"
+  data-country="SE"
+  data-search="삼성물산, 스웨덴 1.2gw smr 사업 참여…유럽 원전시장 공략 본격화 에너지경제신문 타 건설사 삼성물산이 스웨덴에서 추진되는 1.2gw 규모 소형모듈원전(smr) 사업의 전략적 파트너로 선정됐다. 단순 시공을 넘어.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">삼성물산, 스웨덴 1.2GW SMR 사업 참여…유럽 원전시장 공략 본격화</div>
+      <div class="article-snippet">삼성물산이 스웨덴에서 추진되는 1.2GW 규모 소형모듈원전(SMR) 사업의 전략적 파트너로 선정됐다. 단순 시공을 넘어..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.ekn.kr/mnt/file/202609/news-p.v1.20260904.2fb06edb15284c228faafa305f7808f1_R.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28275,7 +28569,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 4개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.koscaj.com/news/articleView.html?idxno=326286" target="_blank" rel="noopener"><span class="related-coverage-publisher">대한전문건설신문</span><span class="related-coverage-title">삼성물산, 스웨덴 SMR 4기 건설 참여···유럽 시장 첫 사업 성과</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309632" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정 - FETV</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040002" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6041" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 4기 건설 전면에 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ekn.kr/web/view.php?key=20260904022160589" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지경제신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 참여…유럽 원전시장 공략 본격화</span></a><a class="related-coverage-link" href="https://www.koscaj.com/news/articleView.html?idxno=326286" target="_blank" rel="noopener"><span class="related-coverage-publisher">대한전문건설신문</span><span class="related-coverage-title">삼성물산, 스웨덴 SMR 4기 건설 참여···유럽 시장 첫 사업 성과</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309632" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정 - FETV</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609040002" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 사업 전략적 파트너 선정</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6041" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">삼성물산, 스웨덴 1.2GW SMR 4기 건설 전면에 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">삼성물산, 스웨덴 1.2GW급 신규 SMR 사업 공동개발협약…유럽 시장 공략 가속</div>
@@ -28419,7 +28713,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.bloter.net/news/articleView.html?idxno=672630"
   data-title="[이사회 권력지도] 대우건설, 차기 CEO ‘독립이사 5명’ 손에 달렸다"
   data-publisher="블로터"
@@ -28443,7 +28737,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[이사회 권력지도] 대우건설, 차기 CEO ‘독립이사 5명’ 손에 달렸다</div>
+      <div class="headline">[이사회 권력지도] 대우건설, 차기 CEO ‘독립이사 5명’ 손에 달렸다</div>
       <div class="article-snippet">대우건설의 새 최고경영자(CEO)와 차기 이사회 의장은 독립이사 5명이 다수인 이사회가 결정한다. 최대주주 일가는 김보현 전 대표 사임으로 유일한 사내이사 자리에서 빠졌다. 중흥토건 등 최대주주 측은 51.33% 지분으로 주주총회에서 이강석 대표이사 직무대행의 사내이사 선임을 주도할</div>
     </div>
   </div>
@@ -28914,7 +29208,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776478"
   data-title="정부, 네팔 &#x27;한국인 대피&#x27; 가능 경로 집중수색…헬기 재투입 추진"
   data-publisher="뉴시스"
@@ -28938,7 +29232,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>정부, 네팔 &#x27;한국인 대피&#x27; 가능 경로 집중수색…헬기 재투입 추진</div>
+      <div class="headline">정부, 네팔 &#x27;한국인 대피&#x27; 가능 경로 집중수색…헬기 재투입 추진</div>
       <div class="article-snippet">[서울=뉴시스] 유자비 기자 = 정부가 네팔 대홍수로 연락이 두절된 한국인 9명이 대피했을 가능성이 있는 경로를 중심으로 수색에 집중한다. 4일(현지시간) 헬기 수색을 재시도하고 둔체 지역에서 육로 수색도 나선다. 외교부 당국자는 4일 기자들과 만나 &quot;(오늘) 기상 상황을 보고 헬기 2대 수색을 추진할 것&quot;이라며 &quot;바타르 지역 네팔 군사령관과 오늘 추가로 협의해 합동 수색 방향을 협의하고 구체화할 계획&quot;이라고 말했다. 정부는 전날 네팔 측이 지원하는 헬기 2대를 투입하려 했으나 기상 악화로 1대는 이륙 후 조기 귀항했고, 나머지 1대는 이륙하지 못했다. 이날 헬기에는</div>
     </div>
   </div>
@@ -29160,9 +29454,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">20건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70825"
+  data-title="한전 HVDC 운영기술 고도화…美 실제선로 장기 실증"
+  data-publisher="에너지타임즈"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788524433"
+  data-country="US"
+  data-search="한전 hvdc 운영기술 고도화…美 실제선로 장기 실증 에너지타임즈 한국전력 한전이 미국 전력연구원과 hvdc 선로 운영부터 변압기 진단까지 송‧변전 핵심기술 고도화에 나선다. 한국전력공사(사장 김동철)는 미국 전력연구원과 hvdc 송전선로 애자 상태를 정확하게 진단하고 효율적으로 유지보수할 수 있는 기술 확보에 협력하기로 하고 지난 31일 미국 현지에서 ±500kv hvdc 송전선로 운영기술 고도화 업무협약을 체결했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전 HVDC 운영기술 고도화…美 실제선로 장기 실증</div>
+      <div class="article-snippet">한전이 미국 전력연구원과 HVDC 선로 운영부터 변압기 진단까지 송‧변전 핵심기술 고도화에 나선다. 한국전력공사(사장 김동철)는 미국 전력연구원과 HVDC 송전선로 애자 상태를 정확하게 진단하고 효율적으로 유지보수할 수 있는 기술 확보에 협력하기로 하고 지난 31일 미국 현지에서 ±500kV HVDC 송전선로 운영기술 고도화 업무협약을 체결했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=372067"
   data-title="스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’"
@@ -29394,7 +29721,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.etnews.com/20260904000152"
   data-title="스마트인재개발원, 한전 재직자 대상 생성형AI 교육…AX 역량 강화 지원"
   data-publisher="전자신문"
@@ -29418,7 +29745,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>스마트인재개발원, 한전 재직자 대상 생성형AI 교육…AX 역량 강화 지원</div>
+      <div class="headline">스마트인재개발원, 한전 재직자 대상 생성형AI 교육…AX 역량 강화 지원</div>
       <div class="article-snippet">스마트인재개발원(원장 반수경)은 고용노동부와 한국산업인력공단이 추진하는 K-하이테크 플랫폼 사업의 일환으로 지난 8월 31일부터 9월 4일까지 스마트인재개발원 남구캠퍼스에서 광주전남지역 한국전력공사 재직자 및 임직원 100명을 대상으로 &#x27;생성형 AI 활용 교육&#x27;을 진행했다. 이번 교육은 총 5일간 하루 6시간씩, 총 30시간 과정으로 운영했으며 생성형 인공지능(AI)을 실제 업무에 적용할 수 있는 실무 역량을 강화하는 데 중점을 두고 진행했다.</div>
     </div>
   </div>
@@ -29427,7 +29754,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.e-platform.net/news/articleView.html?idxno=105087"
   data-title="한전, 미국 EPRI와 ±500kV HVDC 선로 운영기술 고도화 협력기반 마련"
   data-publisher="에너지플랫폼뉴스"
@@ -29448,10 +29775,10 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="http://www.energytimes.kr/news/articleView.html?idxno=70825" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지타임즈</span><span class="related-coverage-title">한전 HVDC 운영기술 고도화…美 실제선로 장기 실증</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전, 미국 EPRI와 ±500kV HVDC 선로 운영기술 고도화 협력기반 마련</div>
+      <div class="headline">한전, 미국 EPRI와 ±500kV HVDC 선로 운영기술 고도화 협력기반 마련</div>
       <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 한전이 미국 전력연구원과 함께 HVDC(초고압 직류송전)에 대한 운영기술 고도화를 위해 상호 협력하기로 했다.한국전력(사장 김동철)이 미국 전력연구원(EPRI)과 손잡고 송변전 설비의 안정적 운영과 진단기술 고도화에 나선다. 양 기관은 초고압 직류송전 선로 운영부터 변압기 진단까지 기술협력을 강화해 전력설비 핵심기술 경쟁력을 높일 계획이다.한전은 EPRI와 미국 현지에서 ±500kV HVDC 선로 운영기술 고도화를 위한 업무협약을 지난 8월 31일 체결하고, 9월 2일에는 변압기 부싱 진단기술 고도화</div>
     </div>
   </div>
@@ -29937,7 +30264,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">22건</span>
+    <span class="group-count">23건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30531,6 +30858,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/daf649d3ac11ac3fa90612c1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=181142"
+  data-title="김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제"
+  data-publisher="알파경제"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788490601"
+  data-country="US"
+  data-search="김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제 알파경제 원전 관계부처 [알파경제 = 문선정 기자] 미국이 현지 투자와 연계한 반도체 관세 정책을 검토하는 가운데 정부가 한국 기업이 경쟁국보다 불리한 대우를 받지 않도록 미국 측과 협"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">알파경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제</div>
+      <div class="article-snippet">[알파경제 = 문선정 기자] 미국이 현지 투자와 연계한 반도체 관세 정책을 검토하는 가운데 정부가 한국 기업이 경쟁국보다 불리한 대우를 받지 않도록 미국 측과 협</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/012e10efc2582bb04fa1b126.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31209,7 +31569,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">30건</span>
+    <span class="group-count">31건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32039,14 +32399,14 @@ main {
 
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6053"
-  data-title="원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문"
+  data-title="[단독] 원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문"
   data-publisher="에너지안전신문"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
   data-published="1788487210"
   data-country="OTHER"
-  data-search="원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문 에너지안전신문 원자력 ​글로벌 에너지 안보 환경이 급변하고 기술 혁신이 가속화되는 가운데, 원자력산업의 지속 가능한 성장과 안전을 담보하기 위한 새로운 리더십 패러다임이 제시됐다.​한"
+  data-search="[단독] 원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문 에너지안전신문 원자력 ​글로벌 에너지 안보 환경이 급변하고 기술 혁신이 가속화되는 가운데, 원자력산업의 지속 가능한 성장과 안전을 담보하기 위한 새로운 리더십 패러다임이 제시됐다.​한"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -32061,12 +32421,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문</div>
+      <div class="headline">[단독] 원자력산업, 과거의 승리에 안주 말아야… 전쟁사에서 찾은 &#x27;현장 중심&#x27; 리더십 - 에너지안전신문</div>
       <div class="article-snippet">​글로벌 에너지 안보 환경이 급변하고 기술 혁신이 가속화되는 가운데, 원자력산업의 지속 가능한 성장과 안전을 담보하기 위한 새로운 리더십 패러다임이 제시됐다.​한</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a2d08965f01bda9060e99a51.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/02f32bbf686af5f1b42d1eb2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32133,6 +32493,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/0a4f2cc182eab0273bff8f51.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=181099"
+  data-title="한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제"
+  data-publisher="알파경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788486609"
+  data-country="OTHER"
+  data-search="한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제 알파경제 원자력 [알파경제 = 김혜실 기자] 한미글로벌이 반도체, 데이터센터, 원전 등 시장이 주목하는 요소를 두루 확대해가고 있어 긍정적이다. 4일 현대차증권은 한미글로벌에 대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">알파경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제</div>
+      <div class="article-snippet">[알파경제 = 김혜실 기자] 한미글로벌이 반도체, 데이터센터, 원전 등 시장이 주목하는 요소를 두루 확대해가고 있어 긍정적이다. 4일 현대차증권은 한미글로벌에 대</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8eb680316f9f289e17281d7d.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33951,7 +34344,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1bcf91c0e95e3626972ff002.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/5c115d6286c3dabe8304312a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -44164,7 +44557,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/04c0e3980cb1f2621609a7b9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/599249ac570d44fc5c3bbc76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -252123,7 +252516,7 @@ main {
   <section class="pc-rail-card">
     <div class="pc-rail-head">
       <div class="pc-rail-title">오늘의 포커스</div>
-      <div class="pc-rail-sub">보도량·최근성</div>
+      <div class="pc-rail-sub">중요도·확산도·최근성</div>
     </div>
     <div id="pc-focus-list" class="pc-focus-list"></div>
   </section>
@@ -253867,6 +254260,32 @@ if(archiveDateControl && archiveInput){
 function openArchiveDate(value){
   if(!value) return false;
 
+  // 먼저 전일/금일/익일 등 현재 기간 패널에서 같은 날짜를 찾습니다.
+  const currentPanel=[...document.querySelectorAll(".tab-panel[data-report-date]")]
+    .find(item=>item.getAttribute("data-report-date")===value);
+
+  if(currentPanel){
+    document.querySelectorAll(".tab-button").forEach(item=>item.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(item=>item.classList.remove("active"));
+
+    currentPanel.classList.add("active");
+
+    const label=(currentPanel.id || "").replace(/^tab-/, "");
+    const currentButton=[...document.querySelectorAll(".tab-button")]
+      .find(item=>item.getAttribute("data-tab")===label);
+    if(currentButton) currentButton.classList.add("active");
+
+    if(archiveInput){
+      archiveInput.value=value;
+      updateArchiveDateDisplay(value);
+    }
+    if(typeof refreshActivePeriodUI==="function") refreshActivePeriodUI();
+
+    currentPanel.scrollIntoView({behavior:"smooth", block:"start"});
+    return true;
+  }
+
+  // 현재 기간에 없으면 저장된 archive 패널을 엽니다.
   const panel=document.getElementById("archive-" + value);
   if(!panel){
     alert("선택한 날짜의 저장된 기사가 없습니다.");
@@ -256655,10 +257074,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         item.appendChild(content);
         item.appendChild(thumb);
         item.addEventListener("click", function() {
-          var url = (card.dataset.url || "").trim();
-          if (url) {
-            window.open(url, "_blank", "noopener,noreferrer");
-          }
+          openArticle(card);
         });
         box.appendChild(item);
       });
@@ -256701,45 +257117,141 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     var focus = document.getElementById("pc-focus-list");
     if (focus) {
       focus.innerHTML = "";
-      Object.entries(groups)
-        .sort(function(a,b) { return b[1]-a[1]; })
-        .slice(0,3)
-        .forEach(function(entry) {
-          var groupCards = cards
-            .filter(function(c) { return groupOf(c) === entry[0]; })
-            .sort(function(a,b) { return tsOf(b)-tsOf(a); });
-          var latest = groupCards[0];
 
-          var item = document.createElement("div");
-          item.className = "pc-focus-item";
+      function focusImportanceScore(card) {
+        var txt = (titleOf(card) + " " + (card.dataset.snippet || "")).toLowerCase();
+        var score = 0;
 
-          var top = document.createElement("div");
-          top.className = "pc-focus-top";
+        var critical = [
+          /수주|계약|contract|award|mou|협약|협력/,
+          /인허가|허가|승인|license|permit|approval|regulat/,
+          /착공|first concrete|construction start|commercial operation|상업운전/,
+          /투자|investment|funding|fund/,
+          /정부|장관|차관|정책|policy|minister/
+        ];
+        critical.forEach(function(rx) { if (rx.test(txt)) score += 10; });
 
-          var name = document.createElement("div");
-          name.className = "pc-focus-name";
-          name.textContent = entry[0] === "타 건설사" ? "주요 건설사" : entry[0];
+        if (/현대건설|hyundai e&c|hyundai engineering & construction|hdec/i.test(txt)) score += 12;
+        if (/대미투자|대미 투자|미국 투자|한미 투자|u\.s\. investment|us investment/i.test(txt)) score += 11;
+        if (/kozloduy|코즐로두이/i.test(txt)) score += 10;
+        if (/holtec|홀텍|palisades|팰리세이즈/i.test(txt)) score += 9;
+        if (/fermi america|project matador|페르미|퍼미|마타도르/i.test(txt)) score += 9;
+        if (/smr|소형모듈원자로|small modular reactor/i.test(txt)) score += 6;
 
-          var count = document.createElement("div");
-          count.className = "pc-focus-count";
-          count.textContent = entry[1] + "건";
+        if (/주가|증권|목표주가|매수|매도|stock|shares|market cap|etf/i.test(txt)) score -= 12;
 
-          var title = document.createElement("div");
-          title.className = "pc-focus-title";
-          title.textContent = latest ? titleOf(latest) : "";
+        return score;
+      }
 
-          var meta = document.createElement("div");
-          meta.className = "pc-focus-meta";
-          meta.textContent = latest ? [dateLabel(latest), publisherOf(latest)].filter(Boolean).join(" · ") : "";
+      function relatedCoverageScore(card) {
+        var txt = card.textContent || "";
+        var score = 0;
+        var m = txt.match(/외\s*(\d+)\s*개\s*언론사/);
+        if (m) score += Math.min(Number(m[1]) * 4, 20);
+        if (/관련기사\s*\d+건|보도\s*\d+건/i.test(txt)) score += 6;
+        return score;
+      }
 
-          top.appendChild(name);
-          top.appendChild(count);
-          item.appendChild(top);
-          item.appendChild(title);
-          item.appendChild(meta);
-          item.addEventListener("click", function() { scrollCard(latest); });
-          focus.appendChild(item);
-        });
+      function recencyScore(card) {
+        var ts = tsOf(card);
+        if (!ts) return 0;
+        var ageHours = (Date.now()/1000 - ts) / 3600;
+        if (ageHours <= 6) return 10;
+        if (ageHours <= 12) return 8;
+        if (ageHours <= 24) return 6;
+        if (ageHours <= 48) return 3;
+        return 0;
+      }
+
+      var issueMap = {};
+
+      cards.forEach(function(card) {
+        var g = groupOf(card);
+        var title = titleOf(card);
+
+        var issueKey = g + "::" + title
+          .toLowerCase()
+          .replace(/[^\w가-힣]+/g, " ")
+          .replace(/\s+/g, " ")
+          .trim()
+          .split(" ")
+          .slice(0, 8)
+          .join(" ");
+
+        if (!issueMap[issueKey]) {
+          issueMap[issueKey] = {
+            group:g,
+            cards:[],
+            title:title,
+            score:0
+          };
+        }
+
+        issueMap[issueKey].cards.push(card);
+      });
+
+      var rankedIssues = Object.values(issueMap).map(function(issue) {
+        var base = issue.cards.reduce(function(sum, card) {
+          return sum + focusImportanceScore(card) + relatedCoverageScore(card) + recencyScore(card);
+        }, 0);
+
+        var volumeBonus = Math.min(issue.cards.length * 4, 20);
+        var publisherSet = new Set(issue.cards.map(publisherOf).filter(Boolean));
+        var spreadBonus = Math.min(publisherSet.size * 5, 25);
+
+        issue.score = base + volumeBonus + spreadBonus;
+
+        issue.cards.sort(function(a,b) { return tsOf(b) - tsOf(a); });
+        issue.latest = issue.cards[0];
+        issue.publishers = publisherSet.size;
+        return issue;
+      })
+      .sort(function(a,b) { return b.score - a.score; })
+      .slice(0,3);
+
+      rankedIssues.forEach(function(issue, idx) {
+        var latest = issue.latest;
+
+        var item = document.createElement("div");
+        item.className = "pc-focus-item";
+
+        var top = document.createElement("div");
+        top.className = "pc-focus-top";
+
+        var name = document.createElement("div");
+        name.className = "pc-focus-name";
+        name.textContent = (idx + 1) + ". " + (issue.group === "타 건설사" ? "주요 건설사" : issue.group);
+
+        var count = document.createElement("div");
+        count.className = "pc-focus-count";
+        count.textContent = issue.cards.length + "건";
+
+        var title = document.createElement("div");
+        title.className = "pc-focus-title";
+        title.textContent = issue.title;
+
+        var meta = document.createElement("div");
+        meta.className = "pc-focus-meta";
+
+        var reasons = [];
+        var latestTxt = (issue.title || "").toLowerCase();
+        if (/수주|계약|contract|award|mou|협약/i.test(latestTxt)) reasons.push("계약·수주");
+        if (/인허가|허가|승인|license|permit|approval/i.test(latestTxt)) reasons.push("인허가");
+        if (/투자|investment|fund/i.test(latestTxt)) reasons.push("투자");
+        if (/정부|장관|차관|정책|policy|minister/i.test(latestTxt)) reasons.push("정책");
+        if (issue.publishers >= 2) reasons.push(issue.publishers + "개 언론사");
+        if (reasons.length === 0) reasons.push("보도 집중");
+
+        meta.textContent = reasons.slice(0,3).join(" · ");
+
+        top.appendChild(name);
+        top.appendChild(count);
+        item.appendChild(top);
+        item.appendChild(title);
+        item.appendChild(meta);
+        item.addEventListener("click", function() { scrollCard(latest); });
+        focus.appendChild(item);
+      });
 
       if (!focus.children.length) {
         var empty = document.createElement("div");
@@ -256803,6 +257315,132 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   if (archiveDate) archiveDate.addEventListener("change", scheduleRefresh);
 
   window.addEventListener("resize", scheduleRefresh);
+})();
+</script>
+
+
+<script>
+(function() {
+  function isPcGroupMode() {
+    return window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches;
+  }
+
+  function expandPcPanelOnce(panel) {
+    if (!isPcGroupMode() || !panel || panel.dataset.pcGroupsInitialized === "1") return;
+
+    panel.querySelectorAll(".news-group").forEach(function(group) {
+      group.classList.remove("collapsed");
+
+      var title = group.querySelector(".group-title");
+      if (title) title.setAttribute("aria-expanded", "true");
+
+      var arrow = group.querySelector(".group-arrow");
+      if (arrow) arrow.textContent = "▲";
+    });
+
+    panel.dataset.pcGroupsInitialized = "1";
+  }
+
+  function initActivePcPanel() {
+    var panel = document.querySelector(".tab-panel.active");
+    expandPcPanelOnce(panel);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function() {
+      window.setTimeout(initActivePcPanel, 50);
+    });
+  } else {
+    window.setTimeout(initActivePcPanel, 50);
+  }
+
+  /* 다른 기사 탭을 처음 열 때도 기본 펼침 상태로 시작 */
+  document.addEventListener("click", function(event) {
+    if (!event.target.closest(".tab-button")) return;
+    window.setTimeout(initActivePcPanel, 60);
+  });
+
+  window.addEventListener("resize", function() {
+    if (isPcGroupMode()) window.setTimeout(initActivePcPanel, 60);
+  });
+})();
+</script>
+
+
+<script>
+(function() {
+  function isPcDateMode() {
+    return window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches;
+  }
+
+  function initPcDateControls() {
+    if (!isPcDateMode()) return;
+
+    var input = document.getElementById("archive-date");
+    var control = document.querySelector(".date-control");
+    var box = document.querySelector(".date-picker-box");
+
+    if (input && control && control.dataset.pcDateBound !== "1") {
+      control.dataset.pcDateBound = "1";
+
+      control.addEventListener("click", function(event) {
+        event.stopPropagation();
+        if (typeof input.showPicker === "function") {
+          try {
+            input.showPicker();
+            return;
+          } catch (_error) {}
+        }
+        input.focus();
+        input.click();
+      });
+
+      if (box) {
+        box.addEventListener("click", function(event) {
+          if (event.target.closest(".date-control")) return;
+          event.preventDefault();
+          control.click();
+        });
+      }
+    }
+
+    document.querySelectorAll(".tab-button").forEach(function(button) {
+      if (button.dataset.pcPeriodBound === "1") return;
+      button.dataset.pcPeriodBound = "1";
+
+      button.addEventListener("click", function() {
+        var label = button.getAttribute("data-tab");
+        var panel = document.getElementById("tab-" + label);
+        if (!panel) return;
+
+        document.querySelectorAll(".tab-button").forEach(function(x) { x.classList.remove("active"); });
+        document.querySelectorAll(".tab-panel").forEach(function(x) { x.classList.remove("active"); });
+
+        button.classList.add("active");
+        panel.classList.add("active");
+
+        var periodDate = panel.getAttribute("data-report-date");
+        if (periodDate && input) {
+          input.value = periodDate;
+          if (typeof updateArchiveDateDisplay === "function") updateArchiveDateDisplay(periodDate);
+        }
+
+        if (typeof refreshActivePeriodUI === "function") refreshActivePeriodUI();
+      }, true);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function() {
+      window.setTimeout(initPcDateControls, 80);
+    });
+  } else {
+    window.setTimeout(initPcDateControls, 80);
+  }
+
+  window.addEventListener("resize", function() {
+    if (isPcDateMode()) window.setTimeout(initPcDateControls, 80);
+  });
 })();
 </script>
 
