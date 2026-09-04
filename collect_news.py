@@ -1,3 +1,4 @@
+# FINAL PC DASHBOARD MAP HARD-APPLY FIX / WIDTH-ONLY DESKTOP DETECTION 2026-09-04
 # FINAL PC DASHBOARD + INTERACTIVE COUNTRY MAP ANALYTICS / MOBILE UNCHANGED 2026-09-04
 # FINAL PC RESTORED WINDOW RESPONSIVE + IMPORTANT BUTTON FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL PC PRETENDARD WEBFONT / MOBILE UNCHANGED 2026-09-04
@@ -21353,7 +21354,7 @@ main {{
    FINAL PC ANALYTICS UI / MOBILE UNCHANGED 2026-09-04
    Desktop only: >=1000px + mouse/trackpad
    ============================================================ */
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   body {{
     background:#c7daed !important;
   }}
@@ -21747,7 +21748,7 @@ main {{
   }}
 }}
 
-@media (max-width:999px), (hover:none), (pointer:coarse) {{
+@media (max-width:999px) {{
   #pc-insight-rail {{
     display:none !important;
   }}
@@ -21758,7 +21759,7 @@ main {{
    PC TIMELINE VISUAL CARDS 2026-09-04
    Desktop only - mobile untouched
    ============================================================ */
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   .pc-timeline-card {{
     overflow:visible !important;
   }}
@@ -21926,7 +21927,7 @@ main {{
 /* ============================================================
    PC TIMELINE DIRECT ARTICLE OPEN 2026-09-04
    ============================================================ */
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   .pc-timeline-item {{
     position:relative !important;
   }}
@@ -21962,7 +21963,7 @@ main {{
    PC RIGHT ANALYTICS PANEL - INDEPENDENT SCROLL 2026-09-04
    Desktop only - mobile unchanged
    ============================================================ */
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   #pc-insight-rail {{
     position:sticky !important;
     top:14px !important;
@@ -22016,7 +22017,7 @@ main {{
 }}
 
 
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   #pc-focus-list .pc-focus-item {{
     border-left:4px solid #2a639d;
   }}
@@ -22056,7 +22057,7 @@ main {{
    PC GROUP UX: REMOVE MASTER EXPAND/COLLAPSE / KEEP INDIVIDUAL TOGGLE
    Desktop only - mobile unchanged
    ============================================================ */
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   /* PC에서는 전체 펼치기/전체 접기 컨트롤 제거 */
   .group-master-control,
   .period-action-row .group-master-button,
@@ -22084,7 +22085,7 @@ main {{
    PC DATE / PERIOD CONTROL FIX 2026-09-04
    Desktop only - mobile unchanged
    ============================================================ */
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   .header-controls,
   .tabs,
   .utility-row,
@@ -22124,7 +22125,7 @@ main {{
    PC PRETENDARD WEBFONT 2026-09-04
    Desktop only - mobile unchanged
    ============================================================ */
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   body,
   button,
   input,
@@ -22163,7 +22164,7 @@ main {{
    ============================================================ */
 
 /* 중간 크기 PC / 창 축소 상태 */
-@media (min-width:1000px) and (max-width:1299px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) and (max-width:1299px) {{
   main {{
     grid-template-columns:minmax(0,1fr) 350px !important;
     gap:14px !important;
@@ -22241,7 +22242,7 @@ main {{
 }}
 
 /* 넓은 PC에서는 기존 2열 기사 유지 */
-@media (min-width:1300px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1300px) {{
   .article-stack {{
     grid-template-columns:repeat(2,minmax(0,1fr)) !important;
   }}
@@ -22262,7 +22263,7 @@ main {{
    PC DASHBOARD MAP + ANALYTICS 2026-09-04
    Desktop only. Mobile/tablet layout remains unchanged.
    ============================================================ */
-@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) {{
   body {{
     background:#c8dced !important;
   }}
@@ -22611,7 +22612,7 @@ main {{
 }}
 
 /* Restored-window PC: map remains useful while preventing squeeze */
-@media (min-width:1000px) and (max-width:1299px) and (hover:hover) and (pointer:fine) {{
+@media (min-width:1000px) and (max-width:1299px) {{
   #world-map-panel {{
     grid-template-columns:minmax(0,1fr) 300px !important;
   }}
@@ -22629,10 +22630,33 @@ main {{
   }}
 }}
 
-@media (max-width:999px), (hover:none), (pointer:coarse) {{
+@media (max-width:999px) {{
   .pc-country-overview {{
     display:none !important;
   }}
+}}
+
+
+/* ============================================================
+   PC DASHBOARD BUILD MARKER / HARD APPLY 2026-09-04
+   ============================================================ */
+@media (min-width:1000px) {{
+  .pc-build-marker {{
+    display:inline-flex !important;
+    align-items:center;
+    height:20px;
+    padding:0 7px;
+    margin-left:7px;
+    border-radius:999px;
+    background:rgba(255,255,255,.13);
+    color:rgba(255,255,255,.78);
+    font-size:8.5px;
+    font-weight:800;
+    vertical-align:middle;
+  }}
+}}
+@media (max-width:999px) {{
+  .pc-build-marker {{ display:none !important; }}
 }}
 
 </style>
@@ -22646,7 +22670,7 @@ main {{
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <div class="title-meta">
-        <h1>원자력 주요기사</h1>
+        <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
         <span class="updated updated-inline">업데이트됨 {format_korean_date_time(generated_at)} KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
@@ -28117,7 +28141,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }}
 
   function refreshPcInsights() {{
-    if (!window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) return;
+    if (!window.matchMedia("(min-width:1000px)").matches) return;
 
     var cards = cardsInActivePanel();
     var groups = {{}};
@@ -28351,7 +28375,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   function isPcGroupMode() {{
-    return window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches;
+    return window.matchMedia("(min-width:1000px)").matches;
   }}
 
   function expandPcPanelOnce(panel) {{
@@ -28399,7 +28423,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   function isPcDateMode() {{
-    return window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches;
+    return window.matchMedia("(min-width:1000px)").matches;
   }}
 
   function initPcDateControls() {{
@@ -28490,7 +28514,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }};
 
   function isPcMapMode() {{
-    return window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches;
+    return window.matchMedia("(min-width:1000px)").matches;
   }}
 
   function currentPeriodPanel() {{
