@@ -10519,7 +10519,149 @@ main {
   }
 }
 
+
+/* ============================================================
+   PC PRETENDARD WEBFONT 2026-09-04
+   Desktop only - mobile unchanged
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {
+  body,
+  button,
+  input,
+  select,
+  textarea,
+  .phone,
+  .preview-card,
+  .headline,
+  .article-snippet,
+  .publisher,
+  .group-title,
+  #pc-insight-rail,
+  #pc-insight-rail * {
+    font-family:
+      Pretendard,
+      "Noto Sans KR",
+      "Apple SD Gothic Neo",
+      "Malgun Gothic",
+      Arial,
+      sans-serif !important;
+  }
+
+  body {
+    font-kerning:normal;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+}
+
+
+/* ============================================================
+   PC RESTORED-WINDOW RESPONSIVE FIX 2026-09-04
+   Prevents IMPORTANT button clipping when browser is not maximized.
+   Mobile remains unchanged.
+   ============================================================ */
+
+/* 중간 크기 PC / 창 축소 상태 */
+@media (min-width:1000px) and (max-width:1299px) and (hover:hover) and (pointer:fine) {
+  main {
+    grid-template-columns:minmax(0,1fr) 350px !important;
+    gap:14px !important;
+  }
+
+  /* 축소된 PC에서는 기사카드를 1열로 전환해 가독성/버튼 공간 확보 */
+  .article-stack {
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:12px !important;
+  }
+
+  .preview-card {
+    grid-template-columns:minmax(0,1fr) 108px !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  .card-side {
+    width:108px !important;
+    min-width:108px !important;
+  }
+
+  .preview-image {
+    width:108px !important;
+    height:102px !important;
+    min-height:102px !important;
+  }
+
+  .meta-row {
+    display:flex !important;
+    align-items:center !important;
+    gap:4px !important;
+    min-width:0 !important;
+    overflow:visible !important;
+  }
+
+  .publisher {
+    max-width:36% !important;
+    min-width:0 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }
+
+  .status-inline {
+    flex:0 0 auto !important;
+  }
+
+  .related-coverage,
+  .coverage-badge {
+    flex:0 1 auto !important;
+    min-width:0 !important;
+    max-width:92px !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }
+
+  .important-button {
+    position:relative !important;
+    flex:0 0 auto !important;
+    margin-left:auto !important;
+    min-width:36px !important;
+    width:36px !important;
+    max-width:36px !important;
+    padding:0 3px !important;
+    overflow:visible !important;
+    white-space:nowrap !important;
+    z-index:5 !important;
+  }
+
+  #pc-insight-rail {
+    min-width:0 !important;
+  }
+}
+
+/* 넓은 PC에서는 기존 2열 기사 유지 */
+@media (min-width:1300px) and (hover:hover) and (pointer:fine) {
+  .article-stack {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+
+  .important-button {
+    flex:0 0 auto !important;
+    margin-left:auto !important;
+    min-width:36px !important;
+    width:36px !important;
+    max-width:36px !important;
+    overflow:visible !important;
+    white-space:nowrap !important;
+  }
+}
+
 </style>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+
 </head>
 <body>
 <div class="phone">
@@ -10527,7 +10669,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 9.4(금) 12:30 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.4(금) 12:50 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -24428,7 +24570,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">15건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -24761,6 +24903,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.youtube.com/shorts/WlHq4CyP8xM"
+  data-title="820조 예산안, 건설주 부각? 현대·대우·GS건설 주목할 때 ｜ 반종민 Prestige 경영전략연구소 소장"
+  data-publisher="한국경제TV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788489037"
+  data-country="KR"
+  data-search="820조 예산안, 건설주 부각? 현대·대우·gs건설 주목할 때 ｜ 반종민 prestige 경영전략연구소 소장 한국경제tv 타 건설사 ■ 앵커 : 이예은■ 출연 : 이완수 그레너리투자자문 대표, 반종민 prestige 경영전략연구소 소장■ 제작진 : 남기태 pd 노민주 ad 강민주 ad 변미현 fd 김한별 fd 강백호 fd#코스피 #코스닥 #반도체 #sk하이닉스 #삼성전자 #d램 #낸드 #미국반도체────────..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>820조 예산안, 건설주 부각? 현대·대우·GS건설 주목할 때 ｜ 반종민 Prestige 경영전략연구소 소장</div>
+      <div class="article-snippet">■ 앵커 : 이예은■ 출연 : 이완수 그레너리투자자문 대표, 반종민 Prestige 경영전략연구소 소장■ 제작진 : 남기태 PD 노민주 AD 강민주 AD 변미현 FD 김한별 FD 강백호 FD#코스피 #코스닥 #반도체 #SK하이닉스 #삼성전자 #D램 #낸드 #미국반도체────────...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/39192c1095c16005f6239d44.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.pmnews.co.kr/124141"
   data-title="≪국토매일≫ 정일영 의원, 송도 아파트 테라스 붕괴에 ˝SK에코플랜트 책임 대책 마련하라˝"
@@ -24932,9 +25107,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70827"
+  data-title="한빛원전 열교환기 보수작업 용접절차 오적용 6건 확인"
+  data-publisher="에너지타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788525859"
+  data-country="KR"
+  data-search="한빛원전 열교환기 보수작업 용접절차 오적용 6건 확인 에너지타임즈 한국수력원자력 2007년 이후 한빛원전 작업이력 확대 점검결과 모두 6건의 오적용 사례가 확인됐다. 한빛원자력본부는 내년 4월까지 재작업을 하거나 부품을 교체한다. 한국수력원자력(주) 한빛원자력본부(본부장 김현주)는 한빛원전 1‧2호기 1차 기기 냉각수 열교환기 수실 보수작업 과정에 충격시험이 적용되지 않은 용접절차 시방서를 이용해 작업한 부적합사항을 확인했다고 3일 밝혔다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한빛원전 열교환기 보수작업 용접절차 오적용 6건 확인</div>
+      <div class="article-snippet">2007년 이후 한빛원전 작업이력 확대 점검결과 모두 6건의 오적용 사례가 확인됐다. 한빛원자력본부는 내년 4월까지 재작업을 하거나 부품을 교체한다. 한국수력원자력(주) 한빛원자력본부(본부장 김현주)는 한빛원전 1‧2호기 1차 기기 냉각수 열교환기 수실 보수작업 과정에 충격시험이 적용되지 않은 용접절차 시방서를 이용해 작업한 부적합사항을 확인했다고 3일 밝혔다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c9cb81b455a907780c930aa2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=262158"
   data-title="[데일리대구경북뉴스] 김재준 도의원“원전 최다 집적지 경북, 안전도 직접 챙겨야”"
@@ -25139,7 +25347,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -25637,6 +25845,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003776522"
+  data-title="AI 이렇게 쓰세요…한화에어로, 협력사 실무자 교육실시"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788493103"
+  data-country="KR"
+  data-search="ai 이렇게 쓰세요…한화에어로, 협력사 실무자 교육실시 뉴시스 한국전력 [창원=뉴시스]강경국 기자 = 한화에어로스페이스는 지난 3일 경남 창원 사업장에서 협력사 실무자 150여명을 대상으로 &#x27;동반성장 connect: on&#x27; 세미나를 열었다고 4일 밝혔다. 이번 세미나는 방산·항공 분야에서 인공지능(ai) 활용이 확대되면서 협력사의 ax(ai 전환) 수요가 증가함에 따라 실무 역량 강화를 지원하기 위해 마련됐다. 현장 강연과 온라인 시청을 병행했다. 강사는 ai 기반 업무 효율화를 주제로 생성형 ai 서비스의 특징과 활용법, 방산업계 특성을 고려한 보안 중심의 ai 서비스 실무 적용 방법 등을 소개했다. 한화에어로스페이스는 금융·연구개발("
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>AI 이렇게 쓰세요…한화에어로, 협력사 실무자 교육실시</div>
+      <div class="article-snippet">[창원=뉴시스]강경국 기자 = 한화에어로스페이스는 지난 3일 경남 창원 사업장에서 협력사 실무자 150여명을 대상으로 &#x27;동반성장 CONNECT: ON&#x27; 세미나를 열었다고 4일 밝혔다. 이번 세미나는 방산·항공 분야에서 인공지능(AI) 활용이 확대되면서 협력사의 AX(AI 전환) 수요가 증가함에 따라 실무 역량 강화를 지원하기 위해 마련됐다. 현장 강연과 온라인 시청을 병행했다. 강사는 AI 기반 업무 효율화를 주제로 생성형 AI 서비스의 특징과 활용법, 방산업계 특성을 고려한 보안 중심의 AI 서비스 실무 적용 방법 등을 소개했다. 한화에어로스페이스는 금융·연구개발(</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/25b5177d9b70e0f93dec9c48.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260903143815227"
   data-title="[2026 GGGF] 이영탁 SKT 부사장 &quot;AI 데이터센터, 지능 생산하는 &#x27;AI 팩토리&#x27;로 진화&quot;"
@@ -25952,7 +26193,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=181142"
   data-title="김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제"
   data-publisher="알파경제"
@@ -25976,7 +26217,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제</div>
+      <div class="headline">김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제</div>
       <div class="article-snippet">[알파경제 = 문선정 기자] 미국이 현지 투자와 연계한 반도체 관세 정책을 검토하는 가운데 정부가 한국 기업이 경쟁국보다 불리한 대우를 받지 않도록 미국 측과 협</div>
     </div>
   </div>
@@ -26090,9 +26331,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">7건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.hani.co.kr/arti/politics/bluehouse/1276254.html"
+  data-title="청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”"
+  data-publisher="한겨레"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788490380"
+  data-country="OTHER"
+  data-search="청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아” 한겨레 원전 대미투자 청와대가 4일 “대미투자 이슈 중에는 반도체도 논의 대상인 게 사실”이라고 말했다. 청와대 고위관계자는 이날 기자들과 만나 “제가 알기로는 미측에서 그런 제기가 있고, 그래서 논의 대상이 된 것은 현실”이라며 “어떻게 어떤 방식으로 귀결될지는 아직 정해지지 않은 거 같"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한겨레</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”</div>
+      <div class="article-snippet">청와대가 4일 “대미투자 이슈 중에는 반도체도 논의 대상인 게 사실”이라고 말했다. 청와대 고위관계자는 이날 기자들과 만나 “제가 알기로는 미측에서 그런 제기가 있고, 그래서 논의 대상이 된 것은 현실”이라며 “어떻게 어떤 방식으로 귀결될지는 아직 정해지지 않은 거 같</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7ec15ad53c95cab5c94a8afb.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.edaily.co.kr/News/Read?newsId=03348886645576840&amp;mediaCodeNo=257"
+  data-title="靑 “美, 대미투자에 반도체 논의 사실…아직 초기 논의 단계”(종합)"
+  data-publisher="이데일리"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788489089"
+  data-country="US"
+  data-search="靑 “美, 대미투자에 반도체 논의 사실…아직 초기 논의 단계”(종합) 이데일리 원전 대미투자 한미가 2000억달러 규모 대미투자의 첫 번째 프로젝트로 에너지 사업을 검토해온 가운데 반도체 분야도 실제 투자 논의 대상에 새로 오른 것으로 청와대가 공식 확인했다. 미국이 요구하는 반도체 투자를 전략투자 재원으로 집행할지, 국내 기업의 별도 직접투자로 추진할지가 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>靑 “美, 대미투자에 반도체 논의 사실…아직 초기 논의 단계”(종합)</div>
+      <div class="article-snippet">한미가 2000억달러 규모 대미투자의 첫 번째 프로젝트로 에너지 사업을 검토해온 가운데 반도체 분야도 실제 투자 논의 대상에 새로 오른 것으로 청와대가 공식 확인했다. 미국이 요구하는 반도체 투자를 전략투자 재원으로 집행할지, 국내 기업의 별도 직접투자로 추진할지가 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9b7edbbdc95b5ce8e3c3bca7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260904000145"
   data-title="靑 “반도체도 대미투자 논의 대상…호르무즈 군사적 기여도 검토”"
@@ -26330,7 +26637,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">24건</span>
+    <span class="group-count">25건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26630,36 +26937,36 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.etnews.com/20260904000136"
-  data-title="성균관대 조사결과 발표, 국민 다수 “원자력 에너지 기술 활용 필요”… “현대 과학 기술로 위험 관리 가능”"
-  data-publisher="전자신문"
+<article class="preview-card new-article"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=483891"
+  data-title="국민 10명 중 9명 “원자력 기술 활용 필요”"
+  data-publisher="핀포인트뉴스"
   data-group="원자력"
   data-language="ko"
   data-priority="0"
-  data-published="1788488057"
+  data-published="1788492716"
   data-country="KR"
-  data-search="성균관대 조사결과 발표, 국민 다수 “원자력 에너지 기술 활용 필요”… “현대 과학 기술로 위험 관리 가능” 전자신문 원자력 성균관대학교 미디어커뮤니케이션학과 정성은 교수 연구팀은 과학기술정보통신부 지정 선도연구센터(crc)인 성균관대 메타버스기반방사선안전ict연구센터와 함께 전국 성인 2000명을 대상으로 진행한 &#x27;방사능 인식 및 경험&#x27; 설문조사 결과를 발표했다. 이번 조사는 국가 미래 에너지와 과학기술 안전성에 대한 국민의 신뢰 수준을 종합적으로 진단하기 위해 추진됐다. 조사 결과에 따르면, 전체 응답자의 90.3%(1806명)가 &#x27;우리 사회의 에너지 및 산업 발"
+  data-search="국민 10명 중 9명 “원자력 기술 활용 필요” 핀포인트뉴스 원자력 성균관대학교(총장 유지범) 미디어커뮤니케이션학과 정성은 교수 연구팀은 과학기술정보통신부 지정 선도연구센터(crc)인 성균관대 메타버스기반방사선안전ict연구센터(센터장 채종서)와 함께 전국 성인 2000명을 대상으로 실시한 ‘방사능 인식 및 경험’ 설문조사 결과를 발표했다.이번 조사는 국가 미래 에너지와 과학기술 안전성에 대한 국민의 인식과 신뢰 수준을 파악하기 위해 진행됐다.조사 결과 ‘우리 사회의 에너지 및 산업 발전을 위해 원자력 기술을 활용할 필요가 있다’는 문항에 긍정(‘매우 그렇다’,‘그렇다’, ‘약간 그렇다’)고 답했다."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">전자신문</div>
+        <div class="publisher">핀포인트뉴스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260904000136" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">성균관대 조사결과 발표, 국민 다수 “원자력 에너지 기술 활용 필요”… “현대 과학 기술로 위험 관리 가능”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">성균관대 조사결과 발표, 국민 다수 “원자력 에너지 기술 활용 필요”… “현대 과학 기술로 위험 관리 가능”</div>
-      <div class="article-snippet">성균관대학교 미디어커뮤니케이션학과 정성은 교수 연구팀은 과학기술정보통신부 지정 선도연구센터(CRC)인 성균관대 메타버스기반방사선안전ICT연구센터와 함께 전국 성인 2000명을 대상으로 진행한 &#x27;방사능 인식 및 경험&#x27; 설문조사 결과를 발표했다. 이번 조사는 국가 미래 에너지와 과학기술 안전성에 대한 국민의 신뢰 수준을 종합적으로 진단하기 위해 추진됐다. 조사 결과에 따르면, 전체 응답자의 90.3%(1806명)가 &#x27;우리 사회의 에너지 및 산업 발</div>
+      <div class="headline"><span class="new-badge">NEW</span>국민 10명 중 9명 “원자력 기술 활용 필요”</div>
+      <div class="article-snippet">성균관대학교(총장 유지범) 미디어커뮤니케이션학과 정성은 교수 연구팀은 과학기술정보통신부 지정 선도연구센터(CRC)인 성균관대 메타버스기반방사선안전ICT연구센터(센터장 채종서)와 함께 전국 성인 2000명을 대상으로 실시한 ‘방사능 인식 및 경험’ 설문조사 결과를 발표했다.이번 조사는 국가 미래 에너지와 과학기술 안전성에 대한 국민의 인식과 신뢰 수준을 파악하기 위해 진행됐다.조사 결과 ‘우리 사회의 에너지 및 산업 발전을 위해 원자력 기술을 활용할 필요가 있다’는 문항에 긍정(‘매우 그렇다’,‘그렇다’, ‘약간 그렇다’)고 답했다.</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/45466975a1b27fed2cef99d1.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/7d4fe65ed1ec17b248c1ad02.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26792,6 +27099,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d610bdb707e663e63948e6db.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=372069"
+  data-title="원전 운전·정비 넘보는 AI…사람 대신 판단해도 될까"
+  data-publisher="전기신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788526314"
+  data-country="OTHER"
+  data-search="원전 운전·정비 넘보는 ai…사람 대신 판단해도 될까 전기신문 원자력 인공지능(ai)이 원전 건설과 운전·정비 영역까지 파고들면서 기존 안전규제가 시험대에 올랐다. ai 활용이 불가피해진 만큼 어떻게 안전성을 검증하고, 인간의 통제권을 어디까지 남겨둘지가 쟁점으로 떠올랐다.조성경 명지대 교수는 4일 미래에너지정책연구원(ikep)·이진숙 국민의힘 의원이 공동 주최한 제56차 전력포럼에서 “ai는 원전의 설계·운전·정비를 넘어 인허가와 규제의 구조까지 바꾸기 시작했다”며 “이를 방치하면 기술은 몰려오는데 통제와 책임은 뒤늦게 따라가는 일이 벌어질 수 있다”고 주장했다.어디에 ai를 쓸지, 자율성을 얼마나 허용할지뿐 아니라 ai가 틀렸을 때"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원전 운전·정비 넘보는 AI…사람 대신 판단해도 될까</div>
+      <div class="article-snippet">인공지능(AI)이 원전 건설과 운전·정비 영역까지 파고들면서 기존 안전규제가 시험대에 올랐다. AI 활용이 불가피해진 만큼 어떻게 안전성을 검증하고, 인간의 통제권을 어디까지 남겨둘지가 쟁점으로 떠올랐다.조성경 명지대 교수는 4일 미래에너지정책연구원(IKEP)·이진숙 국민의힘 의원이 공동 주최한 제56차 전력포럼에서 “AI는 원전의 설계·운전·정비를 넘어 인허가와 규제의 구조까지 바꾸기 시작했다”며 “이를 방치하면 기술은 몰려오는데 통제와 책임은 뒤늦게 따라가는 일이 벌어질 수 있다”고 주장했다.어디에 AI를 쓸지, 자율성을 얼마나 허용할지뿐 아니라 AI가 틀렸을 때</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f55c5c001ab5df6ef8434e6a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27026,7 +27366,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=181099"
   data-title="한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제"
   data-publisher="알파경제"
@@ -27050,7 +27390,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제</div>
+      <div class="headline">한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제</div>
       <div class="article-snippet">[알파경제 = 김혜실 기자] 한미글로벌이 반도체, 데이터센터, 원전 등 시장이 주목하는 요소를 두루 확대해가고 있어 긍정적이다. 4일 현대차증권은 한미글로벌에 대</div>
     </div>
   </div>
@@ -27272,9 +27612,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7700"
+  data-title="“변화의 시대, 과거의 성공방식부터 넘어야”"
+  data-publisher="인사이트N파워"
+  data-group="국내 원자력 협회·학회"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788493170"
+  data-country="KR"
+  data-search="“변화의 시대, 과거의 성공방식부터 넘어야” 인사이트n파워 국내 원자력 협회·학회 “급변하는 환경에서 조직을 이끄는 리더에게 필요한 것은 과거의 성공 경험을 반복하는 능력이 아니라, 그 경험을 토대로 새로운 상황에 맞는 해법을 만들어내는 ‘통찰’이다.”임용한 kj인문경영연구원 대표는 4일 서울 웨스틴조선호텔에서 열린 한국원자력산업협회 ‘제226회 원자력계 조찬강연회’에서 ‘전쟁사로 보는 진정한 리더십’을 주제로 강연하며 역사 속 명장들의 사례를 통해 변화의 시대에 요구되는 리더십의 조건을 제시했다.임 대표는 알렉산더 대왕을 비롯해 오다 노부나가, 에르빈 롬멜 등 역사 속 인물들의 전쟁과 혁신 과정을 소개하며 “변"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>“변화의 시대, 과거의 성공방식부터 넘어야”</div>
+      <div class="article-snippet">“급변하는 환경에서 조직을 이끄는 리더에게 필요한 것은 과거의 성공 경험을 반복하는 능력이 아니라, 그 경험을 토대로 새로운 상황에 맞는 해법을 만들어내는 ‘통찰’이다.”임용한 KJ인문경영연구원 대표는 4일 서울 웨스틴조선호텔에서 열린 한국원자력산업협회 ‘제226회 원자력계 조찬강연회’에서 ‘전쟁사로 보는 진정한 리더십’을 주제로 강연하며 역사 속 명장들의 사례를 통해 변화의 시대에 요구되는 리더십의 조건을 제시했다.임 대표는 알렉산더 대왕을 비롯해 오다 노부나가, 에르빈 롬멜 등 역사 속 인물들의 전쟁과 혁신 과정을 소개하며 “변</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b91cb3a6f4742b9daa2881ee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.news24.com/investigations/silenced"
   data-title="Silenced | Investigations | News24"
@@ -27282,7 +27655,7 @@ main {
   data-group="국내 원자력 협회·학회"
   data-language="en"
   data-priority="2"
-  data-published="1788488169"
+  data-published="1788492606"
   data-country="OTHER"
   data-search="silenced | investigations | news24 news24 국내 원자력 협회·학회 get the latest investigative news about the murder of babita deokaran and the tembisa hospital tenders."
   tabindex="0" role="link">
@@ -28248,7 +28621,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">30건</span>
+    <span class="group-count">31건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29043,6 +29416,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.youtube.com/shorts/WlHq4CyP8xM"
+  data-title="820조 예산안, 건설주 부각? 현대·대우·GS건설 주목할 때 ｜ 반종민 Prestige 경영전략연구소 소장"
+  data-publisher="한국경제TV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788489037"
+  data-country="KR"
+  data-search="820조 예산안, 건설주 부각? 현대·대우·gs건설 주목할 때 ｜ 반종민 prestige 경영전략연구소 소장 한국경제tv 타 건설사 ■ 앵커 : 이예은■ 출연 : 이완수 그레너리투자자문 대표, 반종민 prestige 경영전략연구소 소장■ 제작진 : 남기태 pd 노민주 ad 강민주 ad 변미현 fd 김한별 fd 강백호 fd#코스피 #코스닥 #반도체 #sk하이닉스 #삼성전자 #d램 #낸드 #미국반도체────────..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>820조 예산안, 건설주 부각? 현대·대우·GS건설 주목할 때 ｜ 반종민 Prestige 경영전략연구소 소장</div>
+      <div class="article-snippet">■ 앵커 : 이예은■ 출연 : 이완수 그레너리투자자문 대표, 반종민 Prestige 경영전략연구소 소장■ 제작진 : 남기태 PD 노민주 AD 강민주 AD 변미현 FD 김한별 FD 강백호 FD#코스피 #코스닥 #반도체 #SK하이닉스 #삼성전자 #D램 #낸드 #미국반도체────────...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/39192c1095c16005f6239d44.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.pmnews.co.kr/124141"
   data-title="≪국토매일≫ 정일영 의원, 송도 아파트 테라스 붕괴에 ˝SK에코플랜트 책임 대책 마련하라˝"
@@ -29247,9 +29653,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70827"
+  data-title="한빛원전 열교환기 보수작업 용접절차 오적용 6건 확인"
+  data-publisher="에너지타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788525859"
+  data-country="KR"
+  data-search="한빛원전 열교환기 보수작업 용접절차 오적용 6건 확인 에너지타임즈 한국수력원자력 2007년 이후 한빛원전 작업이력 확대 점검결과 모두 6건의 오적용 사례가 확인됐다. 한빛원자력본부는 내년 4월까지 재작업을 하거나 부품을 교체한다. 한국수력원자력(주) 한빛원자력본부(본부장 김현주)는 한빛원전 1‧2호기 1차 기기 냉각수 열교환기 수실 보수작업 과정에 충격시험이 적용되지 않은 용접절차 시방서를 이용해 작업한 부적합사항을 확인했다고 3일 밝혔다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한빛원전 열교환기 보수작업 용접절차 오적용 6건 확인</div>
+      <div class="article-snippet">2007년 이후 한빛원전 작업이력 확대 점검결과 모두 6건의 오적용 사례가 확인됐다. 한빛원자력본부는 내년 4월까지 재작업을 하거나 부품을 교체한다. 한국수력원자력(주) 한빛원자력본부(본부장 김현주)는 한빛원전 1‧2호기 1차 기기 냉각수 열교환기 수실 보수작업 과정에 충격시험이 적용되지 않은 용접절차 시방서를 이용해 작업한 부적합사항을 확인했다고 3일 밝혔다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c9cb81b455a907780c930aa2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.dailydgnews.com/news/article.html?no=262158"
   data-title="[데일리대구경북뉴스] 김재준 도의원“원전 최다 집적지 경북, 안전도 직접 챙겨야”"
@@ -29454,7 +29893,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">21건</span>
+    <span class="group-count">22건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30081,6 +30520,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://www.segye.com/content/image/2026/09/03/20260903516997.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003776522"
+  data-title="AI 이렇게 쓰세요…한화에어로, 협력사 실무자 교육실시"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788493103"
+  data-country="KR"
+  data-search="ai 이렇게 쓰세요…한화에어로, 협력사 실무자 교육실시 뉴시스 한국전력 [창원=뉴시스]강경국 기자 = 한화에어로스페이스는 지난 3일 경남 창원 사업장에서 협력사 실무자 150여명을 대상으로 &#x27;동반성장 connect: on&#x27; 세미나를 열었다고 4일 밝혔다. 이번 세미나는 방산·항공 분야에서 인공지능(ai) 활용이 확대되면서 협력사의 ax(ai 전환) 수요가 증가함에 따라 실무 역량 강화를 지원하기 위해 마련됐다. 현장 강연과 온라인 시청을 병행했다. 강사는 ai 기반 업무 효율화를 주제로 생성형 ai 서비스의 특징과 활용법, 방산업계 특성을 고려한 보안 중심의 ai 서비스 실무 적용 방법 등을 소개했다. 한화에어로스페이스는 금융·연구개발("
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>AI 이렇게 쓰세요…한화에어로, 협력사 실무자 교육실시</div>
+      <div class="article-snippet">[창원=뉴시스]강경국 기자 = 한화에어로스페이스는 지난 3일 경남 창원 사업장에서 협력사 실무자 150여명을 대상으로 &#x27;동반성장 CONNECT: ON&#x27; 세미나를 열었다고 4일 밝혔다. 이번 세미나는 방산·항공 분야에서 인공지능(AI) 활용이 확대되면서 협력사의 AX(AI 전환) 수요가 증가함에 따라 실무 역량 강화를 지원하기 위해 마련됐다. 현장 강연과 온라인 시청을 병행했다. 강사는 AI 기반 업무 효율화를 주제로 생성형 AI 서비스의 특징과 활용법, 방산업계 특성을 고려한 보안 중심의 AI 서비스 실무 적용 방법 등을 소개했다. 한화에어로스페이스는 금융·연구개발(</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/25b5177d9b70e0f93dec9c48.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30861,7 +31333,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=181142"
   data-title="김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제"
   data-publisher="알파경제"
@@ -30885,7 +31357,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제</div>
+      <div class="headline">김정관 &quot;韓 반도체 관세, 대만식 적용 가능성도&quot;…美와 협의 - 알파경제</div>
       <div class="article-snippet">[알파경제 = 문선정 기자] 미국이 현지 투자와 연계한 반도체 관세 정책을 검토하는 가운데 정부가 한국 기업이 경쟁국보다 불리한 대우를 받지 않도록 미국 측과 협</div>
     </div>
   </div>
@@ -31032,9 +31504,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">16건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.hani.co.kr/arti/politics/bluehouse/1276254.html"
+  data-title="청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”"
+  data-publisher="한겨레"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788490380"
+  data-country="OTHER"
+  data-search="청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아” 한겨레 원전 대미투자 청와대가 4일 “대미투자 이슈 중에는 반도체도 논의 대상인 게 사실”이라고 말했다. 청와대 고위관계자는 이날 기자들과 만나 “제가 알기로는 미측에서 그런 제기가 있고, 그래서 논의 대상이 된 것은 현실”이라며 “어떻게 어떤 방식으로 귀결될지는 아직 정해지지 않은 거 같"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한겨레</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”</div>
+      <div class="article-snippet">청와대가 4일 “대미투자 이슈 중에는 반도체도 논의 대상인 게 사실”이라고 말했다. 청와대 고위관계자는 이날 기자들과 만나 “제가 알기로는 미측에서 그런 제기가 있고, 그래서 논의 대상이 된 것은 현실”이라며 “어떻게 어떤 방식으로 귀결될지는 아직 정해지지 않은 거 같</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7ec15ad53c95cab5c94a8afb.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.edaily.co.kr/News/Read?newsId=03348886645576840&amp;mediaCodeNo=257"
+  data-title="靑 “美, 대미투자에 반도체 논의 사실…아직 초기 논의 단계”(종합)"
+  data-publisher="이데일리"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788489089"
+  data-country="US"
+  data-search="靑 “美, 대미투자에 반도체 논의 사실…아직 초기 논의 단계”(종합) 이데일리 원전 대미투자 한미가 2000억달러 규모 대미투자의 첫 번째 프로젝트로 에너지 사업을 검토해온 가운데 반도체 분야도 실제 투자 논의 대상에 새로 오른 것으로 청와대가 공식 확인했다. 미국이 요구하는 반도체 투자를 전략투자 재원으로 집행할지, 국내 기업의 별도 직접투자로 추진할지가 ..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이데일리</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>靑 “美, 대미투자에 반도체 논의 사실…아직 초기 논의 단계”(종합)</div>
+      <div class="article-snippet">한미가 2000억달러 규모 대미투자의 첫 번째 프로젝트로 에너지 사업을 검토해온 가운데 반도체 분야도 실제 투자 논의 대상에 새로 오른 것으로 청와대가 공식 확인했다. 미국이 요구하는 반도체 투자를 전략투자 재원으로 집행할지, 국내 기업의 별도 직접투자로 추진할지가 ...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9b7edbbdc95b5ce8e3c3bca7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260904000145"
   data-title="靑 “반도체도 대미투자 논의 대상…호르무즈 군사적 기여도 검토”"
@@ -31526,7 +32064,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/bfe89c9ea078765dfa2c3a35.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://img4.yna.co.kr/photo/cms/2025/12/18/72/PCM20251218000072990_P4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31569,7 +32107,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">31건</span>
+    <span class="group-count">33건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32067,6 +32605,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=483891"
+  data-title="국민 10명 중 9명 “원자력 기술 활용 필요”"
+  data-publisher="핀포인트뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788492716"
+  data-country="KR"
+  data-search="국민 10명 중 9명 “원자력 기술 활용 필요” 핀포인트뉴스 원자력 성균관대학교(총장 유지범) 미디어커뮤니케이션학과 정성은 교수 연구팀은 과학기술정보통신부 지정 선도연구센터(crc)인 성균관대 메타버스기반방사선안전ict연구센터(센터장 채종서)와 함께 전국 성인 2000명을 대상으로 실시한 ‘방사능 인식 및 경험’ 설문조사 결과를 발표했다.이번 조사는 국가 미래 에너지와 과학기술 안전성에 대한 국민의 인식과 신뢰 수준을 파악하기 위해 진행됐다.조사 결과 ‘우리 사회의 에너지 및 산업 발전을 위해 원자력 기술을 활용할 필요가 있다’는 문항에 긍정(‘매우 그렇다’,‘그렇다’, ‘약간 그렇다’)고 답했다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">핀포인트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260904000136" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">성균관대 조사결과 발표, 국민 다수 “원자력 에너지 기술 활용 필요”… “현대 과학 기술로 위험 관리 가능”</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>국민 10명 중 9명 “원자력 기술 활용 필요”</div>
+      <div class="article-snippet">성균관대학교(총장 유지범) 미디어커뮤니케이션학과 정성은 교수 연구팀은 과학기술정보통신부 지정 선도연구센터(CRC)인 성균관대 메타버스기반방사선안전ICT연구센터(센터장 채종서)와 함께 전국 성인 2000명을 대상으로 실시한 ‘방사능 인식 및 경험’ 설문조사 결과를 발표했다.이번 조사는 국가 미래 에너지와 과학기술 안전성에 대한 국민의 인식과 신뢰 수준을 파악하기 위해 진행됐다.조사 결과 ‘우리 사회의 에너지 및 산업 발전을 위해 원자력 기술을 활용할 필요가 있다’는 문항에 긍정(‘매우 그렇다’,‘그렇다’, ‘약간 그렇다’)고 답했다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7d4fe65ed1ec17b248c1ad02.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.etnews.com/20260904000136"
   data-title="성균관대 조사결과 발표, 국민 다수 “원자력 에너지 기술 활용 필요”… “현대 과학 기술로 위험 관리 가능”"
@@ -32262,6 +32833,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d610bdb707e663e63948e6db.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.electimes.com/news/articleView.html?idxno=372069"
+  data-title="원전 운전·정비 넘보는 AI…사람 대신 판단해도 될까"
+  data-publisher="전기신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788526314"
+  data-country="OTHER"
+  data-search="원전 운전·정비 넘보는 ai…사람 대신 판단해도 될까 전기신문 원자력 인공지능(ai)이 원전 건설과 운전·정비 영역까지 파고들면서 기존 안전규제가 시험대에 올랐다. ai 활용이 불가피해진 만큼 어떻게 안전성을 검증하고, 인간의 통제권을 어디까지 남겨둘지가 쟁점으로 떠올랐다.조성경 명지대 교수는 4일 미래에너지정책연구원(ikep)·이진숙 국민의힘 의원이 공동 주최한 제56차 전력포럼에서 “ai는 원전의 설계·운전·정비를 넘어 인허가와 규제의 구조까지 바꾸기 시작했다”며 “이를 방치하면 기술은 몰려오는데 통제와 책임은 뒤늦게 따라가는 일이 벌어질 수 있다”고 주장했다.어디에 ai를 쓸지, 자율성을 얼마나 허용할지뿐 아니라 ai가 틀렸을 때"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전기신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원전 운전·정비 넘보는 AI…사람 대신 판단해도 될까</div>
+      <div class="article-snippet">인공지능(AI)이 원전 건설과 운전·정비 영역까지 파고들면서 기존 안전규제가 시험대에 올랐다. AI 활용이 불가피해진 만큼 어떻게 안전성을 검증하고, 인간의 통제권을 어디까지 남겨둘지가 쟁점으로 떠올랐다.조성경 명지대 교수는 4일 미래에너지정책연구원(IKEP)·이진숙 국민의힘 의원이 공동 주최한 제56차 전력포럼에서 “AI는 원전의 설계·운전·정비를 넘어 인허가와 규제의 구조까지 바꾸기 시작했다”며 “이를 방치하면 기술은 몰려오는데 통제와 책임은 뒤늦게 따라가는 일이 벌어질 수 있다”고 주장했다.어디에 AI를 쓸지, 자율성을 얼마나 허용할지뿐 아니라 AI가 틀렸을 때</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f55c5c001ab5df6ef8434e6a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32496,7 +33100,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=181099"
   data-title="한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제"
   data-publisher="알파경제"
@@ -32520,7 +33124,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제</div>
+      <div class="headline">한미글로벌, 반도체·데이터센터·원전 다 갖춰 - 알파경제</div>
       <div class="article-snippet">[알파경제 = 김혜실 기자] 한미글로벌이 반도체, 데이터센터, 원전 등 시장이 주목하는 요소를 두루 확대해가고 있어 긍정적이다. 4일 현대차증권은 한미글로벌에 대</div>
     </div>
   </div>
@@ -32742,9 +33346,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7700"
+  data-title="“변화의 시대, 과거의 성공방식부터 넘어야”"
+  data-publisher="인사이트N파워"
+  data-group="국내 원자력 협회·학회"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788493170"
+  data-country="KR"
+  data-search="“변화의 시대, 과거의 성공방식부터 넘어야” 인사이트n파워 국내 원자력 협회·학회 “급변하는 환경에서 조직을 이끄는 리더에게 필요한 것은 과거의 성공 경험을 반복하는 능력이 아니라, 그 경험을 토대로 새로운 상황에 맞는 해법을 만들어내는 ‘통찰’이다.”임용한 kj인문경영연구원 대표는 4일 서울 웨스틴조선호텔에서 열린 한국원자력산업협회 ‘제226회 원자력계 조찬강연회’에서 ‘전쟁사로 보는 진정한 리더십’을 주제로 강연하며 역사 속 명장들의 사례를 통해 변화의 시대에 요구되는 리더십의 조건을 제시했다.임 대표는 알렉산더 대왕을 비롯해 오다 노부나가, 에르빈 롬멜 등 역사 속 인물들의 전쟁과 혁신 과정을 소개하며 “변"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>“변화의 시대, 과거의 성공방식부터 넘어야”</div>
+      <div class="article-snippet">“급변하는 환경에서 조직을 이끄는 리더에게 필요한 것은 과거의 성공 경험을 반복하는 능력이 아니라, 그 경험을 토대로 새로운 상황에 맞는 해법을 만들어내는 ‘통찰’이다.”임용한 KJ인문경영연구원 대표는 4일 서울 웨스틴조선호텔에서 열린 한국원자력산업협회 ‘제226회 원자력계 조찬강연회’에서 ‘전쟁사로 보는 진정한 리더십’을 주제로 강연하며 역사 속 명장들의 사례를 통해 변화의 시대에 요구되는 리더십의 조건을 제시했다.임 대표는 알렉산더 대왕을 비롯해 오다 노부나가, 에르빈 롬멜 등 역사 속 인물들의 전쟁과 혁신 과정을 소개하며 “변</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b91cb3a6f4742b9daa2881ee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.news24.com/investigations/silenced"
   data-title="Silenced | Investigations | News24"
@@ -32752,7 +33389,7 @@ main {
   data-group="국내 원자력 협회·학회"
   data-language="en"
   data-priority="2"
-  data-published="1788488169"
+  data-published="1788492606"
   data-country="OTHER"
   data-search="silenced | investigations | news24 news24 국내 원자력 협회·학회 get the latest investigative news about the murder of babita deokaran and the tembisa hospital tenders."
   tabindex="0" role="link">
