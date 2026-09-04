@@ -1,3 +1,4 @@
+# FINAL PC DASHBOARD + INTERACTIVE COUNTRY MAP ANALYTICS / MOBILE UNCHANGED 2026-09-04
 # FINAL PC RESTORED WINDOW RESPONSIVE + IMPORTANT BUTTON FIX / MOBILE UNCHANGED 2026-09-04
 # FINAL PC PRETENDARD WEBFONT / MOBILE UNCHANGED 2026-09-04
 # FINAL PC DATE/PERIOD CONTROLS FIX / MOBILE UNCHANGED 2026-09-04
@@ -22256,6 +22257,384 @@ main {{
   }}
 }}
 
+
+/* ============================================================
+   PC DASHBOARD MAP + ANALYTICS 2026-09-04
+   Desktop only. Mobile/tablet layout remains unchanged.
+   ============================================================ */
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {{
+  body {{
+    background:#c8dced !important;
+  }}
+
+  .phone {{
+    width:min(calc(100vw - 34px),1680px) !important;
+    max-width:1680px !important;
+  }}
+
+  /* ---------- Country map becomes a true PC dashboard card ---------- */
+  #world-map-panel {{
+    display:grid !important;
+    grid-template-columns:minmax(0,2.15fr) minmax(300px,.85fr) !important;
+    grid-template-areas:
+      "head head"
+      "map overview"
+      "selection overview";
+    column-gap:16px !important;
+    row-gap:10px !important;
+    margin:14px 0 16px !important;
+    padding:16px !important;
+    border-radius:18px !important;
+    border:1px solid rgba(31,63,99,.12) !important;
+    background:#f8fbff !important;
+    box-shadow:0 6px 18px rgba(35,65,101,.08) !important;
+    overflow:visible !important;
+  }}
+
+  #world-map-panel .world-map-head {{
+    grid-area:head !important;
+    margin:0 !important;
+    padding:0 2px 2px !important;
+  }}
+
+  #world-map-panel .world-map-title {{
+    font-size:17px !important;
+    font-weight:950 !important;
+    color:#173b61 !important;
+    letter-spacing:-.35px !important;
+  }}
+
+  #world-map-panel .world-map-summary {{
+    font-size:11px !important;
+    color:#718196 !important;
+    font-weight:800 !important;
+  }}
+
+  #world-map-panel .country-filter-note-inline {{
+    font-size:10px !important;
+    color:#7d8b9d !important;
+  }}
+
+  #world-map-panel .country-map-content {{
+    grid-area:map !important;
+    min-width:0 !important;
+  }}
+
+  #world-map-panel .country-map-visual {{
+    height:315px !important;
+    min-height:315px !important;
+    border-radius:14px !important;
+    border:1px solid #dfe8f1 !important;
+    background:
+      radial-gradient(circle at 50% 42%,rgba(255,255,255,.98),rgba(235,243,249,.98)) !important;
+    overflow:hidden !important;
+  }}
+
+  #world-map-panel .globe-stage {{
+    min-height:290px !important;
+  }}
+
+  #world-map-panel .country-chip-rail {{
+    margin-top:9px !important;
+    gap:7px !important;
+    padding-bottom:2px !important;
+  }}
+
+  #world-map-panel .country-chip-rail .country-pin {{
+    min-height:31px !important;
+    padding:0 9px !important;
+    border-radius:9px !important;
+    font-size:10px !important;
+    box-shadow:none !important;
+  }}
+
+  #world-map-panel .country-chip-rail .country-pin.active {{
+    background:#173b61 !important;
+    border-color:#173b61 !important;
+    color:#fff !important;
+  }}
+
+  #country-selection-bar {{
+    grid-area:selection !important;
+    margin:0 !important;
+  }}
+
+  /* ---------- Country ranking / selected state ---------- */
+  .pc-country-overview {{
+    grid-area:overview;
+    display:flex !important;
+    flex-direction:column;
+    min-width:0;
+    height:100%;
+    border:1px solid #e0e9f2;
+    border-radius:14px;
+    background:#fff;
+    padding:13px;
+  }}
+
+  .pc-country-overview-head {{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:10px;
+  }}
+
+  .pc-country-overview-title {{
+    color:#193e65;
+    font-size:14px;
+    line-height:1.2;
+    font-weight:950;
+    letter-spacing:-.25px;
+  }}
+
+  .pc-country-overview-sub {{
+    color:#8a97a8;
+    font-size:9.5px;
+    font-weight:700;
+    margin-top:3px;
+  }}
+
+  .pc-country-reset {{
+    flex:0 0 auto;
+    border:1px solid #d4e0ec;
+    background:#f6f9fc;
+    color:#41617e;
+    height:27px;
+    padding:0 10px;
+    border-radius:8px;
+    font-size:10px;
+    font-weight:900;
+    cursor:pointer;
+  }}
+
+  .pc-country-reset:hover {{
+    background:#eaf2f8;
+  }}
+
+  .pc-country-selected {{
+    border-radius:11px;
+    background:linear-gradient(135deg,#173b61 0%,#285786 100%);
+    padding:10px 11px;
+    margin-bottom:10px;
+    color:#fff;
+  }}
+
+  .pc-country-selected-label {{
+    color:rgba(255,255,255,.68);
+    font-size:9px;
+    font-weight:800;
+    margin-bottom:5px;
+  }}
+
+  .pc-country-selected-main {{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    min-width:0;
+  }}
+
+  #pc-country-selected-flag {{
+    font-size:18px;
+  }}
+
+  #pc-country-selected-name {{
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:13px;
+    font-weight:950;
+  }}
+
+  #pc-country-selected-count {{
+    margin-left:auto;
+    white-space:nowrap;
+    color:#ffe36b;
+    font-size:12px;
+    font-weight:950;
+  }}
+
+  .pc-country-ranking {{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+  }}
+
+  .pc-country-rank-item {{
+    display:grid;
+    grid-template-columns:25px minmax(70px,.8fr) minmax(80px,1.2fr) 38px;
+    align-items:center;
+    gap:7px;
+    min-height:29px;
+    padding:4px 5px;
+    border-radius:8px;
+    cursor:pointer;
+  }}
+
+  .pc-country-rank-item:hover {{
+    background:#f0f6fb;
+  }}
+
+  .pc-country-rank-item.active {{
+    background:#e9f2fb;
+    box-shadow:inset 3px 0 0 #1c5e9e;
+  }}
+
+  .pc-country-rank-no {{
+    color:#a2adba;
+    font-size:9px;
+    font-weight:900;
+    text-align:center;
+  }}
+
+  .pc-country-rank-name {{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    min-width:0;
+    color:#36536f;
+    font-size:10.5px;
+    font-weight:850;
+  }}
+
+  .pc-country-rank-name span:last-child {{
+    min-width:0;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }}
+
+  .pc-country-rank-bar {{
+    position:relative;
+    height:7px;
+    overflow:hidden;
+    border-radius:999px;
+    background:#e8eef4;
+  }}
+
+  .pc-country-rank-fill {{
+    position:absolute;
+    inset:0 auto 0 0;
+    border-radius:inherit;
+    background:linear-gradient(90deg,#2a639d,#76a4ce);
+  }}
+
+  .pc-country-rank-count {{
+    color:#244766;
+    text-align:right;
+    font-size:10px;
+    font-weight:950;
+    white-space:nowrap;
+  }}
+
+  .pc-country-overview-foot {{
+    margin-top:auto;
+    padding-top:10px;
+    color:#95a1af;
+    font-size:9px;
+    line-height:1.35;
+  }}
+
+  /* ---------- Article + analytics layout ---------- */
+  main {{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 430px !important;
+    gap:20px !important;
+    align-items:start !important;
+  }}
+
+  #no-results {{
+    grid-column:1 / -1 !important;
+  }}
+
+  .tab-panel {{
+    grid-column:1 !important;
+    min-width:0 !important;
+  }}
+
+  #pc-insight-rail {{
+    grid-column:2 !important;
+    grid-row:1 !important;
+    position:sticky !important;
+    top:14px !important;
+    height:calc(100vh - 28px) !important;
+    max-height:calc(100vh - 28px) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    overscroll-behavior:contain !important;
+    scrollbar-gutter:stable !important;
+  }}
+
+  /* ---------- Make right rail visually calmer / easier to scan ---------- */
+  #pc-insight-rail .pc-rail-card {{
+    border-radius:15px !important;
+    box-shadow:0 4px 13px rgba(35,63,95,.07) !important;
+  }}
+
+  #pc-insight-rail .pc-rail-title {{
+    font-size:15.5px !important;
+  }}
+
+  /* Country filter result cue above articles */
+  .pc-country-filter-result {{
+    display:none;
+    align-items:center;
+    gap:8px;
+    margin:0 0 10px;
+    padding:9px 11px;
+    border-radius:10px;
+    background:#eaf3fb;
+    border:1px solid #cedfec;
+    color:#284c6d;
+    font-size:11px;
+    font-weight:850;
+  }}
+
+  .pc-country-filter-result.show {{
+    display:flex;
+  }}
+
+  .pc-country-filter-result strong {{
+    font-weight:950;
+  }}
+
+  .pc-country-filter-clear {{
+    margin-left:auto;
+    border:0;
+    background:transparent;
+    color:#53708a;
+    font-size:10px;
+    font-weight:900;
+    cursor:pointer;
+  }}
+}}
+
+/* Restored-window PC: map remains useful while preventing squeeze */
+@media (min-width:1000px) and (max-width:1299px) and (hover:hover) and (pointer:fine) {{
+  #world-map-panel {{
+    grid-template-columns:minmax(0,1fr) 300px !important;
+  }}
+  #world-map-panel .country-map-visual {{
+    height:260px !important;
+    min-height:260px !important;
+  }}
+  main {{
+    grid-template-columns:minmax(0,1fr) 350px !important;
+    gap:14px !important;
+  }}
+  .pc-country-rank-item {{
+    grid-template-columns:22px minmax(65px,.9fr) minmax(55px,1fr) 34px !important;
+    gap:5px !important;
+  }}
+}}
+
+@media (max-width:999px), (hover:none), (pointer:coarse) {{
+  .pc-country-overview {{
+    display:none !important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -23122,8 +23501,33 @@ main {{
       </div>
     </div>
 
+    <aside id="pc-country-overview" class="pc-country-overview" aria-label="PC 국가별 기사 분석">
+      <div class="pc-country-overview-head">
+        <div>
+          <div class="pc-country-overview-title">국가별 기사 분포</div>
+          <div class="pc-country-overview-sub">국가 선택 시 해당 기사만 바로 표시</div>
+        </div>
+        <button id="pc-country-reset" class="pc-country-reset" type="button">전체</button>
+      </div>
+      <div id="pc-country-selected" class="pc-country-selected">
+        <div class="pc-country-selected-label">현재 선택</div>
+        <div class="pc-country-selected-main">
+          <span id="pc-country-selected-flag">🌐</span>
+          <strong id="pc-country-selected-name">전체 국가</strong>
+          <span id="pc-country-selected-count">0건</span>
+        </div>
+      </div>
+      <div id="pc-country-ranking" class="pc-country-ranking"></div>
+      <div class="pc-country-overview-foot">지도 또는 국가 순위를 클릭하면 기사 목록이 즉시 필터링됩니다.</div>
+    </aside>
+
   </section>
-  <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>{panels_html}
+  <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
+<div id="pc-country-filter-result" class="pc-country-filter-result" aria-live="polite">
+  <span id="pc-country-filter-result-flag">🌐</span>
+  <span><strong id="pc-country-filter-result-name">전체 국가</strong> 기사 <span id="pc-country-filter-result-count">0건</span></span>
+  <button id="pc-country-filter-clear" class="pc-country-filter-clear" type="button">필터 해제</button>
+</div>{panels_html}
 <aside id="pc-insight-rail" aria-label="PC 원전 뉴스 분석 대시보드">
   <section class="pc-rail-card">
     <div class="pc-rail-head">
@@ -28066,6 +28470,251 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   window.addEventListener("resize", function() {{
     if (isPcDateMode()) window.setTimeout(initPcDateControls, 80);
   }});
+}})();
+</script>
+
+
+<script>
+(function() {{
+  var PC_COUNTRY_META = {{
+    KR:["🇰🇷","한국"], US:["🇺🇸","미국"], CA:["🇨🇦","캐나다"], GB:["🇬🇧","영국"],
+    FR:["🇫🇷","프랑스"], BG:["🇧🇬","불가리아"], RO:["🇷🇴","루마니아"], CZ:["🇨🇿","체코"],
+    PL:["🇵🇱","폴란드"], SI:["🇸🇮","슬로베니아"], FI:["🇫🇮","핀란드"], SE:["🇸🇪","스웨덴"],
+    NL:["🇳🇱","네덜란드"], BE:["🇧🇪","벨기에"], CH:["🇨🇭","스위스"], SK:["🇸🇰","슬로바키아"],
+    DK:["🇩🇰","덴마크"], UA:["🇺🇦","우크라이나"], RU:["🇷🇺","러시아"], TR:["🇹🇷","튀르키예"],
+    AE:["🇦🇪","UAE"], SA:["🇸🇦","사우디"], IN:["🇮🇳","인도"], CN:["🇨🇳","중국"],
+    JP:["🇯🇵","일본"], VN:["🇻🇳","베트남"], MY:["🇲🇾","말레이시아"], TH:["🇹🇭","태국"],
+    SG:["🇸🇬","싱가포르"], AU:["🇦🇺","호주"], BR:["🇧🇷","브라질"], AR:["🇦🇷","아르헨티나"],
+    CL:["🇨🇱","칠레"], PE:["🇵🇪","페루"], CO:["🇨🇴","콜롬비아"], ZA:["🇿🇦","남아공"],
+    OTHER:["🌐","기타"]
+  }};
+
+  function isPcMapMode() {{
+    return window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches;
+  }}
+
+  function currentPeriodPanel() {{
+    return document.querySelector(".tab-panel.active") || document.querySelector(".tab-panel");
+  }}
+
+  function periodCards() {{
+    var panel=currentPeriodPanel();
+    return panel ? Array.from(panel.querySelectorAll(".preview-card")) : [];
+  }}
+
+  function currentCountryCode() {{
+    try {{
+      return (typeof activeCountryFilter !== "undefined" ? activeCountryFilter : "") || "";
+    }} catch (_e) {{
+      return "";
+    }}
+  }}
+
+  function countryMeta(code) {{
+    return PC_COUNTRY_META[code] || ["🌐", code || "전체 국가"];
+  }}
+
+  function countryCounts() {{
+    var counts={{}};
+    periodCards().forEach(function(card) {{
+      var code=(card.dataset.country || "").trim();
+      if (!code) return;
+      counts[code]=(counts[code] || 0)+1;
+    }});
+    return counts;
+  }}
+
+  function visibleCountryCount(code) {{
+    var panel=currentPeriodPanel();
+    if (!panel) return 0;
+    return Array.from(panel.querySelectorAll(".preview-card")).filter(function(card) {{
+      if (card.style.display==="none" || card.hidden) return false;
+      return !code || card.dataset.country===code;
+    }}).length;
+  }}
+
+  function updatePcCountryDashboard() {{
+    if (!isPcMapMode()) return;
+
+    var ranking=document.getElementById("pc-country-ranking");
+    if (!ranking) return;
+
+    var counts=countryCounts();
+    var entries=Object.entries(counts).sort(function(a,b) {{ return b[1]-a[1]; }}).slice(0,8);
+    var maxCount=entries.length ? entries[0][1] : 1;
+    var active=currentCountryCode();
+
+    ranking.innerHTML="";
+    entries.forEach(function(entry,index) {{
+      var code=entry[0], count=entry[1], meta=countryMeta(code);
+      var row=document.createElement("div");
+      row.className="pc-country-rank-item" + (active===code ? " active" : "");
+      row.setAttribute("data-pc-country",code);
+
+      var no=document.createElement("div");
+      no.className="pc-country-rank-no";
+      no.textContent=String(index+1).padStart(2,"0");
+
+      var name=document.createElement("div");
+      name.className="pc-country-rank-name";
+      var flag=document.createElement("span");
+      flag.textContent=meta[0];
+      var label=document.createElement("span");
+      label.textContent=meta[1];
+      name.appendChild(flag);
+      name.appendChild(label);
+
+      var bar=document.createElement("div");
+      bar.className="pc-country-rank-bar";
+      var fill=document.createElement("div");
+      fill.className="pc-country-rank-fill";
+      fill.style.width=Math.max(8,(count/maxCount)*100)+"%";
+      bar.appendChild(fill);
+
+      var cnt=document.createElement("div");
+      cnt.className="pc-country-rank-count";
+      cnt.textContent=count+"건";
+
+      row.appendChild(no);
+      row.appendChild(name);
+      row.appendChild(bar);
+      row.appendChild(cnt);
+      row.addEventListener("click",function() {{
+        applyPcCountry(code,true);
+      }});
+      ranking.appendChild(row);
+    }});
+
+    if (!entries.length) {{
+      var empty=document.createElement("div");
+      empty.className="pc-empty";
+      empty.textContent="현재 기간의 국가별 기사 정보가 없습니다.";
+      ranking.appendChild(empty);
+    }}
+
+    var meta=countryMeta(active);
+    var selectedName=document.getElementById("pc-country-selected-name");
+    var selectedFlag=document.getElementById("pc-country-selected-flag");
+    var selectedCount=document.getElementById("pc-country-selected-count");
+    if (selectedName) selectedName.textContent=active ? meta[1] : "전체 국가";
+    if (selectedFlag) selectedFlag.textContent=active ? meta[0] : "🌐";
+    if (selectedCount) {{
+      var total=active ? (counts[active] || 0) : periodCards().length;
+      selectedCount.textContent=total+"건";
+    }}
+
+    var result=document.getElementById("pc-country-filter-result");
+    if (result) {{
+      result.classList.toggle("show",!!active);
+      var rf=document.getElementById("pc-country-filter-result-flag");
+      var rn=document.getElementById("pc-country-filter-result-name");
+      var rc=document.getElementById("pc-country-filter-result-count");
+      if (rf) rf.textContent=active ? meta[0] : "🌐";
+      if (rn) rn.textContent=active ? meta[1] : "전체 국가";
+      if (rc) rc.textContent=(active ? visibleCountryCount(active) : periodCards().length)+"건";
+    }}
+  }}
+
+  function applyPcCountry(code,scrollToArticles) {{
+    if (!isPcMapMode()) return;
+    try {{
+      activeCountryFilter=(currentCountryCode()===code ? "" : code);
+    }} catch (_e) {{
+      return;
+    }}
+
+    if (typeof updateSelectedCountryClock==="function") updateSelectedCountryClock(activeCountryFilter);
+    if (typeof updateCountryPinCounts==="function") updateCountryPinCounts();
+    if (typeof filterArticles==="function") filterArticles();
+
+    window.setTimeout(function() {{
+      updatePcCountryDashboard();
+      if (typeof refreshPcInsights==="function") refreshPcInsights();
+
+      if (scrollToArticles) {{
+        var target=document.querySelector(".tab-panel.active .news-group") ||
+                   document.querySelector(".tab-panel.active") ||
+                   document.querySelector("main");
+        if (target) target.scrollIntoView({{behavior:"smooth",block:"start"}});
+      }}
+    }},80);
+  }}
+
+  function clearPcCountry(scrollToArticles) {{
+    try {{
+      activeCountryFilter="";
+    }} catch (_e) {{
+      return;
+    }}
+    if (typeof updateSelectedCountryClock==="function") updateSelectedCountryClock(activeCountryFilter);
+    if (typeof filterArticles==="function") filterArticles();
+    window.setTimeout(function() {{
+      updatePcCountryDashboard();
+      if (scrollToArticles) {{
+        var target=document.querySelector(".tab-panel.active") || document.querySelector("main");
+        if (target) target.scrollIntoView({{behavior:"smooth",block:"start"}});
+      }}
+    }},60);
+  }}
+
+  function initPcMapDashboard() {{
+    if (!isPcMapMode()) return;
+
+    var reset=document.getElementById("pc-country-reset");
+    if (reset && reset.dataset.boundPcMap!=="1") {{
+      reset.dataset.boundPcMap="1";
+      reset.addEventListener("click",function() {{ clearPcCountry(false); }});
+    }}
+
+    var clear=document.getElementById("pc-country-filter-clear");
+    if (clear && clear.dataset.boundPcMap!=="1") {{
+      clear.dataset.boundPcMap="1";
+      clear.addEventListener("click",function() {{ clearPcCountry(false); }});
+    }}
+
+    /* Existing map/globe/chip filtering stays authoritative.
+       We only refresh the analytics after the built-in click handler runs. */
+    document.addEventListener("click",function(event) {{
+      var countryNode=event.target.closest(
+        '[data-country-filter], [data-country-code], .globe-country-label, .precise-country-label, .map-country-card'
+      );
+      if (!countryNode) return;
+      window.setTimeout(updatePcCountryDashboard,100);
+    }},false);
+
+    updatePcCountryDashboard();
+  }}
+
+  function schedulePcMapUpdate() {{
+    window.setTimeout(function() {{
+      initPcMapDashboard();
+      updatePcCountryDashboard();
+    }},120);
+  }}
+
+  if (document.readyState==="loading") {{
+    document.addEventListener("DOMContentLoaded",schedulePcMapUpdate);
+  }} else {{
+    schedulePcMapUpdate();
+  }}
+
+  document.addEventListener("click",function(event) {{
+    if (event.target.closest(".tab-button,.continent-button,.group-title")) {{
+      window.setTimeout(updatePcCountryDashboard,120);
+    }}
+  }});
+
+  var search=document.getElementById("article-search");
+  if (search) search.addEventListener("input",function() {{
+    window.setTimeout(updatePcCountryDashboard,80);
+  }});
+
+  var archive=document.getElementById("archive-date");
+  if (archive) archive.addEventListener("change",function() {{
+    window.setTimeout(updatePcCountryDashboard,120);
+  }});
+
+  window.addEventListener("resize",schedulePcMapUpdate);
 }})();
 </script>
 
