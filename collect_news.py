@@ -1,3 +1,4 @@
+# FINAL PC VISUAL DASHBOARD CONCEPT MATCH / MOBILE UNCHANGED 2026-09-04
 # FINAL PC DASHBOARD MAP HARD-APPLY FIX / WIDTH-ONLY DESKTOP DETECTION 2026-09-04
 # FINAL PC DASHBOARD + INTERACTIVE COUNTRY MAP ANALYTICS / MOBILE UNCHANGED 2026-09-04
 # FINAL PC RESTORED WINDOW RESPONSIVE + IMPORTANT BUTTON FIX / MOBILE UNCHANGED 2026-09-04
@@ -22659,6 +22660,640 @@ main {{
   .pc-build-marker {{ display:none !important; }}
 }}
 
+
+/* ============================================================
+   FINAL PC VISUAL DASHBOARD - CONCEPT MATCH 2026-09-04
+   Mobile/tablet remain unchanged.
+   ============================================================ */
+@media (min-width:1000px) {{
+  /* remove temporary debug marker */
+  .pc-build-marker {{ display:none !important; }}
+
+  body {{
+    background:#eef3f8 !important;
+  }}
+
+  .phone {{
+    width:min(calc(100vw - 26px),1720px) !important;
+    max-width:1720px !important;
+    margin:0 auto !important;
+  }}
+
+  /* Header: compact horizontal dashboard toolbar */
+  .topbar {{
+    border-radius:0 0 14px 14px !important;
+    padding:13px 18px 11px !important;
+    box-shadow:0 5px 16px rgba(13,40,72,.10) !important;
+  }}
+
+  .topbar-title-row {{
+    min-height:42px !important;
+    gap:18px !important;
+  }}
+
+  .topbar h1 {{
+    font-size:24px !important;
+    letter-spacing:-.6px !important;
+  }}
+
+  .update-text {{
+    font-size:10px !important;
+  }}
+
+  .header-controls {{
+    display:grid !important;
+    grid-template-columns:minmax(340px,1.2fr) auto auto auto !important;
+    gap:10px !important;
+    align-items:center !important;
+    max-height:none !important;
+    opacity:1 !important;
+    margin-top:8px !important;
+    overflow:visible !important;
+  }}
+
+  .topbar.collapsed .header-controls {{
+    max-height:none !important;
+    opacity:1 !important;
+    margin-top:8px !important;
+    pointer-events:auto !important;
+  }}
+
+  .search-box {{
+    grid-column:1 !important;
+    margin:0 !important;
+  }}
+
+  .period-tabs {{
+    grid-column:2 !important;
+    margin:0 !important;
+    min-width:255px !important;
+  }}
+
+  .utility-row {{
+    grid-column:3 !important;
+    display:flex !important;
+    gap:8px !important;
+    margin:0 !important;
+  }}
+
+  .date-picker-box {{
+    min-width:210px !important;
+  }}
+
+  #header-toggle {{
+    grid-column:4 !important;
+    align-self:center !important;
+  }}
+
+  /* Category strip below header, matching dashboard chips */
+  .pc-category-strip {{
+    grid-column:1 !important;
+    display:flex !important;
+    gap:7px !important;
+    align-items:center !important;
+    flex-wrap:wrap !important;
+    margin:0 0 12px !important;
+    padding:8px 10px !important;
+    background:#fff !important;
+    border:1px solid #dde6ef !important;
+    border-radius:12px !important;
+    box-shadow:0 2px 8px rgba(35,65,101,.05) !important;
+  }}
+
+  .pc-category-chip {{
+    display:inline-flex !important;
+    align-items:center !important;
+    gap:5px !important;
+    min-height:27px !important;
+    padding:0 10px !important;
+    border-radius:8px !important;
+    border:1px solid transparent !important;
+    background:#f5f8fb !important;
+    color:#587086 !important;
+    font-size:10px !important;
+    font-weight:850 !important;
+    cursor:pointer !important;
+  }}
+
+  .pc-category-chip strong {{
+    color:#173b61 !important;
+    font-size:10.5px !important;
+  }}
+
+  .pc-category-chip.active,
+  .pc-category-chip:hover {{
+    background:#fff2a8 !important;
+    border-color:#eed35a !important;
+    color:#715700 !important;
+  }}
+
+  /* Main: left news / right analytics like the visual mockup */
+  main {{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 520px !important;
+    gap:16px !important;
+    align-items:start !important;
+    padding:12px 0 44px !important;
+  }}
+
+  .tab-panel {{
+    grid-column:1 !important;
+    min-width:0 !important;
+  }}
+
+  #pc-insight-rail {{
+    grid-column:2 !important;
+    grid-row:1 / span 3 !important;
+    position:sticky !important;
+    top:12px !important;
+    height:calc(100vh - 24px) !important;
+    max-height:calc(100vh - 24px) !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:12px !important;
+    padding-right:4px !important;
+  }}
+
+  #pc-insight-rail::-webkit-scrollbar {{ width:7px; }}
+  #pc-insight-rail::-webkit-scrollbar-track {{ background:transparent; }}
+  #pc-insight-rail::-webkit-scrollbar-thumb {{
+    background:#c0cfdd;
+    border-radius:999px;
+  }}
+
+  /* Right-side cards */
+  .pc-rail-card {{
+    background:#fff !important;
+    border:1px solid #dfe7ef !important;
+    border-radius:14px !important;
+    box-shadow:0 3px 10px rgba(35,65,101,.06) !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-rail-head {{
+    padding:11px 13px 9px !important;
+    border-bottom:1px solid #e8eef4 !important;
+  }}
+
+  .pc-rail-title {{
+    font-size:14px !important;
+    color:#173b61 !important;
+    font-weight:950 !important;
+  }}
+
+  .pc-rail-sub {{
+    font-size:9px !important;
+    color:#8a97a7 !important;
+  }}
+
+  /* Today focus = visual 3-column hero cards */
+  #pc-focus-list {{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:8px !important;
+    padding:10px !important;
+  }}
+
+  #pc-focus-list .pc-focus-item {{
+    min-height:118px !important;
+    margin:0 !important;
+    padding:10px !important;
+    border:0 !important;
+    border-radius:11px !important;
+    background:
+      linear-gradient(180deg,rgba(19,59,97,.06),rgba(19,59,97,.01)),
+      #f2f7fc !important;
+    box-shadow:inset 0 0 0 1px #dde8f2 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:space-between !important;
+  }}
+
+  #pc-focus-list .pc-focus-item:nth-child(1) {{
+    background:
+      linear-gradient(180deg,rgba(32,88,145,.12),rgba(255,255,255,.5)),
+      #eef5fb !important;
+  }}
+
+  #pc-focus-list .pc-focus-top {{
+    margin-bottom:5px !important;
+  }}
+
+  #pc-focus-list .pc-focus-name {{
+    font-size:10.5px !important;
+    color:#1f5d97 !important;
+    font-weight:950 !important;
+  }}
+
+  #pc-focus-list .pc-focus-count {{
+    background:#173b61 !important;
+    color:#fff !important;
+    font-size:8.5px !important;
+    padding:2px 6px !important;
+  }}
+
+  #pc-focus-list .pc-focus-title {{
+    font-size:11.5px !important;
+    line-height:1.35 !important;
+    -webkit-line-clamp:3 !important;
+  }}
+
+  #pc-focus-list .pc-focus-meta {{
+    font-size:8.5px !important;
+    line-height:1.2 !important;
+    margin-top:6px !important;
+    padding:0 !important;
+    background:transparent !important;
+    color:#7d8b9b !important;
+  }}
+
+  /* Timeline: horizontal progression, not a text list */
+  .pc-timeline-card .pc-timeline-wrap {{
+    padding:10px 11px 12px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+  }}
+
+  .pc-timeline-card .pc-timeline {{
+    display:flex !important;
+    gap:7px !important;
+    min-width:max-content !important;
+    padding:0 !important;
+  }}
+
+  .pc-timeline-card .pc-timeline:before {{ display:none !important; }}
+
+  .pc-timeline-section-note {{
+    display:none !important;
+  }}
+
+  .pc-timeline-item {{
+    position:relative !important;
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    grid-template-rows:auto 48px auto auto !important;
+    width:113px !important;
+    min-width:113px !important;
+    min-height:148px !important;
+    padding:7px !important;
+    margin:0 !important;
+    border:1px solid #dfe8f2 !important;
+    border-radius:10px !important;
+    background:#fff !important;
+    box-shadow:none !important;
+  }}
+
+  .pc-timeline-card.hyundai .pc-timeline-item {{
+    border-top:3px solid #2768a6 !important;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-item {{
+    border-top:3px solid #c88900 !important;
+  }}
+
+  .pc-timeline-item:before {{ display:none !important; }}
+
+  .pc-timeline-date {{
+    width:auto !important;
+    height:22px !important;
+    min-width:0 !important;
+    display:inline-flex !important;
+    flex-direction:row !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:2px !important;
+    padding:0 6px !important;
+    margin:0 0 5px !important;
+    border-radius:999px !important;
+    background:#1e5f9c !important;
+    color:#fff !important;
+  }}
+
+  .pc-timeline-card.invest .pc-timeline-date {{
+    background:#bd8200 !important;
+    color:#fff !important;
+  }}
+
+  .pc-date-day {{
+    font-size:10px !important;
+    font-weight:950 !important;
+  }}
+
+  .pc-date-month {{
+    margin:0 !important;
+    font-size:8px !important;
+    font-weight:850 !important;
+  }}
+
+  .pc-timeline-thumb {{
+    width:48px !important;
+    height:48px !important;
+    justify-self:center !important;
+    border-radius:50% !important;
+    margin:0 0 6px !important;
+  }}
+
+  .pc-timeline-content {{
+    min-width:0 !important;
+  }}
+
+  .pc-timeline-title {{
+    text-align:center !important;
+    color:#243f5b !important;
+    font-size:9.5px !important;
+    line-height:1.28 !important;
+    font-weight:900 !important;
+    -webkit-line-clamp:2 !important;
+  }}
+
+  .pc-timeline-meta {{
+    text-align:center !important;
+    font-size:8px !important;
+    margin-top:4px !important;
+    color:#8c98a7 !important;
+  }}
+
+  /* Map becomes a compact right-side analytics card */
+  #world-map-panel {{
+    display:block !important;
+    margin:0 !important;
+    padding:11px !important;
+    border:1px solid #dfe7ef !important;
+    border-radius:14px !important;
+    background:#fff !important;
+    box-shadow:0 3px 10px rgba(35,65,101,.06) !important;
+  }}
+
+  #world-map-panel .world-map-head {{
+    margin-bottom:8px !important;
+  }}
+
+  #world-map-panel .world-map-title {{
+    font-size:14px !important;
+  }}
+
+  #world-map-panel .country-map-visual {{
+    height:210px !important;
+    min-height:210px !important;
+    border-radius:11px !important;
+  }}
+
+  #world-map-panel .globe-stage {{
+    min-height:190px !important;
+  }}
+
+  #world-map-panel .pc-country-overview {{
+    display:none !important;
+  }}
+
+  #world-map-panel .country-chip-rail {{
+    margin-top:7px !important;
+    gap:5px !important;
+  }}
+
+  #world-map-panel .country-chip-rail .country-pin {{
+    min-height:25px !important;
+    padding:0 7px !important;
+    font-size:8.5px !important;
+  }}
+
+  /* Article group cards - closer to visual mockup */
+  .period-action-row {{
+    min-height:36px !important;
+    padding:0 9px !important;
+    border-radius:10px !important;
+    background:#fff !important;
+    border:1px solid #e0e8f0 !important;
+    box-shadow:0 2px 7px rgba(35,65,101,.04) !important;
+    margin-bottom:7px !important;
+  }}
+
+  .group-title {{
+    background:#fff !important;
+    border:1px solid #e0e8f0 !important;
+    border-radius:10px !important;
+    min-height:34px !important;
+    padding:0 10px !important;
+    margin-bottom:7px !important;
+    box-shadow:0 2px 7px rgba(35,65,101,.04) !important;
+  }}
+
+  .article-stack {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:9px !important;
+    margin-bottom:11px !important;
+  }}
+
+  .preview-card {{
+    min-height:126px !important;
+    padding:10px !important;
+    border:1px solid #e0e8f0 !important;
+    border-radius:10px !important;
+    background:#fff !important;
+    box-shadow:0 2px 7px rgba(35,65,101,.045) !important;
+  }}
+
+  .headline {{
+    font-size:13.5px !important;
+    line-height:1.34 !important;
+  }}
+
+  .article-snippet {{
+    font-size:10.5px !important;
+    line-height:1.4 !important;
+  }}
+
+  /* Mini analytics grid */
+  .pc-mini-analytics-grid {{
+    display:grid !important;
+    grid-template-columns:1.15fr 1.15fr .8fr !important;
+    gap:8px !important;
+    padding:10px !important;
+  }}
+
+  .pc-mini-panel {{
+    min-width:0 !important;
+    padding:9px !important;
+    border:1px solid #e4ebf2 !important;
+    border-radius:10px !important;
+    background:#fbfdff !important;
+  }}
+
+  .pc-mini-title {{
+    color:#31506d !important;
+    font-size:9.5px !important;
+    font-weight:900 !important;
+    margin-bottom:7px !important;
+  }}
+
+  .pc-country-donut-wrap {{
+    display:grid !important;
+    grid-template-columns:82px minmax(0,1fr) !important;
+    gap:8px !important;
+    align-items:center !important;
+  }}
+
+  .pc-country-donut {{
+    position:relative !important;
+    width:76px !important;
+    height:76px !important;
+    border-radius:50% !important;
+    background:conic-gradient(#2b67a0 0 45%,#75a2cb 45% 70%,#b8cee0 70% 86%,#d9e5ef 86% 100%);
+  }}
+
+  .pc-country-donut:after {{
+    content:"";
+    position:absolute;
+    inset:13px;
+    background:#fff;
+    border-radius:50%;
+  }}
+
+  .pc-country-donut-center {{
+    position:absolute !important;
+    z-index:2 !important;
+    inset:0 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+  }}
+
+  .pc-country-donut-center strong {{
+    font-size:15px !important;
+    color:#173b61 !important;
+    line-height:1 !important;
+  }}
+
+  .pc-country-donut-center span {{
+    font-size:8px !important;
+    color:#8090a1 !important;
+    margin-top:2px !important;
+  }}
+
+  .pc-country-legend {{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:4px !important;
+  }}
+
+  .pc-country-legend-row {{
+    display:flex !important;
+    justify-content:space-between !important;
+    gap:6px !important;
+    font-size:8px !important;
+    color:#61768a !important;
+  }}
+
+  .pc-keyword-bars {{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:5px !important;
+  }}
+
+  .pc-keyword-row {{
+    display:grid !important;
+    grid-template-columns:72px minmax(0,1fr) 26px !important;
+    gap:5px !important;
+    align-items:center !important;
+    font-size:8px !important;
+  }}
+
+  .pc-keyword-label {{
+    color:#536a80 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }}
+
+  .pc-keyword-bar {{
+    height:5px !important;
+    border-radius:999px !important;
+    background:#e4ebf2 !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-keyword-fill {{
+    height:100% !important;
+    border-radius:inherit !important;
+    background:linear-gradient(90deg,#376fa8,#8aafd0) !important;
+  }}
+
+  .pc-keyword-count {{
+    text-align:right !important;
+    color:#31506d !important;
+    font-weight:900 !important;
+  }}
+
+  .pc-today-big {{
+    text-align:center !important;
+    padding:5px 0 8px !important;
+  }}
+
+  .pc-today-big strong {{
+    font-size:25px !important;
+    color:#164f89 !important;
+    line-height:1 !important;
+  }}
+
+  .pc-today-big span {{
+    font-size:9px !important;
+    color:#7b8997 !important;
+    margin-left:2px !important;
+  }}
+
+  .pc-today-subgrid {{
+    display:grid !important;
+    grid-template-columns:repeat(2,1fr) !important;
+    gap:5px !important;
+  }}
+
+  .pc-today-subgrid div {{
+    display:flex !important;
+    justify-content:space-between !important;
+    align-items:center !important;
+    gap:5px !important;
+    padding:5px !important;
+    border-radius:7px !important;
+    background:#f3f7fb !important;
+    font-size:8px !important;
+  }}
+
+  .pc-today-subgrid span {{
+    color:#7c8a9a !important;
+  }}
+
+  .pc-today-subgrid strong {{
+    color:#244968 !important;
+    font-size:9px !important;
+  }}
+}}
+
+/* Restored-window PC: keep dashboard, but reduce right rail width */
+@media (min-width:1000px) and (max-width:1350px) {{
+  main {{
+    grid-template-columns:minmax(0,1fr) 390px !important;
+  }}
+  #pc-focus-list {{
+    grid-template-columns:1fr !important;
+  }}
+  #pc-focus-list .pc-focus-item {{
+    min-height:82px !important;
+  }}
+  .pc-mini-analytics-grid {{
+    grid-template-columns:1fr !important;
+  }}
+}}
+
+@media (max-width:999px) {{
+  .pc-category-strip,
+  .pc-mini-analytics-card {{
+    display:none !important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -23547,6 +24182,7 @@ main {{
 
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
+<div id="pc-category-strip" class="pc-category-strip" aria-label="PC 카테고리 요약"></div>
 <div id="pc-country-filter-result" class="pc-country-filter-result" aria-live="polite">
   <span id="pc-country-filter-result-flag">🌐</span>
   <span><strong id="pc-country-filter-result-name">전체 국가</strong> 기사 <span id="pc-country-filter-result-count">0건</span></span>
@@ -23594,12 +24230,39 @@ main {{
     </div>
   </section>
 
-  <section class="pc-rail-card">
+  <section class="pc-rail-card pc-mini-analytics-card">
     <div class="pc-rail-head">
-      <div class="pc-rail-title">보도 집중 영역</div>
-      <div class="pc-rail-sub">기사 많은 순</div>
+      <div class="pc-rail-title">한눈에 보는 동향</div>
+      <div class="pc-rail-sub">현재 선택 화면</div>
     </div>
-    <div id="pc-concentration" class="pc-concentration"></div>
+    <div class="pc-mini-analytics-grid">
+      <div class="pc-mini-panel">
+        <div class="pc-mini-title">국가별 기사</div>
+        <div class="pc-country-donut-wrap">
+          <div id="pc-country-donut" class="pc-country-donut">
+            <div class="pc-country-donut-center">
+              <strong id="pc-country-donut-total">0</strong>
+              <span>건</span>
+            </div>
+          </div>
+          <div id="pc-country-legend" class="pc-country-legend"></div>
+        </div>
+      </div>
+      <div class="pc-mini-panel">
+        <div class="pc-mini-title">주요 키워드 TOP 6</div>
+        <div id="pc-keyword-bars" class="pc-keyword-bars"></div>
+      </div>
+      <div class="pc-mini-panel pc-today-summary">
+        <div class="pc-mini-title">오늘의 기사</div>
+        <div class="pc-today-big"><strong id="pc-today-total">0</strong><span>건</span></div>
+        <div class="pc-today-subgrid">
+          <div><span>중요</span><strong id="pc-today-important">0</strong></div>
+          <div><span>국가</span><strong id="pc-today-countries">0</strong></div>
+          <div><span>언론사</span><strong id="pc-today-publishers">0</strong></div>
+          <div><span>그룹</span><strong id="pc-today-groups">0</strong></div>
+        </div>
+      </div>
+    </div>
   </section>
 </aside>
 </main>
@@ -28739,6 +29402,196 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }});
 
   window.addEventListener("resize",schedulePcMapUpdate);
+}})();
+</script>
+
+
+<script>
+(function() {{
+  var mapHome = null;
+  var mapPanel = null;
+
+  function isPcDashboard() {{
+    return window.matchMedia("(min-width:1000px)").matches;
+  }}
+
+  function activePanelForDashboard() {{
+    return document.querySelector(".tab-panel.active") || document.querySelector(".tab-panel");
+  }}
+
+  function cardsForDashboard() {{
+    var panel = activePanelForDashboard();
+    if (!panel) return [];
+    return Array.from(panel.querySelectorAll(".preview-card")).filter(function(card) {{
+      return card.style.display !== "none" && !card.hidden;
+    }});
+  }}
+
+  function groupOfDashboard(card) {{
+    return (card.dataset.group || "기타").trim();
+  }}
+
+  function publisherOfDashboard(card) {{
+    return (card.dataset.publisher || ((card.querySelector(".publisher") || {{}}).textContent || "")).trim();
+  }}
+
+  function countryOfDashboard(card) {{
+    return (card.dataset.country || "").trim();
+  }}
+
+  function moveMapForPc() {{
+    mapPanel = mapPanel || document.getElementById("world-map-panel");
+    var rail = document.getElementById("pc-insight-rail");
+    if (!mapPanel || !rail) return;
+
+    if (!mapHome) {{
+      mapHome = document.createComment("world-map-panel-home");
+      mapPanel.parentNode.insertBefore(mapHome, mapPanel);
+    }}
+
+    if (isPcDashboard()) {{
+      if (mapPanel.parentNode !== rail) {{
+        rail.appendChild(mapPanel);
+      }}
+    }} else {{
+      if (mapHome && mapHome.parentNode && mapPanel.parentNode !== mapHome.parentNode) {{
+        mapHome.parentNode.insertBefore(mapPanel, mapHome.nextSibling);
+      }}
+    }}
+  }}
+
+  function buildCategoryStrip() {{
+    var box = document.getElementById("pc-category-strip");
+    if (!box || !isPcDashboard()) return;
+    var cards = cardsForDashboard();
+    var counts = {{}};
+    cards.forEach(function(card) {{
+      var g = groupOfDashboard(card);
+      counts[g] = (counts[g] || 0) + 1;
+    }});
+
+    box.innerHTML = "";
+    var total = document.createElement("button");
+    total.className = "pc-category-chip active";
+    total.type = "button";
+    total.innerHTML = '전체 <strong>' + cards.length + '</strong>';
+    total.addEventListener("click", function() {{
+      var first = activePanelForDashboard();
+      if (first) first.scrollIntoView({{behavior:"smooth",block:"start"}});
+    }});
+    box.appendChild(total);
+
+    Object.entries(counts)
+      .sort(function(a,b) {{ return b[1]-a[1]; }})
+      .slice(0,8)
+      .forEach(function(entry) {{
+        var btn = document.createElement("button");
+        btn.className = "pc-category-chip";
+        btn.type = "button";
+        var label = entry[0] === "타 건설사" ? "주요 건설사" : entry[0];
+        btn.innerHTML = label + ' <strong>' + entry[1] + '</strong>';
+        btn.addEventListener("click", function() {{
+          var target = cards.find(function(card) {{ return groupOfDashboard(card) === entry[0]; }});
+          if (target) target.scrollIntoView({{behavior:"smooth",block:"center"}});
+        }});
+        box.appendChild(btn);
+      }});
+  }}
+
+  function buildMiniAnalytics() {{
+    if (!isPcDashboard()) return;
+    var cards = cardsForDashboard();
+    var countryCounts = {{}};
+    var groupCounts = {{}};
+    var publishers = new Set();
+    var important = 0;
+
+    cards.forEach(function(card) {{
+      var c = countryOfDashboard(card);
+      if (c) countryCounts[c] = (countryCounts[c] || 0) + 1;
+      var g = groupOfDashboard(card);
+      groupCounts[g] = (groupCounts[g] || 0) + 1;
+      var p = publisherOfDashboard(card);
+      if (p) publishers.add(p);
+      if (card.classList.contains("important")) important++;
+    }});
+
+    var totalEl = document.getElementById("pc-country-donut-total");
+    if (totalEl) totalEl.textContent = cards.length;
+
+    var legend = document.getElementById("pc-country-legend");
+    if (legend) {{
+      legend.innerHTML = "";
+      Object.entries(countryCounts)
+        .sort(function(a,b) {{ return b[1]-a[1]; }})
+        .slice(0,4)
+        .forEach(function(entry) {{
+          var row = document.createElement("div");
+          row.className = "pc-country-legend-row";
+          row.innerHTML = '<span>' + entry[0] + '</span><strong>' + entry[1] + '</strong>';
+          legend.appendChild(row);
+        }});
+    }}
+
+    var bars = document.getElementById("pc-keyword-bars");
+    if (bars) {{
+      bars.innerHTML = "";
+      var sorted = Object.entries(groupCounts).sort(function(a,b) {{ return b[1]-a[1]; }}).slice(0,6);
+      var max = sorted.length ? sorted[0][1] : 1;
+      sorted.forEach(function(entry) {{
+        var row = document.createElement("div");
+        row.className = "pc-keyword-row";
+        var label = entry[0] === "타 건설사" ? "주요 건설사" : entry[0];
+        row.innerHTML =
+          '<div class="pc-keyword-label">' + label + '</div>' +
+          '<div class="pc-keyword-bar"><div class="pc-keyword-fill" style="width:' + Math.max(7,(entry[1]/max)*100) + '%"></div></div>' +
+          '<div class="pc-keyword-count">' + entry[1] + '</div>';
+        bars.appendChild(row);
+      }});
+    }}
+
+    var setters = {{
+      "pc-today-total": cards.length,
+      "pc-today-important": important,
+      "pc-today-countries": Object.keys(countryCounts).length,
+      "pc-today-publishers": publishers.size,
+      "pc-today-groups": Object.keys(groupCounts).length
+    }};
+    Object.keys(setters).forEach(function(id) {{
+      var el = document.getElementById(id);
+      if (el) el.textContent = setters[id];
+    }});
+  }}
+
+  function refreshConceptDashboard() {{
+    moveMapForPc();
+    buildCategoryStrip();
+    buildMiniAnalytics();
+  }}
+
+  function scheduleConceptRefresh() {{
+    window.setTimeout(refreshConceptDashboard,120);
+  }}
+
+  if (document.readyState === "loading") {{
+    document.addEventListener("DOMContentLoaded", scheduleConceptRefresh);
+  }} else {{
+    scheduleConceptRefresh();
+  }}
+
+  document.addEventListener("click", function(event) {{
+    if (event.target.closest(".tab-button,.group-title,.country-pin,.continent-button,.important-button")) {{
+      scheduleConceptRefresh();
+    }}
+  }});
+
+  var search = document.getElementById("article-search");
+  if (search) search.addEventListener("input", scheduleConceptRefresh);
+
+  var archive = document.getElementById("archive-date");
+  if (archive) archive.addEventListener("change", scheduleConceptRefresh);
+
+  window.addEventListener("resize", scheduleConceptRefresh);
 }})();
 </script>
 
