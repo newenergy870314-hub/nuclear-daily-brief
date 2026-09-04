@@ -9750,21 +9750,26 @@ main {
 
 
 /* ============================================================
-   FINAL PC DASHBOARD - ACTUAL DOM VERSION / MOBILE UNCHANGED
-   Applies only to desktop >= 1200px
+   FINAL PC ANALYTICS UI / MOBILE UNCHANGED 2026-09-04
+   Desktop only: >=1000px + mouse/trackpad
    ============================================================ */
-@media (min-width:1200px) {
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) {
+  body {
+    background:#c7daed !important;
+  }
+
   .phone {
-    width:min(calc(100% - 32px),1580px) !important;
-    max-width:1580px !important;
+    width:min(calc(100vw - 34px),1680px) !important;
+    max-width:1680px !important;
+    margin:0 auto !important;
   }
 
   main {
     display:grid !important;
-    grid-template-columns:minmax(0,2.15fr) minmax(330px,.85fr) !important;
-    gap:18px !important;
+    grid-template-columns:minmax(0,1fr) 430px !important;
+    gap:20px !important;
     align-items:start !important;
-    padding:0 0 42px !important;
+    padding-bottom:48px !important;
   }
 
   #no-results {
@@ -9776,81 +9781,257 @@ main {
     min-width:0 !important;
   }
 
-  #pc-analysis-panel {
+  #pc-insight-rail {
     display:flex !important;
     grid-column:2 !important;
     grid-row:1 !important;
     position:sticky !important;
-    top:18px !important;
-    min-width:0 !important;
+    top:16px !important;
     flex-direction:column !important;
-    gap:12px !important;
+    gap:14px !important;
+    min-width:0 !important;
+    font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif !important;
   }
 
-  .pc-analysis-card {
+  .pc-rail-card {
     background:#f8fbff;
-    border:1px solid rgba(35,57,93,.14);
-    border-radius:14px;
-    box-shadow:0 4px 14px rgba(35,57,93,.07);
-    padding:14px;
+    border:1px solid rgba(34,61,95,.13);
+    border-radius:16px;
+    box-shadow:0 6px 18px rgba(38,68,104,.08);
+    overflow:hidden;
   }
 
-  .pc-analysis-head {
+  .pc-rail-head {
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    gap:8px;
-    margin-bottom:10px;
+    justify-content:space-between;
+    gap:10px;
+    padding:14px 15px 11px;
+    border-bottom:1px solid #e2ebf4;
   }
 
-  .pc-analysis-title {
-    color:#23395d;
-    font-size:15px;
+  .pc-rail-title {
+    color:#173b61;
+    font-size:16px;
+    line-height:1.2;
     font-weight:900;
+    letter-spacing:-.3px;
   }
 
-  .pc-analysis-sub {
-    color:#7b899c;
+  .pc-rail-sub {
+    color:#8592a3;
     font-size:10.5px;
-    font-weight:700;
+    font-weight:750;
     white-space:nowrap;
   }
 
   .pc-kpi-grid {
     display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:repeat(4,minmax(0,1fr));
     gap:8px;
+    padding:12px 14px 14px;
   }
 
   .pc-kpi {
     background:#fff;
-    border:1px solid rgba(35,57,93,.10);
-    border-radius:10px;
-    padding:10px 11px;
+    border:1px solid #e0e8f1;
+    border-radius:11px;
+    padding:10px 8px;
+    text-align:center;
   }
 
   .pc-kpi-label {
-    color:#7a8798;
+    color:#7a899b;
     font-size:10px;
+    line-height:1.2;
     font-weight:800;
-    margin-bottom:4px;
+    margin-bottom:5px;
   }
 
   .pc-kpi-value {
     color:#173b61;
-    font-size:21px;
+    font-size:22px;
     line-height:1;
+    font-weight:950;
+  }
+
+  .pc-focus-list {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding:12px 14px 14px;
+  }
+
+  .pc-focus-item {
+    background:#fff;
+    border:1px solid #e1e9f2;
+    border-radius:11px;
+    padding:10px 11px;
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+
+  .pc-focus-item:hover {
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(43,82,125,.10);
+  }
+
+  .pc-focus-top {
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    align-items:center;
+    margin-bottom:4px;
+  }
+
+  .pc-focus-name {
+    color:#21568b;
+    font-size:11px;
     font-weight:900;
   }
 
-  .pc-chip-wrap {
+  .pc-focus-count {
+    color:#b77900;
+    background:#fff2bd;
+    border-radius:999px;
+    padding:2px 7px;
+    font-size:10px;
+    font-weight:900;
+  }
+
+  .pc-focus-title {
+    color:#263f5d;
+    font-size:12px;
+    line-height:1.42;
+    font-weight:800;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+
+  .pc-focus-meta {
+    color:#8a97a8;
+    font-size:9.5px;
+    margin-top:5px;
+  }
+
+  .pc-timeline-card.hyundai .pc-rail-head {
+    background:linear-gradient(90deg,#173b61 0%,#244e7a 100%);
+  }
+
+  .pc-timeline-card.invest .pc-rail-head {
+    background:linear-gradient(90deg,#8a5f00 0%,#b98000 100%);
+  }
+
+  .pc-timeline-card.hyundai .pc-rail-title,
+  .pc-timeline-card.hyundai .pc-rail-sub,
+  .pc-timeline-card.invest .pc-rail-title,
+  .pc-timeline-card.invest .pc-rail-sub {
+    color:#fff;
+  }
+
+  .pc-timeline-wrap {
+    padding:13px 14px 14px;
+  }
+
+  .pc-timeline {
+    position:relative;
+    padding-left:25px;
+  }
+
+  .pc-timeline:before {
+    content:"";
+    position:absolute;
+    left:7px;
+    top:5px;
+    bottom:6px;
+    width:2px;
+    background:#d8e4f0;
+  }
+
+  .pc-timeline-item {
+    position:relative;
+    padding:0 0 15px 0;
+    cursor:pointer;
+  }
+
+  .pc-timeline-item:last-child {
+    padding-bottom:0;
+  }
+
+  .pc-timeline-item:before {
+    content:"";
+    position:absolute;
+    left:-22px;
+    top:5px;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#2a6098;
+    border:2px solid #f8fbff;
+    box-shadow:0 0 0 2px #c8d9ea;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-item:before {
+    background:#b67a00;
+    box-shadow:0 0 0 2px #ead59a;
+  }
+
+  .pc-timeline-date {
+    display:inline-flex;
+    align-items:center;
+    min-width:72px;
+    height:21px;
+    padding:0 7px;
+    border-radius:999px;
+    background:#eaf2f9;
+    color:#486783;
+    font-size:9.5px;
+    font-weight:900;
+    margin-bottom:5px;
+  }
+
+  .pc-timeline-card.invest .pc-timeline-date {
+    background:#fff2c8;
+    color:#916400;
+  }
+
+  .pc-timeline-title {
+    color:#213e5d;
+    font-size:12.5px;
+    line-height:1.42;
+    font-weight:900;
+    letter-spacing:-.15px;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+
+  .pc-timeline-meta {
+    color:#8795a5;
+    font-size:9.5px;
+    line-height:1.35;
+    margin-top:4px;
+  }
+
+  .pc-empty {
+    color:#8c98a7;
+    font-size:11px;
+    line-height:1.5;
+    padding:3px 0;
+  }
+
+  .pc-concentration {
     display:flex;
     flex-wrap:wrap;
-    gap:6px;
+    gap:7px;
+    padding:12px 14px 14px;
   }
 
   .pc-chip {
-    border:1px solid #c8d7e8;
+    border:1px solid #ccdae8;
     background:#fff;
     color:#31597f;
     border-radius:999px;
@@ -9861,87 +10042,35 @@ main {
   }
 
   .pc-chip:hover {
-    background:#edf5fc;
+    background:#eef5fb;
   }
 
-  .pc-timeline {
-    position:relative;
-    padding-left:17px;
-    max-height:520px;
-    overflow:auto;
-  }
-
-  .pc-timeline:before {
-    content:"";
-    position:absolute;
-    left:5px;
-    top:3px;
-    bottom:3px;
-    width:2px;
-    background:#d7e3ef;
-  }
-
-  .pc-timeline-item {
-    position:relative;
-    padding:0 0 13px 10px;
-    cursor:pointer;
-  }
-
-  .pc-timeline-item:before {
-    content:"";
-    position:absolute;
-    left:-15px;
-    top:5px;
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#2b639e;
-    box-shadow:0 0 0 3px #e9f1f9;
-  }
-
-  .pc-timeline-date {
-    color:#8a96a6;
-    font-size:9.5px;
-    font-weight:750;
-    margin-bottom:2px;
-  }
-
-  .pc-timeline-title {
-    color:#244669;
-    font-size:11.5px;
-    line-height:1.38;
-    font-weight:850;
-  }
-
-  .pc-timeline-meta {
-    color:#8a96a6;
-    font-size:9.5px;
-    margin-top:2px;
-  }
-
-  /* Real article DOM: preview-card > preview-copy + card-side */
+  /* Article readability */
   .article-stack {
     grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    gap:12px 14px !important;
+    gap:13px 15px !important;
   }
 
   .preview-card {
-    grid-template-columns:minmax(0,1fr) 118px !important;
+    grid-template-columns:minmax(0,1fr) 122px !important;
     min-width:0 !important;
+    min-height:132px !important;
+    padding:11px 11px 11px 13px !important;
+    border-radius:12px !important;
     overflow:visible !important;
   }
 
   .preview-copy {
     display:block !important;
-    min-width:0 !important;
     width:100% !important;
+    min-width:0 !important;
     overflow:visible !important;
   }
 
   .article-content-column {
     display:block !important;
-    min-width:0 !important;
     width:100% !important;
+    min-width:0 !important;
   }
 
   .meta-row {
@@ -9950,25 +10079,24 @@ main {
     gap:5px !important;
     width:100% !important;
     min-width:0 !important;
-    min-height:22px !important;
+    height:24px !important;
+    margin-bottom:3px !important;
   }
 
   .publisher {
     min-width:0 !important;
-    max-width:42% !important;
+    max-width:44% !important;
     overflow:hidden !important;
     text-overflow:ellipsis !important;
     white-space:nowrap !important;
+    color:#4b5d70 !important;
+    font-size:10.5px !important;
+    font-weight:900 !important;
   }
 
   .status-inline {
     flex:0 0 auto !important;
-  }
-
-  .related-coverage,
-  .coverage-badge {
-    flex:0 1 auto !important;
-    min-width:0 !important;
+    font-size:9.5px !important;
   }
 
   .important-button {
@@ -9978,39 +10106,49 @@ main {
     width:auto !important;
     min-width:34px !important;
     height:22px !important;
-    padding:0 5px !important;
-    white-space:nowrap !important;
-    overflow:visible !important;
+    padding:0 4px !important;
     font-size:11px !important;
     line-height:22px !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
   }
 
   .headline {
+    color:#005dc8 !important;
     font-size:14.5px !important;
-    line-height:1.32 !important;
+    line-height:1.36 !important;
+    font-weight:900 !important;
+    letter-spacing:-.18px !important;
     -webkit-line-clamp:2 !important;
   }
 
   .article-snippet {
-    font-size:11.5px !important;
-    line-height:1.42 !important;
+    color:#58697c !important;
+    font-size:11.4px !important;
+    line-height:1.47 !important;
     -webkit-line-clamp:3 !important;
+    margin-top:4px !important;
   }
 
   .card-side {
-    width:118px !important;
-    min-width:118px !important;
+    width:122px !important;
+    min-width:122px !important;
   }
 
   .preview-image {
-    width:118px !important;
-    height:118px !important;
-    min-height:118px !important;
+    width:122px !important;
+    height:110px !important;
+    min-height:110px !important;
+    border-radius:8px !important;
+  }
+
+  .group-title {
+    font-size:13px !important;
   }
 }
 
-@media (max-width:1199px) {
-  #pc-analysis-panel {
+@media (max-width:999px), (hover:none), (pointer:coarse) {
+  #pc-insight-rail {
     display:none !important;
   }
 }
@@ -10023,7 +10161,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 9.4(금) 10:30 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.4(금) 10:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -13273,7 +13411,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 12개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302393" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">[인사] 산업통상부 실장급</span></a><a class="related-coverage-link" href="https://www.energy-news.co.kr/news/articleView.html?idxno=227835" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지신문</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105024" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">[인사 : 산업통상부]</span></a><a class="related-coverage-link" href="https://www.etnews.com/20260902000456" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.dailian.co.kr/news/view/1685706/%EC%9D%B8%EC%82%AC-%EC%82%B0%EC%97%85%ED%86%B5%EC%83%81%EB%B6%80-2026" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/society/12142483" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[인사] 산업통상부 / 고용노동부 / 시사저널</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105003" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">[인사 : 산업통상부]</span></a><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302339" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">[인사] 산업통상부 부이사관급</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090213042975376" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">[인사]산업통상부</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=53891" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[인사] 산업통상부 - 퍼블릭타임스</span></a><a class="related-coverage-link" href="https://zdnet.co.kr/view/?no=20260902104826" target="_blank" rel="noopener"><span class="related-coverage-publisher">ZDNet Korea</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260902_0003772916" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">[인사]산업통상부</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 12개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302393" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">[인사] 산업통상부 실장급</span></a><a class="related-coverage-link" href="https://www.energy-news.co.kr/news/articleView.html?idxno=227835" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지신문</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105024" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">[인사 : 산업통상부]</span></a><a class="related-coverage-link" href="https://www.dailian.co.kr/news/view/1685706/%EC%9D%B8%EC%82%AC-%EC%82%B0%EC%97%85%ED%86%B5%EC%83%81%EB%B6%80-2026" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260902181553618" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/society/12142483" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[인사] 산업통상부 / 고용노동부 / 시사저널</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105003" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">[인사 : 산업통상부]</span></a><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302339" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">[인사] 산업통상부 부이사관급</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090213042975376" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">[인사]산업통상부</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=53891" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[인사] 산업통상부 - 퍼블릭타임스</span></a><a class="related-coverage-link" href="https://zdnet.co.kr/view/?no=20260902104826" target="_blank" rel="noopener"><span class="related-coverage-publisher">ZDNet Korea</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260902_0003772916" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">[인사]산업통상부</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[9월2일 인사종합] 산업통상부 외</div>
@@ -21980,7 +22118,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/098c8ac21f93dd7d8d35f928.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/3ad9575d3c74e7f2b7a91d14.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -23087,7 +23225,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1fbe9189c7c77889a2d9987a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/1e056173943ffe7fa02c28b1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -23684,7 +23822,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -23787,39 +23925,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=180890"
-  data-title="샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제"
-  data-publisher="알파경제"
-  data-group="현대건설"
-  data-language="ko"
-  data-priority="1"
-  data-published="1788478461"
-  data-country="KR"
-  data-search="샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제 알파경제 현대건설 [알파경제 = 이준현 기자] 울산 에쓰오일 샤힌프로젝트 공사 현장에서 3일 현대건설 하청업체 소속 도장공이 추락해 숨지면서 올해 이 사업장에서 목숨을 잃은 노동자"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">알파경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제</div>
-      <div class="article-snippet">[알파경제 = 이준현 기자] 울산 에쓰오일 샤힌프로젝트 공사 현장에서 3일 현대건설 하청업체 소속 도장공이 추락해 숨지면서 올해 이 사업장에서 목숨을 잃은 노동자</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4b04c5adf450d7912dea90f7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003775893"
   data-title="울산 샤힌 에틸렌시설 건설현장서 노동자 1명 추락사"
   data-publisher="뉴시스"
@@ -23840,7 +23945,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000132" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637241" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">울산 샤힌 에틸렌시설 공사 현장서 근로자 1명 사망 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Securities/2026/09/202609040829292692923c501012_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">[개장 전 주요 공시] 현대건설·형지I&amp;C·BNK금융·에이프로젠바이오 등 - 글로벌이코노믹</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904082659491" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000132" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637241" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">울산 샤힌 에틸렌시설 공사 현장서 근로자 1명 사망 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Securities/2026/09/202609040829292692923c501012_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">[개장 전 주요 공시] 현대건설·형지I&amp;C·BNK금융·에이프로젠바이오 등 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=180890" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">울산 샤힌 에틸렌시설 건설현장서 노동자 1명 추락사</div>
@@ -24026,36 +24131,36 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.theguru.co.kr/news/article.html?no=106692"
-  data-title="1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력"
-  data-publisher="더구루"
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260904102922941"
+  data-title="[단독] 성수3지구, 통합심의 접수…삼성물산 대안설계 반영 추진"
+  data-publisher="아주경제"
   data-group="타 건설사"
   data-language="ko"
   data-priority="1"
-  data-published="1788481370"
+  data-published="1788486144"
   data-country="OTHER"
-  data-search="1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력 더구루 타 건설사 [더구루=김수현 기자] 공사비 1조8000억원에 규모의 서울 강북권 최대 정비사업지인 미아2재정비촉진구역 재개발 사업의 시공사 입찰참여확약서 접수 마감일이 다가오는 가운데, 삼성물산의 단독 입찰 가능성에 무게가 실린다. 4일 정비업계에 따르면 강북구 미아2구역 재개발조합은 지난달 28일 현장설명회를 개최한 데 이어, 오는 6일까지 현장설명회에 참여했던 건설"
+  data-search="[단독] 성수3지구, 통합심의 접수…삼성물산 대안설계 반영 추진 아주경제 타 건설사 성수3지구 [사진=삼성물산 제공] 성수전략정비구역 제3지구가 기존 설계안으로 서울시 통합심의를 신청했다. 조합은 심의 절차와 시공사 선정 작업을 병행하면서 삼성물산의 대안설계를 반영한 최종안을 마련해 사업시행인가까지 속도를 낼 계획이다. 4일 정비업계에 따르면 성수3지구 재개발조합은 이날 성동구청에 정비사업 통합심의를 신청했다. 성동구청이 관련 부서 검토와 협의를 마치면 서울시에 심의 상정을 의뢰한다. 이번 신청은 지난달 27일 열린 제39차 대의원회의 의결에 따른 것이다. 조합은 사업 일정을 늦추지 않기 위해 우선 해안종합건축사사무소 설계안으로 심의를 신청했다. 이"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">더구루</div>
+        <div class="publisher">아주경제</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.theguru.co.kr/news/article.html?no=106692" target="_blank" rel="noopener"><span class="related-coverage-publisher">더구루</span><span class="related-coverage-title">1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력</div>
-      <div class="article-snippet">[더구루=김수현 기자] 공사비 1조8000억원에 규모의 서울 강북권 최대 정비사업지인 미아2재정비촉진구역 재개발 사업의 시공사 입찰참여확약서 접수 마감일이 다가오는 가운데, 삼성물산의 단독 입찰 가능성에 무게가 실린다. 4일 정비업계에 따르면 강북구 미아2구역 재개발조합은 지난달 28일 현장설명회를 개최한 데 이어, 오는 6일까지 현장설명회에 참여했던 건설</div>
+      <div class="headline"><span class="new-badge">NEW</span>[단독] 성수3지구, 통합심의 접수…삼성물산 대안설계 반영 추진</div>
+      <div class="article-snippet">성수3지구 [사진=삼성물산 제공] 성수전략정비구역 제3지구가 기존 설계안으로 서울시 통합심의를 신청했다. 조합은 심의 절차와 시공사 선정 작업을 병행하면서 삼성물산의 대안설계를 반영한 최종안을 마련해 사업시행인가까지 속도를 낼 계획이다. 4일 정비업계에 따르면 성수3지구 재개발조합은 이날 성동구청에 정비사업 통합심의를 신청했다. 성동구청이 관련 부서 검토와 협의를 마치면 서울시에 심의 상정을 의뢰한다. 이번 신청은 지난달 27일 열린 제39차 대의원회의 의결에 따른 것이다. 조합은 사업 일정을 늦추지 않기 위해 우선 해안종합건축사사무소 설계안으로 심의를 신청했다. 이</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/810fcf670588aa730520aeb7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/eb3bff6f23e91191d3eee815.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24146,7 +24251,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719405" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749850" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대우건설, 1438세대 규모 ‘두정역 푸르지오 그랑피크’ 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500153" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466708" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719405" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749850" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대우건설, 1438세대 규모 ‘두정역 푸르지오 그랑피크’ 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관</div>
@@ -24474,39 +24579,6 @@ main {
   </button>
   <div class="article-stack">
 <article class="preview-card"
-  data-url="https://www.electimes.com/news/articleView.html?idxno=372067"
-  data-title="스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’"
-  data-publisher="전기신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1788514331"
-  data-country="KR"
-  data-search="스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’ 전기신문 한국전력 스마트그리드협회와 전력거래소가 분산에너지 생태계 조성을 위해 손잡았다.3일 한국스마트그리드협회(회장 구자균)는 한국전력거래소(이사장 김성진)와 함께 서울 삼성동 코엑스에서 ‘분산자원 확대 대응 및 전력신산업 활성화를 위한 업무협약(mou)’을 체결했다고 밝혔다.이번 협약은 재생에너지 급증에 따른 계통 제약을 극복하고 분산에너지 생태계를 조기에 안착시키기 위해 마련됐다. 양 기관은 협약을 통해 ▲지능형전력망 및 분산자원 기술·제품·서비스 표준화 및 시험·인증 체계 고도화 ▲가상발전소(vpp) 자원 통합계량 표준화 및 계량·봉인 인증체"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전기신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’</div>
-      <div class="article-snippet">스마트그리드협회와 전력거래소가 분산에너지 생태계 조성을 위해 손잡았다.3일 한국스마트그리드협회(회장 구자균)는 한국전력거래소(이사장 김성진)와 함께 서울 삼성동 코엑스에서 ‘분산자원 확대 대응 및 전력신산업 활성화를 위한 업무협약(MOU)’을 체결했다고 밝혔다.이번 협약은 재생에너지 급증에 따른 계통 제약을 극복하고 분산에너지 생태계를 조기에 안착시키기 위해 마련됐다. 양 기관은 협약을 통해 ▲지능형전력망 및 분산자원 기술·제품·서비스 표준화 및 시험·인증 체계 고도화 ▲가상발전소(VPP) 자원 통합계량 표준화 및 계량·봉인 인증체</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/8cf54e3ff426f089143025c8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.pmnews.co.kr/123388"
   data-title="≪국토매일≫ [부고] 이종훈 전 한국전력공사 사장 별세"
   data-publisher="국토매일"
@@ -24701,6 +24773,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4122c8e24174b4804eb667d8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7697"
+  data-title="전력거래소-SG협회 “VPPㆍESS 시장진입 기반 만든다”"
+  data-publisher="인사이트N파워"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788486338"
+  data-country="KR"
+  data-search="전력거래소-sg협회 “vppㆍess 시장진입 기반 만든다” 인사이트n파워 한국전력 재생에너지와 분산자원 확대에 대응해 가상발전소(vpp)와 에너지저장장치(ess) 등 분산유연성 자원의 전력시장 진입을 뒷받침할 표준·계량·시험인증 체계 구축이 본격화된다.한국전력거래소와 한국스마트그리드협회는 지난 3일 서울 삼성동 코엑스에서 ‘분산자원 확대 대응 및 전력신산업 활성화를 위한 업무협약(mou)’을 체결했다. 이번 협약은 재생에너지 증가에 따른 계통 제약에 대응하고 분산에너지 생태계의 조기 안착을 위한 제도적·기술적 기반을 마련하기 위해 추진됐다.양 기관은 협약에 따라 ▲지능형전력망 및 분산자원 기술·제품·서비스 표준화"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=372067" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>전력거래소-SG협회 “VPPㆍESS 시장진입 기반 만든다”</div>
+      <div class="article-snippet">재생에너지와 분산자원 확대에 대응해 가상발전소(VPP)와 에너지저장장치(ESS) 등 분산유연성 자원의 전력시장 진입을 뒷받침할 표준·계량·시험인증 체계 구축이 본격화된다.한국전력거래소와 한국스마트그리드협회는 지난 3일 서울 삼성동 코엑스에서 ‘분산자원 확대 대응 및 전력신산업 활성화를 위한 업무협약(MOU)’을 체결했다. 이번 협약은 재생에너지 증가에 따른 계통 제약에 대응하고 분산에너지 생태계의 조기 안착을 위한 제도적·기술적 기반을 마련하기 위해 추진됐다.양 기관은 협약에 따라 ▲지능형전력망 및 분산자원 기술·제품·서비스 표준화</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0a9922cb03379a68d0303748.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24917,7 +25022,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -24949,7 +25054,40 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/072965655c619a7258b428cd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/b3c63e9028952f1e4059e7cf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.greenpostkorea.co.kr/news/articleView.html?idxno=307402"
+  data-title="김정관, 美 반도체 관세 대응··· “한국만 불리한 조건 안 된다” - 그린포스트코리아"
+  data-publisher="그린포스트코리아"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788485393"
+  data-country="KR"
+  data-search="김정관, 美 반도체 관세 대응··· “한국만 불리한 조건 안 된다” - 그린포스트코리아 그린포스트코리아 원전 관계부처 미국이 반도체 관세를 통상 압박 수단으로 끌어들였다. 대한민국 정부는 즉각 정면 대응에 나섰다. 김정관 산업통상자원부 장관은 워싱턴 현지에서 강력한 방어선을 쳤다"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">그린포스트코리아</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관, 美 반도체 관세 대응··· “한국만 불리한 조건 안 된다” - 그린포스트코리아</div>
+      <div class="article-snippet">미국이 반도체 관세를 통상 압박 수단으로 끌어들였다. 대한민국 정부는 즉각 정면 대응에 나섰다. 김정관 산업통상자원부 장관은 워싱턴 현지에서 강력한 방어선을 쳤다</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7caeb229256ce8d7314058f1.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -24974,7 +25112,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 9개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inews24.com/view/2001939" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">김정관 &quot;韓도 대만식 반도체 관세 혜택 가능&quot;…美와 협의</span></a><a class="related-coverage-link" href="https://www.daejonilbo.com/news/articleView.html?idxno=2298740" target="_blank" rel="noopener"><span class="related-coverage-publisher">대전일보</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 11개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inews24.com/view/2001939" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">김정관 &quot;韓도 대만식 반도체 관세 혜택 가능&quot;…美와 협의</span></a><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201217" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문</span></a><a class="related-coverage-link" href="https://www.daejonilbo.com/news/articleView.html?idxno=2298740" target="_blank" rel="noopener"><span class="related-coverage-publisher">대전일보</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202609040636001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의”</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;</div>
@@ -25094,36 +25232,36 @@ main {
     <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.newsway.co.kr/news/view?ud=2026090408540736379"
-  data-title="김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이"
-  data-publisher="뉴스웨이"
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003775923"
+  data-title="대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령"
+  data-publisher="뉴시스"
   data-group="원전 대미투자"
   data-language="ko"
   data-priority="1"
-  data-published="1788480872"
+  data-published="1788486908"
   data-country="KR"
-  data-search="김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이 뉴스웨이 원전 대미투자 미국 도널드 트럼프 행정부가 미국 내 반도체 생산을 유도하기 위해 해외 반도체 기업을 대상으로 한 표적 관세를 추진하는 가운데, 김정관 산업통상부 장관은 한국이 경쟁국에 비해 불리하지 않은 대우를 받을 것이라는 한미 간 합의 원칙이 지켜질 것으로 전망했다. 김 장관은 3일(현지시간) 미국 워싱턴dc의 한 호텔에서 산업통상부와 대한무역투자진흥공사(코트라)가 개최한 미국 기업 대상 &#x27;투자신고식 및 라운드테이블&#x27; 행사에 참석한 뒤 기자들과"
+  data-search="대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령 뉴시스 원전 대미투자 [세종=뉴시스]김동현 기자 = 정부가 대미 투자 1호 프로젝트 발표 시점을 이달 말 개최되는 유엔총회 전 실시할 지 관심이 커진다. 이재명 대통령이 참석해 도널드 트럼프 대통령과 만날 수 있는 만큼 만남 이전에 선물 보따리를 안길 가능성이 높다는 의견이 나온다. 한미 정상간 만남이 성사된다면 꼬인 실타래를 풀 수 있을 지도 관심이다. 미국의 반도체 관세 부과 방침과 과잉생산 분야의 무역법 301조 결과 발표 등을 앞두고 있는 만큼 9월 정상간 만남이 문제를 해결할 수 있는 분수령이 될 전망이다. 4일 외신에 따르면 김정관 산업부 장관은 지난 3일(현지시간) 미국 워싱"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">뉴스웨이</div>
+        <div class="publisher">뉴시스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.khan.co.kr/article/202609040636001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090408540736379" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이</div>
-      <div class="article-snippet">미국 도널드 트럼프 행정부가 미국 내 반도체 생산을 유도하기 위해 해외 반도체 기업을 대상으로 한 표적 관세를 추진하는 가운데, 김정관 산업통상부 장관은 한국이 경쟁국에 비해 불리하지 않은 대우를 받을 것이라는 한미 간 합의 원칙이 지켜질 것으로 전망했다. 김 장관은 3일(현지시간) 미국 워싱턴DC의 한 호텔에서 산업통상부와 대한무역투자진흥공사(코트라)가 개최한 미국 기업 대상 &#x27;투자신고식 및 라운드테이블&#x27; 행사에 참석한 뒤 기자들과</div>
+      <div class="headline"><span class="new-badge">NEW</span>대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령</div>
+      <div class="article-snippet">[세종=뉴시스]김동현 기자 = 정부가 대미 투자 1호 프로젝트 발표 시점을 이달 말 개최되는 유엔총회 전 실시할 지 관심이 커진다. 이재명 대통령이 참석해 도널드 트럼프 대통령과 만날 수 있는 만큼 만남 이전에 선물 보따리를 안길 가능성이 높다는 의견이 나온다. 한미 정상간 만남이 성사된다면 꼬인 실타래를 풀 수 있을 지도 관심이다. 미국의 반도체 관세 부과 방침과 과잉생산 분야의 무역법 301조 결과 발표 등을 앞두고 있는 만큼 9월 정상간 만남이 문제를 해결할 수 있는 분수령이 될 전망이다. 4일 외신에 따르면 김정관 산업부 장관은 지난 3일(현지시간) 미국 워싱</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2979623751ab703f02ec86ff.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/4f2acd7d0eb26c03d669761b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25265,7 +25403,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -25334,7 +25472,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6050"
   data-title="원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문"
   data-publisher="에너지안전신문"
@@ -25358,7 +25496,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문</div>
+      <div class="headline">원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문</div>
       <div class="article-snippet">한국원자력연구원(이하 원자력연)이 덴마크 원자력에너지 기업 솔트포스(옛 시보그)와 약 30억 7,000만 원(226만 2천 달러) 규모의 용융염원자로(MSR) 핵</div>
     </div>
   </div>
@@ -25367,7 +25505,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776016"
   data-title="러 외무 &quot;한미일 군사협력 확대 우려…대량살상무기 위험 높여&quot;"
   data-publisher="뉴시스"
@@ -25391,12 +25529,111 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>러 외무 &quot;한미일 군사협력 확대 우려…대량살상무기 위험 높여&quot;</div>
+      <div class="headline">러 외무 &quot;한미일 군사협력 확대 우려…대량살상무기 위험 높여&quot;</div>
       <div class="article-snippet">[서울=뉴시스]신정원 기자 = 세르게이 라브로프 러시아 외무장관은 3일(현지 시간) 한·미·일 군사협력 확대에 우려를 나타내며 동북아에서 대량살상무기 확산 위험이 커질 수 있다고 주장했다. 타스통신에 따르면 라브로프 장관은 이날 블라디보스토크에서 열린 동방경제포럼(EEF) 중 즈나니예(지식) 소사이어티가 주최한 강연에서 우크라이나 전쟁과 유럽의 군사력 증강, 북대서양조약기구(NATO·나토) 및 유럽연합(EU) 정책 등에 대해 발언했다. 그는 특히 아시아·태평양 지역 정세와 관련해 &quot;미국과 일본, 한국 간 군사협력이 확대되고 있다&quot;며 &quot;한국과, 최근에는 다카이치 사나에</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3c8cbbda5e1ff1305471b49e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003776321"
+  data-title="삼성증권, K-모멘텀 우수기업 IR 행사 개최"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788486697"
+  data-country="KR"
+  data-search="삼성증권, k-모멘텀 우수기업 ir 행사 개최 뉴시스 원자력 [서울=뉴시스] 강수윤 기자 = 삼성증권은 최근 서초동 삼성금융캠퍼스에서 조선, 방산, 원자력, 모빌리티 분야 유망 기업을 대상으로 &#x27;kss ir day&#x27;를 열었다고 4일 밝혔다. &#x27;더 파워 오브 코리아 k-모멘텀(the power of korea: k-momentum)&#x27;을 주제로 열린 행사에는 사전 신청한 벤처캐피털(vc), 자산운용사, 일반법인 등 기관 및 기관급 투자자 200여 명이 참석했다. 한영수 삼성증권 애널리스트의 &#x27;슈퍼 사이클&#x27; 주제 발표로 시작해 그린광학, 센서뷰, 에너토크 등 상장·비상장 유망기업 17개사의 ceo와 ir 담당자가 직접 기술력과 성장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>삼성증권, K-모멘텀 우수기업 IR 행사 개최</div>
+      <div class="article-snippet">[서울=뉴시스] 강수윤 기자 = 삼성증권은 최근 서초동 삼성금융캠퍼스에서 조선, 방산, 원자력, 모빌리티 분야 유망 기업을 대상으로 &#x27;KSS IR Day&#x27;를 열었다고 4일 밝혔다. &#x27;더 파워 오브 코리아 K-모멘텀(The Power of Korea: K-Momentum)&#x27;을 주제로 열린 행사에는 사전 신청한 벤처캐피털(VC), 자산운용사, 일반법인 등 기관 및 기관급 투자자 200여 명이 참석했다. 한영수 삼성증권 애널리스트의 &#x27;슈퍼 사이클&#x27; 주제 발표로 시작해 그린광학, 센서뷰, 에너토크 등 상장·비상장 유망기업 17개사의 CEO와 IR 담당자가 직접 기술력과 성장</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/80f1ac3ede6218efdf876004.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=105072"
+  data-title="원자력산업환경복원협회, 원자력시설 해체 수요에 선제적 대응…방사성폐기물협회와 ‘맞손’"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788484892"
+  data-country="KR"
+  data-search="원자력산업환경복원협회, 원자력시설 해체 수요에 선제적 대응…방사성폐기물협회와 ‘맞손’ 에너지플랫폼뉴스 원자력 [에너지플랫폼뉴스 박병인 기자] 원자력산업환경복원협회가 원자력시설 해체 수요 급증에 선제적으로 대응하기 위해 방사성폐기물협회와 협력하기로 했다.한국원자력산업환경복원협회(kondia, 회장 김두일)와 한국방사성폐기물협회(korama, 회장 송명재)는 방사성폐기물 처리·처분 사업의 중요성과 원자력시설의 해체 수요 급증에 대응하기 위한 관련산업의 인프라 강화 및 이를 위한 상호 협력 기반을 마련하기 위해 3일 방사성폐기물협회 회의실에서 업무협약(mou) 체결식을 개최했다.이날 협약식에는 원자력환경복원협회 김두일 회장, 심중호 이사, 장호"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력산업환경복원협회, 원자력시설 해체 수요에 선제적 대응…방사성폐기물협회와 ‘맞손’</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 원자력산업환경복원협회가 원자력시설 해체 수요 급증에 선제적으로 대응하기 위해 방사성폐기물협회와 협력하기로 했다.한국원자력산업환경복원협회(KONDIA, 회장 김두일)와 한국방사성폐기물협회(KORAMA, 회장 송명재)는 방사성폐기물 처리·처분 사업의 중요성과 원자력시설의 해체 수요 급증에 대응하기 위한 관련산업의 인프라 강화 및 이를 위한 상호 협력 기반을 마련하기 위해 3일 방사성폐기물협회 회의실에서 업무협약(MOU) 체결식을 개최했다.이날 협약식에는 원자력환경복원협회 김두일 회장, 심중호 이사, 장호</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/101382a015585fc6739859ef.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003264438&amp;PAGE_CD=N0002&amp;BLCK_NO=&amp;CMPT_CD=M0147"
+  data-title="&quot;울진은 어차피 죽는 땅&quot; 핵발전소가 삼킨 마을의 현주소"
+  data-publisher="오마이뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788484380"
+  data-country="KR"
+  data-search="&quot;울진은 어차피 죽는 땅&quot; 핵발전소가 삼킨 마을의 현주소 오마이뉴스 원자력 기자올여름이 남은 생애에서 가장 시원한 여름일 것이라는 말이 더 이상 농담이 아니게 됐다. 그런데 정부는 기후위기 대응을 미뤄둔 채 더 많은 발전소를 짓고 더 많은 송전탑을 세우겠다고 한다.9월 1일부터 16일까지 네 곳에서 출발한 사람들"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">오마이뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;울진은 어차피 죽는 땅&quot; 핵발전소가 삼킨 마을의 현주소</div>
+      <div class="article-snippet">기자올여름이 남은 생애에서 가장 시원한 여름일 것이라는 말이 더 이상 농담이 아니게 됐다. 그런데 정부는 기후위기 대응을 미뤄둔 채 더 많은 발전소를 짓고 더 많은 송전탑을 세우겠다고 한다.9월 1일부터 16일까지 네 곳에서 출발한 사람들</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8f261d03d8885095de2bb801.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25499,7 +25736,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260904084651558"
   data-title="베트남 국회의장, 6~9일 방한...수교 35주년 앞두고 외교 속도전"
   data-publisher="아주경제"
@@ -25523,7 +25760,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>베트남 국회의장, 6~9일 방한...수교 35주년 앞두고 외교 속도전</div>
+      <div class="headline">베트남 국회의장, 6~9일 방한...수교 35주년 앞두고 외교 속도전</div>
       <div class="article-snippet">쩐 타인 만 국회 의장 [사진=베트남 국회 포털] 쩐 타인 만 베트남 국회의장이 한국을 공식 방문한다. 한국과 베트남이 포괄적 전략 동반자 관계를 바탕으로 교역, 투자, 첨단기술, 인적교류 협력을 넓히는 가운데 양국 의회 협력이 다시 전면에 부상했다. 4일(현지 시각) VnExpress 등 현지 매체를 종합하면, 쩐 타인 만 국회의장과 부인, 베트남 고위급 대표단은 조정식 국회의장 초청으로 오는 6일부터 9일까지 한국을 공식 방문한다. 이번 방한은 양국이 2022년 포괄적 전략 동반자 관계를 수립한 이후 의회 차원의 협력을 구체화하는 계기로 평가된다. 한국과 베트남</div>
     </div>
   </div>
@@ -26151,7 +26388,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">10건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26250,6 +26487,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c8da7c259e18cd7cc5f0ab41.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260904082659491"
+  data-title="샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망"
+  data-publisher="아주경제"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788485884"
+  data-country="KR"
+  data-search="샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망 아주경제 현대건설 울산 샤힌프로젝트[사진=dl이앤씨] 현대건설이 시공하는 울산 샤힌프로젝트 현장에서 50대 작업자가 13ｍ 높이에서 추락해 숨지는 중대재해가 발생했다.   현대건설은 4일 공시를 통해 전날인 3일 오후 울산 울주군 온산읍 학남리 ‘샤힌 에틸렌시설 건설공사 pkg1’ 현장에서 사망사고가 발생했다고 밝혔다.   사고는 3일 오후 2시50분께 발생했다. 재해자는 뿜칠 작업을 지원하기 위해 안전난간대가 설치된 안쪽에서 몸을 내밀어 뿜칠 호스를 당기던 중 균형을 잃고 약 13ｍ 높이에서 추락한 것으로 파악됐다. 사고 직후 심정지 상태로 병"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</div>
+      <div class="article-snippet">울산 샤힌프로젝트[사진=DL이앤씨] 현대건설이 시공하는 울산 샤힌프로젝트 현장에서 50대 작업자가 13ｍ 높이에서 추락해 숨지는 중대재해가 발생했다.   현대건설은 4일 공시를 통해 전날인 3일 오후 울산 울주군 온산읍 학남리 ‘샤힌 에틸렌시설 건설공사 PKG1’ 현장에서 사망사고가 발생했다고 밝혔다.   사고는 3일 오후 2시50분께 발생했다. 재해자는 뿜칠 작업을 지원하기 위해 안전난간대가 설치된 안쪽에서 몸을 내밀어 뿜칠 호스를 당기던 중 균형을 잃고 약 13ｍ 높이에서 추락한 것으로 파악됐다. 사고 직후 심정지 상태로 병</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -26373,7 +26643,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000132" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637241" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">울산 샤힌 에틸렌시설 공사 현장서 근로자 1명 사망 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Securities/2026/09/202609040829292692923c501012_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">[개장 전 주요 공시] 현대건설·형지I&amp;C·BNK금융·에이프로젠바이오 등 - 글로벌이코노믹</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260904082659491" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">샤힌프로젝트서 13ｍ 추락한 50대 하청 노동자 사망</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000132" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">현대건설 울산 샤힌 에틸렌시설 건설현장서 노동자 1명 사망</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637241" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">울산 샤힌 에틸렌시설 공사 현장서 근로자 1명 사망 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Securities/2026/09/202609040829292692923c501012_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">[개장 전 주요 공시] 현대건설·형지I&amp;C·BNK금융·에이프로젠바이오 등 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.alphabiz.co.kr/news/articleView.html?idxno=180890" target="_blank" rel="noopener"><span class="related-coverage-publisher">알파경제</span><span class="related-coverage-title">샤힌프로젝트서 도장공 추락사…현대건설 구간 69일 만에 또 사망 - 알파경제</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">울산 샤힌 에틸렌시설 건설현장서 노동자 1명 추락사</div>
@@ -26457,7 +26727,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">20건</span>
+    <span class="group-count">23건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26592,6 +26862,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260904102922941"
+  data-title="[단독] 성수3지구, 통합심의 접수…삼성물산 대안설계 반영 추진"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788486144"
+  data-country="OTHER"
+  data-search="[단독] 성수3지구, 통합심의 접수…삼성물산 대안설계 반영 추진 아주경제 타 건설사 성수3지구 [사진=삼성물산 제공] 성수전략정비구역 제3지구가 기존 설계안으로 서울시 통합심의를 신청했다. 조합은 심의 절차와 시공사 선정 작업을 병행하면서 삼성물산의 대안설계를 반영한 최종안을 마련해 사업시행인가까지 속도를 낼 계획이다. 4일 정비업계에 따르면 성수3지구 재개발조합은 이날 성동구청에 정비사업 통합심의를 신청했다. 성동구청이 관련 부서 검토와 협의를 마치면 서울시에 심의 상정을 의뢰한다. 이번 신청은 지난달 27일 열린 제39차 대의원회의 의결에 따른 것이다. 조합은 사업 일정을 늦추지 않기 위해 우선 해안종합건축사사무소 설계안으로 심의를 신청했다. 이"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.theguru.co.kr/news/article.html?no=106692" target="_blank" rel="noopener"><span class="related-coverage-publisher">더구루</span><span class="related-coverage-title">1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[단독] 성수3지구, 통합심의 접수…삼성물산 대안설계 반영 추진</div>
+      <div class="article-snippet">성수3지구 [사진=삼성물산 제공] 성수전략정비구역 제3지구가 기존 설계안으로 서울시 통합심의를 신청했다. 조합은 심의 절차와 시공사 선정 작업을 병행하면서 삼성물산의 대안설계를 반영한 최종안을 마련해 사업시행인가까지 속도를 낼 계획이다. 4일 정비업계에 따르면 성수3지구 재개발조합은 이날 성동구청에 정비사업 통합심의를 신청했다. 성동구청이 관련 부서 검토와 협의를 마치면 서울시에 심의 상정을 의뢰한다. 이번 신청은 지난달 27일 열린 제39차 대의원회의 의결에 따른 것이다. 조합은 사업 일정을 늦추지 않기 위해 우선 해안종합건축사사무소 설계안으로 심의를 신청했다. 이</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/eb3bff6f23e91191d3eee815.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106692"
   data-title="1.8조 강북 미아2구역에도 래미안 깃발 꽂나..삼성물산 단독입찰 유력"
@@ -26621,7 +26924,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/810fcf670588aa730520aeb7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.theguru.co.kr/data/photos/20260936/art_17884801300875_406843.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26758,6 +27061,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.viva100.com/article/20260904500153"
+  data-title="대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작"
+  data-publisher="브릿지경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788490800"
+  data-country="OTHER"
+  data-search="대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작 브릿지경제 타 건설사 대우건설은 충남 천안시 서북구 성정동 일원에 공급하는 ‘두정역 푸르지오 그랑피크’ 견본주택을 4일 열고 분양에 나선다고 밝혔다. 두정역 푸르지오 그랑피크는 충남 천안시 성정동 일원에 지하 3층~지상 최고 35층, 10개동, 총 1438가구 규모로 조성된다. 전용면적은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">브릿지경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작</div>
+      <div class="article-snippet">대우건설은 충남 천안시 서북구 성정동 일원에 공급하는 ‘두정역 푸르지오 그랑피크’ 견본주택을 4일 열고 분양에 나선다고 밝혔다. 두정역 푸르지오 그랑피크는 충남 천안시 성정동 일원에 지하 3층~지상 최고 35층, 10개동, 총 1438가구 규모로 조성된다. 전용면적은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/04/.cache/512/20260904500150.jpg?v=20260904105707" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466708"
+  data-title="대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관"
+  data-publisher="이뉴스투데이"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788484662"
+  data-country="OTHER"
+  data-search="대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관 이뉴스투데이 타 건설사 [이뉴스투데이 신지원 기자] 대우건설은 충청남도 천안시에 공급하는 ‘두정역 푸르지오 그랑피크’의 견본주택을 개관하고 본격적인 분양 일정에 돌입한다고 4일 밝혔다.‘두정역 푸르지오 그랑피크’는 충청남도 천안시 서북구 성정동 511번지 일원에 위치하며, 지하 3층~지상 35층, 10개동,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이뉴스투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관</div>
+      <div class="article-snippet">[이뉴스투데이 신지원 기자] 대우건설은 충청남도 천안시에 공급하는 ‘두정역 푸르지오 그랑피크’의 견본주택을 개관하고 본격적인 분양 일정에 돌입한다고 4일 밝혔다.‘두정역 푸르지오 그랑피크’는 충청남도 천안시 서북구 성정동 511번지 일원에 위치하며, 지하 3층~지상 35층, 10개동,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.enewstoday.co.kr/news/thumbnail/202609/2466708_1308483_13_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.cstimes.com/news/articleView.html?idxno=719405"
   data-title="대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관"
   data-publisher="컨슈머타임스"
@@ -26844,7 +27213,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 5개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719405" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749850" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대우건설, 1438세대 규모 ‘두정역 푸르지오 그랑피크’ 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260904500153" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 오픈… 14일 청약 시작</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2466708" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719405" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">대우건설, 천안 &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/2026090409333125522aa6f4cdad_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">대우건설, 천안 성정동에 1438가구 ‘두정역 푸르지오 그랑피크’ 분양 돌입 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260904010001647" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 견본주택 개관…1438가구 공급</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=749850" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대우건설, 1438세대 규모 ‘두정역 푸르지오 그랑피크’ 견본주택 4일 개관</span></a><a class="related-coverage-link" href="https://biz.chosun.com/real_estate/real_estate_general/2026/09/04/KEB3EWKIERASFJOFFOXWBQX6ZA/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선비즈</span><span class="related-coverage-title">대우건설, ‘두정역 푸르지오 그랑피크’ 분양… 15일 1순위 접수</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">대우건설, &#x27;두정역 푸르지오 그랑피크&#x27; 견본주택 개관</div>
@@ -27267,7 +27636,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">12건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27498,6 +27867,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4122c8e24174b4804eb667d8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.inpnews.kr/news/articleView.html?idxno=7697"
+  data-title="전력거래소-SG협회 “VPPㆍESS 시장진입 기반 만든다”"
+  data-publisher="인사이트N파워"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788486338"
+  data-country="KR"
+  data-search="전력거래소-sg협회 “vppㆍess 시장진입 기반 만든다” 인사이트n파워 한국전력 재생에너지와 분산자원 확대에 대응해 가상발전소(vpp)와 에너지저장장치(ess) 등 분산유연성 자원의 전력시장 진입을 뒷받침할 표준·계량·시험인증 체계 구축이 본격화된다.한국전력거래소와 한국스마트그리드협회는 지난 3일 서울 삼성동 코엑스에서 ‘분산자원 확대 대응 및 전력신산업 활성화를 위한 업무협약(mou)’을 체결했다. 이번 협약은 재생에너지 증가에 따른 계통 제약에 대응하고 분산에너지 생태계의 조기 안착을 위한 제도적·기술적 기반을 마련하기 위해 추진됐다.양 기관은 협약에 따라 ▲지능형전력망 및 분산자원 기술·제품·서비스 표준화"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">인사이트N파워</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.electimes.com/news/articleView.html?idxno=372067" target="_blank" rel="noopener"><span class="related-coverage-publisher">전기신문</span><span class="related-coverage-title">스마트그리드협회-전력거래소, 분산에너지 생태계 조성 ‘맞손’</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>전력거래소-SG협회 “VPPㆍESS 시장진입 기반 만든다”</div>
+      <div class="article-snippet">재생에너지와 분산자원 확대에 대응해 가상발전소(VPP)와 에너지저장장치(ESS) 등 분산유연성 자원의 전력시장 진입을 뒷받침할 표준·계량·시험인증 체계 구축이 본격화된다.한국전력거래소와 한국스마트그리드협회는 지난 3일 서울 삼성동 코엑스에서 ‘분산자원 확대 대응 및 전력신산업 활성화를 위한 업무협약(MOU)’을 체결했다. 이번 협약은 재생에너지 증가에 따른 계통 제약에 대응하고 분산에너지 생태계의 조기 안착을 위한 제도적·기술적 기반을 마련하기 위해 추진됐다.양 기관은 협약에 따라 ▲지능형전력망 및 분산자원 기술·제품·서비스 표준화</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0a9922cb03379a68d0303748.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27780,7 +28182,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">17건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27812,7 +28214,40 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/072965655c619a7258b428cd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/b3c63e9028952f1e4059e7cf.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.greenpostkorea.co.kr/news/articleView.html?idxno=307402"
+  data-title="김정관, 美 반도체 관세 대응··· “한국만 불리한 조건 안 된다” - 그린포스트코리아"
+  data-publisher="그린포스트코리아"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788485393"
+  data-country="KR"
+  data-search="김정관, 美 반도체 관세 대응··· “한국만 불리한 조건 안 된다” - 그린포스트코리아 그린포스트코리아 원전 관계부처 미국이 반도체 관세를 통상 압박 수단으로 끌어들였다. 대한민국 정부는 즉각 정면 대응에 나섰다. 김정관 산업통상자원부 장관은 워싱턴 현지에서 강력한 방어선을 쳤다"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">그린포스트코리아</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관, 美 반도체 관세 대응··· “한국만 불리한 조건 안 된다” - 그린포스트코리아</div>
+      <div class="article-snippet">미국이 반도체 관세를 통상 압박 수단으로 끌어들였다. 대한민국 정부는 즉각 정면 대응에 나섰다. 김정관 산업통상자원부 장관은 워싱턴 현지에서 강력한 방어선을 쳤다</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7caeb229256ce8d7314058f1.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27846,6 +28281,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://image.inews24.com/v1/fdff4b55168475.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.meconomynews.com/news/articleView.html?idxno=201217"
+  data-title="김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문"
+  data-publisher="시장경제"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788484154"
+  data-country="KR"
+  data-search="김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문 시장경제 원전 관계부처 김정관 산업통상부 장관이 3일(현지시간) 미국이 검토 중인 반도체 관세와 관련해 &quot;한국을 경쟁국에 비해 불리하지 않게 대우한다는 정신 아래 논의가 진행되고 있다&quot;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">시장경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 3일(현지시간) 미국이 검토 중인 반도체 관세와 관련해 &quot;한국을 경쟁국에 비해 불리하지 않게 대우한다는 정신 아래 논의가 진행되고 있다&quot;</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.meconomynews.com/news/photo/202609/201217_202496_711.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27903,7 +28371,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 9개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inews24.com/view/2001939" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">김정관 &quot;韓도 대만식 반도체 관세 혜택 가능&quot;…美와 협의</span></a><a class="related-coverage-link" href="https://www.daejonilbo.com/news/articleView.html?idxno=2298740" target="_blank" rel="noopener"><span class="related-coverage-publisher">대전일보</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 11개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.inews24.com/view/2001939" target="_blank" rel="noopener"><span class="related-coverage-publisher">아이뉴스24</span><span class="related-coverage-title">김정관 &quot;韓도 대만식 반도체 관세 혜택 가능&quot;…美와 협의</span></a><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201217" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">김정관, 美 반도체 관세 앞두고 &quot;불리하지 않은 대우 정신 유지&quot; - 시장경제신문</span></a><a class="related-coverage-link" href="https://www.daejonilbo.com/news/articleView.html?idxno=2298740" target="_blank" rel="noopener"><span class="related-coverage-publisher">대전일보</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.segye.com/newsView/20260904501480" target="_blank" rel="noopener"><span class="related-coverage-publisher">세계일보</span><span class="related-coverage-title">김정관 &quot;美반도체 관세 &#x27;불리하지 않은 대우&#x27; 정신 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10862369" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">방미 김정관 “美반도체 관세 ‘불리하지 않은 대우’ 원칙 바탕으로 논의”</span></a><a class="related-coverage-link" href="https://www.edaily.co.kr/News/Read?newsId=02460006645576840&amp;mediaCodeNo=257" target="_blank" rel="noopener"><span class="related-coverage-publisher">이데일리</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090406501167694" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">김정관 &#x27;美 반도체 관세 &#x27;불리하지 않은 대우&#x27; 원칙 논의&#x27;</span></a><a class="related-coverage-link" href="https://www.khan.co.kr/article/202609040636001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의”</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090406231234612" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">김정관 장관 &quot;美 반도체 관세, 경쟁국보다 불리하지 않게 논의&quot;</span></a><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260904000041" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">김정관 장관 &quot;미 반도체 관세 경쟁국 비해 불리하지 않은 대우 하에 논의&quot;</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2621751?trc=main_top_sub" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">김정관 “美 반도체 관세, 경쟁국보다 불리하지 않게 논의”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">김정관 &quot;美 반도체 관세, 韓 불리하지 않은 대우 원칙 하에 논의&quot;</div>
@@ -28044,6 +28512,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://www.imaeil.com/photos/2026/09/04/2026090406483953650_l.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.khan.co.kr/article/202609040636001"
+  data-title="김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의”"
+  data-publisher="경향신문"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788471360"
+  data-country="KR"
+  data-search="김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의” 경향신문 원전 관계부처 김정관 산업통상부 장관이 도널드 트럼프 미국 행정부가 검토하는 반도체 관세와 관련해 한국을 경쟁국보다 불리하지 않게 대우한다는 원칙하에 논의가 진행되고 있다고 밝혔다. 김 장관은 3일(현지시간) 워싱턴에서 열린 미국 기업의 투자 유치 행사에서 취재진을 만나 “지난 10월 관세 협상을 할 때 이미 (미국이) 그같이 이야기한 적이 있다”며 한·미 정상회담..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">경향신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">김정관 “미 반도체 관세, ‘불리하지 않은 대우’ 원칙하에 논의”</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 도널드 트럼프 미국 행정부가 검토하는 반도체 관세와 관련해 한국을 경쟁국보다 불리하지 않게 대우한다는 원칙하에 논의가 진행되고 있다고 밝혔다. 김 장관은 3일(현지시간) 워싱턴에서 열린 미국 기업의 투자 유치 행사에서 취재진을 만나 “지난 10월 관세 협상을 할 때 이미 (미국이) 그같이 이야기한 적이 있다”며 한·미 정상회담...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://img.khan.co.kr/news/2026/09/04/news-p.v1.20260904.f068f9edddc84889818ffd0cb8ede6cf_P1.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28254,6 +28755,39 @@ main {
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003775923"
+  data-title="대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788486908"
+  data-country="KR"
+  data-search="대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령 뉴시스 원전 대미투자 [세종=뉴시스]김동현 기자 = 정부가 대미 투자 1호 프로젝트 발표 시점을 이달 말 개최되는 유엔총회 전 실시할 지 관심이 커진다. 이재명 대통령이 참석해 도널드 트럼프 대통령과 만날 수 있는 만큼 만남 이전에 선물 보따리를 안길 가능성이 높다는 의견이 나온다. 한미 정상간 만남이 성사된다면 꼬인 실타래를 풀 수 있을 지도 관심이다. 미국의 반도체 관세 부과 방침과 과잉생산 분야의 무역법 301조 결과 발표 등을 앞두고 있는 만큼 9월 정상간 만남이 문제를 해결할 수 있는 분수령이 될 전망이다. 4일 외신에 따르면 김정관 산업부 장관은 지난 3일(현지시간) 미국 워싱"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090408540736379" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대미투자 유엔총회 전 발표하나…한미 관세 꼬인 실타래 9월 분수령</div>
+      <div class="article-snippet">[세종=뉴시스]김동현 기자 = 정부가 대미 투자 1호 프로젝트 발표 시점을 이달 말 개최되는 유엔총회 전 실시할 지 관심이 커진다. 이재명 대통령이 참석해 도널드 트럼프 대통령과 만날 수 있는 만큼 만남 이전에 선물 보따리를 안길 가능성이 높다는 의견이 나온다. 한미 정상간 만남이 성사된다면 꼬인 실타래를 풀 수 있을 지도 관심이다. 미국의 반도체 관세 부과 방침과 과잉생산 분야의 무역법 301조 결과 발표 등을 앞두고 있는 만큼 9월 정상간 만남이 문제를 해결할 수 있는 분수령이 될 전망이다. 4일 외신에 따르면 김정관 산업부 장관은 지난 3일(현지시간) 미국 워싱</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4f2acd7d0eb26c03d669761b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsway.co.kr/news/view?ud=2026090408540736379"
   data-title="김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이"
@@ -28275,7 +28809,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.khan.co.kr/article/202609040636001" target="_blank" rel="noopener"><span class="related-coverage-publisher">경향신문</span><span class="related-coverage-title">김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”</span></a></div>
+        
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">김정관 &quot;美 반도체 관세 韓 불리하지 않을 것...9월 대미투자 1호 발표&quot; - 뉴스웨이</div>
@@ -28354,39 +28888,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.khan.co.kr/article/202609040636001"
-  data-title="김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”"
-  data-publisher="경향신문"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="1"
-  data-published="1788471360"
-  data-country="KR"
-  data-search="김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표” 경향신문 원전 대미투자 김정관 산업통상부 장관이 도널드 트럼프 미국 행정부가 검토하는 반도체 관세와 관련해 한국을 경쟁국보다 불리하지 않게 대우한다는 원칙하에 논의가 진행되고 있다고 밝혔다. 김 장관은 3일(현지시간) 워싱턴에서 열린 미국 기업의 투자 유치 행사에서 취재진을 만나 “지난 10월 관세 협상을 할 때 이미 (미국이) 그같이 이야기한 적이 있다”며 한·미 정상회담..."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">경향신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">김정관 “미 반도체 관세 ‘불리하지 않은 대우’ 정신하에 논의···대미 투자 1호, 9월 중 발표”</div>
-      <div class="article-snippet">김정관 산업통상부 장관이 도널드 트럼프 미국 행정부가 검토하는 반도체 관세와 관련해 한국을 경쟁국보다 불리하지 않게 대우한다는 원칙하에 논의가 진행되고 있다고 밝혔다. 김 장관은 3일(현지시간) 워싱턴에서 열린 미국 기업의 투자 유치 행사에서 취재진을 만나 “지난 10월 관세 협상을 할 때 이미 (미국이) 그같이 이야기한 적이 있다”며 한·미 정상회담...</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://img.khan.co.kr/news/2026/09/04/news-p.v1.20260904.f068f9edddc84889818ffd0cb8ede6cf_P1.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.fnnews.com/news/202609040626334987"
   data-title="김정관 장관 &quot;美 반도체 관세, 韓 불리하지 않게 논의... 대미투자 발표 9월 내 마무리&quot;"
   data-publisher="파이낸셜뉴스"
@@ -28458,7 +28959,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">17건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28527,7 +29028,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6050"
   data-title="원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문"
   data-publisher="에너지안전신문"
@@ -28551,7 +29052,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문</div>
+      <div class="headline">원자력연구원, 덴마크 솔트포스(Saltfoss)에 약 30억 원 규모 MSR 기술 수출 - 에너지안전신문</div>
       <div class="article-snippet">한국원자력연구원(이하 원자력연)이 덴마크 원자력에너지 기업 솔트포스(옛 시보그)와 약 30억 7,000만 원(226만 2천 달러) 규모의 용융염원자로(MSR) 핵</div>
     </div>
   </div>
@@ -28560,7 +29061,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260904_0003776016"
   data-title="러 외무 &quot;한미일 군사협력 확대 우려…대량살상무기 위험 높여&quot;"
   data-publisher="뉴시스"
@@ -28584,12 +29085,111 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>러 외무 &quot;한미일 군사협력 확대 우려…대량살상무기 위험 높여&quot;</div>
+      <div class="headline">러 외무 &quot;한미일 군사협력 확대 우려…대량살상무기 위험 높여&quot;</div>
       <div class="article-snippet">[서울=뉴시스]신정원 기자 = 세르게이 라브로프 러시아 외무장관은 3일(현지 시간) 한·미·일 군사협력 확대에 우려를 나타내며 동북아에서 대량살상무기 확산 위험이 커질 수 있다고 주장했다. 타스통신에 따르면 라브로프 장관은 이날 블라디보스토크에서 열린 동방경제포럼(EEF) 중 즈나니예(지식) 소사이어티가 주최한 강연에서 우크라이나 전쟁과 유럽의 군사력 증강, 북대서양조약기구(NATO·나토) 및 유럽연합(EU) 정책 등에 대해 발언했다. 그는 특히 아시아·태평양 지역 정세와 관련해 &quot;미국과 일본, 한국 간 군사협력이 확대되고 있다&quot;며 &quot;한국과, 최근에는 다카이치 사나에</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3c8cbbda5e1ff1305471b49e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260904_0003776321"
+  data-title="삼성증권, K-모멘텀 우수기업 IR 행사 개최"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788486697"
+  data-country="KR"
+  data-search="삼성증권, k-모멘텀 우수기업 ir 행사 개최 뉴시스 원자력 [서울=뉴시스] 강수윤 기자 = 삼성증권은 최근 서초동 삼성금융캠퍼스에서 조선, 방산, 원자력, 모빌리티 분야 유망 기업을 대상으로 &#x27;kss ir day&#x27;를 열었다고 4일 밝혔다. &#x27;더 파워 오브 코리아 k-모멘텀(the power of korea: k-momentum)&#x27;을 주제로 열린 행사에는 사전 신청한 벤처캐피털(vc), 자산운용사, 일반법인 등 기관 및 기관급 투자자 200여 명이 참석했다. 한영수 삼성증권 애널리스트의 &#x27;슈퍼 사이클&#x27; 주제 발표로 시작해 그린광학, 센서뷰, 에너토크 등 상장·비상장 유망기업 17개사의 ceo와 ir 담당자가 직접 기술력과 성장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>삼성증권, K-모멘텀 우수기업 IR 행사 개최</div>
+      <div class="article-snippet">[서울=뉴시스] 강수윤 기자 = 삼성증권은 최근 서초동 삼성금융캠퍼스에서 조선, 방산, 원자력, 모빌리티 분야 유망 기업을 대상으로 &#x27;KSS IR Day&#x27;를 열었다고 4일 밝혔다. &#x27;더 파워 오브 코리아 K-모멘텀(The Power of Korea: K-Momentum)&#x27;을 주제로 열린 행사에는 사전 신청한 벤처캐피털(VC), 자산운용사, 일반법인 등 기관 및 기관급 투자자 200여 명이 참석했다. 한영수 삼성증권 애널리스트의 &#x27;슈퍼 사이클&#x27; 주제 발표로 시작해 그린광학, 센서뷰, 에너토크 등 상장·비상장 유망기업 17개사의 CEO와 IR 담당자가 직접 기술력과 성장</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/80f1ac3ede6218efdf876004.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=105072"
+  data-title="원자력산업환경복원협회, 원자력시설 해체 수요에 선제적 대응…방사성폐기물협회와 ‘맞손’"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788484892"
+  data-country="KR"
+  data-search="원자력산업환경복원협회, 원자력시설 해체 수요에 선제적 대응…방사성폐기물협회와 ‘맞손’ 에너지플랫폼뉴스 원자력 [에너지플랫폼뉴스 박병인 기자] 원자력산업환경복원협회가 원자력시설 해체 수요 급증에 선제적으로 대응하기 위해 방사성폐기물협회와 협력하기로 했다.한국원자력산업환경복원협회(kondia, 회장 김두일)와 한국방사성폐기물협회(korama, 회장 송명재)는 방사성폐기물 처리·처분 사업의 중요성과 원자력시설의 해체 수요 급증에 대응하기 위한 관련산업의 인프라 강화 및 이를 위한 상호 협력 기반을 마련하기 위해 3일 방사성폐기물협회 회의실에서 업무협약(mou) 체결식을 개최했다.이날 협약식에는 원자력환경복원협회 김두일 회장, 심중호 이사, 장호"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자력산업환경복원협회, 원자력시설 해체 수요에 선제적 대응…방사성폐기물협회와 ‘맞손’</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 원자력산업환경복원협회가 원자력시설 해체 수요 급증에 선제적으로 대응하기 위해 방사성폐기물협회와 협력하기로 했다.한국원자력산업환경복원협회(KONDIA, 회장 김두일)와 한국방사성폐기물협회(KORAMA, 회장 송명재)는 방사성폐기물 처리·처분 사업의 중요성과 원자력시설의 해체 수요 급증에 대응하기 위한 관련산업의 인프라 강화 및 이를 위한 상호 협력 기반을 마련하기 위해 3일 방사성폐기물협회 회의실에서 업무협약(MOU) 체결식을 개최했다.이날 협약식에는 원자력환경복원협회 김두일 회장, 심중호 이사, 장호</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/101382a015585fc6739859ef.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003264438&amp;PAGE_CD=N0002&amp;BLCK_NO=&amp;CMPT_CD=M0147"
+  data-title="&quot;울진은 어차피 죽는 땅&quot; 핵발전소가 삼킨 마을의 현주소"
+  data-publisher="오마이뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788484380"
+  data-country="KR"
+  data-search="&quot;울진은 어차피 죽는 땅&quot; 핵발전소가 삼킨 마을의 현주소 오마이뉴스 원자력 기자올여름이 남은 생애에서 가장 시원한 여름일 것이라는 말이 더 이상 농담이 아니게 됐다. 그런데 정부는 기후위기 대응을 미뤄둔 채 더 많은 발전소를 짓고 더 많은 송전탑을 세우겠다고 한다.9월 1일부터 16일까지 네 곳에서 출발한 사람들"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">오마이뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;울진은 어차피 죽는 땅&quot; 핵발전소가 삼킨 마을의 현주소</div>
+      <div class="article-snippet">기자올여름이 남은 생애에서 가장 시원한 여름일 것이라는 말이 더 이상 농담이 아니게 됐다. 그런데 정부는 기후위기 대응을 미뤄둔 채 더 많은 발전소를 짓고 더 많은 송전탑을 세우겠다고 한다.9월 1일부터 16일까지 네 곳에서 출발한 사람들</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8f261d03d8885095de2bb801.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28725,7 +29325,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260904084651558"
   data-title="베트남 국회의장, 6~9일 방한...수교 35주년 앞두고 외교 속도전"
   data-publisher="아주경제"
@@ -28749,7 +29349,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>베트남 국회의장, 6~9일 방한...수교 35주년 앞두고 외교 속도전</div>
+      <div class="headline">베트남 국회의장, 6~9일 방한...수교 35주년 앞두고 외교 속도전</div>
       <div class="article-snippet">쩐 타인 만 국회 의장 [사진=베트남 국회 포털] 쩐 타인 만 베트남 국회의장이 한국을 공식 방문한다. 한국과 베트남이 포괄적 전략 동반자 관계를 바탕으로 교역, 투자, 첨단기술, 인적교류 협력을 넓히는 가운데 양국 의회 협력이 다시 전면에 부상했다. 4일(현지 시각) VnExpress 등 현지 매체를 종합하면, 쩐 타인 만 국회의장과 부인, 베트남 고위급 대표단은 조정식 국회의장 초청으로 오는 6일부터 9일까지 한국을 공식 방문한다. 이번 방한은 양국이 2022년 포괄적 전략 동반자 관계를 수립한 이후 의회 차원의 협력을 구체화하는 계기로 평가된다. 한국과 베트남</div>
     </div>
   </div>
@@ -30639,7 +31239,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/03/.cache/512/20260903501328.jpg?v=20260904095845" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/03/.cache/512/20260903501328.jpg?v=20260904105707" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38952,7 +39552,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/098c8ac21f93dd7d8d35f928.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/3ad9575d3c74e7f2b7a91d14.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -40125,7 +40725,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1fbe9189c7c77889a2d9987a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/1e056173943ffe7fa02c28b1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -46037,7 +46637,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 12개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302393" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">[인사] 산업통상부 실장급</span></a><a class="related-coverage-link" href="https://www.energy-news.co.kr/news/articleView.html?idxno=227835" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지신문</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105024" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">[인사 : 산업통상부]</span></a><a class="related-coverage-link" href="https://www.etnews.com/20260902000456" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.dailian.co.kr/news/view/1685706/%EC%9D%B8%EC%82%AC-%EC%82%B0%EC%97%85%ED%86%B5%EC%83%81%EB%B6%80-2026" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/society/12142483" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[인사] 산업통상부 / 고용노동부 / 시사저널</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105003" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">[인사 : 산업통상부]</span></a><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302339" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">[인사] 산업통상부 부이사관급</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090213042975376" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">[인사]산업통상부</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=53891" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[인사] 산업통상부 - 퍼블릭타임스</span></a><a class="related-coverage-link" href="https://zdnet.co.kr/view/?no=20260902104826" target="_blank" rel="noopener"><span class="related-coverage-publisher">ZDNet Korea</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260902_0003772916" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">[인사]산업통상부</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 12개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302393" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">[인사] 산업통상부 실장급</span></a><a class="related-coverage-link" href="https://www.energy-news.co.kr/news/articleView.html?idxno=227835" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지신문</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105024" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">[인사 : 산업통상부]</span></a><a class="related-coverage-link" href="https://www.dailian.co.kr/news/view/1685706/%EC%9D%B8%EC%82%AC-%EC%82%B0%EC%97%85%ED%86%B5%EC%83%81%EB%B6%80-2026" target="_blank" rel="noopener"><span class="related-coverage-publisher">데일리안</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260902181553618" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/society/12142483" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">[인사] 산업통상부 / 고용노동부 / 시사저널</span></a><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105003" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">[인사 : 산업통상부]</span></a><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302339" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">[인사] 산업통상부 부이사관급</span></a><a class="related-coverage-link" href="https://www.asiae.co.kr/article/2026090213042975376" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아경제</span><span class="related-coverage-title">[인사]산업통상부</span></a><a class="related-coverage-link" href="https://www.public25.com/news/articleView.html?idxno=53891" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[인사] 산업통상부 - 퍼블릭타임스</span></a><a class="related-coverage-link" href="https://zdnet.co.kr/view/?no=20260902104826" target="_blank" rel="noopener"><span class="related-coverage-publisher">ZDNet Korea</span><span class="related-coverage-title">[인사] 산업통상부</span></a><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260902_0003772916" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">[인사]산업통상부</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[9월2일 인사종합] 산업통상부 외</div>
@@ -46116,39 +46716,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.etnews.com/20260902000456"
-  data-title="[인사] 산업통상부"
-  data-publisher="전자신문"
-  data-group="원전 관계부처"
-  data-language="ko"
-  data-priority="1"
-  data-published="1788341537"
-  data-country="KR"
-  data-search="[인사] 산업통상부 전자신문 원전 관계부처 ◆산업통상부 ◇실장급 승진 △산업성장실장 이민우"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">전자신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">[인사] 산업통상부</div>
-      <div class="article-snippet">◆산업통상부 ◇실장급 승진 △산업성장실장 이민우</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1685706/%EC%9D%B8%EC%82%AC-%EC%82%B0%EC%97%85%ED%86%B5%EC%83%81%EB%B6%80-2026"
   data-title="[인사] 산업통상부"
   data-publisher="데일리안"
@@ -46211,6 +46778,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d729d3290152de17ea6800df.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260902181553618"
+  data-title="[인사] 산업통상부"
+  data-publisher="아주경제"
+  data-group="원전 관계부처"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788340617"
+  data-country="KR"
+  data-search="[인사] 산업통상부 아주경제 원전 관계부처 ◇산업통상부 △실장급 승진 ▷산업성장실장 이민우"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[인사] 산업통상부</div>
+      <div class="article-snippet">◇산업통상부 △실장급 승진 ▷산업성장실장 이민우</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -248728,42 +249328,54 @@ main {
   </div>
 </section>
 
-<aside id="pc-analysis-panel" aria-label="PC 분석 대시보드">
-  <section class="pc-analysis-card">
-    <div class="pc-analysis-head">
-      <div class="pc-analysis-title">현재 화면 요약</div>
-      <div class="pc-analysis-sub">PC 분석</div>
+<aside id="pc-insight-rail" aria-label="PC 원전 뉴스 분석 대시보드">
+  <section class="pc-rail-card">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">오늘의 모니터링</div>
+      <div class="pc-rail-sub">현재 선택 화면</div>
     </div>
     <div class="pc-kpi-grid">
       <div class="pc-kpi"><div class="pc-kpi-label">기사</div><div id="pc-kpi-articles" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">중요기사</div><div id="pc-kpi-important" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">관련 국가</div><div id="pc-kpi-countries" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">기사 그룹</div><div id="pc-kpi-groups" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">중요</div><div id="pc-kpi-important" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">국가</div><div id="pc-kpi-countries" class="pc-kpi-value">0</div></div>
+      <div class="pc-kpi"><div class="pc-kpi-label">언론사</div><div id="pc-kpi-publishers" class="pc-kpi-value">0</div></div>
     </div>
   </section>
 
-  <section class="pc-analysis-card">
-    <div class="pc-analysis-head">
-      <div class="pc-analysis-title">주요 이슈</div>
-      <div class="pc-analysis-sub">기사량 기준</div>
+  <section class="pc-rail-card">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">오늘의 포커스</div>
+      <div class="pc-rail-sub">보도량·최근성</div>
     </div>
-    <div id="pc-topic-chips" class="pc-chip-wrap"></div>
+    <div id="pc-focus-list" class="pc-focus-list"></div>
   </section>
 
-  <section class="pc-analysis-card">
-    <div class="pc-analysis-head">
-      <div class="pc-analysis-title">국가별 동향</div>
-      <div class="pc-analysis-sub">현재 선택 기사</div>
+  <section class="pc-rail-card pc-timeline-card hyundai">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">현대건설 타임라인</div>
+      <div class="pc-rail-sub">날짜별 주요 기사</div>
     </div>
-    <div id="pc-country-chips" class="pc-chip-wrap"></div>
+    <div class="pc-timeline-wrap">
+      <div id="pc-hyundai-timeline" class="pc-timeline"></div>
+    </div>
   </section>
 
-  <section class="pc-analysis-card">
-    <div class="pc-analysis-head">
-      <div class="pc-analysis-title">이슈 타임라인</div>
-      <div class="pc-analysis-sub">최근 흐름</div>
+  <section class="pc-rail-card pc-timeline-card invest">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">대미투자 타임라인</div>
+      <div class="pc-rail-sub">관련기사 흐름</div>
     </div>
-    <div id="pc-timeline" class="pc-timeline"></div>
+    <div class="pc-timeline-wrap">
+      <div id="pc-invest-timeline" class="pc-timeline"></div>
+    </div>
+  </section>
+
+  <section class="pc-rail-card">
+    <div class="pc-rail-head">
+      <div class="pc-rail-title">보도 집중 영역</div>
+      <div class="pc-rail-sub">기사 많은 순</div>
+    </div>
+    <div id="pc-concentration" class="pc-concentration"></div>
   </section>
 </aside>
 </main>
@@ -253128,44 +253740,19 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   };
 
   function activePanel() {
-    return document.querySelector(".tab-panel.active");
+    return document.querySelector(".tab-panel.active") || document.querySelector(".tab-panel");
   }
 
-  function visibleCards() {
+  function cardsInActivePanel() {
     var panel = activePanel();
     if (!panel) return [];
-    var cards = Array.from(panel.querySelectorAll(".preview-card"));
-    return cards.filter(function(card) {
+    return Array.from(panel.querySelectorAll(".preview-card")).filter(function(card) {
       return card.style.display !== "none" && !card.hidden;
     });
   }
 
-  function groupName(card) {
-    var section = card.closest(".news-group");
-    if (!section) return card.dataset.group || "기타";
-    var name = section.querySelector(".group-name");
-    if (name && name.textContent.trim()) return name.textContent.trim();
-    var title = section.querySelector(".group-title");
-    return title ? title.textContent.replace(/[▼▲]\s*/g,"").replace(/\d+\s*건.*/g,"").trim() : (card.dataset.group || "기타");
-  }
-
-  function formatDate(ts) {
-    if (!ts) return "";
-    var d = new Date(Number(ts) * 1000);
-    if (Number.isNaN(d.getTime())) return "";
-    var m = String(d.getMonth()+1).padStart(2,"0");
-    var day = String(d.getDate()).padStart(2,"0");
-    var hh = String(d.getHours()).padStart(2,"0");
-    var mm = String(d.getMinutes()).padStart(2,"0");
-    return m + "." + day + " " + hh + ":" + mm;
-  }
-
-  function titleOf(card) {
-    return card.dataset.title || ((card.querySelector(".headline") || {}).textContent || "").trim();
-  }
-
-  function publisherOf(card) {
-    return card.dataset.publisher || ((card.querySelector(".publisher") || {}).textContent || "").trim();
+  function groupOf(card) {
+    return (card.dataset.group || "").trim() || "기타";
   }
 
   function countryOf(card) {
@@ -253173,115 +253760,189 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     return COUNTRY_NAMES[code] || code;
   }
 
+  function publisherOf(card) {
+    return (card.dataset.publisher || ((card.querySelector(".publisher") || {}).textContent || "")).trim();
+  }
+
+  function titleOf(card) {
+    return (card.dataset.title || ((card.querySelector(".headline") || {}).textContent || "")).trim();
+  }
+
+  function tsOf(card) {
+    return Number(card.dataset.published || 0);
+  }
+
+  function dateLabel(card) {
+    var ts = tsOf(card);
+    if (!ts) return "최근";
+    var d = new Date(ts * 1000);
+    if (Number.isNaN(d.getTime())) return "최근";
+    return String(d.getMonth()+1).padStart(2,"0") + "." +
+           String(d.getDate()).padStart(2,"0") + " " +
+           String(d.getHours()).padStart(2,"0") + ":" +
+           String(d.getMinutes()).padStart(2,"0");
+  }
+
   function setText(id, value) {
     var el = document.getElementById(id);
     if (el) el.textContent = String(value);
   }
 
-  function makeChip(label, count, onClick) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "pc-chip";
-    b.textContent = label + " " + count;
-    b.addEventListener("click", onClick);
-    return b;
+  function scrollCard(card) {
+    if (!card) return;
+    card.scrollIntoView({behavior:"smooth", block:"center"});
   }
 
-  function scrollToFirstMatch(predicate) {
-    var card = visibleCards().find(predicate);
-    if (card) card.scrollIntoView({behavior:"smooth", block:"center"});
+  function buildTimeline(containerId, cards, maxItems) {
+    var box = document.getElementById(containerId);
+    if (!box) return;
+    box.innerHTML = "";
+
+    cards.slice()
+      .sort(function(a,b) { return tsOf(b) - tsOf(a); })
+      .slice(0,maxItems)
+      .forEach(function(card) {
+        var item = document.createElement("div");
+        item.className = "pc-timeline-item";
+
+        var date = document.createElement("div");
+        date.className = "pc-timeline-date";
+        date.textContent = dateLabel(card);
+
+        var title = document.createElement("div");
+        title.className = "pc-timeline-title";
+        title.textContent = titleOf(card);
+
+        var meta = document.createElement("div");
+        meta.className = "pc-timeline-meta";
+        meta.textContent = [publisherOf(card), countryOf(card)].filter(Boolean).join(" · ");
+
+        item.appendChild(date);
+        item.appendChild(title);
+        item.appendChild(meta);
+        item.addEventListener("click", function() { scrollCard(card); });
+        box.appendChild(item);
+      });
+
+    if (!box.children.length) {
+      var empty = document.createElement("div");
+      empty.className = "pc-empty";
+      empty.textContent = "현재 선택 기간에 관련 기사가 없습니다.";
+      box.appendChild(empty);
+    }
   }
 
-  function refreshPcDashboard() {
-    if (!window.matchMedia("(min-width:1200px)").matches) return;
+  function refreshPcInsights() {
+    if (!window.matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) return;
 
-    var cards = visibleCards();
-    var groupCounts = {};
-    var countryCounts = {};
+    var cards = cardsInActivePanel();
+    var groups = {};
+    var countries = {};
+    var publishers = new Set();
     var important = 0;
 
     cards.forEach(function(card) {
-      var g = groupName(card);
-      groupCounts[g] = (groupCounts[g] || 0) + 1;
+      var g = groupOf(card);
+      groups[g] = (groups[g] || 0) + 1;
 
       var c = countryOf(card);
-      if (c) countryCounts[c] = (countryCounts[c] || 0) + 1;
+      if (c) countries[c] = (countries[c] || 0) + 1;
 
-      if (card.classList.contains("important")) important += 1;
+      var p = publisherOf(card);
+      if (p) publishers.add(p);
+
+      if (card.classList.contains("important")) important++;
     });
 
     setText("pc-kpi-articles", cards.length);
     setText("pc-kpi-important", important);
-    setText("pc-kpi-countries", Object.keys(countryCounts).length);
-    setText("pc-kpi-groups", Object.keys(groupCounts).length);
+    setText("pc-kpi-countries", Object.keys(countries).length);
+    setText("pc-kpi-publishers", publishers.size);
 
-    var topicWrap = document.getElementById("pc-topic-chips");
-    if (topicWrap) {
-      topicWrap.innerHTML = "";
-      Object.entries(groupCounts)
+    var focus = document.getElementById("pc-focus-list");
+    if (focus) {
+      focus.innerHTML = "";
+      Object.entries(groups)
+        .sort(function(a,b) { return b[1]-a[1]; })
+        .slice(0,3)
+        .forEach(function(entry) {
+          var groupCards = cards
+            .filter(function(c) { return groupOf(c) === entry[0]; })
+            .sort(function(a,b) { return tsOf(b)-tsOf(a); });
+          var latest = groupCards[0];
+
+          var item = document.createElement("div");
+          item.className = "pc-focus-item";
+
+          var top = document.createElement("div");
+          top.className = "pc-focus-top";
+
+          var name = document.createElement("div");
+          name.className = "pc-focus-name";
+          name.textContent = entry[0] === "타 건설사" ? "주요 건설사" : entry[0];
+
+          var count = document.createElement("div");
+          count.className = "pc-focus-count";
+          count.textContent = entry[1] + "건";
+
+          var title = document.createElement("div");
+          title.className = "pc-focus-title";
+          title.textContent = latest ? titleOf(latest) : "";
+
+          var meta = document.createElement("div");
+          meta.className = "pc-focus-meta";
+          meta.textContent = latest ? [dateLabel(latest), publisherOf(latest)].filter(Boolean).join(" · ") : "";
+
+          top.appendChild(name);
+          top.appendChild(count);
+          item.appendChild(top);
+          item.appendChild(title);
+          item.appendChild(meta);
+          item.addEventListener("click", function() { scrollCard(latest); });
+          focus.appendChild(item);
+        });
+
+      if (!focus.children.length) {
+        var empty = document.createElement("div");
+        empty.className = "pc-empty";
+        empty.textContent = "표시할 주요 이슈가 없습니다.";
+        focus.appendChild(empty);
+      }
+    }
+
+    var hyundaiCards = cards.filter(function(c) {
+      return groupOf(c) === "현대건설";
+    });
+
+    var investCards = cards.filter(function(c) {
+      return groupOf(c) === "원전 대미투자";
+    });
+
+    buildTimeline("pc-hyundai-timeline", hyundaiCards, 5);
+    buildTimeline("pc-invest-timeline", investCards, 5);
+
+    var concentration = document.getElementById("pc-concentration");
+    if (concentration) {
+      concentration.innerHTML = "";
+      Object.entries(groups)
         .sort(function(a,b) { return b[1]-a[1]; })
         .slice(0,7)
         .forEach(function(entry) {
-          topicWrap.appendChild(makeChip(entry[0], entry[1], function() {
-            scrollToFirstMatch(function(card) { return groupName(card) === entry[0]; });
-          }));
-        });
-      if (!topicWrap.children.length) topicWrap.textContent = "표시할 이슈가 없습니다.";
-    }
-
-    var countryWrap = document.getElementById("pc-country-chips");
-    if (countryWrap) {
-      countryWrap.innerHTML = "";
-      Object.entries(countryCounts)
-        .sort(function(a,b) { return b[1]-a[1]; })
-        .slice(0,8)
-        .forEach(function(entry) {
-          countryWrap.appendChild(makeChip(entry[0], entry[1], function() {
-            scrollToFirstMatch(function(card) { return countryOf(card) === entry[0]; });
-          }));
-        });
-      if (!countryWrap.children.length) countryWrap.textContent = "국가 정보가 없습니다.";
-    }
-
-    var timeline = document.getElementById("pc-timeline");
-    if (timeline) {
-      timeline.innerHTML = "";
-      cards.slice()
-        .sort(function(a,b) {
-          return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
-        })
-        .slice(0,10)
-        .forEach(function(card) {
-          var item = document.createElement("div");
-          item.className = "pc-timeline-item";
-
-          var date = document.createElement("div");
-          date.className = "pc-timeline-date";
-          date.textContent = formatDate(card.dataset.published) || "최근";
-
-          var title = document.createElement("div");
-          title.className = "pc-timeline-title";
-          title.textContent = titleOf(card);
-
-          var meta = document.createElement("div");
-          meta.className = "pc-timeline-meta";
-          meta.textContent = [groupName(card), countryOf(card), publisherOf(card)].filter(Boolean).join(" · ");
-
-          item.appendChild(date);
-          item.appendChild(title);
-          item.appendChild(meta);
-          item.addEventListener("click", function() {
-            card.scrollIntoView({behavior:"smooth", block:"center"});
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "pc-chip";
+          b.textContent = (entry[0] === "타 건설사" ? "주요 건설사" : entry[0]) + " " + entry[1];
+          b.addEventListener("click", function() {
+            var first = cards.find(function(c) { return groupOf(c) === entry[0]; });
+            scrollCard(first);
           });
-
-          timeline.appendChild(item);
+          concentration.appendChild(b);
         });
-      if (!timeline.children.length) timeline.textContent = "표시할 기사가 없습니다.";
     }
   }
 
   function scheduleRefresh() {
-    window.setTimeout(refreshPcDashboard, 80);
+    window.setTimeout(refreshPcInsights, 100);
   }
 
   if (document.readyState === "loading") {
@@ -253291,7 +253952,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }
 
   document.addEventListener("click", function(e) {
-    if (e.target.closest(".tab-button, .group-title, .group-master-button, .important-button, .country-button, .continent-button")) {
+    if (e.target.closest(".tab-button, .group-title, .important-button, .country-button, .continent-button")) {
       scheduleRefresh();
     }
   });
