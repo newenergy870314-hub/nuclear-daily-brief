@@ -12469,10 +12469,577 @@ main {
   }
 }
 
+
+/* ==============================================================
+   PC VISUAL DASHBOARD V2 — 2026-09-07
+   MOBILE IS NOT TOUCHED.
+   ============================================================== */
+.pc-v2-dashboard { display:none; }
+
+@media (min-width:1000px) {
+  body {
+    background:#edf2f6 !important;
+  }
+
+  .phone {
+    width:min(calc(100vw - 28px),1760px) !important;
+    max-width:1760px !important;
+    margin:0 auto !important;
+  }
+
+  /* Hide legacy PC experiments only on desktop.
+     Existing mobile elements remain exactly as before. */
+  #world-map-panel,
+  #pc-insight-rail,
+  #pc-category-strip,
+  #pc-country-filter-result,
+  .pc-build-marker {
+    display:none !important;
+  }
+
+  main {
+    display:block !important;
+    padding:12px 0 44px !important;
+  }
+
+  .tab-panel {
+    width:100% !important;
+    max-width:none !important;
+  }
+
+  .pc-v2-dashboard {
+    display:block;
+    margin:14px 0 4px;
+    font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    color:#1c344c;
+  }
+
+  .pc-v2-section {
+    margin:12px 0;
+    padding:15px;
+    border:1px solid #dce5ed;
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 4px 16px rgba(31,59,86,.055);
+  }
+
+  .pc-v2-section-head {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:12px;
+  }
+
+  .pc-v2-section-head h2 {
+    margin:0;
+    color:#173b61;
+    font-size:17px;
+    font-weight:950;
+    letter-spacing:-.35px;
+  }
+
+  .pc-v2-section-head p {
+    margin:3px 0 0;
+    color:#8493a2;
+    font-size:9.5px;
+    font-weight:700;
+  }
+
+  /* KPI */
+  .pc-v2-kpis {
+    display:grid;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:9px;
+  }
+
+  .pc-v2-kpi {
+    min-height:88px;
+    padding:12px 14px;
+    border:1px solid #dce5ed;
+    border-radius:14px;
+    background:#fff;
+    box-shadow:0 3px 12px rgba(31,59,86,.045);
+  }
+
+  .pc-v2-kpi span {
+    display:block;
+    color:#74879a;
+    font-size:9.5px;
+    font-weight:850;
+  }
+
+  .pc-v2-kpi strong {
+    display:block;
+    margin:7px 0 3px;
+    color:#173b61;
+    font-size:25px;
+    line-height:1;
+    font-weight:950;
+  }
+
+  .pc-v2-kpi small {
+    color:#9aa7b3;
+    font-size:8px;
+    font-weight:700;
+  }
+
+  .pc-v2-kpi-accent {
+    background:linear-gradient(135deg,#173b61,#275f92);
+  }
+  .pc-v2-kpi-accent span,
+  .pc-v2-kpi-accent small {
+    color:rgba(255,255,255,.72);
+  }
+  .pc-v2-kpi-accent strong {
+    color:#fff;
+    font-size:20px;
+    line-height:1.2;
+  }
+
+  /* world clocks */
+  .pc-v2-clock-grid {
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:9px;
+  }
+
+  .pc-v2-clock {
+    min-width:0;
+    padding:10px 8px 9px;
+    border:1px solid #e0e8ef;
+    border-radius:13px;
+    background:linear-gradient(180deg,#fbfdff,#f5f8fb);
+    text-align:center;
+  }
+
+  .pc-v2-clock-place {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    min-height:34px;
+    margin-bottom:6px;
+    text-align:left;
+  }
+
+  .pc-v2-clock-place img {
+    width:27px;
+    height:18px;
+    object-fit:cover;
+    border-radius:3px;
+    box-shadow:0 0 0 1px rgba(20,40,60,.10);
+  }
+
+  .pc-v2-clock-place strong {
+    display:block;
+    color:#244762;
+    font-size:9.5px;
+    font-weight:950;
+  }
+
+  .pc-v2-clock-place span {
+    display:block;
+    margin-top:1px;
+    color:#8a98a6;
+    font-size:7.5px;
+    font-weight:750;
+  }
+
+  .pc-v2-clock-face {
+    position:relative;
+    width:72px;
+    height:72px;
+    margin:0 auto 6px;
+    border:2px solid #7b8d9e;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at center,#fff 0 67%,#eef3f7 68% 100%);
+    box-shadow:inset 0 0 0 2px #fff,0 3px 7px rgba(31,59,86,.10);
+  }
+
+  .pc-v2-clock-face em {
+    position:absolute;
+    color:#7b8998;
+    font-size:6px;
+    font-style:normal;
+    font-weight:900;
+  }
+  .pc-v2-clock-face .n12 { left:50%;top:3px;transform:translateX(-50%); }
+  .pc-v2-clock-face .n3 { right:5px;top:50%;transform:translateY(-50%); }
+  .pc-v2-clock-face .n6 { left:50%;bottom:2px;transform:translateX(-50%); }
+  .pc-v2-clock-face .n9 { left:5px;top:50%;transform:translateY(-50%); }
+
+  .pc-v2-clock-face i {
+    position:absolute;
+    left:50%;
+    bottom:50%;
+    display:block;
+    transform-origin:50% 100%;
+    border-radius:999px;
+    z-index:2;
+  }
+  .pc-v2-hour { width:4px;height:20px;margin-left:-2px;background:#183d61; }
+  .pc-v2-minute { width:2px;height:27px;margin-left:-1px;background:#5b7186; }
+  .pc-v2-second { width:1px;height:29px;margin-left:-.5px;background:#d7524e; }
+  .pc-v2-clock-face b {
+    position:absolute;
+    left:50%;top:50%;
+    width:7px;height:7px;
+    transform:translate(-50%,-50%);
+    border:1px solid #fff;
+    border-radius:50%;
+    background:#183d61;
+    z-index:3;
+  }
+
+  .pc-v2-digital {
+    color:#173b61;
+    font-size:13px;
+    font-weight:950;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .pc-v2-zone {
+    margin-top:1px;
+    color:#8b99a7;
+    font-size:7.5px;
+    font-weight:850;
+  }
+
+  /* map */
+  .pc-v2-map-layout {
+    display:grid;
+    grid-template-columns:minmax(0,2.45fr) minmax(280px,.75fr);
+    gap:12px;
+    align-items:stretch;
+  }
+
+  .pc-v2-map-wrap {
+    position:relative;
+    min-height:500px;
+    border:1px solid #e0e8ef;
+    border-radius:14px;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 40% 42%,rgba(225,237,247,.78),rgba(246,249,251,.92) 55%,#f8fafb 100%);
+  }
+
+  .pc-v2-world-map {
+    display:block;
+    width:100%;
+    height:500px;
+  }
+
+  .pc-v2-map-country {
+    fill:#e7edf2;
+    stroke:#fff;
+    stroke-width:.65;
+    vector-effect:non-scaling-stroke;
+    cursor:pointer;
+    transition:fill .16s ease,filter .16s ease;
+  }
+
+  .pc-v2-map-country.has-news {
+    fill:#a9c3d9;
+  }
+
+  .pc-v2-map-country.has-news.level-2 { fill:#7fa7c8; }
+  .pc-v2-map-country.has-news.level-3 { fill:#4f82ad; }
+  .pc-v2-map-country.has-news.level-4 { fill:#285f91; }
+
+  .pc-v2-map-country:hover {
+    filter:brightness(.94);
+  }
+
+  .pc-v2-map-country.selected {
+    fill:#153f66 !important;
+    stroke:#f1c94c;
+    stroke-width:1.7;
+  }
+
+  .pc-v2-map-labels {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+  }
+
+  .pc-v2-map-label {
+    position:absolute;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    min-height:27px;
+    padding:4px 7px 4px 5px;
+    border:1px solid rgba(37,69,99,.16);
+    border-radius:8px;
+    background:rgba(255,255,255,.94);
+    box-shadow:0 3px 9px rgba(28,52,76,.12);
+    transform:translate(-50%,-50%);
+    white-space:nowrap;
+    pointer-events:auto;
+    cursor:pointer;
+    transition:transform .12s ease,box-shadow .12s ease;
+  }
+
+  .pc-v2-map-label:hover {
+    transform:translate(-50%,-50%) scale(1.05);
+    box-shadow:0 5px 13px rgba(28,52,76,.18);
+    z-index:20;
+  }
+
+  .pc-v2-map-label img {
+    width:20px;
+    height:13px;
+    object-fit:cover;
+    border-radius:2px;
+    box-shadow:0 0 0 1px rgba(0,0,0,.10);
+  }
+
+  .pc-v2-map-label strong {
+    color:#27465f;
+    font-size:8.5px;
+    font-weight:950;
+  }
+
+  .pc-v2-map-label span {
+    display:inline-flex;
+    align-items:center;
+    height:17px;
+    padding:0 5px;
+    border-radius:999px;
+    background:#173b61;
+    color:#fff;
+    font-size:7.5px;
+    font-weight:950;
+  }
+
+  .pc-v2-map-tooltip {
+    position:absolute;
+    z-index:30;
+    padding:6px 8px;
+    border-radius:7px;
+    background:#173b61;
+    color:#fff;
+    font-size:8px;
+    font-weight:850;
+    pointer-events:none;
+    box-shadow:0 4px 10px rgba(16,42,67,.22);
+  }
+
+  .pc-v2-map-loading {
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#8292a1;
+    font-size:10px;
+    font-weight:800;
+    pointer-events:none;
+  }
+
+  .pc-v2-map-reset {
+    height:31px;
+    padding:0 11px;
+    border:1px solid #d7e2ea;
+    border-radius:8px;
+    background:#f5f8fa;
+    color:#4f687d;
+    font-size:9px;
+    font-weight:900;
+    cursor:pointer;
+  }
+
+  .pc-v2-country-panel {
+    min-height:500px;
+    padding:14px;
+    border:1px solid #e0e8ef;
+    border-radius:14px;
+    background:linear-gradient(180deg,#fbfdff,#f5f8fb);
+  }
+
+  .pc-v2-country-empty {
+    height:100%;
+    min-height:450px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:#8191a1;
+    text-align:center;
+  }
+  .pc-v2-country-empty > span { font-size:34px; }
+  .pc-v2-country-empty strong { margin-top:10px;color:#38556f;font-size:12px; }
+  .pc-v2-country-empty p { margin:6px 0 0;font-size:8.5px;line-height:1.55; }
+
+  .pc-v2-country-title {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding-bottom:12px;
+    border-bottom:1px solid #e3eaf0;
+  }
+  .pc-v2-country-title img {
+    width:48px;height:31px;object-fit:cover;border-radius:4px;
+    box-shadow:0 0 0 1px rgba(0,0,0,.11);
+  }
+  .pc-v2-country-title strong { display:block;color:#173b61;font-size:18px;font-weight:950; }
+  .pc-v2-country-title span { display:block;margin-top:2px;color:#92a0ad;font-size:8px;font-weight:800; }
+
+  .pc-v2-country-stats {
+    display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0;
+  }
+  .pc-v2-country-stats div {
+    padding:10px;border-radius:10px;background:#fff;border:1px solid #e2e9ef;
+  }
+  .pc-v2-country-stats span { display:block;color:#8795a3;font-size:8px;font-weight:800; }
+  .pc-v2-country-stats strong { display:block;margin-top:4px;color:#244c70;font-size:20px;font-weight:950; }
+
+  .pc-v2-country-block { margin-top:12px; }
+  .pc-v2-country-block > span { color:#718396;font-size:8px;font-weight:900; }
+  .pc-v2-country-tags { display:flex;flex-wrap:wrap;gap:4px;margin-top:6px; }
+  .pc-v2-country-tags b {
+    padding:4px 7px;border-radius:999px;background:#e8f0f7;color:#315b7e;font-size:7.5px;font-weight:900;
+  }
+
+  .pc-v2-country-headline {
+    width:100%;margin-top:6px;padding:9px;border:1px solid #e0e8ef;border-radius:9px;background:#fff;
+    color:#2f4e68;font-size:9px;line-height:1.4;font-weight:850;text-align:left;cursor:pointer;
+  }
+  .pc-v2-country-show {
+    width:100%;height:34px;margin-top:12px;border:0;border-radius:9px;background:#173b61;color:#fff;
+    font-size:9px;font-weight:950;cursor:pointer;
+  }
+
+  /* visual issues */
+  .pc-v2-issue-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .pc-v2-issue {
+    position:relative;
+    min-height:210px;
+    overflow:hidden;
+    border:1px solid #dce5ed;
+    border-radius:14px;
+    background:#dce8f2;
+    cursor:pointer;
+    box-shadow:0 3px 12px rgba(27,53,78,.08);
+  }
+
+  .pc-v2-issue-image {
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    transition:transform .22s ease;
+  }
+  .pc-v2-issue:hover .pc-v2-issue-image { transform:scale(1.035); }
+  .pc-v2-issue-shade {
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(15,39,63,.04) 10%,rgba(12,34,55,.84) 100%);
+  }
+  .pc-v2-issue-content {
+    position:absolute;left:0;right:0;bottom:0;z-index:2;padding:14px;color:#fff;
+  }
+  .pc-v2-issue-meta {
+    display:flex;align-items:center;gap:5px;margin-bottom:6px;
+  }
+  .pc-v2-issue-meta span {
+    padding:3px 6px;border-radius:999px;background:rgba(255,255,255,.18);font-size:7.5px;font-weight:900;
+  }
+  .pc-v2-issue h3 {
+    margin:0;font-size:14px;line-height:1.35;font-weight:950;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .pc-v2-issue p {
+    margin:6px 0 0;color:rgba(255,255,255,.78);font-size:8.5px;font-weight:750;
+  }
+
+  /* flow */
+  .pc-v2-flow {
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding:4px 2px 8px;
+  }
+  .pc-v2-flow::-webkit-scrollbar { height:6px; }
+  .pc-v2-flow::-webkit-scrollbar-thumb { background:#c7d3dd;border-radius:99px; }
+  .pc-v2-flow-card {
+    position:relative;
+    flex:0 0 190px;
+    min-height:154px;
+    padding:10px;
+    border:1px solid #e0e8ef;
+    border-radius:12px;
+    background:#fafcfe;
+    cursor:pointer;
+  }
+  .pc-v2-flow-card:after {
+    content:"→";
+    position:absolute;
+    right:-15px;top:50%;
+    color:#9db0c1;font-size:16px;font-weight:900;
+  }
+  .pc-v2-flow-card:last-child:after { display:none; }
+  .pc-v2-flow-date {
+    display:inline-flex;padding:3px 6px;border-radius:999px;background:#173b61;color:#fff;font-size:7.5px;font-weight:900;
+  }
+  .pc-v2-flow-thumb {
+    width:58px;height:58px;margin:9px auto 7px;border-radius:50%;overflow:hidden;background:#e3ebf2;
+    box-shadow:0 0 0 3px #fff,0 0 0 4px #cad8e4;
+  }
+  .pc-v2-flow-thumb img { width:100%;height:100%;object-fit:cover; }
+  .pc-v2-flow-card strong {
+    display:block;color:#284861;font-size:9.5px;line-height:1.35;font-weight:950;text-align:center;
+  }
+  .pc-v2-flow-card span.pc-v2-flow-group {
+    display:block;margin-top:4px;color:#8393a2;font-size:7.5px;font-weight:800;text-align:center;
+  }
+
+  .pc-v2-article-divider {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:14px 0 8px;
+    padding:12px 14px;
+    border:1px solid #dce5ed;
+    border-radius:13px;
+    background:#fff;
+  }
+  .pc-v2-article-divider strong { display:block;color:#173b61;font-size:14px;font-weight:950; }
+  .pc-v2-article-divider span { display:block;margin-top:2px;color:#8997a4;font-size:8px;font-weight:750; }
+  .pc-v2-article-divider button {
+    height:32px;padding:0 11px;border:0;border-radius:8px;background:#173b61;color:#fff;font-size:8.5px;font-weight:900;cursor:pointer;
+  }
+
+  /* Article list remains, but clean desktop layout */
+  .article-stack {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:10px !important;
+  }
+
+  .preview-card {
+    min-height:128px !important;
+  }
+}
+
+@media (min-width:1000px) and (max-width:1320px) {
+  .pc-v2-kpis { grid-template-columns:repeat(5,minmax(0,1fr)); }
+  .pc-v2-clock-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .pc-v2-map-layout { grid-template-columns:minmax(0,1.8fr) minmax(250px,.8fr); }
+  .pc-v2-issue-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .pc-v2-map-label strong { font-size:7.5px; }
+  .pc-v2-map-label { padding:3px 5px 3px 4px; }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
 </head>
 <body>
@@ -12481,7 +13048,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.7(월) 07:40 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.7(월) 08:15 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -12506,6 +13073,176 @@ main {
       </div>
     </div>
   </header>
+
+  <!-- =========================================================
+       PC VISUAL DASHBOARD V2
+       Desktop only. Existing mobile DOM is preserved untouched.
+       ========================================================= -->
+  <section id="pc-v2-dashboard" class="pc-v2-dashboard" aria-label="PC 원전 뉴스 시각화 대시보드">
+
+    <div class="pc-v2-kpis">
+      <article class="pc-v2-kpi">
+        <span>전체 기사</span>
+        <strong id="pc-v2-kpi-total">0</strong>
+        <small>현재 선택 기간</small>
+      </article>
+      <article class="pc-v2-kpi">
+        <span>중요 기사</span>
+        <strong id="pc-v2-kpi-important">0</strong>
+        <small>중요 표시 기준</small>
+      </article>
+      <article class="pc-v2-kpi">
+        <span>주요 국가</span>
+        <strong id="pc-v2-kpi-countries">0</strong>
+        <small>기사 발생 국가</small>
+      </article>
+      <article class="pc-v2-kpi">
+        <span>주요 그룹</span>
+        <strong id="pc-v2-kpi-groups">0</strong>
+        <small>기업·기관·이슈</small>
+      </article>
+      <article class="pc-v2-kpi pc-v2-kpi-accent">
+        <span>가장 활발한 국가</span>
+        <strong id="pc-v2-kpi-top-country">-</strong>
+        <small id="pc-v2-kpi-top-country-count">기사 없음</small>
+      </article>
+    </div>
+
+    <section class="pc-v2-section pc-v2-clock-section">
+      <div class="pc-v2-section-head">
+        <div>
+          <h2>세계시간</h2>
+          <p>주요 원전시장 현지시간 · 서머타임 자동 반영</p>
+        </div>
+      </div>
+      <div id="pc-v2-clock-grid" class="pc-v2-clock-grid">
+        <article class="pc-v2-clock" data-tz="Asia/Seoul" data-country="대한민국" data-capital="서울" data-flag="kr">
+          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/kr.png" alt=""><div><strong>대한민국</strong><span>서울</span></div></div>
+          <div class="pc-v2-clock-face">
+            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
+            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
+          </div>
+          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">KST</div>
+        </article>
+
+        <article class="pc-v2-clock" data-tz="America/New_York" data-country="미국" data-capital="Washington D.C." data-flag="us">
+          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/us.png" alt=""><div><strong>미국</strong><span>Washington D.C.</span></div></div>
+          <div class="pc-v2-clock-face">
+            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
+            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
+          </div>
+          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">ET</div>
+        </article>
+
+        <article class="pc-v2-clock" data-tz="Europe/London" data-country="영국" data-capital="London" data-flag="gb">
+          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/gb.png" alt=""><div><strong>영국</strong><span>London</span></div></div>
+          <div class="pc-v2-clock-face">
+            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
+            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
+          </div>
+          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">UK</div>
+        </article>
+
+        <article class="pc-v2-clock" data-tz="Europe/Sofia" data-country="불가리아" data-capital="Sofia" data-flag="bg">
+          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/bg.png" alt=""><div><strong>불가리아</strong><span>Sofia</span></div></div>
+          <div class="pc-v2-clock-face">
+            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
+            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
+          </div>
+          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">EET</div>
+        </article>
+
+        <article class="pc-v2-clock" data-tz="Europe/Prague" data-country="체코" data-capital="Prague" data-flag="cz">
+          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/cz.png" alt=""><div><strong>체코</strong><span>Prague</span></div></div>
+          <div class="pc-v2-clock-face">
+            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
+            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
+          </div>
+          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">CET</div>
+        </article>
+
+        <article class="pc-v2-clock" data-tz="Europe/Bucharest" data-country="루마니아" data-capital="Bucharest" data-flag="ro">
+          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/ro.png" alt=""><div><strong>루마니아</strong><span>Bucharest</span></div></div>
+          <div class="pc-v2-clock-face">
+            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
+            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
+          </div>
+          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">EET</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="pc-v2-section pc-v2-map-card">
+      <div class="pc-v2-section-head">
+        <div>
+          <h2>글로벌 원전 뉴스 맵</h2>
+          <p>기사 있는 국가만 지도 위에 국기 · 국가 · 기사건수 표시</p>
+        </div>
+        <button id="pc-v2-map-reset" class="pc-v2-map-reset" type="button">전체 국가</button>
+      </div>
+      <div class="pc-v2-map-layout">
+        <div class="pc-v2-map-wrap">
+          <svg id="pc-v2-world-map" class="pc-v2-world-map" viewBox="0 0 1100 560" aria-label="PC 고해상도 세계지도"></svg>
+          <div id="pc-v2-map-labels" class="pc-v2-map-labels"></div>
+          <div id="pc-v2-map-tooltip" class="pc-v2-map-tooltip" hidden></div>
+          <div id="pc-v2-map-loading" class="pc-v2-map-loading">고해상도 세계지도 불러오는 중...</div>
+        </div>
+
+        <aside class="pc-v2-country-panel">
+          <div class="pc-v2-country-empty" id="pc-v2-country-empty">
+            <span>🌐</span>
+            <strong>국가를 선택하세요</strong>
+            <p>지도 위 국가 또는 라벨을 클릭하면<br>해당 국가의 주요 현황을 보여줍니다.</p>
+          </div>
+          <div class="pc-v2-country-detail" id="pc-v2-country-detail" hidden>
+            <div class="pc-v2-country-title">
+              <img id="pc-v2-country-flag" src="" alt="">
+              <div><strong id="pc-v2-country-name">-</strong><span id="pc-v2-country-code">-</span></div>
+            </div>
+            <div class="pc-v2-country-stats">
+              <div><span>전체 기사</span><strong id="pc-v2-country-total">0</strong></div>
+              <div><span>중요 기사</span><strong id="pc-v2-country-important">0</strong></div>
+            </div>
+            <div class="pc-v2-country-block">
+              <span>주요 그룹</span>
+              <div id="pc-v2-country-groups" class="pc-v2-country-tags"></div>
+            </div>
+            <div class="pc-v2-country-block">
+              <span>대표 기사</span>
+              <button id="pc-v2-country-headline" class="pc-v2-country-headline" type="button">-</button>
+            </div>
+            <button id="pc-v2-country-show" class="pc-v2-country-show" type="button">이 국가 기사만 보기</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="pc-v2-section">
+      <div class="pc-v2-section-head">
+        <div>
+          <h2>오늘의 핵심 이슈</h2>
+          <p>기사 제목을 모두 읽지 않아도 주요 흐름을 이미지 중심으로 확인</p>
+        </div>
+      </div>
+      <div id="pc-v2-issue-grid" class="pc-v2-issue-grid"></div>
+    </section>
+
+    <section class="pc-v2-section">
+      <div class="pc-v2-section-head">
+        <div>
+          <h2>주요 이슈 흐름</h2>
+          <p>현대건설 · 대미투자 · 주요 프로젝트 관련 기사의 시간 흐름</p>
+        </div>
+      </div>
+      <div id="pc-v2-flow" class="pc-v2-flow"></div>
+    </section>
+
+    <div class="pc-v2-article-divider">
+      <div><strong>전체 기사</strong><span>상세 기사는 아래에서 확인</span></div>
+      <button id="pc-v2-scroll-articles" type="button">기사 목록으로 이동 ↓</button>
+    </div>
+  </section>
+
   <section id="favorites-panel" class="favorites-panel favorites-panel-top" hidden>
     <div class="favorites-head">
       <div>
@@ -17001,7 +17738,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실 프로)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</div>
@@ -17199,7 +17936,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 9개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fntimes.com/html/view.php?ud=202609042248524237dd55077bc2_18" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국금융신문</span><span class="related-coverage-title">GS건설, AI로 건설부터 주거까지…자이의 미래를 바꾸다 [AI플랫폼 ③] - 한국금융신문</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260906010001826" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">보법 다른 GS건설 ‘신재생에너지’ 전략…포항 영일만 산단부터 노린다</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090668761" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">GS건설, LGU+와 모듈러데이터센터 개발</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609066836i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">GS건설, 모듈러로 AI데이터센터 &#x27;공급 속도&#x27; 높인다</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12145461" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">&quot;AI 데이터센터에 모듈러 접목&quot; … GS건설·LGU+ 표준모델 개발</span></a><a class="related-coverage-link" href="https://www.newsprime.co.kr/news/article/?no=746619" target="_blank" rel="noopener"><span class="related-coverage-publisher">프라임경제</span><span class="related-coverage-title">GS건설 &quot;전력기기 이어 모듈러까지…&quot; AI 데이터센터 밸류체인 확장</span></a><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090613211435403" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">LG유플러스·GS건설, &#x27;조립식&#x27; AI 데이터센터 표준모델 만든다 - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.dt.co.kr/article/12082244" target="_blank" rel="noopener"><span class="related-coverage-publisher">디지털타임스</span><span class="related-coverage-title">GS건설·LG유플러스, 모듈러 데이터센터 표준모델 개발 협력</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12145229" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“PMDC 표준모델 공동개발”…GS건설, 모듈러로 AI데이터센터 공기 단축</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 14개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fntimes.com/html/view.php?ud=202609042248524237dd55077bc2_18" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국금융신문</span><span class="related-coverage-title">GS건설, AI로 건설부터 주거까지…자이의 미래를 바꾸다 [AI플랫폼 ③] - 한국금융신문</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260906010001826" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">보법 다른 GS건설 ‘신재생에너지’ 전략…포항 영일만 산단부터 노린다</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090668761" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">GS건설, LGU+와 모듈러데이터센터 개발</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609066836i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">GS건설, 모듈러로 AI데이터센터 &#x27;공급 속도&#x27; 높인다</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12145461" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">&quot;AI 데이터센터에 모듈러 접목&quot; … GS건설·LGU+ 표준모델 개발</span></a><a class="related-coverage-link" href="https://www.newsprime.co.kr/news/article/?no=746619" target="_blank" rel="noopener"><span class="related-coverage-publisher">프라임경제</span><span class="related-coverage-title">GS건설 &quot;전력기기 이어 모듈러까지…&quot; AI 데이터센터 밸류체인 확장</span></a><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090613211435403" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">LG유플러스·GS건설, &#x27;조립식&#x27; AI 데이터센터 표준모델 만든다 - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609060018" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">GS건설, AI 데이터센터 ‘사전 제작형’ 모델 개발 착수</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723142" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">GS건설, &#x27;모듈러&#x27;로 AI 데이터센터 공기 줄인다…LG유플러스 등 5개사 맞손 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.dt.co.kr/article/12082244" target="_blank" rel="noopener"><span class="related-coverage-publisher">디지털타임스</span><span class="related-coverage-title">GS건설·LG유플러스, 모듈러 데이터센터 표준모델 개발 협력</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12145229" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“PMDC 표준모델 공동개발”…GS건설, 모듈러로 AI데이터센터 공기 단축</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637325" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">LG유플러스, 데이터센터도 ‘레고식’ 건설···GS건설과 모듈러 표준화 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=211696" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">AI 데이터센터도 ‘모듈러’로 짓는다…GS건설, 공급 속도전</span></a><a class="related-coverage-link" href="https://zdnet.co.kr/view/?no=20260906090941" target="_blank" rel="noopener"><span class="related-coverage-publisher">ZDNet Korea</span><span class="related-coverage-title">AIDC도 조립식으로 짓는다…LGU+, GS건설과 표준모델 개발</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">LG유플러스, AI 데이터센터 건축기간 단축…&#x27;PMDC 얼라이언스&#x27; 출범</div>
@@ -17754,7 +18491,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">26건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -17853,6 +18590,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/01c120105b477cff80e8ffee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1403006"
+  data-title="좀처럼 줄지 않는 한전·가스公 부채…요금 현실화 카드 꺼낼까"
+  data-publisher="데일리한국"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788660000"
+  data-country="KR"
+  data-search="좀처럼 줄지 않는 한전·가스公 부채…요금 현실화 카드 꺼낼까 데일리한국 한국전력 [데일리한국 정백현 기자] 대형 에너지 공기업인 한국전력공사와 한국가스공사의 재무구조 개선을 위해서는 전기·가스요금 현실화가 필요하다는 목소리가 다시 커질 전망이다.두 공기업 모두 중장기적으로 부채비율을 낮추겠다는 목표를 제시했지만 실제 재무 관련 지표는 좀처럼 나아지지 않고 있기 때문이다.재정경제부 산하 공공기관운영위원회가 지난 1일 보고한 ‘2026~2030년 공공기관 중장기 재무 관리 계획’에 따르면 한전과 가스공사의 올해 별도재무제표 기준 부채비율은 각각 450.2%, 378.0%로 전망됐다.이는 2024년에 수립된 중장기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리한국</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>좀처럼 줄지 않는 한전·가스公 부채…요금 현실화 카드 꺼낼까</div>
+      <div class="article-snippet">[데일리한국 정백현 기자] 대형 에너지 공기업인 한국전력공사와 한국가스공사의 재무구조 개선을 위해서는 전기·가스요금 현실화가 필요하다는 목소리가 다시 커질 전망이다.두 공기업 모두 중장기적으로 부채비율을 낮추겠다는 목표를 제시했지만 실제 재무 관련 지표는 좀처럼 나아지지 않고 있기 때문이다.재정경제부 산하 공공기관운영위원회가 지난 1일 보고한 ‘2026~2030년 공공기관 중장기 재무 관리 계획’에 따르면 한전과 가스공사의 올해 별도재무제표 기준 부채비율은 각각 450.2%, 378.0%로 전망됐다.이는 2024년에 수립된 중장기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6aae70bdf9cd3b3e4f4e5336.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -19134,7 +19904,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">17건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -19665,6 +20435,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://finance.biggo.com/news/ae813e84-b4d3-4698-ab40-1ea52e8a2b31"
+  data-title="Micron CEO touts U.S. investment as differentiator amid targeted tariff pressure on Samsung, SK — BigGo Finance"
+  data-publisher="BigGo Finance"
+  data-group="원전 대미투자"
+  data-language="en"
+  data-priority="1"
+  data-published="1788654342"
+  data-country="US"
+  data-search="micron ceo touts u.s. investment as differentiator amid targeted tariff pressure on samsung, sk — biggo finance biggo finance 원전 대미투자 micron ceo sanjay mehrotra emphasized his company&#x27;s pride in u.s. investment during a tour of the boise, idaho memory fab construction site, drawing a…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">BigGo Finance</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Micron CEO touts U.S. investment as differentiator amid targeted tariff pressure on Samsung, SK — BigGo Finance</div>
+      <div class="article-snippet">Micron CEO Sanjay Mehrotra emphasized his company&#x27;s pride in U.S. investment during a tour of the Boise, Idaho memory fab construction site, drawing a…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7a0dd381d1510cd7df494f90.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://finance.biggo.com/news/366df81c-0699-43b3-becf-b26668cc1517"
   data-title="Japan to Shift $550 Billion U.S. Investment Focus to AI and Semiconductors, METI Minister Akazawa Says — BigGo Finance"
@@ -19704,9 +20507,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">43건</span>
+    <span class="group-count">44건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6085"
+  data-title="인디언포인트 폐쇄 5년, 뉴욕은 왜 다시 원전을 선택했나 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788655450"
+  data-country="US"
+  data-search="인디언포인트 폐쇄 5년, 뉴욕은 왜 다시 원전을 선택했나 - 에너지안전신문 에너지안전신문 원자력 2021년 4월 30일 인디언포인트 원전의 마지막 원자로가 멈춘 지 5년 만에 미국 뉴욕주의 원전 정책이 정반대로 움직이고 있다. 캐시 호철 뉴욕 주지사는 신규"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>인디언포인트 폐쇄 5년, 뉴욕은 왜 다시 원전을 선택했나 - 에너지안전신문</div>
+      <div class="article-snippet">2021년 4월 30일 인디언포인트 원전의 마지막 원자로가 멈춘 지 5년 만에 미국 뉴욕주의 원전 정책이 정반대로 움직이고 있다. 캐시 호철 뉴욕 주지사는 신규</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7bfca2fb4a9e36e4549ab45a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/09/20260906061904282e250e8e188_1"
   data-title="트럼프 &#x27;원전 4배&#x27; 드라이브…美 육군, 기지에 마이크로 원자로 깐다 - 글로벌이코노믹"
@@ -19938,7 +20774,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.fnnews.com/news/202609041620423790"
   data-title="李대통령 &#x27;프랑스 도착&#x27; 국빈방문 일정 돌입…K콘텐츠부터 원전까지"
   data-publisher="파이낸셜뉴스"
@@ -19962,7 +20798,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>李대통령 &#x27;프랑스 도착&#x27; 국빈방문 일정 돌입…K콘텐츠부터 원전까지</div>
+      <div class="headline">李대통령 &#x27;프랑스 도착&#x27; 국빈방문 일정 돌입…K콘텐츠부터 원전까지</div>
       <div class="article-snippet">이재명 대통령이 6일 프랑스에 도착해 3박 5일간의 국빈방문 일정에 돌입했다.이 대통령은 8일부터 수도인 파리로 이동해 엘리제궁에서 마크롱 대통령과 단독 오찬과 확대 정상회담을 갖고 지난 4월 격상된 한·프랑스 &#x27;글로벌 전략적 동반자 관계&#x27;를 구체화할 방안을 ..</div>
     </div>
   </div>
@@ -21132,9 +21968,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">15건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6087"
+  data-title="원자로가 트럭에 실린다…마이크로리액터 시대 온다 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788656933"
+  data-country="US"
+  data-search="원자로가 트럭에 실린다…마이크로리액터 시대 온다 - 에너지안전신문 에너지안전신문 smr 미국 아이다호국립연구소(inl)가 차세대 초소형 원자로인 ‘마이크로리액터’ 개발과 실증을 본격화하고 있다. 마이크로리액터는 대형 원전이나 일반적인 소형모듈원자로("
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자로가 트럭에 실린다…마이크로리액터 시대 온다 - 에너지안전신문</div>
+      <div class="article-snippet">미국 아이다호국립연구소(INL)가 차세대 초소형 원자로인 ‘마이크로리액터’ 개발과 실증을 본격화하고 있다. 마이크로리액터는 대형 원전이나 일반적인 소형모듈원자로(</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0984415c77efebb58bc9ed65.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://it.chosun.com/news/articleView.html?idxno=2023092169523"
   data-title="토목·건축보다 ‘SMR·데이터센터’… 건설사 가을 채용 바뀐다"
@@ -21636,7 +22505,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -21705,6 +22574,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.aa.com.tr/en/pg/photo-gallery/fim-motocross-world-championship-in-afyonkarahisar/167176"
+  data-title="FIM Motocross World Championship in Afyonkarahisar"
+  data-publisher="Anadolu Agency"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788696000"
+  data-country="OTHER"
+  data-search="fim motocross world championship in afyonkarahisar anadolu agency 국내 원자력 협회·학회 "
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Anadolu Agency</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>FIM Motocross World Championship in Afyonkarahisar</div>
+      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5b33e9a4f1db4e48f2b97d59.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.thehindu.com/news/national/kerala/cpim-area-committee-member-anas-ali-accuses-g-sudhakaran-of-wilfully-targeting-him/article71434800.ece"
   data-title="CPI(M) area committee member Anas Ali accuses G. Sudhakaran of wilfully targeting him"
@@ -21735,6 +22637,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/cde410a6d48d56727dd83d87.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.namibian.com.na/unidentified-person-burns-beyond-recognition-in-accident-at-okakarara/"
+  data-title="Unidentified person burns beyond recognition in accident at Okakarara"
+  data-publisher="The Namibian"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788681932"
+  data-country="OTHER"
+  data-search="unidentified person burns beyond recognition in accident at okakarara the namibian 국내 원자력 협회·학회 %%title%% %%sep%% %%primary_category%% %%sep%% %%sitename%% %%sep%% an unidentified person was burnt beyond recognition when the pick-up he was driving crashed into a tree and burst into flames in the okakarara area on saturday morning."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Namibian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Unidentified person burns beyond recognition in accident at Okakarara</div>
+      <div class="article-snippet">%%title%% %%sep%% %%primary_category%% %%sep%% %%sitename%% %%sep%% An unidentified person was burnt beyond recognition when the pick-up he was driving crashed into a tree and burst into flames in the Okakarara area on Saturday morning.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2f788187002ba1754c2cc966.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -21810,24 +22745,24 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">42건</span>
+    <span class="group-count">43건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.aljazeera.com/news/2026/9/6/trump-official-says-there-may-not-be-a-nuclear-agreement-with-iran"
-  data-title="Trump official says ‘there may not be a nuclear agreement’ with Iran"
-  data-publisher="Al Jazeera"
+<article class="preview-card new-article"
+  data-url="https://www.aa.com.tr/en/us-israel-iran-war/us-energy-chief-says-nuclear-deal-with-iran-may-not-happen/4048985"
+  data-title="US energy chief says nuclear deal with Iran may not happen"
+  data-publisher="Anadolu Agency"
   data-group="Nuclear Power·Nuclear Energy"
   data-language="en"
   data-priority="0"
-  data-published="1788713944"
+  data-published="1788726992"
   data-country="OTHER"
-  data-search="trump official says ‘there may not be a nuclear agreement’ with iran al jazeera nuclear power·nuclear energy us energy secretary chris wright&#x27;s comments could signal that us hopes for a nuclear deal are dimming."
+  data-search="us energy chief says nuclear deal with iran may not happen anadolu agency nuclear power·nuclear energy 7-day average for oil passing through strait of hormuz stands at over 9m barrels per day, chris wright says | anadolu"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">Al Jazeera</div>
+        <div class="publisher">Anadolu Agency</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -21837,12 +22772,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">Trump official says ‘there may not be a nuclear agreement’ with Iran</div>
-      <div class="article-snippet">US Energy Secretary Chris Wright&#x27;s comments could signal that US hopes for a nuclear deal are dimming.</div>
+      <div class="headline"><span class="new-badge">NEW</span>US energy chief says nuclear deal with Iran may not happen</div>
+      <div class="article-snippet">7-day average for oil passing through Strait of Hormuz stands at over 9M barrels per day, Chris Wright says | Anadolu</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/766cb61d45a4d78027de16c2.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/5d599b09d41128606853b98d.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/benzinga:a478cae69094b:0-us-energy-secretary-chris-wright-reportedly-says-iran-nuclear-deal-may-never-happen-we-are-degrading-their-capacity-to/"
+  data-title="US Energy Secretary Chris Wright Reportedly Says Iran Nuclear Deal May Never Happen: ‘We Are Degrading Their Capacity to…’"
+  data-publisher="TradingView"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788723209"
+  data-country="US"
+  data-search="us energy secretary chris wright reportedly says iran nuclear deal may never happen: ‘we are degrading their capacity to…’ tradingview nuclear power·nuclear energy amid escalating tensions, u.s. energy secretary chris wright has expressed skepticism about the possibility of reaching a nuclear agreement with iran. this comes as the conflict between the u.s. and iran enters its seventh month, with military actions and economic sanctions continuing to play a sig…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.aljazeera.com/news/2026/9/6/trump-official-says-there-may-not-be-a-nuclear-agreement-with-iran" target="_blank" rel="noopener"><span class="related-coverage-publisher">Al Jazeera</span><span class="related-coverage-title">Trump official says ‘there may not be a nuclear agreement’ with Iran</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>US Energy Secretary Chris Wright Reportedly Says Iran Nuclear Deal May Never Happen: ‘We Are Degrading Their Capacity to…’</div>
+      <div class="article-snippet">Amid escalating tensions, U.S. Energy Secretary Chris Wright has expressed skepticism about the possibility of reaching a nuclear agreement with Iran. This comes as the conflict between the U.S. and Iran enters its seventh month, with military actions and economic sanctions continuing to play a sig…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -22634,7 +23602,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000750e7654a408&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000750e7d619f08&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -23265,9 +24233,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Westinghouse</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6076"
+  data-title="다시 열린 세계 원전시장, 한국 원자력과 SMR은 준비됐나 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="Westinghouse"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788721980"
+  data-country="KR"
+  data-search="다시 열린 세계 원전시장, 한국 원자력과 smr은 준비됐나 - 에너지안전신문 에너지안전신문 westinghouse 프랑스 그라블린에서 epr2 2기의 부지 준비가 시작되고, 네덜란드에서는 edf와 웨스팅하우스가 신규 원전 설계 경쟁에 들어갔다. 이집트 엘다바에서는 vver-1"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>다시 열린 세계 원전시장, 한국 원자력과 SMR은 준비됐나 - 에너지안전신문</div>
+      <div class="article-snippet">프랑스 그라블린에서 EPR2 2기의 부지 준비가 시작되고, 네덜란드에서는 EDF와 웨스팅하우스가 신규 원전 설계 경쟁에 들어갔다. 이집트 엘다바에서는 VVER-1</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/358d22f0338c6ac640175a0a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Fermi America">
@@ -23300,7 +24301,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260907071705616"
   data-title="[아주증시포커스] 변동성이 부른 주식형 펀드 &#x27;머니무브&#x27;…해외형 펀드에 19배 더 몰렸다 外"
   data-publisher="아주경제"
@@ -23324,7 +24325,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[아주증시포커스] 변동성이 부른 주식형 펀드 &#x27;머니무브&#x27;…해외형 펀드에 19배 더 몰렸다 外</div>
+      <div class="headline">[아주증시포커스] 변동성이 부른 주식형 펀드 &#x27;머니무브&#x27;…해외형 펀드에 19배 더 몰렸다 外</div>
       <div class="article-snippet">[사진=아주경제] ◆아주경제 주요뉴스 ▷변동성이 부른 주식형 펀드 &#x27;머니무브&#x27;…해외형 펀드에 19배 더 몰렸다 -공모 주식형 펀드에서 국내 증시를 떠나 해외 상품으로 향하는 ‘머니무브’가 뚜렷해져. 최근 한 달간 ETF를 포함한 공모 주식형 펀드에 4조4311억원이 순유입된 가운데 약 95%가 해외형에 집중. -6일 금융투자협회에 따르면 지난달 4일부터 이달 3일까지 해외 주식형 펀드에는 4조2088억원이 순유입된 반면 국내형은 2223억원에 그쳐. 해외형 유입액이 국내형의 약 19배에 달해. -ETF를 제외하면 국내외</div>
     </div>
   </div>
@@ -23339,10 +24340,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ngetnews.com/news/articleView.html?idxno=553047"
   data-title="두산에너빌리티, 하동복합 6658억원 본계약…가스터빈·서비스·EPC 묶었다"
   data-publisher="뉴스저널리즘"
@@ -23366,7 +24367,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 하동복합 6658억원 본계약…가스터빈·서비스·EPC 묶었다</div>
+      <div class="headline">두산에너빌리티, 하동복합 6658억원 본계약…가스터빈·서비스·EPC 묶었다</div>
       <div class="article-snippet">두산에너빌리티가 한국남부발전의 하동복합발전소에서 국산 가스터빈 공급과 장기 서비스에 이어 발전소 설계·조달·시공(EPC)까지 맡는다. 두산에너빌리티는 기존에도 국내외 발전소 EPC 사업을 수행했지만 하동복합에서는 자체 제작한 가스터빈과 서비스 사업에 EPC를 연계해 사업 범위를 넓혔다</div>
     </div>
   </div>
@@ -23375,7 +24376,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hansbiz.co.kr/news/articleView.html?idxno=861625"
   data-title="[장애인 고용⑫] 삼성물산, 부문별 노력에도 저조"
   data-publisher="한스경제"
@@ -23399,7 +24400,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[장애인 고용⑫] 삼성물산, 부문별 노력에도 저조</div>
+      <div class="headline">[장애인 고용⑫] 삼성물산, 부문별 노력에도 저조</div>
       <div class="article-snippet">| 서울=한스경제 신연수 기자 | 삼성물산이 장애인 의무고용률을 지키지 않아 수십억원 규모의 부담금을 납부한 것으로 드러났다. 부문별로 직접 및 간접 고용을 시행하고 있으나, 법정 기준치에 미달했다.7일 한스경제가 ESG행복경제연구소와 함께 국내 상위 30대 기업의 장애인 고용률을 조사한 결과, 삼성물산의 최근 5년(2021~2025년) 평균 장애인 고용률은 1.9%다. 2021년과 2022년 1.7%에서 2023년 2.1%로 올랐으나 2024년 2.0%, 지난해 1.9%를 기록하며 하락세로 돌아섰다.▲부문별 고용 확대 ‘노력’삼성</div>
     </div>
   </div>
@@ -23409,6 +24410,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newstomato.com/ReadNews.aspx?no=1312529"
+  data-title="[IB토마토]대우건설, 53조 넘는 잔고에도…공사 수익 31% 줄어"
+  data-publisher="뉴스토마토"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788729600"
+  data-country="OTHER"
+  data-search="[ib토마토]대우건설, 53조 넘는 잔고에도…공사 수익 31% 줄어 뉴스토마토 타 건설사 수주잔고 2024년 45조→올 상반기 53조로 확대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스토마토</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[IB토마토]대우건설, 53조 넘는 잔고에도…공사 수익 31% 줄어</div>
+      <div class="article-snippet">수주잔고 2024년 45조→올 상반기 53조로 확대</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2f024e76ecfb19c16f4274fd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.fntimes.com/html/view.php?ud=202609070658359180b372994c95_18"
   data-title="잘나가는 롯데건설, 정비사업 4조 돌파…‘르엘’로 강남 정조준 - 한국금융신문"
   data-publisher="한국금융신문"
@@ -23432,7 +24466,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>잘나가는 롯데건설, 정비사업 4조 돌파…‘르엘’로 강남 정조준 - 한국금융신문</div>
+      <div class="headline">잘나가는 롯데건설, 정비사업 4조 돌파…‘르엘’로 강남 정조준 - 한국금융신문</div>
       <div class="article-snippet">롯데건설이 올해 도시정비사업 수주액 4조원을 넘어섰다. 강남을 비롯한 서울 핵심 정비사업지에서 연이어 수주에 성공하며 고급 주거 브랜드 ‘르엘’을 앞세운 전략이 다시 주목받고 있다.롯데건설은 지난 5일 서울 강남구 대치중학교 강당에서 열린 도곡우성아파트 재건축정비사업 조합원 총회에서 시</div>
     </div>
   </div>
@@ -23492,7 +24526,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260904131721208"
   data-title="[기자의 눈] 구슬은 쌓이는데…꿸 전력망이 없다"
   data-publisher="아주경제"
@@ -23516,7 +24550,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[기자의 눈] 구슬은 쌓이는데…꿸 전력망이 없다</div>
+      <div class="headline">[기자의 눈] 구슬은 쌓이는데…꿸 전력망이 없다</div>
       <div class="article-snippet">구슬이 서 말이라도 꿰어야 보배다. 원전과 재생에너지 등 발전설비를 아무리 늘려도 생산한 전기를 수요지까지 보낼 전력망이 없다면 무용지물이다. 정부는 인공지능(AI) 데이터센터와 반도체 산업을 키우겠다는 청사진을 잇달아 내놓고 있지만 이를 뒷받침할 송전망 건설은 좀처럼 속도를 내지 못하고 있다. 에너지정책의 실현 가능성을 우려하는 목소리가 나오는 이유다. 에너지경제연구원은 국내 데이터센터 총수전용량이 2023년 2.0GW에서 2040년 6.9GW로 늘어날 것으로 전망했다. 데이터센터 전력 소비량은 2038년 국가 전체 전력 소비량에서 4~5%를 차지할 것으로 내다봤다</div>
     </div>
   </div>
@@ -23558,10 +24592,109 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6093"
+  data-title="첨단원자로 상용화를 가로막는 인허가 병목 줄이기…미 하원, 원전 인허가 개혁 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788734801"
+  data-country="US"
+  data-search="첨단원자로 상용화를 가로막는 인허가 병목 줄이기…미 하원, 원전 인허가 개혁 - 에너지안전신문 에너지안전신문 원자력 미국 하원이 첨단원자로 상용화를 가로막는 인허가 병목을 줄이기 위한 입법에 속도를 내고 있다. 미 하원 과학·우주·기술위원회 에너지소위원회는 2일 ‘원자력 르네상"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>첨단원자로 상용화를 가로막는 인허가 병목 줄이기…미 하원, 원전 인허가 개혁 - 에너지안전신문</div>
+      <div class="article-snippet">미국 하원이 첨단원자로 상용화를 가로막는 인허가 병목을 줄이기 위한 입법에 속도를 내고 있다. 미 하원 과학·우주·기술위원회 에너지소위원회는 2일 ‘원자력 르네상</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3201d173b8182d95d6fa0b31.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6091"
+  data-title="미국 알바에너지, 기존 원전 업레이트로 10GW 확보 나서 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788733919"
+  data-country="US"
+  data-search="미국 알바에너지, 기존 원전 업레이트로 10gw 확보 나서 - 에너지안전신문 에너지안전신문 원자력 인공지능(ai) 데이터센터發 전력수요가 급증하는 가운데 미국 원전 스타트업 알바에너지(alva energy)가 신규 원전 건설 대신 기존 원전의 출력을 높이는 &#x27;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>미국 알바에너지, 기존 원전 업레이트로 10GW 확보 나서 - 에너지안전신문</div>
+      <div class="article-snippet">인공지능(AI) 데이터센터發 전력수요가 급증하는 가운데 미국 원전 스타트업 알바에너지(Alva Energy)가 신규 원전 건설 대신 기존 원전의 출력을 높이는 &#x27;</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/40138ac58278b0797a7add68.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260904140300057?section=industry/all"
+  data-title="울주군, 월성원전 연합훈련 참여…광역방사능재난 대응역량 강화 | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788732421"
+  data-country="KR"
+  data-search="울주군, 월성원전 연합훈련 참여…광역방사능재난 대응역량 강화 | 연합뉴스 연합뉴스 원자력 (울산=연합뉴스) 장영은 기자 = 울산 울주군은 &#x27;2026년 월성원전 연합훈련&#x27;에 참여해 원전사고와 복합재난 발생에 대비한 지역 방사능방재 대응..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>울주군, 월성원전 연합훈련 참여…광역방사능재난 대응역량 강화 | 연합뉴스</div>
+      <div class="article-snippet">(울산=연합뉴스) 장영은 기자 = 울산 울주군은 &#x27;2026년 월성원전 연합훈련&#x27;에 참여해 원전사고와 복합재난 발생에 대비한 지역 방사능방재 대응...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ace5b3aebfa19edc308bf838.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003778282"
   data-title="韓, 김승원 녹취록 공개…與 &quot;불법 유출, 공수처 고발&quot;[간추린 주말 뉴스]"
   data-publisher="뉴시스"
@@ -23585,12 +24718,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>韓, 김승원 녹취록 공개…與 &quot;불법 유출, 공수처 고발&quot;[간추린 주말 뉴스]</div>
+      <div class="headline">韓, 김승원 녹취록 공개…與 &quot;불법 유출, 공수처 고발&quot;[간추린 주말 뉴스]</div>
       <div class="article-snippet">[서울=뉴시스]박지혁 기자 = 한동훈 무소속 의원은 6일 김승원 법무부 장관 후보자의 &#x27;신약 로비&#x27; 의혹과 관련된 녹취록을 연일 공개하면서 지명 철회 압박을 이어갔다. 한 의원은 이날 페이스북에 &quot;(브로커인) 양모씨나 김 후보자 측에서 마치 언론에 청탁 문자 두 번이 전부라고 하는 것 같은데, 거짓말&quot;이라며 2021년 10월 12일 김 후보자와 양씨의 통화 내용을 공개했다. 민주당은 한 의원의 녹취록 공개가 위법 행위에 해당한다는 입장이다. 조계원 민주당 대변인은 이날 서면브리핑을 내고 &quot;한 의원 본인이건 조력자이건 공무상비밀누설죄, 개인정보보호법위반죄, 공공기록물관</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/a6c69c71760f012eca30756d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260907075600673"
+  data-title="&quot;아들, 행복하게 살길&quot;…&#x27;피터팬 아빠&#x27; 전경철 작가 별세"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788736257"
+  data-country="OTHER"
+  data-search="&quot;아들, 행복하게 살길&quot;…&#x27;피터팬 아빠&#x27; 전경철 작가 별세 아주경제 원자력 전경철 작가 [사진=연합뉴스·카카오 같이가치 기부페이지 캡처] 중증 자폐 아들을 27년간 키우며 &#x27;피터팬 아빠&#x27;로 불린 전경철(64) 작가가 지난 5일 별세했다.  6일 정유진 발달장애지원전문가포럼 대표는 자신의 사회관계망서비스(sns)에 &quot;지난 5일 오후 7시 56분 전경철 피터팬 아빠가 먼 길을 떠났다&quot;고 말했다. 이어 &quot;장례는 평소 고인의 뜻에 따라 무빈소 장례를 치르기로 했다. 현재 병원에 안치돼 있으며 빈소는 별도로 설치되지 않는다. 삼가 고인의 명복을 빈다&quot;고 덧붙였다. 전 작가는 아내"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;아들, 행복하게 살길&quot;…&#x27;피터팬 아빠&#x27; 전경철 작가 별세</div>
+      <div class="article-snippet">전경철 작가 [사진=연합뉴스·카카오 같이가치 기부페이지 캡처] 중증 자폐 아들을 27년간 키우며 &#x27;피터팬 아빠&#x27;로 불린 전경철(64) 작가가 지난 5일 별세했다.  6일 정유진 발달장애지원전문가포럼 대표는 자신의 사회관계망서비스(SNS)에 &quot;지난 5일 오후 7시 56분 전경철 피터팬 아빠가 먼 길을 떠났다&quot;고 말했다. 이어 &quot;장례는 평소 고인의 뜻에 따라 무빈소 장례를 치르기로 했다. 현재 병원에 안치돼 있으며 빈소는 별도로 설치되지 않는다. 삼가 고인의 명복을 빈다&quot;고 덧붙였다. 전 작가는 아내</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/41741c3626a9e9ddbc36248f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -23618,9 +24784,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.internazionale.it/ultime-notizie-reuters/2026/09/07/north-korea-s-kim-jong-un-says-new-destroyer-will-be-part-of-nuclear-response-system"
+  data-title="North Korea’s Kim Jong Un says new destroyer will be part of nuclear response system"
+  data-publisher="Internazionale"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788733273"
+  data-country="KR"
+  data-search="north korea’s kim jong un says new destroyer will be part of nuclear response system internazionale nuclear power·nuclear energy seoul, sept 7 (reuters) - north korean leader kim jong un said the country’s newest destroyer would be part of a nuclear response system and could deliver “annihilating r… leggi"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Internazionale</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>North Korea’s Kim Jong Un says new destroyer will be part of nuclear response system</div>
+      <div class="article-snippet">SEOUL, Sept 7 (Reuters) - North Korean leader Kim Jong Un said the country’s newest destroyer would be part of a nuclear response system and could deliver “annihilating r… Leggi</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b2d14c9db19d6ad0e2d0fb69.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="불가리아 코즐로두이 원전">
@@ -23688,7 +24887,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260907071705616"
   data-title="[아주증시포커스] 변동성이 부른 주식형 펀드 &#x27;머니무브&#x27;…해외형 펀드에 19배 더 몰렸다 外"
   data-publisher="아주경제"
@@ -23712,7 +24911,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[아주증시포커스] 변동성이 부른 주식형 펀드 &#x27;머니무브&#x27;…해외형 펀드에 19배 더 몰렸다 外</div>
+      <div class="headline">[아주증시포커스] 변동성이 부른 주식형 펀드 &#x27;머니무브&#x27;…해외형 펀드에 19배 더 몰렸다 外</div>
       <div class="article-snippet">[사진=아주경제] ◆아주경제 주요뉴스 ▷변동성이 부른 주식형 펀드 &#x27;머니무브&#x27;…해외형 펀드에 19배 더 몰렸다 -공모 주식형 펀드에서 국내 증시를 떠나 해외 상품으로 향하는 ‘머니무브’가 뚜렷해져. 최근 한 달간 ETF를 포함한 공모 주식형 펀드에 4조4311억원이 순유입된 가운데 약 95%가 해외형에 집중. -6일 금융투자협회에 따르면 지난달 4일부터 이달 3일까지 해외 주식형 펀드에는 4조2088억원이 순유입된 반면 국내형은 2223억원에 그쳐. 해외형 유입액이 국내형의 약 19배에 달해. -ETF를 제외하면 국내외</div>
     </div>
   </div>
@@ -23727,10 +24926,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ngetnews.com/news/articleView.html?idxno=553047"
   data-title="두산에너빌리티, 하동복합 6658억원 본계약…가스터빈·서비스·EPC 묶었다"
   data-publisher="뉴스저널리즘"
@@ -23754,7 +24953,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>두산에너빌리티, 하동복합 6658억원 본계약…가스터빈·서비스·EPC 묶었다</div>
+      <div class="headline">두산에너빌리티, 하동복합 6658억원 본계약…가스터빈·서비스·EPC 묶었다</div>
       <div class="article-snippet">두산에너빌리티가 한국남부발전의 하동복합발전소에서 국산 가스터빈 공급과 장기 서비스에 이어 발전소 설계·조달·시공(EPC)까지 맡는다. 두산에너빌리티는 기존에도 국내외 발전소 EPC 사업을 수행했지만 하동복합에서는 자체 제작한 가스터빈과 서비스 사업에 EPC를 연계해 사업 범위를 넓혔다</div>
     </div>
   </div>
@@ -23763,7 +24962,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hansbiz.co.kr/news/articleView.html?idxno=861625"
   data-title="[장애인 고용⑫] 삼성물산, 부문별 노력에도 저조"
   data-publisher="한스경제"
@@ -23787,7 +24986,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[장애인 고용⑫] 삼성물산, 부문별 노력에도 저조</div>
+      <div class="headline">[장애인 고용⑫] 삼성물산, 부문별 노력에도 저조</div>
       <div class="article-snippet">| 서울=한스경제 신연수 기자 | 삼성물산이 장애인 의무고용률을 지키지 않아 수십억원 규모의 부담금을 납부한 것으로 드러났다. 부문별로 직접 및 간접 고용을 시행하고 있으나, 법정 기준치에 미달했다.7일 한스경제가 ESG행복경제연구소와 함께 국내 상위 30대 기업의 장애인 고용률을 조사한 결과, 삼성물산의 최근 5년(2021~2025년) 평균 장애인 고용률은 1.9%다. 2021년과 2022년 1.7%에서 2023년 2.1%로 올랐으나 2024년 2.0%, 지난해 1.9%를 기록하며 하락세로 돌아섰다.▲부문별 고용 확대 ‘노력’삼성</div>
     </div>
   </div>
@@ -23797,6 +24996,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newstomato.com/ReadNews.aspx?no=1312529"
+  data-title="[IB토마토]대우건설, 53조 넘는 잔고에도…공사 수익 31% 줄어"
+  data-publisher="뉴스토마토"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788729600"
+  data-country="OTHER"
+  data-search="[ib토마토]대우건설, 53조 넘는 잔고에도…공사 수익 31% 줄어 뉴스토마토 타 건설사 수주잔고 2024년 45조→올 상반기 53조로 확대"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스토마토</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[IB토마토]대우건설, 53조 넘는 잔고에도…공사 수익 31% 줄어</div>
+      <div class="article-snippet">수주잔고 2024년 45조→올 상반기 53조로 확대</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2f024e76ecfb19c16f4274fd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.fntimes.com/html/view.php?ud=202609070658359180b372994c95_18"
   data-title="잘나가는 롯데건설, 정비사업 4조 돌파…‘르엘’로 강남 정조준 - 한국금융신문"
   data-publisher="한국금융신문"
@@ -23820,7 +25052,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>잘나가는 롯데건설, 정비사업 4조 돌파…‘르엘’로 강남 정조준 - 한국금융신문</div>
+      <div class="headline">잘나가는 롯데건설, 정비사업 4조 돌파…‘르엘’로 강남 정조준 - 한국금융신문</div>
       <div class="article-snippet">롯데건설이 올해 도시정비사업 수주액 4조원을 넘어섰다. 강남을 비롯한 서울 핵심 정비사업지에서 연이어 수주에 성공하며 고급 주거 브랜드 ‘르엘’을 앞세운 전략이 다시 주목받고 있다.롯데건설은 지난 5일 서울 강남구 대치중학교 강당에서 열린 도곡우성아파트 재건축정비사업 조합원 총회에서 시</div>
     </div>
   </div>
@@ -23880,7 +25112,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260904131721208"
   data-title="[기자의 눈] 구슬은 쌓이는데…꿸 전력망이 없다"
   data-publisher="아주경제"
@@ -23904,7 +25136,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[기자의 눈] 구슬은 쌓이는데…꿸 전력망이 없다</div>
+      <div class="headline">[기자의 눈] 구슬은 쌓이는데…꿸 전력망이 없다</div>
       <div class="article-snippet">구슬이 서 말이라도 꿰어야 보배다. 원전과 재생에너지 등 발전설비를 아무리 늘려도 생산한 전기를 수요지까지 보낼 전력망이 없다면 무용지물이다. 정부는 인공지능(AI) 데이터센터와 반도체 산업을 키우겠다는 청사진을 잇달아 내놓고 있지만 이를 뒷받침할 송전망 건설은 좀처럼 속도를 내지 못하고 있다. 에너지정책의 실현 가능성을 우려하는 목소리가 나오는 이유다. 에너지경제연구원은 국내 데이터센터 총수전용량이 2023년 2.0GW에서 2040년 6.9GW로 늘어날 것으로 전망했다. 데이터센터 전력 소비량은 2038년 국가 전체 전력 소비량에서 4~5%를 차지할 것으로 내다봤다</div>
     </div>
   </div>
@@ -23946,10 +25178,109 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6093"
+  data-title="첨단원자로 상용화를 가로막는 인허가 병목 줄이기…미 하원, 원전 인허가 개혁 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788734801"
+  data-country="US"
+  data-search="첨단원자로 상용화를 가로막는 인허가 병목 줄이기…미 하원, 원전 인허가 개혁 - 에너지안전신문 에너지안전신문 원자력 미국 하원이 첨단원자로 상용화를 가로막는 인허가 병목을 줄이기 위한 입법에 속도를 내고 있다. 미 하원 과학·우주·기술위원회 에너지소위원회는 2일 ‘원자력 르네상"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>첨단원자로 상용화를 가로막는 인허가 병목 줄이기…미 하원, 원전 인허가 개혁 - 에너지안전신문</div>
+      <div class="article-snippet">미국 하원이 첨단원자로 상용화를 가로막는 인허가 병목을 줄이기 위한 입법에 속도를 내고 있다. 미 하원 과학·우주·기술위원회 에너지소위원회는 2일 ‘원자력 르네상</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3201d173b8182d95d6fa0b31.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6091"
+  data-title="미국 알바에너지, 기존 원전 업레이트로 10GW 확보 나서 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788733919"
+  data-country="US"
+  data-search="미국 알바에너지, 기존 원전 업레이트로 10gw 확보 나서 - 에너지안전신문 에너지안전신문 원자력 인공지능(ai) 데이터센터發 전력수요가 급증하는 가운데 미국 원전 스타트업 알바에너지(alva energy)가 신규 원전 건설 대신 기존 원전의 출력을 높이는 &#x27;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>미국 알바에너지, 기존 원전 업레이트로 10GW 확보 나서 - 에너지안전신문</div>
+      <div class="article-snippet">인공지능(AI) 데이터센터發 전력수요가 급증하는 가운데 미국 원전 스타트업 알바에너지(Alva Energy)가 신규 원전 건설 대신 기존 원전의 출력을 높이는 &#x27;</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/40138ac58278b0797a7add68.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.yna.co.kr/view/AKR20260904140300057?section=industry/all"
+  data-title="울주군, 월성원전 연합훈련 참여…광역방사능재난 대응역량 강화 | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788732421"
+  data-country="KR"
+  data-search="울주군, 월성원전 연합훈련 참여…광역방사능재난 대응역량 강화 | 연합뉴스 연합뉴스 원자력 (울산=연합뉴스) 장영은 기자 = 울산 울주군은 &#x27;2026년 월성원전 연합훈련&#x27;에 참여해 원전사고와 복합재난 발생에 대비한 지역 방사능방재 대응..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>울주군, 월성원전 연합훈련 참여…광역방사능재난 대응역량 강화 | 연합뉴스</div>
+      <div class="article-snippet">(울산=연합뉴스) 장영은 기자 = 울산 울주군은 &#x27;2026년 월성원전 연합훈련&#x27;에 참여해 원전사고와 복합재난 발생에 대비한 지역 방사능방재 대응...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ace5b3aebfa19edc308bf838.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003778282"
   data-title="韓, 김승원 녹취록 공개…與 &quot;불법 유출, 공수처 고발&quot;[간추린 주말 뉴스]"
   data-publisher="뉴시스"
@@ -23973,12 +25304,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>韓, 김승원 녹취록 공개…與 &quot;불법 유출, 공수처 고발&quot;[간추린 주말 뉴스]</div>
+      <div class="headline">韓, 김승원 녹취록 공개…與 &quot;불법 유출, 공수처 고발&quot;[간추린 주말 뉴스]</div>
       <div class="article-snippet">[서울=뉴시스]박지혁 기자 = 한동훈 무소속 의원은 6일 김승원 법무부 장관 후보자의 &#x27;신약 로비&#x27; 의혹과 관련된 녹취록을 연일 공개하면서 지명 철회 압박을 이어갔다. 한 의원은 이날 페이스북에 &quot;(브로커인) 양모씨나 김 후보자 측에서 마치 언론에 청탁 문자 두 번이 전부라고 하는 것 같은데, 거짓말&quot;이라며 2021년 10월 12일 김 후보자와 양씨의 통화 내용을 공개했다. 민주당은 한 의원의 녹취록 공개가 위법 행위에 해당한다는 입장이다. 조계원 민주당 대변인은 이날 서면브리핑을 내고 &quot;한 의원 본인이건 조력자이건 공무상비밀누설죄, 개인정보보호법위반죄, 공공기록물관</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/a6c69c71760f012eca30756d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260907075600673"
+  data-title="&quot;아들, 행복하게 살길&quot;…&#x27;피터팬 아빠&#x27; 전경철 작가 별세"
+  data-publisher="아주경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788736257"
+  data-country="OTHER"
+  data-search="&quot;아들, 행복하게 살길&quot;…&#x27;피터팬 아빠&#x27; 전경철 작가 별세 아주경제 원자력 전경철 작가 [사진=연합뉴스·카카오 같이가치 기부페이지 캡처] 중증 자폐 아들을 27년간 키우며 &#x27;피터팬 아빠&#x27;로 불린 전경철(64) 작가가 지난 5일 별세했다.  6일 정유진 발달장애지원전문가포럼 대표는 자신의 사회관계망서비스(sns)에 &quot;지난 5일 오후 7시 56분 전경철 피터팬 아빠가 먼 길을 떠났다&quot;고 말했다. 이어 &quot;장례는 평소 고인의 뜻에 따라 무빈소 장례를 치르기로 했다. 현재 병원에 안치돼 있으며 빈소는 별도로 설치되지 않는다. 삼가 고인의 명복을 빈다&quot;고 덧붙였다. 전 작가는 아내"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;아들, 행복하게 살길&quot;…&#x27;피터팬 아빠&#x27; 전경철 작가 별세</div>
+      <div class="article-snippet">전경철 작가 [사진=연합뉴스·카카오 같이가치 기부페이지 캡처] 중증 자폐 아들을 27년간 키우며 &#x27;피터팬 아빠&#x27;로 불린 전경철(64) 작가가 지난 5일 별세했다.  6일 정유진 발달장애지원전문가포럼 대표는 자신의 사회관계망서비스(SNS)에 &quot;지난 5일 오후 7시 56분 전경철 피터팬 아빠가 먼 길을 떠났다&quot;고 말했다. 이어 &quot;장례는 평소 고인의 뜻에 따라 무빈소 장례를 치르기로 했다. 현재 병원에 안치돼 있으며 빈소는 별도로 설치되지 않는다. 삼가 고인의 명복을 빈다&quot;고 덧붙였다. 전 작가는 아내</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/41741c3626a9e9ddbc36248f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -24006,9 +25370,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.internazionale.it/ultime-notizie-reuters/2026/09/07/north-korea-s-kim-jong-un-says-new-destroyer-will-be-part-of-nuclear-response-system"
+  data-title="North Korea’s Kim Jong Un says new destroyer will be part of nuclear response system"
+  data-publisher="Internazionale"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788733273"
+  data-country="KR"
+  data-search="north korea’s kim jong un says new destroyer will be part of nuclear response system internazionale nuclear power·nuclear energy seoul, sept 7 (reuters) - north korean leader kim jong un said the country’s newest destroyer would be part of a nuclear response system and could deliver “annihilating r… leggi"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Internazionale</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>North Korea’s Kim Jong Un says new destroyer will be part of nuclear response system</div>
+      <div class="article-snippet">SEOUL, Sept 7 (Reuters) - North Korean leader Kim Jong Un said the country’s newest destroyer would be part of a nuclear response system and could deliver “annihilating r… Leggi</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b2d14c9db19d6ad0e2d0fb69.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="불가리아 코즐로두이 원전">
@@ -24676,7 +26073,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">51건</span>
+    <span class="group-count">56건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -24906,7 +26303,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b86a794f2aa4a8f047e1ad2b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="http://www.pmnews.co.kr/data/pmnews_co_kr/mainimages/202608/202608315041778.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25538,6 +26935,72 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.sentv.co.kr/article/view/sentv202609060018"
+  data-title="GS건설, AI 데이터센터 ‘사전 제작형’ 모델 개발 착수"
+  data-publisher="서울경제TV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788662537"
+  data-country="OTHER"
+  data-search="gs건설, ai 데이터센터 ‘사전 제작형’ 모델 개발 착수 서울경제tv 타 건설사 gs건설이 인공지능(ai) 데이터센터 수요 확대에 대응하기 위해 사전 제작형 모듈러 데이터센터(pmdc) 표준모델 개발에 나선다. 6일 gs건설에 따르면 최근"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">GS건설, AI 데이터센터 ‘사전 제작형’ 모델 개발 착수</div>
+      <div class="article-snippet">GS건설이 인공지능(AI) 데이터센터 수요 확대에 대응하기 위해 사전 제작형 모듈러 데이터센터(PMDC) 표준모델 개발에 나선다. 6일 GS건설에 따르면 최근</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.sentv.co.kr/data/sentv/image/2026/09/06/sentv20260906000018.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1723142"
+  data-title="GS건설, &#x27;모듈러&#x27;로 AI 데이터센터 공기 줄인다…LG유플러스 등 5개사 맞손 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788657877"
+  data-country="OTHER"
+  data-search="gs건설, &#x27;모듈러&#x27;로 ai 데이터센터 공기 줄인다…lg유플러스 등 5개사 맞손 - 이비엔(ebn)뉴스센터 ebn산업경제 타 건설사 gs건설이 모듈러 기술을 활용해 ai 데이터센터 구축 기간 단축에 나선다. 생성형 ai와 gpu 기반 고성능 컴퓨팅 확산으로 데이터센터 수요가 늘면서 필요한 시점"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">GS건설, &#x27;모듈러&#x27;로 AI 데이터센터 공기 줄인다…LG유플러스 등 5개사 맞손 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">GS건설이 모듈러 기술을 활용해 AI 데이터센터 구축 기간 단축에 나선다. 생성형 AI와 GPU 기반 고성능 컴퓨팅 확산으로 데이터센터 수요가 늘면서 필요한 시점</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.ebn.co.kr/news/thumbnail/202609/1723142_755535_2418_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.dt.co.kr/article/12082244"
   data-title="GS건설·LG유플러스, 모듈러 데이터센터 표준모델 개발 협력"
   data-publisher="디지털타임스"
@@ -25600,6 +27063,105 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://pimg.mk.co.kr/news/cms/202609/06/news-p.v1.20260906.223cec3fceb240219223caef68190ed1_R.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.seoulfn.com/news/articleView.html?idxno=637325"
+  data-title="LG유플러스, 데이터센터도 ‘레고식’ 건설···GS건설과 모듈러 표준화 - 서울파이낸스"
+  data-publisher="서울파이낸스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788655567"
+  data-country="OTHER"
+  data-search="lg유플러스, 데이터센터도 ‘레고식’ 건설···gs건설과 모듈러 표준화 - 서울파이낸스 서울파이낸스 타 건설사 [서울파이낸스 서종열 기자] lg유플러스가 인공지능(ai) 데이터센터 구축 속도를 높이기 위해 건설·설계·프로젝트관리 전문기업들과 손잡았다. 데이터센터의 주요 구"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울파이낸스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">LG유플러스, 데이터센터도 ‘레고식’ 건설···GS건설과 모듈러 표준화 - 서울파이낸스</div>
+      <div class="article-snippet">[서울파이낸스 서종열 기자] LG유플러스가 인공지능(AI) 데이터센터 구축 속도를 높이기 위해 건설·설계·프로젝트관리 전문기업들과 손잡았다. 데이터센터의 주요 구</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.seoulfn.com/news/photo/202609/637325_439454_4453.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.srtimes.kr/news/articleView.html?idxno=211696"
+  data-title="AI 데이터센터도 ‘모듈러’로 짓는다…GS건설, 공급 속도전"
+  data-publisher="SR타임스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788653897"
+  data-country="OTHER"
+  data-search="ai 데이터센터도 ‘모듈러’로 짓는다…gs건설, 공급 속도전 sr타임스 타 건설사 [srt(에스알 타임스) sr타임스 기자] 생성형 인공지능(ai) 확산으로 데이터센터 수요가 급증하면서 건설업계가 인프라 공급 속도를 높이기 위한 모듈러 기술 적용에 나서고 있다. gs건설은 lg유플러스 등과 손잡고 사전 제작형 모듈러 데이터센터(pmdc) 표준모델 개발에 착수한다.g"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">SR타임스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">AI 데이터센터도 ‘모듈러’로 짓는다…GS건설, 공급 속도전</div>
+      <div class="article-snippet">[SRT(에스알 타임스) SR타임스 기자] 생성형 인공지능(AI) 확산으로 데이터센터 수요가 급증하면서 건설업계가 인프라 공급 속도를 높이기 위한 모듈러 기술 적용에 나서고 있다. GS건설은 LG유플러스 등과 손잡고 사전 제작형 모듈러 데이터센터(PMDC) 표준모델 개발에 착수한다.G</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.srtimes.kr/news/thumbnail/202609/211696_216666_1723_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://zdnet.co.kr/view/?no=20260906090941"
+  data-title="AIDC도 조립식으로 짓는다…LGU+, GS건설과 표준모델 개발"
+  data-publisher="ZDNet Korea"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788653381"
+  data-country="KR"
+  data-search="aidc도 조립식으로 짓는다…lgu+, gs건설과 표준모델 개발 zdnet korea 타 건설사 lg유플러스가 gs건설을 포함한 데이터센터 설계·시공 전문기업들과 손잡고 100mw급 사전제작형 모듈러 데이터센터(pmdc) 표준모델 개발에 속도를 낸다. ai 확산으로 데이터센터 수요가 빠르게 늘어나는 가운데 구축기간을 줄이고 일정한 품질을 확보해 aidc 공급 경쟁력을 높이겠다..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">ZDNet Korea</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">AIDC도 조립식으로 짓는다…LGU+, GS건설과 표준모델 개발</div>
+      <div class="article-snippet">LG유플러스가 GS건설을 포함한 데이터센터 설계·시공 전문기업들과 손잡고 100MW급 사전제작형 모듈러 데이터센터(PMDC) 표준모델 개발에 속도를 낸다. AI 확산으로 데이터센터 수요가 빠르게 늘어나는 가운데 구축기간을 줄이고 일정한 품질을 확보해 AIDC 공급 경쟁력을 높이겠다...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://image.zdnet.co.kr/2026/09/06/bbae486c45dbcfab71b1a90a98c26e21.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25803,14 +27365,14 @@ main {
 
 <article class="preview-card"
   data-url="https://www.seoulfn.com/news/articleView.html?idxno=637292"
-  data-title="[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스"
+  data-title="[부고] 진민수(SK에코플랜트 홍보실 프로)씨 장인상 - 서울파이낸스"
   data-publisher="서울파이낸스"
   data-group="타 건설사"
   data-language="ko"
   data-priority="1"
   data-published="1788501283"
   data-country="OTHER"
-  data-search="[부고] 진민수(sk에코플랜트 홍보실)씨 장인상 - 서울파이낸스 서울파이낸스 타 건설사 ▲ 권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(sk에코플랜트 홍보실)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일"
+  data-search="[부고] 진민수(sk에코플랜트 홍보실 프로)씨 장인상 - 서울파이낸스 서울파이낸스 타 건설사 ▲ 권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(sk에코플랜트 홍보실 프로)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -25825,8 +27387,8 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스</div>
-      <div class="article-snippet">▲ 권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(SK에코플랜트 홍보실)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인 6일</div>
+      <div class="headline">[부고] 진민수(SK에코플랜트 홍보실 프로)씨 장인상 - 서울파이낸스</div>
+      <div class="article-snippet">▲ 권환기씨 별세, 곽숙희씨 남편상, 권은희(신한은행 감사부)씨 부친상, 진민수(SK에코플랜트 홍보실 프로)씨 장인상 = 4일, 서울성모장례식장 23호실, 발인</div>
     </div>
   </div>
   <div class="card-side">
@@ -25855,7 +27417,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실 프로)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</div>
@@ -26119,7 +27681,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 9개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fntimes.com/html/view.php?ud=202609042248524237dd55077bc2_18" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국금융신문</span><span class="related-coverage-title">GS건설, AI로 건설부터 주거까지…자이의 미래를 바꾸다 [AI플랫폼 ③] - 한국금융신문</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260906010001826" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">보법 다른 GS건설 ‘신재생에너지’ 전략…포항 영일만 산단부터 노린다</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090668761" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">GS건설, LGU+와 모듈러데이터센터 개발</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609066836i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">GS건설, 모듈러로 AI데이터센터 &#x27;공급 속도&#x27; 높인다</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12145461" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">&quot;AI 데이터센터에 모듈러 접목&quot; … GS건설·LGU+ 표준모델 개발</span></a><a class="related-coverage-link" href="https://www.newsprime.co.kr/news/article/?no=746619" target="_blank" rel="noopener"><span class="related-coverage-publisher">프라임경제</span><span class="related-coverage-title">GS건설 &quot;전력기기 이어 모듈러까지…&quot; AI 데이터센터 밸류체인 확장</span></a><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090613211435403" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">LG유플러스·GS건설, &#x27;조립식&#x27; AI 데이터센터 표준모델 만든다 - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.dt.co.kr/article/12082244" target="_blank" rel="noopener"><span class="related-coverage-publisher">디지털타임스</span><span class="related-coverage-title">GS건설·LG유플러스, 모듈러 데이터센터 표준모델 개발 협력</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12145229" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“PMDC 표준모델 공동개발”…GS건설, 모듈러로 AI데이터센터 공기 단축</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 14개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fntimes.com/html/view.php?ud=202609042248524237dd55077bc2_18" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국금융신문</span><span class="related-coverage-title">GS건설, AI로 건설부터 주거까지…자이의 미래를 바꾸다 [AI플랫폼 ③] - 한국금융신문</span></a><a class="related-coverage-link" href="https://www.asiatoday.co.kr/kn/view.php?key=20260906010001826" target="_blank" rel="noopener"><span class="related-coverage-publisher">아시아투데이</span><span class="related-coverage-title">보법 다른 GS건설 ‘신재생에너지’ 전략…포항 영일만 산단부터 노린다</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090668761" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">GS건설, LGU+와 모듈러데이터센터 개발</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609066836i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">GS건설, 모듈러로 AI데이터센터 &#x27;공급 속도&#x27; 높인다</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12145461" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">&quot;AI 데이터센터에 모듈러 접목&quot; … GS건설·LGU+ 표준모델 개발</span></a><a class="related-coverage-link" href="https://www.newsprime.co.kr/news/article/?no=746619" target="_blank" rel="noopener"><span class="related-coverage-publisher">프라임경제</span><span class="related-coverage-title">GS건설 &quot;전력기기 이어 모듈러까지…&quot; AI 데이터센터 밸류체인 확장</span></a><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090613211435403" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">LG유플러스·GS건설, &#x27;조립식&#x27; AI 데이터센터 표준모델 만든다 - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609060018" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">GS건설, AI 데이터센터 ‘사전 제작형’ 모델 개발 착수</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723142" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">GS건설, &#x27;모듈러&#x27;로 AI 데이터센터 공기 줄인다…LG유플러스 등 5개사 맞손 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.dt.co.kr/article/12082244" target="_blank" rel="noopener"><span class="related-coverage-publisher">디지털타임스</span><span class="related-coverage-title">GS건설·LG유플러스, 모듈러 데이터센터 표준모델 개발 협력</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12145229" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“PMDC 표준모델 공동개발”…GS건설, 모듈러로 AI데이터센터 공기 단축</span></a><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637325" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">LG유플러스, 데이터센터도 ‘레고식’ 건설···GS건설과 모듈러 표준화 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.srtimes.kr/news/articleView.html?idxno=211696" target="_blank" rel="noopener"><span class="related-coverage-publisher">SR타임스</span><span class="related-coverage-title">AI 데이터센터도 ‘모듈러’로 짓는다…GS건설, 공급 속도전</span></a><a class="related-coverage-link" href="https://zdnet.co.kr/view/?no=20260906090941" target="_blank" rel="noopener"><span class="related-coverage-publisher">ZDNet Korea</span><span class="related-coverage-title">AIDC도 조립식으로 짓는다…LGU+, GS건설과 표준모델 개발</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">LG유플러스, AI 데이터센터 건축기간 단축…&#x27;PMDC 얼라이언스&#x27; 출범</div>
@@ -26598,7 +28160,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/0a23ba7ec0bbde616ea4c7fc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.dailydgnews.com/data/photos/20260936/art_17884865741348_6c62b3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26707,7 +28269,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">34건</span>
+    <span class="group-count">35건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26806,6 +28368,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/01c120105b477cff80e8ffee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://daily.hankooki.com/news/articleView.html?idxno=1403006"
+  data-title="좀처럼 줄지 않는 한전·가스公 부채…요금 현실화 카드 꺼낼까"
+  data-publisher="데일리한국"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788660000"
+  data-country="KR"
+  data-search="좀처럼 줄지 않는 한전·가스公 부채…요금 현실화 카드 꺼낼까 데일리한국 한국전력 [데일리한국 정백현 기자] 대형 에너지 공기업인 한국전력공사와 한국가스공사의 재무구조 개선을 위해서는 전기·가스요금 현실화가 필요하다는 목소리가 다시 커질 전망이다.두 공기업 모두 중장기적으로 부채비율을 낮추겠다는 목표를 제시했지만 실제 재무 관련 지표는 좀처럼 나아지지 않고 있기 때문이다.재정경제부 산하 공공기관운영위원회가 지난 1일 보고한 ‘2026~2030년 공공기관 중장기 재무 관리 계획’에 따르면 한전과 가스공사의 올해 별도재무제표 기준 부채비율은 각각 450.2%, 378.0%로 전망됐다.이는 2024년에 수립된 중장기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리한국</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>좀처럼 줄지 않는 한전·가스公 부채…요금 현실화 카드 꺼낼까</div>
+      <div class="article-snippet">[데일리한국 정백현 기자] 대형 에너지 공기업인 한국전력공사와 한국가스공사의 재무구조 개선을 위해서는 전기·가스요금 현실화가 필요하다는 목소리가 다시 커질 전망이다.두 공기업 모두 중장기적으로 부채비율을 낮추겠다는 목표를 제시했지만 실제 재무 관련 지표는 좀처럼 나아지지 않고 있기 때문이다.재정경제부 산하 공공기관운영위원회가 지난 1일 보고한 ‘2026~2030년 공공기관 중장기 재무 관리 계획’에 따르면 한전과 가스공사의 올해 별도재무제표 기준 부채비율은 각각 450.2%, 378.0%로 전망됐다.이는 2024년에 수립된 중장기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/6aae70bdf9cd3b3e4f4e5336.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28879,7 +30474,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">23건</span>
+    <span class="group-count">24건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29608,6 +31203,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://finance.biggo.com/news/ae813e84-b4d3-4698-ab40-1ea52e8a2b31"
+  data-title="Micron CEO touts U.S. investment as differentiator amid targeted tariff pressure on Samsung, SK — BigGo Finance"
+  data-publisher="BigGo Finance"
+  data-group="원전 대미투자"
+  data-language="en"
+  data-priority="1"
+  data-published="1788654342"
+  data-country="US"
+  data-search="micron ceo touts u.s. investment as differentiator amid targeted tariff pressure on samsung, sk — biggo finance biggo finance 원전 대미투자 micron ceo sanjay mehrotra emphasized his company&#x27;s pride in u.s. investment during a tour of the boise, idaho memory fab construction site, drawing a…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">BigGo Finance</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Micron CEO touts U.S. investment as differentiator amid targeted tariff pressure on Samsung, SK — BigGo Finance</div>
+      <div class="article-snippet">Micron CEO Sanjay Mehrotra emphasized his company&#x27;s pride in U.S. investment during a tour of the Boise, Idaho memory fab construction site, drawing a…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7a0dd381d1510cd7df494f90.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://finance.biggo.com/news/366df81c-0699-43b3-becf-b26668cc1517"
   data-title="Japan to Shift $550 Billion U.S. Investment Focus to AI and Semiconductors, METI Minister Akazawa Says — BigGo Finance"
@@ -29647,9 +31275,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">53건</span>
+    <span class="group-count">54건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6085"
+  data-title="인디언포인트 폐쇄 5년, 뉴욕은 왜 다시 원전을 선택했나 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788655450"
+  data-country="US"
+  data-search="인디언포인트 폐쇄 5년, 뉴욕은 왜 다시 원전을 선택했나 - 에너지안전신문 에너지안전신문 원자력 2021년 4월 30일 인디언포인트 원전의 마지막 원자로가 멈춘 지 5년 만에 미국 뉴욕주의 원전 정책이 정반대로 움직이고 있다. 캐시 호철 뉴욕 주지사는 신규"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>인디언포인트 폐쇄 5년, 뉴욕은 왜 다시 원전을 선택했나 - 에너지안전신문</div>
+      <div class="article-snippet">2021년 4월 30일 인디언포인트 원전의 마지막 원자로가 멈춘 지 5년 만에 미국 뉴욕주의 원전 정책이 정반대로 움직이고 있다. 캐시 호철 뉴욕 주지사는 신규</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7bfca2fb4a9e36e4549ab45a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.g-enews.com/article/Global-Biz/2026/09/20260906061904282e250e8e188_1"
   data-title="트럼프 &#x27;원전 4배&#x27; 드라이브…美 육군, 기지에 마이크로 원자로 깐다 - 글로벌이코노믹"
@@ -29914,7 +31575,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.fnnews.com/news/202609041620423790"
   data-title="李대통령 &#x27;프랑스 도착&#x27; 국빈방문 일정 돌입…K콘텐츠부터 원전까지"
   data-publisher="파이낸셜뉴스"
@@ -29938,7 +31599,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>李대통령 &#x27;프랑스 도착&#x27; 국빈방문 일정 돌입…K콘텐츠부터 원전까지</div>
+      <div class="headline">李대통령 &#x27;프랑스 도착&#x27; 국빈방문 일정 돌입…K콘텐츠부터 원전까지</div>
       <div class="article-snippet">이재명 대통령이 6일 프랑스에 도착해 3박 5일간의 국빈방문 일정에 돌입했다.이 대통령은 8일부터 수도인 파리로 이동해 엘리제궁에서 마크롱 대통령과 단독 오찬과 확대 정상회담을 갖고 지난 4월 격상된 한·프랑스 &#x27;글로벌 전략적 동반자 관계&#x27;를 구체화할 방안을 ..</div>
     </div>
   </div>
@@ -31405,9 +33066,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">15건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6087"
+  data-title="원자로가 트럭에 실린다…마이크로리액터 시대 온다 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788656933"
+  data-country="US"
+  data-search="원자로가 트럭에 실린다…마이크로리액터 시대 온다 - 에너지안전신문 에너지안전신문 smr 미국 아이다호국립연구소(inl)가 차세대 초소형 원자로인 ‘마이크로리액터’ 개발과 실증을 본격화하고 있다. 마이크로리액터는 대형 원전이나 일반적인 소형모듈원자로("
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원자로가 트럭에 실린다…마이크로리액터 시대 온다 - 에너지안전신문</div>
+      <div class="article-snippet">미국 아이다호국립연구소(INL)가 차세대 초소형 원자로인 ‘마이크로리액터’ 개발과 실증을 본격화하고 있다. 마이크로리액터는 대형 원전이나 일반적인 소형모듈원자로(</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0984415c77efebb58bc9ed65.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://it.chosun.com/news/articleView.html?idxno=2023092169523"
   data-title="토목·건축보다 ‘SMR·데이터센터’… 건설사 가을 채용 바뀐다"
@@ -31909,7 +33603,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">5건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31978,6 +33672,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.aa.com.tr/en/pg/photo-gallery/fim-motocross-world-championship-in-afyonkarahisar/167176"
+  data-title="FIM Motocross World Championship in Afyonkarahisar"
+  data-publisher="Anadolu Agency"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788696000"
+  data-country="OTHER"
+  data-search="fim motocross world championship in afyonkarahisar anadolu agency 국내 원자력 협회·학회 "
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Anadolu Agency</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>FIM Motocross World Championship in Afyonkarahisar</div>
+      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5b33e9a4f1db4e48f2b97d59.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.thehindu.com/news/national/kerala/cpim-area-committee-member-anas-ali-accuses-g-sudhakaran-of-wilfully-targeting-him/article71434800.ece"
   data-title="CPI(M) area committee member Anas Ali accuses G. Sudhakaran of wilfully targeting him"
@@ -32008,6 +33735,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/cde410a6d48d56727dd83d87.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.namibian.com.na/unidentified-person-burns-beyond-recognition-in-accident-at-okakarara/"
+  data-title="Unidentified person burns beyond recognition in accident at Okakarara"
+  data-publisher="The Namibian"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788681932"
+  data-country="OTHER"
+  data-search="unidentified person burns beyond recognition in accident at okakarara the namibian 국내 원자력 협회·학회 %%title%% %%sep%% %%primary_category%% %%sep%% %%sitename%% %%sep%% an unidentified person was burnt beyond recognition when the pick-up he was driving crashed into a tree and burst into flames in the okakarara area on saturday morning."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">The Namibian</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Unidentified person burns beyond recognition in accident at Okakarara</div>
+      <div class="article-snippet">%%title%% %%sep%% %%primary_category%% %%sep%% %%sitename%% %%sep%% An unidentified person was burnt beyond recognition when the pick-up he was driving crashed into a tree and burst into flames in the Okakarara area on Saturday morning.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2f788187002ba1754c2cc966.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32083,9 +33843,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">45건</span>
+    <span class="group-count">47건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.aa.com.tr/en/us-israel-iran-war/us-energy-chief-says-nuclear-deal-with-iran-may-not-happen/4048985"
+  data-title="US energy chief says nuclear deal with Iran may not happen"
+  data-publisher="Anadolu Agency"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788726992"
+  data-country="OTHER"
+  data-search="us energy chief says nuclear deal with iran may not happen anadolu agency nuclear power·nuclear energy 7-day average for oil passing through strait of hormuz stands at over 9m barrels per day, chris wright says | anadolu"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Anadolu Agency</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>US energy chief says nuclear deal with Iran may not happen</div>
+      <div class="article-snippet">7-day average for oil passing through Strait of Hormuz stands at over 9M barrels per day, Chris Wright says | Anadolu</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5d599b09d41128606853b98d.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/benzinga:a478cae69094b:0-us-energy-secretary-chris-wright-reportedly-says-iran-nuclear-deal-may-never-happen-we-are-degrading-their-capacity-to/"
+  data-title="US Energy Secretary Chris Wright Reportedly Says Iran Nuclear Deal May Never Happen: ‘We Are Degrading Their Capacity to…’"
+  data-publisher="TradingView"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788723209"
+  data-country="US"
+  data-search="us energy secretary chris wright reportedly says iran nuclear deal may never happen: ‘we are degrading their capacity to…’ tradingview nuclear power·nuclear energy amid escalating tensions, u.s. energy secretary chris wright has expressed skepticism about the possibility of reaching a nuclear agreement with iran. this comes as the conflict between the u.s. and iran enters its seventh month, with military actions and economic sanctions continuing to play a sig…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.aljazeera.com/news/2026/9/6/trump-official-says-there-may-not-be-a-nuclear-agreement-with-iran" target="_blank" rel="noopener"><span class="related-coverage-publisher">Al Jazeera</span><span class="related-coverage-title">Trump official says ‘there may not be a nuclear agreement’ with Iran</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>US Energy Secretary Chris Wright Reportedly Says Iran Nuclear Deal May Never Happen: ‘We Are Degrading Their Capacity to…’</div>
+      <div class="article-snippet">Amid escalating tensions, U.S. Energy Secretary Chris Wright has expressed skepticism about the possibility of reaching a nuclear agreement with Iran. This comes as the conflict between the U.S. and Iran enters its seventh month, with military actions and economic sanctions continuing to play a sig…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.aljazeera.com/news/2026/9/6/trump-official-says-there-may-not-be-a-nuclear-agreement-with-iran"
   data-title="Trump official says ‘there may not be a nuclear agreement’ with Iran"
@@ -32115,7 +33941,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/766cb61d45a4d78027de16c2.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.aljazeera.com/wp-content/uploads/2026/09/getty_6a9d8b69d6-1788709737.jpg?resize=1920%2C1440" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32940,7 +34766,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000750e7654a408&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000750e7d619f08&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33670,9 +35496,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Westinghouse</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6076"
+  data-title="다시 열린 세계 원전시장, 한국 원자력과 SMR은 준비됐나 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="Westinghouse"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788721980"
+  data-country="KR"
+  data-search="다시 열린 세계 원전시장, 한국 원자력과 smr은 준비됐나 - 에너지안전신문 에너지안전신문 westinghouse 프랑스 그라블린에서 epr2 2기의 부지 준비가 시작되고, 네덜란드에서는 edf와 웨스팅하우스가 신규 원전 설계 경쟁에 들어갔다. 이집트 엘다바에서는 vver-1"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>다시 열린 세계 원전시장, 한국 원자력과 SMR은 준비됐나 - 에너지안전신문</div>
+      <div class="article-snippet">프랑스 그라블린에서 EPR2 2기의 부지 준비가 시작되고, 네덜란드에서는 EDF와 웨스팅하우스가 신규 원전 설계 경쟁에 들어갔다. 이집트 엘다바에서는 VVER-1</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/358d22f0338c6ac640175a0a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Fermi America">
@@ -38940,7 +40799,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.seoulfn.com/news/articleView.html?idxno=637292" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울파이낸스</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실 프로)씨 장인상 - 서울파이낸스</span></a><a class="related-coverage-link" href="https://www.shinailbo.co.kr/news/articleView.html?idxno=5058581" target="_blank" rel="noopener"><span class="related-coverage-publisher">신아일보</span><span class="related-coverage-title">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상 - 신아일보</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">[부고] 진민수(SK에코플랜트 홍보실)씨 장인상</div>
@@ -270339,6 +272198,489 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   window.setInterval(updatePcWorldClocks,1000);
   window.addEventListener("resize",function() {
     window.setTimeout(refreshPcVisuals,100);
+  });
+})();
+</script>
+
+
+<script>
+(function() {
+  const PCV2_MIN_WIDTH = 1000;
+  const PCV2_WORLD_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+
+  /* ISO alpha-2 -> ISO numeric used by world-atlas.
+     Includes the countries currently relevant to this news dashboard. */
+  const PCV2_ISO_NUMERIC = {
+    US:"840", CA:"124", MX:"484",
+    KR:"410", KP:"408", JP:"392", CN:"156", IN:"356", VN:"704", MY:"458", TH:"764", SG:"702",
+    GB:"826", FR:"250", DE:"276", BG:"100", RO:"642", CZ:"203", PL:"616", SI:"705", FI:"246",
+    SE:"752", NL:"528", BE:"056", CH:"756", SK:"703", DK:"208", UA:"804", RU:"643", TR:"792",
+    AE:"784", SA:"682", IL:"376", JO:"400", EG:"818",
+    AU:"036", NZ:"554",
+    BR:"076", AR:"032", CL:"152", PE:"604", CO:"170",
+    ZA:"710", NG:"566", KE:"404", GH:"288"
+  };
+
+  const PCV2_NAME = {
+    US:"미국", CA:"캐나다", MX:"멕시코",
+    KR:"한국", KP:"북한", JP:"일본", CN:"중국", IN:"인도", VN:"베트남", MY:"말레이시아", TH:"태국", SG:"싱가포르",
+    GB:"영국", FR:"프랑스", DE:"독일", BG:"불가리아", RO:"루마니아", CZ:"체코", PL:"폴란드", SI:"슬로베니아",
+    FI:"핀란드", SE:"스웨덴", NL:"네덜란드", BE:"벨기에", CH:"스위스", SK:"슬로바키아", DK:"덴마크",
+    UA:"우크라이나", RU:"러시아", TR:"튀르키예",
+    AE:"UAE", SA:"사우디", IL:"이스라엘", JO:"요르단", EG:"이집트",
+    AU:"호주", NZ:"뉴질랜드",
+    BR:"브라질", AR:"아르헨티나", CL:"칠레", PE:"페루", CO:"콜롬비아",
+    ZA:"남아공", NG:"나이지리아", KE:"케냐", GH:"가나"
+  };
+
+  const PCV2_ALPHA_BY_NUM = Object.fromEntries(
+    Object.entries(PCV2_ISO_NUMERIC).map(function(entry) { return [String(Number(entry[1])), entry[0]]; })
+  );
+
+  /* Small-country label nudges only. Core position always comes from polygon centroid. */
+  const PCV2_LABEL_OFFSET = {
+    KR:[18,2], JP:[20,0], GB:[-20,-6], BG:[13,10], RO:[18,-4], CZ:[-10,-12],
+    SI:[-20,10], SK:[14,-11], BE:[-24,8], NL:[-20,-10], CH:[-18,12], AE:[20,8], SG:[18,12]
+  };
+
+  let pcv2WorldData = null;
+  let pcv2SelectedCountry = "";
+
+  function pcv2IsDesktop() {
+    return window.matchMedia("(min-width:"+PCV2_MIN_WIDTH+"px)").matches;
+  }
+
+  function pcv2ActivePanel() {
+    return document.querySelector(".tab-panel.active") || document.querySelector(".tab-panel");
+  }
+
+  function pcv2Cards(includeHidden) {
+    const panel = pcv2ActivePanel();
+    if(!panel) return [];
+    return Array.from(panel.querySelectorAll(".preview-card")).filter(function(card) {
+      if(includeHidden) return true;
+      return card.style.display !== "none" && !card.hidden;
+    });
+  }
+
+  function pcv2Country(card) {
+    return (card.dataset.country || "").trim().toUpperCase();
+  }
+
+  function pcv2Title(card) {
+    return (card.dataset.title || (card.querySelector(".headline")||{}).textContent || "").trim();
+  }
+
+  function pcv2Group(card) {
+    return (card.dataset.group || "기타").trim();
+  }
+
+  function pcv2Image(card) {
+    const img=card.querySelector("img");
+    return img ? (img.currentSrc || img.src || "") : "";
+  }
+
+  function pcv2Ts(card) {
+    const raw=card.dataset.published || "";
+    const d=new Date(raw);
+    if(!isNaN(d.getTime())) return d.getTime();
+    return 0;
+  }
+
+  function pcv2IsImportant(card) {
+    return card.classList.contains("important") ||
+      card.dataset.priority === "important" ||
+      !!card.querySelector(".important-button.active,.important-button[aria-pressed='true']");
+  }
+
+  function pcv2CountryCounts(cards) {
+    const counts={};
+    cards.forEach(function(card) {
+      const c=pcv2Country(card);
+      if(c && c !== "OTHER") counts[c]=(counts[c]||0)+1;
+    });
+    return counts;
+  }
+
+  function pcv2SetKpis() {
+    const cards=pcv2Cards(false);
+    const countries=pcv2CountryCounts(cards);
+    const groups=new Set(cards.map(pcv2Group).filter(Boolean));
+    const imp=cards.filter(pcv2IsImportant).length;
+
+    const set=function(id,value) {
+      const el=document.getElementById(id);
+      if(el) el.textContent=value;
+    };
+    set("pc-v2-kpi-total",cards.length);
+    set("pc-v2-kpi-important",imp);
+    set("pc-v2-kpi-countries",Object.keys(countries).length);
+    set("pc-v2-kpi-groups",groups.size);
+
+    const top=Object.entries(countries).sort(function(a,b) { return b[1]-a[1]; })[0];
+    set("pc-v2-kpi-top-country", top ? (PCV2_NAME[top[0]]||top[0]) : "-");
+    set("pc-v2-kpi-top-country-count", top ? top[1]+"건" : "기사 없음");
+  }
+
+  function pcv2ClockParts(zone, now) {
+    const p=new Intl.DateTimeFormat("en-US",{
+      timeZone:zone,hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false
+    }).formatToParts(now);
+    const v={};
+    p.forEach(function(x) { if(x.type!=="literal") v[x.type]=Number(x.value); });
+    return {h:(v.hour||0)%24,m:v.minute||0,s:v.second||0};
+  }
+
+  function pcv2ZoneName(zone,now) {
+    const p=new Intl.DateTimeFormat("en-US",{timeZone:zone,timeZoneName:"short"}).formatToParts(now);
+    const z=p.find(function(x) { return x.type==="timeZoneName"; });
+    return z ? z.value : "";
+  }
+
+  function pcv2UpdateClocks() {
+    if(!pcv2IsDesktop()) return;
+    const now=new Date();
+    document.querySelectorAll(".pc-v2-clock").forEach(function(card) {
+      const zone=card.dataset.tz;
+      const p=pcv2ClockParts(zone,now);
+      const hour=((p.h%12)+(p.m/60)+(p.s/3600))*30;
+      const minute=(p.m+(p.s/60))*6;
+      const second=p.s*6;
+      const h=card.querySelector(".pc-v2-hour");
+      const m=card.querySelector(".pc-v2-minute");
+      const s=card.querySelector(".pc-v2-second");
+      if(h) h.style.transform="rotate("+hour+"deg)";
+      if(m) m.style.transform="rotate("+minute+"deg)";
+      if(s) s.style.transform="rotate("+second+"deg)";
+      const digital=card.querySelector(".pc-v2-digital");
+      if(digital) digital.textContent=
+        String(p.h).padStart(2,"0")+":"+String(p.m).padStart(2,"0")+":"+String(p.s).padStart(2,"0");
+      const zn=card.querySelector(".pc-v2-zone");
+      if(zn) zn.textContent=pcv2ZoneName(zone,now);
+    });
+  }
+
+  function pcv2RenderIssues() {
+    const box=document.getElementById("pc-v2-issue-grid");
+    if(!box || !pcv2IsDesktop()) return;
+    const cards=pcv2Cards(false).slice().sort(function(a,b) {
+      const ia=pcv2IsImportant(a)?1:0, ib=pcv2IsImportant(b)?1:0;
+      if(ib!==ia) return ib-ia;
+      return pcv2Ts(b)-pcv2Ts(a);
+    });
+
+    const selected=[];
+    const usedGroups=new Set();
+    for(const card of cards) {
+      const g=pcv2Group(card);
+      if(usedGroups.has(g)) continue;
+      usedGroups.add(g);
+      selected.push(card);
+      if(selected.length>=3) break;
+    }
+
+    box.innerHTML="";
+    selected.forEach(function(card) {
+      const item=document.createElement("article");
+      item.className="pc-v2-issue";
+      const img=pcv2Image(card);
+      const image=document.createElement("div");
+      image.className="pc-v2-issue-image";
+      if(img) image.style.backgroundImage='url("'+img.replace(/"/g,"%22")+'")';
+
+      const shade=document.createElement("div");
+      shade.className="pc-v2-issue-shade";
+      const content=document.createElement("div");
+      content.className="pc-v2-issue-content";
+
+      const c=pcv2Country(card);
+      const sameGroup=cards.filter(function(x) { return pcv2Group(x)===pcv2Group(card); }).length;
+      content.innerHTML=
+        '<div class="pc-v2-issue-meta">'+
+          '<span>'+(PCV2_NAME[c]||c||"글로벌")+'</span>'+
+          '<span>'+pcv2Group(card)+'</span>'+
+        '</div>'+
+        '<h3>'+pcv2Title(card).replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</h3>'+
+        '<p>관련 기사 '+sameGroup+'건 · 클릭하여 대표기사 확인</p>';
+
+      item.appendChild(image);
+      item.appendChild(shade);
+      item.appendChild(content);
+      item.addEventListener("click",function() { openArticle(card); });
+      box.appendChild(item);
+    });
+  }
+
+  function pcv2RenderFlow() {
+    const box=document.getElementById("pc-v2-flow");
+    if(!box || !pcv2IsDesktop()) return;
+    const cards=pcv2Cards(false)
+      .filter(function(card) {
+        const t=(pcv2Title(card)+" "+pcv2Group(card)).toLowerCase();
+        return /현대건설|hyundai|hdec|미국|u\.s\.|usa|대미|holtec|palisades|matador|westinghouse|ap1000|smr/.test(t);
+      })
+      .sort(function(a,b) { return pcv2Ts(a)-pcv2Ts(b); })
+      .slice(-7);
+
+    box.innerHTML="";
+    cards.forEach(function(card) {
+      const d=new Date(pcv2Ts(card));
+      const date=!isNaN(d.getTime()) ?
+        String(d.getMonth()+1).padStart(2,"0")+"."+String(d.getDate()).padStart(2,"0") : "--.--";
+      const node=document.createElement("button");
+      node.type="button";
+      node.className="pc-v2-flow-card";
+
+      const img=pcv2Image(card);
+      node.innerHTML=
+        '<span class="pc-v2-flow-date">'+date+'</span>'+
+        '<div class="pc-v2-flow-thumb">'+(img?'<img src="'+img.replace(/"/g,"%22")+'" alt="">':'')+'</div>'+
+        '<strong>'+pcv2Title(card).replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</strong>'+
+        '<span class="pc-v2-flow-group">'+pcv2Group(card)+'</span>';
+      node.addEventListener("click",function() { openArticle(card); });
+      box.appendChild(node);
+    });
+
+    if(!cards.length) {
+      box.innerHTML='<div style="padding:18px;color:#8998a6;font-size:9px;">현재 선택 기간에 표시할 주요 이슈 흐름이 없습니다.</div>';
+    }
+  }
+
+  function pcv2CountryDetail(code) {
+    pcv2SelectedCountry=code || "";
+    const empty=document.getElementById("pc-v2-country-empty");
+    const detail=document.getElementById("pc-v2-country-detail");
+    if(!code) {
+      if(empty) empty.hidden=false;
+      if(detail) detail.hidden=true;
+      return;
+    }
+
+    const cards=pcv2Cards(true).filter(function(card) { return pcv2Country(card)===code; });
+    if(empty) empty.hidden=true;
+    if(detail) detail.hidden=false;
+
+    const flag=document.getElementById("pc-v2-country-flag");
+    if(flag) flag.src="https://flagcdn.com/w80/"+code.toLowerCase()+".png";
+    const name=document.getElementById("pc-v2-country-name");
+    if(name) name.textContent=PCV2_NAME[code]||code;
+    const codeEl=document.getElementById("pc-v2-country-code");
+    if(codeEl) codeEl.textContent=code;
+    const total=document.getElementById("pc-v2-country-total");
+    if(total) total.textContent=cards.length;
+    const important=document.getElementById("pc-v2-country-important");
+    if(important) important.textContent=cards.filter(pcv2IsImportant).length;
+
+    const groupCounts={};
+    cards.forEach(function(card) {
+      const g=pcv2Group(card);
+      groupCounts[g]=(groupCounts[g]||0)+1;
+    });
+    const tags=document.getElementById("pc-v2-country-groups");
+    if(tags) {
+      tags.innerHTML="";
+      Object.entries(groupCounts).sort(function(a,b) { return b[1]-a[1]; }).slice(0,5).forEach(function(e) {
+        const b=document.createElement("b");
+        b.textContent=e[0]+" "+e[1];
+        tags.appendChild(b);
+      });
+    }
+
+    const latest=cards.slice().sort(function(a,b) { return pcv2Ts(b)-pcv2Ts(a); })[0];
+    const headline=document.getElementById("pc-v2-country-headline");
+    if(headline) {
+      headline.textContent=latest ? pcv2Title(latest) : "대표 기사 없음";
+      headline.onclick=latest ? function() { openArticle(latest); } : null;
+    }
+
+    const show=document.getElementById("pc-v2-country-show");
+    if(show) {
+      show.onclick=function() {
+        try {
+          activeCountryFilter=code;
+          if(typeof updateSelectedCountryClock==="function") updateSelectedCountryClock(code);
+          if(typeof filterArticles==="function") filterArticles();
+        } catch(_e) {}
+        const main=document.querySelector("main");
+        if(main) main.scrollIntoView({behavior:"smooth",block:"start"});
+      };
+    }
+  }
+
+  function pcv2MapLabel(code, x, y, count) {
+    const layer=document.getElementById("pc-v2-map-labels");
+    if(!layer) return;
+    const label=document.createElement("button");
+    label.type="button";
+    label.className="pc-v2-map-label";
+    const off=PCV2_LABEL_OFFSET[code]||[0,0];
+    label.style.left=(x+off[0])+"px";
+    label.style.top=(y+off[1])+"px";
+    label.innerHTML=
+      '<img src="https://flagcdn.com/w40/'+code.toLowerCase()+'.png" alt="">'+
+      '<strong>'+(PCV2_NAME[code]||code)+'</strong>'+
+      '<span>'+count+'건</span>';
+    label.addEventListener("click",function(e) {
+      e.stopPropagation();
+      pcv2SelectMapCountry(code);
+    });
+    layer.appendChild(label);
+  }
+
+  function pcv2SelectMapCountry(code) {
+    pcv2SelectedCountry=code||"";
+    document.querySelectorAll(".pc-v2-map-country").forEach(function(path) {
+      path.classList.toggle("selected",path.dataset.code===pcv2SelectedCountry);
+    });
+    pcv2CountryDetail(pcv2SelectedCountry);
+  }
+
+  function pcv2RenderMap() {
+    if(!pcv2IsDesktop() || !pcv2WorldData || !window.d3 || !window.topojson) return;
+
+    const svg=d3.select("#pc-v2-world-map");
+    if(svg.empty()) return;
+
+    const node=svg.node();
+    const width=node.clientWidth || 1050;
+    const height=node.clientHeight || 500;
+    svg.attr("viewBox","0 0 "+width+" "+height);
+    svg.selectAll("*").remove();
+
+    const features=topojson.feature(pcv2WorldData,pcv2WorldData.objects.countries).features;
+    const sphere={type:"Sphere"};
+    const projection=d3.geoNaturalEarth1().fitExtent([[12,12],[width-12,height-12]],sphere);
+    const path=d3.geoPath(projection);
+    const counts=pcv2CountryCounts(pcv2Cards(false));
+    const maxCount=Math.max(1,...Object.values(counts));
+
+    const g=svg.append("g");
+    g.selectAll("path")
+      .data(features)
+      .join("path")
+      .attr("d",path)
+      .attr("class",function(f) {
+        const code=PCV2_ALPHA_BY_NUM[String(Number(f.id))]||"";
+        const count=counts[code]||0;
+        let level=1;
+        if(count/maxCount>=.75) level=4;
+        else if(count/maxCount>=.45) level=3;
+        else if(count/maxCount>=.20) level=2;
+        return "pc-v2-map-country"+(count?" has-news level-"+level:"")+(code===pcv2SelectedCountry?" selected":"");
+      })
+      .attr("data-code",function(f) { return PCV2_ALPHA_BY_NUM[String(Number(f.id))]||""; })
+      .on("mouseenter",function(event,f) {
+        const code=PCV2_ALPHA_BY_NUM[String(Number(f.id))]||"";
+        if(!code) return;
+        const tip=document.getElementById("pc-v2-map-tooltip");
+        if(!tip) return;
+        const count=counts[code]||0;
+        tip.hidden=false;
+        tip.textContent=(PCV2_NAME[code]||code)+" · "+count+"건";
+        const rect=document.querySelector(".pc-v2-map-wrap").getBoundingClientRect();
+        tip.style.left=(event.clientX-rect.left+10)+"px";
+        tip.style.top=(event.clientY-rect.top+10)+"px";
+      })
+      .on("mouseleave",function() {
+        const tip=document.getElementById("pc-v2-map-tooltip");
+        if(tip) tip.hidden=true;
+      })
+      .on("click",function(_event,f) {
+        const code=PCV2_ALPHA_BY_NUM[String(Number(f.id))]||"";
+        if(code) pcv2SelectMapCountry(code);
+      });
+
+    const labelLayer=document.getElementById("pc-v2-map-labels");
+    if(labelLayer) labelLayer.innerHTML="";
+
+    Object.entries(counts).forEach(function(entry) {
+      const code=entry[0], count=entry[1];
+      const numeric=PCV2_ISO_NUMERIC[code];
+      if(!numeric) return;
+      const feature=features.find(function(f) { return String(Number(f.id))===String(Number(numeric)); });
+      if(!feature) return;
+      const centroid=path.centroid(feature);
+      if(!Number.isFinite(centroid[0]) || !Number.isFinite(centroid[1])) return;
+      pcv2MapLabel(code,centroid[0],centroid[1],count);
+    });
+
+    const loading=document.getElementById("pc-v2-map-loading");
+    if(loading) loading.style.display="none";
+  }
+
+  function pcv2LoadMap() {
+    if(!pcv2IsDesktop()) return;
+    const loading=document.getElementById("pc-v2-map-loading");
+    if(!window.d3 || !window.topojson) {
+      if(loading) loading.textContent="지도 라이브러리를 불러오지 못했습니다.";
+      return;
+    }
+    if(pcv2WorldData) {
+      pcv2RenderMap();
+      return;
+    }
+    fetch(PCV2_WORLD_URL)
+      .then(function(r) { if(!r.ok) throw new Error("map"); return r.json(); })
+      .then(function(data) {
+        pcv2WorldData=data;
+        pcv2RenderMap();
+      })
+      .catch(function() {
+        if(loading) loading.textContent="고해상도 지도 데이터를 불러오지 못했습니다.";
+      });
+  }
+
+  function pcv2Refresh() {
+    if(!pcv2IsDesktop()) return;
+    pcv2SetKpis();
+    pcv2RenderIssues();
+    pcv2RenderFlow();
+    if(pcv2WorldData) pcv2RenderMap();
+    else pcv2LoadMap();
+  }
+
+  function pcv2Init() {
+    if(!pcv2IsDesktop()) return;
+    pcv2UpdateClocks();
+    pcv2Refresh();
+
+    const reset=document.getElementById("pc-v2-map-reset");
+    if(reset) reset.onclick=function() { pcv2SelectMapCountry(""); };
+
+    const scroll=document.getElementById("pc-v2-scroll-articles");
+    if(scroll) scroll.onclick=function() {
+      const panel=pcv2ActivePanel();
+      if(panel) panel.scrollIntoView({behavior:"smooth",block:"start"});
+    };
+  }
+
+  if(document.readyState==="loading") {
+    document.addEventListener("DOMContentLoaded",function() { setTimeout(pcv2Init,180); });
+  } else {
+    setTimeout(pcv2Init,180);
+  }
+
+  setInterval(pcv2UpdateClocks,1000);
+
+  document.addEventListener("click",function(e) {
+    if(e.target.closest(".tab-button,.important-button,.country-pin,.period-tab,.language-order-toggle")) {
+      setTimeout(pcv2Refresh,160);
+    }
+  });
+
+  const search=document.getElementById("article-search");
+  if(search) search.addEventListener("input",function() { setTimeout(pcv2Refresh,80); });
+  const archiveDate=document.getElementById("archive-date");
+  if(archiveDate) archiveDate.addEventListener("change",function() { setTimeout(pcv2Refresh,180); });
+
+  let pcv2ResizeTimer=null;
+  window.addEventListener("resize",function() {
+    clearTimeout(pcv2ResizeTimer);
+    pcv2ResizeTimer=setTimeout(function() {
+      if(pcv2IsDesktop()) {
+        pcv2RenderMap();
+      }
+    },140);
   });
 })();
 </script>
