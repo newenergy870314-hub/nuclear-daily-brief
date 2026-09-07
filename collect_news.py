@@ -1,3 +1,4 @@
+# FINAL PC V11 / MOBILE IDENTITY + LEFT 2-3 SPLIT ARTICLE VIEW / MOBILE UNCHANGED 2026-09-07
 # FINAL PC V10 / REBUILT FROM MOBILE INFORMATION ARCHITECTURE / MOBILE UNCHANGED 2026-09-07
 # FINAL PC ANALYTICS DESKTOP V9 / TOPIC ANALYSIS / MOBILE UNCHANGED 2026-09-07
 # FINAL PC DESKTOP APP V8 / LEGACY PC SCRIPTS ISOLATED / MOBILE UNCHANGED 2026-09-07
@@ -27600,6 +27601,369 @@ main {{
   #pc10-app{{display:none!important}}
 }}
 
+
+/* ==========================================================
+   PC11 — same service identity, PC split-view layout.
+   Right = mobile categories / articles.
+   Left = dashboard or article detail.
+   ========================================================== */
+#pc11-app{{display:none}}
+
+@media (min-width:1000px){{
+  html,body{{
+    width:100%;height:100%;margin:0;
+    overflow:hidden!important;
+    background:#f4f6f8!important;
+  }}
+
+  #pc7-app,#pc9-app,#pc10-app,#pc-v2-dashboard,#pc-insight-rail,#world-map-panel{{
+    display:none!important;
+  }}
+
+  /* Existing mobile page remains as hidden data source only. */
+  body>.phone{{
+    display:block!important;
+    position:absolute!important;
+    left:-200vw!important;top:0!important;
+    width:1px!important;height:1px!important;
+    overflow:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }}
+
+  #pc11-app{{
+    display:grid!important;
+    grid-template-rows:62px minmax(0,1fr);
+    gap:9px;
+    width:100vw;height:100dvh;
+    box-sizing:border-box;
+    padding:10px 12px 12px;
+    overflow:hidden;
+    font-family:Pretendard,"Noto Sans KR","Malgun Gothic",sans-serif;
+    color:#183951;
+    background:
+      radial-gradient(circle at 8% -5%,rgba(212,226,237,.62),transparent 25%),
+      #f4f6f8;
+  }}
+
+  .pc11-header{{
+    min-width:0;
+    display:grid;
+    grid-template-columns:minmax(210px,250px) minmax(280px,1fr) auto;
+    gap:12px;
+    align-items:center;
+    padding:0 14px;
+    border:1px solid #e0e6eb;
+    border-radius:15px;
+    background:#fff;
+    box-shadow:0 5px 17px rgba(31,52,72,.045);
+  }}
+  .pc11-brand span{{display:block;color:#7894aa;font-size:7px;font-weight:950;letter-spacing:1px}}
+  .pc11-brand strong{{display:block;margin-top:2px;color:#173b61;font-size:17px;font-weight:950}}
+  .pc11-search-wrap input{{
+    width:100%;height:35px;box-sizing:border-box;
+    padding:0 12px;border:1px solid #dce4e9;border-radius:10px;
+    outline:none;background:#f7f9fb;color:#29465d;
+    font-size:8.5px;font-weight:750;
+  }}
+  .pc11-header-actions{{display:flex;gap:5px;align-items:center}}
+  .pc11-header-actions button{{
+    height:31px;padding:0 9px;
+    border:1px solid #dde5ea;border-radius:8px;
+    background:#fff;color:#637789;font-size:7px;font-weight:900;cursor:pointer;
+  }}
+  .pc11-header-actions button.active{{background:#edf3f7;color:#173b61;border-color:#cadbe7}}
+  .pc11-header-actions button.primary{{background:#173b61;color:#fff;border-color:#173b61}}
+
+  .pc11-shell{{
+    min-width:0;min-height:0;
+    display:grid;
+    grid-template-columns:minmax(0,2fr) minmax(310px,1fr);
+    gap:9px;
+    overflow:hidden;
+  }}
+
+  .pc11-left,.pc11-right{{
+    min-width:0;min-height:0;
+    overflow:hidden;
+    border:1px solid #e0e6eb;
+    border-radius:15px;
+    background:#fff;
+    box-shadow:0 5px 15px rgba(31,52,72,.035);
+  }}
+
+  .pc11-left{{position:relative}}
+  .pc11-dashboard{{
+    width:100%;height:100%;
+    display:grid;
+    grid-template-rows:66px 67px minmax(0,1fr);
+    gap:8px;
+    padding:10px;
+    box-sizing:border-box;
+    overflow:hidden;
+    background:#f8fafb;
+  }}
+
+  .pc11-page-head{{
+    min-width:0;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 4px;
+  }}
+  .pc11-page-head>div:first-child{{min-width:0}}
+  .pc11-page-head span{{display:block;color:#7896ad;font-size:6px;font-weight:950;letter-spacing:.8px}}
+  .pc11-page-head h1{{margin:2px 0 0;color:#193c5a;font-size:18px;font-weight:950;line-height:1.1}}
+  .pc11-page-head p{{margin:4px 0 0;color:#8795a1;font-size:6.3px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+  .pc11-head-count{{text-align:right;flex:0 0 auto}}
+  .pc11-head-count strong{{display:block;margin-top:2px;color:#173b61;font-size:14px}}
+
+  .pc11-kpis{{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,1.35fr);
+    gap:6px;
+    min-width:0;
+  }}
+  .pc11-kpis article{{
+    min-width:0;
+    padding:8px 9px;border:1px solid #e1e7eb;border-radius:11px;background:#fff;
+  }}
+  .pc11-kpis span{{display:block;color:#8594a0;font-size:6px;font-weight:850}}
+  .pc11-kpis strong{{display:inline-block;margin-top:3px;color:#173b61;font-size:18px;font-weight:950;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+  .pc11-kpis small{{margin-left:2px;color:#9ba6af;font-size:5.8px;font-weight:800}}
+  .pc11-kpis article.accent{{background:linear-gradient(135deg,#173b61,#2d668e)}}
+  .pc11-kpis article.accent span,.pc11-kpis article.accent small{{color:rgba(255,255,255,.68)}}
+  .pc11-kpis article.accent strong{{color:#fff;font-size:12px}}
+
+  .pc11-dashboard-grid{{
+    min-width:0;min-height:0;
+    display:grid;
+    grid-template-columns:minmax(0,1.25fr) minmax(0,.88fr) minmax(0,.78fr);
+    grid-template-rows:minmax(0,1.05fr) minmax(0,.95fr);
+    gap:7px;
+    overflow:hidden;
+  }}
+  .pc11-card{{
+    min-width:0;min-height:0;overflow:hidden;
+    border:1px solid #e1e7eb;border-radius:12px;background:#fff;
+  }}
+  .pc11-card-head{{
+    height:36px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 9px;border-bottom:1px solid #edf1f4;
+  }}
+  .pc11-card-head span{{display:block;color:#7797af;font-size:5.3px;font-weight:950;letter-spacing:.75px}}
+  .pc11-card-head strong{{display:block;margin-top:1px;color:#29475f;font-size:8.8px;font-weight:950}}
+  .pc11-card-head small{{color:#96a2ac;font-size:5.3px;font-weight:800}}
+  .pc11-card-head button{{
+    height:22px;padding:0 6px;border:1px solid #dde5ea;border-radius:6px;
+    background:#f8fafb;color:#617587;font-size:5.4px;font-weight:900;cursor:pointer;
+  }}
+
+  .pc11-issues{{grid-column:1/span 2;grid-row:1}}
+  .pc11-issue-list{{
+    height:calc(100% - 36px);display:grid;
+    grid-template-columns:1.2fr .9fr .9fr;gap:6px;padding:7px;box-sizing:border-box;
+  }}
+  .pc11-issue-item{{
+    min-width:0;min-height:0;overflow:hidden;
+    padding:9px;border:1px solid #e7ecef;border-radius:10px;
+    background:#f7f9fb;text-align:left;cursor:pointer;
+  }}
+  .pc11-issue-item:first-child{{background:#173b61;border-color:#173b61}}
+  .pc11-issue-item .top{{display:flex;align-items:center;justify-content:space-between;gap:5px;color:#8193a2;font-size:5.5px;font-weight:900}}
+  .pc11-issue-item:first-child .top{{color:rgba(255,255,255,.65)}}
+  .pc11-issue-item h3{{
+    margin:8px 0 0;color:#36546b;font-size:8.5px;line-height:1.32;font-weight:950;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }}
+  .pc11-issue-item:first-child h3{{color:#fff;font-size:11px}}
+  .pc11-issue-item .chips{{display:flex;flex-wrap:wrap;gap:3px;margin-top:7px}}
+  .pc11-issue-item .chips span{{padding:2px 4px;border-radius:999px;background:#eaf0f4;color:#60798d;font-size:5px;font-weight:850}}
+  .pc11-issue-item:first-child .chips span{{background:rgba(255,255,255,.12);color:#fff}}
+
+  .pc11-entities{{grid-column:3;grid-row:1}}
+  .pc11-keywords{{grid-column:1;grid-row:2}}
+  .pc11-map-card{{grid-column:2;grid-row:2}}
+  .pc11-media{{grid-column:3;grid-row:2}}
+
+  .pc11-rank-list{{
+    height:calc(100% - 36px);padding:5px 8px;box-sizing:border-box;overflow:auto;
+  }}
+  .pc11-rank-row{{
+    display:grid;grid-template-columns:19px minmax(0,1fr) auto;gap:5px;align-items:center;
+    min-height:26px;border-bottom:1px solid #eef2f4;cursor:pointer;
+  }}
+  .pc11-rank-row:last-child{{border-bottom:0}}
+  .pc11-rank-no{{color:#a0aab2;font-size:5.3px;font-weight:950}}
+  .pc11-rank-name{{color:#48647a;font-size:6.1px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+  .pc11-rank-count{{color:#173b61;font-size:6.4px;font-weight:950}}
+
+  .pc11-keyword-list{{
+    display:flex;flex-wrap:wrap;align-content:flex-start;gap:4px;
+    height:calc(100% - 36px);padding:8px;box-sizing:border-box;overflow:hidden;
+  }}
+  .pc11-keyword{{
+    height:22px;padding:0 6px;border:1px solid #e0e7ec;border-radius:999px;
+    background:#f7f9fb;color:#526e83;font-size:5.7px;font-weight:900;cursor:pointer;
+  }}
+  .pc11-keyword b{{margin-left:3px;color:#173b61}}
+
+  .pc11-map-layout{{
+    height:calc(100% - 36px);
+    display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:5px;padding:6px;box-sizing:border-box;
+  }}
+  .pc11-map-stage{{
+    position:relative;min-width:0;min-height:0;overflow:hidden;
+    border:1px solid #e6ecef;border-radius:8px;background:#f4f7f9;
+  }}
+  #pc11-map{{width:100%;height:100%;display:block}}
+  #pc11-map-loading{{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#929fa9;font-size:5.3px}}
+  .pc11-map-country{{fill:#dfe7ec;stroke:#fff;stroke-width:.55;vector-effect:non-scaling-stroke;cursor:pointer}}
+  .pc11-map-country.has{{fill:#8fb4cd}}
+  .pc11-map-country.l2{{fill:#6899bc}}
+  .pc11-map-country.l3{{fill:#467ca4}}
+  .pc11-map-country.l4{{fill:#22587e}}
+  .pc11-map-country.selected{{fill:#e1b83e!important;stroke:#173b61!important;stroke-width:1.15!important}}
+  .pc11-country-list{{min-width:0;overflow:auto}}
+  .pc11-country-row{{
+    min-height:22px;display:flex;align-items:center;justify-content:space-between;gap:4px;
+    border-bottom:1px solid #eef2f4;color:#566f83;font-size:5.4px;font-weight:850;cursor:pointer;
+  }}
+  .pc11-country-row strong{{color:#173b61;font-size:5.8px}}
+
+  /* RIGHT — familiar mobile-like navigation/list */
+  .pc11-right{{
+    display:grid;
+    grid-template-rows:48px auto 34px minmax(0,1fr);
+    background:#fff;
+  }}
+  .pc11-right-head{{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 11px;border-bottom:1px solid #e8edf1;
+  }}
+  .pc11-right-head>div span{{display:block;color:#7897ad;font-size:5.4px;font-weight:950;letter-spacing:.7px}}
+  .pc11-right-head>div strong{{display:block;margin-top:1px;color:#23445f;font-size:10px;font-weight:950}}
+  .pc11-right-head>span{{color:#173b61;font-size:8px;font-weight:950}}
+
+  .pc11-group-tabs{{
+    display:flex;flex-wrap:wrap;gap:4px;
+    padding:7px 8px;border-bottom:1px solid #edf1f4;
+    max-height:92px;overflow:auto;
+  }}
+  .pc11-group-tabs button{{
+    min-height:25px;padding:0 8px;
+    border:1px solid #e0e6eb;border-radius:999px;
+    background:#f6f8fa;color:#617587;font-size:5.9px;font-weight:900;cursor:pointer;
+  }}
+  .pc11-group-tabs button.active{{background:#173b61;color:#fff;border-color:#173b61}}
+  .pc11-group-tabs button b{{margin-left:3px;font-weight:950}}
+
+  .pc11-list-head{{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 9px;background:#fafbfd;border-bottom:1px solid #edf1f4;
+    color:#687b8c;font-size:5.8px;font-weight:900;
+  }}
+  .pc11-list-head strong{{color:#173b61;font-size:6.3px}}
+
+  .pc11-article-list{{min-height:0;overflow:auto;padding:6px}}
+  .pc11-list-card{{
+    width:100%;display:grid;grid-template-columns:minmax(0,1fr) 66px;gap:7px;
+    min-height:78px;padding:7px;margin:0 0 5px;
+    box-sizing:border-box;border:1px solid #e5eaee;border-radius:9px;
+    background:#fff;text-align:left;cursor:pointer;
+  }}
+  .pc11-list-card:hover{{border-color:#cbd9e3;background:#fafcfd}}
+  .pc11-list-card.selected{{border-color:#7fa5c0;background:#f2f7fa}}
+  .pc11-list-card .publisher{{color:#8293a1;font-size:5.2px;font-weight:800}}
+  .pc11-list-card strong{{
+    display:block;margin-top:4px;color:#334f66;font-size:6.8px;line-height:1.35;font-weight:950;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }}
+  .pc11-list-card .meta{{display:block;margin-top:5px;color:#93a0aa;font-size:5px}}
+  .pc11-list-thumb{{width:66px;height:56px;border-radius:7px;overflow:hidden;background:#edf1f4}}
+  .pc11-list-thumb img{{width:100%;height:100%;object-fit:cover}}
+
+  /* ARTICLE DETAIL — uses exactly the left 2/3 panel */
+  .pc11-detail{{
+    width:100%;height:100%;
+    display:grid;
+    grid-template-rows:45px minmax(0,1fr);
+    background:#fff;
+  }}
+  .pc11-detail[hidden]{{display:none!important}}
+  .pc11-detail-toolbar{{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 10px;border-bottom:1px solid #e6ebef;background:#fafbfd;
+  }}
+  .pc11-detail-toolbar button{{
+    height:27px;padding:0 8px;border:1px solid #dfe6eb;border-radius:7px;
+    background:#fff;color:#536d82;font-size:6.1px;font-weight:900;cursor:pointer;
+  }}
+  .pc11-detail-nav{{display:flex;gap:4px}}
+
+  .pc11-detail-scroll{{min-height:0;overflow:auto;padding:22px clamp(20px,4vw,60px) 34px}}
+  .pc11-detail-meta{{display:flex;flex-wrap:wrap;gap:7px;color:#7d8f9e;font-size:6.5px;font-weight:850}}
+  .pc11-detail-meta span:first-child{{color:#426b88}}
+  .pc11-detail h2{{
+    margin:10px 0 0;max-width:900px;
+    color:#193b58;font-size:clamp(20px,2vw,31px);line-height:1.28;font-weight:950;letter-spacing:-.5px;
+  }}
+  .pc11-detail-image-wrap{{
+    margin-top:20px;max-width:900px;aspect-ratio:16/7;overflow:hidden;
+    border-radius:12px;background:#edf2f5;
+  }}
+  .pc11-detail-image-wrap img{{width:100%;height:100%;object-fit:cover}}
+  .pc11-detail-section{{
+    max-width:900px;margin-top:22px;padding-top:16px;border-top:1px solid #e7ecef;
+  }}
+  .pc11-detail-section>span,.pc11-detail-section-head span{{
+    color:#58768d;font-size:7px;font-weight:950;letter-spacing:.2px;
+  }}
+  .pc11-detail-section p{{
+    margin:9px 0 0;color:#445d70;font-size:11px;line-height:1.75;font-weight:650;
+  }}
+  .pc11-detail-keywords{{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}}
+  .pc11-detail-keywords span{{
+    padding:5px 8px;border-radius:999px;background:#eef4f7;color:#466b84;font-size:6.3px;font-weight:900;
+  }}
+  .pc11-detail-section-head{{display:flex;justify-content:space-between;align-items:center}}
+  .pc11-detail-section-head strong{{color:#173b61;font-size:7px}}
+  .pc11-related-list{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:9px}}
+  .pc11-related-item{{
+    padding:8px;border:1px solid #e3e9ed;border-radius:9px;background:#fafbfd;text-align:left;cursor:pointer;
+  }}
+  .pc11-related-item span{{display:block;color:#8494a1;font-size:5.5px}}
+  .pc11-related-item strong{{
+    display:block;margin-top:4px;color:#36536a;font-size:7px;line-height:1.35;font-weight:900;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }}
+  .pc11-detail-bottom{{max-width:900px;margin-top:24px}}
+  #pc11-detail-original{{
+    height:34px;padding:0 12px;border:0;border-radius:8px;background:#173b61;color:#fff;font-size:7px;font-weight:950;cursor:pointer;
+  }}
+
+  /* Restored / smaller desktop window */
+  @media (max-width:1280px){{
+    .pc11-shell{{grid-template-columns:minmax(0,1.62fr) minmax(300px,1fr)}}
+    .pc11-dashboard-grid{{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}}
+    .pc11-issues{{grid-column:1/span 2}}
+    .pc11-entities{{grid-column:1;grid-row:2}}
+    .pc11-keywords{{grid-column:2;grid-row:2}}
+    .pc11-map-card,.pc11-media{{display:none}}
+  }}
+
+  @media (max-height:760px){{
+    .pc11-dashboard{{grid-template-rows:52px 58px minmax(0,1fr);padding:7px}}
+    .pc11-page-head p{{display:none}}
+    .pc11-kpis article{{padding:6px 8px}}
+    .pc11-kpis strong{{font-size:15px}}
+    .pc11-card-head{{height:32px}}
+    .pc11-issue-list,.pc11-rank-list,.pc11-keyword-list,.pc11-map-layout{{height:calc(100% - 32px)}}
+  }}
+}}
+
+@media (max-width:999px){{
+  #pc11-app{{display:none!important}}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -27611,7 +27975,175 @@ main {{
 
 
 
+
 <body>
+<div id="pc11-app" class="pc11-app" aria-label="원자력 주요기사 PC">
+  <header class="pc11-header">
+    <div class="pc11-brand">
+      <span>NUCLEAR DAILY BRIEF</span>
+      <strong>원자력 주요기사</strong>
+    </div>
+
+    <div class="pc11-search-wrap">
+      <input id="pc11-search" type="search" placeholder="기사 · 기업 · 프로젝트 · 국가 검색">
+    </div>
+
+    <div class="pc11-header-actions">
+      <button id="pc11-prev" type="button">전일</button>
+      <button id="pc11-today" class="active" type="button">금일</button>
+      <button id="pc11-next" type="button">익일</button>
+      <button id="pc11-show-all" class="primary" type="button">전체 기사</button>
+    </div>
+  </header>
+
+  <div class="pc11-shell">
+    <!-- LEFT: dashboard <-> article detail -->
+    <section class="pc11-left">
+      <div id="pc11-dashboard" class="pc11-dashboard">
+        <div class="pc11-page-head">
+          <div>
+            <span id="pc11-head-kicker">TODAY</span>
+            <h1 id="pc11-head-title">금일 기사 현황</h1>
+            <p id="pc11-head-desc">모바일에서 사용하던 기사 분류와 데이터를 PC 화면에 맞게 펼쳐 봅니다.</p>
+          </div>
+          <div class="pc11-head-count">
+            <span id="pc11-period-label">금일</span>
+            <strong id="pc11-head-total">0건</strong>
+          </div>
+        </div>
+
+        <div class="pc11-kpis">
+          <article><span>관련기사</span><strong id="pc11-kpi-total">0</strong><small>건</small></article>
+          <article><span>신규기사</span><strong id="pc11-kpi-new">0</strong><small>건</small></article>
+          <article><span>언론사</span><strong id="pc11-kpi-publishers">0</strong><small>개</small></article>
+          <article><span>관련국가</span><strong id="pc11-kpi-countries">0</strong><small>개</small></article>
+          <article class="accent">
+            <span>최다 언급</span>
+            <strong id="pc11-kpi-top">-</strong>
+            <small id="pc11-kpi-top-count">-</small>
+          </article>
+        </div>
+
+        <div class="pc11-dashboard-grid">
+          <section class="pc11-card pc11-issues">
+            <div class="pc11-card-head">
+              <div><span>ISSUE GROUPS</span><strong>주요 이슈 묶음</strong></div>
+              <small>유사 기사 자동 묶음</small>
+            </div>
+            <div id="pc11-issue-list" class="pc11-issue-list"></div>
+          </section>
+
+          <section class="pc11-card pc11-entities">
+            <div class="pc11-card-head">
+              <div><span>MENTIONS</span><strong>기업 · 프로젝트 TOP</strong></div>
+              <small>언급 빈도</small>
+            </div>
+            <div id="pc11-entity-list" class="pc11-rank-list"></div>
+          </section>
+
+          <section class="pc11-card pc11-keywords">
+            <div class="pc11-card-head">
+              <div><span>KEYWORDS</span><strong>주요 키워드</strong></div>
+              <small>제목 · 미리보기 기준</small>
+            </div>
+            <div id="pc11-keyword-list" class="pc11-keyword-list"></div>
+          </section>
+
+          <section class="pc11-card pc11-map-card">
+            <div class="pc11-card-head">
+              <div><span>COUNTRY</span><strong>국가별 기사 분포</strong></div>
+              <button id="pc11-country-reset" type="button">전체</button>
+            </div>
+            <div class="pc11-map-layout">
+              <div class="pc11-map-stage">
+                <svg id="pc11-map" viewBox="0 0 620 280"></svg>
+                <div id="pc11-map-loading">지도 불러오는 중...</div>
+              </div>
+              <div id="pc11-country-list" class="pc11-country-list"></div>
+            </div>
+          </section>
+
+          <section class="pc11-card pc11-media">
+            <div class="pc11-card-head">
+              <div><span>MEDIA</span><strong>언론사 분포</strong></div>
+              <small>보도량 기준</small>
+            </div>
+            <div id="pc11-media-list" class="pc11-rank-list"></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- Left 2/3 detail view. Right navigation never moves. -->
+      <article id="pc11-detail" class="pc11-detail" hidden>
+        <div class="pc11-detail-toolbar">
+          <button id="pc11-detail-back" type="button">← 대시보드</button>
+          <div class="pc11-detail-nav">
+            <button id="pc11-detail-prev" type="button">이전 기사</button>
+            <button id="pc11-detail-next" type="button">다음 기사</button>
+          </div>
+        </div>
+
+        <div class="pc11-detail-scroll">
+          <div class="pc11-detail-meta">
+            <span id="pc11-detail-group">-</span>
+            <span id="pc11-detail-publisher">-</span>
+            <span id="pc11-detail-time">-</span>
+          </div>
+          <h2 id="pc11-detail-title">기사 제목</h2>
+
+          <div id="pc11-detail-image-wrap" class="pc11-detail-image-wrap" hidden>
+            <img id="pc11-detail-image" alt="">
+          </div>
+
+          <section class="pc11-detail-section">
+            <span>기사 미리보기</span>
+            <p id="pc11-detail-summary">미리보기 정보가 없습니다.</p>
+          </section>
+
+          <section class="pc11-detail-section">
+            <span>관련 키워드</span>
+            <div id="pc11-detail-keywords" class="pc11-detail-keywords"></div>
+          </section>
+
+          <section class="pc11-detail-section">
+            <div class="pc11-detail-section-head">
+              <span>같이 볼 기사</span>
+              <strong id="pc11-related-count">0건</strong>
+            </div>
+            <div id="pc11-related-list" class="pc11-related-list"></div>
+          </section>
+
+          <div class="pc11-detail-bottom">
+            <button id="pc11-detail-original" type="button">언론사 원문 보기 ↗</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- RIGHT: mobile identity / navigation / article list -->
+    <aside class="pc11-right">
+      <div class="pc11-right-head">
+        <div>
+          <span>MOBILE CATEGORIES</span>
+          <strong>기사 분류</strong>
+        </div>
+        <span id="pc11-right-total">0건</span>
+      </div>
+
+      <div id="pc11-group-tabs" class="pc11-group-tabs">
+        <button class="active" data-group="" type="button">전체</button>
+      </div>
+
+      <div class="pc11-list-head">
+        <span id="pc11-list-title">전체 기사</span>
+        <strong id="pc11-list-count">0건</strong>
+      </div>
+
+      <div id="pc11-article-list" class="pc11-article-list"></div>
+    </aside>
+  </div>
+</div>
+
 <div id="pc10-app" class="pc10-app" aria-label="원자력 뉴스 PC 대시보드">
   <header class="pc10-topbar">
     <div class="pc10-brand">
@@ -36632,6 +37164,393 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(init,350));else setTimeout(init,350);
   window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,80)}})
+}})();
+</script>
+
+
+<script>
+(function(){{
+  const WORLD_URL="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+  const ISO_NUM={{US:"840",CA:"124",KR:"410",JP:"392",CN:"156",IN:"356",VN:"704",GB:"826",FR:"250",DE:"276",BG:"100",RO:"642",CZ:"203",PL:"616",SI:"705",FI:"246",SE:"752",NL:"528",BE:"056",CH:"756",SK:"703",DK:"208",UA:"804",RU:"643",TR:"792",AE:"784",SA:"682",AU:"036",BR:"076",ZA:"710",SG:"702",MY:"458",TH:"764"}};
+  const NUM_TO_ALPHA=Object.fromEntries(Object.entries(ISO_NUM).map(e=>[String(Number(e[1])),e[0]]));
+  const COUNTRY_NAME={{US:"미국",CA:"캐나다",KR:"한국",JP:"일본",CN:"중국",IN:"인도",VN:"베트남",GB:"영국",FR:"프랑스",DE:"독일",BG:"불가리아",RO:"루마니아",CZ:"체코",PL:"폴란드",SI:"슬로베니아",FI:"핀란드",SE:"스웨덴",NL:"네덜란드",BE:"벨기에",CH:"스위스",SK:"슬로바키아",DK:"덴마크",UA:"우크라이나",RU:"러시아",TR:"튀르키예",AE:"UAE",SA:"사우디",AU:"호주",BR:"브라질",ZA:"남아공",SG:"싱가포르",MY:"말레이시아",TH:"태국"}};
+
+  const ENTITY_TERMS=[
+    "현대건설","한국수력원자력","한수원","한국전력","한전","두산에너빌리티","삼성물산","대우건설",
+    "Holtec","Westinghouse","TerraPower","Fermi America","Palisades","Matador","Kozloduy","코즐로두이",
+    "AP1000","SMR-300","NuScale","X-energy","KHNP","KEPCO"
+  ];
+  const KEYWORD_TERMS=[
+    "원전","원자력","SMR","수주","계약","안전","투자","인허가","미국","해체","착공","설계","FEED",
+    "AP1000","SMR-300","Westinghouse","Holtec","Palisades","Matador","불가리아","루마니아","체코"
+  ];
+
+  let period="금일";
+  let selectedGroup="";
+  let selectedCountry="";
+  let searchText="";
+  let activeArticle=null;
+  let world=null;
+
+  function desktop(){{return window.matchMedia("(min-width:1000px)").matches}}
+  function root(){{return document.getElementById("tab-"+period)}}
+  function cards(){{
+    const r=root();
+    return r?Array.from(r.querySelectorAll(".preview-card")):[]
+  }}
+  function title(c){{return (c.dataset.title||(c.querySelector(".headline")||{{}}).textContent||"").trim()}}
+  function publisher(c){{return (c.dataset.publisher||(c.querySelector(".publisher")||{{}}).textContent||"").trim()}}
+  function group(c){{return (c.dataset.group||"").trim()}}
+  function country(c){{return (c.dataset.country||"").trim().toUpperCase()}}
+  function summary(c){{
+    const n=c.querySelector(".article-snippet,.preview-summary,.description,.snippet");
+    const s=(n?n.textContent:"").trim();
+    return s==="미리보기 정보 없음"?"":s
+  }}
+  function image(c){{
+    const i=c.querySelector(".preview-image img,.card-side img,img");
+    return i?(i.currentSrc||i.src||""):""
+  }}
+  function published(c){{
+    const ts=Number(c.dataset.published||0);
+    if(!ts)return "";
+    try{{return new Intl.DateTimeFormat("ko-KR",{{month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}}).format(new Date(ts*1000))}}catch(e){{return ""}}
+  }}
+  function isNew(c){{return c.classList.contains("new-article")||!!c.querySelector(".new-badge,.badge-new")}}
+  function fullText(c){{return [title(c),summary(c),publisher(c),group(c),c.dataset.search||""].join(" ").toLowerCase()}}
+  function esc(s){{return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}}
+
+  function availableGroups(){{
+    const r=root();if(!r)return [];
+    const secs=Array.from(r.querySelectorAll(".news-group[data-group]"));
+    return secs.map(sec=>{{
+      const key=sec.dataset.group||"";
+      const raw=(sec.querySelector(".group-name")||{{}}).textContent||key;
+      return {{key,name:raw.trim()||key,count:sec.querySelectorAll(".preview-card").length}}
+    }}).filter(x=>x.count>0)
+  }}
+
+  function currentCards(){{
+    return cards().filter(c=>{{
+      if(selectedGroup && group(c)!==selectedGroup)return false;
+      if(selectedCountry && country(c)!==selectedCountry)return false;
+      if(searchText && !fullText(c).includes(searchText))return false;
+      return true
+    }})
+  }}
+
+  function renderGroupTabs(){{
+    const box=document.getElementById("pc11-group-tabs");
+    box.innerHTML="";
+    const all=document.createElement("button");
+    all.type="button";all.dataset.group="";all.className=selectedGroup===""?"active":"";
+    all.innerHTML="전체 <b>"+cards().length+"</b>";
+    all.onclick=()=>selectGroup("","전체");
+    box.appendChild(all);
+
+    availableGroups().forEach(g=>{{
+      const b=document.createElement("button");
+      b.type="button";b.dataset.group=g.key;b.className=selectedGroup===g.key?"active":"";
+      b.innerHTML=esc(g.name)+" <b>"+g.count+"</b>";
+      b.onclick=()=>selectGroup(g.key,g.name);
+      box.appendChild(b)
+    }})
+  }}
+
+  function selectGroup(key,name){{
+    selectedGroup=key||"";
+    selectedCountry="";
+    closeDetail();
+    document.getElementById("pc11-head-kicker").textContent=selectedGroup?"SELECTED":"TODAY";
+    document.getElementById("pc11-head-title").textContent=selectedGroup?(name||selectedGroup)+" 현황":period+" 기사 현황";
+    document.getElementById("pc11-head-desc").textContent=selectedGroup
+      ?"모바일의 동일 분류를 기준으로 기사 묶음과 언급 현황을 보여줍니다."
+      :"모바일에서 사용하던 기사 분류와 데이터를 PC 화면에 맞게 펼쳐 봅니다.";
+    refresh()
+  }}
+
+  function renderArticleList(){{
+    const list=currentCards();
+    const box=document.getElementById("pc11-article-list");box.innerHTML="";
+    document.getElementById("pc11-right-total").textContent=cards().length+"건";
+    document.getElementById("pc11-list-count").textContent=list.length+"건";
+    const selectedName=selectedGroup
+      ?((availableGroups().find(x=>x.key===selectedGroup)||{{}}).name||selectedGroup)
+      :"전체 기사";
+    document.getElementById("pc11-list-title").textContent=selectedName;
+
+    list.forEach(c=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc11-list-card";
+      if(c===activeArticle)b.classList.add("selected");
+      const im=image(c);
+      b.innerHTML='<div><span class="publisher">'+esc(publisher(c))+'</span><strong>'+esc(title(c))+'</strong>'+
+        '<span class="meta">'+esc(published(c))+(country(c)?" · "+esc(COUNTRY_NAME[country(c)]||country(c)):"")+'</span></div>'+
+        '<div class="pc11-list-thumb">'+(im?'<img src="'+im.replace(/"/g,"%22")+'" alt="">':"")+'</div>';
+      b.onclick=()=>openDetail(c);
+      box.appendChild(b)
+    }})
+  }}
+
+  function renderKpis(){{
+    const list=currentCards(),pubs=new Set(list.map(publisher).filter(Boolean)),countries=new Set(list.map(country).filter(x=>x&&x!=="OTHER"));
+    const counts={{}};ENTITY_TERMS.forEach(k=>counts[k]=0);
+    list.forEach(c=>{{const t=fullText(c);ENTITY_TERMS.forEach(k=>{{if(t.includes(k.toLowerCase()))counts[k]++}})}});
+    const top=Object.entries(counts).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1])[0];
+    const set=(id,v)=>{{const e=document.getElementById(id);if(e)e.textContent=v}};
+    set("pc11-kpi-total",list.length);
+    set("pc11-kpi-new",list.filter(isNew).length);
+    set("pc11-kpi-publishers",pubs.size);
+    set("pc11-kpi-countries",countries.size);
+    set("pc11-kpi-top",top?top[0]:"-");
+    set("pc11-kpi-top-count",top?top[1]+"건":"-");
+    set("pc11-head-total",list.length+"건");
+    set("pc11-period-label",period)
+  }}
+
+  function tokens(s){{
+    return String(s||"").toLowerCase()
+      .replace(/[^0-9a-z가-힣\-]+/g," ")
+      .split(/\s+/)
+      .filter(x=>x.length>=2)
+      .filter(x=>!["기자","관련","대한","위해","통해","대해","이번","지난","today","with","from","that","this","will","news"].includes(x))
+  }}
+
+  function similarity(a,b){{
+    const A=new Set(tokens(title(a)+" "+summary(a))),B=new Set(tokens(title(b)+" "+summary(b)));
+    if(!A.size||!B.size)return 0;
+    let inter=0;A.forEach(x=>{{if(B.has(x))inter++}});
+    return inter/(A.size+B.size-inter)
+  }}
+
+  function clusters(list){{
+    const out=[];
+    list.slice(0,90).forEach(c=>{{
+      let best=null,score=0;
+      out.forEach(cl=>{{const s=similarity(c,cl.rep);if(s>score){{score=s;best=cl}}}});
+      if(best&&score>=.28)best.items.push(c);
+      else out.push({{rep:c,items:[c]}})
+    }});
+    return out.sort((a,b)=>b.items.length-a.items.length)
+  }}
+
+  function commonKeywords(items){{
+    const f={{}};
+    items.forEach(c=>new Set(tokens(title(c))).forEach(k=>f[k]=(f[k]||0)+1));
+    return Object.entries(f).sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>x[0])
+  }}
+
+  function renderIssues(){{
+    const list=currentCards(),box=document.getElementById("pc11-issue-list");box.innerHTML="";
+    clusters(list).slice(0,3).forEach((cl,i)=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc11-issue-item";
+      const kws=commonKeywords(cl.items);
+      b.innerHTML='<div class="top"><span>ISSUE '+(i+1)+'</span><b>'+cl.items.length+'건</b></div>'+
+        '<h3>'+esc(title(cl.rep))+'</h3><div class="chips">'+kws.map(k=>'<span>'+esc(k)+'</span>').join("")+'</div>';
+      b.onclick=()=>focusArticleSet(cl.items,"이슈 묶음 "+cl.items.length+"건");
+      box.appendChild(b)
+    }})
+  }}
+
+  function rankRows(id,items,clicker){{
+    const box=document.getElementById(id);box.innerHTML="";
+    items.forEach(([name,count],i)=>{{
+      const r=document.createElement("div");r.className="pc11-rank-row";
+      r.innerHTML='<span class="pc11-rank-no">'+String(i+1).padStart(2,"0")+'</span><span class="pc11-rank-name">'+esc(name)+'</span><span class="pc11-rank-count">'+count+'</span>';
+      if(clicker)r.onclick=()=>clicker(name);
+      box.appendChild(r)
+    }})
+  }}
+
+  function renderEntities(){{
+    const list=currentCards(),f={{}};ENTITY_TERMS.forEach(k=>f[k]=0);
+    list.forEach(c=>{{const t=fullText(c);ENTITY_TERMS.forEach(k=>{{if(t.includes(k.toLowerCase()))f[k]++}})}});
+    rankRows("pc11-entity-list",Object.entries(f).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,8),
+      name=>focusArticleSet(list.filter(c=>fullText(c).includes(name.toLowerCase())),name))
+  }}
+
+  function renderKeywords(){{
+    const list=currentCards(),f={{}};KEYWORD_TERMS.forEach(k=>f[k]=0);
+    list.forEach(c=>{{const t=fullText(c);KEYWORD_TERMS.forEach(k=>{{if(t.includes(k.toLowerCase()))f[k]++}})}});
+    const box=document.getElementById("pc11-keyword-list");box.innerHTML="";
+    Object.entries(f).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,14).forEach(([k,n])=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc11-keyword";
+      b.innerHTML=esc(k)+' <b>'+n+'</b>';
+      b.onclick=()=>focusArticleSet(list.filter(c=>fullText(c).includes(k.toLowerCase())),k);
+      box.appendChild(b)
+    }})
+  }}
+
+  function renderMedia(){{
+    const list=currentCards(),f={{}};
+    list.forEach(c=>{{const p=publisher(c)||"기타";f[p]=(f[p]||0)+1}});
+    rankRows("pc11-media-list",Object.entries(f).sort((a,b)=>b[1]-a[1]).slice(0,8),
+      name=>focusArticleSet(list.filter(c=>(publisher(c)||"기타")===name),name))
+  }}
+
+  function countryCounts(){{
+    const f={{}};currentCards().forEach(c=>{{const co=country(c);if(co&&co!=="OTHER")f[co]=(f[co]||0)+1}});return f
+  }}
+
+  function renderCountryList(){{
+    const f=countryCounts(),box=document.getElementById("pc11-country-list");box.innerHTML="";
+    Object.entries(f).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([co,n])=>{{
+      const r=document.createElement("div");r.className="pc11-country-row";
+      r.innerHTML='<span>'+esc(COUNTRY_NAME[co]||co)+'</span><strong>'+n+'</strong>';
+      r.onclick=()=>{{selectedCountry=selectedCountry===co?"":co;closeDetail();refresh()}};
+      box.appendChild(r)
+    }})
+  }}
+
+  function renderMap(){{
+    renderCountryList();
+    if(!world||!window.d3||!window.topojson)return;
+    const svg=d3.select("#pc11-map"),node=svg.node();if(!node)return;
+    const w=node.clientWidth||420,h=node.clientHeight||170;
+    svg.attr("viewBox","0 0 "+w+" "+h).selectAll("*").remove();
+    const feats=topojson.feature(world,world.objects.countries).features.filter(f=>String(Number(f.id))!=="10");
+    const fc={{type:"FeatureCollection",features:feats}};
+    const proj=d3.geoNaturalEarth1().fitExtent([[4,4],[w-4,h-4]],fc),path=d3.geoPath(proj),f=countryCounts(),max=Math.max(1,...Object.values(f));
+    svg.append("g").selectAll("path").data(feats).join("path").attr("d",path).attr("class",d=>{{
+      const code=NUM_TO_ALPHA[String(Number(d.id))]||"",n=f[code]||0,r=n/max;
+      let c="pc11-map-country";if(n)c+=" has";if(r>=.75)c+=" l4";else if(r>=.45)c+=" l3";else if(r>=.2)c+=" l2";if(code===selectedCountry)c+=" selected";return c
+    }}).on("click",(_e,d)=>{{
+      const co=NUM_TO_ALPHA[String(Number(d.id))]||"";
+      if(co){{selectedCountry=selectedCountry===co?"":co;closeDetail();refresh()}}
+    }});
+    const l=document.getElementById("pc11-map-loading");if(l)l.style.display="none"
+  }}
+
+  function articleKeywords(c){{
+    const t=fullText(c);
+    return KEYWORD_TERMS.filter(k=>t.includes(k.toLowerCase())).slice(0,10)
+  }}
+
+  function relatedFor(c){{
+    return cards()
+      .filter(x=>x!==c)
+      .map(x=>[x,similarity(c,x)])
+      .filter(x=>x[1]>=.18)
+      .sort((a,b)=>b[1]-a[1])
+      .slice(0,6)
+      .map(x=>x[0])
+  }}
+
+  function openDetail(c){{
+    if(!c)return;
+    activeArticle=c;
+    const dashboard=document.getElementById("pc11-dashboard");
+    const detail=document.getElementById("pc11-detail");
+    dashboard.hidden=true;detail.hidden=false;
+
+    document.getElementById("pc11-detail-group").textContent=group(c)||"기사";
+    document.getElementById("pc11-detail-publisher").textContent=publisher(c)||"-";
+    document.getElementById("pc11-detail-time").textContent=published(c)||"-";
+    document.getElementById("pc11-detail-title").textContent=title(c)||"기사 제목";
+
+    const s=summary(c);
+    document.getElementById("pc11-detail-summary").textContent=s||"수집된 미리보기 정보가 없습니다.";
+
+    const im=image(c),wrap=document.getElementById("pc11-detail-image-wrap"),img=document.getElementById("pc11-detail-image");
+    if(im){{img.src=im;wrap.hidden=false}}else{{img.removeAttribute("src");wrap.hidden=true}}
+
+    const kb=document.getElementById("pc11-detail-keywords");kb.innerHTML="";
+    articleKeywords(c).forEach(k=>{{const s=document.createElement("span");s.textContent=k;kb.appendChild(s)}});
+
+    const rel=relatedFor(c),rb=document.getElementById("pc11-related-list");rb.innerHTML="";
+    document.getElementById("pc11-related-count").textContent=rel.length+"건";
+    rel.forEach(x=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc11-related-item";
+      b.innerHTML='<span>'+esc(publisher(x))+'</span><strong>'+esc(title(x))+'</strong>';
+      b.onclick=()=>openDetail(x);rb.appendChild(b)
+    }});
+
+    const url=c.dataset.url||"";
+    document.getElementById("pc11-detail-original").disabled=!url;
+    document.getElementById("pc11-detail-original").onclick=()=>{{if(url)window.open(url,"_blank","noopener")}};
+
+    syncDetailNavButtons();
+    renderArticleList()
+  }}
+
+  function closeDetail(){{
+    activeArticle=null;
+    const d=document.getElementById("pc11-detail");
+    const dash=document.getElementById("pc11-dashboard");
+    if(d)d.hidden=true;if(dash)dash.hidden=false;
+    renderArticleList()
+  }}
+
+  function detailList(){{
+    return currentCards()
+  }}
+
+  function moveDetail(delta){{
+    if(!activeArticle)return;
+    const list=detailList(),i=list.indexOf(activeArticle);
+    const next=i+delta;
+    if(next>=0&&next<list.length)openDetail(list[next])
+  }}
+
+  function syncDetailNavButtons(){{
+    const list=detailList(),i=list.indexOf(activeArticle);
+    document.getElementById("pc11-detail-prev").disabled=i<=0;
+    document.getElementById("pc11-detail-next").disabled=i<0||i>=list.length-1
+  }}
+
+  function focusArticleSet(list,label){{
+    if(!list.length)return;
+    openDetail(list[0]);
+  }}
+
+  function setPeriod(p){{
+    period=p;selectedGroup="";selectedCountry="";activeArticle=null;
+    document.querySelectorAll(".pc11-header-actions button").forEach(b=>b.classList.remove("active"));
+    const id=p==="전일"?"pc11-prev":p==="익일"?"pc11-next":"pc11-today";
+    const b=document.getElementById(id);if(b)b.classList.add("active");
+    document.getElementById("pc11-head-kicker").textContent="TODAY";
+    document.getElementById("pc11-head-title").textContent=p+" 기사 현황";
+    closeDetail();
+    refresh()
+  }}
+
+  function refresh(){{
+    renderGroupTabs();
+    renderKpis();
+    renderIssues();
+    renderEntities();
+    renderKeywords();
+    renderMedia();
+    renderMap();
+    renderArticleList()
+  }}
+
+  function init(){{
+    if(!desktop())return;
+
+    document.getElementById("pc11-search").addEventListener("input",e=>{{
+      searchText=e.target.value.trim().toLowerCase();
+      activeArticle=null;closeDetail();refresh()
+    }});
+    document.getElementById("pc11-prev").onclick=()=>setPeriod("전일");
+    document.getElementById("pc11-today").onclick=()=>setPeriod("금일");
+    document.getElementById("pc11-next").onclick=()=>setPeriod("익일");
+    document.getElementById("pc11-show-all").onclick=()=>{{selectedGroup="";selectedCountry="";searchText="";document.getElementById("pc11-search").value="";closeDetail();refresh()}};
+    document.getElementById("pc11-country-reset").onclick=()=>{{selectedCountry="";closeDetail();refresh()}};
+    document.getElementById("pc11-detail-back").onclick=closeDetail;
+    document.getElementById("pc11-detail-prev").onclick=()=>moveDetail(-1);
+    document.getElementById("pc11-detail-next").onclick=()=>moveDetail(1);
+
+    refresh();
+    fetch(WORLD_URL)
+      .then(r=>r.json())
+      .then(d=>{{world=d;renderMap()}})
+      .catch(()=>{{const l=document.getElementById("pc11-map-loading");if(l)l.textContent="지도 데이터를 불러오지 못했습니다."}})
+  }}
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(init,350));
+  else setTimeout(init,350);
+
+  window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,90)}})
 }})();
 </script>
 
