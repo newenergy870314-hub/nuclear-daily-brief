@@ -16345,6 +16345,575 @@ main {
   #pc11-app{display:none!important}
 }
 
+
+/* ==========================================================
+   PC12 — MOBILE COLOR IDENTITY + READABLE PC TYPOGRAPHY
+   Layout remains PC split view; visual identity follows mobile.
+   ========================================================== */
+@media (min-width:1000px){
+
+  html,body{
+    background:#c4d6e8!important;
+  }
+
+  #pc11-app{
+    background:#c4d6e8!important;
+    color:#111827!important;
+    gap:10px!important;
+    padding:10px 12px 12px!important;
+  }
+
+  /* HEADER = mobile topbar identity */
+  .pc11-header{
+    min-height:64px!important;
+    padding:0 16px!important;
+    border:1px solid rgba(255,255,255,.16)!important;
+    border-radius:16px!important;
+    background:#23395d!important;
+    box-shadow:0 5px 14px rgba(17,24,39,.11)!important;
+  }
+  .pc11-brand span{
+    color:rgba(255,255,255,.62)!important;
+    font-size:9px!important;
+    letter-spacing:1px!important;
+  }
+  .pc11-brand strong{
+    color:#fff!important;
+    font-size:20px!important;
+    letter-spacing:-.35px!important;
+  }
+  .pc11-search-wrap input{
+    height:38px!important;
+    padding:0 13px!important;
+    border:1px solid rgba(17,24,39,.12)!important;
+    border-radius:9px!important;
+    background:rgba(255,255,255,.97)!important;
+    color:#111827!important;
+    font-size:13px!important;
+  }
+  .pc11-search-wrap input::placeholder{
+    color:#7a8493!important;
+  }
+
+  .pc11-header-actions button{
+    height:34px!important;
+    min-width:58px!important;
+    padding:0 11px!important;
+    border:1px solid rgba(255,255,255,.20)!important;
+    border-radius:8px!important;
+    background:rgba(255,255,255,.88)!important;
+    color:#344054!important;
+    font-size:12px!important;
+    font-weight:900!important;
+  }
+  .pc11-header-actions button.active{
+    background:#fee500!important;
+    color:#111827!important;
+    border-color:#fee500!important;
+  }
+  .pc11-header-actions button.primary{
+    background:#f7e889!important;
+    color:#111827!important;
+    border-color:#f7e889!important;
+  }
+  .pc11-header-actions button:hover{
+    background:#f5d900!important;
+    color:#111827!important;
+  }
+
+  /* Main panels */
+  .pc11-left,.pc11-right{
+    border:1px solid rgba(35,57,93,.14)!important;
+    border-radius:16px!important;
+    background:#eef4f9!important;
+    box-shadow:0 5px 14px rgba(17,24,39,.08)!important;
+  }
+
+  .pc11-dashboard{
+    background:#eef4f9!important;
+    grid-template-rows:74px 78px minmax(0,1fr)!important;
+    gap:9px!important;
+    padding:11px!important;
+  }
+
+  .pc11-page-head span{
+    color:#5a7393!important;
+    font-size:9px!important;
+  }
+  .pc11-page-head h1{
+    color:#23395d!important;
+    font-size:24px!important;
+    letter-spacing:-.4px!important;
+  }
+  .pc11-page-head p{
+    margin-top:5px!important;
+    color:#667085!important;
+    font-size:11px!important;
+  }
+  .pc11-head-count span{
+    color:#667085!important;
+    font-size:10px!important;
+  }
+  .pc11-head-count strong{
+    color:#23395d!important;
+    font-size:19px!important;
+  }
+
+  /* KPI */
+  .pc11-kpis{
+    gap:8px!important;
+  }
+  .pc11-kpis article{
+    padding:10px 12px!important;
+    border:1px solid rgba(35,57,93,.13)!important;
+    border-radius:12px!important;
+    background:#fff!important;
+    box-shadow:0 2px 7px rgba(17,24,39,.035)!important;
+  }
+  .pc11-kpis span{
+    color:#667085!important;
+    font-size:10px!important;
+  }
+  .pc11-kpis strong{
+    margin-top:5px!important;
+    color:#23395d!important;
+    font-size:25px!important;
+  }
+  .pc11-kpis small{
+    color:#7a8493!important;
+    font-size:9px!important;
+  }
+  .pc11-kpis article.accent{
+    background:#23395d!important;
+    border-color:#23395d!important;
+  }
+  .pc11-kpis article.accent span,
+  .pc11-kpis article.accent small{
+    color:rgba(255,255,255,.68)!important;
+  }
+  .pc11-kpis article.accent strong{
+    color:#fee500!important;
+    font-size:17px!important;
+  }
+
+  /* Cards */
+  .pc11-dashboard-grid{
+    gap:9px!important;
+  }
+  .pc11-card{
+    border:1px solid rgba(35,57,93,.12)!important;
+    border-radius:13px!important;
+    background:#fff!important;
+  }
+  .pc11-card-head{
+    height:48px!important;
+    padding:0 12px!important;
+    border-bottom:1px solid #e7ebef!important;
+  }
+  .pc11-card-head span{
+    color:#667085!important;
+    font-size:8px!important;
+  }
+  .pc11-card-head strong{
+    color:#23395d!important;
+    font-size:14px!important;
+  }
+  .pc11-card-head small{
+    color:#7a8493!important;
+    font-size:9px!important;
+  }
+  .pc11-card-head button{
+    height:28px!important;
+    padding:0 9px!important;
+    border:1px solid rgba(17,24,39,.12)!important;
+    border-radius:7px!important;
+    background:#f7e889!important;
+    color:#111827!important;
+    font-size:9px!important;
+  }
+
+  /* Issue group */
+  .pc11-issue-list{
+    height:calc(100% - 48px)!important;
+    gap:8px!important;
+    padding:9px!important;
+  }
+  .pc11-issue-item{
+    padding:12px!important;
+    border:1px solid rgba(35,57,93,.12)!important;
+    border-radius:11px!important;
+    background:#f7f9fb!important;
+  }
+  .pc11-issue-item:first-child{
+    background:#23395d!important;
+    border-color:#23395d!important;
+  }
+  .pc11-issue-item .top{
+    color:#667085!important;
+    font-size:9px!important;
+  }
+  .pc11-issue-item:first-child .top{
+    color:rgba(255,255,255,.68)!important;
+  }
+  .pc11-issue-item h3{
+    margin-top:10px!important;
+    color:#344054!important;
+    font-size:13px!important;
+    line-height:1.45!important;
+  }
+  .pc11-issue-item:first-child h3{
+    color:#fff!important;
+    font-size:16px!important;
+  }
+  .pc11-issue-item .chips{
+    gap:4px!important;
+    margin-top:10px!important;
+  }
+  .pc11-issue-item .chips span{
+    padding:4px 7px!important;
+    background:#e9eef4!important;
+    color:#475467!important;
+    font-size:8px!important;
+  }
+  .pc11-issue-item:first-child .chips span{
+    background:rgba(255,255,255,.13)!important;
+    color:#fff!important;
+  }
+
+  /* Ranking / keywords */
+  .pc11-rank-list{
+    height:calc(100% - 48px)!important;
+    padding:7px 10px!important;
+  }
+  .pc11-rank-row{
+    min-height:34px!important;
+    grid-template-columns:24px minmax(0,1fr) auto!important;
+    gap:7px!important;
+  }
+  .pc11-rank-no{
+    color:#98a2b3!important;
+    font-size:9px!important;
+  }
+  .pc11-rank-name{
+    color:#344054!important;
+    font-size:11px!important;
+  }
+  .pc11-rank-count{
+    color:#23395d!important;
+    font-size:11px!important;
+  }
+
+  .pc11-keyword-list{
+    height:calc(100% - 48px)!important;
+    gap:6px!important;
+    padding:10px!important;
+  }
+  .pc11-keyword{
+    height:29px!important;
+    padding:0 9px!important;
+    border:1px solid rgba(17,24,39,.10)!important;
+    background:#fff!important;
+    color:#344054!important;
+    font-size:10px!important;
+  }
+  .pc11-keyword b{
+    color:#23395d!important;
+    font-size:10px!important;
+  }
+
+  /* Small map only */
+  .pc11-map-layout{
+    height:calc(100% - 48px)!important;
+    grid-template-columns:minmax(0,1fr) 118px!important;
+    gap:7px!important;
+    padding:8px!important;
+  }
+  .pc11-map-stage{
+    border:1px solid rgba(35,57,93,.12)!important;
+    background:#d7e4ef!important;
+  }
+  .pc11-map-country{
+    fill:#edf3f7!important;
+    stroke:#c3d3df!important;
+  }
+  .pc11-map-country.has{fill:#86abc5!important}
+  .pc11-map-country.l2{fill:#638eae!important}
+  .pc11-map-country.l3{fill:#416f96!important}
+  .pc11-map-country.l4{fill:#23395d!important}
+  .pc11-map-country.selected{
+    fill:#fee500!important;
+    stroke:#23395d!important;
+  }
+  #pc11-map-loading{
+    color:#475467!important;
+    font-size:9px!important;
+  }
+  .pc11-country-row{
+    min-height:31px!important;
+    color:#475467!important;
+    font-size:9px!important;
+  }
+  .pc11-country-row strong{
+    color:#23395d!important;
+    font-size:10px!important;
+  }
+
+  /* RIGHT: closer to mobile card identity */
+  .pc11-right{
+    background:#eef4f9!important;
+    grid-template-rows:58px auto 42px minmax(0,1fr)!important;
+  }
+  .pc11-right-head{
+    padding:0 13px!important;
+    background:#23395d!important;
+    border-bottom:0!important;
+  }
+  .pc11-right-head>div span{
+    color:rgba(255,255,255,.62)!important;
+    font-size:8px!important;
+  }
+  .pc11-right-head>div strong{
+    color:#fff!important;
+    font-size:15px!important;
+  }
+  .pc11-right-head>span{
+    color:#fee500!important;
+    font-size:12px!important;
+  }
+
+  .pc11-group-tabs{
+    gap:6px!important;
+    padding:9px!important;
+    max-height:118px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#dce8f2!important;
+  }
+  .pc11-group-tabs button{
+    min-height:31px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(17,24,39,.10)!important;
+    border-radius:8px!important;
+    background:rgba(255,255,255,.88)!important;
+    color:#344054!important;
+    font-size:10px!important;
+  }
+  .pc11-group-tabs button.active{
+    background:#fee500!important;
+    color:#111827!important;
+    border-color:#fee500!important;
+    box-shadow:0 1px 2px rgba(17,24,39,.12)!important;
+  }
+  .pc11-group-tabs button b{
+    font-size:9px!important;
+  }
+
+  .pc11-list-head{
+    padding:0 11px!important;
+    background:#dce8f2!important;
+    color:#475467!important;
+    font-size:10px!important;
+  }
+  .pc11-list-head strong{
+    color:#23395d!important;
+    font-size:11px!important;
+  }
+
+  .pc11-article-list{
+    padding:8px!important;
+    background:#c4d6e8!important;
+  }
+  .pc11-list-card{
+    min-height:104px!important;
+    grid-template-columns:minmax(0,1fr) 88px!important;
+    gap:9px!important;
+    padding:10px!important;
+    margin-bottom:7px!important;
+    border:1px solid rgba(17,24,39,.10)!important;
+    border-radius:11px!important;
+    background:#fff!important;
+    box-shadow:0 2px 5px rgba(17,24,39,.035)!important;
+  }
+  .pc11-list-card:hover{
+    border-color:#7f97b0!important;
+    background:#fff!important;
+  }
+  .pc11-list-card.selected{
+    border:2px solid #23395d!important;
+    background:#fffbea!important;
+  }
+  .pc11-list-card .publisher{
+    color:#667085!important;
+    font-size:9px!important;
+  }
+  .pc11-list-card strong{
+    margin-top:5px!important;
+    color:#111827!important;
+    font-size:13px!important;
+    line-height:1.4!important;
+  }
+  .pc11-list-card .meta{
+    margin-top:7px!important;
+    color:#7a8493!important;
+    font-size:9px!important;
+  }
+  .pc11-list-thumb{
+    width:88px!important;
+    height:74px!important;
+    border-radius:9px!important;
+    background:#e9eef2!important;
+  }
+
+  /* ARTICLE DETAIL */
+  .pc11-detail{
+    background:#fff!important;
+  }
+  .pc11-detail-toolbar{
+    min-height:50px!important;
+    padding:0 12px!important;
+    background:#dce8f2!important;
+    border-bottom:1px solid rgba(35,57,93,.12)!important;
+  }
+  .pc11-detail-toolbar button{
+    height:32px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(17,24,39,.11)!important;
+    background:#fff!important;
+    color:#344054!important;
+    font-size:10px!important;
+  }
+  #pc11-detail-back{
+    background:#fee500!important;
+    color:#111827!important;
+    border-color:#fee500!important;
+  }
+
+  .pc11-detail-scroll{
+    padding:28px clamp(26px,4vw,64px) 42px!important;
+  }
+  .pc11-detail-meta{
+    gap:9px!important;
+    color:#667085!important;
+    font-size:11px!important;
+  }
+  .pc11-detail-meta span:first-child{
+    color:#23395d!important;
+    font-weight:900!important;
+  }
+  .pc11-detail h2{
+    margin-top:13px!important;
+    color:#111827!important;
+    font-size:clamp(26px,2.2vw,38px)!important;
+    line-height:1.32!important;
+    letter-spacing:-.6px!important;
+  }
+  .pc11-detail-image-wrap{
+    margin-top:23px!important;
+    border-radius:13px!important;
+  }
+  .pc11-detail-section{
+    margin-top:25px!important;
+    padding-top:18px!important;
+  }
+  .pc11-detail-section>span,
+  .pc11-detail-section-head span{
+    color:#23395d!important;
+    font-size:11px!important;
+  }
+  .pc11-detail-section p{
+    margin-top:11px!important;
+    color:#344054!important;
+    font-size:15px!important;
+    line-height:1.8!important;
+  }
+  .pc11-detail-keywords{
+    gap:6px!important;
+    margin-top:11px!important;
+  }
+  .pc11-detail-keywords span{
+    padding:6px 9px!important;
+    background:#edf3f7!important;
+    color:#344054!important;
+    font-size:10px!important;
+  }
+  .pc11-detail-section-head strong{
+    color:#23395d!important;
+    font-size:10px!important;
+  }
+  .pc11-related-list{
+    gap:8px!important;
+    margin-top:11px!important;
+  }
+  .pc11-related-item{
+    padding:10px!important;
+    background:#f8fafb!important;
+  }
+  .pc11-related-item span{
+    color:#667085!important;
+    font-size:9px!important;
+  }
+  .pc11-related-item strong{
+    margin-top:5px!important;
+    color:#111827!important;
+    font-size:12px!important;
+    line-height:1.4!important;
+  }
+  #pc11-detail-original{
+    height:38px!important;
+    padding:0 14px!important;
+    background:#23395d!important;
+    color:#fff!important;
+    font-size:11px!important;
+  }
+
+  /* RESTORED WINDOW: preserve readability rather than crushing text */
+  @media (max-width:1450px){
+    .pc11-shell{
+      grid-template-columns:minmax(0,1.7fr) minmax(340px,1fr)!important;
+    }
+    .pc11-dashboard-grid{
+      grid-template-columns:minmax(0,1fr) minmax(0,.82fr)!important;
+    }
+    .pc11-issues{grid-column:1/span 2!important;grid-row:1!important}
+    .pc11-entities{grid-column:1!important;grid-row:2!important}
+    .pc11-keywords{grid-column:2!important;grid-row:2!important}
+    .pc11-map-card,.pc11-media{display:none!important}
+    .pc11-list-card strong{font-size:12px!important}
+  }
+
+  @media (max-width:1180px){
+    .pc11-header{
+      grid-template-columns:190px minmax(220px,1fr) auto!important;
+    }
+    .pc11-brand strong{font-size:17px!important}
+    .pc11-header-actions button{
+      min-width:48px!important;
+      padding:0 7px!important;
+      font-size:10px!important;
+    }
+    .pc11-shell{
+      grid-template-columns:minmax(0,1.5fr) minmax(330px,1fr)!important;
+    }
+  }
+
+  @media (max-height:760px){
+    .pc11-dashboard{
+      grid-template-rows:58px 62px minmax(0,1fr)!important;
+      padding:8px!important;
+    }
+    .pc11-page-head p{display:none!important}
+    .pc11-page-head h1{font-size:20px!important}
+    .pc11-kpis article{padding:7px 9px!important}
+    .pc11-kpis strong{font-size:19px!important}
+    .pc11-card-head{height:40px!important}
+    .pc11-issue-list,
+    .pc11-rank-list,
+    .pc11-keyword-list,
+    .pc11-map-layout{height:calc(100% - 40px)!important}
+    .pc11-list-card{min-height:90px!important}
+    .pc11-list-card strong{font-size:12px!important}
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -16885,7 +17454,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.7(월) 14:25 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.7(월) 14:40 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -27634,7 +28203,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fcc889fa0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fc2fb1a80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28438,7 +29007,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28507,39 +29076,6 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
-  data-url="https://www.fnnews.com/news/202609071419549147"
-  data-title="10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다"
-  data-publisher="파이낸셜뉴스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-priority="1"
-  data-published="1788758515"
-  data-country="OTHER"
-  data-search="10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다 파이낸셜뉴스 타 건설사 10조7000억원 규모의 초대형 국책사업인 가덕도신공항 부지조성 공사가 대우건설 컨소시엄의 기본설계 접수와 함께 본궤도에 올랐다. 정치적 외풍과 거듭된 유찰 사태로 몸살을 앓았던 사업이 연내 &#x27;우선시공분 착공&#x27;이라는 실질적 첫발을 떼게 된 것이다. 다만 애초 .."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">파이낸셜뉴스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다</div>
-      <div class="article-snippet">10조7000억원 규모의 초대형 국책사업인 가덕도신공항 부지조성 공사가 대우건설 컨소시엄의 기본설계 접수와 함께 본궤도에 올랐다. 정치적 외풍과 거듭된 유찰 사태로 몸살을 앓았던 사업이 연내 &#x27;우선시공분 착공&#x27;이라는 실질적 첫발을 떼게 된 것이다. 다만 애초 ..</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5d299f17c994194c3ebde35a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.newstomato.com/ReadNews.aspx?no=1312529"
   data-title="[IB토마토]대우건설, 53조 넘는 잔고에도…공사 수익 31% 줄어"
@@ -28570,6 +29106,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/2f024e76ecfb19c16f4274fd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ngetnews.com/news/articleView.html?idxno=553064"
+  data-title="GS건설, 온수역세권 채무보증 1900억→2280억원…본PF 앞두고 한도 확대"
+  data-publisher="뉴스저널리즘"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788759403"
+  data-country="OTHER"
+  data-search="gs건설, 온수역세권 채무보증 1900억→2280억원…본pf 앞두고 한도 확대 뉴스저널리즘 타 건설사 온수역세권 개발사업 시공사인 gs건설이 서울 온수역세권 활성화 개발사업의 프리pf 리파이낸싱 과정에서 시행사 케이엘산업에 대한 채무보증 한도를 확대했다. 케이엘산업의 대출 원금은 1900억원으로 유지됐지만 gs건설의 채무보증액은 2280억원으로 380억원 늘었다. 보증기간도 3개월 연"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스저널리즘</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 온수역세권 채무보증 1900억→2280억원…본PF 앞두고 한도 확대</div>
+      <div class="article-snippet">온수역세권 개발사업 시공사인 GS건설이 서울 온수역세권 활성화 개발사업의 프리PF 리파이낸싱 과정에서 시행사 케이엘산업에 대한 채무보증 한도를 확대했다. 케이엘산업의 대출 원금은 1900억원으로 유지됐지만 GS건설의 채무보증액은 2280억원으로 380억원 늘었다. 보증기간도 3개월 연</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f8be48ae6fad3d5848366d0a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -28636,6 +29205,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/43bd8afe7959801c775ab2d2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779291"
+  data-title="가덕신공항 부지 기본설계 접수 완료…&quot;연내 우선시공분 착수&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788759425"
+  data-country="OTHER"
+  data-search="가덕신공항 부지 기본설계 접수 완료…&quot;연내 우선시공분 착수&quot; 뉴시스 타 건설사 [부산=뉴시스]원동화 기자 = 가덕도신공항 부지조성공사가 기본설계 접수를 마치고 실시설계와 연내 우선시공 착수 등 후속 절차에 들어간다. 가덕도신공항건설공단은 가덕도신공항 부지조성공사 수의계약 예비 대상자인 대우건설 컨소시엄으로부터 기본설계도서를 제출받아 설계심의 등 후속 절차를 추진한다고 7일 밝혔다. 부지조성공사 기본설계는 지난 3월9일 공단이 개최한 현장설명회를 시작으로 약 6개월(180일)간 진행됐으며, 이번 설계도서 제출로 기본설계 단계가 마무리됐다. 공단은 제출된 기본설계도서를 대상으로 중앙건설기술심의위원회 심의를 거쳐 관련 규정 준수 여부와 공법·장비 및"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313458" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">가덕도신공항 부지조성 후속 절차 본격화…대우건설 컨소 기본설계 제출 - 건설타임즈</span></a><a class="related-coverage-link" href="https://www.fnnews.com/news/202609071419549147" target="_blank" rel="noopener"><span class="related-coverage-publisher">파이낸셜뉴스</span><span class="related-coverage-title">10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>가덕신공항 부지 기본설계 접수 완료…&quot;연내 우선시공분 착수&quot;</div>
+      <div class="article-snippet">[부산=뉴시스]원동화 기자 = 가덕도신공항 부지조성공사가 기본설계 접수를 마치고 실시설계와 연내 우선시공 착수 등 후속 절차에 들어간다. 가덕도신공항건설공단은 가덕도신공항 부지조성공사 수의계약 예비 대상자인 대우건설 컨소시엄으로부터 기본설계도서를 제출받아 설계심의 등 후속 절차를 추진한다고 7일 밝혔다. 부지조성공사 기본설계는 지난 3월9일 공단이 개최한 현장설명회를 시작으로 약 6개월(180일)간 진행됐으며, 이번 설계도서 제출로 기본설계 단계가 마무리됐다. 공단은 제출된 기본설계도서를 대상으로 중앙건설기술심의위원회 심의를 거쳐 관련 규정 준수 여부와 공법·장비 및</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4bf3cf3e424cffd93c6a398a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313459"
+  data-title="AI 도장로봇·스마트 주차기술 발굴…IPARK현대산업개발, 공모전 시상 - 건설타임즈"
+  data-publisher="건설타임즈"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788758839"
+  data-country="OTHER"
+  data-search="ai 도장로봇·스마트 주차기술 발굴…ipark현대산업개발, 공모전 시상 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = ipark현대산업개발이 ai와 자동화 등 스마트건설 분야의 우수기술을 발굴해 현장 적용에 나선다.ipark현대산업개발은 지난 4일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">건설타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>AI 도장로봇·스마트 주차기술 발굴…IPARK현대산업개발, 공모전 시상 - 건설타임즈</div>
+      <div class="article-snippet">(건설타임즈) 박상민 기자 = IPARK현대산업개발이 AI와 자동화 등 스마트건설 분야의 우수기술을 발굴해 현장 적용에 나선다.IPARK현대산업개발은 지난 4일</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b52df773f9fcba568acb4a8e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29449,7 +30084,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">16건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29881,6 +30516,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.hidomin.com/news/articleView.html?idxno=720097"
+  data-title="한동대 학생들, ‘2026 원자력 ETU AI 콘텐츠 경진대회’ 대상·최우수상 - 경북도민일보"
+  data-publisher="경북도민일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788758771"
+  data-country="OTHER"
+  data-search="한동대 학생들, ‘2026 원자력 etu ai 콘텐츠 경진대회’ 대상·최우수상 - 경북도민일보 경북도민일보 원자력 원자력·에너지 분야 전공지식과 생성형 인공지능(ai)을 접목해 미래 에너지 산업의 비전을 제시한 대학생들의 창의적인 도전이 성과로 이어졌다. 한동대학교 이재영 기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">경북도민일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한동대 학생들, ‘2026 원자력 ETU AI 콘텐츠 경진대회’ 대상·최우수상 - 경북도민일보</div>
+      <div class="article-snippet">원자력·에너지 분야 전공지식과 생성형 인공지능(AI)을 접목해 미래 에너지 산업의 비전을 제시한 대학생들의 창의적인 도전이 성과로 이어졌다. 한동대학교 이재영 기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5b4bb85c20459174a2967101.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70841"
   data-title="IEA·OPEC 석유수요 전망 엇갈려…하루 220만배럴 격차"
@@ -29944,6 +30612,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/41741c3626a9e9ddbc36248f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779296"
+  data-title="한화운용 &quot;AI 투자영토, 반도체 넘어 실물 경제로 확장&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788759396"
+  data-country="OTHER"
+  data-search="한화운용 &quot;ai 투자영토, 반도체 넘어 실물 경제로 확장&quot; 뉴시스 원자력 [서울=뉴시스] 김진아 기자 = 한화자산운용은 7일 상장지수펀트(etf) 월간 리포트 &#x27;플러스 뷰(plus view)&#x27; 9월호를 통해 인공지능(ai) 투자 영역이 반도체와 데이터센터를 넘어 전력 인프라·국방·제조업 등 실물경제 전반으로 확장되고 있다고 진단했다. 리포트는 &#x27;발해를 꿈꾸며, 넓어지는 ai의 투자영토&#x27;를 커버스토리로 다루면서, 과거 기업의 자본지출이 경기와 금리 전망에 따라 확대와 축소를 반복했던 반면, 최근 투자는 공급망 안정과 국가 안보를 위한 성격이 강해지고 있다고 분석했다. 반도체를 자국에서 생산하고, 안정적인 전력을 확보하며, 핵심 원자재를 내재"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한화운용 &quot;AI 투자영토, 반도체 넘어 실물 경제로 확장&quot;</div>
+      <div class="article-snippet">[서울=뉴시스] 김진아 기자 = 한화자산운용은 7일 상장지수펀트(ETF) 월간 리포트 &#x27;플러스 뷰(PLUS VIEW)&#x27; 9월호를 통해 인공지능(AI) 투자 영역이 반도체와 데이터센터를 넘어 전력 인프라·국방·제조업 등 실물경제 전반으로 확장되고 있다고 진단했다. 리포트는 &#x27;발해를 꿈꾸며, 넓어지는 AI의 투자영토&#x27;를 커버스토리로 다루면서, 과거 기업의 자본지출이 경기와 금리 전망에 따라 확대와 축소를 반복했던 반면, 최근 투자는 공급망 안정과 국가 안보를 위한 성격이 강해지고 있다고 분석했다. 반도체를 자국에서 생산하고, 안정적인 전력을 확보하며, 핵심 원자재를 내재</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d109e66948143e3f63579526.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30187,7 +30888,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003779226"
   data-title="만호제강-국립창원대 &#x27;미래 신사업 발굴, 인재 육성&#x27; 맞손"
   data-publisher="뉴시스"
@@ -30211,7 +30912,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>만호제강-국립창원대 &#x27;미래 신사업 발굴, 인재 육성&#x27; 맞손</div>
+      <div class="headline">만호제강-국립창원대 &#x27;미래 신사업 발굴, 인재 육성&#x27; 맞손</div>
       <div class="article-snippet">[창원=뉴시스]홍정명 기자 = 경남 창원국가산업단지 입주기업 만호제강㈜과 계열사인 MH시스템즈㈜, MH다이나믹스㈜는 7일 오전 국립창원대학교 산학협력단과 미래 기술개발 공동연구 및 신사업 발굴, 지역인재 양성을 위한 산학협력 업무협약을 체결했다고 밝혔다. 이날 국립창원대 BAC 4층 VIP미팅룸에서 진행된 협약식은 만호제강과 계열사가 보유한 소재·정밀가공·제어 분야 제조·기술 역량과 국립창원대 연구·교육 인프라 및 전문 인력 연계 공동 기술 개발과 신사업 발굴 활성화, 지역 산업이 필요로 하는 실무형 인재 양성을 위해 마련됐으며, 만호제강 안병두 대표이사 회장, MH</div>
     </div>
   </div>
@@ -30608,7 +31309,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">28건</span>
+    <span class="group-count">32건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -30677,7 +31378,40 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
+  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313458"
+  data-title="가덕도신공항 부지조성 후속 절차 본격화…대우건설 컨소 기본설계 제출 - 건설타임즈"
+  data-publisher="건설타임즈"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788758625"
+  data-country="OTHER"
+  data-search="가덕도신공항 부지조성 후속 절차 본격화…대우건설 컨소 기본설계 제출 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = 가덕도신공항 부지조성공사가 기본설계 접수를 마치면서 연내 우선시공분 착공을 위한 절차가 본격화된다.국토교통부와 가덕도신공항건설공단은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">건설타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">가덕도신공항 부지조성 후속 절차 본격화…대우건설 컨소 기본설계 제출 - 건설타임즈</div>
+      <div class="article-snippet">(건설타임즈) 박상민 기자 = 가덕도신공항 부지조성공사가 기본설계 접수를 마치면서 연내 우선시공분 착공을 위한 절차가 본격화된다.국토교통부와 가덕도신공항건설공단은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.constimes.co.kr/news/photo/202609/313458_71284_2337.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.fnnews.com/news/202609071419549147"
   data-title="10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다"
   data-publisher="파이낸셜뉴스"
@@ -30685,8 +31419,8 @@ main {
   data-language="ko"
   data-priority="1"
   data-published="1788758515"
-  data-country="OTHER"
-  data-search="10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다 파이낸셜뉴스 타 건설사 10조7000억원 규모의 초대형 국책사업인 가덕도신공항 부지조성 공사가 대우건설 컨소시엄의 기본설계 접수와 함께 본궤도에 올랐다. 정치적 외풍과 거듭된 유찰 사태로 몸살을 앓았던 사업이 연내 &#x27;우선시공분 착공&#x27;이라는 실질적 첫발을 떼게 된 것이다. 다만 애초 .."
+  data-country="KR"
+  data-search="10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다 파이낸셜뉴스 타 건설사 10조7000억원 규모의 초대형 국책사업인 가덕도신공항 부지조성 공사가 대우건설 컨소시엄의 기본설계 접수와 함께 본궤도에 올랐다.이 과정에서 초기 우선협상대상자였던 현대건설 컨소시엄이 공기 연장 이견으로 발을 뺐고, 유찰이 반복되다 대우건설 컨소시엄이 수의.."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -30701,12 +31435,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다</div>
-      <div class="article-snippet">10조7000억원 규모의 초대형 국책사업인 가덕도신공항 부지조성 공사가 대우건설 컨소시엄의 기본설계 접수와 함께 본궤도에 올랐다. 정치적 외풍과 거듭된 유찰 사태로 몸살을 앓았던 사업이 연내 &#x27;우선시공분 착공&#x27;이라는 실질적 첫발을 떼게 된 것이다. 다만 애초 ..</div>
+      <div class="headline">10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다</div>
+      <div class="article-snippet">10조7000억원 규모의 초대형 국책사업인 가덕도신공항 부지조성 공사가 대우건설 컨소시엄의 기본설계 접수와 함께 본궤도에 올랐다.이 과정에서 초기 우선협상대상자였던 현대건설 컨소시엄이 공기 연장 이견으로 발을 뺐고, 유찰이 반복되다 대우건설 컨소시엄이 수의..</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/5d299f17c994194c3ebde35a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://image.fnnews.com/resource/media/image/2026/08/11/202608111604144758_e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30743,6 +31477,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ngetnews.com/news/articleView.html?idxno=553064"
+  data-title="GS건설, 온수역세권 채무보증 1900억→2280억원…본PF 앞두고 한도 확대"
+  data-publisher="뉴스저널리즘"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788759403"
+  data-country="OTHER"
+  data-search="gs건설, 온수역세권 채무보증 1900억→2280억원…본pf 앞두고 한도 확대 뉴스저널리즘 타 건설사 온수역세권 개발사업 시공사인 gs건설이 서울 온수역세권 활성화 개발사업의 프리pf 리파이낸싱 과정에서 시행사 케이엘산업에 대한 채무보증 한도를 확대했다. 케이엘산업의 대출 원금은 1900억원으로 유지됐지만 gs건설의 채무보증액은 2280억원으로 380억원 늘었다. 보증기간도 3개월 연"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스저널리즘</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설, 온수역세권 채무보증 1900억→2280억원…본PF 앞두고 한도 확대</div>
+      <div class="article-snippet">온수역세권 개발사업 시공사인 GS건설이 서울 온수역세권 활성화 개발사업의 프리PF 리파이낸싱 과정에서 시행사 케이엘산업에 대한 채무보증 한도를 확대했다. 케이엘산업의 대출 원금은 1900억원으로 유지됐지만 GS건설의 채무보증액은 2280억원으로 380억원 늘었다. 보증기간도 3개월 연</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f8be48ae6fad3d5848366d0a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.viva100.com/article/20260907500539"
   data-title="GS건설 ‘목동윤슬자이’ 견본주택 개관…8일 청약 진행"
@@ -30772,7 +31539,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/07/.cache/512/20260907500533.png?v=20260907142935" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/07/.cache/512/20260907500533.png?v=20260907144121" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -31334,6 +32101,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/43bd8afe7959801c775ab2d2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779291"
+  data-title="가덕신공항 부지 기본설계 접수 완료…&quot;연내 우선시공분 착수&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788759425"
+  data-country="OTHER"
+  data-search="가덕신공항 부지 기본설계 접수 완료…&quot;연내 우선시공분 착수&quot; 뉴시스 타 건설사 [부산=뉴시스]원동화 기자 = 가덕도신공항 부지조성공사가 기본설계 접수를 마치고 실시설계와 연내 우선시공 착수 등 후속 절차에 들어간다. 가덕도신공항건설공단은 가덕도신공항 부지조성공사 수의계약 예비 대상자인 대우건설 컨소시엄으로부터 기본설계도서를 제출받아 설계심의 등 후속 절차를 추진한다고 7일 밝혔다. 부지조성공사 기본설계는 지난 3월9일 공단이 개최한 현장설명회를 시작으로 약 6개월(180일)간 진행됐으며, 이번 설계도서 제출로 기본설계 단계가 마무리됐다. 공단은 제출된 기본설계도서를 대상으로 중앙건설기술심의위원회 심의를 거쳐 관련 규정 준수 여부와 공법·장비 및"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313458" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">가덕도신공항 부지조성 후속 절차 본격화…대우건설 컨소 기본설계 제출 - 건설타임즈</span></a><a class="related-coverage-link" href="https://www.fnnews.com/news/202609071419549147" target="_blank" rel="noopener"><span class="related-coverage-publisher">파이낸셜뉴스</span><span class="related-coverage-title">10조 규모 가덕신공항, 대우건설 주도 설계안 등판…연내 &#x27;첫 삽&#x27; 뜬다</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>가덕신공항 부지 기본설계 접수 완료…&quot;연내 우선시공분 착수&quot;</div>
+      <div class="article-snippet">[부산=뉴시스]원동화 기자 = 가덕도신공항 부지조성공사가 기본설계 접수를 마치고 실시설계와 연내 우선시공 착수 등 후속 절차에 들어간다. 가덕도신공항건설공단은 가덕도신공항 부지조성공사 수의계약 예비 대상자인 대우건설 컨소시엄으로부터 기본설계도서를 제출받아 설계심의 등 후속 절차를 추진한다고 7일 밝혔다. 부지조성공사 기본설계는 지난 3월9일 공단이 개최한 현장설명회를 시작으로 약 6개월(180일)간 진행됐으며, 이번 설계도서 제출로 기본설계 단계가 마무리됐다. 공단은 제출된 기본설계도서를 대상으로 중앙건설기술심의위원회 심의를 거쳐 관련 규정 준수 여부와 공법·장비 및</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4bf3cf3e424cffd93c6a398a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313459"
+  data-title="AI 도장로봇·스마트 주차기술 발굴…IPARK현대산업개발, 공모전 시상 - 건설타임즈"
+  data-publisher="건설타임즈"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788758839"
+  data-country="OTHER"
+  data-search="ai 도장로봇·스마트 주차기술 발굴…ipark현대산업개발, 공모전 시상 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = ipark현대산업개발이 ai와 자동화 등 스마트건설 분야의 우수기술을 발굴해 현장 적용에 나선다.ipark현대산업개발은 지난 4일"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">건설타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>AI 도장로봇·스마트 주차기술 발굴…IPARK현대산업개발, 공모전 시상 - 건설타임즈</div>
+      <div class="article-snippet">(건설타임즈) 박상민 기자 = IPARK현대산업개발이 AI와 자동화 등 스마트건설 분야의 우수기술을 발굴해 현장 적용에 나선다.IPARK현대산업개발은 지난 4일</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b52df773f9fcba568acb4a8e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -32279,7 +33112,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">20건</span>
+    <span class="group-count">22건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32711,6 +33544,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.hidomin.com/news/articleView.html?idxno=720097"
+  data-title="한동대 학생들, ‘2026 원자력 ETU AI 콘텐츠 경진대회’ 대상·최우수상 - 경북도민일보"
+  data-publisher="경북도민일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788758771"
+  data-country="OTHER"
+  data-search="한동대 학생들, ‘2026 원자력 etu ai 콘텐츠 경진대회’ 대상·최우수상 - 경북도민일보 경북도민일보 원자력 원자력·에너지 분야 전공지식과 생성형 인공지능(ai)을 접목해 미래 에너지 산업의 비전을 제시한 대학생들의 창의적인 도전이 성과로 이어졌다. 한동대학교 이재영 기"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">경북도민일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한동대 학생들, ‘2026 원자력 ETU AI 콘텐츠 경진대회’ 대상·최우수상 - 경북도민일보</div>
+      <div class="article-snippet">원자력·에너지 분야 전공지식과 생성형 인공지능(AI)을 접목해 미래 에너지 산업의 비전을 제시한 대학생들의 창의적인 도전이 성과로 이어졌다. 한동대학교 이재영 기</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5b4bb85c20459174a2967101.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energytimes.kr/news/articleView.html?idxno=70842"
   data-title="석유수요…IEA·OPEC 전망 엇갈려"
@@ -32873,6 +33739,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://menu.sidae.com/moneyweek/thumb/2026/09/07/00/2026090707014281374_1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779296"
+  data-title="한화운용 &quot;AI 투자영토, 반도체 넘어 실물 경제로 확장&quot;"
+  data-publisher="뉴시스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788759396"
+  data-country="OTHER"
+  data-search="한화운용 &quot;ai 투자영토, 반도체 넘어 실물 경제로 확장&quot; 뉴시스 원자력 [서울=뉴시스] 김진아 기자 = 한화자산운용은 7일 상장지수펀트(etf) 월간 리포트 &#x27;플러스 뷰(plus view)&#x27; 9월호를 통해 인공지능(ai) 투자 영역이 반도체와 데이터센터를 넘어 전력 인프라·국방·제조업 등 실물경제 전반으로 확장되고 있다고 진단했다. 리포트는 &#x27;발해를 꿈꾸며, 넓어지는 ai의 투자영토&#x27;를 커버스토리로 다루면서, 과거 기업의 자본지출이 경기와 금리 전망에 따라 확대와 축소를 반복했던 반면, 최근 투자는 공급망 안정과 국가 안보를 위한 성격이 강해지고 있다고 분석했다. 반도체를 자국에서 생산하고, 안정적인 전력을 확보하며, 핵심 원자재를 내재"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한화운용 &quot;AI 투자영토, 반도체 넘어 실물 경제로 확장&quot;</div>
+      <div class="article-snippet">[서울=뉴시스] 김진아 기자 = 한화자산운용은 7일 상장지수펀트(ETF) 월간 리포트 &#x27;플러스 뷰(PLUS VIEW)&#x27; 9월호를 통해 인공지능(AI) 투자 영역이 반도체와 데이터센터를 넘어 전력 인프라·국방·제조업 등 실물경제 전반으로 확장되고 있다고 진단했다. 리포트는 &#x27;발해를 꿈꾸며, 넓어지는 AI의 투자영토&#x27;를 커버스토리로 다루면서, 과거 기업의 자본지출이 경기와 금리 전망에 따라 확대와 축소를 반복했던 반면, 최근 투자는 공급망 안정과 국가 안보를 위한 성격이 강해지고 있다고 분석했다. 반도체를 자국에서 생산하고, 안정적인 전력을 확보하며, 핵심 원자재를 내재</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d109e66948143e3f63579526.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33149,7 +34048,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003779226"
   data-title="만호제강-국립창원대 &#x27;미래 신사업 발굴, 인재 육성&#x27; 맞손"
   data-publisher="뉴시스"
@@ -33173,7 +34072,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>만호제강-국립창원대 &#x27;미래 신사업 발굴, 인재 육성&#x27; 맞손</div>
+      <div class="headline">만호제강-국립창원대 &#x27;미래 신사업 발굴, 인재 육성&#x27; 맞손</div>
       <div class="article-snippet">[창원=뉴시스]홍정명 기자 = 경남 창원국가산업단지 입주기업 만호제강㈜과 계열사인 MH시스템즈㈜, MH다이나믹스㈜는 7일 오전 국립창원대학교 산학협력단과 미래 기술개발 공동연구 및 신사업 발굴, 지역인재 양성을 위한 산학협력 업무협약을 체결했다고 밝혔다. 이날 국립창원대 BAC 4층 VIP미팅룸에서 진행된 협약식은 만호제강과 계열사가 보유한 소재·정밀가공·제어 분야 제조·기술 역량과 국립창원대 연구·교육 인프라 및 전문 인력 연계 공동 기술 개발과 신사업 발굴 활성화, 지역 산업이 필요로 하는 실무형 인재 양성을 위해 마련됐으며, 만호제강 안병두 대표이사 회장, MH</div>
     </div>
   </div>
@@ -43022,7 +43921,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fcc889fa0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fc2fb1a80&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -160463,7 +161362,7 @@ document.querySelectorAll(".tab-button").forEach(button => {
   });
 });
 const archiveCutoff="2026-09-07";
-const archiveDates=["2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07"];
+const archiveDates=["2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07"];
 
 const archiveInput=document.getElementById("archive-date");
 const archiveDateDisplay=document.getElementById("archive-date-display");
