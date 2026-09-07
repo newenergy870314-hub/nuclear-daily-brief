@@ -1,3 +1,4 @@
+# FINAL PC V19 / DEFAULT TODAY AUTO + TIMELINE DIRECT MONTHLY JSON SEARCH / ORIGINAL ARTICLE FIRST 2026-09-07
 # FINAL PC V18 / TIMELINE CURRENT-PANEL DATE FIX / 1Y SEARCH / ORIGINAL ARTICLE FIRST 2026-09-07
 # FINAL PC V17 / TODAY AUTOLOAD + TIMELINE FIX + ORIGINAL ARTICLE FIRST / MOBILE UNCHANGED 2026-09-07
 # FINAL PC V16 / LARGE MAP + HORIZONTAL TREND TIMELINE / MOBILE UNCHANGED / 365-DAY ARCHIVE 2026-09-07
@@ -38412,35 +38413,186 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     box.scrollLeft=box.scrollWidth;
   }}
 
+
+  function pc11RawText(a){{
+    return [a?.title||"",a?.publisher||"",a?.group||"",a?.description||""].join(" ").toLowerCase();
+  }}
+
+  function pc11RawDate(a,fallbackDate=""){{
+    const raw=String(a?.published||"");
+    const m=raw.match(/^(20\d{{2}})-(\d{{2}})-(\d{{2}})/);
+    return m?`${{m[1]}}-${{m[2]}}-${{m[3]}}`:fallbackDate;
+  }}
+
+  function pc11RawSeed(a){{
+    return `${{a?.title||""}} ${{a?.description||""}}`;
+  }}
+
+  function pc11BuildRawTimelineEvents(rows){{
+    const sorted=[...rows].sort((a,b)=>a.date.localeCompare(b.date));
+    const events=[];
+    sorted.forEach(row=>{{
+      const seed=pc11RawSeed(row.article);
+      let target=null;
+      for(let i=events.length-1;i>=Math.max(0,events.length-10);i--){{
+        const e=events[i];
+        const diff=Math.abs((new Date(row.date)-new Date(e.date))/86400000);
+        if(diff<=3 && pc11TimelineSimilarity(seed,e.seed)>=0.22){{target=e;break}}
+      }}
+      if(target){{
+        target.rows.push(row);
+      }}else{{
+        events.push({{
+          date:row.date,
+          title:row.article.title||"관련 동향",
+          seed,
+          rows:[row]
+        }});
+      }}
+    }});
+    return events;
+  }}
+
+  function pc11OpenRawArticle(a){{
+    if(!a)return;
+    const fake=document.createElement("article");
+    fake.className="preview-card";
+    fake.dataset.url=a.link||"";
+    fake.dataset.title=a.title||"";
+    fake.dataset.publisher=a.publisher||"";
+    fake.dataset.group=a.group||"";
+    fake.dataset.country="";
+    fake.dataset.search=pc11RawText(a);
+    fake.dataset.published=String(Math.floor(new Date(a.published||Date.now()).getTime()/1000));
+    fake.innerHTML=
+      '<div class="headline">'+esc(a.title||"")+'</div>'+
+      '<div class="article-snippet">'+esc(a.description||"")+'</div>'+
+      (a.image?'<img src="'+String(a.image).replace(/"/g,"%22")+'" alt="">':"");
+    openDetail(fake);
+  }}
+
+  function pc11RenderRawTimeline(events,query,totalArticles){{
+    const box=document.getElementById("pc11-timeline-scroll");
+    const titleEl=document.getElementById("pc11-timeline-title");
+    const countEl=document.getElementById("pc11-timeline-count");
+    if(!box)return;
+
+    titleEl.textContent=`${{query}} 주요 동향`;
+    countEl.textContent=`${{events.length}}개 이벤트 · 관련기사 ${{totalArticles}}건`;
+    box.innerHTML="";
+
+    if(!events.length){{
+      box.innerHTML='<div class="pc11-timeline-empty">최근 1년 저장기사에서 해당 검색어를 찾지 못했습니다.</div>';
+      return;
+    }}
+
+    const track=document.createElement("div");
+    track.className="pc11-timeline-track";
+
+    events.forEach(e=>{{
+      const item=document.createElement("button");
+      item.type="button";
+      item.className="pc11-timeline-event";
+      const p=e.date.split("-");
+      const short=p.length===3?`${{p[1]}}.${{p[2]}}`:e.date;
+      item.innerHTML=
+        '<span class="pc11-timeline-date">'+short+'</span>'+
+        '<span class="pc11-timeline-dot"></span>'+
+        '<span class="pc11-timeline-event-title">'+esc(e.title)+'</span>'+
+        '<span class="pc11-timeline-event-count">관련기사 '+e.rows.length+'건</span>';
+      item.onclick=()=>{{
+        const latest=e.rows[e.rows.length-1]||e.rows[0];
+        if(latest)pc11OpenRawArticle(latest.article);
+      }};
+      track.appendChild(item);
+    }});
+
+    box.appendChild(track);
+    box.scrollLeft=box.scrollWidth;
+  }}
+
   async function pc11RunTimeline(){{
     const input=document.getElementById("pc11-timeline-query");
     const q=(input?.value||"").trim();
     if(!q)return;
+
+    const qLower=q.toLowerCase();
     const titleEl=document.getElementById("pc11-timeline-title");
     const countEl=document.getElementById("pc11-timeline-count");
     const runBtn=document.getElementById("pc11-timeline-run");
 
     if(runBtn){{runBtn.disabled=true;runBtn.textContent="조회 중"}}
     if(titleEl)titleEl.textContent=`${{q}} 주요 동향`;
-    if(countEl)countEl.textContent="현재 저장된 기사 우선 조회 중";
+    if(countEl)countEl.textContent="최근 1년 기사 데이터 확인 중...";
 
-    // 먼저 현재 HTML에 이미 있는 최근 기사에서 즉시 결과 표시
-    const immediateCards=pc11TimelineCardsFor(q);
-    const immediateEvents=pc11BuildTimelineEvents(immediateCards);
-    pc11RenderTimeline(immediateEvents,q);
-    if(countEl && immediateCards.length>0){{
-      countEl.textContent=`현재 기사 ${{immediateCards.length}}건 확인 · 과거 1년 데이터 추가 조회 중`;
-    }}
+    const matched=[];
+    const seen=new Set();
 
-    await pc11LoadTimelineArchive((done,total)=>{{
-      if(countEl && total>0)countEl.textContent=`과거 기사 불러오는 중 · ${{done}}/${{total}}개월`;
+    // A) 현재 페이지에 이미 있는 기사부터 확보
+    document.querySelectorAll(".phone .tab-panel .preview-card").forEach(c=>{{
+      if(!fullText(c).includes(qLower))return;
+      const d=pc11CardDate(c);
+      const key=(c.dataset.url||"")+"|"+d+"|"+title(c);
+      if(seen.has(key))return;
+      seen.add(key);
+      matched.push({{
+        date:d||new Date().toISOString().slice(0,10),
+        article:{{
+          title:title(c),
+          publisher:publisher(c),
+          group:group(c),
+          description:summary(c),
+          link:c.dataset.url||"",
+          published:new Date((Number(c.dataset.published)||0)*1000).toISOString(),
+          image:image(c)
+        }}
+      }});
     }});
 
-    // 과거 월별 데이터가 모두 로드되면 최종 1년 타임라인 갱신
-    pc11RenderTimeline(pc11BuildTimelineEvents(pc11TimelineCardsFor(q)),q);
+    try{{
+      // B) 365일 월별 JSON을 직접 읽음 — HTML DOM 로딩에 의존하지 않음
+      const manifestRes=await fetch("archive/index.json",{{cache:"no-store"}});
+      if(!manifestRes.ok)throw new Error("archive index unavailable");
+      const manifest=await manifestRes.json();
+      const months=Array.isArray(manifest.months)?manifest.months:[];
+
+      let completed=0;
+      const loadMonth=async(month)=>{{
+        try{{
+          const r=await fetch(`archive/${{month}}.json`,{{cache:"no-store"}});
+          if(!r.ok)return;
+          const monthData=await r.json();
+          Object.entries(monthData||{{}}).forEach(([date,item])=>{{
+            (item?.articles||[]).forEach(a=>{{
+              if(!pc11RawText(a).includes(qLower))return;
+              const d=pc11RawDate(a,date)||date;
+              const key=(a.link||"")+"|"+d+"|"+(a.title||"");
+              if(seen.has(key))return;
+              seen.add(key);
+              matched.push({{date:d,article:a}});
+            }});
+          }});
+        }}catch(_error){{}}
+        finally{{
+          completed++;
+          if(countEl)countEl.textContent=`과거 기사 불러오는 중 · ${{completed}}/${{months.length}}개월`;
+        }}
+      }};
+
+      const concurrency=4;
+      for(let i=0;i<months.length;i+=concurrency){{
+        await Promise.all(months.slice(i,i+concurrency).map(loadMonth));
+      }}
+    }}catch(_error){{
+      // 월별 JSON이 아직 배포되지 않은 환경에서는 현재 페이지 기사 결과라도 유지
+    }}
+
+    const valid=matched.filter(x=>x.date);
+    const events=pc11BuildRawTimelineEvents(valid);
+    pc11RenderRawTimeline(events,q,valid.length);
 
     if(runBtn){{runBtn.disabled=false;runBtn.textContent="조회"}}
-  }}
+  }}}}
 
   function renderKpis(){{
     const list=visibleCards();
@@ -38690,9 +38842,10 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   function isRead(c){{return c.classList.contains("read")}}
   function isImportant(c){{return c.classList.contains("important")}}
   function syncMobileState(c){{
-    if(typeof applyState==="function"){{
-      try{{applyState(c)}}catch(_error){{}}
-    }}
+    try{{
+      if(window.applyState && typeof window.applyState==="function")window.applyState(c);
+      else if(typeof applyState==="function")applyState(c);
+    }}catch(_error){{}}
   }}
   function markReadForPC(c){{
     const u=c?.dataset?.url||"";
@@ -39205,6 +39358,40 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(init,350));
   else setTimeout(init,350);
+
+  function pc11ForceDefaultToday(){{
+    if(!desktop())return;
+    try{{
+      period="금일";
+      selectedGroup="";
+      selectedCountry="";
+      searchText="";
+      activeArticle=null;
+
+      const search=document.getElementById("pc11-search");
+      if(search)search.value="";
+
+      const today=document.getElementById("pc11-today");
+      document.querySelectorAll(".pc11-header-actions button").forEach(b=>b.classList.remove("active"));
+      if(today)today.classList.add("active");
+
+      const mobileToday=document.getElementById("tab-금일");
+      if(mobileToday){{
+        document.querySelectorAll(".phone .tab-panel").forEach(p=>p.classList.remove("active"));
+        mobileToday.classList.add("active");
+      }}
+
+      closeDetail();
+      refresh();
+    }}catch(_error){{}}
+  }}
+
+  // 기존 조기 초기화와 별개로, 페이지/상태 스크립트가 모두 끝난 뒤 한 번 더 확정 적용.
+  window.addEventListener("load",()=>{{
+    setTimeout(pc11ForceDefaultToday,120);
+    setTimeout(pc11ForceDefaultToday,700);
+    setTimeout(pc11ForceDefaultToday,1600);
+  }});
 
   window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,90)}})
 }})();
