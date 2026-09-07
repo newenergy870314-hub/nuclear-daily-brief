@@ -1,3 +1,5 @@
+# FINAL PC V16 / LARGE MAP + HORIZONTAL TREND TIMELINE / MOBILE UNCHANGED / 365-DAY ARCHIVE 2026-09-07
+# FINAL PC V15 / LARGE COUNTRY MAP / ISSUE GROUP HIDDEN / MOBILE ARTICLE FEATURES / 365-DAY ARCHIVE 2026-09-07
 # FINAL PC V14 / MOBILE ARTICLE CARD FEATURES + LARGE TEXT / SPLIT VIEW / 365-DAY ARCHIVE 2026-09-07
 # FINAL PC V13 / ARTICLE CLICK FIX / LEFT 2-3 DETAIL / MOBILE UNCHANGED / 365-DAY ARCHIVE 2026-09-07
 # FINAL PC V12 / MOBILE COLOR IDENTITY + LARGE READABLE TEXT / 365-DAY MONTHLY ARCHIVE 2026-09-07
@@ -28874,6 +28876,256 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   PC15 — LARGE COUNTRY DISTRIBUTION MAP
+   주요 이슈 묶음 제거 / 국가별 기사 분포를 핵심 시각화로 확대
+   ========================================================== */
+@media (min-width:1000px){{
+
+  /* Dashboard: KPI + large map + lower analytics */
+  .pc11-dashboard{{
+    grid-template-rows:74px 84px minmax(360px,1.18fr) minmax(220px,.82fr)!important;
+    gap:10px!important;
+  }}
+
+  .pc11-dashboard-grid{{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-rows:minmax(360px,1.18fr) minmax(220px,.82fr)!important;
+    gap:10px!important;
+    min-height:0!important;
+  }}
+
+  /* Hide issue cluster completely on PC */
+  .pc11-issues{{
+    display:none!important;
+  }}
+
+  /* Large map takes full width on top */
+  .pc11-map-card{{
+    display:block!important;
+    grid-column:1 / span 2!important;
+    grid-row:1!important;
+    min-height:360px!important;
+  }}
+
+  /* Lower analytics */
+  .pc11-entities{{
+    display:block!important;
+    grid-column:1!important;
+    grid-row:2!important;
+    min-height:220px!important;
+  }}
+
+  .pc11-keywords{{
+    display:block!important;
+    grid-column:2!important;
+    grid-row:2!important;
+    min-height:220px!important;
+  }}
+
+  /* Keep lower-priority media/publisher card out of first dashboard screen */
+  .pc11-media{{
+    display:none!important;
+  }}
+
+  .pc11-map-card .pc11-card-head{{
+    height:54px!important;
+  }}
+
+  .pc11-map-card .pc11-card-head strong{{
+    font-size:17px!important;
+  }}
+
+  .pc11-map-card .pc11-card-head small{{
+    font-size:11px!important;
+  }}
+
+  .pc11-map-layout{{
+    height:calc(100% - 54px)!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 190px!important;
+    gap:12px!important;
+    padding:12px!important;
+  }}
+
+  .pc11-map-stage{{
+    min-height:280px!important;
+    border-radius:12px!important;
+    overflow:hidden!important;
+  }}
+
+  .pc11-map-country-list{{
+    min-height:0!important;
+    overflow:auto!important;
+    padding-right:2px!important;
+  }}
+
+  .pc11-country-row{{
+    min-height:39px!important;
+    padding:0 8px!important;
+    border-bottom:1px solid rgba(35,57,93,.08)!important;
+    font-size:12px!important;
+  }}
+
+  .pc11-country-row strong{{
+    font-size:13px!important;
+  }}
+
+  /* Make selected countries obvious */
+  .pc11-map-country.selected{{
+    fill:#fee500!important;
+    stroke:#23395d!important;
+    stroke-width:1.4px!important;
+  }}
+
+  /* Restored desktop window */
+  @media (max-width:1450px){{
+    .pc11-dashboard{{
+      grid-template-rows:66px 78px minmax(330px,1.12fr) minmax(205px,.88fr)!important;
+    }}
+    .pc11-dashboard-grid{{
+      grid-template-rows:minmax(330px,1.12fr) minmax(205px,.88fr)!important;
+    }}
+    .pc11-map-card{{
+      min-height:330px!important;
+    }}
+    .pc11-map-layout{{
+      grid-template-columns:minmax(0,1fr) 170px!important;
+    }}
+  }}
+
+  @media (max-width:1180px){{
+    .pc11-dashboard-grid{{
+      grid-template-columns:minmax(0,1fr)!important;
+      grid-template-rows:minmax(320px,1fr) minmax(205px,.7fr) minmax(205px,.7fr)!important;
+    }}
+    .pc11-map-card{{
+      grid-column:1!important;
+      grid-row:1!important;
+      min-height:320px!important;
+    }}
+    .pc11-entities{{
+      grid-column:1!important;
+      grid-row:2!important;
+    }}
+    .pc11-keywords{{
+      grid-column:1!important;
+      grid-row:3!important;
+    }}
+    .pc11-map-layout{{
+      grid-template-columns:minmax(0,1fr) 150px!important;
+    }}
+  }}
+
+  @media (max-height:760px){{
+    .pc11-dashboard{{
+      grid-template-rows:58px 66px minmax(270px,1fr) minmax(175px,.68fr)!important;
+    }}
+    .pc11-dashboard-grid{{
+      grid-template-rows:minmax(270px,1fr) minmax(175px,.68fr)!important;
+    }}
+    .pc11-map-card{{
+      min-height:270px!important;
+    }}
+    .pc11-map-layout{{
+      height:calc(100% - 46px)!important;
+      padding:8px!important;
+    }}
+    .pc11-map-card .pc11-card-head{{
+      height:46px!important;
+    }}
+    .pc11-map-stage{{
+      min-height:220px!important;
+    }}
+  }}
+}}
+
+
+/* ==========================================================
+   PC16 FINAL — LARGE MAP + HORIZONTAL TREND TIMELINE
+   ========================================================== */
+@media (min-width:1000px){{
+  .pc11-dashboard{{grid-template-rows:74px 84px minmax(0,1fr)!important;gap:10px!important}}
+  .pc11-dashboard-grid{{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-rows:minmax(350px,1.15fr) minmax(210px,.72fr) minmax(205px,.68fr)!important;
+    gap:10px!important;overflow:auto!important;padding-right:2px!important
+  }}
+  .pc11-map-card{{display:block!important;grid-column:1/span 2!important;grid-row:1!important;min-height:350px!important}}
+  .pc11-timeline-card{{display:block!important;grid-column:1/span 2!important;grid-row:2!important;min-height:210px!important}}
+  .pc11-entities{{display:block!important;grid-column:1!important;grid-row:3!important;min-height:205px!important}}
+  .pc11-keywords{{display:block!important;grid-column:2!important;grid-row:3!important;min-height:205px!important}}
+  .pc11-media,.pc11-issues{{display:none!important}}
+
+  .pc11-timeline-head{{height:52px!important}}
+  .pc11-timeline-head strong{{font-size:16px!important}}
+  .pc11-timeline-body{{
+    height:calc(100% - 52px)!important;display:grid!important;
+    grid-template-rows:44px 31px minmax(0,1fr)!important;
+    gap:5px!important;padding:8px 12px 10px!important;box-sizing:border-box!important
+  }}
+  .pc11-timeline-search{{display:grid!important;grid-template-columns:minmax(0,1fr) 72px!important;gap:7px!important}}
+  .pc11-timeline-search input{{
+    height:38px!important;padding:0 12px!important;border:1px solid rgba(35,57,93,.18)!important;
+    border-radius:9px!important;background:#f8fafc!important;color:#111827!important;font-size:13px!important;font-weight:750!important
+  }}
+  .pc11-timeline-search button{{
+    height:38px!important;border:0!important;border-radius:9px!important;background:#23395d!important;
+    color:#fff!important;font-size:12px!important;font-weight:950!important;cursor:pointer!important
+  }}
+  .pc11-timeline-status{{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important}}
+  .pc11-timeline-status strong{{color:#23395d!important;font-size:12px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}}
+  .pc11-timeline-status span{{color:#667085!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important}}
+  .pc11-timeline-scroll{{min-width:0!important;min-height:0!important;overflow-x:auto!important;overflow-y:hidden!important;padding:4px 7px 2px!important}}
+  .pc11-timeline-empty{{height:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;color:#7a8493!important;font-size:12px!important;text-align:center!important}}
+  .pc11-timeline-track{{
+    position:relative!important;min-width:max-content!important;height:100%!important;
+    display:flex!important;align-items:flex-start!important;padding:0 34px!important
+  }}
+  .pc11-timeline-track::before{{
+    content:""!important;position:absolute!important;left:34px!important;right:34px!important;top:34px!important;
+    height:3px!important;border-radius:999px!important;background:#b9c8d6!important
+  }}
+  .pc11-timeline-event{{
+    position:relative!important;z-index:1!important;width:164px!important;height:100%!important;
+    display:grid!important;grid-template-rows:22px 25px auto 18px!important;justify-items:center!important;
+    align-content:start!important;padding:0 10px!important;border:0!important;background:transparent!important;cursor:pointer!important;text-align:center!important
+  }}
+  .pc11-timeline-date{{color:#5e7188!important;font-size:11px!important;font-weight:950!important}}
+  .pc11-timeline-dot{{
+    width:16px!important;height:16px!important;margin-top:4px!important;border:4px solid #fff!important;
+    border-radius:50%!important;background:#23395d!important;box-shadow:0 0 0 2px #23395d!important
+  }}
+  .pc11-timeline-event:hover .pc11-timeline-dot{{background:#fee500!important;transform:scale(1.16)!important}}
+  .pc11-timeline-event-title{{
+    width:100%!important;margin-top:7px!important;color:#23395d!important;font-size:12px!important;line-height:1.28!important;font-weight:900!important;
+    display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important
+  }}
+  .pc11-timeline-event-count{{margin-top:4px!important;color:#7a8493!important;font-size:10px!important;font-weight:800!important}}
+  .pc11-map-card .pc11-card-head{{height:54px!important}}
+  .pc11-map-layout{{height:calc(100% - 54px)!important;grid-template-columns:minmax(0,1fr) 190px!important;gap:12px!important;padding:12px!important}}
+  .pc11-map-stage{{min-height:270px!important}}
+
+  @media (max-width:1450px){{
+    .pc11-dashboard-grid{{grid-template-rows:minmax(320px,1.08fr) minmax(205px,.72fr) minmax(195px,.68fr)!important}}
+    .pc11-map-card{{min-height:320px!important}}.pc11-timeline-card{{min-height:205px!important}}.pc11-timeline-event{{width:150px!important}}
+  }}
+  @media (max-width:1180px){{
+    .pc11-dashboard-grid{{
+      grid-template-columns:minmax(0,1fr)!important;
+      grid-template-rows:minmax(300px,1fr) minmax(205px,.72fr) minmax(190px,.65fr) minmax(190px,.65fr)!important
+    }}
+    .pc11-map-card{{grid-column:1!important;grid-row:1!important}}
+    .pc11-timeline-card{{grid-column:1!important;grid-row:2!important}}
+    .pc11-entities{{grid-column:1!important;grid-row:3!important}}
+    .pc11-keywords{{grid-column:1!important;grid-row:4!important}}
+    .pc11-map-layout{{grid-template-columns:minmax(0,1fr) 150px!important}}
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -28935,12 +29187,24 @@ main {{
         </div>
 
         <div class="pc11-dashboard-grid">
-          <section class="pc11-card pc11-issues">
-            <div class="pc11-card-head">
-              <div><span>ISSUE GROUPS</span><strong>주요 이슈 묶음</strong></div>
-              <small>유사 기사 자동 묶음</small>
+          <section class="pc11-card pc11-timeline-card">
+            <div class="pc11-card-head pc11-timeline-head">
+              <div><span>TREND TIMELINE</span><strong>동향 타임라인</strong></div>
+              <small>최근 1년 기사 데이터 기준</small>
             </div>
-            <div id="pc11-issue-list" class="pc11-issue-list"></div>
+            <div class="pc11-timeline-body">
+              <div class="pc11-timeline-search">
+                <input id="pc11-timeline-query" type="search" placeholder="인물 · 기관 · 프로젝트 · 이슈 검색 (예: 김정관, 한수원, 대미 투자)">
+                <button id="pc11-timeline-run" type="button">조회</button>
+              </div>
+              <div class="pc11-timeline-status">
+                <strong id="pc11-timeline-title">검색어를 입력하면 관련 동향을 날짜순으로 정리합니다.</strong>
+                <span id="pc11-timeline-count"></span>
+              </div>
+              <div id="pc11-timeline-scroll" class="pc11-timeline-scroll">
+                <div class="pc11-timeline-empty">김정관 · 한수원 · 한빛원전 · 대미 투자 · 산업통상부 · SMR-300 등을 검색할 수 있습니다.</div>
+              </div>
+            </div>
           </section>
 
           <section class="pc11-card pc11-entities">
@@ -37908,6 +38172,117 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     refresh();
   }}
 
+
+  /* ================= PC16 TREND TIMELINE ================= */
+  const pc11TimelineMonthCache=new Set();
+
+  function pc11CardDate(c){{
+    const panel=c.closest(".archive-panel");
+    if(panel && panel.id && panel.id.startsWith("archive-"))return panel.id.slice(8);
+    const raw=(c.dataset.published||"").trim();
+    const m=raw.match(/(20\d{{2}})[.\-/년\s]*(\d{{1,2}})[.\-/월\s]*(\d{{1,2}})/);
+    if(m)return `${{m[1]}}-${{String(Number(m[2])).padStart(2,"0")}}-${{String(Number(m[3])).padStart(2,"0")}}`;
+    return "";
+  }}
+
+  function pc11TimelineTokens(s){{
+    return String(s||"").toLowerCase().replace(/[^\p{{L}}\p{{N}}]+/gu," ").split(/\s+/).filter(x=>x.length>=2);
+  }}
+
+  function pc11TimelineSimilarity(a,b){{
+    const A=new Set(pc11TimelineTokens(a)),B=new Set(pc11TimelineTokens(b));
+    if(!A.size||!B.size)return 0;
+    let common=0;A.forEach(x=>{{if(B.has(x))common++}});
+    return common/(A.size+B.size-common);
+  }}
+
+  async function pc11LoadTimelineArchive(){{
+    const dates=(typeof archiveDates!=="undefined" && Array.isArray(archiveDates))?archiveDates:[];
+    const months=[...new Set(dates.map(d=>String(d).slice(0,7)).filter(Boolean))];
+    for(const month of months){{
+      if(pc11TimelineMonthCache.has(month))continue;
+      if(document.querySelector(`.archive-panel[id^="archive-${{month}}-"]`)){{pc11TimelineMonthCache.add(month);continue}}
+      try{{
+        const response=await fetch(`archive_html/${{month}}.html`,{{cache:"no-store"}});
+        if(!response.ok)continue;
+        const holder=document.createElement("div");
+        holder.innerHTML=await response.text();
+        const host=document.querySelector(".phone main");
+        holder.querySelectorAll(".archive-panel").forEach(panel=>{{
+          if(host && !document.getElementById(panel.id))host.appendChild(panel);
+        }});
+        pc11TimelineMonthCache.add(month);
+      }}catch(_error){{}}
+    }}
+  }}
+
+  function pc11TimelineCardsFor(query){{
+    const q=String(query||"").trim().toLowerCase();
+    if(!q)return [];
+    return [...document.querySelectorAll(".phone .archive-panel .preview-card")]
+      .filter(c=>[title(c),summary(c),publisher(c),group(c),c.dataset.search||""].join(" ").toLowerCase().includes(q))
+      .sort((a,b)=>pc11CardDate(a).localeCompare(pc11CardDate(b)));
+  }}
+
+  function pc11BuildTimelineEvents(source){{
+    const events=[];
+    source.forEach(c=>{{
+      const date=pc11CardDate(c); if(!date)return;
+      const seed=`${{title(c)}} ${{summary(c)}}`;
+      let target=null;
+      for(let i=events.length-1;i>=Math.max(0,events.length-8);i--){{
+        const e=events[i];
+        const diff=Math.abs((new Date(date)-new Date(e.date))/86400000);
+        if(diff<=3 && pc11TimelineSimilarity(seed,e.seed)>=0.24){{target=e;break}}
+      }}
+      if(target)target.cards.push(c);
+      else events.push({{date,title:title(c)||"관련 동향",seed,cards:[c]}});
+    }});
+    return events.sort((a,b)=>a.date.localeCompare(b.date));
+  }}
+
+  function pc11RenderTimeline(events,query){{
+    const box=document.getElementById("pc11-timeline-scroll");
+    const titleEl=document.getElementById("pc11-timeline-title");
+    const countEl=document.getElementById("pc11-timeline-count");
+    if(!box)return;
+    titleEl.textContent=`${{query}} 주요 동향`;
+    countEl.textContent=`${{events.length}}개 이벤트 · 관련기사 ${{events.reduce((n,e)=>n+e.cards.length,0)}}건`;
+    box.innerHTML="";
+    if(!events.length){{
+      box.innerHTML='<div class="pc11-timeline-empty">해당 검색어의 타임라인 이벤트를 찾지 못했습니다.</div>';
+      return;
+    }}
+    const track=document.createElement("div");track.className="pc11-timeline-track";
+    events.forEach(e=>{{
+      const item=document.createElement("button");item.type="button";item.className="pc11-timeline-event";
+      const p=e.date.split("-"),short=p.length===3?`${{p[1]}}.${{p[2]}}`:e.date;
+      item.innerHTML='<span class="pc11-timeline-date">'+short+'</span>'+
+        '<span class="pc11-timeline-dot"></span>'+
+        '<span class="pc11-timeline-event-title">'+esc(e.title)+'</span>'+
+        '<span class="pc11-timeline-event-count">관련기사 '+e.cards.length+'건</span>';
+      item.onclick=()=>{{
+        const target=e.cards[e.cards.length-1]||e.cards[0];
+        if(target)openDetail(target);
+      }};
+      track.appendChild(item);
+    }});
+    box.appendChild(track);
+    box.scrollLeft=box.scrollWidth;
+  }}
+
+  async function pc11RunTimeline(){{
+    const input=document.getElementById("pc11-timeline-query");
+    const q=(input?.value||"").trim();
+    if(!q)return;
+    const titleEl=document.getElementById("pc11-timeline-title");
+    const countEl=document.getElementById("pc11-timeline-count");
+    if(titleEl)titleEl.textContent=`${{q}} 동향 검색 중...`;
+    if(countEl)countEl.textContent="1년치 기사 불러오는 중";
+    await pc11LoadTimelineArchive();
+    pc11RenderTimeline(pc11BuildTimelineEvents(pc11TimelineCardsFor(q)),q);
+  }}
+
   function renderKpis(){{
     const list=visibleCards();
     const pubs=new Set(list.map(publisher).filter(Boolean));
@@ -38599,7 +38974,12 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     document.getElementById("pc11-detail-prev").onclick=()=>moveDetail(-1);
     document.getElementById("pc11-detail-next").onclick=()=>moveDetail(1);
 
-
+    const timelineRun=document.getElementById("pc11-timeline-run");
+    const timelineQuery=document.getElementById("pc11-timeline-query");
+    if(timelineRun)timelineRun.onclick=pc11RunTimeline;
+    if(timelineQuery)timelineQuery.addEventListener("keydown",(ev)=>{{
+      if(ev.key==="Enter"){{ev.preventDefault();pc11RunTimeline()}}
+    }});
 
     refresh();
     fetch(WORLD_URL)
