@@ -1,3 +1,4 @@
+# FINAL PC DESKTOP APP V7 / COMPLETELY SEPARATED FROM MOBILE / MOBILE UNCHANGED 2026-09-07
 # FINAL PC STABLE CONTROL TOWER V6 CLEAN FINAL / MOBILE UNCHANGED 2026-09-07
 # FINAL PC STABLE CONTROL TOWER V6 / FILTERABLE RELATED ARTICLES / MOBILE UNCHANGED 2026-09-07
 # FINAL PC STABLE CONTROL TOWER V5 / ONE-SCREEN / MOBILE UNCHANGED 2026-09-07
@@ -26558,6 +26559,544 @@ main {{
   }}
 }}
 
+
+/* ==============================================================
+   PC DESKTOP APP V7 — FULL SEPARATION FROM MOBILE
+   Desktop >=1000px uses only #pc7-app.
+   Mobile <1000px keeps the existing UI unchanged.
+   ============================================================== */
+#pc7-app {{ display:none; }}
+
+@media (min-width:1000px) {{
+  html, body {{
+    width:100%;
+    height:100%;
+    margin:0;
+    overflow:hidden !important;
+    background:#0f1720 !important;
+  }}
+
+  /* Hide the entire legacy/mobile app on desktop. */
+  body > .phone,
+  body > header:not(.pc7-header),
+  body > main:not(.pc7-grid),
+  body > section:not(#pc7-article-drawer),
+  body > aside {{
+    display:none !important;
+  }}
+
+  #pc7-app {{
+    display:grid;
+    grid-template-rows:56px 38px minmax(0,1fr);
+    width:100vw;
+    height:100dvh;
+    padding:10px;
+    box-sizing:border-box;
+    gap:8px;
+    overflow:hidden;
+    color:#eef4f9;
+    font-family:Pretendard,"Noto Sans KR","Malgun Gothic",sans-serif;
+    background:
+      radial-gradient(circle at 18% 8%,rgba(50,92,128,.22),transparent 30%),
+      linear-gradient(180deg,#0e1720,#111b25 60%,#0d151d);
+  }}
+
+  .pc7-header {{
+    display:grid;
+    grid-template-columns:260px minmax(380px,1fr) auto;
+    align-items:center;
+    gap:14px;
+    padding:0 14px;
+    border:1px solid rgba(151,181,206,.12);
+    border-radius:14px;
+    background:rgba(20,31,42,.90);
+    box-shadow:0 10px 28px rgba(0,0,0,.15);
+  }}
+
+  .pc7-brand {{
+    min-width:0;
+  }}
+  .pc7-brand-kicker {{
+    display:block;
+    color:#70a8d3;
+    font-size:7px;
+    font-weight:950;
+    letter-spacing:1.2px;
+  }}
+  .pc7-brand strong {{
+    display:block;
+    margin-top:2px;
+    color:#fff;
+    font-size:16px;
+    font-weight:950;
+    letter-spacing:-.3px;
+  }}
+
+  .pc7-search-wrap {{
+    min-width:0;
+  }}
+  #pc7-search {{
+    width:100%;
+    height:34px;
+    padding:0 13px;
+    border:1px solid rgba(149,177,201,.15);
+    border-radius:10px;
+    outline:none;
+    background:#17232e;
+    color:#eef4f9;
+    font-size:9px;
+    font-weight:700;
+  }}
+  #pc7-search::placeholder {{ color:#6d8396; }}
+
+  .pc7-header-actions {{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }}
+  .pc7-live {{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    color:#76a68d;
+    font-size:7px;
+    font-weight:950;
+  }}
+  .pc7-live i {{
+    width:6px;height:6px;border-radius:50%;
+    background:#40c08a;
+    box-shadow:0 0 0 4px rgba(64,192,138,.11);
+  }}
+  #pc7-open-all {{
+    height:31px;
+    padding:0 10px;
+    border:1px solid rgba(151,181,206,.14);
+    border-radius:8px;
+    background:#edf3f7;
+    color:#193a55;
+    font-size:8px;
+    font-weight:950;
+    cursor:pointer;
+  }}
+
+  .pc7-tabs {{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    padding:4px 8px;
+    border:1px solid rgba(151,181,206,.10);
+    border-radius:12px;
+    background:rgba(18,29,39,.82);
+    overflow:hidden;
+  }}
+  .pc7-tabs button {{
+    height:26px;
+    padding:0 9px;
+    border:1px solid transparent;
+    border-radius:999px;
+    background:transparent;
+    color:#8ea2b4;
+    font-size:7px;
+    font-weight:900;
+    cursor:pointer;
+  }}
+  .pc7-tabs button:hover {{
+    color:#dce7ef;
+    background:#1e2e3b;
+  }}
+  .pc7-tabs button.active {{
+    color:#0f2d45;
+    background:#e9f1f6;
+  }}
+
+  .pc7-grid {{
+    display:grid !important;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    grid-template-rows:64px minmax(0,1fr) 136px;
+    gap:8px;
+    min-width:0;
+    min-height:0;
+    overflow:hidden;
+  }}
+
+  .pc7-card {{
+    min-width:0;
+    min-height:0;
+    overflow:hidden;
+    border:1px solid rgba(153,181,205,.12);
+    border-radius:14px;
+    background:linear-gradient(180deg,rgba(26,39,51,.96),rgba(22,34,45,.96));
+    box-shadow:0 10px 26px rgba(0,0,0,.10);
+  }}
+
+  .pc7-kpis {{
+    grid-column:1 / -1;
+    grid-row:1;
+    display:grid;
+    grid-template-columns:repeat(4,1fr) 1.45fr;
+    gap:6px;
+    padding:6px;
+  }}
+  .pc7-kpi {{
+    padding:7px 10px;
+    border:1px solid rgba(149,177,201,.10);
+    border-radius:10px;
+    background:#14212c;
+  }}
+  .pc7-kpi span {{ display:block;color:#758da0;font-size:6.5px;font-weight:850; }}
+  .pc7-kpi strong {{ display:block;margin:2px 0 1px;color:#f5f8fa;font-size:18px;font-weight:950;line-height:1; }}
+  .pc7-kpi small {{ color:#5f7487;font-size:5.8px;font-weight:700; }}
+  .pc7-kpi-accent {{
+    background:linear-gradient(135deg,#173f60,#1f5b83);
+  }}
+  .pc7-kpi-accent span,.pc7-kpi-accent small {{ color:rgba(255,255,255,.62); }}
+  .pc7-kpi-accent strong {{ font-size:14px; }}
+
+  .pc7-section-head {{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:35px;
+    padding:0 10px;
+    border-bottom:1px solid rgba(149,177,201,.08);
+  }}
+  .pc7-section-head > div span {{
+    display:block;
+    color:#7197b5;
+    font-size:5.5px;
+    font-weight:950;
+    letter-spacing:.9px;
+  }}
+  .pc7-section-head > div strong {{
+    display:block;
+    margin-top:1px;
+    color:#eef4f8;
+    font-size:10px;
+    font-weight:950;
+  }}
+  .pc7-section-head small {{
+    color:#647b8e;
+    font-size:6px;
+    font-weight:800;
+  }}
+  .pc7-section-head button {{
+    height:24px;
+    padding:0 8px;
+    border:1px solid rgba(149,177,201,.12);
+    border-radius:7px;
+    background:#172530;
+    color:#90a4b5;
+    font-size:6.5px;
+    font-weight:900;
+    cursor:pointer;
+  }}
+
+  .pc7-map-card {{
+    grid-column:1 / span 8;
+    grid-row:2 / span 2;
+  }}
+  .pc7-map-layout {{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 210px;
+    gap:7px;
+    height:calc(100% - 35px);
+    padding:7px;
+    box-sizing:border-box;
+  }}
+  .pc7-map-stage {{
+    position:relative;
+    min-width:0;
+    min-height:0;
+    overflow:hidden;
+    border:1px solid rgba(151,181,206,.10);
+    border-radius:12px;
+    background:
+      radial-gradient(circle at 52% 43%,rgba(55,88,117,.26),rgba(17,30,41,.98) 64%),
+      #111e29;
+  }}
+  #pc7-map {{
+    width:100%;
+    height:100%;
+    display:block;
+  }}
+  .pc7-map-ocean {{ fill:#132330; }}
+  .pc7-map-graticule {{
+    fill:none;
+    stroke:rgba(135,166,192,.08);
+    stroke-width:.45;
+    vector-effect:non-scaling-stroke;
+  }}
+  .pc7-map-country {{
+    fill:#263847;
+    stroke:#172633;
+    stroke-width:.6;
+    vector-effect:non-scaling-stroke;
+    cursor:pointer;
+  }}
+  .pc7-map-country.has-news {{ fill:#315b78; }}
+  .pc7-map-country.level-2 {{ fill:#39759b; }}
+  .pc7-map-country.level-3 {{ fill:#438eb8; }}
+  .pc7-map-country.level-4 {{ fill:#57a6ce; }}
+  .pc7-map-country.selected {{
+    fill:#f0c84e !important;
+    stroke:#fff2b8 !important;
+    stroke-width:1.3 !important;
+  }}
+
+  .pc7-map-labels {{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+  }}
+  .pc7-map-label {{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    display:flex;
+    align-items:center;
+    gap:4px;
+    min-height:24px;
+    padding:3px 6px 3px 4px;
+    border:1px solid rgba(165,193,216,.18);
+    border-radius:8px;
+    background:rgba(12,27,39,.92);
+    box-shadow:0 6px 14px rgba(0,0,0,.17);
+    color:#eef4f8;
+    pointer-events:auto;
+    cursor:pointer;
+    white-space:nowrap;
+  }}
+  .pc7-map-label img {{
+    width:18px;height:12px;object-fit:cover;border-radius:2px;
+  }}
+  .pc7-map-label strong {{ font-size:6.7px;font-weight:950; }}
+  .pc7-map-label span {{
+    display:inline-flex;
+    height:15px;
+    align-items:center;
+    padding:0 4px;
+    border-radius:999px;
+    background:#e7eff5;
+    color:#1a3f5d;
+    font-size:6px;
+    font-weight:950;
+  }}
+  .pc7-map-tooltip {{
+    position:absolute;
+    z-index:30;
+    padding:6px 8px;
+    border-radius:7px;
+    background:#eef4f7;
+    color:#193b56;
+    font-size:7px;
+    font-weight:900;
+    pointer-events:none;
+  }}
+  .pc7-map-loading {{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    color:#6d8396;font-size:8px;font-weight:850;
+  }}
+
+  .pc7-country-panel {{
+    padding:9px;
+    border:1px solid rgba(149,177,201,.10);
+    border-radius:12px;
+    background:#13212c;
+  }}
+  .pc7-country-empty {{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#70879a;
+  }}
+  .pc7-country-icon {{ font-size:26px;color:#6f9ec0; }}
+  .pc7-country-empty strong {{ margin-top:8px;color:#dce8f0;font-size:9px; }}
+  .pc7-country-empty span {{ margin-top:4px;font-size:6.5px;line-height:1.5; }}
+  .pc7-country-title {{
+    display:flex;align-items:center;gap:8px;padding-bottom:9px;border-bottom:1px solid rgba(149,177,201,.10);
+  }}
+  .pc7-country-title img {{ width:40px;height:26px;object-fit:cover;border-radius:3px; }}
+  .pc7-country-title strong {{ display:block;color:#f4f7f9;font-size:13px; }}
+  .pc7-country-title span {{ display:block;color:#6e8496;font-size:6px;margin-top:2px; }}
+  .pc7-country-statrow {{ display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:9px 0; }}
+  .pc7-country-statrow div {{ padding:8px;border-radius:8px;background:#172833; }}
+  .pc7-country-statrow span {{ display:block;color:#6d8294;font-size:6px; }}
+  .pc7-country-statrow strong {{ display:block;margin-top:2px;color:#f0f5f8;font-size:16px; }}
+  .pc7-country-block > span {{ color:#71889b;font-size:6px;font-weight:900; }}
+  #pc7-country-groups {{ display:flex;flex-wrap:wrap;gap:4px;margin-top:5px; }}
+  #pc7-country-groups b {{ padding:3px 5px;border-radius:999px;background:#1c3445;color:#91b1c8;font-size:5.8px; }}
+  #pc7-country-articles {{
+    width:100%;height:29px;margin-top:9px;border:0;border-radius:8px;background:#edf3f7;color:#173a55;font-size:7px;font-weight:950;cursor:pointer;
+  }}
+
+  .pc7-signals {{
+    grid-column:9 / -1;
+    grid-row:2;
+  }}
+  .pc7-signal-list {{
+    display:grid;
+    grid-template-rows:repeat(3,1fr);
+    gap:6px;
+    height:calc(100% - 35px);
+    padding:7px;
+    box-sizing:border-box;
+  }}
+  .pc7-signal {{
+    display:grid;
+    grid-template-columns:44px minmax(0,1fr) auto;
+    align-items:center;
+    gap:8px;
+    padding:6px 8px;
+    border:1px solid rgba(149,177,201,.10);
+    border-radius:10px;
+    background:#14232e;
+    cursor:pointer;
+  }}
+  .pc7-signal-thumb {{ width:44px;height:44px;border-radius:8px;overflow:hidden;background:#20313e; }}
+  .pc7-signal-thumb img {{ width:100%;height:100%;object-fit:cover; }}
+  .pc7-signal-copy strong {{
+    display:block;color:#e8f0f5;font-size:7.8px;line-height:1.3;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }}
+  .pc7-signal-copy span {{ display:block;margin-top:3px;color:#688296;font-size:5.8px; }}
+  .pc7-signal-count {{ color:#7db4d8;font-size:8px;font-weight:950; }}
+
+  .pc7-flow {{
+    grid-column:9 / -1;
+    grid-row:3;
+  }}
+  .pc7-flow-list {{
+    display:flex;
+    align-items:stretch;
+    gap:6px;
+    height:calc(100% - 35px);
+    padding:7px;
+    box-sizing:border-box;
+    overflow:hidden;
+  }}
+  .pc7-flow-node {{
+    flex:1 1 0;
+    min-width:0;
+    padding:6px;
+    border:1px solid rgba(149,177,201,.10);
+    border-radius:9px;
+    background:#14232e;
+    cursor:pointer;
+  }}
+  .pc7-flow-node span {{ display:block;color:#76a4c3;font-size:5.7px;font-weight:950; }}
+  .pc7-flow-node strong {{
+    display:block;margin-top:4px;color:#e9f0f4;font-size:6.7px;line-height:1.25;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }}
+
+  .pc7-clocks {{
+    grid-column:1 / span 8;
+    grid-row:3;
+  }}
+  .pc7-clock-grid {{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:6px;
+    height:calc(100% - 35px);
+    padding:7px;
+    box-sizing:border-box;
+  }}
+  .pc7-clock {{
+    display:grid;
+    grid-template-columns:54px minmax(0,1fr);
+    align-items:center;
+    gap:7px;
+    padding:5px 7px;
+    border:1px solid rgba(149,177,201,.10);
+    border-radius:9px;
+    background:#14232e;
+  }}
+  .pc7-clock-face {{
+    position:relative;
+    width:50px;height:50px;
+    border:1px solid #6c8395;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#f6f9fb 0 42%,#dde7ed 80%,#cad8e2 100%);
+  }}
+  .pc7-clock-face i {{
+    position:absolute;left:50%;bottom:50%;transform-origin:50% 100%;border-radius:99px;
+  }}
+  .pc7-clock-hour {{ width:3px;height:14px;margin-left:-1.5px;background:#173b61; }}
+  .pc7-clock-minute {{ width:2px;height:19px;margin-left:-1px;background:#48657b; }}
+  .pc7-clock-second {{ width:1px;height:21px;margin-left:-.5px;background:#d74f48; }}
+  .pc7-clock-face b {{ position:absolute;left:50%;top:50%;width:5px;height:5px;transform:translate(-50%,-50%);border-radius:50%;background:#173b61; }}
+  .pc7-clock-tick {{
+    position:absolute;left:50%;top:50%;width:1px;height:3px;margin-left:-.5px;margin-top:-1.5px;background:#9fb0bd;
+    transform:rotate(var(--a)) translateY(-22px);
+  }}
+  .pc7-clock-tick.major {{ height:5px;background:#61798b; }}
+  .pc7-clock-number {{
+    position:absolute;left:50%;top:50%;width:11px;height:9px;margin:-4.5px 0 0 -5.5px;display:flex;align-items:center;justify-content:center;
+    color:#4e6273;font-size:4.5px;font-weight:900;transform:rotate(var(--a)) translateY(-18px) rotate(calc(-1 * var(--a)));
+  }}
+  .pc7-clock-info img {{ width:23px;height:15px;object-fit:cover;border-radius:2px; }}
+  .pc7-clock-info strong {{ display:block;margin-top:4px;color:#e9f0f4;font-size:7px; }}
+  .pc7-clock-info small {{ display:block;margin-top:1px;color:#647b8e;font-size:5.8px; }}
+  .pc7-clock-time {{ margin-top:4px;color:#f4f7f9;font-size:10px;font-weight:950;font-variant-numeric:tabular-nums; }}
+  .pc7-clock-meta {{ display:flex;gap:4px;margin-top:2px;align-items:center; }}
+  .pc7-clock-day {{ padding:2px 4px;border-radius:999px;background:#203542;color:#8da8bc;font-size:5.5px;font-weight:950; }}
+  .pc7-clock-zone {{ color:#61798d;font-size:5.5px;font-weight:800; }}
+
+  .pc7-article-drawer {{
+    position:absolute;
+    inset:66px 10px 10px;
+    z-index:3000;
+    display:none;
+    grid-template-rows:42px minmax(0,1fr);
+    border:1px solid rgba(159,187,209,.16);
+    border-radius:15px;
+    background:rgba(14,23,32,.98);
+    box-shadow:0 26px 70px rgba(0,0,0,.35);
+    overflow:hidden;
+  }}
+  .pc7-article-drawer.open {{ display:grid; }}
+  .pc7-drawer-head {{
+    display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid rgba(149,177,201,.10);
+  }}
+  .pc7-drawer-head > div {{ display:flex;align-items:baseline;gap:7px; }}
+  .pc7-drawer-head strong {{ color:#eef4f8;font-size:11px; }}
+  .pc7-drawer-head span {{ color:#6e8597;font-size:6.5px; }}
+  #pc7-drawer-close {{ width:28px;height:28px;border:0;border-radius:8px;background:#1c2c38;color:#9bb0c1;font-size:16px;cursor:pointer; }}
+  .pc7-drawer-grid {{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    align-content:start;
+    padding:9px;
+    overflow:auto;
+  }}
+  .pc7-article {{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 86px;
+    gap:7px;
+    min-height:104px;
+    padding:8px;
+    border:1px solid rgba(149,177,201,.10);
+    border-radius:10px;
+    background:#14232e;
+    cursor:pointer;
+    text-align:left;
+  }}
+  .pc7-article strong {{
+    display:block;color:#e8f0f5;font-size:7.6px;line-height:1.35;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }}
+  .pc7-article span {{ display:block;margin-top:5px;color:#647d91;font-size:5.8px; }}
+  .pc7-article img {{ width:86px;height:70px;object-fit:cover;border-radius:7px;background:#22323f; }}
+}}
+
+@media (max-width:999px) {{
+  #pc7-app {{ display:none !important; }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -26566,7 +27105,127 @@ main {{
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
 </head>
+
 <body>
+  <!-- ============================================================
+       DESKTOP APP V7
+       Completely separate from the mobile UI.
+       Existing mobile DOM remains below and is untouched.
+       ============================================================ -->
+  <div id="pc7-app" class="pc7-app" aria-label="Nuclear Intelligence Desktop">
+    <header class="pc7-header">
+      <div class="pc7-brand">
+        <span class="pc7-brand-kicker">NUCLEAR INTELLIGENCE</span>
+        <strong>Global Control Desk</strong>
+      </div>
+
+      <div class="pc7-search-wrap">
+        <input id="pc7-search" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색" autocomplete="off">
+      </div>
+
+      <div class="pc7-header-actions">
+        <span class="pc7-live"><i></i> LIVE</span>
+        <button id="pc7-open-all" type="button">전체 기사</button>
+      </div>
+    </header>
+
+    <nav id="pc7-tabs" class="pc7-tabs" aria-label="PC 기사 분류">
+      <button class="active" data-filter="all" type="button">전체</button>
+      <button data-filter="nuclear" type="button">원전·정책</button>
+      <button data-filter="us-invest" type="button">대미투자</button>
+      <button data-filter="hyundai" type="button">현대건설</button>
+      <button data-filter="construction" type="button">주요 건설사</button>
+      <button data-filter="smr" type="button">SMR·기술</button>
+      <button data-filter="global" type="button">해외·수출</button>
+      <button data-filter="market" type="button">경제·시장</button>
+    </nav>
+
+    <main class="pc7-grid">
+      <section class="pc7-card pc7-kpis">
+        <div class="pc7-kpi"><span>전체 기사</span><strong id="pc7-total">0</strong><small>현재 선택기간</small></div>
+        <div class="pc7-kpi"><span>중요 기사</span><strong id="pc7-important">0</strong><small>중요 표시 기준</small></div>
+        <div class="pc7-kpi"><span>주요 국가</span><strong id="pc7-countries">0</strong><small>기사 발생 국가</small></div>
+        <div class="pc7-kpi"><span>주요 그룹</span><strong id="pc7-groups">0</strong><small>기업·기관·이슈</small></div>
+        <div class="pc7-kpi pc7-kpi-accent"><span>가장 활발한 국가</span><strong id="pc7-top-country">-</strong><small id="pc7-top-country-count">-</small></div>
+      </section>
+
+      <section class="pc7-card pc7-map-card">
+        <div class="pc7-section-head">
+          <div><span>GLOBAL</span><strong>Geo Intelligence Map</strong></div>
+          <button id="pc7-map-reset" type="button">전체 국가</button>
+        </div>
+        <div class="pc7-map-layout">
+          <div class="pc7-map-stage">
+            <svg id="pc7-map" viewBox="0 0 1100 520" aria-label="고해상도 세계지도"></svg>
+            <div id="pc7-map-labels" class="pc7-map-labels"></div>
+            <div id="pc7-map-tooltip" class="pc7-map-tooltip" hidden></div>
+            <div id="pc7-map-loading" class="pc7-map-loading">지도 불러오는 중...</div>
+          </div>
+          <aside class="pc7-country-panel">
+            <div id="pc7-country-empty" class="pc7-country-empty">
+              <div class="pc7-country-icon">◎</div>
+              <strong>국가를 선택하세요</strong>
+              <span>지도 위 국가 라벨을 클릭하면<br>해당 국가 기사와 주요 그룹을 표시합니다.</span>
+            </div>
+            <div id="pc7-country-detail" class="pc7-country-detail" hidden>
+              <div class="pc7-country-title">
+                <img id="pc7-country-flag" alt="">
+                <div><strong id="pc7-country-name">-</strong><span id="pc7-country-code">-</span></div>
+              </div>
+              <div class="pc7-country-statrow">
+                <div><span>기사</span><strong id="pc7-country-total">0</strong></div>
+                <div><span>중요</span><strong id="pc7-country-important">0</strong></div>
+              </div>
+              <div class="pc7-country-block">
+                <span>주요 그룹</span>
+                <div id="pc7-country-groups"></div>
+              </div>
+              <button id="pc7-country-articles" type="button">관련기사 보기</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pc7-card pc7-signals">
+        <div class="pc7-section-head">
+          <div><span>NOW</span><strong>Signal Stack</strong></div>
+          <small>핵심 변화 3건</small>
+        </div>
+        <div id="pc7-signal-list" class="pc7-signal-list"></div>
+      </section>
+
+      <section class="pc7-card pc7-flow">
+        <div class="pc7-section-head">
+          <div><span>FLOW</span><strong>Issue Progress</strong></div>
+          <small>최근 주요 흐름</small>
+        </div>
+        <div id="pc7-flow-list" class="pc7-flow-list"></div>
+      </section>
+
+      <section class="pc7-card pc7-clocks">
+        <div class="pc7-section-head">
+          <div><span>TIME</span><strong>World Clock</strong></div>
+          <small>서머타임 자동 반영</small>
+        </div>
+        <div class="pc7-clock-grid">
+          <article class="pc7-clock" data-tz="Asia/Seoul" data-country="대한민국" data-capital="서울" data-flag="kr"></article>
+          <article class="pc7-clock" data-tz="America/New_York" data-country="미국" data-capital="Washington D.C." data-flag="us"></article>
+          <article class="pc7-clock" data-tz="Europe/London" data-country="영국" data-capital="London" data-flag="gb"></article>
+          <article class="pc7-clock" data-tz="Europe/Sofia" data-country="불가리아" data-capital="Sofia" data-flag="bg"></article>
+          <article class="pc7-clock" data-tz="Europe/Bucharest" data-country="루마니아" data-capital="Bucharest" data-flag="ro"></article>
+        </div>
+      </section>
+    </main>
+
+    <section id="pc7-article-drawer" class="pc7-article-drawer" aria-hidden="true">
+      <div class="pc7-drawer-head">
+        <div><strong id="pc7-drawer-title">전체 기사</strong><span id="pc7-drawer-count">0건</span></div>
+        <button id="pc7-drawer-close" type="button">×</button>
+      </div>
+      <div id="pc7-drawer-grid" class="pc7-drawer-grid"></div>
+    </section>
+  </div>
+
 <div class="phone">
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
@@ -34471,6 +35130,236 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }} else {{
     setTimeout(init,200);
   }}
+}})();
+</script>
+
+
+<script>
+(function() {{
+  const WORLD_URL="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+  const ISO_NUM={{
+    US:"840",CA:"124",KR:"410",JP:"392",CN:"156",IN:"356",VN:"704",GB:"826",FR:"250",DE:"276",
+    BG:"100",RO:"642",CZ:"203",PL:"616",SI:"705",FI:"246",SE:"752",NL:"528",BE:"056",CH:"756",
+    SK:"703",DK:"208",UA:"804",RU:"643",TR:"792",AE:"784",SA:"682",AU:"036",BR:"076",AR:"032",
+    CL:"152",PE:"604",CO:"170",ZA:"710",SG:"702",MY:"458",TH:"764"
+  }};
+  const NAME={{
+    US:"미국",CA:"캐나다",KR:"한국",JP:"일본",CN:"중국",IN:"인도",VN:"베트남",GB:"영국",FR:"프랑스",DE:"독일",
+    BG:"불가리아",RO:"루마니아",CZ:"체코",PL:"폴란드",SI:"슬로베니아",FI:"핀란드",SE:"스웨덴",NL:"네덜란드",
+    BE:"벨기에",CH:"스위스",SK:"슬로바키아",DK:"덴마크",UA:"우크라이나",RU:"러시아",TR:"튀르키예",
+    AE:"UAE",SA:"사우디",AU:"호주",BR:"브라질",AR:"아르헨티나",CL:"칠레",PE:"페루",CO:"콜롬비아",ZA:"남아공",
+    SG:"싱가포르",MY:"말레이시아",TH:"태국"
+  }};
+  const ALPHA_BY_NUM=Object.fromEntries(Object.entries(ISO_NUM).map(e=>[String(Number(e[1])),e[0]]));
+  const OFF={{KR:[18,2],JP:[18,0],GB:[-20,-7],BG:[12,10],RO:[17,-4],CZ:[-10,-12],SI:[-18,10],SK:[14,-10],BE:[-22,7],NL:[-18,-10],CH:[-16,11],AE:[18,7],SG:[18,10]}};
+
+  let world=null;
+  let selectedCountry="";
+  let currentFilter="all";
+  let searchTerm="";
+
+  function desktop(){{return window.matchMedia("(min-width:1000px)").matches;}}
+
+  function cards(){{
+    const all=Array.from(document.querySelectorAll(".phone main .preview-card, body main .preview-card"));
+    const out=[],seen=new Set();
+    all.forEach(c=>{{
+      const key=(c.dataset.url||c.dataset.title||"")+"|"+(c.dataset.published||"");
+      if(seen.has(key))return; seen.add(key); out.push(c);
+    }});
+    return out;
+  }}
+
+  function title(c){{return (c.dataset.title||(c.querySelector(".headline")||{{}}).textContent||"").trim();}}
+  function group(c){{return (c.dataset.group||"기타").trim();}}
+  function country(c){{return (c.dataset.country||"").trim().toUpperCase();}}
+  function publisher(c){{return (c.dataset.publisher||"").trim();}}
+  function image(c){{const i=c.querySelector("img");return i?(i.currentSrc||i.src||""):"";}}
+  function important(c){{return c.classList.contains("important")||c.dataset.priority==="important"||!!c.querySelector(".important-button.active,.important-button[aria-pressed='true']");}}
+  function hay(c){{return [title(c),group(c),publisher(c),country(c),c.textContent||""].join(" ").toLowerCase();}}
+
+  function matches(c,filter,extra){{
+    const t=hay(c),co=country(c);
+    if(searchTerm && !t.includes(searchTerm)) return false;
+    if(extra&&extra.country)return co===extra.country;
+    if(extra&&extra.group)return group(c)===extra.group;
+    switch(filter){{
+      case "all":return true;
+      case "hyundai":return /현대건설|hyundai e&c|hdec/.test(t)&&!/현대엔지니어링/.test(t);
+      case "construction":return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
+      case "us-invest":return /대미|미국 투자|미국.*투자|u\.s\..*investment|us.*investment|미국.*정책|미국.*원전/.test(t);
+      case "smr":return /smr|small modular reactor|소형모듈|소형 모듈|holtec|palisades|nuscale|terrapower|x-energy|bwrx/.test(t);
+      case "global":return co&&co!=="KR"&&co!=="OTHER";
+      case "market":return /주가|증권|목표주가|etf|증시|stock|shares|market|실적|영업이익|매출/.test(t);
+      case "nuclear":return /원전|원자력|nuclear|reactor|인허가|규제|정책|license|permit|regulat|연료|uranium/.test(t);
+      default:return true;
+    }}
+  }}
+
+  function filtered(extra){{return cards().filter(c=>matches(c,currentFilter,extra));}}
+
+  function countsByCountry(list){{
+    const out={{}};
+    list.forEach(c=>{{const co=country(c);if(co&&co!=="OTHER")out[co]=(out[co]||0)+1;}});
+    return out;
+  }}
+
+  function refreshKpis(){{
+    const list=filtered(), cc=countsByCountry(list), groups=new Set(list.map(group).filter(Boolean));
+    const set=(id,v)=>{{const el=document.getElementById(id);if(el)el.textContent=v;}};
+    set("pc7-total",list.length);
+    set("pc7-important",list.filter(important).length);
+    set("pc7-countries",Object.keys(cc).length);
+    set("pc7-groups",groups.size);
+    const top=Object.entries(cc).sort((a,b)=>b[1]-a[1])[0];
+    set("pc7-top-country",top?(NAME[top[0]]||top[0]):"-");
+    set("pc7-top-country-count",top?top[1]+"건":"-");
+  }}
+
+  function renderSignals(){{
+    const box=document.getElementById("pc7-signal-list"); if(!box)return;
+    const list=filtered().slice().sort((a,b)=>(important(b)?1:0)-(important(a)?1:0));
+    const picked=[],used=new Set();
+    for(const c of list){{const g=group(c);if(used.has(g))continue;used.add(g);picked.push(c);if(picked.length>=3)break;}}
+    box.innerHTML="";
+    picked.forEach(c=>{{
+      const row=document.createElement("button");row.type="button";row.className="pc7-signal";
+      const img=image(c), same=list.filter(x=>group(x)===group(c)).length;
+      row.innerHTML='<div class="pc7-signal-thumb">'+(img?'<img src="'+img.replace(/"/g,"%22")+'" alt="">':'')+'</div>'+
+        '<div class="pc7-signal-copy"><strong>'+escapeHtml(title(c))+'</strong><span>'+group(c)+' · '+(NAME[country(c)]||country(c)||"글로벌")+'</span></div>'+
+        '<div class="pc7-signal-count">'+same+'</div>';
+      row.onclick=()=>openDrawer("all",{{group:group(c)}},group(c)+" 관련기사");
+      box.appendChild(row);
+    }});
+  }}
+
+  function renderFlow(){{
+    const box=document.getElementById("pc7-flow-list"); if(!box)return;
+    const list=filtered().filter(c=>/현대건설|hyundai|hdec|미국|대미|holtec|palisades|matador|westinghouse|ap1000|smr/i.test(hay(c))).slice(-5);
+    box.innerHTML="";
+    list.forEach(c=>{{
+      const n=document.createElement("button");n.type="button";n.className="pc7-flow-node";
+      n.innerHTML='<span>'+group(c)+'</span><strong>'+escapeHtml(title(c))+'</strong>';
+      n.onclick=()=>openDrawer("all",{{group:group(c)}},group(c)+" 관련기사");
+      box.appendChild(n);
+    }});
+  }}
+
+  function escapeHtml(s){{return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}}
+
+  function renderClock(card){{
+    if(card.dataset.built==="1")return; card.dataset.built="1";
+    const flag=card.dataset.flag,countryName=card.dataset.country,capital=card.dataset.capital;
+    card.innerHTML='<div class="pc7-clock-face"><i class="pc7-clock-hour"></i><i class="pc7-clock-minute"></i><i class="pc7-clock-second"></i><b></b></div>'+
+      '<div class="pc7-clock-info"><img src="https://flagcdn.com/w40/'+flag+'.png" alt=""><strong>'+countryName+'</strong><small>'+capital+'</small>'+
+      '<div class="pc7-clock-time">--:--:--</div><div class="pc7-clock-meta"><span class="pc7-clock-day">당일</span><span class="pc7-clock-zone">-</span></div></div>';
+    const face=card.querySelector(".pc7-clock-face");
+    for(let i=0;i<60;i++){{const t=document.createElement("span");t.className="pc7-clock-tick"+(i%5===0?" major":"");t.style.setProperty("--a",(i*6)+"deg");face.insertBefore(t,face.firstChild);}}
+    for(let n=1;n<=12;n++){{const e=document.createElement("span");e.className="pc7-clock-number";e.textContent=n;e.style.setProperty("--a",(n*30)+"deg");face.insertBefore(e,face.firstChild);}}
+  }}
+
+  function dateKey(zone,now){{
+    const p=new Intl.DateTimeFormat("en-CA",{{timeZone:zone,year:"numeric",month:"2-digit",day:"2-digit"}}).formatToParts(now),v={{}};
+    p.forEach(x=>{{if(x.type!=="literal")v[x.type]=x.value;}});
+    return v.year+"-"+v.month+"-"+v.day;
+  }}
+  function updateClocks(){{
+    const now=new Date(), kr=dateKey("Asia/Seoul",now);
+    document.querySelectorAll(".pc7-clock").forEach(card=>{{
+      renderClock(card);
+      const zone=card.dataset.tz;
+      const p=new Intl.DateTimeFormat("en-US",{{timeZone:zone,hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}}).formatToParts(now),v={{}};
+      p.forEach(x=>{{if(x.type!=="literal")v[x.type]=Number(x.value);}});
+      const h=((v.hour%12)+(v.minute/60)+(v.second/3600))*30,m=(v.minute+v.second/60)*6,s=v.second*6;
+      card.querySelector(".pc7-clock-hour").style.transform="rotate("+h+"deg)";
+      card.querySelector(".pc7-clock-minute").style.transform="rotate("+m+"deg)";
+      card.querySelector(".pc7-clock-second").style.transform="rotate("+s+"deg)";
+      card.querySelector(".pc7-clock-time").textContent=String(v.hour).padStart(2,"0")+":"+String(v.minute).padStart(2,"0")+":"+String(v.second).padStart(2,"0");
+      const target=dateKey(zone,now),kd=new Date(kr+"T00:00:00Z"),td=new Date(target+"T00:00:00Z");
+      card.querySelector(".pc7-clock-day").textContent=target===kr?"당일":(td<kd?"전일":"익일");
+      const z=new Intl.DateTimeFormat("en-US",{{timeZone:zone,timeZoneName:"short"}}).formatToParts(now).find(x=>x.type==="timeZoneName");
+      card.querySelector(".pc7-clock-zone").textContent=z?z.value:"";
+    }});
+  }}
+
+  function renderMap(){{
+    if(!world||!window.d3||!window.topojson)return;
+    const svg=d3.select("#pc7-map"), node=svg.node(); if(!node)return;
+    const w=node.clientWidth||900,h=node.clientHeight||500; svg.attr("viewBox","0 0 "+w+" "+h).selectAll("*").remove();
+    const all=topojson.feature(world,world.objects.countries).features.filter(f=>String(Number(f.id))!=="10");
+    const fc={{type:"FeatureCollection",features:all}}, proj=d3.geoNaturalEarth1().fitExtent([[12,12],[w-12,h-12]],fc), path=d3.geoPath(proj);
+    const cc=countsByCountry(filtered()), max=Math.max(1,...Object.values(cc));
+    svg.append("path").datum({{type:"Sphere"}}).attr("class","pc7-map-ocean").attr("d",path);
+    svg.append("path").datum(d3.geoGraticule10()).attr("class","pc7-map-graticule").attr("d",path);
+    svg.append("g").selectAll("path").data(all).join("path").attr("d",path).attr("class",f=>{{
+      const code=ALPHA_BY_NUM[String(Number(f.id))]||"",count=cc[code]||0,ratio=count/max;
+      let l=1;if(ratio>=.75)l=4;else if(ratio>=.45)l=3;else if(ratio>=.2)l=2;
+      return "pc7-map-country"+(count?" has-news level-"+l:"")+(code===selectedCountry?" selected":"");
+    }}).on("click",(_e,f)=>{{const code=ALPHA_BY_NUM[String(Number(f.id))]||"";if(code)selectCountry(code);}});
+    const layer=document.getElementById("pc7-map-labels"); layer.innerHTML="";
+    Object.entries(cc).forEach(([code,count])=>{{
+      const num=ISO_NUM[code];if(!num)return;
+      const f=all.find(x=>String(Number(x.id))===String(Number(num)));if(!f)return;
+      const c=path.centroid(f);if(!Number.isFinite(c[0]))return;
+      const off=OFF[code]||[0,0],b=document.createElement("button");b.type="button";b.className="pc7-map-label";
+      b.style.left=(c[0]+off[0])+"px";b.style.top=(c[1]+off[1])+"px";
+      b.innerHTML='<img src="https://flagcdn.com/w40/'+code.toLowerCase()+'.png" alt=""><strong>'+(NAME[code]||code)+'</strong><span>'+count+'건</span>';
+      b.onclick=()=>selectCountry(code);layer.appendChild(b);
+    }});
+    const loading=document.getElementById("pc7-map-loading");if(loading)loading.style.display="none";
+  }}
+
+  function selectCountry(code){{
+    selectedCountry=code||"";
+    renderMap();
+    const empty=document.getElementById("pc7-country-empty"),detail=document.getElementById("pc7-country-detail");
+    if(!code){{empty.hidden=false;detail.hidden=true;return;}}
+    const list=filtered({{country:code}});
+    empty.hidden=true;detail.hidden=false;
+    document.getElementById("pc7-country-flag").src="https://flagcdn.com/w80/"+code.toLowerCase()+".png";
+    document.getElementById("pc7-country-name").textContent=NAME[code]||code;
+    document.getElementById("pc7-country-code").textContent=code;
+    document.getElementById("pc7-country-total").textContent=list.length;
+    document.getElementById("pc7-country-important").textContent=list.filter(important).length;
+    const gc={{}};list.forEach(c=>gc[group(c)]=(gc[group(c)]||0)+1);
+    const tags=document.getElementById("pc7-country-groups");tags.innerHTML="";
+    Object.entries(gc).sort((a,b)=>b[1]-a[1]).slice(0,5).forEach(([g,n])=>{{const b=document.createElement("b");b.textContent=g+" "+n;tags.appendChild(b);}});
+    document.getElementById("pc7-country-articles").onclick=()=>openDrawer("all",{{country:code}},(NAME[code]||code)+" 관련기사");
+  }}
+
+  function openDrawer(filter,extra,titleText){{
+    const drawer=document.getElementById("pc7-article-drawer"),grid=document.getElementById("pc7-drawer-grid");
+    const list=cards().filter(c=>matches(c,filter,extra));
+    grid.innerHTML="";
+    list.slice(0,120).forEach(c=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc7-article";const im=image(c);
+      b.innerHTML='<div><strong>'+escapeHtml(title(c))+'</strong><span>'+publisher(c)+' · '+group(c)+'</span></div>'+(im?'<img src="'+im.replace(/"/g,"%22")+'" alt="">':'<div></div>');
+      b.onclick=()=>{{if(typeof openArticle==="function")openArticle(c);}};
+      grid.appendChild(b);
+    }});
+    document.getElementById("pc7-drawer-title").textContent=titleText||"관련 기사";
+    document.getElementById("pc7-drawer-count").textContent=list.length+"건";
+    drawer.classList.add("open");drawer.setAttribute("aria-hidden","false");
+  }}
+
+  function refresh(){{
+    refreshKpis();renderSignals();renderFlow();renderMap();
+  }}
+
+  function init(){{
+    if(!desktop())return;
+    document.querySelectorAll("#pc7-tabs button").forEach(b=>b.onclick=()=>{{currentFilter=b.dataset.filter||"all";document.querySelectorAll("#pc7-tabs button").forEach(x=>x.classList.toggle("active",x===b));refresh();}});
+    document.getElementById("pc7-search").addEventListener("input",e=>{{searchTerm=e.target.value.trim().toLowerCase();refresh();}});
+    document.getElementById("pc7-open-all").onclick=()=>openDrawer("all",null,"전체 기사");
+    document.getElementById("pc7-drawer-close").onclick=()=>document.getElementById("pc7-article-drawer").classList.remove("open");
+    document.getElementById("pc7-map-reset").onclick=()=>selectCountry("");
+    updateClocks();refresh();
+    fetch(WORLD_URL).then(r=>r.json()).then(d=>{{world=d;renderMap();}}).catch(()=>{{const l=document.getElementById("pc7-map-loading");if(l)l.textContent="지도 데이터를 불러오지 못했습니다.";}});    
+  }}
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(init,250));else setTimeout(init,250);
+  setInterval(updateClocks,1000);
+  window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,100);}});
 }})();
 </script>
 
