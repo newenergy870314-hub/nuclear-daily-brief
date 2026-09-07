@@ -14944,6 +14944,29 @@ main {
   }
 }
 
+
+@media (min-width:1000px) {
+  html,body{height:100%;overflow:hidden!important;background:#0c1118!important}
+  .phone{position:relative!important;width:100vw!important;max-width:none!important;height:100dvh!important;margin:0!important;overflow:hidden!important;background:radial-gradient(circle at 18% 8%,rgba(39,87,134,.18),transparent 28%),radial-gradient(circle at 82% 20%,rgba(125,91,214,.10),transparent 24%),#0c1118!important}
+  #topbar,#pc-v2-dashboard,#favorites-panel,main,#world-map-panel,#pc-insight-rail,#pc-category-strip,#pc-country-filter-result{display:none!important}
+  .pcx-dashboard{position:absolute;inset:12px;display:grid;grid-template-columns:1.15fr .85fr .85fr;grid-template-rows:52px 1.55fr .8fr;grid-template-areas:"command command command" "hero signals geo" "metrics entities feed";gap:10px;min-width:0;min-height:0;font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:#f5f8fb}
+  .pcx-dashboard>*{min-width:0;min-height:0}
+  .pcx-command,.pcx-metrics,.pcx-signals,.pcx-geo,.pcx-entities,.pcx-feed{border:1px solid rgba(255,255,255,.08);background:rgba(20,27,36,.84);backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+  .pcx-command{grid-area:command;display:grid;grid-template-columns:1fr minmax(420px,1.4fr) 1fr;align-items:center;gap:14px;padding:0 14px;border-radius:16px}
+  .pcx-brand{display:flex;align-items:baseline;gap:9px}.pcx-eyebrow{color:#7ca8d3;font-size:7px;font-weight:950;letter-spacing:.8px}.pcx-brand strong{font-size:14px;font-weight:900;letter-spacing:-.25px}
+  .pcx-command-center{display:flex;align-items:center;gap:8px}.pcx-search-shell{flex:1;display:flex;align-items:center;gap:7px;height:32px;padding:0 10px;border:1px solid rgba(255,255,255,.08);border-radius:10px;background:rgba(255,255,255,.04)}.pcx-search-shell span{color:#6f879e;font-size:14px}.pcx-search-shell input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#e7edf4;font-size:9px}.pcx-search-shell input::placeholder{color:#627488}.pcx-date-shell{height:32px;padding:0 10px;display:flex;align-items:center;border-radius:10px;background:#17212d;color:#91a5b7;font-size:7.5px;font-weight:900;letter-spacing:.5px}
+  .pcx-command-actions{justify-self:end;display:flex;align-items:center;gap:8px}.pcx-live{display:flex;align-items:center;gap:5px;color:#7fd1aa;font-size:7px;font-weight:900}.pcx-live i{width:6px;height:6px;border-radius:50%;background:#47cf96;box-shadow:0 0 0 4px rgba(71,207,150,.10)}.pcx-command-actions button,.pcx-panel-head button{border:0;background:#e8eef5;color:#17212d;font-size:7.5px;font-weight:900;border-radius:8px;height:28px;padding:0 10px;cursor:pointer}
+  .pcx-hero{grid-area:hero;position:relative;overflow:hidden;border-radius:20px;border:1px solid rgba(255,255,255,.09);background:#17212d;box-shadow:0 18px 40px rgba(0,0,0,.25)}.pcx-hero-media{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.015)}.pcx-hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,11,16,.88) 0%,rgba(7,11,16,.55) 48%,rgba(7,11,16,.08) 100%),linear-gradient(180deg,transparent 45%,rgba(7,11,16,.54))}.pcx-hero-copy{position:absolute;left:20px;right:20px;bottom:18px;max-width:64%;z-index:2}.pcx-kicker{margin-bottom:7px;color:#85b6e5;font-size:7px;font-weight:950;letter-spacing:1px}.pcx-hero-copy h1{margin:0;color:#fff;font-size:24px;line-height:1.18;font-weight:950;letter-spacing:-.7px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.pcx-hero-copy p{margin:7px 0 0;color:rgba(226,235,243,.70);font-size:8.5px;line-height:1.45;font-weight:700}.pcx-hero-actions{display:flex;align-items:center;gap:8px;margin-top:12px}.pcx-hero-actions button{height:31px;padding:0 11px;border:0;border-radius:8px;background:#f1f5f8;color:#15202c;font-size:8px;font-weight:950;cursor:pointer}.pcx-hero-actions span{color:#8fa3b6;font-size:7px;font-weight:850}
+  .pcx-metrics{grid-area:metrics;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;overflow:hidden;border-radius:16px}.pcx-metrics article{display:flex;flex-direction:column;justify-content:center;padding:0 12px;background:rgba(255,255,255,.015)}.pcx-metrics span{color:#7e91a3;font-size:7px;font-weight:850}.pcx-metrics strong{margin:3px 0 1px;color:#f6f8fb;font-size:22px;line-height:1;font-weight:950}.pcx-metrics small{color:#56697b;font-size:6.5px;font-weight:800}
+  .pcx-signals{grid-area:signals}.pcx-geo{grid-area:geo}.pcx-entities{grid-area:entities}.pcx-feed{grid-area:feed}.pcx-signals,.pcx-geo,.pcx-entities,.pcx-feed{display:flex;flex-direction:column;overflow:hidden;border-radius:16px;padding:11px}.pcx-panel-head{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:8px;flex:0 0 auto}.pcx-panel-head>div{display:flex;align-items:baseline;gap:6px}.pcx-panel-head span{color:#6e8fad;font-size:6.5px;font-weight:950;letter-spacing:.7px}.pcx-panel-head strong{color:#eef3f7;font-size:11px;font-weight:900}.pcx-panel-head small{color:#5d6e7e;font-size:6.5px;font-weight:750}
+  .pcx-signal-list{display:grid;grid-template-rows:repeat(4,1fr);gap:6px;min-height:0;flex:1}.pcx-signal-card{display:grid;grid-template-columns:42px 1fr auto;gap:8px;align-items:center;min-height:0;padding:7px 8px;border:1px solid rgba(255,255,255,.06);border-radius:11px;background:rgba(255,255,255,.025);cursor:pointer}.pcx-signal-card:hover{background:rgba(255,255,255,.05)}.pcx-signal-index{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:#182433;color:#79a6cf;font-size:8px;font-weight:950}.pcx-signal-card strong{display:block;color:#e7edf4;font-size:8.5px;line-height:1.3;font-weight:900;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.pcx-signal-card small{display:block;margin-top:2px;color:#607487;font-size:6.2px;font-weight:800}.pcx-signal-score{color:#78a8d3;font-size:9px;font-weight:950}
+  .pcx-geo-body{display:grid;grid-template-columns:1fr .95fr;gap:8px;flex:1;min-height:0}.pcx-geo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;align-content:start}.pcx-geo-chip{display:flex;align-items:center;gap:6px;min-height:38px;padding:6px 7px;border:1px solid rgba(255,255,255,.06);border-radius:10px;background:rgba(255,255,255,.022);cursor:pointer}.pcx-geo-chip img{width:22px;height:14px;border-radius:2px;object-fit:cover}.pcx-geo-chip div{min-width:0;flex:1}.pcx-geo-chip strong{display:block;color:#e5ebf1;font-size:7.5px;font-weight:900}.pcx-geo-chip span{color:#5f7387;font-size:6px}.pcx-geo-chip b{color:#8db8df;font-size:8px;font-weight:950}.pcx-geo-detail{display:flex;flex-direction:column;justify-content:center;padding:10px;border:1px solid rgba(255,255,255,.06);border-radius:12px;background:linear-gradient(145deg,rgba(31,45,61,.92),rgba(18,27,37,.92))}.pcx-geo-empty-icon{color:#5c748c;font-size:20px}.pcx-geo-detail strong{margin-top:5px;color:#e9eef3;font-size:9px;font-weight:900}.pcx-geo-detail p{margin:4px 0 0;color:#607387;font-size:6.5px;line-height:1.4}.pcx-geo-detail .pcx-country-title{display:flex;align-items:center;gap:7px}.pcx-country-title img{width:34px;height:22px;object-fit:cover;border-radius:3px}.pcx-country-title b{color:#fff;font-size:12px}.pcx-country-stats{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}.pcx-country-stats div{padding:6px;border-radius:8px;background:rgba(255,255,255,.035)}.pcx-country-stats span{display:block;color:#64778a;font-size:6px}.pcx-country-stats strong{margin:2px 0 0;color:#dce6ee;font-size:13px}
+  .pcx-entity-list{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;min-height:0;flex:1}.pcx-entity-card{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:0;padding:8px;border:1px solid rgba(255,255,255,.06);border-radius:11px;background:rgba(255,255,255,.02);cursor:pointer}.pcx-entity-card:hover{background:rgba(255,255,255,.045)}.pcx-entity-card strong{color:#e3eaf0;font-size:7.5px;font-weight:900}.pcx-entity-card span{color:#7fa7cb;font-size:8px;font-weight:950}
+  .pcx-feed-list{display:grid;grid-template-rows:repeat(4,1fr);gap:5px;min-height:0;flex:1}.pcx-feed-item{display:grid;grid-template-columns:48px 1fr;gap:7px;align-items:center;min-height:0;padding:5px;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer}.pcx-feed-item:last-child{border-bottom:0}.pcx-feed-item img{width:48px;height:34px;object-fit:cover;border-radius:7px;background:#1a2430}.pcx-feed-item strong{display:block;color:#e6edf3;font-size:7.4px;line-height:1.25;font-weight:850;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.pcx-feed-item span{display:block;margin-top:2px;color:#5d7184;font-size:6px}
+  .pcx-drawer{position:absolute;top:0;right:0;bottom:0;width:min(720px,52vw);z-index:50;display:grid;grid-template-rows:50px minmax(0,1fr);transform:translateX(calc(100% + 18px));transition:transform .22s ease;border:1px solid rgba(255,255,255,.10);border-radius:18px 0 0 18px;background:rgba(14,20,28,.97);backdrop-filter:blur(20px);box-shadow:-18px 0 46px rgba(0,0,0,.32)}.pcx-drawer.open{transform:translateX(0)}.pcx-drawer-head{display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.07)}.pcx-drawer-head span{display:block;color:#6586a4;font-size:6.5px;font-weight:950;letter-spacing:.7px}.pcx-drawer-head strong{display:block;margin-top:2px;color:#f2f5f7;font-size:12px}.pcx-drawer-head button{width:28px;height:28px;border:0;border-radius:8px;background:#202c39;color:#aebdca;font-size:16px;font-weight:900;cursor:pointer}.pcx-drawer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;align-content:start;overflow:auto;padding:10px}.pcx-drawer-card{display:grid;grid-template-columns:1fr 76px;gap:7px;min-height:96px;padding:8px;border:1px solid rgba(255,255,255,.06);border-radius:11px;background:#151d27;cursor:pointer}.pcx-drawer-card strong{color:#e9eef3;font-size:8px;line-height:1.35;font-weight:900;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.pcx-drawer-card span{display:block;margin-top:4px;color:#617487;font-size:6px}.pcx-drawer-card img{width:76px;height:62px;object-fit:cover;border-radius:7px;background:#202a34}
+}
+@media (min-width:1000px) and (max-height:760px){.pcx-dashboard{inset:8px;grid-template-rows:46px 1.45fr .72fr;gap:7px}.pcx-hero-copy h1{font-size:20px}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -14958,7 +14981,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.7(월) 09:55 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.7(월) 11:25 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -15181,6 +15204,25 @@ main {
       </div>
       <div id="pc-v6-article-panel-grid" class="pc-v6-article-panel-grid"></div>
     </section>
+  </section>
+
+  <!-- =========================================================
+       PC FRESH INTELLIGENCE V7 — independent desktop experience
+       Mobile DOM below remains unchanged.
+       ========================================================= -->
+  <section id="pcx-dashboard" class="pcx-dashboard" aria-label="Nuclear Intelligence Desktop">
+    <header class="pcx-command">
+      <div class="pcx-brand"><span class="pcx-eyebrow">NUCLEAR INTELLIGENCE</span><strong>Morning Signal Board</strong></div>
+      <div class="pcx-command-center"><div class="pcx-search-shell"><span>⌕</span><input id="pcx-search" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색"></div><div class="pcx-date-shell" id="pcx-date-label">TODAY</div></div>
+      <div class="pcx-command-actions"><span class="pcx-live"><i></i>LIVE</span><button id="pcx-open-all" type="button">전체 기사</button></div>
+    </header>
+    <section class="pcx-hero"><div class="pcx-hero-media" id="pcx-hero-media"></div><div class="pcx-hero-overlay"></div><div class="pcx-hero-copy"><div class="pcx-kicker">TOP SIGNAL</div><h1 id="pcx-hero-title">오늘의 핵심 이슈를 분석 중입니다.</h1><p id="pcx-hero-meta">관련 기사와 중요도를 기준으로 핵심 신호를 자동 선별합니다.</p><div class="pcx-hero-actions"><button id="pcx-hero-open" type="button">관련기사 보기</button><span id="pcx-hero-count">0 related</span></div></div></section>
+    <section class="pcx-metrics"><article><span>오늘 수집</span><strong id="pcx-m-total">0</strong><small>articles</small></article><article><span>중요 신호</span><strong id="pcx-m-important">0</strong><small>priority</small></article><article><span>활성 국가</span><strong id="pcx-m-country">0</strong><small>markets</small></article><article><span>활성 그룹</span><strong id="pcx-m-group">0</strong><small>entities</small></article></section>
+    <section class="pcx-signals"><div class="pcx-panel-head"><div><span>NOW</span><strong>Signal Stack</strong></div><small>변화가 큰 이슈 순</small></div><div id="pcx-signal-list" class="pcx-signal-list"></div></section>
+    <section class="pcx-geo"><div class="pcx-panel-head"><div><span>GLOBAL</span><strong>Geo Pulse</strong></div><small>국가별 기사 밀도</small></div><div class="pcx-geo-body"><div id="pcx-geo-grid" class="pcx-geo-grid"></div><div id="pcx-geo-detail" class="pcx-geo-detail"><span class="pcx-geo-empty-icon">◎</span><strong>국가를 선택하세요</strong><p>관련 기사와 주요 그룹을 바로 확인할 수 있습니다.</p></div></div></section>
+    <section class="pcx-entities"><div class="pcx-panel-head"><div><span>ENTITY</span><strong>Entity Radar</strong></div><small>오늘 언급이 많은 그룹</small></div><div id="pcx-entity-list" class="pcx-entity-list"></div></section>
+    <section class="pcx-feed"><div class="pcx-panel-head"><div><span>LIVE</span><strong>Latest Feed</strong></div><button id="pcx-feed-all" type="button">전체 보기 →</button></div><div id="pcx-feed-list" class="pcx-feed-list"></div></section>
+    <aside id="pcx-drawer" class="pcx-drawer" aria-hidden="true"><div class="pcx-drawer-head"><div><span>RELATED ARTICLES</span><strong id="pcx-drawer-title">관련 기사</strong></div><button id="pcx-drawer-close" type="button">×</button></div><div id="pcx-drawer-grid" class="pcx-drawer-grid"></div></aside>
   </section>
 
   <section id="favorites-panel" class="favorites-panel favorites-panel-top" hidden>
@@ -19125,7 +19167,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/897a99ea638f863354bdb5eb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/40d5f37bd82a1c6c80ec82e5.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -25542,7 +25584,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fbe3abbe0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fbe3edf18&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26238,9 +26280,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.meconomynews.com/news/articleView.html?idxno=201290"
+  data-title="현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안 - 시장경제신문"
+  data-publisher="시장경제"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744273"
+  data-country="KR"
+  data-search="현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안 - 시장경제신문 시장경제 현대건설 [시장경제신문 = 정규호 기자] 현대건설은 서울 양천구 목동10단지 재건축사업에 하이엔드 주거 브랜드 ‘디에이치(the h)’를 목동 최초 적용한 ‘디에이치 목동"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">시장경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안 - 시장경제신문</div>
+      <div class="article-snippet">[시장경제신문 = 정규호 기자] 현대건설은 서울 양천구 목동10단지 재건축사업에 하이엔드 주거 브랜드 ‘디에이치(THE H)’를 목동 최초 적용한 ‘디에이치 목동</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ff139428ce738ac288a9cf27.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003778451"
   data-title="현대위아, 완전 무인지게차 국내 첫 공급…&quot;내년 기아 화성 오토랜드 투입&quot;"
@@ -26313,7 +26388,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26415,7 +26490,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313437"
   data-title="모듈러로 AI 데이터센터 공급 속도…GS건설, 4개사와 협력 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -26436,10 +26511,10 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201286" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">GS건설, 모듈형 AI 데이터센터 표준모델 개발한다 - 시장경제신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>모듈러로 AI 데이터센터 공급 속도…GS건설, 4개사와 협력 - 건설타임즈</div>
+      <div class="headline">모듈러로 AI 데이터센터 공급 속도…GS건설, 4개사와 협력 - 건설타임즈</div>
       <div class="article-snippet">(건설타임즈) 박상민 기자 = AI 데이터센터 시장에서 구축 속도가 핵심 경쟁력으로 떠오른 가운데 GS건설이 모듈러 방식을 활용한 데이터센터 표준화에 나선다.GS</div>
     </div>
   </div>
@@ -26482,35 +26557,35 @@ main {
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313438"
-  data-title="SK에코플랜트, ‘2026 콘테크 미트업 데이’ 개최…22개 기술 공모 - 건설타임즈"
-  data-publisher="건설타임즈"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778765"
+  data-title="SK에코플랜트, AI 데이터센터 혁신기술 찾는다…22개 분야 공모"
+  data-publisher="뉴시스"
   data-group="타 건설사"
   data-language="ko"
   data-priority="1"
-  data-published="1788741856"
+  data-published="1788744286"
   data-country="OTHER"
-  data-search="sk에코플랜트, ‘2026 콘테크 미트업 데이’ 개최…22개 기술 공모 - 건설타임즈 건설타임즈 타 건설사 (건설타임즈) 박상민 기자 = sk에코플랜트가 ai 데이터센터를 비롯한 미래 사업 경쟁력 강화를 위해 외부 혁신기술 확보에 속도를 낸다.sk에코플랜트는 ‘2026"
+  data-search="sk에코플랜트, ai 데이터센터 혁신기술 찾는다…22개 분야 공모 뉴시스 타 건설사 [서울=뉴시스]이종성 기자 = sk에코플랜트가 인공지능(ai) 데이터센터를 비롯해 설계·시공 ai, 로봇·자동화 등 사업 현장에 적용할 혁신기술 발굴에 나선다. sk에코플랜트는 오픈이노베이션 공모전 &#x27;2026 콘테크 미트업 데이&#x27;를 개최한다고 7일 밝혔다. 콘테크 미트업 데이는 혁신기술을 보유한 스타트업과 중소·중견기업을 발굴해 공동기술개발과 기술사업화를 추진하는 공모전으로, 2020년 시작해 올해 7회째를 맞았다. 올해는 sk에코플랜트의 사업과 현장에 적용할 수 있는 총 22개 수요기술을 대상으로 공모한다. 주요 모집 분야는 ai 데이터센터를 비롯해 ▲osc(탈현장"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">건설타임즈</div>
+        <div class="publisher">뉴시스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260907500435" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">SK에코플랜트, AI 데이터센터 등 혁신기술 발굴…‘콘테크 미트업 데이’ 개최</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260907105824373" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">&quot;AI 기술 경쟁력 강화하겠다&quot;… SK에코플랜트, 혁신기술 발굴</span></a><a class="related-coverage-link" href="https://www.fntimes.com/html/view.php?ud=202609071043561419b372994c95_18" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국금융신문</span><span class="related-coverage-title">SK에코플랜트, AI데이터센터 혁신기술 발굴…‘콘테크 미트업 데이’ 공모전 개최 - 한국금융신문</span></a><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201288" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">SK에코플랜트, &#x27;2026 콘테크 미트업 데이&#x27; 공모전 개최 - 시장경제신문</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/202609071006026969ea13369bfa_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">SK에코플랜트, AI 데이터센터 혁신기술 발굴…&#x27;콘테크 미트업 데이&#x27; 개최 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/business/12145799" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“데이터센터 혁신기술 발굴”…SK에코플랜트, ‘콘테크 미트업 데이’ 공모전</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313438" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">SK에코플랜트, ‘2026 콘테크 미트업 데이’ 개최…22개 기술 공모 - 건설타임즈</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>SK에코플랜트, ‘2026 콘테크 미트업 데이’ 개최…22개 기술 공모 - 건설타임즈</div>
-      <div class="article-snippet">(건설타임즈) 박상민 기자 = SK에코플랜트가 AI 데이터센터를 비롯한 미래 사업 경쟁력 강화를 위해 외부 혁신기술 확보에 속도를 낸다.SK에코플랜트는 ‘2026</div>
+      <div class="headline"><span class="new-badge">NEW</span>SK에코플랜트, AI 데이터센터 혁신기술 찾는다…22개 분야 공모</div>
+      <div class="article-snippet">[서울=뉴시스]이종성 기자 = SK에코플랜트가 인공지능(AI) 데이터센터를 비롯해 설계·시공 AI, 로봇·자동화 등 사업 현장에 적용할 혁신기술 발굴에 나선다. SK에코플랜트는 오픈이노베이션 공모전 &#x27;2026 콘테크 미트업 데이&#x27;를 개최한다고 7일 밝혔다. 콘테크 미트업 데이는 혁신기술을 보유한 스타트업과 중소·중견기업을 발굴해 공동기술개발과 기술사업화를 추진하는 공모전으로, 2020년 시작해 올해 7회째를 맞았다. 올해는 SK에코플랜트의 사업과 현장에 적용할 수 있는 총 22개 수요기술을 대상으로 공모한다. 주요 모집 분야는 AI 데이터센터를 비롯해 ▲OSC(탈현장</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/35a12ef440c7726a6b0557de.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/c51dc3ef44c23503c96babb8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26535,7 +26610,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090776566" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">롯데건설, 도곡우성아파트 &#x27;도곡 르엘&#x27;로 바꾼다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">도시정비 ‘4조원’ 클럽 달성...롯데건설, ‘도곡우성아파트’ 재건축 품어</div>
@@ -26544,6 +26619,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/43bd8afe7959801c775ab2d2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.theguru.co.kr/news/article.html?no=106762"
+  data-title="하반기 최대 승부처 된 목동…건설사들 &#x27;전용 라운지&#x27; 열고 표심몰이"
+  data-publisher="더구루"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744687"
+  data-country="OTHER"
+  data-search="하반기 최대 승부처 된 목동…건설사들 &#x27;전용 라운지&#x27; 열고 표심몰이 더구루 타 건설사 [더구루=김수현 기자] 롯데건설과 ipark현대산업개발이 서울 양천구 목동신시가지 일대에 홍보 라운지를 열고 수주전에 나선다. 목동이 하반기 정비사업 최대 격전지로 떠오르며 다른 건설사도 현장 거점 조성을 검토 중이다. 7일 정비업계에 따르면 롯데건설과 ipark현대산업개발은 이달 중 목동 재건축 단지 인근에 브랜드 홍보 전용 라운지를 개관한다. 롯데건설은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">더구루</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>하반기 최대 승부처 된 목동…건설사들 &#x27;전용 라운지&#x27; 열고 표심몰이</div>
+      <div class="article-snippet">[더구루=김수현 기자] 롯데건설과 IPARK현대산업개발이 서울 양천구 목동신시가지 일대에 홍보 라운지를 열고 수주전에 나선다. 목동이 하반기 정비사업 최대 격전지로 떠오르며 다른 건설사도 현장 거점 조성을 검토 중이다. 7일 정비업계에 따르면 롯데건설과 IPARK현대산업개발은 이달 중 목동 재건축 단지 인근에 브랜드 홍보 전용 라운지를 개관한다. 롯데건설은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8351a9361ea1a5522a3a977c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26628,7 +26736,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26663,6 +26771,105 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/1eb610ceb9d7f43776e496e8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4433722"
+  data-title="[내년 채권 수급은] 미래대응기금 단기채 투자 기대…한전채 축소 효과도"
+  data-publisher="연합인포맥스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788747439"
+  data-country="KR"
+  data-search="[내년 채권 수급은] 미래대응기금 단기채 투자 기대…한전채 축소 효과도 연합인포맥스 한국전력 내년 채권시장의 수급 개선 요인으로 한국전력채(한전채) 발행 축소와 미래대응기금의 여유재원 유입이 함께 거론되고 있다.올해 크레디트물 위주로 투자를 이어온 sk하이닉스는 이미 연말인 11일께 국고채 투자를 저울질하고 있다.삼성전자와 sk하이닉스가 한전에 향후 5년치 전기 요금을 선납하는 방안이 추진되면서 한전채 발행 감소 기대가 커지는 가운데, 신설되는 미래대응기금 여유재원 상당액이 채권시장, 특히 단기물 위주로 유입될 것으로 7일 채권시장 전문가들은 진단했다.채권 수급에 영향을 줄 첫번째 변수는 한전채 발행 축소 가능성이다.삼성"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합인포맥스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[내년 채권 수급은] 미래대응기금 단기채 투자 기대…한전채 축소 효과도</div>
+      <div class="article-snippet">내년 채권시장의 수급 개선 요인으로 한국전력채(한전채) 발행 축소와 미래대응기금의 여유재원 유입이 함께 거론되고 있다.올해 크레디트물 위주로 투자를 이어온 SK하이닉스는 이미 연말인 11일께 국고채 투자를 저울질하고 있다.삼성전자와 SK하이닉스가 한전에 향후 5년치 전기 요금을 선납하는 방안이 추진되면서 한전채 발행 감소 기대가 커지는 가운데, 신설되는 미래대응기금 여유재원 상당액이 채권시장, 특히 단기물 위주로 유입될 것으로 7일 채권시장 전문가들은 진단했다.채권 수급에 영향을 줄 첫번째 변수는 한전채 발행 축소 가능성이다.삼성</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ca95fae7b879291d814f310c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778738"
+  data-title="스마트인재개발원, 한전 100명에 생성형 AI 실무교육"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744539"
+  data-country="KR"
+  data-search="스마트인재개발원, 한전 100명에 생성형 ai 실무교육 뉴시스 한국전력 [전남광주=뉴시스]배상현 기자 = 스마트인재개발원은 최근 남구캠퍼스에서 한국전력공사 재직자 100명을 대상으로 &#x27;생성형 ai 활용 교육&#x27;을 진행했다. 7일 스마트인재개발원에 따르면 고용노동부와 한국산업인력공단의 k-하이테크 플랫폼 사업 일환으로 진행된 이번 교육은 총 30시간(5일) 동안 문서 작성, 문서 자동화, 발표 및 홍보자료 제작 등 실제 업무 적용에 초점을 맞췄다. 교육생들은 실무 연계 실습을 통해 반복 업무 효율화와 시간 단축 효과를 체감하며 긍정적인 반응을 보였다. 스마트인재개발원은 지역 기업과 공공기관의 디지털 전환 및 ax 역량 강화를 위해 이와 같은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>스마트인재개발원, 한전 100명에 생성형 AI 실무교육</div>
+      <div class="article-snippet">[전남광주=뉴시스]배상현 기자 = 스마트인재개발원은 최근 남구캠퍼스에서 한국전력공사 재직자 100명을 대상으로 &#x27;생성형 AI 활용 교육&#x27;을 진행했다. 7일 스마트인재개발원에 따르면 고용노동부와 한국산업인력공단의 K-하이테크 플랫폼 사업 일환으로 진행된 이번 교육은 총 30시간(5일) 동안 문서 작성, 문서 자동화, 발표 및 홍보자료 제작 등 실제 업무 적용에 초점을 맞췄다. 교육생들은 실무 연계 실습을 통해 반복 업무 효율화와 시간 단축 효과를 체감하며 긍정적인 반응을 보였다. 스마트인재개발원은 지역 기업과 공공기관의 디지털 전환 및 AX 역량 강화를 위해 이와 같은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/96693a8aa8fed97960ff1187.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778973"
+  data-title="&#x27;배터리 미래 시장 찾기&#x27;…GIST, 배터리X전남·광주 2026 개최"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788747696"
+  data-country="KR"
+  data-search="&#x27;배터리 미래 시장 찾기&#x27;…gist, 배터리x전남·광주 2026 개최 뉴시스 한국전력 [전남광주=뉴시스]이창우 기자 = &#x27;전기차를 넘어 에너지저장장치(ess)와 로보틱스, 휴머노이드 등으로 확대되는 배터리의 새로운 시장을 찾아라.&#x27; 7일 광주과학기술원(gist)은 최근 김대중컨벤션센터에서 &#x27;2026 전남광주미래산업박람회&#x27;의 일환으로 배터리 산업 포럼 &#x27;배터리x전남·광주 2026&#x27;을 개최했다고 밝혔다. 이번 포럼에는 배터리 분야 산·학·연 전문가 6명이 참여해 시장 전망과 안전 정책, 차세대 응용기술, 글로벌 산업 변화와 순환 경제 등을 주제로 발표했다. 전기차 중심에서 벗어나 ess와 로보틱스, 휴머노이드 등으로 확대되는 배터리 산업의 성장 가능성과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;배터리 미래 시장 찾기&#x27;…GIST, 배터리X전남·광주 2026 개최</div>
+      <div class="article-snippet">[전남광주=뉴시스]이창우 기자 = &#x27;전기차를 넘어 에너지저장장치(ESS)와 로보틱스, 휴머노이드 등으로 확대되는 배터리의 새로운 시장을 찾아라.&#x27; 7일 광주과학기술원(GIST)은 최근 김대중컨벤션센터에서 &#x27;2026 전남광주미래산업박람회&#x27;의 일환으로 배터리 산업 포럼 &#x27;배터리X전남·광주 2026&#x27;을 개최했다고 밝혔다. 이번 포럼에는 배터리 분야 산·학·연 전문가 6명이 참여해 시장 전망과 안전 정책, 차세대 응용기술, 글로벌 산업 변화와 순환 경제 등을 주제로 발표했다. 전기차 중심에서 벗어나 ESS와 로보틱스, 휴머노이드 등으로 확대되는 배터리 산업의 성장 가능성과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ec482373dbbead4b6d5f503d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -26674,35 +26881,35 @@ main {
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
-  data-url="https://www.mk.co.kr/news/society/12145796"
-  data-title="켄텍, 110억 투입해 차세대 ‘에너지 AI’ 개발"
-  data-publisher="매일경제"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778926"
+  data-title="AI가 전력망 운영한다…켄텍, 110억 규모 원천기술 개발"
+  data-publisher="뉴시스"
   data-group="한전 계열사"
   data-language="ko"
   data-priority="2"
-  data-published="1788742630"
+  data-published="1788746593"
   data-country="KR"
-  data-search="켄텍, 110억 투입해 차세대 ‘에너지 ai’ 개발 매일경제 한전 계열사 과기부 ai 신진연구자 지원사업 선정 skt·한전kdn 등 기업 공동 참여 2031년까지 에너지 ai 실증·인재 양성한국에너지공과대학교(kentech·켄텍)가 인공지능(ai)이 데.."
+  data-search="ai가 전력망 운영한다…켄텍, 110억 규모 원천기술 개발 뉴시스 한전 계열사 [나주=뉴시스]이창우 기자 = 인공지능(ai)이 전력망과 에너지 인프라의 상태를 스스로 파악하고 최적의 운영 방안을 찾아 실행하는 기술 개발이 추진된다. 한국에너지공과대학교(kentech·켄텍)는 110억원 규모의 ai 최고급 신진연구자 지원사업에 선정돼 &#x27;에이전틱 에너지 ai&#x27; 원천기술 개발에 나선다고 7일 밝혔다. 켄텍은 과학기술정보통신부와 정보통신기획평가원(iitp)의 &#x27;올해 ai 최고급 신진연구자 지원사업’ 지역주도형 과제에 선정돼 2031년 12월까지 약 110억원을 지원 받는다. ai 데이터센터와 전력·에너지 인프라, 분산에너지에서 발생하는 운영 문제를 a"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">매일경제</div>
+        <div class="publisher">뉴시스</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.mk.co.kr/news/society/12145796" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">켄텍, 110억 투입해 차세대 ‘에너지 AI’ 개발</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>켄텍, 110억 투입해 차세대 ‘에너지 AI’ 개발</div>
-      <div class="article-snippet">과기부 AI 신진연구자 지원사업 선정 SKT·한전KDN 등 기업 공동 참여 2031년까지 에너지 AI 실증·인재 양성한국에너지공과대학교(KENTECH·켄텍)가 인공지능(AI)이 데..</div>
+      <div class="headline"><span class="new-badge">NEW</span>AI가 전력망 운영한다…켄텍, 110억 규모 원천기술 개발</div>
+      <div class="article-snippet">[나주=뉴시스]이창우 기자 = 인공지능(AI)이 전력망과 에너지 인프라의 상태를 스스로 파악하고 최적의 운영 방안을 찾아 실행하는 기술 개발이 추진된다. 한국에너지공과대학교(KENTECH·켄텍)는 110억원 규모의 AI 최고급 신진연구자 지원사업에 선정돼 &#x27;에이전틱 에너지 AI&#x27; 원천기술 개발에 나선다고 7일 밝혔다. 켄텍은 과학기술정보통신부와 정보통신기획평가원(IITP)의 &#x27;올해 AI 최고급 신진연구자 지원사업’ 지역주도형 과제에 선정돼 2031년 12월까지 약 110억원을 지원 받는다. AI 데이터센터와 전력·에너지 인프라, 분산에너지에서 발생하는 운영 문제를 A</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/769d7196e9a8b2e307230161.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/95b4ad5e2fa6c39cd86b622a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -26715,7 +26922,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313434"
   data-title="[인사] 기후에너지환경부 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -26739,7 +26946,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 기후에너지환경부 - 건설타임즈</div>
+      <div class="headline">[인사] 기후에너지환경부 - 건설타임즈</div>
       <div class="article-snippet">(건설타임즈) 박상민 기자 = ▲기후적응과장 이승준</div>
     </div>
   </div>
@@ -26754,10 +26961,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778457"
+  data-title="대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788745709"
+  data-country="KR"
+  data-search="대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까 뉴시스 원전 대미투자 [세종=뉴시스]김동현 기자 = 대미 투자 1호 프로젝트 발표가 임박했다는 진단이다. 정부가 그동안의 대미 투자 협상 결과를 더불어민주당에 보고하기로 하면서 협상이 사실상 마무리 단계에 접어들었고 계획대로 9월 중 발표가 이뤄질 수 있다는 예상이 나온다. 대미 투자 1호 프로젝트 발표는 지난해 미국과 체결했던 관세율 15% 상한을 유지하는데 도움이 될 전망이다. 한미 관세 협상에 대한 원칙을 재확인하면서 향후 미국이 새로운 조치를 시행해도 기존 합의를 준수토록 만들 수 있다는 예상이다. 7일 국회·산업통상부에 따르면 박정성 산업부 통상교섭본부장과 실무 협상단은 이날 오"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fnnews.com/news/202609071049234492" target="_blank" rel="noopener"><span class="related-coverage-publisher">파이낸셜뉴스</span><span class="related-coverage-title">대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까</div>
+      <div class="article-snippet">[세종=뉴시스]김동현 기자 = 대미 투자 1호 프로젝트 발표가 임박했다는 진단이다. 정부가 그동안의 대미 투자 협상 결과를 더불어민주당에 보고하기로 하면서 협상이 사실상 마무리 단계에 접어들었고 계획대로 9월 중 발표가 이뤄질 수 있다는 예상이 나온다. 대미 투자 1호 프로젝트 발표는 지난해 미국과 체결했던 관세율 15% 상한을 유지하는데 도움이 될 전망이다. 한미 관세 협상에 대한 원칙을 재확인하면서 향후 미국이 새로운 조치를 시행해도 기존 합의를 준수토록 만들 수 있다는 예상이다. 7일 국회·산업통상부에 따르면 박정성 산업부 통상교섭본부장과 실무 협상단은 이날 오</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/be89736e6ce7010707abba53.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106737"
   data-title="일본, 5500억 달러 대미 투자협정 속도…AI·반도체가 핵심"
   data-publisher="더구루"
@@ -26781,7 +27021,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>일본, 5500억 달러 대미 투자협정 속도…AI·반도체가 핵심</div>
+      <div class="headline">일본, 5500억 달러 대미 투자협정 속도…AI·반도체가 핵심</div>
       <div class="article-snippet">[더구루=변수지 기자] 일본과 미국이 5500억 달러(약 742조원) 규모 대미 투자 계획 이행에 속도를 내고 있다. 후속 투자 프로젝트에서는 AI와 반도체 분야가 핵심을 차지할 전망이다. 4일(현지시간) 아카자와 료세이 일본 경제산업상은 미국 워싱턴에서 하워드 러트닉 미국 상무장관과 제이미슨 그리어 미국 무역대표부(USTR) 대표를 만나 “5500억 달러</div>
     </div>
   </div>
@@ -26895,7 +27135,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">11건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27030,6 +27270,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.straightnews.co.kr/news/articleView.html?idxno=310528"
+  data-title="에너지 R&amp;D 예산 48% 확대...원자력 예산도 역대 최대"
+  data-publisher="스트레이트뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788742526"
+  data-country="KR"
+  data-search="에너지 r&amp;d 예산 48% 확대...원자력 예산도 역대 최대 스트레이트뉴스 원자력 인공지능(ai) 시대를 맞아 안정적인 전력 확보가 국가 경쟁력의 주요 과제로 떠오르면서 정부의 에너지 기술 연구개발(r&amp;d) 투자가 크게 늘어난 것으로 나타났다. 내년도 관련 예산은 올해보다 48% 증가했고 원자력 r&amp;d 예산도 역대 최대 규모로 편성됐다.7일 국회 과학기술정보방송통신위원회 소속 더불어민주당 황정아 의원이 과학기술정보통신부로부터 제출받은 자료에 따르면 내년도 과기정통부 에너지 기술 관련 r&amp;d 예산안은 7336억원으로 올해보다 48% 늘었다. 2024년과 비교하면 2.4배 수준이다.원자력 r&amp;d 예산안은 3864억원"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">스트레이트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>에너지 R&amp;D 예산 48% 확대...원자력 예산도 역대 최대</div>
+      <div class="article-snippet">인공지능(AI) 시대를 맞아 안정적인 전력 확보가 국가 경쟁력의 주요 과제로 떠오르면서 정부의 에너지 기술 연구개발(R&amp;D) 투자가 크게 늘어난 것으로 나타났다. 내년도 관련 예산은 올해보다 48% 증가했고 원자력 R&amp;D 예산도 역대 최대 규모로 편성됐다.7일 국회 과학기술정보방송통신위원회 소속 더불어민주당 황정아 의원이 과학기술정보통신부로부터 제출받은 자료에 따르면 내년도 과기정통부 에너지 기술 관련 R&amp;D 예산안은 7336억원으로 올해보다 48% 늘었다. 2024년과 비교하면 2.4배 수준이다.원자력 R&amp;D 예산안은 3864억원</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ece7404e1a04bc678d7f55ae.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260904140300057?section=industry/all"
   data-title="울주군, 월성원전 연합훈련 참여…광역방사능재난 대응역량 강화 | 연합뉴스"
@@ -27129,6 +27402,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003265054&amp;PAGE_CD=N0002&amp;CMPT_CD=M0117"
+  data-title="핵발전소 없는 세종에서 순례를 시작한 이유"
+  data-publisher="오마이뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788746760"
+  data-country="OTHER"
+  data-search="핵발전소 없는 세종에서 순례를 시작한 이유 오마이뉴스 원자력 기자올여름이 남은 생애에서 가장 시원한 여름일 것이라는 말이 더 이상 농담이 아니게 됐다. 그런데 정부는 기후위기 대응을 미뤄둔 채 더 많은 발전소를 짓고 더 많은 송전탑을 세우겠다고 한다.9월 1일부터 16일까지 네 곳에서 출발한 사람들"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">오마이뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>핵발전소 없는 세종에서 순례를 시작한 이유</div>
+      <div class="article-snippet">기자올여름이 남은 생애에서 가장 시원한 여름일 것이라는 말이 더 이상 농담이 아니게 됐다. 그런데 정부는 기후위기 대응을 미뤄둔 채 더 많은 발전소를 짓고 더 많은 송전탑을 세우겠다고 한다.9월 1일부터 16일까지 네 곳에서 출발한 사람들</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/77486ae0de0e28801900d67d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260907075600673"
   data-title="&quot;아들, 행복하게 살길&quot;…&#x27;피터팬 아빠&#x27; 전경철 작가 별세"
@@ -27161,6 +27467,39 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/41741c3626a9e9ddbc36248f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778714"
+  data-title="장동혁 &quot;李 개각 목표는 공소취소와 좌파 챙기기…&#x27;김현지 인사&#x27; 현실일 것&quot;"
+  data-publisher="뉴시스"
+  data-group="원전해체"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788743146"
+  data-country="OTHER"
+  data-search="장동혁 &quot;李 개각 목표는 공소취소와 좌파 챙기기…&#x27;김현지 인사&#x27; 현실일 것&quot; 뉴시스 원전해체 [서울=뉴시스]김지훈 우지은 기자 = 장동혁 국민의힘 대표는 7일 이재명 대통령의 이번 개각은 &#x27;공소취소&#x27;와 &#x27;좌파 챙기기&#x27;라고 주장하면서 &quot;개각 철회&quot;를 요구했다. 장 대표는 이날 오전 국회에서 최고위원회의를 열고 &quot;이번 개각은 이 대통령의 국민 포기 선언과 마찬가지&quot;라면서 이같이 말했다. 그는 김승원 법무장관 후보자 식약처 로비 의혹에 관해서는 &quot;실험용 쥐가 토하며 죽는 약이 코로나 치료제로 나올 뻔했다&quot;고 했다. 나아가 &quot;멀쩡한 기업을 상폐로 몰아 개미투자자에게 막대한 피해를 끼쳤다&quot;라며 &quot;뇌물죄를 넘어 주가조작 공범&quot;이라고 했다. 또한 &quot;국회의원이 되자 부인의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260907_0003778805" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">장동혁 &quot;김승원·용혜인 지명 철회 해야… 개각 자체도 전면 철회&quot; [뉴시스Pic]</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>장동혁 &quot;李 개각 목표는 공소취소와 좌파 챙기기…&#x27;김현지 인사&#x27; 현실일 것&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]김지훈 우지은 기자 = 장동혁 국민의힘 대표는 7일 이재명 대통령의 이번 개각은 &#x27;공소취소&#x27;와 &#x27;좌파 챙기기&#x27;라고 주장하면서 &quot;개각 철회&quot;를 요구했다. 장 대표는 이날 오전 국회에서 최고위원회의를 열고 &quot;이번 개각은 이 대통령의 국민 포기 선언과 마찬가지&quot;라면서 이같이 말했다. 그는 김승원 법무장관 후보자 식약처 로비 의혹에 관해서는 &quot;실험용 쥐가 토하며 죽는 약이 코로나 치료제로 나올 뻔했다&quot;고 했다. 나아가 &quot;멀쩡한 기업을 상폐로 몰아 개미투자자에게 막대한 피해를 끼쳤다&quot;라며 &quot;뇌물죄를 넘어 주가조작 공범&quot;이라고 했다. 또한 &quot;국회의원이 되자 부인의</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1de69aca1d039155336286b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -27168,9 +27507,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778889"
+  data-title="원성일 도의원 &quot;경남을 한국 SMR 생산거점으로 육성하자&quot;"
+  data-publisher="뉴시스"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788746042"
+  data-country="KR"
+  data-search="원성일 도의원 &quot;경남을 한국 smr 생산거점으로 육성하자&quot; 뉴시스 smr [창원=뉴시스]홍정명 기자 = 경남도의회 더불어민주당 원성일(창원6) 의원은 7일 &#x27;경남 소형모듈원자로(smr) 생산거점 조성을 위한 대정부 건의안&#x27;을 대표발의했다고 밝혔다. 원 의원은 오는 11일 &#x27;소형모듈원자로 개발 촉진 및 지원에 관한 특별법&#x27; 시행에 따라 정부가 수립할 &#x27;smr 개발 기본계획&#x27;과 후속 정책에 경남의 우수한 원전 제조 기반을 적극 반영하고 &#x27;smr 특구&#x27; 경남 유치를 위해 건의안을 마련했다고 설명했다. smr은 기존 대형 원전에 비해 설치와 활용이 유연해 산업단지와 섬 지역, 수소 생산, 데이터센터 등 다양한 분야에서 활용할 수 있는 차세대 원전"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원성일 도의원 &quot;경남을 한국 SMR 생산거점으로 육성하자&quot;</div>
+      <div class="article-snippet">[창원=뉴시스]홍정명 기자 = 경남도의회 더불어민주당 원성일(창원6) 의원은 7일 &#x27;경남 소형모듈원자로(SMR) 생산거점 조성을 위한 대정부 건의안&#x27;을 대표발의했다고 밝혔다. 원 의원은 오는 11일 &#x27;소형모듈원자로 개발 촉진 및 지원에 관한 특별법&#x27; 시행에 따라 정부가 수립할 &#x27;SMR 개발 기본계획&#x27;과 후속 정책에 경남의 우수한 원전 제조 기반을 적극 반영하고 &#x27;SMR 특구&#x27; 경남 유치를 위해 건의안을 마련했다고 설명했다. SMR은 기존 대형 원전에 비해 설치와 활용이 유연해 산업단지와 섬 지역, 수소 생산, 데이터센터 등 다양한 분야에서 활용할 수 있는 차세대 원전</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a84151fc31719f9c971395f4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/202609077821i"
+  data-title="한미글로벌, 美에 원전 법인 설립…“원전·SMR 디벨로퍼 시동”"
+  data-publisher="한국경제"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788741480"
+  data-country="KR"
+  data-search="한미글로벌, 美에 원전 법인 설립…“원전·smr 디벨로퍼 시동” 한국경제 smr 한미글로벌, 美에 원전 법인 설립…“원전·smr 디벨로퍼 시동”, 200만 달러 전액 출자해 델라웨어주 법인 루마니아·신한울 이어 북미 진출"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한미글로벌, 美에 원전 법인 설립…“원전·SMR 디벨로퍼 시동”</div>
+      <div class="article-snippet">한미글로벌, 美에 원전 법인 설립…“원전·SMR 디벨로퍼 시동”, 200만 달러 전액 출자해 델라웨어주 법인 루마니아·신한울 이어 북미 진출</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/796ed80d9b17498e20f2019f.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6099"
   data-title="F1 기술, 원자로로…안타레스, 마이크로원자로 혁신 가속 - 에너지안전신문"
@@ -27276,9 +27681,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778820"
+  data-title="듀켐바이오, &#x27;방사성의약품 CDMO 공장&#x27; 짓는다"
+  data-publisher="뉴시스"
+  data-group="국내 원자력 협회·학회"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788744714"
+  data-country="OTHER"
+  data-search="듀켐바이오, &#x27;방사성의약품 cdmo 공장&#x27; 짓는다 뉴시스 국내 원자력 협회·학회 [서울=뉴시스]황재희 기자 = 국내 헬스케어 플랫폼 지오영 그룹의 방사성의약품 자회사 듀켐바이오가 국내 기업 최초로 방사성의약품 cdmo(위탁개발생산) 공장을 짓는다. 공장은 정읍시 첨단산업지구에 마련된다. 듀켐바이오는 전북특별자치도, 정읍시와 343억원 규모의 &#x27;rpt(방사성의약품 치료제) 특화 cdmo(위탁개발생산) 공장 및 r&amp;d 센터&#x27; 구축을 위한 투자협약을 체결했다고 7일 밝혔다. 협약에 따라 정읍시 신정동 첨단산업지구에 2032년까지 cdmo 공장을 구축한다. 이는 국내 방사성의약품 기업 중 최초다. 투자는 두 단계로 진행돼 토지매입계약은 오는 10월 체결"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>듀켐바이오, &#x27;방사성의약품 CDMO 공장&#x27; 짓는다</div>
+      <div class="article-snippet">[서울=뉴시스]황재희 기자 = 국내 헬스케어 플랫폼 지오영 그룹의 방사성의약품 자회사 듀켐바이오가 국내 기업 최초로 방사성의약품 CDMO(위탁개발생산) 공장을 짓는다. 공장은 정읍시 첨단산업지구에 마련된다. 듀켐바이오는 전북특별자치도, 정읍시와 343억원 규모의 &#x27;RPT(방사성의약품 치료제) 특화 CDMO(위탁개발생산) 공장 및 R&amp;D 센터&#x27; 구축을 위한 투자협약을 체결했다고 7일 밝혔다. 협약에 따라 정읍시 신정동 첨단산업지구에 2032년까지 CDMO 공장을 구축한다. 이는 국내 방사성의약품 기업 중 최초다. 투자는 두 단계로 진행돼 토지매입계약은 오는 10월 체결</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5fb96222f3dd87dd60dfdaa7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
@@ -27342,7 +27780,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://ua.news/en/world/kim-chen-in-zaiaviv-shcho-novii-esminets-kndr-uviide-do-iadernoyi-sistemi-vidpovidi" target="_blank" rel="noopener"><span class="related-coverage-publisher">UA.NEWS</span><span class="related-coverage-title">Kim Jong Un: New DPRK destroyer to join nuclear response system</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://ua.news/en/world/kim-chen-in-zaiaviv-shcho-novii-esminets-kndr-uviide-do-iadernoyi-sistemi-vidpovidi" target="_blank" rel="noopener"><span class="related-coverage-publisher">UA.NEWS</span><span class="related-coverage-title">Kim Jong Un: New DPRK destroyer to join nuclear response system</span></a><a class="related-coverage-link" href="https://www.aljazeera.com/news/2026/9/7/north-korea-deploys-warship-capable-of-annihilating-retaliatory-strikes?traffic_source=rss" target="_blank" rel="noopener"><span class="related-coverage-publisher">Al Jazeera</span><span class="related-coverage-title">North Korea deploys warship ‘capable of annihilating retaliatory strikes’</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">North Korea’s Kim Jong Un says new destroyer will be part of nuclear response system</div>
@@ -27418,9 +27856,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.meconomynews.com/news/articleView.html?idxno=201290"
+  data-title="현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안 - 시장경제신문"
+  data-publisher="시장경제"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744273"
+  data-country="KR"
+  data-search="현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안 - 시장경제신문 시장경제 현대건설 [시장경제신문 = 정규호 기자] 현대건설은 서울 양천구 목동10단지 재건축사업에 하이엔드 주거 브랜드 ‘디에이치(the h)’를 목동 최초 적용한 ‘디에이치 목동"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">시장경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>현대건설, 목동10단지에 &#x27;디에이치 목동 에세르&#x27; 제안 - 시장경제신문</div>
+      <div class="article-snippet">[시장경제신문 = 정규호 기자] 현대건설은 서울 양천구 목동10단지 재건축사업에 하이엔드 주거 브랜드 ‘디에이치(THE H)’를 목동 최초 적용한 ‘디에이치 목동</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ff139428ce738ac288a9cf27.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003778451"
   data-title="현대위아, 완전 무인지게차 국내 첫 공급…&quot;내년 기아 화성 오토랜드 투입&quot;"
@@ -27493,7 +27964,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">19건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27595,7 +28066,40 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
+  data-url="https://www.meconomynews.com/news/articleView.html?idxno=201286"
+  data-title="GS건설, 모듈형 AI 데이터센터 표준모델 개발한다 - 시장경제신문"
+  data-publisher="시장경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744587"
+  data-country="OTHER"
+  data-search="gs건설, 모듈형 ai 데이터센터 표준모델 개발한다 - 시장경제신문 시장경제 타 건설사 [시장경제신문 = 양병철 기자] gs건설은 급증하는 ai 데이터센터 수요에 신속하게 대응하기 위해 모듈러 기술을 접목한 사전 제작형 모듈러 데이터센터(pmdc)"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">시장경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">GS건설, 모듈형 AI 데이터센터 표준모델 개발한다 - 시장경제신문</div>
+      <div class="article-snippet">[시장경제신문 = 양병철 기자] GS건설은 급증하는 AI 데이터센터 수요에 신속하게 대응하기 위해 모듈러 기술을 접목한 사전 제작형 모듈러 데이터센터(PMDC)</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.meconomynews.com/news/photo/202609/201286_202640_5955.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313437"
   data-title="모듈러로 AI 데이터센터 공급 속도…GS건설, 4개사와 협력 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -27616,10 +28120,10 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201286" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">GS건설, 모듈형 AI 데이터센터 표준모델 개발한다 - 시장경제신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>모듈러로 AI 데이터센터 공급 속도…GS건설, 4개사와 협력 - 건설타임즈</div>
+      <div class="headline">모듈러로 AI 데이터센터 공급 속도…GS건설, 4개사와 협력 - 건설타임즈</div>
       <div class="article-snippet">(건설타임즈) 박상민 기자 = AI 데이터센터 시장에서 구축 속도가 핵심 경쟁력으로 떠오른 가운데 GS건설이 모듈러 방식을 활용한 데이터센터 표준화에 나선다.GS</div>
     </div>
   </div>
@@ -27694,7 +28198,238 @@ main {
   </div>
 </article>
 
+<article class="preview-card"
+  data-url="https://www.viva100.com/article/20260907500435"
+  data-title="SK에코플랜트, AI 데이터센터 등 혁신기술 발굴…‘콘테크 미트업 데이’ 개최"
+  data-publisher="브릿지경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788750000"
+  data-country="OTHER"
+  data-search="sk에코플랜트, ai 데이터센터 등 혁신기술 발굴…‘콘테크 미트업 데이’ 개최 브릿지경제 타 건설사 sk에코플랜트가 ai 데이터센터를 비롯한 주요 사업 분야에 적용할 혁신기술과 솔루션 발굴에 나선다. sk에코플랜트는 오픈이노베이션(open innovation) 공모전 ‘2026 콘테크 미트업 데이(contech meet-up day)’를 개최한다고 7일 밝혔다. 콘테"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">브릿지경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SK에코플랜트, AI 데이터센터 등 혁신기술 발굴…‘콘테크 미트업 데이’ 개최</div>
+      <div class="article-snippet">SK에코플랜트가 AI 데이터센터를 비롯한 주요 사업 분야에 적용할 혁신기술과 솔루션 발굴에 나선다. SK에코플랜트는 오픈이노베이션(Open Innovation) 공모전 ‘2026 콘테크 미트업 데이(ConTech Meet-Up Day)’를 개최한다고 7일 밝혔다. 콘테</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://stqnq5ux4599.edge.naverncp.com/data2//content/image/2026/09/07/.cache/512/20260907500421.png?v=20260907112530" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260907105824373"
+  data-title="&quot;AI 기술 경쟁력 강화하겠다&quot;… SK에코플랜트, 혁신기술 발굴"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788746685"
+  data-country="OTHER"
+  data-search="&quot;ai 기술 경쟁력 강화하겠다&quot;… sk에코플랜트, 혁신기술 발굴 아주경제 타 건설사 sk에코플랜트가 오는 30일까지 ai 기술 발굴을 위한 &#x27;2026 콘테크 미트업 데이&#x27;(contech meet-up day) 참가자를 모집한다. [이미지=sk에코플랜트] sk에코플랜트가 ai 데이터센터를 비롯한 주요 사업 분야 혁신기술 발굴을 위해 스타트업 등과 손을 맞잡는다.   sk에코플랜트는 오는 30일까지 ‘2026 콘테크 미트업 데이’(contech meet-up day) 참가자를 모집한다고 7일 밝혔다.   콘테크 미트업 데이란 sk에코플랜트가 혁신기술을 보유한 스타트업과 중소·중견기업을 발"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">&quot;AI 기술 경쟁력 강화하겠다&quot;… SK에코플랜트, 혁신기술 발굴</div>
+      <div class="article-snippet">SK에코플랜트가 오는 30일까지 AI 기술 발굴을 위한 &#x27;2026 콘테크 미트업 데이&#x27;(ConTech Meet-Up Day) 참가자를 모집한다. [이미지=SK에코플랜트] SK에코플랜트가 AI 데이터센터를 비롯한 주요 사업 분야 혁신기술 발굴을 위해 스타트업 등과 손을 맞잡는다.   SK에코플랜트는 오는 30일까지 ‘2026 콘테크 미트업 데이’(ConTech Meet-Up Day) 참가자를 모집한다고 7일 밝혔다.   콘테크 미트업 데이란 SK에코플랜트가 혁신기술을 보유한 스타트업과 중소·중견기업을 발</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.fntimes.com/html/view.php?ud=202609071043561419b372994c95_18"
+  data-title="SK에코플랜트, AI데이터센터 혁신기술 발굴…‘콘테크 미트업 데이’ 공모전 개최 - 한국금융신문"
+  data-publisher="한국금융신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788745653"
+  data-country="KR"
+  data-search="sk에코플랜트, ai데이터센터 혁신기술 발굴…‘콘테크 미트업 데이’ 공모전 개최 - 한국금융신문 한국금융신문 타 건설사 sk에코플랜트가 ai 데이터센터 등 건설 분야 혁신기술 발굴에 나선다.sk에코플랜트는 7일 오픈이노베이션 공모전 ‘2026 콘테크 미트업 데이’를 개최한다고 밝혔다. ai 데이터센터와 설계·시공 ai, 로봇·자동화 등 22개 수요기술을 대상으로 한다.콘테크 미트업 데이는 혁신기술을 보유"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국금융신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SK에코플랜트, AI데이터센터 혁신기술 발굴…‘콘테크 미트업 데이’ 공모전 개최 - 한국금융신문</div>
+      <div class="article-snippet">SK에코플랜트가 AI 데이터센터 등 건설 분야 혁신기술 발굴에 나선다.SK에코플랜트는 7일 오픈이노베이션 공모전 ‘2026 콘테크 미트업 데이’를 개최한다고 밝혔다. AI 데이터센터와 설계·시공 AI, 로봇·자동화 등 22개 수요기술을 대상으로 한다.콘테크 미트업 데이는 혁신기술을 보유</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cfnimage.commutil.kr/phpwas/restmb_allidxmake.php?pp=002&amp;idx=999&amp;simg=20260907104639064480b372994c95106101131175.jpg&amp;nmt=18" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.meconomynews.com/news/articleView.html?idxno=201288"
+  data-title="SK에코플랜트, &#x27;2026 콘테크 미트업 데이&#x27; 공모전 개최 - 시장경제신문"
+  data-publisher="시장경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744587"
+  data-country="OTHER"
+  data-search="sk에코플랜트, &#x27;2026 콘테크 미트업 데이&#x27; 공모전 개최 - 시장경제신문 시장경제 타 건설사 [시장경제신문 = 양병철 기자] sk에코플랜트는 ai 데이터센터를 비롯한 주요 사업 분야의 혁신기술을 발굴하기 위한 오픈이노베이션 공모전 &#x27;2026 콘테크 미트업"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">시장경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SK에코플랜트, &#x27;2026 콘테크 미트업 데이&#x27; 공모전 개최 - 시장경제신문</div>
+      <div class="article-snippet">[시장경제신문 = 양병철 기자] SK에코플랜트는 AI 데이터센터를 비롯한 주요 사업 분야의 혁신기술을 발굴하기 위한 오픈이노베이션 공모전 &#x27;2026 콘테크 미트업</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.meconomynews.com/news/photo/202609/201288_202642_211.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778765"
+  data-title="SK에코플랜트, AI 데이터센터 혁신기술 찾는다…22개 분야 공모"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744286"
+  data-country="OTHER"
+  data-search="sk에코플랜트, ai 데이터센터 혁신기술 찾는다…22개 분야 공모 뉴시스 타 건설사 [서울=뉴시스]이종성 기자 = sk에코플랜트가 인공지능(ai) 데이터센터를 비롯해 설계·시공 ai, 로봇·자동화 등 사업 현장에 적용할 혁신기술 발굴에 나선다. sk에코플랜트는 오픈이노베이션 공모전 &#x27;2026 콘테크 미트업 데이&#x27;를 개최한다고 7일 밝혔다. 콘테크 미트업 데이는 혁신기술을 보유한 스타트업과 중소·중견기업을 발굴해 공동기술개발과 기술사업화를 추진하는 공모전으로, 2020년 시작해 올해 7회째를 맞았다. 올해는 sk에코플랜트의 사업과 현장에 적용할 수 있는 총 22개 수요기술을 대상으로 공모한다. 주요 모집 분야는 ai 데이터센터를 비롯해 ▲osc(탈현장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 7개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.viva100.com/article/20260907500435" target="_blank" rel="noopener"><span class="related-coverage-publisher">브릿지경제</span><span class="related-coverage-title">SK에코플랜트, AI 데이터센터 등 혁신기술 발굴…‘콘테크 미트업 데이’ 개최</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260907105824373" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">&quot;AI 기술 경쟁력 강화하겠다&quot;… SK에코플랜트, 혁신기술 발굴</span></a><a class="related-coverage-link" href="https://www.fntimes.com/html/view.php?ud=202609071043561419b372994c95_18" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국금융신문</span><span class="related-coverage-title">SK에코플랜트, AI데이터센터 혁신기술 발굴…‘콘테크 미트업 데이’ 공모전 개최 - 한국금융신문</span></a><a class="related-coverage-link" href="https://www.meconomynews.com/news/articleView.html?idxno=201288" target="_blank" rel="noopener"><span class="related-coverage-publisher">시장경제</span><span class="related-coverage-title">SK에코플랜트, &#x27;2026 콘테크 미트업 데이&#x27; 공모전 개최 - 시장경제신문</span></a><a class="related-coverage-link" href="https://www.g-enews.com/article/Real-Estate/2026/09/202609071006026969ea13369bfa_1" target="_blank" rel="noopener"><span class="related-coverage-publisher">글로벌이코노믹</span><span class="related-coverage-title">SK에코플랜트, AI 데이터센터 혁신기술 발굴…&#x27;콘테크 미트업 데이&#x27; 개최 - 글로벌이코노믹</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/business/12145799" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“데이터센터 혁신기술 발굴”…SK에코플랜트, ‘콘테크 미트업 데이’ 공모전</span></a><a class="related-coverage-link" href="https://www.constimes.co.kr/news/articleView.html?idxno=313438" target="_blank" rel="noopener"><span class="related-coverage-publisher">건설타임즈</span><span class="related-coverage-title">SK에코플랜트, ‘2026 콘테크 미트업 데이’ 개최…22개 기술 공모 - 건설타임즈</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>SK에코플랜트, AI 데이터센터 혁신기술 찾는다…22개 분야 공모</div>
+      <div class="article-snippet">[서울=뉴시스]이종성 기자 = SK에코플랜트가 인공지능(AI) 데이터센터를 비롯해 설계·시공 AI, 로봇·자동화 등 사업 현장에 적용할 혁신기술 발굴에 나선다. SK에코플랜트는 오픈이노베이션 공모전 &#x27;2026 콘테크 미트업 데이&#x27;를 개최한다고 7일 밝혔다. 콘테크 미트업 데이는 혁신기술을 보유한 스타트업과 중소·중견기업을 발굴해 공동기술개발과 기술사업화를 추진하는 공모전으로, 2020년 시작해 올해 7회째를 맞았다. 올해는 SK에코플랜트의 사업과 현장에 적용할 수 있는 총 22개 수요기술을 대상으로 공모한다. 주요 모집 분야는 AI 데이터센터를 비롯해 ▲OSC(탈현장</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c51dc3ef44c23503c96babb8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.g-enews.com/article/Real-Estate/2026/09/202609071006026969ea13369bfa_1"
+  data-title="SK에코플랜트, AI 데이터센터 혁신기술 발굴…&#x27;콘테크 미트업 데이&#x27; 개최 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788743412"
+  data-country="OTHER"
+  data-search="sk에코플랜트, ai 데이터센터 혁신기술 발굴…&#x27;콘테크 미트업 데이&#x27; 개최 - 글로벌이코노믹 글로벌이코노믹 타 건설사 sk에코플랜트가 혁신기술을 보유한 스타트업과 중소·중견기업을 발굴한다.sk에코플랜트는 인공지능(ai) 데이터센터를 비롯한 주요 사업 분야의 혁신기술 및 솔루션을 발굴하기 위한 오픈이노베이션(open innovation) 공모전인 &#x27;2026 콘테크 미트업 데이(contech meet-up"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">SK에코플랜트, AI 데이터센터 혁신기술 발굴…&#x27;콘테크 미트업 데이&#x27; 개최 - 글로벌이코노믹</div>
+      <div class="article-snippet">SK에코플랜트가 혁신기술을 보유한 스타트업과 중소·중견기업을 발굴한다.SK에코플랜트는 인공지능(AI) 데이터센터를 비롯한 주요 사업 분야의 혁신기술 및 솔루션을 발굴하기 위한 오픈이노베이션(Open Innovation) 공모전인 &#x27;2026 콘테크 미트업 데이(ConTech Meet-Up</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://nimage.g-enews.com/phpwas/restmb_allidxmake.php?idx=5&amp;simg=2026090710085406846ea13369bfa10625224987.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.mk.co.kr/news/business/12145799"
+  data-title="“데이터센터 혁신기술 발굴”…SK에코플랜트, ‘콘테크 미트업 데이’ 공모전"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788742919"
+  data-country="OTHER"
+  data-search="“데이터센터 혁신기술 발굴”…sk에코플랜트, ‘콘테크 미트업 데이’ 공모전 매일경제 타 건설사 ai 데이터센터·osc 등 22개 수요기술 대상 공모 공동 기술개발·사업화 추진sk에코플랜트가 오픈이노베이션(open innovation) 공모전 ‘2026 콘테크 미트업 데이(.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">“데이터센터 혁신기술 발굴”…SK에코플랜트, ‘콘테크 미트업 데이’ 공모전</div>
+      <div class="article-snippet">AI 데이터센터·OSC 등 22개 수요기술 대상 공모 공동 기술개발·사업화 추진SK에코플랜트가 오픈이노베이션(Open Innovation) 공모전 ‘2026 콘테크 미트업 데이(..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://pimg.mk.co.kr/news/cms/202609/07/news-p.v1.20260907.c2d484df00304e94b75420e12185f74f_R.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313438"
   data-title="SK에코플랜트, ‘2026 콘테크 미트업 데이’ 개최…22개 기술 공모 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -27718,12 +28453,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>SK에코플랜트, ‘2026 콘테크 미트업 데이’ 개최…22개 기술 공모 - 건설타임즈</div>
+      <div class="headline">SK에코플랜트, ‘2026 콘테크 미트업 데이’ 개최…22개 기술 공모 - 건설타임즈</div>
       <div class="article-snippet">(건설타임즈) 박상민 기자 = SK에코플랜트가 AI 데이터센터를 비롯한 미래 사업 경쟁력 강화를 위해 외부 혁신기술 확보에 속도를 낸다.SK에코플랜트는 ‘2026</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/35a12ef440c7726a6b0557de.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://cdn.constimes.co.kr/news/photo/202609/313438_71263_4358.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.hankyung.com/article/2026090776566"
+  data-title="롯데건설, 도곡우성아파트 &#x27;도곡 르엘&#x27;로 바꾼다"
+  data-publisher="한국경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788741381"
+  data-country="KR"
+  data-search="롯데건설, 도곡우성아파트 &#x27;도곡 르엘&#x27;로 바꾼다 한국경제 타 건설사 "
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">롯데건설, 도곡우성아파트 &#x27;도곡 르엘&#x27;로 바꾼다</div>
+      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -27748,7 +28516,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090776566" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">롯데건설, 도곡우성아파트 &#x27;도곡 르엘&#x27;로 바꾼다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">도시정비 ‘4조원’ 클럽 달성...롯데건설, ‘도곡우성아파트’ 재건축 품어</div>
@@ -27757,6 +28525,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/43bd8afe7959801c775ab2d2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.theguru.co.kr/news/article.html?no=106762"
+  data-title="하반기 최대 승부처 된 목동…건설사들 &#x27;전용 라운지&#x27; 열고 표심몰이"
+  data-publisher="더구루"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744687"
+  data-country="OTHER"
+  data-search="하반기 최대 승부처 된 목동…건설사들 &#x27;전용 라운지&#x27; 열고 표심몰이 더구루 타 건설사 [더구루=김수현 기자] 롯데건설과 ipark현대산업개발이 서울 양천구 목동신시가지 일대에 홍보 라운지를 열고 수주전에 나선다. 목동이 하반기 정비사업 최대 격전지로 떠오르며 다른 건설사도 현장 거점 조성을 검토 중이다. 7일 정비업계에 따르면 롯데건설과 ipark현대산업개발은 이달 중 목동 재건축 단지 인근에 브랜드 홍보 전용 라운지를 개관한다. 롯데건설은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">더구루</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>하반기 최대 승부처 된 목동…건설사들 &#x27;전용 라운지&#x27; 열고 표심몰이</div>
+      <div class="article-snippet">[더구루=김수현 기자] 롯데건설과 IPARK현대산업개발이 서울 양천구 목동신시가지 일대에 홍보 라운지를 열고 수주전에 나선다. 목동이 하반기 정비사업 최대 격전지로 떠오르며 다른 건설사도 현장 거점 조성을 검토 중이다. 7일 정비업계에 따르면 롯데건설과 IPARK현대산업개발은 이달 중 목동 재건축 단지 인근에 브랜드 홍보 전용 라운지를 개관한다. 롯데건설은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/8351a9361ea1a5522a3a977c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27841,7 +28642,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -27876,6 +28677,105 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/1eb610ceb9d7f43776e496e8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://news.einfomax.co.kr/news/articleView.html?idxno=4433722"
+  data-title="[내년 채권 수급은] 미래대응기금 단기채 투자 기대…한전채 축소 효과도"
+  data-publisher="연합인포맥스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788747439"
+  data-country="KR"
+  data-search="[내년 채권 수급은] 미래대응기금 단기채 투자 기대…한전채 축소 효과도 연합인포맥스 한국전력 내년 채권시장의 수급 개선 요인으로 한국전력채(한전채) 발행 축소와 미래대응기금의 여유재원 유입이 함께 거론되고 있다.올해 크레디트물 위주로 투자를 이어온 sk하이닉스는 이미 연말인 11일께 국고채 투자를 저울질하고 있다.삼성전자와 sk하이닉스가 한전에 향후 5년치 전기 요금을 선납하는 방안이 추진되면서 한전채 발행 감소 기대가 커지는 가운데, 신설되는 미래대응기금 여유재원 상당액이 채권시장, 특히 단기물 위주로 유입될 것으로 7일 채권시장 전문가들은 진단했다.채권 수급에 영향을 줄 첫번째 변수는 한전채 발행 축소 가능성이다.삼성"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합인포맥스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[내년 채권 수급은] 미래대응기금 단기채 투자 기대…한전채 축소 효과도</div>
+      <div class="article-snippet">내년 채권시장의 수급 개선 요인으로 한국전력채(한전채) 발행 축소와 미래대응기금의 여유재원 유입이 함께 거론되고 있다.올해 크레디트물 위주로 투자를 이어온 SK하이닉스는 이미 연말인 11일께 국고채 투자를 저울질하고 있다.삼성전자와 SK하이닉스가 한전에 향후 5년치 전기 요금을 선납하는 방안이 추진되면서 한전채 발행 감소 기대가 커지는 가운데, 신설되는 미래대응기금 여유재원 상당액이 채권시장, 특히 단기물 위주로 유입될 것으로 7일 채권시장 전문가들은 진단했다.채권 수급에 영향을 줄 첫번째 변수는 한전채 발행 축소 가능성이다.삼성</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ca95fae7b879291d814f310c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778738"
+  data-title="스마트인재개발원, 한전 100명에 생성형 AI 실무교육"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788744539"
+  data-country="KR"
+  data-search="스마트인재개발원, 한전 100명에 생성형 ai 실무교육 뉴시스 한국전력 [전남광주=뉴시스]배상현 기자 = 스마트인재개발원은 최근 남구캠퍼스에서 한국전력공사 재직자 100명을 대상으로 &#x27;생성형 ai 활용 교육&#x27;을 진행했다. 7일 스마트인재개발원에 따르면 고용노동부와 한국산업인력공단의 k-하이테크 플랫폼 사업 일환으로 진행된 이번 교육은 총 30시간(5일) 동안 문서 작성, 문서 자동화, 발표 및 홍보자료 제작 등 실제 업무 적용에 초점을 맞췄다. 교육생들은 실무 연계 실습을 통해 반복 업무 효율화와 시간 단축 효과를 체감하며 긍정적인 반응을 보였다. 스마트인재개발원은 지역 기업과 공공기관의 디지털 전환 및 ax 역량 강화를 위해 이와 같은"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>스마트인재개발원, 한전 100명에 생성형 AI 실무교육</div>
+      <div class="article-snippet">[전남광주=뉴시스]배상현 기자 = 스마트인재개발원은 최근 남구캠퍼스에서 한국전력공사 재직자 100명을 대상으로 &#x27;생성형 AI 활용 교육&#x27;을 진행했다. 7일 스마트인재개발원에 따르면 고용노동부와 한국산업인력공단의 K-하이테크 플랫폼 사업 일환으로 진행된 이번 교육은 총 30시간(5일) 동안 문서 작성, 문서 자동화, 발표 및 홍보자료 제작 등 실제 업무 적용에 초점을 맞췄다. 교육생들은 실무 연계 실습을 통해 반복 업무 효율화와 시간 단축 효과를 체감하며 긍정적인 반응을 보였다. 스마트인재개발원은 지역 기업과 공공기관의 디지털 전환 및 AX 역량 강화를 위해 이와 같은</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/96693a8aa8fed97960ff1187.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778973"
+  data-title="&#x27;배터리 미래 시장 찾기&#x27;…GIST, 배터리X전남·광주 2026 개최"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788747696"
+  data-country="KR"
+  data-search="&#x27;배터리 미래 시장 찾기&#x27;…gist, 배터리x전남·광주 2026 개최 뉴시스 한국전력 [전남광주=뉴시스]이창우 기자 = &#x27;전기차를 넘어 에너지저장장치(ess)와 로보틱스, 휴머노이드 등으로 확대되는 배터리의 새로운 시장을 찾아라.&#x27; 7일 광주과학기술원(gist)은 최근 김대중컨벤션센터에서 &#x27;2026 전남광주미래산업박람회&#x27;의 일환으로 배터리 산업 포럼 &#x27;배터리x전남·광주 2026&#x27;을 개최했다고 밝혔다. 이번 포럼에는 배터리 분야 산·학·연 전문가 6명이 참여해 시장 전망과 안전 정책, 차세대 응용기술, 글로벌 산업 변화와 순환 경제 등을 주제로 발표했다. 전기차 중심에서 벗어나 ess와 로보틱스, 휴머노이드 등으로 확대되는 배터리 산업의 성장 가능성과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;배터리 미래 시장 찾기&#x27;…GIST, 배터리X전남·광주 2026 개최</div>
+      <div class="article-snippet">[전남광주=뉴시스]이창우 기자 = &#x27;전기차를 넘어 에너지저장장치(ESS)와 로보틱스, 휴머노이드 등으로 확대되는 배터리의 새로운 시장을 찾아라.&#x27; 7일 광주과학기술원(GIST)은 최근 김대중컨벤션센터에서 &#x27;2026 전남광주미래산업박람회&#x27;의 일환으로 배터리 산업 포럼 &#x27;배터리X전남·광주 2026&#x27;을 개최했다고 밝혔다. 이번 포럼에는 배터리 분야 산·학·연 전문가 6명이 참여해 시장 전망과 안전 정책, 차세대 응용기술, 글로벌 산업 변화와 순환 경제 등을 주제로 발표했다. 전기차 중심에서 벗어나 ESS와 로보틱스, 휴머노이드 등으로 확대되는 배터리 산업의 성장 가능성과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ec482373dbbead4b6d5f503d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -27883,10 +28783,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778926"
+  data-title="AI가 전력망 운영한다…켄텍, 110억 규모 원천기술 개발"
+  data-publisher="뉴시스"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788746593"
+  data-country="KR"
+  data-search="ai가 전력망 운영한다…켄텍, 110억 규모 원천기술 개발 뉴시스 한전 계열사 [나주=뉴시스]이창우 기자 = 인공지능(ai)이 전력망과 에너지 인프라의 상태를 스스로 파악하고 최적의 운영 방안을 찾아 실행하는 기술 개발이 추진된다. 한국에너지공과대학교(kentech·켄텍)는 110억원 규모의 ai 최고급 신진연구자 지원사업에 선정돼 &#x27;에이전틱 에너지 ai&#x27; 원천기술 개발에 나선다고 7일 밝혔다. 켄텍은 과학기술정보통신부와 정보통신기획평가원(iitp)의 &#x27;올해 ai 최고급 신진연구자 지원사업’ 지역주도형 과제에 선정돼 2031년 12월까지 약 110억원을 지원 받는다. ai 데이터센터와 전력·에너지 인프라, 분산에너지에서 발생하는 운영 문제를 a"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.mk.co.kr/news/society/12145796" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">켄텍, 110억 투입해 차세대 ‘에너지 AI’ 개발</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>AI가 전력망 운영한다…켄텍, 110억 규모 원천기술 개발</div>
+      <div class="article-snippet">[나주=뉴시스]이창우 기자 = 인공지능(AI)이 전력망과 에너지 인프라의 상태를 스스로 파악하고 최적의 운영 방안을 찾아 실행하는 기술 개발이 추진된다. 한국에너지공과대학교(KENTECH·켄텍)는 110억원 규모의 AI 최고급 신진연구자 지원사업에 선정돼 &#x27;에이전틱 에너지 AI&#x27; 원천기술 개발에 나선다고 7일 밝혔다. 켄텍은 과학기술정보통신부와 정보통신기획평가원(IITP)의 &#x27;올해 AI 최고급 신진연구자 지원사업’ 지역주도형 과제에 선정돼 2031년 12월까지 약 110억원을 지원 받는다. AI 데이터센터와 전력·에너지 인프라, 분산에너지에서 발생하는 운영 문제를 A</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/95b4ad5e2fa6c39cd86b622a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/society/12145796"
   data-title="켄텍, 110억 투입해 차세대 ‘에너지 AI’ 개발"
   data-publisher="매일경제"
@@ -27910,12 +28843,12 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>켄텍, 110억 투입해 차세대 ‘에너지 AI’ 개발</div>
+      <div class="headline">켄텍, 110억 투입해 차세대 ‘에너지 AI’ 개발</div>
       <div class="article-snippet">과기부 AI 신진연구자 지원사업 선정 SKT·한전KDN 등 기업 공동 참여 2031년까지 에너지 AI 실증·인재 양성한국에너지공과대학교(KENTECH·켄텍)가 인공지능(AI)이 데..</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/769d7196e9a8b2e307230161.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://pimg.mk.co.kr/news/cms/202609/07/news-p.v1.20260907.bfd7c838502a48948eee9d9277ecebf4_R.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -27928,7 +28861,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.constimes.co.kr/news/articleView.html?idxno=313434"
   data-title="[인사] 기후에너지환경부 - 건설타임즈"
   data-publisher="건설타임즈"
@@ -27952,7 +28885,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[인사] 기후에너지환경부 - 건설타임즈</div>
+      <div class="headline">[인사] 기후에너지환경부 - 건설타임즈</div>
       <div class="article-snippet">(건설타임즈) 박상민 기자 = ▲기후적응과장 이승준</div>
     </div>
   </div>
@@ -27967,10 +28900,76 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.fnnews.com/news/202609071049234492"
+  data-title="대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까"
+  data-publisher="파이낸셜뉴스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788745790"
+  data-country="OTHER"
+  data-search="대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까 파이낸셜뉴스 원전 대미투자 [세종=뉴시스]김동현 기자 = 대미 투자 1호 프로젝트 발표가 임박했다는 진단이다. 정부가 그동안의 대미 투자 협상 결과를 더불어민주당에 보고하기로 하면서 협상이 사실상 마무리 단계에 접어들었고 계획대로 9월 중 발표가 이뤄질 수 있다는 예상이 나온다. 대미.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">파이낸셜뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까</div>
+      <div class="article-snippet">[세종=뉴시스]김동현 기자 = 대미 투자 1호 프로젝트 발표가 임박했다는 진단이다. 정부가 그동안의 대미 투자 협상 결과를 더불어민주당에 보고하기로 하면서 협상이 사실상 마무리 단계에 접어들었고 계획대로 9월 중 발표가 이뤄질 수 있다는 예상이 나온다. 대미..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://image.fnnews.com/resource/media/image/2026/09/07/202609071049347937_e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778457"
+  data-title="대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788745709"
+  data-country="KR"
+  data-search="대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까 뉴시스 원전 대미투자 [세종=뉴시스]김동현 기자 = 대미 투자 1호 프로젝트 발표가 임박했다는 진단이다. 정부가 그동안의 대미 투자 협상 결과를 더불어민주당에 보고하기로 하면서 협상이 사실상 마무리 단계에 접어들었고 계획대로 9월 중 발표가 이뤄질 수 있다는 예상이 나온다. 대미 투자 1호 프로젝트 발표는 지난해 미국과 체결했던 관세율 15% 상한을 유지하는데 도움이 될 전망이다. 한미 관세 협상에 대한 원칙을 재확인하면서 향후 미국이 새로운 조치를 시행해도 기존 합의를 준수토록 만들 수 있다는 예상이다. 7일 국회·산업통상부에 따르면 박정성 산업부 통상교섭본부장과 실무 협상단은 이날 오"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.fnnews.com/news/202609071049234492" target="_blank" rel="noopener"><span class="related-coverage-publisher">파이낸셜뉴스</span><span class="related-coverage-title">대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대미 투자 협상 마무리 국면…美 관세 15% 상한 지켜낼까</div>
+      <div class="article-snippet">[세종=뉴시스]김동현 기자 = 대미 투자 1호 프로젝트 발표가 임박했다는 진단이다. 정부가 그동안의 대미 투자 협상 결과를 더불어민주당에 보고하기로 하면서 협상이 사실상 마무리 단계에 접어들었고 계획대로 9월 중 발표가 이뤄질 수 있다는 예상이 나온다. 대미 투자 1호 프로젝트 발표는 지난해 미국과 체결했던 관세율 15% 상한을 유지하는데 도움이 될 전망이다. 한미 관세 협상에 대한 원칙을 재확인하면서 향후 미국이 새로운 조치를 시행해도 기존 합의를 준수토록 만들 수 있다는 예상이다. 7일 국회·산업통상부에 따르면 박정성 산업부 통상교섭본부장과 실무 협상단은 이날 오</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/be89736e6ce7010707abba53.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106737"
   data-title="일본, 5500억 달러 대미 투자협정 속도…AI·반도체가 핵심"
   data-publisher="더구루"
@@ -27994,7 +28993,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>일본, 5500억 달러 대미 투자협정 속도…AI·반도체가 핵심</div>
+      <div class="headline">일본, 5500억 달러 대미 투자협정 속도…AI·반도체가 핵심</div>
       <div class="article-snippet">[더구루=변수지 기자] 일본과 미국이 5500억 달러(약 742조원) 규모 대미 투자 계획 이행에 속도를 내고 있다. 후속 투자 프로젝트에서는 AI와 반도체 분야가 핵심을 차지할 전망이다. 4일(현지시간) 아카자와 료세이 일본 경제산업상은 미국 워싱턴에서 하워드 러트닉 미국 상무장관과 제이미슨 그리어 미국 무역대표부(USTR) 대표를 만나 “5500억 달러</div>
     </div>
   </div>
@@ -28108,7 +29107,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28243,6 +29242,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.straightnews.co.kr/news/articleView.html?idxno=310528"
+  data-title="에너지 R&amp;D 예산 48% 확대...원자력 예산도 역대 최대"
+  data-publisher="스트레이트뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788742526"
+  data-country="KR"
+  data-search="에너지 r&amp;d 예산 48% 확대...원자력 예산도 역대 최대 스트레이트뉴스 원자력 인공지능(ai) 시대를 맞아 안정적인 전력 확보가 국가 경쟁력의 주요 과제로 떠오르면서 정부의 에너지 기술 연구개발(r&amp;d) 투자가 크게 늘어난 것으로 나타났다. 내년도 관련 예산은 올해보다 48% 증가했고 원자력 r&amp;d 예산도 역대 최대 규모로 편성됐다.7일 국회 과학기술정보방송통신위원회 소속 더불어민주당 황정아 의원이 과학기술정보통신부로부터 제출받은 자료에 따르면 내년도 과기정통부 에너지 기술 관련 r&amp;d 예산안은 7336억원으로 올해보다 48% 늘었다. 2024년과 비교하면 2.4배 수준이다.원자력 r&amp;d 예산안은 3864억원"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">스트레이트뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>에너지 R&amp;D 예산 48% 확대...원자력 예산도 역대 최대</div>
+      <div class="article-snippet">인공지능(AI) 시대를 맞아 안정적인 전력 확보가 국가 경쟁력의 주요 과제로 떠오르면서 정부의 에너지 기술 연구개발(R&amp;D) 투자가 크게 늘어난 것으로 나타났다. 내년도 관련 예산은 올해보다 48% 증가했고 원자력 R&amp;D 예산도 역대 최대 규모로 편성됐다.7일 국회 과학기술정보방송통신위원회 소속 더불어민주당 황정아 의원이 과학기술정보통신부로부터 제출받은 자료에 따르면 내년도 과기정통부 에너지 기술 관련 R&amp;D 예산안은 7336억원으로 올해보다 48% 늘었다. 2024년과 비교하면 2.4배 수준이다.원자력 R&amp;D 예산안은 3864억원</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ece7404e1a04bc678d7f55ae.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260904140300057?section=industry/all"
   data-title="울주군, 월성원전 연합훈련 참여…광역방사능재난 대응역량 강화 | 연합뉴스"
@@ -28342,6 +29374,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003265054&amp;PAGE_CD=N0002&amp;CMPT_CD=M0117"
+  data-title="핵발전소 없는 세종에서 순례를 시작한 이유"
+  data-publisher="오마이뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788746760"
+  data-country="OTHER"
+  data-search="핵발전소 없는 세종에서 순례를 시작한 이유 오마이뉴스 원자력 기자올여름이 남은 생애에서 가장 시원한 여름일 것이라는 말이 더 이상 농담이 아니게 됐다. 그런데 정부는 기후위기 대응을 미뤄둔 채 더 많은 발전소를 짓고 더 많은 송전탑을 세우겠다고 한다.9월 1일부터 16일까지 네 곳에서 출발한 사람들"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">오마이뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>핵발전소 없는 세종에서 순례를 시작한 이유</div>
+      <div class="article-snippet">기자올여름이 남은 생애에서 가장 시원한 여름일 것이라는 말이 더 이상 농담이 아니게 됐다. 그런데 정부는 기후위기 대응을 미뤄둔 채 더 많은 발전소를 짓고 더 많은 송전탑을 세우겠다고 한다.9월 1일부터 16일까지 네 곳에서 출발한 사람들</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/77486ae0de0e28801900d67d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.ajunews.com/view/20260907075600673"
   data-title="&quot;아들, 행복하게 살길&quot;…&#x27;피터팬 아빠&#x27; 전경철 작가 별세"
@@ -28407,6 +29472,72 @@ main {
     <div class="preview-image"><img src="https://menu.sidae.com/moneyweek/thumb/2026/09/07/00/2026090707014281374_1.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778805"
+  data-title="장동혁 &quot;김승원·용혜인 지명 철회 해야… 개각 자체도 전면 철회&quot; [뉴시스Pic]"
+  data-publisher="뉴시스"
+  data-group="원전해체"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788746432"
+  data-country="OTHER"
+  data-search="장동혁 &quot;김승원·용혜인 지명 철회 해야… 개각 자체도 전면 철회&quot; [뉴시스pic] 뉴시스 원전해체 [서울=뉴시스] 류현주 정병혁 김근수 김지훈 우지은 기자 = 장동혁 국민의힘 대표는 7일 이재명 대통령의 이번 개각은 &#x27;공소취소&#x27;와 &#x27;좌파 챙기기&#x27;라고 주장하면서 &quot;개각 철회&quot;를 요구했다. 장 대표는 이날 오전 국회에서 최고위원회의를 열고 &quot;이번 개각은 이 대통령의 국민 포기 선언과 마찬가지&quot;라면서 이같이 말했다. 그는 김승원 법무장관 후보자 식약처 로비 의혹에 관해서는 &quot;실험용 쥐가 토하며 죽는 약이 코로나 치료제로 나올 뻔했다&quot;고 했다. 나아가 &quot;멀쩡한 기업을 상폐로 몰아 개미투자자에게 막대한 피해를 끼쳤다&quot;라며 &quot;뇌물죄를 넘어 주가조작 공범&quot;이라고 했다. 또한"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">장동혁 &quot;김승원·용혜인 지명 철회 해야… 개각 자체도 전면 철회&quot; [뉴시스Pic]</div>
+      <div class="article-snippet">[서울=뉴시스] 류현주 정병혁 김근수 김지훈 우지은 기자 = 장동혁 국민의힘 대표는 7일 이재명 대통령의 이번 개각은 &#x27;공소취소&#x27;와 &#x27;좌파 챙기기&#x27;라고 주장하면서 &quot;개각 철회&quot;를 요구했다. 장 대표는 이날 오전 국회에서 최고위원회의를 열고 &quot;이번 개각은 이 대통령의 국민 포기 선언과 마찬가지&quot;라면서 이같이 말했다. 그는 김승원 법무장관 후보자 식약처 로비 의혹에 관해서는 &quot;실험용 쥐가 토하며 죽는 약이 코로나 치료제로 나올 뻔했다&quot;고 했다. 나아가 &quot;멀쩡한 기업을 상폐로 몰아 개미투자자에게 막대한 피해를 끼쳤다&quot;라며 &quot;뇌물죄를 넘어 주가조작 공범&quot;이라고 했다. 또한</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://image.newsis.com/2026/09/07/NISI20260907_0021426175_web.jpg?rnd=20260907092231" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778714"
+  data-title="장동혁 &quot;李 개각 목표는 공소취소와 좌파 챙기기…&#x27;김현지 인사&#x27; 현실일 것&quot;"
+  data-publisher="뉴시스"
+  data-group="원전해체"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788743146"
+  data-country="OTHER"
+  data-search="장동혁 &quot;李 개각 목표는 공소취소와 좌파 챙기기…&#x27;김현지 인사&#x27; 현실일 것&quot; 뉴시스 원전해체 [서울=뉴시스]김지훈 우지은 기자 = 장동혁 국민의힘 대표는 7일 이재명 대통령의 이번 개각은 &#x27;공소취소&#x27;와 &#x27;좌파 챙기기&#x27;라고 주장하면서 &quot;개각 철회&quot;를 요구했다. 장 대표는 이날 오전 국회에서 최고위원회의를 열고 &quot;이번 개각은 이 대통령의 국민 포기 선언과 마찬가지&quot;라면서 이같이 말했다. 그는 김승원 법무장관 후보자 식약처 로비 의혹에 관해서는 &quot;실험용 쥐가 토하며 죽는 약이 코로나 치료제로 나올 뻔했다&quot;고 했다. 나아가 &quot;멀쩡한 기업을 상폐로 몰아 개미투자자에게 막대한 피해를 끼쳤다&quot;라며 &quot;뇌물죄를 넘어 주가조작 공범&quot;이라고 했다. 또한 &quot;국회의원이 되자 부인의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260907_0003778805" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">장동혁 &quot;김승원·용혜인 지명 철회 해야… 개각 자체도 전면 철회&quot; [뉴시스Pic]</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>장동혁 &quot;李 개각 목표는 공소취소와 좌파 챙기기…&#x27;김현지 인사&#x27; 현실일 것&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]김지훈 우지은 기자 = 장동혁 국민의힘 대표는 7일 이재명 대통령의 이번 개각은 &#x27;공소취소&#x27;와 &#x27;좌파 챙기기&#x27;라고 주장하면서 &quot;개각 철회&quot;를 요구했다. 장 대표는 이날 오전 국회에서 최고위원회의를 열고 &quot;이번 개각은 이 대통령의 국민 포기 선언과 마찬가지&quot;라면서 이같이 말했다. 그는 김승원 법무장관 후보자 식약처 로비 의혹에 관해서는 &quot;실험용 쥐가 토하며 죽는 약이 코로나 치료제로 나올 뻔했다&quot;고 했다. 나아가 &quot;멀쩡한 기업을 상폐로 몰아 개미투자자에게 막대한 피해를 끼쳤다&quot;라며 &quot;뇌물죄를 넘어 주가조작 공범&quot;이라고 했다. 또한 &quot;국회의원이 되자 부인의</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1de69aca1d039155336286b6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -28414,9 +29545,75 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778889"
+  data-title="원성일 도의원 &quot;경남을 한국 SMR 생산거점으로 육성하자&quot;"
+  data-publisher="뉴시스"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788746042"
+  data-country="KR"
+  data-search="원성일 도의원 &quot;경남을 한국 smr 생산거점으로 육성하자&quot; 뉴시스 smr [창원=뉴시스]홍정명 기자 = 경남도의회 더불어민주당 원성일(창원6) 의원은 7일 &#x27;경남 소형모듈원자로(smr) 생산거점 조성을 위한 대정부 건의안&#x27;을 대표발의했다고 밝혔다. 원 의원은 오는 11일 &#x27;소형모듈원자로 개발 촉진 및 지원에 관한 특별법&#x27; 시행에 따라 정부가 수립할 &#x27;smr 개발 기본계획&#x27;과 후속 정책에 경남의 우수한 원전 제조 기반을 적극 반영하고 &#x27;smr 특구&#x27; 경남 유치를 위해 건의안을 마련했다고 설명했다. smr은 기존 대형 원전에 비해 설치와 활용이 유연해 산업단지와 섬 지역, 수소 생산, 데이터센터 등 다양한 분야에서 활용할 수 있는 차세대 원전"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>원성일 도의원 &quot;경남을 한국 SMR 생산거점으로 육성하자&quot;</div>
+      <div class="article-snippet">[창원=뉴시스]홍정명 기자 = 경남도의회 더불어민주당 원성일(창원6) 의원은 7일 &#x27;경남 소형모듈원자로(SMR) 생산거점 조성을 위한 대정부 건의안&#x27;을 대표발의했다고 밝혔다. 원 의원은 오는 11일 &#x27;소형모듈원자로 개발 촉진 및 지원에 관한 특별법&#x27; 시행에 따라 정부가 수립할 &#x27;SMR 개발 기본계획&#x27;과 후속 정책에 경남의 우수한 원전 제조 기반을 적극 반영하고 &#x27;SMR 특구&#x27; 경남 유치를 위해 건의안을 마련했다고 설명했다. SMR은 기존 대형 원전에 비해 설치와 활용이 유연해 산업단지와 섬 지역, 수소 생산, 데이터센터 등 다양한 분야에서 활용할 수 있는 차세대 원전</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a84151fc31719f9c971395f4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/202609077821i"
+  data-title="한미글로벌, 美에 원전 법인 설립…“원전·SMR 디벨로퍼 시동”"
+  data-publisher="한국경제"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788741480"
+  data-country="KR"
+  data-search="한미글로벌, 美에 원전 법인 설립…“원전·smr 디벨로퍼 시동” 한국경제 smr 한미글로벌, 美에 원전 법인 설립…“원전·smr 디벨로퍼 시동”, 200만 달러 전액 출자해 델라웨어주 법인 루마니아·신한울 이어 북미 진출"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한미글로벌, 美에 원전 법인 설립…“원전·SMR 디벨로퍼 시동”</div>
+      <div class="article-snippet">한미글로벌, 美에 원전 법인 설립…“원전·SMR 디벨로퍼 시동”, 200만 달러 전액 출자해 델라웨어주 법인 루마니아·신한울 이어 북미 진출</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/796ed80d9b17498e20f2019f.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6099"
   data-title="F1 기술, 원자로로…안타레스, 마이크로원자로 혁신 가속 - 에너지안전신문"
@@ -28522,16 +29719,49 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003778820"
+  data-title="듀켐바이오, &#x27;방사성의약품 CDMO 공장&#x27; 짓는다"
+  data-publisher="뉴시스"
+  data-group="국내 원자력 협회·학회"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788744714"
+  data-country="OTHER"
+  data-search="듀켐바이오, &#x27;방사성의약품 cdmo 공장&#x27; 짓는다 뉴시스 국내 원자력 협회·학회 [서울=뉴시스]황재희 기자 = 국내 헬스케어 플랫폼 지오영 그룹의 방사성의약품 자회사 듀켐바이오가 국내 기업 최초로 방사성의약품 cdmo(위탁개발생산) 공장을 짓는다. 공장은 정읍시 첨단산업지구에 마련된다. 듀켐바이오는 전북특별자치도, 정읍시와 343억원 규모의 &#x27;rpt(방사성의약품 치료제) 특화 cdmo(위탁개발생산) 공장 및 r&amp;d 센터&#x27; 구축을 위한 투자협약을 체결했다고 7일 밝혔다. 협약에 따라 정읍시 신정동 첨단산업지구에 2032년까지 cdmo 공장을 구축한다. 이는 국내 방사성의약품 기업 중 최초다. 투자는 두 단계로 진행돼 토지매입계약은 오는 10월 체결"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>듀켐바이오, &#x27;방사성의약품 CDMO 공장&#x27; 짓는다</div>
+      <div class="article-snippet">[서울=뉴시스]황재희 기자 = 국내 헬스케어 플랫폼 지오영 그룹의 방사성의약품 자회사 듀켐바이오가 국내 기업 최초로 방사성의약품 CDMO(위탁개발생산) 공장을 짓는다. 공장은 정읍시 첨단산업지구에 마련된다. 듀켐바이오는 전북특별자치도, 정읍시와 343억원 규모의 &#x27;RPT(방사성의약품 치료제) 특화 CDMO(위탁개발생산) 공장 및 R&amp;D 센터&#x27; 구축을 위한 투자협약을 체결했다고 7일 밝혔다. 협약에 따라 정읍시 신정동 첨단산업지구에 2032년까지 CDMO 공장을 구축한다. 이는 국내 방사성의약품 기업 중 최초다. 투자는 두 단계로 진행돼 토지매입계약은 오는 10월 체결</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/5fb96222f3dd87dd60dfdaa7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">4건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -28564,6 +29794,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://cdn-cabinet.ua.news/uploads/images/kim_jong_un_esminets_kndr_iaderna_system_1788737345775.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.aljazeera.com/news/2026/9/7/north-korea-deploys-warship-capable-of-annihilating-retaliatory-strikes?traffic_source=rss"
+  data-title="North Korea deploys warship ‘capable of annihilating retaliatory strikes’"
+  data-publisher="Al Jazeera"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788740404"
+  data-country="KR"
+  data-search="north korea deploys warship ‘capable of annihilating retaliatory strikes’ al jazeera nuclear power·nuclear energy leader kim jong un says vessel will form part of pyongyang&#x27;s nuclear response system, strengthen naval forces."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Al Jazeera</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">North Korea deploys warship ‘capable of annihilating retaliatory strikes’</div>
+      <div class="article-snippet">Leader Kim Jong Un says vessel will form part of Pyongyang&#x27;s nuclear response system, strengthen naval forces.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
   </div>
 </article>
 
@@ -28621,7 +29884,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://ua.news/en/world/kim-chen-in-zaiaviv-shcho-novii-esminets-kndr-uviide-do-iadernoyi-sistemi-vidpovidi" target="_blank" rel="noopener"><span class="related-coverage-publisher">UA.NEWS</span><span class="related-coverage-title">Kim Jong Un: New DPRK destroyer to join nuclear response system</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://ua.news/en/world/kim-chen-in-zaiaviv-shcho-novii-esminets-kndr-uviide-do-iadernoyi-sistemi-vidpovidi" target="_blank" rel="noopener"><span class="related-coverage-publisher">UA.NEWS</span><span class="related-coverage-title">Kim Jong Un: New DPRK destroyer to join nuclear response system</span></a><a class="related-coverage-link" href="https://www.aljazeera.com/news/2026/9/7/north-korea-deploys-warship-capable-of-annihilating-retaliatory-strikes?traffic_source=rss" target="_blank" rel="noopener"><span class="related-coverage-publisher">Al Jazeera</span><span class="related-coverage-title">North Korea deploys warship ‘capable of annihilating retaliatory strikes’</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">North Korea’s Kim Jong Un says new destroyer will be part of nuclear response system</div>
@@ -29464,7 +30727,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/897a99ea638f863354bdb5eb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/40d5f37bd82a1c6c80ec82e5.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38026,7 +39289,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fbe3abbe0&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fbe3edf18&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -276513,6 +277776,37 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   } else {
     setTimeout(init,200);
   }
+})();
+</script>
+
+
+<script>
+(function(){
+  const NAME={US:'미국',KR:'한국',GB:'영국',FR:'프랑스',DE:'독일',BG:'불가리아',RO:'루마니아',CZ:'체코',PL:'폴란드',CA:'캐나다',JP:'일본',CN:'중국',IN:'인도',VN:'베트남',AE:'UAE',SA:'사우디',UA:'우크라이나',RU:'러시아',TR:'튀르키예',AU:'호주',BR:'브라질',SI:'슬로베니아',FI:'핀란드'};
+  let cards=[],heroCard=null;
+  const desktop=()=>window.matchMedia('(min-width:1000px)').matches;
+  function allCards(){const list=[...document.querySelectorAll('main .preview-card')],seen=new Set(),out=[];for(const c of list){const k=(c.dataset.url||c.dataset.title||'')+'|'+(c.dataset.published||'');if(seen.has(k))continue;seen.add(k);out.push(c)}return out}
+  const title=c=>(c.dataset.title||((c.querySelector('.headline')||{}).textContent)||'').trim();
+  const group=c=>(c.dataset.group||'기타').trim();
+  const country=c=>(c.dataset.country||'').trim().toUpperCase();
+  const publisher=c=>(c.dataset.publisher||'').trim();
+  const img=c=>{const n=c.querySelector('img');return n?(n.currentSrc||n.src||''):''};
+  function ts(c){const d=new Date(c.dataset.published||'');return isNaN(d.getTime())?0:d.getTime()}
+  const important=c=>c.classList.contains('important')||c.dataset.priority==='important'||!!c.querySelector(".important-button.active,.important-button[aria-pressed='true']");
+  function score(c){let s=0,t=(title(c)+' '+group(c)).toLowerCase();if(important(c))s+=8;if(/계약|수주|선정|mou|투자|인허가|승인|허가|착공|정부|장관|정책|license|permit|award|contract|investment/.test(t))s+=6;if(/현대건설|hyundai|hdec|westinghouse|holtec|palisades|matador|smr|ap1000/.test(t))s+=4;s+=Math.min(4,Math.max(0,(ts(c)-(Date.now()-86400000*3))/(86400000)));return s}
+  function sameTopic(a,b){if(!a||!b)return false;if(group(a)===group(b))return true;const ta=title(a),tb=title(b);return ta.split(/\s+/).filter(w=>w.length>=3).some(w=>tb.includes(w))}
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  function drawer(list,label){const d=document.getElementById('pcx-drawer'),g=document.getElementById('pcx-drawer-grid'),h=document.getElementById('pcx-drawer-title');if(!d||!g)return;if(h)h.textContent=label||'관련 기사';g.innerHTML='';for(const c of list.slice(0,80)){const b=document.createElement('button');b.type='button';b.className='pcx-drawer-card';const image=img(c);b.innerHTML='<div><strong>'+esc(title(c))+'</strong><span>'+esc(publisher(c))+' · '+esc(NAME[country(c)]||country(c))+'</span></div><div>'+(image?'<img src="'+image.replace(/"/g,'%22')+'" alt="">':'')+'</div>';b.onclick=()=>{if(typeof openArticle==='function')openArticle(c)};g.appendChild(b)}d.classList.add('open');d.setAttribute('aria-hidden','false')}
+  function metrics(){const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set('pcx-m-total',cards.length);set('pcx-m-important',cards.filter(important).length);set('pcx-m-country',new Set(cards.map(country).filter(c=>c&&c!=='OTHER')).size);set('pcx-m-group',new Set(cards.map(group).filter(Boolean)).size)}
+  function hero(){const ranked=cards.slice().sort((a,b)=>score(b)-score(a)||ts(b)-ts(a));heroCard=ranked[0]||cards[0]||null;if(!heroCard)return;const media=document.getElementById('pcx-hero-media'),t=document.getElementById('pcx-hero-title'),m=document.getElementById('pcx-hero-meta'),count=document.getElementById('pcx-hero-count'),related=cards.filter(c=>sameTopic(heroCard,c));if(media){const image=img(heroCard);media.style.backgroundImage=image?'url("'+image.replace(/"/g,'%22')+'")':'linear-gradient(135deg,#21344b,#111820)'}if(t)t.textContent=title(heroCard);if(m)m.textContent=(NAME[country(heroCard)]||country(heroCard)||'Global')+' · '+group(heroCard)+' · '+publisher(heroCard);if(count)count.textContent=related.length+' related';const open=document.getElementById('pcx-hero-open');if(open)open.onclick=()=>drawer(related,'Top Signal 관련기사')}
+  function signals(){const box=document.getElementById('pcx-signal-list');if(!box)return;box.innerHTML='';const groups={};for(const c of cards){const g=group(c);if(!groups[g])groups[g]={cards:[],best:c,score:0};groups[g].cards.push(c);const s=score(c);if(s>groups[g].score){groups[g].score=s;groups[g].best=c}}Object.values(groups).sort((a,b)=>b.score-a.score||b.cards.length-a.cards.length).slice(0,4).forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='pcx-signal-card';b.innerHTML='<span class="pcx-signal-index">0'+(i+1)+'</span><div><strong>'+esc(title(x.best))+'</strong><small>'+esc(group(x.best))+' · '+x.cards.length+'건</small></div><span class="pcx-signal-score">'+Math.round(x.score)+'</span>';b.onclick=()=>drawer(x.cards,group(x.best)+' 관련기사');box.appendChild(b)})}
+  function geo(){const grid=document.getElementById('pcx-geo-grid'),detail=document.getElementById('pcx-geo-detail');if(!grid||!detail)return;const map={};for(const c of cards){const k=country(c);if(k&&k!=='OTHER'){if(!map[k])map[k]=[];map[k].push(c)}}grid.innerHTML='';Object.entries(map).sort((a,b)=>b[1].length-a[1].length).slice(0,6).forEach(([code,list])=>{const b=document.createElement('button');b.type='button';b.className='pcx-geo-chip';b.innerHTML='<img src="https://flagcdn.com/w40/'+code.toLowerCase()+'.png" alt=""><div><strong>'+esc(NAME[code]||code)+'</strong><span>'+esc(group(list[0]))+'</span></div><b>'+list.length+'</b>';b.onclick=()=>{const groups={};for(const c of list)groups[group(c)]=(groups[group(c)]||0)+1;const top=Object.entries(groups).sort((a,b)=>b[1]-a[1])[0];detail.innerHTML='<div class="pcx-country-title"><img src="https://flagcdn.com/w80/'+code.toLowerCase()+'.png" alt=""><b>'+esc(NAME[code]||code)+'</b></div><div class="pcx-country-stats"><div><span>기사</span><strong>'+list.length+'</strong></div><div><span>중요</span><strong>'+list.filter(important).length+'</strong></div></div><p>'+(top?'주요 그룹 · '+esc(top[0])+' '+top[1]+'건':'관련 그룹 정보 없음')+'</p>';detail.onclick=()=>drawer(list,(NAME[code]||code)+' 관련기사')};grid.appendChild(b)})}
+  function entities(){const box=document.getElementById('pcx-entity-list');if(!box)return;const map={};for(const c of cards){const g=group(c);if(!map[g])map[g]=[];map[g].push(c)}box.innerHTML='';Object.entries(map).sort((a,b)=>b[1].length-a[1].length).slice(0,6).forEach(([g,list])=>{const b=document.createElement('button');b.type='button';b.className='pcx-entity-card';b.innerHTML='<strong>'+esc(g)+'</strong><span>'+list.length+'</span>';b.onclick=()=>drawer(list,g+' 관련기사');box.appendChild(b)})}
+  function feed(){const box=document.getElementById('pcx-feed-list');if(!box)return;box.innerHTML='';cards.slice().sort((a,b)=>ts(b)-ts(a)).slice(0,4).forEach(c=>{const b=document.createElement('button');b.type='button';b.className='pcx-feed-item';const image=img(c);b.innerHTML=(image?'<img src="'+image.replace(/"/g,'%22')+'" alt="">':'<span></span>')+'<div><strong>'+esc(title(c))+'</strong><span>'+esc(publisher(c))+' · '+esc(group(c))+'</span></div>';b.onclick=()=>{if(typeof openArticle==='function')openArticle(c)};box.appendChild(b)})}
+  function render(){metrics();hero();signals();geo();entities();feed()}
+  function initData(){cards=allCards();render()}
+  function init(){if(!desktop())return;initData();const close=document.getElementById('pcx-drawer-close');if(close)close.onclick=()=>{const d=document.getElementById('pcx-drawer');d.classList.remove('open');d.setAttribute('aria-hidden','true')};const all=document.getElementById('pcx-open-all');if(all)all.onclick=()=>drawer(cards,'전체 기사');const all2=document.getElementById('pcx-feed-all');if(all2)all2.onclick=()=>drawer(cards,'전체 기사');const s=document.getElementById('pcx-search');if(s)s.addEventListener('input',()=>{const q=s.value.trim().toLowerCase();cards=q?allCards().filter(c=>(title(c)+' '+group(c)+' '+publisher(c)+' '+country(c)+' '+(c.textContent||'')).toLowerCase().includes(q)):allCards();render()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){const d=document.getElementById('pcx-drawer');if(d){d.classList.remove('open');d.setAttribute('aria-hidden','true')}}})}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,220));else setTimeout(init,220);
 })();
 </script>
 
