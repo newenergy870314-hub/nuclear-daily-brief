@@ -1,3 +1,4 @@
+# FINAL PC V21 / ARTICLE OPEN SPEED OPTIMIZED / MOBILE UNCHANGED 2026-09-08
 # FINAL PC V20 / DATE INTEGRITY FIX / NO LAST-MODIFIED AS PUBLISH DATE / ARCHIVE DATE REPAIR / PC+MOBILE 2026-09-07
 # FINAL PC V19 / DEFAULT TODAY AUTO + TIMELINE DIRECT MONTHLY JSON SEARCH / ORIGINAL ARTICLE FIRST 2026-09-07
 # FINAL PC V18 / TIMELINE CURRENT-PANEL DATE FIX / 1Y SEARCH / ORIGINAL ARTICLE FIRST 2026-09-07
@@ -29245,6 +29246,54 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   PC21 — ARTICLE OPEN SPEED OPTIMIZATION
+   ========================================================== */
+@media (min-width:1000px){{
+  .pc11-original-wrap{{
+    position:relative!important;
+    background:#fff!important;
+  }}
+  .pc11-original-loading{{
+    position:absolute!important;
+    inset:0 0 auto 0!important;
+    z-index:3!important;
+    min-height:84px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    gap:5px!important;
+    padding:12px 18px!important;
+    background:linear-gradient(180deg,#eef4f9 0%,rgba(238,244,249,.96) 100%)!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    pointer-events:none!important;
+    opacity:1!important;
+    transition:opacity .18s ease!important;
+  }}
+  .pc11-original-loading::after{{
+    content:""!important;
+    width:20px!important;
+    height:20px!important;
+    margin-top:5px!important;
+    border:3px solid rgba(35,57,93,.16)!important;
+    border-top-color:#23395d!important;
+    border-radius:50%!important;
+    animation:pc11FrameSpin .75s linear infinite!important;
+  }}
+  .pc11-original-loading.loaded{{opacity:0!important}}
+  .pc11-original-loading.loaded::after{{animation:none!important}}
+  @keyframes pc11FrameSpin{{to{{transform:rotate(360deg)}}}}
+  #pc11-detail-frame{{
+    width:100%!important;
+    height:100%!important;
+    display:block!important;
+    border:0!important;
+    background:#fff!important;
+  }}
+  .pc11-list-card{{contain:layout paint style!important}}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -38836,6 +38885,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   let selectedCountry="";
   let searchText="";
   let activeArticle=null;
+  let pc11LastOpenedUrl="";
+  let pc11FrameLoadToken=0;
   let world=null;
 
   function desktop(){{return window.matchMedia("(min-width:1000px)").matches}}
@@ -39048,8 +39099,6 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       }}
 
       const open=()=>{{
-        markReadForPC(c);
-        syncMobileState(c);
         openDetail(c);
       }};
       b.addEventListener("click",(ev)=>{{
@@ -39215,12 +39264,21 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function openDetail(c){{
     if(!c)return;
-    markReadForPC(c);
-    syncMobileState(c);
-    activeArticle=c;
 
+    const url=c.dataset.url||"";
     const dashboard=document.getElementById("pc11-dashboard");
     const detail=document.getElementById("pc11-detail");
+    const frame=document.getElementById("pc11-detail-frame");
+    const originalWrap=document.getElementById("pc11-original-wrap");
+    const previewWrap=document.getElementById("pc11-preview-wrap");
+    const previewBtn=document.getElementById("pc11-detail-preview-toggle");
+    const originalBtn=document.getElementById("pc11-detail-original");
+    const loadingTitle=document.getElementById("pc11-original-title");
+    const loadingBox=document.querySelector(".pc11-original-loading");
+
+    activeArticle=c;
+
+    // 즉시 화면 전환
     if(dashboard){{
       dashboard.hidden=true;
       dashboard.style.setProperty("display","none","important");
@@ -39231,60 +39289,134 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       detail.style.setProperty("visibility","visible","important");
       detail.style.setProperty("opacity","1","important");
     }}
-
-    // Existing preview contents are still prepared as a manual fallback.
-    document.getElementById("pc11-detail-group").textContent=group(c)||"기사";
-    document.getElementById("pc11-detail-publisher").textContent=publisher(c)||"-";
-    document.getElementById("pc11-detail-time").textContent=published(c)||"-";
-    document.getElementById("pc11-detail-title").textContent=title(c)||"기사 제목";
-    document.getElementById("pc11-detail-summary").textContent=summary(c)||"수집된 미리보기 정보가 없습니다.";
-
-    const im=image(c),wrap=document.getElementById("pc11-detail-image-wrap"),img=document.getElementById("pc11-detail-image");
-    if(im){{img.src=im;wrap.hidden=false}}else{{img.removeAttribute("src");wrap.hidden=true}}
-
-    const kb=document.getElementById("pc11-detail-keywords");kb.innerHTML="";
-    articleKeywords(c).forEach(k=>{{const s=document.createElement("span");s.textContent=k;kb.appendChild(s)}});
-
-    const rel=relatedFor(c),rb=document.getElementById("pc11-related-list");rb.innerHTML="";
-    document.getElementById("pc11-related-count").textContent=rel.length+"건";
-    rel.forEach(x=>{{
-      const b=document.createElement("button");b.type="button";b.className="pc11-related-item";
-      b.innerHTML='<span>'+esc(publisher(x))+'</span><strong>'+esc(title(x))+'</strong>';
-      b.addEventListener("click",(ev)=>{{ev.preventDefault();ev.stopPropagation();openDetail(x)}});rb.appendChild(b)
-    }});
-
-    const url=c.dataset.url||"";
-    const frame=document.getElementById("pc11-detail-frame");
-    const originalWrap=document.getElementById("pc11-original-wrap");
-    const previewWrap=document.getElementById("pc11-preview-wrap");
-    const previewBtn=document.getElementById("pc11-detail-preview-toggle");
-    const originalBtn=document.getElementById("pc11-detail-original");
-    const loadingTitle=document.getElementById("pc11-original-title");
-
     if(originalWrap)originalWrap.hidden=false;
     if(previewWrap)previewWrap.hidden=true;
     if(previewBtn)previewBtn.textContent="미리보기";
-    if(loadingTitle)loadingTitle.textContent=(publisher(c)||"언론사")+" 원문을 불러오는 중입니다.";
 
-    if(frame){{
-      frame.src="about:blank";
-      setTimeout(()=>{{if(activeArticle===c)frame.src=url||"about:blank"}},0);
+    // 로딩 안내 즉시 표시
+    if(loadingBox){{
+      loadingBox.hidden=false;
+      loadingBox.classList.remove("loaded");
     }}
+    if(loadingTitle){{
+      loadingTitle.textContent=(publisher(c)||"언론사")+" 원문을 불러오는 중입니다.";
+    }}
+
+    // 읽음 상태만 즉시 반영하고 전체 목록 재렌더링은 하지 않음
+    markReadForPC(c);
+    syncMobileState(c);
+
+    document.querySelectorAll(".pc11-list-card.selected").forEach(el=>el.classList.remove("selected"));
+    const cardIndex=currentCards().indexOf(c);
+    if(cardIndex>=0){{
+      const selected=document.querySelector(`.pc11-list-card[data-article-index="${{cardIndex}}"]`);
+      if(selected){{
+        selected.classList.add("selected","read");
+        const status=selected.querySelector(".pc11-list-status");
+        if(status && !selected.classList.contains("important")){{
+          status.classList.remove("unread");
+          status.classList.add("read");
+          status.textContent="읽음";
+        }}
+      }}
+    }}
+
+    // 동일 URL은 재로딩하지 않음
+    const thisToken=++pc11FrameLoadToken;
+    if(frame){{
+      frame.onload=()=>{{
+        if(thisToken!==pc11FrameLoadToken)return;
+        if(loadingBox)loadingBox.classList.add("loaded");
+      }};
+
+      if(url && pc11LastOpenedUrl===url && frame.src && !frame.src.endsWith("about:blank")){{
+        if(loadingBox)loadingBox.classList.add("loaded");
+      }}else if(url){{
+        pc11LastOpenedUrl=url;
+        frame.src=url;
+      }}else{{
+        frame.src="about:blank";
+        if(loadingTitle)loadingTitle.textContent="원문 주소가 없습니다.";
+      }}
+    }}
+
     if(originalBtn){{
       originalBtn.disabled=!url;
       originalBtn.onclick=()=>{{if(url)window.open(url,"_blank","noopener")}};
     }}
+
+    // 미리보기/키워드/관련기사 계산은 뒤로 미룸
+    const preparePreview=()=>{{
+      if(activeArticle!==c)return;
+
+      const groupEl=document.getElementById("pc11-detail-group");
+      const publisherEl=document.getElementById("pc11-detail-publisher");
+      const timeEl=document.getElementById("pc11-detail-time");
+      const titleEl=document.getElementById("pc11-detail-title");
+      const summaryEl=document.getElementById("pc11-detail-summary");
+
+      if(groupEl)groupEl.textContent=group(c)||"기사";
+      if(publisherEl)publisherEl.textContent=publisher(c)||"-";
+      if(timeEl)timeEl.textContent=published(c)||"-";
+      if(titleEl)titleEl.textContent=title(c)||"기사 제목";
+      if(summaryEl)summaryEl.textContent=summary(c)||"수집된 미리보기 정보가 없습니다.";
+
+      const im=image(c);
+      const wrap=document.getElementById("pc11-detail-image-wrap");
+      const img=document.getElementById("pc11-detail-image");
+      if(wrap&&img){{
+        if(im){{ if(img.src!==im)img.src=im; wrap.hidden=false; }}
+        else{{ img.removeAttribute("src"); wrap.hidden=true; }}
+      }}
+
+      const kb=document.getElementById("pc11-detail-keywords");
+      if(kb){{
+        kb.innerHTML="";
+        articleKeywords(c).forEach(k=>{{
+          const s=document.createElement("span");
+          s.textContent=k;
+          kb.appendChild(s);
+        }});
+      }}
+
+      const rel=relatedFor(c);
+      const rb=document.getElementById("pc11-related-list");
+      const count=document.getElementById("pc11-related-count");
+      if(count)count.textContent=rel.length+"건";
+      if(rb){{
+        rb.innerHTML="";
+        rel.forEach(x=>{{
+          const b=document.createElement("button");
+          b.type="button";
+          b.className="pc11-related-item";
+          b.innerHTML='<span>'+esc(publisher(x))+'</span><strong>'+esc(title(x))+'</strong>';
+          b.addEventListener("click",(ev)=>{{
+            ev.preventDefault();
+            ev.stopPropagation();
+            openDetail(x);
+          }});
+          rb.appendChild(b);
+        }});
+      }}
+    }};
+
+    if("requestIdleCallback" in window){{
+      requestIdleCallback(preparePreview,{{timeout:800}});
+    }}else{{
+      setTimeout(preparePreview,120);
+    }}
+
     if(previewBtn){{
       previewBtn.onclick=()=>{{
         const showingPreview=!previewWrap.hidden;
         previewWrap.hidden=showingPreview;
         originalWrap.hidden=!showingPreview;
         previewBtn.textContent=showingPreview?"미리보기":"원문 보기";
+        if(!showingPreview)preparePreview();
       }};
     }}
 
     syncDetailNavButtons();
-    renderArticleList()
   }}
 
   function closeDetail(){{
@@ -39295,8 +39427,12 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       d.hidden=true;
       d.style.setProperty("display","none","important");
     }}
+    pc11FrameLoadToken++;
     const frame=document.getElementById("pc11-detail-frame");
-    if(frame)frame.src="about:blank";
+    if(frame && !frame.src.endsWith("about:blank")){{
+      frame.src="about:blank";
+      pc11LastOpenedUrl="";
+    }}
     if(dash){{
       dash.hidden=false;
       dash.style.removeProperty("display");
