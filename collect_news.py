@@ -1,3 +1,5 @@
+# FINAL PC V14 / MOBILE ARTICLE CARD FEATURES + LARGE TEXT / SPLIT VIEW / 365-DAY ARCHIVE 2026-09-07
+# FINAL PC V13 / ARTICLE CLICK FIX / LEFT 2-3 DETAIL / MOBILE UNCHANGED / 365-DAY ARCHIVE 2026-09-07
 # FINAL PC V12 / MOBILE COLOR IDENTITY + LARGE READABLE TEXT / 365-DAY MONTHLY ARCHIVE 2026-09-07
 # FINAL V11 + 365-DAY MONTHLY LAZY ARCHIVE / MOBILE UI UNCHANGED 2026-09-07
 # FINAL PC V11 / MOBILE IDENTITY + LEFT 2-3 SPLIT ARTICLE VIEW / MOBILE UNCHANGED 2026-09-07
@@ -28625,6 +28627,253 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   PC14 — right article cards fully inherit mobile behavior.
+   Larger text for normal desktop reading distance.
+   ========================================================== */
+@media (min-width:1000px){{
+
+  /* General readability */
+  .pc11-brand strong{{font-size:22px!important}}
+  .pc11-search-wrap input{{font-size:14px!important}}
+  .pc11-header-actions button{{font-size:13px!important}}
+
+  .pc11-page-head h1{{font-size:27px!important}}
+  .pc11-page-head p{{font-size:12px!important}}
+  .pc11-head-count strong{{font-size:21px!important}}
+
+  .pc11-kpis span{{font-size:12px!important}}
+  .pc11-kpis strong{{font-size:28px!important}}
+  .pc11-kpis small{{font-size:10px!important}}
+  .pc11-kpis article.accent strong{{font-size:19px!important}}
+
+  .pc11-card-head{{height:52px!important}}
+  .pc11-card-head span{{font-size:9px!important}}
+  .pc11-card-head strong{{font-size:16px!important}}
+  .pc11-card-head small{{font-size:10px!important}}
+
+  .pc11-issue-list,
+  .pc11-rank-list,
+  .pc11-keyword-list,
+  .pc11-map-layout{{height:calc(100% - 52px)!important}}
+
+  .pc11-issue-item .top{{font-size:10px!important}}
+  .pc11-issue-item h3{{font-size:15px!important}}
+  .pc11-issue-item:first-child h3{{font-size:18px!important}}
+  .pc11-issue-item .chips span{{font-size:9px!important}}
+
+  .pc11-rank-row{{min-height:39px!important}}
+  .pc11-rank-no{{font-size:10px!important}}
+  .pc11-rank-name{{font-size:13px!important}}
+  .pc11-rank-count{{font-size:13px!important}}
+  .pc11-keyword{{height:32px!important;font-size:12px!important}}
+  .pc11-keyword b{{font-size:12px!important}}
+  .pc11-country-row{{min-height:34px!important;font-size:11px!important}}
+  .pc11-country-row strong{{font-size:12px!important}}
+
+  /* Right navigation */
+  .pc11-right{{grid-template-rows:62px auto 46px minmax(0,1fr)!important}}
+  .pc11-right-head>div span{{font-size:9px!important}}
+  .pc11-right-head>div strong{{font-size:17px!important}}
+  .pc11-right-head>span{{font-size:14px!important}}
+  .pc11-group-tabs button{{
+    min-height:34px!important;
+    padding:0 11px!important;
+    font-size:12px!important;
+  }}
+  .pc11-group-tabs button b{{font-size:11px!important}}
+  .pc11-list-head{{font-size:12px!important}}
+  .pc11-list-head strong{{font-size:13px!important}}
+
+  /* Full mobile-style article card */
+  .pc11-article-list{{
+    padding:9px!important;
+  }}
+  .pc11-list-card{{
+    position:relative!important;
+    width:100%!important;
+    min-height:146px!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 106px!important;
+    gap:12px!important;
+    align-items:start!important;
+    padding:13px!important;
+    margin:0 0 9px!important;
+    border:1px solid rgba(35,57,93,.14)!important;
+    border-radius:12px!important;
+    background:#fbfaf7!important;
+    cursor:pointer!important;
+    transition:border-color .15s ease,background .15s ease,opacity .15s ease!important;
+  }}
+  .pc11-list-card:hover{{
+    border-color:#7d98b0!important;
+    background:#fff!important;
+  }}
+  .pc11-list-card.read{{
+    background:#ebeff3!important;
+    opacity:.93!important;
+  }}
+  .pc11-list-card.important{{
+    border:2px solid #f2c94c!important;
+    background:#fffdf3!important;
+    opacity:1!important;
+  }}
+  .pc11-list-card.selected{{
+    box-shadow:0 0 0 2px #23395d inset!important;
+  }}
+
+  .pc11-list-main{{
+    min-width:0!important;
+    display:flex!important;
+    flex-direction:column!important;
+  }}
+  .pc11-list-topline{{
+    display:flex!important;
+    align-items:center!important;
+    gap:7px!important;
+    min-width:0!important;
+  }}
+  .pc11-list-card .publisher{{
+    min-width:0!important;
+    flex:1 1 auto!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    color:#475467!important;
+    font-size:11px!important;
+    font-weight:850!important;
+  }}
+
+  .pc11-list-status{{
+    flex:0 0 auto!important;
+    padding:3px 6px!important;
+    border-radius:999px!important;
+    font-size:10px!important;
+    font-weight:950!important;
+  }}
+  .pc11-list-status.unread{{
+    background:#e8f1f8!important;
+    color:#175c93!important;
+  }}
+  .pc11-list-status.read{{
+    background:#dfe4e8!important;
+    color:#667085!important;
+  }}
+  .pc11-list-status.important{{
+    background:#fff0b8!important;
+    color:#8a6200!important;
+  }}
+
+  .pc11-important-toggle{{
+    flex:0 0 auto!important;
+    height:27px!important;
+    padding:0 7px!important;
+    border:1px solid rgba(35,57,93,.12)!important;
+    border-radius:7px!important;
+    background:#fff!important;
+    color:#7a8493!important;
+    font-size:10px!important;
+    font-weight:950!important;
+    cursor:pointer!important;
+  }}
+  .pc11-important-toggle.active{{
+    border-color:#f2c94c!important;
+    background:#fff8d7!important;
+    color:#9a6a00!important;
+  }}
+
+  .pc11-list-title{{
+    margin-top:8px!important;
+    color:#0b57d0!important;
+    font-size:16px!important;
+    line-height:1.38!important;
+    font-weight:850!important;
+    letter-spacing:-.1px!important;
+    display:-webkit-box!important;
+    -webkit-line-clamp:2!important;
+    -webkit-box-orient:vertical!important;
+    overflow:hidden!important;
+  }}
+  .pc11-new-tag{{
+    display:inline-flex!important;
+    align-items:center!important;
+    height:18px!important;
+    margin-right:5px!important;
+    padding:0 5px!important;
+    border-radius:5px!important;
+    background:#e53935!important;
+    color:#fff!important;
+    font-size:9px!important;
+    font-weight:950!important;
+    vertical-align:2px!important;
+  }}
+  .pc11-list-preview{{
+    margin-top:7px!important;
+    color:#5f6672!important;
+    font-size:13px!important;
+    line-height:1.48!important;
+    display:-webkit-box!important;
+    -webkit-line-clamp:2!important;
+    -webkit-box-orient:vertical!important;
+    overflow:hidden!important;
+  }}
+  .pc11-list-meta{{
+    margin-top:8px!important;
+    color:#7a8493!important;
+    font-size:11px!important;
+    font-weight:700!important;
+  }}
+  .pc11-list-thumb{{
+    width:106px!important;
+    height:86px!important;
+    align-self:center!important;
+    border-radius:10px!important;
+    overflow:hidden!important;
+    background:#e9eef2!important;
+  }}
+  .pc11-list-thumb img{{
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+  }}
+
+  /* Detail view readability */
+  .pc11-detail-meta{{font-size:12px!important}}
+  .pc11-detail h2{{font-size:clamp(29px,2.35vw,41px)!important}}
+  .pc11-detail-section>span,
+  .pc11-detail-section-head span{{font-size:12px!important}}
+  .pc11-detail-section p{{font-size:16px!important}}
+  .pc11-detail-keywords span{{font-size:11px!important}}
+  .pc11-related-item span{{font-size:10px!important}}
+  .pc11-related-item strong{{font-size:13px!important}}
+  #pc11-detail-original{{font-size:12px!important}}
+
+  /* Restored desktop window: keep text readable, allow internal scrolling. */
+  @media (max-width:1450px){{
+    .pc11-list-card{{
+      grid-template-columns:minmax(0,1fr) 92px!important;
+      min-height:138px!important;
+    }}
+    .pc11-list-thumb{{width:92px!important;height:76px!important}}
+    .pc11-list-title{{font-size:15px!important}}
+    .pc11-list-preview{{font-size:12px!important}}
+    .pc11-rank-name,.pc11-rank-count{{font-size:12px!important}}
+  }}
+
+  @media (max-width:1180px){{
+    .pc11-list-card{{
+      grid-template-columns:minmax(0,1fr) 82px!important;
+      gap:9px!important;
+      padding:10px!important;
+    }}
+    .pc11-list-thumb{{width:82px!important;height:70px!important}}
+    .pc11-list-title{{font-size:14px!important}}
+    .pc11-list-preview{{font-size:11px!important}}
+    .pc11-group-tabs button{{font-size:11px!important}}
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -37904,6 +38153,53 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     try{{return new Intl.DateTimeFormat("ko-KR",{{month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}}).format(new Date(ts*1000))}}catch(e){{return ""}}
   }}
   function isNew(c){{return c.classList.contains("new-article")||!!c.querySelector(".new-badge,.badge-new")}}
+  function isRead(c){{return c.classList.contains("read")}}
+  function isImportant(c){{return c.classList.contains("important")}}
+  function syncMobileState(c){{
+    if(typeof applyState==="function"){{
+      try{{applyState(c)}}catch(_error){{}}
+    }}
+  }}
+  function markReadForPC(c){{
+    const u=c?.dataset?.url||"";
+    if(!u)return;
+    try{{
+      if(typeof readArticles!=="undefined"){{
+        readArticles.add(u);
+        if(typeof saveState==="function")saveState();
+      }}else{{
+        const key="nuclearDailyBriefReadArticles";
+        const arr=JSON.parse(localStorage.getItem(key)||"[]");
+        const set=new Set(Array.isArray(arr)?arr:[]);
+        set.add(u);
+        localStorage.setItem(key,JSON.stringify([...set]));
+      }}
+    }}catch(_error){{}}
+    document.querySelectorAll(`.preview-card[data-url="${{CSS.escape(u)}}"]`).forEach(card=>{{
+      if(typeof applyState==="function"){{
+        try{{applyState(card)}}catch(_error){{card.classList.add("read")}}
+      }}else{{
+        card.classList.add("read");
+      }}
+    }});
+  }}
+  function toggleImportantForPC(c){{
+    const mobileButton=c?.querySelector?.(".important-button");
+    if(mobileButton){{
+      mobileButton.click();
+      return;
+    }}
+    const u=c?.dataset?.url||"";
+    if(!u)return;
+    try{{
+      const key="nuclearDailyBriefImportantArticles";
+      const arr=JSON.parse(localStorage.getItem(key)||"[]");
+      const set=new Set(Array.isArray(arr)?arr:[]);
+      if(set.has(u))set.delete(u);else set.add(u);
+      localStorage.setItem(key,JSON.stringify([...set]));
+      c.classList.toggle("important",set.has(u));
+    }}catch(_error){{}}
+  }}
   function fullText(c){{return [title(c),summary(c),publisher(c),group(c),c.dataset.search||""].join(" ").toLowerCase()}}
   function esc(s){{return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}}
 
@@ -37966,14 +38262,72 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       :"전체 기사";
     document.getElementById("pc11-list-title").textContent=selectedName;
 
-    list.forEach(c=>{{
-      const b=document.createElement("button");b.type="button";b.className="pc11-list-card";
+    list.forEach((c,idx)=>{{
+      syncMobileState(c);
+
+      const b=document.createElement("article");
+      b.className="pc11-list-card";
+      b.dataset.articleIndex=String(idx);
+      b.tabIndex=0;
+      b.setAttribute("role","button");
       if(c===activeArticle)b.classList.add("selected");
+      if(isRead(c))b.classList.add("read");
+      if(isImportant(c))b.classList.add("important");
+
       const im=image(c);
-      b.innerHTML='<div><span class="publisher">'+esc(publisher(c))+'</span><strong>'+esc(title(c))+'</strong>'+
-        '<span class="meta">'+esc(published(c))+(country(c)?" · "+esc(COUNTRY_NAME[country(c)]||country(c)):"")+'</span></div>'+
+      const snippet=summary(c);
+      const status=isImportant(c)?"중요":(isRead(c)?"읽음":"안읽음");
+      const newTag=(!isRead(c)&&isNew(c))?'<span class="pc11-new-tag">NEW</span>':"";
+
+      b.innerHTML=
+        '<div class="pc11-list-main">'+
+          '<div class="pc11-list-topline">'+
+            '<span class="publisher">'+esc(publisher(c)||"언론사")+'</span>'+
+            '<span class="pc11-list-status '+(isImportant(c)?"important":isRead(c)?"read":"unread")+'">'+status+'</span>'+
+            '<button class="pc11-important-toggle '+(isImportant(c)?"active":"")+'" type="button" aria-label="중요 기사 표시">'+
+              (isImportant(c)?"★ 중요":"☆ 중요")+
+            '</button>'+
+          '</div>'+
+          '<div class="pc11-list-title">'+newTag+esc(title(c))+'</div>'+
+          '<div class="pc11-list-preview">'+esc(snippet||"미리보기 정보 없음")+'</div>'+
+          '<div class="pc11-list-meta">'+esc(published(c))+
+            (country(c)?" · "+esc(COUNTRY_NAME[country(c)]||country(c)):"")+
+          '</div>'+
+        '</div>'+
         '<div class="pc11-list-thumb">'+(im?'<img src="'+im.replace(/"/g,"%22")+'" alt="">':"")+'</div>';
-      b.onclick=()=>openDetail(c);
+
+      const importantBtn=b.querySelector(".pc11-important-toggle");
+      if(importantBtn){{
+        importantBtn.addEventListener("click",(ev)=>{{
+          ev.preventDefault();
+          ev.stopPropagation();
+          toggleImportantForPC(c);
+          setTimeout(()=>{{
+            syncMobileState(c);
+            renderArticleList();
+            renderKpis();
+          }},0);
+        }});
+      }}
+
+      const open=()=>{{
+        markReadForPC(c);
+        syncMobileState(c);
+        openDetail(c);
+      }};
+      b.addEventListener("click",(ev)=>{{
+        if(ev.target.closest(".pc11-important-toggle"))return;
+        ev.preventDefault();
+        open();
+      }});
+      b.addEventListener("keydown",(ev)=>{{
+        if(ev.key==="Enter"||ev.key===" "){{
+          if(ev.target.closest(".pc11-important-toggle"))return;
+          ev.preventDefault();
+          open();
+        }}
+      }});
+
       box.appendChild(b)
     }})
   }}
@@ -38124,10 +38478,21 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function openDetail(c){{
     if(!c)return;
+    markReadForPC(c);
+    syncMobileState(c);
     activeArticle=c;
     const dashboard=document.getElementById("pc11-dashboard");
     const detail=document.getElementById("pc11-detail");
-    dashboard.hidden=true;detail.hidden=false;
+    if(dashboard){{
+      dashboard.hidden=true;
+      dashboard.style.setProperty("display","none","important");
+    }}
+    if(detail){{
+      detail.hidden=false;
+      detail.style.setProperty("display","grid","important");
+      detail.style.setProperty("visibility","visible","important");
+      detail.style.setProperty("opacity","1","important");
+    }}
 
     document.getElementById("pc11-detail-group").textContent=group(c)||"기사";
     document.getElementById("pc11-detail-publisher").textContent=publisher(c)||"-";
@@ -38148,7 +38513,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     rel.forEach(x=>{{
       const b=document.createElement("button");b.type="button";b.className="pc11-related-item";
       b.innerHTML='<span>'+esc(publisher(x))+'</span><strong>'+esc(title(x))+'</strong>';
-      b.onclick=()=>openDetail(x);rb.appendChild(b)
+      b.addEventListener("click",(ev)=>{{ev.preventDefault();ev.stopPropagation();openDetail(x);}});rb.appendChild(b)
     }});
 
     const url=c.dataset.url||"";
@@ -38163,7 +38528,14 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     activeArticle=null;
     const d=document.getElementById("pc11-detail");
     const dash=document.getElementById("pc11-dashboard");
-    if(d)d.hidden=true;if(dash)dash.hidden=false;
+    if(d){{
+      d.hidden=true;
+      d.style.setProperty("display","none","important");
+    }}
+    if(dash){{
+      dash.hidden=false;
+      dash.style.removeProperty("display");
+    }}
     renderArticleList()
   }}
 
@@ -38226,6 +38598,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     document.getElementById("pc11-detail-back").onclick=closeDetail;
     document.getElementById("pc11-detail-prev").onclick=()=>moveDetail(-1);
     document.getElementById("pc11-detail-next").onclick=()=>moveDetail(1);
+
+
 
     refresh();
     fetch(WORLD_URL)
