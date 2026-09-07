@@ -1,3 +1,6 @@
+# FINAL PC ONE-SCREEN CONTROL TOWER V4 / HARD FIT / MOBILE UNCHANGED 2026-09-07
+# FINAL PC CONTROL TOWER BENTO V3 / 2026 TREND / MOBILE UNCHANGED 2026-09-07
+# FINAL PC PREMIUM WORLD MAP / ANTARCTICA REMOVED / MOBILE UNCHANGED 2026-09-07
 # FINAL PC VISUAL DASHBOARD V2 / MOBILE UNCHANGED 2026-09-07
 # FINAL MOBILE RESTORE / PC FEATURES HIDDEN ON MOBILE 2026-09-04
 # FINAL PC HARD FIX ANALOG CLOCKS + FLAG IMAGES + FULL MAP / MOBILE UNCHANGED 2026-09-04
@@ -24641,6 +24644,1164 @@ main {{
   .pc-v2-map-label {{ padding:3px 5px 3px 4px; }}
 }}
 
+
+/* ==============================================================
+   PC PREMIUM WORLD MAP — 2026-09-07
+   Desktop only / mobile untouched
+   ============================================================== */
+@media (min-width:1000px) {{
+  .pc-v2-map-premium {{
+    min-height:470px !important;
+    height:470px !important;
+    border:1px solid rgba(91,118,142,.20) !important;
+    border-radius:18px !important;
+    overflow:hidden !important;
+    background:
+      radial-gradient(circle at 50% 42%,rgba(231,240,247,.98) 0%,rgba(242,247,250,.98) 48%,rgba(248,250,252,1) 100%) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.95),
+      0 12px 30px rgba(28,52,76,.07) !important;
+  }}
+
+  .pc-v2-map-premium::before {{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      linear-gradient(rgba(92,124,151,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(92,124,151,.035) 1px,transparent 1px);
+    background-size:42px 42px;
+    mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent 92%);
+    z-index:0;
+  }}
+
+  .pc-v2-map-premium::after {{
+    content:"";
+    position:absolute;
+    left:8%;right:8%;bottom:-38px;
+    height:90px;
+    border-radius:50%;
+    background:radial-gradient(ellipse at center,rgba(43,83,120,.11),transparent 68%);
+    filter:blur(14px);
+    pointer-events:none;
+    z-index:0;
+  }}
+
+  .pc-v2-map-chrome {{
+    position:absolute;
+    left:14px;right:14px;top:12px;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    pointer-events:none;
+  }}
+
+  .pc-v2-map-badge {{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    height:24px;
+    padding:0 9px;
+    border:1px solid rgba(52,86,116,.12);
+    border-radius:999px;
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(8px);
+    color:#526b80;
+    font-size:7.5px;
+    font-weight:950;
+    letter-spacing:.5px;
+    box-shadow:0 3px 10px rgba(31,59,86,.06);
+  }}
+
+  .pc-v2-map-badge span {{
+    width:6px;height:6px;
+    border-radius:50%;
+    background:#2d8b6f;
+    box-shadow:0 0 0 3px rgba(45,139,111,.12);
+  }}
+
+  .pc-v2-map-mini-legend {{
+    display:flex;
+    align-items:center;
+    gap:3px;
+    height:24px;
+    padding:0 9px;
+    border:1px solid rgba(52,86,116,.12);
+    border-radius:999px;
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(8px);
+    box-shadow:0 3px 10px rgba(31,59,86,.06);
+  }}
+
+  .pc-v2-map-mini-legend i {{
+    width:9px;height:9px;border-radius:2px;display:block;
+  }}
+  .pc-v2-map-mini-legend .lv1 {{ background:#c7d8e6; }}
+  .pc-v2-map-mini-legend .lv2 {{ background:#91b4cf; }}
+  .pc-v2-map-mini-legend .lv3 {{ background:#5f8fb5; }}
+  .pc-v2-map-mini-legend .lv4 {{ background:#2f648e; }}
+  .pc-v2-map-mini-legend span {{
+    margin-left:3px;
+    color:#708296;
+    font-size:7px;
+    font-weight:850;
+  }}
+
+  .pc-v2-world-map {{
+    position:relative;
+    z-index:2;
+    display:block;
+    width:100% !important;
+    height:470px !important;
+  }}
+
+  .pc-v2-map-ocean {{
+    fill:url(#pc-v2-ocean-grad);
+  }}
+
+  .pc-v2-map-graticule {{
+    fill:none;
+    stroke:rgba(79,112,140,.11);
+    stroke-width:.45;
+    vector-effect:non-scaling-stroke;
+  }}
+
+  .pc-v2-map-country {{
+    fill:#e6edf2 !important;
+    stroke:rgba(255,255,255,.95) !important;
+    stroke-width:.72 !important;
+    vector-effect:non-scaling-stroke;
+    cursor:pointer;
+    transition:
+      fill .16s ease,
+      filter .16s ease,
+      stroke .16s ease,
+      opacity .16s ease;
+  }}
+
+  .pc-v2-map-country.has-news {{
+    fill:#bdd0df !important;
+  }}
+  .pc-v2-map-country.has-news.level-2 {{
+    fill:#8fb1cb !important;
+  }}
+  .pc-v2-map-country.has-news.level-3 {{
+    fill:#5f8eb4 !important;
+  }}
+  .pc-v2-map-country.has-news.level-4 {{
+    fill:#2f648e !important;
+  }}
+
+  .pc-v2-map-country.has-news:hover {{
+    filter:brightness(.92) saturate(1.08);
+    stroke:#fff !important;
+    stroke-width:1.15 !important;
+  }}
+
+  .pc-v2-map-country:not(.has-news) {{
+    opacity:.88;
+  }}
+
+  .pc-v2-map-country.selected {{
+    fill:#143e63 !important;
+    stroke:#f3c95a !important;
+    stroke-width:1.7 !important;
+    filter:drop-shadow(0 2px 4px rgba(23,59,97,.24));
+  }}
+
+  .pc-v2-map-labels {{
+    position:absolute;
+    inset:0;
+    z-index:8;
+    pointer-events:none;
+  }}
+
+  .pc-v2-map-label {{
+    position:absolute;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    min-height:27px;
+    padding:4px 7px 4px 5px;
+    border:1px solid rgba(59,89,115,.14);
+    border-radius:9px;
+    background:rgba(255,255,255,.93);
+    backdrop-filter:blur(8px);
+    box-shadow:
+      0 5px 14px rgba(31,59,86,.10),
+      inset 0 1px 0 rgba(255,255,255,.95);
+    transform:translate(-50%,-50%);
+    white-space:nowrap;
+    pointer-events:auto;
+    cursor:pointer;
+    transition:
+      transform .13s ease,
+      box-shadow .13s ease,
+      border-color .13s ease;
+  }}
+
+  .pc-v2-map-label:hover {{
+    transform:translate(-50%,-50%) scale(1.06);
+    border-color:rgba(42,84,121,.28);
+    box-shadow:0 7px 18px rgba(31,59,86,.15);
+    z-index:30;
+  }}
+
+  .pc-v2-map-label::after {{
+    content:"";
+    position:absolute;
+    left:50%;bottom:-6px;
+    width:1px;height:6px;
+    background:rgba(74,102,126,.22);
+  }}
+
+  .pc-v2-map-label img {{
+    width:20px;
+    height:13px;
+    object-fit:cover;
+    border-radius:2px;
+    box-shadow:0 0 0 1px rgba(0,0,0,.09);
+  }}
+
+  .pc-v2-map-label strong {{
+    color:#284a66;
+    font-size:8.5px;
+    font-weight:950;
+    letter-spacing:-.15px;
+  }}
+
+  .pc-v2-map-label span {{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:22px;
+    height:17px;
+    padding:0 5px;
+    border-radius:999px;
+    background:linear-gradient(180deg,#214f78,#173b61);
+    color:#fff;
+    font-size:7.2px;
+    font-weight:950;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+  }}
+
+  .pc-v2-map-tooltip {{
+    z-index:50 !important;
+    padding:7px 9px !important;
+    border:1px solid rgba(255,255,255,.14) !important;
+    border-radius:8px !important;
+    background:rgba(17,48,74,.94) !important;
+    backdrop-filter:blur(8px);
+    color:#fff !important;
+    font-size:8px !important;
+    font-weight:900 !important;
+    box-shadow:0 8px 20px rgba(15,40,63,.22) !important;
+  }}
+
+  .pc-v2-map-loading {{
+    z-index:40 !important;
+    color:#72869a !important;
+    font-size:9px !important;
+    font-weight:850 !important;
+    background:linear-gradient(180deg,rgba(248,250,252,.92),rgba(244,248,251,.92));
+  }}
+
+  .pc-v2-country-panel {{
+    min-height:470px !important;
+    border-radius:18px !important;
+    border:1px solid rgba(91,118,142,.18) !important;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.98),rgba(246,249,251,.98)) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.95),
+      0 10px 24px rgba(31,59,86,.055) !important;
+  }}
+}}
+
+
+/* ==============================================================
+   PC CONTROL TOWER / BENTO V3 — 2026-09-07
+   2026 desktop dashboard direction:
+   asymmetric bento + calm control-tower hierarchy + no page scroll
+   MOBILE UNCHANGED
+   ============================================================== */
+@media (min-width:1000px) {{
+  html, body {{
+    height:100%;
+  }}
+
+  body {{
+    overflow:hidden !important;
+    background:
+      radial-gradient(circle at 18% 2%,rgba(191,216,235,.32),transparent 34%),
+      #edf2f6 !important;
+  }}
+
+  /* Existing news list becomes a separate desktop view, not the dashboard body. */
+  main {{
+    display:none !important;
+  }}
+
+  body.pc-v3-articles-open main {{
+    display:block !important;
+    position:fixed !important;
+    left:18px !important;
+    right:18px !important;
+    top:118px !important;
+    bottom:16px !important;
+    z-index:500 !important;
+    overflow:auto !important;
+    padding:18px !important;
+    border:1px solid #d7e2eb !important;
+    border-radius:18px !important;
+    background:#eef3f7 !important;
+    box-shadow:0 22px 55px rgba(17,43,67,.22) !important;
+  }}
+
+  .pc-v3-article-close {{
+    position:sticky;
+    top:0;
+    z-index:510;
+    float:right;
+    height:34px;
+    padding:0 13px;
+    margin:0 0 8px 8px;
+    border:0;
+    border-radius:9px;
+    background:#173b61;
+    color:#fff;
+    font:900 9px Pretendard,"Noto Sans KR",sans-serif;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(23,59,97,.18);
+  }}
+
+  .pc-v2-dashboard {{
+    display:grid !important;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    grid-template-rows:36px 76px 126px minmax(0,1fr) minmax(145px,.52fr);
+    gap:9px;
+    height:calc(100dvh - 126px);
+    min-height:650px;
+    max-height:calc(100dvh - 126px);
+    margin:10px 0 12px !important;
+    overflow:hidden;
+  }}
+
+  /* A small command bar gives the page an enterprise control-tower identity. */
+  .pc-v3-commandbar {{
+    grid-column:1 / -1;
+    grid-row:1;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-width:0;
+    padding:0 12px;
+    border:1px solid rgba(80,111,139,.15);
+    border-radius:11px;
+    background:rgba(255,255,255,.80);
+    backdrop-filter:blur(12px);
+    box-shadow:0 3px 12px rgba(29,56,82,.045);
+  }}
+
+  .pc-v3-commandbar > div:first-child {{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    min-width:0;
+  }}
+
+  .pc-v3-commandbar strong {{
+    color:#173b61;
+    font-size:9px;
+    font-weight:950;
+    letter-spacing:.65px;
+  }}
+
+  .pc-v3-commandbar > div:first-child span {{
+    color:#8b99a7;
+    font-size:8px;
+    font-weight:750;
+  }}
+
+  .pc-v3-command-actions {{
+    display:flex;
+    align-items:center;
+    gap:7px;
+  }}
+
+  .pc-v3-live {{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    color:#547164;
+    font-size:7.5px;
+    font-weight:950;
+  }}
+  .pc-v3-live i {{
+    width:6px;height:6px;border-radius:50%;
+    background:#31a27b;
+    box-shadow:0 0 0 3px rgba(49,162,123,.12);
+  }}
+  #pc-v3-open-articles {{
+    height:26px;
+    padding:0 9px;
+    border:1px solid #d6e1e9;
+    border-radius:7px;
+    background:#f7fafc;
+    color:#34536e;
+    font-size:8px;
+    font-weight:950;
+    cursor:pointer;
+  }}
+  #pc-v3-open-articles:hover {{
+    background:#173b61;
+    border-color:#173b61;
+    color:#fff;
+  }}
+
+  /* KPI = compact, calm, not a wall of cards */
+  .pc-v2-kpis {{
+    grid-column:1 / -1;
+    grid-row:2;
+    display:grid !important;
+    grid-template-columns:1.05fr 1.05fr 1.05fr 1.05fr 1.8fr !important;
+    gap:8px !important;
+    min-height:0;
+  }}
+
+  .pc-v2-kpi {{
+    min-height:0 !important;
+    height:76px !important;
+    padding:10px 12px !important;
+    border-radius:13px !important;
+    border:1px solid rgba(81,111,138,.13) !important;
+    box-shadow:0 3px 12px rgba(30,57,83,.035) !important;
+  }}
+  .pc-v2-kpi strong {{
+    margin:5px 0 2px !important;
+    font-size:21px !important;
+  }}
+  .pc-v2-kpi-accent strong {{
+    font-size:16px !important;
+  }}
+
+  /* World clocks occupy one restrained horizontal strip. */
+  .pc-v2-clock-section {{
+    grid-column:1 / -1;
+    grid-row:3;
+    margin:0 !important;
+    padding:10px 12px !important;
+    min-height:0 !important;
+    overflow:hidden;
+    border-radius:15px !important;
+  }}
+
+  .pc-v2-clock-section .pc-v2-section-head {{
+    margin-bottom:7px !important;
+  }}
+  .pc-v2-clock-section .pc-v2-section-head h2 {{
+    font-size:13px !important;
+  }}
+  .pc-v2-clock-section .pc-v2-section-head p {{
+    font-size:7.5px !important;
+  }}
+
+  .pc-v2-clock-grid {{
+    grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+    gap:7px !important;
+  }}
+
+  .pc-v2-clock {{
+    position:relative;
+    display:grid !important;
+    grid-template-columns:36px 76px minmax(0,1fr);
+    grid-template-rows:1fr 1fr;
+    align-items:center;
+    column-gap:8px;
+    height:84px;
+    padding:6px 8px !important;
+    border-radius:11px !important;
+    background:
+      linear-gradient(145deg,rgba(255,255,255,.98),rgba(245,249,252,.97)) !important;
+  }}
+
+  .pc-v2-clock-place {{
+    grid-column:1;
+    grid-row:1 / span 2;
+    display:flex !important;
+    flex-direction:column;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:4px !important;
+    min-height:0 !important;
+    margin:0 !important;
+    text-align:center !important;
+  }}
+  .pc-v2-clock-place img {{
+    width:28px !important;
+    height:18px !important;
+  }}
+  .pc-v2-clock-place div {{
+    display:none !important;
+  }}
+
+  .pc-v2-clock-face {{
+    grid-column:2;
+    grid-row:1 / span 2;
+    width:68px !important;
+    height:68px !important;
+    margin:0 !important;
+    border:1.5px solid #71869a !important;
+    background:
+      radial-gradient(circle at 34% 28%,#fff 0 35%,#f7fafc 65%,#edf2f6 100%) !important;
+    box-shadow:
+      inset 0 0 0 3px rgba(255,255,255,.95),
+      0 4px 10px rgba(33,61,86,.08) !important;
+  }}
+
+  /* Remove old sparse 12/3/6/9 markers; JS builds a complete premium dial. */
+  .pc-v2-clock-face > em {{
+    display:none !important;
+  }}
+
+  .pc-v3-clock-number {{
+    position:absolute;
+    left:50%;top:50%;
+    width:14px;height:12px;
+    margin:-6px 0 0 -7px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#50657a;
+    font-size:5.8px;
+    font-style:normal;
+    font-weight:900;
+    transform:
+      rotate(var(--a))
+      translateY(-26px)
+      rotate(calc(-1 * var(--a)));
+    z-index:1;
+  }}
+
+  .pc-v3-clock-tick {{
+    position:absolute;
+    left:50%;top:50%;
+    width:1px;
+    height:3px;
+    margin-left:-.5px;
+    margin-top:-1.5px;
+    background:#bcc9d4;
+    transform:
+      rotate(var(--a))
+      translateY(-31px);
+    transform-origin:center;
+    opacity:.85;
+  }}
+  .pc-v3-clock-tick.major {{
+    width:1.4px;
+    height:5px;
+    margin-left:-.7px;
+    background:#7f93a5;
+  }}
+
+  .pc-v2-time-meta {{
+    grid-column:3;
+    grid-row:1;
+    align-self:end;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    min-width:0;
+  }}
+
+  .pc-v2-digital {{
+    font-size:12px !important;
+    letter-spacing:.15px;
+  }}
+
+  .pc-v3-day-badge {{
+    display:inline-flex;
+    align-items:center;
+    height:17px;
+    padding:0 5px;
+    border-radius:999px;
+    background:#eef3f7;
+    color:#657a8e;
+    font-size:6.5px;
+    font-weight:950;
+    white-space:nowrap;
+  }}
+  .pc-v3-day-badge.prev {{
+    background:#f3f1eb;
+    color:#816d42;
+  }}
+  .pc-v3-day-badge.next {{
+    background:#e9f2f8;
+    color:#356683;
+  }}
+
+  .pc-v2-zone {{
+    grid-column:3;
+    grid-row:2;
+    align-self:start;
+    margin-top:2px !important;
+    text-align:left;
+    font-size:7px !important;
+  }}
+
+  .pc-v2-zone::before {{
+    content:attr(data-place);
+  }}
+
+  /* Main hero: map dominates the visual hierarchy. */
+  .pc-v2-map-card {{
+    grid-column:1 / span 8;
+    grid-row:4 / span 2;
+    margin:0 !important;
+    min-height:0;
+    padding:12px !important;
+    overflow:hidden;
+  }}
+
+  .pc-v2-map-card .pc-v2-section-head {{
+    margin-bottom:8px !important;
+  }}
+  .pc-v2-map-card .pc-v2-section-head h2 {{
+    font-size:14px !important;
+  }}
+  .pc-v2-map-card .pc-v2-section-head p {{
+    font-size:7.5px !important;
+  }}
+
+  .pc-v2-map-layout {{
+    height:calc(100% - 42px);
+    min-height:0;
+    grid-template-columns:minmax(0,2.8fr) minmax(210px,.8fr) !important;
+    gap:9px !important;
+  }}
+
+  .pc-v2-map-premium {{
+    min-height:0 !important;
+    height:100% !important;
+  }}
+
+  .pc-v2-world-map {{
+    height:100% !important;
+  }}
+
+  .pc-v2-country-panel {{
+    min-height:0 !important;
+    height:100% !important;
+    padding:11px !important;
+    overflow:hidden;
+  }}
+
+  .pc-v2-country-empty {{
+    min-height:0 !important;
+    height:100% !important;
+  }}
+
+  /* Focus becomes the upper-right hero, not a generic section. */
+  .pc-v2-dashboard > .pc-v2-section:nth-of-type(3) {{
+    grid-column:9 / -1;
+    grid-row:4;
+    margin:0 !important;
+    min-height:0;
+    padding:11px !important;
+    overflow:hidden;
+  }}
+
+  .pc-v2-dashboard > .pc-v2-section:nth-of-type(3) .pc-v2-section-head {{
+    margin-bottom:7px !important;
+  }}
+
+  .pc-v2-issue-grid {{
+    height:calc(100% - 38px);
+    grid-template-columns:1.35fr .8fr !important;
+    grid-template-rows:1fr 1fr;
+    gap:7px !important;
+  }}
+
+  .pc-v2-issue {{
+    min-height:0 !important;
+    height:100% !important;
+    border-radius:11px !important;
+  }}
+
+  .pc-v2-issue:nth-child(1) {{
+    grid-row:1 / span 2;
+  }}
+
+  .pc-v2-issue:nth-child(n+2) .pc-v2-issue-content {{
+    padding:8px !important;
+  }}
+  .pc-v2-issue:nth-child(n+2) .pc-v2-issue h3 {{
+    font-size:9px !important;
+    -webkit-line-clamp:2;
+  }}
+  .pc-v2-issue:nth-child(n+2) .pc-v2-issue p {{
+    display:none;
+  }}
+  .pc-v2-issue:nth-child(n+2) .pc-v2-issue-meta span {{
+    font-size:6px !important;
+    padding:2px 4px !important;
+  }}
+
+  /* Flow sits under focus and fits the viewport. */
+  .pc-v2-dashboard > .pc-v2-section:nth-of-type(4) {{
+    grid-column:9 / -1;
+    grid-row:5;
+    margin:0 !important;
+    min-height:0;
+    padding:10px !important;
+    overflow:hidden;
+  }}
+
+  .pc-v2-dashboard > .pc-v2-section:nth-of-type(4) .pc-v2-section-head {{
+    margin-bottom:5px !important;
+  }}
+
+  .pc-v2-flow {{
+    height:calc(100% - 36px);
+    gap:6px !important;
+    padding:2px 1px 4px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+  }}
+
+  .pc-v2-flow-card {{
+    flex:0 0 128px !important;
+    min-height:0 !important;
+    height:100% !important;
+    padding:7px !important;
+  }}
+  .pc-v2-flow-thumb {{
+    width:40px !important;
+    height:40px !important;
+    margin:5px auto 4px !important;
+  }}
+  .pc-v2-flow-card strong {{
+    font-size:7.5px !important;
+    line-height:1.25 !important;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }}
+  .pc-v2-flow-card span.pc-v2-flow-group {{
+    font-size:6.5px !important;
+  }}
+
+  /* The old article divider is not needed in the one-screen control tower. */
+  .pc-v2-article-divider {{
+    display:none !important;
+  }}
+}}
+
+@media (min-width:1000px) and (max-width:1365px) {{
+  .pc-v2-dashboard {{
+    grid-template-rows:34px 70px 118px minmax(0,1fr) 138px;
+    height:calc(100dvh - 120px);
+    max-height:calc(100dvh - 120px);
+  }}
+
+  .pc-v2-clock {{
+    grid-template-columns:28px 62px minmax(0,1fr);
+    column-gap:5px;
+    height:78px;
+  }}
+  .pc-v2-clock-face {{
+    width:58px !important;
+    height:58px !important;
+  }}
+  .pc-v3-clock-number {{
+    transform:
+      rotate(var(--a))
+      translateY(-22px)
+      rotate(calc(-1 * var(--a)));
+    font-size:5px;
+  }}
+  .pc-v3-clock-tick {{
+    transform:rotate(var(--a)) translateY(-26px);
+  }}
+
+  .pc-v2-map-card {{
+    grid-column:1 / span 8;
+  }}
+  .pc-v2-map-layout {{
+    grid-template-columns:minmax(0,1fr) 190px !important;
+  }}
+}}
+
+
+/* ==============================================================
+   PC ONE-SCREEN CONTROL TOWER V4 — HARD FIT
+   Desktop only. Mobile remains untouched.
+   ============================================================== */
+@media (min-width:1000px) {{
+  html {{
+    height:100% !important;
+    overflow:hidden !important;
+  }}
+  body {{
+    height:100dvh !important;
+    min-height:100dvh !important;
+    overflow:hidden !important;
+  }}
+
+  .phone {{
+    position:relative !important;
+    width:min(calc(100vw - 18px),1780px) !important;
+    max-width:1780px !important;
+    height:100dvh !important;
+    min-height:0 !important;
+    margin:0 auto !important;
+    overflow:hidden !important;
+  }}
+
+  /* Compact desktop header: always visible, never sticky in the middle of a full-page capture. */
+  #topbar {{
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    top:0 !important;
+    z-index:900 !important;
+    height:92px !important;
+    min-height:92px !important;
+    max-height:92px !important;
+    overflow:hidden !important;
+    padding:9px 13px !important;
+    border-radius:0 0 13px 13px !important;
+    box-sizing:border-box !important;
+  }}
+
+  #topbar .topbar-title-row {{
+    min-height:28px !important;
+    height:28px !important;
+    margin:0 !important;
+  }}
+
+  #topbar h1 {{
+    font-size:19px !important;
+    line-height:1 !important;
+  }}
+
+  #topbar .updated-inline {{
+    font-size:8px !important;
+  }}
+
+  #topbar .search-wrap {{
+    position:absolute !important;
+    left:250px !important;
+    right:430px !important;
+    top:10px !important;
+    margin:0 !important;
+  }}
+
+  #topbar .search-input {{
+    height:31px !important;
+    min-height:31px !important;
+    font-size:9px !important;
+  }}
+
+  #topbar .header-controls,
+  #topbar.collapsed .header-controls {{
+    position:absolute !important;
+    left:12px !important;
+    right:12px !important;
+    bottom:8px !important;
+    display:grid !important;
+    grid-template-columns:minmax(280px,1fr) auto !important;
+    gap:8px !important;
+    height:34px !important;
+    max-height:34px !important;
+    margin:0 !important;
+    opacity:1 !important;
+    overflow:visible !important;
+    pointer-events:auto !important;
+  }}
+
+  #topbar .tabs {{
+    display:grid !important;
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:5px !important;
+  }}
+
+  #topbar .tab-button {{
+    height:31px !important;
+    min-height:31px !important;
+    padding:0 10px !important;
+  }}
+
+  #topbar .utility-row {{
+    display:flex !important;
+    align-items:center !important;
+    gap:6px !important;
+    margin:0 !important;
+  }}
+
+  #header-toggle {{
+    position:absolute !important;
+    right:13px !important;
+    top:10px !important;
+    height:31px !important;
+    z-index:5 !important;
+  }}
+
+  /* The dashboard occupies exactly the remaining viewport. */
+  #pc-v2-dashboard {{
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    top:100px !important;
+    bottom:8px !important;
+    width:auto !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+    margin:0 !important;
+    overflow:hidden !important;
+
+    display:grid !important;
+    grid-template-columns:repeat(12,minmax(0,1fr)) !important;
+    grid-template-rows:
+      31px
+      64px
+      112px
+      minmax(0,1fr)
+      132px !important;
+    gap:7px !important;
+  }}
+
+  /* Force old desktop content completely out of the dashboard viewport. */
+  main,
+  #favorites-panel,
+  #world-map-panel,
+  #pc-insight-rail,
+  #pc-category-strip,
+  #pc-country-filter-result {{
+    display:none !important;
+  }}
+
+  body.pc-v3-articles-open main {{
+    display:block !important;
+  }}
+
+  .pc-v3-commandbar {{
+    grid-column:1 / -1 !important;
+    grid-row:1 !important;
+    min-height:0 !important;
+    height:31px !important;
+  }}
+
+  .pc-v2-kpis {{
+    grid-column:1 / -1 !important;
+    grid-row:2 !important;
+    min-height:0 !important;
+    height:64px !important;
+  }}
+
+  .pc-v2-kpi {{
+    min-height:0 !important;
+    height:64px !important;
+    padding:8px 10px !important;
+  }}
+  .pc-v2-kpi strong {{
+    margin:3px 0 1px !important;
+    font-size:18px !important;
+  }}
+  .pc-v2-kpi-accent strong {{
+    font-size:14px !important;
+  }}
+
+  .pc-v2-clock-section {{
+    grid-column:1 / -1 !important;
+    grid-row:3 !important;
+    height:112px !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:7px 10px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-v2-clock-section .pc-v2-section-head {{
+    height:20px !important;
+    margin:0 0 4px !important;
+  }}
+  .pc-v2-clock-section .pc-v2-section-head h2 {{
+    font-size:11px !important;
+  }}
+  .pc-v2-clock-section .pc-v2-section-head p {{
+    font-size:6.5px !important;
+  }}
+
+  .pc-v2-clock-grid {{
+    height:78px !important;
+    min-height:78px !important;
+  }}
+
+  .pc-v2-clock {{
+    height:78px !important;
+    min-height:78px !important;
+  }}
+
+  /* Map is the dominant visual. */
+  .pc-v2-map-card {{
+    grid-column:1 / span 8 !important;
+    grid-row:4 / span 2 !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:9px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-v2-map-card .pc-v2-section-head {{
+    height:28px !important;
+    margin:0 0 5px !important;
+  }}
+
+  .pc-v2-map-layout {{
+    height:calc(100% - 33px) !important;
+    min-height:0 !important;
+    grid-template-columns:minmax(0,1fr) 215px !important;
+    gap:7px !important;
+  }}
+
+  .pc-v2-map-wrap,
+  .pc-v2-map-premium,
+  .pc-v2-country-panel {{
+    height:100% !important;
+    min-height:0 !important;
+  }}
+
+  .pc-v2-world-map {{
+    width:100% !important;
+    height:100% !important;
+  }}
+
+  .pc-v2-country-panel {{
+    padding:9px !important;
+    overflow:hidden !important;
+  }}
+
+  /* Right-side visual bento */
+  .pc-v4-focus-section {{
+    grid-column:9 / -1 !important;
+    grid-row:4 !important;
+    min-height:0 !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:8px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-section-head {{
+    height:27px !important;
+    margin:0 0 5px !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-section-head h2,
+  .pc-v4-flow-section .pc-v2-section-head h2 {{
+    font-size:11px !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-section-head p,
+  .pc-v4-flow-section .pc-v2-section-head p {{
+    font-size:6.5px !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-issue-grid {{
+    height:calc(100% - 32px) !important;
+    min-height:0 !important;
+  }}
+
+  .pc-v4-flow-section {{
+    grid-column:9 / -1 !important;
+    grid-row:5 !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:8px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-section-head {{
+    height:25px !important;
+    margin:0 0 4px !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-flow {{
+    height:calc(100% - 29px) !important;
+    min-height:0 !important;
+  }}
+
+  .pc-v2-article-divider {{
+    display:none !important;
+  }}
+
+  /* Clear build marker: if this is visible, V4 is definitely deployed. */
+  .pc-v3-commandbar::after {{
+    content:"V4 · ONE SCREEN";
+    display:inline-flex;
+    align-items:center;
+    height:18px;
+    padding:0 6px;
+    margin-left:8px;
+    border-radius:999px;
+    background:#eaf1f7;
+    color:#56718a;
+    font-size:6.5px;
+    font-weight:950;
+    letter-spacing:.25px;
+  }}
+}}
+
+/* Lower-height desktop / laptop: compress clocks and KPI further, never create page scroll. */
+@media (min-width:1000px) and (max-height:760px) {{
+  #topbar {{
+    height:82px !important;
+    min-height:82px !important;
+    max-height:82px !important;
+  }}
+
+  #pc-v2-dashboard {{
+    top:89px !important;
+    grid-template-rows:29px 56px 96px minmax(0,1fr) 116px !important;
+  }}
+
+  .pc-v2-kpis,
+  .pc-v2-kpi {{
+    height:56px !important;
+  }}
+
+  .pc-v2-clock-section {{
+    height:96px !important;
+  }}
+
+  .pc-v2-clock-grid {{
+    height:64px !important;
+    min-height:64px !important;
+  }}
+
+  .pc-v2-clock {{
+    height:64px !important;
+    min-height:64px !important;
+    grid-template-columns:24px 52px minmax(0,1fr) !important;
+  }}
+
+  .pc-v2-clock-face {{
+    width:50px !important;
+    height:50px !important;
+  }}
+
+  .pc-v2-digital {{
+    font-size:10px !important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -24687,6 +25848,17 @@ main {{
        ========================================================= -->
   <section id="pc-v2-dashboard" class="pc-v2-dashboard" aria-label="PC 원전 뉴스 시각화 대시보드">
 
+    <div class="pc-v3-commandbar">
+      <div>
+        <strong>NUCLEAR INTELLIGENCE</strong>
+        <span>Global Nuclear News Control Tower</span>
+      </div>
+      <div class="pc-v3-command-actions">
+        <span class="pc-v3-live"><i></i> LIVE</span>
+        <button id="pc-v3-open-articles" type="button">전체 기사</button>
+      </div>
+    </div>
+
     <div class="pc-v2-kpis">
       <article class="pc-v2-kpi">
         <span>전체 기사</span>
@@ -24729,7 +25901,7 @@ main {{
             <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
             <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
           </div>
-          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">KST</div>
+          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">KST</div>
         </article>
 
         <article class="pc-v2-clock" data-tz="America/New_York" data-country="미국" data-capital="Washington D.C." data-flag="us">
@@ -24738,7 +25910,7 @@ main {{
             <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
             <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
           </div>
-          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">ET</div>
+          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">ET</div>
         </article>
 
         <article class="pc-v2-clock" data-tz="Europe/London" data-country="영국" data-capital="London" data-flag="gb">
@@ -24747,7 +25919,7 @@ main {{
             <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
             <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
           </div>
-          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">UK</div>
+          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">UK</div>
         </article>
 
         <article class="pc-v2-clock" data-tz="Europe/Sofia" data-country="불가리아" data-capital="Sofia" data-flag="bg">
@@ -24756,7 +25928,7 @@ main {{
             <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
             <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
           </div>
-          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">EET</div>
+          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">EET</div>
         </article>
 
         <article class="pc-v2-clock" data-tz="Europe/Prague" data-country="체코" data-capital="Prague" data-flag="cz">
@@ -24765,7 +25937,7 @@ main {{
             <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
             <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
           </div>
-          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">CET</div>
+          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">CET</div>
         </article>
 
         <article class="pc-v2-clock" data-tz="Europe/Bucharest" data-country="루마니아" data-capital="Bucharest" data-flag="ro">
@@ -24774,7 +25946,7 @@ main {{
             <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
             <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
           </div>
-          <div class="pc-v2-digital">--:--:--</div><div class="pc-v2-zone">EET</div>
+          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">EET</div>
         </article>
       </div>
     </section>
@@ -24788,8 +25960,15 @@ main {{
         <button id="pc-v2-map-reset" class="pc-v2-map-reset" type="button">전체 국가</button>
       </div>
       <div class="pc-v2-map-layout">
-        <div class="pc-v2-map-wrap">
-          <svg id="pc-v2-world-map" class="pc-v2-world-map" viewBox="0 0 1100 560" aria-label="PC 고해상도 세계지도"></svg>
+        <div class="pc-v2-map-wrap pc-v2-map-premium">
+          <div class="pc-v2-map-chrome">
+            <div class="pc-v2-map-badge"><span></span> LIVE GLOBAL MONITOR</div>
+            <div class="pc-v2-map-mini-legend">
+              <i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
+              <span>기사 집중도</span>
+            </div>
+          </div>
+          <svg id="pc-v2-world-map" class="pc-v2-world-map" viewBox="0 0 1100 520" aria-label="PC 고해상도 세계지도"></svg>
           <div id="pc-v2-map-labels" class="pc-v2-map-labels"></div>
           <div id="pc-v2-map-tooltip" class="pc-v2-map-tooltip" hidden></div>
           <div id="pc-v2-map-loading" class="pc-v2-map-loading">고해상도 세계지도 불러오는 중...</div>
@@ -24824,21 +26003,21 @@ main {{
       </div>
     </section>
 
-    <section class="pc-v2-section">
+    <section class="pc-v2-section pc-v4-focus-section">
       <div class="pc-v2-section-head">
         <div>
-          <h2>오늘의 핵심 이슈</h2>
-          <p>기사 제목을 모두 읽지 않아도 주요 흐름을 이미지 중심으로 확인</p>
+          <h2>오늘의 핵심 변화</h2>
+          <p>기사량보다 변화의 의미를 먼저 보여주는 시각 요약</p>
         </div>
       </div>
       <div id="pc-v2-issue-grid" class="pc-v2-issue-grid"></div>
     </section>
 
-    <section class="pc-v2-section">
+    <section class="pc-v2-section pc-v4-flow-section">
       <div class="pc-v2-section-head">
         <div>
-          <h2>주요 이슈 흐름</h2>
-          <p>현대건설 · 대미투자 · 주요 프로젝트 관련 기사의 시간 흐름</p>
+          <h2>이슈 진행 흐름</h2>
+          <p>주요 프로젝트와 사업 이슈의 최근 진행 순서</p>
         </div>
       </div>
       <div id="pc-v2-flow" class="pc-v2-flow"></div>
@@ -31477,7 +32656,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   const PCV2_MIN_WIDTH = 1000;
-  const PCV2_WORLD_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+  const PCV2_WORLD_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
 
   /* ISO alpha-2 -> ISO numeric used by world-atlas.
      Includes the countries currently relevant to this news dashboard. */
@@ -31526,11 +32705,28 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }}
 
   function pcv2Cards(includeHidden) {{
-    const panel = pcv2ActivePanel();
-    if(!panel) return [];
-    return Array.from(panel.querySelectorAll(".preview-card")).filter(function(card) {{
-      if(includeHidden) return true;
-      return card.style.display !== "none" && !card.hidden;
+    let cards=[];
+    const panel=pcv2ActivePanel();
+    if(panel) cards=Array.from(panel.querySelectorAll(".preview-card"));
+
+    /* Hard fallback: the desktop dashboard must still populate even if a legacy
+       tab script temporarily lost the .active class. */
+    if(!cards.length) {{
+      cards=Array.from(document.querySelectorAll("main .preview-card"));
+    }}
+
+    const unique=[];
+    const seen=new Set();
+    cards.forEach(function(card) {{
+      const key=(card.dataset.url||card.dataset.title||"")+"|"+(card.dataset.published||"");
+      if(seen.has(key)) return;
+      seen.add(key);
+      unique.push(card);
+    }});
+
+    if(includeHidden) return unique;
+    return unique.filter(function(card) {{
+      return !card.hidden && card.style.display !== "none";
     }});
   }}
 
@@ -31814,18 +33010,64 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
     const node=svg.node();
     const width=node.clientWidth || 1050;
-    const height=node.clientHeight || 500;
+    const height=node.clientHeight || 470;
     svg.attr("viewBox","0 0 "+width+" "+height);
     svg.selectAll("*").remove();
 
-    const features=topojson.feature(pcv2WorldData,pcv2WorldData.objects.countries).features;
-    const sphere={{type:"Sphere"}};
-    const projection=d3.geoNaturalEarth1().fitExtent([[12,12],[width-12,height-12]],sphere);
+    /* Antarctica (ISO numeric 010) is intentionally removed for a cleaner PC dashboard. */
+    const allFeatures=topojson.feature(
+      pcv2WorldData,
+      pcv2WorldData.objects.countries
+    ).features;
+
+    const features=allFeatures.filter(function(f) {{
+      return String(Number(f.id)) !== "10";
+    }});
+
+    const featureCollection={{
+      type:"FeatureCollection",
+      features:features
+    }};
+
+    const projection=d3.geoNaturalEarth1()
+      .fitExtent([[20,38],[width-20,height-18]],featureCollection);
+
     const path=d3.geoPath(projection);
     const counts=pcv2CountryCounts(pcv2Cards(false));
     const maxCount=Math.max(1,...Object.values(counts));
 
-    const g=svg.append("g");
+    /* SVG defs for a more polished ocean background. */
+    const defs=svg.append("defs");
+
+    const oceanGrad=defs.append("linearGradient")
+      .attr("id","pc-v2-ocean-grad")
+      .attr("x1","0%").attr("y1","0%")
+      .attr("x2","0%").attr("y2","100%");
+    oceanGrad.append("stop")
+      .attr("offset","0%")
+      .attr("stop-color","#eef5f9");
+    oceanGrad.append("stop")
+      .attr("offset","100%")
+      .attr("stop-color","#f8fafc");
+
+    defs.append("filter")
+      .attr("id","pc-v2-soft-shadow")
+      .html('<feDropShadow dx="0" dy="2" stdDeviation="2.2" flood-color="#315575" flood-opacity=".10"/>');
+
+    /* Ocean silhouette + subtle latitude/longitude grid. */
+    svg.append("path")
+      .datum({{type:"Sphere"}})
+      .attr("class","pc-v2-map-ocean")
+      .attr("d",path);
+
+    svg.append("path")
+      .datum(d3.geoGraticule10())
+      .attr("class","pc-v2-map-graticule")
+      .attr("d",path);
+
+    const g=svg.append("g")
+      .attr("filter","url(#pc-v2-soft-shadow)");
+
     g.selectAll("path")
       .data(features)
       .join("path")
@@ -31839,18 +33081,32 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         else if(count/maxCount>=.20) level=2;
         return "pc-v2-map-country"+(count?" has-news level-"+level:"")+(code===pcv2SelectedCountry?" selected":"");
       }})
-      .attr("data-code",function(f) {{ return PCV2_ALPHA_BY_NUM[String(Number(f.id))]||""; }})
+      .attr("data-code",function(f) {{
+        return PCV2_ALPHA_BY_NUM[String(Number(f.id))]||"";
+      }})
       .on("mouseenter",function(event,f) {{
         const code=PCV2_ALPHA_BY_NUM[String(Number(f.id))]||"";
         if(!code) return;
+
         const tip=document.getElementById("pc-v2-map-tooltip");
         if(!tip) return;
+
         const count=counts[code]||0;
         tip.hidden=false;
-        tip.textContent=(PCV2_NAME[code]||code)+" · "+count+"건";
+        tip.innerHTML=
+          '<strong style="font-weight:950">'+(PCV2_NAME[code]||code)+'</strong>'+
+          '<span style="opacity:.72;margin-left:5px">'+count+'건</span>';
+
         const rect=document.querySelector(".pc-v2-map-wrap").getBoundingClientRect();
-        tip.style.left=(event.clientX-rect.left+10)+"px";
-        tip.style.top=(event.clientY-rect.top+10)+"px";
+        tip.style.left=(event.clientX-rect.left+11)+"px";
+        tip.style.top=(event.clientY-rect.top+11)+"px";
+      }})
+      .on("mousemove",function(event) {{
+        const tip=document.getElementById("pc-v2-map-tooltip");
+        if(!tip || tip.hidden) return;
+        const rect=document.querySelector(".pc-v2-map-wrap").getBoundingClientRect();
+        tip.style.left=(event.clientX-rect.left+11)+"px";
+        tip.style.top=(event.clientY-rect.top+11)+"px";
       }})
       .on("mouseleave",function() {{
         const tip=document.getElementById("pc-v2-map-tooltip");
@@ -31868,10 +33124,15 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       const code=entry[0], count=entry[1];
       const numeric=PCV2_ISO_NUMERIC[code];
       if(!numeric) return;
-      const feature=features.find(function(f) {{ return String(Number(f.id))===String(Number(numeric)); }});
+
+      const feature=features.find(function(f) {{
+        return String(Number(f.id))===String(Number(numeric));
+      }});
       if(!feature) return;
+
       const centroid=path.centroid(feature);
       if(!Number.isFinite(centroid[0]) || !Number.isFinite(centroid[1])) return;
+
       pcv2MapLabel(code,centroid[0],centroid[1],count);
     }});
 
@@ -31952,6 +33213,188 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         pcv2RenderMap();
       }}
     }},140);
+  }});
+}})();
+</script>
+
+
+<script>
+(function() {{
+  function pcv3Desktop() {{
+    return window.matchMedia("(min-width:1000px)").matches;
+  }}
+
+  function pcv3DateKey(zone, now) {{
+    const parts=new Intl.DateTimeFormat("en-CA",{{
+      timeZone:zone,year:"numeric",month:"2-digit",day:"2-digit"
+    }}).formatToParts(now);
+    const v={{}};
+    parts.forEach(function(p) {{ if(p.type!=="literal") v[p.type]=p.value; }});
+    return v.year+"-"+v.month+"-"+v.day;
+  }}
+
+  function pcv3DayRelation(zone, now) {{
+    const korea=pcv3DateKey("Asia/Seoul",now);
+    const target=pcv3DateKey(zone,now);
+    if(target===korea) return ["당일","same"];
+
+    /* Compare calendar keys as UTC-midnight dates to avoid DST-hour ambiguity. */
+    const k=new Date(korea+"T00:00:00Z").getTime();
+    const t=new Date(target+"T00:00:00Z").getTime();
+    if(t<k) return ["전일","prev"];
+    return ["익일","next"];
+  }}
+
+  function pcv3BuildClockFaces() {{
+    if(!pcv3Desktop()) return;
+    document.querySelectorAll(".pc-v2-clock-face").forEach(function(face) {{
+      if(face.dataset.pcv3Built==="1") return;
+      face.dataset.pcv3Built="1";
+
+      /* 60 minute ticks, with major ticks every 5 minutes. */
+      for(let i=0;i<60;i++) {{
+        const tick=document.createElement("span");
+        tick.className="pc-v3-clock-tick"+(i%5===0?" major":"");
+        tick.style.setProperty("--a",(i*6)+"deg");
+        face.insertBefore(tick,face.firstChild);
+      }}
+
+      /* Full 1-12 dial. */
+      for(let n=1;n<=12;n++) {{
+        const num=document.createElement("span");
+        num.className="pc-v3-clock-number";
+        num.textContent=String(n);
+        num.style.setProperty("--a",(n*30)+"deg");
+        face.insertBefore(num,face.firstChild);
+      }}
+    }});
+  }}
+
+  function pcv3UpdateDayBadges() {{
+    if(!pcv3Desktop()) return;
+    const now=new Date();
+    document.querySelectorAll(".pc-v2-clock").forEach(function(card) {{
+      const zone=card.dataset.tz;
+      const badge=card.querySelector(".pc-v3-day-badge");
+      if(!zone || !badge) return;
+      const rel=pcv3DayRelation(zone,now);
+      badge.textContent=rel[0];
+      badge.classList.remove("prev","next");
+      if(rel[1]!=="same") badge.classList.add(rel[1]);
+
+      const zoneEl=card.querySelector(".pc-v2-zone");
+      if(zoneEl) {{
+        const country=card.dataset.country || "";
+        const capital=card.dataset.capital || "";
+        const old=zoneEl.textContent.trim();
+        zoneEl.textContent=(country?country+" · ":"")+(capital?capital+" · ":"")+old.split(" · ").pop();
+      }}
+    }});
+  }}
+
+  function pcv3EnsureArticleClose() {{
+    if(!pcv3Desktop()) return;
+    const main=document.querySelector("main");
+    if(!main || main.querySelector(".pc-v3-article-close")) return;
+    const close=document.createElement("button");
+    close.type="button";
+    close.className="pc-v3-article-close";
+    close.textContent="대시보드로 돌아가기 ×";
+    close.addEventListener("click",function() {{
+      document.body.classList.remove("pc-v3-articles-open");
+    }});
+    main.insertBefore(close,main.firstChild);
+  }}
+
+  function pcv3InitArticleView() {{
+    const open=document.getElementById("pc-v3-open-articles");
+    if(open && open.dataset.bound!=="1") {{
+      open.dataset.bound="1";
+      open.addEventListener("click",function() {{
+        pcv3EnsureArticleClose();
+        document.body.classList.add("pc-v3-articles-open");
+      }});
+    }}
+
+    document.addEventListener("keydown",function(e) {{
+      if(e.key==="Escape") document.body.classList.remove("pc-v3-articles-open");
+    }});
+  }}
+
+  function pcv3Init() {{
+    if(!pcv3Desktop()) return;
+    pcv3BuildClockFaces();
+    pcv3UpdateDayBadges();
+    pcv3InitArticleView();
+  }}
+
+  if(document.readyState==="loading") {{
+    document.addEventListener("DOMContentLoaded",function() {{
+      setTimeout(pcv3Init,180);
+    }});
+  }} else {{
+    setTimeout(pcv3Init,180);
+  }}
+
+  setInterval(function() {{
+    if(pcv3Desktop()) pcv3UpdateDayBadges();
+  }},60000);
+
+  window.addEventListener("resize",function() {{
+    setTimeout(pcv3Init,120);
+  }});
+}})();
+</script>
+
+
+<script>
+(function() {{
+  function pcv4Desktop() {{
+    return window.matchMedia("(min-width:1000px)").matches;
+  }}
+
+  function pcv4HardFit() {{
+    if(!pcv4Desktop()) return;
+
+    document.documentElement.classList.add("pc-v4-desktop");
+    document.body.classList.add("pc-v4-desktop");
+
+    const dash=document.getElementById("pc-v2-dashboard");
+    const header=document.getElementById("topbar");
+    const main=document.querySelector("main");
+
+    if(main && !document.body.classList.contains("pc-v3-articles-open")) {{
+      main.style.setProperty("display","none","important");
+    }}
+
+    if(dash) {{
+      dash.style.setProperty("display","grid","important");
+      dash.style.setProperty("overflow","hidden","important");
+    }}
+
+    if(header) {{
+      header.style.setProperty("position","absolute","important");
+      header.style.setProperty("top","0","important");
+    }}
+
+    /* Rebuild analytics after all static article cards exist. */
+    if(typeof pcv2Refresh==="function") {{
+      try {{ pcv2Refresh(); }} catch(_e) {{}}
+    }}
+  }}
+
+  if(document.readyState==="loading") {{
+    document.addEventListener("DOMContentLoaded",function() {{
+      setTimeout(pcv4HardFit,250);
+      setTimeout(pcv4HardFit,900);
+    }});
+  }} else {{
+    setTimeout(pcv4HardFit,250);
+    setTimeout(pcv4HardFit,900);
+  }}
+
+  window.addEventListener("resize",function() {{
+    setTimeout(pcv4HardFit,100);
   }});
 }})();
 </script>
