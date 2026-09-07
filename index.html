@@ -17161,6 +17161,256 @@ main {
   }
 }
 
+
+/* ==========================================================
+   PC15 — LARGE COUNTRY DISTRIBUTION MAP
+   주요 이슈 묶음 제거 / 국가별 기사 분포를 핵심 시각화로 확대
+   ========================================================== */
+@media (min-width:1000px){
+
+  /* Dashboard: KPI + large map + lower analytics */
+  .pc11-dashboard{
+    grid-template-rows:74px 84px minmax(360px,1.18fr) minmax(220px,.82fr)!important;
+    gap:10px!important;
+  }
+
+  .pc11-dashboard-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-rows:minmax(360px,1.18fr) minmax(220px,.82fr)!important;
+    gap:10px!important;
+    min-height:0!important;
+  }
+
+  /* Hide issue cluster completely on PC */
+  .pc11-issues{
+    display:none!important;
+  }
+
+  /* Large map takes full width on top */
+  .pc11-map-card{
+    display:block!important;
+    grid-column:1 / span 2!important;
+    grid-row:1!important;
+    min-height:360px!important;
+  }
+
+  /* Lower analytics */
+  .pc11-entities{
+    display:block!important;
+    grid-column:1!important;
+    grid-row:2!important;
+    min-height:220px!important;
+  }
+
+  .pc11-keywords{
+    display:block!important;
+    grid-column:2!important;
+    grid-row:2!important;
+    min-height:220px!important;
+  }
+
+  /* Keep lower-priority media/publisher card out of first dashboard screen */
+  .pc11-media{
+    display:none!important;
+  }
+
+  .pc11-map-card .pc11-card-head{
+    height:54px!important;
+  }
+
+  .pc11-map-card .pc11-card-head strong{
+    font-size:17px!important;
+  }
+
+  .pc11-map-card .pc11-card-head small{
+    font-size:11px!important;
+  }
+
+  .pc11-map-layout{
+    height:calc(100% - 54px)!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 190px!important;
+    gap:12px!important;
+    padding:12px!important;
+  }
+
+  .pc11-map-stage{
+    min-height:280px!important;
+    border-radius:12px!important;
+    overflow:hidden!important;
+  }
+
+  .pc11-map-country-list{
+    min-height:0!important;
+    overflow:auto!important;
+    padding-right:2px!important;
+  }
+
+  .pc11-country-row{
+    min-height:39px!important;
+    padding:0 8px!important;
+    border-bottom:1px solid rgba(35,57,93,.08)!important;
+    font-size:12px!important;
+  }
+
+  .pc11-country-row strong{
+    font-size:13px!important;
+  }
+
+  /* Make selected countries obvious */
+  .pc11-map-country.selected{
+    fill:#fee500!important;
+    stroke:#23395d!important;
+    stroke-width:1.4px!important;
+  }
+
+  /* Restored desktop window */
+  @media (max-width:1450px){
+    .pc11-dashboard{
+      grid-template-rows:66px 78px minmax(330px,1.12fr) minmax(205px,.88fr)!important;
+    }
+    .pc11-dashboard-grid{
+      grid-template-rows:minmax(330px,1.12fr) minmax(205px,.88fr)!important;
+    }
+    .pc11-map-card{
+      min-height:330px!important;
+    }
+    .pc11-map-layout{
+      grid-template-columns:minmax(0,1fr) 170px!important;
+    }
+  }
+
+  @media (max-width:1180px){
+    .pc11-dashboard-grid{
+      grid-template-columns:minmax(0,1fr)!important;
+      grid-template-rows:minmax(320px,1fr) minmax(205px,.7fr) minmax(205px,.7fr)!important;
+    }
+    .pc11-map-card{
+      grid-column:1!important;
+      grid-row:1!important;
+      min-height:320px!important;
+    }
+    .pc11-entities{
+      grid-column:1!important;
+      grid-row:2!important;
+    }
+    .pc11-keywords{
+      grid-column:1!important;
+      grid-row:3!important;
+    }
+    .pc11-map-layout{
+      grid-template-columns:minmax(0,1fr) 150px!important;
+    }
+  }
+
+  @media (max-height:760px){
+    .pc11-dashboard{
+      grid-template-rows:58px 66px minmax(270px,1fr) minmax(175px,.68fr)!important;
+    }
+    .pc11-dashboard-grid{
+      grid-template-rows:minmax(270px,1fr) minmax(175px,.68fr)!important;
+    }
+    .pc11-map-card{
+      min-height:270px!important;
+    }
+    .pc11-map-layout{
+      height:calc(100% - 46px)!important;
+      padding:8px!important;
+    }
+    .pc11-map-card .pc11-card-head{
+      height:46px!important;
+    }
+    .pc11-map-stage{
+      min-height:220px!important;
+    }
+  }
+}
+
+
+/* ==========================================================
+   PC16 FINAL — LARGE MAP + HORIZONTAL TREND TIMELINE
+   ========================================================== */
+@media (min-width:1000px){
+  .pc11-dashboard{grid-template-rows:74px 84px minmax(0,1fr)!important;gap:10px!important}
+  .pc11-dashboard-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-rows:minmax(350px,1.15fr) minmax(210px,.72fr) minmax(205px,.68fr)!important;
+    gap:10px!important;overflow:auto!important;padding-right:2px!important
+  }
+  .pc11-map-card{display:block!important;grid-column:1/span 2!important;grid-row:1!important;min-height:350px!important}
+  .pc11-timeline-card{display:block!important;grid-column:1/span 2!important;grid-row:2!important;min-height:210px!important}
+  .pc11-entities{display:block!important;grid-column:1!important;grid-row:3!important;min-height:205px!important}
+  .pc11-keywords{display:block!important;grid-column:2!important;grid-row:3!important;min-height:205px!important}
+  .pc11-media,.pc11-issues{display:none!important}
+
+  .pc11-timeline-head{height:52px!important}
+  .pc11-timeline-head strong{font-size:16px!important}
+  .pc11-timeline-body{
+    height:calc(100% - 52px)!important;display:grid!important;
+    grid-template-rows:44px 31px minmax(0,1fr)!important;
+    gap:5px!important;padding:8px 12px 10px!important;box-sizing:border-box!important
+  }
+  .pc11-timeline-search{display:grid!important;grid-template-columns:minmax(0,1fr) 72px!important;gap:7px!important}
+  .pc11-timeline-search input{
+    height:38px!important;padding:0 12px!important;border:1px solid rgba(35,57,93,.18)!important;
+    border-radius:9px!important;background:#f8fafc!important;color:#111827!important;font-size:13px!important;font-weight:750!important
+  }
+  .pc11-timeline-search button{
+    height:38px!important;border:0!important;border-radius:9px!important;background:#23395d!important;
+    color:#fff!important;font-size:12px!important;font-weight:950!important;cursor:pointer!important
+  }
+  .pc11-timeline-status{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important}
+  .pc11-timeline-status strong{color:#23395d!important;font-size:12px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+  .pc11-timeline-status span{color:#667085!important;font-size:10px!important;font-weight:800!important;white-space:nowrap!important}
+  .pc11-timeline-scroll{min-width:0!important;min-height:0!important;overflow-x:auto!important;overflow-y:hidden!important;padding:4px 7px 2px!important}
+  .pc11-timeline-empty{height:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;color:#7a8493!important;font-size:12px!important;text-align:center!important}
+  .pc11-timeline-track{
+    position:relative!important;min-width:max-content!important;height:100%!important;
+    display:flex!important;align-items:flex-start!important;padding:0 34px!important
+  }
+  .pc11-timeline-track::before{
+    content:""!important;position:absolute!important;left:34px!important;right:34px!important;top:34px!important;
+    height:3px!important;border-radius:999px!important;background:#b9c8d6!important
+  }
+  .pc11-timeline-event{
+    position:relative!important;z-index:1!important;width:164px!important;height:100%!important;
+    display:grid!important;grid-template-rows:22px 25px auto 18px!important;justify-items:center!important;
+    align-content:start!important;padding:0 10px!important;border:0!important;background:transparent!important;cursor:pointer!important;text-align:center!important
+  }
+  .pc11-timeline-date{color:#5e7188!important;font-size:11px!important;font-weight:950!important}
+  .pc11-timeline-dot{
+    width:16px!important;height:16px!important;margin-top:4px!important;border:4px solid #fff!important;
+    border-radius:50%!important;background:#23395d!important;box-shadow:0 0 0 2px #23395d!important
+  }
+  .pc11-timeline-event:hover .pc11-timeline-dot{background:#fee500!important;transform:scale(1.16)!important}
+  .pc11-timeline-event-title{
+    width:100%!important;margin-top:7px!important;color:#23395d!important;font-size:12px!important;line-height:1.28!important;font-weight:900!important;
+    display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important
+  }
+  .pc11-timeline-event-count{margin-top:4px!important;color:#7a8493!important;font-size:10px!important;font-weight:800!important}
+  .pc11-map-card .pc11-card-head{height:54px!important}
+  .pc11-map-layout{height:calc(100% - 54px)!important;grid-template-columns:minmax(0,1fr) 190px!important;gap:12px!important;padding:12px!important}
+  .pc11-map-stage{min-height:270px!important}
+
+  @media (max-width:1450px){
+    .pc11-dashboard-grid{grid-template-rows:minmax(320px,1.08fr) minmax(205px,.72fr) minmax(195px,.68fr)!important}
+    .pc11-map-card{min-height:320px!important}.pc11-timeline-card{min-height:205px!important}.pc11-timeline-event{width:150px!important}
+  }
+  @media (max-width:1180px){
+    .pc11-dashboard-grid{
+      grid-template-columns:minmax(0,1fr)!important;
+      grid-template-rows:minmax(300px,1fr) minmax(205px,.72fr) minmax(190px,.65fr) minmax(190px,.65fr)!important
+    }
+    .pc11-map-card{grid-column:1!important;grid-row:1!important}
+    .pc11-timeline-card{grid-column:1!important;grid-row:2!important}
+    .pc11-entities{grid-column:1!important;grid-row:3!important}
+    .pc11-keywords{grid-column:1!important;grid-row:4!important}
+    .pc11-map-layout{grid-template-columns:minmax(0,1fr) 150px!important}
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -17222,12 +17472,24 @@ main {
         </div>
 
         <div class="pc11-dashboard-grid">
-          <section class="pc11-card pc11-issues">
-            <div class="pc11-card-head">
-              <div><span>ISSUE GROUPS</span><strong>주요 이슈 묶음</strong></div>
-              <small>유사 기사 자동 묶음</small>
+          <section class="pc11-card pc11-timeline-card">
+            <div class="pc11-card-head pc11-timeline-head">
+              <div><span>TREND TIMELINE</span><strong>동향 타임라인</strong></div>
+              <small>최근 1년 기사 데이터 기준</small>
             </div>
-            <div id="pc11-issue-list" class="pc11-issue-list"></div>
+            <div class="pc11-timeline-body">
+              <div class="pc11-timeline-search">
+                <input id="pc11-timeline-query" type="search" placeholder="인물 · 기관 · 프로젝트 · 이슈 검색 (예: 김정관, 한수원, 대미 투자)">
+                <button id="pc11-timeline-run" type="button">조회</button>
+              </div>
+              <div class="pc11-timeline-status">
+                <strong id="pc11-timeline-title">검색어를 입력하면 관련 동향을 날짜순으로 정리합니다.</strong>
+                <span id="pc11-timeline-count"></span>
+              </div>
+              <div id="pc11-timeline-scroll" class="pc11-timeline-scroll">
+                <div class="pc11-timeline-empty">김정관 · 한수원 · 한빛원전 · 대미 투자 · 산업통상부 · SMR-300 등을 검색할 수 있습니다.</div>
+              </div>
+            </div>
           </section>
 
           <section class="pc11-card pc11-entities">
@@ -17701,7 +17963,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.7(월) 15:00 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.7(월) 15:45 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -27083,7 +27345,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.autonocion.com/reactor-nuclear-sal-odin/"
   data-title="Un reactor nuclear que cabe en un camión, no necesita agua para enfriarse y usa sal líquida en lugar de presión: el micro-reactor ODIN de Cambridge Atomworks ya está en fase de pruebas"
   data-publisher="Autonocion.com"
@@ -27107,7 +27369,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Un reactor nuclear que cabe en un camión, no necesita agua para enfriarse y usa sal líquida en lugar de presión: el micro-reactor ODIN de Cambridge Atomworks ya está en fase de pruebas</div>
+      <div class="headline">Un reactor nuclear que cabe en un camión, no necesita agua para enfriarse y usa sal líquida en lugar de presión: el micro-reactor ODIN de Cambridge Atomworks ya está en fase de pruebas</div>
       <div class="article-snippet">Imagina que estás en medio de la nada. Puede ser un pueblo perdido en la Patagonia, una base científica en la Antártida o una comunidad minera en el desierto de Atacama. No hay red eléctrica, no hay gasoductos, no hay forma de llevar combustible sin que cueste un ojo de la cara. La única opción,</div>
     </div>
   </div>
@@ -28483,7 +28745,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fbe2d8240&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fbe3da210&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -29287,7 +29549,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">18건</span>
+    <span class="group-count">19건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29488,7 +29750,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.srtimes.kr/news/articleView.html?idxno=211726"
   data-title="[미리보는 국감] GS건설, 검단 붕괴 3년에도 안전관리 평가 ‘미흡’...허윤홍·김태진 책임경영 어디로"
   data-publisher="SR타임스"
@@ -29512,7 +29774,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[미리보는 국감] GS건설, 검단 붕괴 3년에도 안전관리 평가 ‘미흡’...허윤홍·김태진 책임경영 어디로</div>
+      <div class="headline">[미리보는 국감] GS건설, 검단 붕괴 3년에도 안전관리 평가 ‘미흡’...허윤홍·김태진 책임경영 어디로</div>
       <div class="article-snippet">설계·시공 부실에 전면 재시공…LH 손배소 등 법적 갈등 여전허윤홍·김태진 체제 전환 후 첫 국감…재입주까지 책임 다해야[SRT(에스알 타임스) 유정근 기자] 인천 검단신도시 아파트 지하주차장 붕괴 사고가 발생한 지 3년 4개월이 지났다. GS건설은 전면 재시공과 안전·품질 쇄신을 약</div>
     </div>
   </div>
@@ -29555,6 +29817,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779426"
+  data-title="포스코이앤씨 &quot;더샵 여주역더퍼스트 견본주택에 1만2천명 방문&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788762334"
+  data-country="OTHER"
+  data-search="포스코이앤씨 &quot;더샵 여주역더퍼스트 견본주택에 1만2천명 방문&quot; 뉴시스 타 건설사 [서울=뉴시스]이연희 기자 = 포스코이앤씨는 지난 4일 문을 연 &#x27;더샵 여주역더퍼스트&#x27; 견본주택에 개관 후 사흘간 약 1만2000명이 방문했다고 7일 밝혔다. 견본주택에는 개관 첫날부터 긴 대기줄이 늘어섰으며 신혼부부부터 중장년층까지 다양한 연령대의 방문객이 찾았다. 단지는 여주와 이천 지역에서 처음으로 공급되는 &#x27;더샵&#x27; 브랜드 아파트다. 수요자 선호도가 높은 전용면적 84㎡ 단일 평형으로만 구성됐으며, 채광과 통풍에 유리한 남향 위주의 단지 배치와 4베이 판상형 위주의 설계를 적용했다. 타입에 따라 공간 활용도를 높이는 알파룸과 팬트리 등이 도입됐다. 특히 발코니"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨 &quot;더샵 여주역더퍼스트 견본주택에 1만2천명 방문&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]이연희 기자 = 포스코이앤씨는 지난 4일 문을 연 &#x27;더샵 여주역더퍼스트&#x27; 견본주택에 개관 후 사흘간 약 1만2000명이 방문했다고 7일 밝혔다. 견본주택에는 개관 첫날부터 긴 대기줄이 늘어섰으며 신혼부부부터 중장년층까지 다양한 연령대의 방문객이 찾았다. 단지는 여주와 이천 지역에서 처음으로 공급되는 &#x27;더샵&#x27; 브랜드 아파트다. 수요자 선호도가 높은 전용면적 84㎡ 단일 평형으로만 구성됐으며, 채광과 통풍에 유리한 남향 위주의 단지 배치와 4베이 판상형 위주의 설계를 적용했다. 타입에 따라 공간 활용도를 높이는 알파룸과 팬트리 등이 도입됐다. 특히 발코니</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7473ac8a9089cfd218774834.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.sisaon.co.kr/news/articleView.html?idxno=204159"
   data-title="‘개발 전문가’ 오일근號 롯데건설, 안정 넘어 ‘성장 드라이브’ [오늘의 리더] - 시사오늘(시사ON)"
   data-publisher="시사오늘"
@@ -29578,7 +29873,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘개발 전문가’ 오일근號 롯데건설, 안정 넘어 ‘성장 드라이브’ [오늘의 리더] - 시사오늘(시사ON)</div>
+      <div class="headline">‘개발 전문가’ 오일근號 롯데건설, 안정 넘어 ‘성장 드라이브’ [오늘의 리더] - 시사오늘(시사ON)</div>
       <div class="article-snippet">[시사오늘(시사ON)=김상원 기자]롯데건설이 오일근 대표이사 체제에서 재무 안정화에 속도를 내는 동시에 성장 쪽으로도 보폭을 넓히고 있다.지난 몇 년간 프로젝트파</div>
     </div>
   </div>
@@ -29621,6 +29916,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779380"
+  data-title="삼성, 8일부터 19개 계열사 하반기 공채…&#x27;70년 채용史&#x27; 잇는다"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788762546"
+  data-country="OTHER"
+  data-search="삼성, 8일부터 19개 계열사 하반기 공채…&#x27;70년 채용史&#x27; 잇는다 뉴시스 타 건설사 [서울=뉴시스]박나리 기자 = 주요 대기업들이 수시채용으로 돌아서며 정기 공채 문을 닫은 가운데, 삼성이 70년 전통의 &#x27;공채 명맥&#x27;을 굳건히 지킨다. 국내 4대 그룹 중 유일하게 정기 공채 제도를 유지하고 있는 삼성이 올해 하반기에도 대규모 신입사원 채용에 나선다. 7일 삼성에 따르면 삼성전자와 삼성물산, 삼성바이오로직스 등 19개 관계사는 오는 8일부터 올해 하반기 공채 절차를 시작한다. 이번 공채에는 삼성전자와 삼성물산, 삼성바이오로직스, 삼성바이오에피스, 삼성생명, 삼성디스플레이, 삼성sdi, 삼성전기, 삼성sds, 삼성화재, 삼성카드, 삼성증권, 삼성중공업,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260907_0003778684" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">&quot;양질의 청년 일자리 지속 창출&quot; 삼성 19개 관계사, 하반기 대규모 공채 실시</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260907091345897" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">삼성, 4대 그룹 中 유일 &#x27;70년 공채&#x27; 전통 이어간다…8일부터 하반기 공채 개시</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>삼성, 8일부터 19개 계열사 하반기 공채…&#x27;70년 채용史&#x27; 잇는다</div>
+      <div class="article-snippet">[서울=뉴시스]박나리 기자 = 주요 대기업들이 수시채용으로 돌아서며 정기 공채 문을 닫은 가운데, 삼성이 70년 전통의 &#x27;공채 명맥&#x27;을 굳건히 지킨다. 국내 4대 그룹 중 유일하게 정기 공채 제도를 유지하고 있는 삼성이 올해 하반기에도 대규모 신입사원 채용에 나선다. 7일 삼성에 따르면 삼성전자와 삼성물산, 삼성바이오로직스 등 19개 관계사는 오는 8일부터 올해 하반기 공채 절차를 시작한다. 이번 공채에는 삼성전자와 삼성물산, 삼성바이오로직스, 삼성바이오에피스, 삼성생명, 삼성디스플레이, 삼성SDI, 삼성전기, 삼성SDS, 삼성화재, 삼성카드, 삼성증권, 삼성중공업,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d03e19db5befaf7b79e9873d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="http://www.opinionnews.co.kr/news/articleView.html?idxno=144091"
   data-title="IPARK현대산업개발, 스마트 건설 우수기술 4곳 선정…현장 실증·사업화 지원"
   data-publisher="오피니언뉴스"
@@ -29644,7 +29972,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>IPARK현대산업개발, 스마트 건설 우수기술 4곳 선정…현장 실증·사업화 지원</div>
+      <div class="headline">IPARK현대산업개발, 스마트 건설 우수기술 4곳 선정…현장 실증·사업화 지원</div>
       <div class="article-snippet">[오피니언뉴스=김기범 기자] IPARK현대산업개발이 건설 현장의 생산성과 안전성, 품질을 높일 혁신 기술을 발굴하고 현장 실증과 사업화 지원에 나선다.IPARK현대산업개발은 지난 4일 포니정 홀에서 ‘2026 IPARK 기술제안 공모전’ 시상식을 열고 우수기술을 제안한 4개 기업을 선정했다고 밝혔다.올해 6회째를 맞은 공모전은 ‘Construction, Reimagined’를 주제로 진행됐다. 신기술·신공법과 AI, 빅데이터, IT 플랫폼, 드론, IoT, 센서, BIM 등 스마트 건설 기술(DX·AX) 분야에서 총 114건의 제안</div>
     </div>
   </div>
@@ -29753,39 +30081,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.newsis.com/view/NISX20260907_0003778684"
-  data-title="&quot;양질의 청년 일자리 지속 창출&quot; 삼성 19개 관계사, 하반기 대규모 공채 실시"
-  data-publisher="뉴시스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-priority="1"
-  data-published="1788757200"
-  data-country="OTHER"
-  data-search="&quot;양질의 청년 일자리 지속 창출&quot; 삼성 19개 관계사, 하반기 대규모 공채 실시 뉴시스 타 건설사 [서울=뉴시스]이지용 기자 = 국내 주요 대기업 중 유일하게 신입사원 공채 제도를 유지하고 있는 삼성이 올 하반기 대규모 공채를 실시한다. 삼성은 미래 준비를 위해 국내 투자를 확대하면서 청년들에게 양질의 취업 기회를 제공하고자 오는 8일부터 하반기 공채를 진행한다고 7일 밝혔다. 공채에 나선 관계사는 ▲삼성전자 ▲삼성물산 ▲삼성바이오로직스 ▲삼성바이오에피스 ▲삼성생명 ▲삼성디스플레이 ▲삼성sdi ▲삼성전기 ▲삼성sds ▲삼성화재 ▲삼성카드 ▲삼성증권 ▲삼성중공업 ▲삼성e&amp;a ▲호텔신라 ▲제일기획 ▲에스원 ▲삼성의료원 ▲삼성웰스토리 등 19곳이다. 채용 절차는 9월"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260907091345897" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">삼성, 4대 그룹 中 유일 &#x27;70년 공채&#x27; 전통 이어간다…8일부터 하반기 공채 개시</span></a></div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">&quot;양질의 청년 일자리 지속 창출&quot; 삼성 19개 관계사, 하반기 대규모 공채 실시</div>
-      <div class="article-snippet">[서울=뉴시스]이지용 기자 = 국내 주요 대기업 중 유일하게 신입사원 공채 제도를 유지하고 있는 삼성이 올 하반기 대규모 공채를 실시한다. 삼성은 미래 준비를 위해 국내 투자를 확대하면서 청년들에게 양질의 취업 기회를 제공하고자 오는 8일부터 하반기 공채를 진행한다고 7일 밝혔다. 공채에 나선 관계사는 ▲삼성전자 ▲삼성물산 ▲삼성바이오로직스 ▲삼성바이오에피스 ▲삼성생명 ▲삼성디스플레이 ▲삼성SDI ▲삼성전기 ▲삼성SDS ▲삼성화재 ▲삼성카드 ▲삼성증권 ▲삼성중공업 ▲삼성E&amp;A ▲호텔신라 ▲제일기획 ▲에스원 ▲삼성의료원 ▲삼성웰스토리 등 19곳이다. 채용 절차는 9월</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1ee2f97bedecab95f30407dc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003779026"
   data-title="[부고]한창만(한국일보 인천취재본부장)씨 부친상"
   data-publisher="뉴시스"
@@ -29890,9 +30185,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.dailydgnews.com/news/article.html?no=262351"
+  data-title="[데일리대구경북뉴스] 한수원 엔지니어링처, 지역 사회의 든든한 이웃 되다~"
+  data-publisher="데일리대구경북뉴스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788759287"
+  data-country="KR"
+  data-search="[데일리대구경북뉴스] 한수원 엔지니어링처, 지역 사회의 든든한 이웃 되다~ 데일리대구경북뉴스 한국수력원자력 (데일리대구경북뉴스=황지현 기자)한국수력원자력(사장 김회천, 이하 한수원) 엔지니어링처 직원들이 추석 명절을 앞둔 9월 7일 경주 보덕동 행정복지센터를 방문, 지역 취약계층을 위한 생필품을 전달했다. 엔지니어링처 직원들은 이날 임직원들이 매월 자발적으로 모금한 ‘러브펀드’를 활용해 생필품을 구입, 전달하고, 보덕동 주변 환경정화 활동도 펼쳤다. 또, 청렴의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리대구경북뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한수원 엔지니어링처, 지역 사회의 든든한 이웃 되다~</div>
+      <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한국수력원자력(사장 김회천, 이하 한수원) 엔지니어링처 직원들이 추석 명절을 앞둔 9월 7일 경주 보덕동 행정복지센터를 방문, 지역 취약계층을 위한 생필품을 전달했다. 엔지니어링처 직원들은 이날 임직원들이 매월 자발적으로 모금한 ‘러브펀드’를 활용해 생필품을 구입, 전달하고, 보덕동 주변 환경정화 활동도 펼쳤다. 또, 청렴의</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e2c343e8eb773c14776be2ca.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227949"
   data-title="새울 3호기, 시운전 중 배관 누설로 원자로 수동정지"
@@ -29965,7 +30293,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -29998,6 +30326,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/1eb610ceb9d7f43776e496e8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260907152352084"
+  data-title="박찬대 인천시장, 인천대로 8211억 공사에 지역업체 참여 확대...하도급·자재 70% 목표"
+  data-publisher="아주경제"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788762804"
+  data-country="KR"
+  data-search="박찬대 인천시장, 인천대로 8211억 공사에 지역업체 참여 확대...하도급·자재 70% 목표 아주경제 한국전력 박찬대 인천광역시장이 7일 시청 대접견실에서 열린 &#x27;지역건설산업 상생협력 업무협약식&#x27;에서 협약을 체결하고 기념촬영을 하고 있다. (왼쪽부터 송치영 포스코이앤씨 대표이사, 박찬대 인천시장, 조흥수 대한전문건설협회 인천광역시회 회장) [사진=인천시] 인천광역시(시장 박찬대)가 총사업비 8211억원 규모의 인천대로 일반화 2단계 사업을 지역 건설업체의 하도급 수주와 지역 생산자재·장비·인력 사용 확대에 연결하기 위해 포스코이앤씨, 대한전문건설협회 인천시회와 상생협약을 체결했다. 7일 시에 따르면 이날 시청 대접견실에서 박찬대 인천시장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>박찬대 인천시장, 인천대로 8211억 공사에 지역업체 참여 확대...하도급·자재 70% 목표</div>
+      <div class="article-snippet">박찬대 인천광역시장이 7일 시청 대접견실에서 열린 &#x27;지역건설산업 상생협력 업무협약식&#x27;에서 협약을 체결하고 기념촬영을 하고 있다. (왼쪽부터 송치영 포스코이앤씨 대표이사, 박찬대 인천시장, 조흥수 대한전문건설협회 인천광역시회 회장) [사진=인천시] 인천광역시(시장 박찬대)가 총사업비 8211억원 규모의 인천대로 일반화 2단계 사업을 지역 건설업체의 하도급 수주와 지역 생산자재·장비·인력 사용 확대에 연결하기 위해 포스코이앤씨, 대한전문건설협회 인천시회와 상생협약을 체결했다. 7일 시에 따르면 이날 시청 대접견실에서 박찬대 인천시장</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d6bdf7c51fcd52ce2d0b8969.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779369"
+  data-title="3년간 답보 &#x27;신고창변전소&#x27;, 고창 성송면에 유치…34개 마을 만장일치"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788761769"
+  data-country="KR"
+  data-search="3년간 답보 &#x27;신고창변전소&#x27;, 고창 성송면에 유치…34개 마을 만장일치 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 한국전력공사가 7일 국가기간 전력망 사업인 345㎸(킬로볼트) 신고창변전소의 최종 부지로 전북 고창군 성송면이 선정됐다고 밝혔다. 약 3년간 답보 상태에 머물렀던 이 사업은 성송면 주민들의 자발적인 유치 의지에 힘입어 속도를 내고 있다. 신고창변전소는 전북 지역 재생에너지의 안정적인 전력망 연결과 국가기간 전력망 보강을 위해 필요한 핵심 전력설비다. 하지만 그동안 입지선정위원회 구성조차 지연되는 등 사업 추진에 어려움을 겪어왔다. 이에 한전은 사업대상지역 주민들을 대상으로 20여차례의 사업설명회를 개최해 변전소의 기능과 필요성은 물론,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>3년간 답보 &#x27;신고창변전소&#x27;, 고창 성송면에 유치…34개 마을 만장일치</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 한국전력공사가 7일 국가기간 전력망 사업인 345㎸(킬로볼트) 신고창변전소의 최종 부지로 전북 고창군 성송면이 선정됐다고 밝혔다. 약 3년간 답보 상태에 머물렀던 이 사업은 성송면 주민들의 자발적인 유치 의지에 힘입어 속도를 내고 있다. 신고창변전소는 전북 지역 재생에너지의 안정적인 전력망 연결과 국가기간 전력망 보강을 위해 필요한 핵심 전력설비다. 하지만 그동안 입지선정위원회 구성조차 지연되는 등 사업 추진에 어려움을 겪어왔다. 이에 한전은 사업대상지역 주민들을 대상으로 20여차례의 사업설명회를 개최해 변전소의 기능과 필요성은 물론,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/818a92026243cf5cbec72533.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30106,9 +30500,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1687357/%ED%95%9C%EC%A0%84KDN-%EC%97%90%EB%84%88%EC%A7%80-%ED%8A%B9%ED%99%94-AI-%EC%82%AC%EC%97%85-%EA%B2%BD-2026"
+  data-title="한전KDN, 에너지 특화 AI 사업 경쟁력 강화 추진"
+  data-publisher="데일리안"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788761820"
+  data-country="KR"
+  data-search="한전kdn, 에너지 특화 ai 사업 경쟁력 강화 추진 데일리안 한전 계열사 한전kdn이 에너지 특화 인공지능(ai) 사업 경쟁력을 높이고 조직 전반의 ai 활용 확대에 나선다.한전kdn은 지난 3일부터 이틀간 전북 정읍시 jb금융그룹 연수원에서 ‘ai 추진전략 강화를 위한 전사 리더워크숍’을 열었다고 7일 밝혔다.참석자들은 중장기 인공지능 전환(ax) 전략 고도화 경과와 ai 연구개발 과제, 본부별 추진 방향을 공유했다. 국내 주"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 에너지 특화 AI 사업 경쟁력 강화 추진</div>
+      <div class="article-snippet">한전KDN이 에너지 특화 인공지능(AI) 사업 경쟁력을 높이고 조직 전반의 AI 활용 확대에 나선다.한전KDN은 지난 3일부터 이틀간 전북 정읍시 JB금융그룹 연수원에서 ‘AI 추진전략 강화를 위한 전사 리더워크숍’을 열었다고 7일 밝혔다.참석자들은 중장기 인공지능 전환(AX) 전략 고도화 경과와 AI 연구개발 과제, 본부별 추진 방향을 공유했다. 국내 주</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/faf5947fa0b0cecc624f8fec.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003778926"
   data-title="AI가 전력망 운영한다…켄텍, 110억 규모 원천기술 개발"
@@ -30223,10 +30650,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/202609078971i"
+  data-title="韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시"
+  data-publisher="한국경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788762811"
+  data-country="US"
+  data-search="韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시 한국경제 원전 대미투자 韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시, 18일 최종 mou 서명 예정 2000억 달러 투자 펀드 핵심 축 부상 두산·현대건설 등 &#x27;팀 코리아&#x27; 참여 유력 텍사스·알래스카 가스 프로젝트도 정부·국회, 극도 보안 속 국내 행정·법적 절차 진행 중"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시</div>
+      <div class="article-snippet">韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시, 18일 최종 MOU 서명 예정 2000억 달러 투자 펀드 핵심 축 부상 두산·현대건설 등 &#x27;팀 코리아&#x27; 참여 유력 텍사스·알래스카 가스 프로젝트도 정부·국회, 극도 보안 속 국내 행정·법적 절차 진행 중</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/975583e671980eece1e6ec40.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.mt.co.kr/economy/2026/09/07/2026090714365254729"
   data-title="[단독]대미투자 &#x27;원전 8기&#x27; 포함…이달 18일 최종 사인 - 머니투데이"
   data-publisher="머니투데이"
@@ -30250,7 +30710,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[단독]대미투자 &#x27;원전 8기&#x27; 포함…이달 18일 최종 사인 - 머니투데이</div>
+      <div class="headline">[단독]대미투자 &#x27;원전 8기&#x27; 포함…이달 18일 최종 사인 - 머니투데이</div>
       <div class="article-snippet">7일 국회와 정부 관계 부처 등에 따르면, 한미 대미 투자 프로젝트 최종 합의문 구상에 원전 건설 프로젝트가 명시된 것으로 확인됐다. 여권 핵심 관계자는 &quot;원전 건설과 관련해 구체적 사안까지 명시하기보다는 프레임워크 차원에서 &#x27;8기 건설 추진&#x27;이라는 큰 틀의 방향성을 양국 투자합의문에 포함시키는 것으로 안다&quot;고 밝혔다.</div>
     </div>
   </div>
@@ -30260,6 +30720,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260907000761"
+  data-title="정부, 여당에 대미투자 진행 상황 보고…협상 타결 임박"
+  data-publisher="뉴스핌"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788762180"
+  data-country="KR"
+  data-search="정부, 여당에 대미투자 진행 상황 보고…협상 타결 임박 뉴스핌 원전 대미투자 [세종=뉴스핌] 김하영 기자 = 정부가 여당에 대미투자 협상 진행 상황을 보고했다.7일 정치권 등에 따르면 산업통상부는 이날 오전 국회에서 더불어민주당 의원들을 대상으로 대미투자 협상 내용을 설명했다.보고 대상은 국회 재정경제기획위원회(재경위)와 산업통상자원중소벤처기업"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>정부, 여당에 대미투자 진행 상황 보고…협상 타결 임박</div>
+      <div class="article-snippet">[세종=뉴스핌] 김하영 기자 = 정부가 여당에 대미투자 협상 진행 상황을 보고했다.7일 정치권 등에 따르면 산업통상부는 이날 오전 국회에서 더불어민주당 의원들을 대상으로 대미투자 협상 내용을 설명했다.보고 대상은 국회 재정경제기획위원회(재경위)와 산업통상자원중소벤처기업</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d69f7db30bbcf3df66c20bc0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://biz.heraldcorp.com/article/10864870"
   data-title="텍사스 가스발전소 대미투자 1호 확정"
   data-publisher="헤럴드경제"
@@ -30283,7 +30776,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>텍사스 가스발전소 대미투자 1호 확정</div>
+      <div class="headline">텍사스 가스발전소 대미투자 1호 확정</div>
       <div class="article-snippet">한미 양국이 합의한 3500억달러 규모 대미투자의 첫 사업으로 미국 텍사스 엔시날 가스복합화력발전사업이 확정됐다. 투자 금액은 미국 측이 해당 프로젝트의 총사업비를</div>
     </div>
   </div>
@@ -30730,7 +31223,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=302598"
   data-title="[기획] K-원전, 글로벌 원전 르네상스 기회 잡는다"
   data-publisher="투데이에너지"
@@ -30754,7 +31247,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[기획] K-원전, 글로벌 원전 르네상스 기회 잡는다</div>
+      <div class="headline">[기획] K-원전, 글로벌 원전 르네상스 기회 잡는다</div>
       <div class="article-snippet">[투데이에너지 이종수 기자] 대한민국 원자력산업(K-원전)은 2025년 6월 체코 신규 원전(두코바니 5·6호기) 건설사업의 최종 계약을 맺으며 2009년 UAE 바라카 원전 이후 16년 만에 새로운 수출 르네상스를 맞이하고 있다. 이와 함께 글로벌 탄소중립 기조와 AI 시대의 폭발적</div>
     </div>
   </div>
@@ -31234,7 +31727,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1687324/HD%ED%98%84%EB%8C%80-%EC%A0%95%EA%B8%B0%EC%84%A0-%EB%A9%94%ED%83%84%EC%98%AC%EC%95%94%EB%AA%A8%EB%8B%88%EC%95%84-%EB%84%98%EC%96%B4-2026"
   data-title="HD현대 정기선, 메탄올·암모니아 넘어 SMR까지…친환경 선박 주도"
   data-publisher="데일리안"
@@ -31258,7 +31751,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>HD현대 정기선, 메탄올·암모니아 넘어 SMR까지…친환경 선박 주도</div>
+      <div class="headline">HD현대 정기선, 메탄올·암모니아 넘어 SMR까지…친환경 선박 주도</div>
       <div class="article-snippet">정기선 HD현대 회장이 친환경 선박 사업을 직접 챙기며 글로벌 선주사와의 협력과 차세대 기술 확보에 힘을 싣고 있다.7일 관련 업계에 따르면 HD현대는 메탄올·암모니아 추진선의 상용화를 바탕으로 수소·전기추진과 소형모듈원자로(SMR) 기반 선박까지 친환경 선박 기술 개발 영역을 넓히며 차세대 선박 시장 선점에 나서고 있다.정기선 회장은 지난달 25일 울산</div>
     </div>
   </div>
@@ -31399,7 +31892,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.sentv.co.kr/article/view/sentv202609070014"
   data-title="정부, AI 전력 수요 대응 나선다…에너지 R&amp;D 48% 확대"
   data-publisher="서울경제TV"
@@ -31423,7 +31916,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>정부, AI 전력 수요 대응 나선다…에너지 R&amp;D 48% 확대</div>
+      <div class="headline">정부, AI 전력 수요 대응 나선다…에너지 R&amp;D 48% 확대</div>
       <div class="article-snippet">인공지능(AI) 산업 확대로 안정적인 전력 공급의 중요성이 커지면서 정부가 내년도 에너지 기술 연구개발(R&amp;D) 투자를 대폭 늘린다. 소형모듈원자로(S</div>
     </div>
   </div>
@@ -31531,7 +32024,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003779332"
   data-title="&#x27;부산 장안지구 중흥S-클래스&#x27; 선착순 동·호 지정 계약 진행"
   data-publisher="뉴시스"
@@ -31555,7 +32048,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;부산 장안지구 중흥S-클래스&#x27; 선착순 동·호 지정 계약 진행</div>
+      <div class="headline">&#x27;부산 장안지구 중흥S-클래스&#x27; 선착순 동·호 지정 계약 진행</div>
       <div class="article-snippet">[서울=뉴시스]정유선 기자 = 중흥건설그룹 중흥토건이 부산 기장군 장안지구에서 &#x27;부산 장안지구 중흥S-클래스&#x27;의 선착순 동·호 지정 계약을 진행하고 있다고 7일 밝혔다. 단지는 부산 기장군 장안읍 좌동리 463-3번지 일원에 들어서며 지하 2층~지상 25층 9개동, 전용면적 59·84㎡ 총 514세대 규모다. 주택형별로는 ▲59㎡A 127세대 ▲59㎡B 108세대 ▲84㎡A 235세대 ▲84㎡B 44세대로 구성된다. 입주는 2027년 6월 예정이다. 분양가상한제가 적용돼 주변 시세 대비 가격 경쟁력을 갖췄다는 평가가 나온다. 선시공 후분양 방식으로 공급돼 계약 후 입</div>
     </div>
   </div>
@@ -31636,7 +32129,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -31671,6 +32164,39 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/5fb96222f3dd87dd60dfdaa7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.arabnews.pk/pakistan/imran-khans-party-rallies-karachi-supporters-ahead-of-nationwide-protest-for-his-release-3000497"
+  data-title="Imran Khan’s party rallies Karachi supporters ahead of nationwide protest for his release"
+  data-publisher="Arab News PK"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788761300"
+  data-country="OTHER"
+  data-search="imran khan’s party rallies karachi supporters ahead of nationwide protest for his release arab news pk 국내 원자력 협회·학회 islamabad: sohail afridi, chief minister of pakistan’s khyber pakhtunkhwa (kp) province, on monday arrived in the southern port city of karachi to mobilize people for a sept. 27 nationwide protest to demand jailed former prime minister imran khan’s transfer to a hospital and his subsequent release, khan’s party said."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Arab News PK</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Imran Khan’s party rallies Karachi supporters ahead of nationwide protest for his release</div>
+      <div class="article-snippet">ISLAMABAD: Sohail Afridi, chief minister of Pakistan’s Khyber Pakhtunkhwa (KP) province, on Monday arrived in the southern port city of Karachi to mobilize people for a Sept. 27 nationwide protest to demand jailed former prime minister Imran Khan’s transfer to a hospital and his subsequent release, Khan’s party said.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/37db912d67196430f6dc0e49.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -31678,9 +32204,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.koreaherald.com/article/10865183"
+  data-title="DP chief calls for greater security autonomy amid prospect of US-NK talks"
+  data-publisher="헤럴드경제"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788761272"
+  data-country="KR"
+  data-search="dp chief calls for greater security autonomy amid prospect of us-nk talks 헤럴드경제 nuclear power·nuclear energy south korea should prepare for a potential shift in washington&#x27;s approach to north korea&#x27;s nuclear program by fortifying its own security capabilities, south ko"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>DP chief calls for greater security autonomy amid prospect of US-NK talks</div>
+      <div class="article-snippet">South Korea should prepare for a potential shift in Washington&#x27;s approach to North Korea&#x27;s nuclear program by fortifying its own security capabilities, South Ko</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1d00e58142dbbfd4677433ec.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.chinadaily.com.cn/a/202609/07/WS6a9e0b2ae4b06d4aa055ca64.html"
   data-title="AI, automation, robot dogs ensure on-site nuclear safety"
@@ -31715,6 +32274,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://ua.news/en/war-vs-rf/energoatom-zaiaviv-pro-kritichnii-stan-zaporizkoyi-aes"
+  data-title="Energoatom announced that the Zaporizhzhia Nuclear Power Plant is in a critical condition"
+  data-publisher="UA.NEWS"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788774038"
+  data-country="OTHER"
+  data-search="energoatom announced that the zaporizhzhia nuclear power plant is in a critical condition ua.news nuclear power·nuclear energy the zaporizhzhia nuclear power plant is facing a critical situation regarding nuclear and radiation safety. on september 6, energoatom warned that the prolonged operation of backup diesel generators increases the risk of failure of equipment necessary for the plant’s safe operation."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">UA.NEWS</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Energoatom announced that the Zaporizhzhia Nuclear Power Plant is in a critical condition</div>
+      <div class="article-snippet">The Zaporizhzhia Nuclear Power Plant is facing a critical situation regarding nuclear and radiation safety. On September 6, Energoatom warned that the prolonged operation of backup diesel generators increases the risk of failure of equipment necessary for the plant’s safe operation.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/05e2ee95192ba39a562ecc3f.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.aa.com.tr/en/asia-pacific/south-korea-ruling-party-calls-for-independent-security-amid-north-korea-nuclear-concerns/4049217"
   data-title="South Korea ruling party calls for &#x27;independent&#x27; security amid North Korea nuclear concerns"
   data-publisher="Anadolu Agency"
@@ -31738,7 +32330,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>South Korea ruling party calls for &#x27;independent&#x27; security amid North Korea nuclear concerns</div>
+      <div class="headline">South Korea ruling party calls for &#x27;independent&#x27; security amid North Korea nuclear concerns</div>
       <div class="article-snippet">Days when South Korea could depend solely on US are over, says Democratic Party leader Kim Min-seok | Anadolu</div>
     </div>
   </div>
@@ -32051,7 +32643,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">46건</span>
+    <span class="group-count">48건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -32384,7 +32976,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.srtimes.kr/news/articleView.html?idxno=211726"
   data-title="[미리보는 국감] GS건설, 검단 붕괴 3년에도 안전관리 평가 ‘미흡’...허윤홍·김태진 책임경영 어디로"
   data-publisher="SR타임스"
@@ -32408,7 +33000,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[미리보는 국감] GS건설, 검단 붕괴 3년에도 안전관리 평가 ‘미흡’...허윤홍·김태진 책임경영 어디로</div>
+      <div class="headline">[미리보는 국감] GS건설, 검단 붕괴 3년에도 안전관리 평가 ‘미흡’...허윤홍·김태진 책임경영 어디로</div>
       <div class="article-snippet">설계·시공 부실에 전면 재시공…LH 손배소 등 법적 갈등 여전허윤홍·김태진 체제 전환 후 첫 국감…재입주까지 책임 다해야[SRT(에스알 타임스) 유정근 기자] 인천 검단신도시 아파트 지하주차장 붕괴 사고가 발생한 지 3년 4개월이 지났다. GS건설은 전면 재시공과 안전·품질 쇄신을 약</div>
     </div>
   </div>
@@ -33144,6 +33736,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779426"
+  data-title="포스코이앤씨 &quot;더샵 여주역더퍼스트 견본주택에 1만2천명 방문&quot;"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788762334"
+  data-country="OTHER"
+  data-search="포스코이앤씨 &quot;더샵 여주역더퍼스트 견본주택에 1만2천명 방문&quot; 뉴시스 타 건설사 [서울=뉴시스]이연희 기자 = 포스코이앤씨는 지난 4일 문을 연 &#x27;더샵 여주역더퍼스트&#x27; 견본주택에 개관 후 사흘간 약 1만2000명이 방문했다고 7일 밝혔다. 견본주택에는 개관 첫날부터 긴 대기줄이 늘어섰으며 신혼부부부터 중장년층까지 다양한 연령대의 방문객이 찾았다. 단지는 여주와 이천 지역에서 처음으로 공급되는 &#x27;더샵&#x27; 브랜드 아파트다. 수요자 선호도가 높은 전용면적 84㎡ 단일 평형으로만 구성됐으며, 채광과 통풍에 유리한 남향 위주의 단지 배치와 4베이 판상형 위주의 설계를 적용했다. 타입에 따라 공간 활용도를 높이는 알파룸과 팬트리 등이 도입됐다. 특히 발코니"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>포스코이앤씨 &quot;더샵 여주역더퍼스트 견본주택에 1만2천명 방문&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]이연희 기자 = 포스코이앤씨는 지난 4일 문을 연 &#x27;더샵 여주역더퍼스트&#x27; 견본주택에 개관 후 사흘간 약 1만2000명이 방문했다고 7일 밝혔다. 견본주택에는 개관 첫날부터 긴 대기줄이 늘어섰으며 신혼부부부터 중장년층까지 다양한 연령대의 방문객이 찾았다. 단지는 여주와 이천 지역에서 처음으로 공급되는 &#x27;더샵&#x27; 브랜드 아파트다. 수요자 선호도가 높은 전용면적 84㎡ 단일 평형으로만 구성됐으며, 채광과 통풍에 유리한 남향 위주의 단지 배치와 4베이 판상형 위주의 설계를 적용했다. 타입에 따라 공간 활용도를 높이는 알파룸과 팬트리 등이 도입됐다. 특히 발코니</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7473ac8a9089cfd218774834.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.sisaon.co.kr/news/articleView.html?idxno=204159"
   data-title="‘개발 전문가’ 오일근號 롯데건설, 안정 넘어 ‘성장 드라이브’ [오늘의 리더] - 시사오늘(시사ON)"
   data-publisher="시사오늘"
@@ -33167,7 +33792,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘개발 전문가’ 오일근號 롯데건설, 안정 넘어 ‘성장 드라이브’ [오늘의 리더] - 시사오늘(시사ON)</div>
+      <div class="headline">‘개발 전문가’ 오일근號 롯데건설, 안정 넘어 ‘성장 드라이브’ [오늘의 리더] - 시사오늘(시사ON)</div>
       <div class="article-snippet">[시사오늘(시사ON)=김상원 기자]롯데건설이 오일근 대표이사 체제에서 재무 안정화에 속도를 내는 동시에 성장 쪽으로도 보폭을 넓히고 있다.지난 몇 년간 프로젝트파</div>
     </div>
   </div>
@@ -33242,6 +33867,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779380"
+  data-title="삼성, 8일부터 19개 계열사 하반기 공채…&#x27;70년 채용史&#x27; 잇는다"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788762546"
+  data-country="OTHER"
+  data-search="삼성, 8일부터 19개 계열사 하반기 공채…&#x27;70년 채용史&#x27; 잇는다 뉴시스 타 건설사 [서울=뉴시스]박나리 기자 = 주요 대기업들이 수시채용으로 돌아서며 정기 공채 문을 닫은 가운데, 삼성이 70년 전통의 &#x27;공채 명맥&#x27;을 굳건히 지킨다. 국내 4대 그룹 중 유일하게 정기 공채 제도를 유지하고 있는 삼성이 올해 하반기에도 대규모 신입사원 채용에 나선다. 7일 삼성에 따르면 삼성전자와 삼성물산, 삼성바이오로직스 등 19개 관계사는 오는 8일부터 올해 하반기 공채 절차를 시작한다. 이번 공채에는 삼성전자와 삼성물산, 삼성바이오로직스, 삼성바이오에피스, 삼성생명, 삼성디스플레이, 삼성sdi, 삼성전기, 삼성sds, 삼성화재, 삼성카드, 삼성증권, 삼성중공업,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsis.com/view/NISX20260907_0003778684" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴시스</span><span class="related-coverage-title">&quot;양질의 청년 일자리 지속 창출&quot; 삼성 19개 관계사, 하반기 대규모 공채 실시</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260907091345897" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">삼성, 4대 그룹 中 유일 &#x27;70년 공채&#x27; 전통 이어간다…8일부터 하반기 공채 개시</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>삼성, 8일부터 19개 계열사 하반기 공채…&#x27;70년 채용史&#x27; 잇는다</div>
+      <div class="article-snippet">[서울=뉴시스]박나리 기자 = 주요 대기업들이 수시채용으로 돌아서며 정기 공채 문을 닫은 가운데, 삼성이 70년 전통의 &#x27;공채 명맥&#x27;을 굳건히 지킨다. 국내 4대 그룹 중 유일하게 정기 공채 제도를 유지하고 있는 삼성이 올해 하반기에도 대규모 신입사원 채용에 나선다. 7일 삼성에 따르면 삼성전자와 삼성물산, 삼성바이오로직스 등 19개 관계사는 오는 8일부터 올해 하반기 공채 절차를 시작한다. 이번 공채에는 삼성전자와 삼성물산, 삼성바이오로직스, 삼성바이오에피스, 삼성생명, 삼성디스플레이, 삼성SDI, 삼성전기, 삼성SDS, 삼성화재, 삼성카드, 삼성증권, 삼성중공업,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d03e19db5befaf7b79e9873d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003779290"
   data-title="가덕도신공항 부지 기본설계 접수…11월 우선시공분 첫 삽"
@@ -33275,7 +33933,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.opinionnews.co.kr/news/articleView.html?idxno=144091"
   data-title="IPARK현대산업개발, 스마트 건설 우수기술 4곳 선정…현장 실증·사업화 지원"
   data-publisher="오피니언뉴스"
@@ -33299,7 +33957,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>IPARK현대산업개발, 스마트 건설 우수기술 4곳 선정…현장 실증·사업화 지원</div>
+      <div class="headline">IPARK현대산업개발, 스마트 건설 우수기술 4곳 선정…현장 실증·사업화 지원</div>
       <div class="article-snippet">[오피니언뉴스=김기범 기자] IPARK현대산업개발이 건설 현장의 생산성과 안전성, 품질을 높일 혁신 기술을 발굴하고 현장 실증과 사업화 지원에 나선다.IPARK현대산업개발은 지난 4일 포니정 홀에서 ‘2026 IPARK 기술제안 공모전’ 시상식을 열고 우수기술을 제안한 4개 기업을 선정했다고 밝혔다.올해 6회째를 맞은 공모전은 ‘Construction, Reimagined’를 주제로 진행됐다. 신기술·신공법과 AI, 빅데이터, IT 플랫폼, 드론, IoT, 센서, BIM 등 스마트 건설 기술(DX·AX) 분야에서 총 114건의 제안</div>
     </div>
   </div>
@@ -33428,7 +34086,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260907091345897" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">삼성, 4대 그룹 中 유일 &#x27;70년 공채&#x27; 전통 이어간다…8일부터 하반기 공채 개시</span></a></div>
+        
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">&quot;양질의 청년 일자리 지속 창출&quot; 삼성 19개 관계사, 하반기 대규모 공채 실시</div>
@@ -33436,7 +34094,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1ee2f97bedecab95f30407dc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://image.newsis.com/2026/09/07/NISI20260907_0002231896_web.jpg?rnd=20260907100155" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33578,9 +34236,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국수력원자력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.dailydgnews.com/news/article.html?no=262351"
+  data-title="[데일리대구경북뉴스] 한수원 엔지니어링처, 지역 사회의 든든한 이웃 되다~"
+  data-publisher="데일리대구경북뉴스"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788759287"
+  data-country="KR"
+  data-search="[데일리대구경북뉴스] 한수원 엔지니어링처, 지역 사회의 든든한 이웃 되다~ 데일리대구경북뉴스 한국수력원자력 (데일리대구경북뉴스=황지현 기자)한국수력원자력(사장 김회천, 이하 한수원) 엔지니어링처 직원들이 추석 명절을 앞둔 9월 7일 경주 보덕동 행정복지센터를 방문, 지역 취약계층을 위한 생필품을 전달했다. 엔지니어링처 직원들은 이날 임직원들이 매월 자발적으로 모금한 ‘러브펀드’를 활용해 생필품을 구입, 전달하고, 보덕동 주변 환경정화 활동도 펼쳤다. 또, 청렴의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리대구경북뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[데일리대구경북뉴스] 한수원 엔지니어링처, 지역 사회의 든든한 이웃 되다~</div>
+      <div class="article-snippet">(데일리대구경북뉴스=황지현 기자)한국수력원자력(사장 김회천, 이하 한수원) 엔지니어링처 직원들이 추석 명절을 앞둔 9월 7일 경주 보덕동 행정복지센터를 방문, 지역 취약계층을 위한 생필품을 전달했다. 엔지니어링처 직원들은 이날 임직원들이 매월 자발적으로 모금한 ‘러브펀드’를 활용해 생필품을 구입, 전달하고, 보덕동 주변 환경정화 활동도 펼쳤다. 또, 청렴의</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e2c343e8eb773c14776be2ca.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=227949"
   data-title="새울 3호기, 시운전 중 배관 누설로 원자로 수동정지"
@@ -33653,7 +34344,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -33686,6 +34377,72 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/1eb610ceb9d7f43776e496e8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260907152352084"
+  data-title="박찬대 인천시장, 인천대로 8211억 공사에 지역업체 참여 확대...하도급·자재 70% 목표"
+  data-publisher="아주경제"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788762804"
+  data-country="KR"
+  data-search="박찬대 인천시장, 인천대로 8211억 공사에 지역업체 참여 확대...하도급·자재 70% 목표 아주경제 한국전력 박찬대 인천광역시장이 7일 시청 대접견실에서 열린 &#x27;지역건설산업 상생협력 업무협약식&#x27;에서 협약을 체결하고 기념촬영을 하고 있다. (왼쪽부터 송치영 포스코이앤씨 대표이사, 박찬대 인천시장, 조흥수 대한전문건설협회 인천광역시회 회장) [사진=인천시] 인천광역시(시장 박찬대)가 총사업비 8211억원 규모의 인천대로 일반화 2단계 사업을 지역 건설업체의 하도급 수주와 지역 생산자재·장비·인력 사용 확대에 연결하기 위해 포스코이앤씨, 대한전문건설협회 인천시회와 상생협약을 체결했다. 7일 시에 따르면 이날 시청 대접견실에서 박찬대 인천시장"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>박찬대 인천시장, 인천대로 8211억 공사에 지역업체 참여 확대...하도급·자재 70% 목표</div>
+      <div class="article-snippet">박찬대 인천광역시장이 7일 시청 대접견실에서 열린 &#x27;지역건설산업 상생협력 업무협약식&#x27;에서 협약을 체결하고 기념촬영을 하고 있다. (왼쪽부터 송치영 포스코이앤씨 대표이사, 박찬대 인천시장, 조흥수 대한전문건설협회 인천광역시회 회장) [사진=인천시] 인천광역시(시장 박찬대)가 총사업비 8211억원 규모의 인천대로 일반화 2단계 사업을 지역 건설업체의 하도급 수주와 지역 생산자재·장비·인력 사용 확대에 연결하기 위해 포스코이앤씨, 대한전문건설협회 인천시회와 상생협약을 체결했다. 7일 시에 따르면 이날 시청 대접견실에서 박찬대 인천시장</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d6bdf7c51fcd52ce2d0b8969.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260907_0003779369"
+  data-title="3년간 답보 &#x27;신고창변전소&#x27;, 고창 성송면에 유치…34개 마을 만장일치"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788761769"
+  data-country="KR"
+  data-search="3년간 답보 &#x27;신고창변전소&#x27;, 고창 성송면에 유치…34개 마을 만장일치 뉴시스 한국전력 [세종=뉴시스]손차민 기자 = 한국전력공사가 7일 국가기간 전력망 사업인 345㎸(킬로볼트) 신고창변전소의 최종 부지로 전북 고창군 성송면이 선정됐다고 밝혔다. 약 3년간 답보 상태에 머물렀던 이 사업은 성송면 주민들의 자발적인 유치 의지에 힘입어 속도를 내고 있다. 신고창변전소는 전북 지역 재생에너지의 안정적인 전력망 연결과 국가기간 전력망 보강을 위해 필요한 핵심 전력설비다. 하지만 그동안 입지선정위원회 구성조차 지연되는 등 사업 추진에 어려움을 겪어왔다. 이에 한전은 사업대상지역 주민들을 대상으로 20여차례의 사업설명회를 개최해 변전소의 기능과 필요성은 물론,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>3년간 답보 &#x27;신고창변전소&#x27;, 고창 성송면에 유치…34개 마을 만장일치</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 한국전력공사가 7일 국가기간 전력망 사업인 345㎸(킬로볼트) 신고창변전소의 최종 부지로 전북 고창군 성송면이 선정됐다고 밝혔다. 약 3년간 답보 상태에 머물렀던 이 사업은 성송면 주민들의 자발적인 유치 의지에 힘입어 속도를 내고 있다. 신고창변전소는 전북 지역 재생에너지의 안정적인 전력망 연결과 국가기간 전력망 보강을 위해 필요한 핵심 전력설비다. 하지만 그동안 입지선정위원회 구성조차 지연되는 등 사업 추진에 어려움을 겪어왔다. 이에 한전은 사업대상지역 주민들을 대상으로 20여차례의 사업설명회를 개최해 변전소의 기능과 필요성은 물론,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/818a92026243cf5cbec72533.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33794,9 +34551,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한전 계열사</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.dailian.co.kr/news/view/1687357/%ED%95%9C%EC%A0%84KDN-%EC%97%90%EB%84%88%EC%A7%80-%ED%8A%B9%ED%99%94-AI-%EC%82%AC%EC%97%85-%EA%B2%BD-2026"
+  data-title="한전KDN, 에너지 특화 AI 사업 경쟁력 강화 추진"
+  data-publisher="데일리안"
+  data-group="한전 계열사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788761820"
+  data-country="KR"
+  data-search="한전kdn, 에너지 특화 ai 사업 경쟁력 강화 추진 데일리안 한전 계열사 한전kdn이 에너지 특화 인공지능(ai) 사업 경쟁력을 높이고 조직 전반의 ai 활용 확대에 나선다.한전kdn은 지난 3일부터 이틀간 전북 정읍시 jb금융그룹 연수원에서 ‘ai 추진전략 강화를 위한 전사 리더워크숍’을 열었다고 7일 밝혔다.참석자들은 중장기 인공지능 전환(ax) 전략 고도화 경과와 ai 연구개발 과제, 본부별 추진 방향을 공유했다. 국내 주"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">데일리안</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>한전KDN, 에너지 특화 AI 사업 경쟁력 강화 추진</div>
+      <div class="article-snippet">한전KDN이 에너지 특화 인공지능(AI) 사업 경쟁력을 높이고 조직 전반의 AI 활용 확대에 나선다.한전KDN은 지난 3일부터 이틀간 전북 정읍시 JB금융그룹 연수원에서 ‘AI 추진전략 강화를 위한 전사 리더워크숍’을 열었다고 7일 밝혔다.참석자들은 중장기 인공지능 전환(AX) 전략 고도화 경과와 AI 연구개발 과제, 본부별 추진 방향을 공유했다. 국내 주</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/faf5947fa0b0cecc624f8fec.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003778926"
   data-title="AI가 전력망 운영한다…켄텍, 110억 규모 원천기술 개발"
@@ -33977,10 +34767,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">14건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/202609078971i"
+  data-title="韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시"
+  data-publisher="한국경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788762811"
+  data-country="US"
+  data-search="韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시 한국경제 원전 대미투자 韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시, 18일 최종 mou 서명 예정 2000억 달러 투자 펀드 핵심 축 부상 두산·현대건설 등 &#x27;팀 코리아&#x27; 참여 유력 텍사스·알래스카 가스 프로젝트도 정부·국회, 극도 보안 속 국내 행정·법적 절차 진행 중"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시</div>
+      <div class="article-snippet">韓 기업, 美 현지에 원전 8기 짓는다… 대미투자 합의문에 명시, 18일 최종 MOU 서명 예정 2000억 달러 투자 펀드 핵심 축 부상 두산·현대건설 등 &#x27;팀 코리아&#x27; 참여 유력 텍사스·알래스카 가스 프로젝트도 정부·국회, 극도 보안 속 국내 행정·법적 절차 진행 중</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/975583e671980eece1e6ec40.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.mt.co.kr/economy/2026/09/07/2026090714365254729"
   data-title="[단독]대미투자 &#x27;원전 8기&#x27; 포함…이달 18일 최종 사인 - 머니투데이"
   data-publisher="머니투데이"
@@ -34004,12 +34827,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[단독]대미투자 &#x27;원전 8기&#x27; 포함…이달 18일 최종 사인 - 머니투데이</div>
+      <div class="headline">[단독]대미투자 &#x27;원전 8기&#x27; 포함…이달 18일 최종 사인 - 머니투데이</div>
       <div class="article-snippet">7일 국회와 정부 관계 부처 등에 따르면, 한미 대미 투자 프로젝트 최종 합의문 구상에 원전 건설 프로젝트가 명시된 것으로 확인됐다. 여권 핵심 관계자는 &quot;원전 건설과 관련해 구체적 사안까지 명시하기보다는 프레임워크 차원에서 &#x27;8기 건설 추진&#x27;이라는 큰 틀의 방향성을 양국 투자합의문에 포함시키는 것으로 안다&quot;고 밝혔다.</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/c679ca3cdca75cfd60f1dcbc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260907000761"
+  data-title="정부, 여당에 대미투자 진행 상황 보고…협상 타결 임박"
+  data-publisher="뉴스핌"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788762180"
+  data-country="KR"
+  data-search="정부, 여당에 대미투자 진행 상황 보고…협상 타결 임박 뉴스핌 원전 대미투자 [세종=뉴스핌] 김하영 기자 = 정부가 여당에 대미투자 협상 진행 상황을 보고했다.7일 정치권 등에 따르면 산업통상부는 이날 오전 국회에서 더불어민주당 의원들을 대상으로 대미투자 협상 내용을 설명했다.보고 대상은 국회 재정경제기획위원회(재경위)와 산업통상자원중소벤처기업"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>정부, 여당에 대미투자 진행 상황 보고…협상 타결 임박</div>
+      <div class="article-snippet">[세종=뉴스핌] 김하영 기자 = 정부가 여당에 대미투자 협상 진행 상황을 보고했다.7일 정치권 등에 따르면 산업통상부는 이날 오전 국회에서 더불어민주당 의원들을 대상으로 대미투자 협상 내용을 설명했다.보고 대상은 국회 재정경제기획위원회(재경위)와 산업통상자원중소벤처기업</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d69f7db30bbcf3df66c20bc0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34079,7 +34935,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://biz.heraldcorp.com/article/10864870"
   data-title="텍사스 가스발전소 대미투자 1호 확정"
   data-publisher="헤럴드경제"
@@ -34103,7 +34959,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>텍사스 가스발전소 대미투자 1호 확정</div>
+      <div class="headline">텍사스 가스발전소 대미투자 1호 확정</div>
       <div class="article-snippet">한미 양국이 합의한 3500억달러 규모 대미투자의 첫 사업으로 미국 텍사스 엔시날 가스복합화력발전사업이 확정됐다. 투자 금액은 미국 측이 해당 프로젝트의 총사업비를</div>
     </div>
   </div>
@@ -34583,7 +35439,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.todayenergy.kr/news/articleView.html?idxno=302598"
   data-title="[기획] K-원전, 글로벌 원전 르네상스 기회 잡는다"
   data-publisher="투데이에너지"
@@ -34607,7 +35463,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[기획] K-원전, 글로벌 원전 르네상스 기회 잡는다</div>
+      <div class="headline">[기획] K-원전, 글로벌 원전 르네상스 기회 잡는다</div>
       <div class="article-snippet">[투데이에너지 이종수 기자] 대한민국 원자력산업(K-원전)은 2025년 6월 체코 신규 원전(두코바니 5·6호기) 건설사업의 최종 계약을 맺으며 2009년 UAE 바라카 원전 이후 16년 만에 새로운 수출 르네상스를 맞이하고 있다. 이와 함께 글로벌 탄소중립 기조와 AI 시대의 폭발적</div>
     </div>
   </div>
@@ -35252,7 +36108,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.dailian.co.kr/news/view/1687324/HD%ED%98%84%EB%8C%80-%EC%A0%95%EA%B8%B0%EC%84%A0-%EB%A9%94%ED%83%84%EC%98%AC%EC%95%94%EB%AA%A8%EB%8B%88%EC%95%84-%EB%84%98%EC%96%B4-2026"
   data-title="HD현대 정기선, 메탄올·암모니아 넘어 SMR까지…친환경 선박 주도"
   data-publisher="데일리안"
@@ -35276,7 +36132,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>HD현대 정기선, 메탄올·암모니아 넘어 SMR까지…친환경 선박 주도</div>
+      <div class="headline">HD현대 정기선, 메탄올·암모니아 넘어 SMR까지…친환경 선박 주도</div>
       <div class="article-snippet">정기선 HD현대 회장이 친환경 선박 사업을 직접 챙기며 글로벌 선주사와의 협력과 차세대 기술 확보에 힘을 싣고 있다.7일 관련 업계에 따르면 HD현대는 메탄올·암모니아 추진선의 상용화를 바탕으로 수소·전기추진과 소형모듈원자로(SMR) 기반 선박까지 친환경 선박 기술 개발 영역을 넓히며 차세대 선박 시장 선점에 나서고 있다.정기선 회장은 지난달 25일 울산</div>
     </div>
   </div>
@@ -35417,7 +36273,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.sentv.co.kr/article/view/sentv202609070014"
   data-title="정부, AI 전력 수요 대응 나선다…에너지 R&amp;D 48% 확대"
   data-publisher="서울경제TV"
@@ -35441,7 +36297,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>정부, AI 전력 수요 대응 나선다…에너지 R&amp;D 48% 확대</div>
+      <div class="headline">정부, AI 전력 수요 대응 나선다…에너지 R&amp;D 48% 확대</div>
       <div class="article-snippet">인공지능(AI) 산업 확대로 안정적인 전력 공급의 중요성이 커지면서 정부가 내년도 에너지 기술 연구개발(R&amp;D) 투자를 대폭 늘린다. 소형모듈원자로(S</div>
     </div>
   </div>
@@ -35549,7 +36405,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260907_0003779332"
   data-title="&#x27;부산 장안지구 중흥S-클래스&#x27; 선착순 동·호 지정 계약 진행"
   data-publisher="뉴시스"
@@ -35573,7 +36429,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&#x27;부산 장안지구 중흥S-클래스&#x27; 선착순 동·호 지정 계약 진행</div>
+      <div class="headline">&#x27;부산 장안지구 중흥S-클래스&#x27; 선착순 동·호 지정 계약 진행</div>
       <div class="article-snippet">[서울=뉴시스]정유선 기자 = 중흥건설그룹 중흥토건이 부산 기장군 장안지구에서 &#x27;부산 장안지구 중흥S-클래스&#x27;의 선착순 동·호 지정 계약을 진행하고 있다고 7일 밝혔다. 단지는 부산 기장군 장안읍 좌동리 463-3번지 일원에 들어서며 지하 2층~지상 25층 9개동, 전용면적 59·84㎡ 총 514세대 규모다. 주택형별로는 ▲59㎡A 127세대 ▲59㎡B 108세대 ▲84㎡A 235세대 ▲84㎡B 44세대로 구성된다. 입주는 2027년 6월 예정이다. 분양가상한제가 적용돼 주변 시세 대비 가격 경쟁력을 갖췄다는 평가가 나온다. 선시공 후분양 방식으로 공급돼 계약 후 입</div>
     </div>
   </div>
@@ -35654,7 +36510,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">1건</span>
+    <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35689,6 +36545,39 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/5fb96222f3dd87dd60dfdaa7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.arabnews.pk/pakistan/imran-khans-party-rallies-karachi-supporters-ahead-of-nationwide-protest-for-his-release-3000497"
+  data-title="Imran Khan’s party rallies Karachi supporters ahead of nationwide protest for his release"
+  data-publisher="Arab News PK"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788761300"
+  data-country="OTHER"
+  data-search="imran khan’s party rallies karachi supporters ahead of nationwide protest for his release arab news pk 국내 원자력 협회·학회 islamabad: sohail afridi, chief minister of pakistan’s khyber pakhtunkhwa (kp) province, on monday arrived in the southern port city of karachi to mobilize people for a sept. 27 nationwide protest to demand jailed former prime minister imran khan’s transfer to a hospital and his subsequent release, khan’s party said."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Arab News PK</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Imran Khan’s party rallies Karachi supporters ahead of nationwide protest for his release</div>
+      <div class="article-snippet">ISLAMABAD: Sohail Afridi, chief minister of Pakistan’s Khyber Pakhtunkhwa (KP) province, on Monday arrived in the southern port city of Karachi to mobilize people for a Sept. 27 nationwide protest to demand jailed former prime minister Imran Khan’s transfer to a hospital and his subsequent release, Khan’s party said.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/37db912d67196430f6dc0e49.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -35696,9 +36585,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">15건</span>
+    <span class="group-count">17건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.koreaherald.com/article/10865183"
+  data-title="DP chief calls for greater security autonomy amid prospect of US-NK talks"
+  data-publisher="헤럴드경제"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788761272"
+  data-country="KR"
+  data-search="dp chief calls for greater security autonomy amid prospect of us-nk talks 헤럴드경제 nuclear power·nuclear energy south korea should prepare for a potential shift in washington&#x27;s approach to north korea&#x27;s nuclear program by fortifying its own security capabilities, south ko"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>DP chief calls for greater security autonomy amid prospect of US-NK talks</div>
+      <div class="article-snippet">South Korea should prepare for a potential shift in Washington&#x27;s approach to North Korea&#x27;s nuclear program by fortifying its own security capabilities, South Ko</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1d00e58142dbbfd4677433ec.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.chinadaily.com.cn/a/202609/07/WS6a9e0b2ae4b06d4aa055ca64.html"
   data-title="AI, automation, robot dogs ensure on-site nuclear safety"
@@ -35766,6 +36688,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://ua.news/en/war-vs-rf/energoatom-zaiaviv-pro-kritichnii-stan-zaporizkoyi-aes"
+  data-title="Energoatom announced that the Zaporizhzhia Nuclear Power Plant is in a critical condition"
+  data-publisher="UA.NEWS"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788774038"
+  data-country="OTHER"
+  data-search="energoatom announced that the zaporizhzhia nuclear power plant is in a critical condition ua.news nuclear power·nuclear energy the zaporizhzhia nuclear power plant is facing a critical situation regarding nuclear and radiation safety. on september 6, energoatom warned that the prolonged operation of backup diesel generators increases the risk of failure of equipment necessary for the plant’s safe operation."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">UA.NEWS</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Energoatom announced that the Zaporizhzhia Nuclear Power Plant is in a critical condition</div>
+      <div class="article-snippet">The Zaporizhzhia Nuclear Power Plant is facing a critical situation regarding nuclear and radiation safety. On September 6, Energoatom warned that the prolonged operation of backup diesel generators increases the risk of failure of equipment necessary for the plant’s safe operation.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/05e2ee95192ba39a562ecc3f.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.aa.com.tr/en/asia-pacific/south-korea-ruling-party-calls-for-independent-security-amid-north-korea-nuclear-concerns/4049217"
   data-title="South Korea ruling party calls for &#x27;independent&#x27; security amid North Korea nuclear concerns"
   data-publisher="Anadolu Agency"
@@ -35789,7 +36744,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>South Korea ruling party calls for &#x27;independent&#x27; security amid North Korea nuclear concerns</div>
+      <div class="headline">South Korea ruling party calls for &#x27;independent&#x27; security amid North Korea nuclear concerns</div>
       <div class="article-snippet">Days when South Korea could depend solely on US are over, says Democratic Party leader Kim Min-seok | Anadolu</div>
     </div>
   </div>
@@ -44253,7 +45208,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.autonocion.com/reactor-nuclear-sal-odin/"
   data-title="Un reactor nuclear que cabe en un camión, no necesita agua para enfriarse y usa sal líquida en lugar de presión: el micro-reactor ODIN de Cambridge Atomworks ya está en fase de pruebas"
   data-publisher="Autonocion.com"
@@ -44277,7 +45232,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Un reactor nuclear que cabe en un camión, no necesita agua para enfriarse y usa sal líquida en lugar de presión: el micro-reactor ODIN de Cambridge Atomworks ya está en fase de pruebas</div>
+      <div class="headline">Un reactor nuclear que cabe en un camión, no necesita agua para enfriarse y usa sal líquida en lugar de presión: el micro-reactor ODIN de Cambridge Atomworks ya está en fase de pruebas</div>
       <div class="article-snippet">Imagina que estás en medio de la nada. Puede ser un pueblo perdido en la Patagonia, una base científica en la Antártida o una comunidad minera en el desierto de Atacama. No hay red eléctrica, no hay gasoductos, no hay forma de llevar combustible sin que cueste un ojo de la cara. La única opción,</div>
     </div>
   </div>
@@ -45719,7 +46674,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fbe2d8240&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/sweden-minister-welcomes-nuclear-plans-and-says-state-aid-model-fit-for-purpose-9-5-2026#&lt;ActiveStorage::Attached::One:0x0000790fbe3da210&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -163160,7 +164115,7 @@ document.querySelectorAll(".tab-button").forEach(button => {
   });
 });
 const archiveCutoff="2026-09-07";
-const archiveDates=["2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07"];
+const archiveDates=["2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07"];
 
 const archiveInput=document.getElementById("archive-date");
 const archiveDateDisplay=document.getElementById("archive-date-display");
@@ -168754,6 +169709,117 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     refresh();
   }
 
+
+  /* ================= PC16 TREND TIMELINE ================= */
+  const pc11TimelineMonthCache=new Set();
+
+  function pc11CardDate(c){
+    const panel=c.closest(".archive-panel");
+    if(panel && panel.id && panel.id.startsWith("archive-"))return panel.id.slice(8);
+    const raw=(c.dataset.published||"").trim();
+    const m=raw.match(/(20\d{2})[.\-/년\s]*(\d{1,2})[.\-/월\s]*(\d{1,2})/);
+    if(m)return `${m[1]}-${String(Number(m[2])).padStart(2,"0")}-${String(Number(m[3])).padStart(2,"0")}`;
+    return "";
+  }
+
+  function pc11TimelineTokens(s){
+    return String(s||"").toLowerCase().replace(/[^\p{L}\p{N}]+/gu," ").split(/\s+/).filter(x=>x.length>=2);
+  }
+
+  function pc11TimelineSimilarity(a,b){
+    const A=new Set(pc11TimelineTokens(a)),B=new Set(pc11TimelineTokens(b));
+    if(!A.size||!B.size)return 0;
+    let common=0;A.forEach(x=>{if(B.has(x))common++});
+    return common/(A.size+B.size-common);
+  }
+
+  async function pc11LoadTimelineArchive(){
+    const dates=(typeof archiveDates!=="undefined" && Array.isArray(archiveDates))?archiveDates:[];
+    const months=[...new Set(dates.map(d=>String(d).slice(0,7)).filter(Boolean))];
+    for(const month of months){
+      if(pc11TimelineMonthCache.has(month))continue;
+      if(document.querySelector(`.archive-panel[id^="archive-${month}-"]`)){pc11TimelineMonthCache.add(month);continue}
+      try{
+        const response=await fetch(`archive_html/${month}.html`,{cache:"no-store"});
+        if(!response.ok)continue;
+        const holder=document.createElement("div");
+        holder.innerHTML=await response.text();
+        const host=document.querySelector(".phone main");
+        holder.querySelectorAll(".archive-panel").forEach(panel=>{
+          if(host && !document.getElementById(panel.id))host.appendChild(panel);
+        });
+        pc11TimelineMonthCache.add(month);
+      }catch(_error){}
+    }
+  }
+
+  function pc11TimelineCardsFor(query){
+    const q=String(query||"").trim().toLowerCase();
+    if(!q)return [];
+    return [...document.querySelectorAll(".phone .archive-panel .preview-card")]
+      .filter(c=>[title(c),summary(c),publisher(c),group(c),c.dataset.search||""].join(" ").toLowerCase().includes(q))
+      .sort((a,b)=>pc11CardDate(a).localeCompare(pc11CardDate(b)));
+  }
+
+  function pc11BuildTimelineEvents(source){
+    const events=[];
+    source.forEach(c=>{
+      const date=pc11CardDate(c); if(!date)return;
+      const seed=`${title(c)} ${summary(c)}`;
+      let target=null;
+      for(let i=events.length-1;i>=Math.max(0,events.length-8);i--){
+        const e=events[i];
+        const diff=Math.abs((new Date(date)-new Date(e.date))/86400000);
+        if(diff<=3 && pc11TimelineSimilarity(seed,e.seed)>=0.24){target=e;break}
+      }
+      if(target)target.cards.push(c);
+      else events.push({date,title:title(c)||"관련 동향",seed,cards:[c]});
+    });
+    return events.sort((a,b)=>a.date.localeCompare(b.date));
+  }
+
+  function pc11RenderTimeline(events,query){
+    const box=document.getElementById("pc11-timeline-scroll");
+    const titleEl=document.getElementById("pc11-timeline-title");
+    const countEl=document.getElementById("pc11-timeline-count");
+    if(!box)return;
+    titleEl.textContent=`${query} 주요 동향`;
+    countEl.textContent=`${events.length}개 이벤트 · 관련기사 ${events.reduce((n,e)=>n+e.cards.length,0)}건`;
+    box.innerHTML="";
+    if(!events.length){
+      box.innerHTML='<div class="pc11-timeline-empty">해당 검색어의 타임라인 이벤트를 찾지 못했습니다.</div>';
+      return;
+    }
+    const track=document.createElement("div");track.className="pc11-timeline-track";
+    events.forEach(e=>{
+      const item=document.createElement("button");item.type="button";item.className="pc11-timeline-event";
+      const p=e.date.split("-"),short=p.length===3?`${p[1]}.${p[2]}`:e.date;
+      item.innerHTML='<span class="pc11-timeline-date">'+short+'</span>'+
+        '<span class="pc11-timeline-dot"></span>'+
+        '<span class="pc11-timeline-event-title">'+esc(e.title)+'</span>'+
+        '<span class="pc11-timeline-event-count">관련기사 '+e.cards.length+'건</span>';
+      item.onclick=()=>{
+        const target=e.cards[e.cards.length-1]||e.cards[0];
+        if(target)openDetail(target);
+      };
+      track.appendChild(item);
+    });
+    box.appendChild(track);
+    box.scrollLeft=box.scrollWidth;
+  }
+
+  async function pc11RunTimeline(){
+    const input=document.getElementById("pc11-timeline-query");
+    const q=(input?.value||"").trim();
+    if(!q)return;
+    const titleEl=document.getElementById("pc11-timeline-title");
+    const countEl=document.getElementById("pc11-timeline-count");
+    if(titleEl)titleEl.textContent=`${q} 동향 검색 중...`;
+    if(countEl)countEl.textContent="1년치 기사 불러오는 중";
+    await pc11LoadTimelineArchive();
+    pc11RenderTimeline(pc11BuildTimelineEvents(pc11TimelineCardsFor(q)),q);
+  }
+
   function renderKpis(){
     const list=visibleCards();
     const pubs=new Set(list.map(publisher).filter(Boolean));
@@ -169445,7 +170511,12 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     document.getElementById("pc11-detail-prev").onclick=()=>moveDetail(-1);
     document.getElementById("pc11-detail-next").onclick=()=>moveDetail(1);
 
-
+    const timelineRun=document.getElementById("pc11-timeline-run");
+    const timelineQuery=document.getElementById("pc11-timeline-query");
+    if(timelineRun)timelineRun.onclick=pc11RunTimeline;
+    if(timelineQuery)timelineQuery.addEventListener("keydown",(ev)=>{
+      if(ev.key==="Enter"){ev.preventDefault();pc11RunTimeline()}
+    });
 
     refresh();
     fetch(WORLD_URL)
