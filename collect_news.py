@@ -1,3 +1,4 @@
+# FINAL PC V12 / MOBILE COLOR IDENTITY + LARGE READABLE TEXT / 365-DAY MONTHLY ARCHIVE 2026-09-07
 # FINAL V11 + 365-DAY MONTHLY LAZY ARCHIVE / MOBILE UI UNCHANGED 2026-09-07
 # FINAL PC V11 / MOBILE IDENTITY + LEFT 2-3 SPLIT ARTICLE VIEW / MOBILE UNCHANGED 2026-09-07
 # FINAL PC V10 / REBUILT FROM MOBILE INFORMATION ARCHITECTURE / MOBILE UNCHANGED 2026-09-07
@@ -28053,6 +28054,575 @@ main {{
 
 @media (max-width:999px){{
   #pc11-app{{display:none!important}}
+}}
+
+
+/* ==========================================================
+   PC12 — MOBILE COLOR IDENTITY + READABLE PC TYPOGRAPHY
+   Layout remains PC split view; visual identity follows mobile.
+   ========================================================== */
+@media (min-width:1000px){{
+
+  html,body{{
+    background:#c4d6e8!important;
+  }}
+
+  #pc11-app{{
+    background:#c4d6e8!important;
+    color:#111827!important;
+    gap:10px!important;
+    padding:10px 12px 12px!important;
+  }}
+
+  /* HEADER = mobile topbar identity */
+  .pc11-header{{
+    min-height:64px!important;
+    padding:0 16px!important;
+    border:1px solid rgba(255,255,255,.16)!important;
+    border-radius:16px!important;
+    background:#23395d!important;
+    box-shadow:0 5px 14px rgba(17,24,39,.11)!important;
+  }}
+  .pc11-brand span{{
+    color:rgba(255,255,255,.62)!important;
+    font-size:9px!important;
+    letter-spacing:1px!important;
+  }}
+  .pc11-brand strong{{
+    color:#fff!important;
+    font-size:20px!important;
+    letter-spacing:-.35px!important;
+  }}
+  .pc11-search-wrap input{{
+    height:38px!important;
+    padding:0 13px!important;
+    border:1px solid rgba(17,24,39,.12)!important;
+    border-radius:9px!important;
+    background:rgba(255,255,255,.97)!important;
+    color:#111827!important;
+    font-size:13px!important;
+  }}
+  .pc11-search-wrap input::placeholder{{
+    color:#7a8493!important;
+  }}
+
+  .pc11-header-actions button{{
+    height:34px!important;
+    min-width:58px!important;
+    padding:0 11px!important;
+    border:1px solid rgba(255,255,255,.20)!important;
+    border-radius:8px!important;
+    background:rgba(255,255,255,.88)!important;
+    color:#344054!important;
+    font-size:12px!important;
+    font-weight:900!important;
+  }}
+  .pc11-header-actions button.active{{
+    background:#fee500!important;
+    color:#111827!important;
+    border-color:#fee500!important;
+  }}
+  .pc11-header-actions button.primary{{
+    background:#f7e889!important;
+    color:#111827!important;
+    border-color:#f7e889!important;
+  }}
+  .pc11-header-actions button:hover{{
+    background:#f5d900!important;
+    color:#111827!important;
+  }}
+
+  /* Main panels */
+  .pc11-left,.pc11-right{{
+    border:1px solid rgba(35,57,93,.14)!important;
+    border-radius:16px!important;
+    background:#eef4f9!important;
+    box-shadow:0 5px 14px rgba(17,24,39,.08)!important;
+  }}
+
+  .pc11-dashboard{{
+    background:#eef4f9!important;
+    grid-template-rows:74px 78px minmax(0,1fr)!important;
+    gap:9px!important;
+    padding:11px!important;
+  }}
+
+  .pc11-page-head span{{
+    color:#5a7393!important;
+    font-size:9px!important;
+  }}
+  .pc11-page-head h1{{
+    color:#23395d!important;
+    font-size:24px!important;
+    letter-spacing:-.4px!important;
+  }}
+  .pc11-page-head p{{
+    margin-top:5px!important;
+    color:#667085!important;
+    font-size:11px!important;
+  }}
+  .pc11-head-count span{{
+    color:#667085!important;
+    font-size:10px!important;
+  }}
+  .pc11-head-count strong{{
+    color:#23395d!important;
+    font-size:19px!important;
+  }}
+
+  /* KPI */
+  .pc11-kpis{{
+    gap:8px!important;
+  }}
+  .pc11-kpis article{{
+    padding:10px 12px!important;
+    border:1px solid rgba(35,57,93,.13)!important;
+    border-radius:12px!important;
+    background:#fff!important;
+    box-shadow:0 2px 7px rgba(17,24,39,.035)!important;
+  }}
+  .pc11-kpis span{{
+    color:#667085!important;
+    font-size:10px!important;
+  }}
+  .pc11-kpis strong{{
+    margin-top:5px!important;
+    color:#23395d!important;
+    font-size:25px!important;
+  }}
+  .pc11-kpis small{{
+    color:#7a8493!important;
+    font-size:9px!important;
+  }}
+  .pc11-kpis article.accent{{
+    background:#23395d!important;
+    border-color:#23395d!important;
+  }}
+  .pc11-kpis article.accent span,
+  .pc11-kpis article.accent small{{
+    color:rgba(255,255,255,.68)!important;
+  }}
+  .pc11-kpis article.accent strong{{
+    color:#fee500!important;
+    font-size:17px!important;
+  }}
+
+  /* Cards */
+  .pc11-dashboard-grid{{
+    gap:9px!important;
+  }}
+  .pc11-card{{
+    border:1px solid rgba(35,57,93,.12)!important;
+    border-radius:13px!important;
+    background:#fff!important;
+  }}
+  .pc11-card-head{{
+    height:48px!important;
+    padding:0 12px!important;
+    border-bottom:1px solid #e7ebef!important;
+  }}
+  .pc11-card-head span{{
+    color:#667085!important;
+    font-size:8px!important;
+  }}
+  .pc11-card-head strong{{
+    color:#23395d!important;
+    font-size:14px!important;
+  }}
+  .pc11-card-head small{{
+    color:#7a8493!important;
+    font-size:9px!important;
+  }}
+  .pc11-card-head button{{
+    height:28px!important;
+    padding:0 9px!important;
+    border:1px solid rgba(17,24,39,.12)!important;
+    border-radius:7px!important;
+    background:#f7e889!important;
+    color:#111827!important;
+    font-size:9px!important;
+  }}
+
+  /* Issue group */
+  .pc11-issue-list{{
+    height:calc(100% - 48px)!important;
+    gap:8px!important;
+    padding:9px!important;
+  }}
+  .pc11-issue-item{{
+    padding:12px!important;
+    border:1px solid rgba(35,57,93,.12)!important;
+    border-radius:11px!important;
+    background:#f7f9fb!important;
+  }}
+  .pc11-issue-item:first-child{{
+    background:#23395d!important;
+    border-color:#23395d!important;
+  }}
+  .pc11-issue-item .top{{
+    color:#667085!important;
+    font-size:9px!important;
+  }}
+  .pc11-issue-item:first-child .top{{
+    color:rgba(255,255,255,.68)!important;
+  }}
+  .pc11-issue-item h3{{
+    margin-top:10px!important;
+    color:#344054!important;
+    font-size:13px!important;
+    line-height:1.45!important;
+  }}
+  .pc11-issue-item:first-child h3{{
+    color:#fff!important;
+    font-size:16px!important;
+  }}
+  .pc11-issue-item .chips{{
+    gap:4px!important;
+    margin-top:10px!important;
+  }}
+  .pc11-issue-item .chips span{{
+    padding:4px 7px!important;
+    background:#e9eef4!important;
+    color:#475467!important;
+    font-size:8px!important;
+  }}
+  .pc11-issue-item:first-child .chips span{{
+    background:rgba(255,255,255,.13)!important;
+    color:#fff!important;
+  }}
+
+  /* Ranking / keywords */
+  .pc11-rank-list{{
+    height:calc(100% - 48px)!important;
+    padding:7px 10px!important;
+  }}
+  .pc11-rank-row{{
+    min-height:34px!important;
+    grid-template-columns:24px minmax(0,1fr) auto!important;
+    gap:7px!important;
+  }}
+  .pc11-rank-no{{
+    color:#98a2b3!important;
+    font-size:9px!important;
+  }}
+  .pc11-rank-name{{
+    color:#344054!important;
+    font-size:11px!important;
+  }}
+  .pc11-rank-count{{
+    color:#23395d!important;
+    font-size:11px!important;
+  }}
+
+  .pc11-keyword-list{{
+    height:calc(100% - 48px)!important;
+    gap:6px!important;
+    padding:10px!important;
+  }}
+  .pc11-keyword{{
+    height:29px!important;
+    padding:0 9px!important;
+    border:1px solid rgba(17,24,39,.10)!important;
+    background:#fff!important;
+    color:#344054!important;
+    font-size:10px!important;
+  }}
+  .pc11-keyword b{{
+    color:#23395d!important;
+    font-size:10px!important;
+  }}
+
+  /* Small map only */
+  .pc11-map-layout{{
+    height:calc(100% - 48px)!important;
+    grid-template-columns:minmax(0,1fr) 118px!important;
+    gap:7px!important;
+    padding:8px!important;
+  }}
+  .pc11-map-stage{{
+    border:1px solid rgba(35,57,93,.12)!important;
+    background:#d7e4ef!important;
+  }}
+  .pc11-map-country{{
+    fill:#edf3f7!important;
+    stroke:#c3d3df!important;
+  }}
+  .pc11-map-country.has{{fill:#86abc5!important}}
+  .pc11-map-country.l2{{fill:#638eae!important}}
+  .pc11-map-country.l3{{fill:#416f96!important}}
+  .pc11-map-country.l4{{fill:#23395d!important}}
+  .pc11-map-country.selected{{
+    fill:#fee500!important;
+    stroke:#23395d!important;
+  }}
+  #pc11-map-loading{{
+    color:#475467!important;
+    font-size:9px!important;
+  }}
+  .pc11-country-row{{
+    min-height:31px!important;
+    color:#475467!important;
+    font-size:9px!important;
+  }}
+  .pc11-country-row strong{{
+    color:#23395d!important;
+    font-size:10px!important;
+  }}
+
+  /* RIGHT: closer to mobile card identity */
+  .pc11-right{{
+    background:#eef4f9!important;
+    grid-template-rows:58px auto 42px minmax(0,1fr)!important;
+  }}
+  .pc11-right-head{{
+    padding:0 13px!important;
+    background:#23395d!important;
+    border-bottom:0!important;
+  }}
+  .pc11-right-head>div span{{
+    color:rgba(255,255,255,.62)!important;
+    font-size:8px!important;
+  }}
+  .pc11-right-head>div strong{{
+    color:#fff!important;
+    font-size:15px!important;
+  }}
+  .pc11-right-head>span{{
+    color:#fee500!important;
+    font-size:12px!important;
+  }}
+
+  .pc11-group-tabs{{
+    gap:6px!important;
+    padding:9px!important;
+    max-height:118px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#dce8f2!important;
+  }}
+  .pc11-group-tabs button{{
+    min-height:31px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(17,24,39,.10)!important;
+    border-radius:8px!important;
+    background:rgba(255,255,255,.88)!important;
+    color:#344054!important;
+    font-size:10px!important;
+  }}
+  .pc11-group-tabs button.active{{
+    background:#fee500!important;
+    color:#111827!important;
+    border-color:#fee500!important;
+    box-shadow:0 1px 2px rgba(17,24,39,.12)!important;
+  }}
+  .pc11-group-tabs button b{{
+    font-size:9px!important;
+  }}
+
+  .pc11-list-head{{
+    padding:0 11px!important;
+    background:#dce8f2!important;
+    color:#475467!important;
+    font-size:10px!important;
+  }}
+  .pc11-list-head strong{{
+    color:#23395d!important;
+    font-size:11px!important;
+  }}
+
+  .pc11-article-list{{
+    padding:8px!important;
+    background:#c4d6e8!important;
+  }}
+  .pc11-list-card{{
+    min-height:104px!important;
+    grid-template-columns:minmax(0,1fr) 88px!important;
+    gap:9px!important;
+    padding:10px!important;
+    margin-bottom:7px!important;
+    border:1px solid rgba(17,24,39,.10)!important;
+    border-radius:11px!important;
+    background:#fff!important;
+    box-shadow:0 2px 5px rgba(17,24,39,.035)!important;
+  }}
+  .pc11-list-card:hover{{
+    border-color:#7f97b0!important;
+    background:#fff!important;
+  }}
+  .pc11-list-card.selected{{
+    border:2px solid #23395d!important;
+    background:#fffbea!important;
+  }}
+  .pc11-list-card .publisher{{
+    color:#667085!important;
+    font-size:9px!important;
+  }}
+  .pc11-list-card strong{{
+    margin-top:5px!important;
+    color:#111827!important;
+    font-size:13px!important;
+    line-height:1.4!important;
+  }}
+  .pc11-list-card .meta{{
+    margin-top:7px!important;
+    color:#7a8493!important;
+    font-size:9px!important;
+  }}
+  .pc11-list-thumb{{
+    width:88px!important;
+    height:74px!important;
+    border-radius:9px!important;
+    background:#e9eef2!important;
+  }}
+
+  /* ARTICLE DETAIL */
+  .pc11-detail{{
+    background:#fff!important;
+  }}
+  .pc11-detail-toolbar{{
+    min-height:50px!important;
+    padding:0 12px!important;
+    background:#dce8f2!important;
+    border-bottom:1px solid rgba(35,57,93,.12)!important;
+  }}
+  .pc11-detail-toolbar button{{
+    height:32px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(17,24,39,.11)!important;
+    background:#fff!important;
+    color:#344054!important;
+    font-size:10px!important;
+  }}
+  #pc11-detail-back{{
+    background:#fee500!important;
+    color:#111827!important;
+    border-color:#fee500!important;
+  }}
+
+  .pc11-detail-scroll{{
+    padding:28px clamp(26px,4vw,64px) 42px!important;
+  }}
+  .pc11-detail-meta{{
+    gap:9px!important;
+    color:#667085!important;
+    font-size:11px!important;
+  }}
+  .pc11-detail-meta span:first-child{{
+    color:#23395d!important;
+    font-weight:900!important;
+  }}
+  .pc11-detail h2{{
+    margin-top:13px!important;
+    color:#111827!important;
+    font-size:clamp(26px,2.2vw,38px)!important;
+    line-height:1.32!important;
+    letter-spacing:-.6px!important;
+  }}
+  .pc11-detail-image-wrap{{
+    margin-top:23px!important;
+    border-radius:13px!important;
+  }}
+  .pc11-detail-section{{
+    margin-top:25px!important;
+    padding-top:18px!important;
+  }}
+  .pc11-detail-section>span,
+  .pc11-detail-section-head span{{
+    color:#23395d!important;
+    font-size:11px!important;
+  }}
+  .pc11-detail-section p{{
+    margin-top:11px!important;
+    color:#344054!important;
+    font-size:15px!important;
+    line-height:1.8!important;
+  }}
+  .pc11-detail-keywords{{
+    gap:6px!important;
+    margin-top:11px!important;
+  }}
+  .pc11-detail-keywords span{{
+    padding:6px 9px!important;
+    background:#edf3f7!important;
+    color:#344054!important;
+    font-size:10px!important;
+  }}
+  .pc11-detail-section-head strong{{
+    color:#23395d!important;
+    font-size:10px!important;
+  }}
+  .pc11-related-list{{
+    gap:8px!important;
+    margin-top:11px!important;
+  }}
+  .pc11-related-item{{
+    padding:10px!important;
+    background:#f8fafb!important;
+  }}
+  .pc11-related-item span{{
+    color:#667085!important;
+    font-size:9px!important;
+  }}
+  .pc11-related-item strong{{
+    margin-top:5px!important;
+    color:#111827!important;
+    font-size:12px!important;
+    line-height:1.4!important;
+  }}
+  #pc11-detail-original{{
+    height:38px!important;
+    padding:0 14px!important;
+    background:#23395d!important;
+    color:#fff!important;
+    font-size:11px!important;
+  }}
+
+  /* RESTORED WINDOW: preserve readability rather than crushing text */
+  @media (max-width:1450px){{
+    .pc11-shell{{
+      grid-template-columns:minmax(0,1.7fr) minmax(340px,1fr)!important;
+    }}
+    .pc11-dashboard-grid{{
+      grid-template-columns:minmax(0,1fr) minmax(0,.82fr)!important;
+    }}
+    .pc11-issues{{grid-column:1/span 2!important;grid-row:1!important}}
+    .pc11-entities{{grid-column:1!important;grid-row:2!important}}
+    .pc11-keywords{{grid-column:2!important;grid-row:2!important}}
+    .pc11-map-card,.pc11-media{{display:none!important}}
+    .pc11-list-card strong{{font-size:12px!important}}
+  }}
+
+  @media (max-width:1180px){{
+    .pc11-header{{
+      grid-template-columns:190px minmax(220px,1fr) auto!important;
+    }}
+    .pc11-brand strong{{font-size:17px!important}}
+    .pc11-header-actions button{{
+      min-width:48px!important;
+      padding:0 7px!important;
+      font-size:10px!important;
+    }}
+    .pc11-shell{{
+      grid-template-columns:minmax(0,1.5fr) minmax(330px,1fr)!important;
+    }}
+  }}
+
+  @media (max-height:760px){{
+    .pc11-dashboard{{
+      grid-template-rows:58px 62px minmax(0,1fr)!important;
+      padding:8px!important;
+    }}
+    .pc11-page-head p{{display:none!important}}
+    .pc11-page-head h1{{font-size:20px!important}}
+    .pc11-kpis article{{padding:7px 9px!important}}
+    .pc11-kpis strong{{font-size:19px!important}}
+    .pc11-card-head{{height:40px!important}}
+    .pc11-issue-list,
+    .pc11-rank-list,
+    .pc11-keyword-list,
+    .pc11-map-layout{{height:calc(100% - 40px)!important}}
+    .pc11-list-card{{min-height:90px!important}}
+    .pc11-list-card strong{{font-size:12px!important}}
+  }}
 }}
 
 </style>
