@@ -1,3 +1,4 @@
+# FINAL PC V20 / DATE INTEGRITY FIX / NO LAST-MODIFIED AS PUBLISH DATE / ARCHIVE DATE REPAIR / PC+MOBILE 2026-09-07
 # FINAL PC V19 / DEFAULT TODAY AUTO + TIMELINE DIRECT MONTHLY JSON SEARCH / ORIGINAL ARTICLE FIRST 2026-09-07
 # FINAL PC V18 / TIMELINE CURRENT-PANEL DATE FIX / 1Y SEARCH / ORIGINAL ARTICLE FIRST 2026-09-07
 # FINAL PC V17 / TODAY AUTOLOAD + TIMELINE FIX + ORIGINAL ARTICLE FIRST / MOBILE UNCHANGED 2026-09-07
@@ -5334,11 +5335,12 @@ def _jsonld_date_published(decoded_html: str) -> str:
             item = queue.pop(0)
             if not isinstance(item, dict):
                 continue
+            # 발행일 판정에는 publication 계열만 사용합니다.
+            # dateModified / uploadDate는 페이지 수정일·업로드일일 수 있어
+            # 오래된 기사를 '오늘 기사'로 오인시키므로 사용하지 않습니다.
             value = (
                 item.get("datePublished")
                 or item.get("dateCreated")
-                or item.get("dateModified")
-                or item.get("uploadDate")
             )
             if value:
                 return str(value)
@@ -5355,32 +5357,43 @@ def _extract_direct_article_date(
     language: str,
 ) -> datetime | None:
     """
-    해외 기사에서 자주 쓰는 meta / JSON-LD / <time datetime> / URL 날짜를 순차 확인합니다.
-    발행일 형식 차이 때문에 정상 영문 기사가 통째로 빠지는 문제를 줄입니다.
+    기사 '발행일'로 신뢰할 수 있는 값만 사용합니다.
+
+    우선순위:
+      1) 명시적 published 메타 / JSON-LD datePublished·dateCreated
+      2) publish 의미가 있는 <time datetime>
+      3) inline datePublished / published_time
+      4) URL에 명시된 YYYY/MM/DD 또는 YYYY-MM-DD
+
+    금지:
+      - HTTP Last-Modified
+      - JSON-LD dateModified
+      - HTML 본문에서 무작위로 발견한 첫 ISO 날짜
     """
     raw_candidates = [
         parser.values.get("article:published_time"),
         parser.values.get("article:published"),
         parser.values.get("og:published_time"),
-        parser.values.get("date"),
         parser.values.get("datepublished"),
         parser.values.get("datePublished"),
         parser.values.get("pubdate"),
         parser.values.get("publishdate"),
         parser.values.get("publish-date"),
-        parser.values.get("dc.date"),
         parser.values.get("dc.date.issued"),
         _jsonld_date_published(decoded_html),
     ]
 
-    time_matches = re.findall(
-        r'<time[^>]+datetime=["\\\']([^"\\\']+)["\\\']',
+    # <time>은 updated/modified 표시가 명시된 태그는 제외합니다.
+    for attrs, value in re.findall(
+        r'<time\b([^>]*)datetime=["\\\']([^"\\\']+)["\\\'][^>]*>',
         decoded_html,
         re.I,
-    )
-    raw_candidates.extend(time_matches[:4])
+    )[:8]:
+        attrs_lower = attrs.lower()
+        if any(token in attrs_lower for token in ("updated", "modified", "lastmod")):
+            continue
+        raw_candidates.append(value)
 
-    # common inline JSON / data attributes
     inline_patterns = [
         r'["\\\']datePublished["\\\']\s*:\s*["\\\']([^"\\\']+)["\\\']',
         r'["\\\']published[_-]?time["\\\']\s*:\s*["\\\']([^"\\\']+)["\\\']',
@@ -5391,18 +5404,10 @@ def _extract_direct_article_date(
         if m:
             raw_candidates.append(m.group(1))
 
-    # URL에 YYYY/MM/DD 또는 YYYY-MM-DD가 들어가는 언론사 보완
-    url_match = re.search(r'/((?:20)\d{2})[/-](\d{1,2})[/-](\d{1,2})(?:/|$)', final_url)
-    if url_match:
-        raw_candidates.append("-".join(url_match.groups()))
-
-    # 최후 보완: HTML에서 ISO 날짜 1건
-    m = re.search(
-        r'20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}(?:[T\s]\d{1,2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:?\d{2})?)?',
-        decoded_html,
-    )
-    if m:
-        raw_candidates.append(m.group(0))
+    # URL 날짜는 publication 메타가 없는 매체의 안전한 fallback으로만 사용
+    url_date = _date_from_article_url(final_url)
+    if url_date is not None:
+        raw_candidates.append(url_date.isoformat())
 
     for raw_date in raw_candidates:
         if not raw_date:
@@ -5410,8 +5415,6 @@ def _extract_direct_article_date(
         try:
             published = date_parser.parse(str(raw_date))
             if published.tzinfo is None:
-                # 영문 기사에 timezone이 없으면 UTC로 간주하되,
-                # 날짜만 있는 경우 정오를 사용해 경계시간 오분류를 줄입니다.
                 if (
                     published.hour == 0
                     and published.minute == 0
@@ -5523,6 +5526,28 @@ def _date_from_article_url(url: str) -> datetime | None:
         except ValueError:
             pass
     return None
+
+
+def normalize_article_publication_date(article: Article) -> Article:
+    """
+    과거 archive에 잘못 저장된 발행일을 보정합니다.
+
+    URL에 YYYY/MM/DD 또는 YYYY-MM-DD가 명시되어 있고,
+    저장된 published와 36시간 이상 차이가 나면 URL 날짜를 우선합니다.
+    이는 과거 HTTP Last-Modified 오인으로 오늘 탭에 오래된 기사가
+    섞이는 문제를 자동 정리하기 위한 안전장치입니다.
+    """
+    try:
+        url_date = _date_from_article_url(article.link or "")
+        if url_date is None:
+            return article
+
+        diff = abs((article.published.astimezone(KST) - url_date.astimezone(KST)).total_seconds())
+        if diff >= 36 * 3600:
+            article.published = url_date.astimezone(KST)
+    except Exception:
+        pass
+    return article
 
 
 def _source_origin(url: str) -> str:
@@ -5729,11 +5754,8 @@ def _fetch_direct_page_article(
     )
     date_source = "meta"
 
-    # 일부 해외 사이트는 Article metadata에 발행일을 안 넣습니다.
-    # 이 경우 HTTP Last-Modified -> URL 내 명시적 날짜 순서로만 보완합니다.
-    if published is None:
-        published = _date_from_http_last_modified(response_headers)
-        date_source = "last_modified"
+    # 발행일 metadata가 없을 때는 URL에 명시된 기사 날짜까지만 허용합니다.
+    # HTTP Last-Modified는 페이지/CDN 수정시각일 수 있으므로 발행일로 사용하지 않습니다.
     if published is None:
         published = _date_from_article_url(final_url)
         date_source = "url"
@@ -5795,7 +5817,6 @@ def _fetch_one_direct_news_page(
         "no_date": 0,
         "out_of_range": 0,
         "ok_meta": 0,
-        "ok_last_modified": 0,
         "ok_url": 0,
     }
 
@@ -5991,8 +6012,6 @@ def _fetch_one_direct_news_page(
                 stats["no_date"] = int(stats["no_date"]) + 1
             elif reason == "ok:meta":
                 stats["ok_meta"] = int(stats["ok_meta"]) + 1
-            elif reason == "ok:last_modified":
-                stats["ok_last_modified"] = int(stats["ok_last_modified"]) + 1
             elif reason == "ok:url":
                 stats["ok_url"] = int(stats["ok_url"]) + 1
 
@@ -6012,7 +6031,7 @@ def _fetch_one_direct_news_page(
         f"| opened={stats['opened']} | accepted={stats['accepted']} "
         f"| fetch_err={stats['fetch_errors']} | no_date={stats['no_date']} "
         f"| irrelevant={stats['not_relevant']} | out_range={stats['out_of_range']} "
-        f"| date(meta/lm/url)={stats['ok_meta']}/{stats['ok_last_modified']}/{stats['ok_url']} "
+        f"| date(meta/url)={stats['ok_meta']}/{stats['ok_url']} "
         f"| url={page_url}"
     )
     return articles, stats
@@ -6221,6 +6240,10 @@ def select_articles_for_period(
     기간에 해당하는 기사를 모두 유지한 뒤 최종 중복 제거를 수행합니다.
     그룹별/언어별 기사 수 제한은 두지 않습니다.
     """
+    # URL에 명시된 날짜와 저장된 발행일이 크게 충돌하는 경우 먼저 보정합니다.
+    for article in fetched:
+        normalize_article_publication_date(article)
+
     period_articles = [
         article
         for article in fetched
@@ -11410,6 +11433,7 @@ def article_from_dict(data: dict) -> Article | None:
             source_url=source_url,
             description=str(data.get("description", "")),
         )
+        normalize_article_publication_date(article)
         return enforce_kepco_kdn_group(article)
     except Exception:
         return None
