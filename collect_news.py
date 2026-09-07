@@ -1,3 +1,4 @@
+# FINAL PC DESKTOP APP V8 / LEGACY PC SCRIPTS ISOLATED / MOBILE UNCHANGED 2026-09-07
 # FINAL PC DESKTOP APP V7 / COMPLETELY SEPARATED FROM MOBILE / MOBILE UNCHANGED 2026-09-07
 # FINAL PC STABLE CONTROL TOWER V6 CLEAN FINAL / MOBILE UNCHANGED 2026-09-07
 # FINAL PC STABLE CONTROL TOWER V6 / FILTERABLE RELATED ARTICLES / MOBILE UNCHANGED 2026-09-07
@@ -27097,6 +27098,72 @@ main {{
   #pc7-app {{ display:none !important; }}
 }}
 
+
+/* ==============================================================
+   PC7 V8 — LEGACY ISOLATION GUARD
+   ============================================================== */
+@media (min-width:1000px) {{
+  #pc7-app {{
+    display:grid !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }}
+
+  #pc7-app > .pc7-header {{
+    display:grid !important;
+  }}
+
+  #pc7-app > .pc7-tabs {{
+    display:flex !important;
+  }}
+
+  #pc7-app > main.pc7-grid {{
+    display:grid !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }}
+
+  #pc-v2-dashboard,
+  #pc-insight-rail,
+  #pc-category-strip,
+  #pc-country-filter-result,
+  #world-map-panel {{
+    display:none !important;
+  }}
+
+  /* Keep legacy/mobile DOM alive only as a hidden desktop data source. */
+  .phone {{
+    display:block !important;
+    position:absolute !important;
+    left:-200vw !important;
+    top:0 !important;
+    width:1px !important;
+    height:1px !important;
+    overflow:hidden !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+  }}
+
+  .phone main {{
+    display:block !important;
+  }}
+}}
+
+@media (max-width:999px) {{
+  .phone {{
+    position:relative !important;
+    left:auto !important;
+    top:auto !important;
+    width:auto !important;
+    height:auto !important;
+    overflow:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -33576,7 +33643,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       if (scrollToArticles) {{
         var target=document.querySelector(".tab-panel.active .news-group") ||
                    document.querySelector(".tab-panel.active") ||
-                   document.querySelector("main");
+                   document.querySelector(".phone main");
         if (target) target.scrollIntoView({{behavior:"smooth",block:"start"}});
       }}
     }},80);
@@ -33593,7 +33660,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     window.setTimeout(function() {{
       updatePcCountryDashboard();
       if (scrollToArticles) {{
-        var target=document.querySelector(".tab-panel.active") || document.querySelector("main");
+        var target=document.querySelector(".tab-panel.active") || document.querySelector(".phone main");
         if (target) target.scrollIntoView({{behavior:"smooth",block:"start"}});
       }}
     }},60);
@@ -34395,7 +34462,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
           if(typeof updateSelectedCountryClock==="function") updateSelectedCountryClock(code);
           if(typeof filterArticles==="function") filterArticles();
         }} catch(_e) {{}}
-        const main=document.querySelector("main");
+        const main=document.querySelector(".phone main");
         if(main) main.scrollIntoView({{behavior:"smooth",block:"start"}});
       }};
     }}
@@ -34721,7 +34788,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function pcv3EnsureArticleClose() {{
     if(!pcv3Desktop()) return;
-    const main=document.querySelector("main");
+    const main=document.querySelector(".phone main");
     if(!main || main.querySelector(".pc-v3-article-close")) return;
     const close=document.createElement("button");
     close.type="button";
@@ -34788,7 +34855,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
     const dash=document.getElementById("pc-v2-dashboard");
     const header=document.getElementById("topbar");
-    const main=document.querySelector("main");
+    const main=document.querySelector(".phone main");
 
     if(main && !document.body.classList.contains("pc-v3-articles-open")) {{
       main.style.setProperty("display","none","important");
@@ -34853,7 +34920,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   function pcv5RefreshStable() {{
     if(!pcv5Desktop()) return;
 
-    const main=document.querySelector("main");
+    const main=document.querySelector(".phone main");
     if(main && !document.body.classList.contains("pc-v3-articles-open")) {{
       main.style.setProperty("display","none","important");
     }}
@@ -35360,6 +35427,71 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(init,250));else setTimeout(init,250);
   setInterval(updateClocks,1000);
   window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,100);}});
+}})();
+</script>
+
+
+<script>
+(function() {{
+  function pc7v8Desktop() {{
+    return window.matchMedia("(min-width:1000px)").matches;
+  }}
+
+  function protectPC7() {{
+    if (!pc7v8Desktop()) return;
+
+    var app = document.getElementById("pc7-app");
+    var grid = document.querySelector("#pc7-app > main.pc7-grid");
+    if (!app || !grid) return;
+
+    app.style.setProperty("display", "grid", "important");
+    app.style.setProperty("visibility", "visible", "important");
+    app.style.setProperty("opacity", "1", "important");
+
+    grid.style.setProperty("display", "grid", "important");
+    grid.style.setProperty("visibility", "visible", "important");
+    grid.style.setProperty("opacity", "1", "important");
+
+    var oldMain = document.querySelector(".phone main");
+    if (oldMain) {{
+      oldMain.style.setProperty("display", "block", "important");
+    }}
+  }}
+
+  function observePC7() {{
+    if (!pc7v8Desktop() || !window.MutationObserver) return;
+    var grid = document.querySelector("#pc7-app > main.pc7-grid");
+    if (!grid || grid.dataset.v8Observed === "1") return;
+    grid.dataset.v8Observed = "1";
+
+    var observer = new MutationObserver(function() {{
+      if (grid.style.display === "none" || getComputedStyle(grid).display === "none") {{
+        protectPC7();
+      }}
+    }});
+    observer.observe(grid, {{attributes:true, attributeFilter:["style","class"]}});
+  }}
+
+  function boot() {{
+    if (!pc7v8Desktop()) return;
+    protectPC7();
+    observePC7();
+    setTimeout(protectPC7, 300);
+    setTimeout(protectPC7, 1000);
+    setTimeout(protectPC7, 1600);
+  }}
+
+  if (document.readyState === "loading") {{
+    document.addEventListener("DOMContentLoaded", function() {{
+      setTimeout(boot, 120);
+    }});
+  }} else {{
+    setTimeout(boot, 120);
+  }}
+
+  window.addEventListener("resize", function() {{
+    setTimeout(boot, 80);
+  }});
 }})();
 </script>
 
