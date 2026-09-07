@@ -1,3 +1,5 @@
+# FINAL PC V10 / REBUILT FROM MOBILE INFORMATION ARCHITECTURE / MOBILE UNCHANGED 2026-09-07
+# FINAL PC ANALYTICS DESKTOP V9 / TOPIC ANALYSIS / MOBILE UNCHANGED 2026-09-07
 # FINAL PC DESKTOP APP V8 / LEGACY PC SCRIPTS ISOLATED / MOBILE UNCHANGED 2026-09-07
 # FINAL PC DESKTOP APP V7 / COMPLETELY SEPARATED FROM MOBILE / MOBILE UNCHANGED 2026-09-07
 # FINAL PC STABLE CONTROL TOWER V6 CLEAN FINAL / MOBILE UNCHANGED 2026-09-07
@@ -27164,6 +27166,440 @@ main {{
   }}
 }}
 
+
+/* PC ANALYTICS DESKTOP V9 */
+#pc9-app {{ display:none; }}
+
+@media (min-width:1000px) {{
+  html,body {{ width:100%;height:100%;overflow:hidden !important;background:#f3f5f7 !important; }}
+
+  body > .phone,
+  #pc7-app,
+  #pc-v2-dashboard,
+  #pc-insight-rail,
+  #world-map-panel {{ display:none !important; }}
+
+  #pc9-app {{
+    display:grid !important;
+    grid-template-rows:58px 40px minmax(0,1fr);
+    gap:8px;
+    width:100vw;
+    height:100dvh;
+    padding:10px 12px 12px;
+    box-sizing:border-box;
+    overflow:hidden;
+    font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    color:#1d3348;
+    background:radial-gradient(circle at 12% 0%,rgba(207,224,238,.48),transparent 28%),#f3f5f7;
+  }}
+
+  .pc9-header {{
+    display:grid;
+    grid-template-columns:260px minmax(360px,1fr) auto;
+    gap:14px;
+    align-items:center;
+    padding:0 15px;
+    border:1px solid #e0e6eb;
+    border-radius:15px;
+    background:#fff;
+    box-shadow:0 4px 16px rgba(30,55,78,.05);
+  }}
+  .pc9-brand span {{display:block;color:#5e84a4;font-size:7px;font-weight:950;letter-spacing:1.05px;}}
+  .pc9-brand strong {{display:block;margin-top:2px;color:#173b61;font-size:16px;font-weight:950;}}
+  .pc9-search input {{width:100%;height:34px;padding:0 13px;border:1px solid #dde5eb;border-radius:10px;outline:none;background:#f7f9fb;color:#263e54;font-size:9px;font-weight:750;}}
+  .pc9-header-right {{display:flex;align-items:center;gap:9px;}}
+  .pc9-header-right span {{color:#8996a3;font-size:7px;font-weight:800;}}
+  .pc9-header-right button {{height:31px;padding:0 10px;border:0;border-radius:8px;background:#173b61;color:#fff;font-size:8px;font-weight:950;cursor:pointer;}}
+
+  .pc9-topic-tabs {{display:flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid #e0e6eb;border-radius:12px;background:#fff;overflow:hidden;}}
+  .pc9-topic-tabs button {{height:28px;padding:0 10px;border:1px solid transparent;border-radius:999px;background:#f4f6f8;color:#65798c;font-size:7.5px;font-weight:900;cursor:pointer;}}
+  .pc9-topic-tabs button.active {{background:#173b61;color:#fff;}}
+
+  .pc9-main {{
+    display:grid !important;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    grid-template-rows:70px minmax(0,1fr) minmax(0,.86fr) 54px;
+    gap:8px;
+    min-width:0;
+    min-height:0;
+    overflow:hidden;
+  }}
+
+  .pc9-summary {{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:repeat(4,1fr) 1.5fr;gap:7px;}}
+  .pc9-summary article {{padding:9px 11px;border:1px solid #e0e6eb;border-radius:12px;background:#fff;box-shadow:0 3px 10px rgba(30,55,78,.035);}}
+  .pc9-summary span {{display:block;color:#7c8d9d;font-size:7px;font-weight:850;}}
+  .pc9-summary strong {{display:inline-block;margin-top:4px;color:#173b61;font-size:20px;font-weight:950;}}
+  .pc9-summary small {{margin-left:3px;color:#9aa6b0;font-size:6.5px;font-weight:750;}}
+  .pc9-summary-accent {{background:linear-gradient(135deg,#173b61,#2c668f) !important;}}
+  .pc9-summary-accent span,.pc9-summary-accent small {{color:rgba(255,255,255,.66)!important;}}
+  .pc9-summary-accent strong {{color:#fff!important;font-size:14px!important;}}
+
+  .pc9-card {{min-width:0;min-height:0;overflow:hidden;border:1px solid #e0e6eb;border-radius:14px;background:#fff;box-shadow:0 4px 14px rgba(30,55,78,.04);}}
+  .pc9-card-head {{display:flex;align-items:center;justify-content:space-between;height:38px;padding:0 10px;border-bottom:1px solid #edf1f4;}}
+  .pc9-card-head > div span {{display:block;color:#6b91b0;font-size:5.8px;font-weight:950;letter-spacing:.9px;}}
+  .pc9-card-head > div strong {{display:block;margin-top:1px;color:#203c56;font-size:10px;font-weight:950;}}
+  .pc9-card-head small {{color:#929fa9;font-size:6px;font-weight:800;}}
+  .pc9-card-head button {{height:24px;padding:0 8px;border:1px solid #dbe4ea;border-radius:7px;background:#f7f9fb;color:#607488;font-size:6.5px;font-weight:900;cursor:pointer;}}
+
+  .pc9-classification {{grid-column:1/span 5;grid-row:2;}}
+  .pc9-category-bars {{display:flex;flex-direction:column;gap:7px;height:calc(100% - 38px);padding:10px;box-sizing:border-box;}}
+  .pc9-category-row {{display:grid;grid-template-columns:88px minmax(0,1fr) 34px;gap:7px;align-items:center;padding:6px 7px;border:1px solid #edf1f4;border-radius:9px;background:#fafbfd;cursor:pointer;}}
+  .pc9-category-row:hover {{border-color:#cddbe6;background:#f5f9fc;}}
+  .pc9-category-name {{color:#425f78;font-size:7.5px;font-weight:900;}}
+  .pc9-category-track {{height:7px;border-radius:999px;background:#e7edf2;overflow:hidden;}}
+  .pc9-category-fill {{height:100%;border-radius:inherit;background:linear-gradient(90deg,#4b83ad,#91b5cf);}}
+  .pc9-category-count {{text-align:right;color:#173b61;font-size:8px;font-weight:950;}}
+
+  .pc9-issues {{grid-column:6/-1;grid-row:2;}}
+  .pc9-issue-grid {{display:grid;grid-template-columns:1.45fr .85fr;grid-template-rows:1fr 1fr;gap:7px;height:calc(100% - 38px);padding:8px;box-sizing:border-box;}}
+  .pc9-issue {{position:relative;min-width:0;min-height:0;overflow:hidden;border-radius:11px;background:#dce5ec;cursor:pointer;}}
+  .pc9-issue:first-child {{grid-row:1/span 2;}}
+  .pc9-issue-img {{position:absolute;inset:0;background-size:cover;background-position:center;}}
+  .pc9-issue-shade {{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,36,55,.04),rgba(15,37,57,.85));}}
+  .pc9-issue-copy {{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;}}
+  .pc9-issue-copy span {{display:inline-flex;padding:3px 5px;margin-bottom:5px;border-radius:999px;background:rgba(255,255,255,.18);font-size:5.8px;font-weight:900;}}
+  .pc9-issue-copy strong {{display:block;font-size:10px;line-height:1.32;font-weight:950;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}}
+  .pc9-issue:first-child .pc9-issue-copy strong {{font-size:13px;}}
+  .pc9-issue-copy small {{display:block;margin-top:4px;color:rgba(255,255,255,.72);font-size:6px;}}
+
+  .pc9-keywords {{grid-column:1/span 4;grid-row:3;}}
+  .pc9-keyword-cloud {{display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px;height:calc(100% - 38px);padding:10px;box-sizing:border-box;}}
+  .pc9-keyword {{display:flex;align-items:center;gap:4px;height:26px;padding:0 8px;border:1px solid #e1e8ee;border-radius:999px;background:#f7f9fb;color:#47647c;font-size:7px;font-weight:900;cursor:pointer;}}
+  .pc9-keyword b {{color:#173b61;font-size:7.5px;}}
+
+  .pc9-map-card {{grid-column:5/-1;grid-row:3;}}
+  .pc9-map-layout {{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:7px;height:calc(100% - 38px);padding:7px;box-sizing:border-box;}}
+  .pc9-map-stage {{position:relative;min-height:0;overflow:hidden;border:1px solid #e4eaef;border-radius:10px;background:linear-gradient(180deg,#f6f9fb,#eef3f6);}}
+  #pc9-world-map {{width:100%;height:100%;display:block;}}
+  .pc9-map-country {{fill:#dfe7ed;stroke:#fff;stroke-width:.6;vector-effect:non-scaling-stroke;cursor:pointer;}}
+  .pc9-map-country.has-news {{fill:#9bbbd2;}}
+  .pc9-map-country.level-2 {{fill:#76a5c5;}}
+  .pc9-map-country.level-3 {{fill:#5189b0;}}
+  .pc9-map-country.level-4 {{fill:#2f648e;}}
+  .pc9-map-country.selected {{fill:#173b61!important;stroke:#e6bb45!important;stroke-width:1.5!important;}}
+  .pc9-map-labels {{position:absolute;inset:0;pointer-events:none;}}
+  .pc9-map-label {{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:4px;min-height:22px;padding:3px 5px;border:1px solid rgba(61,91,117,.14);border-radius:7px;background:rgba(255,255,255,.95);box-shadow:0 4px 10px rgba(31,55,76,.10);pointer-events:auto;cursor:pointer;white-space:nowrap;}}
+  .pc9-map-label img {{width:17px;height:11px;object-fit:cover;border-radius:2px;}}
+  .pc9-map-label strong {{font-size:6.3px;color:#35516a;}}
+  .pc9-map-label span {{padding:2px 4px;border-radius:999px;background:#173b61;color:#fff;font-size:5.5px;font-weight:950;}}
+  .pc9-map-loading {{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8695a2;font-size:7px;font-weight:800;}}
+
+  .pc9-country-panel {{padding:8px;border:1px solid #e5ebef;border-radius:10px;background:#fafbfd;}}
+  .pc9-country-empty {{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#8393a1;}}
+  .pc9-country-empty > span {{font-size:24px;color:#7095b3;}}
+  .pc9-country-empty strong {{margin-top:6px;font-size:8px;color:#3e5c75;}}
+  .pc9-country-empty small {{margin-top:4px;font-size:5.8px;line-height:1.5;}}
+  .pc9-country-title {{display:flex;align-items:center;gap:7px;padding-bottom:7px;border-bottom:1px solid #e7edf1;}}
+  .pc9-country-title img {{width:36px;height:23px;object-fit:cover;border-radius:3px;}}
+  .pc9-country-title strong {{display:block;color:#173b61;font-size:11px;}}
+  .pc9-country-title small {{display:block;color:#8b98a4;font-size:5.5px;margin-top:1px;}}
+  .pc9-country-stats {{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:7px 0;}}
+  .pc9-country-stats div {{padding:6px;border-radius:7px;background:#fff;border:1px solid #e8edf1;}}
+  .pc9-country-stats span {{display:block;color:#8996a2;font-size:5.5px;}}
+  .pc9-country-stats strong {{display:block;margin-top:2px;color:#234966;font-size:13px;}}
+  .pc9-country-block > span {{color:#7d8e9d;font-size:5.5px;font-weight:900;}}
+  #pc9-country-categories {{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px;}}
+  #pc9-country-categories b {{padding:3px 4px;border-radius:999px;background:#e8f0f6;color:#426783;font-size:5px;}}
+  #pc9-country-articles {{width:100%;height:26px;margin-top:6px;border:0;border-radius:7px;background:#173b61;color:#fff;font-size:6.5px;font-weight:950;cursor:pointer;}}
+
+  .pc9-related-strip {{grid-column:1/-1;grid-row:4;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border:1px solid #e0e6eb;border-radius:12px;background:#fff;}}
+  .pc9-related-strip > div {{display:flex;align-items:baseline;gap:6px;}}
+  .pc9-related-strip span {{color:#47647d;font-size:8px;font-weight:950;}}
+  .pc9-related-strip strong {{color:#173b61;font-size:12px;}}
+  .pc9-related-strip small {{color:#96a2ac;font-size:6px;}}
+  .pc9-related-strip button {{height:29px;padding:0 10px;border:0;border-radius:8px;background:#173b61;color:#fff;font-size:7px;font-weight:950;cursor:pointer;}}
+
+  .pc9-drawer {{position:absolute;inset:68px 12px 12px;z-index:5000;display:none;grid-template-rows:42px minmax(0,1fr);border:1px solid #dbe4ea;border-radius:15px;background:#f4f6f8;box-shadow:0 28px 70px rgba(24,45,65,.25);overflow:hidden;}}
+  .pc9-drawer.open {{display:grid;}}
+  .pc9-drawer-head {{display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:#fff;border-bottom:1px solid #e5ebef;}}
+  .pc9-drawer-head > div {{display:flex;align-items:baseline;gap:6px;}}
+  .pc9-drawer-head strong {{font-size:10px;color:#173b61;}}
+  .pc9-drawer-head span {{font-size:6.5px;color:#8a98a4;}}
+  #pc9-drawer-close {{width:28px;height:28px;border:0;border-radius:8px;background:#eef2f5;color:#536b80;font-size:16px;cursor:pointer;}}
+  .pc9-drawer-grid {{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;align-content:start;padding:9px;overflow:auto;}}
+  .pc9-article-card {{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:7px;min-height:102px;padding:8px;border:1px solid #e0e6eb;border-radius:10px;background:#fff;text-align:left;cursor:pointer;}}
+  .pc9-article-card strong {{display:block;color:#2b475f;font-size:7.4px;line-height:1.35;font-weight:950;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}}
+  .pc9-article-card span {{display:block;margin-top:5px;color:#8393a1;font-size:5.8px;}}
+  .pc9-article-card img {{width:88px;height:70px;object-fit:cover;border-radius:7px;background:#e9eef2;}}
+}}
+
+@media (max-width:999px) {{
+  #pc9-app {{display:none !important;}}
+}}
+
+
+/* ==========================================================
+   PC10 — rebuilt from the mobile information architecture.
+   Mobile DOM itself is unchanged.
+   ========================================================== */
+#pc10-app{{display:none}}
+
+@media (min-width:1000px){{
+  html,body{{
+    width:100%;height:100%;margin:0;
+    overflow:hidden!important;
+    background:#f4f6f8!important;
+  }}
+
+  /* Desktop: only PC10 is visible. Old PC experiments stay hidden. */
+  #pc7-app,#pc9-app,#pc-v2-dashboard,#pc-insight-rail,#world-map-panel{{display:none!important}}
+
+  /* Keep mobile DOM alive off-screen as the single data source. */
+  body>.phone{{
+    display:block!important;
+    position:absolute!important;
+    left:-200vw!important;top:0!important;
+    width:1px!important;height:1px!important;
+    opacity:0!important;
+    overflow:hidden!important;
+    pointer-events:none!important;
+  }}
+
+  #pc10-app{{
+    display:grid!important;
+    grid-template-rows:62px minmax(0,1fr);
+    width:100vw;height:100dvh;
+    padding:10px 12px 12px;
+    gap:9px;
+    box-sizing:border-box;
+    font-family:Pretendard,"Noto Sans KR","Malgun Gothic",sans-serif;
+    color:#17334d;
+    background:
+      radial-gradient(circle at 12% -5%,rgba(208,223,235,.68),transparent 26%),
+      #f4f6f8;
+  }}
+
+  .pc10-topbar{{
+    display:grid;
+    grid-template-columns:240px minmax(320px,1fr) auto;
+    gap:14px;
+    align-items:center;
+    padding:0 15px;
+    border:1px solid #e0e6eb;
+    border-radius:15px;
+    background:#fff;
+    box-shadow:0 5px 18px rgba(25,51,74,.05);
+  }}
+  .pc10-brand span{{display:block;color:#7792a8;font-size:7px;font-weight:950;letter-spacing:1.1px}}
+  .pc10-brand strong{{display:block;margin-top:2px;color:#173b61;font-size:17px;font-weight:950}}
+  .pc10-searchbox input{{
+    width:100%;height:35px;padding:0 13px;
+    border:1px solid #dde4ea;border-radius:10px;outline:none;
+    background:#f7f9fb;color:#2c465d;font-size:9px;font-weight:750;
+  }}
+  .pc10-top-actions{{display:flex;gap:5px;align-items:center}}
+  .pc10-top-actions button{{
+    height:31px;padding:0 10px;
+    border:1px solid #dfe6eb;border-radius:8px;
+    background:#fff;color:#61768a;font-size:7px;font-weight:900;cursor:pointer;
+  }}
+  .pc10-top-actions button.active{{background:#edf3f7;color:#173b61;border-color:#cfdde7}}
+  .pc10-top-actions button.primary{{background:#173b61;color:#fff;border-color:#173b61}}
+
+  .pc10-workspace{{
+    display:grid;
+    grid-template-columns:202px minmax(0,1fr);
+    gap:9px;min-width:0;min-height:0;overflow:hidden;
+  }}
+
+  .pc10-sidebar{{
+    min-width:0;min-height:0;
+    display:flex;flex-direction:column;
+    padding:8px;
+    border:1px solid #e0e6eb;border-radius:15px;background:#fff;
+    box-shadow:0 5px 16px rgba(25,51,74,.04);
+    overflow:hidden;
+  }}
+  .pc10-sidebar-head{{padding:7px 8px 10px;border-bottom:1px solid #edf1f4;margin-bottom:6px}}
+  .pc10-sidebar-head span{{display:block;color:#8295a5;font-size:6px;font-weight:900}}
+  .pc10-sidebar-head strong{{display:block;margin-top:2px;color:#23445f;font-size:11px;font-weight:950}}
+  .pc10-mobile-group-nav{{overflow:auto;padding-right:2px}}
+  .pc10-nav-item{{
+    width:100%;height:31px;margin-bottom:4px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 8px;border:0;border-radius:8px;
+    background:transparent;color:#5d7184;font-size:7.2px;font-weight:850;
+    cursor:pointer;text-align:left;
+  }}
+  .pc10-nav-item:hover{{background:#f4f7f9}}
+  .pc10-nav-item.active{{background:#173b61;color:#fff}}
+  .pc10-nav-item b{{
+    min-width:24px;height:18px;display:inline-flex;align-items:center;justify-content:center;
+    padding:0 4px;border-radius:999px;background:#edf2f5;color:#47657c;
+    font-size:6px;font-weight:950;
+  }}
+  .pc10-nav-item.active b{{background:rgba(255,255,255,.17);color:#fff}}
+
+  .pc10-content{{
+    min-width:0;min-height:0;overflow:hidden;
+    display:grid;
+    grid-template-rows:58px 68px minmax(0,1fr);
+    gap:8px;
+  }}
+
+  .pc10-title-row{{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 4px;
+  }}
+  .pc10-title-row span{{display:block;color:#7192ab;font-size:6px;font-weight:950;letter-spacing:.8px}}
+  .pc10-title-row h1{{margin:2px 0 0;color:#183a58;font-size:19px;line-height:1.1;font-weight:950}}
+  .pc10-title-row p{{margin:4px 0 0;color:#81909d;font-size:6.5px;font-weight:700}}
+  .pc10-mini-status{{text-align:right}}
+  .pc10-mini-status span{{color:#8695a2}}
+  .pc10-mini-status strong{{display:block;margin-top:2px;color:#173b61;font-size:14px}}
+
+  .pc10-kpi-row{{display:grid;grid-template-columns:repeat(4,1fr) 1.45fr;gap:7px}}
+  .pc10-kpi-row article{{
+    padding:9px 11px;border:1px solid #e0e6eb;border-radius:12px;background:#fff;
+  }}
+  .pc10-kpi-row span{{display:block;color:#8594a0;font-size:6.5px;font-weight:850}}
+  .pc10-kpi-row strong{{display:inline-block;margin-top:3px;color:#173b61;font-size:20px;font-weight:950}}
+  .pc10-kpi-row small{{margin-left:3px;color:#9ba6af;font-size:6px;font-weight:800}}
+  .pc10-kpi-row article.accent{{background:linear-gradient(135deg,#173b61,#2b638b)}}
+  .pc10-kpi-row article.accent span,.pc10-kpi-row article.accent small{{color:rgba(255,255,255,.66)}}
+  .pc10-kpi-row article.accent strong{{color:#fff;font-size:13px}}
+
+  .pc10-grid{{
+    display:grid;
+    grid-template-columns:1.05fr .92fr .88fr;
+    grid-template-rows:minmax(0,1.05fr) minmax(0,.95fr);
+    gap:8px;
+    min-width:0;min-height:0;overflow:hidden;
+  }}
+  .pc10-card{{
+    min-width:0;min-height:0;overflow:hidden;
+    border:1px solid #e0e6eb;border-radius:14px;background:#fff;
+    box-shadow:0 4px 13px rgba(25,51,74,.035);
+  }}
+  .pc10-card-head{{
+    height:38px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 10px;border-bottom:1px solid #edf1f4;
+  }}
+  .pc10-card-head span{{display:block;color:#7899b2;font-size:5.5px;font-weight:950;letter-spacing:.8px}}
+  .pc10-card-head strong{{display:block;margin-top:1px;color:#23425d;font-size:9.5px;font-weight:950}}
+  .pc10-card-head small{{color:#95a1ab;font-size:5.6px;font-weight:800}}
+  .pc10-card-head button{{
+    height:24px;padding:0 7px;border:1px solid #dfe6eb;border-radius:7px;
+    background:#f8fafb;color:#62768a;font-size:5.8px;font-weight:900;cursor:pointer;
+  }}
+
+  .pc10-clusters{{grid-column:1/span 2;grid-row:1}}
+  .pc10-cluster-list{{
+    display:grid;grid-template-columns:1.25fr .9fr .9fr;gap:7px;
+    height:calc(100% - 38px);padding:8px;box-sizing:border-box;
+  }}
+  .pc10-cluster{{
+    position:relative;overflow:hidden;min-width:0;min-height:0;
+    border:1px solid #e5ebef;border-radius:11px;background:#f6f8fa;cursor:pointer;
+  }}
+  .pc10-cluster:first-child{{background:#173b61;color:#fff}}
+  .pc10-cluster-body{{padding:10px}}
+  .pc10-cluster .eyebrow{{display:flex;justify-content:space-between;gap:7px;color:#7990a3;font-size:5.7px;font-weight:900}}
+  .pc10-cluster:first-child .eyebrow{{color:rgba(255,255,255,.62)}}
+  .pc10-cluster h3{{
+    margin:8px 0 0;color:#2c485f;font-size:9px;line-height:1.35;font-weight:950;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }}
+  .pc10-cluster:first-child h3{{color:#fff;font-size:12px}}
+  .pc10-cluster .tokens{{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}}
+  .pc10-cluster .tokens span{{padding:3px 5px;border-radius:999px;background:#eaf0f4;color:#587187;font-size:5.3px;font-weight:850}}
+  .pc10-cluster:first-child .tokens span{{background:rgba(255,255,255,.12);color:#fff}}
+
+  .pc10-ranking{{grid-column:3;grid-row:1}}
+  .pc10-entity-ranking,.pc10-publisher-ranking,.pc10-country-ranking{{
+    height:calc(100% - 38px);padding:8px;box-sizing:border-box;overflow:auto;
+  }}
+  .pc10-rank-row{{
+    display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:7px;align-items:center;
+    min-height:29px;border-bottom:1px solid #eef2f4;cursor:pointer;
+  }}
+  .pc10-rank-row:last-child{{border-bottom:0}}
+  .pc10-rank-no{{color:#9aa7b1;font-size:6px;font-weight:950}}
+  .pc10-rank-name{{color:#425f76;font-size:6.7px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+  .pc10-rank-count{{color:#173b61;font-size:7px;font-weight:950}}
+
+  .pc10-keywords{{grid-column:1;grid-row:2}}
+  .pc10-keyword-cloud{{
+    display:flex;flex-wrap:wrap;align-content:flex-start;gap:5px;
+    height:calc(100% - 38px);padding:9px;box-sizing:border-box;overflow:hidden;
+  }}
+  .pc10-keyword{{
+    height:24px;display:inline-flex;align-items:center;gap:4px;
+    padding:0 7px;border:1px solid #e1e8ed;border-radius:999px;background:#f7f9fb;
+    color:#506b81;font-size:6.1px;font-weight:900;cursor:pointer;
+  }}
+  .pc10-keyword b{{color:#173b61;font-size:6.5px}}
+
+  .pc10-map-card{{grid-column:2;grid-row:2}}
+  .pc10-map-inner{{
+    display:grid;grid-template-columns:minmax(0,1fr) 112px;gap:6px;
+    height:calc(100% - 38px);padding:7px;box-sizing:border-box;
+  }}
+  .pc10-map-stage{{
+    position:relative;min-width:0;min-height:0;overflow:hidden;
+    border:1px solid #e6ebef;border-radius:9px;background:#f5f8fa;
+  }}
+  #pc10-map{{width:100%;height:100%;display:block}}
+  #pc10-map-loading{{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8a98a5;font-size:5.8px}}
+  .pc10-map-country{{fill:#dce5eb;stroke:#fff;stroke-width:.6;vector-effect:non-scaling-stroke;cursor:pointer}}
+  .pc10-map-country.has-news{{fill:#8fb4cd}}
+  .pc10-map-country.level2{{fill:#6b9fc1}}
+  .pc10-map-country.level3{{fill:#497fa7}}
+  .pc10-map-country.level4{{fill:#22597f}}
+  .pc10-map-country.selected{{fill:#e4b73d!important;stroke:#173b61!important;stroke-width:1.2!important}}
+  .pc10-country-ranking{{padding:0 0 0 4px}}
+  .pc10-country-ranking .pc10-rank-row{{grid-template-columns:minmax(0,1fr) auto;min-height:25px}}
+  .pc10-country-ranking .pc10-rank-no{{display:none}}
+
+  .pc10-publishers{{grid-column:3;grid-row:2}}
+  .pc10-publisher-ranking{{height:calc(100% - 38px)}}
+
+  .pc10-latest{{
+    position:absolute!important;
+    left:-9999px!important;
+    width:1px!important;height:1px!important;
+  }}
+
+  .pc10-drawer{{
+    position:absolute;z-index:6000;
+    inset:72px 12px 12px;
+    display:none;grid-template-rows:43px minmax(0,1fr);
+    border:1px solid #dce4e9;border-radius:15px;background:#f3f5f7;
+    box-shadow:0 30px 70px rgba(28,49,68,.23);overflow:hidden;
+  }}
+  .pc10-drawer.open{{display:grid}}
+  .pc10-drawer-head{{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 12px;background:#fff;border-bottom:1px solid #e4e9ed;
+  }}
+  .pc10-drawer-head>div{{display:flex;align-items:baseline;gap:7px}}
+  .pc10-drawer-head strong{{color:#173b61;font-size:10px}}
+  .pc10-drawer-head span{{color:#8b98a3;font-size:6px}}
+  #pc10-drawer-close{{
+    width:28px;height:28px;border:0;border-radius:8px;background:#eef2f4;
+    color:#5e7487;font-size:16px;cursor:pointer;
+  }}
+  .pc10-drawer-grid{{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:7px;
+    align-content:start;padding:9px;overflow:auto;
+  }}
+  .pc10-article{{
+    min-height:98px;display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:8px;
+    padding:8px;border:1px solid #e0e6eb;border-radius:10px;background:#fff;
+    text-align:left;cursor:pointer;
+  }}
+  .pc10-article strong{{
+    display:block;color:#29465e;font-size:7.2px;line-height:1.35;font-weight:950;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }}
+  .pc10-article span{{display:block;margin-top:5px;color:#8594a1;font-size:5.6px}}
+  .pc10-article img{{width:88px;height:69px;object-fit:cover;border-radius:7px;background:#e9eef2}}
+}}
+
+@media (max-width:999px){{
+  #pc10-app{{display:none!important}}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -27173,7 +27609,245 @@ main {{
 
 </head>
 
+
+
 <body>
+<div id="pc10-app" class="pc10-app" aria-label="원자력 뉴스 PC 대시보드">
+  <header class="pc10-topbar">
+    <div class="pc10-brand">
+      <span>NUCLEAR DAILY BRIEF</span>
+      <strong>금일 주요기사</strong>
+    </div>
+
+    <div class="pc10-searchbox">
+      <input id="pc10-search" type="search" placeholder="기사·기업·프로젝트·국가 검색">
+    </div>
+
+    <div class="pc10-top-actions">
+      <button id="pc10-prev" type="button">전일</button>
+      <button id="pc10-today" class="active" type="button">금일</button>
+      <button id="pc10-next" type="button">익일</button>
+      <button id="pc10-all-articles" class="primary" type="button">전체기사</button>
+    </div>
+  </header>
+
+  <div class="pc10-workspace">
+    <aside class="pc10-sidebar">
+      <div class="pc10-sidebar-head">
+        <span>모바일 기사 분류</span>
+        <strong>분류별 현황</strong>
+      </div>
+      <button class="pc10-nav-item active" data-group="" type="button">
+        <span>전체</span><b id="pc10-nav-all-count">0</b>
+      </button>
+      <div id="pc10-mobile-group-nav" class="pc10-mobile-group-nav"></div>
+    </aside>
+
+    <section class="pc10-content">
+      <div class="pc10-title-row">
+        <div>
+          <span id="pc10-selected-kicker">TODAY</span>
+          <h1 id="pc10-selected-title">전체 기사 현황</h1>
+          <p id="pc10-selected-desc">모바일에 수집된 금일 기사를 PC 화면에 맞게 재구성합니다.</p>
+        </div>
+        <div class="pc10-mini-status">
+          <span id="pc10-current-date">금일</span>
+          <strong id="pc10-current-count">0건</strong>
+        </div>
+      </div>
+
+      <section class="pc10-kpi-row">
+        <article><span>관련기사</span><strong id="pc10-kpi-total">0</strong><small>건</small></article>
+        <article><span>신규기사</span><strong id="pc10-kpi-new">0</strong><small>건</small></article>
+        <article><span>언론사</span><strong id="pc10-kpi-publishers">0</strong><small>개</small></article>
+        <article><span>관련국가</span><strong id="pc10-kpi-countries">0</strong><small>개</small></article>
+        <article class="accent"><span>가장 많이 언급</span><strong id="pc10-kpi-top">-</strong><small id="pc10-kpi-top-count">-</small></article>
+      </section>
+
+      <div class="pc10-grid">
+        <section class="pc10-card pc10-clusters">
+          <div class="pc10-card-head">
+            <div><span>ISSUE GROUPS</span><strong>주요 이슈 묶음</strong></div>
+            <small>제목·미리보기·공통 키워드 기반</small>
+          </div>
+          <div id="pc10-cluster-list" class="pc10-cluster-list"></div>
+        </section>
+
+        <section class="pc10-card pc10-ranking">
+          <div class="pc10-card-head">
+            <div><span>MENTIONS</span><strong>기업 · 프로젝트 TOP</strong></div>
+            <small>금일 언급 빈도</small>
+          </div>
+          <div id="pc10-entity-ranking" class="pc10-entity-ranking"></div>
+        </section>
+
+        <section class="pc10-card pc10-keywords">
+          <div class="pc10-card-head">
+            <div><span>KEYWORDS</span><strong>주요 키워드</strong></div>
+            <small>기사 제목·미리보기 기준</small>
+          </div>
+          <div id="pc10-keyword-cloud" class="pc10-keyword-cloud"></div>
+        </section>
+
+        <section class="pc10-card pc10-map-card">
+          <div class="pc10-card-head">
+            <div><span>COUNTRY</span><strong>국가별 기사 분포</strong></div>
+            <button id="pc10-reset-country" type="button">전체</button>
+          </div>
+          <div class="pc10-map-inner">
+            <div class="pc10-map-stage">
+              <svg id="pc10-map" viewBox="0 0 760 310"></svg>
+              <div id="pc10-map-loading">지도 불러오는 중...</div>
+            </div>
+            <div id="pc10-country-ranking" class="pc10-country-ranking"></div>
+          </div>
+        </section>
+
+        <section class="pc10-card pc10-publishers">
+          <div class="pc10-card-head">
+            <div><span>MEDIA</span><strong>언론사 분포</strong></div>
+            <small>보도량 기준</small>
+          </div>
+          <div id="pc10-publisher-ranking" class="pc10-publisher-ranking"></div>
+        </section>
+
+        <section class="pc10-card pc10-latest">
+          <div class="pc10-card-head">
+            <div><span>LATEST</span><strong>최신 기사</strong></div>
+            <button id="pc10-open-related" type="button">관련기사 전체보기</button>
+          </div>
+          <div id="pc10-latest-list" class="pc10-latest-list"></div>
+        </section>
+      </div>
+    </section>
+  </div>
+
+  <section id="pc10-drawer" class="pc10-drawer" aria-hidden="true">
+    <div class="pc10-drawer-head">
+      <div><strong id="pc10-drawer-title">관련기사</strong><span id="pc10-drawer-count">0건</span></div>
+      <button id="pc10-drawer-close" type="button">×</button>
+    </div>
+    <div id="pc10-drawer-grid" class="pc10-drawer-grid"></div>
+  </section>
+</div>
+
+  <div id="pc9-app" class="pc9-app" aria-label="원자력 주요기사 PC 분석 대시보드">
+    <header class="pc9-header">
+      <div class="pc9-brand">
+        <span>NUCLEAR INTELLIGENCE</span>
+        <strong>오늘의 원자력 기사 분석</strong>
+      </div>
+      <div class="pc9-search">
+        <input id="pc9-search-input" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색">
+      </div>
+      <div class="pc9-header-right">
+        <span>금일 기사 분석</span>
+        <button id="pc9-open-all" type="button">전체 기사 보기</button>
+      </div>
+    </header>
+
+    <nav id="pc9-topic-tabs" class="pc9-topic-tabs" aria-label="분석 주제">
+      <button class="active" data-topic="all" type="button">전체</button>
+      <button data-topic="hyundai" type="button">현대건설</button>
+      <button data-topic="us-invest" type="button">대미투자</button>
+      <button data-topic="smr" type="button">SMR</button>
+      <button data-topic="construction" type="button">주요 건설사</button>
+      <button data-topic="nuclear-policy" type="button">원전정책</button>
+      <button data-topic="global" type="button">해외·수출</button>
+      <button data-topic="market" type="button">경제·시장</button>
+    </nav>
+
+    <main class="pc9-main">
+      <section class="pc9-summary">
+        <article><span>관련기사</span><strong id="pc9-kpi-total">0</strong><small>건</small></article>
+        <article><span>중요기사</span><strong id="pc9-kpi-important">0</strong><small>건</small></article>
+        <article><span>관련국가</span><strong id="pc9-kpi-countries">0</strong><small>개국</small></article>
+        <article><span>관련그룹</span><strong id="pc9-kpi-groups">0</strong><small>개</small></article>
+        <article class="pc9-summary-accent">
+          <span>가장 많은 분야</span>
+          <strong id="pc9-kpi-top-category">-</strong>
+          <small id="pc9-kpi-top-category-count">0건</small>
+        </article>
+      </section>
+
+      <section class="pc9-card pc9-classification">
+        <div class="pc9-card-head">
+          <div><span>ANALYSIS</span><strong>기사 분야 분석</strong></div>
+          <small>분야 클릭 → 관련기사</small>
+        </div>
+        <div id="pc9-category-bars" class="pc9-category-bars"></div>
+      </section>
+
+      <section class="pc9-card pc9-issues">
+        <div class="pc9-card-head">
+          <div><span>TOP ISSUES</span><strong>오늘의 핵심 이슈</strong></div>
+          <small>대표 이슈 3건</small>
+        </div>
+        <div id="pc9-issue-grid" class="pc9-issue-grid"></div>
+      </section>
+
+      <section class="pc9-card pc9-keywords">
+        <div class="pc9-card-head">
+          <div><span>KEYWORDS</span><strong>주요 키워드 · 프로젝트</strong></div>
+          <small>빈도 기반</small>
+        </div>
+        <div id="pc9-keyword-cloud" class="pc9-keyword-cloud"></div>
+      </section>
+
+      <section class="pc9-card pc9-map-card">
+        <div class="pc9-card-head">
+          <div><span>GLOBAL</span><strong>국가별 기사 분포</strong></div>
+          <button id="pc9-map-reset" type="button">전체 국가</button>
+        </div>
+        <div class="pc9-map-layout">
+          <div class="pc9-map-stage">
+            <svg id="pc9-world-map" viewBox="0 0 1000 500" aria-label="세계지도"></svg>
+            <div id="pc9-map-labels" class="pc9-map-labels"></div>
+            <div id="pc9-map-loading" class="pc9-map-loading">지도 불러오는 중...</div>
+          </div>
+          <aside class="pc9-country-panel">
+            <div id="pc9-country-empty" class="pc9-country-empty">
+              <span>◎</span><strong>국가를 선택하세요</strong>
+              <small>지도 위 국가 라벨을 클릭하면<br>해당 국가 분석으로 좁혀집니다.</small>
+            </div>
+            <div id="pc9-country-detail" class="pc9-country-detail" hidden>
+              <div class="pc9-country-title">
+                <img id="pc9-country-flag" alt="">
+                <div><strong id="pc9-country-name">-</strong><small id="pc9-country-code">-</small></div>
+              </div>
+              <div class="pc9-country-stats">
+                <div><span>기사</span><strong id="pc9-country-total">0</strong></div>
+                <div><span>중요</span><strong id="pc9-country-important">0</strong></div>
+              </div>
+              <div class="pc9-country-block">
+                <span>주요 분야</span>
+                <div id="pc9-country-categories"></div>
+              </div>
+              <button id="pc9-country-articles" type="button">이 국가 관련기사 보기</button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="pc9-related-strip">
+        <div>
+          <span id="pc9-related-topic">전체</span>
+          <strong id="pc9-related-count">0건</strong>
+          <small>분석된 관련기사</small>
+        </div>
+        <button id="pc9-open-related" type="button">관련기사 보기 →</button>
+      </section>
+    </main>
+
+    <section id="pc9-drawer" class="pc9-drawer" aria-hidden="true">
+      <div class="pc9-drawer-head">
+        <div><strong id="pc9-drawer-title">관련기사</strong><span id="pc9-drawer-count">0건</span></div>
+        <button id="pc9-drawer-close" type="button">×</button>
+      </div>
+      <div id="pc9-drawer-grid" class="pc9-drawer-grid"></div>
+    </section>
+  </div>
+
   <!-- ============================================================
        DESKTOP APP V7
        Completely separate from the mobile UI.
@@ -35492,6 +36166,472 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   window.addEventListener("resize", function() {{
     setTimeout(boot, 80);
   }});
+}})();
+</script>
+
+
+<script>
+(function(){{
+  const WORLD_URL="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+  const ISO_NUM={{US:"840",CA:"124",KR:"410",JP:"392",CN:"156",IN:"356",VN:"704",GB:"826",FR:"250",DE:"276",BG:"100",RO:"642",CZ:"203",PL:"616",SI:"705",FI:"246",SE:"752",NL:"528",BE:"056",CH:"756",SK:"703",DK:"208",UA:"804",RU:"643",TR:"792",AE:"784",SA:"682",AU:"036",BR:"076",AR:"032",CL:"152",PE:"604",CO:"170",ZA:"710",SG:"702",MY:"458",TH:"764"}};
+  const NAME={{US:"미국",CA:"캐나다",KR:"한국",JP:"일본",CN:"중국",IN:"인도",VN:"베트남",GB:"영국",FR:"프랑스",DE:"독일",BG:"불가리아",RO:"루마니아",CZ:"체코",PL:"폴란드",SI:"슬로베니아",FI:"핀란드",SE:"스웨덴",NL:"네덜란드",BE:"벨기에",CH:"스위스",SK:"슬로바키아",DK:"덴마크",UA:"우크라이나",RU:"러시아",TR:"튀르키예",AE:"UAE",SA:"사우디",AU:"호주",BR:"브라질",AR:"아르헨티나",CL:"칠레",PE:"페루",CO:"콜롬비아",ZA:"남아공",SG:"싱가포르",MY:"말레이시아",TH:"태국"}};
+  const NUM_TO_ALPHA=Object.fromEntries(Object.entries(ISO_NUM).map(e=>[String(Number(e[1])),e[0]]));
+  const OFF={{KR:[18,1],JP:[18,0],GB:[-18,-6],BG:[12,9],RO:[16,-4],CZ:[-10,-11],SI:[-18,9],SK:[13,-9],BE:[-20,6],NL:[-18,-9],CH:[-15,10],AE:[17,7],SG:[17,9]}};
+
+  let topic="all",search="",selectedCountry="",selectedCategory="",world=null;
+
+  const CATEGORY_RULES=[
+    ["수주·계약",/수주|계약|contract|award|우선협상|preferred bidder|선정|낙찰/],
+    ["원자력·SMR",/원전|원자력|nuclear|reactor|smr|small modular|holtec|palisades|ap1000|westinghouse/],
+    ["안전·HSE",/안전|hse|사고|재해|incident|safety|near miss/],
+    ["투자·사업개발",/투자|investment|사업개발|development|fund|펀드|금융|financ/],
+    ["정책·인허가",/정책|정부|규제|인허가|license|permit|approval|regulat|장관|차관/],
+    ["기술·설계",/기술|설계|engineering|design|feed|r&d|연구|개발/],
+    ["인사·경영",/인사|취임|선임|대표|사장|회장|ceo|경영/],
+    ["시장·주가",/주가|증권|목표주가|etf|증시|stock|shares|market|실적|영업이익|매출/],
+    ["기타",/.*/]
+  ];
+  const KEYWORDS=["Westinghouse","Holtec","Palisades","Matador","AP1000","SMR","수주","계약","안전","미국","불가리아","루마니아","체코","원전","인허가","투자","DOE","KHNP","두산에너빌리티","현대건설"];
+
+  function desktop(){{return window.matchMedia("(min-width:1000px)").matches;}}
+  function cards(){{
+    const all=Array.from(document.querySelectorAll(".phone main .preview-card, body .phone .preview-card"));
+    const out=[],seen=new Set();
+    all.forEach(c=>{{const key=(c.dataset.url||c.dataset.title||"")+"|"+(c.dataset.published||"");if(seen.has(key))return;seen.add(key);out.push(c);}});
+    return out;
+  }}
+  function title(c){{return (c.dataset.title||(c.querySelector(".headline")||{{}}).textContent||"").trim();}}
+  function group(c){{return (c.dataset.group||"기타").trim();}}
+  function country(c){{return (c.dataset.country||"").trim().toUpperCase();}}
+  function publisher(c){{return (c.dataset.publisher||"").trim();}}
+  function image(c){{const i=c.querySelector("img");return i?(i.currentSrc||i.src||""):"";}}
+  function important(c){{return c.classList.contains("important")||c.dataset.priority==="important"||!!c.querySelector(".important-button.active,.important-button[aria-pressed='true']");}}
+  function hay(c){{return [title(c),group(c),publisher(c),country(c),c.dataset.search||"",c.textContent||""].join(" ").toLowerCase();}}
+  function esc(s){{return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}}
+
+  function topicMatch(c){{
+    const t=hay(c),co=country(c);
+    switch(topic){{
+      case "all":return true;
+      case "hyundai":return /현대건설|hyundai e&c|hdec/.test(t)&&!/현대엔지니어링/.test(t);
+      case "us-invest":return /대미|미국 투자|미국.*투자|u\.s\..*investment|us.*investment|미국.*정책|미국.*원전/.test(t);
+      case "smr":return /smr|small modular reactor|소형모듈|소형 모듈|holtec|palisades|nuscale|terrapower|x-energy|bwrx/.test(t);
+      case "construction":return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
+      case "nuclear-policy":return /정책|정부|규제|인허가|license|permit|approval|regulat|원전 정책|원자력 정책|장관|차관/.test(t);
+      case "global":return co&&co!=="KR"&&co!=="OTHER";
+      case "market":return /주가|증권|목표주가|etf|증시|stock|shares|market|실적|영업이익|매출/.test(t);
+      default:return true;
+    }}
+  }}
+
+  function categoryOf(c){{
+    const t=hay(c);
+    for(const pair of CATEGORY_RULES){{if(pair[1].test(t))return pair[0];}}
+    return "기타";
+  }}
+
+  function filtered(){{
+    return cards().filter(c=>{{
+      if(!topicMatch(c))return false;
+      if(search&&!hay(c).includes(search))return false;
+      if(selectedCountry&&country(c)!==selectedCountry)return false;
+      if(selectedCategory&&categoryOf(c)!==selectedCategory)return false;
+      return true;
+    }});
+  }}
+
+  function renderSummary(){{
+    const list=filtered(),countries=new Set(list.map(country).filter(x=>x&&x!=="OTHER")),groups=new Set(list.map(group).filter(Boolean)),cats={{}};
+    list.forEach(c=>cats[categoryOf(c)]=(cats[categoryOf(c)]||0)+1);
+    const top=Object.entries(cats).sort((a,b)=>b[1]-a[1])[0];
+    const set=(id,v)=>{{const e=document.getElementById(id);if(e)e.textContent=v;}};
+    set("pc9-kpi-total",list.length);set("pc9-kpi-important",list.filter(important).length);set("pc9-kpi-countries",countries.size);set("pc9-kpi-groups",groups.size);
+    set("pc9-kpi-top-category",top?top[0]:"-");set("pc9-kpi-top-category-count",top?top[1]+"건":"0건");
+    set("pc9-related-count",list.length+"건");
+    const b=document.querySelector("#pc9-topic-tabs button.active");set("pc9-related-topic",b?b.textContent:"전체");
+  }}
+
+  function renderCategories(){{
+    const list=filtered(),counts={{}};list.forEach(c=>counts[categoryOf(c)]=(counts[categoryOf(c)]||0)+1);
+    const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]),max=sorted.length?sorted[0][1]:1,box=document.getElementById("pc9-category-bars");box.innerHTML="";
+    sorted.slice(0,7).forEach(([name,count])=>{{
+      const row=document.createElement("button");row.type="button";row.className="pc9-category-row";
+      row.innerHTML='<div class="pc9-category-name">'+esc(name)+'</div><div class="pc9-category-track"><div class="pc9-category-fill" style="width:'+Math.max(6,count/max*100)+'%"></div></div><div class="pc9-category-count">'+count+'</div>';
+      row.onclick=()=>{{selectedCategory=selectedCategory===name?"":name;refresh();}};box.appendChild(row);
+    }});
+  }}
+
+  function renderIssues(){{
+    const list=filtered().slice().sort((a,b)=>(important(b)?1:0)-(important(a)?1:0)),picked=[],used=new Set();
+    for(const c of list){{const k=group(c)+"|"+categoryOf(c);if(used.has(k))continue;used.add(k);picked.push(c);if(picked.length>=3)break;}}
+    const box=document.getElementById("pc9-issue-grid");box.innerHTML="";
+    picked.forEach(c=>{{
+      const card=document.createElement("article");card.className="pc9-issue";const im=image(c),cat=categoryOf(c),same=list.filter(x=>group(x)===group(c)).length;
+      card.innerHTML='<div class="pc9-issue-img"'+(im?' style="background-image:url(\''+im.replace(/'/g,"%27")+'\')"':'')+'></div><div class="pc9-issue-shade"></div><div class="pc9-issue-copy"><span>'+esc(cat)+'</span><strong>'+esc(title(c))+'</strong><small>'+esc(group(c))+' · 관련 '+same+'건</small></div>';
+      card.onclick=()=>openDrawer(list.filter(x=>group(x)===group(c)),group(c)+" 관련기사");box.appendChild(card);
+    }});
+  }}
+
+  function renderKeywords(){{
+    const list=filtered(),counts={{}};KEYWORDS.forEach(k=>counts[k]=0);
+    list.forEach(c=>{{const t=hay(c);KEYWORDS.forEach(k=>{{if(t.includes(k.toLowerCase()))counts[k]++;}});}});
+    const box=document.getElementById("pc9-keyword-cloud");box.innerHTML="";
+    Object.entries(counts).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,14).forEach(([k,n])=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc9-keyword";b.innerHTML=esc(k)+' <b>'+n+'</b>';
+      b.onclick=()=>openDrawer(list.filter(c=>hay(c).includes(k.toLowerCase())),k+" 관련기사");box.appendChild(b);
+    }});
+  }}
+
+  function countryCounts(list){{const out={{}};list.forEach(c=>{{const co=country(c);if(co&&co!=="OTHER")out[co]=(out[co]||0)+1;}});return out;}}
+
+  function renderMap(){{
+    if(!world||!window.d3||!window.topojson)return;
+    const svg=d3.select("#pc9-world-map"),node=svg.node();if(!node)return;
+    const w=node.clientWidth||760,h=node.clientHeight||300;svg.attr("viewBox","0 0 "+w+" "+h).selectAll("*").remove();
+    const feats=topojson.feature(world,world.objects.countries).features.filter(f=>String(Number(f.id))!=="10");
+    const fc={{type:"FeatureCollection",features:feats}},proj=d3.geoNaturalEarth1().fitExtent([[10,8],[w-10,h-8]],fc),path=d3.geoPath(proj),counts=countryCounts(filtered()),max=Math.max(1,...Object.values(counts));
+    svg.append("g").selectAll("path").data(feats).join("path").attr("d",path).attr("class",f=>{{
+      const code=NUM_TO_ALPHA[String(Number(f.id))]||"",count=counts[code]||0,r=count/max;let l=1;if(r>=.75)l=4;else if(r>=.45)l=3;else if(r>=.2)l=2;
+      return "pc9-map-country"+(count?" has-news level-"+l:"")+(code===selectedCountry?" selected":"");
+    }}).on("click",(_e,f)=>{{const code=NUM_TO_ALPHA[String(Number(f.id))]||"";if(code){{selectedCountry=selectedCountry===code?"":code;refresh();}}}});
+    const layer=document.getElementById("pc9-map-labels");layer.innerHTML="";
+    Object.entries(counts).forEach(([code,count])=>{{
+      const num=ISO_NUM[code];if(!num)return;const f=feats.find(x=>String(Number(x.id))===String(Number(num)));if(!f)return;const c=path.centroid(f);if(!Number.isFinite(c[0]))return;
+      const off=OFF[code]||[0,0],b=document.createElement("button");b.type="button";b.className="pc9-map-label";b.style.left=(c[0]+off[0])+"px";b.style.top=(c[1]+off[1])+"px";
+      b.innerHTML='<img src="https://flagcdn.com/w40/'+code.toLowerCase()+'.png" alt=""><strong>'+(NAME[code]||code)+'</strong><span>'+count+'건</span>';
+      b.onclick=()=>{{selectedCountry=selectedCountry===code?"":code;refresh();}};layer.appendChild(b);
+    }});
+    const l=document.getElementById("pc9-map-loading");if(l)l.style.display="none";
+  }}
+
+  function renderCountryPanel(){{
+    const empty=document.getElementById("pc9-country-empty"),detail=document.getElementById("pc9-country-detail");
+    if(!selectedCountry){{empty.hidden=false;detail.hidden=true;return;}}
+    const list=filtered();empty.hidden=true;detail.hidden=false;
+    document.getElementById("pc9-country-flag").src="https://flagcdn.com/w80/"+selectedCountry.toLowerCase()+".png";
+    document.getElementById("pc9-country-name").textContent=NAME[selectedCountry]||selectedCountry;
+    document.getElementById("pc9-country-code").textContent=selectedCountry;
+    document.getElementById("pc9-country-total").textContent=list.length;
+    document.getElementById("pc9-country-important").textContent=list.filter(important).length;
+    const cats={{}};list.forEach(c=>cats[categoryOf(c)]=(cats[categoryOf(c)]||0)+1);
+    const tags=document.getElementById("pc9-country-categories");tags.innerHTML="";
+    Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,5).forEach(([k,n])=>{{const b=document.createElement("b");b.textContent=k+" "+n;tags.appendChild(b);}});
+    document.getElementById("pc9-country-articles").onclick=()=>openDrawer(list,(NAME[selectedCountry]||selectedCountry)+" 관련기사");
+  }}
+
+  function openDrawer(list,titleText){{
+    const d=document.getElementById("pc9-drawer"),grid=document.getElementById("pc9-drawer-grid");grid.innerHTML="";
+    list.slice(0,120).forEach(c=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc9-article-card";const im=image(c);
+      b.innerHTML='<div><strong>'+esc(title(c))+'</strong><span>'+esc(publisher(c))+' · '+esc(group(c))+'</span></div>'+(im?'<img src="'+im.replace(/"/g,"%22")+'" alt="">':'<div></div>');
+      b.onclick=()=>{{if(typeof openArticle==="function")openArticle(c);}};grid.appendChild(b);
+    }});
+    document.getElementById("pc9-drawer-title").textContent=titleText||"관련기사";
+    document.getElementById("pc9-drawer-count").textContent=list.length+"건";
+    d.classList.add("open");d.setAttribute("aria-hidden","false");
+  }}
+
+  function refresh(){{renderSummary();renderCategories();renderIssues();renderKeywords();renderMap();renderCountryPanel();}}
+
+  function init(){{
+    if(!desktop())return;
+    document.querySelectorAll("#pc9-topic-tabs button").forEach(btn=>btn.onclick=()=>{{
+      topic=btn.dataset.topic||"all";selectedCountry="";selectedCategory="";
+      document.querySelectorAll("#pc9-topic-tabs button").forEach(x=>x.classList.toggle("active",x===btn));refresh();
+    }});
+    document.getElementById("pc9-search-input").addEventListener("input",e=>{{search=e.target.value.trim().toLowerCase();refresh();}});
+    document.getElementById("pc9-open-all").onclick=()=>openDrawer(cards(),"전체 기사");
+    document.getElementById("pc9-open-related").onclick=()=>openDrawer(filtered(),"관련기사");
+    document.getElementById("pc9-drawer-close").onclick=()=>document.getElementById("pc9-drawer").classList.remove("open");
+    document.getElementById("pc9-map-reset").onclick=()=>{{selectedCountry="";refresh();}};
+    refresh();
+    fetch(WORLD_URL).then(r=>r.json()).then(d=>{{world=d;renderMap();}}).catch(()=>{{const l=document.getElementById("pc9-map-loading");if(l)l.textContent="지도 데이터를 불러오지 못했습니다.";}});
+  }}
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(init,300));else setTimeout(init,300);
+  window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,100);}});
+}})();
+</script>
+
+
+<script>
+(function(){{
+  const WORLD_URL="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+  const ISO_NUM={{US:"840",CA:"124",KR:"410",JP:"392",CN:"156",IN:"356",VN:"704",GB:"826",FR:"250",DE:"276",BG:"100",RO:"642",CZ:"203",PL:"616",SI:"705",FI:"246",SE:"752",NL:"528",BE:"056",CH:"756",SK:"703",DK:"208",UA:"804",RU:"643",TR:"792",AE:"784",SA:"682",AU:"036",BR:"076",ZA:"710",SG:"702",MY:"458",TH:"764"}};
+  const NUM_TO_ALPHA=Object.fromEntries(Object.entries(ISO_NUM).map(e=>[String(Number(e[1])),e[0]]));
+  const COUNTRY_NAME={{US:"미국",CA:"캐나다",KR:"한국",JP:"일본",CN:"중국",IN:"인도",VN:"베트남",GB:"영국",FR:"프랑스",DE:"독일",BG:"불가리아",RO:"루마니아",CZ:"체코",PL:"폴란드",SI:"슬로베니아",FI:"핀란드",SE:"스웨덴",NL:"네덜란드",BE:"벨기에",CH:"스위스",SK:"슬로바키아",DK:"덴마크",UA:"우크라이나",RU:"러시아",TR:"튀르키예",AE:"UAE",SA:"사우디",AU:"호주",BR:"브라질",ZA:"남아공",SG:"싱가포르",MY:"말레이시아",TH:"태국"}};
+
+  const ENTITY_TERMS=[
+    "현대건설","한국수력원자력","한수원","한국전력","한전","두산에너빌리티","삼성물산","대우건설",
+    "Holtec","Westinghouse","TerraPower","Fermi America","Palisades","Matador","Kozloduy","코즐로두이",
+    "AP1000","SMR-300","NuScale","X-energy","KHNP","KEPCO"
+  ];
+  const KEYWORD_TERMS=[
+    "원전","원자력","SMR","수주","계약","안전","투자","인허가","미국","해체","착공","설계","FEED",
+    "AP1000","SMR-300","Westinghouse","Holtec","Palisades","Matador","불가리아","루마니아","체코"
+  ];
+
+  let period="금일";
+  let selectedGroup="";
+  let selectedCountry="";
+  let query="";
+  let world=null;
+
+  function desktop(){{return window.matchMedia("(min-width:1000px)").matches}}
+  function periodRoot(){{return document.getElementById("tab-"+period)}}
+  function cards(){{
+    const root=periodRoot();
+    if(!root)return [];
+    return Array.from(root.querySelectorAll(".preview-card"));
+  }}
+  function title(c){{return (c.dataset.title||(c.querySelector(".headline")||{{}}).textContent||"").trim()}}
+  function summary(c){{
+    const n=c.querySelector(".preview-summary,.article-summary,.description,.snippet");
+    return (n?n.textContent:"").trim()
+  }}
+  function publisher(c){{return (c.dataset.publisher||"").trim()}}
+  function group(c){{return (c.dataset.group||"").trim()}}
+  function country(c){{return (c.dataset.country||"").trim().toUpperCase()}}
+  function image(c){{const i=c.querySelector("img");return i?(i.currentSrc||i.src||""):""}}
+  function text(c){{return [title(c),summary(c),publisher(c),group(c),c.dataset.search||""].join(" ").toLowerCase()}}
+  function isNew(c){{return c.classList.contains("new")||!!c.querySelector(".new-badge,.badge-new,[data-new='true']")}}
+  function esc(s){{return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}}
+
+  function visibleCards(){{
+    return cards().filter(c=>{{
+      if(selectedGroup && group(c)!==selectedGroup)return false;
+      if(selectedCountry && country(c)!==selectedCountry)return false;
+      if(query && !text(c).includes(query))return false;
+      return true;
+    }})
+  }}
+
+  function readMobileGroups(){{
+    const root=periodRoot(); if(!root)return [];
+    return Array.from(root.querySelectorAll(".news-group[data-group]")).map(sec=>{{
+      const key=sec.dataset.group||"";
+      const name=(sec.querySelector(".group-name")||{{}}).textContent||key;
+      const count=sec.querySelectorAll(".preview-card").length;
+      return {{key,name:name.trim(),count}}
+    }})
+  }}
+
+  function buildSidebar(){{
+    const groups=readMobileGroups();
+    const nav=document.getElementById("pc10-mobile-group-nav");nav.innerHTML="";
+    document.getElementById("pc10-nav-all-count").textContent=cards().length;
+    groups.forEach(g=>{{
+      const b=document.createElement("button");
+      b.type="button";b.className="pc10-nav-item";b.dataset.group=g.key;
+      b.innerHTML="<span>"+esc(g.name)+"</span><b>"+g.count+"</b>";
+      b.onclick=()=>selectGroup(g.key,g.name);
+      nav.appendChild(b);
+    }});
+  }}
+
+  function selectGroup(key,name){{
+    selectedGroup=key||"";selectedCountry="";
+    document.querySelectorAll(".pc10-nav-item").forEach(b=>b.classList.toggle("active",(b.dataset.group||"")===selectedGroup));
+    document.getElementById("pc10-selected-kicker").textContent=selectedGroup?"SELECTED GROUP":"TODAY";
+    document.getElementById("pc10-selected-title").textContent=selectedGroup?(name||selectedGroup)+" 현황":"전체 기사 현황";
+    document.getElementById("pc10-selected-desc").textContent=selectedGroup
+      ? "선택한 모바일 기사 분류를 기준으로 금일 기사 흐름을 재구성합니다."
+      : "모바일에 수집된 금일 기사를 PC 화면에 맞게 재구성합니다.";
+    refresh();
+  }}
+
+  function renderKpis(){{
+    const list=visibleCards();
+    const pubs=new Set(list.map(publisher).filter(Boolean));
+    const countries=new Set(list.map(country).filter(x=>x&&x!=="OTHER"));
+    const mentions={{}};
+    ENTITY_TERMS.forEach(k=>mentions[k]=0);
+    list.forEach(c=>{{const t=text(c);ENTITY_TERMS.forEach(k=>{{if(t.includes(k.toLowerCase()))mentions[k]++}})}});
+    const top=Object.entries(mentions).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1])[0];
+    const set=(id,v)=>{{const e=document.getElementById(id);if(e)e.textContent=v}};
+    set("pc10-kpi-total",list.length);
+    set("pc10-kpi-new",list.filter(isNew).length);
+    set("pc10-kpi-publishers",pubs.size);
+    set("pc10-kpi-countries",countries.size);
+    set("pc10-kpi-top",top?top[0]:"-");
+    set("pc10-kpi-top-count",top?top[1]+"건":"-");
+    set("pc10-current-count",list.length+"건");
+    set("pc10-current-date",period);
+  }}
+
+  function tokens(s){{
+    return String(s||"").toLowerCase()
+      .replace(/[^0-9a-z가-힣\-]+/g," ")
+      .split(/\s+/).filter(x=>x.length>=2)
+      .filter(x=>!["기자","관련","대한","위해","통해","대해","밝혀","이번","지난","today","with","from","that","this","will","news"].includes(x))
+  }}
+  function jaccard(a,b){{
+    const A=new Set(tokens(title(a)+" "+summary(a))),B=new Set(tokens(title(b)+" "+summary(b)));
+    if(!A.size||!B.size)return 0;
+    let inter=0;A.forEach(x=>{{if(B.has(x))inter++}});
+    return inter/(A.size+B.size-inter)
+  }}
+  function clusterArticles(list){{
+    const clusters=[];
+    list.slice(0,80).forEach(c=>{{
+      let best=null,bestScore=0;
+      for(const cl of clusters){{
+        const score=jaccard(c,cl.rep);
+        if(score>bestScore){{bestScore=score;best=cl}}
+      }}
+      if(best && bestScore>=0.28)best.items.push(c);
+      else clusters.push({{rep:c,items:[c]}});
+    }});
+    return clusters.sort((a,b)=>b.items.length-a.items.length);
+  }}
+
+  function commonTokens(items){{
+    const freq={{}};
+    items.forEach(c=>new Set(tokens(title(c))).forEach(x=>freq[x]=(freq[x]||0)+1));
+    return Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>x[0])
+  }}
+
+  function renderClusters(){{
+    const list=visibleCards(),clusters=clusterArticles(list).slice(0,3);
+    const box=document.getElementById("pc10-cluster-list");box.innerHTML="";
+    if(!clusters.length){{box.innerHTML='<div style="padding:12px;color:#8795a2;font-size:7px">표시할 기사가 없습니다.</div>';return}}
+    clusters.forEach((cl,i)=>{{
+      const el=document.createElement("article");el.className="pc10-cluster";
+      const toks=commonTokens(cl.items);
+      el.innerHTML='<div class="pc10-cluster-body"><div class="eyebrow"><span>ISSUE '+(i+1)+'</span><b>'+cl.items.length+'건</b></div>'+
+        '<h3>'+esc(title(cl.rep))+'</h3><div class="tokens">'+toks.map(x=>'<span>'+esc(x)+'</span>').join("")+'</div></div>';
+      el.onclick=()=>openDrawer(cl.items,"이슈 묶음 · "+cl.items.length+"건");
+      box.appendChild(el)
+    }})
+  }}
+
+  function renderEntityRanking(){{
+    const list=visibleCards(),counts={{}};
+    ENTITY_TERMS.forEach(k=>counts[k]=0);
+    list.forEach(c=>{{const t=text(c);ENTITY_TERMS.forEach(k=>{{if(t.includes(k.toLowerCase()))counts[k]++}})}});
+    renderRanking("pc10-entity-ranking",Object.entries(counts).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,8),
+      (name)=>openDrawer(list.filter(c=>text(c).includes(name.toLowerCase())),name+" 관련기사"))
+  }}
+
+  function renderKeywords(){{
+    const list=visibleCards(),counts={{}};
+    KEYWORD_TERMS.forEach(k=>counts[k]=0);
+    list.forEach(c=>{{const t=text(c);KEYWORD_TERMS.forEach(k=>{{if(t.includes(k.toLowerCase()))counts[k]++}})}});
+    const box=document.getElementById("pc10-keyword-cloud");box.innerHTML="";
+    Object.entries(counts).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,14).forEach(([k,n])=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc10-keyword";
+      b.innerHTML=esc(k)+" <b>"+n+"</b>";
+      b.onclick=()=>openDrawer(list.filter(c=>text(c).includes(k.toLowerCase())),k+" 관련기사");
+      box.appendChild(b)
+    }})
+  }}
+
+  function renderRanking(id,items,onClick){{
+    const box=document.getElementById(id);box.innerHTML="";
+    items.forEach(([name,count],i)=>{{
+      const row=document.createElement("div");row.className="pc10-rank-row";
+      row.innerHTML='<span class="pc10-rank-no">'+String(i+1).padStart(2,"0")+'</span><span class="pc10-rank-name">'+esc(name)+'</span><span class="pc10-rank-count">'+count+'</span>';
+      if(onClick)row.onclick=()=>onClick(name);
+      box.appendChild(row)
+    }})
+  }}
+
+  function renderPublishers(){{
+    const list=visibleCards(),counts={{}};
+    list.forEach(c=>{{const p=publisher(c)||"기타";counts[p]=(counts[p]||0)+1}});
+    renderRanking("pc10-publisher-ranking",Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8),
+      name=>openDrawer(list.filter(c=>(publisher(c)||"기타")===name),name+" 기사"))
+  }}
+
+  function countryCounts(){{
+    const out={{}};visibleCards().forEach(c=>{{const co=country(c);if(co&&co!=="OTHER")out[co]=(out[co]||0)+1}});return out
+  }}
+  function renderCountryRanking(){{
+    const counts=countryCounts();
+    renderRanking("pc10-country-ranking",Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,7),
+      code=>{{selectedCountry=(selectedCountry===code?"":code);refresh()}})
+  }}
+
+  function renderMap(){{
+    renderCountryRanking();
+    if(!world||!window.d3||!window.topojson)return;
+    const svg=d3.select("#pc10-map"),node=svg.node();if(!node)return;
+    const w=node.clientWidth||500,h=node.clientHeight||210;
+    svg.attr("viewBox","0 0 "+w+" "+h).selectAll("*").remove();
+    const feats=topojson.feature(world,world.objects.countries).features.filter(f=>String(Number(f.id))!=="10");
+    const fc={{type:"FeatureCollection",features:feats}},proj=d3.geoNaturalEarth1().fitExtent([[5,5],[w-5,h-5]],fc),path=d3.geoPath(proj),counts=countryCounts(),max=Math.max(1,...Object.values(counts));
+    svg.append("g").selectAll("path").data(feats).join("path").attr("d",path).attr("class",f=>{{
+      const code=NUM_TO_ALPHA[String(Number(f.id))]||"",n=counts[code]||0,r=n/max;
+      let c="pc10-map-country";if(n)c+=" has-news";if(r>=.75)c+=" level4";else if(r>=.45)c+=" level3";else if(r>=.2)c+=" level2";if(code===selectedCountry)c+=" selected";return c
+    }}).on("click",(_e,f)=>{{
+      const code=NUM_TO_ALPHA[String(Number(f.id))]||"";
+      if(code){{selectedCountry=(selectedCountry===code?"":code);refresh()}}
+    }});
+    const loading=document.getElementById("pc10-map-loading");if(loading)loading.style.display="none"
+  }}
+
+  function renderLatest(){{
+    const list=visibleCards();
+    const box=document.getElementById("pc10-latest-list"); if(!box)return;
+    box.innerHTML="";
+    list.slice(0,6).forEach(c=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc10-latest-row";b.textContent=title(c);box.appendChild(b)
+    }})
+  }}
+
+  function openDrawer(list,titleText){{
+    const d=document.getElementById("pc10-drawer"),grid=document.getElementById("pc10-drawer-grid");grid.innerHTML="";
+    list.slice(0,150).forEach(c=>{{
+      const b=document.createElement("button");b.type="button";b.className="pc10-article";const im=image(c);
+      b.innerHTML='<div><strong>'+esc(title(c))+'</strong><span>'+esc(publisher(c))+' · '+esc((c.querySelector(".group-name")||{{}}).textContent||group(c))+'</span></div>'+
+        (im?'<img src="'+im.replace(/"/g,"%22")+'" alt="">':'<div></div>');
+      b.onclick=()=>{{if(typeof openArticle==="function")openArticle(c)}};
+      grid.appendChild(b)
+    }});
+    document.getElementById("pc10-drawer-title").textContent=titleText||"관련기사";
+    document.getElementById("pc10-drawer-count").textContent=list.length+"건";
+    d.classList.add("open");d.setAttribute("aria-hidden","false")
+  }}
+
+  function refresh(){{
+    buildSidebar();
+    renderKpis();
+    renderClusters();
+    renderEntityRanking();
+    renderKeywords();
+    renderPublishers();
+    renderMap();
+    renderLatest();
+    const current=document.querySelector('.pc10-nav-item[data-group="'+CSS.escape(selectedGroup)+'"]');
+    if(current)current.classList.add("active");
+  }}
+
+  function setPeriod(p){{
+    period=p;selectedGroup="";selectedCountry="";
+    document.querySelectorAll(".pc10-top-actions button").forEach(b=>b.classList.remove("active"));
+    const id=p==="전일"?"pc10-prev":p==="익일"?"pc10-next":"pc10-today";
+    const btn=document.getElementById(id);if(btn)btn.classList.add("active");
+    document.getElementById("pc10-selected-title").textContent="전체 기사 현황";
+    refresh()
+  }}
+
+  function init(){{
+    if(!desktop())return;
+    document.getElementById("pc10-search").addEventListener("input",e=>{{query=e.target.value.trim().toLowerCase();refresh()}});
+    document.getElementById("pc10-prev").onclick=()=>setPeriod("전일");
+    document.getElementById("pc10-today").onclick=()=>setPeriod("금일");
+    document.getElementById("pc10-next").onclick=()=>setPeriod("익일");
+    document.getElementById("pc10-all-articles").onclick=()=>openDrawer(cards(),"전체기사");
+    document.getElementById("pc10-open-related").onclick=()=>openDrawer(visibleCards(),"관련기사");
+    document.getElementById("pc10-drawer-close").onclick=()=>document.getElementById("pc10-drawer").classList.remove("open");
+    document.getElementById("pc10-reset-country").onclick=()=>{{selectedCountry="";refresh()}};
+    document.querySelector('.pc10-nav-item[data-group=""]').onclick=()=>selectGroup("","전체");
+    refresh();
+    fetch(WORLD_URL).then(r=>r.json()).then(d=>{{world=d;renderMap()}}).catch(()=>{{const l=document.getElementById("pc10-map-loading");if(l)l.textContent="지도 데이터를 불러오지 못했습니다."}})
+  }}
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(init,350));else setTimeout(init,350);
+  window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,80)}})
 }})();
 </script>
 
