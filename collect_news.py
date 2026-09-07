@@ -1,3 +1,4 @@
+# FINAL V11 + 365-DAY MONTHLY LAZY ARCHIVE / MOBILE UI UNCHANGED 2026-09-07
 # FINAL PC V11 / MOBILE IDENTITY + LEFT 2-3 SPLIT ARTICLE VIEW / MOBILE UNCHANGED 2026-09-07
 # FINAL PC V10 / REBUILT FROM MOBILE INFORMATION ARCHITECTURE / MOBILE UNCHANGED 2026-09-07
 # FINAL PC ANALYTICS DESKTOP V9 / TOPIC ANALYSIS / MOBILE UNCHANGED 2026-09-07
@@ -201,8 +202,12 @@ from dateutil import parser as date_parser
 KST = ZoneInfo("Asia/Seoul")
 OUTPUT = Path("index.html")
 STATE_FILE = Path("article_state.json")
-ARCHIVE_FILE = Path("news_archive.json")
-ARCHIVE_DAYS = 90
+ARCHIVE_FILE = Path("news_archive.json")  # legacy migration source only
+ARCHIVE_DIR = Path("archive")
+ARCHIVE_HTML_DIR = Path("archive_html")
+ARCHIVE_INDEX_FILE = ARCHIVE_DIR / "index.json"
+ARCHIVE_DAYS = 365
+ARCHIVE_INITIAL_EMBED_DAYS = 14
 BACKFILL_DATES_PER_RUN = 1
 SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "0") == "1"
 # 검토용 원본 수집 모드
@@ -11403,13 +11408,33 @@ def article_from_dict(data: dict) -> Article | None:
 
 
 def load_archive() -> dict[str, dict]:
-    if not ARCHIVE_FILE.exists():
-        return {}
-    try:
-        data = json.loads(ARCHIVE_FILE.read_text(encoding="utf-8"))
-        return data if isinstance(data, dict) else {}
-    except (OSError, ValueError, TypeError):
-        return {}
+    """
+    월별 archive/YYYY-MM.json 파일을 합쳐 반환합니다.
+    기존 news_archive.json이 남아 있으면 최초 1회 마이그레이션 원본으로도 읽습니다.
+    """
+    archive: dict[str, dict] = {}
+
+    if ARCHIVE_DIR.exists():
+        for monthly_file in sorted(ARCHIVE_DIR.glob("????-??.json")):
+            try:
+                data = json.loads(monthly_file.read_text(encoding="utf-8"))
+                if isinstance(data, dict):
+                    archive.update(data)
+            except (OSError, ValueError, TypeError):
+                continue
+
+    # 기존 단일 파일과의 호환성 / 최초 마이그레이션
+    if ARCHIVE_FILE.exists():
+        try:
+            legacy = json.loads(ARCHIVE_FILE.read_text(encoding="utf-8"))
+            if isinstance(legacy, dict):
+                for key, value in legacy.items():
+                    archive.setdefault(key, value)
+        except (OSError, ValueError, TypeError):
+            pass
+
+    keep_keys = sorted(archive.keys(), reverse=True)[:ARCHIVE_DAYS]
+    return {key: archive[key] for key in sorted(keep_keys)}
 
 
 def update_archive(
@@ -11539,10 +11564,74 @@ def backfill_missing_archive_dates(
 
 
 def save_archive(archive: dict[str, dict]) -> None:
-    ARCHIVE_FILE.write_text(
-        json.dumps(archive, ensure_ascii=False, indent=2),
+    """
+    365일치를 하나의 JSON으로 저장하지 않고 월별로 분할 저장합니다.
+    - archive/YYYY-MM.json : 원본 기사 데이터
+    - archive_html/YYYY-MM.html : 과거 날짜 선택 시 브라우저가 필요할 때만 불러오는 HTML fragment
+    - archive/index.json : 사용 가능한 날짜 목록
+    """
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+    ARCHIVE_HTML_DIR.mkdir(parents=True, exist_ok=True)
+
+    keep_keys = sorted(archive.keys(), reverse=True)[:ARCHIVE_DAYS]
+    trimmed = {key: archive[key] for key in sorted(keep_keys)}
+
+    by_month: dict[str, dict[str, dict]] = {}
+    for key, value in trimmed.items():
+        month = key[:7]
+        by_month.setdefault(month, {})[key] = value
+
+    expected_json = set()
+    expected_html = set()
+
+    for month, month_data in by_month.items():
+        json_path = ARCHIVE_DIR / f"{month}.json"
+        html_path = ARCHIVE_HTML_DIR / f"{month}.html"
+        expected_json.add(json_path.name)
+        expected_html.add(html_path.name)
+
+        json_path.write_text(
+            json.dumps(month_data, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+
+        # 과거 월은 필요할 때만 브라우저가 이 fragment를 fetch합니다.
+        html_path.write_text(
+            archive_panels_html(month_data, set()),
+            encoding="utf-8",
+        )
+
+    # 365일 범위를 벗어난 오래된 월 파일 자동 정리
+    for path in ARCHIVE_DIR.glob("????-??.json"):
+        if path.name not in expected_json:
+            try:
+                path.unlink()
+            except OSError:
+                pass
+    for path in ARCHIVE_HTML_DIR.glob("????-??.html"):
+        if path.name not in expected_html:
+            try:
+                path.unlink()
+            except OSError:
+                pass
+
+    manifest = {
+        "retention_days": ARCHIVE_DAYS,
+        "dates": sorted(trimmed.keys()),
+        "months": sorted(by_month.keys()),
+    }
+    ARCHIVE_INDEX_FILE.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+
+    # 마이그레이션 완료 후 기존 대형 단일 파일은 제거합니다.
+    if ARCHIVE_FILE.exists():
+        try:
+            ARCHIVE_FILE.unlink()
+            print("[ARCHIVE MIGRATION] removed legacy news_archive.json")
+        except OSError:
+            pass
 
 
 def archive_panels_html(archive: dict[str, dict], new_urls: set[str]) -> str:
@@ -11615,7 +11704,9 @@ def build_html(
 </section>
 ''')
 
-    panels_html = "".join(panels) + archive_panels_html(archive, new_urls)
+    recent_archive_keys = sorted(archive.keys(), reverse=True)[:ARCHIVE_INITIAL_EMBED_DAYS]
+    recent_archive = {key: archive[key] for key in sorted(recent_archive_keys)}
+    panels_html = "".join(panels) + archive_panels_html(recent_archive, new_urls)
 
     return f'''<!doctype html>
 <html lang="ko">
@@ -31404,10 +31495,7 @@ document.querySelectorAll(".tab-button").forEach(button => {{
   }});
 }});
 const archiveCutoff="{generated_at:%Y-%m-%d}";
-const archiveDates=[...document.querySelectorAll(".archive-panel")]
-  .map(x=>x.dataset.archiveDate)
-  .filter(value=>value && value<=archiveCutoff)
-  .sort();
+const archiveDates={json.dumps(sorted(key for key in archive.keys() if key <= generated_at.strftime("%Y-%m-%d")), ensure_ascii=False)};
 
 const archiveInput=document.getElementById("archive-date");
 const archiveDateDisplay=document.getElementById("archive-date-display");
@@ -31450,7 +31538,36 @@ if(archiveDateControl && archiveInput){{
   }});
 }}
 
-function openArchiveDate(value){{
+async function ensureArchivePanelLoaded(value){{
+  let panel=document.getElementById("archive-" + value);
+  if(panel) return panel;
+
+  const month=value.slice(0,7);
+  if(!month) return null;
+
+  try{{
+    const response=await fetch(`archive_html/${{month}}.html`, {{cache:"no-store"}});
+    if(!response.ok) return null;
+
+    const html=await response.text();
+    const holder=document.createElement("div");
+    holder.innerHTML=html;
+
+    holder.querySelectorAll(".archive-panel").forEach(item=>{{
+      if(!document.getElementById(item.id)){{
+        const mainHost=document.querySelector(".phone main");
+        if(mainHost) mainHost.appendChild(item);
+      }}
+    }});
+
+    panel=document.getElementById("archive-" + value);
+    return panel || null;
+  }}catch(_error){{
+    return null;
+  }}
+}}
+
+async function openArchiveDate(value){{
   if(!value) return false;
 
   // 먼저 전일/금일/익일 등 현재 기간 패널에서 같은 날짜를 찾습니다.
@@ -31478,8 +31595,8 @@ function openArchiveDate(value){{
     return true;
   }}
 
-  // 현재 기간에 없으면 저장된 archive 패널을 엽니다.
-  const panel=document.getElementById("archive-" + value);
+  // 최근 날짜는 index.html에 있고, 과거 날짜는 해당 월 fragment만 필요할 때 불러옵니다.
+  const panel=await ensureArchivePanelLoaded(value);
   if(!panel){{
     alert("선택한 날짜의 저장된 기사가 없습니다.");
     return false;
@@ -31501,11 +31618,11 @@ function openArchiveDate(value){{
 }}
 
 if(archiveInput){{
-  archiveInput.addEventListener("change", ()=>{{
+  archiveInput.addEventListener("change", async ()=>{{
     const value=archiveInput.value;
     if(!value) return;
 
-    const opened=openArchiveDate(value);
+    const opened=await openArchiveDate(value);
     if(!opened){{
       // 선택한 날짜가 archive에 없으면 표시값은 선택 전 상태로 되돌립니다.
       const activeArchive=document.querySelector(".archive-panel.active");
