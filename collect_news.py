@@ -1,3 +1,6 @@
+# FINAL PC STABLE CONTROL TOWER V6 / FILTERABLE RELATED ARTICLES / MOBILE UNCHANGED 2026-09-07
+# FINAL PC STABLE CONTROL TOWER V5 / ONE-SCREEN / MOBILE UNCHANGED 2026-09-07
+# FINAL PC ONE-SCREEN CONTROL TOWER V4 / CZECH CLOCK REMOVED / MOBILE UNCHANGED 2026-09-07
 # FINAL PC ONE-SCREEN CONTROL TOWER V4 / HARD FIT / MOBILE UNCHANGED 2026-09-07
 # FINAL PC CONTROL TOWER BENTO V3 / 2026 TREND / MOBILE UNCHANGED 2026-09-07
 # FINAL PC PREMIUM WORLD MAP / ANTARCTICA REMOVED / MOBILE UNCHANGED 2026-09-07
@@ -18920,7 +18923,7 @@ header,
 .continent-all-button {{ display:none !important; }}
 .continent-rail-scroll {{
   display:grid !important;
-  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
   align-items:stretch !important;
   gap:3px !important;
   width:100% !important;
@@ -19677,7 +19680,7 @@ header,
 
 /* 2026-08-21 FINAL: all six continent tabs use identical width even after dynamic reordering. */
 .continent-rail-scroll {{
-  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
 }}
 .continent-button {{
   width:100% !important;
@@ -24210,7 +24213,7 @@ main {{
   /* world clocks */
   .pc-v2-clock-grid {{
     display:grid;
-    grid-template-columns:repeat(6,minmax(0,1fr));
+    grid-template-columns:repeat(5,minmax(0,1fr));
     gap:9px;
   }}
 
@@ -25109,7 +25112,7 @@ main {{
   }}
 
   .pc-v2-clock-grid {{
-    grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
     gap:7px !important;
   }}
 
@@ -25802,6 +25805,758 @@ main {{
   }}
 }}
 
+
+/* ==============================================================
+   PC STABLE CONTROL TOWER V5 — AUTHORITATIVE DESKTOP LAYOUT
+   Purpose: stability first / one-screen / no legacy PC collision
+   MOBILE (<1000px) UNCHANGED
+   ============================================================== */
+@media (min-width:1000px) {{
+  :root {{
+    --pcv5-header-h: 88px;
+    --pcv5-gap: 8px;
+    --pcv5-radius: 14px;
+    --pcv5-bg: #edf2f6;
+    --pcv5-card: #ffffff;
+    --pcv5-border: #dbe5ed;
+    --pcv5-navy: #173b61;
+  }}
+
+  html,
+  body {{
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    overflow:hidden !important;
+    background:var(--pcv5-bg) !important;
+  }}
+
+  body {{
+    margin:0 !important;
+  }}
+
+  .phone {{
+    position:relative !important;
+    width:min(calc(100vw - 16px),1780px) !important;
+    max-width:1780px !important;
+    height:100dvh !important;
+    min-height:0 !important;
+    margin:0 auto !important;
+    overflow:hidden !important;
+  }}
+
+  /* ---------- Desktop header ---------- */
+  #topbar {{
+    position:absolute !important;
+    inset:0 0 auto 0 !important;
+    width:auto !important;
+    height:var(--pcv5-header-h) !important;
+    min-height:var(--pcv5-header-h) !important;
+    max-height:var(--pcv5-header-h) !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
+    padding:8px 12px !important;
+    overflow:hidden !important;
+    border-radius:0 0 14px 14px !important;
+    z-index:1000 !important;
+  }}
+
+  #topbar .topbar-title-row {{
+    height:28px !important;
+    min-height:28px !important;
+    margin:0 !important;
+    padding:0 !important;
+  }}
+
+  #topbar h1 {{
+    font-size:18px !important;
+    line-height:1 !important;
+    margin:0 !important;
+  }}
+
+  #topbar .updated-inline,
+  #topbar .update-text {{
+    font-size:7.5px !important;
+  }}
+
+  #topbar .search-wrap {{
+    position:absolute !important;
+    left:245px !important;
+    right:380px !important;
+    top:9px !important;
+    margin:0 !important;
+    z-index:2 !important;
+  }}
+
+  #topbar .search-input {{
+    height:30px !important;
+    min-height:30px !important;
+    font-size:8.5px !important;
+  }}
+
+  #header-toggle {{
+    position:absolute !important;
+    right:12px !important;
+    top:9px !important;
+    height:30px !important;
+    min-height:30px !important;
+    z-index:3 !important;
+  }}
+
+  #topbar .header-controls,
+  #topbar.collapsed .header-controls {{
+    position:absolute !important;
+    left:10px !important;
+    right:10px !important;
+    bottom:7px !important;
+    display:grid !important;
+    grid-template-columns:minmax(320px,1fr) auto !important;
+    align-items:center !important;
+    gap:7px !important;
+    height:31px !important;
+    max-height:31px !important;
+    min-height:31px !important;
+    margin:0 !important;
+    padding:0 !important;
+    opacity:1 !important;
+    overflow:visible !important;
+    pointer-events:auto !important;
+  }}
+
+  #topbar .tabs {{
+    display:grid !important;
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:5px !important;
+    min-width:0 !important;
+  }}
+
+  #topbar .tab-button {{
+    height:29px !important;
+    min-height:29px !important;
+    padding:0 8px !important;
+    font-size:8px !important;
+  }}
+
+  #topbar .utility-row {{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    gap:5px !important;
+    margin:0 !important;
+    min-width:0 !important;
+  }}
+
+  /* ---------- Remove every legacy desktop surface ---------- */
+  main,
+  #favorites-panel,
+  #world-map-panel,
+  #pc-insight-rail,
+  #pc-category-strip,
+  #pc-country-filter-result,
+  .pc-build-marker {{
+    display:none !important;
+  }}
+
+  body.pc-v3-articles-open main {{
+    display:block !important;
+    position:fixed !important;
+    left:18px !important;
+    right:18px !important;
+    top:104px !important;
+    bottom:16px !important;
+    z-index:2000 !important;
+    overflow:auto !important;
+    padding:16px !important;
+    border:1px solid var(--pcv5-border) !important;
+    border-radius:16px !important;
+    background:#eef3f7 !important;
+    box-shadow:0 24px 60px rgba(17,43,67,.24) !important;
+  }}
+
+  /* ---------- One-screen dashboard ---------- */
+  #pc-v2-dashboard.pc-v5-dashboard {{
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    top:calc(var(--pcv5-header-h) + 7px) !important;
+    bottom:7px !important;
+
+    display:grid !important;
+    grid-template-columns:repeat(12,minmax(0,1fr)) !important;
+    grid-template-rows:
+      28px
+      58px
+      102px
+      minmax(0,1fr)
+      122px !important;
+
+    gap:var(--pcv5-gap) !important;
+    width:auto !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+  }}
+
+  #pc-v2-dashboard.pc-v5-dashboard > * {{
+    min-width:0 !important;
+    min-height:0 !important;
+    box-sizing:border-box !important;
+  }}
+
+  /* ---------- Command bar ---------- */
+  .pc-v3-commandbar {{
+    grid-column:1 / -1 !important;
+    grid-row:1 !important;
+    height:28px !important;
+    min-height:28px !important;
+    margin:0 !important;
+    padding:0 10px !important;
+    border-radius:10px !important;
+  }}
+
+  .pc-v3-commandbar::after {{
+    content:"V5 · STABLE" !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    height:17px !important;
+    padding:0 6px !important;
+    margin-left:7px !important;
+    border-radius:999px !important;
+    background:#e9f1f7 !important;
+    color:#557189 !important;
+    font-size:6px !important;
+    font-weight:950 !important;
+  }}
+
+  /* ---------- KPI row ---------- */
+  .pc-v2-kpis {{
+    grid-column:1 / -1 !important;
+    grid-row:2 !important;
+    display:grid !important;
+    grid-template-columns:repeat(4,minmax(0,1fr)) 1.55fr !important;
+    gap:7px !important;
+    height:58px !important;
+    min-height:58px !important;
+  }}
+
+  .pc-v2-kpi {{
+    height:58px !important;
+    min-height:58px !important;
+    padding:7px 10px !important;
+    border-radius:12px !important;
+  }}
+
+  .pc-v2-kpi span {{
+    font-size:7.5px !important;
+  }}
+
+  .pc-v2-kpi strong {{
+    margin:2px 0 1px !important;
+    font-size:17px !important;
+  }}
+
+  .pc-v2-kpi small {{
+    font-size:6.5px !important;
+  }}
+
+  .pc-v2-kpi-accent strong {{
+    font-size:13px !important;
+  }}
+
+  /* ---------- Clock row ---------- */
+  .pc-v2-clock-section {{
+    grid-column:1 / -1 !important;
+    grid-row:3 !important;
+    height:102px !important;
+    min-height:102px !important;
+    margin:0 !important;
+    padding:6px 9px !important;
+    overflow:hidden !important;
+    border-radius:13px !important;
+  }}
+
+  .pc-v2-clock-section .pc-v2-section-head {{
+    height:18px !important;
+    min-height:18px !important;
+    margin:0 0 4px !important;
+  }}
+
+  .pc-v2-clock-section .pc-v2-section-head h2 {{
+    font-size:10.5px !important;
+  }}
+
+  .pc-v2-clock-section .pc-v2-section-head p {{
+    font-size:6px !important;
+  }}
+
+  .pc-v2-clock-grid {{
+    display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:6px !important;
+    height:70px !important;
+    min-height:70px !important;
+  }}
+
+  .pc-v2-clock {{
+    display:grid !important;
+    grid-template-columns:26px 58px minmax(0,1fr) !important;
+    grid-template-rows:1fr 1fr !important;
+    align-items:center !important;
+    column-gap:6px !important;
+    height:70px !important;
+    min-height:70px !important;
+    padding:5px 7px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-v2-clock-face {{
+    width:56px !important;
+    height:56px !important;
+  }}
+
+  .pc-v2-clock-place img {{
+    width:24px !important;
+    height:16px !important;
+  }}
+
+  .pc-v2-digital {{
+    font-size:10.5px !important;
+  }}
+
+  .pc-v3-day-badge {{
+    height:15px !important;
+    padding:0 4px !important;
+    font-size:5.8px !important;
+  }}
+
+  .pc-v2-zone {{
+    font-size:6.2px !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }}
+
+  /* ---------- Main map block ---------- */
+  .pc-v2-map-card {{
+    grid-column:1 / span 8 !important;
+    grid-row:4 / span 2 !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:8px !important;
+    overflow:hidden !important;
+    border-radius:14px !important;
+  }}
+
+  .pc-v2-map-card .pc-v2-section-head {{
+    height:26px !important;
+    min-height:26px !important;
+    margin:0 0 4px !important;
+  }}
+
+  .pc-v2-map-card .pc-v2-section-head h2 {{
+    font-size:11px !important;
+  }}
+
+  .pc-v2-map-card .pc-v2-section-head p {{
+    font-size:6px !important;
+  }}
+
+  .pc-v2-map-layout {{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 205px !important;
+    gap:7px !important;
+    height:calc(100% - 30px) !important;
+    min-height:0 !important;
+  }}
+
+  .pc-v2-map-wrap,
+  .pc-v2-map-premium,
+  .pc-v2-country-panel {{
+    height:100% !important;
+    min-height:0 !important;
+    max-height:none !important;
+  }}
+
+  .pc-v2-world-map {{
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+  }}
+
+  .pc-v2-country-panel {{
+    padding:8px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-v2-country-empty {{
+    height:100% !important;
+    min-height:0 !important;
+  }}
+
+  /* ---------- Focus ---------- */
+  .pc-v4-focus-section {{
+    grid-column:9 / -1 !important;
+    grid-row:4 !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:7px !important;
+    overflow:hidden !important;
+    border-radius:14px !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-section-head {{
+    height:24px !important;
+    min-height:24px !important;
+    margin:0 0 4px !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-section-head h2 {{
+    font-size:10.5px !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-section-head p {{
+    font-size:6px !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-issue-grid {{
+    display:grid !important;
+    grid-template-columns:1.45fr .85fr !important;
+    grid-template-rows:1fr 1fr !important;
+    gap:6px !important;
+    height:calc(100% - 28px) !important;
+    min-height:0 !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-issue {{
+    min-height:0 !important;
+    height:100% !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-v4-focus-section .pc-v2-issue:nth-child(1) {{
+    grid-row:1 / span 2 !important;
+  }}
+
+  /* ---------- Flow ---------- */
+  .pc-v4-flow-section {{
+    grid-column:9 / -1 !important;
+    grid-row:5 !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:7px !important;
+    overflow:hidden !important;
+    border-radius:14px !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-section-head {{
+    height:22px !important;
+    min-height:22px !important;
+    margin:0 0 3px !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-section-head h2 {{
+    font-size:10px !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-section-head p {{
+    font-size:5.8px !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-flow {{
+    height:calc(100% - 25px) !important;
+    min-height:0 !important;
+    gap:5px !important;
+    padding:0 !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-flow-card {{
+    flex:0 0 112px !important;
+    height:100% !important;
+    min-height:0 !important;
+    padding:5px !important;
+    overflow:hidden !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-flow-thumb {{
+    width:34px !important;
+    height:34px !important;
+    margin:3px auto !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-flow-card strong {{
+    font-size:6.8px !important;
+    line-height:1.2 !important;
+  }}
+
+  .pc-v4-flow-section .pc-v2-flow-card span.pc-v2-flow-group {{
+    font-size:5.8px !important;
+  }}
+
+  .pc-v2-article-divider {{
+    display:none !important;
+  }}
+}}
+
+/* Short laptop viewport: compress the dashboard but keep the same structure. */
+@media (min-width:1000px) and (max-height:760px) {{
+  :root {{
+    --pcv5-header-h: 78px;
+  }}
+
+  #pc-v2-dashboard.pc-v5-dashboard {{
+    grid-template-rows:
+      26px
+      52px
+      88px
+      minmax(0,1fr)
+      108px !important;
+  }}
+
+  .pc-v2-kpis,
+  .pc-v2-kpi {{
+    height:52px !important;
+    min-height:52px !important;
+  }}
+
+  .pc-v2-clock-section {{
+    height:88px !important;
+    min-height:88px !important;
+  }}
+
+  .pc-v2-clock-grid,
+  .pc-v2-clock {{
+    height:58px !important;
+    min-height:58px !important;
+  }}
+
+  .pc-v2-clock {{
+    grid-template-columns:22px 48px minmax(0,1fr) !important;
+  }}
+
+  .pc-v2-clock-face {{
+    width:46px !important;
+    height:46px !important;
+  }}
+}}
+
+
+/* ==============================================================
+   PC V6 — FILTERABLE RELATED-ARTICLE PANEL
+   Desktop only / mobile unchanged
+   ============================================================== */
+@media (min-width:1000px) {{
+  .pc-v6-article-tabs {{
+    position:absolute;
+    left:50%;
+    top:3px;
+    transform:translateX(-50%);
+    z-index:5;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    max-width:64%;
+    overflow:hidden;
+    white-space:nowrap;
+    pointer-events:auto;
+  }}
+
+  .pc-v6-article-tab {{
+    flex:0 0 auto;
+    height:22px;
+    padding:0 7px;
+    border:1px solid #d8e2ea;
+    border-radius:999px;
+    background:#f5f8fa;
+    color:#61758a;
+    font-family:Pretendard,"Noto Sans KR",sans-serif;
+    font-size:6.7px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.15s ease;
+  }}
+
+  .pc-v6-article-tab:hover {{
+    background:#e8f0f7;
+    color:#294f70;
+  }}
+
+  .pc-v6-article-tab.active {{
+    border-color:#173b61;
+    background:#173b61;
+    color:#fff;
+  }}
+
+  .pc-v6-article-panel {{
+    position:absolute;
+    inset:0;
+    z-index:3000;
+    display:none;
+    grid-template-rows:42px minmax(0,1fr);
+    overflow:hidden;
+    border:1px solid #d8e2ea;
+    border-radius:16px;
+    background:rgba(240,245,249,.98);
+    backdrop-filter:blur(12px);
+    box-shadow:0 22px 52px rgba(18,43,65,.24);
+  }}
+
+  .pc-v6-article-panel.open {{
+    display:grid;
+  }}
+
+  .pc-v6-article-panel-head {{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:0 12px;
+    border-bottom:1px solid #dce5ec;
+    background:#fff;
+  }}
+
+  .pc-v6-article-panel-head > div {{
+    display:flex;
+    align-items:baseline;
+    gap:7px;
+  }}
+
+  .pc-v6-article-panel-head strong {{
+    color:#173b61;
+    font-size:12px;
+    font-weight:950;
+  }}
+
+  .pc-v6-article-panel-head span {{
+    color:#8796a4;
+    font-size:7.5px;
+    font-weight:850;
+  }}
+
+  #pc-v6-article-panel-close {{
+    width:28px;
+    height:28px;
+    border:0;
+    border-radius:8px;
+    background:#eef3f7;
+    color:#49647c;
+    font-size:17px;
+    font-weight:900;
+    line-height:1;
+    cursor:pointer;
+  }}
+
+  #pc-v6-article-panel-close:hover {{
+    background:#173b61;
+    color:#fff;
+  }}
+
+  .pc-v6-article-panel-grid {{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:8px;
+    align-content:start;
+    overflow:auto;
+    padding:10px;
+  }}
+
+  .pc-v6-article-card {{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 92px;
+    gap:8px;
+    min-height:112px;
+    padding:9px;
+    border:1px solid #dce5ec;
+    border-radius:11px;
+    background:#fff;
+    box-shadow:0 2px 8px rgba(31,59,86,.04);
+    cursor:pointer;
+    text-align:left;
+  }}
+
+  .pc-v6-article-card:hover {{
+    border-color:#bdcedc;
+    box-shadow:0 5px 14px rgba(31,59,86,.09);
+  }}
+
+  .pc-v6-article-copy {{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+  }}
+
+  .pc-v6-article-meta {{
+    display:flex;
+    gap:5px;
+    margin-bottom:5px;
+    color:#8292a1;
+    font-size:6.6px;
+    font-weight:800;
+  }}
+
+  .pc-v6-article-title {{
+    color:#223f59;
+    font-size:9.2px;
+    line-height:1.35;
+    font-weight:950;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }}
+
+  .pc-v6-article-group {{
+    margin-top:auto;
+    padding-top:6px;
+    color:#5f7a91;
+    font-size:6.6px;
+    font-weight:850;
+  }}
+
+  .pc-v6-article-thumb {{
+    width:92px;
+    height:76px;
+    align-self:center;
+    border-radius:8px;
+    overflow:hidden;
+    background:#e8eef3;
+  }}
+
+  .pc-v6-article-thumb img {{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }}
+
+  .pc-v6-article-empty {{
+    grid-column:1 / -1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:180px;
+    color:#8393a2;
+    font-size:9px;
+    font-weight:850;
+  }}
+}}
+
+@media (min-width:1000px) and (max-width:1365px) {{
+  .pc-v6-article-tabs {{
+    max-width:58%;
+  }}
+  .pc-v6-article-panel-grid {{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -25846,7 +26601,7 @@ main {{
        PC VISUAL DASHBOARD V2
        Desktop only. Existing mobile DOM is preserved untouched.
        ========================================================= -->
-  <section id="pc-v2-dashboard" class="pc-v2-dashboard" aria-label="PC 원전 뉴스 시각화 대시보드">
+  <section id="pc-v2-dashboard" class="pc-v2-dashboard pc-v5-dashboard" aria-label="PC 원전 뉴스 시각화 대시보드">
 
     <div class="pc-v3-commandbar">
       <div>
@@ -25858,6 +26613,17 @@ main {{
         <button id="pc-v3-open-articles" type="button">전체 기사</button>
       </div>
     </div>
+
+    <nav id="pc-v6-article-tabs" class="pc-v6-article-tabs" aria-label="PC 기사 분류">
+      <button type="button" class="pc-v6-article-tab active" data-pc-article-filter="all">전체</button>
+      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="nuclear">원전·정책</button>
+      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="us-invest">대미투자</button>
+      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="hyundai">현대건설</button>
+      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="construction">주요 건설사</button>
+      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="smr">SMR·기술</button>
+      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="global">해외·수출</button>
+      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="market">경제·시장</button>
+    </nav>
 
     <div class="pc-v2-kpis">
       <article class="pc-v2-kpi">
@@ -25930,17 +26696,7 @@ main {{
           </div>
           <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">EET</div>
         </article>
-
-        <article class="pc-v2-clock" data-tz="Europe/Prague" data-country="체코" data-capital="Prague" data-flag="cz">
-          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/cz.png" alt=""><div><strong>체코</strong><span>Prague</span></div></div>
-          <div class="pc-v2-clock-face">
-            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
-            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
-          </div>
-          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">CET</div>
-        </article>
-
-        <article class="pc-v2-clock" data-tz="Europe/Bucharest" data-country="루마니아" data-capital="Bucharest" data-flag="ro">
+<article class="pc-v2-clock" data-tz="Europe/Bucharest" data-country="루마니아" data-capital="Bucharest" data-flag="ro">
           <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/ro.png" alt=""><div><strong>루마니아</strong><span>Bucharest</span></div></div>
           <div class="pc-v2-clock-face">
             <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
@@ -26027,6 +26783,17 @@ main {{
       <div><strong>전체 기사</strong><span>상세 기사는 아래에서 확인</span></div>
       <button id="pc-v2-scroll-articles" type="button">기사 목록으로 이동 ↓</button>
     </div>
+
+    <section id="pc-v6-article-panel" class="pc-v6-article-panel" aria-hidden="true">
+      <div class="pc-v6-article-panel-head">
+        <div>
+          <strong id="pc-v6-article-panel-title">전체 기사</strong>
+          <span id="pc-v6-article-panel-count">0건</span>
+        </div>
+        <button id="pc-v6-article-panel-close" type="button" aria-label="기사 패널 닫기">×</button>
+      </div>
+      <div id="pc-v6-article-panel-grid" class="pc-v6-article-panel-grid"></div>
+    </section>
   </section>
 
   <section id="favorites-panel" class="favorites-panel favorites-panel-top" hidden>
@@ -33396,6 +34163,313 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   window.addEventListener("resize",function() {{
     setTimeout(pcv4HardFit,100);
   }});
+}})();
+</script>
+
+
+<script>
+(function() {{
+  function pcv5Desktop() {{
+    return window.matchMedia("(min-width:1000px)").matches;
+  }}
+
+  function pcv5TopCountry() {{
+    if(typeof pcv2CountryCounts!=="function" || typeof pcv2Cards!=="function") return "";
+    const counts=pcv2CountryCounts(pcv2Cards(false));
+    const top=Object.entries(counts).sort(function(a,b){{ return b[1]-a[1]; }})[0];
+    return top ? top[0] : "";
+  }}
+
+  function pcv5ApplyDefaultCountry() {{
+    if(!pcv5Desktop()) return;
+    if(typeof pcv2SelectMapCountry!=="function") return;
+    if(pcv2SelectedCountry) return;
+    const top=pcv5TopCountry();
+    if(top) {{
+      try {{ pcv2SelectMapCountry(top); }} catch(_e) {{}}
+    }}
+  }}
+
+  function pcv5RefreshStable() {{
+    if(!pcv5Desktop()) return;
+
+    const main=document.querySelector("main");
+    if(main && !document.body.classList.contains("pc-v3-articles-open")) {{
+      main.style.setProperty("display","none","important");
+    }}
+
+    const dash=document.getElementById("pc-v2-dashboard");
+    if(dash) {{
+      dash.style.setProperty("display","grid","important");
+      dash.style.setProperty("overflow","hidden","important");
+    }}
+
+    if(typeof pcv2Refresh==="function") {{
+      try {{ pcv2Refresh(); }} catch(_e) {{}}
+    }}
+
+    window.setTimeout(pcv5ApplyDefaultCountry,120);
+  }}
+
+  function pcv5ObserveMap() {{
+    if(!pcv5Desktop() || !window.ResizeObserver) return;
+    const wrap=document.querySelector(".pc-v2-map-wrap");
+    if(!wrap || wrap.dataset.pcv5Observed==="1") return;
+    wrap.dataset.pcv5Observed="1";
+
+    let timer=null;
+    const ro=new ResizeObserver(function() {{
+      clearTimeout(timer);
+      timer=setTimeout(function() {{
+        if(typeof pcv2RenderMap==="function") {{
+          try {{ pcv2RenderMap(); }} catch(_e) {{}}
+        }}
+      }},100);
+    }});
+    ro.observe(wrap);
+  }}
+
+  function pcv5Init() {{
+    if(!pcv5Desktop()) return;
+    pcv5RefreshStable();
+    pcv5ObserveMap();
+  }}
+
+  if(document.readyState==="loading") {{
+    document.addEventListener("DOMContentLoaded",function() {{
+      setTimeout(pcv5Init,220);
+      setTimeout(pcv5Init,900);
+    }});
+  }} else {{
+    setTimeout(pcv5Init,220);
+    setTimeout(pcv5Init,900);
+  }}
+
+  window.addEventListener("resize",function() {{
+    setTimeout(pcv5RefreshStable,120);
+  }});
+}})();
+</script>
+
+
+<script>
+(function() {{
+  const LABELS={{
+    all:"전체 기사",
+    nuclear:"원전·정책",
+    "us-invest":"대미투자",
+    hyundai:"현대건설",
+    construction:"주요 건설사",
+    smr:"SMR·기술",
+    global:"해외·수출",
+    market:"경제·시장"
+  }};
+
+  function desktop() {{
+    return window.matchMedia("(min-width:1000px)").matches;
+  }}
+
+  function allCards() {{
+    if(typeof pcv2Cards==="function") return pcv2Cards(true);
+    return Array.from(document.querySelectorAll("main .preview-card"));
+  }}
+
+  function txt(card) {{
+    return [
+      card.dataset.title||"",
+      card.dataset.group||"",
+      card.dataset.publisher||"",
+      card.dataset.country||"",
+      card.textContent||""
+    ].join(" ").toLowerCase();
+  }}
+
+  function matches(card, filter, extra) {{
+    const t=txt(card);
+    const group=(card.dataset.group||"").toLowerCase();
+    const country=(card.dataset.country||"").toUpperCase();
+
+    if(extra && extra.country) return country===extra.country;
+    if(extra && extra.group) return (card.dataset.group||"")===extra.group;
+    if(extra && extra.keyword) return t.includes(extra.keyword.toLowerCase());
+
+    switch(filter) {{
+      case "all": return true;
+      case "hyundai":
+        return /현대건설|hyundai e&c|hdec/.test(t) && !/현대엔지니어링/.test(t);
+      case "construction":
+        return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
+      case "us-invest":
+        return /대미|미국 투자|미국.*투자|u\.s\..*investment|us.*investment|investment.*u\.s\.|미국.*정책|미국.*원전/.test(t);
+      case "smr":
+        return /smr|small modular reactor|소형모듈|소형 모듈|holtec|palisades|nuscale|terrapower|x-energy|bwrx/.test(t);
+      case "global":
+        return country && country!=="KR" && country!=="OTHER";
+      case "market":
+        return /주가|증권|목표주가|etf|증시|stock|shares|market|실적|영업이익|매출/.test(t);
+      case "nuclear":
+        return /원전|원자력|nuclear|reactor|인허가|규제|정책|license|permit|regulat|연료|uranium/.test(t);
+      default:
+        return group===filter;
+    }}
+  }}
+
+  function img(card) {{
+    const node=card.querySelector("img");
+    return node ? (node.currentSrc||node.src||"") : "";
+  }}
+
+  function title(card) {{
+    return (card.dataset.title || (card.querySelector(".headline")||{{}}).textContent || "").trim();
+  }}
+
+  function publisher(card) {{
+    return (card.dataset.publisher || "").trim();
+  }}
+
+  function country(card) {{
+    return (card.dataset.country || "").trim();
+  }}
+
+  function group(card) {{
+    return (card.dataset.group || "기타").trim();
+  }}
+
+  function openPanel(filter, extra, customTitle) {{
+    if(!desktop()) return;
+
+    const panel=document.getElementById("pc-v6-article-panel");
+    const grid=document.getElementById("pc-v6-article-panel-grid");
+    const titleEl=document.getElementById("pc-v6-article-panel-title");
+    const countEl=document.getElementById("pc-v6-article-panel-count");
+    if(!panel || !grid) return;
+
+    const cards=allCards().filter(function(card) {{ return matches(card,filter,extra); }});
+
+    grid.innerHTML="";
+    cards.slice(0,120).forEach(function(card) {{
+      const item=document.createElement("button");
+      item.type="button";
+      item.className="pc-v6-article-card";
+
+      const image=img(card);
+      item.innerHTML=
+        '<div class="pc-v6-article-copy">'+
+          '<div class="pc-v6-article-meta"><span>'+publisher(card)+'</span><span>'+country(card)+'</span></div>'+
+          '<div class="pc-v6-article-title">'+title(card).replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</div>'+
+          '<div class="pc-v6-article-group">'+group(card)+'</div>'+
+        '</div>'+
+        '<div class="pc-v6-article-thumb">'+(image?'<img src="'+image.replace(/"/g,"%22")+'" alt="">':'')+'</div>';
+
+      item.addEventListener("click",function() {{
+        if(typeof openArticle==="function") openArticle(card);
+      }});
+      grid.appendChild(item);
+    }});
+
+    if(!cards.length) {{
+      grid.innerHTML='<div class="pc-v6-article-empty">해당 조건의 기사가 없습니다.</div>';
+    }}
+
+    if(titleEl) titleEl.textContent=customTitle || LABELS[filter] || "관련 기사";
+    if(countEl) countEl.textContent=cards.length+"건";
+
+    panel.classList.add("open");
+    panel.setAttribute("aria-hidden","false");
+
+    document.querySelectorAll(".pc-v6-article-tab").forEach(function(btn) {{
+      btn.classList.toggle("active",btn.dataset.pcArticleFilter===filter && !extra);
+    }});
+  }}
+
+  function closePanel() {{
+    const panel=document.getElementById("pc-v6-article-panel");
+    if(panel) {{
+      panel.classList.remove("open");
+      panel.setAttribute("aria-hidden","true");
+    }}
+  }}
+
+  function bindTabs() {{
+    document.querySelectorAll(".pc-v6-article-tab").forEach(function(btn) {{
+      if(btn.dataset.bound==="1") return;
+      btn.dataset.bound="1";
+      btn.addEventListener("click",function() {{
+        openPanel(btn.dataset.pcArticleFilter || "all");
+      }});
+    }});
+
+    const close=document.getElementById("pc-v6-article-panel-close");
+    if(close && close.dataset.bound!=="1") {{
+      close.dataset.bound="1";
+      close.addEventListener("click",closePanel);
+    }}
+
+    const allBtn=document.getElementById("pc-v3-open-articles");
+    if(allBtn) {{
+      allBtn.onclick=function(e) {{
+        e.preventDefault();
+        e.stopPropagation();
+        openPanel("all");
+      }};
+    }}
+  }}
+
+  function bindDashboardObjects() {{
+    /* Map labels -> country articles */
+    document.addEventListener("click",function(e) {{
+      const label=e.target.closest(".pc-v2-map-label");
+      if(label) {{
+        const img=label.querySelector("img");
+        const src=img ? img.src : "";
+        const m=src.match(/\/([a-z]{{2}})\.png/i);
+        if(m) {{
+          const code=m[1].toUpperCase();
+          window.setTimeout(function() {{
+            openPanel("all",{{country:code}},(typeof PCV2_NAME!=="undefined" && PCV2_NAME[code]?PCV2_NAME[code]:code)+" 관련기사");
+          }},120);
+        }}
+      }}
+
+      /* Focus image card -> same group */
+      const issue=e.target.closest(".pc-v2-issue");
+      if(issue) {{
+        const badge=issue.querySelector(".pc-v2-issue-meta span:nth-child(2)");
+        if(badge && badge.textContent.trim()) {{
+          e.preventDefault();
+          e.stopPropagation();
+          openPanel("all",{{group:badge.textContent.trim()}},badge.textContent.trim()+" 관련기사");
+        }}
+      }}
+
+      /* Flow card -> use its visible group as related-article filter */
+      const flow=e.target.closest(".pc-v2-flow-card");
+      if(flow) {{
+        const g=flow.querySelector(".pc-v2-flow-group");
+        if(g && g.textContent.trim()) {{
+          e.preventDefault();
+          e.stopPropagation();
+          openPanel("all",{{group:g.textContent.trim()}},g.textContent.trim()+" 관련기사");
+        }}
+      }}
+    }},true);
+
+    document.addEventListener("keydown",function(e) {{
+      if(e.key==="Escape") closePanel();
+    }});
+  }}
+
+  function init() {{
+    if(!desktop()) return;
+    bindTabs();
+    bindDashboardObjects();
+  }}
+
+  if(document.readyState==="loading") {{
+    document.addEventListener("DOMContentLoaded",function() {{ setTimeout(init,200); }});
+  }} else {{
+    setTimeout(init,200);
+  }}
 }})();
 </script>
 
