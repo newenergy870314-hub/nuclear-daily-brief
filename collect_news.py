@@ -1,3 +1,4 @@
+# FINAL PC V18 / TIMELINE CURRENT-PANEL DATE FIX / 1Y SEARCH / ORIGINAL ARTICLE FIRST 2026-09-07
 # FINAL PC V17 / TODAY AUTOLOAD + TIMELINE FIX + ORIGINAL ARTICLE FIRST / MOBILE UNCHANGED 2026-09-07
 # FINAL PC V16 / LARGE MAP + HORIZONTAL TREND TIMELINE / MOBILE UNCHANGED / 365-DAY ARCHIVE 2026-09-07
 # FINAL PC V15 / LARGE COUNTRY MAP / ISSUE GROUP HIDDEN / MOBILE ARTICLE FEATURES / 365-DAY ARCHIVE 2026-09-07
@@ -38278,11 +38279,26 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   const pc11TimelineMonthCache=new Set();
 
   function pc11CardDate(c){{
-    const panel=c.closest(".archive-panel");
-    if(panel && panel.id && panel.id.startsWith("archive-"))return panel.id.slice(8);
+    // 1) 가장 신뢰도 높은 값: 카드가 속한 기간 패널의 실제 report date
+    const reportPanel=c.closest(".tab-panel[data-report-date]");
+    if(reportPanel && reportPanel.dataset.reportDate)return reportPanel.dataset.reportDate;
+
+    // 2) 월별 아카이브 패널 id: archive-YYYY-MM-DD
+    const archivePanel=c.closest(".archive-panel");
+    if(archivePanel && archivePanel.id && archivePanel.id.startsWith("archive-"))return archivePanel.id.slice(8);
+
+    // 3) published에 연도가 포함된 경우
     const raw=(c.dataset.published||"").trim();
-    const m=raw.match(/(20\d{{2}})[.\-/년\s]*(\d{{1,2}})[.\-/월\s]*(\d{{1,2}})/);
+    let m=raw.match(/(20\d{{2}})[.\-/년\s]*(\d{{1,2}})[.\-/월\s]*(\d{{1,2}})/);
     if(m)return `${{m[1]}}-${{String(Number(m[2])).padStart(2,"0")}}-${{String(Number(m[3])).padStart(2,"0")}}`;
+
+    // 4) "09.07. 14:20"처럼 연도 없는 현재 기사 fallback
+    m=raw.match(/(?:^|\s)(\d{{1,2}})[.\-/](\d{{1,2}})(?:[.\-/]|\s|$)/);
+    if(m){{
+      const y=new Date().getFullYear();
+      return `${{y}}-${{String(Number(m[1])).padStart(2,"0")}}-${{String(Number(m[2])).padStart(2,"0")}}`;
+    }}
+
     return "";
   }}
 
@@ -38351,7 +38367,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   function pc11BuildTimelineEvents(source){{
     const events=[];
     source.forEach(c=>{{
-      const date=pc11CardDate(c); if(!date)return;
+      const date=pc11CardDate(c);
+      if(!date)return;
       const seed=`${{title(c)}} ${{summary(c)}}`;
       let target=null;
       for(let i=events.length-1;i>=Math.max(0,events.length-8);i--){{
@@ -38374,7 +38391,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     countEl.textContent=`${{events.length}}개 이벤트 · 관련기사 ${{events.reduce((n,e)=>n+e.cards.length,0)}}건`;
     box.innerHTML="";
     if(!events.length){{
-      box.innerHTML='<div class="pc11-timeline-empty">해당 검색어의 타임라인 이벤트를 찾지 못했습니다.</div>';
+      box.innerHTML='<div class="pc11-timeline-empty">해당 검색어가 포함된 저장 기사를 찾지 못했습니다.<br>인물명·기관명·프로젝트명처럼 기사에 실제 등장하는 표현으로 검색해 주세요.</div>';
       return;
     }}
     const track=document.createElement("div");track.className="pc11-timeline-track";
@@ -38408,7 +38425,12 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     if(countEl)countEl.textContent="현재 저장된 기사 우선 조회 중";
 
     // 먼저 현재 HTML에 이미 있는 최근 기사에서 즉시 결과 표시
-    pc11RenderTimeline(pc11BuildTimelineEvents(pc11TimelineCardsFor(q)),q);
+    const immediateCards=pc11TimelineCardsFor(q);
+    const immediateEvents=pc11BuildTimelineEvents(immediateCards);
+    pc11RenderTimeline(immediateEvents,q);
+    if(countEl && immediateCards.length>0){{
+      countEl.textContent=`현재 기사 ${{immediateCards.length}}건 확인 · 과거 1년 데이터 추가 조회 중`;
+    }}
 
     await pc11LoadTimelineArchive((done,total)=>{{
       if(countEl && total>0)countEl.textContent=`과거 기사 불러오는 중 · ${{done}}/${{total}}개월`;
