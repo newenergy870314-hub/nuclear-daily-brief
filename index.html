@@ -18367,6 +18367,294 @@ main {
   }
 }
 
+
+/* ==========================================================
+   FINAL PC CONCEPT
+   "모바일 안정화 UI를 PC에 재배치"
+   LEFT 70%  : 국가 기사 지도
+   RIGHT 30% : 모바일 기사 분류 + 기사 목록
+   ARTICLE   : 새 탭 원문
+   ========================================================== */
+@media (min-width:1000px){
+
+  /* Overall desktop split */
+  #pc11-app{
+    display:grid!important;
+    grid-template-rows:64px minmax(0,1fr)!important;
+    width:100%!important;
+    height:100vh!important;
+    min-height:680px!important;
+    overflow:hidden!important;
+    background:#eaf0f5!important;
+  }
+
+  .pc11-shell{
+    display:grid!important;
+    grid-template-columns:minmax(0,7fr) minmax(360px,3fr)!important;
+    gap:10px!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:10px!important;
+    overflow:hidden!important;
+  }
+
+  .pc11-left,
+  .pc11-right{
+    min-width:0!important;
+    min-height:0!important;
+    height:100%!important;
+    overflow:hidden!important;
+  }
+
+  /* --------------------------------------------------------
+     LEFT: map only
+     -------------------------------------------------------- */
+  #pc11-dashboard{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:#fff!important;
+    border:1px solid rgba(35,57,93,.10)!important;
+    border-radius:12px!important;
+    box-shadow:0 2px 10px rgba(15,23,42,.05)!important;
+  }
+
+  #pc11-dashboard>.pc11-page-head,
+  #pc11-dashboard>.pc11-kpis{
+    display:none!important;
+  }
+
+  #pc11-dashboard>.pc11-dashboard-grid{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:0!important;
+    margin:0!important;
+  }
+
+  /* Hide all analytic cards except the already-proven country map */
+  #pc11-dashboard .pc11-dashboard-grid>section{
+    display:none!important;
+  }
+
+  #pc11-dashboard .pc11-map-card{
+    display:grid!important;
+    grid-template-rows:58px minmax(0,1fr)!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    margin:0!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    background:#fff!important;
+    overflow:hidden!important;
+  }
+
+  #pc11-dashboard .pc11-map-card .pc11-card-head{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    width:100%!important;
+    height:58px!important;
+    padding:0 18px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#f8fafc!important;
+  }
+
+  #pc11-dashboard .pc11-map-card .pc11-card-head>div span{
+    display:block!important;
+    color:#7c8da0!important;
+    font-size:9px!important;
+    font-weight:950!important;
+    letter-spacing:.7px!important;
+  }
+
+  #pc11-dashboard .pc11-map-card .pc11-card-head>div strong{
+    display:block!important;
+    margin-top:2px!important;
+    color:#23395d!important;
+    font-size:17px!important;
+    font-weight:950!important;
+  }
+
+  #pc11-country-reset{
+    min-width:52px!important;
+    height:30px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(35,57,93,.14)!important;
+    border-radius:7px!important;
+    background:#fff!important;
+    color:#4f6277!important;
+    font-size:11px!important;
+    font-weight:900!important;
+    cursor:pointer!important;
+  }
+
+  #pc11-dashboard .pc11-map-layout{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 190px!important;
+    gap:10px!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:12px!important;
+    overflow:hidden!important;
+    background:#fff!important;
+  }
+
+  #pc11-dashboard .pc11-map-stage{
+    position:relative!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    border:1px solid #e2e8ef!important;
+    border-radius:10px!important;
+    background:#f8fafc!important;
+  }
+
+  #pc11-map{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+  }
+
+  #pc11-map-loading{
+    font-size:12px!important;
+  }
+
+  #pc11-country-list{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:6px!important;
+    min-width:0!important;
+    min-height:0!important;
+    height:100%!important;
+    overflow-y:auto!important;
+    padding:2px 2px 2px 0!important;
+  }
+
+  /* Original iframe viewer is completely removed from the PC experience */
+  #pc11-detail{
+    display:none!important;
+  }
+
+  /* --------------------------------------------------------
+     RIGHT: mobile-derived navigation + article cards
+     -------------------------------------------------------- */
+  .pc11-right{
+    display:grid!important;
+    grid-template-rows:50px 40px auto auto 40px minmax(0,1fr)!important;
+    background:#eef3f8!important;
+    border:1px solid rgba(35,57,93,.10)!important;
+    border-radius:12px!important;
+    box-shadow:0 2px 10px rgba(15,23,42,.05)!important;
+  }
+
+  .pc11-mobile-category-head{
+    min-height:50px!important;
+    padding:0 12px!important;
+    background:#eef3f8!important;
+  }
+
+  .pc11-category-mode{
+    padding:5px 9px!important;
+  }
+
+  .pc11-continent-tabs{
+    padding:6px 9px!important;
+  }
+
+  #pc11-group-tabs.pc11-group-tabs{
+    max-height:122px!important;
+    padding:7px 9px!important;
+    gap:5px!important;
+    background:#eef3f8!important;
+  }
+
+  #pc11-group-tabs.pc11-group-tabs button{
+    min-height:28px!important;
+    padding:0 9px!important;
+    font-size:10.5px!important;
+  }
+
+  .pc11-list-head{
+    min-height:40px!important;
+    padding:0 10px!important;
+  }
+
+  .pc11-article-list{
+    min-height:0!important;
+    overflow-y:auto!important;
+    padding:8px!important;
+    background:#eef3f8!important;
+  }
+
+  /* Use the familiar mobile card identity on desktop */
+  .pc11-list-card{
+    margin-bottom:7px!important;
+    border:1px solid rgba(35,57,93,.07)!important;
+    border-radius:8px!important;
+    background:#fbfaf7!important;
+    box-shadow:0 2px 7px rgba(15,23,42,.05)!important;
+    cursor:pointer!important;
+  }
+
+  .pc11-list-card:hover{
+    transform:none!important;
+    border-color:rgba(35,57,93,.16)!important;
+    box-shadow:0 3px 10px rgba(15,23,42,.08)!important;
+  }
+
+  .pc11-list-card.read{
+    background:#ebeff3!important;
+  }
+
+  .pc11-list-title{
+    color:#0b57d0!important;
+    font-size:15px!important;
+    line-height:1.38!important;
+  }
+
+  .pc11-list-preview{
+    font-size:12px!important;
+    line-height:1.45!important;
+  }
+
+  /* Keep header simple and familiar */
+  .pc11-header{
+    min-height:64px!important;
+  }
+}
+
+/* Smaller desktop: keep the same concept, only tighten proportions */
+@media (min-width:1000px) and (max-width:1350px){
+  .pc11-shell{
+    grid-template-columns:minmax(0,65fr) minmax(340px,35fr)!important;
+  }
+
+  #pc11-dashboard .pc11-map-layout{
+    grid-template-columns:minmax(0,1fr) 160px!important;
+  }
+
+  #pc11-group-tabs.pc11-group-tabs{
+    max-height:112px!important;
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -18402,7 +18690,7 @@ main {
   <div class="pc11-shell">
     <!-- LEFT: dashboard <-> article detail -->
     <section class="pc11-left">
-      <div id="pc11-dashboard" class="pc11-dashboard" hidden aria-hidden="true">
+      <div id="pc11-dashboard" class="pc11-dashboard">
         <div class="pc11-page-head">
           <div>
             <span id="pc11-head-kicker">TODAY</span>
@@ -18921,7 +19209,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.8(화) 20:35 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.8(화) 21:05 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -23606,7 +23894,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/politics/bluehouse/1276254.html"
   data-title="청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”"
   data-publisher="한겨레"
@@ -23630,7 +23918,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”</div>
+      <div class="headline">청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”</div>
       <div class="article-snippet">청와대가 4일 “대미투자 이슈 중에는 반도체도 논의 대상인 게 사실”이라고 말했다. 청와대 고위관계자는 이날 기자들과 만나 “제가 알기로는 미측에서 그런 제기가 있고, 그래서 논의 대상이 된 것은 현실”이라며 “어떻게 어떤 방식으로 귀결될지는 아직 정해지지 않은 거 같</div>
     </div>
   </div>
@@ -26678,7 +26966,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy.gov/articles/energy-department-closes-19-billion-loan-restart-duane-arnold-nuclear-plant"
   data-title="Energy Department Closes $1.9 Billion Loan to Restart Duane Arnold Nuclear Plant"
   data-publisher="U.S. DOE Office of Nuclear Energy"
@@ -26702,7 +26990,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Energy Department Closes $1.9 Billion Loan to Restart Duane Arnold Nuclear Plant</div>
+      <div class="headline">Energy Department Closes $1.9 Billion Loan to Restart Duane Arnold Nuclear Plant</div>
       <div class="article-snippet">The U.S. Department of Energy’s Office of Energy Dominance Financing today announced the financial close of a loan of up to $1.9 billion to NextEra Energy to help finance the restart of the Duane Arnold Energy Center in Linn County, Iowa.</div>
     </div>
   </div>
@@ -27136,7 +27424,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702baf210098&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702b9f6dde50&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34449,7 +34737,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 12개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://news.bizwatch.co.kr/article/real_estate/2026/09/08/0008" target="_blank" rel="noopener"><span class="related-coverage-publisher">비즈워치</span><span class="related-coverage-title">현대건설-TS, 배송·주차로봇 다닐 아파트 안전 챙긴다</span></a><a class="related-coverage-link" href="https://www.biztribune.co.kr/news/articleView.html?idxno=358649" target="_blank" rel="noopener"><span class="related-coverage-publisher">비즈트리뷴</span><span class="related-coverage-title">현대건설, 교통안전공단과 미래 모빌리티 안전기술 개발… “스마트 주거환경 구축”</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723435" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">현대건설, 아파트 단지에 로봇·PM 다닌다…&#x27;미래 모빌리티&#x27; 안전기준 만든다 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.sedaily.com/article/20088451" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">공동주택 모빌리티 안전기술 개발…현대건설-교통안전공단 ‘맞손’</span></a><a class="related-coverage-link" href="https://www.greened.kr/news/articleView.html?idxno=349481" target="_blank" rel="noopener"><span class="related-coverage-publisher">녹색경제신문</span><span class="related-coverage-title">현대건설, 공동주택 DRT·배송로봇 MOU…미래 모빌리티 설계기준 마련</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12146810" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">현대건설, 교통안전공단과 공공동주택 미래모빌리티 안전기술 개발</span></a><a class="related-coverage-link" href="https://www.koscaj.com/news/articleView.html?idxno=326337" target="_blank" rel="noopener"><span class="related-coverage-publisher">대한전문건설신문</span><span class="related-coverage-title">“아파트에 DRT·배송로봇 들어온다”···현대건설, 안전기준 마련</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2467810" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">현대건설·한국교통안전공단, 미래 모빌리티 안전기술 실증 업무협약 체결</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309815" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">현대건설, 보행자와 로봇 공존 실험…주거단지 동선 재설계 - FETV</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12146729" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“공동주택 모빌리티 안전체계 구축”…현대건설, 한국교통안전공단과 맞손</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090802166" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;택배로봇 돌아다닐 우리 아파트&quot;…현대건설, 안전기준 만든다</span></a><a class="related-coverage-link" href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=484815" target="_blank" rel="noopener"><span class="related-coverage-publisher">핀포인트뉴스</span><span class="related-coverage-title">현대건설, 공동주택 미래 모빌리티 안전기술 개발</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 13개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newscj.com/news/articleView.html?idxno=3431056" target="_blank" rel="noopener"><span class="related-coverage-publisher">천지일보</span><span class="related-coverage-title">[건설오늘] 현대건설, 미래 모빌리티 안전체계 구축 外 GS건설·현대엔지니어링·포스코이앤씨</span></a><a class="related-coverage-link" href="https://news.bizwatch.co.kr/article/real_estate/2026/09/08/0008" target="_blank" rel="noopener"><span class="related-coverage-publisher">비즈워치</span><span class="related-coverage-title">현대건설-TS, 배송·주차로봇 다닐 아파트 안전 챙긴다</span></a><a class="related-coverage-link" href="https://www.biztribune.co.kr/news/articleView.html?idxno=358649" target="_blank" rel="noopener"><span class="related-coverage-publisher">비즈트리뷴</span><span class="related-coverage-title">현대건설, 교통안전공단과 미래 모빌리티 안전기술 개발… “스마트 주거환경 구축”</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723435" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">현대건설, 아파트 단지에 로봇·PM 다닌다…&#x27;미래 모빌리티&#x27; 안전기준 만든다 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.sedaily.com/article/20088451" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">공동주택 모빌리티 안전기술 개발…현대건설-교통안전공단 ‘맞손’</span></a><a class="related-coverage-link" href="https://www.greened.kr/news/articleView.html?idxno=349481" target="_blank" rel="noopener"><span class="related-coverage-publisher">녹색경제신문</span><span class="related-coverage-title">현대건설, 공동주택 DRT·배송로봇 MOU…미래 모빌리티 설계기준 마련</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12146810" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">현대건설, 교통안전공단과 공공동주택 미래모빌리티 안전기술 개발</span></a><a class="related-coverage-link" href="https://www.koscaj.com/news/articleView.html?idxno=326337" target="_blank" rel="noopener"><span class="related-coverage-publisher">대한전문건설신문</span><span class="related-coverage-title">“아파트에 DRT·배송로봇 들어온다”···현대건설, 안전기준 마련</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2467810" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">현대건설·한국교통안전공단, 미래 모빌리티 안전기술 실증 업무협약 체결</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309815" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">현대건설, 보행자와 로봇 공존 실험…주거단지 동선 재설계 - FETV</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12146729" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“공동주택 모빌리티 안전체계 구축”…현대건설, 한국교통안전공단과 맞손</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090802166" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;택배로봇 돌아다닐 우리 아파트&quot;…현대건설, 안전기준 만든다</span></a><a class="related-coverage-link" href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=484815" target="_blank" rel="noopener"><span class="related-coverage-publisher">핀포인트뉴스</span><span class="related-coverage-title">현대건설, 공동주택 미래 모빌리티 안전기술 개발</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">&quot;아파트에 DRT·배송로봇 들어온다&quot;…현대건설, 안전기준 마련</div>
@@ -34637,14 +34925,14 @@ main {
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://www.mk.co.kr/news/stock/12147445"
-  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스"
+  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스 - 매일경제"
   data-publisher="매일경제"
   data-group="타 건설사"
   data-language="ko"
   data-priority="1"
   data-published="1788860113"
   data-country="KR"
-  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이.."
+  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 - 매일경제 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이텍 +5.65%, 두산에너빌리티 +4.10%, sk하이닉스 +3.53% ▶▶오늘 분석한 인기 검색 종목 ai매매신호 자세히 보기 ▶▶오늘 매매신호 내역 바로 확인! ai매매 이용자"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -34659,8 +34947,8 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스</div>
-      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이..</div>
+      <div class="headline">[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스 - 매일경제</div>
+      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이텍 +5.65%, 두산에너빌리티 +4.10%, SK하이닉스 +3.53% ▶▶오늘 분석한 인기 검색 종목 AI매매신호 자세히 보기 ▶▶오늘 매매신호 내역 바로 확인! AI매매 이용자</div>
     </div>
   </div>
   <div class="card-side">
@@ -36726,7 +37014,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=03991766645578152&amp;mediaCodeNo=257"
   data-title="한미 &#x27;원전 주도권 게임&#x27; 본격화..&quot;사업 지분·EPC확보가 관건&quot;"
   data-publisher="이데일리"
@@ -36750,7 +37038,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한미 &#x27;원전 주도권 게임&#x27; 본격화..&quot;사업 지분·EPC확보가 관건&quot;</div>
+      <div class="headline">한미 &#x27;원전 주도권 게임&#x27; 본격화..&quot;사업 지분·EPC확보가 관건&quot;</div>
       <div class="article-snippet">미국이 원전 8기 건설에 한국의 대미투자 자금 1200억달러를 활용하자고 제안하면서 한미 간 ‘원전 주도권 게임’이 본격화하고 있다. 단순 계산하면 원전 1기당 150억달러(약 20조원)로 막대한 금액이다. 한국형 원전 APR1400 2기가 포함될 가능성이 거론되는 ...</div>
     </div>
   </div>
@@ -36792,7 +37080,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=03932726645578152&amp;mediaCodeNo=257"
   data-title="“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”"
   data-publisher="이데일리"
@@ -36816,7 +37104,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”</div>
+      <div class="headline">“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”</div>
       <div class="article-snippet">“미국은 원전을 건설할 역량을 잃었습니다. 한국은 미국 원전 건설의 ‘필수불가결한 파트너’가 될 것입니다.” 토머스 번 전 코리아소사이어티 회장은 8일(현지시간) 미국 뉴욕에서 진행한 이데일리와의 인터뷰에서 미국이 한국의 대미투자금 가운데 1200억달러(약 161조...</div>
     </div>
   </div>
@@ -37089,7 +37377,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.segyebiz.com/newsView/20260908517736"
   data-title="대미투자 요구액 3500억달러 넘어…정부, 규모 조율"
   data-publisher="세계일보"
@@ -37113,7 +37401,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대미투자 요구액 3500억달러 넘어…정부, 규모 조율</div>
+      <div class="headline">대미투자 요구액 3500억달러 넘어…정부, 규모 조율</div>
       <div class="article-snippet">미국이 한미 관세 협상에 따라 추진되는 대미 투자 사업에서 당초 합의된 투자 재원을 넘어서는 규모를 요구하면서 정부가 사업 조정에 나섰다. 8일 정치권에 따르면 산업통상부는 최근 국회에 한미 전략투자 후속 협상 진행 상황을 비공개로 보고했다. 미국 측이 제시한 투자 사업 규모...</div>
     </div>
   </div>
@@ -37155,7 +37443,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=03985206645578152&amp;mediaCodeNo=257"
   data-title="사업 몸집 커지고, 반도체 압박까지…&#x27;대미투자 마지노선&#x27; 흔들"
   data-publisher="이데일리"
@@ -37179,7 +37467,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>사업 몸집 커지고, 반도체 압박까지…&#x27;대미투자 마지노선&#x27; 흔들</div>
+      <div class="headline">사업 몸집 커지고, 반도체 압박까지…&#x27;대미투자 마지노선&#x27; 흔들</div>
       <div class="article-snippet">일본보다 경제 규모가 작은 만큼 대미투자 부담도 낮게 가져가려던 한국 정부의 셈법이 꼬이고 있다. 한미는 일본의 5500억달러보다 2000억달러 적은 3500억달러 규모의 대미투자에 합의했지만, 개별 프로젝트가 구체화하면서 사업의 몸집이 예상보다 커지고 있어서다. 첫...</div>
     </div>
   </div>
@@ -37242,7 +37530,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 16개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090819122633596" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">대미투자 3500억달러 세부안 윤곽···사업 규모 막판 조율 - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908183437643" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중</span></a><a class="related-coverage-link" href="https://www.hani.co.kr/arti/opinion/editorial/1276870.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">한겨레</span><span class="related-coverage-title">[사설] 윤곽 나온 대미투자, 안보·통상 협상 지렛대로 삼아야</span></a><a class="related-coverage-link" href="https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260908150800003?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609081263i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;이틀만에 30% 급등&quot;…&#x27;원전 8기&#x27; 대미투자 수혜 종목은</span></a><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0134_202609081523182344" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">대미투자 1호 프로젝트, &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; [자막뉴스]</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090807321777937" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10866292" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">[사설] 대미투자 프로젝트 윤곽, 통상·안보 현안 풀 지렛대로</span></a><a class="related-coverage-link" href="https://www.mt.co.kr/stock/2026/09/08/2026090811053190437" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니투데이</span><span class="related-coverage-title">3500억 달러 대미투자 &#x27;가스발전소·원전&#x27; 유력…관련주도 들썩 - 머니투데이</span></a><a class="related-coverage-link" href="https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800110.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴데일리</span><span class="related-coverage-title">&#x27;모 아니면 도&#x27; 1200억달러 대미 원전 투자 … 성공 땐 호재, 실패 땐 원금 회수 난항</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719807" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090809040723529" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">&#x27;대미투자 1호&#x27;는 텍사스 가스발전소, 원전 8기 건설도 검토</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609080012" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">韓, 美에 대형 원전 8기 건설 추진…2000억달러 대미 투자 본격화</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000549192.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=750111" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 17개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newscj.com/news/articleView.html?idxno=3431068" target="_blank" rel="noopener"><span class="related-coverage-publisher">천지일보</span><span class="related-coverage-title">미국, 대미투자 3500억 달러 초과 요구… 정부 ‘2000억 달러’ 한도 방어</span></a><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090819122633596" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">대미투자 3500억달러 세부안 윤곽···사업 규모 막판 조율 - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908183437643" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중</span></a><a class="related-coverage-link" href="https://www.hani.co.kr/arti/opinion/editorial/1276870.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">한겨레</span><span class="related-coverage-title">[사설] 윤곽 나온 대미투자, 안보·통상 협상 지렛대로 삼아야</span></a><a class="related-coverage-link" href="https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260908150800003?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609081263i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;이틀만에 30% 급등&quot;…&#x27;원전 8기&#x27; 대미투자 수혜 종목은</span></a><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0134_202609081523182344" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">대미투자 1호 프로젝트, &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; [자막뉴스]</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090807321777937" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10866292" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">[사설] 대미투자 프로젝트 윤곽, 통상·안보 현안 풀 지렛대로</span></a><a class="related-coverage-link" href="https://www.mt.co.kr/stock/2026/09/08/2026090811053190437" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니투데이</span><span class="related-coverage-title">3500억 달러 대미투자 &#x27;가스발전소·원전&#x27; 유력…관련주도 들썩 - 머니투데이</span></a><a class="related-coverage-link" href="https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800110.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴데일리</span><span class="related-coverage-title">&#x27;모 아니면 도&#x27; 1200억달러 대미 원전 투자 … 성공 땐 호재, 실패 땐 원금 회수 난항</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719807" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090809040723529" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">&#x27;대미투자 1호&#x27;는 텍사스 가스발전소, 원전 8기 건설도 검토</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609080012" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">韓, 美에 대형 원전 8기 건설 추진…2000억달러 대미 투자 본격화</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000549192.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=750111" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">3,500억달러 약속했더니 더 커진 계산서…미국 투자 요구 &#x27;한도 초과&#x27;</div>
@@ -37254,7 +37542,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/economy/economy_general/1276808.html"
   data-title="‘2천억달러 대미 투자’ 한국 기업들 이익 챙기려면…기자재 관세 중요"
   data-publisher="한겨레"
@@ -37278,7 +37566,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘2천억달러 대미 투자’ 한국 기업들 이익 챙기려면…기자재 관세 중요</div>
+      <div class="headline">‘2천억달러 대미 투자’ 한국 기업들 이익 챙기려면…기자재 관세 중요</div>
       <div class="article-snippet">대미투자 1호 사업과 첫 자금 집행 일정이 윤곽을 드러내면서, 한국 기업의 수주 효과를 좌우할 변수 중 하나로 기자재 관세가 꼽힌다. 대미투자 합의 내용을 담은 한미 전략적 투자 양해각서(MOU)는 미국 프로젝트의 공급업체 선정 때 한국 업체를 우선하도록 했지만, 관세</div>
     </div>
   </div>
@@ -37452,7 +37740,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguardian.com/us-news/live/2026/sep/08/new-hampshire-rhode-island-vote-state-primaries-trump-canada-us-politics-latest-news-updates"
   data-title="New Hampshire and Rhode Island electorate to vote in state primaries - US politics live"
   data-publisher="The Guardian"
@@ -37476,7 +37764,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>New Hampshire and Rhode Island electorate to vote in state primaries - US politics live</div>
+      <div class="headline">New Hampshire and Rhode Island electorate to vote in state primaries - US politics live</div>
       <div class="article-snippet">Voters will choose candidates across full slate of federal, state and local offices over next two days Sign up for US Breaking News emails The Trump administration is seeking greater US access to Venezuela’s minerals, including gold, as it expands its push to gain control and influence over the South American country’s</div>
     </div>
   </div>
@@ -37593,7 +37881,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260908_0003781540"
   data-title="이 대통령, 佛 개선문서 공식환영식…곧 마크롱과 정상회담"
   data-publisher="뉴시스"
@@ -37617,7 +37905,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이 대통령, 佛 개선문서 공식환영식…곧 마크롱과 정상회담</div>
+      <div class="headline">이 대통령, 佛 개선문서 공식환영식…곧 마크롱과 정상회담</div>
       <div class="article-snippet">[파리·서울=뉴시스] 김지은 조재완 기자 = 프랑스를 국빈 방문한 이재명 대통령이 8일(현지시간) 한·프랑스 정상회담에 앞서 공식환영식과 무명용사의 묘 헌화를 시작으로 본격적인 국빈 방문 일정에 돌입했다. 이 대통령은 이날 낮 파리 개선문 광장에서 열린 공식 환영식에 참석한 뒤 이곳에 있는 무명용사의 묘에 헌화했다. 참배 후 방명록에는 &#x27;이름없는 영웅들의 헌신과 희생을 영원히 기억하겠습니다&#x27;라고 적었다. 이 대통령은 이후 한국전쟁 참전 기념 동판에 헌화한 뒤 참전 용사들과 만나 인사를 나누고 격려했다. 이 대통령은 한국시간으로 이날 밤 엘리제궁에서 에마뉘엘 마크롱 프</div>
     </div>
   </div>
@@ -37626,7 +37914,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260908_0003781574"
   data-title="한-체코·우간다·파푸아뉴기니 국방장관 회담…국방·방산협력 논의"
   data-publisher="뉴시스"
@@ -37650,7 +37938,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한-체코·우간다·파푸아뉴기니 국방장관 회담…국방·방산협력 논의</div>
+      <div class="headline">한-체코·우간다·파푸아뉴기니 국방장관 회담…국방·방산협력 논의</div>
       <div class="article-snippet">[서울=뉴시스] 옥승욱 기자 = 안규백 국방부 장관은 8일 오후 더그랜드롯데 서울에서 서울안보대화(SDD) 계기 우간다, 체코, 파푸아뉴기니 국방장관과 양자회담을 갖고 국방·방산협력 강화 방안 등에 대해 논의했다. 안 장관은 우선 키료와 키와누카 우간다 국방보훈부 장관과 만나 우간다 국방보훈부 장관으로서는 최초로 서울안보대화에 참석한데 대해 사의를 표했다. 안 장관은 또 우간다가 동아프리카의 주요국으로서 역내 평화와 안보에 중요한 역할을 하고 있다고 평가했다. 이번 회담에서 양 장관은 군사교육, 태권도 교류 등 양국 간 국방협력 현황을 공유하고 향후 발전 방향에 대해</div>
     </div>
   </div>
@@ -37956,7 +38244,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/politics/12147371"
   data-title="韓 핵추진잠수함 건조, IAEA 협의절차 착수 - 매일경제"
   data-publisher="매일경제"
@@ -37980,7 +38268,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>韓 핵추진잠수함 건조, IAEA 협의절차 착수 - 매일경제</div>
+      <div class="headline">韓 핵추진잠수함 건조, IAEA 협의절차 착수 - 매일경제</div>
       <div class="article-snippet">Google 검색에서 매일경제 기사를 더 자주 볼 수 있습니다.</div>
     </div>
   </div>
@@ -39072,7 +39360,7 @@ main {
     <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/key-commissioning-tests-completed-at-changjiang-4"
   data-title="Key commissioning tests completed at Changjiang 4"
   data-publisher="World Nuclear News"
@@ -39096,7 +39384,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Key commissioning tests completed at Changjiang 4</div>
+      <div class="headline">Key commissioning tests completed at Changjiang 4</div>
       <div class="article-snippet">Cold functional tests have been completed at unit 4 of the Changjiang nuclear power plant in China&#x27;s Hainan province, China National Nuclear Corporation has announced. ;</div>
     </div>
   </div>
@@ -39105,7 +39393,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://aninews.in/news/world/asia/very-very-important-player-kremlin-spokesperson-peskov-highlights-engagement-with-india-beyond-hydrocarbons-to-nuclear-sphere16020260908163611/"
   data-title="&quot;Very, very important player&quot;: Kremlin spokesperson Peskov highlights engagement with India beyond hydrocarbons to nuclear sphere"
   data-publisher="ANI"
@@ -39129,7 +39417,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;Very, very important player&quot;: Kremlin spokesperson Peskov highlights engagement with India beyond hydrocarbons to nuclear sphere</div>
+      <div class="headline">&quot;Very, very important player&quot;: Kremlin spokesperson Peskov highlights engagement with India beyond hydrocarbons to nuclear sphere</div>
       <div class="article-snippet">Speaking to reporters via a virtual briefing from Moscow, Peskov said Russia’s engagement with India goes beyond hydrocarbon supplies and also covers the nuclear energy sector.</div>
     </div>
   </div>
@@ -39138,7 +39426,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.err.ee/1610131714/ministry-hopes-to-choose-location-for-estonia-s-nuclear-power-plant-by-spring"
   data-title="Ministry hopes to choose location for Estonia&#x27;s nuclear power plant by spring"
   data-publisher="ERR News"
@@ -39162,7 +39450,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Ministry hopes to choose location for Estonia&#x27;s nuclear power plant by spring</div>
+      <div class="headline">Ministry hopes to choose location for Estonia&#x27;s nuclear power plant by spring</div>
       <div class="article-snippet">In Estonia, a nuclear power plant can only be built on the coast to ensure sufficient cooling water, but dozens of other requirements must also be met.</div>
     </div>
   </div>
@@ -39504,7 +39792,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/politics/bluehouse/1276873.html"
   data-title="[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입"
   data-publisher="한겨레"
@@ -39528,7 +39816,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입</div>
+      <div class="headline">[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입</div>
       <div class="article-snippet">정부가 지난해 10월 관세협상 타결 뒤 11개월 만인 이달 말 22억달러(약 2조9600억원)+알파(α) 규모의 첫 대미 투자금을 미국에 송금하는 방안을 추진 중인 것으로 8일 확인됐다. 정부는 미국 원자력발전 기업 웨스팅하우스의 지분 일부를 인수하는 내용이 담긴 원전</div>
     </div>
   </div>
@@ -39537,7 +39825,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ytn.co.kr/_ln/0102_202609081900153012"
   data-title="&quot;원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진&quot;"
   data-publisher="YTN"
@@ -39561,7 +39849,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진&quot;</div>
+      <div class="headline">&quot;원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진&quot;</div>
       <div class="article-snippet">대미투자 1호, 텍사스 가스복합발전소 사업 낙점 / &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; / 한미, 1천2백억 달러 규모 원전 사업 막판 조율</div>
     </div>
   </div>
@@ -39631,7 +39919,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">21건</span>
+    <span class="group-count">22건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -39664,6 +39952,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d3a494d678dbf4d46959ccf3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newscj.com/news/articleView.html?idxno=3431056"
+  data-title="[건설오늘] 현대건설, 미래 모빌리티 안전체계 구축 外 GS건설·현대엔지니어링·포스코이앤씨"
+  data-publisher="천지일보"
+  data-group="현대건설"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788862200"
+  data-country="KR"
+  data-search="[건설오늘] 현대건설, 미래 모빌리티 안전체계 구축 外 gs건설·현대엔지니어링·포스코이앤씨 천지일보 현대건설 [천지일보=정다준 기자] 현대건설이 한국교통안전공단과 공동주택 내 미래 모빌리티 안전기술 개발에 나선다. gs건설은 부산 연제구에서 499가구 규모의 ‘연제갤러리자이’를 10월 분양할 예정이다. 현대엔지니어링은 도심 생태공간 조성 성과를 인정받았으며 포스코이앤씨는 스마트홈 기반 에너지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">천지일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[건설오늘] 현대건설, 미래 모빌리티 안전체계 구축 外 GS건설·현대엔지니어링·포스코이앤씨</div>
+      <div class="article-snippet">[천지일보=정다준 기자] 현대건설이 한국교통안전공단과 공동주택 내 미래 모빌리티 안전기술 개발에 나선다. GS건설은 부산 연제구에서 499가구 규모의 ‘연제갤러리자이’를 10월 분양할 예정이다. 현대엔지니어링은 도심 생태공간 조성 성과를 인정받았으며 포스코이앤씨는 스마트홈 기반 에너지</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.newscj.com/news/thumbnail/202609/3431056_3546510_331_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -40084,7 +40405,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 12개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://news.bizwatch.co.kr/article/real_estate/2026/09/08/0008" target="_blank" rel="noopener"><span class="related-coverage-publisher">비즈워치</span><span class="related-coverage-title">현대건설-TS, 배송·주차로봇 다닐 아파트 안전 챙긴다</span></a><a class="related-coverage-link" href="https://www.biztribune.co.kr/news/articleView.html?idxno=358649" target="_blank" rel="noopener"><span class="related-coverage-publisher">비즈트리뷴</span><span class="related-coverage-title">현대건설, 교통안전공단과 미래 모빌리티 안전기술 개발… “스마트 주거환경 구축”</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723435" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">현대건설, 아파트 단지에 로봇·PM 다닌다…&#x27;미래 모빌리티&#x27; 안전기준 만든다 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.sedaily.com/article/20088451" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">공동주택 모빌리티 안전기술 개발…현대건설-교통안전공단 ‘맞손’</span></a><a class="related-coverage-link" href="https://www.greened.kr/news/articleView.html?idxno=349481" target="_blank" rel="noopener"><span class="related-coverage-publisher">녹색경제신문</span><span class="related-coverage-title">현대건설, 공동주택 DRT·배송로봇 MOU…미래 모빌리티 설계기준 마련</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12146810" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">현대건설, 교통안전공단과 공공동주택 미래모빌리티 안전기술 개발</span></a><a class="related-coverage-link" href="https://www.koscaj.com/news/articleView.html?idxno=326337" target="_blank" rel="noopener"><span class="related-coverage-publisher">대한전문건설신문</span><span class="related-coverage-title">“아파트에 DRT·배송로봇 들어온다”···현대건설, 안전기준 마련</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2467810" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">현대건설·한국교통안전공단, 미래 모빌리티 안전기술 실증 업무협약 체결</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309815" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">현대건설, 보행자와 로봇 공존 실험…주거단지 동선 재설계 - FETV</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12146729" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“공동주택 모빌리티 안전체계 구축”…현대건설, 한국교통안전공단과 맞손</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090802166" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;택배로봇 돌아다닐 우리 아파트&quot;…현대건설, 안전기준 만든다</span></a><a class="related-coverage-link" href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=484815" target="_blank" rel="noopener"><span class="related-coverage-publisher">핀포인트뉴스</span><span class="related-coverage-title">현대건설, 공동주택 미래 모빌리티 안전기술 개발</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 13개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newscj.com/news/articleView.html?idxno=3431056" target="_blank" rel="noopener"><span class="related-coverage-publisher">천지일보</span><span class="related-coverage-title">[건설오늘] 현대건설, 미래 모빌리티 안전체계 구축 外 GS건설·현대엔지니어링·포스코이앤씨</span></a><a class="related-coverage-link" href="https://news.bizwatch.co.kr/article/real_estate/2026/09/08/0008" target="_blank" rel="noopener"><span class="related-coverage-publisher">비즈워치</span><span class="related-coverage-title">현대건설-TS, 배송·주차로봇 다닐 아파트 안전 챙긴다</span></a><a class="related-coverage-link" href="https://www.biztribune.co.kr/news/articleView.html?idxno=358649" target="_blank" rel="noopener"><span class="related-coverage-publisher">비즈트리뷴</span><span class="related-coverage-title">현대건설, 교통안전공단과 미래 모빌리티 안전기술 개발… “스마트 주거환경 구축”</span></a><a class="related-coverage-link" href="https://www.ebn.co.kr/news/articleView.html?idxno=1723435" target="_blank" rel="noopener"><span class="related-coverage-publisher">EBN산업경제</span><span class="related-coverage-title">현대건설, 아파트 단지에 로봇·PM 다닌다…&#x27;미래 모빌리티&#x27; 안전기준 만든다 - 이비엔(EBN)뉴스센터</span></a><a class="related-coverage-link" href="https://www.sedaily.com/article/20088451" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제</span><span class="related-coverage-title">공동주택 모빌리티 안전기술 개발…현대건설-교통안전공단 ‘맞손’</span></a><a class="related-coverage-link" href="https://www.greened.kr/news/articleView.html?idxno=349481" target="_blank" rel="noopener"><span class="related-coverage-publisher">녹색경제신문</span><span class="related-coverage-title">현대건설, 공동주택 DRT·배송로봇 MOU…미래 모빌리티 설계기준 마련</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12146810" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">현대건설, 교통안전공단과 공공동주택 미래모빌리티 안전기술 개발</span></a><a class="related-coverage-link" href="https://www.koscaj.com/news/articleView.html?idxno=326337" target="_blank" rel="noopener"><span class="related-coverage-publisher">대한전문건설신문</span><span class="related-coverage-title">“아파트에 DRT·배송로봇 들어온다”···현대건설, 안전기준 마련</span></a><a class="related-coverage-link" href="https://www.enewstoday.co.kr/news/articleView.html?idxno=2467810" target="_blank" rel="noopener"><span class="related-coverage-publisher">이뉴스투데이</span><span class="related-coverage-title">현대건설·한국교통안전공단, 미래 모빌리티 안전기술 실증 업무협약 체결</span></a><a class="related-coverage-link" href="https://www.fetv.co.kr/news/articleView.html?idxno=309815" target="_blank" rel="noopener"><span class="related-coverage-publisher">FETV</span><span class="related-coverage-title">현대건설, 보행자와 로봇 공존 실험…주거단지 동선 재설계 - FETV</span></a><a class="related-coverage-link" href="https://www.mk.co.kr/news/realestate/12146729" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">“공동주택 모빌리티 안전체계 구축”…현대건설, 한국교통안전공단과 맞손</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/2026090802166" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;택배로봇 돌아다닐 우리 아파트&quot;…현대건설, 안전기준 만든다</span></a><a class="related-coverage-link" href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=484815" target="_blank" rel="noopener"><span class="related-coverage-publisher">핀포인트뉴스</span><span class="related-coverage-title">현대건설, 공동주택 미래 모빌리티 안전기술 개발</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">&quot;아파트에 DRT·배송로봇 들어온다&quot;…현대건설, 안전기준 마련</div>
@@ -40338,14 +40659,14 @@ main {
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://www.mk.co.kr/news/stock/12147445"
-  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스"
+  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스 - 매일경제"
   data-publisher="매일경제"
   data-group="타 건설사"
   data-language="ko"
   data-priority="1"
   data-published="1788860113"
   data-country="KR"
-  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이.."
+  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 - 매일경제 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이텍 +5.65%, 두산에너빌리티 +4.10%, sk하이닉스 +3.53% ▶▶오늘 분석한 인기 검색 종목 ai매매신호 자세히 보기 ▶▶오늘 매매신호 내역 바로 확인! ai매매 이용자"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -40360,8 +40681,8 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스</div>
-      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이..</div>
+      <div class="headline">[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스 - 매일경제</div>
+      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이텍 +5.65%, 두산에너빌리티 +4.10%, SK하이닉스 +3.53% ▶▶오늘 분석한 인기 검색 종목 AI매매신호 자세히 보기 ▶▶오늘 매매신호 내역 바로 확인! AI매매 이용자</div>
     </div>
   </div>
   <div class="card-side">
@@ -44206,7 +44527,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">44건</span>
+    <span class="group-count">45건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -44374,7 +44695,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=03991766645578152&amp;mediaCodeNo=257"
   data-title="한미 &#x27;원전 주도권 게임&#x27; 본격화..&quot;사업 지분·EPC확보가 관건&quot;"
   data-publisher="이데일리"
@@ -44398,7 +44719,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한미 &#x27;원전 주도권 게임&#x27; 본격화..&quot;사업 지분·EPC확보가 관건&quot;</div>
+      <div class="headline">한미 &#x27;원전 주도권 게임&#x27; 본격화..&quot;사업 지분·EPC확보가 관건&quot;</div>
       <div class="article-snippet">미국이 원전 8기 건설에 한국의 대미투자 자금 1200억달러를 활용하자고 제안하면서 한미 간 ‘원전 주도권 게임’이 본격화하고 있다. 단순 계산하면 원전 1기당 150억달러(약 20조원)로 막대한 금액이다. 한국형 원전 APR1400 2기가 포함될 가능성이 거론되는 ...</div>
     </div>
   </div>
@@ -44440,7 +44761,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=03932726645578152&amp;mediaCodeNo=257"
   data-title="“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”"
   data-publisher="이데일리"
@@ -44464,7 +44785,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”</div>
+      <div class="headline">“美 원전 르네상스 재건, 역량 갖춘 韓기업엔 기회”</div>
       <div class="article-snippet">“미국은 원전을 건설할 역량을 잃었습니다. 한국은 미국 원전 건설의 ‘필수불가결한 파트너’가 될 것입니다.” 토머스 번 전 코리아소사이어티 회장은 8일(현지시간) 미국 뉴욕에서 진행한 이데일리와의 인터뷰에서 미국이 한국의 대미투자금 가운데 1200억달러(약 161조...</div>
     </div>
   </div>
@@ -45067,7 +45388,40 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
+  data-url="https://www.newscj.com/news/articleView.html?idxno=3431068"
+  data-title="미국, 대미투자 3500억 달러 초과 요구… 정부 ‘2000억 달러’ 한도 방어"
+  data-publisher="천지일보"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788868800"
+  data-country="US"
+  data-search="미국, 대미투자 3500억 달러 초과 요구… 정부 ‘2000억 달러’ 한도 방어 천지일보 원전 대미투자 [천지일보=배은정 기자] 미국 정부가 지난해 한미 관세 협상에서 합의했던 3500억 달러를 초과한 대미 투자를 요구하면서 한미 간 막판 협상이 난항을 겪고 있다. 우리 정부는 이번 협상의 대상인 전략적 투자 재원 2000억 달러를 넘기지 않는 선에서 사업 규모와 대상을 조정하는 데 총"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">천지일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">미국, 대미투자 3500억 달러 초과 요구… 정부 ‘2000억 달러’ 한도 방어</div>
+      <div class="article-snippet">[천지일보=배은정 기자] 미국 정부가 지난해 한미 관세 협상에서 합의했던 3500억 달러를 초과한 대미 투자를 요구하면서 한미 간 막판 협상이 난항을 겪고 있다. 우리 정부는 이번 협상의 대상인 전략적 투자 재원 2000억 달러를 넘기지 않는 선에서 사업 규모와 대상을 조정하는 데 총</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.newscj.com/news/thumbnail/202609/3431068_3546534_2521_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.segyebiz.com/newsView/20260908517736"
   data-title="대미투자 요구액 3500억달러 넘어…정부, 규모 조율"
   data-publisher="세계일보"
@@ -45091,7 +45445,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대미투자 요구액 3500억달러 넘어…정부, 규모 조율</div>
+      <div class="headline">대미투자 요구액 3500억달러 넘어…정부, 규모 조율</div>
       <div class="article-snippet">미국이 한미 관세 협상에 따라 추진되는 대미 투자 사업에서 당초 합의된 투자 재원을 넘어서는 규모를 요구하면서 정부가 사업 조정에 나섰다. 8일 정치권에 따르면 산업통상부는 최근 국회에 한미 전략투자 후속 협상 진행 상황을 비공개로 보고했다. 미국 측이 제시한 투자 사업 규모...</div>
     </div>
   </div>
@@ -45166,7 +45520,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=03985206645578152&amp;mediaCodeNo=257"
   data-title="사업 몸집 커지고, 반도체 압박까지…&#x27;대미투자 마지노선&#x27; 흔들"
   data-publisher="이데일리"
@@ -45190,7 +45544,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>사업 몸집 커지고, 반도체 압박까지…&#x27;대미투자 마지노선&#x27; 흔들</div>
+      <div class="headline">사업 몸집 커지고, 반도체 압박까지…&#x27;대미투자 마지노선&#x27; 흔들</div>
       <div class="article-snippet">일본보다 경제 규모가 작은 만큼 대미투자 부담도 낮게 가져가려던 한국 정부의 셈법이 꼬이고 있다. 한미는 일본의 5500억달러보다 2000억달러 적은 3500억달러 규모의 대미투자에 합의했지만, 개별 프로젝트가 구체화하면서 사업의 몸집이 예상보다 커지고 있어서다. 첫...</div>
     </div>
   </div>
@@ -45286,7 +45640,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 16개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090819122633596" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">대미투자 3500억달러 세부안 윤곽···사업 규모 막판 조율 - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908183437643" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중</span></a><a class="related-coverage-link" href="https://www.hani.co.kr/arti/opinion/editorial/1276870.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">한겨레</span><span class="related-coverage-title">[사설] 윤곽 나온 대미투자, 안보·통상 협상 지렛대로 삼아야</span></a><a class="related-coverage-link" href="https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260908150800003?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609081263i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;이틀만에 30% 급등&quot;…&#x27;원전 8기&#x27; 대미투자 수혜 종목은</span></a><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0134_202609081523182344" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">대미투자 1호 프로젝트, &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; [자막뉴스]</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090807321777937" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10866292" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">[사설] 대미투자 프로젝트 윤곽, 통상·안보 현안 풀 지렛대로</span></a><a class="related-coverage-link" href="https://www.mt.co.kr/stock/2026/09/08/2026090811053190437" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니투데이</span><span class="related-coverage-title">3500억 달러 대미투자 &#x27;가스발전소·원전&#x27; 유력…관련주도 들썩 - 머니투데이</span></a><a class="related-coverage-link" href="https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800110.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴데일리</span><span class="related-coverage-title">&#x27;모 아니면 도&#x27; 1200억달러 대미 원전 투자 … 성공 땐 호재, 실패 땐 원금 회수 난항</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719807" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090809040723529" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">&#x27;대미투자 1호&#x27;는 텍사스 가스발전소, 원전 8기 건설도 검토</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609080012" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">韓, 美에 대형 원전 8기 건설 추진…2000억달러 대미 투자 본격화</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000549192.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=750111" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 17개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newscj.com/news/articleView.html?idxno=3431068" target="_blank" rel="noopener"><span class="related-coverage-publisher">천지일보</span><span class="related-coverage-title">미국, 대미투자 3500억 달러 초과 요구… 정부 ‘2000억 달러’ 한도 방어</span></a><a class="related-coverage-link" href="https://www.newsway.co.kr/news/view?ud=2026090819122633596" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스웨이</span><span class="related-coverage-title">대미투자 3500억달러 세부안 윤곽···사업 규모 막판 조율 - 뉴스웨이</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908183437643" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중</span></a><a class="related-coverage-link" href="https://www.hani.co.kr/arti/opinion/editorial/1276870.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">한겨레</span><span class="related-coverage-title">[사설] 윤곽 나온 대미투자, 안보·통상 협상 지렛대로 삼아야</span></a><a class="related-coverage-link" href="https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260908150800003?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609081263i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;이틀만에 30% 급등&quot;…&#x27;원전 8기&#x27; 대미투자 수혜 종목은</span></a><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0134_202609081523182344" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">대미투자 1호 프로젝트, &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; [자막뉴스]</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090807321777937" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10866292" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">[사설] 대미투자 프로젝트 윤곽, 통상·안보 현안 풀 지렛대로</span></a><a class="related-coverage-link" href="https://www.mt.co.kr/stock/2026/09/08/2026090811053190437" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니투데이</span><span class="related-coverage-title">3500억 달러 대미투자 &#x27;가스발전소·원전&#x27; 유력…관련주도 들썩 - 머니투데이</span></a><a class="related-coverage-link" href="https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800110.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴데일리</span><span class="related-coverage-title">&#x27;모 아니면 도&#x27; 1200억달러 대미 원전 투자 … 성공 땐 호재, 실패 땐 원금 회수 난항</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719807" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090809040723529" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">&#x27;대미투자 1호&#x27;는 텍사스 가스발전소, 원전 8기 건설도 검토</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609080012" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">韓, 美에 대형 원전 8기 건설 추진…2000억달러 대미 투자 본격화</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000549192.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=750111" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">3,500억달러 약속했더니 더 커진 계산서…미국 투자 요구 &#x27;한도 초과&#x27;</div>
@@ -45331,7 +45685,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/economy/economy_general/1276808.html"
   data-title="‘2천억달러 대미 투자’ 한국 기업들 이익 챙기려면…기자재 관세 중요"
   data-publisher="한겨레"
@@ -45355,7 +45709,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘2천억달러 대미 투자’ 한국 기업들 이익 챙기려면…기자재 관세 중요</div>
+      <div class="headline">‘2천억달러 대미 투자’ 한국 기업들 이익 챙기려면…기자재 관세 중요</div>
       <div class="article-snippet">대미투자 1호 사업과 첫 자금 집행 일정이 윤곽을 드러내면서, 한국 기업의 수주 효과를 좌우할 변수 중 하나로 기자재 관세가 꼽힌다. 대미투자 합의 내용을 담은 한미 전략적 투자 양해각서(MOU)는 미국 프로젝트의 공급업체 선정 때 한국 업체를 우선하도록 했지만, 관세</div>
     </div>
   </div>
@@ -45628,7 +45982,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.theguardian.com/us-news/live/2026/sep/08/new-hampshire-rhode-island-vote-state-primaries-trump-canada-us-politics-latest-news-updates"
   data-title="New Hampshire and Rhode Island electorate to vote in state primaries - US politics live"
   data-publisher="The Guardian"
@@ -45652,7 +46006,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>New Hampshire and Rhode Island electorate to vote in state primaries - US politics live</div>
+      <div class="headline">New Hampshire and Rhode Island electorate to vote in state primaries - US politics live</div>
       <div class="article-snippet">Voters will choose candidates across full slate of federal, state and local offices over next two days Sign up for US Breaking News emails The Trump administration is seeking greater US access to Venezuela’s minerals, including gold, as it expands its push to gain control and influence over the South American country’s</div>
     </div>
   </div>
@@ -45769,7 +46123,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260908_0003781540"
   data-title="이 대통령, 佛 개선문서 공식환영식…곧 마크롱과 정상회담"
   data-publisher="뉴시스"
@@ -45793,7 +46147,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이 대통령, 佛 개선문서 공식환영식…곧 마크롱과 정상회담</div>
+      <div class="headline">이 대통령, 佛 개선문서 공식환영식…곧 마크롱과 정상회담</div>
       <div class="article-snippet">[파리·서울=뉴시스] 김지은 조재완 기자 = 프랑스를 국빈 방문한 이재명 대통령이 8일(현지시간) 한·프랑스 정상회담에 앞서 공식환영식과 무명용사의 묘 헌화를 시작으로 본격적인 국빈 방문 일정에 돌입했다. 이 대통령은 이날 낮 파리 개선문 광장에서 열린 공식 환영식에 참석한 뒤 이곳에 있는 무명용사의 묘에 헌화했다. 참배 후 방명록에는 &#x27;이름없는 영웅들의 헌신과 희생을 영원히 기억하겠습니다&#x27;라고 적었다. 이 대통령은 이후 한국전쟁 참전 기념 동판에 헌화한 뒤 참전 용사들과 만나 인사를 나누고 격려했다. 이 대통령은 한국시간으로 이날 밤 엘리제궁에서 에마뉘엘 마크롱 프</div>
     </div>
   </div>
@@ -45802,7 +46156,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260908_0003781574"
   data-title="한-체코·우간다·파푸아뉴기니 국방장관 회담…국방·방산협력 논의"
   data-publisher="뉴시스"
@@ -45826,7 +46180,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한-체코·우간다·파푸아뉴기니 국방장관 회담…국방·방산협력 논의</div>
+      <div class="headline">한-체코·우간다·파푸아뉴기니 국방장관 회담…국방·방산협력 논의</div>
       <div class="article-snippet">[서울=뉴시스] 옥승욱 기자 = 안규백 국방부 장관은 8일 오후 더그랜드롯데 서울에서 서울안보대화(SDD) 계기 우간다, 체코, 파푸아뉴기니 국방장관과 양자회담을 갖고 국방·방산협력 강화 방안 등에 대해 논의했다. 안 장관은 우선 키료와 키와누카 우간다 국방보훈부 장관과 만나 우간다 국방보훈부 장관으로서는 최초로 서울안보대화에 참석한데 대해 사의를 표했다. 안 장관은 또 우간다가 동아프리카의 주요국으로서 역내 평화와 안보에 중요한 역할을 하고 있다고 평가했다. 이번 회담에서 양 장관은 군사교육, 태권도 교류 등 양국 간 국방협력 현황을 공유하고 향후 발전 방향에 대해</div>
     </div>
   </div>
@@ -46594,7 +46948,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/politics/12147371"
   data-title="韓 핵추진잠수함 건조, IAEA 협의절차 착수 - 매일경제"
   data-publisher="매일경제"
@@ -46618,7 +46972,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>韓 핵추진잠수함 건조, IAEA 협의절차 착수 - 매일경제</div>
+      <div class="headline">韓 핵추진잠수함 건조, IAEA 협의절차 착수 - 매일경제</div>
       <div class="article-snippet">Google 검색에서 매일경제 기사를 더 자주 볼 수 있습니다.</div>
     </div>
   </div>
@@ -47875,7 +48229,7 @@ main {
     <span class="group-count">13건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/key-commissioning-tests-completed-at-changjiang-4"
   data-title="Key commissioning tests completed at Changjiang 4"
   data-publisher="World Nuclear News"
@@ -47899,7 +48253,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Key commissioning tests completed at Changjiang 4</div>
+      <div class="headline">Key commissioning tests completed at Changjiang 4</div>
       <div class="article-snippet">Cold functional tests have been completed at unit 4 of the Changjiang nuclear power plant in China&#x27;s Hainan province, China National Nuclear Corporation has announced. ;</div>
     </div>
   </div>
@@ -47908,7 +48262,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://aninews.in/news/world/asia/very-very-important-player-kremlin-spokesperson-peskov-highlights-engagement-with-india-beyond-hydrocarbons-to-nuclear-sphere16020260908163611/"
   data-title="&quot;Very, very important player&quot;: Kremlin spokesperson Peskov highlights engagement with India beyond hydrocarbons to nuclear sphere"
   data-publisher="ANI"
@@ -47932,7 +48286,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;Very, very important player&quot;: Kremlin spokesperson Peskov highlights engagement with India beyond hydrocarbons to nuclear sphere</div>
+      <div class="headline">&quot;Very, very important player&quot;: Kremlin spokesperson Peskov highlights engagement with India beyond hydrocarbons to nuclear sphere</div>
       <div class="article-snippet">Speaking to reporters via a virtual briefing from Moscow, Peskov said Russia’s engagement with India goes beyond hydrocarbon supplies and also covers the nuclear energy sector.</div>
     </div>
   </div>
@@ -47941,7 +48295,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://news.err.ee/1610131714/ministry-hopes-to-choose-location-for-estonia-s-nuclear-power-plant-by-spring"
   data-title="Ministry hopes to choose location for Estonia&#x27;s nuclear power plant by spring"
   data-publisher="ERR News"
@@ -47965,7 +48319,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Ministry hopes to choose location for Estonia&#x27;s nuclear power plant by spring</div>
+      <div class="headline">Ministry hopes to choose location for Estonia&#x27;s nuclear power plant by spring</div>
       <div class="article-snippet">In Estonia, a nuclear power plant can only be built on the coast to ensure sufficient cooling water, but dozens of other requirements must also be met.</div>
     </div>
   </div>
@@ -48439,7 +48793,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/politics/bluehouse/1276873.html"
   data-title="[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입"
   data-publisher="한겨레"
@@ -48463,7 +48817,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입</div>
+      <div class="headline">[단독] 대미투자 이달 말 첫 송금…미 웨스팅하우스 지분도 매입</div>
       <div class="article-snippet">정부가 지난해 10월 관세협상 타결 뒤 11개월 만인 이달 말 22억달러(약 2조9600억원)+알파(α) 규모의 첫 대미 투자금을 미국에 송금하는 방안을 추진 중인 것으로 8일 확인됐다. 정부는 미국 원자력발전 기업 웨스팅하우스의 지분 일부를 인수하는 내용이 담긴 원전</div>
     </div>
   </div>
@@ -48472,7 +48826,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ytn.co.kr/_ln/0102_202609081900153012"
   data-title="&quot;원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진&quot;"
   data-publisher="YTN"
@@ -48496,7 +48850,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진&quot;</div>
+      <div class="headline">&quot;원전 2기는 한국형으로...웨스팅하우스 지분 인수도 추진&quot;</div>
       <div class="article-snippet">대미투자 1호, 텍사스 가스복합발전소 사업 낙점 / &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; / 한미, 1천2백억 달러 규모 원전 사업 막판 조율</div>
     </div>
   </div>
@@ -64851,7 +65205,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/politics/bluehouse/1276254.html"
   data-title="청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”"
   data-publisher="한겨레"
@@ -64875,7 +65229,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”</div>
+      <div class="headline">청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”</div>
       <div class="article-snippet">청와대가 4일 “대미투자 이슈 중에는 반도체도 논의 대상인 게 사실”이라고 말했다. 청와대 고위관계자는 이날 기자들과 만나 “제가 알기로는 미측에서 그런 제기가 있고, 그래서 논의 대상이 된 것은 현실”이라며 “어떻게 어떤 방식으로 귀결될지는 아직 정해지지 않은 거 같</div>
     </div>
   </div>
@@ -68352,7 +68706,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.energy.gov/articles/energy-department-closes-19-billion-loan-restart-duane-arnold-nuclear-plant"
   data-title="Energy Department Closes $1.9 Billion Loan to Restart Duane Arnold Nuclear Plant"
   data-publisher="U.S. DOE Office of Nuclear Energy"
@@ -68376,7 +68730,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Energy Department Closes $1.9 Billion Loan to Restart Duane Arnold Nuclear Plant</div>
+      <div class="headline">Energy Department Closes $1.9 Billion Loan to Restart Duane Arnold Nuclear Plant</div>
       <div class="article-snippet">The U.S. Department of Energy’s Office of Energy Dominance Financing today announced the financial close of a loan of up to $1.9 billion to NextEra Energy to help finance the restart of the Duane Arnold Energy Center in Linn County, Iowa.</div>
     </div>
   </div>
@@ -68843,7 +69197,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702baf210098&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702b9f6dde50&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -79157,7 +79511,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hani.co.kr/arti/politics/bluehouse/1276254.html"
   data-title="청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”"
   data-publisher="한겨레"
@@ -79181,7 +79535,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”</div>
+      <div class="headline">청와대 “대미투자, 반도체도 논의 대상…안보협상 진행 쉽지 않아”</div>
       <div class="article-snippet">청와대가 4일 “대미투자 이슈 중에는 반도체도 논의 대상인 게 사실”이라고 말했다. 청와대 고위관계자는 이날 기자들과 만나 “제가 알기로는 미측에서 그런 제기가 있고, 그래서 논의 대상이 된 것은 현실”이라며 “어떻게 어떤 방식으로 귀결될지는 아직 정해지지 않은 거 같</div>
     </div>
   </div>
@@ -187701,14 +188055,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     }catch(_){}
   }
 
-  document.addEventListener("pointerover",(ev)=>{
-    const card=ev.target.closest && ev.target.closest(".pc11-list-card");
-    if(!card)return;
-    const idx=Number(card.dataset.articleIndex);
-    const list=currentCards();
-    const article=Number.isFinite(idx) ? list[idx] : null;
-    if(article)pc11WarmOriginalUrl(article.dataset.url||"");
-  },{passive:true});
+  // PC 원문은 새 탭으로 열기 때문에 iframe용 prefetch는 사용하지 않습니다.
 
   function init(){
     if(!desktop())return;
@@ -189323,79 +189670,12 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function openDetail(c){
     if(!c)return;
-
     const url=c.dataset.url||"";
-    const dashboard=document.getElementById("pc11-dashboard");
-    const detail=document.getElementById("pc11-detail");
-    const frame=document.getElementById("pc11-detail-frame");
-    const loader=document.getElementById("pc11-original-loading");
-    const loaderTitle=document.getElementById("pc11-original-title");
-    const loaderStatus=document.getElementById("pc11-original-status");
+    if(!url)return;
 
+    // PC에서는 모바일처럼 기사 선택/분류까지만 담당하고,
+    // 원문은 별도 탭에서 직접 엽니다. iframe을 사용하지 않습니다.
     activeArticle=c;
-    if(detail)detail.classList.remove("pc11-detail-empty");
-
-    if(dashboard){
-      dashboard.hidden=true;
-      dashboard.style.setProperty("display","none","important");
-    }
-    if(detail){
-      detail.hidden=false;
-      detail.style.setProperty("display","grid","important");
-      detail.style.setProperty("visibility","visible","important");
-      detail.style.setProperty("opacity","1","important");
-    }
-
-    // 이미 수집한 메타 정보는 즉시 갱신
-    const groupEl=document.getElementById("pc11-detail-group");
-    const publisherEl=document.getElementById("pc11-detail-publisher");
-    const timeEl=document.getElementById("pc11-detail-time");
-    const titleEl=document.getElementById("pc11-detail-title");
-    const summaryEl=document.getElementById("pc11-detail-summary");
-    if(groupEl)groupEl.textContent=group(c)||"기사";
-    if(publisherEl)publisherEl.textContent=publisher(c)||"-";
-    if(timeEl)timeEl.textContent=published(c)||"-";
-    if(titleEl)titleEl.textContent=title(c)||"기사 제목";
-    if(summaryEl)summaryEl.textContent=summary(c)||"";
-
-    const originalBtn=document.getElementById("pc11-detail-original");
-    if(originalBtn){
-      originalBtn.disabled=!url;
-      originalBtn.onclick=()=>{if(url)window.open(url,"_blank","noopener")};
-    }
-
-    // 선택 즉시 원문 iframe 이동. 미리보기 화면을 거치지 않음.
-    if(loader){
-      loader.style.display="flex";
-      loader.style.opacity="1";
-      loader.style.pointerEvents="auto";
-    }
-    if(loaderTitle)loaderTitle.textContent=publisher(c) ? publisher(c)+" 원문 불러오는 중" : "원문 불러오는 중";
-    if(loaderStatus)loaderStatus.textContent="기사 원문에 연결하고 있습니다.";
-
-    if(frame && url){
-      // 같은 기사를 다시 누르면 재로딩하지 않음.
-      if(pc11LastOpenedUrl!==url){
-        pc11LastOpenedUrl=url;
-        frame.src=url;
-      }else if(loader){
-        loader.style.display="none";
-      }
-
-      // load 이벤트가 오면 즉시 로더 제거
-      const token=++pc11FrameLoadToken;
-      frame.onload=()=>{
-        if(token!==pc11FrameLoadToken)return;
-        if(loader)loader.style.display="none";
-      };
-
-      // 일부 사이트는 load 이벤트 처리가 늦으므로 로더만 짧게 종료
-      setTimeout(()=>{
-        if(token!==pc11FrameLoadToken)return;
-        if(loader)loader.style.display="none";
-      },1200);
-    }
-
     markReadForPC(c);
     syncMobileState(c);
 
@@ -189414,7 +189694,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       }
     }
 
-    syncDetailNavButtons();
+    window.open(url,"_blank","noopener");
   }
 
   function closeDetail(){
