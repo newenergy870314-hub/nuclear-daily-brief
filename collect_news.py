@@ -1,3 +1,7 @@
+# FINAL PC V22 / FAST ORIGINAL VIEWER / MOBILE-MATCH CATEGORY UI / 2026-09-08
+# FINAL PC V22 / FAST ORIGINAL ARTICLE VIEWER / DIRECT IFRAME / 2026-09-08
+# FINAL PC V22 / ARTICLE VIEWER ONLY / REMOVE DASHBOARD ANALYTICS / 2026-09-08
+# FINAL PC V22 / PREVIEW-FIRST FAST VIEWER / NO IFRAME ON ARTICLE CLICK / 2026-09-08
 # FINAL PC V22 / MAP SCOPE HARD FIX / PC11 LOCAL LOADER / 2026-09-08
 # FINAL PC V22 / TIMELINE EXPANDED / READABILITY FIX / 2026-09-08
 # FINAL PC V22 / TIMELINE HARD FIX / GLOBAL BIND + ARCHIVE JSON SEARCH / 2026-09-08
@@ -29547,6 +29551,465 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   PC V22 — PREVIEW-FIRST FAST VIEWER
+   Right article click => instant preview on left
+   Original article opens only when user clicks "원문 보기"
+   ========================================================== */
+@media (min-width:1000px){{
+  .pc11-detail{{
+    grid-template-rows:54px minmax(0,1fr)!important;
+    background:#f7f9fb!important;
+  }}
+
+  .pc11-detail-toolbar{{
+    display:grid!important;
+    grid-template-columns:auto 1fr auto!important;
+    align-items:center!important;
+    gap:10px!important;
+  }}
+
+  .pc11-detail-mode-actions{{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:9px!important;
+  }}
+
+  .pc11-fast-review-label{{
+    color:#667085!important;
+    font-size:11px!important;
+    font-weight:850!important;
+  }}
+
+  #pc11-detail-original{{
+    height:34px!important;
+    padding:0 13px!important;
+    border:0!important;
+    border-radius:8px!important;
+    background:#23395d!important;
+    color:#fff!important;
+    font-size:12px!important;
+    font-weight:950!important;
+    cursor:pointer!important;
+  }}
+
+  #pc11-detail-original:disabled{{
+    opacity:.45!important;
+    cursor:not-allowed!important;
+  }}
+
+  #pc11-preview-wrap{{
+    display:block!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:auto!important;
+    padding:24px 30px 34px!important;
+    background:#fff!important;
+  }}
+
+  .pc11-detail-meta{{
+    margin-bottom:14px!important;
+  }}
+
+  .pc11-detail h2{{
+    max-width:980px!important;
+    margin:0 0 22px!important;
+    font-size:clamp(28px,2.2vw,40px)!important;
+    line-height:1.28!important;
+  }}
+
+  .pc11-detail-image-wrap{{
+    max-height:360px!important;
+    margin-bottom:22px!important;
+    overflow:hidden!important;
+    border-radius:12px!important;
+  }}
+
+  .pc11-detail-image-wrap img{{
+    width:100%!important;
+    height:100%!important;
+    max-height:360px!important;
+    object-fit:cover!important;
+  }}
+
+  .pc11-preview-highlight{{
+    padding:20px 22px!important;
+    border:1px solid #dbe4ea!important;
+    border-radius:12px!important;
+    background:#f8fafc!important;
+  }}
+
+  .pc11-preview-highlight p{{
+    margin-top:9px!important;
+    font-size:17px!important;
+    line-height:1.72!important;
+    color:#374151!important;
+  }}
+
+  .pc11-detail-section{{
+    margin-top:20px!important;
+  }}
+
+  .pc11-detail-keywords span{{
+    font-size:12px!important;
+  }}
+
+  .pc11-related-item strong{{
+    font-size:14px!important;
+  }}
+
+  /* Obsolete iframe UI is no longer used in preview-first mode */
+  .pc11-original-wrap,
+  .pc11-original-loading,
+  #pc11-detail-frame,
+  #pc11-detail-preview-toggle{{
+    display:none!important;
+  }}
+}}
+
+
+/* ==========================================================
+   PC V22 — ARTICLE VIEWER ONLY
+   Dashboard analytics removed from the user-facing PC screen.
+   Left 2/3 is always a fast article preview viewer.
+   ========================================================== */
+@media (min-width:1000px){{
+  #pc11-dashboard{{
+    display:none!important;
+  }}
+
+  .pc11-left{{
+    min-width:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    background:#fff!important;
+  }}
+
+  #pc11-detail{{
+    display:grid!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    grid-template-rows:64px minmax(0,1fr)!important;
+    border-radius:12px!important;
+    overflow:hidden!important;
+    background:#fff!important;
+  }}
+
+  .pc11-detail-toolbar{{
+    grid-template-columns:minmax(150px,.8fr) minmax(220px,1.4fr) auto!important;
+    padding:0 18px!important;
+    border-bottom:1px solid #d9e2ea!important;
+    background:#f8fafc!important;
+  }}
+
+  .pc11-viewer-brand{{
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    min-width:0!important;
+  }}
+
+  .pc11-viewer-brand span{{
+    color:#73859a!important;
+    font-size:9px!important;
+    font-weight:950!important;
+    letter-spacing:.8px!important;
+  }}
+
+  .pc11-viewer-brand strong{{
+    margin-top:2px!important;
+    color:#19385f!important;
+    font-size:16px!important;
+    font-weight:950!important;
+  }}
+
+  .pc11-fast-review-label{{
+    font-size:11px!important;
+    font-weight:800!important;
+    color:#7b8997!important;
+  }}
+
+  #pc11-detail-original{{
+    min-width:92px!important;
+  }}
+
+  .pc11-detail-scroll{{
+    padding:32px clamp(32px,4vw,68px) 46px!important;
+  }}
+
+  .pc11-detail-meta{{
+    gap:9px!important;
+    font-size:12px!important;
+  }}
+
+  .pc11-detail h2{{
+    max-width:1050px!important;
+    margin:10px 0 26px!important;
+    font-size:clamp(30px,2.4vw,43px)!important;
+    line-height:1.27!important;
+    letter-spacing:-1.1px!important;
+  }}
+
+  .pc11-detail-image-wrap{{
+    max-width:1050px!important;
+    max-height:390px!important;
+  }}
+
+  .pc11-preview-highlight{{
+    max-width:1050px!important;
+    margin-top:24px!important;
+    padding:24px 26px!important;
+  }}
+
+  .pc11-preview-highlight>span{{
+    font-size:11px!important;
+    letter-spacing:.1px!important;
+  }}
+
+  .pc11-preview-highlight p{{
+    font-size:18px!important;
+    line-height:1.78!important;
+  }}
+
+  .pc11-detail-section:not(.pc11-hidden-analytics){{
+    max-width:1050px!important;
+  }}
+
+  .pc11-hidden-analytics{{
+    display:none!important;
+  }}
+
+  .pc11-detail-empty .pc11-detail-meta{{
+    margin-top:5vh!important;
+  }}
+
+  .pc11-detail-empty h2{{
+    max-width:760px!important;
+    margin-top:18px!important;
+    color:#23395d!important;
+  }}
+
+  .pc11-detail-empty .pc11-preview-highlight{{
+    max-width:760px!important;
+    background:#f5f8fb!important;
+  }}
+
+  .pc11-detail-empty #pc11-detail-original,
+  .pc11-detail-empty .pc11-detail-nav{{
+    opacity:.45!important;
+    pointer-events:none!important;
+  }}
+}}
+
+
+/* ==========================================================
+   PC V22 — FAST ORIGINAL ARTICLE VIEWER
+   Left 2/3 shows publisher original page directly.
+   ========================================================== */
+@media (min-width:1000px){{
+  #pc11-detail{{
+    grid-template-rows:64px minmax(0,1fr)!important;
+  }}
+
+  .pc11-original-viewer{{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    background:#fff!important;
+  }}
+
+  #pc11-detail-frame{{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+    border:0!important;
+    background:#fff!important;
+  }}
+
+  #pc11-original-loading{{
+    position:absolute!important;
+    inset:0!important;
+    z-index:3!important;
+    display:flex;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:8px!important;
+    padding:28px!important;
+    background:#f7f9fb!important;
+    color:#23395d!important;
+    text-align:center!important;
+  }}
+
+  #pc11-original-loading strong{{
+    font-size:18px!important;
+    font-weight:950!important;
+  }}
+
+  #pc11-original-loading span{{
+    font-size:12px!important;
+    color:#73859a!important;
+  }}
+
+  #pc11-preview-wrap{{
+    display:none!important;
+  }}
+
+  .pc11-detail-empty #pc11-original-loading{{
+    display:flex!important;
+  }}
+}}
+
+
+/* ==========================================================
+   PC V22 — MOBILE-MATCH CATEGORY UI
+   Desktop right panel uses the same visual language as mobile.
+   ========================================================== */
+@media (min-width:1000px){{
+  .pc11-right{{
+    grid-template-rows:54px auto 42px minmax(0,1fr)!important;
+    background:#eef3f8!important;
+  }}
+
+  .pc11-mobile-category-head{{
+    min-height:54px!important;
+    padding:0 12px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#eef3f8!important;
+  }}
+
+  .pc11-mobile-category-head>div{{
+    display:flex!important;
+    align-items:center!important;
+  }}
+
+  .pc11-mobile-category-head>div strong{{
+    margin:0!important;
+    color:#23395d!important;
+    font-size:15px!important;
+    font-weight:950!important;
+  }}
+
+  .pc11-mobile-category-head>div span{{
+    display:none!important;
+  }}
+
+  .pc11-mobile-category-head>span{{
+    padding:4px 8px!important;
+    border-radius:999px!important;
+    background:#fff!important;
+    color:#4f6f96!important;
+    font-size:11px!important;
+    font-weight:900!important;
+    box-shadow:0 1px 2px rgba(15,23,42,.05)!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs{{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    align-content:flex-start!important;
+    gap:6px!important;
+    max-height:146px!important;
+    overflow-y:auto!important;
+    padding:8px 10px 9px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#eef3f8!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs button{{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:4px!important;
+    width:auto!important;
+    min-width:0!important;
+    min-height:29px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(17,24,39,.09)!important;
+    border-radius:8px!important;
+    background:rgba(255,255,255,.72)!important;
+    color:#344054!important;
+    box-shadow:none!important;
+    font-size:11px!important;
+    font-weight:850!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs button b{{
+    margin:0!important;
+    color:#667085!important;
+    font-size:10px!important;
+    font-weight:900!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs button:hover{{
+    background:#fff!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs button.active{{
+    border-color:#fee500!important;
+    background:#fee500!important;
+    color:#111827!important;
+    box-shadow:0 1px 3px rgba(17,24,39,.14)!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs button.active b{{
+    color:#344054!important;
+  }}
+
+  .pc11-list-head{{
+    min-height:42px!important;
+    padding:0 11px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#fff!important;
+    color:#344054!important;
+  }}
+
+  .pc11-list-head span{{
+    color:#23395d!important;
+    font-size:11px!important;
+    font-weight:900!important;
+  }}
+
+  .pc11-list-head strong{{
+    color:#4f6f96!important;
+    font-size:11px!important;
+    font-weight:900!important;
+  }}
+
+  .pc11-article-list{{
+    background:#eef3f8!important;
+    padding:8px!important;
+  }}
+
+  /* Keep mobile-like cards: flat, compact, blue headline, thumbnail right */
+  .pc11-list-card{{
+    border-radius:8px!important;
+    background:#fbfaf7!important;
+    box-shadow:0 2px 7px rgba(15,23,42,.05)!important;
+  }}
+
+  .pc11-list-card.read{{
+    background:#ebeff3!important;
+  }}
+
+  .pc11-list-title{{
+    color:#0b57d0!important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -29582,7 +30045,7 @@ main {{
   <div class="pc11-shell">
     <!-- LEFT: dashboard <-> article detail -->
     <section class="pc11-left">
-      <div id="pc11-dashboard" class="pc11-dashboard">
+      <div id="pc11-dashboard" class="pc11-dashboard" hidden aria-hidden="true">
         <div class="pc11-page-head">
           <div>
             <span id="pc11-head-kicker">TODAY</span>
@@ -29668,13 +30131,13 @@ main {{
         </div>
       </div>
 
-      <!-- Left 2/3 detail view. Right navigation never moves. -->
-      <article id="pc11-detail" class="pc11-detail" hidden>
+      <!-- Left 2/3 fast preview viewer. Right navigation never moves. -->
+      <article id="pc11-detail" class="pc11-detail pc11-detail-empty">
         <div class="pc11-detail-toolbar">
-          <button id="pc11-detail-back" type="button">← 대시보드</button>
+          <div class="pc11-viewer-brand"><span>ARTICLE VIEWER</span><strong>기사 검토</strong></div>
           <div class="pc11-detail-mode-actions">
-            <button id="pc11-detail-preview-toggle" type="button">미리보기</button>
-            <button id="pc11-detail-original" type="button">원문 새 탭 ↗</button>
+            <span class="pc11-fast-review-label">오른쪽 기사 선택 → 원문 바로보기</span>
+            <button id="pc11-detail-original" type="button">새 탭에서 열기 ↗</button>
           </div>
           <div class="pc11-detail-nav">
             <button id="pc11-detail-prev" type="button">이전 기사</button>
@@ -29682,52 +30145,39 @@ main {{
           </div>
         </div>
 
-        <div id="pc11-original-wrap" class="pc11-original-wrap">
-          <div class="pc11-original-loading">
-            <strong id="pc11-original-title">언론사 원문을 불러오는 중입니다.</strong>
-            <span>일부 언론사는 보안정책상 화면 안에서 원문 표시를 차단할 수 있습니다. 그 경우 ‘원문 새 탭’을 이용하세요.</span>
+        <div id="pc11-original-wrap" class="pc11-original-wrap pc11-original-viewer">
+          <div id="pc11-original-loading" class="pc11-original-loading">
+            <strong id="pc11-original-title">오른쪽 기사 목록에서 원문을 선택하세요.</strong>
+            <span id="pc11-original-status">기사 선택 시 이 영역에서 원문을 바로 불러옵니다.</span>
           </div>
-          <iframe id="pc11-detail-frame" title="언론사 원문" loading="eager" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe id="pc11-detail-frame"
+                  title="언론사 원문"
+                  loading="eager"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  allow="fullscreen"></iframe>
         </div>
 
-        <div id="pc11-preview-wrap" class="pc11-detail-scroll" hidden>
+        <!-- JS 호환용 숨김 메타 영역 -->
+        <div id="pc11-preview-wrap" hidden aria-hidden="true">
           <div class="pc11-detail-meta">
-            <span id="pc11-detail-group">-</span>
-            <span id="pc11-detail-publisher">-</span>
-            <span id="pc11-detail-time">-</span>
+            <span id="pc11-detail-group"></span>
+            <span id="pc11-detail-publisher"></span>
+            <span id="pc11-detail-time"></span>
           </div>
-          <h2 id="pc11-detail-title">기사 제목</h2>
-
-          <div id="pc11-detail-image-wrap" class="pc11-detail-image-wrap" hidden>
-            <img id="pc11-detail-image" alt="">
-          </div>
-
-          <section class="pc11-detail-section">
-            <span>기사 미리보기</span>
-            <p id="pc11-detail-summary">미리보기 정보가 없습니다.</p>
-          </section>
-
-          <section class="pc11-detail-section">
-            <span>관련 키워드</span>
-            <div id="pc11-detail-keywords" class="pc11-detail-keywords"></div>
-          </section>
-
-          <section class="pc11-detail-section">
-            <div class="pc11-detail-section-head">
-              <span>같이 볼 기사</span>
-              <strong id="pc11-related-count">0건</strong>
-            </div>
-            <div id="pc11-related-list" class="pc11-related-list"></div>
-          </section>
+          <h2 id="pc11-detail-title"></h2>
+          <div id="pc11-detail-image-wrap" hidden><img id="pc11-detail-image" alt=""></div>
+          <p id="pc11-detail-summary"></p>
+          <div id="pc11-detail-keywords"></div>
+          <strong id="pc11-related-count">0건</strong>
+          <div id="pc11-related-list"></div>
         </div>
       </article>
     </section>
 
     <!-- RIGHT: mobile identity / navigation / article list -->
     <aside class="pc11-right">
-      <div class="pc11-right-head">
+      <div class="pc11-right-head pc11-mobile-category-head">
         <div>
-          <span>MOBILE CATEGORIES</span>
           <strong>기사 분류</strong>
         </div>
         <span id="pc11-right-total">0건</span>
@@ -38343,6 +38793,48 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     refreshKpis();renderSignals();renderFlow();renderMap();
   }}
 
+
+  // 원문 체감속도 개선: 사용자가 기사 카드에 마우스를 올리는 순간
+  // DNS/preconnect/prefetch를 시작해 클릭 전에 연결을 준비합니다.
+  const pc11WarmedUrls=new Set();
+  function pc11WarmOriginalUrl(url){{
+    if(!url || pc11WarmedUrls.has(url))return;
+    pc11WarmedUrls.add(url);
+    try{{
+      const u=new URL(url,location.href);
+      const origin=u.origin;
+
+      if(!document.querySelector(`link[data-pc11-preconnect="${{CSS.escape(origin)}}"]`)){{
+        const pre=document.createElement("link");
+        pre.rel="preconnect";
+        pre.href=origin;
+        pre.crossOrigin="anonymous";
+        pre.dataset.pc11Preconnect=origin;
+        document.head.appendChild(pre);
+      }}
+
+      const dns=document.createElement("link");
+      dns.rel="dns-prefetch";
+      dns.href="//"+u.host;
+      document.head.appendChild(dns);
+
+      const pf=document.createElement("link");
+      pf.rel="prefetch";
+      pf.href=url;
+      pf.as="document";
+      document.head.appendChild(pf);
+    }}catch(_){{}}
+  }}
+
+  document.addEventListener("pointerover",(ev)=>{{
+    const card=ev.target.closest && ev.target.closest(".pc11-list-card");
+    if(!card)return;
+    const idx=Number(card.dataset.articleIndex);
+    const list=currentCards();
+    const article=Number.isFinite(idx) ? list[idx] : null;
+    if(article)pc11WarmOriginalUrl(article.dataset.url||"");
+  }},{{passive:true}});
+
   function init(){{
     if(!desktop())return;
     document.querySelectorAll("#pc7-tabs button").forEach(b=>b.onclick=()=>{{currentFilter=b.dataset.filter||"all";document.querySelectorAll("#pc7-tabs button").forEach(x=>x.classList.toggle("active",x===b));refresh();}});
@@ -39548,12 +40040,6 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   function selectGroup(key,name){{
     selectedGroup=key||"";
     selectedCountry="";
-    closeDetail();
-    document.getElementById("pc11-head-kicker").textContent=selectedGroup?"SELECTED":"TODAY";
-    document.getElementById("pc11-head-title").textContent=selectedGroup?(name||selectedGroup)+" 현황":period+" 기사 현황";
-    document.getElementById("pc11-head-desc").textContent=selectedGroup
-      ?"모바일의 동일 분류를 기준으로 기사 묶음과 언급 현황을 보여줍니다."
-      :"모바일에서 사용하던 기사 분류와 데이터를 PC 화면에 맞게 펼쳐 봅니다.";
     refresh()
   }}
 
@@ -39792,16 +40278,13 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     const dashboard=document.getElementById("pc11-dashboard");
     const detail=document.getElementById("pc11-detail");
     const frame=document.getElementById("pc11-detail-frame");
-    const originalWrap=document.getElementById("pc11-original-wrap");
-    const previewWrap=document.getElementById("pc11-preview-wrap");
-    const previewBtn=document.getElementById("pc11-detail-preview-toggle");
-    const originalBtn=document.getElementById("pc11-detail-original");
-    const loadingTitle=document.getElementById("pc11-original-title");
-    const loadingBox=document.querySelector(".pc11-original-loading");
+    const loader=document.getElementById("pc11-original-loading");
+    const loaderTitle=document.getElementById("pc11-original-title");
+    const loaderStatus=document.getElementById("pc11-original-status");
 
     activeArticle=c;
+    if(detail)detail.classList.remove("pc11-detail-empty");
 
-    // A. 클릭 즉시 원문 영역부터 표시
     if(dashboard){{
       dashboard.hidden=true;
       dashboard.style.setProperty("display","none","important");
@@ -39812,144 +40295,73 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       detail.style.setProperty("visibility","visible","important");
       detail.style.setProperty("opacity","1","important");
     }}
-    if(originalWrap)originalWrap.hidden=false;
-    if(previewWrap)previewWrap.hidden=true;
-    if(previewBtn)previewBtn.textContent="미리보기";
 
-    // B. 작은 로딩 상태바만 표시
-    if(loadingBox){{
-      loadingBox.hidden=false;
-      loadingBox.classList.remove("loaded");
-    }}
-    if(loadingTitle){{
-      loadingTitle.textContent=(publisher(c)||"언론사")+" 원문 로딩 중";
-    }}
+    // 이미 수집한 메타 정보는 즉시 갱신
+    const groupEl=document.getElementById("pc11-detail-group");
+    const publisherEl=document.getElementById("pc11-detail-publisher");
+    const timeEl=document.getElementById("pc11-detail-time");
+    const titleEl=document.getElementById("pc11-detail-title");
+    const summaryEl=document.getElementById("pc11-detail-summary");
+    if(groupEl)groupEl.textContent=group(c)||"기사";
+    if(publisherEl)publisherEl.textContent=publisher(c)||"-";
+    if(timeEl)timeEl.textContent=published(c)||"-";
+    if(titleEl)titleEl.textContent=title(c)||"기사 제목";
+    if(summaryEl)summaryEl.textContent=summary(c)||"";
 
-    // C. iframe 이동을 가장 먼저 실행
-    pc11WarmArticleConnection(url);
-    const thisToken=++pc11FrameLoadToken;
-
-    if(frame){{
-      frame.onload=()=>{{
-        if(thisToken!==pc11FrameLoadToken)return;
-        if(loadingBox)loadingBox.classList.add("loaded");
-      }};
-
-      if(url && pc11LastOpenedUrl===url && frame.src && !frame.src.endsWith("about:blank")){{
-        if(loadingBox)loadingBox.classList.add("loaded");
-      }}else if(url){{
-        pc11LastOpenedUrl=url;
-        frame.src=url;
-      }}else{{
-        frame.src="about:blank";
-        if(loadingTitle)loadingTitle.textContent="원문 주소 없음";
-      }}
-    }}
-
-    // 언론사 페이지가 onload를 늦게/반복 발생시키는 경우에도
-    // 로딩 UI가 기사 읽기를 방해하지 않도록 2초 후 강제 제거
-    setTimeout(()=>{{
-      if(thisToken===pc11FrameLoadToken && loadingBox){{
-        loadingBox.classList.add("loaded");
-      }}
-    }},2000);
-
+    const originalBtn=document.getElementById("pc11-detail-original");
     if(originalBtn){{
       originalBtn.disabled=!url;
       originalBtn.onclick=()=>{{if(url)window.open(url,"_blank","noopener")}};
     }}
 
-    // D. 읽음 상태 및 카드 표시 작업은 iframe navigation 이후 수행
-    setTimeout(()=>{{
-      if(activeArticle!==c)return;
-      markReadForPC(c);
-      syncMobileState(c);
+    // 선택 즉시 원문 iframe 이동. 미리보기 화면을 거치지 않음.
+    if(loader){{
+      loader.style.display="flex";
+      loader.style.opacity="1";
+      loader.style.pointerEvents="auto";
+    }}
+    if(loaderTitle)loaderTitle.textContent=publisher(c) ? publisher(c)+" 원문 불러오는 중" : "원문 불러오는 중";
+    if(loaderStatus)loaderStatus.textContent="기사 원문에 연결하고 있습니다.";
 
-      document.querySelectorAll(".pc11-list-card.selected").forEach(el=>el.classList.remove("selected"));
-      const cardIndex=currentCards().indexOf(c);
-      if(cardIndex>=0){{
-        const selected=document.querySelector(`.pc11-list-card[data-article-index="${{cardIndex}}"]`);
-        if(selected){{
-          selected.classList.add("selected","read");
-          const status=selected.querySelector(".pc11-list-status");
-          if(status && !selected.classList.contains("important")){{
-            status.classList.remove("unread");
-            status.classList.add("read");
-            status.textContent="읽음";
-          }}
-        }}
-      }}
-    }},0);
-
-    // E. 미리보기/키워드/관련기사 계산은 idle 때만
-    const preparePreview=()=>{{
-      if(activeArticle!==c)return;
-
-      const groupEl=document.getElementById("pc11-detail-group");
-      const publisherEl=document.getElementById("pc11-detail-publisher");
-      const timeEl=document.getElementById("pc11-detail-time");
-      const titleEl=document.getElementById("pc11-detail-title");
-      const summaryEl=document.getElementById("pc11-detail-summary");
-
-      if(groupEl)groupEl.textContent=group(c)||"기사";
-      if(publisherEl)publisherEl.textContent=publisher(c)||"-";
-      if(timeEl)timeEl.textContent=published(c)||"-";
-      if(titleEl)titleEl.textContent=title(c)||"기사 제목";
-      if(summaryEl)summaryEl.textContent=summary(c)||"수집된 미리보기 정보가 없습니다.";
-
-      const im=image(c);
-      const wrap=document.getElementById("pc11-detail-image-wrap");
-      const img=document.getElementById("pc11-detail-image");
-      if(wrap&&img){{
-        if(im){{if(img.src!==im)img.src=im;wrap.hidden=false}}
-        else{{img.removeAttribute("src");wrap.hidden=true}}
+    if(frame && url){{
+      // 같은 기사를 다시 누르면 재로딩하지 않음.
+      if(pc11LastOpenedUrl!==url){{
+        pc11LastOpenedUrl=url;
+        frame.src=url;
+      }}else if(loader){{
+        loader.style.display="none";
       }}
 
-      const kb=document.getElementById("pc11-detail-keywords");
-      if(kb){{
-        kb.innerHTML="";
-        articleKeywords(c).forEach(k=>{{
-          const s=document.createElement("span");
-          s.textContent=k;
-          kb.appendChild(s);
-        }});
-      }}
+      // load 이벤트가 오면 즉시 로더 제거
+      const token=++pc11FrameLoadToken;
+      frame.onload=()=>{{
+        if(token!==pc11FrameLoadToken)return;
+        if(loader)loader.style.display="none";
+      }};
 
-      const rel=relatedFor(c);
-      const rb=document.getElementById("pc11-related-list");
-      const count=document.getElementById("pc11-related-count");
-      if(count)count.textContent=rel.length+"건";
-      if(rb){{
-        rb.innerHTML="";
-        rel.forEach(x=>{{
-          const b=document.createElement("button");
-          b.type="button";
-          b.className="pc11-related-item";
-          b.innerHTML='<span>'+esc(publisher(x))+'</span><strong>'+esc(title(x))+'</strong>';
-          b.addEventListener("click",(ev)=>{{
-            ev.preventDefault();
-            ev.stopPropagation();
-            openDetail(x);
-          }});
-          rb.appendChild(b);
-        }});
-      }}
-    }};
-
-    if("requestIdleCallback" in window){{
-      requestIdleCallback(preparePreview,{{timeout:1000}});
-    }}else{{
-      setTimeout(preparePreview,180);
+      // 일부 사이트는 load 이벤트 처리가 늦으므로 로더만 짧게 종료
+      setTimeout(()=>{{
+        if(token!==pc11FrameLoadToken)return;
+        if(loader)loader.style.display="none";
+      }},1200);
     }}
 
-    if(previewBtn){{
-      previewBtn.onclick=()=>{{
-        const showingPreview=!previewWrap.hidden;
-        previewWrap.hidden=showingPreview;
-        originalWrap.hidden=!showingPreview;
-        previewBtn.textContent=showingPreview?"미리보기":"원문 보기";
-        if(!showingPreview)preparePreview();
-      }};
+    markReadForPC(c);
+    syncMobileState(c);
+
+    document.querySelectorAll(".pc11-list-card.selected").forEach(el=>el.classList.remove("selected"));
+    const cardIndex=currentCards().indexOf(c);
+    if(cardIndex>=0){{
+      const selected=document.querySelector(`.pc11-list-card[data-article-index="${{cardIndex}}"]`);
+      if(selected){{
+        selected.classList.add("selected","read");
+        const status=selected.querySelector(".pc11-list-status");
+        if(status && !selected.classList.contains("important")){{
+          status.classList.remove("unread");
+          status.classList.add("read");
+          status.textContent="읽음";
+        }}
+      }}
     }}
 
     syncDetailNavButtons();
@@ -39957,23 +40369,42 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function closeDetail(){{
     activeArticle=null;
+
     const d=document.getElementById("pc11-detail");
     const dash=document.getElementById("pc11-dashboard");
-    if(d){{
-      d.hidden=true;
-      d.style.setProperty("display","none","important");
-    }}
-    pc11FrameLoadToken++;
     const frame=document.getElementById("pc11-detail-frame");
-    if(frame && !frame.src.endsWith("about:blank")){{
-      frame.src="about:blank";
-      pc11LastOpenedUrl="";
-    }}
+    const loader=document.getElementById("pc11-original-loading");
+    const loaderTitle=document.getElementById("pc11-original-title");
+    const loaderStatus=document.getElementById("pc11-original-status");
+    const originalBtn=document.getElementById("pc11-detail-original");
+
     if(dash){{
-      dash.hidden=false;
-      dash.style.removeProperty("display");
+      dash.hidden=true;
+      dash.style.setProperty("display","none","important");
     }}
-    renderArticleList()
+    if(d){{
+      d.hidden=false;
+      d.classList.add("pc11-detail-empty");
+      d.style.setProperty("display","grid","important");
+    }}
+
+    pc11FrameLoadToken++;
+    pc11LastOpenedUrl="";
+    if(frame)frame.src="about:blank";
+    if(loader){{
+      loader.style.display="flex";
+      loader.style.opacity="1";
+    }}
+    if(loaderTitle)loaderTitle.textContent="오른쪽 기사 목록에서 원문을 선택하세요.";
+    if(loaderStatus)loaderStatus.textContent="기사 선택 시 이 영역에서 원문을 바로 불러옵니다.";
+    if(originalBtn){{
+      originalBtn.disabled=true;
+      originalBtn.onclick=null;
+    }}
+
+    document.querySelectorAll(".pc11-list-card.selected").forEach(el=>el.classList.remove("selected"));
+    syncDetailNavButtons();
+    renderArticleList();
   }}
 
   function detailList(){{
@@ -40032,7 +40463,6 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     document.getElementById("pc11-next").onclick=()=>setPeriod("익일");
     document.getElementById("pc11-show-all").onclick=()=>{{selectedGroup="";selectedCountry="";searchText="";document.getElementById("pc11-search").value="";closeDetail();refresh()}};
     document.getElementById("pc11-country-reset").onclick=()=>{{selectedCountry="";closeDetail();refresh()}};
-    document.getElementById("pc11-detail-back").onclick=closeDetail;
     document.getElementById("pc11-detail-prev").onclick=()=>moveDetail(-1);
     document.getElementById("pc11-detail-next").onclick=()=>moveDetail(1);
 
