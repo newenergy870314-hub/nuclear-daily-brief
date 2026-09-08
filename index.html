@@ -17639,6 +17639,166 @@ main {
   }
 }
 
+
+/* ==========================================================
+   PC V22 — TIMELINE EXPANDED FOR READABILITY
+   ========================================================== */
+@media (min-width:1000px){
+
+  .pc11-dashboard-grid{
+    grid-template-rows:
+      minmax(320px,1.05fr)
+      minmax(330px,1.05fr)
+      minmax(205px,.68fr)!important;
+  }
+
+  .pc11-timeline-card{
+    min-height:330px!important;
+  }
+
+  .pc11-timeline-head{
+    height:54px!important;
+  }
+
+  .pc11-timeline-body{
+    height:calc(100% - 54px)!important;
+    grid-template-rows:48px 36px minmax(0,1fr)!important;
+    gap:8px!important;
+    padding:10px 14px 12px!important;
+  }
+
+  .pc11-timeline-search{
+    grid-template-columns:minmax(0,1fr) 78px!important;
+    gap:8px!important;
+  }
+
+  .pc11-timeline-search input{
+    height:42px!important;
+    font-size:14px!important;
+    padding:0 13px!important;
+  }
+
+  .pc11-timeline-search button{
+    height:42px!important;
+    font-size:13px!important;
+  }
+
+  .pc11-timeline-status strong{
+    font-size:13px!important;
+  }
+
+  .pc11-timeline-status span{
+    font-size:11px!important;
+  }
+
+  .pc11-timeline-scroll{
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    padding:10px 10px 8px!important;
+  }
+
+  .pc11-timeline-track{
+    min-height:190px!important;
+    padding:0 44px 18px!important;
+  }
+
+  .pc11-timeline-track::before{
+    top:46px!important;
+    height:4px!important;
+    left:44px!important;
+    right:44px!important;
+  }
+
+  .pc11-timeline-event{
+    width:190px!important;
+    min-height:180px!important;
+    grid-template-rows:28px 34px 72px 24px!important;
+    padding:0 12px!important;
+  }
+
+  .pc11-timeline-date{
+    font-size:13px!important;
+  }
+
+  .pc11-timeline-dot{
+    width:20px!important;
+    height:20px!important;
+    margin-top:5px!important;
+    border-width:4px!important;
+  }
+
+  .pc11-timeline-event-title{
+    margin-top:12px!important;
+    font-size:14px!important;
+    line-height:1.4!important;
+    -webkit-line-clamp:3!important;
+  }
+
+  .pc11-timeline-event-count{
+    margin-top:8px!important;
+    font-size:11px!important;
+  }
+
+  .pc11-timeline-empty{
+    font-size:13px!important;
+  }
+
+  .pc11-timeline-scroll::-webkit-scrollbar{
+    height:11px!important;
+  }
+
+  .pc11-timeline-scroll::-webkit-scrollbar-thumb{
+    background:#8799aa!important;
+    border-radius:999px!important;
+  }
+
+  .pc11-timeline-scroll::-webkit-scrollbar-track{
+    background:#e7edf2!important;
+    border-radius:999px!important;
+  }
+
+  @media (max-width:1450px){
+    .pc11-dashboard-grid{
+      grid-template-rows:
+        minmax(300px,1fr)
+        minmax(300px,1fr)
+        minmax(195px,.65fr)!important;
+    }
+
+    .pc11-timeline-card{
+      min-height:300px!important;
+    }
+
+    .pc11-timeline-event{
+      width:175px!important;
+    }
+  }
+
+  @media (max-height:800px){
+    .pc11-dashboard-grid{
+      grid-template-rows:
+        minmax(270px,1fr)
+        minmax(280px,1fr)
+        minmax(185px,.65fr)!important;
+    }
+
+    .pc11-timeline-card{
+      min-height:280px!important;
+    }
+
+    .pc11-timeline-event{
+      width:165px!important;
+      min-height:165px!important;
+      grid-template-rows:26px 32px 62px 22px!important;
+    }
+
+    .pc11-timeline-event-title{
+      font-size:13px!important;
+      -webkit-line-clamp:3!important;
+    }
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -18199,7 +18359,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.8(화) 18:00 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.8(화) 19:00 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -25359,7 +25519,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">45건</span>
+    <span class="group-count">46건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -26316,6 +26476,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3aa560c81d4a60bf3899c933.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026"
+  data-title="Global Nuclear Generation Reaches Record High, WNA Report Says"
+  data-publisher="NucNet"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788523200"
+  data-country="OTHER"
+  data-search="global nuclear generation reaches record high, wna report says nucnet nuclear power·nuclear energy industry group calls for political support to become projects"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">NucNet</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Global Nuclear Generation Reaches Record High, WNA Report Says</div>
+      <div class="article-snippet">Industry group calls for political support to become projects</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702bad62ace8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33778,9 +33971,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">18건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/stock/12147445"
+  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788860113"
+  data-country="KR"
+  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스</div>
+      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/76812ffeb906613bd7d5e465.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=485076"
   data-title="[거래소 기관] 삼성전자에 몰린 뭉칫돈…두산에너빌리티·현대건설도 샀다"
@@ -33847,36 +34073,36 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.mk.co.kr/news/stock/12146675"
-  data-title="특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 3.62% ↑ - 매일경제"
-  data-publisher="매일경제"
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260908000118"
+  data-title="[ET특징주]두산에너빌리티, 한미 원전 협력 기대감에 상승세"
+  data-publisher="전자신문"
   data-group="타 건설사"
   data-language="ko"
   data-priority="0"
-  data-published="1788827070"
+  data-published="1788830616"
   data-country="KR"
-  data-search="특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 3.62% ↑ - 매일경제 매일경제 타 건설사 08일 원자력발전소 해체 테마가 전일 대비 7.19% 상승하면서 강세를 보이는 가운데 관련주로 주목받고 있는 두산에너빌리티(034020)가 전일 대비 3.62% 상승하며 급등하고 있다. 두산에너빌리티는 대표적인 원자력, 풍력 등 발전설비업체로 알려져 있다.◆원자력발전소 해체 테마 오름세로 반전 +7.19% 최근 5일 기관 1,331.55억원 사모아원자력발전.."
+  data-search="[et특징주]두산에너빌리티, 한미 원전 협력 기대감에 상승세 전자신문 타 건설사 두산에너빌리티가 한미 원전 협력 기대감에 상승세다. 두산에너빌리티(034020)는 9월 8일 오전 10시 18분 기준 전 거래일보다 4.1% 상승한 91,2100원에 거래되고 있다. 키움증권은 국내 원전 산업에 대한 긍정적인 전망을 유지했다. 한미 간 원전 분야 협력이 구체화되는 움직임을 보이면서 관련 기업에 대한 투자심리도 회복될 가능성이 있다는 판단이다. 조재원 키움증권 연구원은 “한미 원전 협력이 가시화되면서 국내 원전 기업들의 투자심리가"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">매일경제</div>
+        <div class="publisher">전자신문</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.mk.co.kr/news/stock/12146675" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 3.62% ↑ - 매일경제</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 3.62% ↑ - 매일경제</div>
-      <div class="article-snippet">08일 원자력발전소 해체 테마가 전일 대비 7.19% 상승하면서 강세를 보이는 가운데 관련주로 주목받고 있는 두산에너빌리티(034020)가 전일 대비 3.62% 상승하며 급등하고 있다. 두산에너빌리티는 대표적인 원자력, 풍력 등 발전설비업체로 알려져 있다.◆원자력발전소 해체 테마 오름세로 반전 +7.19% 최근 5일 기관 1,331.55억원 사모아원자력발전..</div>
+      <div class="headline"><span class="new-badge">NEW</span>[ET특징주]두산에너빌리티, 한미 원전 협력 기대감에 상승세</div>
+      <div class="article-snippet">두산에너빌리티가 한미 원전 협력 기대감에 상승세다. 두산에너빌리티(034020)는 9월 8일 오전 10시 18분 기준 전 거래일보다 4.1% 상승한 91,2100원에 거래되고 있다. 키움증권은 국내 원전 산업에 대한 긍정적인 전망을 유지했다. 한미 간 원전 분야 협력이 구체화되는 움직임을 보이면서 관련 기업에 대한 투자심리도 회복될 가능성이 있다는 판단이다. 조재원 키움증권 연구원은 “한미 원전 협력이 가시화되면서 국내 원전 기업들의 투자심리가</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f22c67bae61372e1e2eb5f95.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/0dca2ae08477a300d200f783.gif" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34075,6 +34301,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3f8ba71abea778bb541bfe2b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.sentv.co.kr/article/view/sentv202609080099"
+  data-title="GS건설 모듈러·SK에코 표준화…AI 데이터센터 ‘속도전’"
+  data-publisher="서울경제TV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788860865"
+  data-country="OTHER"
+  data-search="gs건설 모듈러·sk에코 표준화…ai 데이터센터 ‘속도전’ 서울경제tv 타 건설사 ai 데이터센터를 둘러싼 건설사들의 경쟁이 달라지고 있습니다. 누가 더 많이 짓느냐를 넘어, 이제는 누가 더 빨리 짓느냐의 싸움이 됐는데요. gs건설과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설 모듈러·SK에코 표준화…AI 데이터센터 ‘속도전’</div>
+      <div class="article-snippet">AI 데이터센터를 둘러싼 건설사들의 경쟁이 달라지고 있습니다. 누가 더 많이 짓느냐를 넘어, 이제는 누가 더 빨리 짓느냐의 싸움이 됐는데요. GS건설과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/96cee321b1c093a34ddf1198.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34339,6 +34598,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e125b206465e039ae7dd6bd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260908140517623"
+  data-title="1년 새 시총 &#x27;계급장&#x27; 바뀌었다…1554개 종목 100계단 이상 이동"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788858962"
+  data-country="KR"
+  data-search="1년 새 시총 &#x27;계급장&#x27; 바뀌었다…1554개 종목 100계단 이상 이동 아주경제 타 건설사 1년간 시총 변화 국내 증시 시가총액 &#x27;계급장&#x27;이 1년 새 크게 뒤바뀌었다. 전체 거래 종목 중 절반 이상이 100계단 이상 시총 순위가 오르락내리락한 것으로 나타났다. 시총 상위 100위권에서도 11개 종목이 새롭게 이름을 올리는 등 상장사들의 몸값 변화가 컸다. 시총 순위가 가장 많이 오른 종목은 가온전선이었다.  8일 한국거래소에 따르면 코스피·코스닥 상장사의 지난해 9월 5일과 올해 9월 7일 시가총액 순위를 비교한 결과 두 시점 모두 거래된 2778개 종목 가운데 1554개(55.9%) 순위가 100계단 이상 변동된 것으로"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>1년 새 시총 &#x27;계급장&#x27; 바뀌었다…1554개 종목 100계단 이상 이동</div>
+      <div class="article-snippet">1년간 시총 변화 국내 증시 시가총액 &#x27;계급장&#x27;이 1년 새 크게 뒤바뀌었다. 전체 거래 종목 중 절반 이상이 100계단 이상 시총 순위가 오르락내리락한 것으로 나타났다. 시총 상위 100위권에서도 11개 종목이 새롭게 이름을 올리는 등 상장사들의 몸값 변화가 컸다. 시총 순위가 가장 많이 오른 종목은 가온전선이었다.  8일 한국거래소에 따르면 코스피·코스닥 상장사의 지난해 9월 5일과 올해 9월 7일 시가총액 순위를 비교한 결과 두 시점 모두 거래된 2778개 종목 가운데 1554개(55.9%) 순위가 100계단 이상 변동된 것으로</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1498a09417eb6c9dc7ea0d56.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34621,7 +34913,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">23건</span>
+    <span class="group-count">24건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -34790,6 +35082,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260908000356"
+  data-title="[사설] 한전 사장 인선에 AI국가 성패 달렸다"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788858000"
+  data-country="KR"
+  data-search="[사설] 한전 사장 인선에 ai국가 성패 달렸다 전자신문 한국전력 인공지능(ai) 혁명과 이를 밑받침할 차세대 에너지 인프라 확충이 국가 경쟁력을 좌우할 전환기에 한국전력공사(한전)의 차기 수장 선임 절차가 막바지에 다다랐다고 한다. 최근 임원추천위원회가 후임 사장후보를 최종 3배수로 압축하면서 청와대의 최종 낙점을 앞두고 있다. 이번 인선이 가진 중대성을 보여주듯 산업계에선 우려와 기대가 교차하고 있다. ai 데이터센터와 반도체 클러스터 등 ai 시대 핵심 기반시설을 원활하게 가동하기 위해선 양질의 전력 공"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전자신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[사설] 한전 사장 인선에 AI국가 성패 달렸다</div>
+      <div class="article-snippet">인공지능(AI) 혁명과 이를 밑받침할 차세대 에너지 인프라 확충이 국가 경쟁력을 좌우할 전환기에 한국전력공사(한전)의 차기 수장 선임 절차가 막바지에 다다랐다고 한다. 최근 임원추천위원회가 후임 사장후보를 최종 3배수로 압축하면서 청와대의 최종 낙점을 앞두고 있다. 이번 인선이 가진 중대성을 보여주듯 산업계에선 우려와 기대가 교차하고 있다. AI 데이터센터와 반도체 클러스터 등 AI 시대 핵심 기반시설을 원활하게 가동하기 위해선 양질의 전력 공</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a646222e91432b8413ad54d6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1403985"
   data-title="‘한전채 발행 한도 특례’ 내년 종료…전력망 투자 재원 조달 어쩌나"
   data-publisher="데일리한국"
@@ -34813,7 +35138,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘한전채 발행 한도 특례’ 내년 종료…전력망 투자 재원 조달 어쩌나</div>
+      <div class="headline">‘한전채 발행 한도 특례’ 내년 종료…전력망 투자 재원 조달 어쩌나</div>
       <div class="article-snippet">[데일리한국 정백현 기자] 한국전력공사의 자금 조달을 뒷받침하던 회사채(한전채) 발행 한도 확대 특례의 일몰이 1년여 앞으로 다가오면서 한전의 재무 부담이 다시 커질 수 있다는 우려가 업계 안팎에서 커지고 있다.인공지능(AI) 데이터센터 확충과 대규모 반도체 산업단지 건설 등으로 대규모 전력수요가 발생하는 만큼 이에 대응하기 위한 대대적인 전력망 투자가 필요한 상황이지만 채권 발행 한도가 다시 축소될 예정이어서 안정적인 투자 재원 확보가 새로운 과제로 떠오르고 있다.8일 에너지 업계와 자본시장 업계에 따르면 한전채 발행 한도는 오는</div>
     </div>
   </div>
@@ -34822,7 +35147,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260908102843040"
   data-title="[ESS 확대, 비용의 그늘] ESS 늘 때마다 15년 정산부담…전기요금 해법은"
   data-publisher="아주경제"
@@ -34846,7 +35171,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[ESS 확대, 비용의 그늘] ESS 늘 때마다 15년 정산부담…전기요금 해법은</div>
+      <div class="headline">[ESS 확대, 비용의 그늘] ESS 늘 때마다 15년 정산부담…전기요금 해법은</div>
       <div class="article-snippet">서울 시내의 한 전기계량기 [사진=연합뉴스] 재생에너지 확대와 함께 에너지저장장치(ESS) 도입이 늘면서 한국전력공사 등 전력구매자의 장기 정산 부담도 누적될 전망이다. ESS 사업자에게 15년간 지급되는 계약용량정산금 가운데 한전 부담분은 구입전력비에 반영되는 만큼 정부 지원과 시장 수익 확대 등을 통해 소비자 부담을 낮춰야 한다는 지적이 나온다.   ◆중앙계약시장 ESS 1196㎿ 선정…정산 부담 장기화   8일 국회 산업통상자원중소벤처기업위원회 소속 구자근 국민의힘 의원실이 한전과 전력거래소에서 제출받은 자료에 따르면 현재까지 중앙</div>
     </div>
   </div>
@@ -34855,7 +35180,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260908110025151"
   data-title="[ESS 확대, 비용의 그늘] [단독] 비용 내는 한전도 ESS 계약단가 몰라…전기요금 압력 우려"
   data-publisher="아주경제"
@@ -34879,7 +35204,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[ESS 확대, 비용의 그늘] [단독] 비용 내는 한전도 ESS 계약단가 몰라…전기요금 압력 우려</div>
+      <div class="headline">[ESS 확대, 비용의 그늘] [단독] 비용 내는 한전도 ESS 계약단가 몰라…전기요금 압력 우려</div>
       <div class="article-snippet">[사진=한국전력] 에너지저장장치(ESS) 중앙계약시장 비용을 부담하는 한국전력공사가 정작 사업자별 계약단가는 제공받지 못하는 것으로 나타났다. 재생에너지 확대에 따라 ESS 도입과 관련 비용이 늘어날 것으로 예상되는 가운데 한전이 계약단가를 확인하지 못하면서 정산금 검증과 향후 재무영향 추정에도 제약을 받고 있다. 한전이 부담하는 ESS 비용은 구입전력비에 반영되는 만큼 비용 관리가 제대로 이뤄지지 않으면 전기공급 원가 상승을 거쳐 소비자 전기요금 부담으로 이어질 수 있다는 우려가 나온다. 8일 국회 산업통상자원중소벤처기업위원회 소속 구자근 국민의힘 의원실이 한전과</div>
     </div>
   </div>
@@ -35041,7 +35366,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260908000126" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">전북도-새만금개발청 등 10개 기관 새만금 RE100 선도산단 지정 협력 &#x27;맞손&#x27;</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">전북도-새만금청-현대차 등, 새만금 RE100 계획 킥오프</div>
@@ -35074,7 +35399,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090817190264042" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">한전기술, 인애이블퓨전과 손잡고 핵융합 발전장치 사업 진출</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6121" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전기술-인애이블퓨전, 핵융합에너지 사업협력 MOU 체결 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302691" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">한전기술, 인애이블퓨전과 핵융합에너지 사업 협력</span></a><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7737" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">한전기술, ‘핵융합 발전장치 건설’ 사업 참여 나선다…인애이블퓨전과 ‘맞손’</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202996" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한국전력기술, 인애이블퓨전과 핵융합 산업화 ‘플랜트 사업’ 협력 본격화 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908141554651" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미래 청정에너지 시대 연다…한전기술, &#x27;핵융합 발전장치 건설 및 국내외 사업 공동 개발&#x27; 착수</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 8개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ekn.kr/web/view.php?key=20260908025062191" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지경제신문</span><span class="related-coverage-title">[에너지소식] 한전기술, 인애이블퓨전과 핵융합 협력…한수원, 원전 안전문화·리더십 강화 워크숍</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090817190264042" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">한전기술, 인애이블퓨전과 손잡고 핵융합 발전장치 사업 진출</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6121" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전기술-인애이블퓨전, 핵융합에너지 사업협력 MOU 체결 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302691" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">한전기술, 인애이블퓨전과 핵융합에너지 사업 협력</span></a><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7737" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">한전기술, ‘핵융합 발전장치 건설’ 사업 참여 나선다…인애이블퓨전과 ‘맞손’</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202996" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한국전력기술, 인애이블퓨전과 핵융합 산업화 ‘플랜트 사업’ 협력 본격화 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908141554651" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미래 청정에너지 시대 연다…한전기술, &#x27;핵융합 발전장치 건설 및 국내외 사업 공동 개발&#x27; 착수</span></a><a class="related-coverage-link" href="https://www.etnews.com/20260908000247" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">한전기술-인애이블퓨전, 핵융합에너지 사업 참여 협력을 위한 업무협약 체결</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한국전력기술, 인애이블퓨전과 핵융합에너지 사업 협력</div>
@@ -35671,10 +35996,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">16건</span>
+    <span class="group-count">18건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/economy/12147423"
+  data-title="&#x27;K원전 르네상스&#x27; 막 오른다"
+  data-publisher="매일경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788858323"
+  data-country="US"
+  data-search="&#x27;k원전 르네상스&#x27; 막 오른다 매일경제 원전 대미투자 정부가 2000억달러 규모로 조성하는 대미투자펀드의 60%가량이 미국 대형 원전 건설에 활용될 것이라는 전망이 나오자 원전 생태계 전체가 수혜를 입을 것이라는 기대감이 커졌다. 문.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;K원전 르네상스&#x27; 막 오른다</div>
+      <div class="article-snippet">정부가 2000억달러 규모로 조성하는 대미투자펀드의 60%가량이 미국 대형 원전 건설에 활용될 것이라는 전망이 나오자 원전 생태계 전체가 수혜를 입을 것이라는 기대감이 커졌다. 문..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/060e2a95e9fdf7ca75e98ca0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/economy/12147372"
   data-title="30% 이익 남는 &#x27;한국형 원전&#x27; 대미투자 펀드로 교두보 확보"
   data-publisher="매일경제"
@@ -35698,7 +36056,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>30% 이익 남는 &#x27;한국형 원전&#x27; 대미투자 펀드로 교두보 확보</div>
+      <div class="headline">30% 이익 남는 &#x27;한국형 원전&#x27; 대미투자 펀드로 교두보 확보</div>
       <div class="article-snippet">한국과 미국이 대미투자펀드를 활용해 미국 내 대형 원전 8기를 건설하고 이 중 2기를 한국형 원전인 APR1400으로 짓는 방안을 검토하고 있다. 이 같은 방안에 한국 원전 기업들..</div>
     </div>
   </div>
@@ -35707,7 +36065,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/business/12147373"
   data-title="K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력"
   data-publisher="매일경제"
@@ -35731,7 +36089,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력</div>
+      <div class="headline">K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력</div>
       <div class="article-snippet">대미 투자를 발판으로 &#x27;K원전&#x27;을 제2의 반도체 산업으로 육성해야 한다는 제언이 쏟아지고 있다. 한국은 우라늄 농축과 재처리를 제외한 설계와 건설, 정비 등 원전 전 분야의 밸류체..</div>
     </div>
   </div>
@@ -35807,39 +36165,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.econovill.com/news/articleView.html?idxno=750111"
-  data-title="대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다"
-  data-publisher="이코노믹리뷰"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="0"
-  data-published="1788817277"
-  data-country="US"
-  data-search="대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다 이코노믹리뷰 원전 대미투자 한미 양국이 합의한 대미투자 사업의 첫 프로젝트로 미국 텍사스주 엔시날 가스복합화력발전소 건설이 유력하게 검토되고 있는 것으로 알려졌다.후속 사업으로는 미국 현지에 대형 원전 8기를 건설하는 방안이 논의되고 있다.7일 국회와 정부 관계부처 등에 따르면 산업통상자원부는 이날 국회에서 열린 비공개 당정 협의에서 대미투자 사업과 관련한 진행 상황을 보고한 것으로 전해졌다.◆ 대미투자 첫 사업으로 텍사스 발전소 부상엔시날 프로젝트는 텍사스 엔시날 지역에 총 6.3gw 규모의 가스복합화력발전소를 조성하는 사업이다.첨단 반도체 공장과 인공지능"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">이코노믹리뷰</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 10개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hankyung.com/article/202609081263i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;이틀만에 30% 급등&quot;…&#x27;원전 8기&#x27; 대미투자 수혜 종목은</span></a><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0134_202609081523182344" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">대미투자 1호 프로젝트, &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; [자막뉴스]</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090807321777937" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10866292" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">[사설] 대미투자 프로젝트 윤곽, 통상·안보 현안 풀 지렛대로</span></a><a class="related-coverage-link" href="https://www.mt.co.kr/stock/2026/09/08/2026090811053190437" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니투데이</span><span class="related-coverage-title">3500억 달러 대미투자 &#x27;가스발전소·원전&#x27; 유력…관련주도 들썩 - 머니투데이</span></a><a class="related-coverage-link" href="https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800110.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴데일리</span><span class="related-coverage-title">&#x27;모 아니면 도&#x27; 1200억달러 대미 원전 투자 … 성공 땐 호재, 실패 땐 원금 회수 난항</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719807" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090809040723529" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">&#x27;대미투자 1호&#x27;는 텍사스 가스발전소, 원전 8기 건설도 검토</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609080012" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">韓, 美에 대형 원전 8기 건설 추진…2000억달러 대미 투자 본격화</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000549192.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론</span></a></div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다</div>
-      <div class="article-snippet">한미 양국이 합의한 대미투자 사업의 첫 프로젝트로 미국 텍사스주 엔시날 가스복합화력발전소 건설이 유력하게 검토되고 있는 것으로 알려졌다.후속 사업으로는 미국 현지에 대형 원전 8기를 건설하는 방안이 논의되고 있다.7일 국회와 정부 관계부처 등에 따르면 산업통상자원부는 이날 국회에서 열린 비공개 당정 협의에서 대미투자 사업과 관련한 진행 상황을 보고한 것으로 전해졌다.◆ 대미투자 첫 사업으로 텍사스 발전소 부상엔시날 프로젝트는 텍사스 엔시날 지역에 총 6.3GW 규모의 가스복합화력발전소를 조성하는 사업이다.첨단 반도체 공장과 인공지능</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d8bb63261cacef382f07afdb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
   data-url="https://www.hankyung.com/article/2026090819731"
   data-title="대미투자 호재發 원전주 &#x27;동반 랠리&#x27;"
   data-publisher="한국경제"
@@ -35863,7 +36188,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대미투자 호재發 원전주 &#x27;동반 랠리&#x27;</div>
+      <div class="headline">대미투자 호재發 원전주 &#x27;동반 랠리&#x27;</div>
       <div class="article-snippet">대미투자 호재發 원전주 &#x27;동반 랠리&#x27;, 한전기술 이틀 만에 30% 급등 두산에너빌, 최대 4조 수주 기대</div>
     </div>
   </div>
@@ -35959,7 +36284,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260908000162" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">[ET특징주] 후속 대미투자로 원전 건설 검토 소식에… 관련주 강세</span></a><a class="related-coverage-link" href="https://www.ekn.kr/web/view.php?key=20260908020511880" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지경제신문</span><span class="related-coverage-title">[특징주] 원전株, 한·미 원전 협력 기대 소식에 장 초반 강세</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">美원전 건설 기대감에 원전株 강세…서전기전 20%↑</div>
@@ -36004,21 +36329,54 @@ main {
   </div>
 </article>
 
-<article class="preview-card"
-  data-url="https://www.yna.co.kr/view/AKR20260908150800003?section=industry/all"
-  data-title="미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스"
-  data-publisher="연합뉴스"
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260908_0003781531"
+  data-title="국회 산중위, 17일 산업통상부로부터 &#x27;대미투자&#x27; 세부사항 비공개 보고 받는다"
+  data-publisher="뉴시스"
   data-group="원전 대미투자"
   data-language="ko"
   data-priority="1"
-  data-published="1788857002"
-  data-country="US"
-  data-search="미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스 연합뉴스 원전 대미투자 (서울=연합뉴스) 신창용 류미나 기자 = 미국 정부가 지난해 한미 관세 협상에서 합의한 3천500억달러를 웃도는 규모의 대미 투자를 요구하는 것..."
+  data-published="1788861157"
+  data-country="KR"
+  data-search="국회 산중위, 17일 산업통상부로부터 &#x27;대미투자&#x27; 세부사항 비공개 보고 받는다 뉴시스 원전 대미투자 [서울=뉴시스]정금민 기자 = 국회 산업통상자원중소벤처기업위원회가 오는 17일 산업통상부로부터 3500억 달러 규모의 대미 투자 첫 사업과 관련한 세부 사항을 보고 받는다. 산업통상자원중소벤처기업위원회 관계자는 8일 뉴시스와 통화에서 &quot;여야 산업통상자원중소벤처기업위원들이 17일 오전 비공개로 산업통상부와 만나 대미투자 관련 보고를 받을 예정&quot;이라며 &quot;김정관 산업통상부 장관 등이 출석 대상&quot;이라고 했다. 재정경제기획위원회 또한 비슷한 시기 산업부로부터 비공개 보고를 받을 예정인 것으로 전해졌다. 앞서 박정성 산업부 통상교섭본부장과 실무 협상단은 지난 7일 오전 재정경제"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
       <div class="meta-row">
-        <div class="publisher">연합뉴스</div>
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260908157300001?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">산업통상부, 내주 &#x27;대미투자 1호&#x27; 세부사항 국회에 비공개 보고 | 연합뉴스</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>국회 산중위, 17일 산업통상부로부터 &#x27;대미투자&#x27; 세부사항 비공개 보고 받는다</div>
+      <div class="article-snippet">[서울=뉴시스]정금민 기자 = 국회 산업통상자원중소벤처기업위원회가 오는 17일 산업통상부로부터 3500억 달러 규모의 대미 투자 첫 사업과 관련한 세부 사항을 보고 받는다. 산업통상자원중소벤처기업위원회 관계자는 8일 뉴시스와 통화에서 &quot;여야 산업통상자원중소벤처기업위원들이 17일 오전 비공개로 산업통상부와 만나 대미투자 관련 보고를 받을 예정&quot;이라며 &quot;김정관 산업통상부 장관 등이 출석 대상&quot;이라고 했다. 재정경제기획위원회 또한 비슷한 시기 산업부로부터 비공개 보고를 받을 예정인 것으로 전해졌다. 앞서 박정성 산업부 통상교섭본부장과 실무 협상단은 지난 7일 오전 재정경제</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ad350482a067312d29c025ae.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1723483"
+  data-title="美 요구 사업비 3500억달러 넘어…정부, 대미투자 3대 사업 조정 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788857692"
+  data-country="KR"
+  data-search="美 요구 사업비 3500억달러 넘어…정부, 대미투자 3대 사업 조정 - 이비엔(ebn)뉴스센터 ebn산업경제 원전 대미투자 미국 정부가 한국에 제시한 투자사업 규모가 한미 관세협상에서 합의한 3500억달러를 넘어선 것으로 확인됐다. 정부는 실제 투자액이 대미투자펀드의 한도를 초과하지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
         <span class="meta-divider">·</span>
         <div class="status-inline">
           <span class="unread-label">안읽음</span>
@@ -36028,12 +36386,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스</div>
-      <div class="article-snippet">(서울=연합뉴스) 신창용 류미나 기자 = 미국 정부가 지난해 한미 관세 협상에서 합의한 3천500억달러를 웃도는 규모의 대미 투자를 요구하는 것...</div>
+      <div class="headline"><span class="new-badge">NEW</span>美 요구 사업비 3500억달러 넘어…정부, 대미투자 3대 사업 조정 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">미국 정부가 한국에 제시한 투자사업 규모가 한미 관세협상에서 합의한 3500억달러를 넘어선 것으로 확인됐다. 정부는 실제 투자액이 대미투자펀드의 한도를 초과하지</div>
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1cac5ef20bd6f16789f155f3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/31264700df8204fb0bf2b095.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00008&amp;news_seq_no=5217868"
+  data-title="3,500억달러 약속했더니 더 커진 계산서…미국 투자 요구 &#x27;한도 초과&#x27;"
+  data-publisher="MBN"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788857160"
+  data-country="US"
+  data-search="3,500억달러 약속했더니 더 커진 계산서…미국 투자 요구 &#x27;한도 초과&#x27; mbn 원전 대미투자 미국 정부가 지난해 한미 관세 협상에서 합의한 3,500억달러를 웃도는 규모의 대미 투자를 요구하는 것으로 확인됐습니다.이에 우리 정부는 실제 투자 집행 규모가 대미투자펀드의 한도를 넘지 않도록 막판 협상을 벌이고 있습니다.오늘(8일) 정치권에 따르면 산업통상부는 최근 이 같은 내용으로 한미 전략투자 후속 협상 경과를 국회에 비공개로 보고했습니다.산자위 관계자는 &quot;현재 미국에서 요구하는 사업 규모 총액이 3,500억달러를 넘긴다&quot;며 &quot;금액이 초과하다 보니 핵심 사업 중 2개만 반영할지 금액을 조정해서 3개 전부 반영할지를 놓고 막판 절충 작업을 벌이고 있는 상황&quot;이라"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">MBN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 14개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908183437643" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중</span></a><a class="related-coverage-link" href="https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260908150800003?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609081263i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;이틀만에 30% 급등&quot;…&#x27;원전 8기&#x27; 대미투자 수혜 종목은</span></a><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0134_202609081523182344" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">대미투자 1호 프로젝트, &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; [자막뉴스]</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090807321777937" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10866292" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">[사설] 대미투자 프로젝트 윤곽, 통상·안보 현안 풀 지렛대로</span></a><a class="related-coverage-link" href="https://www.mt.co.kr/stock/2026/09/08/2026090811053190437" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니투데이</span><span class="related-coverage-title">3500억 달러 대미투자 &#x27;가스발전소·원전&#x27; 유력…관련주도 들썩 - 머니투데이</span></a><a class="related-coverage-link" href="https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800110.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴데일리</span><span class="related-coverage-title">&#x27;모 아니면 도&#x27; 1200억달러 대미 원전 투자 … 성공 땐 호재, 실패 땐 원금 회수 난항</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719807" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090809040723529" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">&#x27;대미투자 1호&#x27;는 텍사스 가스발전소, 원전 8기 건설도 검토</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609080012" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">韓, 美에 대형 원전 8기 건설 추진…2000억달러 대미 투자 본격화</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000549192.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=750111" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>3,500억달러 약속했더니 더 커진 계산서…미국 투자 요구 &#x27;한도 초과&#x27;</div>
+      <div class="article-snippet">미국 정부가 지난해 한미 관세 협상에서 합의한 3,500억달러를 웃도는 규모의 대미 투자를 요구하는 것으로 확인됐습니다.이에 우리 정부는 실제 투자 집행 규모가 대미투자펀드의 한도를 넘지 않도록 막판 협상을 벌이고 있습니다.오늘(8일) 정치권에 따르면 산업통상부는 최근 이 같은 내용으로 한미 전략투자 후속 협상 경과를 국회에 비공개로 보고했습니다.산자위 관계자는 &quot;현재 미국에서 요구하는 사업 규모 총액이 3,500억달러를 넘긴다&quot;며 &quot;금액이 초과하다 보니 핵심 사업 중 2개만 반영할지 금액을 조정해서 3개 전부 반영할지를 놓고 막판 절충 작업을 벌이고 있는 상황&quot;이라</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3aa06050b1833f0ef4db0090.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36208,7 +36599,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">27건</span>
+    <span class="group-count">33건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36241,6 +36632,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e525b4f0eedde116c556c63.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/business/12147410"
+  data-title="&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot;"
+  data-publisher="매일경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788858254"
+  data-country="CN"
+  data-search="&quot;美 ai 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; 매일경제 원자력 &quot;인공지능(ai)과 원자력은 긴밀하게 연결돼 있다. 안정적인 기저부하 전력 없이 ai가 필요로 하는 전력 수요를 감당할 수 없기 때문에 원자력의 중요성이 커질 수밖에 없다.&quot; 8일.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot;</div>
+      <div class="article-snippet">&quot;인공지능(AI)과 원자력은 긴밀하게 연결돼 있다. 안정적인 기저부하 전력 없이 AI가 필요로 하는 전력 수요를 감당할 수 없기 때문에 원자력의 중요성이 커질 수밖에 없다.&quot; 8일..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/eba7aa47a04f7febfdaf3dec.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36344,6 +36768,72 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/2026090820621"
+  data-title="대미 원전투자 최종관문 &#x27;WEC 지분 인수&#x27;인 이유"
+  data-publisher="한국경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788859710"
+  data-country="KR"
+  data-search="대미 원전투자 최종관문 &#x27;wec 지분 인수&#x27;인 이유 한국경제 원자력 대미 원전투자 최종관문 &#x27;wec 지분 인수&#x27;인 이유, 현장에서 韓지재권 리스크 해소 기회지만 재무적 투자 그칠 땐 실익 적을 듯 김리안 경제부 기자"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대미 원전투자 최종관문 &#x27;WEC 지분 인수&#x27;인 이유</div>
+      <div class="article-snippet">대미 원전투자 최종관문 &#x27;WEC 지분 인수&#x27;인 이유, 현장에서 韓지재권 리스크 해소 기회지만 재무적 투자 그칠 땐 실익 적을 듯 김리안 경제부 기자</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2eda3b6bca9073efed7113b3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/2026090821111"
+  data-title="韓 핵잠, 첫 관문 IAEA로…한미 후속협의는 석달째 제자리"
+  data-publisher="한국경제"
+  data-group="국제 원자력·에너지기구"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788859018"
+  data-country="KR"
+  data-search="韓 핵잠, 첫 관문 iaea로…한미 후속협의는 석달째 제자리 한국경제 국제 원자력·에너지기구 韓 핵잠, 첫 관문 iaea로…한미 후속협의는 석달째 제자리, 정부, 협정 체결 위한 의향 통보 핵무장 아닌 &#x27;핵추진&#x27; 검증 착수"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>韓 핵잠, 첫 관문 IAEA로…한미 후속협의는 석달째 제자리</div>
+      <div class="article-snippet">韓 핵잠, 첫 관문 IAEA로…한미 후속협의는 석달째 제자리, 정부, 협정 체결 위한 의향 통보 핵무장 아닌 &#x27;핵추진&#x27; 검증 착수</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2eda3b6bca9073efed7113b3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/2026090820501"
   data-title="[사설] 韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로"
   data-publisher="한국경제"
@@ -36367,7 +36857,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[사설] 韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로</div>
+      <div class="headline">[사설] 韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로</div>
       <div class="article-snippet">[사설] 韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로, 오피니언</div>
     </div>
   </div>
@@ -36505,6 +36995,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/6ad3ad07b4f5921155bdbd24.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ekn.kr/web/view.php?key=20260908020042158"
+  data-title="950MW 한빛 2호기 설계수명 만료…수명연장 심사"
+  data-publisher="에너지경제신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788852325"
+  data-country="KR"
+  data-search="950mw 한빛 2호기 설계수명 만료…수명연장 심사 에너지경제신문 원자력 한빛원자력발전소 1호기에 이어 2호기도 40년 설계수명이 다해 가동을 멈춘다. 발전 수요 확대 필요성이 커지는 상황에서.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>950MW 한빛 2호기 설계수명 만료…수명연장 심사</div>
+      <div class="article-snippet">한빛원자력발전소 1호기에 이어 2호기도 40년 설계수명이 다해 가동을 멈춘다. 발전 수요 확대 필요성이 커지는 상황에서..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a0a96e8024716416bcad43cb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36838,6 +37361,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1723362"
+  data-title="[1% 초고수의 개장선택] AI 내부 순환매 중…&#x27;삼전·닉스&#x27; 팔고 &#x27;로봇·원전&#x27; 샀다 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788827729"
+  data-country="OTHER"
+  data-search="[1% 초고수의 개장선택] ai 내부 순환매 중…&#x27;삼전·닉스&#x27; 팔고 &#x27;로봇·원전&#x27; 샀다 - 이비엔(ebn)뉴스센터 ebn산업경제 원자력 투자수익률 상위 1%에 해당하는 주식 초고수 투자자들이 장 초반 삼성전자와 sk하이닉스를 팔아 차익을 실현하는 대신 로봇과 원전, 건설 등으로 자금을 분산하고 있"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[1% 초고수의 개장선택] AI 내부 순환매 중…&#x27;삼전·닉스&#x27; 팔고 &#x27;로봇·원전&#x27; 샀다 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">투자수익률 상위 1%에 해당하는 주식 초고수 투자자들이 장 초반 삼성전자와 SK하이닉스를 팔아 차익을 실현하는 대신 로봇과 원전, 건설 등으로 자금을 분산하고 있</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4e5e39806273e7d7dce58464.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2467563"
   data-title="핵잠 예산 ‘996억’ 첫 반영···K조선·원전 결합 ‘시험대’"
@@ -36901,6 +37457,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/f0c9ed977efff4c7ebff908c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ekn.kr/web/view.php?key=20260908028131698"
+  data-title="[단독] 에경연 차기 원장에 ‘탈원전’ 환경단체 출신 거론…내부 ‘발칵’"
+  data-publisher="에너지경제신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788835155"
+  data-country="OTHER"
+  data-search="[단독] 에경연 차기 원장에 ‘탈원전’ 환경단체 출신 거론…내부 ‘발칵’ 에너지경제신문 원자력 에너지경제연구원 차기 원장에 그동안 탈원전을 주장해온 환경단체 출신 인사가 유력 후보로 업계와 연구원 안팎에서 거론되.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[단독] 에경연 차기 원장에 ‘탈원전’ 환경단체 출신 거론…내부 ‘발칵’</div>
+      <div class="article-snippet">에너지경제연구원 차기 원장에 그동안 탈원전을 주장해온 환경단체 출신 인사가 유력 후보로 업계와 연구원 안팎에서 거론되..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c886d9b9e87a32160b643ae6.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37282,7 +37871,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -37348,6 +37937,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d56480cded68b25e7ec281c7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hurriyetdailynews.com/turkiye-condemns-glorification-at-mladic-funeral-226607"
+  data-title="Ankara reacts to ‘glorification attempts’ at Mladic funeral - Türkiye News"
+  data-publisher="Hurriyet Daily News"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788860475"
+  data-country="TR"
+  data-search="ankara reacts to ‘glorification attempts’ at mladic funeral - türkiye news hurriyet daily news 국내 원자력 협회·학회 türkiye has condemned “attempts to glorify” convicted bosnian serb war criminal ratko mladic at his funeral in belgrade, warning that they deepened the suffering of victims and damaged reconciliation efforts in the balkans."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Hurriyet Daily News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Ankara reacts to ‘glorification attempts’ at Mladic funeral - Türkiye News</div>
+      <div class="article-snippet">Türkiye has condemned “attempts to glorify” convicted Bosnian Serb war criminal Ratko Mladic at his funeral in Belgrade, warning that they deepened the suffering of victims and damaged reconciliation efforts in the Balkans.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4d72ef0b6e445879aef02b42.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37480,7 +38102,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.koreaherald.com/article/10866759" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Korea Herald</span><span class="related-coverage-title">Seoul moves closer to IAEA safeguards deal for nuclear-powered subs</span></a><a class="related-coverage-link" href="https://www.koreatimes.co.kr/foreignaffairs/20260908/iaea-says-korea-notifies-intent-to-consult-on-safeguards-arrangement-for-nuclear-powered-subs" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Korea Times</span><span class="related-coverage-title">IAEA says Korea notifies intent to consult on safeguards arrangement for nuclear-powered subs - The Korea Times</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.koreaherald.com/article/10866759" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Korea Herald</span><span class="related-coverage-title">Seoul moves closer to IAEA safeguards deal for nuclear-powered subs</span></a><a class="related-coverage-link" href="https://www.koreatimes.co.kr/foreignaffairs/20260908/iaea-says-korea-notifies-intent-to-consult-on-safeguards-arrangement-for-nuclear-powered-subs" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Korea Times</span><span class="related-coverage-title">IAEA confirms Korea notified intent to consult on safeguards arrangement for nuclear subs - The Korea Times</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">IAEA says S. Korea notifies intent to consult on safeguards arrangement for nuclear-powered subs</div>
@@ -37918,7 +38540,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://cdn.greened.kr/news/thumbnail/202609/349481_401007_117_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.greened.kr/news/thumbnail/202609/349481_401007_117_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38423,9 +39045,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">주요 건설사</span>
-    <span class="group-count">40건</span>
+    <span class="group-count">44건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/stock/12147445"
+  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스"
+  data-publisher="매일경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788860113"
+  data-country="KR"
+  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스</div>
+      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/76812ffeb906613bd7d5e465.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.pinpointnews.co.kr/news/articleView.html?idxno=485076"
   data-title="[거래소 기관] 삼성전자에 몰린 뭉칫돈…두산에너빌리티·현대건설도 샀다"
@@ -38522,6 +39177,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="https://cdn.ebn.co.kr/news/thumbnail/202609/1723335_755836_322_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260908000118"
+  data-title="[ET특징주]두산에너빌리티, 한미 원전 협력 기대감에 상승세"
+  data-publisher="전자신문"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788830616"
+  data-country="KR"
+  data-search="[et특징주]두산에너빌리티, 한미 원전 협력 기대감에 상승세 전자신문 타 건설사 두산에너빌리티가 한미 원전 협력 기대감에 상승세다. 두산에너빌리티(034020)는 9월 8일 오전 10시 18분 기준 전 거래일보다 4.1% 상승한 91,2100원에 거래되고 있다. 키움증권은 국내 원전 산업에 대한 긍정적인 전망을 유지했다. 한미 간 원전 분야 협력이 구체화되는 움직임을 보이면서 관련 기업에 대한 투자심리도 회복될 가능성이 있다는 판단이다. 조재원 키움증권 연구원은 “한미 원전 협력이 가시화되면서 국내 원전 기업들의 투자심리가"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전자신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.mk.co.kr/news/stock/12146675" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일경제</span><span class="related-coverage-title">특징주, 두산에너빌리티-원자력발전소 해체 테마 상승세에 3.62% ↑ - 매일경제</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[ET특징주]두산에너빌리티, 한미 원전 협력 기대감에 상승세</div>
+      <div class="article-snippet">두산에너빌리티가 한미 원전 협력 기대감에 상승세다. 두산에너빌리티(034020)는 9월 8일 오전 10시 18분 기준 전 거래일보다 4.1% 상승한 91,2100원에 거래되고 있다. 키움증권은 국내 원전 산업에 대한 긍정적인 전망을 유지했다. 한미 간 원전 분야 협력이 구체화되는 움직임을 보이면서 관련 기업에 대한 투자심리도 회복될 가능성이 있다는 판단이다. 조재원 키움증권 연구원은 “한미 원전 협력이 가시화되면서 국내 원전 기업들의 투자심리가</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0dca2ae08477a300d200f783.gif" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39050,6 +39738,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3f8ba71abea778bb541bfe2b.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.sentv.co.kr/article/view/sentv202609080099"
+  data-title="GS건설 모듈러·SK에코 표준화…AI 데이터센터 ‘속도전’"
+  data-publisher="서울경제TV"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788860865"
+  data-country="OTHER"
+  data-search="gs건설 모듈러·sk에코 표준화…ai 데이터센터 ‘속도전’ 서울경제tv 타 건설사 ai 데이터센터를 둘러싼 건설사들의 경쟁이 달라지고 있습니다. 누가 더 많이 짓느냐를 넘어, 이제는 누가 더 빨리 짓느냐의 싸움이 됐는데요. gs건설과"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>GS건설 모듈러·SK에코 표준화…AI 데이터센터 ‘속도전’</div>
+      <div class="article-snippet">AI 데이터센터를 둘러싼 건설사들의 경쟁이 달라지고 있습니다. 누가 더 많이 짓느냐를 넘어, 이제는 누가 더 빨리 짓느냐의 싸움이 됐는데요. GS건설과</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/96cee321b1c093a34ddf1198.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39710,6 +40431,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e125b206465e039ae7dd6bd.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ajunews.com/view/20260908140517623"
+  data-title="1년 새 시총 &#x27;계급장&#x27; 바뀌었다…1554개 종목 100계단 이상 이동"
+  data-publisher="아주경제"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788858962"
+  data-country="KR"
+  data-search="1년 새 시총 &#x27;계급장&#x27; 바뀌었다…1554개 종목 100계단 이상 이동 아주경제 타 건설사 1년간 시총 변화 국내 증시 시가총액 &#x27;계급장&#x27;이 1년 새 크게 뒤바뀌었다. 전체 거래 종목 중 절반 이상이 100계단 이상 시총 순위가 오르락내리락한 것으로 나타났다. 시총 상위 100위권에서도 11개 종목이 새롭게 이름을 올리는 등 상장사들의 몸값 변화가 컸다. 시총 순위가 가장 많이 오른 종목은 가온전선이었다.  8일 한국거래소에 따르면 코스피·코스닥 상장사의 지난해 9월 5일과 올해 9월 7일 시가총액 순위를 비교한 결과 두 시점 모두 거래된 2778개 종목 가운데 1554개(55.9%) 순위가 100계단 이상 변동된 것으로"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>1년 새 시총 &#x27;계급장&#x27; 바뀌었다…1554개 종목 100계단 이상 이동</div>
+      <div class="article-snippet">1년간 시총 변화 국내 증시 시가총액 &#x27;계급장&#x27;이 1년 새 크게 뒤바뀌었다. 전체 거래 종목 중 절반 이상이 100계단 이상 시총 순위가 오르락내리락한 것으로 나타났다. 시총 상위 100위권에서도 11개 종목이 새롭게 이름을 올리는 등 상장사들의 몸값 변화가 컸다. 시총 순위가 가장 많이 오른 종목은 가온전선이었다.  8일 한국거래소에 따르면 코스피·코스닥 상장사의 지난해 9월 5일과 올해 9월 7일 시가총액 순위를 비교한 결과 두 시점 모두 거래된 2778개 종목 가운데 1554개(55.9%) 순위가 100계단 이상 변동된 것으로</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1498a09417eb6c9dc7ea0d56.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -40586,9 +41340,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">31건</span>
+    <span class="group-count">35건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.ekn.kr/web/view.php?key=20260908025062191"
+  data-title="[에너지소식] 한전기술, 인애이블퓨전과 핵융합 협력…한수원, 원전 안전문화·리더십 강화 워크숍"
+  data-publisher="에너지경제신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788858824"
+  data-country="KR"
+  data-search="[에너지소식] 한전기술, 인애이블퓨전과 핵융합 협력…한수원, 원전 안전문화·리더십 강화 워크숍 에너지경제신문 한국전력 한국전력기술은 지난 7일 대전 사이언스센터에서 인애이블퓨전과 `핵융합에너지 사업 참여 협력을 위한 업무협약`을 체결했.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[에너지소식] 한전기술, 인애이블퓨전과 핵융합 협력…한수원, 원전 안전문화·리더십 강화 워크숍</div>
+      <div class="article-snippet">한국전력기술은 지난 7일 대전 사이언스센터에서 인애이블퓨전과 `핵융합에너지 사업 참여 협력을 위한 업무협약`을 체결했..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.ekn.kr/mnt/file/202609/news-p.v1.20260908.c1f3976a891a42848a7935533a998db8_R.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260908_0003780139"
   data-title="대미 투자 원전 8기 검토…웨스팅하우스 지분 확보 급물살타나"
@@ -40755,6 +41542,39 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.etnews.com/20260908000356"
+  data-title="[사설] 한전 사장 인선에 AI국가 성패 달렸다"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788858000"
+  data-country="KR"
+  data-search="[사설] 한전 사장 인선에 ai국가 성패 달렸다 전자신문 한국전력 인공지능(ai) 혁명과 이를 밑받침할 차세대 에너지 인프라 확충이 국가 경쟁력을 좌우할 전환기에 한국전력공사(한전)의 차기 수장 선임 절차가 막바지에 다다랐다고 한다. 최근 임원추천위원회가 후임 사장후보를 최종 3배수로 압축하면서 청와대의 최종 낙점을 앞두고 있다. 이번 인선이 가진 중대성을 보여주듯 산업계에선 우려와 기대가 교차하고 있다. ai 데이터센터와 반도체 클러스터 등 ai 시대 핵심 기반시설을 원활하게 가동하기 위해선 양질의 전력 공"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전자신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[사설] 한전 사장 인선에 AI국가 성패 달렸다</div>
+      <div class="article-snippet">인공지능(AI) 혁명과 이를 밑받침할 차세대 에너지 인프라 확충이 국가 경쟁력을 좌우할 전환기에 한국전력공사(한전)의 차기 수장 선임 절차가 막바지에 다다랐다고 한다. 최근 임원추천위원회가 후임 사장후보를 최종 3배수로 압축하면서 청와대의 최종 낙점을 앞두고 있다. 이번 인선이 가진 중대성을 보여주듯 산업계에선 우려와 기대가 교차하고 있다. AI 데이터센터와 반도체 클러스터 등 AI 시대 핵심 기반시설을 원활하게 가동하기 위해선 양질의 전력 공</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a646222e91432b8413ad54d6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://daily.hankooki.com/news/articleView.html?idxno=1403985"
   data-title="‘한전채 발행 한도 특례’ 내년 종료…전력망 투자 재원 조달 어쩌나"
   data-publisher="데일리한국"
@@ -40778,7 +41598,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>‘한전채 발행 한도 특례’ 내년 종료…전력망 투자 재원 조달 어쩌나</div>
+      <div class="headline">‘한전채 발행 한도 특례’ 내년 종료…전력망 투자 재원 조달 어쩌나</div>
       <div class="article-snippet">[데일리한국 정백현 기자] 한국전력공사의 자금 조달을 뒷받침하던 회사채(한전채) 발행 한도 확대 특례의 일몰이 1년여 앞으로 다가오면서 한전의 재무 부담이 다시 커질 수 있다는 우려가 업계 안팎에서 커지고 있다.인공지능(AI) 데이터센터 확충과 대규모 반도체 산업단지 건설 등으로 대규모 전력수요가 발생하는 만큼 이에 대응하기 위한 대대적인 전력망 투자가 필요한 상황이지만 채권 발행 한도가 다시 축소될 예정이어서 안정적인 투자 재원 확보가 새로운 과제로 떠오르고 있다.8일 에너지 업계와 자본시장 업계에 따르면 한전채 발행 한도는 오는</div>
     </div>
   </div>
@@ -40820,7 +41640,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260908102843040"
   data-title="[ESS 확대, 비용의 그늘] ESS 늘 때마다 15년 정산부담…전기요금 해법은"
   data-publisher="아주경제"
@@ -40844,7 +41664,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[ESS 확대, 비용의 그늘] ESS 늘 때마다 15년 정산부담…전기요금 해법은</div>
+      <div class="headline">[ESS 확대, 비용의 그늘] ESS 늘 때마다 15년 정산부담…전기요금 해법은</div>
       <div class="article-snippet">서울 시내의 한 전기계량기 [사진=연합뉴스] 재생에너지 확대와 함께 에너지저장장치(ESS) 도입이 늘면서 한국전력공사 등 전력구매자의 장기 정산 부담도 누적될 전망이다. ESS 사업자에게 15년간 지급되는 계약용량정산금 가운데 한전 부담분은 구입전력비에 반영되는 만큼 정부 지원과 시장 수익 확대 등을 통해 소비자 부담을 낮춰야 한다는 지적이 나온다.   ◆중앙계약시장 ESS 1196㎿ 선정…정산 부담 장기화   8일 국회 산업통상자원중소벤처기업위원회 소속 구자근 국민의힘 의원실이 한전과 전력거래소에서 제출받은 자료에 따르면 현재까지 중앙</div>
     </div>
   </div>
@@ -40853,7 +41673,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260908110025151"
   data-title="[ESS 확대, 비용의 그늘] [단독] 비용 내는 한전도 ESS 계약단가 몰라…전기요금 압력 우려"
   data-publisher="아주경제"
@@ -40877,7 +41697,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[ESS 확대, 비용의 그늘] [단독] 비용 내는 한전도 ESS 계약단가 몰라…전기요금 압력 우려</div>
+      <div class="headline">[ESS 확대, 비용의 그늘] [단독] 비용 내는 한전도 ESS 계약단가 몰라…전기요금 압력 우려</div>
       <div class="article-snippet">[사진=한국전력] 에너지저장장치(ESS) 중앙계약시장 비용을 부담하는 한국전력공사가 정작 사업자별 계약단가는 제공받지 못하는 것으로 나타났다. 재생에너지 확대에 따라 ESS 도입과 관련 비용이 늘어날 것으로 예상되는 가운데 한전이 계약단가를 확인하지 못하면서 정산금 검증과 향후 재무영향 추정에도 제약을 받고 있다. 한전이 부담하는 ESS 비용은 구입전력비에 반영되는 만큼 비용 관리가 제대로 이뤄지지 않으면 전기공급 원가 상승을 거쳐 소비자 전기요금 부담으로 이어질 수 있다는 우려가 나온다. 8일 국회 산업통상자원중소벤처기업위원회 소속 구자근 국민의힘 의원실이 한전과</div>
     </div>
   </div>
@@ -41138,7 +41958,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260908000126" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">전북도-새만금개발청 등 10개 기관 새만금 RE100 선도산단 지정 협력 &#x27;맞손&#x27;</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">전북도-새만금청-현대차 등, 새만금 RE100 계획 킥오프</div>
@@ -41204,7 +42024,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 6개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090817190264042" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">한전기술, 인애이블퓨전과 손잡고 핵융합 발전장치 사업 진출</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6121" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전기술-인애이블퓨전, 핵융합에너지 사업협력 MOU 체결 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302691" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">한전기술, 인애이블퓨전과 핵융합에너지 사업 협력</span></a><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7737" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">한전기술, ‘핵융합 발전장치 건설’ 사업 참여 나선다…인애이블퓨전과 ‘맞손’</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202996" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한국전력기술, 인애이블퓨전과 핵융합 산업화 ‘플랜트 사업’ 협력 본격화 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908141554651" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미래 청정에너지 시대 연다…한전기술, &#x27;핵융합 발전장치 건설 및 국내외 사업 공동 개발&#x27; 착수</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 8개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ekn.kr/web/view.php?key=20260908025062191" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지경제신문</span><span class="related-coverage-title">[에너지소식] 한전기술, 인애이블퓨전과 핵융합 협력…한수원, 원전 안전문화·리더십 강화 워크숍</span></a><a class="related-coverage-link" href="https://www.imaeil.com/page/view/2026090817190264042" target="_blank" rel="noopener"><span class="related-coverage-publisher">매일신문</span><span class="related-coverage-title">한전기술, 인애이블퓨전과 손잡고 핵융합 발전장치 사업 진출</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6121" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전기술-인애이블퓨전, 핵융합에너지 사업협력 MOU 체결 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.todayenergy.kr/news/articleView.html?idxno=302691" target="_blank" rel="noopener"><span class="related-coverage-publisher">투데이에너지</span><span class="related-coverage-title">한전기술, 인애이블퓨전과 핵융합에너지 사업 협력</span></a><a class="related-coverage-link" href="https://www.inpnews.kr/news/articleView.html?idxno=7737" target="_blank" rel="noopener"><span class="related-coverage-publisher">인사이트N파워</span><span class="related-coverage-title">한전기술, ‘핵융합 발전장치 건설’ 사업 참여 나선다…인애이블퓨전과 ‘맞손’</span></a><a class="related-coverage-link" href="https://www.energydaily.co.kr/news/articleView.html?idxno=202996" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지데일리</span><span class="related-coverage-title">한국전력기술, 인애이블퓨전과 핵융합 산업화 ‘플랜트 사업’ 협력 본격화 - 에너지데일리</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908141554651" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미래 청정에너지 시대 연다…한전기술, &#x27;핵융합 발전장치 건설 및 국내외 사업 공동 개발&#x27; 착수</span></a><a class="related-coverage-link" href="https://www.etnews.com/20260908000247" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">한전기술-인애이블퓨전, 핵융합에너지 사업 참여 협력을 위한 업무협약 체결</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한국전력기술, 인애이블퓨전과 핵융합에너지 사업 협력</div>
@@ -41242,6 +42062,72 @@ main {
       </div>
       <div class="headline">미래 청정에너지 시대 연다…한전기술, &#x27;핵융합 발전장치 건설 및 국내외 사업 공동 개발&#x27; 착수</div>
       <div class="article-snippet">한국전력기술은 지난 7일 대전 사이언스센터에서 인애이블퓨전과 &#x27;핵융합에너지 사업 참여 협력을 위한 업무협약&#x27;을 체결했다.[사진=한국전력기술] 한국전력기술이 미래 청정에너지로 주목받는 핵융합에너지 사업 상용화와 시장 선점을 위해 핵심 전문기업과의 전략적 협력체계 구축에 나섰다. 한국전력기술은 지난 7일 대전 사이언스센터에서 인애이블퓨전과 &#x27;핵융합에너지 사업 참여 협력을 위한 업무협약&#x27;을 체결했다. 이날 협약의 주요 내용은 핵융합 발전장치 건설사업 참여를 위한 기술 및 사업 정보의 상호 공유와 국내외 핵융합에너지 사업의 공동 개발이다. 협력</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.etnews.com/20260908000247"
+  data-title="한전기술-인애이블퓨전, 핵융합에너지 사업 참여 협력을 위한 업무협약 체결"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788844237"
+  data-country="KR"
+  data-search="한전기술-인애이블퓨전, 핵융합에너지 사업 참여 협력을 위한 업무협약 체결 전자신문 한국전력 한국전력기술(사장 김태균)과 인애이블퓨전(대표 이경수)은 7일 &#x27;핵융합에너지 사업 참여 협력을 위한 업무협약&#x27;을 체결했다. 이번 협약은 핵융합에너지 사업에 공동 참여하기 위한 협력체계를 구축하고, 협업에 필요한 기본사항을 정하기 위해 마련됐다. 주요 내용은 핵융합 발전장치 건설사업 참여를 위한 기술·사업 정보의 상호 제공과, 국내외 핵융합에너지 사업 공동 개발이다. 인애이블퓨전은 국내 kstar 개발·건설과 국제핵융합실험로(iter) 사업에서"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전자신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전기술-인애이블퓨전, 핵융합에너지 사업 참여 협력을 위한 업무협약 체결</div>
+      <div class="article-snippet">한국전력기술(사장 김태균)과 인애이블퓨전(대표 이경수)은 7일 &#x27;핵융합에너지 사업 참여 협력을 위한 업무협약&#x27;을 체결했다. 이번 협약은 핵융합에너지 사업에 공동 참여하기 위한 협력체계를 구축하고, 협업에 필요한 기본사항을 정하기 위해 마련됐다. 주요 내용은 핵융합 발전장치 건설사업 참여를 위한 기술·사업 정보의 상호 제공과, 국내외 핵융합에너지 사업 공동 개발이다. 인애이블퓨전은 국내 KSTAR 개발·건설과 국제핵융합실험로(ITER) 사업에서</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.etnews.com/20260908000126"
+  data-title="전북도-새만금개발청 등 10개 기관 새만금 RE100 선도산단 지정 협력 &#x27;맞손&#x27;"
+  data-publisher="전자신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788843600"
+  data-country="KR"
+  data-search="전북도-새만금개발청 등 10개 기관 새만금 re100 선도산단 지정 협력 &#x27;맞손&#x27; 전자신문 한국전력 전북특별자치도가 새만금의 대규모 재생에너지와 산업용지, 현대차그룹의 투자를 연계해 re100(재생에너지 100% 사용) 산업거점 조성에 속도를 낸다고 8일 밝혔다. 도는 이날 도청 영상회의실에서 새만금개발청, 군산시, 현대차그룹, 한국전력공사 등 10개 기관이 참여하는 &#x27;새만금 re100 선도산단 기본계획 수립 tf&#x27; 킥오프 회의를 개최했다. 이번 tf는 새만금개발청이 마련한 re100 산단 종합계획을 토대로 전북도가 추진 중인 기본계획을 구체"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전자신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">전북도-새만금개발청 등 10개 기관 새만금 RE100 선도산단 지정 협력 &#x27;맞손&#x27;</div>
+      <div class="article-snippet">전북특별자치도가 새만금의 대규모 재생에너지와 산업용지, 현대차그룹의 투자를 연계해 RE100(재생에너지 100% 사용) 산업거점 조성에 속도를 낸다고 8일 밝혔다. 도는 이날 도청 영상회의실에서 새만금개발청, 군산시, 현대차그룹, 한국전력공사 등 10개 기관이 참여하는 &#x27;새만금 RE100 선도산단 기본계획 수립 TF&#x27; 킥오프 회의를 개최했다. 이번 TF는 새만금개발청이 마련한 RE100 산단 종합계획을 토대로 전북도가 추진 중인 기본계획을 구체</div>
     </div>
   </div>
   <div class="card-side">
@@ -41966,10 +42852,109 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">26건</span>
+    <span class="group-count">35건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260908183437643"
+  data-title="미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중"
+  data-publisher="아주경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788860776"
+  data-country="US"
+  data-search="미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중 아주경제 원전 대미투자   도널드 트럼프 미국 대통령[사진=epa·연합뉴스] 미국 정부가 3500억 달러를 웃도는 규모의 대미투자를 요구하면서 우리 정부가 방어에 집중하고 있다.  8일 연합뉴스 등에 따르면 산업통상부는 최근 이 같은 내용으로 한미 전략투자 후속 협상 경과를 국회에 비공개로 보고했다. 양국이 협상 테이블에 올려둔 핵심 프로젝트는 △텍사스 엔시날 가스복합화력발전소 건설 △대형 원전 8기 건설 △알래스카 액화천연가스(lng) 개발 등 3대 에너지 사업이다. 한국은 지난해 관세를 25%에서 15%로 낮추는 조건으로 조선 협력(1500억 달러)과 전략"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중</div>
+      <div class="article-snippet">도널드 트럼프 미국 대통령[사진=EPA·연합뉴스] 미국 정부가 3500억 달러를 웃도는 규모의 대미투자를 요구하면서 우리 정부가 방어에 집중하고 있다.  8일 연합뉴스 등에 따르면 산업통상부는 최근 이 같은 내용으로 한미 전략투자 후속 협상 경과를 국회에 비공개로 보고했다. 양국이 협상 테이블에 올려둔 핵심 프로젝트는 △텍사스 엔시날 가스복합화력발전소 건설 △대형 원전 8기 건설 △알래스카 액화천연가스(LNG) 개발 등 3대 에너지 사업이다. 한국은 지난해 관세를 25%에서 15%로 낮추는 조건으로 조선 협력(1500억 달러)과 전략</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027003"
+  data-title="[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로"
+  data-publisher="서울신문"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788860438"
+  data-country="US"
+  data-search="[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로 서울신문 원전 대미투자 한미 양국이 2000억 달러 대미 투자 프로젝트의 첫 사업으로 텍사스 엔시날 가스복합화력발전소 건설을 확정했다. 후속으로는 미국 현지 대형 원전 8기와 알래스카 lng 개발을 협의하며, 한국형 원자로 수출과 국내 기업 참여 확대가 핵심 과제로 떠올랐다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">서울신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로</div>
+      <div class="article-snippet">한미 양국이 2000억 달러 대미 투자 프로젝트의 첫 사업으로 텍사스 엔시날 가스복합화력발전소 건설을 확정했다. 후속으로는 미국 현지 대형 원전 8기와 알래스카 LNG 개발을 협의하며, 한국형 원자로 수출과 국내 기업 참여 확대가 핵심 과제로 떠올랐다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://img.seoul.co.kr//img/upload/2026/09/08/SSC_20260908184038_O2.jpg.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/economy/12147423"
+  data-title="&#x27;K원전 르네상스&#x27; 막 오른다"
+  data-publisher="매일경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788858323"
+  data-country="US"
+  data-search="&#x27;k원전 르네상스&#x27; 막 오른다 매일경제 원전 대미투자 정부가 2000억달러 규모로 조성하는 대미투자펀드의 60%가량이 미국 대형 원전 건설에 활용될 것이라는 전망이 나오자 원전 생태계 전체가 수혜를 입을 것이라는 기대감이 커졌다. 문.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&#x27;K원전 르네상스&#x27; 막 오른다</div>
+      <div class="article-snippet">정부가 2000억달러 규모로 조성하는 대미투자펀드의 60%가량이 미국 대형 원전 건설에 활용될 것이라는 전망이 나오자 원전 생태계 전체가 수혜를 입을 것이라는 기대감이 커졌다. 문..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/060e2a95e9fdf7ca75e98ca0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/economy/12147372"
   data-title="30% 이익 남는 &#x27;한국형 원전&#x27; 대미투자 펀드로 교두보 확보"
   data-publisher="매일경제"
@@ -41993,7 +42978,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>30% 이익 남는 &#x27;한국형 원전&#x27; 대미투자 펀드로 교두보 확보</div>
+      <div class="headline">30% 이익 남는 &#x27;한국형 원전&#x27; 대미투자 펀드로 교두보 확보</div>
       <div class="article-snippet">한국과 미국이 대미투자펀드를 활용해 미국 내 대형 원전 8기를 건설하고 이 중 2기를 한국형 원전인 APR1400으로 짓는 방안을 검토하고 있다. 이 같은 방안에 한국 원전 기업들..</div>
     </div>
   </div>
@@ -42002,7 +42987,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mk.co.kr/news/business/12147373"
   data-title="K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력"
   data-publisher="매일경제"
@@ -42026,7 +43011,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력</div>
+      <div class="headline">K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력</div>
       <div class="article-snippet">대미 투자를 발판으로 &#x27;K원전&#x27;을 제2의 반도체 산업으로 육성해야 한다는 제언이 쏟아지고 있다. 한국은 우라늄 농축과 재처리를 제외한 설계와 건설, 정비 등 원전 전 분야의 밸류체..</div>
     </div>
   </div>
@@ -42287,7 +43272,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 10개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hankyung.com/article/202609081263i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;이틀만에 30% 급등&quot;…&#x27;원전 8기&#x27; 대미투자 수혜 종목은</span></a><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0134_202609081523182344" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">대미투자 1호 프로젝트, &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; [자막뉴스]</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090807321777937" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10866292" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">[사설] 대미투자 프로젝트 윤곽, 통상·안보 현안 풀 지렛대로</span></a><a class="related-coverage-link" href="https://www.mt.co.kr/stock/2026/09/08/2026090811053190437" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니투데이</span><span class="related-coverage-title">3500억 달러 대미투자 &#x27;가스발전소·원전&#x27; 유력…관련주도 들썩 - 머니투데이</span></a><a class="related-coverage-link" href="https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800110.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴데일리</span><span class="related-coverage-title">&#x27;모 아니면 도&#x27; 1200억달러 대미 원전 투자 … 성공 땐 호재, 실패 땐 원금 회수 난항</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719807" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090809040723529" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">&#x27;대미투자 1호&#x27;는 텍사스 가스발전소, 원전 8기 건설도 검토</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609080012" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">韓, 美에 대형 원전 8기 건설 추진…2000억달러 대미 투자 본격화</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000549192.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론</span></a></div>
+        
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다</div>
@@ -42295,11 +43280,11 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d8bb63261cacef382f07afdb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://cdn.econovill.com/news/thumbnail/202609/750111_725482_416_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/2026090819731"
   data-title="대미투자 호재發 원전주 &#x27;동반 랠리&#x27;"
   data-publisher="한국경제"
@@ -42323,7 +43308,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>대미투자 호재發 원전주 &#x27;동반 랠리&#x27;</div>
+      <div class="headline">대미투자 호재發 원전주 &#x27;동반 랠리&#x27;</div>
       <div class="article-snippet">대미투자 호재發 원전주 &#x27;동반 랠리&#x27;, 한전기술 이틀 만에 30% 급등 두산에너빌, 최대 4조 수주 기대</div>
     </div>
   </div>
@@ -42432,6 +43417,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.etnews.com/20260908000162"
+  data-title="[ET특징주] 후속 대미투자로 원전 건설 검토 소식에… 관련주 강세"
+  data-publisher="전자신문"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788834132"
+  data-country="KR"
+  data-search="[et특징주] 후속 대미투자로 원전 건설 검토 소식에… 관련주 강세 전자신문 원전 대미투자 한미 양국이 대미 투자 후속 사업으로 대형 원자력발전소 건설을 논의하고 있다는 언론 보도가 전해지면서 원전 관련주가 강세다. 8일 오전 11시 16분 기준 오르비텍(046120) 주가는 전 거래일 대비 26.61% 상승한 5900원에 거래되고 있다. 장 초반 주가는 상한가(6050원)까지 치솟았으나 상승분 일부를 반납했다. 같은 시각 원전주로 꼽히는 서전기전(089860)과 한전기술(052690)도 각각 5390원(+21.90%), 13만 87"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">전자신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[ET특징주] 후속 대미투자로 원전 건설 검토 소식에… 관련주 강세</div>
+      <div class="article-snippet">한미 양국이 대미 투자 후속 사업으로 대형 원자력발전소 건설을 논의하고 있다는 언론 보도가 전해지면서 원전 관련주가 강세다. 8일 오전 11시 16분 기준 오르비텍(046120) 주가는 전 거래일 대비 26.61% 상승한 5900원에 거래되고 있다. 장 초반 주가는 상한가(6050원)까지 치솟았으나 상승분 일부를 반납했다. 같은 시각 원전주로 꼽히는 서전기전(089860)과 한전기술(052690)도 각각 5390원(+21.90%), 13만 87</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><div class="no-image">NUCLEAR<br>NEWS</div></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.cstimes.com/news/articleView.html?idxno=719807"
   data-title="[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;"
   data-publisher="컨슈머타임스"
@@ -42485,7 +43503,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.etnews.com/20260908000162" target="_blank" rel="noopener"><span class="related-coverage-publisher">전자신문</span><span class="related-coverage-title">[ET특징주] 후속 대미투자로 원전 건설 검토 소식에… 관련주 강세</span></a><a class="related-coverage-link" href="https://www.ekn.kr/web/view.php?key=20260908020511880" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지경제신문</span><span class="related-coverage-title">[특징주] 원전株, 한·미 원전 협력 기대 소식에 장 초반 강세</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">美원전 건설 기대감에 원전株 강세…서전기전 20%↑</div>
@@ -42531,6 +43549,171 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.ekn.kr/web/view.php?key=20260908020511880"
+  data-title="[특징주] 원전株, 한·미 원전 협력 기대 소식에 장 초반 강세"
+  data-publisher="에너지경제신문"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788827558"
+  data-country="KR"
+  data-search="[특징주] 원전株, 한·미 원전 협력 기대 소식에 장 초반 강세 에너지경제신문 원전 대미투자 국내 원전 관련 종목들이 8일 장 초반 강세다. 미국에 대형 원자력발전소 8기를 건설하는 사업이 대미 투자 합의문에 담긴다는 소식 영향으로 풀이된다. 한국거래소에 따르면, 이날 9.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[특징주] 원전株, 한·미 원전 협력 기대 소식에 장 초반 강세</div>
+      <div class="article-snippet">국내 원전 관련 종목들이 8일 장 초반 강세다. 미국에 대형 원자력발전소 8기를 건설하는 사업이 대미 투자 합의문에 담긴다는 소식 영향으로 풀이된다. 한국거래소에 따르면, 이날 9..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.ekn.kr/mnt/file/202609/news-p.v1.20260325.c957b575a8bc49bca58eb9bed9d2a664_R.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260908_0003781531"
+  data-title="국회 산중위, 17일 산업통상부로부터 &#x27;대미투자&#x27; 세부사항 비공개 보고 받는다"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788861157"
+  data-country="KR"
+  data-search="국회 산중위, 17일 산업통상부로부터 &#x27;대미투자&#x27; 세부사항 비공개 보고 받는다 뉴시스 원전 대미투자 [서울=뉴시스]정금민 기자 = 국회 산업통상자원중소벤처기업위원회가 오는 17일 산업통상부로부터 3500억 달러 규모의 대미 투자 첫 사업과 관련한 세부 사항을 보고 받는다. 산업통상자원중소벤처기업위원회 관계자는 8일 뉴시스와 통화에서 &quot;여야 산업통상자원중소벤처기업위원들이 17일 오전 비공개로 산업통상부와 만나 대미투자 관련 보고를 받을 예정&quot;이라며 &quot;김정관 산업통상부 장관 등이 출석 대상&quot;이라고 했다. 재정경제기획위원회 또한 비슷한 시기 산업부로부터 비공개 보고를 받을 예정인 것으로 전해졌다. 앞서 박정성 산업부 통상교섭본부장과 실무 협상단은 지난 7일 오전 재정경제"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260908157300001?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">산업통상부, 내주 &#x27;대미투자 1호&#x27; 세부사항 국회에 비공개 보고 | 연합뉴스</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>국회 산중위, 17일 산업통상부로부터 &#x27;대미투자&#x27; 세부사항 비공개 보고 받는다</div>
+      <div class="article-snippet">[서울=뉴시스]정금민 기자 = 국회 산업통상자원중소벤처기업위원회가 오는 17일 산업통상부로부터 3500억 달러 규모의 대미 투자 첫 사업과 관련한 세부 사항을 보고 받는다. 산업통상자원중소벤처기업위원회 관계자는 8일 뉴시스와 통화에서 &quot;여야 산업통상자원중소벤처기업위원들이 17일 오전 비공개로 산업통상부와 만나 대미투자 관련 보고를 받을 예정&quot;이라며 &quot;김정관 산업통상부 장관 등이 출석 대상&quot;이라고 했다. 재정경제기획위원회 또한 비슷한 시기 산업부로부터 비공개 보고를 받을 예정인 것으로 전해졌다. 앞서 박정성 산업부 통상교섭본부장과 실무 협상단은 지난 7일 오전 재정경제</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/ad350482a067312d29c025ae.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.yna.co.kr/view/AKR20260908157300001?section=industry/all"
+  data-title="산업통상부, 내주 &#x27;대미투자 1호&#x27; 세부사항 국회에 비공개 보고 | 연합뉴스"
+  data-publisher="연합뉴스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788858675"
+  data-country="KR"
+  data-search="산업통상부, 내주 &#x27;대미투자 1호&#x27; 세부사항 국회에 비공개 보고 | 연합뉴스 연합뉴스 원전 대미투자 (서울=연합뉴스) 류미나 박재하 조다운 기자 = 김정관 산업통상부 장관이 이달 17일께 3천500억 달러 규모의 대미 투자 첫 사업과 관련 세부..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">연합뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">산업통상부, 내주 &#x27;대미투자 1호&#x27; 세부사항 국회에 비공개 보고 | 연합뉴스</div>
+      <div class="article-snippet">(서울=연합뉴스) 류미나 박재하 조다운 기자 = 김정관 산업통상부 장관이 이달 17일께 3천500억 달러 규모의 대미 투자 첫 사업과 관련 세부...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://img5.yna.co.kr/etc/inner/KR/2026/09/08/AKR20260908157300001_01_i_P4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1723483"
+  data-title="美 요구 사업비 3500억달러 넘어…정부, 대미투자 3대 사업 조정 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788857692"
+  data-country="KR"
+  data-search="美 요구 사업비 3500억달러 넘어…정부, 대미투자 3대 사업 조정 - 이비엔(ebn)뉴스센터 ebn산업경제 원전 대미투자 미국 정부가 한국에 제시한 투자사업 규모가 한미 관세협상에서 합의한 3500억달러를 넘어선 것으로 확인됐다. 정부는 실제 투자액이 대미투자펀드의 한도를 초과하지"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美 요구 사업비 3500억달러 넘어…정부, 대미투자 3대 사업 조정 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">미국 정부가 한국에 제시한 투자사업 규모가 한미 관세협상에서 합의한 3500억달러를 넘어선 것으로 확인됐다. 정부는 실제 투자액이 대미투자펀드의 한도를 초과하지</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/31264700df8204fb0bf2b095.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00008&amp;news_seq_no=5217868"
+  data-title="3,500억달러 약속했더니 더 커진 계산서…미국 투자 요구 &#x27;한도 초과&#x27;"
+  data-publisher="MBN"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788857160"
+  data-country="US"
+  data-search="3,500억달러 약속했더니 더 커진 계산서…미국 투자 요구 &#x27;한도 초과&#x27; mbn 원전 대미투자 미국 정부가 지난해 한미 관세 협상에서 합의한 3,500억달러를 웃도는 규모의 대미 투자를 요구하는 것으로 확인됐습니다.이에 우리 정부는 실제 투자 집행 규모가 대미투자펀드의 한도를 넘지 않도록 막판 협상을 벌이고 있습니다.오늘(8일) 정치권에 따르면 산업통상부는 최근 이 같은 내용으로 한미 전략투자 후속 협상 경과를 국회에 비공개로 보고했습니다.산자위 관계자는 &quot;현재 미국에서 요구하는 사업 규모 총액이 3,500억달러를 넘긴다&quot;며 &quot;금액이 초과하다 보니 핵심 사업 중 2개만 반영할지 금액을 조정해서 3개 전부 반영할지를 놓고 막판 절충 작업을 벌이고 있는 상황&quot;이라"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">MBN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 14개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260908183437643" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">미국, &#x27;3500억달러 초과&#x27; 투자 요구…정부, 한도 방어 집중</span></a><a class="related-coverage-link" href="https://www.seoul.co.kr/news/editOpinion/editorial/2026/09/09/20260909027003" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울신문</span><span class="related-coverage-title">[사설] 대미 투자 첫 사업 확정… 한미 통상·안보 심기일전 계기로</span></a><a class="related-coverage-link" href="https://www.yna.co.kr/view/AKR20260908150800003?section=industry/all" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스</span><span class="related-coverage-title">미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스</span></a><a class="related-coverage-link" href="https://www.hankyung.com/article/202609081263i" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;이틀만에 30% 급등&quot;…&#x27;원전 8기&#x27; 대미투자 수혜 종목은</span></a><a class="related-coverage-link" href="https://www.ytn.co.kr/_ln/0134_202609081523182344" target="_blank" rel="noopener"><span class="related-coverage-publisher">YTN</span><span class="related-coverage-title">대미투자 1호 프로젝트, &quot;국내 기업이 설계·조달·시공까지 참여 검토&quot; [자막뉴스]</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090807321777937" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제</span></a><a class="related-coverage-link" href="https://biz.heraldcorp.com/article/10866292" target="_blank" rel="noopener"><span class="related-coverage-publisher">헤럴드경제</span><span class="related-coverage-title">[사설] 대미투자 프로젝트 윤곽, 통상·안보 현안 풀 지렛대로</span></a><a class="related-coverage-link" href="https://www.mt.co.kr/stock/2026/09/08/2026090811053190437" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니투데이</span><span class="related-coverage-title">3500억 달러 대미투자 &#x27;가스발전소·원전&#x27; 유력…관련주도 들썩 - 머니투데이</span></a><a class="related-coverage-link" href="https://biz.newdaily.co.kr/site/data/html/2026/09/08/2026090800110.html" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴데일리</span><span class="related-coverage-title">&#x27;모 아니면 도&#x27; 1200억달러 대미 원전 투자 … 성공 땐 호재, 실패 땐 원금 회수 난항</span></a><a class="related-coverage-link" href="https://www.cstimes.com/news/articleView.html?idxno=719807" target="_blank" rel="noopener"><span class="related-coverage-publisher">컨슈머타임스</span><span class="related-coverage-title">[특징주] 원전주, 미국 원전 8기 기대감에 일제히 &#x27;급등&#x27;</span></a><a class="related-coverage-link" href="https://www.sidae.com/article/2026090809040723529" target="_blank" rel="noopener"><span class="related-coverage-publisher">머니S</span><span class="related-coverage-title">&#x27;대미투자 1호&#x27;는 텍사스 가스발전소, 원전 8기 건설도 검토</span></a><a class="related-coverage-link" href="https://www.sentv.co.kr/article/view/sentv202609080012" target="_blank" rel="noopener"><span class="related-coverage-publisher">서울경제TV</span><span class="related-coverage-title">韓, 美에 대형 원전 8기 건설 추진…2000억달러 대미 투자 본격화</span></a><a class="related-coverage-link" href="https://ichannela.com/news/detail/000000549192.do" target="_blank" rel="noopener"><span class="related-coverage-publisher">채널A</span><span class="related-coverage-title">대미 투자 1호 텍사스 가스발전소…원전·알래스카도 거론</span></a><a class="related-coverage-link" href="https://www.econovill.com/news/articleView.html?idxno=750111" target="_blank" rel="noopener"><span class="related-coverage-publisher">이코노믹리뷰</span><span class="related-coverage-title">대미투자 1호 텍사스 가스발전 유력…&#x27;원전 8기&#x27;도 합의문 담긴다</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>3,500억달러 약속했더니 더 커진 계산서…미국 투자 요구 &#x27;한도 초과&#x27;</div>
+      <div class="article-snippet">미국 정부가 지난해 한미 관세 협상에서 합의한 3,500억달러를 웃도는 규모의 대미 투자를 요구하는 것으로 확인됐습니다.이에 우리 정부는 실제 투자 집행 규모가 대미투자펀드의 한도를 넘지 않도록 막판 협상을 벌이고 있습니다.오늘(8일) 정치권에 따르면 산업통상부는 최근 이 같은 내용으로 한미 전략투자 후속 협상 경과를 국회에 비공개로 보고했습니다.산자위 관계자는 &quot;현재 미국에서 요구하는 사업 규모 총액이 3,500억달러를 넘긴다&quot;며 &quot;금액이 초과하다 보니 핵심 사업 중 2개만 반영할지 금액을 조정해서 3개 전부 반영할지를 놓고 막판 절충 작업을 벌이고 있는 상황&quot;이라</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3aa06050b1833f0ef4db0090.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.yna.co.kr/view/AKR20260908150800003?section=industry/all"
   data-title="미국 &#x27;3천500억달러 초과&#x27; 대미투자 요구…정부, 한도 방어 총력 | 연합뉴스"
   data-publisher="연합뉴스"
@@ -42559,7 +43742,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/1cac5ef20bd6f16789f155f3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://img3.yna.co.kr/photo/yna/YH/2026/07/24/PYH2026072400640001300_P4.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -42833,7 +44016,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">44건</span>
+    <span class="group-count">50건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -42866,6 +44049,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e525b4f0eedde116c556c63.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.mk.co.kr/news/business/12147410"
+  data-title="&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot;"
+  data-publisher="매일경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788858254"
+  data-country="CN"
+  data-search="&quot;美 ai 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; 매일경제 원자력 &quot;인공지능(ai)과 원자력은 긴밀하게 연결돼 있다. 안정적인 기저부하 전력 없이 ai가 필요로 하는 전력 수요를 감당할 수 없기 때문에 원자력의 중요성이 커질 수밖에 없다.&quot; 8일.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot;</div>
+      <div class="article-snippet">&quot;인공지능(AI)과 원자력은 긴밀하게 연결돼 있다. 안정적인 기저부하 전력 없이 AI가 필요로 하는 전력 수요를 감당할 수 없기 때문에 원자력의 중요성이 커질 수밖에 없다.&quot; 8일..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/eba7aa47a04f7febfdaf3dec.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -42969,6 +44185,72 @@ main {
 </article>
 
 <article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/2026090820621"
+  data-title="대미 원전투자 최종관문 &#x27;WEC 지분 인수&#x27;인 이유"
+  data-publisher="한국경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788859710"
+  data-country="KR"
+  data-search="대미 원전투자 최종관문 &#x27;wec 지분 인수&#x27;인 이유 한국경제 원자력 대미 원전투자 최종관문 &#x27;wec 지분 인수&#x27;인 이유, 현장에서 韓지재권 리스크 해소 기회지만 재무적 투자 그칠 땐 실익 적을 듯 김리안 경제부 기자"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대미 원전투자 최종관문 &#x27;WEC 지분 인수&#x27;인 이유</div>
+      <div class="article-snippet">대미 원전투자 최종관문 &#x27;WEC 지분 인수&#x27;인 이유, 현장에서 韓지재권 리스크 해소 기회지만 재무적 투자 그칠 땐 실익 적을 듯 김리안 경제부 기자</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2eda3b6bca9073efed7113b3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hankyung.com/article/2026090821111"
+  data-title="韓 핵잠, 첫 관문 IAEA로…한미 후속협의는 석달째 제자리"
+  data-publisher="한국경제"
+  data-group="국제 원자력·에너지기구"
+  data-language="ko"
+  data-priority="2"
+  data-published="1788859018"
+  data-country="KR"
+  data-search="韓 핵잠, 첫 관문 iaea로…한미 후속협의는 석달째 제자리 한국경제 국제 원자력·에너지기구 韓 핵잠, 첫 관문 iaea로…한미 후속협의는 석달째 제자리, 정부, 협정 체결 위한 의향 통보 핵무장 아닌 &#x27;핵추진&#x27; 검증 착수"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>韓 핵잠, 첫 관문 IAEA로…한미 후속협의는 석달째 제자리</div>
+      <div class="article-snippet">韓 핵잠, 첫 관문 IAEA로…한미 후속협의는 석달째 제자리, 정부, 협정 체결 위한 의향 통보 핵무장 아닌 &#x27;핵추진&#x27; 검증 착수</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2eda3b6bca9073efed7113b3.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/2026090820501"
   data-title="[사설] 韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로"
   data-publisher="한국경제"
@@ -42992,7 +44274,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[사설] 韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로</div>
+      <div class="headline">[사설] 韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로</div>
       <div class="article-snippet">[사설] 韓, 미국에 대형 원전 8기 건설…글로벌 진출 확대 계기로, 오피니언</div>
     </div>
   </div>
@@ -43595,6 +44877,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ekn.kr/web/view.php?key=20260908020042158"
+  data-title="950MW 한빛 2호기 설계수명 만료…수명연장 심사"
+  data-publisher="에너지경제신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788852325"
+  data-country="KR"
+  data-search="950mw 한빛 2호기 설계수명 만료…수명연장 심사 에너지경제신문 원자력 한빛원자력발전소 1호기에 이어 2호기도 40년 설계수명이 다해 가동을 멈춘다. 발전 수요 확대 필요성이 커지는 상황에서.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>950MW 한빛 2호기 설계수명 만료…수명연장 심사</div>
+      <div class="article-snippet">한빛원자력발전소 1호기에 이어 2호기도 40년 설계수명이 다해 가동을 멈춘다. 발전 수요 확대 필요성이 커지는 상황에서..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a0a96e8024716416bcad43cb.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.iusm.co.kr/news/articleView.html?idxno=1067589"
   data-title="울주군, 원전소재 지방자치단체 행정협의회 참석"
@@ -43991,6 +45306,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1723362"
+  data-title="[1% 초고수의 개장선택] AI 내부 순환매 중…&#x27;삼전·닉스&#x27; 팔고 &#x27;로봇·원전&#x27; 샀다 - 이비엔(EBN)뉴스센터"
+  data-publisher="EBN산업경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788827729"
+  data-country="OTHER"
+  data-search="[1% 초고수의 개장선택] ai 내부 순환매 중…&#x27;삼전·닉스&#x27; 팔고 &#x27;로봇·원전&#x27; 샀다 - 이비엔(ebn)뉴스센터 ebn산업경제 원자력 투자수익률 상위 1%에 해당하는 주식 초고수 투자자들이 장 초반 삼성전자와 sk하이닉스를 팔아 차익을 실현하는 대신 로봇과 원전, 건설 등으로 자금을 분산하고 있"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">EBN산업경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[1% 초고수의 개장선택] AI 내부 순환매 중…&#x27;삼전·닉스&#x27; 팔고 &#x27;로봇·원전&#x27; 샀다 - 이비엔(EBN)뉴스센터</div>
+      <div class="article-snippet">투자수익률 상위 1%에 해당하는 주식 초고수 투자자들이 장 초반 삼성전자와 SK하이닉스를 팔아 차익을 실현하는 대신 로봇과 원전, 건설 등으로 자금을 분산하고 있</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4e5e39806273e7d7dce58464.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.enewstoday.co.kr/news/articleView.html?idxno=2467563"
   data-title="핵잠 예산 ‘996억’ 첫 반영···K조선·원전 결합 ‘시험대’"
@@ -44054,6 +45402,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/f0c9ed977efff4c7ebff908c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.ekn.kr/web/view.php?key=20260908028131698"
+  data-title="[단독] 에경연 차기 원장에 ‘탈원전’ 환경단체 출신 거론…내부 ‘발칵’"
+  data-publisher="에너지경제신문"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788835155"
+  data-country="OTHER"
+  data-search="[단독] 에경연 차기 원장에 ‘탈원전’ 환경단체 출신 거론…내부 ‘발칵’ 에너지경제신문 원자력 에너지경제연구원 차기 원장에 그동안 탈원전을 주장해온 환경단체 출신 인사가 유력 후보로 업계와 연구원 안팎에서 거론되.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지경제신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[단독] 에경연 차기 원장에 ‘탈원전’ 환경단체 출신 거론…내부 ‘발칵’</div>
+      <div class="article-snippet">에너지경제연구원 차기 원장에 그동안 탈원전을 주장해온 환경단체 출신 인사가 유력 후보로 업계와 연구원 안팎에서 거론되..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/c886d9b9e87a32160b643ae6.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -44468,7 +45849,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -44534,6 +45915,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/d56480cded68b25e7ec281c7.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.hurriyetdailynews.com/turkiye-condemns-glorification-at-mladic-funeral-226607"
+  data-title="Ankara reacts to ‘glorification attempts’ at Mladic funeral - Türkiye News"
+  data-publisher="Hurriyet Daily News"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1788860475"
+  data-country="TR"
+  data-search="ankara reacts to ‘glorification attempts’ at mladic funeral - türkiye news hurriyet daily news 국내 원자력 협회·학회 türkiye has condemned “attempts to glorify” convicted bosnian serb war criminal ratko mladic at his funeral in belgrade, warning that they deepened the suffering of victims and damaged reconciliation efforts in the balkans."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Hurriyet Daily News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Ankara reacts to ‘glorification attempts’ at Mladic funeral - Türkiye News</div>
+      <div class="article-snippet">Türkiye has condemned “attempts to glorify” convicted Bosnian Serb war criminal Ratko Mladic at his funeral in Belgrade, warning that they deepened the suffering of victims and damaged reconciliation efforts in the Balkans.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4d72ef0b6e445879aef02b42.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -44732,7 +46146,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.koreaherald.com/article/10866759" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Korea Herald</span><span class="related-coverage-title">Seoul moves closer to IAEA safeguards deal for nuclear-powered subs</span></a><a class="related-coverage-link" href="https://www.koreatimes.co.kr/foreignaffairs/20260908/iaea-says-korea-notifies-intent-to-consult-on-safeguards-arrangement-for-nuclear-powered-subs" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Korea Times</span><span class="related-coverage-title">IAEA says Korea notifies intent to consult on safeguards arrangement for nuclear-powered subs - The Korea Times</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.koreaherald.com/article/10866759" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Korea Herald</span><span class="related-coverage-title">Seoul moves closer to IAEA safeguards deal for nuclear-powered subs</span></a><a class="related-coverage-link" href="https://www.koreatimes.co.kr/foreignaffairs/20260908/iaea-says-korea-notifies-intent-to-consult-on-safeguards-arrangement-for-nuclear-powered-subs" target="_blank" rel="noopener"><span class="related-coverage-publisher">The Korea Times</span><span class="related-coverage-title">IAEA confirms Korea notified intent to consult on safeguards arrangement for nuclear subs - The Korea Times</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">IAEA says S. Korea notifies intent to consult on safeguards arrangement for nuclear-powered subs</div>
@@ -44746,14 +46160,14 @@ main {
 
 <article class="preview-card"
   data-url="https://www.koreatimes.co.kr/foreignaffairs/20260908/iaea-says-korea-notifies-intent-to-consult-on-safeguards-arrangement-for-nuclear-powered-subs"
-  data-title="IAEA says Korea notifies intent to consult on safeguards arrangement for nuclear-powered subs - The Korea Times"
+  data-title="IAEA confirms Korea notified intent to consult on safeguards arrangement for nuclear subs - The Korea Times"
   data-publisher="The Korea Times"
   data-group="국제 원자력·에너지기구"
   data-language="en"
   data-priority="0"
   data-published="1788831662"
   data-country="KR"
-  data-search="iaea says korea notifies intent to consult on safeguards arrangement for nuclear-powered subs - the korea times the korea times 국제 원자력·에너지기구 korea has formally notified the international atomic energy agency (iaea) of its intention to begin consultations on a safeguards arrangement for e..."
+  data-search="iaea confirms korea notified intent to consult on safeguards arrangement for nuclear subs - the korea times the korea times 국제 원자력·에너지기구 korea has formally notified the international atomic energy agency (iaea) of its intention to begin consultations on a safeguards arrangement for e..."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -44768,7 +46182,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">IAEA says Korea notifies intent to consult on safeguards arrangement for nuclear-powered subs - The Korea Times</div>
+      <div class="headline">IAEA confirms Korea notified intent to consult on safeguards arrangement for nuclear subs - The Korea Times</div>
       <div class="article-snippet">Korea has formally notified the International Atomic Energy Agency (IAEA) of its intention to begin consultations on a safeguards arrangement for e...</div>
     </div>
   </div>
@@ -64228,7 +65642,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">49건</span>
+    <span class="group-count">50건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -65284,6 +66698,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/3aa560c81d4a60bf3899c933.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026"
+  data-title="Global Nuclear Generation Reaches Record High, WNA Report Says"
+  data-publisher="NucNet"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788523200"
+  data-country="OTHER"
+  data-search="global nuclear generation reaches record high, wna report says nucnet nuclear power·nuclear energy industry group calls for political support to become projects"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">NucNet</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Global Nuclear Generation Reaches Record High, WNA Report Says</div>
+      <div class="article-snippet">Industry group calls for political support to become projects</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702bad62ace8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -178772,7 +180219,7 @@ document.querySelectorAll(".tab-button").forEach(button => {
   });
 });
 const archiveCutoff="2026-09-08";
-const archiveDates=["2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07", "2026-09-08"];
+const archiveDates=["2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07", "2026-09-08"];
 
 const archiveInput=document.getElementById("archive-date");
 const archiveDateDisplay=document.getElementById("archive-date-display");
@@ -184378,6 +185825,115 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function(){
   const WORLD_URL="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+  const PC11_WORLD_FALLBACKS=[
+    WORLD_URL,
+    "https://unpkg.com/world-atlas@2/countries-50m.json",
+    "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json"
+  ];
+  const PC11_D3_FALLBACKS=[
+    "https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js",
+    "https://unpkg.com/d3@7/dist/d3.min.js"
+  ];
+  const PC11_TOPO_FALLBACKS=[
+    "https://cdnjs.cloudflare.com/ajax/libs/topojson-client/3.1.0/topojson-client.min.js",
+    "https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"
+  ];
+  let pc11MapLoadingPromise=null;
+
+  function pc11FetchTimeout(url,ms=5000){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),ms);
+    return fetch(url,{cache:"force-cache",signal:controller.signal})
+      .then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r})
+      .finally(()=>clearTimeout(timer));
+  }
+
+  function pc11LoadExternalScript(url,globalName,ms=4500){
+    if(window[globalName])return Promise.resolve();
+    return new Promise((resolve,reject)=>{
+      const s=document.createElement("script");
+      s.src=url;
+      s.async=true;
+      const timer=setTimeout(()=>{s.remove();reject(new Error(globalName+" timeout"))},ms);
+      s.onload=()=>{
+        clearTimeout(timer);
+        window[globalName]?resolve():reject(new Error(globalName+" missing"));
+      };
+      s.onerror=()=>{
+        clearTimeout(timer);
+        s.remove();
+        reject(new Error(globalName+" load error"));
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  async function pc11EnsureLibrariesLocal(){
+    if(!window.d3){
+      let ok=false;
+      for(const url of PC11_D3_FALLBACKS){
+        try{await pc11LoadExternalScript(url,"d3");ok=true;break}catch(_e){}
+      }
+      if(!ok && !window.d3)throw new Error("D3");
+    }
+    if(!window.topojson){
+      let ok=false;
+      for(const url of PC11_TOPO_FALLBACKS){
+        try{await pc11LoadExternalScript(url,"topojson");ok=true;break}catch(_e){}
+      }
+      if(!ok && !window.topojson)throw new Error("TopoJSON");
+    }
+  }
+
+  async function pc11LoadWorldMapDataLocal(force=false){
+    if(world && !force){
+      renderMap();
+      return;
+    }
+    if(pc11MapLoadingPromise && !force)return pc11MapLoadingPromise;
+
+    const loading=document.getElementById("pc11-map-loading");
+    if(loading){
+      loading.style.display="flex";
+      loading.textContent="지도 불러오는 중...";
+    }
+
+    pc11MapLoadingPromise=(async()=>{
+      try{
+        await pc11EnsureLibrariesLocal();
+
+        let lastError=null;
+        for(const url of PC11_WORLD_FALLBACKS){
+          try{
+            const r=await pc11FetchTimeout(url,5000);
+            const data=await r.json();
+            if(!data?.objects?.countries)throw new Error("invalid map data");
+            world=data;
+            renderMap();
+            return;
+          }catch(e){
+            lastError=e;
+          }
+        }
+        throw lastError||new Error("world map unavailable");
+      }catch(e){
+        if(loading){
+          loading.style.display="flex";
+          loading.textContent="지도 로딩 실패 · 클릭해서 다시 시도";
+          loading.style.cursor="pointer";
+          loading.onclick=()=>{
+            pc11MapLoadingPromise=null;
+            pc11LoadWorldMapDataLocal(true);
+          };
+        }
+      }finally{
+        pc11MapLoadingPromise=null;
+      }
+    })();
+
+    return pc11MapLoadingPromise;
+  }
+
   const ISO_NUM={US:"840",CA:"124",KR:"410",JP:"392",CN:"156",IN:"356",VN:"704",GB:"826",FR:"250",DE:"276",BG:"100",RO:"642",CZ:"203",PL:"616",SI:"705",FI:"246",SE:"752",NL:"528",BE:"056",CH:"756",SK:"703",DK:"208",UA:"804",RU:"643",TR:"792",AE:"784",SA:"682",AU:"036",BR:"076",ZA:"710",SG:"702",MY:"458",TH:"764"};
   const NUM_TO_ALPHA=Object.fromEntries(Object.entries(ISO_NUM).map(e=>[String(Number(e[1])),e[0]]));
   const COUNTRY_NAME={US:"미국",CA:"캐나다",KR:"한국",JP:"일본",CN:"중국",IN:"인도",VN:"베트남",GB:"영국",FR:"프랑스",DE:"독일",BG:"불가리아",RO:"루마니아",CZ:"체코",PL:"폴란드",SI:"슬로베니아",FI:"핀란드",SE:"스웨덴",NL:"네덜란드",BE:"벨기에",CH:"스위스",SK:"슬로바키아",DK:"덴마크",UA:"우크라이나",RU:"러시아",TR:"튀르키예",AE:"UAE",SA:"사우디",AU:"호주",BR:"브라질",ZA:"남아공",SG:"싱가포르",MY:"말레이시아",TH:"태국"};
@@ -185406,6 +186962,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   function renderMap(){
     renderCountryList();
     if(!world||!window.d3||!window.topojson){
+      const l=document.getElementById("pc11-map-loading");
+      if(l && !pc11MapLoadingPromise)pc11LoadWorldMapDataLocal();
       return;
     }
     const svg=d3.select("#pc11-map"),node=svg.node();if(!node)return;
