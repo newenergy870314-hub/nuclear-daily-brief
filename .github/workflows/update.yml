@@ -1,9 +1,5 @@
 name: Update Nuclear Daily Brief
 
-concurrency:
-  group: nuclear-daily-brief-update
-  cancel-in-progress: false
-
 on:
   workflow_dispatch:
   schedule:
@@ -12,42 +8,80 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: nuclear-daily-brief-update
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - name: Checkout latest main
+        uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            pip install feedparser python-dateutil pillow
+          fi
 
-      - name: Collect news and build page
-        env:
-          SKIP_BACKFILL: "0"
-        run: python collect_news.py
-
-      - name: Commit and push updated files
+      - name: Configure Git
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -A
+      - name: Generate, commit and push safely
+        shell: bash
+        env:
+          SKIP_BACKFILL: "1"
+        run: |
+          set -euo pipefail
 
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
+          # 매 시도마다 최신 origin/main에서 다시 생성합니다.
+          # 실행 중 main이 바뀌어 push가 거절되면 병합하지 않고
+          # 최신 main으로 다시 시작하여 자동 생성 파일 충돌을 피합니다.
+          for attempt in 1 2 3; do
+            echo "===== Attempt ${attempt}/3 ====="
 
-          git commit -m "Update nuclear daily brief"
-          git pull --rebase origin main
-          git push origin main
+            git fetch origin main
+            git reset --hard origin/main
+            git clean -fd
+
+            python collect_news.py
+
+            git add -A
+
+            if git diff --cached --quiet; then
+              echo "No changes to commit."
+              exit 0
+            fi
+
+            git commit -m "Update nuclear daily brief"
+
+            if git push origin HEAD:main; then
+              echo "Push succeeded."
+              exit 0
+            fi
+
+            echo "Main changed during this run. Restarting from latest origin/main..."
+            sleep 5
+          done
+
+          echo "ERROR: Could not push after 3 fresh regeneration attempts."
+          exit 1
