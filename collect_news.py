@@ -1,3 +1,5 @@
+# FINAL PC / MOBILE-FIRST DESKTOP LAYOUT / MAP LEFT 70 + ARTICLES RIGHT 30 / NEW-TAB ORIGINAL / 180D ARCHIVE / 7D THUMB / 2026-09-08
+# FINAL PC V22 / 180-DAY ARCHIVE + 7-DAY REFERENCE-BASED THUMBNAIL RETENTION / 2026-09-08
 # FINAL PC V22 / FAST ORIGINAL VIEWER / TOPIC + CONTINENT > COUNTRY UI / 2026-09-08
 # FINAL PC V22 / FAST ORIGINAL VIEWER / TOPIC + COUNTRY CATEGORY MODE / 2026-09-08
 # FINAL PC V22 / FAST ORIGINAL VIEWER / MOBILE-MATCH CATEGORY UI / 2026-09-08
@@ -227,7 +229,7 @@ ARCHIVE_FILE = Path("news_archive.json")  # legacy migration source only
 ARCHIVE_DIR = Path("archive")
 ARCHIVE_HTML_DIR = Path("archive_html")
 ARCHIVE_INDEX_FILE = ARCHIVE_DIR / "index.json"
-ARCHIVE_DAYS = 365
+ARCHIVE_DAYS = 180
 ARCHIVE_INITIAL_EMBED_DAYS = 14
 BACKFILL_DATES_PER_RUN = 1
 SKIP_BACKFILL = os.getenv("SKIP_BACKFILL", "0") == "1"
@@ -2808,19 +2810,106 @@ def cache_article_thumbnails(
                 "SHA-256 exact-image matching remains active."
             )
 
-def cleanup_old_thumbnails(now: datetime) -> None:
+def cleanup_old_thumbnails(
+    now: datetime,
+    archive: dict[str, dict] | None = None,
+) -> None:
+    """
+    썸네일은 최근 THUMBNAIL_KEEP_DAYS(기본 7일) 기사에 실제로 연결된 파일만 유지합니다.
+
+    기존 방식은 파일 mtime을 기준으로 삭제했는데, GitHub Actions가 저장소를 checkout할 때
+    과거 이미지의 mtime도 현재 시각으로 갱신될 수 있어 오래된 썸네일이 계속 남는 문제가
+    생길 수 있습니다.
+
+    이번 방식은 mtime이 아니라 archive의 기사 날짜 + image 경로를 기준으로 정리하므로
+    Git checkout과 무관하게 7일치만 남습니다.
+    """
     if not THUMBNAIL_DIR.exists():
         return
 
-    cutoff = now.timestamp() - THUMBNAIL_KEEP_DAYS * 24 * 60 * 60
+    keep_names: set[str] = set()
+    cutoff_date = (now.astimezone(KST).date() - timedelta(days=THUMBNAIL_KEEP_DAYS - 1))
+
+    if archive:
+        for date_key, entry in archive.items():
+            try:
+                report_date = datetime.strptime(date_key, "%Y-%m-%d").date()
+            except Exception:
+                continue
+            if report_date < cutoff_date:
+                continue
+
+            if not isinstance(entry, dict):
+                continue
+            for raw in entry.get("articles", []):
+                if not isinstance(raw, dict):
+                    continue
+                image = str(raw.get("image", "") or "").strip()
+                if not image.startswith("assets/thumbnails/"):
+                    continue
+                name = Path(image).name
+                if name and name != THUMBNAIL_FINGERPRINT_FILE.name:
+                    keep_names.add(name)
+
+    removed = 0
+    removed_bytes = 0
+
     for path in THUMBNAIL_DIR.iterdir():
         if not path.is_file():
             continue
+        if path.name == THUMBNAIL_FINGERPRINT_FILE.name:
+            continue
+
+        # archive를 못 받는 예외 상황에서는 기존 mtime 방식으로 안전 fallback.
+        should_remove = False
+        if archive is not None:
+            should_remove = path.name not in keep_names
+        else:
+            try:
+                cutoff_ts = now.timestamp() - THUMBNAIL_KEEP_DAYS * 24 * 60 * 60
+                should_remove = path.stat().st_mtime < cutoff_ts
+            except Exception:
+                should_remove = False
+
+        if not should_remove:
+            continue
+
         try:
-            if path.stat().st_mtime < cutoff:
-                path.unlink()
+            size = path.stat().st_size
+        except Exception:
+            size = 0
+
+        try:
+            path.unlink()
+            removed += 1
+            removed_bytes += size
         except Exception:
             continue
+
+    # 삭제된 이미지의 fingerprint 메타데이터도 함께 제거해 sidecar 자체가 계속 커지지 않게 합니다.
+    try:
+        store = _load_thumbnail_fingerprint_store()
+        if store:
+            existing_names = {
+                p.name
+                for p in THUMBNAIL_DIR.iterdir()
+                if p.is_file() and p.name != THUMBNAIL_FINGERPRINT_FILE.name
+            }
+            pruned = {
+                name: meta
+                for name, meta in store.items()
+                if name in existing_names
+            }
+            if len(pruned) != len(store):
+                _save_thumbnail_fingerprint_store(pruned)
+    except Exception:
+        pass
+
+    print(
+        f"[THUMBNAIL CLEANUP] keep_days={THUMBNAIL_KEEP_DAYS} "
+        f"/ kept={len(keep_names)} / removed={removed} "
+        f"/ freed={removed_bytes / (1024 * 1024):.1f}MB"
+    )
 
 
 def enrich_article_metadata(articles_by_period: dict[str, list[Article]]) -> None:
@@ -11609,7 +11698,7 @@ def backfill_missing_archive_dates(
 
 def save_archive(archive: dict[str, dict]) -> None:
     """
-    365일치를 하나의 JSON으로 저장하지 않고 월별로 분할 저장합니다.
+    180일치를 하나의 JSON으로 저장하지 않고 월별로 분할 저장합니다.
     - archive/YYYY-MM.json : 원본 기사 데이터
     - archive_html/YYYY-MM.html : 과거 날짜 선택 시 브라우저가 필요할 때만 불러오는 HTML fragment
     - archive/index.json : 사용 가능한 날짜 목록
@@ -11645,7 +11734,7 @@ def save_archive(archive: dict[str, dict]) -> None:
             encoding="utf-8",
         )
 
-    # 365일 범위를 벗어난 오래된 월 파일 자동 정리
+    # 180일 범위를 벗어난 오래된 월 파일 자동 정리
     for path in ARCHIVE_DIR.glob("????-??.json"):
         if path.name not in expected_json:
             try:
@@ -30121,6 +30210,294 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   FINAL PC CONCEPT
+   "모바일 안정화 UI를 PC에 재배치"
+   LEFT 70%  : 국가 기사 지도
+   RIGHT 30% : 모바일 기사 분류 + 기사 목록
+   ARTICLE   : 새 탭 원문
+   ========================================================== */
+@media (min-width:1000px){{
+
+  /* Overall desktop split */
+  #pc11-app{{
+    display:grid!important;
+    grid-template-rows:64px minmax(0,1fr)!important;
+    width:100%!important;
+    height:100vh!important;
+    min-height:680px!important;
+    overflow:hidden!important;
+    background:#eaf0f5!important;
+  }}
+
+  .pc11-shell{{
+    display:grid!important;
+    grid-template-columns:minmax(0,7fr) minmax(360px,3fr)!important;
+    gap:10px!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:10px!important;
+    overflow:hidden!important;
+  }}
+
+  .pc11-left,
+  .pc11-right{{
+    min-width:0!important;
+    min-height:0!important;
+    height:100%!important;
+    overflow:hidden!important;
+  }}
+
+  /* --------------------------------------------------------
+     LEFT: map only
+     -------------------------------------------------------- */
+  #pc11-dashboard{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:0!important;
+    overflow:hidden!important;
+    background:#fff!important;
+    border:1px solid rgba(35,57,93,.10)!important;
+    border-radius:12px!important;
+    box-shadow:0 2px 10px rgba(15,23,42,.05)!important;
+  }}
+
+  #pc11-dashboard>.pc11-page-head,
+  #pc11-dashboard>.pc11-kpis{{
+    display:none!important;
+  }}
+
+  #pc11-dashboard>.pc11-dashboard-grid{{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:0!important;
+    margin:0!important;
+  }}
+
+  /* Hide all analytic cards except the already-proven country map */
+  #pc11-dashboard .pc11-dashboard-grid>section{{
+    display:none!important;
+  }}
+
+  #pc11-dashboard .pc11-map-card{{
+    display:grid!important;
+    grid-template-rows:58px minmax(0,1fr)!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    margin:0!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    background:#fff!important;
+    overflow:hidden!important;
+  }}
+
+  #pc11-dashboard .pc11-map-card .pc11-card-head{{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    width:100%!important;
+    height:58px!important;
+    padding:0 18px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#f8fafc!important;
+  }}
+
+  #pc11-dashboard .pc11-map-card .pc11-card-head>div span{{
+    display:block!important;
+    color:#7c8da0!important;
+    font-size:9px!important;
+    font-weight:950!important;
+    letter-spacing:.7px!important;
+  }}
+
+  #pc11-dashboard .pc11-map-card .pc11-card-head>div strong{{
+    display:block!important;
+    margin-top:2px!important;
+    color:#23395d!important;
+    font-size:17px!important;
+    font-weight:950!important;
+  }}
+
+  #pc11-country-reset{{
+    min-width:52px!important;
+    height:30px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(35,57,93,.14)!important;
+    border-radius:7px!important;
+    background:#fff!important;
+    color:#4f6277!important;
+    font-size:11px!important;
+    font-weight:900!important;
+    cursor:pointer!important;
+  }}
+
+  #pc11-dashboard .pc11-map-layout{{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 190px!important;
+    gap:10px!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:12px!important;
+    overflow:hidden!important;
+    background:#fff!important;
+  }}
+
+  #pc11-dashboard .pc11-map-stage{{
+    position:relative!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    border:1px solid #e2e8ef!important;
+    border-radius:10px!important;
+    background:#f8fafc!important;
+  }}
+
+  #pc11-map{{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    min-height:0!important;
+  }}
+
+  #pc11-map-loading{{
+    font-size:12px!important;
+  }}
+
+  #pc11-country-list{{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:6px!important;
+    min-width:0!important;
+    min-height:0!important;
+    height:100%!important;
+    overflow-y:auto!important;
+    padding:2px 2px 2px 0!important;
+  }}
+
+  /* Original iframe viewer is completely removed from the PC experience */
+  #pc11-detail{{
+    display:none!important;
+  }}
+
+  /* --------------------------------------------------------
+     RIGHT: mobile-derived navigation + article cards
+     -------------------------------------------------------- */
+  .pc11-right{{
+    display:grid!important;
+    grid-template-rows:50px 40px auto auto 40px minmax(0,1fr)!important;
+    background:#eef3f8!important;
+    border:1px solid rgba(35,57,93,.10)!important;
+    border-radius:12px!important;
+    box-shadow:0 2px 10px rgba(15,23,42,.05)!important;
+  }}
+
+  .pc11-mobile-category-head{{
+    min-height:50px!important;
+    padding:0 12px!important;
+    background:#eef3f8!important;
+  }}
+
+  .pc11-category-mode{{
+    padding:5px 9px!important;
+  }}
+
+  .pc11-continent-tabs{{
+    padding:6px 9px!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs{{
+    max-height:122px!important;
+    padding:7px 9px!important;
+    gap:5px!important;
+    background:#eef3f8!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs button{{
+    min-height:28px!important;
+    padding:0 9px!important;
+    font-size:10.5px!important;
+  }}
+
+  .pc11-list-head{{
+    min-height:40px!important;
+    padding:0 10px!important;
+  }}
+
+  .pc11-article-list{{
+    min-height:0!important;
+    overflow-y:auto!important;
+    padding:8px!important;
+    background:#eef3f8!important;
+  }}
+
+  /* Use the familiar mobile card identity on desktop */
+  .pc11-list-card{{
+    margin-bottom:7px!important;
+    border:1px solid rgba(35,57,93,.07)!important;
+    border-radius:8px!important;
+    background:#fbfaf7!important;
+    box-shadow:0 2px 7px rgba(15,23,42,.05)!important;
+    cursor:pointer!important;
+  }}
+
+  .pc11-list-card:hover{{
+    transform:none!important;
+    border-color:rgba(35,57,93,.16)!important;
+    box-shadow:0 3px 10px rgba(15,23,42,.08)!important;
+  }}
+
+  .pc11-list-card.read{{
+    background:#ebeff3!important;
+  }}
+
+  .pc11-list-title{{
+    color:#0b57d0!important;
+    font-size:15px!important;
+    line-height:1.38!important;
+  }}
+
+  .pc11-list-preview{{
+    font-size:12px!important;
+    line-height:1.45!important;
+  }}
+
+  /* Keep header simple and familiar */
+  .pc11-header{{
+    min-height:64px!important;
+  }}
+}}
+
+/* Smaller desktop: keep the same concept, only tighten proportions */
+@media (min-width:1000px) and (max-width:1350px){{
+  .pc11-shell{{
+    grid-template-columns:minmax(0,65fr) minmax(340px,35fr)!important;
+  }}
+
+  #pc11-dashboard .pc11-map-layout{{
+    grid-template-columns:minmax(0,1fr) 160px!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs{{
+    max-height:112px!important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -30156,7 +30533,7 @@ main {{
   <div class="pc11-shell">
     <!-- LEFT: dashboard <-> article detail -->
     <section class="pc11-left">
-      <div id="pc11-dashboard" class="pc11-dashboard" hidden aria-hidden="true">
+      <div id="pc11-dashboard" class="pc11-dashboard">
         <div class="pc11-page-head">
           <div>
             <span id="pc11-head-kicker">TODAY</span>
@@ -38944,14 +39321,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     }}catch(_){{}}
   }}
 
-  document.addEventListener("pointerover",(ev)=>{{
-    const card=ev.target.closest && ev.target.closest(".pc11-list-card");
-    if(!card)return;
-    const idx=Number(card.dataset.articleIndex);
-    const list=currentCards();
-    const article=Number.isFinite(idx) ? list[idx] : null;
-    if(article)pc11WarmOriginalUrl(article.dataset.url||"");
-  }},{{passive:true}});
+  // PC 원문은 새 탭으로 열기 때문에 iframe용 prefetch는 사용하지 않습니다.
 
   function init(){{
     if(!desktop())return;
@@ -40566,79 +40936,12 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function openDetail(c){{
     if(!c)return;
-
     const url=c.dataset.url||"";
-    const dashboard=document.getElementById("pc11-dashboard");
-    const detail=document.getElementById("pc11-detail");
-    const frame=document.getElementById("pc11-detail-frame");
-    const loader=document.getElementById("pc11-original-loading");
-    const loaderTitle=document.getElementById("pc11-original-title");
-    const loaderStatus=document.getElementById("pc11-original-status");
+    if(!url)return;
 
+    // PC에서는 모바일처럼 기사 선택/분류까지만 담당하고,
+    // 원문은 별도 탭에서 직접 엽니다. iframe을 사용하지 않습니다.
     activeArticle=c;
-    if(detail)detail.classList.remove("pc11-detail-empty");
-
-    if(dashboard){{
-      dashboard.hidden=true;
-      dashboard.style.setProperty("display","none","important");
-    }}
-    if(detail){{
-      detail.hidden=false;
-      detail.style.setProperty("display","grid","important");
-      detail.style.setProperty("visibility","visible","important");
-      detail.style.setProperty("opacity","1","important");
-    }}
-
-    // 이미 수집한 메타 정보는 즉시 갱신
-    const groupEl=document.getElementById("pc11-detail-group");
-    const publisherEl=document.getElementById("pc11-detail-publisher");
-    const timeEl=document.getElementById("pc11-detail-time");
-    const titleEl=document.getElementById("pc11-detail-title");
-    const summaryEl=document.getElementById("pc11-detail-summary");
-    if(groupEl)groupEl.textContent=group(c)||"기사";
-    if(publisherEl)publisherEl.textContent=publisher(c)||"-";
-    if(timeEl)timeEl.textContent=published(c)||"-";
-    if(titleEl)titleEl.textContent=title(c)||"기사 제목";
-    if(summaryEl)summaryEl.textContent=summary(c)||"";
-
-    const originalBtn=document.getElementById("pc11-detail-original");
-    if(originalBtn){{
-      originalBtn.disabled=!url;
-      originalBtn.onclick=()=>{{if(url)window.open(url,"_blank","noopener")}};
-    }}
-
-    // 선택 즉시 원문 iframe 이동. 미리보기 화면을 거치지 않음.
-    if(loader){{
-      loader.style.display="flex";
-      loader.style.opacity="1";
-      loader.style.pointerEvents="auto";
-    }}
-    if(loaderTitle)loaderTitle.textContent=publisher(c) ? publisher(c)+" 원문 불러오는 중" : "원문 불러오는 중";
-    if(loaderStatus)loaderStatus.textContent="기사 원문에 연결하고 있습니다.";
-
-    if(frame && url){{
-      // 같은 기사를 다시 누르면 재로딩하지 않음.
-      if(pc11LastOpenedUrl!==url){{
-        pc11LastOpenedUrl=url;
-        frame.src=url;
-      }}else if(loader){{
-        loader.style.display="none";
-      }}
-
-      // load 이벤트가 오면 즉시 로더 제거
-      const token=++pc11FrameLoadToken;
-      frame.onload=()=>{{
-        if(token!==pc11FrameLoadToken)return;
-        if(loader)loader.style.display="none";
-      }};
-
-      // 일부 사이트는 load 이벤트 처리가 늦으므로 로더만 짧게 종료
-      setTimeout(()=>{{
-        if(token!==pc11FrameLoadToken)return;
-        if(loader)loader.style.display="none";
-      }},1200);
-    }}
-
     markReadForPC(c);
     syncMobileState(c);
 
@@ -40657,7 +40960,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       }}
     }}
 
-    syncDetailNavButtons();
+    window.open(url,"_blank","noopener");
   }}
 
   function closeDetail(){{
@@ -40998,7 +41301,6 @@ def main() -> int:
 
     # 대표 이미지를 로컬 파일로 저장해 외부 이미지 차단/로딩 실패를 줄입니다.
     cache_article_thumbnails(articles_by_period)
-    cleanup_old_thumbnails(now)
 
     # 방금 저장한 fingerprint sidecar를 기준으로 중복 판정하도록 캐시를 새로 읽습니다.
     global _THUMBNAIL_FP_RUNTIME_CACHE
@@ -41060,6 +41362,10 @@ def main() -> int:
         archive = backfill_missing_archive_dates(archive, now)
 
     save_archive(archive)
+
+    # 기사 archive는 180일 유지하되, 썸네일 이미지는 최근 7일 기사에
+    # 실제로 연결된 파일만 남겨 GitHub Pages 용량이 계속 누적되지 않게 합니다.
+    cleanup_old_thumbnails(now, archive)
 
     available_archive_dates = sorted(
         key for key in archive.keys()
