@@ -1,3 +1,5 @@
+# FINAL PC V22 / MAP SCOPE HARD FIX / PC11 LOCAL LOADER / 2026-09-08
+# FINAL PC V22 / TIMELINE EXPANDED / READABILITY FIX / 2026-09-08
 # FINAL PC V22 / TIMELINE HARD FIX / GLOBAL BIND + ARCHIVE JSON SEARCH / 2026-09-08
 # FINAL PC V22 / MAP RETRY FIX / CDN FALLBACK + TIMEOUT / 2026-09-08
 # FINAL PC V22 / FAST OPEN + HOVER PRECONNECT + COMPACT 34PX LOADER / MOBILE UNCHANGED 2026-09-08
@@ -29385,6 +29387,166 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   PC V22 — TIMELINE EXPANDED FOR READABILITY
+   ========================================================== */
+@media (min-width:1000px){{
+
+  .pc11-dashboard-grid{{
+    grid-template-rows:
+      minmax(320px,1.05fr)
+      minmax(330px,1.05fr)
+      minmax(205px,.68fr)!important;
+  }}
+
+  .pc11-timeline-card{{
+    min-height:330px!important;
+  }}
+
+  .pc11-timeline-head{{
+    height:54px!important;
+  }}
+
+  .pc11-timeline-body{{
+    height:calc(100% - 54px)!important;
+    grid-template-rows:48px 36px minmax(0,1fr)!important;
+    gap:8px!important;
+    padding:10px 14px 12px!important;
+  }}
+
+  .pc11-timeline-search{{
+    grid-template-columns:minmax(0,1fr) 78px!important;
+    gap:8px!important;
+  }}
+
+  .pc11-timeline-search input{{
+    height:42px!important;
+    font-size:14px!important;
+    padding:0 13px!important;
+  }}
+
+  .pc11-timeline-search button{{
+    height:42px!important;
+    font-size:13px!important;
+  }}
+
+  .pc11-timeline-status strong{{
+    font-size:13px!important;
+  }}
+
+  .pc11-timeline-status span{{
+    font-size:11px!important;
+  }}
+
+  .pc11-timeline-scroll{{
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    padding:10px 10px 8px!important;
+  }}
+
+  .pc11-timeline-track{{
+    min-height:190px!important;
+    padding:0 44px 18px!important;
+  }}
+
+  .pc11-timeline-track::before{{
+    top:46px!important;
+    height:4px!important;
+    left:44px!important;
+    right:44px!important;
+  }}
+
+  .pc11-timeline-event{{
+    width:190px!important;
+    min-height:180px!important;
+    grid-template-rows:28px 34px 72px 24px!important;
+    padding:0 12px!important;
+  }}
+
+  .pc11-timeline-date{{
+    font-size:13px!important;
+  }}
+
+  .pc11-timeline-dot{{
+    width:20px!important;
+    height:20px!important;
+    margin-top:5px!important;
+    border-width:4px!important;
+  }}
+
+  .pc11-timeline-event-title{{
+    margin-top:12px!important;
+    font-size:14px!important;
+    line-height:1.4!important;
+    -webkit-line-clamp:3!important;
+  }}
+
+  .pc11-timeline-event-count{{
+    margin-top:8px!important;
+    font-size:11px!important;
+  }}
+
+  .pc11-timeline-empty{{
+    font-size:13px!important;
+  }}
+
+  .pc11-timeline-scroll::-webkit-scrollbar{{
+    height:11px!important;
+  }}
+
+  .pc11-timeline-scroll::-webkit-scrollbar-thumb{{
+    background:#8799aa!important;
+    border-radius:999px!important;
+  }}
+
+  .pc11-timeline-scroll::-webkit-scrollbar-track{{
+    background:#e7edf2!important;
+    border-radius:999px!important;
+  }}
+
+  @media (max-width:1450px){{
+    .pc11-dashboard-grid{{
+      grid-template-rows:
+        minmax(300px,1fr)
+        minmax(300px,1fr)
+        minmax(195px,.65fr)!important;
+    }}
+
+    .pc11-timeline-card{{
+      min-height:300px!important;
+    }}
+
+    .pc11-timeline-event{{
+      width:175px!important;
+    }}
+  }}
+
+  @media (max-height:800px){{
+    .pc11-dashboard-grid{{
+      grid-template-rows:
+        minmax(270px,1fr)
+        minmax(280px,1fr)
+        minmax(185px,.65fr)!important;
+    }}
+
+    .pc11-timeline-card{{
+      min-height:280px!important;
+    }}
+
+    .pc11-timeline-event{{
+      width:165px!important;
+      min-height:165px!important;
+      grid-template-rows:26px 32px 62px 22px!important;
+    }}
+
+    .pc11-timeline-event-title{{
+      font-size:13px!important;
+      -webkit-line-clamp:3!important;
+    }}
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -38451,6 +38613,115 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function(){{
   const WORLD_URL="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+  const PC11_WORLD_FALLBACKS=[
+    WORLD_URL,
+    "https://unpkg.com/world-atlas@2/countries-50m.json",
+    "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json"
+  ];
+  const PC11_D3_FALLBACKS=[
+    "https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js",
+    "https://unpkg.com/d3@7/dist/d3.min.js"
+  ];
+  const PC11_TOPO_FALLBACKS=[
+    "https://cdnjs.cloudflare.com/ajax/libs/topojson-client/3.1.0/topojson-client.min.js",
+    "https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"
+  ];
+  let pc11MapLoadingPromise=null;
+
+  function pc11FetchTimeout(url,ms=5000){{
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),ms);
+    return fetch(url,{{cache:"force-cache",signal:controller.signal}})
+      .then(r=>{{if(!r.ok)throw new Error("HTTP "+r.status);return r}})
+      .finally(()=>clearTimeout(timer));
+  }}
+
+  function pc11LoadExternalScript(url,globalName,ms=4500){{
+    if(window[globalName])return Promise.resolve();
+    return new Promise((resolve,reject)=>{{
+      const s=document.createElement("script");
+      s.src=url;
+      s.async=true;
+      const timer=setTimeout(()=>{{s.remove();reject(new Error(globalName+" timeout"))}},ms);
+      s.onload=()=>{{
+        clearTimeout(timer);
+        window[globalName]?resolve():reject(new Error(globalName+" missing"));
+      }};
+      s.onerror=()=>{{
+        clearTimeout(timer);
+        s.remove();
+        reject(new Error(globalName+" load error"));
+      }};
+      document.head.appendChild(s);
+    }});
+  }}
+
+  async function pc11EnsureLibrariesLocal(){{
+    if(!window.d3){{
+      let ok=false;
+      for(const url of PC11_D3_FALLBACKS){{
+        try{{await pc11LoadExternalScript(url,"d3");ok=true;break}}catch(_e){{}}
+      }}
+      if(!ok && !window.d3)throw new Error("D3");
+    }}
+    if(!window.topojson){{
+      let ok=false;
+      for(const url of PC11_TOPO_FALLBACKS){{
+        try{{await pc11LoadExternalScript(url,"topojson");ok=true;break}}catch(_e){{}}
+      }}
+      if(!ok && !window.topojson)throw new Error("TopoJSON");
+    }}
+  }}
+
+  async function pc11LoadWorldMapDataLocal(force=false){{
+    if(world && !force){{
+      renderMap();
+      return;
+    }}
+    if(pc11MapLoadingPromise && !force)return pc11MapLoadingPromise;
+
+    const loading=document.getElementById("pc11-map-loading");
+    if(loading){{
+      loading.style.display="flex";
+      loading.textContent="지도 불러오는 중...";
+    }}
+
+    pc11MapLoadingPromise=(async()=>{{
+      try{{
+        await pc11EnsureLibrariesLocal();
+
+        let lastError=null;
+        for(const url of PC11_WORLD_FALLBACKS){{
+          try{{
+            const r=await pc11FetchTimeout(url,5000);
+            const data=await r.json();
+            if(!data?.objects?.countries)throw new Error("invalid map data");
+            world=data;
+            renderMap();
+            return;
+          }}catch(e){{
+            lastError=e;
+          }}
+        }}
+        throw lastError||new Error("world map unavailable");
+      }}catch(e){{
+        if(loading){{
+          loading.style.display="flex";
+          loading.textContent="지도 로딩 실패 · 클릭해서 다시 시도";
+          loading.style.cursor="pointer";
+          loading.onclick=()=>{{
+            pc11MapLoadingPromise=null;
+            pc11LoadWorldMapDataLocal(true);
+          }};
+        }}
+      }}finally{{
+        pc11MapLoadingPromise=null;
+      }}
+    }})();
+
+    return pc11MapLoadingPromise;
+  }}
+
   const ISO_NUM={{US:"840",CA:"124",KR:"410",JP:"392",CN:"156",IN:"356",VN:"704",GB:"826",FR:"250",DE:"276",BG:"100",RO:"642",CZ:"203",PL:"616",SI:"705",FI:"246",SE:"752",NL:"528",BE:"056",CH:"756",SK:"703",DK:"208",UA:"804",RU:"643",TR:"792",AE:"784",SA:"682",AU:"036",BR:"076",ZA:"710",SG:"702",MY:"458",TH:"764"}};
   const NUM_TO_ALPHA=Object.fromEntries(Object.entries(ISO_NUM).map(e=>[String(Number(e[1])),e[0]]));
   const COUNTRY_NAME={{US:"미국",CA:"캐나다",KR:"한국",JP:"일본",CN:"중국",IN:"인도",VN:"베트남",GB:"영국",FR:"프랑스",DE:"독일",BG:"불가리아",RO:"루마니아",CZ:"체코",PL:"폴란드",SI:"슬로베니아",FI:"핀란드",SE:"스웨덴",NL:"네덜란드",BE:"벨기에",CH:"스위스",SK:"슬로바키아",DK:"덴마크",UA:"우크라이나",RU:"러시아",TR:"튀르키예",AE:"UAE",SA:"사우디",AU:"호주",BR:"브라질",ZA:"남아공",SG:"싱가포르",MY:"말레이시아",TH:"태국"}};
@@ -39479,6 +39750,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   function renderMap(){{
     renderCountryList();
     if(!world||!window.d3||!window.topojson){{
+      const l=document.getElementById("pc11-map-loading");
+      if(l && !pc11MapLoadingPromise)pc11LoadWorldMapDataLocal();
       return;
     }}
     const svg=d3.select("#pc11-map"),node=svg.node();if(!node)return;
