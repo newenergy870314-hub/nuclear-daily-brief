@@ -1,3 +1,5 @@
+# FINAL PC MAP FIX + RIGHT ARTICLE LIST SCROLL FIX / POPUP WINDOW / 180D ARCHIVE / 90D THUMB / 2026-09-08
+# FINAL PC SEPARATE POPUP WINDOW FIX / 180D ARCHIVE / 90D THUMB / 2026-09-08
 # FINAL PC / MOBILE-FIRST DESKTOP / 180D ARCHIVE / 90D THUMBNAIL / CONFLICT-SAFE WORKFLOW PAIR / 2026-09-08
 # FINAL PC / MOBILE-FIRST DESKTOP LAYOUT / MAP LEFT 70 + ARTICLES RIGHT 30 / NEW-TAB ORIGINAL / 180D ARCHIVE / 7D THUMB / 2026-09-08
 # FINAL PC V22 / 180-DAY ARCHIVE + 7-DAY REFERENCE-BASED THUMBNAIL RETENTION / 2026-09-08
@@ -30499,6 +30501,97 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   FINAL PC HARD LAYOUT FIX
+   - LEFT: map always visible
+   - RIGHT: topic/country controls stay at top
+   - ARTICLE LIST: always gets remaining height + independent scroll
+   ========================================================== */
+@media (min-width:1000px){{
+
+  .pc11-left{{
+    position:relative!important;
+    display:block!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }}
+
+  #pc11-dashboard{{
+    display:block!important;
+    position:absolute!important;
+    inset:0!important;
+    visibility:visible!important;
+    opacity:1!important;
+    z-index:2!important;
+  }}
+
+  #pc11-detail{{
+    display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    position:absolute!important;
+    width:0!important;
+    height:0!important;
+    overflow:hidden!important;
+  }}
+
+  /* Right panel must not let category buttons consume the article area */
+  .pc11-right{{
+    display:flex!important;
+    flex-direction:column!important;
+    height:100%!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }}
+
+  .pc11-mobile-category-head,
+  .pc11-category-mode,
+  .pc11-list-head{{
+    flex:0 0 auto!important;
+  }}
+
+  #pc11-continent-tabs.pc11-continent-tabs[hidden]{{
+    display:none!important;
+  }}
+
+  #pc11-continent-tabs.pc11-continent-tabs:not([hidden]){{
+    display:flex!important;
+    flex:0 0 auto!important;
+    max-height:76px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs{{
+    display:flex!important;
+    flex:0 0 auto!important;
+    flex-wrap:wrap!important;
+    align-content:flex-start!important;
+    max-height:118px!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }}
+
+  #pc11-article-list.pc11-article-list{{
+    display:block!important;
+    flex:1 1 0!important;
+    min-height:120px!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    overscroll-behavior:contain!important;
+    scrollbar-gutter:stable!important;
+  }}
+
+  #pc11-article-list .pc11-list-card{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -30626,7 +30719,7 @@ main {{
           <div class="pc11-viewer-brand"><span>ARTICLE VIEWER</span><strong>기사 검토</strong></div>
           <div class="pc11-detail-mode-actions">
             <span class="pc11-fast-review-label">오른쪽 기사 선택 → 원문 바로보기</span>
-            <button id="pc11-detail-original" type="button">새 탭에서 열기 ↗</button>
+            <button id="pc11-detail-original" type="button">새창에서 열기 ↗</button>
           </div>
           <div class="pc11-detail-nav">
             <button id="pc11-detail-prev" type="button">이전 기사</button>
@@ -40946,6 +41039,20 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     markReadForPC(c);
     syncMobileState(c);
 
+    // PC 왼쪽은 항상 지도 고정. 기사 선택으로 viewer 화면으로 전환하지 않습니다.
+    const dashboard=document.getElementById("pc11-dashboard");
+    const detail=document.getElementById("pc11-detail");
+    if(dashboard){{
+      dashboard.hidden=false;
+      dashboard.removeAttribute("aria-hidden");
+      dashboard.style.display="block";
+    }}
+    if(detail){{
+      detail.hidden=true;
+      detail.setAttribute("aria-hidden","true");
+      detail.style.display="none";
+    }}
+
     document.querySelectorAll(".pc11-list-card.selected").forEach(el=>el.classList.remove("selected"));
     const cardIndex=currentCards().indexOf(c);
     if(cardIndex>=0){{
@@ -40961,7 +41068,27 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       }}
     }}
 
-    window.open(url,"_blank","noopener");
+    const popupWidth = Math.min(1280, Math.max(980, Math.floor(window.screen.availWidth * 0.78)));
+    const popupHeight = Math.min(920, Math.max(720, Math.floor(window.screen.availHeight * 0.88)));
+    const popupLeft = Math.max(0, Math.floor((window.screen.availWidth - popupWidth) / 2));
+    const popupTop = Math.max(0, Math.floor((window.screen.availHeight - popupHeight) / 2));
+
+    const popupFeatures = [
+      "popup=yes",
+      "width=" + popupWidth,
+      "height=" + popupHeight,
+      "left=" + popupLeft,
+      "top=" + popupTop,
+      "resizable=yes",
+      "scrollbars=yes",
+      "noopener=yes"
+    ].join(",");
+
+    const popup = window.open(url, "pcArticleWindow", popupFeatures);
+
+    if(!popup){{
+      window.open(url, "_blank", "noopener");
+    }}
   }}
 
   function closeDetail(){{
