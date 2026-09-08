@@ -1,3 +1,5 @@
+# FINAL PC V22 / TIMELINE HARD FIX / GLOBAL BIND + ARCHIVE JSON SEARCH / 2026-09-08
+# FINAL PC V22 / MAP RETRY FIX / CDN FALLBACK + TIMEOUT / 2026-09-08
 # FINAL PC V22 / FAST OPEN + HOVER PRECONNECT + COMPACT 34PX LOADER / MOBILE UNCHANGED 2026-09-08
 # FINAL PC V21 / ARTICLE OPEN SPEED OPTIMIZED / MOBILE UNCHANGED 2026-09-08
 # FINAL PC V20 / DATE INTEGRITY FIX / NO LAST-MODIFIED AS PUBLISH DATE / ARCHIVE DATE REPAIR / PC+MOBILE 2026-09-07
@@ -29452,7 +29454,7 @@ main {{
             <div class="pc11-timeline-body">
               <div class="pc11-timeline-search">
                 <input id="pc11-timeline-query" type="search" placeholder="인물 · 기관 · 프로젝트 · 이슈 검색 (예: 김정관, 한수원, 대미 투자)">
-                <button id="pc11-timeline-run" type="button">조회</button>
+                <button id="pc11-timeline-run" type="button" onclick="window.pc11RunTimeline&&window.pc11RunTimeline()">조회</button>
               </div>
               <div class="pc11-timeline-status">
                 <strong id="pc11-timeline-title">검색어를 입력하면 관련 동향을 날짜순으로 정리합니다.</strong>
@@ -37875,6 +37877,101 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   const WORLD_URL="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+  const WORLD_URL_FALLBACKS=[
+    WORLD_URL,
+    "https://unpkg.com/world-atlas@2/countries-50m.json",
+    "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json"
+  ];
+  const D3_FALLBACKS=[
+    "https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js",
+    "https://unpkg.com/d3@7/dist/d3.min.js"
+  ];
+  const TOPOJSON_FALLBACKS=[
+    "https://cdnjs.cloudflare.com/ajax/libs/topojson-client/3.1.0/topojson-client.min.js",
+    "https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"
+  ];
+
+  function pc11FetchWithTimeout(url,timeoutMs=5000){{
+    const ctrl=new AbortController();
+    const timer=setTimeout(()=>ctrl.abort(),timeoutMs);
+    return fetch(url,{{cache:"force-cache",signal:ctrl.signal}})
+      .then(r=>{{if(!r.ok)throw new Error("HTTP "+r.status);return r}})
+      .finally(()=>clearTimeout(timer));
+  }}
+
+  function pc11LoadScriptOnce(url,globalName,timeoutMs=4500){{
+    if(window[globalName])return Promise.resolve(true);
+    return new Promise((resolve,reject)=>{{
+      const existing=[...document.scripts].find(s=>s.src===url);
+      if(existing){{
+        const started=Date.now();
+        const poll=setInterval(()=>{{
+          if(window[globalName]){{
+            clearInterval(poll);resolve(true);
+          }}else if(Date.now()-started>timeoutMs){{
+            clearInterval(poll);reject(new Error(globalName+" timeout"));
+          }}
+        }},100);
+        return;
+      }}
+      const s=document.createElement("script");
+      s.src=url;
+      s.async=true;
+      const timer=setTimeout(()=>{{s.remove();reject(new Error(globalName+" timeout"))}},timeoutMs);
+      s.onload=()=>{{clearTimeout(timer);window[globalName]?resolve(true):reject(new Error(globalName+" missing"))}};
+      s.onerror=()=>{{clearTimeout(timer);s.remove();reject(new Error(globalName+" load error"))}};
+      document.head.appendChild(s);
+    }});
+  }}
+
+  async function pc11EnsureMapLibraries(){{
+    if(!window.d3){{
+      let ok=false;
+      for(const url of D3_FALLBACKS){{
+        try{{await pc11LoadScriptOnce(url,"d3");ok=true;break}}catch(_e){{}}
+      }}
+      if(!ok && !window.d3)throw new Error("d3 unavailable");
+    }}
+    if(!window.topojson){{
+      let ok=false;
+      for(const url of TOPOJSON_FALLBACKS){{
+        try{{await pc11LoadScriptOnce(url,"topojson");ok=true;break}}catch(_e){{}}
+      }}
+      if(!ok && !window.topojson)throw new Error("topojson unavailable");
+    }}
+  }}
+
+  async function pc11LoadWorldMapData(){{
+    const loading=document.getElementById("pc11-map-loading");
+    if(loading){{
+      loading.style.display="flex";
+      loading.textContent="지도 불러오는 중...";
+    }}
+
+    try{{
+      await pc11EnsureMapLibraries();
+
+      let lastError=null;
+      for(const url of WORLD_URL_FALLBACKS){{
+        try{{
+          const r=await pc11FetchWithTimeout(url,5000);
+          const data=await r.json();
+          if(!data || !data.objects || !data.objects.countries)throw new Error("invalid map data");
+          world=data;
+          renderMap();
+          return;
+        }}catch(e){{
+          lastError=e;
+        }}
+      }}
+      throw lastError||new Error("map unavailable");
+    }}catch(_e){{
+      if(loading){{
+        loading.style.display="flex";
+        loading.textContent="지도를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.";
+      }}
+    }}
+  }}
   const ISO_NUM={{
     US:"840",CA:"124",KR:"410",JP:"392",CN:"156",IN:"356",VN:"704",GB:"826",FR:"250",DE:"276",
     BG:"100",RO:"642",CZ:"203",PL:"616",SI:"705",FI:"246",SE:"752",NL:"528",BE:"056",CH:"756",
@@ -38675,31 +38772,45 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   async function pc11RunTimeline(){{
     const input=document.getElementById("pc11-timeline-query");
-    const q=(input?.value||"").trim();
-    if(!q)return;
-
-    const qLower=q.toLowerCase();
+    const q=String(input?.value||"").trim();
     const titleEl=document.getElementById("pc11-timeline-title");
     const countEl=document.getElementById("pc11-timeline-count");
     const runBtn=document.getElementById("pc11-timeline-run");
+    const box=document.getElementById("pc11-timeline-scroll");
 
+    if(!q){{
+      if(titleEl)titleEl.textContent="검색어를 입력해 주세요.";
+      if(countEl)countEl.textContent="";
+      return;
+    }}
+
+    const qLower=q.toLowerCase();
     if(runBtn){{runBtn.disabled=true;runBtn.textContent="조회 중"}}
     if(titleEl)titleEl.textContent=`${{q}} 주요 동향`;
-    if(countEl)countEl.textContent="최근 1년 기사 데이터 확인 중...";
+    if(countEl)countEl.textContent="기사 검색 시작...";
+    if(box)box.innerHTML='<div class="pc11-timeline-empty">최근 1년 기사에서 검색 중입니다...</div>';
 
     const matched=[];
     const seen=new Set();
 
-    // A) 현재 페이지에 이미 있는 기사부터 확보
-    document.querySelectorAll(".phone .tab-panel .preview-card").forEach(c=>{{
-      if(!fullText(c).includes(qLower))return;
-      const d=pc11CardDate(c);
-      const key=(c.dataset.url||"")+"|"+d+"|"+title(c);
+    const addArticle=(a,dateFallback="")=>{{
+      if(!a)return;
+      const hay=pc11RawText(a);
+      if(!hay.includes(qLower))return;
+
+      const date=pc11RawDate(a,dateFallback)||dateFallback;
+      if(!date)return;
+
+      const key=(a.link||"")+"|"+date+"|"+(a.title||"");
       if(seen.has(key))return;
       seen.add(key);
-      matched.push({{
-        date:d||new Date().toISOString().slice(0,10),
-        article:{{
+      matched.push({{date,article:a}});
+    }};
+
+    // 1) 현재 HTML에 들어있는 기사 먼저 검색
+    try{{
+      document.querySelectorAll(".phone .tab-panel .preview-card").forEach(c=>{{
+        const raw={{
           title:title(c),
           publisher:publisher(c),
           group:group(c),
@@ -38707,54 +38818,67 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
           link:c.dataset.url||"",
           published:new Date((Number(c.dataset.published)||0)*1000).toISOString(),
           image:image(c)
-        }}
+        }};
+        addArticle(raw,pc11CardDate(c)||"");
       }});
-    }});
+    }}catch(_error){{}}
 
+    if(countEl)countEl.textContent=`현재 화면 ${{matched.length}}건 확인 · 과거 기사 검색 중...`;
+
+    // 2) 월별 archive JSON 직접 검색
+    let archiveError="";
     try{{
-      // B) 365일 월별 JSON을 직접 읽음 — HTML DOM 로딩에 의존하지 않음
       const manifestRes=await fetch("archive/index.json",{{cache:"no-store"}});
-      if(!manifestRes.ok)throw new Error("archive index unavailable");
+      if(!manifestRes.ok)throw new Error("archive/index.json HTTP "+manifestRes.status);
+
       const manifest=await manifestRes.json();
       const months=Array.isArray(manifest.months)?manifest.months:[];
+      let done=0;
 
-      let completed=0;
       const loadMonth=async(month)=>{{
         try{{
           const r=await fetch(`archive/${{month}}.json`,{{cache:"no-store"}});
-          if(!r.ok)return;
+          if(!r.ok)throw new Error(month+" HTTP "+r.status);
           const monthData=await r.json();
+
           Object.entries(monthData||{{}}).forEach(([date,item])=>{{
-            (item?.articles||[]).forEach(a=>{{
-              if(!pc11RawText(a).includes(qLower))return;
-              const d=pc11RawDate(a,date)||date;
-              const key=(a.link||"")+"|"+d+"|"+(a.title||"");
-              if(seen.has(key))return;
-              seen.add(key);
-              matched.push({{date:d,article:a}});
-            }});
+            const arr=Array.isArray(item?.articles)?item.articles:[];
+            arr.forEach(a=>addArticle(a,date));
           }});
-        }}catch(_error){{}}
-        finally{{
-          completed++;
-          if(countEl)countEl.textContent=`과거 기사 불러오는 중 · ${{completed}}/${{months.length}}개월`;
+        }}catch(e){{
+          archiveError=String(e?.message||e||"archive error");
+        }}finally{{
+          done++;
+          if(countEl)countEl.textContent=`과거 기사 검색 중 · ${{done}}/${{months.length}}개월 · 현재 ${{matched.length}}건`;
         }}
       }};
 
+      // 4개월씩 병렬
       const concurrency=4;
       for(let i=0;i<months.length;i+=concurrency){{
         await Promise.all(months.slice(i,i+concurrency).map(loadMonth));
       }}
-    }}catch(_error){{
-      // 월별 JSON이 아직 배포되지 않은 환경에서는 현재 페이지 기사 결과라도 유지
+    }}catch(e){{
+      archiveError=String(e?.message||e||"archive index error");
     }}
 
     const valid=matched.filter(x=>x.date);
     const events=pc11BuildRawTimelineEvents(valid);
     pc11RenderRawTimeline(events,q,valid.length);
 
+    if(!valid.length && archiveError && box){{
+      box.innerHTML=
+        '<div class="pc11-timeline-empty">'+
+        '검색 결과를 찾지 못했습니다.<br><small>아카이브 확인: '+esc(archiveError)+'</small>'+
+        '</div>';
+    }}
+
     if(runBtn){{runBtn.disabled=false;runBtn.textContent="조회"}}
-  }}}}
+  }}
+
+  // init 순서나 다른 PC 스크립트 영향과 무관하게 호출할 수 있도록 전역 노출
+  window.pc11RunTimeline=pc11RunTimeline;
+
 
   function renderKpis(){{
     const list=visibleCards();
@@ -39354,7 +39478,9 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function renderMap(){{
     renderCountryList();
-    if(!world||!window.d3||!window.topojson)return;
+    if(!world||!window.d3||!window.topojson){{
+      return;
+    }}
     const svg=d3.select("#pc11-map"),node=svg.node();if(!node)return;
     const w=node.clientWidth||420,h=node.clientHeight||170;
     svg.attr("viewBox","0 0 "+w+" "+h).selectAll("*").remove();
@@ -39647,14 +39773,37 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     pc11RefreshWhenDataReady();
     setTimeout(()=>{{if(desktop())refresh()}},1200);
     setTimeout(()=>{{if(desktop())refresh()}},2600);
-    fetch(WORLD_URL)
-      .then(r=>r.json())
-      .then(d=>{{world=d;renderMap()}})
-      .catch(()=>{{const l=document.getElementById("pc11-map-loading");if(l)l.textContent="지도 데이터를 불러오지 못했습니다."}})
+    pc11LoadWorldMapData();
   }}
 
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>setTimeout(init,350));
   else setTimeout(init,350);
+
+  function pc11BindTimelineHard(){{
+    const run=document.getElementById("pc11-timeline-run");
+    const input=document.getElementById("pc11-timeline-query");
+    if(run){{
+      run.onclick=(ev)=>{{
+        ev.preventDefault();
+        pc11RunTimeline();
+      }};
+    }}
+    if(input && !input.dataset.timelineBound){{
+      input.dataset.timelineBound="1";
+      input.addEventListener("keydown",(ev)=>{{
+        if(ev.key==="Enter"){{
+          ev.preventDefault();
+          pc11RunTimeline();
+        }}
+      }});
+    }}
+  }}
+
+  document.addEventListener("DOMContentLoaded",()=>setTimeout(pc11BindTimelineHard,100));
+  window.addEventListener("load",()=>{{
+    setTimeout(pc11BindTimelineHard,100);
+    setTimeout(pc11BindTimelineHard,800);
+  }});
 
   function pc11ForceDefaultToday(){{
     if(!desktop())return;
@@ -39688,6 +39837,12 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     setTimeout(pc11ForceDefaultToday,120);
     setTimeout(pc11ForceDefaultToday,700);
     setTimeout(pc11ForceDefaultToday,1600);
+  }});
+
+  document.addEventListener("visibilitychange",()=>{{
+    if(document.visibilityState==="visible" && desktop() && !world){{
+      pc11LoadWorldMapData();
+    }}
   }});
 
   window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,90)}})
