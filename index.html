@@ -18258,6 +18258,115 @@ main {
   }
 }
 
+
+/* ==========================================================
+   PC V22 — TOPIC / COUNTRY DUAL CATEGORY MODE
+   ========================================================== */
+@media (min-width:1000px){
+  .pc11-right{
+    grid-template-rows:54px 42px auto 42px minmax(0,1fr)!important;
+  }
+
+  .pc11-category-mode{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:4px!important;
+    padding:6px 10px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#eef3f8!important;
+  }
+
+  .pc11-category-mode button{
+    height:30px!important;
+    border:1px solid rgba(35,57,93,.14)!important;
+    border-radius:7px!important;
+    background:#fff!important;
+    color:#667085!important;
+    font-size:11px!important;
+    font-weight:950!important;
+    cursor:pointer!important;
+  }
+
+  .pc11-category-mode button.active{
+    border-color:#23395d!important;
+    background:#23395d!important;
+    color:#fff!important;
+  }
+
+  #pc11-group-tabs.pc11-group-tabs{
+    max-height:154px!important;
+  }
+
+  #pc11-group-tabs .pc11-country-flag{
+    margin-right:2px!important;
+    font-size:12px!important;
+    line-height:1!important;
+  }
+}
+
+
+/* ==========================================================
+   PC V22 — CONTINENT FIRST, COUNTRY SECOND
+   Country mode: continent tabs on top, only its countries below.
+   ========================================================== */
+@media (min-width:1000px){
+  .pc11-right{
+    grid-template-rows:54px 42px auto auto 42px minmax(0,1fr)!important;
+  }
+
+  .pc11-continent-tabs{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:5px!important;
+    padding:7px 10px!important;
+    overflow-x:auto!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#f7f9fb!important;
+    scrollbar-width:thin!important;
+  }
+
+  .pc11-continent-tabs[hidden]{
+    display:none!important;
+  }
+
+  .pc11-continent-tabs button{
+    flex:0 0 auto!important;
+    min-height:29px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(35,57,93,.13)!important;
+    border-radius:8px!important;
+    background:#fff!important;
+    color:#4b6078!important;
+    font-size:10.5px!important;
+    font-weight:900!important;
+    white-space:nowrap!important;
+    cursor:pointer!important;
+  }
+
+  .pc11-continent-tabs button b{
+    margin-left:3px!important;
+    color:#7a8ca0!important;
+    font-size:9.5px!important;
+  }
+
+  .pc11-continent-tabs button.active{
+    border-color:#23395d!important;
+    background:#23395d!important;
+    color:#fff!important;
+  }
+
+  .pc11-continent-tabs button.active b{
+    color:#d9e4f0!important;
+  }
+
+  /* 국가별에서는 선택 대륙의 국가만 보여주므로 탭 영역이 과도하게 길어지지 않음 */
+  #pc11-group-tabs.pc11-group-tabs{
+    max-height:108px!important;
+    padding-top:7px!important;
+    padding-bottom:8px!important;
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -18430,6 +18539,13 @@ main {
         </div>
         <span id="pc11-right-total">0건</span>
       </div>
+
+      <div class="pc11-category-mode" role="tablist" aria-label="기사 분류 방식">
+        <button id="pc11-mode-topic" class="active" type="button" role="tab" aria-selected="true">주제별</button>
+        <button id="pc11-mode-country" type="button" role="tab" aria-selected="false">국가별</button>
+      </div>
+
+      <div id="pc11-continent-tabs" class="pc11-continent-tabs" hidden aria-label="대륙 선택"></div>
 
       <div id="pc11-group-tabs" class="pc11-group-tabs">
         <button class="active" data-group="" type="button">전체</button>
@@ -18805,7 +18921,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.8(화) 19:45 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.8(화) 20:15 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -26954,7 +27070,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702b9e0f3400&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702baf3f1fd8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35919,7 +36035,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/6a794ff8ebe9c8820d3c30ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/8d87d96ac1f5d7e2c89e99fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36445,7 +36561,7 @@ main {
     <span class="group-count">20건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260908153847082"
   data-title="K-중후장대, 美 원전·에너지 &#x27;골드러시&#x27; 임박...반도체는 불확실성 지속"
   data-publisher="아주경제"
@@ -36469,7 +36585,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>K-중후장대, 美 원전·에너지 &#x27;골드러시&#x27; 임박...반도체는 불확실성 지속</div>
+      <div class="headline">K-중후장대, 美 원전·에너지 &#x27;골드러시&#x27; 임박...반도체는 불확실성 지속</div>
       <div class="article-snippet">Getty Images Bank 한·미 대미투자 프로젝트가 원전·에너지 분야에 집중되는 것으로 가닥이 잡히며 국내 산업계에 희비가 엇갈리고 있다. 가스터빈과 원전 기자재, 변압기 등 중후장대 기업들은 미국발 수주 기대감이 커지고 있지만 이미 60조원 넘는 대규모 미국 투자를 결정한 반도체 업계는 보조금 축소와 관세 부담 우려가 커지고 있다. 8일 업계에 따르면 정부는 미국과 3500억 달러 규모 대미 투자 프로젝트에 대한 막판 협상을 진행 중이다. 1호 프로젝트로는 미국 텍사스주 엔시날에 총 6.3GW 규모 가스복합화력발전소와 대형</div>
     </div>
   </div>
@@ -36478,7 +36594,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260908151718975"
   data-title="&quot;60조 쏟아 부었는데&quot;…K-반도체, 美 보조금·관세 여전히 안갯속"
   data-publisher="아주경제"
@@ -36502,7 +36618,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;60조 쏟아 부었는데&quot;…K-반도체, 美 보조금·관세 여전히 안갯속</div>
+      <div class="headline">&quot;60조 쏟아 부었는데&quot;…K-반도체, 美 보조금·관세 여전히 안갯속</div>
       <div class="article-snippet">[사진=연합뉴스] 정부가 대미 투자 패키지 협상 타결에 속도를 내고 있지만 K-반도체 지원책은 협상 테이블에서 밀려나는 모양새다. LNG·원전 등 에너지 사업이 1호 프로젝트로 우선 추진되는 사이 삼성전자와 SK하이닉스의 현지 팹 보조금 및 관세 면제 협상은 수개월째 난항을 겪고 있다. 8일 정부와 업계에 따르면, 산업통상자원부는 대미 투자 협상 경과를 국회에 보고하는 과정에서 K-반도체 지원과 관련된 핵심 내용을 대거 제외한 것으로 파악됐다. 대미투자 심의기구인 한미전략투자 운영위가 에너지 사업을 1호 프로젝트 안건으로 상정해 속도를 내는 동안 60조원</div>
     </div>
   </div>
@@ -37213,7 +37329,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5217909"
   data-title="이 대통령, 이 시각 마크롱과 오찬…호르무즈 논의할 듯"
   data-publisher="MBN"
@@ -37237,7 +37353,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이 대통령, 이 시각 마크롱과 오찬…호르무즈 논의할 듯</div>
+      <div class="headline">이 대통령, 이 시각 마크롱과 오찬…호르무즈 논의할 듯</div>
       <div class="article-snippet">【 앵커멘트 】 프랑스를 국빈방문 중인 이재명 대통령은 이 시각 마크롱 대통령과 함께 오찬 중입니다. 잠시 뒤, 정상회담도 시작됩니다. 과연 호르무즈 해협의 자유 통항을 두고 어떤 논의를 이어갈까요. 파리에서 표선우 기자가 전합니다.【 기자 】 이재명 대통령과 마크롱 대통령의 오찬은 프랑스 엘리제궁에서 진행 중입니다. 두 정상만 참석하는 단독 오찬이 끝나면 곧바로 회담이 이어집니다. 공급망 협력부터 AI와 반도체, 원전, 우주 등 전방위적인 협력 강화 방안을 논의할 예정인데, 최대 관심은 호르무즈 자유 통항을 위한 양국의 협력 방안입니다. 현재 미국은 우리 정부에 군</div>
     </div>
   </div>
@@ -38344,7 +38460,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mt.co.kr/stock/2026/09/08/2026090819027013126"
   data-title="[급등수사본부] 반도체· 전자· 전장· 유통 등 포트폴리오 균형 &#x27;켐트로닉스&#x27; vs 원자로 내부에서 데이터 수집하는 핵심센서 제작 &#x27;우진&#x27; - 머니투데이"
   data-publisher="머니투데이"
@@ -38368,7 +38484,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[급등수사본부] 반도체· 전자· 전장· 유통 등 포트폴리오 균형 &#x27;켐트로닉스&#x27; vs 원자로 내부에서 데이터 수집하는 핵심센서 제작 &#x27;우진&#x27; - 머니투데이</div>
+      <div class="headline">[급등수사본부] 반도체· 전자· 전장· 유통 등 포트폴리오 균형 &#x27;켐트로닉스&#x27; vs 원자로 내부에서 데이터 수집하는 핵심센서 제작 &#x27;우진&#x27; - 머니투데이</div>
       <div class="article-snippet">▶ 진행 - 박수연 앵커 ▶ 출연 - 황민혁 MTNW 어드바이저 권혜영 MTNW 어드바이저 ▶▶▶ 급등주 CSI ▶ 황민혁 추천주 - 켐트로닉스(089010) - 국내 OLED 식각분야 1위 - 반도체· 전자· 전장· 유통 등 포트폴리오 균형 - TGV 금속 충진 기술 보유 - 목표가 30,000원 손절가 20,000원 ▶▶▶ 급등주 프로파일링 ▶ 권혜영 추천주 - 우진(105840) - 원자로 내부에서 데이터 수집하는 핵심센서 제작 - 미국 원전 SMR 직접 납품 수혜 - 원전 4대 핵심 계측기 국산화 - 미국 노후 원전 교체 수요 도래 수혜 - 목표가 17,000</div>
     </div>
   </div>
@@ -38839,9 +38955,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Holtec</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/reuters.com,2026:newsml_FWN45001N:0-holtec-nuclear-corp-sees-ipo-of-50-000-000-class-a-common-shares-sec-filing/"
+  data-title="Holtec Nuclear Corp - Sees IPO Of 50,000,000 Class A Common Shares - SEC Filing"
+  data-publisher="TradingView"
+  data-group="Holtec"
+  data-language="en"
+  data-priority="0"
+  data-published="1788865298"
+  data-country="US"
+  data-search="holtec nuclear corp - sees ipo of 50,000,000 class a common shares - sec filing tradingview holtec holtec nuclear corp (hnuc.o):"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Holtec Nuclear Corp - Sees IPO Of 50,000,000 Class A Common Shares - SEC Filing</div>
+      <div class="article-snippet">Holtec Nuclear Corp (HNUC.O):</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="TerraPower">
@@ -42808,7 +42957,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/6a794ff8ebe9c8820d3c30ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/8d87d96ac1f5d7e2c89e99fa.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -43466,7 +43615,7 @@ main {
     <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260908153847082"
   data-title="K-중후장대, 美 원전·에너지 &#x27;골드러시&#x27; 임박...반도체는 불확실성 지속"
   data-publisher="아주경제"
@@ -43490,7 +43639,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>K-중후장대, 美 원전·에너지 &#x27;골드러시&#x27; 임박...반도체는 불확실성 지속</div>
+      <div class="headline">K-중후장대, 美 원전·에너지 &#x27;골드러시&#x27; 임박...반도체는 불확실성 지속</div>
       <div class="article-snippet">Getty Images Bank 한·미 대미투자 프로젝트가 원전·에너지 분야에 집중되는 것으로 가닥이 잡히며 국내 산업계에 희비가 엇갈리고 있다. 가스터빈과 원전 기자재, 변압기 등 중후장대 기업들은 미국발 수주 기대감이 커지고 있지만 이미 60조원 넘는 대규모 미국 투자를 결정한 반도체 업계는 보조금 축소와 관세 부담 우려가 커지고 있다. 8일 업계에 따르면 정부는 미국과 3500억 달러 규모 대미 투자 프로젝트에 대한 막판 협상을 진행 중이다. 1호 프로젝트로는 미국 텍사스주 엔시날에 총 6.3GW 규모 가스복합화력발전소와 대형</div>
     </div>
   </div>
@@ -43499,7 +43648,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.ajunews.com/view/20260908151718975"
   data-title="&quot;60조 쏟아 부었는데&quot;…K-반도체, 美 보조금·관세 여전히 안갯속"
   data-publisher="아주경제"
@@ -43523,7 +43672,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;60조 쏟아 부었는데&quot;…K-반도체, 美 보조금·관세 여전히 안갯속</div>
+      <div class="headline">&quot;60조 쏟아 부었는데&quot;…K-반도체, 美 보조금·관세 여전히 안갯속</div>
       <div class="article-snippet">[사진=연합뉴스] 정부가 대미 투자 패키지 협상 타결에 속도를 내고 있지만 K-반도체 지원책은 협상 테이블에서 밀려나는 모양새다. LNG·원전 등 에너지 사업이 1호 프로젝트로 우선 추진되는 사이 삼성전자와 SK하이닉스의 현지 팹 보조금 및 관세 면제 협상은 수개월째 난항을 겪고 있다. 8일 정부와 업계에 따르면, 산업통상자원부는 대미 투자 협상 경과를 국회에 보고하는 과정에서 K-반도체 지원과 관련된 핵심 내용을 대거 제외한 것으로 파악됐다. 대미투자 심의기구인 한미전략투자 운영위가 에너지 사업을 1호 프로젝트 안건으로 상정해 속도를 내는 동안 60조원</div>
     </div>
   </div>
@@ -44795,7 +44944,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00006&amp;news_seq_no=5217909"
   data-title="이 대통령, 이 시각 마크롱과 오찬…호르무즈 논의할 듯"
   data-publisher="MBN"
@@ -44819,7 +44968,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>이 대통령, 이 시각 마크롱과 오찬…호르무즈 논의할 듯</div>
+      <div class="headline">이 대통령, 이 시각 마크롱과 오찬…호르무즈 논의할 듯</div>
       <div class="article-snippet">【 앵커멘트 】 프랑스를 국빈방문 중인 이재명 대통령은 이 시각 마크롱 대통령과 함께 오찬 중입니다. 잠시 뒤, 정상회담도 시작됩니다. 과연 호르무즈 해협의 자유 통항을 두고 어떤 논의를 이어갈까요. 파리에서 표선우 기자가 전합니다.【 기자 】 이재명 대통령과 마크롱 대통령의 오찬은 프랑스 엘리제궁에서 진행 중입니다. 두 정상만 참석하는 단독 오찬이 끝나면 곧바로 회담이 이어집니다. 공급망 협력부터 AI와 반도체, 원전, 우주 등 전방위적인 협력 강화 방안을 논의할 예정인데, 최대 관심은 호르무즈 자유 통항을 위한 양국의 협력 방안입니다. 현재 미국은 우리 정부에 군</div>
     </div>
   </div>
@@ -46487,7 +46636,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.mt.co.kr/stock/2026/09/08/2026090819027013126"
   data-title="[급등수사본부] 반도체· 전자· 전장· 유통 등 포트폴리오 균형 &#x27;켐트로닉스&#x27; vs 원자로 내부에서 데이터 수집하는 핵심센서 제작 &#x27;우진&#x27; - 머니투데이"
   data-publisher="머니투데이"
@@ -46511,7 +46660,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[급등수사본부] 반도체· 전자· 전장· 유통 등 포트폴리오 균형 &#x27;켐트로닉스&#x27; vs 원자로 내부에서 데이터 수집하는 핵심센서 제작 &#x27;우진&#x27; - 머니투데이</div>
+      <div class="headline">[급등수사본부] 반도체· 전자· 전장· 유통 등 포트폴리오 균형 &#x27;켐트로닉스&#x27; vs 원자로 내부에서 데이터 수집하는 핵심센서 제작 &#x27;우진&#x27; - 머니투데이</div>
       <div class="article-snippet">▶ 진행 - 박수연 앵커 ▶ 출연 - 황민혁 MTNW 어드바이저 권혜영 MTNW 어드바이저 ▶▶▶ 급등주 CSI ▶ 황민혁 추천주 - 켐트로닉스(089010) - 국내 OLED 식각분야 1위 - 반도체· 전자· 전장· 유통 등 포트폴리오 균형 - TGV 금속 충진 기술 보유 - 목표가 30,000원 손절가 20,000원 ▶▶▶ 급등주 프로파일링 ▶ 권혜영 추천주 - 우진(105840) - 원자로 내부에서 데이터 수집하는 핵심센서 제작 - 미국 원전 SMR 직접 납품 수혜 - 원전 4대 핵심 계측기 국산화 - 미국 노후 원전 교체 수요 도래 수혜 - 목표가 17,000</div>
     </div>
   </div>
@@ -47114,9 +47263,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Holtec</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/reuters.com,2026:newsml_FWN45001N:0-holtec-nuclear-corp-sees-ipo-of-50-000-000-class-a-common-shares-sec-filing/"
+  data-title="Holtec Nuclear Corp - Sees IPO Of 50,000,000 Class A Common Shares - SEC Filing"
+  data-publisher="TradingView"
+  data-group="Holtec"
+  data-language="en"
+  data-priority="0"
+  data-published="1788865298"
+  data-country="US"
+  data-search="holtec nuclear corp - sees ipo of 50,000,000 class a common shares - sec filing tradingview holtec holtec nuclear corp (hnuc.o):"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Holtec Nuclear Corp - Sees IPO Of 50,000,000 Class A Common Shares - SEC Filing</div>
+      <div class="article-snippet">Holtec Nuclear Corp (HNUC.O):</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="TerraPower">
@@ -67473,7 +67655,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702b9e0f3400&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702baf3f1fd8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -180962,7 +181144,7 @@ document.querySelectorAll(".tab-button").forEach(button => {
   });
 });
 const archiveCutoff="2026-09-08";
-const archiveDates=["2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07", "2026-09-08"];
+const archiveDates=["2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03", "2026-07-04", "2026-07-05", "2026-07-06", "2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15", "2026-07-16", "2026-07-17", "2026-07-18", "2026-07-19", "2026-07-20", "2026-07-21", "2026-07-22", "2026-07-23", "2026-07-24", "2026-07-25", "2026-07-26", "2026-07-27", "2026-07-28", "2026-07-29", "2026-07-30", "2026-07-31", "2026-08-01", "2026-08-02", "2026-08-03", "2026-08-04", "2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08", "2026-08-09", "2026-08-10", "2026-08-11", "2026-08-12", "2026-08-13", "2026-08-14", "2026-08-15", "2026-08-16", "2026-08-17", "2026-08-18", "2026-08-19", "2026-08-20", "2026-08-21", "2026-08-22", "2026-08-23", "2026-08-24", "2026-08-25", "2026-08-26", "2026-08-27", "2026-08-28", "2026-08-29", "2026-08-30", "2026-08-31", "2026-09-01", "2026-09-02", "2026-09-03", "2026-09-04", "2026-09-05", "2026-09-06", "2026-09-07", "2026-09-08"];
 
 const archiveInput=document.getElementById("archive-date");
 const archiveDateDisplay=document.getElementById("archive-date-display");
@@ -187364,6 +187546,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   let period="금일";
   let selectedGroup="";
   let selectedCountry="";
+  let selectedContinent="ALL";
+  let categoryMode="topic"; // topic | country
   let searchText="";
   let activeArticle=null;
   let pc11LastOpenedUrl="";
@@ -187524,28 +187708,197 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     }
   }
 
+  function countryMetaForPC11(code){
+    const meta={
+      US:["🇺🇸","미국"], KR:["🇰🇷","한국"], GB:["🇬🇧","영국"], BG:["🇧🇬","불가리아"],
+      UA:["🇺🇦","우크라이나"], AE:["🇦🇪","UAE"], VN:["🇻🇳","베트남"], RO:["🇷🇴","루마니아"],
+      CZ:["🇨🇿","체코"], PL:["🇵🇱","폴란드"], SI:["🇸🇮","슬로베니아"], SK:["🇸🇰","슬로바키아"],
+      FI:["🇫🇮","핀란드"], JP:["🇯🇵","일본"], CA:["🇨🇦","캐나다"], FR:["🇫🇷","프랑스"],
+      SE:["🇸🇪","스웨덴"], DK:["🇩🇰","덴마크"], CN:["🇨🇳","중국"], IN:["🇮🇳","인도"],
+      AU:["🇦🇺","호주"], BR:["🇧🇷","브라질"], AR:["🇦🇷","아르헨티나"], CL:["🇨🇱","칠레"],
+      PE:["🇵🇪","페루"], CO:["🇨🇴","콜롬비아"], RU:["🇷🇺","러시아"], TR:["🇹🇷","튀르키예"],
+      SA:["🇸🇦","사우디"], ZA:["🇿🇦","남아공"], NL:["🇳🇱","네덜란드"], BE:["🇧🇪","벨기에"],
+      CH:["🇨🇭","스위스"], MY:["🇲🇾","말레이시아"], TH:["🇹🇭","태국"], SG:["🇸🇬","싱가포르"],
+      OTHER:["🌐","기타"]
+    };
+    return meta[code]||["🌐",code||"기타"];
+  }
+
+  const PC11_CONTINENTS=[
+    {code:"ALL", name:"전체"},
+    {code:"NA", name:"북미"},
+    {code:"SA", name:"남미"},
+    {code:"EU", name:"유럽"},
+    {code:"AS", name:"아시아"},
+    {code:"MEA", name:"중동·아프리카"},
+    {code:"OC", name:"오세아니아"}
+  ];
+
+  const PC11_COUNTRY_CONTINENT={
+    US:"NA", CA:"NA",
+    BR:"SA", AR:"SA", CL:"SA", PE:"SA", CO:"SA",
+    GB:"EU", BG:"EU", RO:"EU", CZ:"EU", PL:"EU", SI:"EU", SK:"EU",
+    FI:"EU", FR:"EU", SE:"EU", DK:"EU", NL:"EU", BE:"EU", CH:"EU", UA:"EU",
+    KR:"AS", VN:"AS", JP:"AS", CN:"AS", IN:"AS", MY:"AS", TH:"AS", SG:"AS",
+    AE:"MEA", SA:"MEA", TR:"MEA", ZA:"MEA",
+    AU:"OC",
+    RU:"EU",
+    OTHER:"OTHER"
+  };
+
+  function continentForCountry(code){
+    return PC11_COUNTRY_CONTINENT[code]||"OTHER";
+  }
+
+  function continentCounts(){
+    const counts={ALL:0};
+    cards().forEach(c=>{
+      const co=country(c)||"OTHER";
+      const ct=continentForCountry(co);
+      counts.ALL=(counts.ALL||0)+1;
+      counts[ct]=(counts[ct]||0)+1;
+    });
+    return counts;
+  }
+
+  function renderContinentTabs(){
+    const box=document.getElementById("pc11-continent-tabs");
+    if(!box)return;
+
+    if(categoryMode!=="country"){
+      box.hidden=true;
+      box.innerHTML="";
+      return;
+    }
+
+    box.hidden=false;
+    box.innerHTML="";
+    const counts=continentCounts();
+
+    PC11_CONTINENTS.forEach(item=>{
+      const count=counts[item.code]||0;
+      if(item.code!=="ALL" && count<=0)return;
+
+      const b=document.createElement("button");
+      b.type="button";
+      b.dataset.continent=item.code;
+      b.className=selectedContinent===item.code?"active":"";
+      b.innerHTML=esc(item.name)+' <b>'+count+'</b>';
+      b.onclick=()=>{
+        selectedContinent=item.code;
+        selectedCountry="";
+        renderContinentTabs();
+        renderGroupTabs();
+        renderArticleList();
+      };
+      box.appendChild(b);
+    });
+  }
+
+  function availableCountries(){
+    const counts={};
+    cards().forEach(c=>{
+      const co=country(c)||"OTHER";
+      counts[co]=(counts[co]||0)+1;
+    });
+
+    const preferred=[
+      "US","KR","BG","GB","RO","CZ","PL","SI","FI","UA","AE","VN","JP","CA","FR",
+      "SE","DK","CN","IN","AU","RU","SA","TR","ZA","BR","AR","CL","PE","CO","NL",
+      "BE","CH","MY","TH","SG","OTHER"
+    ];
+    const rank=new Map(preferred.map((c,i)=>[c,i]));
+
+    return Object.entries(counts)
+      .filter(([code,count])=>count>0 && (selectedContinent==="ALL" || continentForCountry(code)===selectedContinent))
+      .map(([code,count])=>{
+        const [flag,name]=countryMetaForPC11(code);
+        return {code,count,flag,name};
+      })
+      .sort((a,b)=>{
+        const ra=rank.has(a.code)?rank.get(a.code):999;
+        const rb=rank.has(b.code)?rank.get(b.code):999;
+        return ra-rb || b.count-a.count || a.name.localeCompare(b.name,"ko");
+      });
+  }
+
+  function renderCategoryMode(){
+    const topic=document.getElementById("pc11-mode-topic");
+    const countryBtn=document.getElementById("pc11-mode-country");
+    if(topic){
+      const on=categoryMode==="topic";
+      topic.classList.toggle("active",on);
+      topic.setAttribute("aria-selected",on?"true":"false");
+    }
+    if(countryBtn){
+      const on=categoryMode==="country";
+      countryBtn.classList.toggle("active",on);
+      countryBtn.setAttribute("aria-selected",on?"true":"false");
+    }
+  }
+
   function renderGroupTabs(){
     const box=document.getElementById("pc11-group-tabs");
+    if(!box)return;
     box.innerHTML="";
-    const all=document.createElement("button");
-    all.type="button";all.dataset.group="";all.className=selectedGroup===""?"active":"";
-    all.innerHTML="전체 <b>"+cards().length+"</b>";
-    all.onclick=()=>selectGroup("","전체");
-    box.appendChild(all);
+    renderCategoryMode();
+    renderContinentTabs();
+
+    if(categoryMode==="topic"){
+      const all=document.createElement("button");
+      all.type="button";
+      all.className=selectedGroup==="" ? "active" : "";
+      all.innerHTML="전체 <b>"+cards().length+"</b>";
+      all.onclick=()=>selectGroup("","전체");
+      box.appendChild(all);
+    }
+
+    if(categoryMode==="country"){
+      availableCountries().forEach(item=>{
+        const b=document.createElement("button");
+        b.type="button";
+        b.dataset.country=item.code;
+        b.className=selectedCountry===item.code?"active":"";
+        b.innerHTML='<span class="pc11-country-flag">'+item.flag+'</span>'+esc(item.name)+' <b>'+item.count+'</b>';
+        b.onclick=()=>selectCountryTab(item.code,item.name);
+        box.appendChild(b);
+      });
+      return;
+    }
 
     availableGroups().forEach(g=>{
       const b=document.createElement("button");
-      b.type="button";b.dataset.group=g.key;b.className=selectedGroup===g.key?"active":"";
+      b.type="button";
+      b.dataset.group=g.key;
+      b.className=selectedGroup===g.key?"active":"";
       b.innerHTML=esc(g.name)+" <b>"+g.count+"</b>";
       b.onclick=()=>selectGroup(g.key,g.name);
-      box.appendChild(b)
-    })
+      box.appendChild(b);
+    });
   }
 
   function selectGroup(key,name){
+    categoryMode="topic";
     selectedGroup=key||"";
     selectedCountry="";
+    selectedContinent="ALL";
     refresh()
+  }
+
+  function selectCountryTab(code,name){
+    categoryMode="country";
+    selectedCountry=code||"";
+    selectedGroup="";
+    refresh()
+  }
+
+  function setCategoryMode(mode){
+    categoryMode=mode==="country"?"country":"topic";
+    selectedGroup="";
+    selectedCountry="";
+    selectedContinent="ALL";
+    renderGroupTabs();
+    renderArticleList();
   }
 
   function renderArticleList(){
@@ -187553,9 +187906,13 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     const box=document.getElementById("pc11-article-list");box.innerHTML="";
     document.getElementById("pc11-right-total").textContent=cards().length+"건";
     document.getElementById("pc11-list-count").textContent=list.length+"건";
-    const selectedName=selectedGroup
-      ?((availableGroups().find(x=>x.key===selectedGroup)||{}).name||selectedGroup)
-      :"전체 기사";
+    let selectedName="전체 기사";
+    if(categoryMode==="country" && selectedCountry){
+      const meta=countryMetaForPC11(selectedCountry);
+      selectedName=meta[1]+" 기사";
+    }else if(categoryMode==="topic" && selectedGroup){
+      selectedName=((availableGroups().find(x=>x.key===selectedGroup)||{}).name||selectedGroup);
+    }
     document.getElementById("pc11-list-title").textContent=selectedName;
 
     list.forEach((c,idx)=>{
@@ -187970,6 +188327,10 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     document.getElementById("pc11-country-reset").onclick=()=>{selectedCountry="";closeDetail();refresh()};
     document.getElementById("pc11-detail-prev").onclick=()=>moveDetail(-1);
     document.getElementById("pc11-detail-next").onclick=()=>moveDetail(1);
+    const modeTopic=document.getElementById("pc11-mode-topic");
+    const modeCountry=document.getElementById("pc11-mode-country");
+    if(modeTopic)modeTopic.onclick=()=>setCategoryMode("topic");
+    if(modeCountry)modeCountry.onclick=()=>setCategoryMode("country");
 
     const timelineRun=document.getElementById("pc11-timeline-run");
     const timelineQuery=document.getElementById("pc11-timeline-query");
