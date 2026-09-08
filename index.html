@@ -18655,6 +18655,97 @@ main {
   }
 }
 
+
+/* ==========================================================
+   FINAL PC HARD LAYOUT FIX
+   - LEFT: map always visible
+   - RIGHT: topic/country controls stay at top
+   - ARTICLE LIST: always gets remaining height + independent scroll
+   ========================================================== */
+@media (min-width:1000px){
+
+  .pc11-left{
+    position:relative!important;
+    display:block!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+
+  #pc11-dashboard{
+    display:block!important;
+    position:absolute!important;
+    inset:0!important;
+    visibility:visible!important;
+    opacity:1!important;
+    z-index:2!important;
+  }
+
+  #pc11-detail{
+    display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    position:absolute!important;
+    width:0!important;
+    height:0!important;
+    overflow:hidden!important;
+  }
+
+  /* Right panel must not let category buttons consume the article area */
+  .pc11-right{
+    display:flex!important;
+    flex-direction:column!important;
+    height:100%!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+
+  .pc11-mobile-category-head,
+  .pc11-category-mode,
+  .pc11-list-head{
+    flex:0 0 auto!important;
+  }
+
+  #pc11-continent-tabs.pc11-continent-tabs[hidden]{
+    display:none!important;
+  }
+
+  #pc11-continent-tabs.pc11-continent-tabs:not([hidden]){
+    display:flex!important;
+    flex:0 0 auto!important;
+    max-height:76px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+  }
+
+  #pc11-group-tabs.pc11-group-tabs{
+    display:flex!important;
+    flex:0 0 auto!important;
+    flex-wrap:wrap!important;
+    align-content:flex-start!important;
+    max-height:118px!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+
+  #pc11-article-list.pc11-article-list{
+    display:block!important;
+    flex:1 1 0!important;
+    min-height:120px!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    overscroll-behavior:contain!important;
+    scrollbar-gutter:stable!important;
+  }
+
+  #pc11-article-list .pc11-list-card{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -18782,7 +18873,7 @@ main {
           <div class="pc11-viewer-brand"><span>ARTICLE VIEWER</span><strong>기사 검토</strong></div>
           <div class="pc11-detail-mode-actions">
             <span class="pc11-fast-review-label">오른쪽 기사 선택 → 원문 바로보기</span>
-            <button id="pc11-detail-original" type="button">새 탭에서 열기 ↗</button>
+            <button id="pc11-detail-original" type="button">새창에서 열기 ↗</button>
           </div>
           <div class="pc11-detail-nav">
             <button id="pc11-detail-prev" type="button">이전 기사</button>
@@ -19209,7 +19300,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.8(화) 21:05 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.8(화) 21:30 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -27424,7 +27515,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702b9f6dde50&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702bafbe0118&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -34647,42 +34738,9 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">8건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.mk.co.kr/news/business/12147373"
-  data-title="K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력 - 매일경제"
-  data-publisher="매일경제"
-  data-group="현대건설"
-  data-language="ko"
-  data-priority="0"
-  data-published="1788857540"
-  data-country="KR"
-  data-search="k원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력 - 매일경제 매일경제 현대건설 韓 원전 美서 새 기회제2의 반도체 노린다설계·건설·정비 생태계 구축보조기기 공급망까지 연계해美서 경쟁국보다 유리한 조건두산에너빌·현대건설 美 안착ap1000·apr1400 모두 가능"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">매일경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력 - 매일경제</div>
-      <div class="article-snippet">韓 원전 美서 새 기회제2의 반도체 노린다설계·건설·정비 생태계 구축보조기기 공급망까지 연계해美서 경쟁국보다 유리한 조건두산에너빌·현대건설 美 안착AP1000·APR1400 모두 가능</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d3a494d678dbf4d46959ccf3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260908_0003780406"
   data-title="&quot;성장 기대되는 아파트 1위, 힐스테이트&quot;…부동산114 조사"
@@ -34925,14 +34983,14 @@ main {
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://www.mk.co.kr/news/stock/12147445"
-  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스 - 매일경제"
+  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스"
   data-publisher="매일경제"
   data-group="타 건설사"
   data-language="ko"
   data-priority="1"
   data-published="1788860113"
   data-country="KR"
-  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 - 매일경제 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이텍 +5.65%, 두산에너빌리티 +4.10%, sk하이닉스 +3.53% ▶▶오늘 분석한 인기 검색 종목 ai매매신호 자세히 보기 ▶▶오늘 매매신호 내역 바로 확인! ai매매 이용자"
+  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이.."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -34947,8 +35005,8 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스 - 매일경제</div>
-      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이텍 +5.65%, 두산에너빌리티 +4.10%, SK하이닉스 +3.53% ▶▶오늘 분석한 인기 검색 종목 AI매매신호 자세히 보기 ▶▶오늘 매매신호 내역 바로 확인! AI매매 이용자</div>
+      <div class="headline">[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스</div>
+      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이..</div>
     </div>
   </div>
   <div class="card-side">
@@ -36945,7 +37003,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">25건</span>
+    <span class="group-count">27건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -37143,6 +37201,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/dead5d8f6bb05a2bab9e171c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.mk.co.kr/news/business/12147373"
+  data-title="K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력"
+  data-publisher="매일경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788857540"
+  data-country="KR"
+  data-search="k원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력 매일경제 원전 대미투자 대미 투자를 발판으로 &#x27;k원전&#x27;을 제2의 반도체 산업으로 육성해야 한다는 제언이 쏟아지고 있다. 한국은 우라늄 농축과 재처리를 제외한 설계와 건설, 정비 등 원전 전 분야의 밸류체.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력</div>
+      <div class="article-snippet">대미 투자를 발판으로 &#x27;K원전&#x27;을 제2의 반도체 산업으로 육성해야 한다는 제언이 쏟아지고 있다. 한국은 우라늄 농축과 재처리를 제외한 설계와 건설, 정비 등 원전 전 분야의 밸류체..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d3a494d678dbf4d46959ccf3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37374,6 +37465,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/ddfb599ffe0ae40a38a10685.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.imaeil.com/page/view/2026090818430081590"
+  data-title="대미투자 3500억달러 넘나…양국 막판 줄다리기"
+  data-publisher="매일신문"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788867033"
+  data-country="KR"
+  data-search="대미투자 3500억달러 넘나…양국 막판 줄다리기 매일신문 원전 대미투자 김정관 산업통상부 장관이 지난 7월 23일(현지시간) 미국..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대미투자 3500억달러 넘나…양국 막판 줄다리기</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 지난 7월 23일(현지시간) 미국...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0d25231d2b5bb72d0aceb46c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -37609,6 +37733,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.koreaherald.com/article/10866592"
+  data-title="Seoul eyes $22.3b Texas gas project as first under $350 US investment pact"
+  data-publisher="헤럴드경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788847786"
+  data-country="US"
+  data-search="seoul eyes $22.3b texas gas project as first under $350 us investment pact 헤럴드경제 원전 대미투자 south korea is considering spending $22.3 billion on a natural gas power project in texas, which would mark the first investment under its $350 billion commitme"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Seoul eyes $22.3b Texas gas project as first under $350 US investment pact</div>
+      <div class="article-snippet">South Korea is considering spending $22.3 billion on a natural gas power project in Texas, which would mark the first investment under its $350 billion commitme</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/370b6518986439ba62e62b76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.munhwa.com/article/11615277"
   data-title="‘파병’ 보다 ‘대미투자’ 시급… 국가행위 앞서 정책우선순위 확인해야[Deep Read]"
   data-publisher="문화일보"
@@ -37708,39 +37865,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.koreaherald.com/article/10866592"
-  data-title="Seoul eyes $22.3b Texas gas project as first under $350 US investment pact"
-  data-publisher="The Korea Herald"
-  data-group="원전 대미투자"
-  data-language="en"
-  data-priority="1"
-  data-published="1788847786"
-  data-country="US"
-  data-search="seoul eyes $22.3b texas gas project as first under $350 us investment pact the korea herald 원전 대미투자 south korea is considering spending $22.3 billion on a natural gas power project in texas, which would mark the first investment under its $350 billion commitme"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">The Korea Herald</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Seoul eyes $22.3b Texas gas project as first under $350 US investment pact</div>
-      <div class="article-snippet">South Korea is considering spending $22.3 billion on a natural gas power project in Texas, which would mark the first investment under its $350 billion commitme</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/370b6518986439ba62e62b76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.theguardian.com/us-news/live/2026/sep/08/new-hampshire-rhode-island-vote-state-primaries-trump-canada-us-politics-latest-news-updates"
   data-title="New Hampshire and Rhode Island electorate to vote in state primaries - US politics live"
   data-publisher="The Guardian"
@@ -37779,7 +37903,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">36건</span>
+    <span class="group-count">37건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -37812,6 +37936,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e525b4f0eedde116c556c63.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.mk.co.kr/news/business/12147410"
+  data-title="&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot;"
+  data-publisher="매일경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788858254"
+  data-country="CN"
+  data-search="&quot;美 ai 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; 매일경제 원자력 &quot;인공지능(ai)과 원자력은 긴밀하게 연결돼 있다. 안정적인 기저부하 전력 없이 ai가 필요로 하는 전력 수요를 감당할 수 없기 때문에 원자력의 중요성이 커질 수밖에 없다.&quot; 8일.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot;</div>
+      <div class="article-snippet">&quot;인공지능(AI)과 원자력은 긴밀하게 연결돼 있다. 안정적인 기저부하 전력 없이 AI가 필요로 하는 전력 수요를 감당할 수 없기 때문에 원자력의 중요성이 커질 수밖에 없다.&quot; 8일..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f30bf63b0e920754e6033d05.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38976,7 +39133,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -39141,6 +39298,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/a8448c18a23f0ae3ec5b3d79.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.nuclearnewsnetwork.com/"
+  data-title="Nuclear News Network — daily nuclear energy news &amp; reactor tracker"
+  data-publisher="Nuclear News Network"
+  data-group="SMR"
+  data-language="en"
+  data-priority="0"
+  data-published="1788857100"
+  data-country="OTHER"
+  data-search="nuclear news network — daily nuclear energy news &amp; reactor tracker nuclear news network smr independent daily nuclear energy news: new builds, smrs, fuel, policy and fusion — plus a live tracker of every power reactor under construction worldwide."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Nuclear News Network — daily nuclear energy news &amp; reactor tracker</div>
+      <div class="article-snippet">Independent daily nuclear energy news: new builds, SMRs, fuel, policy and fusion — plus a live tracker of every power reactor under construction worldwide.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b3a37ab6667f0df2dd3f75fe.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39357,9 +39547,108 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">9건</span>
+    <span class="group-count">16건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.hindustantimes.com/videos/world-news/putin-planning-space-nuclear-blast-russia-move-simulation-makes-defenceless-us-military-panic-101788868339118.html"
+  data-title="Putin planning space nuclear blast? Russia move simulation makes &#x27;defenceless&#x27; US military panic?"
+  data-publisher="Hindustan Times"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788868504"
+  data-country="RU"
+  data-search="putin planning space nuclear blast? russia move simulation makes &#x27;defenceless&#x27; us military panic? hindustan times nuclear power·nuclear energy is vladimir putin planning a nuclear detonation in space to cripple u.s. satellite networks, causing growing worry in washington? the scenario under discussion involves a possible russian space-based nuclear capability that could threaten satellite constellations, including spacex’s starlink network, which has supporte"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Hindustan Times</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Putin planning space nuclear blast? Russia move simulation makes &#x27;defenceless&#x27; US military panic?</div>
+      <div class="article-snippet">Is Vladimir Putin planning a nuclear detonation in space to cripple U.S. satellite networks, causing growing worry in Washington? The scenario under discussion involves a possible Russian space-based nuclear capability that could threaten satellite constellations, including SpaceX’s Starlink network, which has supporte</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.hindustantimes.com/ht-img/img/2026/09/08/1600x900/logo/maxresdefault_1788868333375_6d697632-8824-4a4c-b279-e6ae52035aa0_1788868429918_c483529a-93de-4f80-92dc-7c3e864475f9_6c848e0f-b378-45f4-bf29-2527f00c867c_4bf28d86-bdab-4e45-903b-c3b080a3def9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/prnewswire:510e19f82aebe:0-u-s-department-of-energy-closes-up-to-1-9-billion-loan-to-restart-nextera-energy-s-duane-arnold-energy-center/"
+  data-title="U.S. Department of Energy Closes Up to $1.9 Billion Loan to Restart NextEra Energy&#x27;s Duane Arnold Energy Center"
+  data-publisher="TradingView"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788867000"
+  data-country="US"
+  data-search="u.s. department of energy closes up to $1.9 billion loan to restart nextera energy&#x27;s duane arnold energy center tradingview nuclear power·nuclear energy milestone helps bring iowa&#x27;s only nuclear energy center back online, strengthen grid reliability and meet growing electricity demandjuno beach, fla., sept. 8, 2026 /prnewswire/ -- nextera energy, inc. (nyse:nee) today announced that it and the u.s. department of energy (doe), through its office of…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>U.S. Department of Energy Closes Up to $1.9 Billion Loan to Restart NextEra Energy&#x27;s Duane Arnold Energy Center</div>
+      <div class="article-snippet">Milestone helps bring Iowa&#x27;s only nuclear energy center back online, strengthen grid reliability and meet growing electricity demandJUNO BEACH, Fla., Sept. 8, 2026 /PRNewswire/ -- NextEra Energy, Inc. (NYSE:NEE) today announced that it and the U.S. Department of Energy (DOE), through its Office of…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://montelnews.com/news/be3af39b-9acd-472f-bc1f-e6a15c77f6c4/romanian-spot-price-to-remain-high-amid-low-danube-levels"
+  data-title="Romanian spot price to remain high amid low Danube levels"
+  data-publisher="Montel News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788866146"
+  data-country="RO"
+  data-search="romanian spot price to remain high amid low danube levels montel news nuclear power·nuclear energy “we expect the danube flows in the romanian part to remain below the monthly average for the whole of september,” romanian hydropower institute ingha told montel on tuesday. romania’s cernavoda’s 1.35 mw nuclear plant remains shut down since 13 august due to low water levels in the danube, which it uses for reactor coo"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Montel News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Romanian spot price to remain high amid low Danube levels</div>
+      <div class="article-snippet">“We expect the Danube flows in the Romanian part to remain below the monthly average for the whole of September,” Romanian hydropower institute INGHA told Montel on Tuesday. Romania’s Cernavoda’s 1.35 MW nuclear plant remains shut down since 13 August due to low water levels in the Danube, which it uses for reactor coo</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a3d9adf6078a3929d07c15f0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/key-commissioning-tests-completed-at-changjiang-4"
   data-title="Key commissioning tests completed at Changjiang 4"
@@ -39456,6 +39745,105 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/64ca2227d146bc8acdc8e924.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.nuclearnewsnetwork.com/news/south-korea-us-eight-reactors-framework"
+  data-title="South Korea weighs $120B for eight US reactors in tariff pact"
+  data-publisher="Nuclear News Network"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788857100"
+  data-country="KR"
+  data-search="south korea weighs $120b for eight us reactors in tariff pact nuclear news network nuclear power·nuclear energy x is debating a reported $120b korean plan to build eight us reactors under the tariff deal; korean press confirms a framework, not the reactor mix."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>South Korea weighs $120B for eight US reactors in tariff pact</div>
+      <div class="article-snippet">X is debating a reported $120B Korean plan to build eight US reactors under the tariff deal; Korean press confirms a framework, not the reactor mix.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9596e29fd30d5c03dc26528c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.nuclearnewsnetwork.com/topics/industry-business"
+  data-title="Nuclear Industry &amp; Business News: Deals, Financing, Markets"
+  data-publisher="Nuclear News Network"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788857100"
+  data-country="OTHER"
+  data-search="nuclear industry &amp; business news: deals, financing, markets nuclear news network nuclear power·nuclear energy the business of nuclear — vendor deals, financing, data-center power agreements and market moves, reported for people making decisions in the sector."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Nuclear Industry &amp; Business News: Deals, Financing, Markets</div>
+      <div class="article-snippet">The business of nuclear — vendor deals, financing, data-center power agreements and market moves, reported for people making decisions in the sector.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/33f01726f1587e768354638c.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.nuclearnewsnetwork.com/topics/operations-safety"
+  data-title="Nuclear Plant Operations &amp; Safety News"
+  data-publisher="Nuclear News Network"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788856800"
+  data-country="OTHER"
+  data-search="nuclear plant operations &amp; safety news nuclear news network nuclear power·nuclear energy life extensions, uprates, outages and safety rulemaking across the operating fleet — the operational decisions that keep reactors on the grid."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Nuclear Plant Operations &amp; Safety News</div>
+      <div class="article-snippet">Life extensions, uprates, outages and safety rulemaking across the operating fleet — the operational decisions that keep reactors on the grid.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/73e826e0c36a4279fff97c95.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39656,6 +40044,39 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/1b74fb288018ab28de4c36a3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.nuclearnewsnetwork.com/news/zaporizhzhia-reconnected-grid-ferosplavna-1"
+  data-title="Zaporizhzhia plant reconnected to grid after IAEA ceasefire repairs"
+  data-publisher="Nuclear News Network"
+  data-group="국제 원자력·에너지기구"
+  data-language="en"
+  data-priority="2"
+  data-published="1788856800"
+  data-country="UA"
+  data-search="zaporizhzhia plant reconnected to grid after iaea ceasefire repairs nuclear news network 국제 원자력·에너지기구 iaea: zaporizhzhia npp back on ukraine&#x27;s grid after 7th ceasefire repaired the 330 kv ferosplavna-1 line, ending an 18-day diesel outage."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Zaporizhzhia plant reconnected to grid after IAEA ceasefire repairs</div>
+      <div class="article-snippet">IAEA: Zaporizhzhia NPP back on Ukraine&#x27;s grid after 7th ceasefire repaired the 330 kV Ferosplavna-1 line, ending an 18-day diesel outage.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0d751be5645e9105988dfbee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -39714,42 +40135,9 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">TerraPower</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.mk.co.kr/news/business/12147410"
-  data-title="&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; - 매일경제"
-  data-publisher="매일경제"
-  data-group="TerraPower"
-  data-language="ko"
-  data-priority="0"
-  data-published="1788858254"
-  data-country="CN"
-  data-search="&quot;美 ai 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; - 매일경제 매일경제 terrapower ai 병목, 전력·에너지 어떻게 풀 것인가밀러 테라파워 수석부사장&quot;ai산업 성장 뒷받침하려면 안정적 기저부하 전력 필수&quot;엘리엇 강 前 국무부 차관보&quot;中 원전 확충속도 매우 빨라 한미간 원자력 협력 중요해&quot;"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">매일경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; - 매일경제</div>
-      <div class="article-snippet">AI 병목, 전력·에너지 어떻게 풀 것인가밀러 테라파워 수석부사장&quot;AI산업 성장 뒷받침하려면 안정적 기저부하 전력 필수&quot;엘리엇 강 前 국무부 차관보&quot;中 원전 확충속도 매우 빨라 한미간 원자력 협력 중요해&quot;</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f30bf63b0e920754e6033d05.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106789"
   data-title="빌 게이츠의 테라파워, 영국에 2034년 원전 가동 목표 내세워"
@@ -39919,42 +40307,9 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">현대건설</span>
-    <span class="group-count">22건</span>
+    <span class="group-count">21건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.mk.co.kr/news/business/12147373"
-  data-title="K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력 - 매일경제"
-  data-publisher="매일경제"
-  data-group="현대건설"
-  data-language="ko"
-  data-priority="0"
-  data-published="1788857540"
-  data-country="KR"
-  data-search="k원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력 - 매일경제 매일경제 현대건설 韓 원전 美서 새 기회제2의 반도체 노린다설계·건설·정비 생태계 구축보조기기 공급망까지 연계해美서 경쟁국보다 유리한 조건두산에너빌·현대건설 美 안착ap1000·apr1400 모두 가능"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">매일경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력 - 매일경제</div>
-      <div class="article-snippet">韓 원전 美서 새 기회제2의 반도체 노린다설계·건설·정비 생태계 구축보조기기 공급망까지 연계해美서 경쟁국보다 유리한 조건두산에너빌·현대건설 美 안착AP1000·APR1400 모두 가능</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d3a494d678dbf4d46959ccf3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.newscj.com/news/articleView.html?idxno=3431056"
   data-title="[건설오늘] 현대건설, 미래 모빌리티 안전체계 구축 外 GS건설·현대엔지니어링·포스코이앤씨"
@@ -40659,14 +41014,14 @@ main {
   <div class="article-stack">
 <article class="preview-card"
   data-url="https://www.mk.co.kr/news/stock/12147445"
-  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스 - 매일경제"
+  data-title="[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스"
   data-publisher="매일경제"
   data-group="타 건설사"
   data-language="ko"
   data-priority="1"
   data-published="1788860113"
   data-country="KR"
-  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 - 매일경제 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이텍 +5.65%, 두산에너빌리티 +4.10%, sk하이닉스 +3.53% ▶▶오늘 분석한 인기 검색 종목 ai매매신호 자세히 보기 ▶▶오늘 매매신호 내역 바로 확인! ai매매 이용자"
+  data-search="[인기검색top5] 빛과전자, 필옵틱스, db하이텍, 두산에너빌리티, sk하이닉스 매일경제 타 건설사 최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 ai 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, db하이.."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -40681,8 +41036,8 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스 - 매일경제</div>
-      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이텍 +5.65%, 두산에너빌리티 +4.10%, SK하이닉스 +3.53% ▶▶오늘 분석한 인기 검색 종목 AI매매신호 자세히 보기 ▶▶오늘 매매신호 내역 바로 확인! AI매매 이용자</div>
+      <div class="headline">[인기검색TOP5] 빛과전자, 필옵틱스, DB하이텍, 두산에너빌리티, SK하이닉스</div>
+      <div class="article-snippet">최적의 매매타이밍을 실시간으로 전송하여 투자자들에게 도움이 되고 있는 주식 AI 라씨 매매비서가 오늘 분석한 인기검색종목은 빛과전자 +30.00%, 필옵틱스 +9.40%, DB하이..</div>
     </div>
   </div>
   <div class="card-side">
@@ -44527,7 +44882,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">45건</span>
+    <span class="group-count">47건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -44824,6 +45179,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/dead5d8f6bb05a2bab9e171c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.mk.co.kr/news/business/12147373"
+  data-title="K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력"
+  data-publisher="매일경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788857540"
+  data-country="KR"
+  data-search="k원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력 매일경제 원전 대미투자 대미 투자를 발판으로 &#x27;k원전&#x27;을 제2의 반도체 산업으로 육성해야 한다는 제언이 쏟아지고 있다. 한국은 우라늄 농축과 재처리를 제외한 설계와 건설, 정비 등 원전 전 분야의 밸류체.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">K원전, 핵연료봉부터 시공까지 &#x27;밸류체인 독립&#x27;… 수출 새 동력</div>
+      <div class="article-snippet">대미 투자를 발판으로 &#x27;K원전&#x27;을 제2의 반도체 산업으로 육성해야 한다는 제언이 쏟아지고 있다. 한국은 우라늄 농축과 재처리를 제외한 설계와 건설, 정비 등 원전 전 분야의 밸류체..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d3a494d678dbf4d46959ccf3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -45421,6 +45809,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.imaeil.com/page/view/2026090818430081590"
+  data-title="대미투자 3500억달러 넘나…양국 막판 줄다리기"
+  data-publisher="매일신문"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788867033"
+  data-country="KR"
+  data-search="대미투자 3500억달러 넘나…양국 막판 줄다리기 매일신문 원전 대미투자 김정관 산업통상부 장관이 지난 7월 23일(현지시간) 미국..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>대미투자 3500억달러 넘나…양국 막판 줄다리기</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 지난 7월 23일(현지시간) 미국...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0d25231d2b5bb72d0aceb46c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.segyebiz.com/newsView/20260908517736"
   data-title="대미투자 요구액 3500억달러 넘어…정부, 규모 조율"
@@ -45785,6 +46206,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.koreaherald.com/article/10866592"
+  data-title="Seoul eyes $22.3b Texas gas project as first under $350 US investment pact"
+  data-publisher="헤럴드경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1788847786"
+  data-country="US"
+  data-search="seoul eyes $22.3b texas gas project as first under $350 us investment pact 헤럴드경제 원전 대미투자 south korea is considering spending $22.3 billion on a natural gas power project in texas, which would mark the first investment under its $350 billion commitme"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">헤럴드경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Seoul eyes $22.3b Texas gas project as first under $350 US investment pact</div>
+      <div class="article-snippet">South Korea is considering spending $22.3 billion on a natural gas power project in Texas, which would mark the first investment under its $350 billion commitme</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/370b6518986439ba62e62b76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.sidae.com/article/2026090807321777937"
   data-title="대미투자 풀었지만…핵추진 잠수함, 남은 2가지 숙제"
   data-publisher="머니S"
@@ -45950,39 +46404,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.koreaherald.com/article/10866592"
-  data-title="Seoul eyes $22.3b Texas gas project as first under $350 US investment pact"
-  data-publisher="The Korea Herald"
-  data-group="원전 대미투자"
-  data-language="en"
-  data-priority="1"
-  data-published="1788847786"
-  data-country="US"
-  data-search="seoul eyes $22.3b texas gas project as first under $350 us investment pact the korea herald 원전 대미투자 south korea is considering spending $22.3 billion on a natural gas power project in texas, which would mark the first investment under its $350 billion commitme"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">The Korea Herald</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Seoul eyes $22.3b Texas gas project as first under $350 US investment pact</div>
-      <div class="article-snippet">South Korea is considering spending $22.3 billion on a natural gas power project in Texas, which would mark the first investment under its $350 billion commitme</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/370b6518986439ba62e62b76.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
   data-url="https://www.theguardian.com/us-news/live/2026/sep/08/new-hampshire-rhode-island-vote-state-primaries-trump-canada-us-politics-latest-news-updates"
   data-title="New Hampshire and Rhode Island electorate to vote in state primaries - US politics live"
   data-publisher="The Guardian"
@@ -46021,7 +46442,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">55건</span>
+    <span class="group-count">56건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -46054,6 +46475,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/4e525b4f0eedde116c556c63.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.mk.co.kr/news/business/12147410"
+  data-title="&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot;"
+  data-publisher="매일경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1788858254"
+  data-country="CN"
+  data-search="&quot;美 ai 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; 매일경제 원자력 &quot;인공지능(ai)과 원자력은 긴밀하게 연결돼 있다. 안정적인 기저부하 전력 없이 ai가 필요로 하는 전력 수요를 감당할 수 없기 때문에 원자력의 중요성이 커질 수밖에 없다.&quot; 8일.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot;</div>
+      <div class="article-snippet">&quot;인공지능(AI)과 원자력은 긴밀하게 연결돼 있다. 안정적인 기저부하 전력 없이 AI가 필요로 하는 전력 수요를 감당할 수 없기 때문에 원자력의 중요성이 커질 수밖에 없다.&quot; 8일..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/f30bf63b0e920754e6033d05.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -47845,7 +48299,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">7건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -48010,6 +48464,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/a8448c18a23f0ae3ec5b3d79.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.nuclearnewsnetwork.com/"
+  data-title="Nuclear News Network — daily nuclear energy news &amp; reactor tracker"
+  data-publisher="Nuclear News Network"
+  data-group="SMR"
+  data-language="en"
+  data-priority="0"
+  data-published="1788857100"
+  data-country="OTHER"
+  data-search="nuclear news network — daily nuclear energy news &amp; reactor tracker nuclear news network smr independent daily nuclear energy news: new builds, smrs, fuel, policy and fusion — plus a live tracker of every power reactor under construction worldwide."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Nuclear News Network — daily nuclear energy news &amp; reactor tracker</div>
+      <div class="article-snippet">Independent daily nuclear energy news: new builds, SMRs, fuel, policy and fusion — plus a live tracker of every power reactor under construction worldwide.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b3a37ab6667f0df2dd3f75fe.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -48226,9 +48713,108 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">13건</span>
+    <span class="group-count">20건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.hindustantimes.com/videos/world-news/putin-planning-space-nuclear-blast-russia-move-simulation-makes-defenceless-us-military-panic-101788868339118.html"
+  data-title="Putin planning space nuclear blast? Russia move simulation makes &#x27;defenceless&#x27; US military panic?"
+  data-publisher="Hindustan Times"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788868504"
+  data-country="RU"
+  data-search="putin planning space nuclear blast? russia move simulation makes &#x27;defenceless&#x27; us military panic? hindustan times nuclear power·nuclear energy is vladimir putin planning a nuclear detonation in space to cripple u.s. satellite networks, causing growing worry in washington? the scenario under discussion involves a possible russian space-based nuclear capability that could threaten satellite constellations, including spacex’s starlink network, which has supporte"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Hindustan Times</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Putin planning space nuclear blast? Russia move simulation makes &#x27;defenceless&#x27; US military panic?</div>
+      <div class="article-snippet">Is Vladimir Putin planning a nuclear detonation in space to cripple U.S. satellite networks, causing growing worry in Washington? The scenario under discussion involves a possible Russian space-based nuclear capability that could threaten satellite constellations, including SpaceX’s Starlink network, which has supporte</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.hindustantimes.com/ht-img/img/2026/09/08/1600x900/logo/maxresdefault_1788868333375_6d697632-8824-4a4c-b279-e6ae52035aa0_1788868429918_c483529a-93de-4f80-92dc-7c3e864475f9_6c848e0f-b378-45f4-bf29-2527f00c867c_4bf28d86-bdab-4e45-903b-c3b080a3def9.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.tradingview.com/news/prnewswire:510e19f82aebe:0-u-s-department-of-energy-closes-up-to-1-9-billion-loan-to-restart-nextera-energy-s-duane-arnold-energy-center/"
+  data-title="U.S. Department of Energy Closes Up to $1.9 Billion Loan to Restart NextEra Energy&#x27;s Duane Arnold Energy Center"
+  data-publisher="TradingView"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788867000"
+  data-country="US"
+  data-search="u.s. department of energy closes up to $1.9 billion loan to restart nextera energy&#x27;s duane arnold energy center tradingview nuclear power·nuclear energy milestone helps bring iowa&#x27;s only nuclear energy center back online, strengthen grid reliability and meet growing electricity demandjuno beach, fla., sept. 8, 2026 /prnewswire/ -- nextera energy, inc. (nyse:nee) today announced that it and the u.s. department of energy (doe), through its office of…"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">TradingView</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>U.S. Department of Energy Closes Up to $1.9 Billion Loan to Restart NextEra Energy&#x27;s Duane Arnold Energy Center</div>
+      <div class="article-snippet">Milestone helps bring Iowa&#x27;s only nuclear energy center back online, strengthen grid reliability and meet growing electricity demandJUNO BEACH, Fla., Sept. 8, 2026 /PRNewswire/ -- NextEra Energy, Inc. (NYSE:NEE) today announced that it and the U.S. Department of Energy (DOE), through its Office of…</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2140c0c33fbb9b83dd82a23f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://montelnews.com/news/be3af39b-9acd-472f-bc1f-e6a15c77f6c4/romanian-spot-price-to-remain-high-amid-low-danube-levels"
+  data-title="Romanian spot price to remain high amid low Danube levels"
+  data-publisher="Montel News"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788866146"
+  data-country="RO"
+  data-search="romanian spot price to remain high amid low danube levels montel news nuclear power·nuclear energy “we expect the danube flows in the romanian part to remain below the monthly average for the whole of september,” romanian hydropower institute ingha told montel on tuesday. romania’s cernavoda’s 1.35 mw nuclear plant remains shut down since 13 august due to low water levels in the danube, which it uses for reactor coo"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Montel News</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Romanian spot price to remain high amid low Danube levels</div>
+      <div class="article-snippet">“We expect the Danube flows in the Romanian part to remain below the monthly average for the whole of September,” Romanian hydropower institute INGHA told Montel on Tuesday. Romania’s Cernavoda’s 1.35 MW nuclear plant remains shut down since 13 August due to low water levels in the Danube, which it uses for reactor coo</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a3d9adf6078a3929d07c15f0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.world-nuclear-news.org/articles/key-commissioning-tests-completed-at-changjiang-4"
   data-title="Key commissioning tests completed at Changjiang 4"
@@ -48325,6 +48911,105 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/64ca2227d146bc8acdc8e924.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.nuclearnewsnetwork.com/news/south-korea-us-eight-reactors-framework"
+  data-title="South Korea weighs $120B for eight US reactors in tariff pact"
+  data-publisher="Nuclear News Network"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788857100"
+  data-country="KR"
+  data-search="south korea weighs $120b for eight us reactors in tariff pact nuclear news network nuclear power·nuclear energy x is debating a reported $120b korean plan to build eight us reactors under the tariff deal; korean press confirms a framework, not the reactor mix."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>South Korea weighs $120B for eight US reactors in tariff pact</div>
+      <div class="article-snippet">X is debating a reported $120B Korean plan to build eight US reactors under the tariff deal; Korean press confirms a framework, not the reactor mix.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9596e29fd30d5c03dc26528c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.nuclearnewsnetwork.com/topics/industry-business"
+  data-title="Nuclear Industry &amp; Business News: Deals, Financing, Markets"
+  data-publisher="Nuclear News Network"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788857100"
+  data-country="OTHER"
+  data-search="nuclear industry &amp; business news: deals, financing, markets nuclear news network nuclear power·nuclear energy the business of nuclear — vendor deals, financing, data-center power agreements and market moves, reported for people making decisions in the sector."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Nuclear Industry &amp; Business News: Deals, Financing, Markets</div>
+      <div class="article-snippet">The business of nuclear — vendor deals, financing, data-center power agreements and market moves, reported for people making decisions in the sector.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/33f01726f1587e768354638c.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.nuclearnewsnetwork.com/topics/operations-safety"
+  data-title="Nuclear Plant Operations &amp; Safety News"
+  data-publisher="Nuclear News Network"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1788856800"
+  data-country="OTHER"
+  data-search="nuclear plant operations &amp; safety news nuclear news network nuclear power·nuclear energy life extensions, uprates, outages and safety rulemaking across the operating fleet — the operational decisions that keep reactors on the grid."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Nuclear Plant Operations &amp; Safety News</div>
+      <div class="article-snippet">Life extensions, uprates, outages and safety rulemaking across the operating fleet — the operational decisions that keep reactors on the grid.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/73e826e0c36a4279fff97c95.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -48657,6 +49342,39 @@ main {
     <div class="preview-image"><img src="https://www.japantimes.co.jp/japantimes/uploads/images/2026/09/08/561952.JPG" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.nuclearnewsnetwork.com/news/zaporizhzhia-reconnected-grid-ferosplavna-1"
+  data-title="Zaporizhzhia plant reconnected to grid after IAEA ceasefire repairs"
+  data-publisher="Nuclear News Network"
+  data-group="국제 원자력·에너지기구"
+  data-language="en"
+  data-priority="2"
+  data-published="1788856800"
+  data-country="UA"
+  data-search="zaporizhzhia plant reconnected to grid after iaea ceasefire repairs nuclear news network 국제 원자력·에너지기구 iaea: zaporizhzhia npp back on ukraine&#x27;s grid after 7th ceasefire repaired the 330 kv ferosplavna-1 line, ending an 18-day diesel outage."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nuclear News Network</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Zaporizhzhia plant reconnected to grid after IAEA ceasefire repairs</div>
+      <div class="article-snippet">IAEA: Zaporizhzhia NPP back on Ukraine&#x27;s grid after 7th ceasefire repaired the 330 kV Ferosplavna-1 line, ending an 18-day diesel outage.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/0d751be5645e9105988dfbee.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -48715,42 +49433,9 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">TerraPower</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.mk.co.kr/news/business/12147410"
-  data-title="&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; - 매일경제"
-  data-publisher="매일경제"
-  data-group="TerraPower"
-  data-language="ko"
-  data-priority="0"
-  data-published="1788858254"
-  data-country="CN"
-  data-search="&quot;美 ai 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; - 매일경제 매일경제 terrapower ai 병목, 전력·에너지 어떻게 풀 것인가밀러 테라파워 수석부사장&quot;ai산업 성장 뒷받침하려면 안정적 기저부하 전력 필수&quot;엘리엇 강 前 국무부 차관보&quot;中 원전 확충속도 매우 빨라 한미간 원자력 협력 중요해&quot;"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">매일경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">&quot;美 AI 인프라 중국에 뒤처질판…전력공급 해답은 원전&quot; - 매일경제</div>
-      <div class="article-snippet">AI 병목, 전력·에너지 어떻게 풀 것인가밀러 테라파워 수석부사장&quot;AI산업 성장 뒷받침하려면 안정적 기저부하 전력 필수&quot;엘리엇 강 前 국무부 차관보&quot;中 원전 확충속도 매우 빨라 한미간 원자력 협력 중요해&quot;</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/f30bf63b0e920754e6033d05.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
 <article class="preview-card"
   data-url="https://www.theguru.co.kr/news/article.html?no=106789"
   data-title="빌 게이츠의 테라파워, 영국에 2034년 원전 가동 목표 내세워"
@@ -69197,7 +69882,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702b9f6dde50&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/global-nuclear-generation-reaches-record-high-wna-report-says-9-2-2026#&lt;ActiveStorage::Attached::One:0x0000702bafbe0118&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -189679,6 +190364,20 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     markReadForPC(c);
     syncMobileState(c);
 
+    // PC 왼쪽은 항상 지도 고정. 기사 선택으로 viewer 화면으로 전환하지 않습니다.
+    const dashboard=document.getElementById("pc11-dashboard");
+    const detail=document.getElementById("pc11-detail");
+    if(dashboard){
+      dashboard.hidden=false;
+      dashboard.removeAttribute("aria-hidden");
+      dashboard.style.display="block";
+    }
+    if(detail){
+      detail.hidden=true;
+      detail.setAttribute("aria-hidden","true");
+      detail.style.display="none";
+    }
+
     document.querySelectorAll(".pc11-list-card.selected").forEach(el=>el.classList.remove("selected"));
     const cardIndex=currentCards().indexOf(c);
     if(cardIndex>=0){
@@ -189694,7 +190393,27 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       }
     }
 
-    window.open(url,"_blank","noopener");
+    const popupWidth = Math.min(1280, Math.max(980, Math.floor(window.screen.availWidth * 0.78)));
+    const popupHeight = Math.min(920, Math.max(720, Math.floor(window.screen.availHeight * 0.88)));
+    const popupLeft = Math.max(0, Math.floor((window.screen.availWidth - popupWidth) / 2));
+    const popupTop = Math.max(0, Math.floor((window.screen.availHeight - popupHeight) / 2));
+
+    const popupFeatures = [
+      "popup=yes",
+      "width=" + popupWidth,
+      "height=" + popupHeight,
+      "left=" + popupLeft,
+      "top=" + popupTop,
+      "resizable=yes",
+      "scrollbars=yes",
+      "noopener=yes"
+    ].join(",");
+
+    const popup = window.open(url, "pcArticleWindow", popupFeatures);
+
+    if(!popup){
+      window.open(url, "_blank", "noopener");
+    }
   }
 
   function closeDetail(){
