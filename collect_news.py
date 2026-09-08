@@ -1,3 +1,4 @@
+# FINAL PC / MOBILE-FIRST DESKTOP / 180D ARCHIVE / 90D THUMBNAIL / CONFLICT-SAFE WORKFLOW PAIR / 2026-09-08
 # FINAL PC / MOBILE-FIRST DESKTOP LAYOUT / MAP LEFT 70 + ARTICLES RIGHT 30 / NEW-TAB ORIGINAL / 180D ARCHIVE / 7D THUMB / 2026-09-08
 # FINAL PC V22 / 180-DAY ARCHIVE + 7-DAY REFERENCE-BASED THUMBNAIL RETENTION / 2026-09-08
 # FINAL PC V22 / FAST ORIGINAL VIEWER / TOPIC + CONTINENT > COUNTRY UI / 2026-09-08
@@ -252,7 +253,7 @@ ARTICLE_META_MAX_BYTES = 800_000
 
 # 대표 이미지를 직접 저장해 외부 이미지 차단(hotlink) 문제를 줄입니다.
 THUMBNAIL_DIR = Path("assets/thumbnails")
-THUMBNAIL_KEEP_DAYS = 7
+THUMBNAIL_KEEP_DAYS = 90
 THUMBNAIL_DOWNLOAD_WORKERS = 10
 THUMBNAIL_TIMEOUT_SECONDS = 5
 THUMBNAIL_MAX_BYTES = 5_000_000
@@ -2815,7 +2816,7 @@ def cleanup_old_thumbnails(
     archive: dict[str, dict] | None = None,
 ) -> None:
     """
-    썸네일은 최근 THUMBNAIL_KEEP_DAYS(기본 7일) 기사에 실제로 연결된 파일만 유지합니다.
+    썸네일은 최근 THUMBNAIL_KEEP_DAYS(기본 90일) 기사에 실제로 연결된 파일만 유지합니다.
 
     기존 방식은 파일 mtime을 기준으로 삭제했는데, GitHub Actions가 저장소를 checkout할 때
     과거 이미지의 mtime도 현재 시각으로 갱신될 수 있어 오래된 썸네일이 계속 남는 문제가
@@ -41363,7 +41364,7 @@ def main() -> int:
 
     save_archive(archive)
 
-    # 기사 archive는 180일 유지하되, 썸네일 이미지는 최근 7일 기사에
+    # 기사 archive는 180일 유지하되, 썸네일 이미지는 최근 90일 기사에
     # 실제로 연결된 파일만 남겨 GitHub Pages 용량이 계속 누적되지 않게 합니다.
     cleanup_old_thumbnails(now, archive)
 
