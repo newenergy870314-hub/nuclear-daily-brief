@@ -1,3 +1,4 @@
+# FINAL PC V22 / FAST OPEN + HOVER PRECONNECT + COMPACT 34PX LOADER / MOBILE UNCHANGED 2026-09-08
 # FINAL PC V21 / ARTICLE OPEN SPEED OPTIMIZED / MOBILE UNCHANGED 2026-09-08
 # FINAL PC V20 / DATE INTEGRITY FIX / NO LAST-MODIFIED AS PUBLISH DATE / ARCHIVE DATE REPAIR / PC+MOBILE 2026-09-07
 # FINAL PC V19 / DEFAULT TODAY AUTO + TIMELINE DIRECT MONTHLY JSON SEARCH / ORIGINAL ARTICLE FIRST 2026-09-07
@@ -29294,6 +29295,94 @@ main {{
   .pc11-list-card{{contain:layout paint style!important}}
 }}
 
+
+/* ==========================================================
+   PC22 — COMPACT LOADER + FASTER ARTICLE OPEN
+   ========================================================== */
+@media (min-width:1000px){{
+  .pc11-original-loading{{
+    position:absolute!important;
+    top:8px!important;
+    left:10px!important;
+    right:auto!important;
+    bottom:auto!important;
+    z-index:4!important;
+    min-height:0!important;
+    height:34px!important;
+    width:auto!important;
+    max-width:340px!important;
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:7px!important;
+    padding:0 11px!important;
+    border:1px solid rgba(35,57,93,.12)!important;
+    border-radius:8px!important;
+    background:rgba(255,255,255,.94)!important;
+    box-shadow:0 2px 8px rgba(17,24,39,.10)!important;
+    pointer-events:none!important;
+    opacity:1!important;
+    transition:opacity .14s ease!important;
+    overflow:hidden!important;
+  }}
+
+  .pc11-original-loading strong{{
+    max-width:265px!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    color:#23395d!important;
+    font-size:10px!important;
+    line-height:1!important;
+  }}
+
+  .pc11-original-loading span{{
+    display:none!important;
+  }}
+
+  .pc11-original-loading::after{{
+    content:""!important;
+    order:-1!important;
+    flex:0 0 auto!important;
+    width:12px!important;
+    height:12px!important;
+    margin:0!important;
+    border:2px solid rgba(35,57,93,.16)!important;
+    border-top-color:#23395d!important;
+    border-radius:50%!important;
+    animation:pc11FrameSpin .65s linear infinite!important;
+  }}
+
+  .pc11-original-loading.loaded{{
+    opacity:0!important;
+    visibility:hidden!important;
+  }}
+
+  .pc11-original-loading.loaded::after{{
+    animation:none!important;
+  }}
+
+  #pc11-detail-frame{{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    border:0!important;
+    display:block!important;
+    background:#fff!important;
+  }}
+
+  .pc11-original-wrap{{
+    position:relative!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -38887,6 +38976,39 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   let activeArticle=null;
   let pc11LastOpenedUrl="";
   let pc11FrameLoadToken=0;
+  const pc11PreconnectedOrigins=new Set();
+  const pc11PrefetchedUrls=new Set();
+
+  function pc11WarmArticleConnection(url){{
+    if(!url)return;
+    try{{
+      const u=new URL(url,location.href);
+      const origin=u.origin;
+      if(origin && !pc11PreconnectedOrigins.has(origin)){{
+        pc11PreconnectedOrigins.add(origin);
+
+        const dns=document.createElement("link");
+        dns.rel="dns-prefetch";
+        dns.href=origin;
+        document.head.appendChild(dns);
+
+        const pre=document.createElement("link");
+        pre.rel="preconnect";
+        pre.href=origin;
+        pre.crossOrigin="anonymous";
+        document.head.appendChild(pre);
+      }}
+
+      if(!pc11PrefetchedUrls.has(u.href)){{
+        pc11PrefetchedUrls.add(u.href);
+        const pf=document.createElement("link");
+        pf.rel="prefetch";
+        pf.href=u.href;
+        pf.as="document";
+        document.head.appendChild(pf);
+      }}
+    }}catch(_error){{}}
+  }}
   let world=null;
 
   function desktop(){{return window.matchMedia("(min-width:1000px)").matches}}
@@ -39101,6 +39223,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       const open=()=>{{
         openDetail(c);
       }};
+      b.addEventListener("mouseenter",()=>pc11WarmArticleConnection(c.dataset.url||""));
+      b.addEventListener("focusin",()=>pc11WarmArticleConnection(c.dataset.url||""));
       b.addEventListener("click",(ev)=>{{
         if(ev.target.closest(".pc11-important-toggle"))return;
         ev.preventDefault();
@@ -39278,7 +39402,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
     activeArticle=c;
 
-    // 즉시 화면 전환
+    // A. 클릭 즉시 원문 영역부터 표시
     if(dashboard){{
       dashboard.hidden=true;
       dashboard.style.setProperty("display","none","important");
@@ -39293,36 +39417,19 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     if(previewWrap)previewWrap.hidden=true;
     if(previewBtn)previewBtn.textContent="미리보기";
 
-    // 로딩 안내 즉시 표시
+    // B. 작은 로딩 상태바만 표시
     if(loadingBox){{
       loadingBox.hidden=false;
       loadingBox.classList.remove("loaded");
     }}
     if(loadingTitle){{
-      loadingTitle.textContent=(publisher(c)||"언론사")+" 원문을 불러오는 중입니다.";
+      loadingTitle.textContent=(publisher(c)||"언론사")+" 원문 로딩 중";
     }}
 
-    // 읽음 상태만 즉시 반영하고 전체 목록 재렌더링은 하지 않음
-    markReadForPC(c);
-    syncMobileState(c);
-
-    document.querySelectorAll(".pc11-list-card.selected").forEach(el=>el.classList.remove("selected"));
-    const cardIndex=currentCards().indexOf(c);
-    if(cardIndex>=0){{
-      const selected=document.querySelector(`.pc11-list-card[data-article-index="${{cardIndex}}"]`);
-      if(selected){{
-        selected.classList.add("selected","read");
-        const status=selected.querySelector(".pc11-list-status");
-        if(status && !selected.classList.contains("important")){{
-          status.classList.remove("unread");
-          status.classList.add("read");
-          status.textContent="읽음";
-        }}
-      }}
-    }}
-
-    // 동일 URL은 재로딩하지 않음
+    // C. iframe 이동을 가장 먼저 실행
+    pc11WarmArticleConnection(url);
     const thisToken=++pc11FrameLoadToken;
+
     if(frame){{
       frame.onload=()=>{{
         if(thisToken!==pc11FrameLoadToken)return;
@@ -39336,16 +39443,46 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
         frame.src=url;
       }}else{{
         frame.src="about:blank";
-        if(loadingTitle)loadingTitle.textContent="원문 주소가 없습니다.";
+        if(loadingTitle)loadingTitle.textContent="원문 주소 없음";
       }}
     }}
+
+    // 언론사 페이지가 onload를 늦게/반복 발생시키는 경우에도
+    // 로딩 UI가 기사 읽기를 방해하지 않도록 2초 후 강제 제거
+    setTimeout(()=>{{
+      if(thisToken===pc11FrameLoadToken && loadingBox){{
+        loadingBox.classList.add("loaded");
+      }}
+    }},2000);
 
     if(originalBtn){{
       originalBtn.disabled=!url;
       originalBtn.onclick=()=>{{if(url)window.open(url,"_blank","noopener")}};
     }}
 
-    // 미리보기/키워드/관련기사 계산은 뒤로 미룸
+    // D. 읽음 상태 및 카드 표시 작업은 iframe navigation 이후 수행
+    setTimeout(()=>{{
+      if(activeArticle!==c)return;
+      markReadForPC(c);
+      syncMobileState(c);
+
+      document.querySelectorAll(".pc11-list-card.selected").forEach(el=>el.classList.remove("selected"));
+      const cardIndex=currentCards().indexOf(c);
+      if(cardIndex>=0){{
+        const selected=document.querySelector(`.pc11-list-card[data-article-index="${{cardIndex}}"]`);
+        if(selected){{
+          selected.classList.add("selected","read");
+          const status=selected.querySelector(".pc11-list-status");
+          if(status && !selected.classList.contains("important")){{
+            status.classList.remove("unread");
+            status.classList.add("read");
+            status.textContent="읽음";
+          }}
+        }}
+      }}
+    }},0);
+
+    // E. 미리보기/키워드/관련기사 계산은 idle 때만
     const preparePreview=()=>{{
       if(activeArticle!==c)return;
 
@@ -39365,8 +39502,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
       const wrap=document.getElementById("pc11-detail-image-wrap");
       const img=document.getElementById("pc11-detail-image");
       if(wrap&&img){{
-        if(im){{ if(img.src!==im)img.src=im; wrap.hidden=false; }}
-        else{{ img.removeAttribute("src"); wrap.hidden=true; }}
+        if(im){{if(img.src!==im)img.src=im;wrap.hidden=false}}
+        else{{img.removeAttribute("src");wrap.hidden=true}}
       }}
 
       const kb=document.getElementById("pc11-detail-keywords");
@@ -39401,9 +39538,9 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     }};
 
     if("requestIdleCallback" in window){{
-      requestIdleCallback(preparePreview,{{timeout:800}});
+      requestIdleCallback(preparePreview,{{timeout:1000}});
     }}else{{
-      setTimeout(preparePreview,120);
+      setTimeout(preparePreview,180);
     }}
 
     if(previewBtn){{
