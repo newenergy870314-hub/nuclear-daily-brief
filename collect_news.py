@@ -1,3 +1,5 @@
+# FINAL PC V22 / FAST ORIGINAL VIEWER / TOPIC + CONTINENT > COUNTRY UI / 2026-09-08
+# FINAL PC V22 / FAST ORIGINAL VIEWER / TOPIC + COUNTRY CATEGORY MODE / 2026-09-08
 # FINAL PC V22 / FAST ORIGINAL VIEWER / MOBILE-MATCH CATEGORY UI / 2026-09-08
 # FINAL PC V22 / FAST ORIGINAL ARTICLE VIEWER / DIRECT IFRAME / 2026-09-08
 # FINAL PC V22 / ARTICLE VIEWER ONLY / REMOVE DASHBOARD ANALYTICS / 2026-09-08
@@ -30010,6 +30012,115 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   PC V22 — TOPIC / COUNTRY DUAL CATEGORY MODE
+   ========================================================== */
+@media (min-width:1000px){{
+  .pc11-right{{
+    grid-template-rows:54px 42px auto 42px minmax(0,1fr)!important;
+  }}
+
+  .pc11-category-mode{{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:4px!important;
+    padding:6px 10px!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#eef3f8!important;
+  }}
+
+  .pc11-category-mode button{{
+    height:30px!important;
+    border:1px solid rgba(35,57,93,.14)!important;
+    border-radius:7px!important;
+    background:#fff!important;
+    color:#667085!important;
+    font-size:11px!important;
+    font-weight:950!important;
+    cursor:pointer!important;
+  }}
+
+  .pc11-category-mode button.active{{
+    border-color:#23395d!important;
+    background:#23395d!important;
+    color:#fff!important;
+  }}
+
+  #pc11-group-tabs.pc11-group-tabs{{
+    max-height:154px!important;
+  }}
+
+  #pc11-group-tabs .pc11-country-flag{{
+    margin-right:2px!important;
+    font-size:12px!important;
+    line-height:1!important;
+  }}
+}}
+
+
+/* ==========================================================
+   PC V22 — CONTINENT FIRST, COUNTRY SECOND
+   Country mode: continent tabs on top, only its countries below.
+   ========================================================== */
+@media (min-width:1000px){{
+  .pc11-right{{
+    grid-template-rows:54px 42px auto auto 42px minmax(0,1fr)!important;
+  }}
+
+  .pc11-continent-tabs{{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:5px!important;
+    padding:7px 10px!important;
+    overflow-x:auto!important;
+    border-bottom:1px solid rgba(35,57,93,.10)!important;
+    background:#f7f9fb!important;
+    scrollbar-width:thin!important;
+  }}
+
+  .pc11-continent-tabs[hidden]{{
+    display:none!important;
+  }}
+
+  .pc11-continent-tabs button{{
+    flex:0 0 auto!important;
+    min-height:29px!important;
+    padding:0 10px!important;
+    border:1px solid rgba(35,57,93,.13)!important;
+    border-radius:8px!important;
+    background:#fff!important;
+    color:#4b6078!important;
+    font-size:10.5px!important;
+    font-weight:900!important;
+    white-space:nowrap!important;
+    cursor:pointer!important;
+  }}
+
+  .pc11-continent-tabs button b{{
+    margin-left:3px!important;
+    color:#7a8ca0!important;
+    font-size:9.5px!important;
+  }}
+
+  .pc11-continent-tabs button.active{{
+    border-color:#23395d!important;
+    background:#23395d!important;
+    color:#fff!important;
+  }}
+
+  .pc11-continent-tabs button.active b{{
+    color:#d9e4f0!important;
+  }}
+
+  /* 국가별에서는 선택 대륙의 국가만 보여주므로 탭 영역이 과도하게 길어지지 않음 */
+  #pc11-group-tabs.pc11-group-tabs{{
+    max-height:108px!important;
+    padding-top:7px!important;
+    padding-bottom:8px!important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -30182,6 +30293,13 @@ main {{
         </div>
         <span id="pc11-right-total">0건</span>
       </div>
+
+      <div class="pc11-category-mode" role="tablist" aria-label="기사 분류 방식">
+        <button id="pc11-mode-topic" class="active" type="button" role="tab" aria-selected="true">주제별</button>
+        <button id="pc11-mode-country" type="button" role="tab" aria-selected="false">국가별</button>
+      </div>
+
+      <div id="pc11-continent-tabs" class="pc11-continent-tabs" hidden aria-label="대륙 선택"></div>
 
       <div id="pc11-group-tabs" class="pc11-group-tabs">
         <button class="active" data-group="" type="button">전체</button>
@@ -39859,6 +39977,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   let period="금일";
   let selectedGroup="";
   let selectedCountry="";
+  let selectedContinent="ALL";
+  let categoryMode="topic"; // topic | country
   let searchText="";
   let activeArticle=null;
   let pc11LastOpenedUrl="";
@@ -40019,28 +40139,197 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     }}
   }}
 
+  function countryMetaForPC11(code){{
+    const meta={{
+      US:["🇺🇸","미국"], KR:["🇰🇷","한국"], GB:["🇬🇧","영국"], BG:["🇧🇬","불가리아"],
+      UA:["🇺🇦","우크라이나"], AE:["🇦🇪","UAE"], VN:["🇻🇳","베트남"], RO:["🇷🇴","루마니아"],
+      CZ:["🇨🇿","체코"], PL:["🇵🇱","폴란드"], SI:["🇸🇮","슬로베니아"], SK:["🇸🇰","슬로바키아"],
+      FI:["🇫🇮","핀란드"], JP:["🇯🇵","일본"], CA:["🇨🇦","캐나다"], FR:["🇫🇷","프랑스"],
+      SE:["🇸🇪","스웨덴"], DK:["🇩🇰","덴마크"], CN:["🇨🇳","중국"], IN:["🇮🇳","인도"],
+      AU:["🇦🇺","호주"], BR:["🇧🇷","브라질"], AR:["🇦🇷","아르헨티나"], CL:["🇨🇱","칠레"],
+      PE:["🇵🇪","페루"], CO:["🇨🇴","콜롬비아"], RU:["🇷🇺","러시아"], TR:["🇹🇷","튀르키예"],
+      SA:["🇸🇦","사우디"], ZA:["🇿🇦","남아공"], NL:["🇳🇱","네덜란드"], BE:["🇧🇪","벨기에"],
+      CH:["🇨🇭","스위스"], MY:["🇲🇾","말레이시아"], TH:["🇹🇭","태국"], SG:["🇸🇬","싱가포르"],
+      OTHER:["🌐","기타"]
+    }};
+    return meta[code]||["🌐",code||"기타"];
+  }}
+
+  const PC11_CONTINENTS=[
+    {{code:"ALL", name:"전체"}},
+    {{code:"NA", name:"북미"}},
+    {{code:"SA", name:"남미"}},
+    {{code:"EU", name:"유럽"}},
+    {{code:"AS", name:"아시아"}},
+    {{code:"MEA", name:"중동·아프리카"}},
+    {{code:"OC", name:"오세아니아"}}
+  ];
+
+  const PC11_COUNTRY_CONTINENT={{
+    US:"NA", CA:"NA",
+    BR:"SA", AR:"SA", CL:"SA", PE:"SA", CO:"SA",
+    GB:"EU", BG:"EU", RO:"EU", CZ:"EU", PL:"EU", SI:"EU", SK:"EU",
+    FI:"EU", FR:"EU", SE:"EU", DK:"EU", NL:"EU", BE:"EU", CH:"EU", UA:"EU",
+    KR:"AS", VN:"AS", JP:"AS", CN:"AS", IN:"AS", MY:"AS", TH:"AS", SG:"AS",
+    AE:"MEA", SA:"MEA", TR:"MEA", ZA:"MEA",
+    AU:"OC",
+    RU:"EU",
+    OTHER:"OTHER"
+  }};
+
+  function continentForCountry(code){{
+    return PC11_COUNTRY_CONTINENT[code]||"OTHER";
+  }}
+
+  function continentCounts(){{
+    const counts={{ALL:0}};
+    cards().forEach(c=>{{
+      const co=country(c)||"OTHER";
+      const ct=continentForCountry(co);
+      counts.ALL=(counts.ALL||0)+1;
+      counts[ct]=(counts[ct]||0)+1;
+    }});
+    return counts;
+  }}
+
+  function renderContinentTabs(){{
+    const box=document.getElementById("pc11-continent-tabs");
+    if(!box)return;
+
+    if(categoryMode!=="country"){{
+      box.hidden=true;
+      box.innerHTML="";
+      return;
+    }}
+
+    box.hidden=false;
+    box.innerHTML="";
+    const counts=continentCounts();
+
+    PC11_CONTINENTS.forEach(item=>{{
+      const count=counts[item.code]||0;
+      if(item.code!=="ALL" && count<=0)return;
+
+      const b=document.createElement("button");
+      b.type="button";
+      b.dataset.continent=item.code;
+      b.className=selectedContinent===item.code?"active":"";
+      b.innerHTML=esc(item.name)+' <b>'+count+'</b>';
+      b.onclick=()=>{{
+        selectedContinent=item.code;
+        selectedCountry="";
+        renderContinentTabs();
+        renderGroupTabs();
+        renderArticleList();
+      }};
+      box.appendChild(b);
+    }});
+  }}
+
+  function availableCountries(){{
+    const counts={{}};
+    cards().forEach(c=>{{
+      const co=country(c)||"OTHER";
+      counts[co]=(counts[co]||0)+1;
+    }});
+
+    const preferred=[
+      "US","KR","BG","GB","RO","CZ","PL","SI","FI","UA","AE","VN","JP","CA","FR",
+      "SE","DK","CN","IN","AU","RU","SA","TR","ZA","BR","AR","CL","PE","CO","NL",
+      "BE","CH","MY","TH","SG","OTHER"
+    ];
+    const rank=new Map(preferred.map((c,i)=>[c,i]));
+
+    return Object.entries(counts)
+      .filter(([code,count])=>count>0 && (selectedContinent==="ALL" || continentForCountry(code)===selectedContinent))
+      .map(([code,count])=>{{
+        const [flag,name]=countryMetaForPC11(code);
+        return {{code,count,flag,name}};
+      }})
+      .sort((a,b)=>{{
+        const ra=rank.has(a.code)?rank.get(a.code):999;
+        const rb=rank.has(b.code)?rank.get(b.code):999;
+        return ra-rb || b.count-a.count || a.name.localeCompare(b.name,"ko");
+      }});
+  }}
+
+  function renderCategoryMode(){{
+    const topic=document.getElementById("pc11-mode-topic");
+    const countryBtn=document.getElementById("pc11-mode-country");
+    if(topic){{
+      const on=categoryMode==="topic";
+      topic.classList.toggle("active",on);
+      topic.setAttribute("aria-selected",on?"true":"false");
+    }}
+    if(countryBtn){{
+      const on=categoryMode==="country";
+      countryBtn.classList.toggle("active",on);
+      countryBtn.setAttribute("aria-selected",on?"true":"false");
+    }}
+  }}
+
   function renderGroupTabs(){{
     const box=document.getElementById("pc11-group-tabs");
+    if(!box)return;
     box.innerHTML="";
-    const all=document.createElement("button");
-    all.type="button";all.dataset.group="";all.className=selectedGroup===""?"active":"";
-    all.innerHTML="전체 <b>"+cards().length+"</b>";
-    all.onclick=()=>selectGroup("","전체");
-    box.appendChild(all);
+    renderCategoryMode();
+    renderContinentTabs();
+
+    if(categoryMode==="topic"){{
+      const all=document.createElement("button");
+      all.type="button";
+      all.className=selectedGroup==="" ? "active" : "";
+      all.innerHTML="전체 <b>"+cards().length+"</b>";
+      all.onclick=()=>selectGroup("","전체");
+      box.appendChild(all);
+    }}
+
+    if(categoryMode==="country"){{
+      availableCountries().forEach(item=>{{
+        const b=document.createElement("button");
+        b.type="button";
+        b.dataset.country=item.code;
+        b.className=selectedCountry===item.code?"active":"";
+        b.innerHTML='<span class="pc11-country-flag">'+item.flag+'</span>'+esc(item.name)+' <b>'+item.count+'</b>';
+        b.onclick=()=>selectCountryTab(item.code,item.name);
+        box.appendChild(b);
+      }});
+      return;
+    }}
 
     availableGroups().forEach(g=>{{
       const b=document.createElement("button");
-      b.type="button";b.dataset.group=g.key;b.className=selectedGroup===g.key?"active":"";
+      b.type="button";
+      b.dataset.group=g.key;
+      b.className=selectedGroup===g.key?"active":"";
       b.innerHTML=esc(g.name)+" <b>"+g.count+"</b>";
       b.onclick=()=>selectGroup(g.key,g.name);
-      box.appendChild(b)
-    }})
+      box.appendChild(b);
+    }});
   }}
 
   function selectGroup(key,name){{
+    categoryMode="topic";
     selectedGroup=key||"";
     selectedCountry="";
+    selectedContinent="ALL";
     refresh()
+  }}
+
+  function selectCountryTab(code,name){{
+    categoryMode="country";
+    selectedCountry=code||"";
+    selectedGroup="";
+    refresh()
+  }}
+
+  function setCategoryMode(mode){{
+    categoryMode=mode==="country"?"country":"topic";
+    selectedGroup="";
+    selectedCountry="";
+    selectedContinent="ALL";
+    renderGroupTabs();
+    renderArticleList();
   }}
 
   function renderArticleList(){{
@@ -40048,9 +40337,13 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     const box=document.getElementById("pc11-article-list");box.innerHTML="";
     document.getElementById("pc11-right-total").textContent=cards().length+"건";
     document.getElementById("pc11-list-count").textContent=list.length+"건";
-    const selectedName=selectedGroup
-      ?((availableGroups().find(x=>x.key===selectedGroup)||{{}}).name||selectedGroup)
-      :"전체 기사";
+    let selectedName="전체 기사";
+    if(categoryMode==="country" && selectedCountry){{
+      const meta=countryMetaForPC11(selectedCountry);
+      selectedName=meta[1]+" 기사";
+    }}else if(categoryMode==="topic" && selectedGroup){{
+      selectedName=((availableGroups().find(x=>x.key===selectedGroup)||{{}}).name||selectedGroup);
+    }}
     document.getElementById("pc11-list-title").textContent=selectedName;
 
     list.forEach((c,idx)=>{{
@@ -40465,6 +40758,10 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     document.getElementById("pc11-country-reset").onclick=()=>{{selectedCountry="";closeDetail();refresh()}};
     document.getElementById("pc11-detail-prev").onclick=()=>moveDetail(-1);
     document.getElementById("pc11-detail-next").onclick=()=>moveDetail(1);
+    const modeTopic=document.getElementById("pc11-mode-topic");
+    const modeCountry=document.getElementById("pc11-mode-country");
+    if(modeTopic)modeTopic.onclick=()=>setCategoryMode("topic");
+    if(modeCountry)modeCountry.onclick=()=>setCategoryMode("country");
 
     const timelineRun=document.getElementById("pc11-timeline-run");
     const timelineQuery=document.getElementById("pc11-timeline-query");
