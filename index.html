@@ -19037,6 +19037,145 @@ main {
   }
 }
 
+
+/* ==========================================================
+   2026-09-11 FINAL HARD RESET
+   Desktop uses ONLY the stable mobile UI.
+   Legacy dark control-desk/map/clock/signal panels never render.
+   ========================================================== */
+@media (min-width:1000px){
+  #pc7-app,
+  #pc9-app,
+  #pc10-app,
+  #pc11-app,
+  #pc-v2-dashboard,
+  #pc-insight-rail,
+  #world-map-panel{
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    width:0!important;
+    height:0!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    pointer-events:none!important;
+    position:absolute!important;
+    left:-99999px!important;
+    top:-99999px!important;
+  }
+
+  body>.phone{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:100vh!important;
+    height:auto!important;
+    overflow:visible!important;
+    margin:0!important;
+  }
+
+  body>.phone main{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:14px 14px 36px!important;
+  }
+
+  /* PC changes layout only: exact mobile article cards, two columns. */
+  body>.phone .article-stack{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    width:100%!important;
+    align-items:stretch!important;
+  }
+
+  body>.phone .preview-card{
+    display:grid!important;
+    width:100%!important;
+    min-width:0!important;
+  }
+}
+
+
+/* ==========================================================
+   FINAL PC = MOBILE UI ONLY
+   Legacy PC dashboard/map/clock/signal DOM removed/disabled.
+   Desktop only reflows stable mobile cards into 2 columns.
+   ========================================================== */
+@media (min-width:1000px){
+  html,body{
+    width:100%!important;
+    min-height:100%!important;
+    height:auto!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    background:#d7e0e8!important;
+  }
+
+  body>.phone{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:100vh!important;
+    height:auto!important;
+    overflow:visible!important;
+    margin:0!important;
+  }
+
+  body>.phone main{
+    display:block!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:14px 14px 36px!important;
+  }
+
+  body>.phone .article-stack{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    align-items:stretch!important;
+    width:100%!important;
+  }
+
+  body>.phone .preview-card{
+    display:grid!important;
+    width:100%!important;
+    min-width:0!important;
+  }
+
+  /* hard safety net in case any legacy root survived malformed older HTML */
+  [id="pc7-app"],
+  [id="pc9-app"],
+  [id="pc10-app"],
+  [id="pc11-app"],
+  [id="pc-v2-dashboard"],
+  [id="pc-insight-rail"],
+  [id="world-map-panel"]{
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -19050,14 +19189,7 @@ main {
 
 
 <body>
-<div id="pc11-app" class="pc11-app" aria-label="원자력 주요기사 PC">
-  <header class="pc11-header">
-    <div class="pc11-brand">
-      <span>NUCLEAR DAILY BRIEF</span>
-      <strong>원자력 주요기사</strong>
-    </div>
-
-    <div class="pc11-search-wrap">
+<div class="pc11-search-wrap">
       <input id="pc11-search" type="search" placeholder="기사 · 기업 · 프로젝트 · 국가 검색">
     </div>
 
@@ -19231,14 +19363,7 @@ main {
   </div>
 </div>
 
-<div id="pc10-app" class="pc10-app" aria-label="원자력 뉴스 PC 대시보드">
-  <header class="pc10-topbar">
-    <div class="pc10-brand">
-      <span>NUCLEAR DAILY BRIEF</span>
-      <strong>금일 주요기사</strong>
-    </div>
-
-    <div class="pc10-searchbox">
+<div class="pc10-searchbox">
       <input id="pc10-search" type="search" placeholder="기사·기업·프로젝트·국가 검색">
     </div>
 
@@ -19350,13 +19475,7 @@ main {
   </section>
 </div>
 
-  <div id="pc9-app" class="pc9-app" aria-label="원자력 주요기사 PC 분석 대시보드">
-    <header class="pc9-header">
-      <div class="pc9-brand">
-        <span>NUCLEAR INTELLIGENCE</span>
-        <strong>오늘의 원자력 기사 분석</strong>
-      </div>
-      <div class="pc9-search">
+  <div class="pc9-search">
         <input id="pc9-search-input" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색">
       </div>
       <div class="pc9-header-right">
@@ -19472,14 +19591,7 @@ main {
        Completely separate from the mobile UI.
        Existing mobile DOM remains below and is untouched.
        ============================================================ -->
-  <div id="pc7-app" class="pc7-app" aria-label="Nuclear Intelligence Desktop">
-    <header class="pc7-header">
-      <div class="pc7-brand">
-        <span class="pc7-brand-kicker">NUCLEAR INTELLIGENCE</span>
-        <strong>Global Control Desk</strong>
-      </div>
-
-      <div class="pc7-search-wrap">
+  <div class="pc7-search-wrap">
         <input id="pc7-search" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색" autocomplete="off">
       </div>
 
@@ -19591,7 +19703,7 @@ main {
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
-        <span class="updated updated-inline">업데이트됨 9.11(금) 07:20 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.11(금) 07:55 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -25610,7 +25722,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/one-nuclear-unveils-plans-for-1-gw-smr-campus-project-in-louisiana-9-4-2026#&lt;ActiveStorage::Attached::One:0x0000707a05b8d018&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/one-nuclear-unveils-plans-for-1-gw-smr-campus-project-in-louisiana-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079f09054b8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26816,7 +26928,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/private-canadian-company-unveils-three-reactor-designs-for-world-s-most-demanding-environments-9-4-2026#&lt;ActiveStorage::Attached::One:0x0000707a03b56c40&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/private-canadian-company-unveils-three-reactor-designs-for-world-s-most-demanding-environments-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079f534c508&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -27911,7 +28023,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260910_0003784573"
   data-title="&quot;아파트값 부담에 오피스텔로&quot;…실수요 몰린 &#x27;송파더그리드&#x27;[르포]"
   data-publisher="뉴시스"
@@ -27935,7 +28047,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;아파트값 부담에 오피스텔로&quot;…실수요 몰린 &#x27;송파더그리드&#x27;[르포]</div>
+      <div class="headline">&quot;아파트값 부담에 오피스텔로&quot;…실수요 몰린 &#x27;송파더그리드&#x27;[르포]</div>
       <div class="article-snippet">[서울=뉴시스] 강세훈 기자, 주다영 인턴기자 = &quot;아파트값이 계속 올라 부담이 커져서 오피스텔도 함께 알아보고 있어요.&quot; 10일 서울 송파구에 마련된 &#x27;힐스테이트 송파더그리드&#x27; 견본주택에서 만난 위례 거주 40대 부부는 전용 84㎡ 타입을 관심 있게 살펴보며 이같이 말했다. 이들은 인근 대형 평형 주택 가격 등을 고려하면 분양가도 비교적 합리적인 수준이라고 평가했다. 평일인 목요일 낮이었지만 견본주택에는 방문객들의 발길이 이어졌다. 60~70대 방문객들이 적지 않은 가운데 갓난아이를 데리고 유닛을 둘러보는 30~40대 부부들이 눈에 띄었다. 점심시간을 이용해 견본주</div>
     </div>
   </div>
@@ -29213,7 +29325,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.idaegu.co.kr/news/articleView.html?idxno=559329" target="_blank" rel="noopener"><span class="related-coverage-publisher">대구신문</span><span class="related-coverage-title">한전기술, 핵융합에너지 사업 참여 확대 - 대구신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한국전력기술-인애이블퓨전, 핵융합에너지 사업 ‘맞손’</div>
@@ -29411,7 +29523,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105269" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">남부발전, ‘IDPP 기반 우수앱 개발사례’ 베트남 발전공사에 소개</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">남부발전, IDPP 기반 우수 앱 개발사례 베트남에 전파</div>
@@ -30239,10 +30351,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">22건</span>
+    <span class="group-count">24건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=01679366645579136&amp;mediaCodeNo=257"
   data-title="[기고]대미 투자의 성공은 공정한 집행에 달려 있다"
   data-publisher="이데일리"
@@ -30266,12 +30378,78 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[기고]대미 투자의 성공은 공정한 집행에 달려 있다</div>
+      <div class="headline">[기고]대미 투자의 성공은 공정한 집행에 달려 있다</div>
       <div class="article-snippet">지난해 한·미 관세 협상의 결과로 약속된 3500억 달러 규모의 대미 투자가 본격적으로 구체화하고 있다. 최근 텍사스 가스 발전 사업이 ‘1호 투자 프로젝트’로 유력하게 거론되는 가운데 알래스카 LNG 사업과 총 8기 규모의 원전 건설 사업도 핵심 검토 대상으로 알려...</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/711793d6cb24a77c84055598.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.chosun.com/economy/int_economy/2026/09/11/BB42O5DBXZE2HPKPTAUXIC7CO4/"
+  data-title="美언론 “한국, 美 원전·텍사스 가스발전에 1000억달러 투자 임박”…김정관 “대미투자 협상 마무리하기 위해 방미”"
+  data-publisher="조선일보"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789067140"
+  data-country="US"
+  data-search="美언론 “한국, 美 원전·텍사스 가스발전에 1000억달러 투자 임박”…김정관 “대미투자 협상 마무리하기 위해 방미” 조선일보 원전 대미투자 한국 정부가 미국의 ai 인프라 강화를 위해 원전 및 천연가스 발전 사업에 1000억 달러 규모의 투자를 미국과 협의하고 있습니다. 다만 한미 양국 정부는 세부 내용이 확정되지 않았다는 입장을 고수하고 있으며, 협상이 막바지 단계에 있음을 시사했습니다. 이번 사업은 지난해 약속한 대미 투자 규모의 일환으로 향후 전략 산업 분야의 협력이 더욱 강화될 전망입니다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">조선일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美언론 “한국, 美 원전·텍사스 가스발전에 1000억달러 투자 임박”…김정관 “대미투자 협상 마무리하기 위해 방미”</div>
+      <div class="article-snippet">한국 정부가 미국의 AI 인프라 강화를 위해 원전 및 천연가스 발전 사업에 1000억 달러 규모의 투자를 미국과 협의하고 있습니다. 다만 한미 양국 정부는 세부 내용이 확정되지 않았다는 입장을 고수하고 있으며, 협상이 막바지 단계에 있음을 시사했습니다. 이번 사업은 지난해 약속한 대미 투자 규모의 일환으로 향후 전략 산업 분야의 협력이 더욱 강화될 전망입니다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1372fbaea501296780ff1ab8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.fnnews.com/news/202609110352258342"
+  data-title="김정관 &quot;대미투자 협상 마무리할 것 있어 방미&quot;…1000억달러 에너지 투자 임박"
+  data-publisher="파이낸셜뉴스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789066483"
+  data-country="US"
+  data-search="김정관 &quot;대미투자 협상 마무리할 것 있어 방미&quot;…1000억달러 에너지 투자 임박 파이낸셜뉴스 원전 대미투자 김정관 산업통상부 장관이 한미 대미투자 협상을 마무리하기 위해 미국을 찾았다.대미투자 1호 프로젝트로 220억달러 규모의 텍사스 가스복합화력발전소가 유력하게 거론되는 가운데 원자력발전소와 천연가스 사업 등을 포함한 1000억달러 이상의 에너지 투자 패키지를 .."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">파이낸셜뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;대미투자 협상 마무리할 것 있어 방미&quot;…1000억달러 에너지 투자 임박</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 한미 대미투자 협상을 마무리하기 위해 미국을 찾았다.대미투자 1호 프로젝트로 220억달러 규모의 텍사스 가스복합화력발전소가 유력하게 거론되는 가운데 원자력발전소와 천연가스 사업 등을 포함한 1000억달러 이상의 에너지 투자 패키지를 ..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/517a122c32ccfea39a6bc86b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -30473,7 +30651,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=01482566645579136&amp;mediaCodeNo=257"
   data-title="김정관 “대미투자 협상 마무리 위해 방미…최종 서명 전까지 협상 진행”"
   data-publisher="이데일리"
@@ -30497,7 +30675,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.yonhapnewstv.co.kr/news/MYH20260911051103MJW" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스TV</span><span class="related-coverage-title">김정관 산업장관 “대미 투자 협상 마무리차 방미“</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 “대미투자 협상 마무리 위해 방미…최종 서명 전까지 협상 진행”</div>
+      <div class="headline">김정관 “대미투자 협상 마무리 위해 방미…최종 서명 전까지 협상 진행”</div>
       <div class="article-snippet">김정관 산업통상부 장관이 10일(현지시간) 미국에 도착해 대미투자 협상 마무리를 위한 조율에 나섰다. 김 장관은 “최종 서명하기 전까지는 협상이 진행 중”이라며 구체적인 투자 규모와 사업 내용에 대해서는 말을 아꼈다. 김정관 산업통상부 장관 (사진=연합뉴스)김 장관...</div>
     </div>
   </div>
@@ -31196,7 +31374,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.chosun.com/economy/tech_it/2026/09/10/N37VPKL63RBLVEDQXNWGYO6DWI/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선일보</span><span class="related-coverage-title">구글, AI 데이터센터 위해 ‘원전 강국’ 핀란드 택했다</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6161" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">구글, 핀란드 원전 전력 22년 확보…AI 전력전쟁 본격화 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.chosun.com/economy/tech_it/2026/09/11/Q5BJCLK3QRBY5IR4GV2AMU6UQM/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선일보</span><span class="related-coverage-title">구글, ‘원전 강국’ 핀란드에 20조원 AI 투자</span></a><a class="related-coverage-link" href="https://www.chosun.com/economy/tech_it/2026/09/10/N37VPKL63RBLVEDQXNWGYO6DWI/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선일보</span><span class="related-coverage-title">구글, AI 데이터센터 위해 ‘원전 강국’ 핀란드 택했다</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6161" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">구글, 핀란드 원전 전력 22년 확보…AI 전력전쟁 본격화 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">구글, 핀란드서 원자력 발전소 전력 장기 공급 계약</div>
@@ -31472,7 +31650,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34454"
   data-title="“원자력에서 AI 안전관리까지”…김천중앙중서 미래 에너지 특강"
   data-publisher="한국원자력신문"
@@ -31496,7 +31674,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>“원자력에서 AI 안전관리까지”…김천중앙중서 미래 에너지 특강</div>
+      <div class="headline">“원자력에서 AI 안전관리까지”…김천중앙중서 미래 에너지 특강</div>
       <div class="article-snippet">경북 김천중앙중학교 학생들이 원자력발전의 원리와 생활 속 방사선의 활용, 인공지능(AI)을 접목한 원전 안전관리 기술 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼이 주최하고 사단법인 사실과과학네트웍이 주관한 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’이 지난 8일 오후 2</div>
     </div>
   </div>
@@ -32207,7 +32385,7 @@ main {
     <span class="group-count">25건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.industrynews.co.kr/news/articleView.html?idxno=85843"
   data-title="경남도, SMR에 4조7000억 승부수…산업·안전·관광 ‘3각 드라이브’ - 인더스트리뉴스"
   data-publisher="인더스트리뉴스"
@@ -32231,7 +32409,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>경남도, SMR에 4조7000억 승부수…산업·안전·관광 ‘3각 드라이브’ - 인더스트리뉴스</div>
+      <div class="headline">경남도, SMR에 4조7000억 승부수…산업·안전·관광 ‘3각 드라이브’ - 인더스트리뉴스</div>
       <div class="article-snippet">[인더스트리뉴스 경남=하용성 기자] 경남도가 미래 먹거리인 소형모듈원자로(SMR)에 약 4조7천억 원을 투입해 세계 최고 수준의 생산거점 구축에 나서는 한편, 추</div>
     </div>
   </div>
@@ -33245,10 +33423,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">44건</span>
+    <span class="group-count">46건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://asia.nikkei.com/business/energy/giant-robot-arm-to-probe-fukushima-nuclear-debris-after-5-year-delay"
+  data-title="Giant robot arm to probe Fukushima nuclear debris after 5-year delay"
+  data-publisher="Nikkei Asia"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1789073927"
+  data-country="JP"
+  data-search="giant robot arm to probe fukushima nuclear debris after 5-year delay nikkei asia nuclear power·nuclear energy upcoming inspection is critical step toward removing highly radioactive fuel"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nikkei Asia</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Giant robot arm to probe Fukushima nuclear debris after 5-year delay</div>
+      <div class="article-snippet">Upcoming inspection is critical step toward removing highly radioactive fuel</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/30d6f22291cce2bc5b97af73.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://interestingengineering.com/energy/deep-fission-tests-underground-nuclear-reactor-canister"
   data-title="New drilling technique puts 20-foot reactor 100 feet underground"
   data-publisher="Interesting Engineering"
@@ -33272,7 +33483,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>New drilling technique puts 20-foot reactor 100 feet underground</div>
+      <div class="headline">New drilling technique puts 20-foot reactor 100 feet underground</div>
       <div class="article-snippet">Deep Fission tested a 20-foot reactor canister underground using commercial drilling equipment for its mile-deep reactor plan.</div>
     </div>
   </div>
@@ -33475,7 +33686,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/951075a3259f505a573af1bc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/09d79e46880665948130219c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -33611,7 +33822,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.power-eng.com/nuclear/duane-arnolds-nuclear-restart-in-eastern-iowa-gets-1-9b-boost-from-doe/"
   data-title="Duane Arnold’s nuclear restart in eastern Iowa gets $1.9B boost from DOE"
   data-publisher="Power Engineering"
@@ -33635,7 +33846,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Duane Arnold’s nuclear restart in eastern Iowa gets $1.9B boost from DOE</div>
+      <div class="headline">Duane Arnold’s nuclear restart in eastern Iowa gets $1.9B boost from DOE</div>
       <div class="article-snippet">DOE financing gives a major boost to NextEra Energy’s effort to restart Duane Arnold by 2029, following an emerging path for bringing retired nuclear plants back online.</div>
     </div>
   </div>
@@ -34337,6 +34548,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.globalbankingandfinance.com/iran-iaea-moves-push-countries-exit-npt/"
+  data-title="Iran: IAEA Political Moves Risk Countries Exiting NPT Treaty"
+  data-publisher="Global Banking &amp; Finance Review"
+  data-group="국제 원자력·에너지기구"
+  data-language="en"
+  data-priority="2"
+  data-published="1789063496"
+  data-country="OTHER"
+  data-search="iran: iaea political moves risk countries exiting npt treaty global banking &amp; finance review 국제 원자력·에너지기구 iran warns that political moves by the iaea may prompt countries to exit the non-proliferation treaty after the agency&#x27;s report to the un security council."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Banking &amp; Finance Review</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Iran: IAEA Political Moves Risk Countries Exiting NPT Treaty</div>
+      <div class="article-snippet">Iran warns that political moves by the IAEA may prompt countries to exit the Non-Proliferation Treaty after the agency&#x27;s report to the UN Security Council.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e838cdc8277128da8c8d5ee0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://sightlineu3o8.com/2026/09/v-ptu-reports-winter-2026-assays-from-dorado-jvs-nova-target/"
   data-title="V.PTU Reports Winter 2026 Assays from Dorado JV’s Nova Target"
@@ -34727,7 +34971,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260910_0003784691"
   data-title="&quot;AI 전력시장 뚫는다&quot; 정기선號 HD현대, 엔진·SMR로 &#x27;2030년 매출 100조&#x27; 동력 확보"
   data-publisher="뉴시스"
@@ -34751,7 +34995,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260910134652915" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">HD현대重, &#x27;엔진·SMR&#x27; 미래사업에 1조 투자한다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;AI 전력시장 뚫는다&quot; 정기선號 HD현대, 엔진·SMR로 &#x27;2030년 매출 100조&#x27; 동력 확보</div>
+      <div class="headline">&quot;AI 전력시장 뚫는다&quot; 정기선號 HD현대, 엔진·SMR로 &#x27;2030년 매출 100조&#x27; 동력 확보</div>
       <div class="article-snippet">[서울=뉴시스]유희석 기자 = HD현대가 급증하는 인공지능(AI) 데이터센터 전력 수요에 대응해 육상 발전엔진과 소형모듈원자로(SMR)에 총 1조722억원을 투자한다. 정기선 HD현대 회장이 제시한 ‘2030년 그룹 매출 100조원’ 목표 달성을 위한 신성장동력 확보에도 속도를 낸다는 구상이다. ◆발전엔진 생산 거점 이원화…2030년 7.2GW로 확대 11일 업계에 따르면 HD현대중공업은 8336억원을 투입해 울산 울주군 온산읍에 3GW 규모의 &#x27;힘센엔진(HiMSEN Engine)&#x27; 신규 생산기지를 구축한다. 2028년 5월 준공이 목표다. 생산 거점도 이원화한다.</div>
     </div>
   </div>
@@ -35107,7 +35351,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260910_0003784665"
   data-title="국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개"
   data-publisher="뉴시스"
@@ -35131,626 +35375,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개</div>
-      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부 소속 국립생물자원관이 염분이 있는 토양에서 살아가는 염생식물과 갯벌에서 유기적 관계를 맺고 살아가는 생물을 함께 소개하는 기획전을 마련했다. 국립생물자원관은 내년 3월까지 인천 서해구 생생채움 기획전시실에서 &#x27;소금 위에 피어난 식물&#x27; 기획전을 선보인다고 11일 밝혔다. 이번 전시는 ▲포스코이앤씨 ▲해양경찰청 ▲월드비전 ▲인천항만공사 ▲인천 사랑의열매 ▲포스코1%나눔재단이 함께 참여했다. 총 26종의 염생식물을 소개하는 이번 전시에서는 나문재, 퉁퉁마디, 해홍, 칠면초 등 염생식물 4종의 대형 모형을 비롯해 생성형 인공지능</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/69d6eade55982b9044c36a9c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
-</section>
-
-<section class="news-group collapsed" data-group="한국수력원자력">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">한국수력원자력</span>
-    <span class="group-count">2건</span>
-  </button>
-  <div class="article-stack">
-<article class="preview-card"
-  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70883"
-  data-title="이재명 대통령, 프랑스 국빈방문…한수원 핵연료 공급망 넓혀"
-  data-publisher="에너지타임즈"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1789083248"
-  data-country="FR"
-  data-search="이재명 대통령, 프랑스 국빈방문…한수원 핵연료 공급망 넓혀 에너지타임즈 한국수력원자력 이재명 대통령 프랑스 국빈방문을 계기로 한수원이 프랑스 오라노와 손잡고 우라늄 농축 공급망 다변화에 나섭니다. 지난 8일 프랑스 엘리제궁에서 한수원은 한-프랑스 양국 정상이 임석한 가운데 프랑스 오라노와 우라늄 농축 장기협력을 위한 협력의향서를 체결했습니다."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지타임즈</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">이재명 대통령, 프랑스 국빈방문…한수원 핵연료 공급망 넓혀</div>
-      <div class="article-snippet">이재명 대통령 프랑스 국빈방문을 계기로 한수원이 프랑스 오라노와 손잡고 우라늄 농축 공급망 다변화에 나섭니다. 지난 8일 프랑스 엘리제궁에서 한수원은 한-프랑스 양국 정상이 임석한 가운데 프랑스 오라노와 우라늄 농축 장기협력을 위한 협력의향서를 체결했습니다.</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/3738f7ee593b6d9d16985821.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=228088"
-  data-title="서남권 반도체 전력 해법, 12차 전기본 시험대 오른다"
-  data-publisher="에너지신문"
-  data-group="한국수력원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1789080041"
-  data-country="KR"
-  data-search="서남권 반도체 전력 해법, 12차 전기본 시험대 오른다 에너지신문 한국수력원자력 [에너지신문] ai와 반도체 산업의 전력수요를 기존 방식으로 예측하기 어렵다는 지적이 나오면서 제12차 전력수급기본계획의 수요 전망과 전원 구성이 시험대에 오를 전망이다. 서남권 반도체 클러스터에 필요한 전력을 제때 공급하려면 재생에너지 설비 규모뿐 아니라 실제 공급능력과 송전망, 원전 계속운전 등을 함께 고려해야 한다는 주장이다.한국수력원자력노동조합과 원자력정책연대는 10일 국회의원회관에서 ‘서남권 반도체 클러스터, 전력은 어떻게 공급할 것인가-12차 전기본의 과제’를 주제로 토론회를 열었다.이날 논의는 서남권 반도체 클러스터의"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">서남권 반도체 전력 해법, 12차 전기본 시험대 오른다</div>
-      <div class="article-snippet">[에너지신문] AI와 반도체 산업의 전력수요를 기존 방식으로 예측하기 어렵다는 지적이 나오면서 제12차 전력수급기본계획의 수요 전망과 전원 구성이 시험대에 오를 전망이다. 서남권 반도체 클러스터에 필요한 전력을 제때 공급하려면 재생에너지 설비 규모뿐 아니라 실제 공급능력과 송전망, 원전 계속운전 등을 함께 고려해야 한다는 주장이다.한국수력원자력노동조합과 원자력정책연대는 10일 국회의원회관에서 ‘서남권 반도체 클러스터, 전력은 어떻게 공급할 것인가-12차 전기본의 과제’를 주제로 토론회를 열었다.이날 논의는 서남권 반도체 클러스터의</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/d0f533c31dad641e2533a583.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
-</section>
-
-<section class="news-group collapsed" data-group="한국전력">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">한국전력</span>
-    <span class="group-count">1건</span>
-  </button>
-  <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=228087"
-  data-title="외산 의존 HVDC, 국산 기자재 ‘실계통 검증’으로 돌파구 찾는다"
-  data-publisher="에너지신문"
-  data-group="한국전력"
-  data-language="ko"
-  data-priority="1"
-  data-published="1789078436"
-  data-country="KR"
-  data-search="외산 의존 hvdc, 국산 기자재 ‘실계통 검증’으로 돌파구 찾는다 에너지신문 한국전력 [에너지신문] 외국계 기업이 주도해 온 대용량 전압형 초고압직류송전(hvdc) 시장에 국내 전력기기 업체들이 본격적으로 진입한다. 연구개발에 그쳤던 국산 기자재를 실제 전력망에 투입해 성능을 검증하고, 향후 국내 사업과 해외시장 진출에 필요한 상용화 실적을 확보하려는 시도다.한전은 대용량 전압형 hvdc의 핵심 설비인 밸브·제어기와 변환용 변압기를 국내 기술로 개발해 새만금-서화성 hvdc 사업에 적용할 계획이라고 10일 밝혔다.hvdc는 발전소에서 생산한 전력을 직류로 변환해 장거리로 송전한 뒤 수요지 인근에서 다시 교류로 바꾸는"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지신문</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">외산 의존 HVDC, 국산 기자재 ‘실계통 검증’으로 돌파구 찾는다</div>
-      <div class="article-snippet">[에너지신문] 외국계 기업이 주도해 온 대용량 전압형 초고압직류송전(HVDC) 시장에 국내 전력기기 업체들이 본격적으로 진입한다. 연구개발에 그쳤던 국산 기자재를 실제 전력망에 투입해 성능을 검증하고, 향후 국내 사업과 해외시장 진출에 필요한 상용화 실적을 확보하려는 시도다.한전은 대용량 전압형 HVDC의 핵심 설비인 밸브·제어기와 변환용 변압기를 국내 기술로 개발해 새만금-서화성 HVDC 사업에 적용할 계획이라고 10일 밝혔다.HVDC는 발전소에서 생산한 전력을 직류로 변환해 장거리로 송전한 뒤 수요지 인근에서 다시 교류로 바꾸는</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a230c9d386c575cfbdb3a3de.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
-</section>
-
-<section class="news-group collapsed" data-group="한전 계열사">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">한전 계열사</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-<section class="news-group collapsed" data-group="원전 관계부처">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-<section class="news-group collapsed" data-group="원전 대미투자">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">원전 대미투자</span>
-    <span class="group-count">4건</span>
-  </button>
-  <div class="article-stack">
-<article class="preview-card new-article"
-  data-url="https://www.hankyung.com/article/2026091177877"
-  data-title="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;"
-  data-publisher="한국경제"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="0"
-  data-published="1789077027"
-  data-country="KR"
-  data-search="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot; 한국경제 원전 대미투자 김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;, 12일까지 러트닉 상무장관 등과 면담 wsj &quot;원전 8기·가스 1000억달러 합의 임박&quot; 金 &quot;최종 결과 나오면 그때 말씀드리겠다&quot;"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">한국경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</div>
-      <div class="article-snippet">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;, 12일까지 러트닉 상무장관 등과 면담 WSJ &quot;원전 8기·가스 1000억달러 합의 임박&quot; 金 &quot;최종 결과 나오면 그때 말씀드리겠다&quot;</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/29d48f9f55ad76a6bf2258f2.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.mk.co.kr/news/politics/12150024"
-  data-title="“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율 - 매일경제"
-  data-publisher="매일경제"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="0"
-  data-published="1789074628"
-  data-country="US"
-  data-search="“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율 - 매일경제 매일경제 원전 대미투자 한국 정부가 대미 투자 협상의 마무리 단계에 들어간 가운데 김정관 산업통상부 장관이 직접 미국으로 건너가 막판 조율에 나섰다. 미국 월스트리트저널(wsj)이 한국의 첫 대미 투자 사업으로 원전 8기와 천연가스 프로젝트 등 에너지 분야에 1000억달러(약 134조원) 이상을 투자하는 방안이 합의에 임박했다고 보도하면서 협상 결과에 관심이 쏠린다. 김 장관은"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">매일경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율 - 매일경제</div>
-      <div class="article-snippet">한국 정부가 대미 투자 협상의 마무리 단계에 들어간 가운데 김정관 산업통상부 장관이 직접 미국으로 건너가 막판 조율에 나섰다. 미국 월스트리트저널(WSJ)이 한국의 첫 대미 투자 사업으로 원전 8기와 천연가스 프로젝트 등 에너지 분야에 1000억달러(약 134조원) 이상을 투자하는 방안이 합의에 임박했다고 보도하면서 협상 결과에 관심이 쏠린다. 김 장관은</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/4c785c0f9ba0322f851d4055.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.ajunews.com/view/20260911060831237"
-  data-title="김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot;"
-  data-publisher="아주경제"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="1"
-  data-published="1789074668"
-  data-country="KR"
-  data-search="김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot; 아주경제 원전 대미투자 [사진=연합뉴스] 10일(현지시간) 김정관 산업통상부 장관이 미국에 도착했다. 이날 연합뉴스에 따르면 김 장관은 미 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot; &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 말했다. 그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고 덧붙였다.  오는 12일까지 김 장관은 미국에"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">아주경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026091177877" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제TV</span><span class="related-coverage-title">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</span></a><a class="related-coverage-link" href="https://www.mbn.co.kr/news/economy/5218479" target="_blank" rel="noopener"><span class="related-coverage-publisher">MBN</span><span class="related-coverage-title">김정관 ″대미 투자 협상 마무리차 방미″…러트닉과 막판 조율</span></a></div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot;</div>
-      <div class="article-snippet">[사진=연합뉴스] 10일(현지시간) 김정관 산업통상부 장관이 미국에 도착했다. 이날 연합뉴스에 따르면 김 장관은 미 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot; &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 말했다. 그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고 덧붙였다.  오는 12일까지 김 장관은 미국에</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b0b1cfe255a0d420a85d02f8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260909_0003782320"
-  data-title="[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수"
-  data-publisher="뉴시스"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="2"
-  data-published="1789074000"
-  data-country="KR"
-  data-search="[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수 뉴시스 원전 대미투자 [세종=뉴시스]임소현 기자 = 정부가 미국이 추진하는 핵심광물 무역협정(atcm) 참여 여부를 검토하기 위해 갈륨과 게르마늄 등 5개 전략핵심광물의 공급망과 기준가격이 국내 산업에 미칠 영향 분석에 착수한다. 미국이 중국산 저가 핵심 광물에 대응해 가격하한과 조정관세 등을 활용하는 새로운 무역질서를 구상하면서 한국도 참여에 따른 득실을 따져보기 시작한 것이다. 11일 관계당국 등에 따르면 산업통상부는 최근 &#x27;전략핵심광물 공급사슬·기준가격 분석 및 정책수단 평가 연구&#x27;에 착수했다. 연구 대상은 갈륨·게르마늄·텅스텐·안티모니와 희토류 원료인 네오디뮴·프라세오디뮴(ndpr"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수</div>
-      <div class="article-snippet">[세종=뉴시스]임소현 기자 = 정부가 미국이 추진하는 핵심광물 무역협정(ATCM) 참여 여부를 검토하기 위해 갈륨과 게르마늄 등 5개 전략핵심광물의 공급망과 기준가격이 국내 산업에 미칠 영향 분석에 착수한다. 미국이 중국산 저가 핵심 광물에 대응해 가격하한과 조정관세 등을 활용하는 새로운 무역질서를 구상하면서 한국도 참여에 따른 득실을 따져보기 시작한 것이다. 11일 관계당국 등에 따르면 산업통상부는 최근 &#x27;전략핵심광물 공급사슬·기준가격 분석 및 정책수단 평가 연구&#x27;에 착수했다. 연구 대상은 갈륨·게르마늄·텅스텐·안티모니와 희토류 원료인 네오디뮴·프라세오디뮴(NdPr</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b5cdec97dac73f90482e95b8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
-</section>
-
-<section class="news-group collapsed" data-group="원자력">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">원자력</span>
-    <span class="group-count">4건</span>
-  </button>
-  <div class="article-stack">
-<article class="preview-card"
-  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70882"
-  data-title="한-프랑스 원전수출에선 경쟁…협력 잠재력도 크다"
-  data-publisher="에너지타임즈"
-  data-group="원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1789080180"
-  data-country="FR"
-  data-search="한-프랑스 원전수출에선 경쟁…협력 잠재력도 크다 에너지타임즈 원자력 "
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">에너지타임즈</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">한-프랑스 원전수출에선 경쟁…협력 잠재력도 크다</div>
-      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/786445d27b560f5b47c61a24.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260911_0003785100"
-  data-title="러, 북한 핵 활동 옹호하며 IAEA에 보고서 중단 촉구"
-  data-publisher="뉴시스"
-  data-group="국제 원자력·에너지기구"
-  data-language="ko"
-  data-priority="0"
-  data-published="1789075950"
-  data-country="RU"
-  data-search="러, 북한 핵 활동 옹호하며 iaea에 보고서 중단 촉구 뉴시스 국제 원자력·에너지기구 [서울=뉴시스] 강영진 기자 = 러시아가 유엔 산하 국제원자력기구(iaea)의 북한 핵 프로그램 보고서를 일축하면서 보고서 발행을 중단하라고 촉구했다고 미국의 북한 전문 매체 nk 뉴스(nk news)가 10일(현지시각) 보도했다. 러시아의 iaea 주재 대표는 지난 9일 성명에서 iaea가 2009년 이후 북한에 대한 핵사찰을 실시하지 않았다면서, “북한의 핵 인프라 상태에 관해 신뢰할 만한 결론을 내릴 수 없다”고 주장했다. 러시아 대표는 “위성 이미지와 공개 출처의 정보에만 근거한 사무국의 평가는 부가가치가 없고, 오해를 불러일으키는 인상을 만들며, 추가적인 위"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>러, 북한 핵 활동 옹호하며 IAEA에 보고서 중단 촉구</div>
-      <div class="article-snippet">[서울=뉴시스] 강영진 기자 = 러시아가 유엔 산하 국제원자력기구(IAEA)의 북한 핵 프로그램 보고서를 일축하면서 보고서 발행을 중단하라고 촉구했다고 미국의 북한 전문 매체 NK 뉴스(NK NEWS)가 10일(현지시각) 보도했다. 러시아의 IAEA 주재 대표는 지난 9일 성명에서 IAEA가 2009년 이후 북한에 대한 핵사찰을 실시하지 않았다면서, “북한의 핵 인프라 상태에 관해 신뢰할 만한 결론을 내릴 수 없다”고 주장했다. 러시아 대표는 “위성 이미지와 공개 출처의 정보에만 근거한 사무국의 평가는 부가가치가 없고, 오해를 불러일으키는 인상을 만들며, 추가적인 위</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/64d86f045c67ad2824b09db0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.segyebiz.com/newsView/20260910515910"
-  data-title="[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼"
-  data-publisher="세계일보"
-  data-group="원자력"
-  data-language="ko"
-  data-priority="0"
-  data-published="1789077600"
-  data-country="KR"
-  data-search="[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼 세계일보 원자력 한국수출입은행이 방산과 원전 등 주요 해외 프로젝트와 연계해 추진 중인 ‘상생금융’이 현장 안착에 한계를 드러내고 있다. 수은은 지난 4월 주요 방산 기업들과 협약을 체결하며 공급망 금융 지원을 확대하겠다고 밝혔으나 실제 지원은 단기 결제자금 중심에 머물렀고, 원전 분야 역시..."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">세계일보</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼</div>
-      <div class="article-snippet">한국수출입은행이 방산과 원전 등 주요 해외 프로젝트와 연계해 추진 중인 ‘상생금융’이 현장 안착에 한계를 드러내고 있다. 수은은 지난 4월 주요 방산 기업들과 협약을 체결하며 공급망 금융 지원을 확대하겠다고 밝혔으나 실제 지원은 단기 결제자금 중심에 머물렀고, 원전 분야 역시...</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/2035dc8941afe8131c8f62b3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260910_0003784813"
-  data-title="尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형"
-  data-publisher="뉴시스"
-  data-group="원전해체"
-  data-language="ko"
-  data-priority="2"
-  data-published="1789074000"
-  data-country="AU"
-  data-search="尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형 뉴시스 원전해체 [서울=뉴시스]이승주 기자 = 이종섭 전 국방부 장관을 호주대사로 임명해 해외로 출국시킨 혐의로 재판에 넘겨진 윤석열 전 대통령의 1심 판결이 11일 나온다. 서울중앙지법 형사합의22부(부장판사 조형우)는 이날 오후 2시 윤 전 대통령의 범인도피, 직권남용 권리행사방해 등 혐의 1심 선고기일을 연다. 앞서 순직해병 특검팀(특별검사 이명현)은 지난 7월 24일 윤 전 대통령에게 징역 5년을 선고해 줄 것을 재판부에 요청했다. 범인도피 혐의 공범으로 함께 재판에 넘겨진 조태용 전 국가안보실장과 박성재 전 법무부 장관에겐 징역 3년을 구형했다. 이시원 전 대통령실 비서관,"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형</div>
-      <div class="article-snippet">[서울=뉴시스]이승주 기자 = 이종섭 전 국방부 장관을 호주대사로 임명해 해외로 출국시킨 혐의로 재판에 넘겨진 윤석열 전 대통령의 1심 판결이 11일 나온다. 서울중앙지법 형사합의22부(부장판사 조형우)는 이날 오후 2시 윤 전 대통령의 범인도피, 직권남용 권리행사방해 등 혐의 1심 선고기일을 연다. 앞서 순직해병 특검팀(특별검사 이명현)은 지난 7월 24일 윤 전 대통령에게 징역 5년을 선고해 줄 것을 재판부에 요청했다. 범인도피 혐의 공범으로 함께 재판에 넘겨진 조태용 전 국가안보실장과 박성재 전 법무부 장관에겐 징역 3년을 구형했다. 이시원 전 대통령실 비서관,</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/7953b3d9866640644ed3fd6f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
-</section>
-
-<section class="news-group collapsed" data-group="SMR">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-<section class="news-group collapsed" data-group="국내 원자력 협회·학회">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">국내 원자력 협회·학회</span>
-    <span class="group-count">1건</span>
-  </button>
-  <div class="article-stack">
-<article class="preview-card"
-  data-url="https://www.aa.com.tr/en/turkiye/turkish-intel-chief-meets-speaker-of-iraqi-council-of-representatives/4053685"
-  data-title="Turkish intel chief meets speaker of Iraqi council of representatives"
-  data-publisher="Anadolu Agency"
-  data-group="국내 원자력 협회·학회"
-  data-language="en"
-  data-priority="2"
-  data-published="1789077123"
-  data-country="TR"
-  data-search="turkish intel chief meets speaker of iraqi council of representatives anadolu agency 국내 원자력 협회·학회 regional, international issues addressed during meeting in ankara | anadolu"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">Anadolu Agency</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">Turkish intel chief meets speaker of Iraqi council of representatives</div>
-      <div class="article-snippet">Regional, international issues addressed during meeting in Ankara | Anadolu</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/9e7b330c1dd326409ff0b927.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
-</section>
-
-<section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-<section class="news-group collapsed" data-group="불가리아 코즐로두이 원전">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">불가리아 코즐로두이 원전</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-<section class="news-group collapsed" data-group="Holtec">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">Holtec</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-<section class="news-group collapsed" data-group="TerraPower">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">TerraPower</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-<section class="news-group collapsed" data-group="Westinghouse">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">Westinghouse</span>
-    <span class="group-count">1건</span>
-  </button>
-  <div class="article-stack">
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260910_0003783916"
-  data-title="김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율"
-  data-publisher="뉴시스"
-  data-group="Westinghouse"
-  data-language="ko"
-  data-priority="0"
-  data-published="1789077600"
-  data-country="US"
-  data-search="김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율 뉴시스 westinghouse [세종=뉴시스]김동현 기자 = 김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉 미 상무장관과 대미 투자와 관련한 막판 조율에 나선다. 김 장관은 방미 기간 러트닉 장관의 동생을 기리는 9·11 추모행사에 참석한 뒤 러트닉 장관과 1대1 면담을 갖고 대미 투자 사업과 세부 조건 등을 협의할 것으로 알려졌다. 텍사스주 엔시날 가스복합화력발전소와 미국 현지 원자력발전소 건설 사업 등이 유력하게 거론되는 가운데 2000억 달러 투자 한도 내에서 한국 측의 실제 투자 규모와 사업 참여 범위 등을 놓고 협상이 이뤄질 전망이다. 11일 산업통상부에 따르면 김 장관은 유럽 순"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율</div>
-      <div class="article-snippet">[세종=뉴시스]김동현 기자 = 김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉 미 상무장관과 대미 투자와 관련한 막판 조율에 나선다. 김 장관은 방미 기간 러트닉 장관의 동생을 기리는 9·11 추모행사에 참석한 뒤 러트닉 장관과 1대1 면담을 갖고 대미 투자 사업과 세부 조건 등을 협의할 것으로 알려졌다. 텍사스주 엔시날 가스복합화력발전소와 미국 현지 원자력발전소 건설 사업 등이 유력하게 거론되는 가운데 2000억 달러 투자 한도 내에서 한국 측의 실제 투자 규모와 사업 참여 범위 등을 놓고 협상이 이뤄질 전망이다. 11일 산업통상부에 따르면 김 장관은 유럽 순</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/be89736e6ce7010707abba53.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-</div>
-</section>
-
-<section class="news-group collapsed" data-group="Fermi America">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">Fermi America</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-  </div>
-</section>
-
-<section class="tab-panel archive-panel" id="archive-2026-09-12" data-archive-date="2026-09-12">
-  <div class="period-action-row">
-    <div class="period-inline">
-      <span class="period-inline-label">9.12</span>
-      <span class="period-inline-range">9.11(금) 06:00 → 9.12(토) 06:00</span>
-    </div>
-    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
-  </div>
-  <div class="language-section">
-    
-<section class="news-group collapsed" data-group="현대건설">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">현대건설</span>
-    <span class="group-count">0건</span>
-  </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
-</section>
-
-<section class="news-group collapsed" data-group="타 건설사">
-  <button class="group-title" type="button" aria-expanded="false">
-    <span class="group-arrow">▼</span>
-    <span class="group-name">주요 건설사</span>
-    <span class="group-count">1건</span>
-  </button>
-  <div class="article-stack">
-<article class="preview-card new-article"
-  data-url="https://www.newsis.com/view/NISX20260910_0003784665"
-  data-title="국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개"
-  data-publisher="뉴시스"
-  data-group="타 건설사"
-  data-language="ko"
-  data-priority="1"
-  data-published="1789074000"
-  data-country="KR"
-  data-search="국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개 뉴시스 타 건설사 [세종=뉴시스]손차민 기자 = 기후에너지환경부 소속 국립생물자원관이 염분이 있는 토양에서 살아가는 염생식물과 갯벌에서 유기적 관계를 맺고 살아가는 생물을 함께 소개하는 기획전을 마련했다. 국립생물자원관은 내년 3월까지 인천 서해구 생생채움 기획전시실에서 &#x27;소금 위에 피어난 식물&#x27; 기획전을 선보인다고 11일 밝혔다. 이번 전시는 ▲포스코이앤씨 ▲해양경찰청 ▲월드비전 ▲인천항만공사 ▲인천 사랑의열매 ▲포스코1%나눔재단이 함께 참여했다. 총 26종의 염생식물을 소개하는 이번 전시에서는 나문재, 퉁퉁마디, 해홍, 칠면초 등 염생식물 4종의 대형 모형을 비롯해 생성형 인공지능"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">뉴시스</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개</div>
+      <div class="headline">국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개</div>
       <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부 소속 국립생물자원관이 염분이 있는 토양에서 살아가는 염생식물과 갯벌에서 유기적 관계를 맺고 살아가는 생물을 함께 소개하는 기획전을 마련했다. 국립생물자원관은 내년 3월까지 인천 서해구 생생채움 기획전시실에서 &#x27;소금 위에 피어난 식물&#x27; 기획전을 선보인다고 11일 밝혔다. 이번 전시는 ▲포스코이앤씨 ▲해양경찰청 ▲월드비전 ▲인천항만공사 ▲인천 사랑의열매 ▲포스코1%나눔재단이 함께 참여했다. 총 26종의 염생식물을 소개하는 이번 전시에서는 나문재, 퉁퉁마디, 해홍, 칠면초 등 염생식물 4종의 대형 모형을 비롯해 생성형 인공지능</div>
     </div>
   </div>
@@ -35904,6 +35529,39 @@ main {
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Global-Biz/2026/09/2026091107380411379a1f309431_1"
+  data-title="韓 대미투자 첫 윤곽…美원전 8기·가스발전 협상 막판 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789080075"
+  data-country="US"
+  data-search="韓 대미투자 첫 윤곽…美원전 8기·가스발전 협상 막판 - 글로벌이코노믹 글로벌이코노믹 원전 대미투자 한국이 지난해 미국과 합의한 3500억달러(약 469조3850억원) 규모 대미 투자의 첫 대형 에너지 프로젝트 발표에 가까워지고 있다.미국 내 최대 8기의 원자력발전소와 텍사스 천연가스 발전 프로젝트가 논의되고 있으며 전체 투자 규모는 1000억달러(약 134조1100억원)를 넘어설 가"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>韓 대미투자 첫 윤곽…美원전 8기·가스발전 협상 막판 - 글로벌이코노믹</div>
+      <div class="article-snippet">한국이 지난해 미국과 합의한 3500억달러(약 469조3850억원) 규모 대미 투자의 첫 대형 에너지 프로젝트 발표에 가까워지고 있다.미국 내 최대 8기의 원자력발전소와 텍사스 천연가스 발전 프로젝트가 논의되고 있으며 전체 투자 규모는 1000억달러(약 134조1100억원)를 넘어설 가</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/79510b43b531f8797342785d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/2026091177877"
   data-title="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;"
   data-publisher="한국경제"
@@ -35927,7 +35585,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</div>
+      <div class="headline">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</div>
       <div class="article-snippet">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;, 12일까지 러트닉 상무장관 등과 면담 WSJ &quot;원전 8기·가스 1000억달러 합의 임박&quot; 金 &quot;최종 결과 나오면 그때 말씀드리겠다&quot;</div>
     </div>
   </div>
@@ -35937,15 +35595,81 @@ main {
 </article>
 
 <article class="preview-card new-article"
-  data-url="https://www.mk.co.kr/news/politics/12150024"
-  data-title="“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율 - 매일경제"
-  data-publisher="매일경제"
+  data-url="https://www.etoday.co.kr/news/view/2624273?trc=main_top_sub"
+  data-title="김정관 장관 방미...1000억 달러 규모 ‘대미 투자 패키지’ 막판 담판"
+  data-publisher="이투데이"
   data-group="원전 대미투자"
   data-language="ko"
   data-priority="0"
+  data-published="1789075740"
+  data-country="OTHER"
+  data-search="김정관 장관 방미...1000억 달러 규모 ‘대미 투자 패키지’ 막판 담판 이투데이 원전 대미투자 원전 8기·천연가스 등 에너지 프로젝트 첫 타자 유력…러트닉 장관과 최종 조율김 장관 &quot;최종 사인 전까지 협상 진행형…구체적 내용은 결과로 말할 것&quot;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 장관 방미...1000억 달러 규모 ‘대미 투자 패키지’ 막판 담판</div>
+      <div class="article-snippet">원전 8기·천연가스 등 에너지 프로젝트 첫 타자 유력…러트닉 장관과 최종 조율김 장관 &quot;최종 사인 전까지 협상 진행형…구체적 내용은 결과로 말할 것&quot;</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/033511e0e743e704a17ce380.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00003&amp;news_seq_no=5218479"
+  data-title="김정관 &quot;대미 투자 협상 마무리차 방미&quot;…러트닉과 막판 조율"
+  data-publisher="MBN"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789078500"
+  data-country="KR"
+  data-search="김정관 &quot;대미 투자 협상 마무리차 방미&quot;…러트닉과 막판 조율 mbn 원전 대미투자 김정관 산업통상부 장관이 현지시간 10일 미국에 도착, 대미 투자 협상을 이어갑니다.김 장관은 이날 오후 미 뉴욕 인근 뉴어크 리버티 국제공항에 도착했습니다.이재명 대통령의 프랑스 국빈 방문에 동행했던 김 장관은 유럽에서 일정을 마치고 곧바로 미국으로 이동했습니다.김 장관은 공항에서 기자들과 만나 &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 방문 목적을 설명했습니다.그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">MBN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026091177877" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제TV</span><span class="related-coverage-title">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260911060831237" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot;</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;대미 투자 협상 마무리차 방미&quot;…러트닉과 막판 조율</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 현지시간 10일 미국에 도착, 대미 투자 협상을 이어갑니다.김 장관은 이날 오후 미 뉴욕 인근 뉴어크 리버티 국제공항에 도착했습니다.이재명 대통령의 프랑스 국빈 방문에 동행했던 김 장관은 유럽에서 일정을 마치고 곧바로 미국으로 이동했습니다.김 장관은 공항에서 기자들과 만나 &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 방문 목적을 설명했습니다.그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/26fd5cd6aabeb2542b990f4a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.mk.co.kr/news/politics/12150024"
+  data-title="“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율"
+  data-publisher="매일경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
   data-published="1789074628"
   data-country="US"
-  data-search="“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율 - 매일경제 매일경제 원전 대미투자 한국 정부가 대미 투자 협상의 마무리 단계에 들어간 가운데 김정관 산업통상부 장관이 직접 미국으로 건너가 막판 조율에 나섰다. 미국 월스트리트저널(wsj)이 한국의 첫 대미 투자 사업으로 원전 8기와 천연가스 프로젝트 등 에너지 분야에 1000억달러(약 134조원) 이상을 투자하는 방안이 합의에 임박했다고 보도하면서 협상 결과에 관심이 쏠린다. 김 장관은"
+  data-search="“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율 매일경제 원전 대미투자 한국 정부가 대미 투자 협상의 마무리 단계에 들어간 가운데 김정관 산업통상부 장관이 직접 미국으로 건너가 막판 조율에 나섰다. 미국 월스트리트저널(wsj)이 한국의 첫 대미 투자 .."
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -35960,8 +35684,8 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율 - 매일경제</div>
-      <div class="article-snippet">한국 정부가 대미 투자 협상의 마무리 단계에 들어간 가운데 김정관 산업통상부 장관이 직접 미국으로 건너가 막판 조율에 나섰다. 미국 월스트리트저널(WSJ)이 한국의 첫 대미 투자 사업으로 원전 8기와 천연가스 프로젝트 등 에너지 분야에 1000억달러(약 134조원) 이상을 투자하는 방안이 합의에 임박했다고 보도하면서 협상 결과에 관심이 쏠린다. 김 장관은</div>
+      <div class="headline">“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율</div>
+      <div class="article-snippet">한국 정부가 대미 투자 협상의 마무리 단계에 들어간 가운데 김정관 산업통상부 장관이 직접 미국으로 건너가 막판 조율에 나섰다. 미국 월스트리트저널(WSJ)이 한국의 첫 대미 투자 ..</div>
     </div>
   </div>
   <div class="card-side">
@@ -35970,105 +35694,6 @@ main {
 </article>
 
 <article class="preview-card"
-  data-url="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026091177877"
-  data-title="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;"
-  data-publisher="한국경제TV"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="1"
-  data-published="1789109427"
-  data-country="KR"
-  data-search="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot; 한국경제tv 원전 대미투자 김정관 산업통상자원부 장관이 10일(현지시간) 미국에 도착해 대미 투자 협상 마무리에 나섰다.김 장관은 이날 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot;지금 진행되고 있는 대미 투자 협상을 마무리하..."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">한국경제TV</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</div>
-      <div class="article-snippet">김정관 산업통상자원부 장관이 10일(현지시간) 미국에 도착해 대미 투자 협상 마무리에 나섰다.김 장관은 이날 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot;지금 진행되고 있는 대미 투자 협상을 마무리하...</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="https://img.wowtv.co.kr/thumb/778x403_default_thumb.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card"
-  data-url="https://www.mbn.co.kr/news/economy/5218479"
-  data-title="김정관 ″대미 투자 협상 마무리차 방미″…러트닉과 막판 조율"
-  data-publisher="MBN"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="1"
-  data-published="1789078800"
-  data-country="KR"
-  data-search="김정관 ″대미 투자 협상 마무리차 방미″…러트닉과 막판 조율 mbn 원전 대미투자 김정관 산업통상부 장관이 현지시간 10일 미국에 도착, 대미 투자 협상을 이어갑니다. 김 장관은 이날 오..."
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">MBN</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline">김정관 ″대미 투자 협상 마무리차 방미″…러트닉과 막판 조율</div>
-      <div class="article-snippet">김정관 산업통상부 장관이 현지시간 10일 미국에 도착, 대미 투자 협상을 이어갑니다. 김 장관은 이날 오...</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="http://img.mbn.co.kr/filewww/news/2026/09/11/17890785596aa32c1f22ce2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
-  data-url="https://www.ajunews.com/view/20260911060831237"
-  data-title="김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot;"
-  data-publisher="아주경제"
-  data-group="원전 대미투자"
-  data-language="ko"
-  data-priority="1"
-  data-published="1789074668"
-  data-country="KR"
-  data-search="김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot; 아주경제 원전 대미투자 [사진=연합뉴스] 10일(현지시간) 김정관 산업통상부 장관이 미국에 도착했다. 이날 연합뉴스에 따르면 김 장관은 미 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot; &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 말했다. 그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고 덧붙였다.  오는 12일까지 김 장관은 미국에"
-  tabindex="0" role="link">
-  <div class="preview-copy">
-    <div class="article-content-column">
-      <div class="meta-row">
-        <div class="publisher">아주경제</div>
-        <span class="meta-divider">·</span>
-        <div class="status-inline">
-          <span class="unread-label">안읽음</span>
-          <span class="read-label">읽음</span>
-          <span class="important-label">중요</span>
-        </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026091177877" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제TV</span><span class="related-coverage-title">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</span></a><a class="related-coverage-link" href="https://www.mbn.co.kr/news/economy/5218479" target="_blank" rel="noopener"><span class="related-coverage-publisher">MBN</span><span class="related-coverage-title">김정관 ″대미 투자 협상 마무리차 방미″…러트닉과 막판 조율</span></a></div>
-        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
-      </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot;</div>
-      <div class="article-snippet">[사진=연합뉴스] 10일(현지시간) 김정관 산업통상부 장관이 미국에 도착했다. 이날 연합뉴스에 따르면 김 장관은 미 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot; &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 말했다. 그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고 덧붙였다.  오는 12일까지 김 장관은 미국에</div>
-    </div>
-  </div>
-  <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/b0b1cfe255a0d420a85d02f8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
-  </div>
-</article>
-
-<article class="preview-card new-article"
   data-url="https://www.newsis.com/view/NISX20260909_0003782320"
   data-title="[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수"
   data-publisher="뉴시스"
@@ -36092,7 +35717,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수</div>
+      <div class="headline">[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수</div>
       <div class="article-snippet">[세종=뉴시스]임소현 기자 = 정부가 미국이 추진하는 핵심광물 무역협정(ATCM) 참여 여부를 검토하기 위해 갈륨과 게르마늄 등 5개 전략핵심광물의 공급망과 기준가격이 국내 산업에 미칠 영향 분석에 착수한다. 미국이 중국산 저가 핵심 광물에 대응해 가격하한과 조정관세 등을 활용하는 새로운 무역질서를 구상하면서 한국도 참여에 따른 득실을 따져보기 시작한 것이다. 11일 관계당국 등에 따르면 산업통상부는 최근 &#x27;전략핵심광물 공급사슬·기준가격 분석 및 정책수단 평가 연구&#x27;에 착수했다. 연구 대상은 갈륨·게르마늄·텅스텐·안티모니와 희토류 원료인 네오디뮴·프라세오디뮴(NdPr</div>
     </div>
   </div>
@@ -36107,9 +35732,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">4건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.fnnews.com/news/202609110658425101"
+  data-title="트럼프, 이란 곡괭이산 원전 시설 추가 타격 경고"
+  data-publisher="파이낸셜뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789078374"
+  data-country="US"
+  data-search="트럼프, 이란 곡괭이산 원전 시설 추가 타격 경고 파이낸셜뉴스 원자력 도널드 트럼프 미국 대통령이 공화당 중간선거 전당대회 연설에서 이란의 지하 핵 시설로 알려진 &#x27;곡괭이산&#x27;을 향해 강경 메시지를 던졌다.이란이 미군 파괴 공작이 미치지 못하는 깊은 지하에서 핵심 원자력 시설을 건설하고 있다는 정황이 포착되면서 미국의 대응 방.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">파이낸셜뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>트럼프, 이란 곡괭이산 원전 시설 추가 타격 경고</div>
+      <div class="article-snippet">도널드 트럼프 미국 대통령이 공화당 중간선거 전당대회 연설에서 이란의 지하 핵 시설로 알려진 &#x27;곡괭이산&#x27;을 향해 강경 메시지를 던졌다.이란이 미군 파괴 공작이 미치지 못하는 깊은 지하에서 핵심 원자력 시설을 건설하고 있다는 정황이 포착되면서 미국의 대응 방..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/53aec038400c23cca22020c3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="http://www.energytimes.kr/news/articleView.html?idxno=70882"
   data-title="한-프랑스 원전수출에선 경쟁…협력 잠재력도 크다"
@@ -36143,7 +35801,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260911_0003785100"
   data-title="러, 북한 핵 활동 옹호하며 IAEA에 보고서 중단 촉구"
   data-publisher="뉴시스"
@@ -36167,7 +35825,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>러, 북한 핵 활동 옹호하며 IAEA에 보고서 중단 촉구</div>
+      <div class="headline">러, 북한 핵 활동 옹호하며 IAEA에 보고서 중단 촉구</div>
       <div class="article-snippet">[서울=뉴시스] 강영진 기자 = 러시아가 유엔 산하 국제원자력기구(IAEA)의 북한 핵 프로그램 보고서를 일축하면서 보고서 발행을 중단하라고 촉구했다고 미국의 북한 전문 매체 NK 뉴스(NK NEWS)가 10일(현지시각) 보도했다. 러시아의 IAEA 주재 대표는 지난 9일 성명에서 IAEA가 2009년 이후 북한에 대한 핵사찰을 실시하지 않았다면서, “북한의 핵 인프라 상태에 관해 신뢰할 만한 결론을 내릴 수 없다”고 주장했다. 러시아 대표는 “위성 이미지와 공개 출처의 정보에만 근거한 사무국의 평가는 부가가치가 없고, 오해를 불러일으키는 인상을 만들며, 추가적인 위</div>
     </div>
   </div>
@@ -36176,7 +35834,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.segyebiz.com/newsView/20260910515910"
   data-title="[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼"
   data-publisher="세계일보"
@@ -36200,7 +35858,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼</div>
+      <div class="headline">[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼</div>
       <div class="article-snippet">한국수출입은행이 방산과 원전 등 주요 해외 프로젝트와 연계해 추진 중인 ‘상생금융’이 현장 안착에 한계를 드러내고 있다. 수은은 지난 4월 주요 방산 기업들과 협약을 체결하며 공급망 금융 지원을 확대하겠다고 밝혔으나 실제 지원은 단기 결제자금 중심에 머물렀고, 원전 분야 역시...</div>
     </div>
   </div>
@@ -36209,7 +35867,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260910_0003784813"
   data-title="尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형"
   data-publisher="뉴시스"
@@ -36233,7 +35891,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형</div>
+      <div class="headline">尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형</div>
       <div class="article-snippet">[서울=뉴시스]이승주 기자 = 이종섭 전 국방부 장관을 호주대사로 임명해 해외로 출국시킨 혐의로 재판에 넘겨진 윤석열 전 대통령의 1심 판결이 11일 나온다. 서울중앙지법 형사합의22부(부장판사 조형우)는 이날 오후 2시 윤 전 대통령의 범인도피, 직권남용 권리행사방해 등 혐의 1심 선고기일을 연다. 앞서 순직해병 특검팀(특별검사 이명현)은 지난 7월 24일 윤 전 대통령에게 징역 5년을 선고해 줄 것을 재판부에 요청했다. 범인도피 혐의 공범으로 함께 재판에 넘겨진 조태용 전 국가안보실장과 박성재 전 법무부 장관에겐 징역 3년을 구형했다. 이시원 전 대통령실 비서관,</div>
     </div>
   </div>
@@ -36248,9 +35906,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">0건</span>
+    <span class="group-count">1건</span>
   </button>
-  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ulsanpress.net/news/articleView.html?idxno=582883"
+  data-title="[영상] 오늘 울산은 (9월 11일 금 울산신문)"
+  data-publisher="울산신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789077120"
+  data-country="OTHER"
+  data-search="[영상] 오늘 울산은 (9월 11일 금 울산신문) 울산신문 smr 오늘 울산은 9월 11일 금1. 2026 울산세계미래산업박람회 개막2. hd현대중, ai전력·smr 1조 투자3. 경부선 예매 첫날 또 먹통4. 일산해수욕장 강풍에 몰려온 쓰레기...#주요뉴스 #울산 #울산신문 #오늘_뉴스 #today_news #topnews_top_news #hea"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">울산신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[영상] 오늘 울산은 (9월 11일 금 울산신문)</div>
+      <div class="article-snippet">오늘 울산은 9월 11일 금1. 2026 울산세계미래산업박람회 개막2. HD현대중, AI전력·SMR 1조 투자3. 경부선 예매 첫날 또 먹통4. 일산해수욕장 강풍에 몰려온 쓰레기...#주요뉴스 #울산 #울산신문 #오늘_뉴스 #Today_News #TopNews_Top_News #Hea</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/819c1cc9fbcddac4646c247d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
 </section>
 
 <section class="news-group collapsed" data-group="국내 원자력 협회·학회">
@@ -36338,7 +36029,7 @@ main {
     <span class="group-count">1건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260910_0003783916"
   data-title="김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율"
   data-publisher="뉴시스"
@@ -36362,7 +36053,824 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율</div>
+      <div class="headline">김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율</div>
+      <div class="article-snippet">[세종=뉴시스]김동현 기자 = 김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉 미 상무장관과 대미 투자와 관련한 막판 조율에 나선다. 김 장관은 방미 기간 러트닉 장관의 동생을 기리는 9·11 추모행사에 참석한 뒤 러트닉 장관과 1대1 면담을 갖고 대미 투자 사업과 세부 조건 등을 협의할 것으로 알려졌다. 텍사스주 엔시날 가스복합화력발전소와 미국 현지 원자력발전소 건설 사업 등이 유력하게 거론되는 가운데 2000억 달러 투자 한도 내에서 한국 측의 실제 투자 규모와 사업 참여 범위 등을 놓고 협상이 이뤄질 전망이다. 11일 산업통상부에 따르면 김 장관은 유럽 순</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/be89736e6ce7010707abba53.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group collapsed" data-group="Fermi America">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Fermi America</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+  </div>
+</section>
+
+<section class="tab-panel archive-panel" id="archive-2026-09-12" data-archive-date="2026-09-12">
+  <div class="period-action-row">
+    <div class="period-inline">
+      <span class="period-inline-label">9.12</span>
+      <span class="period-inline-range">9.11(금) 06:00 → 9.12(토) 06:00</span>
+    </div>
+    <button class="group-master-button" type="button" data-collapsed="true">전체 펼치기 · 0건 ▼</button>
+  </div>
+  <div class="language-section">
+    
+<section class="news-group collapsed" data-group="현대건설">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">현대건설</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="타 건설사">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">주요 건설사</span>
+    <span class="group-count">1건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260910_0003784665"
+  data-title="국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개"
+  data-publisher="뉴시스"
+  data-group="타 건설사"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789074000"
+  data-country="KR"
+  data-search="국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개 뉴시스 타 건설사 [세종=뉴시스]손차민 기자 = 기후에너지환경부 소속 국립생물자원관이 염분이 있는 토양에서 살아가는 염생식물과 갯벌에서 유기적 관계를 맺고 살아가는 생물을 함께 소개하는 기획전을 마련했다. 국립생물자원관은 내년 3월까지 인천 서해구 생생채움 기획전시실에서 &#x27;소금 위에 피어난 식물&#x27; 기획전을 선보인다고 11일 밝혔다. 이번 전시는 ▲포스코이앤씨 ▲해양경찰청 ▲월드비전 ▲인천항만공사 ▲인천 사랑의열매 ▲포스코1%나눔재단이 함께 참여했다. 총 26종의 염생식물을 소개하는 이번 전시에서는 나문재, 퉁퉁마디, 해홍, 칠면초 등 염생식물 4종의 대형 모형을 비롯해 생성형 인공지능"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">국립생물자원관, 소금 위에 피어난 식물 기획전…염생식물 소개</div>
+      <div class="article-snippet">[세종=뉴시스]손차민 기자 = 기후에너지환경부 소속 국립생물자원관이 염분이 있는 토양에서 살아가는 염생식물과 갯벌에서 유기적 관계를 맺고 살아가는 생물을 함께 소개하는 기획전을 마련했다. 국립생물자원관은 내년 3월까지 인천 서해구 생생채움 기획전시실에서 &#x27;소금 위에 피어난 식물&#x27; 기획전을 선보인다고 11일 밝혔다. 이번 전시는 ▲포스코이앤씨 ▲해양경찰청 ▲월드비전 ▲인천항만공사 ▲인천 사랑의열매 ▲포스코1%나눔재단이 함께 참여했다. 총 26종의 염생식물을 소개하는 이번 전시에서는 나문재, 퉁퉁마디, 해홍, 칠면초 등 염생식물 4종의 대형 모형을 비롯해 생성형 인공지능</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/69d6eade55982b9044c36a9c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group collapsed" data-group="한국수력원자력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">한국수력원자력</span>
+    <span class="group-count">2건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70883"
+  data-title="이재명 대통령, 프랑스 국빈방문…한수원 핵연료 공급망 넓혀"
+  data-publisher="에너지타임즈"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789083248"
+  data-country="FR"
+  data-search="이재명 대통령, 프랑스 국빈방문…한수원 핵연료 공급망 넓혀 에너지타임즈 한국수력원자력 이재명 대통령 프랑스 국빈방문을 계기로 한수원이 프랑스 오라노와 손잡고 우라늄 농축 공급망 다변화에 나섭니다. 지난 8일 프랑스 엘리제궁에서 한수원은 한-프랑스 양국 정상이 임석한 가운데 프랑스 오라노와 우라늄 농축 장기협력을 위한 협력의향서를 체결했습니다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">이재명 대통령, 프랑스 국빈방문…한수원 핵연료 공급망 넓혀</div>
+      <div class="article-snippet">이재명 대통령 프랑스 국빈방문을 계기로 한수원이 프랑스 오라노와 손잡고 우라늄 농축 공급망 다변화에 나섭니다. 지난 8일 프랑스 엘리제궁에서 한수원은 한-프랑스 양국 정상이 임석한 가운데 프랑스 오라노와 우라늄 농축 장기협력을 위한 협력의향서를 체결했습니다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/3738f7ee593b6d9d16985821.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=228088"
+  data-title="서남권 반도체 전력 해법, 12차 전기본 시험대 오른다"
+  data-publisher="에너지신문"
+  data-group="한국수력원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789080041"
+  data-country="KR"
+  data-search="서남권 반도체 전력 해법, 12차 전기본 시험대 오른다 에너지신문 한국수력원자력 [에너지신문] ai와 반도체 산업의 전력수요를 기존 방식으로 예측하기 어렵다는 지적이 나오면서 제12차 전력수급기본계획의 수요 전망과 전원 구성이 시험대에 오를 전망이다. 서남권 반도체 클러스터에 필요한 전력을 제때 공급하려면 재생에너지 설비 규모뿐 아니라 실제 공급능력과 송전망, 원전 계속운전 등을 함께 고려해야 한다는 주장이다.한국수력원자력노동조합과 원자력정책연대는 10일 국회의원회관에서 ‘서남권 반도체 클러스터, 전력은 어떻게 공급할 것인가-12차 전기본의 과제’를 주제로 토론회를 열었다.이날 논의는 서남권 반도체 클러스터의"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">서남권 반도체 전력 해법, 12차 전기본 시험대 오른다</div>
+      <div class="article-snippet">[에너지신문] AI와 반도체 산업의 전력수요를 기존 방식으로 예측하기 어렵다는 지적이 나오면서 제12차 전력수급기본계획의 수요 전망과 전원 구성이 시험대에 오를 전망이다. 서남권 반도체 클러스터에 필요한 전력을 제때 공급하려면 재생에너지 설비 규모뿐 아니라 실제 공급능력과 송전망, 원전 계속운전 등을 함께 고려해야 한다는 주장이다.한국수력원자력노동조합과 원자력정책연대는 10일 국회의원회관에서 ‘서남권 반도체 클러스터, 전력은 어떻게 공급할 것인가-12차 전기본의 과제’를 주제로 토론회를 열었다.이날 논의는 서남권 반도체 클러스터의</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d0f533c31dad641e2533a583.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group collapsed" data-group="한국전력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">한국전력</span>
+    <span class="group-count">1건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.energy-news.co.kr/news/articleView.html?idxno=228087"
+  data-title="외산 의존 HVDC, 국산 기자재 ‘실계통 검증’으로 돌파구 찾는다"
+  data-publisher="에너지신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789078436"
+  data-country="KR"
+  data-search="외산 의존 hvdc, 국산 기자재 ‘실계통 검증’으로 돌파구 찾는다 에너지신문 한국전력 [에너지신문] 외국계 기업이 주도해 온 대용량 전압형 초고압직류송전(hvdc) 시장에 국내 전력기기 업체들이 본격적으로 진입한다. 연구개발에 그쳤던 국산 기자재를 실제 전력망에 투입해 성능을 검증하고, 향후 국내 사업과 해외시장 진출에 필요한 상용화 실적을 확보하려는 시도다.한전은 대용량 전압형 hvdc의 핵심 설비인 밸브·제어기와 변환용 변압기를 국내 기술로 개발해 새만금-서화성 hvdc 사업에 적용할 계획이라고 10일 밝혔다.hvdc는 발전소에서 생산한 전력을 직류로 변환해 장거리로 송전한 뒤 수요지 인근에서 다시 교류로 바꾸는"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">외산 의존 HVDC, 국산 기자재 ‘실계통 검증’으로 돌파구 찾는다</div>
+      <div class="article-snippet">[에너지신문] 외국계 기업이 주도해 온 대용량 전압형 초고압직류송전(HVDC) 시장에 국내 전력기기 업체들이 본격적으로 진입한다. 연구개발에 그쳤던 국산 기자재를 실제 전력망에 투입해 성능을 검증하고, 향후 국내 사업과 해외시장 진출에 필요한 상용화 실적을 확보하려는 시도다.한전은 대용량 전압형 HVDC의 핵심 설비인 밸브·제어기와 변환용 변압기를 국내 기술로 개발해 새만금-서화성 HVDC 사업에 적용할 계획이라고 10일 밝혔다.HVDC는 발전소에서 생산한 전력을 직류로 변환해 장거리로 송전한 뒤 수요지 인근에서 다시 교류로 바꾸는</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/a230c9d386c575cfbdb3a3de.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group collapsed" data-group="한전 계열사">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">한전 계열사</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="원전 관계부처">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원전 관계부처(산업통상부·기후부·과기부)</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="원전 대미투자">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원전 대미투자</span>
+    <span class="group-count">8건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.g-enews.com/article/Global-Biz/2026/09/2026091107380411379a1f309431_1"
+  data-title="韓 대미투자 첫 윤곽…美원전 8기·가스발전 협상 막판 - 글로벌이코노믹"
+  data-publisher="글로벌이코노믹"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789080075"
+  data-country="US"
+  data-search="韓 대미투자 첫 윤곽…美원전 8기·가스발전 협상 막판 - 글로벌이코노믹 글로벌이코노믹 원전 대미투자 한국이 지난해 미국과 합의한 3500억달러(약 469조3850억원) 규모 대미 투자의 첫 대형 에너지 프로젝트 발표에 가까워지고 있다.미국 내 최대 8기의 원자력발전소와 텍사스 천연가스 발전 프로젝트가 논의되고 있으며 전체 투자 규모는 1000억달러(약 134조1100억원)를 넘어설 가"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">글로벌이코노믹</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>韓 대미투자 첫 윤곽…美원전 8기·가스발전 협상 막판 - 글로벌이코노믹</div>
+      <div class="article-snippet">한국이 지난해 미국과 합의한 3500억달러(약 469조3850억원) 규모 대미 투자의 첫 대형 에너지 프로젝트 발표에 가까워지고 있다.미국 내 최대 8기의 원자력발전소와 텍사스 천연가스 발전 프로젝트가 논의되고 있으며 전체 투자 규모는 1000억달러(약 134조1100억원)를 넘어설 가</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/79510b43b531f8797342785d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.hankyung.com/article/2026091177877"
+  data-title="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;"
+  data-publisher="한국경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789077027"
+  data-country="KR"
+  data-search="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot; 한국경제 원전 대미투자 김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;, 12일까지 러트닉 상무장관 등과 면담 wsj &quot;원전 8기·가스 1000억달러 합의 임박&quot; 金 &quot;최종 결과 나오면 그때 말씀드리겠다&quot;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</div>
+      <div class="article-snippet">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;, 12일까지 러트닉 상무장관 등과 면담 WSJ &quot;원전 8기·가스 1000억달러 합의 임박&quot; 金 &quot;최종 결과 나오면 그때 말씀드리겠다&quot;</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/29d48f9f55ad76a6bf2258f2.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.etoday.co.kr/news/view/2624273?trc=main_top_sub"
+  data-title="김정관 장관 방미...1000억 달러 규모 ‘대미 투자 패키지’ 막판 담판"
+  data-publisher="이투데이"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789075740"
+  data-country="OTHER"
+  data-search="김정관 장관 방미...1000억 달러 규모 ‘대미 투자 패키지’ 막판 담판 이투데이 원전 대미투자 원전 8기·천연가스 등 에너지 프로젝트 첫 타자 유력…러트닉 장관과 최종 조율김 장관 &quot;최종 사인 전까지 협상 진행형…구체적 내용은 결과로 말할 것&quot;"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">이투데이</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 장관 방미...1000억 달러 규모 ‘대미 투자 패키지’ 막판 담판</div>
+      <div class="article-snippet">원전 8기·천연가스 등 에너지 프로젝트 첫 타자 유력…러트닉 장관과 최종 조율김 장관 &quot;최종 사인 전까지 협상 진행형…구체적 내용은 결과로 말할 것&quot;</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/033511e0e743e704a17ce380.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026091177877"
+  data-title="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;"
+  data-publisher="한국경제TV"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789109427"
+  data-country="KR"
+  data-search="김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot; 한국경제tv 원전 대미투자 김정관 산업통상자원부 장관이 10일(현지시간) 미국에 도착해 대미 투자 협상 마무리에 나섰다.김 장관은 이날 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot;지금 진행되고 있는 대미 투자 협상을 마무리하..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">한국경제TV</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</div>
+      <div class="article-snippet">김정관 산업통상자원부 장관이 10일(현지시간) 미국에 도착해 대미 투자 협상 마무리에 나섰다.김 장관은 이날 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot;지금 진행되고 있는 대미 투자 협상을 마무리하...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://img.wowtv.co.kr/thumb/778x403_default_thumb.png" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.mbn.co.kr/pages/news/newsView.php?category=mbn00003&amp;news_seq_no=5218479"
+  data-title="김정관 &quot;대미 투자 협상 마무리차 방미&quot;…러트닉과 막판 조율"
+  data-publisher="MBN"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789078500"
+  data-country="KR"
+  data-search="김정관 &quot;대미 투자 협상 마무리차 방미&quot;…러트닉과 막판 조율 mbn 원전 대미투자 김정관 산업통상부 장관이 현지시간 10일 미국에 도착, 대미 투자 협상을 이어갑니다.김 장관은 이날 오후 미 뉴욕 인근 뉴어크 리버티 국제공항에 도착했습니다.이재명 대통령의 프랑스 국빈 방문에 동행했던 김 장관은 유럽에서 일정을 마치고 곧바로 미국으로 이동했습니다.김 장관은 공항에서 기자들과 만나 &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 방문 목적을 설명했습니다.그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">MBN</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.wowtv.co.kr/NewsCenter/News/Read?articleId=2026091177877" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제TV</span><span class="related-coverage-title">김정관, 美 도착…&quot;대미 투자 협상 마무리하기 위해 왔다&quot;</span></a><a class="related-coverage-link" href="https://www.ajunews.com/view/20260911060831237" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot;</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;대미 투자 협상 마무리차 방미&quot;…러트닉과 막판 조율</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 현지시간 10일 미국에 도착, 대미 투자 협상을 이어갑니다.김 장관은 이날 오후 미 뉴욕 인근 뉴어크 리버티 국제공항에 도착했습니다.이재명 대통령의 프랑스 국빈 방문에 동행했던 김 장관은 유럽에서 일정을 마치고 곧바로 미국으로 이동했습니다.김 장관은 공항에서 기자들과 만나 &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 방문 목적을 설명했습니다.그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/26fd5cd6aabeb2542b990f4a.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.ajunews.com/view/20260911060831237"
+  data-title="김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot;"
+  data-publisher="아주경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789074668"
+  data-country="KR"
+  data-search="김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot; 아주경제 원전 대미투자 [사진=연합뉴스] 10일(현지시간) 김정관 산업통상부 장관이 미국에 도착했다. 이날 연합뉴스에 따르면 김 장관은 미 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot; &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 말했다. 그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고 덧붙였다.  오는 12일까지 김 장관은 미국에"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">아주경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">김정관 &quot;대미 투자 협상 마무리차 방미…최종 사인 전 협상 진행&quot;</div>
+      <div class="article-snippet">[사진=연합뉴스] 10일(현지시간) 김정관 산업통상부 장관이 미국에 도착했다. 이날 연합뉴스에 따르면 김 장관은 미 뉴욕 인근 뉴어크 리버티 국제공항에서 기자들과 만나 &quot; &quot;지금 진행되고 있는 대미 투자 협상을 마무리하기 위해 왔다&quot;며 &quot;협상 과정에서 그 내용을 마무리하는 게 제 일정&quot;이라고 말했다. 그는 협상 분위기와 관련, &quot;협상이 쉽고 어려운 게 어디 있겠느냐&quot;며 &quot;최종 사인하기 전까지 협상은 진행 중이라고 생각한다&quot;고 덧붙였다.  오는 12일까지 김 장관은 미국에</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b0b1cfe255a0d420a85d02f8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.mk.co.kr/news/politics/12150024"
+  data-title="“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율"
+  data-publisher="매일경제"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789074628"
+  data-country="US"
+  data-search="“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율 매일경제 원전 대미투자 한국 정부가 대미 투자 협상의 마무리 단계에 들어간 가운데 김정관 산업통상부 장관이 직접 미국으로 건너가 막판 조율에 나섰다. 미국 월스트리트저널(wsj)이 한국의 첫 대미 투자 .."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">매일경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">“최종 사인 전까진 협상”…김정관 장관 미국행, 134조 대미투자 막판 조율</div>
+      <div class="article-snippet">한국 정부가 대미 투자 협상의 마무리 단계에 들어간 가운데 김정관 산업통상부 장관이 직접 미국으로 건너가 막판 조율에 나섰다. 미국 월스트리트저널(WSJ)이 한국의 첫 대미 투자 ..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4c785c0f9ba0322f851d4055.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260909_0003782320"
+  data-title="[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수"
+  data-publisher="뉴시스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="2"
+  data-published="1789074000"
+  data-country="KR"
+  data-search="[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수 뉴시스 원전 대미투자 [세종=뉴시스]임소현 기자 = 정부가 미국이 추진하는 핵심광물 무역협정(atcm) 참여 여부를 검토하기 위해 갈륨과 게르마늄 등 5개 전략핵심광물의 공급망과 기준가격이 국내 산업에 미칠 영향 분석에 착수한다. 미국이 중국산 저가 핵심 광물에 대응해 가격하한과 조정관세 등을 활용하는 새로운 무역질서를 구상하면서 한국도 참여에 따른 득실을 따져보기 시작한 것이다. 11일 관계당국 등에 따르면 산업통상부는 최근 &#x27;전략핵심광물 공급사슬·기준가격 분석 및 정책수단 평가 연구&#x27;에 착수했다. 연구 대상은 갈륨·게르마늄·텅스텐·안티모니와 희토류 원료인 네오디뮴·프라세오디뮴(ndpr"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[단독]정부, 美 핵심광물 협정 참여 검토…5개 광물 영향 분석 착수</div>
+      <div class="article-snippet">[세종=뉴시스]임소현 기자 = 정부가 미국이 추진하는 핵심광물 무역협정(ATCM) 참여 여부를 검토하기 위해 갈륨과 게르마늄 등 5개 전략핵심광물의 공급망과 기준가격이 국내 산업에 미칠 영향 분석에 착수한다. 미국이 중국산 저가 핵심 광물에 대응해 가격하한과 조정관세 등을 활용하는 새로운 무역질서를 구상하면서 한국도 참여에 따른 득실을 따져보기 시작한 것이다. 11일 관계당국 등에 따르면 산업통상부는 최근 &#x27;전략핵심광물 공급사슬·기준가격 분석 및 정책수단 평가 연구&#x27;에 착수했다. 연구 대상은 갈륨·게르마늄·텅스텐·안티모니와 희토류 원료인 네오디뮴·프라세오디뮴(NdPr</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/b5cdec97dac73f90482e95b8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group collapsed" data-group="원자력">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">원자력</span>
+    <span class="group-count">5건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.fnnews.com/news/202609110658425101"
+  data-title="트럼프, 이란 곡괭이산 원전 시설 추가 타격 경고"
+  data-publisher="파이낸셜뉴스"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789078374"
+  data-country="US"
+  data-search="트럼프, 이란 곡괭이산 원전 시설 추가 타격 경고 파이낸셜뉴스 원자력 도널드 트럼프 미국 대통령이 공화당 중간선거 전당대회 연설에서 이란의 지하 핵 시설로 알려진 &#x27;곡괭이산&#x27;을 향해 강경 메시지를 던졌다.이란이 미군 파괴 공작이 미치지 못하는 깊은 지하에서 핵심 원자력 시설을 건설하고 있다는 정황이 포착되면서 미국의 대응 방.."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">파이낸셜뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>트럼프, 이란 곡괭이산 원전 시설 추가 타격 경고</div>
+      <div class="article-snippet">도널드 트럼프 미국 대통령이 공화당 중간선거 전당대회 연설에서 이란의 지하 핵 시설로 알려진 &#x27;곡괭이산&#x27;을 향해 강경 메시지를 던졌다.이란이 미군 파괴 공작이 미치지 못하는 깊은 지하에서 핵심 원자력 시설을 건설하고 있다는 정황이 포착되면서 미국의 대응 방..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/53aec038400c23cca22020c3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="http://www.energytimes.kr/news/articleView.html?idxno=70882"
+  data-title="한-프랑스 원전수출에선 경쟁…협력 잠재력도 크다"
+  data-publisher="에너지타임즈"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789080180"
+  data-country="FR"
+  data-search="한-프랑스 원전수출에선 경쟁…협력 잠재력도 크다 에너지타임즈 원자력 "
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지타임즈</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한-프랑스 원전수출에선 경쟁…협력 잠재력도 크다</div>
+      <div class="article-snippet article-snippet-empty">미리보기 정보 없음</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/786445d27b560f5b47c61a24.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260911_0003785100"
+  data-title="러, 북한 핵 활동 옹호하며 IAEA에 보고서 중단 촉구"
+  data-publisher="뉴시스"
+  data-group="국제 원자력·에너지기구"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789075950"
+  data-country="RU"
+  data-search="러, 북한 핵 활동 옹호하며 iaea에 보고서 중단 촉구 뉴시스 국제 원자력·에너지기구 [서울=뉴시스] 강영진 기자 = 러시아가 유엔 산하 국제원자력기구(iaea)의 북한 핵 프로그램 보고서를 일축하면서 보고서 발행을 중단하라고 촉구했다고 미국의 북한 전문 매체 nk 뉴스(nk news)가 10일(현지시각) 보도했다. 러시아의 iaea 주재 대표는 지난 9일 성명에서 iaea가 2009년 이후 북한에 대한 핵사찰을 실시하지 않았다면서, “북한의 핵 인프라 상태에 관해 신뢰할 만한 결론을 내릴 수 없다”고 주장했다. 러시아 대표는 “위성 이미지와 공개 출처의 정보에만 근거한 사무국의 평가는 부가가치가 없고, 오해를 불러일으키는 인상을 만들며, 추가적인 위"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">러, 북한 핵 활동 옹호하며 IAEA에 보고서 중단 촉구</div>
+      <div class="article-snippet">[서울=뉴시스] 강영진 기자 = 러시아가 유엔 산하 국제원자력기구(IAEA)의 북한 핵 프로그램 보고서를 일축하면서 보고서 발행을 중단하라고 촉구했다고 미국의 북한 전문 매체 NK 뉴스(NK NEWS)가 10일(현지시각) 보도했다. 러시아의 IAEA 주재 대표는 지난 9일 성명에서 IAEA가 2009년 이후 북한에 대한 핵사찰을 실시하지 않았다면서, “북한의 핵 인프라 상태에 관해 신뢰할 만한 결론을 내릴 수 없다”고 주장했다. 러시아 대표는 “위성 이미지와 공개 출처의 정보에만 근거한 사무국의 평가는 부가가치가 없고, 오해를 불러일으키는 인상을 만들며, 추가적인 위</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/64d86f045c67ad2824b09db0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.segyebiz.com/newsView/20260910515910"
+  data-title="[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼"
+  data-publisher="세계일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789077600"
+  data-country="KR"
+  data-search="[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼 세계일보 원자력 한국수출입은행이 방산과 원전 등 주요 해외 프로젝트와 연계해 추진 중인 ‘상생금융’이 현장 안착에 한계를 드러내고 있다. 수은은 지난 4월 주요 방산 기업들과 협약을 체결하며 공급망 금융 지원을 확대하겠다고 밝혔으나 실제 지원은 단기 결제자금 중심에 머물렀고, 원전 분야 역시..."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">세계일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[단독] 수출입은행 상생금융, 방산 결제자금 지원 27곳뿐·원전은 수요 미미…협력사 2·3차 파악도 안돼</div>
+      <div class="article-snippet">한국수출입은행이 방산과 원전 등 주요 해외 프로젝트와 연계해 추진 중인 ‘상생금융’이 현장 안착에 한계를 드러내고 있다. 수은은 지난 4월 주요 방산 기업들과 협약을 체결하며 공급망 금융 지원을 확대하겠다고 밝혔으나 실제 지원은 단기 결제자금 중심에 머물렀고, 원전 분야 역시...</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/2035dc8941afe8131c8f62b3.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260910_0003784813"
+  data-title="尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형"
+  data-publisher="뉴시스"
+  data-group="원전해체"
+  data-language="ko"
+  data-priority="2"
+  data-published="1789074000"
+  data-country="AU"
+  data-search="尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형 뉴시스 원전해체 [서울=뉴시스]이승주 기자 = 이종섭 전 국방부 장관을 호주대사로 임명해 해외로 출국시킨 혐의로 재판에 넘겨진 윤석열 전 대통령의 1심 판결이 11일 나온다. 서울중앙지법 형사합의22부(부장판사 조형우)는 이날 오후 2시 윤 전 대통령의 범인도피, 직권남용 권리행사방해 등 혐의 1심 선고기일을 연다. 앞서 순직해병 특검팀(특별검사 이명현)은 지난 7월 24일 윤 전 대통령에게 징역 5년을 선고해 줄 것을 재판부에 요청했다. 범인도피 혐의 공범으로 함께 재판에 넘겨진 조태용 전 국가안보실장과 박성재 전 법무부 장관에겐 징역 3년을 구형했다. 이시원 전 대통령실 비서관,"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">尹 &#x27;이종섭 도피&#x27; 혐의 1심 오늘 선고…특검 징역 5년 구형</div>
+      <div class="article-snippet">[서울=뉴시스]이승주 기자 = 이종섭 전 국방부 장관을 호주대사로 임명해 해외로 출국시킨 혐의로 재판에 넘겨진 윤석열 전 대통령의 1심 판결이 11일 나온다. 서울중앙지법 형사합의22부(부장판사 조형우)는 이날 오후 2시 윤 전 대통령의 범인도피, 직권남용 권리행사방해 등 혐의 1심 선고기일을 연다. 앞서 순직해병 특검팀(특별검사 이명현)은 지난 7월 24일 윤 전 대통령에게 징역 5년을 선고해 줄 것을 재판부에 요청했다. 범인도피 혐의 공범으로 함께 재판에 넘겨진 조태용 전 국가안보실장과 박성재 전 법무부 장관에겐 징역 3년을 구형했다. 이시원 전 대통령실 비서관,</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/7953b3d9866640644ed3fd6f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group collapsed" data-group="SMR">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">SMR (차세대 원자로 포함)</span>
+    <span class="group-count">1건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.ulsanpress.net/news/articleView.html?idxno=582883"
+  data-title="[영상] 오늘 울산은 (9월 11일 금 울산신문)"
+  data-publisher="울산신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789077120"
+  data-country="OTHER"
+  data-search="[영상] 오늘 울산은 (9월 11일 금 울산신문) 울산신문 smr 오늘 울산은 9월 11일 금1. 2026 울산세계미래산업박람회 개막2. hd현대중, ai전력·smr 1조 투자3. 경부선 예매 첫날 또 먹통4. 일산해수욕장 강풍에 몰려온 쓰레기...#주요뉴스 #울산 #울산신문 #오늘_뉴스 #today_news #topnews_top_news #hea"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">울산신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[영상] 오늘 울산은 (9월 11일 금 울산신문)</div>
+      <div class="article-snippet">오늘 울산은 9월 11일 금1. 2026 울산세계미래산업박람회 개막2. HD현대중, AI전력·SMR 1조 투자3. 경부선 예매 첫날 또 먹통4. 일산해수욕장 강풍에 몰려온 쓰레기...#주요뉴스 #울산 #울산신문 #오늘_뉴스 #Today_News #TopNews_Top_News #Hea</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/819c1cc9fbcddac4646c247d.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group collapsed" data-group="국내 원자력 협회·학회">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">국내 원자력 협회·학회</span>
+    <span class="group-count">1건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.aa.com.tr/en/turkiye/turkish-intel-chief-meets-speaker-of-iraqi-council-of-representatives/4053685"
+  data-title="Turkish intel chief meets speaker of Iraqi council of representatives"
+  data-publisher="Anadolu Agency"
+  data-group="국내 원자력 협회·학회"
+  data-language="en"
+  data-priority="2"
+  data-published="1789077123"
+  data-country="TR"
+  data-search="turkish intel chief meets speaker of iraqi council of representatives anadolu agency 국내 원자력 협회·학회 regional, international issues addressed during meeting in ankara | anadolu"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Anadolu Agency</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">Turkish intel chief meets speaker of Iraqi council of representatives</div>
+      <div class="article-snippet">Regional, international issues addressed during meeting in Ankara | Anadolu</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/9e7b330c1dd326409ff0b927.webp" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+</div>
+</section>
+
+<section class="news-group collapsed" data-group="Nuclear Power·Nuclear Energy">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Nuclear Power·Nuclear Energy</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="불가리아 코즐로두이 원전">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">불가리아 코즐로두이 원전</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Holtec">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Holtec</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="TerraPower">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">TerraPower</span>
+    <span class="group-count">0건</span>
+  </button>
+  <div class="article-stack"><div class="empty">해당 시간대에 수집된 기사가 없습니다.</div></div>
+</section>
+
+<section class="news-group collapsed" data-group="Westinghouse">
+  <button class="group-title" type="button" aria-expanded="false">
+    <span class="group-arrow">▼</span>
+    <span class="group-name">Westinghouse</span>
+    <span class="group-count">1건</span>
+  </button>
+  <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.newsis.com/view/NISX20260910_0003783916"
+  data-title="김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율"
+  data-publisher="뉴시스"
+  data-group="Westinghouse"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789077600"
+  data-country="US"
+  data-search="김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율 뉴시스 westinghouse [세종=뉴시스]김동현 기자 = 김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉 미 상무장관과 대미 투자와 관련한 막판 조율에 나선다. 김 장관은 방미 기간 러트닉 장관의 동생을 기리는 9·11 추모행사에 참석한 뒤 러트닉 장관과 1대1 면담을 갖고 대미 투자 사업과 세부 조건 등을 협의할 것으로 알려졌다. 텍사스주 엔시날 가스복합화력발전소와 미국 현지 원자력발전소 건설 사업 등이 유력하게 거론되는 가운데 2000억 달러 투자 한도 내에서 한국 측의 실제 투자 규모와 사업 참여 범위 등을 놓고 협상이 이뤄질 전망이다. 11일 산업통상부에 따르면 김 장관은 유럽 순"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">김정관 9·11 추모행사 참석…러트닉과 대미 투자 1대1 조율</div>
       <div class="article-snippet">[세종=뉴시스]김동현 기자 = 김정관 산업통상부 장관이 미국을 방문해 하워드 러트닉 미 상무장관과 대미 투자와 관련한 막판 조율에 나선다. 김 장관은 방미 기간 러트닉 장관의 동생을 기리는 9·11 추모행사에 참석한 뒤 러트닉 장관과 1대1 면담을 갖고 대미 투자 사업과 세부 조건 등을 협의할 것으로 알려졌다. 텍사스주 엔시날 가스복합화력발전소와 미국 현지 원자력발전소 건설 사업 등이 유력하게 거론되는 가운데 2000억 달러 투자 한도 내에서 한국 측의 실제 투자 규모와 사업 참여 범위 등을 놓고 협상이 이뤄질 전망이다. 11일 산업통상부에 따르면 김 장관은 유럽 순</div>
     </div>
   </div>
@@ -36633,7 +37141,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260910_0003784573"
   data-title="&quot;아파트값 부담에 오피스텔로&quot;…실수요 몰린 &#x27;송파더그리드&#x27;[르포]"
   data-publisher="뉴시스"
@@ -36657,7 +37165,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;아파트값 부담에 오피스텔로&quot;…실수요 몰린 &#x27;송파더그리드&#x27;[르포]</div>
+      <div class="headline">&quot;아파트값 부담에 오피스텔로&quot;…실수요 몰린 &#x27;송파더그리드&#x27;[르포]</div>
       <div class="article-snippet">[서울=뉴시스] 강세훈 기자, 주다영 인턴기자 = &quot;아파트값이 계속 올라 부담이 커져서 오피스텔도 함께 알아보고 있어요.&quot; 10일 서울 송파구에 마련된 &#x27;힐스테이트 송파더그리드&#x27; 견본주택에서 만난 위례 거주 40대 부부는 전용 84㎡ 타입을 관심 있게 살펴보며 이같이 말했다. 이들은 인근 대형 평형 주택 가격 등을 고려하면 분양가도 비교적 합리적인 수준이라고 평가했다. 평일인 목요일 낮이었지만 견본주택에는 방문객들의 발길이 이어졌다. 60~70대 방문객들이 적지 않은 가운데 갓난아이를 데리고 유닛을 둘러보는 30~40대 부부들이 눈에 띄었다. 점심시간을 이용해 견본주</div>
     </div>
   </div>
@@ -38736,7 +39244,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">40건</span>
+    <span class="group-count">42건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -38793,7 +39301,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.idaegu.co.kr/news/articleView.html?idxno=559329" target="_blank" rel="noopener"><span class="related-coverage-publisher">대구신문</span><span class="related-coverage-title">한전기술, 핵융합에너지 사업 참여 확대 - 대구신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한국전력기술-인애이블퓨전, 핵융합에너지 사업 ‘맞손’</div>
@@ -38905,6 +39413,39 @@ main {
 </article>
 
 <article class="preview-card"
+  data-url="https://www.idaegu.co.kr/news/articleView.html?idxno=559329"
+  data-title="한전기술, 핵융합에너지 사업 참여 확대 - 대구신문"
+  data-publisher="대구신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789042807"
+  data-country="KR"
+  data-search="한전기술, 핵융합에너지 사업 참여 확대 - 대구신문 대구신문 한국전력 한국전력기술이 핵융합 전문 스타트업과 손잡고 핵융합에너지 사업 참여 확대에 나선다.한국전력기술은 지난 7일 대전 사이언스센터에서 인애이블퓨전과 ‘핵융합에너지 사업"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">대구신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전기술, 핵융합에너지 사업 참여 확대 - 대구신문</div>
+      <div class="article-snippet">한국전력기술이 핵융합 전문 스타트업과 손잡고 핵융합에너지 사업 참여 확대에 나선다.한국전력기술은 지난 7일 대전 사이언스센터에서 인애이블퓨전과 ‘핵융합에너지 사업</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.idaegu.co.kr/news/photo/202609/2026091101000349800020131.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://www.ebn.co.kr/news/articleView.html?idxno=1723833"
   data-title="[1% 초고수의 선택] &#x27;대한전선&#x27; 사고 &#x27;산일전기&#x27; 팔았다 - 이비엔(EBN)뉴스센터"
   data-publisher="EBN산업경제"
@@ -39000,6 +39541,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/04ae6a4913c93b04030a7992.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.e-platform.net/news/articleView.html?idxno=105269"
+  data-title="남부발전, ‘IDPP 기반 우수앱 개발사례’ 베트남 발전공사에 소개"
+  data-publisher="에너지플랫폼뉴스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789034354"
+  data-country="VN"
+  data-search="남부발전, ‘idpp 기반 우수앱 개발사례’ 베트남 발전공사에 소개 에너지플랫폼뉴스 한국전력 [에너지플랫폼뉴스 박병인 기자] 남부발전이 idpp 기반 우수앱 개발사례를 베트남 발전공사에 소개하며 기술 경쟁력을 과시했다.한국남부발전(주)(사장 김준동)이 한전 전력연구원에서 발전정보 기반 우수 애플리케이션 개발·운영 사례를 베트남 발전공사 evn genco3에 소개하며 발전 분야의 인공지능(ai) 활용 가능성과 기술 경쟁력을 입증했다고 10일 밝혔다.이번 발표는 발전소 현장에서 발굴한 기술 아이디어를 디지털 자산으로 구현해 발전산업에서 ai 활용 경쟁력을 제고하고, 베트남 발전공사에 지능형디지털발전소(intelligent di"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지플랫폼뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">남부발전, ‘IDPP 기반 우수앱 개발사례’ 베트남 발전공사에 소개</div>
+      <div class="article-snippet">[에너지플랫폼뉴스 박병인 기자] 남부발전이 IDPP 기반 우수앱 개발사례를 베트남 발전공사에 소개하며 기술 경쟁력을 과시했다.한국남부발전(주)(사장 김준동)이 한전 전력연구원에서 발전정보 기반 우수 애플리케이션 개발·운영 사례를 베트남 발전공사 EVN GENCO3에 소개하며 발전 분야의 인공지능(AI) 활용 가능성과 기술 경쟁력을 입증했다고 10일 밝혔다.이번 발표는 발전소 현장에서 발굴한 기술 아이디어를 디지털 자산으로 구현해 발전산업에서 AI 활용 경쟁력을 제고하고, 베트남 발전공사에 지능형디지털발전소(Intelligent Di</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.e-platform.net/news/thumbnail/202609/105269_77434_5847_v150.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -39222,7 +39796,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.e-platform.net/news/articleView.html?idxno=105269" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지플랫폼뉴스</span><span class="related-coverage-title">남부발전, ‘IDPP 기반 우수앱 개발사례’ 베트남 발전공사에 소개</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">남부발전, IDPP 기반 우수 앱 개발사례 베트남에 전파</div>
@@ -40743,10 +41317,10 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원전 대미투자</span>
-    <span class="group-count">45건</span>
+    <span class="group-count">47건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=01679366645579136&amp;mediaCodeNo=257"
   data-title="[기고]대미 투자의 성공은 공정한 집행에 달려 있다"
   data-publisher="이데일리"
@@ -40770,12 +41344,78 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>[기고]대미 투자의 성공은 공정한 집행에 달려 있다</div>
+      <div class="headline">[기고]대미 투자의 성공은 공정한 집행에 달려 있다</div>
       <div class="article-snippet">지난해 한·미 관세 협상의 결과로 약속된 3500억 달러 규모의 대미 투자가 본격적으로 구체화하고 있다. 최근 텍사스 가스 발전 사업이 ‘1호 투자 프로젝트’로 유력하게 거론되는 가운데 알래스카 LNG 사업과 총 8기 규모의 원전 건설 사업도 핵심 검토 대상으로 알려...</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/711793d6cb24a77c84055598.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.chosun.com/economy/int_economy/2026/09/11/BB42O5DBXZE2HPKPTAUXIC7CO4/"
+  data-title="美언론 “한국, 美 원전·텍사스 가스발전에 1000억달러 투자 임박”…김정관 “대미투자 협상 마무리하기 위해 방미”"
+  data-publisher="조선일보"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789067140"
+  data-country="US"
+  data-search="美언론 “한국, 美 원전·텍사스 가스발전에 1000억달러 투자 임박”…김정관 “대미투자 협상 마무리하기 위해 방미” 조선일보 원전 대미투자 한국 정부가 미국의 ai 인프라 강화를 위해 원전 및 천연가스 발전 사업에 1000억 달러 규모의 투자를 미국과 협의하고 있습니다. 다만 한미 양국 정부는 세부 내용이 확정되지 않았다는 입장을 고수하고 있으며, 협상이 막바지 단계에 있음을 시사했습니다. 이번 사업은 지난해 약속한 대미 투자 규모의 일환으로 향후 전략 산업 분야의 협력이 더욱 강화될 전망입니다."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">조선일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美언론 “한국, 美 원전·텍사스 가스발전에 1000억달러 투자 임박”…김정관 “대미투자 협상 마무리하기 위해 방미”</div>
+      <div class="article-snippet">한국 정부가 미국의 AI 인프라 강화를 위해 원전 및 천연가스 발전 사업에 1000억 달러 규모의 투자를 미국과 협의하고 있습니다. 다만 한미 양국 정부는 세부 내용이 확정되지 않았다는 입장을 고수하고 있으며, 협상이 막바지 단계에 있음을 시사했습니다. 이번 사업은 지난해 약속한 대미 투자 규모의 일환으로 향후 전략 산업 분야의 협력이 더욱 강화될 전망입니다.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/1372fbaea501296780ff1ab8.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.fnnews.com/news/202609110352258342"
+  data-title="김정관 &quot;대미투자 협상 마무리할 것 있어 방미&quot;…1000억달러 에너지 투자 임박"
+  data-publisher="파이낸셜뉴스"
+  data-group="원전 대미투자"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789066483"
+  data-country="US"
+  data-search="김정관 &quot;대미투자 협상 마무리할 것 있어 방미&quot;…1000억달러 에너지 투자 임박 파이낸셜뉴스 원전 대미투자 김정관 산업통상부 장관이 한미 대미투자 협상을 마무리하기 위해 미국을 찾았다.대미투자 1호 프로젝트로 220억달러 규모의 텍사스 가스복합화력발전소가 유력하게 거론되는 가운데 원자력발전소와 천연가스 사업 등을 포함한 1000억달러 이상의 에너지 투자 패키지를 .."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">파이낸셜뉴스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>김정관 &quot;대미투자 협상 마무리할 것 있어 방미&quot;…1000억달러 에너지 투자 임박</div>
+      <div class="article-snippet">김정관 산업통상부 장관이 한미 대미투자 협상을 마무리하기 위해 미국을 찾았다.대미투자 1호 프로젝트로 220억달러 규모의 텍사스 가스복합화력발전소가 유력하게 거론되는 가운데 원자력발전소와 천연가스 사업 등을 포함한 1000억달러 이상의 에너지 투자 패키지를 ..</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/517a122c32ccfea39a6bc86b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -41439,7 +42079,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.edaily.co.kr/News/Read?newsId=01482566645579136&amp;mediaCodeNo=257"
   data-title="김정관 “대미투자 협상 마무리 위해 방미…최종 서명 전까지 협상 진행”"
   data-publisher="이데일리"
@@ -41463,7 +42103,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.yonhapnewstv.co.kr/news/MYH20260911051103MJW" target="_blank" rel="noopener"><span class="related-coverage-publisher">연합뉴스TV</span><span class="related-coverage-title">김정관 산업장관 “대미 투자 협상 마무리차 방미“</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>김정관 “대미투자 협상 마무리 위해 방미…최종 서명 전까지 협상 진행”</div>
+      <div class="headline">김정관 “대미투자 협상 마무리 위해 방미…최종 서명 전까지 협상 진행”</div>
       <div class="article-snippet">김정관 산업통상부 장관이 10일(현지시간) 미국에 도착해 대미투자 협상 마무리를 위한 조율에 나섰다. 김 장관은 “최종 서명하기 전까지는 협상이 진행 중”이라며 구체적인 투자 규모와 사업 내용에 대해서는 말을 아꼈다. 김정관 산업통상부 장관 (사진=연합뉴스)김 장관...</div>
     </div>
   </div>
@@ -42237,7 +42877,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">47건</span>
+    <span class="group-count">48건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -42492,7 +43132,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.chosun.com/economy/tech_it/2026/09/10/N37VPKL63RBLVEDQXNWGYO6DWI/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선일보</span><span class="related-coverage-title">구글, AI 데이터센터 위해 ‘원전 강국’ 핀란드 택했다</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6161" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">구글, 핀란드 원전 전력 22년 확보…AI 전력전쟁 본격화 - 에너지안전신문</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 3개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.chosun.com/economy/tech_it/2026/09/11/Q5BJCLK3QRBY5IR4GV2AMU6UQM/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선일보</span><span class="related-coverage-title">구글, ‘원전 강국’ 핀란드에 20조원 AI 투자</span></a><a class="related-coverage-link" href="https://www.chosun.com/economy/tech_it/2026/09/10/N37VPKL63RBLVEDQXNWGYO6DWI/" target="_blank" rel="noopener"><span class="related-coverage-publisher">조선일보</span><span class="related-coverage-title">구글, AI 데이터센터 위해 ‘원전 강국’ 핀란드 택했다</span></a><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6161" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">구글, 핀란드 원전 전력 22년 확보…AI 전력전쟁 본격화 - 에너지안전신문</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">구글, 핀란드서 원자력 발전소 전력 장기 공급 계약</div>
@@ -42501,6 +43141,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/21e114a02286ff91caaebb54.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.chosun.com/economy/tech_it/2026/09/11/Q5BJCLK3QRBY5IR4GV2AMU6UQM/"
+  data-title="구글, ‘원전 강국’ 핀란드에 20조원 AI 투자"
+  data-publisher="조선일보"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789015096"
+  data-country="FI"
+  data-search="구글, ‘원전 강국’ 핀란드에 20조원 ai 투자 조선일보 원자력 구글이 ai 인프라 구축을 위해 핀란드에 20조 원 규모를 투자함. 데이터센터 가동을 위한 안정적 전력 확보가 핵심이며, 핀란드 에너지 기업 포르툼과 장기 원전 전력 구매 계약을 체결함. 추운 기후와 원전 생태계가 결합된 핀란드를 ai 핵심 거점으로 삼아 미래 전력망을 선점하려는 전략적 행보임."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">조선일보</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">구글, ‘원전 강국’ 핀란드에 20조원 AI 투자</div>
+      <div class="article-snippet">구글이 AI 인프라 구축을 위해 핀란드에 20조 원 규모를 투자함. 데이터센터 가동을 위한 안정적 전력 확보가 핵심이며, 핀란드 에너지 기업 포르툼과 장기 원전 전력 구매 계약을 체결함. 추운 기후와 원전 생태계가 결합된 핀란드를 AI 핵심 거점으로 삼아 미래 전력망을 선점하려는 전략적 행보임.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://www.chosun.com/resizer/v2/GY3TIMBQMVQTONTFGE4DMY3FMY.jpg?auth=df633d31da35a65fc25ad39c1c28b816cbca27bc770a383fa110e4312dc2f7da&amp;width=1200&amp;height=630&amp;smart=true" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -42900,7 +43573,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="http://www.knpnews.com/news/articleView.html?idxno=34454"
   data-title="“원자력에서 AI 안전관리까지”…김천중앙중서 미래 에너지 특강"
   data-publisher="한국원자력신문"
@@ -42924,7 +43597,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>“원자력에서 AI 안전관리까지”…김천중앙중서 미래 에너지 특강</div>
+      <div class="headline">“원자력에서 AI 안전관리까지”…김천중앙중서 미래 에너지 특강</div>
       <div class="article-snippet">경북 김천중앙중학교 학생들이 원자력발전의 원리와 생활 속 방사선의 활용, 인공지능(AI)을 접목한 원전 안전관리 기술 등을 살펴보는 전문가 특강에 참여했다.원자력발전포럼이 주최하고 사단법인 사실과과학네트웍이 주관한 ‘미래 에너지 리더를 위한 중고교생 원자력 교육’이 지난 8일 오후 2</div>
     </div>
   </div>
@@ -43457,7 +44130,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/a8614fb117653ace955994d2.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://cdn.sisaworld.kr/news/photo/202609/25067_38953_2045.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -43866,7 +44539,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.industrynews.co.kr/news/articleView.html?idxno=85843"
   data-title="경남도, SMR에 4조7000억 승부수…산업·안전·관광 ‘3각 드라이브’ - 인더스트리뉴스"
   data-publisher="인더스트리뉴스"
@@ -43890,7 +44563,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>경남도, SMR에 4조7000억 승부수…산업·안전·관광 ‘3각 드라이브’ - 인더스트리뉴스</div>
+      <div class="headline">경남도, SMR에 4조7000억 승부수…산업·안전·관광 ‘3각 드라이브’ - 인더스트리뉴스</div>
       <div class="article-snippet">[인더스트리뉴스 경남=하용성 기자] 경남도가 미래 먹거리인 소형모듈원자로(SMR)에 약 4조7천억 원을 투입해 세계 최고 수준의 생산거점 구축에 나서는 한편, 추</div>
     </div>
   </div>
@@ -45465,10 +46138,43 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">Nuclear Power·Nuclear Energy</span>
-    <span class="group-count">47건</span>
+    <span class="group-count">49건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card new-article"
+  data-url="https://asia.nikkei.com/business/energy/giant-robot-arm-to-probe-fukushima-nuclear-debris-after-5-year-delay"
+  data-title="Giant robot arm to probe Fukushima nuclear debris after 5-year delay"
+  data-publisher="Nikkei Asia"
+  data-group="Nuclear Power·Nuclear Energy"
+  data-language="en"
+  data-priority="0"
+  data-published="1789073927"
+  data-country="JP"
+  data-search="giant robot arm to probe fukushima nuclear debris after 5-year delay nikkei asia nuclear power·nuclear energy upcoming inspection is critical step toward removing highly radioactive fuel"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Nikkei Asia</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Giant robot arm to probe Fukushima nuclear debris after 5-year delay</div>
+      <div class="article-snippet">Upcoming inspection is critical step toward removing highly radioactive fuel</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/30d6f22291cce2bc5b97af73.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
   data-url="https://interestingengineering.com/energy/deep-fission-tests-underground-nuclear-reactor-canister"
   data-title="New drilling technique puts 20-foot reactor 100 feet underground"
   data-publisher="Interesting Engineering"
@@ -45492,7 +46198,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>New drilling technique puts 20-foot reactor 100 feet underground</div>
+      <div class="headline">New drilling technique puts 20-foot reactor 100 feet underground</div>
       <div class="article-snippet">Deep Fission tested a 20-foot reactor canister underground using commercial drilling equipment for its mile-deep reactor plan.</div>
     </div>
   </div>
@@ -45695,7 +46401,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="assets/thumbnails/951075a3259f505a573af1bc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="assets/thumbnails/09d79e46880665948130219c.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -45831,7 +46537,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.power-eng.com/nuclear/duane-arnolds-nuclear-restart-in-eastern-iowa-gets-1-9b-boost-from-doe/"
   data-title="Duane Arnold’s nuclear restart in eastern Iowa gets $1.9B boost from DOE"
   data-publisher="Power Engineering"
@@ -45855,7 +46561,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>Duane Arnold’s nuclear restart in eastern Iowa gets $1.9B boost from DOE</div>
+      <div class="headline">Duane Arnold’s nuclear restart in eastern Iowa gets $1.9B boost from DOE</div>
       <div class="article-snippet">DOE financing gives a major boost to NextEra Energy’s effort to restart Duane Arnold by 2029, following an emerging path for bringing retired nuclear plants back online.</div>
     </div>
   </div>
@@ -46656,6 +47362,39 @@ main {
   </div>
 </article>
 
+<article class="preview-card new-article"
+  data-url="https://www.globalbankingandfinance.com/iran-iaea-moves-push-countries-exit-npt/"
+  data-title="Iran: IAEA Political Moves Risk Countries Exiting NPT Treaty"
+  data-publisher="Global Banking &amp; Finance Review"
+  data-group="국제 원자력·에너지기구"
+  data-language="en"
+  data-priority="2"
+  data-published="1789063496"
+  data-country="OTHER"
+  data-search="iran: iaea political moves risk countries exiting npt treaty global banking &amp; finance review 국제 원자력·에너지기구 iran warns that political moves by the iaea may prompt countries to exit the non-proliferation treaty after the agency&#x27;s report to the un security council."
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">Global Banking &amp; Finance Review</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>Iran: IAEA Political Moves Risk Countries Exiting NPT Treaty</div>
+      <div class="article-snippet">Iran warns that political moves by the IAEA may prompt countries to exit the Non-Proliferation Treaty after the agency&#x27;s report to the UN Security Council.</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/e838cdc8277128da8c8d5ee0.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://sightlineu3o8.com/2026/09/v-ptu-reports-winter-2026-assays-from-dorado-jvs-nova-target/"
   data-title="V.PTU Reports Winter 2026 Assays from Dorado JV’s Nova Target"
@@ -47046,7 +47785,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260910_0003784691"
   data-title="&quot;AI 전력시장 뚫는다&quot; 정기선號 HD현대, 엔진·SMR로 &#x27;2030년 매출 100조&#x27; 동력 확보"
   data-publisher="뉴시스"
@@ -47070,7 +47809,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.ajunews.com/view/20260910134652915" target="_blank" rel="noopener"><span class="related-coverage-publisher">아주경제</span><span class="related-coverage-title">HD현대重, &#x27;엔진·SMR&#x27; 미래사업에 1조 투자한다</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>&quot;AI 전력시장 뚫는다&quot; 정기선號 HD현대, 엔진·SMR로 &#x27;2030년 매출 100조&#x27; 동력 확보</div>
+      <div class="headline">&quot;AI 전력시장 뚫는다&quot; 정기선號 HD현대, 엔진·SMR로 &#x27;2030년 매출 100조&#x27; 동력 확보</div>
       <div class="article-snippet">[서울=뉴시스]유희석 기자 = HD현대가 급증하는 인공지능(AI) 데이터센터 전력 수요에 대응해 육상 발전엔진과 소형모듈원자로(SMR)에 총 1조722억원을 투자한다. 정기선 HD현대 회장이 제시한 ‘2030년 그룹 매출 100조원’ 목표 달성을 위한 신성장동력 확보에도 속도를 낸다는 구상이다. ◆발전엔진 생산 거점 이원화…2030년 7.2GW로 확대 11일 업계에 따르면 HD현대중공업은 8336억원을 투입해 울산 울주군 온산읍에 3GW 규모의 &#x27;힘센엔진(HiMSEN Engine)&#x27; 신규 생산기지를 구축한다. 2028년 5월 준공이 목표다. 생산 거점도 이원화한다.</div>
     </div>
   </div>
@@ -56229,7 +56968,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/one-nuclear-unveils-plans-for-1-gw-smr-campus-project-in-louisiana-9-4-2026#&lt;ActiveStorage::Attached::One:0x0000707a05b8d018&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/one-nuclear-unveils-plans-for-1-gw-smr-campus-project-in-louisiana-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079f09054b8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -57534,7 +58273,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/private-canadian-company-unveils-three-reactor-designs-for-world-s-most-demanding-environments-9-4-2026#&lt;ActiveStorage::Attached::One:0x0000707a03b56c40&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/private-canadian-company-unveils-three-reactor-designs-for-world-s-most-demanding-environments-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079f534c508&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -178303,7 +179042,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {
   function isPcGroupMode() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function expandPcPanelOnce(panel) {
@@ -178351,7 +179090,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {
   function isPcDateMode() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function initPcDateControls() {
@@ -178442,7 +179181,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   };
 
   function isPcMapMode() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function currentPeriodPanel() {
@@ -178677,7 +179416,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   var mapPanel = null;
 
   function isPcDashboard() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function activePanelForDashboard() {
@@ -178866,7 +179605,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   var pcMapHome = null;
 
   function isPcRailMode() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function activatePcRailTab(name) {
@@ -179658,7 +180397,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {
   function pcv3Desktop() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function pcv3DateKey(zone, now) {
@@ -179787,7 +180526,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {
   function pcv4Desktop() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function pcv4HardFit() {
@@ -179840,7 +180579,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {
   function pcv5Desktop() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function pcv5TopCountry() {
@@ -179936,7 +180675,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   };
 
   function desktop() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }
 
   function allCards() {
@@ -180263,7 +181002,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   let currentFilter="all";
   let searchTerm="";
 
-  function desktop(){return window.matchMedia("(min-width:1000px)").matches;}
+  function desktop(){return false; // FINAL: legacy PC desktop dashboard disabled}
 
   function cards(){
     const all=Array.from(document.querySelectorAll(".phone main .preview-card, body main .preview-card"));
@@ -180507,7 +181246,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {
   function pc7v8Desktop() {
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy dark PC dashboard permanently disabled
   }
 
   function protectPC7() {
@@ -180539,7 +181278,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
     var observer = new MutationObserver(function() {
       if (grid.style.display === "none" || getComputedStyle(grid).display === "none") {
-        protectPC7();
+        // FINAL: legacy PC7 disabled
       }
     });
     observer.observe(grid, {attributes:true, attributeFilter:["style","class"]});
@@ -180547,7 +181286,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function boot() {
     if (!pc7v8Desktop()) return;
-    protectPC7();
+    // FINAL: legacy PC7 disabled
     observePC7();
     setTimeout(protectPC7, 300);
     setTimeout(protectPC7, 1000);
@@ -180592,7 +181331,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   ];
   const KEYWORDS=["Westinghouse","Holtec","Palisades","Matador","AP1000","SMR","수주","계약","안전","미국","불가리아","루마니아","체코","원전","인허가","투자","DOE","KHNP","두산에너빌리티","현대건설"];
 
-  function desktop(){return window.matchMedia("(min-width:1000px)").matches;}
+  function desktop(){return false; // FINAL: legacy PC desktop dashboard disabled}
   function cards(){
     const all=Array.from(document.querySelectorAll(".phone main .preview-card, body .phone .preview-card"));
     const out=[],seen=new Set();
@@ -182330,6 +183069,95 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   });
 
   window.addEventListener("resize",()=>{if(desktop()&&world)setTimeout(renderMap,90)})
+})();
+</script>
+
+
+<script>
+(function(){
+  function finalMobileOnlyDesktop(){
+    if(!window.matchMedia("(min-width:1000px)").matches) return;
+
+    ["pc7-app","pc9-app","pc10-app","pc11-app","pc-v2-dashboard","pc-insight-rail","world-map-panel"]
+      .forEach(function(id){
+        var el=document.getElementById(id);
+        if(el && el.parentNode) el.parentNode.removeChild(el);
+      });
+
+    var phone=document.querySelector("body > .phone");
+    if(phone){
+      phone.style.setProperty("display","block","important");
+      phone.style.setProperty("visibility","visible","important");
+      phone.style.setProperty("opacity","1","important");
+      phone.style.setProperty("pointer-events","auto","important");
+      phone.style.setProperty("position","relative","important");
+      phone.style.setProperty("width","100%","important");
+      phone.style.setProperty("max-width","none","important");
+      phone.style.setProperty("height","auto","important");
+      phone.style.setProperty("overflow","visible","important");
+    }
+
+    var main=phone ? phone.querySelector("main") : null;
+    if(main){
+      main.style.setProperty("display","block","important");
+      main.style.setProperty("visibility","visible","important");
+      main.style.setProperty("opacity","1","important");
+    }
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded", finalMobileOnlyDesktop, {once:true});
+  }else{
+    finalMobileOnlyDesktop();
+  }
+
+  // Legacy PC scripts used delayed display forcing. Re-apply after those timers.
+  setTimeout(finalMobileOnlyDesktop, 50);
+  setTimeout(finalMobileOnlyDesktop, 350);
+  setTimeout(finalMobileOnlyDesktop, 1200);
+  setTimeout(finalMobileOnlyDesktop, 2200);
+
+  window.addEventListener("resize", finalMobileOnlyDesktop);
+})();
+</script>
+
+
+<script>
+(function(){
+  function removeLegacyPcRoots(){
+    if(!window.matchMedia("(min-width:1000px)").matches) return;
+    [
+      "pc7-app","pc9-app","pc10-app","pc11-app",
+      "pc-v2-dashboard","pc-insight-rail","world-map-panel"
+    ].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el && el.parentNode) el.parentNode.removeChild(el);
+    });
+
+    var phone=document.querySelector("body > .phone");
+    if(phone){
+      phone.style.setProperty("display","block","important");
+      phone.style.setProperty("visibility","visible","important");
+      phone.style.setProperty("opacity","1","important");
+      phone.style.setProperty("pointer-events","auto","important");
+      phone.style.setProperty("position","relative","important");
+      phone.style.setProperty("width","100%","important");
+      phone.style.setProperty("max-width","none","important");
+      phone.style.setProperty("height","auto","important");
+      phone.style.setProperty("overflow","visible","important");
+    }
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded", removeLegacyPcRoots, {once:true});
+  }else{
+    removeLegacyPcRoots();
+  }
+
+  setTimeout(removeLegacyPcRoots,100);
+  setTimeout(removeLegacyPcRoots,500);
+  setTimeout(removeLegacyPcRoots,1500);
+  window.addEventListener("resize", removeLegacyPcRoots);
 })();
 </script>
 
