@@ -1,3 +1,5 @@
+# FINAL PC TRUE MOBILE-ONLY / LEGACY PC DOM REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
+# FINAL HARD REMOVE LEGACY PC DASHBOARDS / TRUE MOBILE UI ON PC / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL ADD HANKYUNG PREMIUM SOURCE / 2026-09-10
 # FINAL TRUE MOBILE-ON-PC / 2-COLUMN MOBILE ARTICLE CARDS / POPUP ARTICLE WINDOW / 180D ARCHIVE / 90D THUMB / 2026-09-10
 # FINAL PC RIGHT PANEL USES EXACT MOBILE ARTICLE CARD DOM / MAP LEFT / POPUP WINDOW / 180D ARCHIVE / 90D THUMB / 2026-09-08
@@ -30888,6 +30890,145 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   2026-09-11 FINAL HARD RESET
+   Desktop uses ONLY the stable mobile UI.
+   Legacy dark control-desk/map/clock/signal panels never render.
+   ========================================================== */
+@media (min-width:1000px){{
+  #pc7-app,
+  #pc9-app,
+  #pc10-app,
+  #pc11-app,
+  #pc-v2-dashboard,
+  #pc-insight-rail,
+  #world-map-panel{{
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    width:0!important;
+    height:0!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    pointer-events:none!important;
+    position:absolute!important;
+    left:-99999px!important;
+    top:-99999px!important;
+  }}
+
+  body>.phone{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:100vh!important;
+    height:auto!important;
+    overflow:visible!important;
+    margin:0!important;
+  }}
+
+  body>.phone main{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:14px 14px 36px!important;
+  }}
+
+  /* PC changes layout only: exact mobile article cards, two columns. */
+  body>.phone .article-stack{{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    width:100%!important;
+    align-items:stretch!important;
+  }}
+
+  body>.phone .preview-card{{
+    display:grid!important;
+    width:100%!important;
+    min-width:0!important;
+  }}
+}}
+
+
+/* ==========================================================
+   FINAL PC = MOBILE UI ONLY
+   Legacy PC dashboard/map/clock/signal DOM removed/disabled.
+   Desktop only reflows stable mobile cards into 2 columns.
+   ========================================================== */
+@media (min-width:1000px){{
+  html,body{{
+    width:100%!important;
+    min-height:100%!important;
+    height:auto!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    background:#d7e0e8!important;
+  }}
+
+  body>.phone{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    position:relative!important;
+    inset:auto!important;
+    transform:none!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:100vh!important;
+    height:auto!important;
+    overflow:visible!important;
+    margin:0!important;
+  }}
+
+  body>.phone main{{
+    display:block!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:14px 14px 36px!important;
+  }}
+
+  body>.phone .article-stack{{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    align-items:stretch!important;
+    width:100%!important;
+  }}
+
+  body>.phone .preview-card{{
+    display:grid!important;
+    width:100%!important;
+    min-width:0!important;
+  }}
+
+  /* hard safety net in case any legacy root survived malformed older HTML */
+  [id="pc7-app"],
+  [id="pc9-app"],
+  [id="pc10-app"],
+  [id="pc11-app"],
+  [id="pc-v2-dashboard"],
+  [id="pc-insight-rail"],
+  [id="world-map-panel"]{{
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -30901,14 +31042,7 @@ main {{
 
 
 <body>
-<div id="pc11-app" class="pc11-app" aria-label="원자력 주요기사 PC">
-  <header class="pc11-header">
-    <div class="pc11-brand">
-      <span>NUCLEAR DAILY BRIEF</span>
-      <strong>원자력 주요기사</strong>
-    </div>
-
-    <div class="pc11-search-wrap">
+<div class="pc11-search-wrap">
       <input id="pc11-search" type="search" placeholder="기사 · 기업 · 프로젝트 · 국가 검색">
     </div>
 
@@ -31082,14 +31216,7 @@ main {{
   </div>
 </div>
 
-<div id="pc10-app" class="pc10-app" aria-label="원자력 뉴스 PC 대시보드">
-  <header class="pc10-topbar">
-    <div class="pc10-brand">
-      <span>NUCLEAR DAILY BRIEF</span>
-      <strong>금일 주요기사</strong>
-    </div>
-
-    <div class="pc10-searchbox">
+<div class="pc10-searchbox">
       <input id="pc10-search" type="search" placeholder="기사·기업·프로젝트·국가 검색">
     </div>
 
@@ -31201,13 +31328,7 @@ main {{
   </section>
 </div>
 
-  <div id="pc9-app" class="pc9-app" aria-label="원자력 주요기사 PC 분석 대시보드">
-    <header class="pc9-header">
-      <div class="pc9-brand">
-        <span>NUCLEAR INTELLIGENCE</span>
-        <strong>오늘의 원자력 기사 분석</strong>
-      </div>
-      <div class="pc9-search">
+  <div class="pc9-search">
         <input id="pc9-search-input" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색">
       </div>
       <div class="pc9-header-right">
@@ -31323,14 +31444,7 @@ main {{
        Completely separate from the mobile UI.
        Existing mobile DOM remains below and is untouched.
        ============================================================ -->
-  <div id="pc7-app" class="pc7-app" aria-label="Nuclear Intelligence Desktop">
-    <header class="pc7-header">
-      <div class="pc7-brand">
-        <span class="pc7-brand-kicker">NUCLEAR INTELLIGENCE</span>
-        <strong>Global Control Desk</strong>
-      </div>
-
-      <div class="pc7-search-wrap">
+  <div class="pc7-search-wrap">
         <input id="pc7-search" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색" autocomplete="off">
       </div>
 
@@ -37530,7 +37644,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   function isPcGroupMode() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function expandPcPanelOnce(panel) {{
@@ -37578,7 +37692,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   function isPcDateMode() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function initPcDateControls() {{
@@ -37669,7 +37783,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }};
 
   function isPcMapMode() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function currentPeriodPanel() {{
@@ -37904,7 +38018,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   var mapPanel = null;
 
   function isPcDashboard() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function activePanelForDashboard() {{
@@ -38093,7 +38207,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   var pcMapHome = null;
 
   function isPcRailMode() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function activatePcRailTab(name) {{
@@ -38885,7 +38999,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   function pcv3Desktop() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function pcv3DateKey(zone, now) {{
@@ -39014,7 +39128,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   function pcv4Desktop() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function pcv4HardFit() {{
@@ -39067,7 +39181,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   function pcv5Desktop() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function pcv5TopCountry() {{
@@ -39163,7 +39277,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }};
 
   function desktop() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy PC desktop dashboard disabled
   }}
 
   function allCards() {{
@@ -39490,7 +39604,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   let currentFilter="all";
   let searchTerm="";
 
-  function desktop(){{return window.matchMedia("(min-width:1000px)").matches;}}
+  function desktop(){{return false; // FINAL: legacy PC desktop dashboard disabled}}
 
   function cards(){{
     const all=Array.from(document.querySelectorAll(".phone main .preview-card, body main .preview-card"));
@@ -39734,7 +39848,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 <script>
 (function() {{
   function pc7v8Desktop() {{
-    return window.matchMedia("(min-width:1000px)").matches;
+    return false; // FINAL: legacy dark PC dashboard permanently disabled
   }}
 
   function protectPC7() {{
@@ -39766,7 +39880,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
     var observer = new MutationObserver(function() {{
       if (grid.style.display === "none" || getComputedStyle(grid).display === "none") {{
-        protectPC7();
+        // FINAL: legacy PC7 disabled
       }}
     }});
     observer.observe(grid, {{attributes:true, attributeFilter:["style","class"]}});
@@ -39774,7 +39888,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function boot() {{
     if (!pc7v8Desktop()) return;
-    protectPC7();
+    // FINAL: legacy PC7 disabled
     observePC7();
     setTimeout(protectPC7, 300);
     setTimeout(protectPC7, 1000);
@@ -39819,7 +39933,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   ];
   const KEYWORDS=["Westinghouse","Holtec","Palisades","Matador","AP1000","SMR","수주","계약","안전","미국","불가리아","루마니아","체코","원전","인허가","투자","DOE","KHNP","두산에너빌리티","현대건설"];
 
-  function desktop(){{return window.matchMedia("(min-width:1000px)").matches;}}
+  function desktop(){{return false; // FINAL: legacy PC desktop dashboard disabled}}
   function cards(){{
     const all=Array.from(document.querySelectorAll(".phone main .preview-card, body .phone .preview-card"));
     const out=[],seen=new Set();
@@ -41557,6 +41671,95 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }});
 
   window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,90)}})
+}})();
+</script>
+
+
+<script>
+(function(){{
+  function finalMobileOnlyDesktop(){{
+    if(!window.matchMedia("(min-width:1000px)").matches) return;
+
+    ["pc7-app","pc9-app","pc10-app","pc11-app","pc-v2-dashboard","pc-insight-rail","world-map-panel"]
+      .forEach(function(id){{
+        var el=document.getElementById(id);
+        if(el && el.parentNode) el.parentNode.removeChild(el);
+      }});
+
+    var phone=document.querySelector("body > .phone");
+    if(phone){{
+      phone.style.setProperty("display","block","important");
+      phone.style.setProperty("visibility","visible","important");
+      phone.style.setProperty("opacity","1","important");
+      phone.style.setProperty("pointer-events","auto","important");
+      phone.style.setProperty("position","relative","important");
+      phone.style.setProperty("width","100%","important");
+      phone.style.setProperty("max-width","none","important");
+      phone.style.setProperty("height","auto","important");
+      phone.style.setProperty("overflow","visible","important");
+    }}
+
+    var main=phone ? phone.querySelector("main") : null;
+    if(main){{
+      main.style.setProperty("display","block","important");
+      main.style.setProperty("visibility","visible","important");
+      main.style.setProperty("opacity","1","important");
+    }}
+  }}
+
+  if(document.readyState==="loading"){{
+    document.addEventListener("DOMContentLoaded", finalMobileOnlyDesktop, {{once:true}});
+  }}else{{
+    finalMobileOnlyDesktop();
+  }}
+
+  // Legacy PC scripts used delayed display forcing. Re-apply after those timers.
+  setTimeout(finalMobileOnlyDesktop, 50);
+  setTimeout(finalMobileOnlyDesktop, 350);
+  setTimeout(finalMobileOnlyDesktop, 1200);
+  setTimeout(finalMobileOnlyDesktop, 2200);
+
+  window.addEventListener("resize", finalMobileOnlyDesktop);
+}})();
+</script>
+
+
+<script>
+(function(){{
+  function removeLegacyPcRoots(){{
+    if(!window.matchMedia("(min-width:1000px)").matches) return;
+    [
+      "pc7-app","pc9-app","pc10-app","pc11-app",
+      "pc-v2-dashboard","pc-insight-rail","world-map-panel"
+    ].forEach(function(id){{
+      var el=document.getElementById(id);
+      if(el && el.parentNode) el.parentNode.removeChild(el);
+    }});
+
+    var phone=document.querySelector("body > .phone");
+    if(phone){{
+      phone.style.setProperty("display","block","important");
+      phone.style.setProperty("visibility","visible","important");
+      phone.style.setProperty("opacity","1","important");
+      phone.style.setProperty("pointer-events","auto","important");
+      phone.style.setProperty("position","relative","important");
+      phone.style.setProperty("width","100%","important");
+      phone.style.setProperty("max-width","none","important");
+      phone.style.setProperty("height","auto","important");
+      phone.style.setProperty("overflow","visible","important");
+    }}
+  }}
+
+  if(document.readyState==="loading"){{
+    document.addEventListener("DOMContentLoaded", removeLegacyPcRoots, {{once:true}});
+  }}else{{
+    removeLegacyPcRoots();
+  }}
+
+  setTimeout(removeLegacyPcRoots,100);
+  setTimeout(removeLegacyPcRoots,500);
+  setTimeout(removeLegacyPcRoots,1500);
+  window.addEventListener("resize", removeLegacyPcRoots);
 }})();
 </script>
 
