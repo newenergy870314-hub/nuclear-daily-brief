@@ -1,3 +1,4 @@
+# FINAL CLEAN MOBILE BASE ON PC / LEGACY PC HTML PHYSICALLY REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL PC TRUE MOBILE-ONLY / LEGACY PC DOM REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL HARD REMOVE LEGACY PC DASHBOARDS / TRUE MOBILE UI ON PC / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL ADD HANKYUNG PREMIUM SOURCE / 2026-09-10
@@ -31029,6 +31030,168 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   FINAL CLEAN PC
+   Stable mobile UI is the only rendered interface.
+   PC changes layout only: article cards become two columns.
+   ========================================================== */
+@media (min-width:1000px){{
+  html,body{{
+    width:100%!important;
+    min-height:100%!important;
+    height:auto!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    background:#c4d6e8!important;
+  }}
+
+  body>.phone{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    position:relative!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:100vh!important;
+    height:auto!important;
+    margin:0!important;
+    overflow:visible!important;
+    pointer-events:auto!important;
+    background:#c4d6e8!important;
+  }}
+
+  body>.phone .topbar{{
+    margin:10px 14px!important;
+  }}
+
+  body>.phone main{{
+    display:block!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0 14px 36px!important;
+  }}
+
+  body>.phone .article-stack{{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    align-items:stretch!important;
+    width:100%!important;
+  }}
+
+  body>.phone .preview-card{{
+    width:100%!important;
+    min-width:0!important;
+  }}
+
+  body>.phone .favorites-list{{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }}
+
+  /* Mobile map/controls remain governed by their normal visibility rules.
+     No legacy PC dashboard is rendered. */
+}}
+
+
+/* ==========================================================
+   2026-09-11 MOBILE HARD RESTORE / PC COMPLETE ISOLATION
+   Mobile (<1000px) must render ONLY the original mobile UI.
+   IMPORTANT: #world-map-panel is a mobile feature and remains visible.
+   ========================================================== */
+@media (max-width:999px){{
+  #pc7-app,
+  #pc9-app,
+  #pc10-app,
+  #pc11-app,
+  #pc-v2-dashboard,
+  #pc-insight-rail,
+  .pc-dashboard,
+  .pc-shell,
+  .pc-global-map,
+  .pc-world-clock,
+  .geo-intelligence,
+  .signal-stack{{
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+    position:absolute!important;
+    left:-99999px!important;
+    top:-99999px!important;
+    width:0!important;
+    height:0!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }}
+
+  html,body{{
+    width:100%!important;
+    min-height:100%!important;
+    height:auto!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+  }}
+
+  body>.phone{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    position:relative!important;
+    left:auto!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:auto!important;
+    transform:none!important;
+    width:min(100%,520px)!important;
+    max-width:520px!important;
+    min-height:100vh!important;
+    height:auto!important;
+    margin:0 auto!important;
+    overflow:visible!important;
+    background:#c4d6e8!important;
+  }}
+
+  body>.phone main{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:auto!important;
+    max-width:none!important;
+    height:auto!important;
+    overflow:visible!important;
+  }}
+
+  /* Restore native mobile one-column article layout. */
+  body>.phone .article-stack{{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+  }}
+
+  body>.phone .favorites-list{{
+    grid-template-columns:minmax(0,1fr)!important;
+  }}
+
+  /* Never suppress the real mobile map. */
+  body>.phone #world-map-panel{{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    position:relative!important;
+    left:auto!important;
+    top:auto!important;
+    width:auto!important;
+    height:auto!important;
+    min-width:0!important;
+    min-height:0!important;
+    overflow:visible!important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -31042,520 +31205,11 @@ main {{
 
 
 <body>
-<div class="pc11-search-wrap">
-      <input id="pc11-search" type="search" placeholder="기사 · 기업 · 프로젝트 · 국가 검색">
-    </div>
-
-    <div class="pc11-header-actions">
-      <button id="pc11-prev" type="button">전일</button>
-      <button id="pc11-today" class="active" type="button">금일</button>
-      <button id="pc11-next" type="button">익일</button>
-      <button id="pc11-show-all" class="primary" type="button">전체 기사</button>
-    </div>
-  </header>
-
-  <div class="pc11-shell">
-    <!-- LEFT: dashboard <-> article detail -->
-    <section class="pc11-left">
-      <div id="pc11-dashboard" class="pc11-dashboard">
-        <div class="pc11-page-head">
-          <div>
-            <span id="pc11-head-kicker">TODAY</span>
-            <h1 id="pc11-head-title">금일 기사 현황</h1>
-            <p id="pc11-head-desc">모바일에서 사용하던 기사 분류와 데이터를 PC 화면에 맞게 펼쳐 봅니다.</p>
-          </div>
-          <div class="pc11-head-count">
-            <span id="pc11-period-label">금일</span>
-            <strong id="pc11-head-total">0건</strong>
-          </div>
-        </div>
-
-        <div class="pc11-kpis">
-          <article><span>관련기사</span><strong id="pc11-kpi-total">0</strong><small>건</small></article>
-          <article><span>신규기사</span><strong id="pc11-kpi-new">0</strong><small>건</small></article>
-          <article><span>언론사</span><strong id="pc11-kpi-publishers">0</strong><small>개</small></article>
-          <article><span>관련국가</span><strong id="pc11-kpi-countries">0</strong><small>개</small></article>
-          <article class="accent">
-            <span>최다 언급</span>
-            <strong id="pc11-kpi-top">-</strong>
-            <small id="pc11-kpi-top-count">-</small>
-          </article>
-        </div>
-
-        <div class="pc11-dashboard-grid">
-          <section class="pc11-card pc11-timeline-card">
-            <div class="pc11-card-head pc11-timeline-head">
-              <div><span>TREND TIMELINE</span><strong>동향 타임라인</strong></div>
-              <small>최근 1년 기사 데이터 기준</small>
-            </div>
-            <div class="pc11-timeline-body">
-              <div class="pc11-timeline-search">
-                <input id="pc11-timeline-query" type="search" placeholder="인물 · 기관 · 프로젝트 · 이슈 검색 (예: 김정관, 한수원, 대미 투자)">
-                <button id="pc11-timeline-run" type="button" onclick="window.pc11RunTimeline&&window.pc11RunTimeline()">조회</button>
-              </div>
-              <div class="pc11-timeline-status">
-                <strong id="pc11-timeline-title">검색어를 입력하면 관련 동향을 날짜순으로 정리합니다.</strong>
-                <span id="pc11-timeline-count"></span>
-              </div>
-              <div id="pc11-timeline-scroll" class="pc11-timeline-scroll">
-                <div class="pc11-timeline-empty">김정관 · 한수원 · 한빛원전 · 대미 투자 · 산업통상부 · SMR-300 등을 검색할 수 있습니다.</div>
-              </div>
-            </div>
-          </section>
-
-          <section class="pc11-card pc11-entities">
-            <div class="pc11-card-head">
-              <div><span>MENTIONS</span><strong>기업 · 프로젝트 TOP</strong></div>
-              <small>언급 빈도</small>
-            </div>
-            <div id="pc11-entity-list" class="pc11-rank-list"></div>
-          </section>
-
-          <section class="pc11-card pc11-keywords">
-            <div class="pc11-card-head">
-              <div><span>KEYWORDS</span><strong>주요 키워드</strong></div>
-              <small>제목 · 미리보기 기준</small>
-            </div>
-            <div id="pc11-keyword-list" class="pc11-keyword-list"></div>
-          </section>
-
-          <section class="pc11-card pc11-map-card">
-            <div class="pc11-card-head">
-              <div><span>COUNTRY</span><strong>국가별 기사 분포</strong></div>
-              <button id="pc11-country-reset" type="button">전체</button>
-            </div>
-            <div class="pc11-map-layout">
-              <div class="pc11-map-stage">
-                <svg id="pc11-map" viewBox="0 0 620 280"></svg>
-                <div id="pc11-map-loading">지도 불러오는 중...</div>
-              </div>
-              <div id="pc11-country-list" class="pc11-country-list"></div>
-            </div>
-          </section>
-
-          <section class="pc11-card pc11-media">
-            <div class="pc11-card-head">
-              <div><span>MEDIA</span><strong>언론사 분포</strong></div>
-              <small>보도량 기준</small>
-            </div>
-            <div id="pc11-media-list" class="pc11-rank-list"></div>
-          </section>
-        </div>
-      </div>
-
-      <!-- Left 2/3 fast preview viewer. Right navigation never moves. -->
-      <article id="pc11-detail" class="pc11-detail pc11-detail-empty">
-        <div class="pc11-detail-toolbar">
-          <div class="pc11-viewer-brand"><span>ARTICLE VIEWER</span><strong>기사 검토</strong></div>
-          <div class="pc11-detail-mode-actions">
-            <span class="pc11-fast-review-label">오른쪽 기사 선택 → 원문 바로보기</span>
-            <button id="pc11-detail-original" type="button">새창에서 열기 ↗</button>
-          </div>
-          <div class="pc11-detail-nav">
-            <button id="pc11-detail-prev" type="button">이전 기사</button>
-            <button id="pc11-detail-next" type="button">다음 기사</button>
-          </div>
-        </div>
-
-        <div id="pc11-original-wrap" class="pc11-original-wrap pc11-original-viewer">
-          <div id="pc11-original-loading" class="pc11-original-loading">
-            <strong id="pc11-original-title">오른쪽 기사 목록에서 원문을 선택하세요.</strong>
-            <span id="pc11-original-status">기사 선택 시 이 영역에서 원문을 바로 불러옵니다.</span>
-          </div>
-          <iframe id="pc11-detail-frame"
-                  title="언론사 원문"
-                  loading="eager"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  allow="fullscreen"></iframe>
-        </div>
-
-        <!-- JS 호환용 숨김 메타 영역 -->
-        <div id="pc11-preview-wrap" hidden aria-hidden="true">
-          <div class="pc11-detail-meta">
-            <span id="pc11-detail-group"></span>
-            <span id="pc11-detail-publisher"></span>
-            <span id="pc11-detail-time"></span>
-          </div>
-          <h2 id="pc11-detail-title"></h2>
-          <div id="pc11-detail-image-wrap" hidden><img id="pc11-detail-image" alt=""></div>
-          <p id="pc11-detail-summary"></p>
-          <div id="pc11-detail-keywords"></div>
-          <strong id="pc11-related-count">0건</strong>
-          <div id="pc11-related-list"></div>
-        </div>
-      </article>
-    </section>
-
-    <!-- RIGHT: mobile identity / navigation / article list -->
-    <aside class="pc11-right">
-      <div class="pc11-right-head pc11-mobile-category-head">
-        <div>
-          <strong>기사 분류</strong>
-        </div>
-        <span id="pc11-right-total">0건</span>
-      </div>
-
-      <div class="pc11-category-mode" role="tablist" aria-label="기사 분류 방식">
-        <button id="pc11-mode-topic" class="active" type="button" role="tab" aria-selected="true">주제별</button>
-        <button id="pc11-mode-country" type="button" role="tab" aria-selected="false">국가별</button>
-      </div>
-
-      <div id="pc11-continent-tabs" class="pc11-continent-tabs" hidden aria-label="대륙 선택"></div>
-
-      <div id="pc11-group-tabs" class="pc11-group-tabs">
-        <button class="active" data-group="" type="button">전체</button>
-      </div>
-
-      <div class="pc11-list-head">
-        <span id="pc11-list-title">전체 기사</span>
-        <strong id="pc11-list-count">0건</strong>
-      </div>
-
-      <div id="pc11-article-list" class="pc11-article-list"></div>
-    </aside>
-  </div>
-</div>
-
-<div class="pc10-searchbox">
-      <input id="pc10-search" type="search" placeholder="기사·기업·프로젝트·국가 검색">
-    </div>
-
-    <div class="pc10-top-actions">
-      <button id="pc10-prev" type="button">전일</button>
-      <button id="pc10-today" class="active" type="button">금일</button>
-      <button id="pc10-next" type="button">익일</button>
-      <button id="pc10-all-articles" class="primary" type="button">전체기사</button>
-    </div>
-  </header>
-
-  <div class="pc10-workspace">
-    <aside class="pc10-sidebar">
-      <div class="pc10-sidebar-head">
-        <span>모바일 기사 분류</span>
-        <strong>분류별 현황</strong>
-      </div>
-      <button class="pc10-nav-item active" data-group="" type="button">
-        <span>전체</span><b id="pc10-nav-all-count">0</b>
-      </button>
-      <div id="pc10-mobile-group-nav" class="pc10-mobile-group-nav"></div>
-    </aside>
-
-    <section class="pc10-content">
-      <div class="pc10-title-row">
-        <div>
-          <span id="pc10-selected-kicker">TODAY</span>
-          <h1 id="pc10-selected-title">전체 기사 현황</h1>
-          <p id="pc10-selected-desc">모바일에 수집된 금일 기사를 PC 화면에 맞게 재구성합니다.</p>
-        </div>
-        <div class="pc10-mini-status">
-          <span id="pc10-current-date">금일</span>
-          <strong id="pc10-current-count">0건</strong>
-        </div>
-      </div>
-
-      <section class="pc10-kpi-row">
-        <article><span>관련기사</span><strong id="pc10-kpi-total">0</strong><small>건</small></article>
-        <article><span>신규기사</span><strong id="pc10-kpi-new">0</strong><small>건</small></article>
-        <article><span>언론사</span><strong id="pc10-kpi-publishers">0</strong><small>개</small></article>
-        <article><span>관련국가</span><strong id="pc10-kpi-countries">0</strong><small>개</small></article>
-        <article class="accent"><span>가장 많이 언급</span><strong id="pc10-kpi-top">-</strong><small id="pc10-kpi-top-count">-</small></article>
-      </section>
-
-      <div class="pc10-grid">
-        <section class="pc10-card pc10-clusters">
-          <div class="pc10-card-head">
-            <div><span>ISSUE GROUPS</span><strong>주요 이슈 묶음</strong></div>
-            <small>제목·미리보기·공통 키워드 기반</small>
-          </div>
-          <div id="pc10-cluster-list" class="pc10-cluster-list"></div>
-        </section>
-
-        <section class="pc10-card pc10-ranking">
-          <div class="pc10-card-head">
-            <div><span>MENTIONS</span><strong>기업 · 프로젝트 TOP</strong></div>
-            <small>금일 언급 빈도</small>
-          </div>
-          <div id="pc10-entity-ranking" class="pc10-entity-ranking"></div>
-        </section>
-
-        <section class="pc10-card pc10-keywords">
-          <div class="pc10-card-head">
-            <div><span>KEYWORDS</span><strong>주요 키워드</strong></div>
-            <small>기사 제목·미리보기 기준</small>
-          </div>
-          <div id="pc10-keyword-cloud" class="pc10-keyword-cloud"></div>
-        </section>
-
-        <section class="pc10-card pc10-map-card">
-          <div class="pc10-card-head">
-            <div><span>COUNTRY</span><strong>국가별 기사 분포</strong></div>
-            <button id="pc10-reset-country" type="button">전체</button>
-          </div>
-          <div class="pc10-map-inner">
-            <div class="pc10-map-stage">
-              <svg id="pc10-map" viewBox="0 0 760 310"></svg>
-              <div id="pc10-map-loading">지도 불러오는 중...</div>
-            </div>
-            <div id="pc10-country-ranking" class="pc10-country-ranking"></div>
-          </div>
-        </section>
-
-        <section class="pc10-card pc10-publishers">
-          <div class="pc10-card-head">
-            <div><span>MEDIA</span><strong>언론사 분포</strong></div>
-            <small>보도량 기준</small>
-          </div>
-          <div id="pc10-publisher-ranking" class="pc10-publisher-ranking"></div>
-        </section>
-
-        <section class="pc10-card pc10-latest">
-          <div class="pc10-card-head">
-            <div><span>LATEST</span><strong>최신 기사</strong></div>
-            <button id="pc10-open-related" type="button">관련기사 전체보기</button>
-          </div>
-          <div id="pc10-latest-list" class="pc10-latest-list"></div>
-        </section>
-      </div>
-    </section>
-  </div>
-
-  <section id="pc10-drawer" class="pc10-drawer" aria-hidden="true">
-    <div class="pc10-drawer-head">
-      <div><strong id="pc10-drawer-title">관련기사</strong><span id="pc10-drawer-count">0건</span></div>
-      <button id="pc10-drawer-close" type="button">×</button>
-    </div>
-    <div id="pc10-drawer-grid" class="pc10-drawer-grid"></div>
-  </section>
-</div>
-
-  <div class="pc9-search">
-        <input id="pc9-search-input" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색">
-      </div>
-      <div class="pc9-header-right">
-        <span>금일 기사 분석</span>
-        <button id="pc9-open-all" type="button">전체 기사 보기</button>
-      </div>
-    </header>
-
-    <nav id="pc9-topic-tabs" class="pc9-topic-tabs" aria-label="분석 주제">
-      <button class="active" data-topic="all" type="button">전체</button>
-      <button data-topic="hyundai" type="button">현대건설</button>
-      <button data-topic="us-invest" type="button">대미투자</button>
-      <button data-topic="smr" type="button">SMR</button>
-      <button data-topic="construction" type="button">주요 건설사</button>
-      <button data-topic="nuclear-policy" type="button">원전정책</button>
-      <button data-topic="global" type="button">해외·수출</button>
-      <button data-topic="market" type="button">경제·시장</button>
-    </nav>
-
-    <main class="pc9-main">
-      <section class="pc9-summary">
-        <article><span>관련기사</span><strong id="pc9-kpi-total">0</strong><small>건</small></article>
-        <article><span>중요기사</span><strong id="pc9-kpi-important">0</strong><small>건</small></article>
-        <article><span>관련국가</span><strong id="pc9-kpi-countries">0</strong><small>개국</small></article>
-        <article><span>관련그룹</span><strong id="pc9-kpi-groups">0</strong><small>개</small></article>
-        <article class="pc9-summary-accent">
-          <span>가장 많은 분야</span>
-          <strong id="pc9-kpi-top-category">-</strong>
-          <small id="pc9-kpi-top-category-count">0건</small>
-        </article>
-      </section>
-
-      <section class="pc9-card pc9-classification">
-        <div class="pc9-card-head">
-          <div><span>ANALYSIS</span><strong>기사 분야 분석</strong></div>
-          <small>분야 클릭 → 관련기사</small>
-        </div>
-        <div id="pc9-category-bars" class="pc9-category-bars"></div>
-      </section>
-
-      <section class="pc9-card pc9-issues">
-        <div class="pc9-card-head">
-          <div><span>TOP ISSUES</span><strong>오늘의 핵심 이슈</strong></div>
-          <small>대표 이슈 3건</small>
-        </div>
-        <div id="pc9-issue-grid" class="pc9-issue-grid"></div>
-      </section>
-
-      <section class="pc9-card pc9-keywords">
-        <div class="pc9-card-head">
-          <div><span>KEYWORDS</span><strong>주요 키워드 · 프로젝트</strong></div>
-          <small>빈도 기반</small>
-        </div>
-        <div id="pc9-keyword-cloud" class="pc9-keyword-cloud"></div>
-      </section>
-
-      <section class="pc9-card pc9-map-card">
-        <div class="pc9-card-head">
-          <div><span>GLOBAL</span><strong>국가별 기사 분포</strong></div>
-          <button id="pc9-map-reset" type="button">전체 국가</button>
-        </div>
-        <div class="pc9-map-layout">
-          <div class="pc9-map-stage">
-            <svg id="pc9-world-map" viewBox="0 0 1000 500" aria-label="세계지도"></svg>
-            <div id="pc9-map-labels" class="pc9-map-labels"></div>
-            <div id="pc9-map-loading" class="pc9-map-loading">지도 불러오는 중...</div>
-          </div>
-          <aside class="pc9-country-panel">
-            <div id="pc9-country-empty" class="pc9-country-empty">
-              <span>◎</span><strong>국가를 선택하세요</strong>
-              <small>지도 위 국가 라벨을 클릭하면<br>해당 국가 분석으로 좁혀집니다.</small>
-            </div>
-            <div id="pc9-country-detail" class="pc9-country-detail" hidden>
-              <div class="pc9-country-title">
-                <img id="pc9-country-flag" alt="">
-                <div><strong id="pc9-country-name">-</strong><small id="pc9-country-code">-</small></div>
-              </div>
-              <div class="pc9-country-stats">
-                <div><span>기사</span><strong id="pc9-country-total">0</strong></div>
-                <div><span>중요</span><strong id="pc9-country-important">0</strong></div>
-              </div>
-              <div class="pc9-country-block">
-                <span>주요 분야</span>
-                <div id="pc9-country-categories"></div>
-              </div>
-              <button id="pc9-country-articles" type="button">이 국가 관련기사 보기</button>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="pc9-related-strip">
-        <div>
-          <span id="pc9-related-topic">전체</span>
-          <strong id="pc9-related-count">0건</strong>
-          <small>분석된 관련기사</small>
-        </div>
-        <button id="pc9-open-related" type="button">관련기사 보기 →</button>
-      </section>
-    </main>
-
-    <section id="pc9-drawer" class="pc9-drawer" aria-hidden="true">
-      <div class="pc9-drawer-head">
-        <div><strong id="pc9-drawer-title">관련기사</strong><span id="pc9-drawer-count">0건</span></div>
-        <button id="pc9-drawer-close" type="button">×</button>
-      </div>
-      <div id="pc9-drawer-grid" class="pc9-drawer-grid"></div>
-    </section>
-  </div>
-
-  <!-- ============================================================
-       DESKTOP APP V7
-       Completely separate from the mobile UI.
-       Existing mobile DOM remains below and is untouched.
-       ============================================================ -->
-  <div class="pc7-search-wrap">
-        <input id="pc7-search" type="search" placeholder="기업 · 국가 · 프로젝트 · 키워드 검색" autocomplete="off">
-      </div>
-
-      <div class="pc7-header-actions">
-        <span class="pc7-live"><i></i> LIVE</span>
-        <button id="pc7-open-all" type="button">전체 기사</button>
-      </div>
-    </header>
-
-    <nav id="pc7-tabs" class="pc7-tabs" aria-label="PC 기사 분류">
-      <button class="active" data-filter="all" type="button">전체</button>
-      <button data-filter="nuclear" type="button">원전·정책</button>
-      <button data-filter="us-invest" type="button">대미투자</button>
-      <button data-filter="hyundai" type="button">현대건설</button>
-      <button data-filter="construction" type="button">주요 건설사</button>
-      <button data-filter="smr" type="button">SMR·기술</button>
-      <button data-filter="global" type="button">해외·수출</button>
-      <button data-filter="market" type="button">경제·시장</button>
-    </nav>
-
-    <main class="pc7-grid">
-      <section class="pc7-card pc7-kpis">
-        <div class="pc7-kpi"><span>전체 기사</span><strong id="pc7-total">0</strong><small>현재 선택기간</small></div>
-        <div class="pc7-kpi"><span>중요 기사</span><strong id="pc7-important">0</strong><small>중요 표시 기준</small></div>
-        <div class="pc7-kpi"><span>주요 국가</span><strong id="pc7-countries">0</strong><small>기사 발생 국가</small></div>
-        <div class="pc7-kpi"><span>주요 그룹</span><strong id="pc7-groups">0</strong><small>기업·기관·이슈</small></div>
-        <div class="pc7-kpi pc7-kpi-accent"><span>가장 활발한 국가</span><strong id="pc7-top-country">-</strong><small id="pc7-top-country-count">-</small></div>
-      </section>
-
-      <section class="pc7-card pc7-map-card">
-        <div class="pc7-section-head">
-          <div><span>GLOBAL</span><strong>Geo Intelligence Map</strong></div>
-          <button id="pc7-map-reset" type="button">전체 국가</button>
-        </div>
-        <div class="pc7-map-layout">
-          <div class="pc7-map-stage">
-            <svg id="pc7-map" viewBox="0 0 1100 520" aria-label="고해상도 세계지도"></svg>
-            <div id="pc7-map-labels" class="pc7-map-labels"></div>
-            <div id="pc7-map-tooltip" class="pc7-map-tooltip" hidden></div>
-            <div id="pc7-map-loading" class="pc7-map-loading">지도 불러오는 중...</div>
-          </div>
-          <aside class="pc7-country-panel">
-            <div id="pc7-country-empty" class="pc7-country-empty">
-              <div class="pc7-country-icon">◎</div>
-              <strong>국가를 선택하세요</strong>
-              <span>지도 위 국가 라벨을 클릭하면<br>해당 국가 기사와 주요 그룹을 표시합니다.</span>
-            </div>
-            <div id="pc7-country-detail" class="pc7-country-detail" hidden>
-              <div class="pc7-country-title">
-                <img id="pc7-country-flag" alt="">
-                <div><strong id="pc7-country-name">-</strong><span id="pc7-country-code">-</span></div>
-              </div>
-              <div class="pc7-country-statrow">
-                <div><span>기사</span><strong id="pc7-country-total">0</strong></div>
-                <div><span>중요</span><strong id="pc7-country-important">0</strong></div>
-              </div>
-              <div class="pc7-country-block">
-                <span>주요 그룹</span>
-                <div id="pc7-country-groups"></div>
-              </div>
-              <button id="pc7-country-articles" type="button">관련기사 보기</button>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="pc7-card pc7-signals">
-        <div class="pc7-section-head">
-          <div><span>NOW</span><strong>Signal Stack</strong></div>
-          <small>핵심 변화 3건</small>
-        </div>
-        <div id="pc7-signal-list" class="pc7-signal-list"></div>
-      </section>
-
-      <section class="pc7-card pc7-flow">
-        <div class="pc7-section-head">
-          <div><span>FLOW</span><strong>Issue Progress</strong></div>
-          <small>최근 주요 흐름</small>
-        </div>
-        <div id="pc7-flow-list" class="pc7-flow-list"></div>
-      </section>
-
-      <section class="pc7-card pc7-clocks">
-        <div class="pc7-section-head">
-          <div><span>TIME</span><strong>World Clock</strong></div>
-          <small>서머타임 자동 반영</small>
-        </div>
-        <div class="pc7-clock-grid">
-          <article class="pc7-clock" data-tz="Asia/Seoul" data-country="대한민국" data-capital="서울" data-flag="kr"></article>
-          <article class="pc7-clock" data-tz="America/New_York" data-country="미국" data-capital="Washington D.C." data-flag="us"></article>
-          <article class="pc7-clock" data-tz="Europe/London" data-country="영국" data-capital="London" data-flag="gb"></article>
-          <article class="pc7-clock" data-tz="Europe/Sofia" data-country="불가리아" data-capital="Sofia" data-flag="bg"></article>
-          <article class="pc7-clock" data-tz="Europe/Bucharest" data-country="루마니아" data-capital="Bucharest" data-flag="ro"></article>
-        </div>
-      </section>
-    </main>
-
-    <section id="pc7-article-drawer" class="pc7-article-drawer" aria-hidden="true">
-      <div class="pc7-drawer-head">
-        <div><strong id="pc7-drawer-title">전체 기사</strong><span id="pc7-drawer-count">0건</span></div>
-        <button id="pc7-drawer-close" type="button">×</button>
-      </div>
-      <div id="pc7-drawer-grid" class="pc7-drawer-grid"></div>
-    </section>
-  </div>
-
 <div class="phone">
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <div class="title-meta">
-        <h1>원자력 주요기사 <span class="pc-build-marker">PC DASHBOARD</span></h1>
+        <h1>원자력 주요기사</h1>
         <span class="updated updated-inline">업데이트됨 {format_korean_date_time(generated_at)} KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
@@ -31581,205 +31235,6 @@ main {{
       </div>
     </div>
   </header>
-
-  <!-- =========================================================
-       PC VISUAL DASHBOARD V2
-       Desktop only. Existing mobile DOM is preserved untouched.
-       ========================================================= -->
-  <section id="pc-v2-dashboard" class="pc-v2-dashboard pc-v5-dashboard" aria-label="PC 원전 뉴스 시각화 대시보드">
-
-    <div class="pc-v3-commandbar">
-      <div>
-        <strong>NUCLEAR INTELLIGENCE</strong>
-        <span>Global Nuclear News Control Tower</span>
-      </div>
-      <div class="pc-v3-command-actions">
-        <span class="pc-v3-live"><i></i> LIVE</span>
-        <button id="pc-v3-open-articles" type="button">전체 기사</button>
-      </div>
-    </div>
-
-    <nav id="pc-v6-article-tabs" class="pc-v6-article-tabs" aria-label="PC 기사 분류">
-      <button type="button" class="pc-v6-article-tab active" data-pc-article-filter="all">전체</button>
-      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="nuclear">원전·정책</button>
-      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="us-invest">대미투자</button>
-      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="hyundai">현대건설</button>
-      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="construction">주요 건설사</button>
-      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="smr">SMR·기술</button>
-      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="global">해외·수출</button>
-      <button type="button" class="pc-v6-article-tab" data-pc-article-filter="market">경제·시장</button>
-    </nav>
-
-    <div class="pc-v2-kpis">
-      <article class="pc-v2-kpi">
-        <span>전체 기사</span>
-        <strong id="pc-v2-kpi-total">0</strong>
-        <small>현재 선택 기간</small>
-      </article>
-      <article class="pc-v2-kpi">
-        <span>중요 기사</span>
-        <strong id="pc-v2-kpi-important">0</strong>
-        <small>중요 표시 기준</small>
-      </article>
-      <article class="pc-v2-kpi">
-        <span>주요 국가</span>
-        <strong id="pc-v2-kpi-countries">0</strong>
-        <small>기사 발생 국가</small>
-      </article>
-      <article class="pc-v2-kpi">
-        <span>주요 그룹</span>
-        <strong id="pc-v2-kpi-groups">0</strong>
-        <small>기업·기관·이슈</small>
-      </article>
-      <article class="pc-v2-kpi pc-v2-kpi-accent">
-        <span>가장 활발한 국가</span>
-        <strong id="pc-v2-kpi-top-country">-</strong>
-        <small id="pc-v2-kpi-top-country-count">기사 없음</small>
-      </article>
-    </div>
-
-    <section class="pc-v2-section pc-v2-clock-section">
-      <div class="pc-v2-section-head">
-        <div>
-          <h2>세계시간</h2>
-          <p>주요 원전시장 현지시간 · 서머타임 자동 반영</p>
-        </div>
-      </div>
-      <div id="pc-v2-clock-grid" class="pc-v2-clock-grid">
-        <article class="pc-v2-clock" data-tz="Asia/Seoul" data-country="대한민국" data-capital="서울" data-flag="kr">
-          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/kr.png" alt=""><div><strong>대한민국</strong><span>서울</span></div></div>
-          <div class="pc-v2-clock-face">
-            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
-            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
-          </div>
-          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">KST</div>
-        </article>
-
-        <article class="pc-v2-clock" data-tz="America/New_York" data-country="미국" data-capital="Washington D.C." data-flag="us">
-          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/us.png" alt=""><div><strong>미국</strong><span>Washington D.C.</span></div></div>
-          <div class="pc-v2-clock-face">
-            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
-            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
-          </div>
-          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">ET</div>
-        </article>
-
-        <article class="pc-v2-clock" data-tz="Europe/London" data-country="영국" data-capital="London" data-flag="gb">
-          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/gb.png" alt=""><div><strong>영국</strong><span>London</span></div></div>
-          <div class="pc-v2-clock-face">
-            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
-            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
-          </div>
-          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">UK</div>
-        </article>
-
-        <article class="pc-v2-clock" data-tz="Europe/Sofia" data-country="불가리아" data-capital="Sofia" data-flag="bg">
-          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/bg.png" alt=""><div><strong>불가리아</strong><span>Sofia</span></div></div>
-          <div class="pc-v2-clock-face">
-            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
-            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
-          </div>
-          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">EET</div>
-        </article>
-<article class="pc-v2-clock" data-tz="Europe/Bucharest" data-country="루마니아" data-capital="Bucharest" data-flag="ro">
-          <div class="pc-v2-clock-place"><img src="https://flagcdn.com/w40/ro.png" alt=""><div><strong>루마니아</strong><span>Bucharest</span></div></div>
-          <div class="pc-v2-clock-face">
-            <i class="pc-v2-hour"></i><i class="pc-v2-minute"></i><i class="pc-v2-second"></i><b></b>
-            <em class="n12">12</em><em class="n3">3</em><em class="n6">6</em><em class="n9">9</em>
-          </div>
-          <div class="pc-v2-time-meta"><div class="pc-v2-digital">--:--:--</div><span class="pc-v3-day-badge">당일</span></div><div class="pc-v2-zone">EET</div>
-        </article>
-      </div>
-    </section>
-
-    <section class="pc-v2-section pc-v2-map-card">
-      <div class="pc-v2-section-head">
-        <div>
-          <h2>글로벌 원전 뉴스 맵</h2>
-          <p>기사 있는 국가만 지도 위에 국기 · 국가 · 기사건수 표시</p>
-        </div>
-        <button id="pc-v2-map-reset" class="pc-v2-map-reset" type="button">전체 국가</button>
-      </div>
-      <div class="pc-v2-map-layout">
-        <div class="pc-v2-map-wrap pc-v2-map-premium">
-          <div class="pc-v2-map-chrome">
-            <div class="pc-v2-map-badge"><span></span> LIVE GLOBAL MONITOR</div>
-            <div class="pc-v2-map-mini-legend">
-              <i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
-              <span>기사 집중도</span>
-            </div>
-          </div>
-          <svg id="pc-v2-world-map" class="pc-v2-world-map" viewBox="0 0 1100 520" aria-label="PC 고해상도 세계지도"></svg>
-          <div id="pc-v2-map-labels" class="pc-v2-map-labels"></div>
-          <div id="pc-v2-map-tooltip" class="pc-v2-map-tooltip" hidden></div>
-          <div id="pc-v2-map-loading" class="pc-v2-map-loading">고해상도 세계지도 불러오는 중...</div>
-        </div>
-
-        <aside class="pc-v2-country-panel">
-          <div class="pc-v2-country-empty" id="pc-v2-country-empty">
-            <span>🌐</span>
-            <strong>국가를 선택하세요</strong>
-            <p>지도 위 국가 또는 라벨을 클릭하면<br>해당 국가의 주요 현황을 보여줍니다.</p>
-          </div>
-          <div class="pc-v2-country-detail" id="pc-v2-country-detail" hidden>
-            <div class="pc-v2-country-title">
-              <img id="pc-v2-country-flag" src="" alt="">
-              <div><strong id="pc-v2-country-name">-</strong><span id="pc-v2-country-code">-</span></div>
-            </div>
-            <div class="pc-v2-country-stats">
-              <div><span>전체 기사</span><strong id="pc-v2-country-total">0</strong></div>
-              <div><span>중요 기사</span><strong id="pc-v2-country-important">0</strong></div>
-            </div>
-            <div class="pc-v2-country-block">
-              <span>주요 그룹</span>
-              <div id="pc-v2-country-groups" class="pc-v2-country-tags"></div>
-            </div>
-            <div class="pc-v2-country-block">
-              <span>대표 기사</span>
-              <button id="pc-v2-country-headline" class="pc-v2-country-headline" type="button">-</button>
-            </div>
-            <button id="pc-v2-country-show" class="pc-v2-country-show" type="button">이 국가 기사만 보기</button>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="pc-v2-section pc-v4-focus-section">
-      <div class="pc-v2-section-head">
-        <div>
-          <h2>오늘의 핵심 변화</h2>
-          <p>기사량보다 변화의 의미를 먼저 보여주는 시각 요약</p>
-        </div>
-      </div>
-      <div id="pc-v2-issue-grid" class="pc-v2-issue-grid"></div>
-    </section>
-
-    <section class="pc-v2-section pc-v4-flow-section">
-      <div class="pc-v2-section-head">
-        <div>
-          <h2>이슈 진행 흐름</h2>
-          <p>주요 프로젝트와 사업 이슈의 최근 진행 순서</p>
-        </div>
-      </div>
-      <div id="pc-v2-flow" class="pc-v2-flow"></div>
-    </section>
-
-    <div class="pc-v2-article-divider">
-      <div><strong>전체 기사</strong><span>상세 기사는 아래에서 확인</span></div>
-      <button id="pc-v2-scroll-articles" type="button">기사 목록으로 이동 ↓</button>
-    </div>
-
-    <section id="pc-v6-article-panel" class="pc-v6-article-panel" aria-hidden="true">
-      <div class="pc-v6-article-panel-head">
-        <div>
-          <strong id="pc-v6-article-panel-title">전체 기사</strong>
-          <span id="pc-v6-article-panel-count">0건</span>
-        </div>
-        <button id="pc-v6-article-panel-close" type="button" aria-label="기사 패널 닫기">×</button>
-      </div>
-      <div id="pc-v6-article-panel-grid" class="pc-v6-article-panel-grid"></div>
-    </section>
-  </section>
 
   <section id="favorites-panel" class="favorites-panel favorites-panel-top" hidden>
     <div class="favorites-head">
@@ -32632,165 +32087,7 @@ main {{
 
   </section>
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
-<div id="pc-category-strip" class="pc-category-strip" aria-label="PC 카테고리 요약"></div>
-<div id="pc-country-filter-result" class="pc-country-filter-result" aria-live="polite">
-  <span id="pc-country-filter-result-flag">🌐</span>
-  <span><strong id="pc-country-filter-result-name">전체 국가</strong> 기사 <span id="pc-country-filter-result-count">0건</span></span>
-  <button id="pc-country-filter-clear" class="pc-country-filter-clear" type="button">필터 해제</button>
-</div>{panels_html}
-<aside id="pc-insight-rail" aria-label="PC 원전 뉴스 분석 대시보드">
-  <section class="pc-rail-card pc-monitor-summary-card">
-    <div class="pc-rail-head">
-      <div class="pc-rail-title">오늘의 모니터링</div>
-      <div class="pc-rail-sub">현재 선택 화면</div>
-    </div>
-    <div class="pc-kpi-grid">
-      <div class="pc-kpi"><div class="pc-kpi-label">기사</div><div id="pc-kpi-articles" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">중요</div><div id="pc-kpi-important" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">국가</div><div id="pc-kpi-countries" class="pc-kpi-value">0</div></div>
-      <div class="pc-kpi"><div class="pc-kpi-label">언론사</div><div id="pc-kpi-publishers" class="pc-kpi-value">0</div></div>
-    </div>
-  </section>
-
-  <nav id="pc-rail-tabs" class="pc-rail-tabs" aria-label="PC 분석 메뉴">
-    <button class="pc-rail-tab active" type="button" data-pc-rail-tab="focus">포커스</button>
-    <button class="pc-rail-tab" type="button" data-pc-rail-tab="timeline">타임라인</button>
-    <button class="pc-rail-tab" type="button" data-pc-rail-tab="trend">동향</button>
-    <button class="pc-rail-tab" type="button" data-pc-rail-tab="map">국가</button>
-  </nav>
-
-  <div id="pc-rail-page-focus" class="pc-rail-page active" data-pc-rail-page="focus">
-  <section class="pc-rail-card">
-    <div class="pc-rail-head">
-      <div class="pc-rail-title">오늘의 포커스</div>
-      <div class="pc-rail-sub">중요도·확산도·최근성</div>
-    </div>
-    <div id="pc-focus-list" class="pc-focus-list"></div>
-  </section>
-  </div>
-
-  <div id="pc-rail-page-timeline" class="pc-rail-page" data-pc-rail-page="timeline">
-  <section class="pc-rail-card pc-timeline-card hyundai">
-    <div class="pc-rail-head">
-      <div class="pc-rail-title">현대건설 타임라인</div>
-      <div class="pc-rail-sub">날짜별 주요 기사</div>
-    </div>
-    <div class="pc-timeline-wrap">
-      <div id="pc-hyundai-timeline" class="pc-timeline"></div>
-    </div>
-  </section>
-
-  <section class="pc-rail-card pc-timeline-card invest">
-    <div class="pc-rail-head">
-      <div class="pc-rail-title">대미투자 타임라인</div>
-      <div class="pc-rail-sub">관련기사 흐름</div>
-    </div>
-    <div class="pc-timeline-wrap">
-      <div id="pc-invest-timeline" class="pc-timeline"></div>
-    </div>
-  </section>
-  </div>
-
-  <div id="pc-rail-page-trend" class="pc-rail-page" data-pc-rail-page="trend">
-  <section class="pc-rail-card pc-mini-analytics-card">
-    <div class="pc-rail-head">
-      <div class="pc-rail-title">한눈에 보는 동향</div>
-      <div class="pc-rail-sub">현재 선택 화면</div>
-    </div>
-    <div class="pc-mini-analytics-grid">
-      <div class="pc-mini-panel">
-        <div class="pc-mini-title">국가별 기사</div>
-        <div class="pc-country-donut-wrap">
-          <div id="pc-country-donut" class="pc-country-donut">
-            <div class="pc-country-donut-center">
-              <strong id="pc-country-donut-total">0</strong>
-              <span>건</span>
-            </div>
-          </div>
-          <div id="pc-country-legend" class="pc-country-legend"></div>
-        </div>
-      </div>
-      <div class="pc-mini-panel">
-        <div class="pc-mini-title">주요 키워드 TOP 6</div>
-        <div id="pc-keyword-bars" class="pc-keyword-bars"></div>
-      </div>
-      <div class="pc-mini-panel pc-today-summary">
-        <div class="pc-mini-title">오늘의 기사</div>
-        <div class="pc-today-big"><strong id="pc-today-total">0</strong><span>건</span></div>
-        <div class="pc-today-subgrid">
-          <div><span>중요</span><strong id="pc-today-important">0</strong></div>
-          <div><span>국가</span><strong id="pc-today-countries">0</strong></div>
-          <div><span>언론사</span><strong id="pc-today-publishers">0</strong></div>
-          <div><span>그룹</span><strong id="pc-today-groups">0</strong></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  </div>
-
-  <div id="pc-rail-page-map" class="pc-rail-page" data-pc-rail-page="map">
-    <div id="pc-map-page-host">
-      <section class="pc-world-time-card" aria-label="세계시간">
-        <div class="pc-world-time-head">
-          <div>
-            <div class="pc-world-time-title">세계시간</div>
-            <div class="pc-world-time-sub">현지시간 · 서머타임 자동 반영</div>
-          </div>
-        </div>
-        <div id="pc-world-clock-strip" class="pc-world-clock-strip">
-          <div class="pc-analog-clock-card" data-pc-clock-zone="Asia/Seoul">
-            <div class="pc-clock-place"><img class="pc-flag-img" src="https://flagcdn.com/w20/kr.png" alt=""><span>서울</span></div>
-            <div class="pc-analog-face">
-              <span class="pc-clock-mark3">3</span><span class="pc-clock-mark9">9</span>
-              <span class="pc-clock-hand pc-clock-hour"></span>
-              <span class="pc-clock-hand pc-clock-minute"></span>
-              <span class="pc-clock-hand pc-clock-second"></span>
-              <span class="pc-clock-center"></span>
-            </div>
-            <div class="pc-clock-digital">--:--</div>
-            <div class="pc-clock-zone">KST</div>
-          </div>
-          <div class="pc-analog-clock-card" data-pc-clock-zone="America/New_York">
-            <div class="pc-clock-place"><img class="pc-flag-img" src="https://flagcdn.com/w20/us.png" alt=""><span>뉴욕</span></div>
-            <div class="pc-analog-face">
-              <span class="pc-clock-mark3">3</span><span class="pc-clock-mark9">9</span>
-              <span class="pc-clock-hand pc-clock-hour"></span>
-              <span class="pc-clock-hand pc-clock-minute"></span>
-              <span class="pc-clock-hand pc-clock-second"></span>
-              <span class="pc-clock-center"></span>
-            </div>
-            <div class="pc-clock-digital">--:--</div>
-            <div class="pc-clock-zone">ET</div>
-          </div>
-          <div class="pc-analog-clock-card" data-pc-clock-zone="Europe/London">
-            <div class="pc-clock-place"><img class="pc-flag-img" src="https://flagcdn.com/w20/gb.png" alt=""><span>런던</span></div>
-            <div class="pc-analog-face">
-              <span class="pc-clock-mark3">3</span><span class="pc-clock-mark9">9</span>
-              <span class="pc-clock-hand pc-clock-hour"></span>
-              <span class="pc-clock-hand pc-clock-minute"></span>
-              <span class="pc-clock-hand pc-clock-second"></span>
-              <span class="pc-clock-center"></span>
-            </div>
-            <div class="pc-clock-digital">--:--</div>
-            <div class="pc-clock-zone">UK</div>
-          </div>
-          <div id="pc-selected-clock" class="pc-analog-clock-card" data-pc-clock-zone="Europe/Sofia">
-            <div class="pc-clock-place"><img id="pc-selected-clock-flag" class="pc-flag-img" src="https://flagcdn.com/w20/bg.png" alt=""><span id="pc-selected-clock-city">소피아</span></div>
-            <div class="pc-analog-face">
-              <span class="pc-clock-mark3">3</span><span class="pc-clock-mark9">9</span>
-              <span class="pc-clock-hand pc-clock-hour"></span>
-              <span class="pc-clock-hand pc-clock-minute"></span>
-              <span class="pc-clock-hand pc-clock-second"></span>
-              <span class="pc-clock-center"></span>
-            </div>
-            <div class="pc-clock-digital">--:--</div>
-            <div class="pc-clock-zone">현지</div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-</aside>
+{panels_html}
 </main>
   <footer>기사 카드를 누르면 원문으로 이동합니다. ‘중요’을 누르면 상단 중요 기사에 모아집니다.</footer>
 </div>
@@ -41760,6 +41057,86 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   setTimeout(removeLegacyPcRoots,500);
   setTimeout(removeLegacyPcRoots,1500);
   window.addEventListener("resize", removeLegacyPcRoots);
+}})();
+</script>
+
+
+<script>
+(function(){{
+  /*
+   * MOBILE FINAL GUARD
+   * Old PC experiments create/reveal desktop roots with delayed scripts.
+   * On mobile, remove those roots whenever they appear. The mobile map
+   * (#world-map-panel) is intentionally preserved.
+   */
+  var PC_ONLY_ROOTS = [
+    "pc7-app","pc9-app","pc10-app","pc11-app",
+    "pc-v2-dashboard","pc-insight-rail"
+  ];
+
+  function isMobileViewport(){{
+    return window.matchMedia("(max-width:999px)").matches;
+  }}
+
+  function purgePcOnlyRootsOnMobile(){{
+    if(!isMobileViewport()) return;
+
+    PC_ONLY_ROOTS.forEach(function(id){{
+      var el=document.getElementById(id);
+      if(el && el.parentNode) el.parentNode.removeChild(el);
+    }});
+
+    document.querySelectorAll(
+      ".pc-dashboard,.pc-shell,.pc-global-map,.pc-world-clock,.geo-intelligence,.signal-stack"
+    ).forEach(function(el){{
+      if(el && el.parentNode) el.parentNode.removeChild(el);
+    }});
+
+    var phone=document.querySelector("body > .phone");
+    if(phone){{
+      phone.style.removeProperty("display");
+      phone.style.removeProperty("visibility");
+      phone.style.removeProperty("opacity");
+      phone.style.removeProperty("pointer-events");
+      phone.style.removeProperty("position");
+      phone.style.removeProperty("left");
+      phone.style.removeProperty("right");
+      phone.style.removeProperty("top");
+      phone.style.removeProperty("bottom");
+      phone.style.removeProperty("inset");
+      phone.style.removeProperty("transform");
+      phone.style.removeProperty("width");
+      phone.style.removeProperty("max-width");
+      phone.style.removeProperty("height");
+      phone.style.removeProperty("min-height");
+      phone.style.removeProperty("overflow");
+      phone.style.removeProperty("margin");
+    }}
+  }}
+
+  function startMobileGuard(){{
+    purgePcOnlyRootsOnMobile();
+
+    var observer=new MutationObserver(function(){{
+      if(isMobileViewport()) purgePcOnlyRootsOnMobile();
+    }});
+    observer.observe(document.body,{{childList:true,subtree:true}});
+
+    [0,50,150,350,700,1200,2200,4000].forEach(function(delay){{
+      setTimeout(purgePcOnlyRootsOnMobile,delay);
+    }});
+
+    window.addEventListener("resize",purgePcOnlyRootsOnMobile);
+    window.addEventListener("orientationchange",function(){{
+      setTimeout(purgePcOnlyRootsOnMobile,120);
+    }});
+  }}
+
+  if(document.readyState==="loading"){{
+    document.addEventListener("DOMContentLoaded",startMobileGuard,{{once:true}});
+  }}else{{
+    startMobileGuard();
+  }}
 }})();
 </script>
 
