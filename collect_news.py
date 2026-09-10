@@ -1,4 +1,6 @@
-# FINAL PC RESET / MOBILE BASE ONLY ON DESKTOP / MOBILE UNCHANGED / 180D ARCHIVE / 90D THUMB / 2026-09-10
+# FINAL ADD HANKYUNG PREMIUM SOURCE / 2026-09-10
+# FINAL TRUE MOBILE-ON-PC / 2-COLUMN MOBILE ARTICLE CARDS / POPUP ARTICLE WINDOW / 180D ARCHIVE / 90D THUMB / 2026-09-10
+# FINAL PC RIGHT PANEL USES EXACT MOBILE ARTICLE CARD DOM / MAP LEFT / POPUP WINDOW / 180D ARCHIVE / 90D THUMB / 2026-09-08
 # FINAL PC MAP FIX + RIGHT ARTICLE LIST SCROLL FIX / POPUP WINDOW / 180D ARCHIVE / 90D THUMB / 2026-09-08
 # FINAL PC SEPARATE POPUP WINDOW FIX / 180D ARCHIVE / 90D THUMB / 2026-09-08
 # FINAL PC / MOBILE-FIRST DESKTOP / 180D ARCHIVE / 90D THUMBNAIL / CONFLICT-SAFE WORKFLOW PAIR / 2026-09-08
@@ -691,6 +693,7 @@ SOURCE_MASTER_REQUIRED_CORE = {
     "전기신문", "에너지신문", "에너지타임즈", "전력경제신문", "인사이트N파워",
     "투데이에너지", "에너지경제신문", "에너지데일리", "에너지안전신문",
     "에너지플랫폼뉴스", "원자력신문", "한국원자력신문", "국토일보",
+    "한경 PREMIUM",
     "대한경제", "한국건설신문", "건설타임즈",
     "Reuters", "Associated Press", "Agence France-Presse", "BBC", "CNN", "CNBC",
     "Bloomberg", "Financial Times", "The Wall Street Journal", "The New York Times",
@@ -892,6 +895,7 @@ DIRECT_NEWS_PAGES = [
     ("비즈워치", "https://news.bizwatch.co.kr/", "ko"),
     ("매일경제", "https://www.mk.co.kr/", "ko"),
     ("한국경제", "https://www.hankyung.com/", "ko"),
+    ("한경 PREMIUM", "https://www.hankyung.com/premium9", "ko"),
     ("한스경제", "https://www.hansbiz.co.kr/", "ko"),
 
     # ─────────────────────────────────────────────
@@ -30595,157 +30599,292 @@ main {{
 
 
 /* ==========================================================
-   PC RESET 2026-09-10
-   Desktop only.
-   목적:
-   1) 기존 PC7/PC9/PC10/PC11 및 PC dashboard 실험 화면 전부 비활성화
-   2) 모바일 DOM(.phone)을 PC에서도 기준 화면으로 복원
-   3) 모바일(<1000px)은 일절 변경하지 않음
+   FINAL PC RIGHT PANEL = EXACT MOBILE ARTICLE CARD
+   PC 전용 카드 디자인을 사용하지 않고 모바일 preview-card DOM 재사용
    ========================================================== */
 @media (min-width:1000px){{
-  html,
-  body{{
+  #pc11-article-list{{
+    padding:8px!important;
+    background:#eef3f8!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone.preview-card{{
+    position:relative!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 96px!important;
+    gap:10px!important;
+    align-items:stretch!important;
     width:100%!important;
+    min-height:112px!important;
     height:auto!important;
+    margin:0 0 8px!important;
+    padding:3px 4px 3px 10px!important;
+    border:1px solid rgba(35,57,93,.09)!important;
+    border-radius:0!important;
+    background:#fbfaf7!important;
+    box-shadow:0 2px 7px rgba(15,23,42,.05)!important;
+    overflow:visible!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone.preview-card.read{{
+    background:#ebeff3!important;
+    opacity:.92!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone.preview-card.important{{
+    border:2px solid #f2c94c!important;
+    background:#fffdf3!important;
+    opacity:1!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .preview-copy{{
+    display:grid!important;
+    grid-template-columns:auto minmax(0,1fr) 20px!important;
+    grid-template-rows:auto auto auto!important;
+    column-gap:4px!important;
+    row-gap:0!important;
+    min-width:0!important;
+    min-height:112px!important;
+    padding:0 1px 0 0!important;
+    align-content:start!important;
+    overflow:visible!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .meta-row{{
+    display:contents!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .publisher{{
+    overflow:hidden!important;
+    color:#667085!important;
+    font-size:10px!important;
+    font-weight:800!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .status-inline{{
+    flex:0 0 auto!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:2px!important;
+    font-size:9px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .headline{{
+    display:-webkit-box!important;
+    overflow:hidden!important;
+    margin-top:3px!important;
+    color:#0b57d0!important;
+    font-size:13px!important;
+    font-weight:700!important;
+    line-height:1.32!important;
+    -webkit-line-clamp:2!important;
+    -webkit-box-orient:vertical!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .article-snippet{{
+    display:-webkit-box!important;
+    overflow:hidden!important;
+    margin-top:5px!important;
+    color:#5f6368!important;
+    font-size:10.5px!important;
+    font-weight:400!important;
+    line-height:1.42!important;
+    -webkit-line-clamp:2!important;
+    -webkit-box-orient:vertical!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .card-side{{
+    position:relative!important;
+    align-self:stretch!important;
+    width:96px!important;
+    min-width:96px!important;
+    display:flex!important;
+    align-items:stretch!important;
+    justify-content:flex-end!important;
+    overflow:visible!important;
+    background:transparent!important;
+    padding:0!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .preview-image{{
+    width:96px!important;
+    height:112px!important;
+    min-height:112px!important;
+    align-self:stretch!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow:hidden!important;
+    border:0!important;
+    border-radius:0!important;
+    background:#f4f6f8!important;
+    margin-left:auto!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .preview-image img{{
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:50% 50%!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .important-button{{
+    grid-column:3!important;
+    grid-row:1!important;
+    align-self:center!important;
+    justify-self:end!important;
+    width:20px!important;
+    height:18px!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+    color:#98a2b3!important;
+    font-size:14px!important;
+    font-weight:800!important;
+    line-height:18px!important;
+    cursor:pointer!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone.important .important-button{{
+    color:#b77900!important;
+  }}
+
+  #pc11-article-list .pc11-mobile-card-clone .unread-label{{
+    color:#d92d20!important;
+    font-weight:800!important;
+  }}
+  #pc11-article-list .pc11-mobile-card-clone .read-label{{
+    display:none!important;
+    color:#4f5968!important;
+    font-weight:800!important;
+  }}
+  #pc11-article-list .pc11-mobile-card-clone .important-label{{
+    display:none!important;
+    color:#b77900!important;
+    font-weight:800!important;
+  }}
+  #pc11-article-list .pc11-mobile-card-clone.read .unread-label{{display:none!important;}}
+  #pc11-article-list .pc11-mobile-card-clone.read .read-label{{display:inline!important;}}
+  #pc11-article-list .pc11-mobile-card-clone.important .unread-label,
+  #pc11-article-list .pc11-mobile-card-clone.important .read-label{{display:none!important;}}
+  #pc11-article-list .pc11-mobile-card-clone.important .important-label{{display:inline!important;}}
+
+  /* 이전 PC 전용 카드 요소는 새 렌더러에서 생성하지 않음 */
+  #pc11-article-list .pc11-list-main,
+  #pc11-article-list .pc11-list-thumb,
+  #pc11-article-list .pc11-list-title,
+  #pc11-article-list .pc11-list-preview,
+  #pc11-article-list .pc11-list-meta,
+  #pc11-article-list .pc11-list-status,
+  #pc11-article-list .pc11-important-toggle{{
+    all:unset;
+  }}
+}}
+
+
+/* ==========================================================
+   FINAL PC RESET — TRUE MOBILE UI REUSE
+   PC = existing mobile page reflowed only
+   No legacy PC dashboard / map / world clocks / signal stack
+   ========================================================== */
+@media (min-width:1000px){{
+  html, body{{
+    width:100%!important;
     min-height:100%!important;
-    margin:0!important;
+    height:auto!important;
     overflow-x:hidden!important;
     overflow-y:auto!important;
     background:#d7e0e8!important;
   }}
 
-  /* 모든 과거 PC 전용 화면 비활성화 */
-  #pc11-app,
-  #pc10-app,
-  #pc9-app,
+  /* Remove every legacy PC-only layer completely. */
   #pc7-app,
+  #pc9-app,
+  #pc10-app,
+  #pc11-app,
   #pc-v2-dashboard,
   #pc-insight-rail,
-  #pc-category-strip,
-  #pc-country-filter-result,
   #world-map-panel,
-  .pc-build-marker{{
+  .pc-dashboard,
+  .pc-shell,
+  .pc-global-map,
+  .pc-world-clock,
+  .geo-intelligence,
+  .signal-stack{{
     display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
   }}
 
-  /* 모바일 본체를 PC 화면의 유일한 본체로 복원 */
-  body > .phone{{
+  /* The mobile page is now the actual desktop page, not a hidden data source. */
+  body>.phone{{
     display:block!important;
     position:relative!important;
     left:auto!important;
-    right:auto!important;
     top:auto!important;
-    bottom:auto!important;
-    width:520px!important;
-    max-width:calc(100vw - 32px)!important;
-    height:auto!important;
+    width:100%!important;
+    max-width:none!important;
     min-height:100vh!important;
-    margin:0 auto!important;
+    height:auto!important;
     overflow:visible!important;
     opacity:1!important;
-    visibility:visible!important;
     pointer-events:auto!important;
-    transform:none!important;
-    background:#c4d6e8!important;
-  }}
-
-  /* PC 실험에서 absolute/fixed 처리했던 모바일 header 복원 */
-  body > .phone #topbar{{
-    position:sticky!important;
-    left:auto!important;
-    right:auto!important;
-    top:0!important;
-    bottom:auto!important;
-    width:100%!important;
-    height:auto!important;
-    min-height:0!important;
-    max-height:none!important;
     margin:0!important;
-    padding:14px 14px 10px!important;
-    overflow:visible!important;
-    box-sizing:border-box!important;
-    z-index:1000!important;
+    background:#d7e0e8!important;
   }}
 
-  body > .phone .topbar-title-row{{
-    display:flex!important;
-    align-items:flex-start!important;
-    justify-content:space-between!important;
-    width:100%!important;
-    height:auto!important;
-    min-height:0!important;
-  }}
-
-  body > .phone .search-wrap,
-  body > .phone .header-controls{{
-    position:static!important;
-    width:100%!important;
-    height:auto!important;
-    max-height:none!important;
-    overflow:visible!important;
-    opacity:1!important;
-    visibility:visible!important;
-    pointer-events:auto!important;
-  }}
-
-  /* 기존 PC grid/fixed main 설정 제거 */
-  body > .phone main{{
-    display:block!important;
-    position:relative!important;
-    left:auto!important;
-    right:auto!important;
-    top:auto!important;
-    bottom:auto!important;
-    width:100%!important;
+  /* Keep the exact mobile information architecture, only widen spacing. */
+  body>.phone .topbar{{
     max-width:none!important;
-    height:auto!important;
-    min-height:0!important;
-    margin:0!important;
-    padding:0 0 44px!important;
-    overflow:visible!important;
-    grid-template-columns:none!important;
+    margin:10px 14px 0!important;
   }}
 
-  body > .phone .tab-panel{{
-    display:none!important;
-    position:relative!important;
-    width:100%!important;
+  body>.phone main{{
     max-width:none!important;
-    height:auto!important;
-    min-height:0!important;
-    margin:0!important;
-    overflow:visible!important;
-    grid-column:auto!important;
-  }}
-
-  body > .phone .tab-panel.active{{
-    display:block!important;
-  }}
-
-  /* 모바일 기사 그룹/카드 흐름 복원 */
-  body > .phone .news-group,
-  body > .phone .article-stack{{
-    position:relative!important;
-    width:100%!important;
-    max-width:none!important;
-    height:auto!important;
-    min-height:0!important;
-    overflow:visible!important;
-  }}
-
-  body > .phone .preview-card{{
-    position:relative!important;
     width:auto!important;
-    max-width:none!important;
-    height:auto!important;
-    min-height:0!important;
-    transform:none!important;
+    margin:0!important;
+    padding:14px 14px 36px!important;
   }}
 
-  /* PC에서만 생긴 drawer/analytics UI는 완전 비활성화 */
-  body > .phone [class^="pc-v"],
-  body > .phone [class*=" pc-v"]{{
-    display:none!important;
+  /* PC uses two columns only, preserving the mobile cards themselves. */
+  body>.phone .article-stack{{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    align-items:stretch!important;
+  }}
+
+  body>.phone .preview-card{{
+    width:100%!important;
+    min-width:0!important;
+  }}
+
+  /* Prevent older desktop rules from switching to three columns. */
+  body>.phone .favorites-list{{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }}
+
+  /* Mobile category / period / search controls remain visible exactly as source UI. */
+  body>.phone .header-controls,
+  body>.phone .group-nav,
+  body>.phone .group-nav-compact,
+  body>.phone .group-nav-dense,
+  body>.phone .period-card,
+  body>.phone .news-group{{
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+  }}
+}}
+
+@media (min-width:1000px) and (max-width:1250px){{
+  body>.phone .article-stack{{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
   }}
 }}
 
@@ -40955,9 +41094,11 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function renderArticleList(){{
     const list=currentCards();
-    const box=document.getElementById("pc11-article-list");box.innerHTML="";
+    const box=document.getElementById("pc11-article-list");
+    box.innerHTML="";
     document.getElementById("pc11-right-total").textContent=cards().length+"건";
     document.getElementById("pc11-list-count").textContent=list.length+"건";
+
     let selectedName="전체 기사";
     if(categoryMode==="country" && selectedCountry){{
       const meta=countryMetaForPC11(selectedCountry);
@@ -40970,38 +41111,21 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     list.forEach((c,idx)=>{{
       syncMobileState(c);
 
-      const b=document.createElement("article");
-      b.className="pc11-list-card";
-      b.dataset.articleIndex=String(idx);
-      b.tabIndex=0;
-      b.setAttribute("role","button");
-      if(c===activeArticle)b.classList.add("selected");
-      if(isRead(c))b.classList.add("read");
-      if(isImportant(c))b.classList.add("important");
+      // 모바일에서 실제 사용 중인 기사 카드 DOM을 그대로 복제합니다.
+      // PC 전용 카드 HTML을 새로 만들지 않으므로 모바일과 표시 구조가 동일합니다.
+      const clone=c.cloneNode(true);
+      clone.classList.add("pc11-mobile-card-clone");
+      clone.dataset.articleIndex=String(idx);
+      clone.tabIndex=0;
+      clone.setAttribute("role","button");
 
-      const im=image(c);
-      const snippet=summary(c);
-      const status=isImportant(c)?"중요":(isRead(c)?"읽음":"안읽음");
-      const newTag=(!isRead(c)&&isNew(c))?'<span class="pc11-new-tag">NEW</span>':"";
+      // 원본 모바일 상태를 복제 직전에 다시 동기화
+      clone.classList.toggle("read",isRead(c));
+      clone.classList.toggle("important",isImportant(c));
+      if(c===activeArticle)clone.classList.add("selected");
 
-      b.innerHTML=
-        '<div class="pc11-list-main">'+
-          '<div class="pc11-list-topline">'+
-            '<span class="publisher">'+esc(publisher(c)||"언론사")+'</span>'+
-            '<span class="pc11-list-status '+(isImportant(c)?"important":isRead(c)?"read":"unread")+'">'+status+'</span>'+
-            '<button class="pc11-important-toggle '+(isImportant(c)?"active":"")+'" type="button" aria-label="중요 기사 표시">'+
-              (isImportant(c)?"★ 중요":"☆ 중요")+
-            '</button>'+
-          '</div>'+
-          '<div class="pc11-list-title">'+newTag+esc(title(c))+'</div>'+
-          '<div class="pc11-list-preview">'+esc(snippet||"미리보기 정보 없음")+'</div>'+
-          '<div class="pc11-list-meta">'+esc(published(c))+
-            (country(c)?" · "+esc(COUNTRY_NAME[country(c)]||country(c)):"")+
-          '</div>'+
-        '</div>'+
-        '<div class="pc11-list-thumb">'+(im?'<img src="'+im.replace(/"/g,"%22")+'" alt="">':"")+'</div>';
-
-      const importantBtn=b.querySelector(".pc11-important-toggle");
+      // 중요 버튼은 원본 모바일 카드 상태와 같은 저장 로직 사용
+      const importantBtn=clone.querySelector(".important-button");
       if(importantBtn){{
         importantBtn.addEventListener("click",(ev)=>{{
           ev.preventDefault();
@@ -41010,31 +41134,30 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
           setTimeout(()=>{{
             syncMobileState(c);
             renderArticleList();
-            renderKpis();
           }},0);
         }});
       }}
 
-      const open=()=>{{
-        openDetail(c);
-      }};
-      b.addEventListener("mouseenter",()=>pc11WarmArticleConnection(c.dataset.url||""));
-      b.addEventListener("focusin",()=>pc11WarmArticleConnection(c.dataset.url||""));
-      b.addEventListener("click",(ev)=>{{
-        if(ev.target.closest(".pc11-important-toggle"))return;
+      const open=()=>openDetail(c);
+
+      clone.addEventListener("click",(ev)=>{{
+        if(ev.target.closest(".important-button"))return;
+        // 관련기사 등 명시적 링크/버튼은 자체 동작을 방해하지 않음
+        if(ev.target.closest("a, button") && !ev.target.closest(".important-button"))return;
         ev.preventDefault();
         open();
       }});
-      b.addEventListener("keydown",(ev)=>{{
+
+      clone.addEventListener("keydown",(ev)=>{{
         if(ev.key==="Enter"||ev.key===" "){{
-          if(ev.target.closest(".pc11-important-toggle"))return;
+          if(ev.target.closest("button,a"))return;
           ev.preventDefault();
           open();
         }}
       }});
 
-      box.appendChild(b)
-    }})
+      box.appendChild(clone);
+    }});
   }}
 
   function renderKpis(){{
@@ -41434,39 +41557,6 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }});
 
   window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,90)}})
-}})();
-</script>
-
-
-<script>
-(function(){{
-  if(!window.matchMedia("(min-width:1000px)").matches) return;
-
-  function pcResetToMobileBase(){{
-    ["pc11-app","pc10-app","pc9-app","pc7-app","pc-v2-dashboard",
-     "pc-insight-rail","pc-category-strip","pc-country-filter-result","world-map-panel"]
-      .forEach(function(id){{
-        var el=document.getElementById(id);
-        if(el){{
-          el.style.setProperty("display","none","important");
-          el.setAttribute("aria-hidden","true");
-        }}
-      }});
-
-    var phone=document.querySelector("body > .phone");
-    if(phone){{
-      phone.style.setProperty("display","block","important");
-      phone.style.setProperty("visibility","visible","important");
-      phone.style.setProperty("opacity","1","important");
-      phone.style.setProperty("pointer-events","auto","important");
-    }}
-  }}
-
-  if(document.readyState==="loading"){{
-    document.addEventListener("DOMContentLoaded",pcResetToMobileBase,{{once:true}});
-  }}else{{
-    pcResetToMobileBase();
-  }}
 }})();
 </script>
 
