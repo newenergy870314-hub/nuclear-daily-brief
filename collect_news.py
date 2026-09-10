@@ -1,3 +1,4 @@
+# FINAL PC RESTORE / HYUNDAI FIRST / YELLOW GROUP TABS / MOBILE UNCHANGED / 2026-09-11
 # FINAL CLEAN MOBILE BASE ON PC / LEGACY PC HTML PHYSICALLY REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL PC TRUE MOBILE-ONLY / LEGACY PC DOM REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL HARD REMOVE LEGACY PC DASHBOARDS / TRUE MOBILE UI ON PC / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
@@ -31189,6 +31190,165 @@ main {{
     min-width:0!important;
     min-height:0!important;
     overflow:visible!important;
+  }}
+}}
+
+
+/* ============================================================
+   2026-09-11 FINAL PC RESTORE — MOBILE UNCHANGED
+   - Desktop only (>=1000px)
+   - Hyundai E&C group restored/visible first
+   - Article group tabs restored to warm yellow identity
+   - Desktop content constrained for readability
+   - Existing mobile DOM/cards reused, 2-column article layout
+   ============================================================ */
+@media (min-width:1000px) {{
+  html, body {{
+    background:#c4d6e8 !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+  }}
+
+  /* Desktop shell: do not stretch mobile UI edge-to-edge. */
+  body>.phone {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:relative !important;
+    inset:auto !important;
+    transform:none !important;
+    width:min(calc(100% - 32px),1480px) !important;
+    max-width:1480px !important;
+    min-height:100vh !important;
+    height:auto !important;
+    margin:0 auto !important;
+    overflow:visible !important;
+    background:#c4d6e8 !important;
+    pointer-events:auto !important;
+  }}
+
+  body>.phone .topbar {{
+    position:sticky !important;
+    top:0 !important;
+    z-index:100 !important;
+    width:auto !important;
+    max-width:none !important;
+    margin:10px 0 12px !important;
+    padding:12px 16px 11px !important;
+    border-radius:14px !important;
+  }}
+
+  body>.phone main {{
+    display:block !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 0 38px !important;
+    overflow:visible !important;
+  }}
+
+  /* The real mobile map is useful on desktop too; keep it visible. */
+  body>.phone #world-map-panel {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:relative !important;
+    inset:auto !important;
+    width:100% !important;
+    height:auto !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    margin:0 0 14px !important;
+    overflow:visible !important;
+    pointer-events:auto !important;
+  }}
+
+  /* Hyundai E&C is the first registered group and must never disappear on PC. */
+  body>.phone .news-group[data-group="현대건설"] {{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }}
+
+  body>.phone .news-group {{
+    display:block !important;
+    width:100% !important;
+    margin:0 0 12px !important;
+  }}
+
+  /* Restore the original warm-yellow article-tab identity. */
+  body>.phone .group-title {{
+    display:grid !important;
+    grid-template-columns:14px max-content max-content 1fr !important;
+    align-items:center !important;
+    column-gap:6px !important;
+    width:100% !important;
+    min-height:34px !important;
+    height:34px !important;
+    margin:0 !important;
+    padding:0 14px !important;
+    border:1px solid rgba(91,79,38,.14) !important;
+    border-radius:10px !important;
+    background:#efe2a1 !important;
+    color:#1f4f8a !important;
+    box-shadow:0 1px 3px rgba(62,52,42,.08) !important;
+    font-weight:850 !important;
+    cursor:pointer !important;
+  }}
+
+  body>.phone .group-title:hover {{
+    background:#ead98b !important;
+  }}
+
+  body>.phone .group-name,
+  body>.phone .group-count,
+  body>.phone .group-arrow {{
+    height:34px !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    line-height:1 !important;
+  }}
+
+  body>.phone .group-name {{
+    color:#1f4f8a !important;
+    font-size:12.5px !important;
+    font-weight:900 !important;
+  }}
+
+  body>.phone .group-count {{
+    color:#4f6f96 !important;
+    font-size:12px !important;
+    font-weight:850 !important;
+  }}
+
+  /* Collapsed groups stay compact; expanded groups use two readable columns. */
+  body>.phone .news-group.collapsed .article-stack {{
+    display:none !important;
+  }}
+
+  body>.phone .news-group:not(.collapsed) .article-stack {{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:10px !important;
+    margin-top:9px !important;
+    align-items:stretch !important;
+  }}
+
+  body>.phone .preview-card {{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+  }}
+
+  body>.phone .favorites-list {{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }}
+
+  /* Main period tabs keep the stronger Hyundai-yellow selected state. */
+  body>.phone .tab-button.active {{
+    background:#fee500 !important;
+    color:#111827 !important;
+    border-color:#fee500 !important;
   }}
 }}
 
