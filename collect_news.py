@@ -1,4 +1,4 @@
-# FINAL PC RESTORE / HYUNDAI FIRST / YELLOW GROUP TABS / MOBILE UNCHANGED / 2026-09-11
+# FINAL PC READABILITY FONT UP / HEADER TOGGLE FIX / HYUNDAI FIRST / YELLOW GROUP TABS / MOBILE UNCHANGED / 2026-09-11
 # FINAL CLEAN MOBILE BASE ON PC / LEGACY PC HTML PHYSICALLY REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL PC TRUE MOBILE-ONLY / LEGACY PC DOM REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL HARD REMOVE LEGACY PC DASHBOARDS / TRUE MOBILE UI ON PC / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
@@ -31350,8 +31350,168 @@ main {{
     color:#111827 !important;
     border-color:#fee500 !important;
   }}
+
+  /* PC settings toggle hard fix: older desktop rules forced controls visible. */
+  #topbar #header-controls {{
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }}
+
+  #topbar.collapsed #header-controls {{
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    max-height:0 !important;
+    min-height:0 !important;
+    height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    pointer-events:none !important;
+  }}
+
+  #topbar:not(.collapsed) #header-controls {{
+    display:grid !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }}
+
+  #header-toggle {{
+    cursor:pointer !important;
+    pointer-events:auto !important;
+  }}
 }}
 
+
+/* ==========================================================
+   2026-09-11 PC READABILITY FONT UP
+   Desktop only (>=1000px). Mobile sizing remains untouched.
+   ========================================================== */
+@media (min-width:1000px) {{
+  body>.phone .topbar h1 {{
+    font-size:24px!important;
+    line-height:1.2!important;
+    letter-spacing:-.45px!important;
+  }}
+  body>.phone .updated,
+  body>.phone .updated-inline {{
+    font-size:11px!important;
+    line-height:1.35!important;
+  }}
+  body>.phone .header-toggle {{
+    min-width:104px!important;
+    height:36px!important;
+    padding:0 12px!important;
+    font-size:12.5px!important;
+  }}
+  body>.phone .search-input {{
+    height:42px!important;
+    padding-left:14px!important;
+    font-size:13.5px!important;
+  }}
+  body>.phone .tab-button {{
+    min-height:38px!important;
+    height:38px!important;
+    font-size:13px!important;
+    font-weight:900!important;
+  }}
+  body>.phone .utility-box {{
+    min-height:38px!important;
+    height:38px!important;
+    padding:0 9px!important;
+  }}
+  body>.phone .utility-label {{ font-size:11px!important; }}
+  body>.phone .language-order-toggle,
+  body>.phone .date-display {{
+    font-size:11.5px!important;
+  }}
+  body>.phone .language-order-toggle,
+  body>.phone .date-control {{
+    min-height:28px!important;
+    height:28px!important;
+  }}
+  body>.phone .date-display {{ line-height:28px!important; }}
+  body>.phone .date-calendar {{ font-size:11px!important; }}
+
+  body>.phone .period-card {{
+    font-size:13px!important;
+    line-height:1.4!important;
+  }}
+  body>.phone .period-card strong {{ font-size:17px!important; }}
+
+  body>.phone .group-title {{
+    min-height:36px!important;
+    height:36px!important;
+    padding:0 15px!important;
+    font-size:13.5px!important;
+  }}
+  body>.phone .group-name {{
+    height:36px!important;
+    font-size:14px!important;
+    line-height:36px!important;
+  }}
+  body>.phone .group-count {{
+    height:36px!important;
+    font-size:13px!important;
+    line-height:36px!important;
+  }}
+  body>.phone .group-arrow {{
+    height:36px!important;
+    font-size:12px!important;
+    line-height:36px!important;
+  }}
+
+  body>.phone .article-stack {{ gap:12px!important; margin-top:11px!important; }}
+  body>.phone .preview-card {{
+    min-height:158px!important;
+    height:158px!important;
+  }}
+  body>.phone .preview-copy {{
+    padding-top:12px!important;
+    padding-bottom:10px!important;
+  }}
+  body>.phone .publisher {{
+    font-size:11.5px!important;
+    line-height:1.3!important;
+  }}
+  body>.phone .headline {{
+    margin-top:5px!important;
+    font-size:15px!important;
+    line-height:1.42!important;
+    letter-spacing:-.2px!important;
+  }}
+  body>.phone .article-snippet {{
+    margin-top:7px!important;
+    font-size:12.5px!important;
+    line-height:1.5!important;
+  }}
+  body>.phone .status-line,
+  body>.phone .published,
+  body>.phone .article-date {{
+    font-size:10.5px!important;
+    line-height:1.3!important;
+  }}
+  body>.phone .important-button,
+  body>.phone .read-button,
+  body>.phone .related-button {{
+    font-size:10.5px!important;
+  }}
+  body>.phone .card-side,
+  body>.phone .preview-image,
+  body>.phone .preview-image img {{
+    min-height:158px!important;
+    height:158px!important;
+  }}
+
+  body>.phone .world-map-title {{ font-size:14px!important; }}
+  body>.phone .world-map-summary {{ font-size:11px!important; }}
+  body>.phone .country-filter-note,
+  body>.phone .country-filter-note-inline {{ font-size:10.5px!important; }}
+
+  body>.phone footer {{ font-size:11.5px!important; }}
+}}
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
