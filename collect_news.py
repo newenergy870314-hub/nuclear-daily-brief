@@ -1,3 +1,4 @@
+# FINAL PC RESET / MOBILE BASE ONLY ON DESKTOP / MOBILE UNCHANGED / 180D ARCHIVE / 90D THUMB / 2026-09-10
 # FINAL PC MAP FIX + RIGHT ARTICLE LIST SCROLL FIX / POPUP WINDOW / 180D ARCHIVE / 90D THUMB / 2026-09-08
 # FINAL PC SEPARATE POPUP WINDOW FIX / 180D ARCHIVE / 90D THUMB / 2026-09-08
 # FINAL PC / MOBILE-FIRST DESKTOP / 180D ARCHIVE / 90D THUMBNAIL / CONFLICT-SAFE WORKFLOW PAIR / 2026-09-08
@@ -30592,6 +30593,162 @@ main {{
   }}
 }}
 
+
+/* ==========================================================
+   PC RESET 2026-09-10
+   Desktop only.
+   목적:
+   1) 기존 PC7/PC9/PC10/PC11 및 PC dashboard 실험 화면 전부 비활성화
+   2) 모바일 DOM(.phone)을 PC에서도 기준 화면으로 복원
+   3) 모바일(<1000px)은 일절 변경하지 않음
+   ========================================================== */
+@media (min-width:1000px){{
+  html,
+  body{{
+    width:100%!important;
+    height:auto!important;
+    min-height:100%!important;
+    margin:0!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    background:#d7e0e8!important;
+  }}
+
+  /* 모든 과거 PC 전용 화면 비활성화 */
+  #pc11-app,
+  #pc10-app,
+  #pc9-app,
+  #pc7-app,
+  #pc-v2-dashboard,
+  #pc-insight-rail,
+  #pc-category-strip,
+  #pc-country-filter-result,
+  #world-map-panel,
+  .pc-build-marker{{
+    display:none!important;
+  }}
+
+  /* 모바일 본체를 PC 화면의 유일한 본체로 복원 */
+  body > .phone{{
+    display:block!important;
+    position:relative!important;
+    left:auto!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:auto!important;
+    width:520px!important;
+    max-width:calc(100vw - 32px)!important;
+    height:auto!important;
+    min-height:100vh!important;
+    margin:0 auto!important;
+    overflow:visible!important;
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transform:none!important;
+    background:#c4d6e8!important;
+  }}
+
+  /* PC 실험에서 absolute/fixed 처리했던 모바일 header 복원 */
+  body > .phone #topbar{{
+    position:sticky!important;
+    left:auto!important;
+    right:auto!important;
+    top:0!important;
+    bottom:auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:0!important;
+    padding:14px 14px 10px!important;
+    overflow:visible!important;
+    box-sizing:border-box!important;
+    z-index:1000!important;
+  }}
+
+  body > .phone .topbar-title-row{{
+    display:flex!important;
+    align-items:flex-start!important;
+    justify-content:space-between!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+  }}
+
+  body > .phone .search-wrap,
+  body > .phone .header-controls{{
+    position:static!important;
+    width:100%!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow:visible!important;
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+  }}
+
+  /* 기존 PC grid/fixed main 설정 제거 */
+  body > .phone main{{
+    display:block!important;
+    position:relative!important;
+    left:auto!important;
+    right:auto!important;
+    top:auto!important;
+    bottom:auto!important;
+    width:100%!important;
+    max-width:none!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:0 0 44px!important;
+    overflow:visible!important;
+    grid-template-columns:none!important;
+  }}
+
+  body > .phone .tab-panel{{
+    display:none!important;
+    position:relative!important;
+    width:100%!important;
+    max-width:none!important;
+    height:auto!important;
+    min-height:0!important;
+    margin:0!important;
+    overflow:visible!important;
+    grid-column:auto!important;
+  }}
+
+  body > .phone .tab-panel.active{{
+    display:block!important;
+  }}
+
+  /* 모바일 기사 그룹/카드 흐름 복원 */
+  body > .phone .news-group,
+  body > .phone .article-stack{{
+    position:relative!important;
+    width:100%!important;
+    max-width:none!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:visible!important;
+  }}
+
+  body > .phone .preview-card{{
+    position:relative!important;
+    width:auto!important;
+    max-width:none!important;
+    height:auto!important;
+    min-height:0!important;
+    transform:none!important;
+  }}
+
+  /* PC에서만 생긴 drawer/analytics UI는 완전 비활성화 */
+  body > .phone [class^="pc-v"],
+  body > .phone [class*=" pc-v"]{{
+    display:none!important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -41277,6 +41434,39 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }});
 
   window.addEventListener("resize",()=>{{if(desktop()&&world)setTimeout(renderMap,90)}})
+}})();
+</script>
+
+
+<script>
+(function(){{
+  if(!window.matchMedia("(min-width:1000px)").matches) return;
+
+  function pcResetToMobileBase(){{
+    ["pc11-app","pc10-app","pc9-app","pc7-app","pc-v2-dashboard",
+     "pc-insight-rail","pc-category-strip","pc-country-filter-result","world-map-panel"]
+      .forEach(function(id){{
+        var el=document.getElementById(id);
+        if(el){{
+          el.style.setProperty("display","none","important");
+          el.setAttribute("aria-hidden","true");
+        }}
+      }});
+
+    var phone=document.querySelector("body > .phone");
+    if(phone){{
+      phone.style.setProperty("display","block","important");
+      phone.style.setProperty("visibility","visible","important");
+      phone.style.setProperty("opacity","1","important");
+      phone.style.setProperty("pointer-events","auto","important");
+    }}
+  }}
+
+  if(document.readyState==="loading"){{
+    document.addEventListener("DOMContentLoaded",pcResetToMobileBase,{{once:true}});
+  }}else{{
+    pcResetToMobileBase();
+  }}
 }})();
 </script>
 
