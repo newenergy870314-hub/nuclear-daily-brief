@@ -8265,6 +8265,7 @@ def render_card(
   data-group="{escape(article.group)}"
   data-language="{escape(article.language)}"
   data-priority="{_group_article_priority(article, article.group)[0]}"
+  data-hmg-rank="{_hyundai_motor_group_company_rank(article)[0] if article.group == '현대차그룹사' else 99}"
   data-published="{article.published.timestamp():.0f}"
   data-country="{primary_country}"
   data-search="{escape(search_text)}"
@@ -8736,11 +8737,12 @@ def render_group_unified(
             ordered.extend(bucket)
         return ordered
 
-    if group in ("원자력", "타 건설사", "현대건설"):
+    if group in ("원자력", "타 건설사", "현대건설", "현대차그룹사"):
         # 원자력: 국가별 그룹핑이 언어 분리 때문에 깨지지 않도록 전체 기사 통합 정렬
         # 주요 건설사: 포스코이앤씨/POSCO E&C처럼 한·영 표기가 달라도
         # 같은 회사 기사끼리 완전히 붙도록 전체 기사 통합 정렬
         # 현대건설: 한·영 기사 구분보다 원전/CEO/경영진 우선순위를 먼저 유지
+        # 현대차그룹사: 언어보다 정의선(0) → 장재훈 등 핵심 경영진(0.5) → 그룹/회사 순위를 최우선 유지
         ordered_articles = order_articles(korean_articles + english_articles)
     else:
         ordered_articles = (
@@ -33164,13 +33166,23 @@ function reorderLanguageArticles(order){{
     if(!stack) return;
 
     const cards = [...stack.querySelectorAll(".preview-card")];
-    const isMajorConstruction=(group.dataset.group||"")==="타 건설사";
+    const groupKey=(group.dataset.group||"");
+    const isMajorConstruction=groupKey==="타 건설사";
+    const isHyundaiMotorGroup=groupKey==="현대차그룹사";
     cards.sort((a, b) => {{
       // 주요 건설사는 언어순보다 회사별 묶음을 최우선으로 유지합니다.
       if(isMajorConstruction){{
         const companyA=constructionCompanyRankFromCard(a);
         const companyB=constructionCompanyRankFromCard(b);
         if(companyA!==companyB) return companyA-companyB;
+        return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
+      }}
+
+      // 현대차그룹사는 언어순/날짜순보다 정의선 회장 → 핵심 경영진 → 그룹/회사 순위를 최우선으로 고정합니다.
+      if(isHyundaiMotorGroup){{
+        const hmgA=Number(a.dataset.hmgRank ?? 99);
+        const hmgB=Number(b.dataset.hmgRank ?? 99);
+        if(hmgA!==hmgB) return hmgA-hmgB;
         return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
       }}
 
@@ -34686,13 +34698,22 @@ function filterArticles(){{
     }});
 
     if(q||activeCountryFilter){{
-      const isMajorConstruction=(group.dataset.group||"")==="타 건설사";
+      const groupKey=(group.dataset.group||"");
+      const isMajorConstruction=groupKey==="타 건설사";
+      const isHyundaiMotorGroup=groupKey==="현대차그룹사";
       visible.sort((a,b)=>{{
         // 검색/국가 필터를 사용해도 주요 건설사 회사별 묶음 순서는 깨지지 않게 유지합니다.
         if(isMajorConstruction){{
           const companyA=constructionCompanyRankFromCard(a);
           const companyB=constructionCompanyRankFromCard(b);
           if(companyA!==companyB)return companyA-companyB;
+          return Number(b.dataset.published||0)-Number(a.dataset.published||0);
+        }}
+        // 지도 국가 선택/검색 중에도 정의선 회장 우선순위를 절대 깨지 않게 합니다.
+        if(isHyundaiMotorGroup){{
+          const hmgA=Number(a.dataset.hmgRank??99);
+          const hmgB=Number(b.dataset.hmgRank??99);
+          if(hmgA!==hmgB)return hmgA-hmgB;
           return Number(b.dataset.published||0)-Number(a.dataset.published||0);
         }}
         const priorityA=Number(a.dataset.priority??2);
