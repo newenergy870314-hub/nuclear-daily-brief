@@ -1,3 +1,4 @@
+# FINAL MAJOR CONSTRUCTION TITLE-BASED COMPANY GROUP SORT FIX / 2026-09-11
 # FINAL PC READABILITY FONT UP / HEADER TOGGLE FIX / HYUNDAI FIRST / YELLOW GROUP TABS / MOBILE UNCHANGED / 2026-09-11
 # FINAL CLEAN MOBILE BASE ON PC / LEGACY PC HTML PHYSICALLY REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
 # FINAL PC TRUE MOBILE-ONLY / LEGACY PC DOM REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
@@ -866,6 +867,7 @@ SOURCE_MASTER_PDF_PRIORITY = {
 # 상세 원문까지 들어가므로 일반 기사 전체를 다운로드하지 않습니다.
 DIRECT_NEWS_PAGES = [
     ("MTN 머니투데이방송", "https://news.mtn.co.kr/", "ko"),
+    ("MTN 머니투데이방송", "https://www.mtn.co.kr/", "ko"),
     ("뉴스필드", "https://www.newsfield.net/", "ko"),
     # ─────────────────────────────────────────────
     # 국내 통신·종합 일간지
@@ -32492,6 +32494,35 @@ function languageOrderLabel(order){{
   return order === "en-ko" ? "영어 → 한글" : "한글 → 영어";
 }}
 
+function constructionCompanyRankFromCard(card){{
+  // 주요 건설사 탭은 반드시 기사 '제목'에 직접 등장한 회사 기준으로 묶습니다.
+  // 여러 회사가 제목에 있으면 제목에서 먼저 등장한 회사를 대표 회사로 봅니다.
+  const title=((card.dataset.title||card.querySelector(".headline")?.textContent||"").toLowerCase());
+  const companies=[
+    ["두산에너빌리티",["두산에너빌리티","doosan enerbility"]],
+    ["삼성물산",["삼성물산","samsung c&t"]],
+    ["대우건설",["대우건설","daewoo e&c"]],
+    ["현대엔지니어링",["현대엔지니어링","hyundai engineering"]],
+    ["DL이앤씨",["dl이앤씨","dl e&c"]],
+    ["GS건설",["gs건설","gs e&c"]],
+    ["SK에코플랜트",["sk에코플랜트","sk ecoplant"]],
+    ["포스코이앤씨",["포스코이앤씨","posco e&c"]],
+    ["롯데건설",["롯데건설","lotte e&c"]],
+    ["HDC현대산업개발",["hdc현대산업개발","hdc hyundai development"]],
+    ["한화 건설부문",["한화 건설부문","한화건설","hanwha construction"]]
+  ];
+  let bestRank=companies.length, bestPos=Number.MAX_SAFE_INTEGER;
+  companies.forEach((entry,rank)=>{{
+    entry[1].forEach(alias=>{{
+      const pos=title.indexOf(alias);
+      if(pos>=0 && (pos<bestPos || (pos===bestPos && rank<bestRank))){{
+        bestPos=pos; bestRank=rank;
+      }}
+    }});
+  }});
+  return bestRank;
+}}
+
 function reorderLanguageArticles(order){{
   const languageRank = order === "en-ko"
     ? {{ en: 0, ko: 1 }}
@@ -32502,7 +32533,16 @@ function reorderLanguageArticles(order){{
     if(!stack) return;
 
     const cards = [...stack.querySelectorAll(".preview-card")];
+    const isMajorConstruction=(group.dataset.group||"")==="타 건설사";
     cards.sort((a, b) => {{
+      // 주요 건설사는 언어순보다 회사별 묶음을 최우선으로 유지합니다.
+      if(isMajorConstruction){{
+        const companyA=constructionCompanyRankFromCard(a);
+        const companyB=constructionCompanyRankFromCard(b);
+        if(companyA!==companyB) return companyA-companyB;
+        return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
+      }}
+
       const rankA = languageRank[a.dataset.language] ?? 9;
       const rankB = languageRank[b.dataset.language] ?? 9;
       if(rankA !== rankB) return rankA - rankB;
@@ -34008,7 +34048,15 @@ function filterArticles(){{
     }});
 
     if(q||activeCountryFilter){{
+      const isMajorConstruction=(group.dataset.group||"")==="타 건설사";
       visible.sort((a,b)=>{{
+        // 검색/국가 필터를 사용해도 주요 건설사 회사별 묶음 순서는 깨지지 않게 유지합니다.
+        if(isMajorConstruction){{
+          const companyA=constructionCompanyRankFromCard(a);
+          const companyB=constructionCompanyRankFromCard(b);
+          if(companyA!==companyB)return companyA-companyB;
+          return Number(b.dataset.published||0)-Number(a.dataset.published||0);
+        }}
         const priorityA=Number(a.dataset.priority??2);
         const priorityB=Number(b.dataset.priority??2);
         if(priorityA!==priorityB)return priorityA-priorityB;
