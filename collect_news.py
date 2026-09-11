@@ -1,3 +1,4 @@
+# FINAL 2026-09-11: PC WIDE LAYOUT / REDUCED SIDE GUTTERS / MAP LABEL COLLISION GUARD / READABLE PREVIEW / MASTER TOGGLE
 # FINAL UPDATE 2026-09-11: 현대차그룹 탭 핵심범위 축소(회장/임원→그룹→완성차→철강) + HD현대 주요건설사 편입
 # FINAL HYUNDAI MOTOR GROUP PRIORITY SORT / CHUNG EUI-SUN 0 / GROUP 1 / 2026-09-11
 # FINAL HYUNDAI ENGINEERING ALIASES: 현대ENG / 현대 ENG / Hyundai ENG 2026-09-11
@@ -3876,6 +3877,66 @@ GROUP_CORE_PRIORITY_TERMS = {
 }
 
 
+# 현대건설 탭 전용 기사 우선순위
+# 0순위: 원전/원자력/SMR 등 핵심 원전 이슈
+# 1순위: 대표이사 / CEO / 사장 관련 기사
+# 2순위: 주요 경영진(부회장·부사장·전무·상무·임원 등) 관련 기사
+# 3순위: 주요 경영·수주·사업 이슈
+# 4순위: 일반 현대건설 기사
+HYUNDAI_EC_CEO_TERMS = (
+    "대표이사", "대표 이사", "ceo", "chief executive officer",
+    "현대건설 사장", "hyundai e&c president", "hyundai engineering & construction president",
+)
+
+HYUNDAI_EC_EXECUTIVE_TERMS = (
+    "부회장", "부사장", "전무", "상무", "임원", "본부장",
+    "executive vice president", "senior vice president", "executive",
+)
+
+HYUNDAI_EC_MAJOR_BUSINESS_TERMS = (
+    "수주", "계약", "협약", "mou", "파트너십", "협력",
+    "경영", "전략", "투자", "사업", "신사업", "해외사업",
+    "실적", "매출", "영업이익", "착공", "준공",
+    "기술", "혁신", "안전", "품질", "스마트건설", "로봇",
+    "award", "contract", "partnership", "strategy", "investment",
+)
+
+def _hyundai_ec_article_priority(article: Article) -> tuple[int, int]:
+    """현대건설 탭 전용 우선순위. 원전 이슈가 CEO/대표이사 기사보다 항상 먼저 옵니다."""
+    title = html.unescape(article.title or "").lower()
+    description = html.unescape(article.description or "").lower()
+    haystack = f"{title} {description}"
+
+    # 0순위 — 원전/원자력/SMR 관련 이슈
+    if any(term in haystack for term in NUCLEAR_FIRST_TERMS):
+        return (0, 0)
+
+    # 1순위 — 대표이사 / CEO / 사장
+    if any(term in title for term in HYUNDAI_EC_CEO_TERMS):
+        return (1, 0)
+    # 직함이 미리보기에만 있는 경우에는 현대건설명이 함께 있을 때만 인정
+    if (
+        any(term in description for term in HYUNDAI_EC_CEO_TERMS)
+        and any(name in haystack for name in ("현대건설", "hyundai e&c", "hyundai engineering & construction", "hdec"))
+    ):
+        return (1, 1)
+
+    # 2순위 — 주요 경영진
+    if any(term in title for term in HYUNDAI_EC_EXECUTIVE_TERMS):
+        return (2, 0)
+    if (
+        any(term in description for term in HYUNDAI_EC_EXECUTIVE_TERMS)
+        and any(name in haystack for name in ("현대건설", "hyundai e&c", "hyundai engineering & construction", "hdec"))
+    ):
+        return (2, 1)
+
+    # 3순위 — 주요 경영·수주·사업 이슈
+    if any(term in haystack for term in HYUNDAI_EC_MAJOR_BUSINESS_TERMS):
+        return (3, 0)
+
+    return (4, 0)
+
+
 def _group_article_priority(article: Article, group: str) -> tuple[int, int]:
     """
     그룹 내부 기사 우선순위.
@@ -3886,6 +3947,10 @@ def _group_article_priority(article: Article, group: str) -> tuple[int, int]:
 
     같은 등급에서는 최신 기사를 우선합니다.
     """
+    # 현대건설은 전용 우선순위를 적용합니다.
+    if group == "현대건설":
+        return _hyundai_ec_article_priority(article)
+
     haystack = html.unescape(
         f"{article.title} {article.description}"
     ).lower()
@@ -3918,7 +3983,7 @@ def order_group_articles(
         buckets.setdefault(priority, []).append(article)
 
     ordered: list[Article] = []
-    for priority in (0, 1, 2):
+    for priority in sorted(buckets):
         ordered.extend(order_similar_articles(buckets.get(priority, [])))
 
     return ordered
@@ -8575,6 +8640,18 @@ def render_group_unified(
                 key=lambda item: -item.published.timestamp(),
             )
 
+        # 현대건설 탭: 원전 이슈 → 대표이사/CEO → 주요 경영진 → 주요 경영·수주 → 일반 기사
+        if group == "현대건설":
+            return sorted(
+                items,
+                key=lambda item: (
+                    _hyundai_ec_article_priority(item)[0],
+                    _hyundai_ec_article_priority(item)[1],
+                    1 if is_stock_market_low_priority_article(item) else 0,
+                    -item.published.timestamp(),
+                ),
+            )
+
         # 주요 건설사 탭은 기사 제목에 나온 건설사 기준으로 묶고, 회사 내부는 최신순으로 정렬
         if group == "타 건설사":
             return sorted(
@@ -8614,10 +8691,11 @@ def render_group_unified(
             ordered.extend(bucket)
         return ordered
 
-    if group in ("원자력", "타 건설사"):
+    if group in ("원자력", "타 건설사", "현대건설"):
         # 원자력: 국가별 그룹핑이 언어 분리 때문에 깨지지 않도록 전체 기사 통합 정렬
         # 주요 건설사: 포스코이앤씨/POSCO E&C처럼 한·영 표기가 달라도
         # 같은 회사 기사끼리 완전히 붙도록 전체 기사 통합 정렬
+        # 현대건설: 한·영 기사 구분보다 원전/CEO/경영진 우선순위를 먼저 유지
         ordered_articles = order_articles(korean_articles + english_articles)
     else:
         ordered_articles = (
@@ -31851,11 +31929,11 @@ main {{
     grid-template-columns:minmax(0, 58fr) minmax(500px, 42fr) !important;
     grid-template-rows:minmax(0, 1fr) !important;
     gap:14px !important;
-    width:min(calc(100vw - 24px), 1600px) !important;
-    max-width:1600px !important;
-    height:calc(100dvh - 20px) !important;
+    width:min(calc(100vw - 16px), 2200px) !important;
+    max-width:2200px !important;
+    height:calc(100dvh - 16px) !important;
     min-height:0 !important;
-    margin:10px auto !important;
+    margin:8px auto !important;
     padding:0 !important;
     overflow:hidden !important;
     background:#c4d6e8 !important;
@@ -34522,7 +34600,14 @@ function filterArticles(){{
 
     cards.forEach(card=>{{
       const matchesSearch=!q||card.dataset.search.includes(q); const matchesCountry=!activeCountryFilter||card.dataset.country===activeCountryFilter; const show=matchesSearch&&matchesCountry;
-      card.style.display=show?"":"none";
+      // PC article cards are forced to display:grid !important.
+      // Therefore a normal inline display:none cannot hide them.
+      // Use an inline !important hide so country/search filtering works on PC too.
+      if(show){{
+        card.style.removeProperty("display");
+      }}else{{
+        card.style.setProperty("display","none","important");
+      }}
       if(show){{
         visible.push(card);
         total++;
@@ -42283,6 +42368,132 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   window.addEventListener('resize',applyRealMapFlags);
 }})();
 </script>
+
+
+
+<style>
+/* ==========================================================
+   2026-09-11 PC READABILITY + MASTER TOGGLE FINAL PATCH
+   - Larger, readable article preview text on desktop
+   - Restore 전체 펼치기 / 전체 접기 on the PC article panel
+   - Keep PC header settings permanently open; hide mobile-style setting toggle
+   - Mobile remains unchanged
+   ========================================================== */
+@media (min-width:1000px) {{
+  /* Header: desktop has enough space, so keep settings visible at all times. */
+  body>.phone .header-toggle {{
+    display:none !important;
+  }}
+  body>.phone .topbar.collapsed .header-controls,
+  body>.phone .topbar .header-controls {{
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    max-height:none !important;
+    overflow:visible !important;
+    margin-top:8px !important;
+    pointer-events:auto !important;
+  }}
+
+  /* Article panel: restore the master expand/collapse button on PC. */
+  body>.phone>main .period-action-row .group-master-button {{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:auto !important;
+    min-width:128px !important;
+    height:34px !important;
+    padding:0 12px !important;
+    font-size:11.5px !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+    cursor:pointer !important;
+  }}
+
+  /* Make article preview genuinely readable on desktop. */
+  body>.phone>main .preview-card {{
+    height:168px !important;
+    min-height:168px !important;
+  }}
+  body>.phone>main .preview-copy {{
+    padding:12px 13px 11px 14px !important;
+  }}
+  body>.phone>main .publisher {{
+    font-size:12px !important;
+    line-height:1.35 !important;
+  }}
+  body>.phone>main .headline {{
+    font-size:15.5px !important;
+    line-height:1.42 !important;
+  }}
+  body>.phone>main .article-snippet {{
+    margin-top:7px !important;
+    font-size:14px !important;
+    line-height:1.52 !important;
+    letter-spacing:-0.1px !important;
+  }}
+  body>.phone>main .status-line,
+  body>.phone>main .published,
+  body>.phone>main .article-date {{
+    font-size:11px !important;
+    line-height:1.35 !important;
+  }}
+  body>.phone>main .preview-card > .card-side,
+  body>.phone>main .preview-card > .card-side .preview-image,
+  body>.phone>main .preview-card > .card-side .preview-image img {{
+    height:168px !important;
+    min-height:168px !important;
+  }}
+}}
+</style>
+
+<script>
+(function(){{
+  function keepDesktopHeaderOpen(){{
+    if(!window.matchMedia || !window.matchMedia('(min-width:1000px)').matches) return;
+    var topbar=document.querySelector('body>.phone .topbar');
+    if(topbar) topbar.classList.remove('collapsed');
+    var toggle=document.querySelector('body>.phone .header-toggle');
+    if(toggle){{
+      toggle.setAttribute('aria-expanded','true');
+      toggle.style.display='none';
+    }}
+  }}
+  if(document.readyState==='loading'){{
+    document.addEventListener('DOMContentLoaded',keepDesktopHeaderOpen,{{once:true}});
+  }}else{{
+    keepDesktopHeaderOpen();
+  }}
+  window.addEventListener('resize',keepDesktopHeaderOpen);
+}})();
+</script>
+
+<style>
+/* ==========================================================
+   2026-09-11 PC WIDE LAYOUT FINAL GUARD
+   - Use more of wide desktop screens and reduce empty side gutters
+   - Preserve left map / right article split, map size, label collision layout
+   - Mobile unchanged
+   ========================================================== */
+@media (min-width:1000px) {{
+  body>.phone {{
+    width:min(calc(100vw - 16px), 2200px) !important;
+    max-width:2200px !important;
+    height:calc(100dvh - 16px) !important;
+    margin:8px auto !important;
+  }}
+  /* Keep the dashboard/article balance while allowing the right feed a little more room. */
+  body>.phone {{
+    grid-template-columns:minmax(0, 57fr) minmax(520px, 43fr) !important;
+    gap:12px !important;
+  }}
+}}
+@media (min-width:1000px) and (max-width:1240px) {{
+  body>.phone {{
+    grid-template-columns:minmax(0, 54fr) minmax(460px, 46fr) !important;
+  }}
+}}
+</style>
 
 </body>
 </html>
