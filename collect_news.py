@@ -11163,11 +11163,34 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
             if _article_rep_score(article) > _article_rep_score(content_unique[matched_idx]):
                 content_unique[matched_idx] = article
 
+    # 현대차그룹 회장/핵심 경영진(정의선·장재훈 등) 동일 행사·발언은
+    # 언론사가 달라도 대표기사 1건만 유지합니다.
+    # 기존 is_duplicate()에만 있던 판정을 최종 HTML/archive 중복제거 경로에도 직접 연결합니다.
+    hmg_exec_unique: list[Article] = []
+    hmg_exec_removed = 0
+
+    for article in content_unique:
+        matched_idx = None
+        for idx, kept in enumerate(hmg_exec_unique):
+            if same_hyundai_motor_group_executive_event(article, kept):
+                matched_idx = idx
+                break
+
+        if matched_idx is None:
+            hmg_exec_unique.append(article)
+            continue
+
+        hmg_exec_removed += 1
+        kept = hmg_exec_unique[matched_idx]
+        # 썸네일/설명 등 정보가 더 충실한 기사를 대표기사로 남깁니다.
+        if _article_rep_score(article) > _article_rep_score(kept):
+            hmg_exec_unique[matched_idx] = article
+
     event_unique: list[Article] = []
     mokdong10_idx: int | None = None
     event_removed = 0
 
-    for article in content_unique:
+    for article in hmg_exec_unique:
         if not _is_mokdong10_event(article):
             event_unique.append(article)
             continue
@@ -11580,6 +11603,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
     print(
         f"[DEDUP FINAL] input={len(articles)} / exact_removed={exact_removed} "
         f"/ exact_content_removed={exact_content_removed} "
+        f"/ hmg_exec_removed={hmg_exec_removed} "
         f"/ mokdong10_removed={event_removed} "
         f"/ proud_truck_removed={proud_truck_removed} "
         f"/ knf_safety_removed={knf_safety_removed} "
