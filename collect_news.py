@@ -4811,6 +4811,47 @@ HYUNDAI_MOTOR_GROUP_NOISE_TERMS = (
     "음주운전", "뺑소니", "사고 현장",
 )
 
+# 현대차그룹 탭에서 확실히 제외할 교통사고/생활사건 문맥.
+# '충돌' 하나만으로는 노사/사업 충돌 같은 정상 기사를 오탐할 수 있어,
+# 강한 교통사고 표현은 단독 제외하고 약한 표현은 2개 이상 동시 등장할 때 제외합니다.
+HYUNDAI_MOTOR_GROUP_TRAFFIC_STRONG_TERMS = (
+    "교통사고", "횡단보도", "음주운전", "뺑소니", "사고 현장",
+    "대리점 앞", "차량 사고", "자동차 사고", "교통사고로",
+)
+HYUNDAI_MOTOR_GROUP_TRAFFIC_WEAK_TERMS = (
+    "교차로", "충돌", "추돌", "운전자", "승용차", "보행자",
+    "주차장", "경찰", "사망", "부상", "차량",
+)
+
+def is_hyundai_motor_group_traffic_accident_text(title: str, summary: str = "") -> bool:
+    """현대차그룹 기사 후보 중 교통사고/생활사건성 보도를 제거합니다."""
+    title_hay = html.unescape(title or "").lower()
+    summary_hay = html.unescape(summary or "").lower()
+    combined = f"{title_hay} {summary_hay}"
+
+    # 현대차그룹/대상 회사가 실제로 언급된 기사에만 적용합니다.
+    hmg_terms = (
+        "현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg",
+        "현대자동차", "hyundai motor company", "hyundai motor",
+        "기아", "kia corporation", "현대제철", "hyundai steel",
+        "정의선", "euisun chung", "chung euisun",
+        "장재훈", "jaehoon chang", "jae-hoon chang", "chang jaehoon",
+    )
+    if not any(term in combined for term in hmg_terms):
+        return False
+
+    if any(term in combined for term in HYUNDAI_MOTOR_GROUP_TRAFFIC_STRONG_TERMS):
+        return True
+
+    weak_hits = sum(1 for term in HYUNDAI_MOTOR_GROUP_TRAFFIC_WEAK_TERMS if term in combined)
+    return weak_hits >= 2
+
+def is_hyundai_motor_group_traffic_accident_article(article: Article) -> bool:
+    return is_hyundai_motor_group_traffic_accident_text(
+        getattr(article, "title", "") or "",
+        getattr(article, "description", "") or getattr(article, "summary", "") or "",
+    )
+
 # 현대자동차/기아/현대제철 일반 기사 중 기업·경영 기사 판별용 문맥
 HYUNDAI_MOTOR_GROUP_BUSINESS_CONTEXT_TERMS = (
     "회장", "부회장", "사장", "대표", "대표이사", "임원", "인사", "승진", "선임",
@@ -4901,6 +4942,10 @@ def mentions_hyundai_motor_group(title: str, summary: str = "") -> bool:
         "현대해상", "hyundai marine & fire",
     )
     if any(term in title_hay for term in non_motor_hyundai_title_terms):
+        return False
+
+    # 교통사고/대리점 앞 사고 등 생활사건성 보도는 회장/경영진 이름이 같이 있어도 제외합니다.
+    if is_hyundai_motor_group_traffic_accident_text(title, summary):
         return False
 
     # 정의선 회장/핵심 경영진은 제목/미리보기 어느 쪽에 있어도 핵심 기사로 유지합니다.
@@ -11119,6 +11164,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_namyangju_mayor_article(article)
         and not is_health_food_article(article)
         and not is_pacific_palisades_non_nuclear_article(article.title, article.description)
+        # 현대차그룹 관련 교통사고/대리점 앞 사고 등은 기존 archive에 있어도 최종 출력에서 제거
+        and not is_hyundai_motor_group_traffic_accident_article(article)
     ]
 
     if not DEDUP_ENABLED:
