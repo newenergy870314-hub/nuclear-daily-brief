@@ -1,3 +1,4 @@
+# FINAL UPDATE 2026-09-11: 현대차그룹 탭 핵심범위 축소(회장/임원→그룹→완성차→철강) + HD현대 주요건설사 편입
 # FINAL HYUNDAI MOTOR GROUP PRIORITY SORT / CHUNG EUI-SUN 0 / GROUP 1 / 2026-09-11
 # FINAL HYUNDAI ENGINEERING ALIASES: 현대ENG / 현대 ENG / Hyundai ENG 2026-09-11
 # FINAL PC SPLIT DASHBOARD / LEFT HEADER+MAP / RIGHT 1COL INDEPENDENT SCROLL / MOBILE UNCHANGED / 2026-09-11
@@ -323,25 +324,22 @@ GROUPS = [
         "HDEC nuclear",
     ]),
     ("현대차그룹사", [
-        # 현대자동차그룹 전반의 경영·사업·인사·투자 동향 수집
-        '"현대자동차그룹"', '"현대차그룹"', '"Hyundai Motor Group"', '"HMG"',
-        '"현대자동차"', '"Hyundai Motor Company"', '"Hyundai Motor"',
-        '"기아" 자동차', '"Kia" automotive', '"Kia Corporation"',
-        '"현대모비스"', '"Hyundai Mobis"',
-        '"현대글로비스"', '"Hyundai Glovis"',
-        '"현대제철"', '"Hyundai Steel"',
-        '"현대위아"', '"Hyundai Wia"',
-        '"현대오토에버"', '"Hyundai AutoEver"',
-        '"현대트랜시스"', '"Hyundai Transys"',
-        '"현대캐피탈"', '"Hyundai Capital"',
+        # 현대건설 관점 핵심만 수집: 회장/임원 동향 → 그룹 → 완성차 → 철강
         '"정의선"', '"Euisun Chung"', '"Chung Euisun"',
+        '"장재훈"', '"Jaehoon Chang"', '"Jae-hoon Chang"',
+        '"현대자동차그룹"', '"현대차그룹"', '"Hyundai Motor Group"', '"HMG"',
         '"현대차그룹" 인사', '"현대자동차그룹" 인사',
         '"현대차그룹" 임원', '"현대자동차그룹" 임원',
         '"현대차그룹" 회장', '"현대자동차그룹" 회장',
         '"현대차그룹" 사장', '"현대자동차그룹" 사장',
+        '"현대차그룹" 대표이사', '"현대자동차그룹" 대표이사',
         '"현대차그룹" 조직개편', '"현대자동차그룹" 조직개편',
+        '"현대차그룹" 경영', '"현대자동차그룹" 경영',
         '"현대차그룹" 투자', '"현대자동차그룹" 투자',
         '"현대차그룹" 전략', '"현대자동차그룹" 전략',
+        '"현대자동차"', '"Hyundai Motor Company"', '"Hyundai Motor"',
+        '"기아" 자동차', '"Kia" automotive', '"Kia Corporation"',
+        '"현대제철"', '"Hyundai Steel"',
     ]),
     ("타 건설사", [
         # 국내 주요 건설사 동향을 하나의 항목으로 통합
@@ -614,7 +612,7 @@ GROUPS = [
 
 GROUP_TAB_LABELS = {
     "현대건설": "현대건설",
-    "현대차그룹사": "현대차그룹사",
+    "현대차그룹사": "현대차그룹",
     "타 건설사": "주요 건설사",
     "한국수력원자력": "한수원",
     "한국전력": "한전",
@@ -1687,22 +1685,17 @@ DIRECT_GROUP_KEYWORDS = {
     ],
     "현대차그룹사": [
         "현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg",
+        "정의선", "euisun chung", "chung euisun",
         "현대자동차", "hyundai motor company", "hyundai motor",
         "기아", "kia corporation",
-        "현대모비스", "hyundai mobis",
-        "현대글로비스", "hyundai glovis",
         "현대제철", "hyundai steel",
-        "현대위아", "hyundai wia",
-        "현대오토에버", "hyundai autoever",
-        "현대트랜시스", "hyundai transys",
-        "현대캐피탈", "hyundai capital",
-        "정의선", "euisun chung", "chung euisun",
     ],
     "타 건설사": [
         "삼성물산 건설부문", "samsung c&t", "대우건설", "daewoo e&c",
         "dl이앤씨", "dl e&c", "gs건설", "gs e&c", "sk에코플랜트",
         "sk ecoplant", "포스코이앤씨", "posco e&c", "롯데건설",
         "lotte e&c", "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng",
+        "hd현대", "hd현대그룹", "hd hyundai", "hd hyundai group",
         "hdc현대산업개발", "hanwha construction", "한화 건설부문",
         "두산에너빌리티", "doosan enerbility",
     ],
@@ -3695,12 +3688,54 @@ def same_day_duplicate(article: Article, existing: Article) -> bool:
     return False
 
 
+def same_hyundai_motor_group_executive_event(article: Article, existing: Article) -> bool:
+    """현대차그룹 회장/핵심 경영진의 같은 행사·발언을 중복으로 묶습니다.
+
+    언론사가 달라도 동일 인물 + 동일 날짜(또는 72시간 이내) +
+    제목/미리보기의 핵심 사건어가 충분히 겹치면 같은 기사로 봅니다.
+    """
+    gap = abs((article.published - existing.published).total_seconds())
+    if gap > 72 * 60 * 60:
+        return False
+
+    a_text = html.unescape(article_event_text(article) or "").lower()
+    b_text = html.unescape(article_event_text(existing) or "").lower()
+
+    leaders = tuple(HYUNDAI_MOTOR_GROUP_LEADER_TERMS) + tuple(HYUNDAI_MOTOR_GROUP_KEY_EXECUTIVE_TERMS)
+    shared_leader = any(term.lower() in a_text and term.lower() in b_text for term in leaders)
+    if not shared_leader:
+        return False
+
+    a_keys = event_signature_tokens(article)
+    b_keys = event_signature_tokens(existing)
+    shared = a_keys & b_keys
+
+    title_sim = semantic_duplicate_score(article.title, existing.title)
+    full_sim = article_ngram_similarity(article, existing)
+
+    # 동일 인물의 같은 발언/행사/인사 보도는 제목 표현이 달라도 대표기사 1건만 유지
+    if len(shared) >= 3 and (title_sim >= 0.46 or full_sim >= 0.42):
+        return True
+    if len(shared) >= 2 and (title_sim >= 0.60 or full_sim >= 0.54):
+        return True
+
+    # 제목의 공통 사건어가 적더라도 설명 앞부분이 거의 같은 보도자료 기반 기사
+    if full_sim >= 0.68:
+        return True
+
+    return False
+
+
 def is_duplicate(article: Article, selected: list[Article]) -> bool:
     for existing in selected:
         time_gap = abs(
             (article.published - existing.published).total_seconds()
         )
         score = semantic_duplicate_score(article.title, existing.title)
+
+        # 현대차그룹 회장/핵심 경영진의 동일 행사·발언 기사 우선 중복 제거
+        if same_hyundai_motor_group_executive_event(article, existing):
+            return True
 
         # 같은 날 핵심 내용이 반복되면
         # 언론사가 달라도 동일 기사로 보고 최신 기사 1건만 유지
@@ -3780,10 +3815,11 @@ GROUP_CORE_PRIORITY_TERMS = {
         "현대건설", "hyundai e&c", "hyundai engineering & construction", "hdec",
     },
     "현대차그룹사": {
-        "현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg",
-        "현대자동차", "hyundai motor company", "현대모비스", "현대글로비스",
-        "현대제철", "현대위아", "현대오토에버", "현대트랜시스", "현대캐피탈",
         "정의선", "euisun chung", "chung euisun",
+        "현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg",
+        "현대자동차", "hyundai motor company", "hyundai motor",
+        "기아", "kia corporation",
+        "현대제철", "hyundai steel",
     },
     "한국수력원자력": {
         "한국수력원자력", "한수원", "khnp",
@@ -4003,6 +4039,7 @@ OTHER_CONSTRUCTION_TERMS = {
     "포스코이앤씨", "posco e&c", "posco e c",
     "롯데건설", "lotte e&c", "lotte e c",
     "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng",
+    "hd현대", "hd현대그룹", "hd hyundai", "hd hyundai group",
     "hdc현대산업개발", "hdc hyundai development",
     "한화 건설부문", "한화건설", "hanwha construction",
     "두산에너빌리티", "doosan enerbility",
@@ -4687,19 +4724,35 @@ def _has_executive_activity(title: str, summary: str = "") -> bool:
 
 
 HYUNDAI_MOTOR_GROUP_CORE_TERMS = (
+    # 현대건설 관점 핵심 범위: 그룹 자체, 완성차, 철강
     "현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg",
     "현대자동차", "hyundai motor company", "hyundai motor",
-    "현대모비스", "hyundai mobis",
-    "현대글로비스", "hyundai glovis",
     "현대제철", "hyundai steel",
-    "현대위아", "hyundai wia",
-    "현대오토에버", "hyundai autoever",
-    "현대트랜시스", "hyundai transys",
-    "현대캐피탈", "hyundai capital",
 )
 
 HYUNDAI_MOTOR_GROUP_LEADER_TERMS = (
     "정의선", "euisun chung", "chung euisun",
+)
+
+# 핵심 경영진: 정의선 회장 다음 우선순위(0.5순위)
+HYUNDAI_MOTOR_GROUP_KEY_EXECUTIVE_TERMS = (
+    "장재훈", "jaehoon chang", "jae-hoon chang", "chang jaehoon",
+)
+
+# 현대차그룹 탭에서 제외할 사건·생활형 문맥
+HYUNDAI_MOTOR_GROUP_NOISE_TERMS = (
+    "대리점 앞", "횡단보도", "교차로", "교통사고", "충돌", "추돌",
+    "사망", "부상", "경찰", "운전자", "승용차", "보행자", "주차장",
+    "음주운전", "뺑소니", "사고 현장",
+)
+
+# 현대자동차/기아/현대제철 일반 기사 중 기업·경영 기사 판별용 문맥
+HYUNDAI_MOTOR_GROUP_BUSINESS_CONTEXT_TERMS = (
+    "회장", "부회장", "사장", "대표", "대표이사", "임원", "인사", "승진", "선임",
+    "조직개편", "경영", "전략", "투자", "사업", "신사업", "공장", "생산", "수출",
+    "판매", "실적", "매출", "영업이익", "협력", "상생", "mou", "협약", "수주",
+    "글로벌", "해외", "미국", "인도", "유럽", "전기차", "ev", "수소", "모빌리티",
+    "채용", "노사", "공급망", "CEO", "ceo",
 )
 
 HYUNDAI_MOTOR_GROUP_KIA_TERMS = (
@@ -4707,85 +4760,119 @@ HYUNDAI_MOTOR_GROUP_KIA_TERMS = (
 )
 
 
-# 현대차그룹사 탭 정렬 우선순위
+# 현대차그룹 탭 정렬 우선순위
 # 0순위: 정의선 회장 관련 기사
 # 1순위: 현대자동차그룹/현대차그룹 전반 기사
-# 이후: 주요 그룹사별로 묶어서 표시
+# 이후: 완성차(현대자동차/기아) → 철강(현대제철)만 표시
 HYUNDAI_MOTOR_GROUP_COMPANY_ORDER = (
+    # 0순위 정의선 회장 → 0.5순위 핵심 경영진 → 1순위 그룹 자체 → 완성차 → 철강
     ("정의선 회장", ("정의선", "euisun chung", "chung euisun")),
+    ("핵심 경영진", HYUNDAI_MOTOR_GROUP_KEY_EXECUTIVE_TERMS),
     ("현대자동차그룹", ("현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg")),
     ("현대자동차", ("현대자동차", "hyundai motor company", "hyundai motor")),
     ("기아", ("기아", "kia corporation")),
-    ("현대모비스", ("현대모비스", "hyundai mobis")),
-    ("현대글로비스", ("현대글로비스", "hyundai glovis")),
     ("현대제철", ("현대제철", "hyundai steel")),
-    ("현대위아", ("현대위아", "hyundai wia")),
-    ("현대오토에버", ("현대오토에버", "hyundai autoever")),
-    ("현대트랜시스", ("현대트랜시스", "hyundai transys")),
-    ("현대캐피탈", ("현대캐피탈", "hyundai capital")),
 )
 
-def _hyundai_motor_group_company_rank(article: Article) -> tuple[int, str]:
-    """현대차그룹사 탭을 중요도/회사별로 묶기 위한 정렬 순위를 반환합니다.
+def _hyundai_motor_group_company_rank(article: Article) -> tuple[float, str]:
+    """현대차그룹 탭 중요도/회사별 정렬 순위.
 
-    정의선 회장 기사는 제목 또는 요약에 언급되면 항상 0순위입니다.
-    그 외 회사 판정은 기사 제목을 우선하여 같은 회사 기사가 연속 배치되게 합니다.
+    0순위 정의선 회장 → 0.5순위 장재훈 등 핵심 경영진 →
+    1순위 현대자동차그룹 전체 → 현대자동차 → 기아 → 현대제철 순입니다.
+    회사 판정은 제목을 우선해 같은 주체의 기사가 연속 배치되도록 합니다.
     """
     title = html.unescape(getattr(article, "title", "") or "").lower()
     summary = html.unescape(getattr(article, "summary", "") or "").lower()
     combined = f"{title} {summary}"
 
-    # 정의선 회장 관련은 어디에 언급되든 최상단
     if any(term.lower() in combined for term in HYUNDAI_MOTOR_GROUP_LEADER_TERMS):
-        return (0, "정의선 회장")
+        return (0.0, "정의선 회장")
 
-    # 현대자동차그룹 자체 기사 최우선(정의선 다음)
-    group_terms = HYUNDAI_MOTOR_GROUP_COMPANY_ORDER[1][1]
+    if any(term.lower() in combined for term in HYUNDAI_MOTOR_GROUP_KEY_EXECUTIVE_TERMS):
+        return (0.5, "핵심 경영진")
+
+    group_terms = HYUNDAI_MOTOR_GROUP_COMPANY_ORDER[2][1]
     if any(term.lower() in title for term in group_terms):
-        return (1, "현대자동차그룹")
+        return (1.0, "현대자동차그룹")
 
-    # 나머지는 제목에 직접 등장한 그룹사 기준으로 묶음
-    for idx, (label, aliases) in enumerate(HYUNDAI_MOTOR_GROUP_COMPANY_ORDER[2:], start=2):
+    # 회사별 고정 정렬: 현대자동차 → 기아 → 현대제철
+    for idx, (label, aliases) in enumerate(HYUNDAI_MOTOR_GROUP_COMPANY_ORDER[3:], start=2):
         if any(alias.lower() in title for alias in aliases):
-            return (idx, label)
+            return (float(idx), label)
 
-    # 제목에는 없지만 현대차그룹 자체 표현이 요약에만 있는 경우도 그룹 기사로 우선
+    # 그룹명은 미리보기에만 있어도 그룹 전체 동향이면 1순위로 보완
     if any(term.lower() in combined for term in group_terms):
-        return (1, "현대자동차그룹")
+        return (1.0, "현대자동차그룹")
 
-    return (len(HYUNDAI_MOTOR_GROUP_COMPANY_ORDER), "기타")
+    return (99.0, "기타")
 
 
 def mentions_hyundai_motor_group(title: str, summary: str = "") -> bool:
-    """현대자동차그룹/주요 그룹사/정의선 회장 관련 기사 여부를 판정합니다."""
-    hay = html.unescape(f"{title} {summary}").lower()
+    """현대차그룹 핵심 기사 여부를 판정합니다.
+
+    사용자 기준:
+    - 정의선 회장/주요 경영진 동향을 최우선으로 유지
+    - 그룹 자체, 현대자동차/기아, 현대제철만 핵심 대상으로 수집
+    - 회사 분류는 기사 제목을 우선하여 미리보기의 다른 '현대' 계열사명 때문에 오분류하지 않음
+    - HD현대/현대백화점그룹/현대그룹/현대해상 등은 현대차그룹으로 보지 않음
+    """
+    title_hay = html.unescape(title or "").lower()
+    summary_hay = html.unescape(summary or "").lower()
+    combined = f"{title_hay} {summary_hay}"
 
     # 현대건설/현대엔지니어링은 각각 기존 전용 탭을 우선합니다.
     if mentions_hyundai_ec(title, summary):
         return False
-    if any(term.lower() in hay for term in (
+    if any(term in title_hay for term in (
         "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng"
     )):
         return False
 
-    if any(term in hay for term in HYUNDAI_MOTOR_GROUP_CORE_TERMS):
+    # 제목이 다른 현대계열 그룹/회사 자체를 주체로 하는 경우 현대차그룹으로 오분류하지 않습니다.
+    non_motor_hyundai_title_terms = (
+        "hd현대", "hd현대그룹", "hd hyundai", "hd hyundai group",
+        "현대백화점그룹", "현대백화점", "hyundai department store",
+        "현대그룹", "hyundai group",
+        "현대해상", "hyundai marine & fire",
+    )
+    if any(term in title_hay for term in non_motor_hyundai_title_terms):
+        return False
+
+    # 정의선 회장/핵심 경영진은 제목/미리보기 어느 쪽에 있어도 핵심 기사로 유지합니다.
+    if any(term in combined for term in HYUNDAI_MOTOR_GROUP_LEADER_TERMS):
         return True
-    if any(term in hay for term in HYUNDAI_MOTOR_GROUP_LEADER_TERMS):
+    if any(term in combined for term in HYUNDAI_MOTOR_GROUP_KEY_EXECUTIVE_TERMS):
         return True
 
-    # '기아'는 일반명사 오탐을 줄이기 위해 자동차/그룹/경영 문맥이 있을 때만 인정합니다.
-    if "기아" in hay:
+    # 그룹 자체 명칭은 제목에 직접 나오면 핵심 동향으로 인정합니다.
+    group_only_terms = ("현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg")
+    if any(term in title_hay for term in group_only_terms):
+        return True
+
+    # 현대자동차/현대제철 단순 언급만으로 사건·생활기사까지 끌어오지 않도록
+    # 제목에 회사명이 있고 기업/경영 문맥이 있을 때만 포함합니다.
+    company_terms = (
+        "현대자동차", "hyundai motor company", "hyundai motor",
+        "현대제철", "hyundai steel",
+    )
+    if any(term in title_hay for term in company_terms):
+        if any(term in combined for term in HYUNDAI_MOTOR_GROUP_NOISE_TERMS):
+            return False
+        if any(term.lower() in combined for term in HYUNDAI_MOTOR_GROUP_BUSINESS_CONTEXT_TERMS):
+            return True
+
+    # '기아'는 일반명사 오탐 방지를 위해 제목 + 자동차/경영 문맥 조건을 적용합니다.
+    if "기아" in title_hay:
         kia_context = (
             "자동차", "차량", "모빌리티", "전기차", "ev", "현대차", "현대자동차",
-            "그룹", "대표", "사장", "회장", "임원", "인사", "투자", "실적", "판매",
+            "그룹", "대표", "사장", "회장", "임원", "인사", "투자", "경영", "실적", "판매",
         )
-        if any(term in hay for term in kia_context):
+        if any(term in combined for term in kia_context):
             return True
-    if "kia corporation" in hay:
+    if "kia corporation" in title_hay:
         return True
 
     return False
-
 
 def classify_executive_activity_group(title: str, summary: str = "") -> str | None:
     """
@@ -4849,6 +4936,7 @@ OTHER_CONSTRUCTION_TITLE_PRIORITY_ORDER = (
     ("삼성물산", ("삼성물산", "samsung c&t")),
     ("대우건설", ("대우건설", "daewoo e&c")),
     ("현대엔지니어링", ("현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng")),
+    ("HD현대", ("hd현대", "hd현대그룹", "hd hyundai", "hd hyundai group")),
     ("DL이앤씨", ("dl이앤씨", "dl e&c")),
     ("GS건설", ("gs건설", "gs e&c")),
     ("SK에코플랜트", ("sk에코플랜트", "sk ecoplant")),
@@ -8117,6 +8205,7 @@ OTHER_CONSTRUCTION_COMPANY_ORDER = [
     ("삼성물산", ("삼성물산", "samsung c&t")),
     ("대우건설", ("대우건설", "daewoo e&c")),
     ("현대엔지니어링", ("현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng")),
+    ("HD현대", ("hd현대", "hd현대그룹", "hd hyundai", "hd hyundai group")),
     ("DL이앤씨", ("dl이앤씨", "dl e&c")),
     ("GS건설", ("gs건설", "gs e&c")),
     ("SK에코플랜트", ("sk에코플랜트", "sk ecoplant")),
@@ -8497,7 +8586,7 @@ def render_group_unified(
                 ),
             )
 
-        # 현대차그룹사 탭은 정의선 회장(0순위) → 현대자동차그룹(1순위) → 그룹사별 순서로 묶음
+        # 현대차그룹 탭은 정의선 회장(0순위) → 현대자동차그룹(1순위) → 현대자동차 → 기아 → 현대제철 순으로 묶음
         if group == "현대차그룹사":
             return sorted(
                 items,
@@ -42038,6 +42127,160 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   window.addEventListener("orientationchange",function(){{
     setTimeout(bootMobileCollapseFix,100);
   }});
+}})();
+</script>
+
+
+<style>
+/* ==========================================================
+   2026-09-11 PC ARTICLE CARD + MAP SPACE FINAL FIX
+   - Keep thumbnails physically inside the white article card
+   - Use the available height of the left map column on desktop
+   - Mobile layout is intentionally untouched
+   ========================================================== */
+@media (min-width:1000px) {{
+  /* ARTICLE CARD: one visual white box containing copy + thumbnail */
+  body>.phone>main .preview-card {{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 150px !important;
+    align-items:stretch !important;
+    width:100% !important;
+    min-width:0 !important;
+    height:158px !important;
+    min-height:158px !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+    background:#fff !important;
+    border-radius:0 !important;
+  }}
+  body>.phone>main .preview-copy {{
+    min-width:0 !important;
+    height:100% !important;
+    min-height:0 !important;
+    padding:12px 12px 10px 14px !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+  }}
+  body>.phone>main .preview-card > .card-side {{
+    position:relative !important;
+    top:0 !important;
+    right:0 !important;
+    width:150px !important;
+    min-width:150px !important;
+    height:100% !important;
+    min-height:0 !important;
+    align-self:stretch !important;
+    justify-self:stretch !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    box-sizing:border-box !important;
+    border-radius:0 !important;
+    background:#f3f4f6 !important;
+  }}
+  body>.phone>main .preview-card > .card-side .preview-image,
+  body>.phone>main .preview-card > .card-side .preview-image img {{
+    display:block !important;
+    width:100% !important;
+    min-width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-radius:0 !important;
+    box-sizing:border-box !important;
+    object-fit:cover !important;
+  }}
+
+  /* MAP: use the vertical space that was previously left blank. */
+  body>.phone>#pc-left-column>#world-map-panel {{
+    display:flex !important;
+    flex-direction:column !important;
+    overflow:hidden !important;
+  }}
+  body>.phone>#pc-left-column>#world-map-panel .world-map-head {{
+    flex:0 0 auto !important;
+  }}
+  body>.phone>#pc-left-column>#world-map-panel .country-map-content {{
+    display:flex !important;
+    flex-direction:column !important;
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    height:100% !important;
+  }}
+  body>.phone>#pc-left-column>#world-map-panel .country-map-visual.globe-mode {{
+    flex:1 1 auto !important;
+    width:100% !important;
+    height:clamp(430px, calc(100dvh - 265px), 690px) !important;
+    min-height:430px !important;
+    max-height:690px !important;
+    box-sizing:border-box !important;
+  }}
+
+  /* Real flag images instead of Windows regional-letter glyphs (e.g. CZ). */
+  body>.phone>#world-map-panel .precise-country-label .flag {{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:18px !important;
+    min-width:18px !important;
+    height:13px !important;
+    font-size:0 !important;
+    line-height:0 !important;
+    overflow:hidden !important;
+  }}
+  body>.phone>#world-map-panel .precise-country-label .flag img.map-country-flag-img {{
+    display:block !important;
+    width:18px !important;
+    height:12px !important;
+    object-fit:cover !important;
+    border-radius:1px !important;
+  }}
+}}
+</style>
+
+<script>
+(function(){{
+  function applyRealMapFlags(){{
+    if(!window.matchMedia || !window.matchMedia('(min-width:1000px)').matches) return;
+    document.querySelectorAll('#world-map-panel .precise-country-label[data-country-code]').forEach(function(btn){{
+      var code=(btn.getAttribute('data-country-code')||'').trim().toLowerCase();
+      if(!/^[a-z]{{2}}$/.test(code)) return;
+      var flag=btn.querySelector('.flag');
+      if(!flag) return;
+      var img=flag.querySelector('img.map-country-flag-img');
+      if(!img){{
+        flag.textContent='';
+        img=document.createElement('img');
+        img.className='map-country-flag-img';
+        img.alt='';
+        img.loading='eager';
+        flag.appendChild(img);
+      }}
+      var wanted='https://flagcdn.com/w40/'+code+'.png';
+      if(img.getAttribute('src')!==wanted) img.setAttribute('src',wanted);
+    }});
+  }}
+
+  function bootPcVisualFix(){{
+    applyRealMapFlags();
+    var panel=document.getElementById('world-map-panel');
+    if(panel){{
+      var observer=new MutationObserver(function(){{ applyRealMapFlags(); }});
+      observer.observe(panel,{{childList:true,subtree:true}});
+    }}
+    [0,80,250,600,1200,2200].forEach(function(delay){{
+      setTimeout(applyRealMapFlags,delay);
+    }});
+  }}
+
+  if(document.readyState==='loading'){{
+    document.addEventListener('DOMContentLoaded',bootPcVisualFix,{{once:true}});
+  }}else{{
+    bootPcVisualFix();
+  }}
+  window.addEventListener('resize',applyRealMapFlags);
 }})();
 </script>
 
