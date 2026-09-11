@@ -4891,10 +4891,14 @@ def _hyundai_motor_group_company_rank(article: Article) -> tuple[float, str]:
     summary = html.unescape(getattr(article, "summary", "") or "").lower()
     combined = f"{title} {summary}"
 
-    if any(term.lower() in combined for term in HYUNDAI_MOTOR_GROUP_LEADER_TERMS):
+    # 최상단 우선순위는 오직 기사 '제목' 직접 등장만 인정합니다.
+    # 미리보기/본문에 정의선·장재훈 이름이 언급된 일반 그룹기사를 0순위/0.5순위로 올리지 않습니다.
+    # 0순위는 가장 중요한 순위이며, 제목에 정의선/Euisun Chung이 직접 있으면 무조건 최상단입니다.
+    if any(term.lower() in title for term in HYUNDAI_MOTOR_GROUP_LEADER_TERMS):
         return (0.0, "정의선 회장")
 
-    if any(term.lower() in combined for term in HYUNDAI_MOTOR_GROUP_KEY_EXECUTIVE_TERMS):
+    # 0.5순위 역시 제목 직접 등장만 인정합니다.
+    if any(term.lower() in title for term in HYUNDAI_MOTOR_GROUP_KEY_EXECUTIVE_TERMS):
         return (0.5, "핵심 경영진")
 
     group_terms = HYUNDAI_MOTOR_GROUP_COMPANY_ORDER[2][1]
@@ -33218,6 +33222,44 @@ languageOrderButton.addEventListener("click", () => {{
   reorderLanguageArticles(nextOrder);
   renderFavorites();
 }});
+
+// 현대차그룹 최종 안전 정렬.
+// 뒤쪽의 다른 UI 스크립트가 DOM 순서를 다시 만져도 정의선 회장 기사가 반드시 맨 위로 오도록 합니다.
+function forceHyundaiMotorGroupPrioritySort(root=document){{
+  root.querySelectorAll('.news-group[data-group="현대차그룹사"] .article-stack').forEach(stack=>{{
+    const cards=[...stack.querySelectorAll(':scope > .preview-card')];
+    if(cards.length<2)return;
+    const rankOf=(card)=>{{
+      const title=(card.dataset.title||'').toLowerCase();
+      // data-hmg-rank가 있더라도 제목 직접 등장 규칙을 다시 한 번 최우선으로 강제합니다.
+      if(title.includes('정의선') || title.includes('euisun chung') || title.includes('chung euisun')) return 0;
+      if(title.includes('장재훈') || title.includes('jaehoon chang') || title.includes('jae-hoon chang') || title.includes('chang jaehoon')) return 0.5;
+      // 정의선/장재훈이 미리보기에만 언급된 경우에는 절대 0/0.5로 승격하지 않습니다.
+      const raw=Number(card.dataset.hmgRank ?? 99);
+      return Number.isFinite(raw)?raw:99;
+    }};
+    cards.sort((a,b)=>{{
+      const ra=rankOf(a), rb=rankOf(b);
+      if(ra!==rb)return ra-rb;
+      return Number(b.dataset.published||0)-Number(a.dataset.published||0);
+    }});
+    cards.forEach(card=>stack.appendChild(card));
+  }});
+}}
+
+// 최초 렌더링 직후 + 후속 레거시 UI 초기화 이후에도 재강제.
+forceHyundaiMotorGroupPrioritySort();
+setTimeout(()=>forceHyundaiMotorGroupPrioritySort(), 250);
+setTimeout(()=>forceHyundaiMotorGroupPrioritySort(), 900);
+setTimeout(()=>forceHyundaiMotorGroupPrioritySort(), 1800);
+
+document.addEventListener('click', (event)=>{{
+  if(event.target.closest('.tab-button,.group-title,#language-order-button,.country-pin,.map-country-node,.precise-country-label,.clean-map-country')){{
+    setTimeout(()=>forceHyundaiMotorGroupPrioritySort(), 0);
+    setTimeout(()=>forceHyundaiMotorGroupPrioritySort(), 120);
+  }}
+}});
+
 const readKey = "nuclearDailyBriefReadArticles";
 const importantKey = "nuclearDailyBriefImportantArticles";
 
@@ -34711,8 +34753,15 @@ function filterArticles(){{
         }}
         // 지도 국가 선택/검색 중에도 정의선 회장 우선순위를 절대 깨지 않게 합니다.
         if(isHyundaiMotorGroup){{
-          const hmgA=Number(a.dataset.hmgRank??99);
-          const hmgB=Number(b.dataset.hmgRank??99);
+          const titleRank=(card)=>{{
+            const t=(card.dataset.title||'').toLowerCase();
+            if(t.includes('정의선') || t.includes('euisun chung') || t.includes('chung euisun')) return 0;
+            if(t.includes('장재훈') || t.includes('jaehoon chang') || t.includes('jae-hoon chang') || t.includes('chang jaehoon')) return 0.5;
+            const r=Number(card.dataset.hmgRank??99);
+            return Number.isFinite(r)?r:99;
+          }};
+          const hmgA=titleRank(a);
+          const hmgB=titleRank(b);
           if(hmgA!==hmgB)return hmgA-hmgB;
           return Number(b.dataset.published||0)-Number(a.dataset.published||0);
         }}
