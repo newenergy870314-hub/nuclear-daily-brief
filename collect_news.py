@@ -1,3 +1,5 @@
+# FINAL HYUNDAI MOTOR GROUP PRIORITY SORT / CHUNG EUI-SUN 0 / GROUP 1 / 2026-09-11
+# FINAL HYUNDAI ENGINEERING ALIASES: 현대ENG / 현대 ENG / Hyundai ENG 2026-09-11
 # FINAL PC SPLIT DASHBOARD / LEFT HEADER+MAP / RIGHT 1COL INDEPENDENT SCROLL / MOBILE UNCHANGED / 2026-09-11
 # FINAL MAJOR CONSTRUCTION TITLE-BASED COMPANY GROUP SORT FIX / 2026-09-11
 # FINAL PC READABILITY FONT UP / HEADER TOGGLE FIX / HYUNDAI FIRST / YELLOW GROUP TABS / MOBILE UNCHANGED / 2026-09-11
@@ -276,6 +278,7 @@ THUMBNAIL_DHASH_MAX_DISTANCE = 6
 
 ALWAYS_SHOW_GROUPS = {
     "현대건설",
+    "현대차그룹사",
     "타 건설사",
     "한국수력원자력",
     "한국전력",
@@ -319,6 +322,27 @@ GROUPS = [
         "HDEC construction",
         "HDEC nuclear",
     ]),
+    ("현대차그룹사", [
+        # 현대자동차그룹 전반의 경영·사업·인사·투자 동향 수집
+        '"현대자동차그룹"', '"현대차그룹"', '"Hyundai Motor Group"', '"HMG"',
+        '"현대자동차"', '"Hyundai Motor Company"', '"Hyundai Motor"',
+        '"기아" 자동차', '"Kia" automotive', '"Kia Corporation"',
+        '"현대모비스"', '"Hyundai Mobis"',
+        '"현대글로비스"', '"Hyundai Glovis"',
+        '"현대제철"', '"Hyundai Steel"',
+        '"현대위아"', '"Hyundai Wia"',
+        '"현대오토에버"', '"Hyundai AutoEver"',
+        '"현대트랜시스"', '"Hyundai Transys"',
+        '"현대캐피탈"', '"Hyundai Capital"',
+        '"정의선"', '"Euisun Chung"', '"Chung Euisun"',
+        '"현대차그룹" 인사', '"현대자동차그룹" 인사',
+        '"현대차그룹" 임원', '"현대자동차그룹" 임원',
+        '"현대차그룹" 회장', '"현대자동차그룹" 회장',
+        '"현대차그룹" 사장', '"현대자동차그룹" 사장',
+        '"현대차그룹" 조직개편', '"현대자동차그룹" 조직개편',
+        '"현대차그룹" 투자', '"현대자동차그룹" 투자',
+        '"현대차그룹" 전략', '"현대자동차그룹" 전략',
+    ]),
     ("타 건설사", [
         # 국내 주요 건설사 동향을 하나의 항목으로 통합
         '"삼성물산 건설부문"', '"Samsung C&T" construction',
@@ -328,7 +352,7 @@ GROUPS = [
         '"SK에코플랜트"', '"SK ecoplant"',
         '"포스코이앤씨"', '"POSCO E&C"',
         '"롯데건설"', '"Lotte E&C"',
-        '"현대엔지니어링"', '"Hyundai Engineering"',
+        '"현대엔지니어링"', '"현대ENG"', '"현대 ENG"', '"Hyundai Engineering"', '"Hyundai ENG"',
         '"HDC현대산업개발"', '"HDC Hyundai Development"',
         '"한화 건설부문"', '"Hanwha construction"',
         '"두산에너빌리티" 건설', '"Doosan Enerbility" construction',
@@ -590,6 +614,7 @@ GROUPS = [
 
 GROUP_TAB_LABELS = {
     "현대건설": "현대건설",
+    "현대차그룹사": "현대차그룹사",
     "타 건설사": "주요 건설사",
     "한국수력원자력": "한수원",
     "한국전력": "한전",
@@ -1660,11 +1685,24 @@ DIRECT_GROUP_KEYWORDS = {
     "현대건설": [
         "현대건설", "hyundai e&c", "hyundai engineering & construction", "hdec",
     ],
+    "현대차그룹사": [
+        "현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg",
+        "현대자동차", "hyundai motor company", "hyundai motor",
+        "기아", "kia corporation",
+        "현대모비스", "hyundai mobis",
+        "현대글로비스", "hyundai glovis",
+        "현대제철", "hyundai steel",
+        "현대위아", "hyundai wia",
+        "현대오토에버", "hyundai autoever",
+        "현대트랜시스", "hyundai transys",
+        "현대캐피탈", "hyundai capital",
+        "정의선", "euisun chung", "chung euisun",
+    ],
     "타 건설사": [
         "삼성물산 건설부문", "samsung c&t", "대우건설", "daewoo e&c",
         "dl이앤씨", "dl e&c", "gs건설", "gs e&c", "sk에코플랜트",
         "sk ecoplant", "포스코이앤씨", "posco e&c", "롯데건설",
-        "lotte e&c", "현대엔지니어링", "hyundai engineering",
+        "lotte e&c", "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng",
         "hdc현대산업개발", "hanwha construction", "한화 건설부문",
         "두산에너빌리티", "doosan enerbility",
     ],
@@ -1846,6 +1884,7 @@ def is_civil_nuclear_relevant(title: str, summary: str = "") -> bool:
 
 DIRECT_GROUP_PRIORITY = [
     "현대건설",
+    "현대차그룹사",
     "원전 대미투자",
     "Fermi America",
     "Holtec",
@@ -3740,6 +3779,12 @@ GROUP_CORE_PRIORITY_TERMS = {
     "현대건설": {
         "현대건설", "hyundai e&c", "hyundai engineering & construction", "hdec",
     },
+    "현대차그룹사": {
+        "현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg",
+        "현대자동차", "hyundai motor company", "현대모비스", "현대글로비스",
+        "현대제철", "현대위아", "현대오토에버", "현대트랜시스", "현대캐피탈",
+        "정의선", "euisun chung", "chung euisun",
+    },
     "한국수력원자력": {
         "한국수력원자력", "한수원", "khnp",
     },
@@ -3957,7 +4002,7 @@ OTHER_CONSTRUCTION_TERMS = {
     "sk에코플랜트", "sk ecoplant",
     "포스코이앤씨", "posco e&c", "posco e c",
     "롯데건설", "lotte e&c", "lotte e c",
-    "현대엔지니어링", "hyundai engineering",
+    "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng",
     "hdc현대산업개발", "hdc hyundai development",
     "한화 건설부문", "한화건설", "hanwha construction",
     "두산에너빌리티", "doosan enerbility",
@@ -4641,6 +4686,107 @@ def _has_executive_activity(title: str, summary: str = "") -> bool:
     return any(term in hay for term in EXECUTIVE_ACTIVITY_TERMS)
 
 
+HYUNDAI_MOTOR_GROUP_CORE_TERMS = (
+    "현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg",
+    "현대자동차", "hyundai motor company", "hyundai motor",
+    "현대모비스", "hyundai mobis",
+    "현대글로비스", "hyundai glovis",
+    "현대제철", "hyundai steel",
+    "현대위아", "hyundai wia",
+    "현대오토에버", "hyundai autoever",
+    "현대트랜시스", "hyundai transys",
+    "현대캐피탈", "hyundai capital",
+)
+
+HYUNDAI_MOTOR_GROUP_LEADER_TERMS = (
+    "정의선", "euisun chung", "chung euisun",
+)
+
+HYUNDAI_MOTOR_GROUP_KIA_TERMS = (
+    "기아", "kia corporation",
+)
+
+
+# 현대차그룹사 탭 정렬 우선순위
+# 0순위: 정의선 회장 관련 기사
+# 1순위: 현대자동차그룹/현대차그룹 전반 기사
+# 이후: 주요 그룹사별로 묶어서 표시
+HYUNDAI_MOTOR_GROUP_COMPANY_ORDER = (
+    ("정의선 회장", ("정의선", "euisun chung", "chung euisun")),
+    ("현대자동차그룹", ("현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg")),
+    ("현대자동차", ("현대자동차", "hyundai motor company", "hyundai motor")),
+    ("기아", ("기아", "kia corporation")),
+    ("현대모비스", ("현대모비스", "hyundai mobis")),
+    ("현대글로비스", ("현대글로비스", "hyundai glovis")),
+    ("현대제철", ("현대제철", "hyundai steel")),
+    ("현대위아", ("현대위아", "hyundai wia")),
+    ("현대오토에버", ("현대오토에버", "hyundai autoever")),
+    ("현대트랜시스", ("현대트랜시스", "hyundai transys")),
+    ("현대캐피탈", ("현대캐피탈", "hyundai capital")),
+)
+
+def _hyundai_motor_group_company_rank(article: Article) -> tuple[int, str]:
+    """현대차그룹사 탭을 중요도/회사별로 묶기 위한 정렬 순위를 반환합니다.
+
+    정의선 회장 기사는 제목 또는 요약에 언급되면 항상 0순위입니다.
+    그 외 회사 판정은 기사 제목을 우선하여 같은 회사 기사가 연속 배치되게 합니다.
+    """
+    title = html.unescape(getattr(article, "title", "") or "").lower()
+    summary = html.unescape(getattr(article, "summary", "") or "").lower()
+    combined = f"{title} {summary}"
+
+    # 정의선 회장 관련은 어디에 언급되든 최상단
+    if any(term.lower() in combined for term in HYUNDAI_MOTOR_GROUP_LEADER_TERMS):
+        return (0, "정의선 회장")
+
+    # 현대자동차그룹 자체 기사 최우선(정의선 다음)
+    group_terms = HYUNDAI_MOTOR_GROUP_COMPANY_ORDER[1][1]
+    if any(term.lower() in title for term in group_terms):
+        return (1, "현대자동차그룹")
+
+    # 나머지는 제목에 직접 등장한 그룹사 기준으로 묶음
+    for idx, (label, aliases) in enumerate(HYUNDAI_MOTOR_GROUP_COMPANY_ORDER[2:], start=2):
+        if any(alias.lower() in title for alias in aliases):
+            return (idx, label)
+
+    # 제목에는 없지만 현대차그룹 자체 표현이 요약에만 있는 경우도 그룹 기사로 우선
+    if any(term.lower() in combined for term in group_terms):
+        return (1, "현대자동차그룹")
+
+    return (len(HYUNDAI_MOTOR_GROUP_COMPANY_ORDER), "기타")
+
+
+def mentions_hyundai_motor_group(title: str, summary: str = "") -> bool:
+    """현대자동차그룹/주요 그룹사/정의선 회장 관련 기사 여부를 판정합니다."""
+    hay = html.unescape(f"{title} {summary}").lower()
+
+    # 현대건설/현대엔지니어링은 각각 기존 전용 탭을 우선합니다.
+    if mentions_hyundai_ec(title, summary):
+        return False
+    if any(term.lower() in hay for term in (
+        "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng"
+    )):
+        return False
+
+    if any(term in hay for term in HYUNDAI_MOTOR_GROUP_CORE_TERMS):
+        return True
+    if any(term in hay for term in HYUNDAI_MOTOR_GROUP_LEADER_TERMS):
+        return True
+
+    # '기아'는 일반명사 오탐을 줄이기 위해 자동차/그룹/경영 문맥이 있을 때만 인정합니다.
+    if "기아" in hay:
+        kia_context = (
+            "자동차", "차량", "모빌리티", "전기차", "ev", "현대차", "현대자동차",
+            "그룹", "대표", "사장", "회장", "임원", "인사", "투자", "실적", "판매",
+        )
+        if any(term in hay for term in kia_context):
+            return True
+    if "kia corporation" in hay:
+        return True
+
+    return False
+
+
 def classify_executive_activity_group(title: str, summary: str = "") -> str | None:
     """
     대표이사/사장/CEO 등 핵심 경영진의 주요 활동 기사를 회사 탭으로 분류합니다.
@@ -4660,6 +4806,10 @@ def classify_executive_activity_group(title: str, summary: str = "") -> str | No
     # 현대건설 경영진
     if mentions_hyundai_ec(title_clean, summary_clean):
         return "현대건설"
+
+    # 현대자동차그룹/주요 그룹사 경영진
+    if mentions_hyundai_motor_group(title_clean, summary_clean):
+        return "현대차그룹사"
 
     # 한수원 경영진
     khnp_terms = (
@@ -4698,7 +4848,7 @@ OTHER_CONSTRUCTION_TITLE_PRIORITY_ORDER = (
     ("두산에너빌리티", ("두산에너빌리티", "doosan enerbility")),
     ("삼성물산", ("삼성물산", "samsung c&t")),
     ("대우건설", ("대우건설", "daewoo e&c")),
-    ("현대엔지니어링", ("현대엔지니어링", "hyundai engineering")),
+    ("현대엔지니어링", ("현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng")),
     ("DL이앤씨", ("dl이앤씨", "dl e&c")),
     ("GS건설", ("gs건설", "gs e&c")),
     ("SK에코플랜트", ("sk에코플랜트", "sk ecoplant")),
@@ -4782,6 +4932,11 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     title_company_group = detect_title_primary_construction_company(title)
     if title_company_group:
         return title_company_group
+
+    # 현대자동차그룹/주요 그룹사/정의선 회장 관련 기사는 별도 현대차그룹사 탭으로 분류
+    # 단, 위에서 현대건설/현대엔지니어링 등 건설사가 제목에 직접 잡힌 경우 그 탭을 우선합니다.
+    if mentions_hyundai_motor_group(title, summary):
+        return "현대차그룹사"
 
     # 대표이사/사장/CEO 등 핵심 경영진의 주요 활동은 해당 회사/기관 탭으로 우선 분류
     executive_group = classify_executive_activity_group(title, summary)
@@ -5095,6 +5250,10 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     title_company_group = detect_title_primary_construction_company(title)
     if title_company_group:
         return title_company_group
+
+    # 현대자동차그룹/주요 그룹사/정의선 회장 관련 기사는 별도 현대차그룹사 탭으로 분류
+    if mentions_hyundai_motor_group(title, summary):
+        return "현대차그룹사"
 
     # 대표이사/사장/CEO 등 핵심 경영진 주요 활동은 회사/기관 탭을 우선
     executive_group = classify_executive_activity_group(title, summary)
@@ -7957,7 +8116,7 @@ OTHER_CONSTRUCTION_COMPANY_ORDER = [
     ("두산에너빌리티", ("두산에너빌리티", "doosan enerbility")),
     ("삼성물산", ("삼성물산", "samsung c&t")),
     ("대우건설", ("대우건설", "daewoo e&c")),
-    ("현대엔지니어링", ("현대엔지니어링", "hyundai engineering")),
+    ("현대엔지니어링", ("현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng")),
     ("DL이앤씨", ("dl이앤씨", "dl e&c")),
     ("GS건설", ("gs건설", "gs e&c")),
     ("SK에코플랜트", ("sk에코플랜트", "sk ecoplant")),
@@ -8338,6 +8497,17 @@ def render_group_unified(
                 ),
             )
 
+        # 현대차그룹사 탭은 정의선 회장(0순위) → 현대자동차그룹(1순위) → 그룹사별 순서로 묶음
+        if group == "현대차그룹사":
+            return sorted(
+                items,
+                key=lambda item: (
+                    _hyundai_motor_group_company_rank(item)[0],
+                    1 if is_stock_market_low_priority_article(item) else 0,
+                    -item.published.timestamp(),
+                ),
+            )
+
         buckets: dict[int, list[Article]] = {0: [], 1: [], 2: []}
         for item in items:
             priority, _ = _group_article_priority(item, group)
@@ -8659,7 +8829,7 @@ CONSTRUCTION_UNION_COMPANY_ALIASES = {
     "SK에코플랜트": ("sk에코플랜트", "sk ecoplant"),
     "포스코이앤씨": ("포스코이앤씨", "posco e&c"),
     "롯데건설": ("롯데건설", "lotte e&c"),
-    "현대엔지니어링": ("현대엔지니어링", "hyundai engineering"),
+    "현대엔지니어링": ("현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng"),
     "HDC현대산업개발": ("hdc현대산업개발", "hdc hyundai development"),
     "한화 건설부문": ("한화 건설부문", "한화건설", "hanwha construction"),
     "두산에너빌리티": ("두산에너빌리티", "doosan enerbility"),
@@ -9918,7 +10088,7 @@ def is_low_relevance_major_construction_article(title: str, summary: str) -> boo
         "sk에코플랜트", "sk ecoplant",
         "포스코이앤씨", "posco e&c",
         "롯데건설", "lotte e&c",
-        "현대엔지니어링", "hyundai engineering",
+        "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng",
         "hdc현대산업개발", "hdc hyundai development",
         "한화 건설부문", "hanwha construction",
         "두산에너빌리티", "doosan enerbility",
@@ -32725,7 +32895,7 @@ function constructionCompanyRankFromCard(card){{
     ["두산에너빌리티",["두산에너빌리티","doosan enerbility"]],
     ["삼성물산",["삼성물산","samsung c&t"]],
     ["대우건설",["대우건설","daewoo e&c"]],
-    ["현대엔지니어링",["현대엔지니어링","hyundai engineering"]],
+    ["현대엔지니어링",["현대엔지니어링","현대eng","현대 eng","hyundai engineering","hyundai eng"]],
     ["DL이앤씨",["dl이앤씨","dl e&c"]],
     ["GS건설",["gs건설","gs e&c"]],
     ["SK에코플랜트",["sk에코플랜트","sk ecoplant"]],
@@ -39195,9 +39365,9 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     switch(filter) {{
       case "all": return true;
       case "hyundai":
-        return /현대건설|hyundai e&c|hdec/.test(t) && !/현대엔지니어링/.test(t);
+        return /현대건설|hyundai e&c|hdec/.test(t) && !/현대엔지니어링|현대\s*eng|hyundai\s+eng/.test(t);
       case "construction":
-        return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
+        return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|현대\s*eng|hyundai\s+eng|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
       case "us-invest":
         return /대미|미국 투자|미국.*투자|u\.s\..*investment|us.*investment|investment.*u\.s\.|미국.*정책|미국.*원전/.test(t);
       case "smr":
@@ -39519,8 +39689,8 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     if(extra&&extra.group)return group(c)===extra.group;
     switch(filter){{
       case "all":return true;
-      case "hyundai":return /현대건설|hyundai e&c|hdec/.test(t)&&!/현대엔지니어링/.test(t);
-      case "construction":return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
+      case "hyundai":return /현대건설|hyundai e&c|hdec/.test(t)&&!/현대엔지니어링|현대\s*eng|hyundai\s+eng/.test(t);
+      case "construction":return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|현대\s*eng|hyundai\s+eng|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
       case "us-invest":return /대미|미국 투자|미국.*투자|u\.s\..*investment|us.*investment|미국.*정책|미국.*원전/.test(t);
       case "smr":return /smr|small modular reactor|소형모듈|소형 모듈|holtec|palisades|nuscale|terrapower|x-energy|bwrx/.test(t);
       case "global":return co&&co!=="KR"&&co!=="OTHER";
@@ -39841,10 +40011,10 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     const t=hay(c),co=country(c);
     switch(topic){{
       case "all":return true;
-      case "hyundai":return /현대건설|hyundai e&c|hdec/.test(t)&&!/현대엔지니어링/.test(t);
+      case "hyundai":return /현대건설|hyundai e&c|hdec/.test(t)&&!/현대엔지니어링|현대\s*eng|hyundai\s+eng/.test(t);
       case "us-invest":return /대미|미국 투자|미국.*투자|u\.s\..*investment|us.*investment|미국.*정책|미국.*원전/.test(t);
       case "smr":return /smr|small modular reactor|소형모듈|소형 모듈|holtec|palisades|nuscale|terrapower|x-energy|bwrx/.test(t);
-      case "construction":return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
+      case "construction":return /두산에너빌리티|삼성물산|대우건설|현대엔지니어링|현대\s*eng|hyundai\s+eng|dl이앤씨|gs건설|sk에코플랜트|포스코이앤씨|롯데건설|hdc현대산업개발|한화 건설/.test(t);
       case "nuclear-policy":return /정책|정부|규제|인허가|license|permit|approval|regulat|원전 정책|원자력 정책|장관|차관/.test(t);
       case "global":return co&&co!=="KR"&&co!=="OTHER";
       case "market":return /주가|증권|목표주가|etf|증시|stock|shares|market|실적|영업이익|매출/.test(t);
@@ -41568,7 +41738,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   function finalMobileOnlyDesktop(){{
     if(!window.matchMedia("(min-width:1000px)").matches) return;
 
-    ["pc7-app","pc9-app","pc10-app","pc11-app","pc-v2-dashboard","pc-insight-rail","world-map-panel"]
+    ["pc7-app","pc9-app","pc10-app","pc11-app","pc-v2-dashboard","pc-insight-rail"]
       .forEach(function(id){{
         var el=document.getElementById(id);
         if(el && el.parentNode) el.parentNode.removeChild(el);
@@ -41576,15 +41746,20 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
     var phone=document.querySelector("body > .phone");
     if(phone){{
-      phone.style.setProperty("display","block","important");
+      /* Keep only visibility guarantees here. Geometry is owned by the final
+         PC split-dashboard CSS; late inline !important width/height values
+         previously flattened the layout after page load. */
+      phone.style.setProperty("display","grid","important");
       phone.style.setProperty("visibility","visible","important");
       phone.style.setProperty("opacity","1","important");
       phone.style.setProperty("pointer-events","auto","important");
       phone.style.setProperty("position","relative","important");
-      phone.style.setProperty("width","100%","important");
-      phone.style.setProperty("max-width","none","important");
-      phone.style.setProperty("height","auto","important");
-      phone.style.setProperty("overflow","visible","important");
+      phone.style.removeProperty("width");
+      phone.style.removeProperty("max-width");
+      phone.style.removeProperty("height");
+      phone.style.removeProperty("min-height");
+      phone.style.removeProperty("overflow");
+      phone.style.removeProperty("margin");
     }}
 
     var main=phone ? phone.querySelector("main") : null;
@@ -41618,7 +41793,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     if(!window.matchMedia("(min-width:1000px)").matches) return;
     [
       "pc7-app","pc9-app","pc10-app","pc11-app",
-      "pc-v2-dashboard","pc-insight-rail","world-map-panel"
+      "pc-v2-dashboard","pc-insight-rail"
     ].forEach(function(id){{
       var el=document.getElementById(id);
       if(el && el.parentNode) el.parentNode.removeChild(el);
@@ -41626,15 +41801,20 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
     var phone=document.querySelector("body > .phone");
     if(phone){{
-      phone.style.setProperty("display","block","important");
+      /* Keep only visibility guarantees here. Geometry is owned by the final
+         PC split-dashboard CSS; late inline !important width/height values
+         previously flattened the layout after page load. */
+      phone.style.setProperty("display","grid","important");
       phone.style.setProperty("visibility","visible","important");
       phone.style.setProperty("opacity","1","important");
       phone.style.setProperty("pointer-events","auto","important");
       phone.style.setProperty("position","relative","important");
-      phone.style.setProperty("width","100%","important");
-      phone.style.setProperty("max-width","none","important");
-      phone.style.setProperty("height","auto","important");
-      phone.style.setProperty("overflow","visible","important");
+      phone.style.removeProperty("width");
+      phone.style.removeProperty("max-width");
+      phone.style.removeProperty("height");
+      phone.style.removeProperty("min-height");
+      phone.style.removeProperty("overflow");
+      phone.style.removeProperty("margin");
     }}
   }}
 
@@ -41728,6 +41908,136 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }}else{{
     startMobileGuard();
   }}
+}})();
+</script>
+
+<script>
+(function(){{
+  function enforceFinalPcSplit(){{
+    if(!window.matchMedia("(min-width:1000px)").matches) return;
+
+    var phone=document.querySelector("body > .phone");
+    var left=document.getElementById("pc-left-column");
+    var main=phone ? phone.querySelector(":scope > main") : null;
+    var map=document.getElementById("world-map-panel");
+
+    if(phone){{
+      phone.style.setProperty("display","grid","important");
+      phone.style.setProperty("visibility","visible","important");
+      phone.style.setProperty("opacity","1","important");
+      phone.style.setProperty("pointer-events","auto","important");
+      phone.style.removeProperty("width");
+      phone.style.removeProperty("max-width");
+      phone.style.removeProperty("height");
+      phone.style.removeProperty("min-height");
+      phone.style.removeProperty("overflow");
+      phone.style.removeProperty("margin");
+    }}
+
+    if(left){{
+      left.style.setProperty("display","flex","important");
+      left.style.setProperty("visibility","visible","important");
+    }}
+    if(map){{
+      map.style.setProperty("display","block","important");
+      map.style.setProperty("visibility","visible","important");
+      map.style.setProperty("opacity","1","important");
+    }}
+    if(main){{
+      main.style.setProperty("display","block","important");
+      main.style.setProperty("visibility","visible","important");
+      main.style.setProperty("opacity","1","important");
+    }}
+  }}
+
+  if(document.readyState==="loading"){{
+    document.addEventListener("DOMContentLoaded",enforceFinalPcSplit,{{once:true}});
+  }}else{{
+    enforceFinalPcSplit();
+  }}
+  [0,60,180,420,900,1700,2600].forEach(function(delay){{
+    setTimeout(enforceFinalPcSplit,delay);
+  }});
+  window.addEventListener("load",function(){{
+    enforceFinalPcSplit();
+    setTimeout(enforceFinalPcSplit,120);
+    setTimeout(enforceFinalPcSplit,800);
+  }});
+  window.addEventListener("resize",enforceFinalPcSplit);
+}})();
+</script>
+
+<style>
+/* 2026-09-11 MOBILE ARTICLE GROUP COLLAPSE HARD FIX */
+@media (max-width:999px) {{
+  body > .phone .news-group.collapsed > .article-stack {{
+    display:none !important;
+  }}
+  body > .phone .news-group:not(.collapsed) > .article-stack {{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+  }}
+}}
+</style>
+<script>
+(function(){{
+  function isMobileCollapseView(){{
+    return window.matchMedia && window.matchMedia("(max-width:999px)").matches;
+  }}
+
+  function syncOneGroup(group){{
+    if(!isMobileCollapseView() || !group) return;
+    var stack=group.querySelector(":scope > .article-stack");
+    if(!stack) return;
+    var collapsed=group.classList.contains("collapsed");
+    if(collapsed){{
+      stack.style.setProperty("display","none","important");
+    }}else{{
+      stack.style.setProperty("display","grid","important");
+      stack.style.setProperty("grid-template-columns","minmax(0,1fr)","important");
+    }}
+  }}
+
+  function syncAllGroups(root){{
+    if(!isMobileCollapseView()) return;
+    (root || document).querySelectorAll(".news-group").forEach(syncOneGroup);
+  }}
+
+  /* Existing click logic already changes the class/arrow.
+     This runs immediately afterward and forces the article stack to match it. */
+  document.addEventListener("click",function(event){{
+    if(!isMobileCollapseView()) return;
+
+    var master=event.target.closest(".group-master-button");
+    if(master){{
+      setTimeout(function(){{
+        var panel=master.closest(".tab-panel");
+        syncAllGroups(panel || document);
+      }},0);
+      return;
+    }}
+
+    var title=event.target.closest(".group-title");
+    if(title){{
+      setTimeout(function(){{
+        syncOneGroup(title.closest(".news-group"));
+      }},0);
+    }}
+  }});
+
+  function bootMobileCollapseFix(){{
+    syncAllGroups(document);
+  }}
+
+  if(document.readyState==="loading"){{
+    document.addEventListener("DOMContentLoaded",bootMobileCollapseFix,{{once:true}});
+  }}else{{
+    bootMobileCollapseFix();
+  }}
+  window.addEventListener("resize",bootMobileCollapseFix);
+  window.addEventListener("orientationchange",function(){{
+    setTimeout(bootMobileCollapseFix,100);
+  }});
 }})();
 </script>
 
