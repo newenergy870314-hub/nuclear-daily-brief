@@ -19657,6 +19657,226 @@ main {
 
   body>.phone footer { font-size:11.5px!important; }
 }
+
+
+/* ==========================================================
+   2026-09-11 PC THUMBNAIL TOP ALIGN + SQUARE CORNERS
+   Desktop only. Mobile thumbnail styling remains untouched.
+   ========================================================== */
+@media (min-width:1000px) {
+  /* Keep the thumbnail anchored to the top edge of each PC article card. */
+  body>.phone .preview-card {
+    align-items:start !important;
+  }
+
+  body>.phone .card-side {
+    align-self:start !important;
+    justify-self:end !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-radius:0 !important;
+    overflow:hidden !important;
+  }
+
+  body>.phone .preview-image {
+    align-self:start !important;
+    justify-self:end !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-radius:0 !important;
+    overflow:hidden !important;
+  }
+
+  body>.phone .preview-image img {
+    display:block !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-radius:0 !important;
+    object-fit:cover !important;
+    object-position:50% 50% !important;
+  }
+
+  /* Remove the small top/bottom inset that made PC thumbnails look lowered. */
+  body>.phone .preview-card > .card-side {
+    position:relative !important;
+    top:-3px !important;
+    right:-2px !important;
+    height:calc(158px + 6px) !important;
+    min-height:calc(158px + 6px) !important;
+  }
+  body>.phone .preview-card > .card-side .preview-image,
+  body>.phone .preview-card > .card-side .preview-image img {
+    height:100% !important;
+    min-height:100% !important;
+  }
+}
+
+
+/* ==========================================================
+   2026-09-11 FINAL PC SPLIT DASHBOARD
+   LEFT  : title/settings + country map
+   RIGHT : one-column article feed with independent scrolling
+   Mobile DOM/visual layout remains unchanged via display:contents.
+   ========================================================== */
+#pc-left-column { display:contents; }
+
+@media (min-width:1000px) {
+  html, body {
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    overflow:hidden !important;
+    background:#c4d6e8 !important;
+  }
+
+  body>.phone {
+    display:grid !important;
+    grid-template-columns:minmax(0, 58fr) minmax(500px, 42fr) !important;
+    grid-template-rows:minmax(0, 1fr) !important;
+    gap:14px !important;
+    width:min(calc(100vw - 24px), 1600px) !important;
+    max-width:1600px !important;
+    height:calc(100dvh - 20px) !important;
+    min-height:0 !important;
+    margin:10px auto !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background:#c4d6e8 !important;
+  }
+
+  /* LEFT CONTROL / MAP COLUMN */
+  body>.phone>#pc-left-column {
+    display:flex !important;
+    flex-direction:column !important;
+    grid-column:1 !important;
+    grid-row:1 !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    height:100% !important;
+    overflow:hidden !important;
+  }
+
+  body>.phone>#pc-left-column>.topbar {
+    flex:0 0 auto !important;
+    position:relative !important;
+    top:auto !important;
+    width:100% !important;
+    margin:0 0 10px !important;
+    padding:14px 18px 13px !important;
+    border-radius:14px !important;
+    z-index:20 !important;
+  }
+
+  body>.phone>#pc-left-column>#favorites-panel {
+    flex:0 0 auto !important;
+    margin:0 0 10px !important;
+    max-height:180px !important;
+    overflow:auto !important;
+  }
+
+  body>.phone>#pc-left-column>#world-map-panel {
+    display:block !important;
+    flex:1 1 auto !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    width:100% !important;
+    height:auto !important;
+    margin:0 !important;
+    overflow:auto !important;
+    overscroll-behavior:contain !important;
+    scrollbar-gutter:stable !important;
+    border-radius:14px !important;
+  }
+
+  /* RIGHT ARTICLE COLUMN — its own scroll area */
+  body>.phone>main {
+    display:block !important;
+    grid-column:2 !important;
+    grid-row:1 !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    width:100% !important;
+    height:100% !important;
+    margin:0 !important;
+    padding:0 6px 28px 0 !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    overscroll-behavior:contain !important;
+    scrollbar-gutter:stable !important;
+    scroll-behavior:smooth !important;
+  }
+
+  body>.phone>main::-webkit-scrollbar,
+  body>.phone>#pc-left-column>#world-map-panel::-webkit-scrollbar {
+    width:9px !important;
+  }
+  body>.phone>main::-webkit-scrollbar-track,
+  body>.phone>#pc-left-column>#world-map-panel::-webkit-scrollbar-track {
+    background:transparent !important;
+  }
+  body>.phone>main::-webkit-scrollbar-thumb,
+  body>.phone>#pc-left-column>#world-map-panel::-webkit-scrollbar-thumb {
+    background:#9fb3c6 !important;
+    border:2px solid transparent !important;
+    background-clip:padding-box !important;
+    border-radius:999px !important;
+  }
+
+  /* Right side uses ONE article per row. */
+  body>.phone>main .news-group:not(.collapsed) .article-stack {
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:10px !important;
+    margin-top:9px !important;
+  }
+
+  body>.phone>main .favorites-list {
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+
+  body>.phone>main .news-group {
+    width:100% !important;
+    margin:0 0 11px !important;
+  }
+
+  /* Keep each group label easy to locate while scrolling articles. */
+  body>.phone>main .group-title {
+    position:sticky !important;
+    top:0 !important;
+    z-index:12 !important;
+    width:100% !important;
+    background:#efe2a1 !important;
+    border-color:rgba(91,79,38,.14) !important;
+    box-shadow:0 2px 5px rgba(62,52,42,.10) !important;
+  }
+
+  body>.phone>main .preview-card {
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+  }
+
+  /* Maintain top-aligned, square-corner thumbnail in the new 1-column feed. */
+  body>.phone>main .preview-card,
+  body>.phone>main .card-side,
+  body>.phone>main .preview-image,
+  body>.phone>main .preview-image img {
+    border-radius:0 !important;
+  }
+  body>.phone>main .preview-card { align-items:start !important; }
+  body>.phone>main .card-side,
+  body>.phone>main .preview-image { align-self:start !important; }
+
+  /* Page itself should not continue below the viewport on PC. */
+  body>.phone>footer { display:none !important; }
+}
+
+@media (min-width:1000px) and (max-width:1240px) {
+  body>.phone {
+    grid-template-columns:minmax(0, 54fr) minmax(460px, 46fr) !important;
+  }
+}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -19671,11 +19891,12 @@ main {
 
 <body>
 <div class="phone">
+  <div id="pc-left-column">
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <div class="title-meta">
         <h1>원자력 주요기사</h1>
-        <span class="updated updated-inline">업데이트됨 9.11(금) 09:15 KST</span>
+        <span class="updated updated-inline">업데이트됨 9.11(금) 09:30 KST</span>
       </div>
       <button id="header-toggle" class="header-toggle" type="button" aria-expanded="true">설정 ▴</button>
     </div>
@@ -20551,6 +20772,7 @@ main {
     </aside>
 
   </section>
+  </div><!-- /#pc-left-column -->
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
 
 <section class="tab-panel" id="tab-전일" data-report-date="2026-09-10">
@@ -25490,7 +25712,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/one-nuclear-unveils-plans-for-1-gw-smr-campus-project-in-louisiana-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079f56e8158&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/one-nuclear-unveils-plans-for-1-gw-smr-campus-project-in-louisiana-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079faee4ca8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -26205,7 +26427,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kedglobal.com/energy/newsView/ked202609090015"
   data-title="South Korea’s workweek cap delays key nuclear reactors, threatening tech grid demand - KED Global"
   data-publisher="KED Global"
@@ -26229,7 +26451,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>South Korea’s workweek cap delays key nuclear reactors, threatening tech grid demand - KED Global</div>
+      <div class="headline">South Korea’s workweek cap delays key nuclear reactors, threatening tech grid demand - KED Global</div>
       <div class="article-snippet">South Korea’s limit on working hours has added 14 months to the construction schedule for two major reactors underway, delaying operation needed to meet</div>
     </div>
   </div>
@@ -26729,7 +26951,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/private-canadian-company-unveils-three-reactor-designs-for-world-s-most-demanding-environments-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079faf4a850&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/private-canadian-company-unveils-three-reactor-designs-for-world-s-most-demanding-environments-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079f73e8140&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -35152,7 +35374,7 @@ main {
     <span class="group-count">6건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/202609106897i"
   data-title="증권가가 &#x27;핵심 원전주&#x27; 두산에너빌리티를 주목하는 이유"
   data-publisher="한국경제"
@@ -35176,7 +35398,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>증권가가 &#x27;핵심 원전주&#x27; 두산에너빌리티를 주목하는 이유</div>
+      <div class="headline">증권가가 &#x27;핵심 원전주&#x27; 두산에너빌리티를 주목하는 이유</div>
       <div class="article-snippet">증권가가 ‘핵심 원전주’ 두산에너빌리티를 주목하는 이유, 조재길 기자, 증권</div>
     </div>
   </div>
@@ -35185,7 +35407,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260911_0003785363"
   data-title="NH투자증권 &quot;대우건설, 팀코리아 대표 파트너…목표가 3만원↑&quot;"
   data-publisher="뉴시스"
@@ -35209,7 +35431,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hankyung.com/article/2026091179186" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;대우건설, 원전 수출 경쟁력 재부각…목표가↑&quot;-NH</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2624297?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">NH證 “대우건설, 팀코리아 대표 시공 파트너⋯목표가 3만원”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>NH투자증권 &quot;대우건설, 팀코리아 대표 파트너…목표가 3만원↑&quot;</div>
+      <div class="headline">NH투자증권 &quot;대우건설, 팀코리아 대표 파트너…목표가 3만원↑&quot;</div>
       <div class="article-snippet">[서울=뉴시스] 김진아 기자 = NH투자증권은 11일 대우건설에 대해 우리 정부의 대미투자 발표에 따른 원전 수출 관련 수주 기대감이 커지고 있다며 투자의견은 &#x27;매수&#x27;, 목표주가는 기존 대비 15% 상향한 3만원을 제시했다. 이은상 NH투자증권 연구원은 &quot;대형원전 8기에 대한 대미투자 발표로 팀코리아 원전 수출이 가시화된 가운데, 동사의 주간사 경험에 기반한 경쟁력이 재부각되고 있다&quot;며 &quot;액화천연가스(LNG) 프로젝트 수주가 임박한 점 역시 긍정적&quot;이라고 평가했다. 이어 &quot;목표주가는 원전 동종 업계 기업의 주가 상승을 반영해 타깃 멀티플을 높이고 플랜트 수주 임박에</div>
     </div>
   </div>
@@ -35431,7 +35653,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">2건</span>
+    <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -35455,7 +35677,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1017255" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 시행</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6184" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전, 신청업무 진행상황 알림톡·셀프조회로 확인 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1017255" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 본격 시행</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한전 민원 처리상황 카톡으로 확인…10월 전국 확대</div>
@@ -35499,6 +35721,39 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/a230c9d386c575cfbdb3a3de.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260911_0003785328"
+  data-title="기아, 우정사업본부에 PV5 카고 200대 공급…&quot;전국 우체국 누빈다&quot;"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1789086083"
+  data-country="KR"
+  data-search="기아, 우정사업본부에 pv5 카고 200대 공급…&quot;전국 우체국 누빈다&quot; 뉴시스 한국전력 [서울=뉴시스]김민성 기자 = 기아는 우편물 수집·배달 등 집배 업무 특성에 맞춘 pv5 카고 200대를 전국 우체국에 공급한다고 11일 밝혔다. 우정사업본부에 공급되는 pv5 카고는 pbv 전용 전동화 플랫폼 e-gmp.s를 기반으로 개발됐다. 차체 바닥을 낮춘 저상화 설계를 적용해 반복적인 승·하차에 따른 부담을 줄이고 첨단 운전자 보조 시스템(adas)을 탑재했다. 기아는 실제 집배 업무에 맞는 차량을 개발하기 위해 지난해 9~11월 전국 9개 지방우정청 산하 거점우체국에서 운영 실증을 진행했다. 실증 과정에서는 집배원들이 직접 차량을 업무에 투입해 적재와 승·"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>기아, 우정사업본부에 PV5 카고 200대 공급…&quot;전국 우체국 누빈다&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]김민성 기자 = 기아는 우편물 수집·배달 등 집배 업무 특성에 맞춘 PV5 카고 200대를 전국 우체국에 공급한다고 11일 밝혔다. 우정사업본부에 공급되는 PV5 카고는 PBV 전용 전동화 플랫폼 E-GMP.S를 기반으로 개발됐다. 차체 바닥을 낮춘 저상화 설계를 적용해 반복적인 승·하차에 따른 부담을 줄이고 첨단 운전자 보조 시스템(ADAS)을 탑재했다. 기아는 실제 집배 업무에 맞는 차량을 개발하기 위해 지난해 9~11월 전국 9개 지방우정청 산하 거점우체국에서 운영 실증을 진행했다. 실증 과정에서는 집배원들이 직접 차량을 업무에 투입해 적재와 승·</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d727e74af1ca2d944947372e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -35509,7 +35764,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=372311"
   data-title="한전MCS, 범죄 피해자 회복 위한 사랑의 손길"
   data-publisher="전기신문"
@@ -35533,7 +35788,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전MCS, 범죄 피해자 회복 위한 사랑의 손길</div>
+      <div class="headline">한전MCS, 범죄 피해자 회복 위한 사랑의 손길</div>
       <div class="article-snippet">한전MCS가 범죄 피해자의 보호와 회복을 돕는다.한전MCS(사장 정성진)는 10일 광주경찰청(청장 양영우)과 ‘치유의 식탁(Healing Table)’ 지원사업 업무협약을 체결했다고 밝혔다.이번 협약은 범죄 피해 이후 심리적 충격과 무기력 등으로 식사를 제대로 챙기기 어려운 피해자들에게 건강한 식사와 정서적 돌봄을 제공해 신체적·심리적 회복을 돕기 위해 마련됐다.‘치유의 식탁’은 범죄 피해를 받은 피해자에게 건강한 한 끼를 제공함으로써 스스로를 돌보고 일상을 회복할 수 있도록 돕는 생활밀착형 사회공헌 사업이다. 올해 9월부터 12월</div>
     </div>
   </div>
@@ -35863,7 +36118,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -36097,7 +36352,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=184224"
   data-title="South Korea, U.S. Near Deal on Over $100 Billion Nuclear and Natural Gas Investment - 알파경제"
   data-publisher="알파경제"
@@ -36121,7 +36376,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>South Korea, U.S. Near Deal on Over $100 Billion Nuclear and Natural Gas Investment - 알파경제</div>
+      <div class="headline">South Korea, U.S. Near Deal on Over $100 Billion Nuclear and Natural Gas Investment - 알파경제</div>
       <div class="article-snippet">[Alpha Biz= Kim Jisun] South Korea and the United States are nearing an agreement on their</div>
     </div>
   </div>
@@ -36160,6 +36415,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/7953b3d9866640644ed3fd6f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=184445"
+  data-title="미 원전 최대 8기 건설·천연가스 개발…한미, 1000억 달러 딜 ‘다음 주 발표’ - 알파경제"
+  data-publisher="알파경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789085554"
+  data-country="OTHER"
+  data-search="미 원전 최대 8기 건설·천연가스 개발…한미, 1000억 달러 딜 ‘다음 주 발표’ - 알파경제 알파경제 원자력 [알파경제 = 김상진 대표기자] 한미 양국이 원자력 발전소와 천연가스 프로젝트 등 에너지 분야에 1000억 달러 이상을 투과하는 방안을 두고 최종 합의 단계에 진"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">알파경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>미 원전 최대 8기 건설·천연가스 개발…한미, 1000억 달러 딜 ‘다음 주 발표’ - 알파경제</div>
+      <div class="article-snippet">[알파경제 = 김상진 대표기자] 한미 양국이 원자력 발전소와 천연가스 프로젝트 등 에너지 분야에 1000억 달러 이상을 투과하는 방안을 두고 최종 합의 단계에 진</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cc511e751c9aa7cc23634bce.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -36235,9 +36523,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6183"
+  data-title="美 루이지애나에 1GW SMR 캠퍼스…‘앰버잭’ 본격화 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789085168"
+  data-country="US"
+  data-search="美 루이지애나에 1gw smr 캠퍼스…‘앰버잭’ 본격화 - 에너지안전신문 에너지안전신문 smr 미국에서 소형모듈원자로(smr) 여러 기를 한 부지에 모아 대형 원전 수준인 1기가와트(gw) 규모의 전력을 생산하는 대형 원전 단지 구축이 본격화된다. 최근 인"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美 루이지애나에 1GW SMR 캠퍼스…‘앰버잭’ 본격화 - 에너지안전신문</div>
+      <div class="article-snippet">미국에서 소형모듈원자로(SMR) 여러 기를 한 부지에 모아 대형 원전 수준인 1기가와트(GW) 규모의 전력을 생산하는 대형 원전 단지 구축이 본격화된다. 최근 인</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/861c773286a5ebfaa6d52d0f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6182"
   data-title="영국·우크라이나 ‘원전동맹’…SMR·해체 협력 본격화 - 에너지안전신문"
@@ -36403,7 +36724,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=184223"
   data-title="HD Hyundai Heavy Industries to Invest KRW 1.07 Trillion in Power Engines and SMR Manufacturing - 알파경제"
   data-publisher="알파경제"
@@ -36427,12 +36748,45 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>HD Hyundai Heavy Industries to Invest KRW 1.07 Trillion in Power Engines and SMR Manufacturing - 알파경제</div>
+      <div class="headline">HD Hyundai Heavy Industries to Invest KRW 1.07 Trillion in Power Engines and SMR Manufacturing - 알파경제</div>
       <div class="article-snippet">[Alpha Biz= Kim Jisun] HD Hyundai Heavy Industries announced on Sept. 10 that it will inve</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/321225c3e9da69e94db7590f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260910000648"
+  data-title="[GAM]70% 폭락한 SMR 강세론 등장 ① 반등의 조건 &#x27;TVA&#x27; 계약 시간문제"
+  data-publisher="뉴스핌"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789081200"
+  data-country="OTHER"
+  data-search="[gam]70% 폭락한 smr 강세론 등장 ① 반등의 조건 &#x27;tva&#x27; 계약 시간문제 뉴스핌 smr 이 기사는 9월 10일 오전 12시31분 &#x27;해외 주식 투자의 도우미&#x27; gam(global asset management)에 출고된 프리미엄 기사입니다. gam에서 회원 가입을 하면 9000여 해외 종목의 프리미엄 기사를 보실 수 있습니다.[서울=뉴스핌] 황숙혜 기자 ="
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260910000649" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">[GAM]70% 폭락한 SMR 강세론 등장 ② 매출 급증과 흑자 전환 시나리오</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[GAM]70% 폭락한 SMR 강세론 등장 ① 반등의 조건 &#x27;TVA&#x27; 계약 시간문제</div>
+      <div class="article-snippet">이 기사는 9월 10일 오전 12시31분 &#x27;해외 주식 투자의 도우미&#x27; GAM(Global Asset Management)에 출고된 프리미엄 기사입니다. GAM에서 회원 가입을 하면 9000여 해외 종목의 프리미엄 기사를 보실 수 있습니다.[서울=뉴스핌] 황숙혜 기자 =</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4b14d1398d670ea7b5ebab3e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -36487,7 +36841,7 @@ main {
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://english.news.cn/20260911/1ffcab5e882d4dbc9acd54c682bbb63a/c.html"
   data-title="China calls for political settlement of Iranian nuclear issue"
   data-publisher="Xinhua"
@@ -36511,7 +36865,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>China calls for political settlement of Iranian nuclear issue</div>
+      <div class="headline">China calls for political settlement of Iranian nuclear issue</div>
       <div class="article-snippet">UNITED NATIONS, Sept. 10 (Xinhua) -- A Chinese envoy on Thursday called for the political settlement of the Iranian nuclear issue through diplomacy.</div>
     </div>
   </div>
@@ -36827,7 +37181,7 @@ main {
     <span class="group-count">8건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.hankyung.com/article/202609106897i"
   data-title="증권가가 &#x27;핵심 원전주&#x27; 두산에너빌리티를 주목하는 이유"
   data-publisher="한국경제"
@@ -36851,7 +37205,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>증권가가 &#x27;핵심 원전주&#x27; 두산에너빌리티를 주목하는 이유</div>
+      <div class="headline">증권가가 &#x27;핵심 원전주&#x27; 두산에너빌리티를 주목하는 이유</div>
       <div class="article-snippet">증권가가 ‘핵심 원전주’ 두산에너빌리티를 주목하는 이유, 조재길 기자, 증권</div>
     </div>
   </div>
@@ -36893,7 +37247,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260911_0003785363"
   data-title="NH투자증권 &quot;대우건설, 팀코리아 대표 파트너…목표가 3만원↑&quot;"
   data-publisher="뉴시스"
@@ -36917,7 +37271,7 @@ main {
         <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.hankyung.com/article/2026091179186" target="_blank" rel="noopener"><span class="related-coverage-publisher">한국경제</span><span class="related-coverage-title">&quot;대우건설, 원전 수출 경쟁력 재부각…목표가↑&quot;-NH</span></a><a class="related-coverage-link" href="https://www.etoday.co.kr/news/view/2624297?trc=ir_news" target="_blank" rel="noopener"><span class="related-coverage-publisher">이투데이</span><span class="related-coverage-title">NH證 “대우건설, 팀코리아 대표 시공 파트너⋯목표가 3만원”</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>NH투자증권 &quot;대우건설, 팀코리아 대표 파트너…목표가 3만원↑&quot;</div>
+      <div class="headline">NH투자증권 &quot;대우건설, 팀코리아 대표 파트너…목표가 3만원↑&quot;</div>
       <div class="article-snippet">[서울=뉴시스] 김진아 기자 = NH투자증권은 11일 대우건설에 대해 우리 정부의 대미투자 발표에 따른 원전 수출 관련 수주 기대감이 커지고 있다며 투자의견은 &#x27;매수&#x27;, 목표주가는 기존 대비 15% 상향한 3만원을 제시했다. 이은상 NH투자증권 연구원은 &quot;대형원전 8기에 대한 대미투자 발표로 팀코리아 원전 수출이 가시화된 가운데, 동사의 주간사 경험에 기반한 경쟁력이 재부각되고 있다&quot;며 &quot;액화천연가스(LNG) 프로젝트 수주가 임박한 점 역시 긍정적&quot;이라고 평가했다. 이어 &quot;목표주가는 원전 동종 업계 기업의 주가 상승을 반영해 타깃 멀티플을 높이고 플랜트 수주 임박에</div>
     </div>
   </div>
@@ -37172,9 +37526,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">한국전력</span>
-    <span class="group-count">3건</span>
+    <span class="group-count">5건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6184"
+  data-title="한전, 신청업무 진행상황 알림톡·셀프조회로 확인 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="1"
+  data-published="1789085457"
+  data-country="KR"
+  data-search="한전, 신청업무 진행상황 알림톡·셀프조회로 확인 - 에너지안전신문 에너지안전신문 한국전력 한국전력(사장 김동철, 이하 한전)이 민원 처리 전 과정을 고객이 언제든지 확인할 수 있는 새로운 서비스를 시작한다. 전기 사용 신청부터 전봇대(전주) 위치 변경"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">한전, 신청업무 진행상황 알림톡·셀프조회로 확인 - 에너지안전신문</div>
+      <div class="article-snippet">한국전력(사장 김동철, 이하 한전)이 민원 처리 전 과정을 고객이 언제든지 확인할 수 있는 새로운 서비스를 시작한다. 전기 사용 신청부터 전봇대(전주) 위치 변경</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://cdn.esnews.kr/news/photo/202609/6184_10173_937.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.newsis.com/view/NISX20260911_0003785272"
   data-title="한전 민원 처리상황 카톡으로 확인…10월 전국 확대"
@@ -37196,7 +37583,7 @@ main {
           <span class="read-label">읽음</span>
           <span class="important-label">중요</span>
         </div>
-        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1017255" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 시행</span></a></div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 2개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.esnews.kr/news/articleView.html?idxno=6184" target="_blank" rel="noopener"><span class="related-coverage-publisher">에너지안전신문</span><span class="related-coverage-title">한전, 신청업무 진행상황 알림톡·셀프조회로 확인 - 에너지안전신문</span></a><a class="related-coverage-link" href="https://www.kns.tv/news/articleView.html?idxno=1017255" target="_blank" rel="noopener"><span class="related-coverage-publisher">KNS뉴스통신</span><span class="related-coverage-title">한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 본격 시행</span></a></div>
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
       <div class="headline">한전 민원 처리상황 카톡으로 확인…10월 전국 확대</div>
@@ -37210,14 +37597,14 @@ main {
 
 <article class="preview-card"
   data-url="https://www.kns.tv/news/articleView.html?idxno=1017255"
-  data-title="한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 시행"
+  data-title="한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 본격 시행"
   data-publisher="KNS뉴스통신"
   data-group="한국전력"
   data-language="ko"
   data-priority="1"
   data-published="1789083614"
   data-country="KR"
-  data-search="한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 시행 kns뉴스통신 한국전력 [kns뉴스통신=김관일 기자] 한국전력(사장 김동철)이 고객 편의성을 높이고 서비스 만족도를 향상하기 위해 민원 처리 전 과정을 고객이 언제든지 확인할 수 있는 ‘고객 신청업무 전 과정 알림톡 및 self-조회 서비스’를 시행한다고 밝혔다.이번 서비스는 신청 접수부터 현장조사, 설계, 공사 진행(시공) 등 업무처리 단계별 진행 상황을 카카오 알림톡을 통해 실시간으로 고객에게 안내한다. 전기사용신청, 전주 위치 변경(이설) 신청, 신재생에너지 전력구입계약(ppa) 신청 등 고객 신청 업무 전반에 적용된다. 알림톡에는 접수번호, 민원"
+  data-search="한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 본격 시행 kns뉴스통신 한국전력 [kns뉴스통신=김관일 기자] 한국전력(사장 김동철)이 고객 편의성을 높이고 서비스 만족도를 향상하기 위해 민원 처리 전 과정을 고객이 언제든지 확인할 수 있는 ‘고객 신청업무 전 과정 알림톡 및 self-조회 서비스’를 시행한다고 밝혔다.이번 서비스는 신청 접수부터 현장조사, 설계, 공사 진행(시공) 등 업무처리 단계별 진행 상황을 카카오 알림톡을 통해 실시간으로 고객에게 안내한다. 전기사용신청, 전주 위치 변경(이설) 신청, 신재생에너지 전력구입계약(ppa) 신청 등 고객 신청 업무 전반에 적용된다. 알림톡에는 접수번호, 민원"
   tabindex="0" role="link">
   <div class="preview-copy">
     <div class="article-content-column">
@@ -37232,7 +37619,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline">한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 시행</div>
+      <div class="headline">한전, 민원 진행 상황 실시간 안내 서비스 시범운영…10월 본격 시행</div>
       <div class="article-snippet">[KNS뉴스통신=김관일 기자] 한국전력(사장 김동철)이 고객 편의성을 높이고 서비스 만족도를 향상하기 위해 민원 처리 전 과정을 고객이 언제든지 확인할 수 있는 ‘고객 신청업무 전 과정 알림톡 및 Self-조회 서비스’를 시행한다고 밝혔다.이번 서비스는 신청 접수부터 현장조사, 설계, 공사 진행(시공) 등 업무처리 단계별 진행 상황을 카카오 알림톡을 통해 실시간으로 고객에게 안내한다. 전기사용신청, 전주 위치 변경(이설) 신청, 신재생에너지 전력구입계약(PPA) 신청 등 고객 신청 업무 전반에 적용된다. 알림톡에는 접수번호, 민원</div>
     </div>
   </div>
@@ -37273,6 +37660,39 @@ main {
     <div class="preview-image"><img src="assets/thumbnails/a230c9d386c575cfbdb3a3de.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newsis.com/view/NISX20260911_0003785328"
+  data-title="기아, 우정사업본부에 PV5 카고 200대 공급…&quot;전국 우체국 누빈다&quot;"
+  data-publisher="뉴시스"
+  data-group="한국전력"
+  data-language="ko"
+  data-priority="2"
+  data-published="1789086083"
+  data-country="KR"
+  data-search="기아, 우정사업본부에 pv5 카고 200대 공급…&quot;전국 우체국 누빈다&quot; 뉴시스 한국전력 [서울=뉴시스]김민성 기자 = 기아는 우편물 수집·배달 등 집배 업무 특성에 맞춘 pv5 카고 200대를 전국 우체국에 공급한다고 11일 밝혔다. 우정사업본부에 공급되는 pv5 카고는 pbv 전용 전동화 플랫폼 e-gmp.s를 기반으로 개발됐다. 차체 바닥을 낮춘 저상화 설계를 적용해 반복적인 승·하차에 따른 부담을 줄이고 첨단 운전자 보조 시스템(adas)을 탑재했다. 기아는 실제 집배 업무에 맞는 차량을 개발하기 위해 지난해 9~11월 전국 9개 지방우정청 산하 거점우체국에서 운영 실증을 진행했다. 실증 과정에서는 집배원들이 직접 차량을 업무에 투입해 적재와 승·"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴시스</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>기아, 우정사업본부에 PV5 카고 200대 공급…&quot;전국 우체국 누빈다&quot;</div>
+      <div class="article-snippet">[서울=뉴시스]김민성 기자 = 기아는 우편물 수집·배달 등 집배 업무 특성에 맞춘 PV5 카고 200대를 전국 우체국에 공급한다고 11일 밝혔다. 우정사업본부에 공급되는 PV5 카고는 PBV 전용 전동화 플랫폼 E-GMP.S를 기반으로 개발됐다. 차체 바닥을 낮춘 저상화 설계를 적용해 반복적인 승·하차에 따른 부담을 줄이고 첨단 운전자 보조 시스템(ADAS)을 탑재했다. 기아는 실제 집배 업무에 맞는 차량을 개발하기 위해 지난해 9~11월 전국 9개 지방우정청 산하 거점우체국에서 운영 실증을 진행했다. 실증 과정에서는 집배원들이 직접 차량을 업무에 투입해 적재와 승·</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/d727e74af1ca2d944947372e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
 </div>
 </section>
 
@@ -37283,7 +37703,7 @@ main {
     <span class="group-count">2건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.electimes.com/news/articleView.html?idxno=372311"
   data-title="한전MCS, 범죄 피해자 회복 위한 사랑의 손길"
   data-publisher="전기신문"
@@ -37307,7 +37727,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>한전MCS, 범죄 피해자 회복 위한 사랑의 손길</div>
+      <div class="headline">한전MCS, 범죄 피해자 회복 위한 사랑의 손길</div>
       <div class="article-snippet">한전MCS가 범죄 피해자의 보호와 회복을 돕는다.한전MCS(사장 정성진)는 10일 광주경찰청(청장 양영우)과 ‘치유의 식탁(Healing Table)’ 지원사업 업무협약을 체결했다고 밝혔다.이번 협약은 범죄 피해 이후 심리적 충격과 무기력 등으로 식사를 제대로 챙기기 어려운 피해자들에게 건강한 식사와 정서적 돌봄을 제공해 신체적·심리적 회복을 돕기 위해 마련됐다.‘치유의 식탁’은 범죄 피해를 받은 피해자에게 건강한 한 끼를 제공함으로써 스스로를 돌보고 일상을 회복할 수 있도록 돕는 생활밀착형 사회공헌 사업이다. 올해 9월부터 12월</div>
     </div>
   </div>
@@ -37835,7 +38255,7 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">원자력</span>
-    <span class="group-count">11건</span>
+    <span class="group-count">12건</span>
   </button>
   <div class="article-stack">
 <article class="preview-card"
@@ -38069,7 +38489,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=184224"
   data-title="South Korea, U.S. Near Deal on Over $100 Billion Nuclear and Natural Gas Investment - 알파경제"
   data-publisher="알파경제"
@@ -38093,7 +38513,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>South Korea, U.S. Near Deal on Over $100 Billion Nuclear and Natural Gas Investment - 알파경제</div>
+      <div class="headline">South Korea, U.S. Near Deal on Over $100 Billion Nuclear and Natural Gas Investment - 알파경제</div>
       <div class="article-snippet">[Alpha Biz= Kim Jisun] South Korea and the United States are nearing an agreement on their</div>
     </div>
   </div>
@@ -38132,6 +38552,39 @@ main {
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/7953b3d9866640644ed3fd6f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=184445"
+  data-title="미 원전 최대 8기 건설·천연가스 개발…한미, 1000억 달러 딜 ‘다음 주 발표’ - 알파경제"
+  data-publisher="알파경제"
+  data-group="원자력"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789085554"
+  data-country="OTHER"
+  data-search="미 원전 최대 8기 건설·천연가스 개발…한미, 1000억 달러 딜 ‘다음 주 발표’ - 알파경제 알파경제 원자력 [알파경제 = 김상진 대표기자] 한미 양국이 원자력 발전소와 천연가스 프로젝트 등 에너지 분야에 1000억 달러 이상을 투과하는 방안을 두고 최종 합의 단계에 진"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">알파경제</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>미 원전 최대 8기 건설·천연가스 개발…한미, 1000억 달러 딜 ‘다음 주 발표’ - 알파경제</div>
+      <div class="article-snippet">[알파경제 = 김상진 대표기자] 한미 양국이 원자력 발전소와 천연가스 프로젝트 등 에너지 분야에 1000억 달러 이상을 투과하는 방안을 두고 최종 합의 단계에 진</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/cc511e751c9aa7cc23634bce.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -38207,9 +38660,42 @@ main {
   <button class="group-title" type="button" aria-expanded="false">
     <span class="group-arrow">▼</span>
     <span class="group-name">SMR (차세대 원자로 포함)</span>
-    <span class="group-count">6건</span>
+    <span class="group-count">9건</span>
   </button>
   <div class="article-stack">
+<article class="preview-card new-article"
+  data-url="https://www.esnews.kr/news/articleView.html?idxno=6183"
+  data-title="美 루이지애나에 1GW SMR 캠퍼스…‘앰버잭’ 본격화 - 에너지안전신문"
+  data-publisher="에너지안전신문"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789085168"
+  data-country="US"
+  data-search="美 루이지애나에 1gw smr 캠퍼스…‘앰버잭’ 본격화 - 에너지안전신문 에너지안전신문 smr 미국에서 소형모듈원자로(smr) 여러 기를 한 부지에 모아 대형 원전 수준인 1기가와트(gw) 규모의 전력을 생산하는 대형 원전 단지 구축이 본격화된다. 최근 인"
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">에너지안전신문</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>美 루이지애나에 1GW SMR 캠퍼스…‘앰버잭’ 본격화 - 에너지안전신문</div>
+      <div class="article-snippet">미국에서 소형모듈원자로(SMR) 여러 기를 한 부지에 모아 대형 원전 수준인 1기가와트(GW) 규모의 전력을 생산하는 대형 원전 단지 구축이 본격화된다. 최근 인</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/861c773286a5ebfaa6d52d0f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
 <article class="preview-card"
   data-url="https://www.esnews.kr/news/articleView.html?idxno=6182"
   data-title="영국·우크라이나 ‘원전동맹’…SMR·해체 협력 본격화 - 에너지안전신문"
@@ -38375,7 +38861,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.alphabiz.co.kr/news/articleView.html?idxno=184223"
   data-title="HD Hyundai Heavy Industries to Invest KRW 1.07 Trillion in Power Engines and SMR Manufacturing - 알파경제"
   data-publisher="알파경제"
@@ -38399,12 +38885,78 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>HD Hyundai Heavy Industries to Invest KRW 1.07 Trillion in Power Engines and SMR Manufacturing - 알파경제</div>
+      <div class="headline">HD Hyundai Heavy Industries to Invest KRW 1.07 Trillion in Power Engines and SMR Manufacturing - 알파경제</div>
       <div class="article-snippet">[Alpha Biz= Kim Jisun] HD Hyundai Heavy Industries announced on Sept. 10 that it will inve</div>
     </div>
   </div>
   <div class="card-side">
     <div class="preview-image"><img src="assets/thumbnails/321225c3e9da69e94db7590f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card"
+  data-url="https://www.newspim.com/news/view/20260910000649"
+  data-title="[GAM]70% 폭락한 SMR 강세론 등장 ② 매출 급증과 흑자 전환 시나리오"
+  data-publisher="뉴스핌"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789081260"
+  data-country="OTHER"
+  data-search="[gam]70% 폭락한 smr 강세론 등장 ② 매출 급증과 흑자 전환 시나리오 뉴스핌 smr 이 기사는 9월 10일 오전 12시31분 &#x27;해외 주식 투자의 도우미&#x27; gam(global asset management)에 출고된 프리미엄 기사입니다. gam에서 회원 가입을 하면 9000여 해외 종목의 프리미엄 기사를 보실 수 있습니다.[서울=뉴스핌] 황숙혜 기자 ="
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline">[GAM]70% 폭락한 SMR 강세론 등장 ② 매출 급증과 흑자 전환 시나리오</div>
+      <div class="article-snippet">이 기사는 9월 10일 오전 12시31분 &#x27;해외 주식 투자의 도우미&#x27; GAM(Global Asset Management)에 출고된 프리미엄 기사입니다. GAM에서 회원 가입을 하면 9000여 해외 종목의 프리미엄 기사를 보실 수 있습니다.[서울=뉴스핌] 황숙혜 기자 =</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="https://img.newspim.com/news/2026/09/10/2609101233362001_878_tc.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+  </div>
+</article>
+
+<article class="preview-card new-article"
+  data-url="https://www.newspim.com/news/view/20260910000648"
+  data-title="[GAM]70% 폭락한 SMR 강세론 등장 ① 반등의 조건 &#x27;TVA&#x27; 계약 시간문제"
+  data-publisher="뉴스핌"
+  data-group="SMR"
+  data-language="ko"
+  data-priority="0"
+  data-published="1789081200"
+  data-country="OTHER"
+  data-search="[gam]70% 폭락한 smr 강세론 등장 ① 반등의 조건 &#x27;tva&#x27; 계약 시간문제 뉴스핌 smr 이 기사는 9월 10일 오전 12시31분 &#x27;해외 주식 투자의 도우미&#x27; gam(global asset management)에 출고된 프리미엄 기사입니다. gam에서 회원 가입을 하면 9000여 해외 종목의 프리미엄 기사를 보실 수 있습니다.[서울=뉴스핌] 황숙혜 기자 ="
+  tabindex="0" role="link">
+  <div class="preview-copy">
+    <div class="article-content-column">
+      <div class="meta-row">
+        <div class="publisher">뉴스핌</div>
+        <span class="meta-divider">·</span>
+        <div class="status-inline">
+          <span class="unread-label">안읽음</span>
+          <span class="read-label">읽음</span>
+          <span class="important-label">중요</span>
+        </div>
+        <button class="related-coverage-button" type="button" aria-expanded="false">외 1개 언론사 보도</button><div class="related-coverage-source" hidden><a class="related-coverage-link" href="https://www.newspim.com/news/view/20260910000649" target="_blank" rel="noopener"><span class="related-coverage-publisher">뉴스핌</span><span class="related-coverage-title">[GAM]70% 폭락한 SMR 강세론 등장 ② 매출 급증과 흑자 전환 시나리오</span></a></div>
+        <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
+      </div>
+      <div class="headline"><span class="new-badge">NEW</span>[GAM]70% 폭락한 SMR 강세론 등장 ① 반등의 조건 &#x27;TVA&#x27; 계약 시간문제</div>
+      <div class="article-snippet">이 기사는 9월 10일 오전 12시31분 &#x27;해외 주식 투자의 도우미&#x27; GAM(Global Asset Management)에 출고된 프리미엄 기사입니다. GAM에서 회원 가입을 하면 9000여 해외 종목의 프리미엄 기사를 보실 수 있습니다.[서울=뉴스핌] 황숙혜 기자 =</div>
+    </div>
+  </div>
+  <div class="card-side">
+    <div class="preview-image"><img src="assets/thumbnails/4b14d1398d670ea7b5ebab3e.jpg" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 </div>
@@ -38459,7 +39011,7 @@ main {
     <span class="group-count">3건</span>
   </button>
   <div class="article-stack">
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://english.news.cn/20260911/1ffcab5e882d4dbc9acd54c682bbb63a/c.html"
   data-title="China calls for political settlement of Iranian nuclear issue"
   data-publisher="Xinhua"
@@ -38483,7 +39035,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>China calls for political settlement of Iranian nuclear issue</div>
+      <div class="headline">China calls for political settlement of Iranian nuclear issue</div>
       <div class="article-snippet">UNITED NATIONS, Sept. 10 (Xinhua) -- A Chinese envoy on Thursday called for the political settlement of the Iranian nuclear issue through diplomacy.</div>
     </div>
   </div>
@@ -58881,7 +59433,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/one-nuclear-unveils-plans-for-1-gw-smr-campus-project-in-louisiana-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079f56e8158&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/one-nuclear-unveils-plans-for-1-gw-smr-campus-project-in-louisiana-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079faee4ca8&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
@@ -59629,7 +60181,7 @@ main {
   </div>
 </article>
 
-<article class="preview-card new-article"
+<article class="preview-card"
   data-url="https://www.kedglobal.com/energy/newsView/ked202609090015"
   data-title="South Korea’s workweek cap delays key nuclear reactors, threatening tech grid demand - KED Global"
   data-publisher="KED Global"
@@ -59653,7 +60205,7 @@ main {
         
         <button class="important-button" type="button" aria-label="중요 기사로 표시">중요</button>
       </div>
-      <div class="headline"><span class="new-badge">NEW</span>South Korea’s workweek cap delays key nuclear reactors, threatening tech grid demand - KED Global</div>
+      <div class="headline">South Korea’s workweek cap delays key nuclear reactors, threatening tech grid demand - KED Global</div>
       <div class="article-snippet">South Korea’s limit on working hours has added 14 months to the construction schedule for two major reactors underway, delaying operation needed to meet</div>
     </div>
   </div>
@@ -60219,7 +60771,7 @@ main {
     </div>
   </div>
   <div class="card-side">
-    <div class="preview-image"><img src="https://www.nucnet.org/news/private-canadian-company-unveils-three-reactor-designs-for-world-s-most-demanding-environments-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079faf4a850&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
+    <div class="preview-image"><img src="https://www.nucnet.org/news/private-canadian-company-unveils-three-reactor-designs-for-world-s-most-demanding-environments-9-4-2026#&lt;ActiveStorage::Attached::One:0x00007079f73e8140&gt;" alt="" loading="lazy" referrerpolicy="no-referrer"></div>
   </div>
 </article>
 
