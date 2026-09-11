@@ -1,3 +1,4 @@
+# FINAL PC SPLIT DASHBOARD / LEFT HEADER+MAP / RIGHT 1COL INDEPENDENT SCROLL / MOBILE UNCHANGED / 2026-09-11
 # FINAL MAJOR CONSTRUCTION TITLE-BASED COMPANY GROUP SORT FIX / 2026-09-11
 # FINAL PC READABILITY FONT UP / HEADER TOGGLE FIX / HYUNDAI FIRST / YELLOW GROUP TABS / MOBILE UNCHANGED / 2026-09-11
 # FINAL CLEAN MOBILE BASE ON PC / LEGACY PC HTML PHYSICALLY REMOVED / 2COL / POPUP / HANKYUNG PREMIUM / 180D ARCHIVE / 90D THUMB / 2026-09-11
@@ -31514,6 +31515,226 @@ main {{
 
   body>.phone footer {{ font-size:11.5px!important; }}
 }}
+
+
+/* ==========================================================
+   2026-09-11 PC THUMBNAIL TOP ALIGN + SQUARE CORNERS
+   Desktop only. Mobile thumbnail styling remains untouched.
+   ========================================================== */
+@media (min-width:1000px) {{
+  /* Keep the thumbnail anchored to the top edge of each PC article card. */
+  body>.phone .preview-card {{
+    align-items:start !important;
+  }}
+
+  body>.phone .card-side {{
+    align-self:start !important;
+    justify-self:end !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-radius:0 !important;
+    overflow:hidden !important;
+  }}
+
+  body>.phone .preview-image {{
+    align-self:start !important;
+    justify-self:end !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-radius:0 !important;
+    overflow:hidden !important;
+  }}
+
+  body>.phone .preview-image img {{
+    display:block !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-radius:0 !important;
+    object-fit:cover !important;
+    object-position:50% 50% !important;
+  }}
+
+  /* Remove the small top/bottom inset that made PC thumbnails look lowered. */
+  body>.phone .preview-card > .card-side {{
+    position:relative !important;
+    top:-3px !important;
+    right:-2px !important;
+    height:calc(158px + 6px) !important;
+    min-height:calc(158px + 6px) !important;
+  }}
+  body>.phone .preview-card > .card-side .preview-image,
+  body>.phone .preview-card > .card-side .preview-image img {{
+    height:100% !important;
+    min-height:100% !important;
+  }}
+}}
+
+
+/* ==========================================================
+   2026-09-11 FINAL PC SPLIT DASHBOARD
+   LEFT  : title/settings + country map
+   RIGHT : one-column article feed with independent scrolling
+   Mobile DOM/visual layout remains unchanged via display:contents.
+   ========================================================== */
+#pc-left-column {{ display:contents; }}
+
+@media (min-width:1000px) {{
+  html, body {{
+    width:100% !important;
+    height:100% !important;
+    min-height:100% !important;
+    overflow:hidden !important;
+    background:#c4d6e8 !important;
+  }}
+
+  body>.phone {{
+    display:grid !important;
+    grid-template-columns:minmax(0, 58fr) minmax(500px, 42fr) !important;
+    grid-template-rows:minmax(0, 1fr) !important;
+    gap:14px !important;
+    width:min(calc(100vw - 24px), 1600px) !important;
+    max-width:1600px !important;
+    height:calc(100dvh - 20px) !important;
+    min-height:0 !important;
+    margin:10px auto !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    background:#c4d6e8 !important;
+  }}
+
+  /* LEFT CONTROL / MAP COLUMN */
+  body>.phone>#pc-left-column {{
+    display:flex !important;
+    flex-direction:column !important;
+    grid-column:1 !important;
+    grid-row:1 !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    height:100% !important;
+    overflow:hidden !important;
+  }}
+
+  body>.phone>#pc-left-column>.topbar {{
+    flex:0 0 auto !important;
+    position:relative !important;
+    top:auto !important;
+    width:100% !important;
+    margin:0 0 10px !important;
+    padding:14px 18px 13px !important;
+    border-radius:14px !important;
+    z-index:20 !important;
+  }}
+
+  body>.phone>#pc-left-column>#favorites-panel {{
+    flex:0 0 auto !important;
+    margin:0 0 10px !important;
+    max-height:180px !important;
+    overflow:auto !important;
+  }}
+
+  body>.phone>#pc-left-column>#world-map-panel {{
+    display:block !important;
+    flex:1 1 auto !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    width:100% !important;
+    height:auto !important;
+    margin:0 !important;
+    overflow:auto !important;
+    overscroll-behavior:contain !important;
+    scrollbar-gutter:stable !important;
+    border-radius:14px !important;
+  }}
+
+  /* RIGHT ARTICLE COLUMN — its own scroll area */
+  body>.phone>main {{
+    display:block !important;
+    grid-column:2 !important;
+    grid-row:1 !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    width:100% !important;
+    height:100% !important;
+    margin:0 !important;
+    padding:0 6px 28px 0 !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    overscroll-behavior:contain !important;
+    scrollbar-gutter:stable !important;
+    scroll-behavior:smooth !important;
+  }}
+
+  body>.phone>main::-webkit-scrollbar,
+  body>.phone>#pc-left-column>#world-map-panel::-webkit-scrollbar {{
+    width:9px !important;
+  }}
+  body>.phone>main::-webkit-scrollbar-track,
+  body>.phone>#pc-left-column>#world-map-panel::-webkit-scrollbar-track {{
+    background:transparent !important;
+  }}
+  body>.phone>main::-webkit-scrollbar-thumb,
+  body>.phone>#pc-left-column>#world-map-panel::-webkit-scrollbar-thumb {{
+    background:#9fb3c6 !important;
+    border:2px solid transparent !important;
+    background-clip:padding-box !important;
+    border-radius:999px !important;
+  }}
+
+  /* Right side uses ONE article per row. */
+  body>.phone>main .news-group:not(.collapsed) .article-stack {{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:10px !important;
+    margin-top:9px !important;
+  }}
+
+  body>.phone>main .favorites-list {{
+    grid-template-columns:minmax(0,1fr) !important;
+  }}
+
+  body>.phone>main .news-group {{
+    width:100% !important;
+    margin:0 0 11px !important;
+  }}
+
+  /* Keep each group label easy to locate while scrolling articles. */
+  body>.phone>main .group-title {{
+    position:sticky !important;
+    top:0 !important;
+    z-index:12 !important;
+    width:100% !important;
+    background:#efe2a1 !important;
+    border-color:rgba(91,79,38,.14) !important;
+    box-shadow:0 2px 5px rgba(62,52,42,.10) !important;
+  }}
+
+  body>.phone>main .preview-card {{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+  }}
+
+  /* Maintain top-aligned, square-corner thumbnail in the new 1-column feed. */
+  body>.phone>main .preview-card,
+  body>.phone>main .card-side,
+  body>.phone>main .preview-image,
+  body>.phone>main .preview-image img {{
+    border-radius:0 !important;
+  }}
+  body>.phone>main .preview-card {{ align-items:start !important; }}
+  body>.phone>main .card-side,
+  body>.phone>main .preview-image {{ align-self:start !important; }}
+
+  /* Page itself should not continue below the viewport on PC. */
+  body>.phone>footer {{ display:none !important; }}
+}}
+
+@media (min-width:1000px) and (max-width:1240px) {{
+  body>.phone {{
+    grid-template-columns:minmax(0, 54fr) minmax(460px, 46fr) !important;
+  }}
+}}
+
 </style>
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -31528,6 +31749,7 @@ main {{
 
 <body>
 <div class="phone">
+  <div id="pc-left-column">
   <header class="topbar" id="topbar">
     <div class="topbar-title-row">
       <div class="title-meta">
@@ -32408,6 +32630,7 @@ main {{
     </aside>
 
   </section>
+  </div><!-- /#pc-left-column -->
   <main><div id="no-results" class="no-results">검색 결과가 없습니다.</div>
 {panels_html}
 </main>
