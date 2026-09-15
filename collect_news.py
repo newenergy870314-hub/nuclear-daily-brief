@@ -285,6 +285,7 @@ ALWAYS_SHOW_GROUPS = {
     "한국수력원자력",
     "한국전력",
     "한전 계열사",
+    "한국원자력연구원",
     "원전 관계부처",
     "원전 대미투자",
     "원자력",
@@ -385,6 +386,13 @@ GROUPS = [
         '"한전MCS"', '"한전 MCS"', '"KEPCO MCS"', '"KEPCO-MCS"',
         # 한전원자력연료
         '"한전원자력연료"', '"KEPCO Nuclear Fuel"', '"KNF" nuclear', '"KNF" 원자력',
+    ]),
+    ("한국원자력연구원", [
+        # 한국원자력연구원(KAERI) 전용 탭
+        '"한국원자력연구원"',
+        '"KAERI"',
+        '"Korea Atomic Energy Research Institute"',
+        '"원자력연구원"',
     ]),
     ("원전 관계부처", [
         # 산업통상부·기후에너지환경부·과학기술정보통신부의
@@ -620,6 +628,7 @@ GROUP_TAB_LABELS = {
     "한국수력원자력": "한수원",
     "한국전력": "한전",
     "한전 계열사": "한전 계열사",
+    "한국원자력연구원": "한국원자력연구원",
     "해외 건설사": "해외 건설사",
     "해외 설계사": "해외 설계사",
     "원전 관계부처": "원전 관계부처(산업통상부·기후부·과기부)",
@@ -1725,6 +1734,11 @@ DIRECT_GROUP_KEYWORDS = {
         "한전mcs", "한전 mcs", "kepco mcs", "kepco-mcs",
         "한전원자력연료", "kepco nuclear fuel",
     ],
+    "한국원자력연구원": [
+        "한국원자력연구원", "kaeri",
+        "korea atomic energy research institute",
+        "원자력연구원",
+    ],
     "원전 관계부처": [
         "산업통상부", "산업통상자원부", "기후에너지환경부",
         "과학기술정보통신부", "과기정통부", "김정관", "문신학",
@@ -1894,8 +1908,9 @@ DIRECT_GROUP_PRIORITY = [
     "해외 설계사",
     "타 건설사",
     "한국수력원자력",
-    "한전 계열사",
     "한국전력",
+    "한전 계열사",
+    "한국원자력연구원",
     "원전 관계부처",
     "SMR",
     "차세대원자로",
@@ -3830,6 +3845,10 @@ GROUP_CORE_PRIORITY_TERMS = {
     "한국전력": {
         "한국전력", "한전", "kepco",
     },
+    "한국원자력연구원": {
+        "한국원자력연구원", "kaeri",
+        "korea atomic energy research institute", "원자력연구원",
+    },
     "원전 관계부처": {
         "산업통상부", "산업통상자원부", "기후에너지환경부",
         "과학기술정보통신부", "과기정통부",
@@ -5137,6 +5156,34 @@ def enforce_title_company_group(article: Article) -> Article:
     return article
 
 
+KAERI_ENTITY_TERMS = (
+    "한국원자력연구원",
+    "kaeri",
+    "korea atomic energy research institute",
+)
+
+def mentions_kaeri(title: str, summary: str = "") -> bool:
+    """한국원자력연구원(KAERI)이 기사 핵심 주체로 언급되는지 판정합니다.
+
+    '원자력연구원' 약칭은 한국 기관을 의미하는 문맥에서만 인정해
+    해외 연구기관/일반 표현의 오탐을 줄입니다.
+    """
+    title_text = html.unescape(title or "").lower()
+    combined = html.unescape(f"{title} {summary}").lower()
+    if any(term in combined for term in KAERI_ENTITY_TERMS):
+        return True
+    if "원자력연구원" in title_text:
+        return True
+    return False
+
+
+def enforce_kaeri_group(article: Article) -> Article:
+    """기존 archive의 KAERI 기사도 다음 실행 시 전용 탭으로 이동합니다."""
+    if mentions_kaeri(article.title, article.description):
+        article.group = "한국원자력연구원"
+    return article
+
+
 def classify_priority_company_group(group: str, title: str, summary: str) -> str:
     """
     회사/프로젝트 전용 그룹의 최종 우선순위를 적용합니다.
@@ -5162,6 +5209,10 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     # 단, 위에서 현대건설/현대엔지니어링 등 건설사가 제목에 직접 잡힌 경우 그 탭을 우선합니다.
     if mentions_hyundai_motor_group(title, summary):
         return "현대차그룹사"
+
+    # 한국원자력연구원(KAERI)은 원자력/SMR 일반 탭보다 전용 탭을 우선합니다.
+    if mentions_kaeri(title, summary):
+        return "한국원자력연구원"
 
     # 대표이사/사장/CEO 등 핵심 경영진의 주요 활동은 해당 회사/기관 탭으로 우선 분류
     executive_group = classify_executive_activity_group(title, summary)
@@ -5484,6 +5535,10 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     executive_group = classify_executive_activity_group(title, summary)
     if executive_group:
         return executive_group
+
+    # 한국원자력연구원(KAERI)은 전용 탭으로 우선 분류합니다.
+    if mentions_kaeri(title, summary):
+        return "한국원자력연구원"
 
     # KEPIC(전력산업기술기준) 관련 기사는 별도 탭을 만들지 않고 원자력 탭으로 통합합니다.
     if _mentions_kepic(title, summary):
@@ -7922,20 +7977,24 @@ def _hyundai_motor_group_issue_event_key(article: Article) -> str | None:
     if kb_autotech and india_chennai and hyundai_kia and kb_event_action:
         return "현대차그룹|KB오토텍|인도첸나이공장확장·부품수주"
 
-    # IAA에서 공개된 기아 PV7/PBV 라인업 보도.
-    # 'PV7 최초 공개', 'PV7 앞세워 경상용차 진출', 'PBV 철학 제시'처럼
-    # 제목이 달라도 IAA 현장에서 같은 PV7 발표를 다루면 같은 이슈로 묶습니다.
+    # IAA에서 공개된 기아 PV7/PBV 라인업·사업전략 보도.
+    # 'PV7 최초 공개', 'PV7 앞세워 경상용차 진출', '차 아닌 사업 성과를 판다 / PBV 철학 제시'처럼
+    # 제목에 PV7이 직접 없더라도 같은 IAA 현장에서 발표한 PBV/PV7 전략이면 하나의 이슈로 묶습니다.
     kia = any(term in compact for term in ("기아", "kia"))
-    pv7 = "pv7" in compact
     iaa = any(term in compact for term in (
         "iaa", "iaamobility", "iaa모빌리티", "모빌리티쇼",
     ))
-    pv7_event_action = any(term in compact for term in (
-        "공개", "최초공개", "라인업", "pbv", "경상용차", "사업철학",
-        "콘셉트", "concept", "premiere", "unveil", "reveal", "lineup",
+    pv7_or_pbv = any(term in compact for term in (
+        "pv7", "pv5", "pbv", "purposebuiltvehicle", "목적기반차량", "경상용차",
     ))
-    if kia and pv7 and iaa and pv7_event_action:
-        return "현대차그룹|기아|PV7|IAA공개"
+    pv7_event_action = any(term in compact for term in (
+        "공개", "최초공개", "라인업", "사업철학", "사업전략", "전략",
+        "시장진출", "진출", "콘셉트", "concept", "premiere", "unveil", "reveal", "lineup",
+    ))
+    # IAA + 기아 + PV7/PBV 계열 주제 + 발표/전략 행위가 함께 잡힐 때만 묶어
+    # 이후의 수주·양산·판매실적 등 별도 사건까지 합쳐지는 것을 방지합니다.
+    if kia and iaa and pv7_or_pbv and pv7_event_action:
+        return "현대차그룹|기아|PV7-PBV|IAA발표"
 
     return None
 
@@ -12172,6 +12231,7 @@ def update_archive(
             migrate_foreign_nuclear_company_group(article)
             migrate_international_nuclear_energy_org_group(article)
             migrate_legacy_nuclear_association_group(article)
+            enforce_kaeri_group(article)
             enforce_kepic_nuclear_group(article)
 
             # Palisades Goldcorp는 광산회사이며 Holtec/Palisades 원전과 무관.
@@ -12188,7 +12248,9 @@ def update_archive(
             migrate_foreign_nuclear_company_group(article)
             migrate_international_nuclear_energy_org_group(article)
             migrate_legacy_nuclear_association_group(article)
+            enforce_kaeri_group(article)
             enforce_kepic_nuclear_group(article)
+            enforce_kaeri_group(article)
             enforce_kepco_kdn_group(article)
             normalized_link = article.link.strip() if article.link else ""
             identity = normalized_link or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
