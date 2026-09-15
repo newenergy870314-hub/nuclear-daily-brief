@@ -426,6 +426,8 @@ GROUPS = [
         '"여한구" 통상교섭본부장',
         '"강감찬" 무역투자실장',
         '"김창희" 원전전략기획관',
+        '"이상은" 원전수출진흥과장',
+        '"원전수출진흥과장"',
         '"김정관"',
         '"문신학"',
         '"양기욱"',
@@ -1726,7 +1728,7 @@ DIRECT_GROUP_KEYWORDS = {
     "원전 관계부처": [
         "산업통상부", "산업통상자원부", "기후에너지환경부",
         "과학기술정보통신부", "과기정통부", "김정관", "문신학",
-        "양기욱", "여한구", "강감찬", "김창희",
+        "양기욱", "여한구", "강감찬", "김창희", "이상은",
     ],
     "원전 대미투자": [
         "대미투자", "대미 투자", "대미투자펀드", "대미 투자 펀드",
@@ -4852,6 +4854,27 @@ def is_hyundai_motor_group_traffic_accident_article(article: Article) -> bool:
         getattr(article, "description", "") or getattr(article, "summary", "") or "",
     )
 
+
+# 사용자 지정 저가치/비관련 기사 제외
+# - 중소기업기술정보진흥원(기정원) 관련 기사
+# - 경찰관이 핵심 주체로 등장하는 생활사건/사고성 기사
+USER_REQUESTED_EXCLUDE_TERMS = (
+    "중소기업기술정보진흥원",
+    "중소기업 기술정보 진흥원",
+    "중소기업 기술정보진흥원",
+    "중소기업기술정보 진흥원",
+    "기정원",
+    "경찰관",
+)
+
+def is_user_requested_excluded_article(article: Article) -> bool:
+    title = html.unescape(getattr(article, "title", "") or "").lower()
+    description = html.unescape(
+        getattr(article, "description", "") or getattr(article, "summary", "") or ""
+    ).lower()
+    haystack = f"{title} {description}"
+    return any(term.lower() in haystack for term in USER_REQUESTED_EXCLUDE_TERMS)
+
 # 현대자동차/기아/현대제철 일반 기사 중 기업·경영 기사 판별용 문맥
 HYUNDAI_MOTOR_GROUP_BUSINESS_CONTEXT_TERMS = (
     "회장", "부회장", "사장", "대표", "대표이사", "임원", "인사", "승진", "선임",
@@ -5338,7 +5361,7 @@ GOVERNMENT_MINISTRY_TERMS = {
 GOVERNMENT_SENIOR_RANK_TERMS = {
     "장관", "차관", "1차관", "2차관", "제1차관", "제2차관",
     "부총리", "대통령", "국무총리", "통상교섭본부장",
-    "산업자원안보실장", "무역투자실장", "원전전략기획관",
+    "산업자원안보실장", "무역투자실장", "원전전략기획관", "원전수출진흥과장",
     "minister", "vice minister", "deputy prime minister",
     "minister for trade", "trade minister",
     "president", "prime minister",
@@ -5346,7 +5369,7 @@ GOVERNMENT_SENIOR_RANK_TERMS = {
 
 
 GOVERNMENT_TRACKED_PEOPLE = {
-    "김정관", "문신학", "양기욱", "여한구", "강감찬", "김창희",
+    "김정관", "문신학", "양기욱", "여한구", "강감찬", "김창희", "이상은",
 }
 
 PERSONNEL_NEWS_TERMS = {
@@ -7307,7 +7330,7 @@ def _related_coverage_html(article: Article) -> str:
 
     return (
         f'<button class="related-coverage-button" type="button" '
-        f'aria-expanded="false">외 {len(alternatives)}개 언론사 보도</button>'
+        f'aria-expanded="false">관련기사 {len(alternatives)}건</button>'
         f'<div class="related-coverage-source" hidden>{"".join(safe_items)}</div>'
     )
 
@@ -7812,6 +7835,111 @@ def _same_publisher_followup_event(a: Article, b: Article) -> bool:
     return False
 
 
+
+def _major_construction_issue_event_key(article: Article) -> str | None:
+    """주요 건설사 탭의 반복 보도를 '삭제'하지 않고 같은 이슈로 묶기 위한 보수적 사건 키.
+
+    핵심 원칙:
+    - 회사 + 사건 유형 + 날짜가 같을 때만 동일 이슈 후보로 봅니다.
+    - 특히 노조/파업 + 주가 반응 기사는 언론사별 제목이 달라도 하나의 이슈로 묶습니다.
+    - 기사 자체는 버리지 않고 대표기사 아래 '외 N개 언론사 보도'로 남깁니다.
+    """
+    if (article.group or "") != "타 건설사":
+        return None
+
+    try:
+        _rank, company = _other_construction_company_rank(article)
+    except Exception:
+        company = ""
+    if not company or company == "기타":
+        return None
+
+    title = normalized(article.title or "")
+    body = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", body)
+
+    # 노조/파업 이슈: '파업 장기화', '노조 부분파업', '노조 파업'처럼 제목이 달라도 같은 축으로 묶음.
+    labor_terms = (
+        "노조", "노동조합", "파업", "부분파업", "전면파업", "쟁의",
+        "임단협", "단체교섭", "교섭결렬", "교섭 결렬",
+    )
+    has_labor = any(term.replace(" ", "") in compact for term in labor_terms)
+
+    # 증시/주가 반응은 같은 사건의 보도 각도 차이로 간주합니다.
+    market_terms = (
+        "특징주", "주가", "하락", "상승", "급락", "급등", "강세", "약세",
+        "코스피", "코스닥", "증시", "장초반", "장 초반",
+    )
+    has_market = any(term.replace(" ", "") in compact for term in market_terms)
+
+    if has_labor:
+        # 시장반응 유무와 무관하게 같은 날짜의 동일 회사 노조/파업 보도는 한 묶음으로 유지.
+        # 대표기사 선정은 기존 _article_rep_score가 담당합니다.
+        return f"주요건설사|{company}|노조파업|{article.published.astimezone(KST).strftime('%Y-%m-%d')}"
+
+    # 같은 회사의 순수 주가성 반복 기사도 같은 날짜 안에서는 한 묶음 처리.
+    # 단, 제목에 회사명이 직접 잡힌 기사만 회사 판정 함수가 유효하므로 과도한 시장기사 병합을 방지합니다.
+    if has_market and any(token in title for token in ("특징주", "주가", "급락", "급등", "강세", "약세", "하락", "상승")):
+        return f"주요건설사|{company}|주가반응|{article.published.astimezone(KST).strftime('%Y-%m-%d')}"
+
+    # 실적 발표 계열도 언론사별 제목 차이가 커서 같은 날짜 동일 회사면 묶음 처리.
+    earnings_terms = ("실적", "매출", "영업이익", "순이익", "분기실적", "분기 실적")
+    if any(term.replace(" ", "") in compact for term in earnings_terms):
+        return f"주요건설사|{company}|실적|{article.published.astimezone(KST).strftime('%Y-%m-%d')}"
+
+    return None
+
+
+def _hyundai_motor_group_issue_event_key(article: Article) -> str | None:
+    """현대차그룹 탭에서 제목 표현이 달라도 같은 실제 이슈인 기사를 묶기 위한 사건 키.
+
+    기사 자체를 삭제하지 않고 대표기사 아래 관련기사로 보존합니다.
+    현재는 오병합 위험이 낮은 명확한 사건 조합만 사용합니다.
+    """
+    if (article.group or "") != "현대차그룹사":
+        return None
+
+    body = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", body)
+
+    # KB오토텍 인도 첸나이 공장 확장 + 현대차·기아 부품/통풍시트 수주 보도.
+    # 언론사별로 '공장 확장', '부품 수주', '통풍시트 수주' 등 제목 각도가 달라도
+    # 같은 사업 발표를 다룬 경우 하나의 이슈로 묶습니다.
+    kb_autotech = any(term in compact for term in (
+        "kb오토텍", "kbautotech", "케이비오토텍",
+    ))
+    india_chennai = any(term in compact for term in (
+        "인도", "india", "첸나이", "chennai",
+    ))
+    hyundai_kia = any(term in compact for term in (
+        "현대차", "현대자동차", "hyundaimotor", "기아", "kia",
+    ))
+    kb_event_action = any(term in compact for term in (
+        "수주", "공급", "납품", "공장확장", "증설", "생산확대",
+        "통풍시트", "시트부품", "자동차부품", "order", "supply",
+        "plant expansion", "expansion",
+    ))
+    if kb_autotech and india_chennai and hyundai_kia and kb_event_action:
+        return "현대차그룹|KB오토텍|인도첸나이공장확장·부품수주"
+
+    # IAA에서 공개된 기아 PV7/PBV 라인업 보도.
+    # 'PV7 최초 공개', 'PV7 앞세워 경상용차 진출', 'PBV 철학 제시'처럼
+    # 제목이 달라도 IAA 현장에서 같은 PV7 발표를 다루면 같은 이슈로 묶습니다.
+    kia = any(term in compact for term in ("기아", "kia"))
+    pv7 = "pv7" in compact
+    iaa = any(term in compact for term in (
+        "iaa", "iaamobility", "iaa모빌리티", "모빌리티쇼",
+    ))
+    pv7_event_action = any(term in compact for term in (
+        "공개", "최초공개", "라인업", "pbv", "경상용차", "사업철학",
+        "콘셉트", "concept", "premiere", "unveil", "reveal", "lineup",
+    ))
+    if kia and pv7 and iaa and pv7_event_action:
+        return "현대차그룹|기아|PV7|IAA공개"
+
+    return None
+
+
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
@@ -7845,6 +7973,21 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
 
     if a.group != b.group:
         return False
+
+    # 현대차그룹의 명확한 동일 사업/행사 보도는 제목 표현이 달라도 하나의 이슈로 묶습니다.
+    hmg_event_a = _hyundai_motor_group_issue_event_key(a)
+    hmg_event_b = _hyundai_motor_group_issue_event_key(b)
+    if hmg_event_a and hmg_event_a == hmg_event_b:
+        # 보도 시차를 감안하되 서로 다른 후속 이벤트까지 합치지 않도록 최대 1일만 허용.
+        if abs((date_a_obj - date_b_obj).days) <= 1:
+            return True
+
+    # 주요 건설사 반복 보도는 삭제하지 않고 하나의 이슈 클러스터로 묶습니다.
+    # 예: HD현대중공업 파업 장기화/노조 부분파업/특징주 하락 기사.
+    construction_issue_a = _major_construction_issue_event_key(a)
+    construction_issue_b = _major_construction_issue_event_key(b)
+    if construction_issue_a and construction_issue_a == construction_issue_b:
+        return True
 
     # 대우건설 정원주 회장-베트남 산업통상부 장관 면담 동일 보도
     daewoo_vn_event_a = _daewoo_vietnam_minister_meeting_event_key(a)
@@ -11172,6 +11315,8 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_pacific_palisades_non_nuclear_article(article.title, article.description)
         # 현대차그룹 관련 교통사고/대리점 앞 사고 등은 기존 archive에 있어도 최종 출력에서 제거
         and not is_hyundai_motor_group_traffic_accident_article(article)
+        # 사용자 지정 제외: 중소기업기술정보진흥원(기정원), 경찰관 관련 기사
+        and not is_user_requested_excluded_article(article)
     ]
 
     if not DEDUP_ENABLED:
