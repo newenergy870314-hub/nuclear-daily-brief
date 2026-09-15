@@ -287,6 +287,7 @@ ALWAYS_SHOW_GROUPS = {
     "한전 계열사",
     "한국원자력연구원",
     "원전 관계부처",
+    "미국 원전 정책·정부기관",
     "원전 대미투자",
     "원자력",
     "SMR",
@@ -442,6 +443,38 @@ GROUPS = [
         '"여한구"',
         '"강감찬"',
         '"김창희"',
+    ]),
+    ("미국 원전 정책·정부기관", [
+        # 미국 정부기관·백악관·트럼프 행정부의 원전 정책/인허가/연방부지/지원정책
+        '"DOE" nuclear',
+        '"U.S. Department of Energy" nuclear',
+        '"Department of Energy" nuclear',
+        '"DOE" reactor', '"DOE" SMR', '"DOE" "nuclear power"',
+        '"미국 에너지부" 원전', '"미 에너지부" 원전', '"미국 에너지부" 원자력',
+        '"DOC" nuclear',
+        '"U.S. Department of Commerce" nuclear',
+        '"Department of Commerce" nuclear',
+        '"Commerce Department" nuclear',
+        '"DOC" "federal site" nuclear',
+        '"미국 상무부" 원전', '"미 상무부" 원전', '"미국 상무부" 원자력',
+        '"White House" nuclear', '"White House" reactor', '"White House" SMR',
+        '"백악관" 원전', '"백악관" 원자력', '"미 행정부" 원전', '"미국 정부" 원전',
+        '"Nuclear Regulatory Commission"',
+        '"U.S. Nuclear Regulatory Commission"',
+        '"NRC" nuclear', '"NRC" reactor', '"NRC" licensing', '"NRC" SMR',
+        '"federal site" nuclear', '"federal land" nuclear', '"federal property" nuclear',
+        '"연방부지" 원전', '"미국 연방부지" 원전', '"연방 부지" 원자력',
+        # 트럼프 행정부의 원전·원자력 정책
+        '"Trump" nuclear', '"Donald Trump" nuclear', '"Trump administration" nuclear',
+        '"Trump" reactor', '"Trump" SMR', '"Trump" "nuclear power"',
+        '"트럼프" 원전', '"트럼프" 원자력', '"트럼프 행정부" 원전',
+        '"트럼프" SMR', '"트럼프" 원자로',
+        # 관세·무역정책은 원전 기자재/공급망과 연결되는 경우에만 수집
+        '"Trump" tariff nuclear', '"Trump" tariff "nuclear supply chain"',
+        '"트럼프" 관세 원전', '"트럼프" 관세 원자력',
+        '"트럼프" 관세 "원전 기자재"', '"트럼프" 관세 "원전 공급망"',
+        '"관세" "원전 기자재" 미국', '"관세" "원전 공급망" 미국',
+        '"tariff" "nuclear equipment" U.S.', '"tariff" "nuclear supply chain" U.S.',
     ]),
     ("원전 대미투자", [
         '"대미투자" 원전',
@@ -632,6 +665,7 @@ GROUP_TAB_LABELS = {
     "해외 건설사": "해외 건설사",
     "해외 설계사": "해외 설계사",
     "원전 관계부처": "원전 관계부처(산업통상부·기후부·과기부)",
+    "미국 원전 정책·정부기관": "미국 원전 정책·정부기관",
     "원전 대미투자": "대미투자",
     "원자력": "원자력",
     "SMR": "SMR (차세대 원자로 포함)",
@@ -1744,6 +1778,13 @@ DIRECT_GROUP_KEYWORDS = {
         "과학기술정보통신부", "과기정통부", "김정관", "문신학",
         "양기욱", "여한구", "강감찬", "김창희", "이상은",
     ],
+    "미국 원전 정책·정부기관": [
+        "u.s. department of energy", "department of energy", "미국 에너지부", "미 에너지부",
+        "u.s. department of commerce", "department of commerce", "commerce department", "미국 상무부", "미 상무부",
+        "white house", "백악관", "u.s. nuclear regulatory commission", "nuclear regulatory commission",
+        "federal site", "federal land", "federal property", "연방부지", "연방 부지",
+        "donald trump", "trump administration", "트럼프",
+    ],
     "원전 대미투자": [
         "대미투자", "대미 투자", "대미투자펀드", "대미 투자 펀드",
         "한미 투자", "u.s. investment", "us investment",
@@ -1895,6 +1936,7 @@ def is_civil_nuclear_relevant(title: str, summary: str = "") -> bool:
 DIRECT_GROUP_PRIORITY = [
     "현대건설",
     "현대차그룹사",
+    "미국 원전 정책·정부기관",
     "원전 대미투자",
     "Fermi America",
     "Holtec",
@@ -3853,6 +3895,13 @@ GROUP_CORE_PRIORITY_TERMS = {
         "산업통상부", "산업통상자원부", "기후에너지환경부",
         "과학기술정보통신부", "과기정통부",
     },
+    "미국 원전 정책·정부기관": {
+        "u.s. department of energy", "department of energy", "미국 에너지부", "미 에너지부",
+        "u.s. department of commerce", "department of commerce", "미국 상무부", "미 상무부",
+        "white house", "백악관", "nuclear regulatory commission", "u.s. nuclear regulatory commission",
+        "donald trump", "trump administration", "트럼프",
+        "federal site", "federal land", "federal property", "연방부지", "연방 부지",
+    },
     "원전 대미투자": {
         "대미투자", "대미 투자", "u.s. investment", "us investment",
         "korea-us investment",
@@ -5241,6 +5290,10 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     if _mentions_kepco_affiliate(title, summary):
         return "한전 계열사"
 
+    # 미국 정부기관/트럼프 행정부의 원전 정책·인허가·연방부지·원전 공급망 관세 기사는 전용 탭 우선
+    if is_us_nuclear_policy_government_article(title, summary):
+        return "미국 원전 정책·정부기관"
+
     # 해외 원전 건설/엔지니어링 회사가 명시되고 실제 원전 문맥이 있으면
     # 일반 Nuclear 또는 WEC 기사로 흩어지지 않도록 전용 탭을 우선 적용합니다.
     foreign_nuclear_company_group = _foreign_nuclear_company_group(title, summary)
@@ -5451,6 +5504,79 @@ def is_government_senior_article(article: Article) -> bool:
 
 
 
+US_NUCLEAR_POLICY_GOVERNMENT_TERMS = (
+    "u.s. department of energy", "department of energy", "미국 에너지부", "미 에너지부",
+    "u.s. department of commerce", "department of commerce", "commerce department", "미국 상무부", "미 상무부",
+    "white house", "백악관", "u.s. nuclear regulatory commission", "nuclear regulatory commission",
+    "federal site", "federal land", "federal property", "연방부지", "연방 부지",
+)
+
+US_NUCLEAR_POLICY_CONTEXT_TERMS = (
+    "원전", "원자력", "원자로", "핵연료", "사용후핵연료", "방사성폐기물",
+    "smr", "ap1000", "apr1400", "nuclear", "reactor", "nuclear power",
+    "nuclear energy", "nuclear plant", "nuclear project",
+)
+
+US_TRUMP_TERMS = (
+    "트럼프", "donald trump", "president trump", "trump administration",
+)
+
+US_TARIFF_TRADE_TERMS = (
+    "관세", "tariff", "무역정책", "trade policy", "수입규제", "import restriction",
+)
+
+US_NUCLEAR_SUPPLY_CHAIN_TERMS = (
+    "원전 기자재", "원전기자재", "원전 공급망", "원전공급망",
+    "nuclear equipment", "nuclear component", "nuclear components",
+    "nuclear supply chain", "reactor component", "reactor components",
+    "우라늄", "uranium", "핵연료", "nuclear fuel",
+    "원전용 철강", "nuclear-grade steel", "nuclear grade steel",
+)
+
+def is_us_nuclear_policy_government_article(title: str, summary: str = "") -> bool:
+    """미국 정부기관/트럼프 정책 중 원전과 직접 연결되는 기사만 전용 탭으로 분류합니다.
+
+    DOE/DOC/백악관/NRC/연방부지는 원전 맥락이 함께 있어야 하며,
+    트럼프 관세·무역정책은 원전 기자재·공급망·핵연료 등 직접 영향 문맥이 있을 때 포함합니다.
+    """
+    hay = html.unescape(f"{title} {summary}").lower()
+    compact = re.sub(r"\s+", "", hay)
+
+    has_nuclear = any(term in hay for term in US_NUCLEAR_POLICY_CONTEXT_TERMS)
+    has_government = any(term in hay for term in US_NUCLEAR_POLICY_GOVERNMENT_TERMS)
+    # DOE/DOC 약칭은 단독 오탐을 피하기 위해 토큰 경계 + 원전 문맥을 요구합니다.
+    has_doe_doc = bool(re.search(r"(?<![a-z0-9])(doe|doc)(?![a-z0-9])", hay))
+    has_nrc = bool(re.search(r"(?<![a-z0-9])nrc(?![a-z0-9])", hay))
+
+    if has_nuclear and (has_government or has_doe_doc or has_nrc):
+        return True
+
+    has_trump = any(term in hay for term in US_TRUMP_TERMS)
+    if has_trump and has_nuclear:
+        return True
+
+    has_tariff_trade = any(term in hay for term in US_TARIFF_TRADE_TERMS)
+    has_nuclear_supply_chain = any(term in hay for term in US_NUCLEAR_SUPPLY_CHAIN_TERMS)
+    if has_trump and has_tariff_trade and has_nuclear_supply_chain:
+        return True
+
+    # 트럼프 이름이 제목에서 생략돼도 미국 관세가 원전 공급망/기자재에 직접 연결되면 포함합니다.
+    has_us = any(term in hay for term in ("미국", "미 행정부", "u.s.", "us ", "united states"))
+    if has_us and has_tariff_trade and has_nuclear_supply_chain:
+        return True
+
+    return False
+
+def enforce_us_nuclear_policy_group(article: Article) -> Article:
+    """기존 archive의 미국 원전 정책·정부기관 기사도 다음 실행 시 전용 탭으로 이동합니다."""
+    # 회사 자체 동향 탭은 우선 보존하고, 일반 원전/WEC/투자 기사 중 정책 중심 기사만 이동합니다.
+    if article.group in {"현대건설", "현대차그룹사", "한국원자력연구원"}:
+        return article
+    if is_us_nuclear_policy_government_article(article.title, article.description):
+        article.group = "미국 원전 정책·정부기관"
+    return article
+
+
 def _mentions_kepic(title: str, summary: str = "") -> bool:
     """KEPIC(전력산업기술기준) 관련 기사 여부를 판정합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
@@ -5540,6 +5666,10 @@ def classify_direct_article(title: str, summary: str) -> str | None:
     if mentions_kaeri(title, summary):
         return "한국원자력연구원"
 
+    # 미국 정부기관/트럼프 행정부의 원전 정책·인허가·연방부지·원전 공급망 관세 기사
+    if is_us_nuclear_policy_government_article(title, summary):
+        return "미국 원전 정책·정부기관"
+
     # KEPIC(전력산업기술기준) 관련 기사는 별도 탭을 만들지 않고 원자력 탭으로 통합합니다.
     if _mentions_kepic(title, summary):
         return "원자력"
@@ -5579,6 +5709,8 @@ def classify_direct_article(title: str, summary: str) -> str | None:
                 )
                 if not is_government_senior_article(temp):
                     continue
+            if group == "미국 원전 정책·정부기관" and not is_us_nuclear_policy_government_article(title, summary):
+                continue
             if group == "타 건설사":
                 classified = classify_construction_group(group, title, summary)
                 if classified is None:
@@ -11904,6 +12036,8 @@ def render_news_sections(
         # 본문/미리보기의 현대건설 언급이 제목의 대우건설/GS건설 등을 덮지 못하게 합니다.
         enforce_title_company_group(article)
         enforce_title_kepco_priority(article)
+        enforce_kaeri_group(article)
+        enforce_us_nuclear_policy_group(article)
 
         if article.group not in grouped:
             continue
@@ -12168,7 +12302,10 @@ def article_from_dict(data: dict) -> Article | None:
             description=str(data.get("description", "")),
         )
         normalize_article_publication_date(article)
-        return enforce_kepco_kdn_group(article)
+        article = enforce_kepco_kdn_group(article)
+        article = enforce_kaeri_group(article)
+        article = enforce_us_nuclear_policy_group(article)
+        return article
     except Exception:
         return None
 
