@@ -7956,6 +7956,18 @@ def _same_publisher_followup_event(a: Article, b: Article) -> bool:
     if a.group != b.group:
         return False
 
+    # 주요 건설사 탭은 같은 언론사 후속기사라도 대표 회사가 다르면 절대 병합하지 않습니다.
+    # 예: 삼성물산 AI 웰피 / GS건설 AR 품질검사 / 대우건설 AI 번역기는 서로 다른 사건입니다.
+    if a.group == "타 건설사":
+        _, construction_company_a = _other_construction_company_rank(a)
+        _, construction_company_b = _other_construction_company_rank(b)
+        if (
+            construction_company_a != "기타"
+            and construction_company_b != "기타"
+            and construction_company_a != construction_company_b
+        ):
+            return False
+
     day_a = a.published.astimezone(KST).date()
     day_b = b.published.astimezone(KST).date()
     if abs((day_a - day_b).days) > 1:
@@ -8109,24 +8121,73 @@ def _hyundai_motor_group_issue_event_key(article: Article) -> str | None:
     if kb_autotech and india_chennai and hyundai_kia and kb_event_action:
         return "현대차그룹|KB오토텍|인도첸나이공장확장·부품수주"
 
-    # IAA에서 공개된 기아 PV7/PBV 라인업·사업전략 보도.
-    # 'PV7 최초 공개', 'PV7 앞세워 경상용차 진출', '차 아닌 사업 성과를 판다 / PBV 철학 제시'처럼
-    # 제목에 PV7이 직접 없더라도 같은 IAA 현장에서 발표한 PBV/PV7 전략이면 하나의 이슈로 묶습니다.
+    # 기아 PV7 공개/출시 보도.
+    # 같은 신차 발표를 언론사별로 '최초 공개', '첫선', '출격', '460km 주행',
+    # '유럽 전기밴 공략', 'PBV 라인업 확대' 등 서로 다른 제목으로 쓰는 경우를 하나로 묶습니다.
+    # IAA/하노버가 제목에 빠진 기사도 동일 날짜의 PV7 공개 이슈이면 함께 묶습니다.
     kia = any(term in compact for term in ("기아", "kia"))
+    pv7 = "pv7" in compact
+    pv7_launch_signal = any(term in compact for term in (
+        "공개", "최초공개", "첫선", "첫공개", "출격", "출시", "선보", "베일",
+        "라인업", "대형pbv", "전기pbv", "전동화pbv", "전기밴", "경상용차",
+        "460km", "주행거리", "1회충전", "하노버", "iaa", "iaamobility",
+        "premiere", "unveil", "reveal", "launch", "debut", "lineup",
+    ))
+    pv7_separate_event = any(term in compact for term in (
+        "수주", "계약", "납품", "판매실적", "판매량", "리콜", "사고", "결함",
+        "양산개시", "양산시작", "생산중단", "order", "contract", "recall",
+    ))
+    if kia and pv7 and pv7_launch_signal and not pv7_separate_event:
+        return "현대차그룹|기아|PV7|공개출시"
+
+    # IAA에서 발표된 기아 PBV 사업전략 기사 중 PV7이 제목에 직접 없는 경우도
+    # 같은 행사 이슈로 묶습니다.
     iaa = any(term in compact for term in (
-        "iaa", "iaamobility", "iaa모빌리티", "모빌리티쇼",
+        "iaa", "iaamobility", "iaa모빌리티", "하노버", "모빌리티쇼",
     ))
-    pv7_or_pbv = any(term in compact for term in (
-        "pv7", "pv5", "pbv", "purposebuiltvehicle", "목적기반차량", "경상용차",
+    pbv_strategy = any(term in compact for term in (
+        "pbv", "purposebuiltvehicle", "목적기반차량", "사업철학", "사업전략",
+        "시장진출", "경상용차", "라인업",
     ))
-    pv7_event_action = any(term in compact for term in (
-        "공개", "최초공개", "라인업", "사업철학", "사업전략", "전략",
-        "시장진출", "진출", "콘셉트", "concept", "premiere", "unveil", "reveal", "lineup",
+    if kia and iaa and pbv_strategy and not pv7_separate_event:
+        return "현대차그룹|기아|PV7|공개출시"
+
+    return None
+
+
+def _international_nuclear_issue_event_key(article: Article) -> str | None:
+    """해외 원자력 탭의 명확한 동일 발표/발견 보도를 사건 키로 묶습니다.
+
+    기사 삭제가 아니라 대표기사 아래 관련기사로 보존하기 위한 키이며,
+    오병합 위험이 낮은 구체적인 국가 + 자원 + 핵심 수치/발표 조합만 적용합니다.
+    """
+    if (article.group or "") != "Nuclear Power·Nuclear Energy":
+        return None
+
+    body = normalized(f"{article.title or ''} {article.description or ''}")
+    compact = re.sub(r"\s+", "", body)
+
+    # 사우디아라비아의 1억1천만 톤(110 million tonnes) 우라늄 함유 광석 발표.
+    # 'uranium claim', 'discovers ... rare earth and uranium ore',
+    # 'new deposits of uranium-bearing ore'처럼 제목 각도가 달라도 같은 발표로 묶습니다.
+    saudi = any(term in compact for term in (
+        "saudiarabia", "saudi", "사우디아라비아", "사우디",
     ))
-    # IAA + 기아 + PV7/PBV 계열 주제 + 발표/전략 행위가 함께 잡힐 때만 묶어
-    # 이후의 수주·양산·판매실적 등 별도 사건까지 합쳐지는 것을 방지합니다.
-    if kia and iaa and pv7_or_pbv and pv7_event_action:
-        return "현대차그룹|기아|PV7-PBV|IAA발표"
+    uranium = any(term in compact for term in (
+        "uranium", "uranium-bearing", "uraniumbearing", "우라늄",
+    ))
+    amount_110m = any(term in compact for term in (
+        "110millionton", "110milliontonne", "110-million-ton",
+        "110-million-tonne", "110millionmetricton", "1억1천만톤",
+        "1억1000만톤",
+    ))
+    deposit_announcement = any(term in compact for term in (
+        "newdeposit", "newdeposits", "discovers", "discovery",
+        "announces", "announced", "depositsofuranium", "uraniumore",
+        "uranium-bearingore", "uraniumbearingore",
+    ))
+    if saudi and uranium and (amount_110m or deposit_announcement):
+        return "해외원자력|사우디|우라늄광석|110milliontonnes"
 
     return None
 
@@ -8152,26 +8213,34 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     if not publisher_a or not publisher_b:
         return False
 
+    date_a_obj = a.published.astimezone(KST).date()
+    date_b_obj = b.published.astimezone(KST).date()
+
+    # 현대차그룹의 명확한 동일 사업/행사 키는 언론사 동일 여부보다 먼저 판정합니다.
+    # 같은 언론사가 같은 PV7 공개행사를 여러 각도로 보도한 경우도 하나의 이슈로 묶습니다.
+    if a.group == b.group == "현대차그룹사":
+        hmg_event_a = _hyundai_motor_group_issue_event_key(a)
+        hmg_event_b = _hyundai_motor_group_issue_event_key(b)
+        if hmg_event_a and hmg_event_a == hmg_event_b:
+            if abs((date_a_obj - date_b_obj).days) <= 1:
+                return True
+
+    # 해외 원자력의 명확한 동일 발표도 제목 표현/언론사가 달라도 하나의 이슈로 묶습니다.
+    intl_event_a = _international_nuclear_issue_event_key(a)
+    intl_event_b = _international_nuclear_issue_event_key(b)
+    if intl_event_a and intl_event_a == intl_event_b:
+        if abs((date_a_obj - date_b_obj).days) <= 2:
+            return True
+
     # 같은 언론사 기사도 동일 사건의 후속/종합 보도라면 묶습니다.
     # 다만 오병합 방지를 위해 별도의 더 강한 기준을 사용합니다.
     if publisher_a == publisher_b:
         return _same_publisher_followup_event(a, b)
-
-    date_a_obj = a.published.astimezone(KST).date()
-    date_b_obj = b.published.astimezone(KST).date()
     date_a = date_a_obj.strftime("%Y-%m-%d")
     date_b = date_b_obj.strftime("%Y-%m-%d")
 
     if a.group != b.group:
         return False
-
-    # 현대차그룹의 명확한 동일 사업/행사 보도는 제목 표현이 달라도 하나의 이슈로 묶습니다.
-    hmg_event_a = _hyundai_motor_group_issue_event_key(a)
-    hmg_event_b = _hyundai_motor_group_issue_event_key(b)
-    if hmg_event_a and hmg_event_a == hmg_event_b:
-        # 보도 시차를 감안하되 서로 다른 후속 이벤트까지 합치지 않도록 최대 1일만 허용.
-        if abs((date_a_obj - date_b_obj).days) <= 1:
-            return True
 
     # 주요 건설사 반복 보도는 삭제하지 않고 하나의 이슈 클러스터로 묶습니다.
     # 예: HD현대중공업 파업 장기화/노조 부분파업/특징주 하락 기사.
@@ -8179,6 +8248,19 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     construction_issue_b = _major_construction_issue_event_key(b)
     if construction_issue_a and construction_issue_a == construction_issue_b:
         return True
+
+    # 주요 건설사 탭의 일반 유사도 병합은 반드시 같은 대표 회사끼리만 허용합니다.
+    # 명시적 사건키가 일치하는 경우는 위에서 이미 처리했으므로, 여기서는
+    # AI/AR/건설/품질/안전 같은 범용 키워드 때문에 서로 다른 회사 기사가 연결되는 것을 차단합니다.
+    if a.group == "타 건설사":
+        _, construction_company_a = _other_construction_company_rank(a)
+        _, construction_company_b = _other_construction_company_rank(b)
+        if (
+            construction_company_a != "기타"
+            and construction_company_b != "기타"
+            and construction_company_a != construction_company_b
+        ):
+            return False
 
     # 대우건설 정원주 회장-베트남 산업통상부 장관 면담 동일 보도
     daewoo_vn_event_a = _daewoo_vietnam_minister_meeting_event_key(a)
@@ -8394,7 +8476,38 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
         if len(common) >= 3 and containment >= 0.62 and title_similarity >= 0.38:
             return True
 
-    # 일반 판정도 한 단계 완화하되 회사명 하나만 같은 수준으로는 묶지 않습니다.
+    # 일반 동일이슈 판정을 추가 강화합니다.
+    # 개별 사건명을 하드코딩하지 않고, 같은 탭/같은 국가/±1일 안에서
+    # 핵심 주체·대상·행위 토큰의 겹침과 제목/본문 유사도를 함께 봅니다.
+    # 주요 건설사 탭은 위에서 같은 회사 여부를 먼저 확인하므로
+    # AI/AR/건설/품질/안전 같은 범용 단어만으로 다른 회사가 한 묶음이 되는 것을 막습니다.
+    # 회사명 하나만 같은 기사까지 합쳐지지 않도록 최소 3개 이상의 사건 토큰을 요구합니다.
+    title_text_a = normalized(a.title or "")
+    title_text_b = normalized(b.title or "")
+
+    # 숫자·용량·호기·금액 등 구체 수치가 같은 경우는 매우 강한 사건 앵커입니다.
+    # 예: 110 million tonnes, 460km, 1.4GW, 2기, 10% 등
+    number_pattern = r"(?<![A-Za-z0-9])\d+(?:[.,]\d+)?(?:\s*(?:mw|gw|kw|km|%|기|호기|억|조|만|million|billion|tonnes?|tons?))?"
+    nums_a = {re.sub(r"\s+", "", x.lower()) for x in re.findall(number_pattern, title_text_a, flags=re.I)}
+    nums_b = {re.sub(r"\s+", "", x.lower()) for x in re.findall(number_pattern, title_text_b, flags=re.I)}
+    shared_numbers = {x for x in nums_a & nums_b if len(x) >= 2}
+
+    if shared_numbers and len(common) >= 3:
+        if containment >= 0.42 and (title_similarity >= 0.26 or full_similarity >= 0.28):
+            return True
+
+    # 서로 다른 언론사가 제목을 크게 바꿔도 핵심 토큰이 4개 이상 겹치면
+    # 같은 사건으로 묶되, 최소한의 유사도 조건은 유지합니다.
+    if len(common) >= 4 and containment >= 0.44:
+        if title_similarity >= 0.28 or full_similarity >= 0.30:
+            return True
+
+    # 핵심 토큰이 3개인 경우에는 더 높은 포함률을 요구해 오병합을 방지합니다.
+    if len(common) >= 3 and containment >= 0.58:
+        if title_similarity >= 0.34 or full_similarity >= 0.38:
+            return True
+
+    # 기존 일반 판정도 유지합니다.
     if len(common) >= 4 and containment >= 0.52 and full_similarity >= 0.36:
         return True
 
@@ -8473,10 +8586,22 @@ def _group_confirmed_related_articles(
                 if abs((article_days[i] - article_days[j]).days) > 2:
                     continue
 
+                # 현대차그룹의 명확한 PV7/동일행사 키는 국가 추정값이 달라도 우선 비교합니다.
+                # (예: 기사 제목에 독일 IAA/하노버가 있으면 DE로, 기아 중심이면 KR로 잡힐 수 있음)
+                hmg_key_i = _hyundai_motor_group_issue_event_key(bucket_articles[i])
+                hmg_key_j = _hyundai_motor_group_issue_event_key(bucket_articles[j])
+                explicit_hmg_same = bool(hmg_key_i and hmg_key_i == hmg_key_j)
+
+                intl_key_i = _international_nuclear_issue_event_key(bucket_articles[i])
+                intl_key_j = _international_nuclear_issue_event_key(bucket_articles[j])
+                explicit_intl_same = bool(intl_key_i and intl_key_i == intl_key_j)
+
                 country_i = countries[i]
                 country_j = countries[j]
                 if (
-                    country_i not in {"", "OTHER"}
+                    not explicit_hmg_same
+                    and not explicit_intl_same
+                    and country_i not in {"", "OTHER"}
                     and country_j not in {"", "OTHER"}
                     and country_i != country_j
                 ):
@@ -8601,7 +8726,7 @@ def render_card(
   data-title="{escape(article.title)}"
   data-publisher="{escape(article.publisher)}"
   data-group="{escape(article.group)}"
-  data-language="{escape(article.language)}"
+  data-language="{escape(_article_title_display_language(article))}"
   data-priority="{_group_article_priority(article, article.group)[0]}"
   data-hmg-rank="{_hyundai_motor_group_company_rank(article)[0] if article.group == '현대차그룹사' else 99}"
   data-published="{article.published.timestamp():.0f}"
@@ -8999,6 +9124,22 @@ def is_stock_market_low_priority_article(article: Article) -> bool:
     return any(term in hay for term in STOCK_MARKET_LOW_PRIORITY_TERMS)
 
 
+def _article_title_display_language(article: Article) -> str:
+    """
+    화면의 한글/영어 정렬은 언론사/수집 소스 언어가 아니라 기사 제목의 실제 표기 언어를 기준으로 합니다.
+
+    - 제목에 한글이 있으면 한글 기사로 분류합니다. (영문 약어가 섞인 한국어 제목 보호)
+    - 한글 없이 영문 알파벳이 있으면 영어 기사로 분류합니다.
+    - 문자 판별이 어려운 제목은 기존 수집 language 값을 사용합니다.
+    """
+    title = html.unescape(article.title or "")
+    if re.search(r"[가-힣]", title):
+        return "ko"
+    if re.search(r"[A-Za-z]", title):
+        return "en"
+    return article.language if article.language in {"ko", "en"} else "ko"
+
+
 def render_group_unified(
     group: str,
     articles: list[Article],
@@ -9006,8 +9147,9 @@ def render_group_unified(
 ) -> str:
     new_urls = new_urls or set()
 
-    korean_articles = [item for item in articles if item.language == 'ko']
-    english_articles = [item for item in articles if item.language == 'en']
+    # 언론사 국적/수집 경로가 아니라 기사 제목의 실제 언어로 한글/영문 순서를 나눕니다.
+    korean_articles = [item for item in articles if _article_title_display_language(item) == 'ko']
+    english_articles = [item for item in articles if _article_title_display_language(item) == 'en']
 
     def order_articles(items: list[Article]) -> list[Article]:
         if not items:
@@ -11135,6 +11277,42 @@ def is_explicit_irrelevant_company_article(article: Article) -> bool:
 
 
 
+def is_kepco_wrong_entity_false_positive(article: Article) -> bool:
+    """
+    한국전력 탭에 회사명이 비슷하거나 본문에 한전 표현이 있다는 이유로
+    잘못 들어온 다른 법인 기사를 좁게 제외합니다.
+
+    현재 확인 사례:
+    - 한국발전기술 김용우 전무 '산업포장'...일자리 공로 인정
+      -> 한국발전기술 기사이며 한국전력 본체 기사가 아님
+
+    단, 제목에 한국전력/한전/KEPCO가 별도 핵심 주체로 직접 등장하면
+    실제 공동사업 기사일 수 있으므로 유지합니다.
+    """
+    if (article.group or "") != "한국전력":
+        return False
+
+    title = html.unescape(article.title or "").lower()
+    compact = re.sub(r"\s+", "", title)
+
+    # 한국발전기술은 한국전력(KEPCO)과 별도 법인입니다.
+    wrong_entity = (
+        "한국발전기술" in compact
+        or "korea power engineering service" in title
+    )
+    if not wrong_entity:
+        return False
+
+    # 제목에 한국전력 본체가 별도 주체로 명시된 공동사업/협력 기사는 보호합니다.
+    title_without_wrong_entity = compact.replace("한국발전기술", "")
+    has_direct_kepco = (
+        "한국전력" in title_without_wrong_entity
+        or "kepco" in title
+        or re.search(r"(?<![가-힣a-z0-9])한전(?![가-힣a-z0-9])", title) is not None
+    )
+    return not has_direct_kepco
+
+
 def is_local_specialty_construction_false_positive(article: Article) -> bool:
     """
     대한전문건설협회/전문건설업계의 지역 활동·기부·후원·간담회 기사가
@@ -11486,6 +11664,7 @@ def deduplicate_articles_final(articles: list[Article]) -> list[Article]:
         and not is_targeted_bad_display_article(article)
         and not is_confirmed_nuclear_false_positive(article)
         and not is_explicit_irrelevant_company_article(article)
+        and not is_kepco_wrong_entity_false_positive(article)
         and not is_local_specialty_construction_false_positive(article)
         and not is_unrelated_ministry_award_false_positive(article)
         and not is_newsis_daily_schedule_article(article)
@@ -20935,18 +21114,18 @@ main {{
 }}
 .related-coverage-drawer .related-coverage-publisher {{
   flex:0 0 auto !important;
-  color:#536273 !important;
+  color:#46515f !important;
   font-size:8.6px !important;
-  font-weight:900 !important;
+  font-weight:800 !important;
 }}
 .related-coverage-drawer .related-coverage-title {{
   min-width:0 !important;
   overflow:hidden !important;
   text-overflow:ellipsis !important;
   white-space:nowrap !important;
-  color:#31465a !important;
+  color:#5d7891 !important;
   font-size:8.6px !important;
-  font-weight:700 !important;
+  font-weight:500 !important;
 }}
 @media (max-width:430px) {{
   .related-coverage-button {{
