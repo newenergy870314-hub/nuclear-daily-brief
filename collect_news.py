@@ -13409,12 +13409,24 @@ main {{ padding: 12px 12px 34px; }}
 .group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 /* 현대차그룹 전용 2차 소탭 */
-.hmg-subtabs, .construction-subtabs, .kepco-affiliate-subtabs, .government-ministry-subtabs {{ display:flex; flex-wrap:wrap; gap:5px; margin:7px 2px 5px; padding:0 2px; }}
+.hmg-subtabs, .construction-subtabs, .kepco-affiliate-subtabs, .government-ministry-subtabs {{
+  display:flex; flex-wrap:wrap; gap:6px; margin:8px 2px 7px; padding:0 2px;
+}}
 .news-group.collapsed .hmg-subtabs, .news-group.collapsed .construction-subtabs, .news-group.collapsed .kepco-affiliate-subtabs, .news-group.collapsed .government-ministry-subtabs {{ display:none !important; }}
-.hmg-subtab, .construction-subtab, .kepco-affiliate-subtab, .government-ministry-subtab {{ min-height:27px; padding:0 10px; border:1px solid rgba(31,79,138,.16); border-radius:999px; background:#f5f7fa; color:#52677d; font:inherit; font-size:10.5px; font-weight:800; cursor:pointer; }}
-.hmg-subtab b, .construction-subtab b, .kepco-affiliate-subtab b, .government-ministry-subtab b {{ margin-left:3px; font-size:9.5px; font-weight:900; color:#7a8b9c; }}
-.hmg-subtab.active, .construction-subtab.active, .kepco-affiliate-subtab.active, .government-ministry-subtab.active {{ background:#1f4f8a; border-color:#1f4f8a; color:#fff; }}
-.hmg-subtab.active b, .construction-subtab.active b, .kepco-affiliate-subtab.active b, .government-ministry-subtab.active b {{ color:#dce8f6; }}
+/* 소탭은 메인 기사탭과 같은 사각형 탭 스타일로 통일 */
+.hmg-subtab, .construction-subtab, .kepco-affiliate-subtab, .government-ministry-subtab {{
+  min-height:31px; padding:0 10px;
+  border:1px solid rgba(17,24,39,.10); border-radius:8px;
+  background:rgba(255,255,255,.88); color:#344054;
+  font:inherit; font-size:10.5px; font-weight:850; line-height:1; cursor:pointer;
+  box-shadow:0 1px 2px rgba(17,24,39,.05);
+}}
+.hmg-subtab b, .construction-subtab b, .kepco-affiliate-subtab b, .government-ministry-subtab b {{ margin-left:3px; font-size:9.5px; font-weight:900; color:#667085; }}
+.hmg-subtab.active, .construction-subtab.active, .kepco-affiliate-subtab.active, .government-ministry-subtab.active {{
+  background:#fee500; border-color:#fee500; color:#111827;
+  box-shadow:0 1px 3px rgba(17,24,39,.18);
+}}
+.hmg-subtab.active b, .construction-subtab.active b, .kepco-affiliate-subtab.active b, .government-ministry-subtab.active b {{ color:#475467; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
 @media (min-width:1000px) {{
   body>.phone .hmg-subtabs, body>.phone .construction-subtabs, body>.phone .kepco-affiliate-subtabs, body>.phone .government-ministry-subtabs {{ gap:7px; margin:9px 2px 7px; }}
