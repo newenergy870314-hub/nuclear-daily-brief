@@ -4546,17 +4546,24 @@ def _mentions_kepco_kdn(title: str, summary: str = "") -> bool:
     )
 
 
+def _mentions_standalone_hanjeon(text: str) -> bool:
+    """
+    한국전력 약칭 '한전'이 독립된 회사명으로 등장하는지 판별합니다.
+
+    '대한전선'처럼 다른 회사명 내부에 우연히 포함된 문자열은 제외하고,
+    '한전,', '한전은', '한전·산업부', '한전의'처럼 실제 약칭 사용만 인정합니다.
+    """
+    hay = html.unescape(text or "").lower()
+    return re.search(
+        r"(?<![가-힣A-Za-z0-9])한전(?=(?:은|는|이|가|을|를|의|과|와|도|만|에|에서|으로|로)?(?:[^가-힣A-Za-z0-9]|$))",
+        hay,
+    ) is not None
+
+
 def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
     """한국전력 본체가 기사에 직접 명시되었는지 판별합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
     compact = re.sub(r"\s+", "", haystack)
-
-    parent_terms = (
-        "한국전력",
-        "한국전력공사",
-        "kepco",
-        "korea electric power corporation",
-    )
 
     # 계열사 영문명 속 KEPCO는 한국전력 본체 언급으로 오인하지 않도록 제거
     affiliate_phrases = (
@@ -4579,6 +4586,7 @@ def _mentions_kepco_parent(title: str, summary: str = "") -> bool:
     return (
         "한국전력" in compact
         or "한국전력공사" in compact
+        or _mentions_standalone_hanjeon(parent_haystack)
         or "koreaelectricpowercorporation" in parent_compact
         or re.search(r"(?<![a-z0-9])kepco(?![a-z0-9])", parent_haystack) is not None
     )
@@ -4768,9 +4776,9 @@ def is_low_value_kepco_local_incident(title: str, summary: str = "") -> bool:
         return False
 
     # 제목 자체가 한국전력/한전의 주도적 사업·경영 이슈를 명시하면 유지 가능
-    title_has_kepco = any(
-        term in title_text
-        for term in ("한국전력", "한국전력공사", "한전", "kepco")
+    title_has_kepco = (
+        any(term in title_text for term in ("한국전력", "한국전력공사", "kepco"))
+        or _mentions_standalone_hanjeon(title_text)
     )
 
     substantive_terms = tuple(
@@ -5145,8 +5153,10 @@ def classify_executive_activity_group(title: str, summary: str = "") -> str | No
         return "한국수력원자력"
 
     # 한국전력 경영진
-    kepco_terms = (
-        "한국전력공사", "한국전력", "한전", "kepco",
+    # '한전'은 대한전선 같은 다른 회사명 내부 문자열을 오인하지 않도록
+    # 반드시 독립 약칭으로 등장할 때만 인정합니다.
+    kepco_explicit_terms = (
+        "한국전력공사", "한국전력", "kepco",
     )
     # 한국전력기술은 별도 전용 탭으로 본체/기타 계열사보다 먼저 구분
     if _mentions_kepco_enc(title_clean, summary_clean):
@@ -5157,7 +5167,7 @@ def classify_executive_activity_group(title: str, summary: str = "") -> str | No
         return "한전 계열사"
     if _mentions_kepco_affiliate(title_clean, summary_clean) and not _mentions_kepco_parent(title_clean, summary_clean):
         return "한전 계열사"
-    if any(term in hay for term in kepco_terms):
+    if any(term in hay for term in kepco_explicit_terms) or _mentions_standalone_hanjeon(hay):
         return "한국전력"
 
     # 국내 주요 건설사 경영진
@@ -5749,7 +5759,11 @@ def classify_direct_article(title: str, summary: str) -> str | None:
         if group == "현대건설":
             continue
         terms = DIRECT_GROUP_KEYWORDS.get(group, [])
-        if any(term.lower() in haystack for term in terms):
+        if group == "한국전력":
+            group_matched = _mentions_kepco_parent(title, summary)
+        else:
+            group_matched = any(term.lower() in haystack for term in terms)
+        if group_matched:
             if group == "원전 관계부처":
                 temp = Article(
                     title=title, link="", published=datetime.now(KST),
@@ -8240,6 +8254,56 @@ def _international_nuclear_issue_event_key(article: Article) -> str | None:
     return None
 
 
+def _khnp_strong_event_topics(article: Article) -> set[str]:
+    """
+    한수원 탭에서 서로 완전히 다른 지역동향/안전 이슈가
+    같은 발전소명 때문에 관련기사로 연결되는 것을 막기 위한 강한 주제축입니다.
+
+    제목을 우선 판정하고, 제목만으로 주제가 잡히지 않을 때만 설명문을 보조로 봅니다.
+    예: 추석 취약계층 지원/온정 나눔 != 미승인 드론 대응/비행 규제
+    """
+    title = normalized(article.title or "")
+    description = normalized(article.description or "")
+
+    topic_terms = {
+        "community_support": (
+            "추석", "명절", "취약계층", "취약 계층", "온정", "나눔",
+            "기부", "후원", "성금", "이웃돕기", "이웃 돕기", "사회공헌",
+            "전통시장", "장보기", "꾸러미", "물품전달", "물품 전달",
+            "생필품", "봉사", "복지시설", "복지 시설",
+        ),
+        "drone_security": (
+            "미승인드론", "미승인 드론", "불법드론", "불법 드론",
+            "안티드론", "안티 드론", "드론대응", "드론 대응",
+            "드론탐지", "드론 탐지", "비행금지", "비행 금지",
+            "비행제한", "비행 제한", "비행규제", "비행 규제",
+            "드론",
+        ),
+    }
+
+    def detect(text: str) -> set[str]:
+        found: set[str] = set()
+        for topic, terms in topic_terms.items():
+            if any(normalized(term) in text for term in terms):
+                found.add(topic)
+        return found
+
+    title_topics = detect(title)
+    if title_topics:
+        return title_topics
+    return detect(description)
+
+
+def _khnp_topic_conflict_for_grouping(a: Article, b: Article) -> bool:
+    """강한 한수원 사건 주제축이 서로 다르면 동일기사 묶음을 금지합니다."""
+    if a.group != "한국수력원자력" or b.group != "한국수력원자력":
+        return False
+
+    topics_a = _khnp_strong_event_topics(a)
+    topics_b = _khnp_strong_event_topics(b)
+    return bool(topics_a and topics_b and topics_a.isdisjoint(topics_b))
+
+
 def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     """
     대표기사 묶음용 동일사건 판정.
@@ -8279,6 +8343,12 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
     if intl_event_a and intl_event_a == intl_event_b:
         if abs((date_a_obj - date_b_obj).days) <= 2:
             return True
+
+    # 한수원 탭의 강한 주제축이 서로 다르면 발전소명/기관명이 같아도 절대 묶지 않습니다.
+    # 예: 추석 취약계층 지원·온정 나눔 vs 미승인 드론 대응·비행 규제.
+    # Union-Find의 중간 기사 연결로 두 사건이 다시 합쳐지는 것도 pair 단계에서 차단합니다.
+    if _khnp_topic_conflict_for_grouping(a, b):
+        return False
 
     # 같은 언론사 기사도 동일 사건의 후속/종합 보도라면 묶습니다.
     # 다만 오병합 방지를 위해 별도의 더 강한 기준을 사용합니다.
