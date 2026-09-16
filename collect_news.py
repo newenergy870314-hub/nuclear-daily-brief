@@ -4522,6 +4522,41 @@ def _mentions_kepco_affiliate(title: str, summary: str = "") -> bool:
     return False
 
 
+KEPCO_AFFILIATE_SUBTAB_SPECS = (
+    ("kps", "한전KPS", KEPCO_AFFILIATE_ALIASES["한전KPS"]),
+    ("kdn", "한전KDN", KEPCO_AFFILIATE_ALIASES["한전KDN"]),
+    ("mcs", "한전MCS", KEPCO_AFFILIATE_ALIASES["한전MCS"]),
+    ("knf", "한전원자력연료", KEPCO_AFFILIATE_ALIASES["한전원자력연료"]),
+)
+
+def _kepco_affiliate_subtab(article: Article) -> str:
+    """한전 계열사 메인 탭 내부 회사별 소탭 분류.
+
+    한국전력기술은 별도 메인 탭이므로 여기서는 KPS/KDN/MCS/한전원자력연료만 분류합니다.
+    회사 판정은 기사 제목을 우선하고, 제목에 없을 때만 미리보기/설명을 보완적으로 사용합니다.
+    """
+    title = html.unescape(getattr(article, "title", "") or "").lower()
+    description = html.unescape(
+        getattr(article, "description", "") or getattr(article, "summary", "") or ""
+    ).lower()
+
+    def _contains(text: str, alias: str) -> bool:
+        alias_lower = alias.lower()
+        if alias_lower == "knf":
+            return re.search(r"(?<![A-Za-z0-9])knf(?![A-Za-z0-9])", text) is not None
+        return alias_lower in text or re.sub(r"\s+", "", alias_lower) in re.sub(r"\s+", "", text)
+
+    for key, _label, aliases in KEPCO_AFFILIATE_SUBTAB_SPECS:
+        if any(_contains(title, alias) for alias in aliases):
+            return key
+
+    for key, _label, aliases in KEPCO_AFFILIATE_SUBTAB_SPECS:
+        if any(_contains(description, alias) for alias in aliases):
+            return key
+
+    return "other"
+
+
 
 
 def _mentions_kepco_mcs(title: str, summary: str = "") -> bool:
@@ -5048,6 +5083,20 @@ def _hyundai_motor_group_company_rank(article: Article) -> tuple[float, str]:
     return (99.0, "기타")
 
 
+def _hyundai_motor_group_subtab(article: Article) -> str:
+    """현대차그룹 메인 탭 내부 소탭 분류."""
+    rank, _label = _hyundai_motor_group_company_rank(article)
+    if rank <= 1.0:
+        return "exec-group"
+    if rank == 2.0:
+        return "hyundai"
+    if rank == 3.0:
+        return "kia"
+    if rank == 4.0:
+        return "steel"
+    return "other"
+
+
 def mentions_hyundai_motor_group(title: str, summary: str = "") -> bool:
     """현대차그룹 핵심 기사 여부를 판정합니다.
 
@@ -5533,6 +5582,64 @@ GOVERNMENT_SENIOR_RANK_TERMS = {
 GOVERNMENT_TRACKED_PEOPLE = {
     "김정관", "문신학", "양기욱", "여한구", "강감찬", "김창희", "이상은",
 }
+
+GOVERNMENT_MINISTRY_SUBTAB_SPECS = (
+    ("industry", "산업통상부", (
+        "산업통상부", "산업통상자원부", "산업부",
+        "ministry of trade, industry and energy",
+    )),
+    ("climate", "기후부", (
+        "기후에너지환경부", "기후부",
+        "ministry of climate, energy and environment",
+    )),
+    ("science", "과기부", (
+        "과학기술정보통신부", "과기정통부", "과기부",
+        "ministry of science and ict",
+    )),
+)
+
+# 현재 명시적으로 추적 중인 관계부처 인사는 모두 산업통상부 소속 기준입니다.
+GOVERNMENT_TRACKED_PERSON_MINISTRY_SUBTAB = {
+    "김정관": "industry",
+    "문신학": "industry",
+    "양기욱": "industry",
+    "여한구": "industry",
+    "강감찬": "industry",
+    "김창희": "industry",
+    "이상은": "industry",
+}
+
+def _government_ministry_subtab(article: Article) -> str:
+    """원전 관계부처 메인 탭 내부 부처별 소탭 분류.
+
+    기사 제목의 부처명을 최우선으로 사용하고, 제목에 없을 때만 설명/미리보기를 보완적으로 봅니다.
+    부처명이 생략되고 추적 인물명만 있는 기사도 해당 인물의 소속 부처로 분류합니다.
+    """
+    title = html.unescape(getattr(article, "title", "") or "").lower()
+    description = html.unescape(
+        getattr(article, "description", "") or getattr(article, "summary", "") or ""
+    ).lower()
+
+    for key, _label, aliases in GOVERNMENT_MINISTRY_SUBTAB_SPECS:
+        if any(alias.lower() in title for alias in aliases):
+            return key
+
+    # 부처명이 제목에서 생략된 추적 인물 기사 보완
+    title_raw = html.unescape(getattr(article, "title", "") or "")
+    for person, key in GOVERNMENT_TRACKED_PERSON_MINISTRY_SUBTAB.items():
+        if person in title_raw:
+            return key
+
+    for key, _label, aliases in GOVERNMENT_MINISTRY_SUBTAB_SPECS:
+        if any(alias.lower() in description for alias in aliases):
+            return key
+
+    combined_raw = f"{title_raw} {html.unescape(getattr(article, 'description', '') or getattr(article, 'summary', '') or '')}"
+    for person, key in GOVERNMENT_TRACKED_PERSON_MINISTRY_SUBTAB.items():
+        if person in combined_raw:
+            return key
+
+    return "other"
 
 PERSONNEL_NEWS_TERMS = {
     "인사", "인사발령", "임명", "선임", "취임", "승진", "전보",
@@ -8108,6 +8215,26 @@ def _major_construction_issue_event_key(article: Article) -> str | None:
     if (article.group or "") != "타 건설사":
         return None
 
+    # 공정위-건설업계 민관협의체 출범 / 하도급 납품단가 조정 동일 보도.
+    # 개별 건설사명이 제목에 없더라도 동일한 업계 사건이므로 회사 판정보다 먼저 잡습니다.
+    event_text = normalized(f"{article.title or ''} {article.description or ''}")
+    event_compact = re.sub(r"\s+", "", event_text)
+    ftc_signal = any(term in event_compact for term in (
+        "공정위", "공정거래위원회", "fairtradecommission",
+    ))
+    council_signal = any(term in event_compact for term in (
+        "민관협의체", "민관협의회", "건설업계민관협의체", "건설업계민관협의회",
+    ))
+    subcontract_signal = any(term in event_compact for term in (
+        "하도급", "납품단가", "하도급대금", "단가조정", "1077억", "1077억원",
+        "대형건설사19곳", "건설사19곳",
+    ))
+    launch_signal = any(term in event_compact for term in (
+        "출범", "발족", "출범식", "협의체출범",
+    ))
+    if ftc_signal and council_signal and subcontract_signal and launch_signal:
+        return "주요건설사|공정위|건설업계민관협의체|하도급납품단가조정"
+
     try:
         _rank, company = _other_construction_company_rank(article)
     except Exception:
@@ -8256,43 +8383,84 @@ def _international_nuclear_issue_event_key(article: Article) -> str | None:
 
 def _khnp_strong_event_topics(article: Article) -> set[str]:
     """
-    한수원 탭에서 서로 완전히 다른 지역동향/안전 이슈가
-    같은 발전소명 때문에 관련기사로 연결되는 것을 막기 위한 강한 주제축입니다.
+    한수원 탭에서 서로 다른 사건이 '한수원/수상/풍력/성과' 같은 공통어 때문에
+    하나의 관련기사 클러스터로 합쳐지는 것을 막기 위한 강한 주제축입니다.
 
     제목을 우선 판정하고, 제목만으로 주제가 잡히지 않을 때만 설명문을 보조로 봅니다.
-    예: 추석 취약계층 지원/온정 나눔 != 미승인 드론 대응/비행 규제
+    특히 수상 기사는 '수상'이라는 일반 단어가 아니라 수상명/기술대상까지 구분합니다.
     """
     title = normalized(article.title or "")
     description = normalized(article.description or "")
 
-    topic_terms = {
-        "community_support": (
+    def detect(text: str) -> set[str]:
+        found: set[str] = set()
+
+        # 지역사회 지원 / 사회공헌
+        if any(normalized(term) in text for term in (
             "추석", "명절", "취약계층", "취약 계층", "온정", "나눔",
             "기부", "후원", "성금", "이웃돕기", "이웃 돕기", "사회공헌",
             "전통시장", "장보기", "꾸러미", "물품전달", "물품 전달",
             "생필품", "봉사", "복지시설", "복지 시설",
-        ),
-        "drone_security": (
+        )):
+            found.add("community_support")
+
+        # 드론 / 비행규제 / 방호·보안
+        if any(normalized(term) in text for term in (
             "미승인드론", "미승인 드론", "불법드론", "불법 드론",
             "안티드론", "안티 드론", "드론대응", "드론 대응",
             "드론탐지", "드론 탐지", "비행금지", "비행 금지",
-            "비행제한", "비행 제한", "비행규제", "비행 규제",
-            "드론",
-        ),
-    }
+            "비행제한", "비행 제한", "비행규제", "비행 규제", "드론",
+        )):
+            found.add("drone_security")
 
-    def detect(text: str) -> set[str]:
-        found: set[str] = set()
-        for topic, terms in topic_terms.items():
-            if any(normalized(term) in text for term in terms):
-                found.add(topic)
+        # 청렴 / 윤리 / 반부패
+        if any(normalized(term) in text for term in (
+            "청렴", "청렴실천", "청렴 실천", "청렴위원회", "청렴 위원회",
+            "반부패", "부패방지", "부패 방지", "윤리경영", "윤리 경영",
+            "노사감사", "노·사·감사", "노사 감사", "노 사 감사",
+            "청렴문화", "청렴 문화", "윤리실천", "윤리 실천",
+        )):
+            found.add("integrity_ethics")
+
+        # EPRI 기술이전상: EPRI/TTA + 기술이전상 신호가 함께 있을 때만 강하게 지정.
+        has_epri = any(normalized(term) in text for term in (
+            "epri", "미국전력연구원", "미 전력연구소", "미국 전력연구소",
+        ))
+        has_transfer_award = any(normalized(term) in text for term in (
+            "기술이전상", "기술 이전상", "technology transfer award", "tta수상", "tta 수상",
+        ))
+        if has_epri and has_transfer_award:
+            found.add("epri_technology_transfer_award")
+
+        # 국가공헌대상 / ESG 대상 계열: EPRI 기술이전상과 반드시 분리.
+        if any(normalized(term) in text for term in (
+            "국가공헌대상", "국가 공헌 대상", "공헌대상", "공헌 대상",
+            "esg대상", "esg 대상", "3년연속대상", "3년 연속 대상",
+            "3년연속수상", "3년 연속 수상", "국가공헌대상esg", "국가 공헌 대상 esg",
+        )):
+            found.add("national_contribution_esg_award")
+
+        # 풍력 엔지니어링 역량/국제 인정: AI 풍력터빈 EPRI 기술이전상과 별도 사건.
+        if any(normalized(term) in text for term in (
+            "풍력발전엔지니어링", "풍력발전 엔지니어링", "엔지니어링역량", "엔지니어링 역량",
+            "국제적입증", "국제적 입증", "국제인정", "국제 인정", "역량인정", "역량 인정",
+        )):
+            found.add("wind_engineering_recognition")
+
+        # 스마트시티 / 스마트에너지 혁신 성과
+        if any(normalized(term) in text for term in (
+            "월드스마트시티엑스포", "월드 스마트시티 엑스포",
+            "스마트시티엑스포", "스마트시티 엑스포",
+            "스마트에너지혁신", "스마트에너지 혁신",
+        )):
+            found.add("smart_city_innovation")
+
         return found
 
     title_topics = detect(title)
     if title_topics:
         return title_topics
     return detect(description)
-
 
 def _khnp_topic_conflict_for_grouping(a: Article, b: Article) -> bool:
     """강한 한수원 사건 주제축이 서로 다르면 동일기사 묶음을 금지합니다."""
@@ -8345,7 +8513,7 @@ def _same_content_event_for_grouping(a: Article, b: Article) -> bool:
             return True
 
     # 한수원 탭의 강한 주제축이 서로 다르면 발전소명/기관명이 같아도 절대 묶지 않습니다.
-    # 예: 추석 취약계층 지원·온정 나눔 vs 미승인 드론 대응·비행 규제.
+    # 예: 사회공헌 vs 드론·보안 vs 청렴·윤리 vs 수상·대상/ESG는 각각 별도 사건으로 분리합니다.
     # Union-Find의 중간 기사 연결로 두 사건이 다시 합쳐지는 것도 pair 단계에서 차단합니다.
     if _khnp_topic_conflict_for_grouping(a, b):
         return False
@@ -8848,6 +9016,10 @@ def render_card(
   data-language="{escape(_article_title_display_language(article))}"
   data-priority="{_group_article_priority(article, article.group)[0]}"
   data-hmg-rank="{_hyundai_motor_group_company_rank(article)[0] if article.group == '현대차그룹사' else 99}"
+  data-hmg-subtab="{_hyundai_motor_group_subtab(article) if article.group == '현대차그룹사' else ''}"
+  data-construction-subtab="{_other_construction_subtab(article) if article.group == '타 건설사' else ''}"
+  data-kepco-affiliate-subtab="{_kepco_affiliate_subtab(article) if article.group == '한전 계열사' else ''}"
+  data-government-ministry-subtab="{_government_ministry_subtab(article) if article.group == '원전 관계부처' else ''}"
   data-published="{article.published.timestamp():.0f}"
   data-country="{primary_country}"
   data-search="{escape(search_text)}"
@@ -8936,6 +9108,29 @@ def _other_construction_company_rank(article: Article) -> tuple[int, str]:
     candidates.sort(key=lambda x: (x[0], x[1]))
     _, rank, company_name = candidates[0]
     return rank, company_name
+
+
+OTHER_CONSTRUCTION_SUBTAB_KEYS = {
+    "두산에너빌리티": "doosan",
+    "삼성물산": "samsung",
+    "대우건설": "daewoo",
+    "현대엔지니어링": "hyundai-eng",
+    "HD현대": "hd-hyundai",
+    "DL이앤씨": "dl-enc",
+    "GS건설": "gs",
+    "SK에코플랜트": "sk-ecoplant",
+    "포스코이앤씨": "posco-enc",
+    "롯데건설": "lotte",
+    "HDC현대산업개발": "hdc",
+    "한화 건설부문": "hanwha",
+    "기타": "other",
+}
+
+
+def _other_construction_subtab(article: Article) -> str:
+    """주요 건설사 메인 탭 내부 소탭 분류. 기사 제목 기준 대표 회사를 사용합니다."""
+    _rank, label = _other_construction_company_rank(article)
+    return OTHER_CONSTRUCTION_SUBTAB_KEYS.get(label, "other")
 
 
 def _title_has_marker(title: str, marker: str) -> bool:
@@ -9365,6 +9560,107 @@ def render_group_unified(
 
     source_path_html = ""
 
+    subtabs_html = ""
+    if group == "현대차그룹사":
+        hmg_counts = {"all": article_total, "exec-group": 0, "hyundai": 0, "kia": 0, "steel": 0}
+        for _article in ordered_articles:
+            _subtab = _hyundai_motor_group_subtab(_article)
+            if _subtab in hmg_counts:
+                hmg_counts[_subtab] += 1
+
+        hmg_specs = (
+            ("exec-group", "경영진·그룹"),
+            ("hyundai", "현대자동차"),
+            ("kia", "기아"),
+            ("steel", "현대제철"),
+        )
+        hmg_buttons = [
+            f'<button type="button" class="hmg-subtab active" data-hmg-filter="all">전체 <b>{hmg_counts["all"]}</b></button>'
+        ]
+        # 소탭은 실제 기사 1건 이상인 항목만 표시합니다. (전체는 항상 표시)
+        hmg_buttons.extend(
+            f'<button type="button" class="hmg-subtab" data-hmg-filter="{key}">{label} <b>{hmg_counts[key]}</b></button>'
+            for key, label in hmg_specs
+            if hmg_counts[key] > 0
+        )
+        subtabs_html = (
+            '<div class="hmg-subtabs" role="tablist" aria-label="현대차그룹 세부분류">'
+            + ''.join(hmg_buttons)
+            + '</div>'
+        )
+
+    elif group == "타 건설사":
+        construction_specs = tuple(
+            (OTHER_CONSTRUCTION_SUBTAB_KEYS[label], label)
+            for label, _aliases in OTHER_CONSTRUCTION_COMPANY_ORDER
+        ) + (("other", "기타"),)
+        construction_counts = {"all": article_total, **{key: 0 for key, _label in construction_specs}}
+        for _article in ordered_articles:
+            _subtab = _other_construction_subtab(_article)
+            if _subtab in construction_counts:
+                construction_counts[_subtab] += 1
+
+        construction_buttons = [
+            f'<button type="button" class="construction-subtab active" data-construction-filter="all">전체 <b>{construction_counts["all"]}</b></button>'
+        ]
+        # 주요 건설사도 0건인 회사 소탭은 만들지 않습니다.
+        construction_buttons.extend(
+            f'<button type="button" class="construction-subtab" data-construction-filter="{key}">{label} <b>{construction_counts[key]}</b></button>'
+            for key, label in construction_specs
+            if construction_counts[key] > 0
+        )
+        subtabs_html = (
+            '<div class="construction-subtabs" role="tablist" aria-label="주요 건설사 세부분류">'
+            + ''.join(construction_buttons)
+            + '</div>'
+        )
+
+    elif group == "한전 계열사":
+        kepco_affiliate_specs = tuple((key, label) for key, label, _aliases in KEPCO_AFFILIATE_SUBTAB_SPECS) + (("other", "기타"),)
+        kepco_affiliate_counts = {"all": article_total, **{key: 0 for key, _label in kepco_affiliate_specs}}
+        for _article in ordered_articles:
+            _subtab = _kepco_affiliate_subtab(_article)
+            if _subtab in kepco_affiliate_counts:
+                kepco_affiliate_counts[_subtab] += 1
+
+        kepco_affiliate_buttons = [
+            f'<button type="button" class="kepco-affiliate-subtab active" data-kepco-affiliate-filter="all">전체 <b>{kepco_affiliate_counts["all"]}</b></button>'
+        ]
+        # 한전 계열사도 실제 기사 1건 이상인 회사 소탭만 표시합니다.
+        kepco_affiliate_buttons.extend(
+            f'<button type="button" class="kepco-affiliate-subtab" data-kepco-affiliate-filter="{key}">{label} <b>{kepco_affiliate_counts[key]}</b></button>'
+            for key, label in kepco_affiliate_specs
+            if kepco_affiliate_counts[key] > 0
+        )
+        subtabs_html = (
+            '<div class="kepco-affiliate-subtabs" role="tablist" aria-label="한전 계열사 세부분류">'
+            + ''.join(kepco_affiliate_buttons)
+            + '</div>'
+        )
+
+    elif group == "원전 관계부처":
+        government_ministry_specs = tuple((key, label) for key, label, _aliases in GOVERNMENT_MINISTRY_SUBTAB_SPECS) + (("other", "기타"),)
+        government_ministry_counts = {"all": article_total, **{key: 0 for key, _label in government_ministry_specs}}
+        for _article in ordered_articles:
+            _subtab = _government_ministry_subtab(_article)
+            if _subtab in government_ministry_counts:
+                government_ministry_counts[_subtab] += 1
+
+        government_ministry_buttons = [
+            f'<button type="button" class="government-ministry-subtab active" data-government-ministry-filter="all">전체 <b>{government_ministry_counts["all"]}</b></button>'
+        ]
+        # 원전 관계부처도 실제 기사 1건 이상인 부처 소탭만 표시합니다.
+        government_ministry_buttons.extend(
+            f'<button type="button" class="government-ministry-subtab" data-government-ministry-filter="{key}">{label} <b>{government_ministry_counts[key]}</b></button>'
+            for key, label in government_ministry_specs
+            if government_ministry_counts[key] > 0
+        )
+        subtabs_html = (
+            '<div class="government-ministry-subtabs" role="tablist" aria-label="원전 관계부처 세부분류">'
+            + ''.join(government_ministry_buttons)
+            + '</div>'
+        )
+
     if group == "원전 관계부처":
         display_group = "원전 관계부처(산업통상부·기후부·과기부)"
     elif group == "타 건설사":
@@ -9381,6 +9677,7 @@ def render_group_unified(
     <span class="group-name">{escape(display_group)}</span>
     <span class="group-count">{article_total}건</span>
   </button>
+  {subtabs_html}
   <div class="article-stack">{cards}</div>
 </section>
 """
@@ -13111,7 +13408,19 @@ main {{ padding: 12px 12px 34px; }}
 .group-name {{ display: inline-flex; align-items: center; height: 27px; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
+/* 현대차그룹 전용 2차 소탭 */
+.hmg-subtabs, .construction-subtabs, .kepco-affiliate-subtabs, .government-ministry-subtabs {{ display:flex; flex-wrap:wrap; gap:5px; margin:7px 2px 5px; padding:0 2px; }}
+.news-group.collapsed .hmg-subtabs, .news-group.collapsed .construction-subtabs, .news-group.collapsed .kepco-affiliate-subtabs, .news-group.collapsed .government-ministry-subtabs {{ display:none !important; }}
+.hmg-subtab, .construction-subtab, .kepco-affiliate-subtab, .government-ministry-subtab {{ min-height:27px; padding:0 10px; border:1px solid rgba(31,79,138,.16); border-radius:999px; background:#f5f7fa; color:#52677d; font:inherit; font-size:10.5px; font-weight:800; cursor:pointer; }}
+.hmg-subtab b, .construction-subtab b, .kepco-affiliate-subtab b, .government-ministry-subtab b {{ margin-left:3px; font-size:9.5px; font-weight:900; color:#7a8b9c; }}
+.hmg-subtab.active, .construction-subtab.active, .kepco-affiliate-subtab.active, .government-ministry-subtab.active {{ background:#1f4f8a; border-color:#1f4f8a; color:#fff; }}
+.hmg-subtab.active b, .construction-subtab.active b, .kepco-affiliate-subtab.active b, .government-ministry-subtab.active b {{ color:#dce8f6; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
+@media (min-width:1000px) {{
+  body>.phone .hmg-subtabs, body>.phone .construction-subtabs, body>.phone .kepco-affiliate-subtabs, body>.phone .government-ministry-subtabs {{ gap:7px; margin:9px 2px 7px; }}
+  body>.phone .hmg-subtab, body>.phone .construction-subtab, body>.phone .kepco-affiliate-subtab, body>.phone .government-ministry-subtab {{ min-height:31px; padding:0 13px; font-size:12px; }}
+  body>.phone .hmg-subtab b, body>.phone .construction-subtab b, body>.phone .kepco-affiliate-subtab b, body>.phone .government-ministry-subtab b {{ font-size:11px; }}
+}}
 
 
 .news-group.collapsed .article-stack {{ display: none; }}
@@ -33770,6 +34079,54 @@ document.addEventListener("click", event => {{
     return;
   }}
 
+  const hmgSubtab = event.target.closest(".hmg-subtab");
+  if(hmgSubtab) {{
+    const hmgGroup=hmgSubtab.closest('.news-group[data-group="현대차그룹사"]');
+    if(!hmgGroup) return;
+    activeHmgSubtab=hmgSubtab.dataset.hmgFilter||"all";
+    hmgGroup.querySelectorAll(".hmg-subtab").forEach(button=>{{
+      button.classList.toggle("active",button===hmgSubtab);
+    }});
+    filterArticles();
+    return;
+  }}
+
+  const constructionSubtab = event.target.closest(".construction-subtab");
+  if(constructionSubtab) {{
+    const constructionGroup=constructionSubtab.closest('.news-group[data-group="타 건설사"]');
+    if(!constructionGroup) return;
+    activeConstructionSubtab=constructionSubtab.dataset.constructionFilter||"all";
+    constructionGroup.querySelectorAll(".construction-subtab").forEach(button=>{{
+      button.classList.toggle("active",button===constructionSubtab);
+    }});
+    filterArticles();
+    return;
+  }}
+
+  const kepcoAffiliateSubtab = event.target.closest(".kepco-affiliate-subtab");
+  if(kepcoAffiliateSubtab) {{
+    const kepcoAffiliateGroup=kepcoAffiliateSubtab.closest('.news-group[data-group="한전 계열사"]');
+    if(!kepcoAffiliateGroup) return;
+    activeKepcoAffiliateSubtab=kepcoAffiliateSubtab.dataset.kepcoAffiliateFilter||"all";
+    kepcoAffiliateGroup.querySelectorAll(".kepco-affiliate-subtab").forEach(button=>{{
+      button.classList.toggle("active",button===kepcoAffiliateSubtab);
+    }});
+    filterArticles();
+    return;
+  }}
+
+  const governmentMinistrySubtab = event.target.closest(".government-ministry-subtab");
+  if(governmentMinistrySubtab) {{
+    const governmentMinistryGroup=governmentMinistrySubtab.closest('.news-group[data-group="원전 관계부처"]');
+    if(!governmentMinistryGroup) return;
+    activeGovernmentMinistrySubtab=governmentMinistrySubtab.dataset.governmentMinistryFilter||"all";
+    governmentMinistryGroup.querySelectorAll(".government-ministry-subtab").forEach(button=>{{
+      button.classList.toggle("active",button===governmentMinistrySubtab);
+    }});
+    filterArticles();
+    return;
+  }}
+
   const groupTitle = event.target.closest(".group-title");
   if(!groupTitle) return;
 
@@ -33799,6 +34156,7 @@ function constructionCompanyRankFromCard(card){{
     ["삼성물산",["삼성물산","samsung c&t"]],
     ["대우건설",["대우건설","daewoo e&c"]],
     ["현대엔지니어링",["현대엔지니어링","현대eng","현대 eng","hyundai engineering","hyundai eng"]],
+    ["HD현대",["hd현대","hd현대그룹","hd hyundai","hd hyundai group"]],
     ["DL이앤씨",["dl이앤씨","dl e&c"]],
     ["GS건설",["gs건설","gs e&c"]],
     ["SK에코플랜트",["sk에코플랜트","sk ecoplant"]],
@@ -33833,19 +34191,26 @@ function reorderLanguageArticles(order){{
     const isMajorConstruction=groupKey==="타 건설사";
     const isHyundaiMotorGroup=groupKey==="현대차그룹사";
     cards.sort((a, b) => {{
-      // 주요 건설사는 언어순보다 회사별 묶음을 최우선으로 유지합니다.
+      // 주요 건설사는 회사별 묶음을 유지하되, 같은 회사 안에서는 사용자가 선택한 언어순을 적용합니다.
       if(isMajorConstruction){{
         const companyA=constructionCompanyRankFromCard(a);
         const companyB=constructionCompanyRankFromCard(b);
         if(companyA!==companyB) return companyA-companyB;
+        const langA = languageRank[a.dataset.language] ?? 9;
+        const langB = languageRank[b.dataset.language] ?? 9;
+        if(langA!==langB) return langA-langB;
         return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
       }}
 
-      // 현대차그룹사는 언어순/날짜순보다 정의선 회장 → 핵심 경영진 → 그룹/회사 순위를 최우선으로 고정합니다.
+      // 현대차그룹사는 정의선/핵심 경영진/그룹사 우선순위를 유지하되,
+      // 같은 우선순위 안에서는 사용자가 선택한 언어순을 적용합니다.
       if(isHyundaiMotorGroup){{
         const hmgA=Number(a.dataset.hmgRank ?? 99);
         const hmgB=Number(b.dataset.hmgRank ?? 99);
         if(hmgA!==hmgB) return hmgA-hmgB;
+        const langA = languageRank[a.dataset.language] ?? 9;
+        const langB = languageRank[b.dataset.language] ?? 9;
+        if(langA!==langB) return langA-langB;
         return Number(b.dataset.published || 0) - Number(a.dataset.published || 0);
       }}
 
@@ -35368,6 +35733,31 @@ if(countryAllButton){{
   }});
 }}
 
+let activeHmgSubtab="all";
+let activeConstructionSubtab="all";
+let activeKepcoAffiliateSubtab="all";
+let activeGovernmentMinistrySubtab="all";
+
+function resetHmgSubtabs(panel=null){{
+  activeHmgSubtab="all";
+  activeConstructionSubtab="all";
+  activeKepcoAffiliateSubtab="all";
+  activeGovernmentMinistrySubtab="all";
+  const root=panel||document;
+  root.querySelectorAll(".hmg-subtab").forEach(button=>{{
+    button.classList.toggle("active",button.dataset.hmgFilter==="all");
+  }});
+  root.querySelectorAll(".construction-subtab").forEach(button=>{{
+    button.classList.toggle("active",button.dataset.constructionFilter==="all");
+  }});
+  root.querySelectorAll(".kepco-affiliate-subtab").forEach(button=>{{
+    button.classList.toggle("active",button.dataset.kepcoAffiliateFilter==="all");
+  }});
+  root.querySelectorAll(".government-ministry-subtab").forEach(button=>{{
+    button.classList.toggle("active",button.dataset.governmentMinistryFilter==="all");
+  }});
+}}
+
 function filterArticles(){{
   const q=document.getElementById("article-search").value.trim().toLowerCase();
   const panel=activePanel();
@@ -35383,7 +35773,18 @@ function filterArticles(){{
     let visible=[];
 
     cards.forEach(card=>{{
-      const matchesSearch=!q||card.dataset.search.includes(q); const matchesCountry=!activeCountryFilter||card.dataset.country===activeCountryFilter; const show=matchesSearch&&matchesCountry;
+      const matchesSearch=!q||card.dataset.search.includes(q);
+      const matchesCountry=!activeCountryFilter||card.dataset.country===activeCountryFilter;
+      const groupKey=(group.dataset.group||"");
+      const isHmgGroup=groupKey==="현대차그룹사";
+      const isConstructionGroup=groupKey==="타 건설사";
+      const isKepcoAffiliateGroup=groupKey==="한전 계열사";
+      const isGovernmentMinistryGroup=groupKey==="원전 관계부처";
+      const matchesHmgSubtab=!isHmgGroup||activeHmgSubtab==="all"||card.dataset.hmgSubtab===activeHmgSubtab;
+      const matchesConstructionSubtab=!isConstructionGroup||activeConstructionSubtab==="all"||card.dataset.constructionSubtab===activeConstructionSubtab;
+      const matchesKepcoAffiliateSubtab=!isKepcoAffiliateGroup||activeKepcoAffiliateSubtab==="all"||card.dataset.kepcoAffiliateSubtab===activeKepcoAffiliateSubtab;
+      const matchesGovernmentMinistrySubtab=!isGovernmentMinistryGroup||activeGovernmentMinistrySubtab==="all"||card.dataset.governmentMinistrySubtab===activeGovernmentMinistrySubtab;
+      const show=matchesSearch&&matchesCountry&&matchesHmgSubtab&&matchesConstructionSubtab&&matchesKepcoAffiliateSubtab&&matchesGovernmentMinistrySubtab;
       // PC article cards are forced to display:grid !important.
       // Therefore a normal inline display:none cannot hide them.
       // Use an inline !important hide so country/search filtering works on PC too.
@@ -35398,19 +35799,22 @@ function filterArticles(){{
       }}
     }});
 
-    if(q||activeCountryFilter){{
+    if(q||activeCountryFilter||((group.dataset.group||"")==="현대차그룹사"&&activeHmgSubtab!=="all")||((group.dataset.group||"")==="타 건설사"&&activeConstructionSubtab!=="all")||((group.dataset.group||"")==="한전 계열사"&&activeKepcoAffiliateSubtab!=="all")||((group.dataset.group||"")==="원전 관계부처"&&activeGovernmentMinistrySubtab!=="all")){{
       const groupKey=(group.dataset.group||"");
       const isMajorConstruction=groupKey==="타 건설사";
       const isHyundaiMotorGroup=groupKey==="현대차그룹사";
       visible.sort((a,b)=>{{
-        // 검색/국가 필터를 사용해도 주요 건설사 회사별 묶음 순서는 깨지지 않게 유지합니다.
+        // 검색/국가 필터 중에도 주요 건설사 회사별 묶음은 유지하되, 같은 회사 안에서는 언어순을 적용합니다.
         if(isMajorConstruction){{
           const companyA=constructionCompanyRankFromCard(a);
           const companyB=constructionCompanyRankFromCard(b);
           if(companyA!==companyB)return companyA-companyB;
+          const langA=languageRank[a.dataset.language]??9;
+          const langB=languageRank[b.dataset.language]??9;
+          if(langA!==langB)return langA-langB;
           return Number(b.dataset.published||0)-Number(a.dataset.published||0);
         }}
-        // 지도 국가 선택/검색 중에도 정의선 회장 우선순위를 절대 깨지 않게 합니다.
+        // 지도 국가 선택/검색 중에도 정의선/핵심 경영진 우선순위를 유지하고, 같은 우선순위 안에서는 언어순을 적용합니다.
         if(isHyundaiMotorGroup){{
           const titleRank=(card)=>{{
             const t=(card.dataset.title||'').toLowerCase();
@@ -35422,6 +35826,9 @@ function filterArticles(){{
           const hmgA=titleRank(a);
           const hmgB=titleRank(b);
           if(hmgA!==hmgB)return hmgA-hmgB;
+          const langA=languageRank[a.dataset.language]??9;
+          const langB=languageRank[b.dataset.language]??9;
+          if(langA!==langB)return langA-langB;
           return Number(b.dataset.published||0)-Number(a.dataset.published||0);
         }}
         const priorityA=Number(a.dataset.priority??2);
@@ -35440,12 +35847,12 @@ function filterArticles(){{
     }}
   }});
 
-  if(!q&&!activeCountryFilter){{
+  if(!q&&!activeCountryFilter&&activeHmgSubtab==="all"&&activeConstructionSubtab==="all"&&activeKepcoAffiliateSubtab==="all"&&activeGovernmentMinistrySubtab==="all"){{
     const currentOrder=languageOrderButton?.dataset.order||localStorage.getItem(languageOrderKey)||"ko-en";
     reorderLanguageArticles(currentOrder);
   }}
 
-  document.getElementById("no-results").style.display=(q||activeCountryFilter)&&total===0?"block":"none";
+  document.getElementById("no-results").style.display=(q||activeCountryFilter||activeHmgSubtab!=="all"||activeConstructionSubtab!=="all"||activeKepcoAffiliateSubtab!=="all"||activeGovernmentMinistrySubtab!=="all")&&total===0?"block":"none";
   updateMasterButtonCount(panel);
 }}
 function refreshActivePeriodUI(){{
@@ -35475,6 +35882,7 @@ document.querySelectorAll(".tab-button").forEach(button => {{
 
     button.classList.add("active");
     panel.classList.add("active");
+    resetHmgSubtabs(panel);
 
     const periodDate = panel.getAttribute("data-report-date");
     if(periodDate && archiveInput){{
