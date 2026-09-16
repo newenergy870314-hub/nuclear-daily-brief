@@ -284,6 +284,7 @@ ALWAYS_SHOW_GROUPS = {
     "타 건설사",
     "한국수력원자력",
     "한국전력",
+    "한국전력기술",
     "한전 계열사",
     "한국원자력연구원",
     "원전 관계부처",
@@ -374,11 +375,15 @@ GROUPS = [
         "한전 보직", "한전 인사발령",
         "KEPCO appointment", "KEPCO personnel", "KEPCO executive",
     ]),
+    ("한국전력기술", [
+        # 한국전력기술 전용 탭: 국문/약칭/영문 표기 모두 수집
+        '"한국전력기술"', '"한국전력기술(주)"',
+        '"한기" 원전', '"한기" 원자력', '"한기" SMR',
+        '"KEPCO E&C"', '"KEPCO Engineering & Construction"',
+        '"KEPCO Engineering and Construction"', '"KEPCO-ENC"', '"KOPEC"',
+    ]),
     ("한전 계열사", [
-        # 원전·원자력 관련 핵심 한전 그룹사
-        # 한국전력기술: 국문/약칭/영문 표기 모두 수집
-        '"한국전력기술"', '"한국전력기술(주)"', '"한기" 원전', '"한기" 원자력',
-        '"KEPCO E&C"', '"KEPCO Engineering & Construction"', '"KEPCO-ENC"', '"KOPEC"',
+        # 한국전력기술은 별도 탭으로 분리하고 나머지 핵심 한전 그룹사만 수집
         # 한전KPS
         '"한전KPS"', '"KEPCO KPS"', '"KEPCO-KPS"',
         # 한전KDN
@@ -660,6 +665,7 @@ GROUP_TAB_LABELS = {
     "타 건설사": "주요 건설사",
     "한국수력원자력": "한수원",
     "한국전력": "한전",
+    "한국전력기술": "한국전력기술",
     "한전 계열사": "한전 계열사",
     "한국원자력연구원": "한국원자력연구원",
     "해외 건설사": "해외 건설사",
@@ -1761,8 +1767,12 @@ DIRECT_GROUP_KEYWORDS = {
     "한국전력": [
         "한국전력", "한전", "kepco",
     ],
+    "한국전력기술": [
+        "한국전력기술", "한국전력기술(주)", "kepco e&c",
+        "kepco engineering & construction", "kepco engineering and construction",
+        "kepco-enc", "kopec",
+    ],
     "한전 계열사": [
-        "한국전력기술", "kepco e&c", "kepco engineering & construction",
         "한전kps", "kepco kps", "kepco-kps",
         "한전kdn", "kepco kdn", "kepco-kdn",
         "한전mcs", "한전 mcs", "kepco mcs", "kepco-mcs",
@@ -1951,6 +1961,7 @@ DIRECT_GROUP_PRIORITY = [
     "타 건설사",
     "한국수력원자력",
     "한국전력",
+    "한국전력기술",
     "한전 계열사",
     "한국원자력연구원",
     "원전 관계부처",
@@ -3887,6 +3898,11 @@ GROUP_CORE_PRIORITY_TERMS = {
     "한국전력": {
         "한국전력", "한전", "kepco",
     },
+    "한국전력기술": {
+        "한국전력기술", "한국전력기술(주)", "kepco e&c",
+        "kepco engineering & construction", "kepco engineering and construction",
+        "kepco-enc", "kopec",
+    },
     "한국원자력연구원": {
         "한국원자력연구원", "kaeri",
         "korea atomic energy research institute", "원자력연구원",
@@ -4471,6 +4487,22 @@ KEPCO_AFFILIATE_ALIASES = {
         "knf",
     ),
 }
+
+def _mentions_kepco_enc(title: str, summary: str = "") -> bool:
+    """한국전력기술(KEPCO E&C)을 다른 한전 계열사/한국전력 본체와 구분합니다."""
+    haystack = html.unescape(f"{title} {summary}").lower()
+    compact = re.sub(r"\s+", "", haystack)
+    aliases = KEPCO_AFFILIATE_ALIASES["한국전력기술"]
+    for alias in aliases:
+        alias_lower = alias.lower()
+        if alias_lower in haystack or re.sub(r"\s+", "", alias_lower) in compact:
+            return True
+    # '한기'는 독립된 약칭 + 원전/원자력/SMR 문맥일 때만 인정
+    if re.search(r"(?<![가-힣A-Za-z0-9])한기(?![가-힣A-Za-z0-9])", haystack):
+        if any(term in haystack for term in ("원전", "원자력", "smr", "nuclear", "reactor")):
+            return True
+    return False
+
 
 def _mentions_kepco_affiliate(title: str, summary: str = "") -> bool:
     """원전 관련 핵심 한전 계열사 국문·약칭·영문 표기를 인식합니다."""
@@ -5116,7 +5148,11 @@ def classify_executive_activity_group(title: str, summary: str = "") -> str | No
     kepco_terms = (
         "한국전력공사", "한국전력", "한전", "kepco",
     )
-    # 한전MCS/KDN 등 계열사는 본체보다 먼저 구분
+    # 한국전력기술은 별도 전용 탭으로 본체/기타 계열사보다 먼저 구분
+    if _mentions_kepco_enc(title_clean, summary_clean):
+        return "한국전력기술"
+
+    # 한전MCS/KDN 등 나머지 계열사는 본체보다 먼저 구분
     if _mentions_kepco_kdn(title_clean, summary_clean) or _mentions_kepco_mcs(title_clean, summary_clean):
         return "한전 계열사"
     if _mentions_kepco_affiliate(title_clean, summary_clean) and not _mentions_kepco_parent(title_clean, summary_clean):
@@ -5249,8 +5285,16 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     """
     haystack = html.unescape(f"{title} {summary}").lower()
 
-    # 최우선: 기사 제목에 직접 등장하는 건설사
+    # 최우선: 기사 제목에 직접 등장하는 건설사/핵심 기관 우선순위
+    # 1) 현대건설은 당사 기사이므로 항상 최우선
+    # 2) 한국전력기술(KEPCO E&C)이 제목에 직접 등장하면 포스코이앤씨 등
+    #    주요 건설사가 함께 있어도 한국전력기술 전용 탭을 우선
+    # 3) 그 외 주요 건설사는 기존대로 주요 건설사 탭으로 분류
     title_company_group = detect_title_primary_construction_company(title)
+    if title_company_group == "현대건설":
+        return "현대건설"
+    if _mentions_kepco_enc(title, ""):
+        return "한국전력기술"
     if title_company_group:
         return title_company_group
 
@@ -5276,6 +5320,10 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     # 그 다음 현대건설 (건설기계 오탐 제외)
     if mentions_hyundai_ec(title, summary):
         return "현대건설"
+
+    # 한국전력기술(KEPCO E&C)은 별도 전용 탭을 최우선 적용합니다.
+    if _mentions_kepco_enc(title, summary):
+        return "한국전력기술"
 
     # 한전KDN / 한전MCS는 회사명 자체에 '한전/KEPCO'가 포함되므로
     # 한국전력 본체로 오인하지 않고 '한전 계열사'를 우선합니다.
@@ -8691,6 +8739,7 @@ def render_card(
     is_new: bool = False,
 ) -> str:
     ensure_article_display_metadata(article)
+    enforce_kepco_enc_group(article)
     enforce_kepco_kdn_group(article)
 
     if article.image:
@@ -11586,13 +11635,21 @@ def enforce_title_kepco_priority(article: Article) -> Article:
     """
     title = html.unescape(article.title or "").lower()
 
+    kepco_enc_terms = (
+        "한국전력기술", "한국전력기술(주)", "kepco e&c",
+        "kepco engineering & construction", "kepco engineering and construction",
+        "kepco-enc", "kopec",
+    )
+    if any(term in title for term in kepco_enc_terms):
+        article.group = "한국전력기술"
+        return article
+
     affiliate_terms = (
         "한전mcs", "한전 mcs", "kepco mcs",
         "한전kdn", "한전 kdn", "kepco kdn",
         "한전kps", "한전 kps", "kepco kps",
         "한전원자력연료", "한전 원자력연료", "한전 원자력 연료",
         "kepco nuclear fuel",
-        "한국전력기술", "kepco e&c", "kepco engineering",
     )
     if any(term in title for term in affiliate_terms):
         return article
@@ -12416,6 +12473,13 @@ def migrate_legacy_nuclear_association_group(article: Article) -> Article:
     return article
 
 
+def enforce_kepco_enc_group(article: Article) -> Article:
+    """한국전력기술 관련 신규/기존 archive 기사를 전용 탭으로 고정합니다."""
+    if _mentions_kepco_enc(article.title, article.description):
+        article.group = "한국전력기술"
+    return article
+
+
 def enforce_kepco_kdn_group(article: Article) -> Article:
     """
     한전KDN / 한전MCS 최종 분류 안전장치.
@@ -12481,6 +12545,7 @@ def article_from_dict(data: dict) -> Article | None:
             description=str(data.get("description", "")),
         )
         normalize_article_publication_date(article)
+        article = enforce_kepco_enc_group(article)
         article = enforce_kepco_kdn_group(article)
         article = enforce_kaeri_group(article)
         article = enforce_us_nuclear_policy_group(article)
@@ -12567,6 +12632,7 @@ def update_archive(
             enforce_kaeri_group(article)
             enforce_kepic_nuclear_group(article)
             enforce_kaeri_group(article)
+            enforce_kepco_enc_group(article)
             enforce_kepco_kdn_group(article)
             normalized_link = article.link.strip() if article.link else ""
             identity = normalized_link or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
@@ -43304,6 +43370,7 @@ def main() -> int:
     for items in articles_by_period.values():
         for article in items:
             ensure_article_display_metadata(article)
+            enforce_kepco_enc_group(article)
             enforce_kepco_kdn_group(article)
 
     # 대표 이미지를 로컬 파일로 저장해 외부 이미지 차단/로딩 실패를 줄입니다.
