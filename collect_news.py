@@ -5105,7 +5105,13 @@ def _hyundai_motor_group_company_rank(article: Article) -> tuple[float, str]:
 
 
 def _hyundai_motor_group_subtab(article: Article) -> str:
-    """현대차그룹 메인 탭 내부 소탭 분류."""
+    """현대차그룹 메인 탭 내부 소탭 분류.
+
+    제목을 최우선으로 사용하되, 제목만으로 회사를 특정할 수 없는 경우에는
+    미리보기/요약에 명시된 그룹사명을 보완적으로 사용합니다.
+    이렇게 해야 현대차그룹사로 수집된 기사가 회사명이 요약에만 있다는 이유로
+    무조건 '기타'에 떨어지는 현상을 막을 수 있습니다.
+    """
     rank, _label = _hyundai_motor_group_company_rank(article)
     if rank <= 1.0:
         return "exec-group"
@@ -5117,6 +5123,24 @@ def _hyundai_motor_group_subtab(article: Article) -> str:
         return "hyundai-eng"
     if rank == 5.0:
         return "steel"
+
+    title = html.unescape(getattr(article, "title", "") or "").lower()
+    summary = html.unescape(getattr(article, "summary", "") or "").lower()
+    combined = f"{title} {summary}"
+
+    # 제목에서 못 잡힌 경우에만 요약/미리보기의 명시적 회사명으로 보완합니다.
+    # 현대건설 영문명(Hyundai Engineering & Construction / Hyundai E&C)은
+    # 현대엔지니어링으로 오인하지 않습니다.
+    if _mentions_hyundai_engineering_company(title, summary):
+        return "hyundai-eng"
+    if "현대제철" in combined or "hyundai steel" in combined:
+        return "steel"
+    if "현대자동차" in combined or "hyundai motor company" in combined or "hyundai motor" in combined:
+        return "hyundai"
+    if "kia corporation" in combined or re.search(r"(?<![가-힣])기아(?![가-힣])", combined):
+        return "kia"
+    if any(term in combined for term in ("현대자동차그룹", "현대차그룹", "hyundai motor group")):
+        return "exec-group"
     return "other"
 
 
@@ -34165,14 +34189,19 @@ document.addEventListener("click", event => {{
     const hmgGroup=hmgSubtab.closest('.news-group[data-group="현대차그룹사"]');
     if(!hmgGroup) return;
     const key=hmgSubtab.dataset.hmgFilter||"all";
-    const wasActive=hmgSubtab.classList.contains("active")&&hmgGroup.classList.contains("subtab-open")&&!hmgGroup.classList.contains("subtab-all-open");
+    const wasActive=selectedSubtabKey(hmgGroup)===key&&hmgGroup.classList.contains("subtab-open")&&!hmgGroup.classList.contains("subtab-all-open");
     collapseAllSubtabsInGroup(hmgGroup);
     const closing=wasActive;
     activeHmgSubtab=closing?"all":key;
     setSelectedSubtabKey(hmgGroup,closing?"":key);
     hmgGroup.querySelectorAll(".hmg-subtab").forEach(button=>button.classList.toggle("active",!closing&&button===hmgSubtab));
     hmgGroup.classList.toggle("subtab-open",!closing);
-    if(closing) {{ suppressLanguageReorderOnce=true; restoreArticleStackAfterSubtabs(hmgGroup); }} else placeArticleStackBelowSubtab(hmgGroup,hmgSubtab);
+    if(closing) {{
+      suppressLanguageReorderOnce=true;
+      restoreArticleStackAfterSubtabs(hmgGroup);
+      const stack=hmgGroup.querySelector(":scope > .article-stack")||hmgGroup.querySelector(".article-stack");
+      if(stack) stack.style.setProperty("display","none","important");
+    }} else placeArticleStackBelowSubtab(hmgGroup,hmgSubtab);
     filterArticles();
     return;
   }}
@@ -34182,14 +34211,19 @@ document.addEventListener("click", event => {{
     const constructionGroup=constructionSubtab.closest('.news-group[data-group="타 건설사"]');
     if(!constructionGroup) return;
     const key=constructionSubtab.dataset.constructionFilter||"all";
-    const wasActive=constructionSubtab.classList.contains("active")&&constructionGroup.classList.contains("subtab-open")&&!constructionGroup.classList.contains("subtab-all-open");
+    const wasActive=selectedSubtabKey(constructionGroup)===key&&constructionGroup.classList.contains("subtab-open")&&!constructionGroup.classList.contains("subtab-all-open");
     collapseAllSubtabsInGroup(constructionGroup);
     const closing=wasActive;
     activeConstructionSubtab=closing?"all":key;
     setSelectedSubtabKey(constructionGroup,closing?"":key);
     constructionGroup.querySelectorAll(".construction-subtab").forEach(button=>button.classList.toggle("active",!closing&&button===constructionSubtab));
     constructionGroup.classList.toggle("subtab-open",!closing);
-    if(closing) {{ suppressLanguageReorderOnce=true; restoreArticleStackAfterSubtabs(constructionGroup); }} else placeArticleStackBelowSubtab(constructionGroup,constructionSubtab);
+    if(closing) {{
+      suppressLanguageReorderOnce=true;
+      restoreArticleStackAfterSubtabs(constructionGroup);
+      const stack=constructionGroup.querySelector(":scope > .article-stack")||constructionGroup.querySelector(".article-stack");
+      if(stack) stack.style.setProperty("display","none","important");
+    }} else placeArticleStackBelowSubtab(constructionGroup,constructionSubtab);
     filterArticles();
     return;
   }}
@@ -34199,14 +34233,19 @@ document.addEventListener("click", event => {{
     const kepcoAffiliateGroup=kepcoAffiliateSubtab.closest('.news-group[data-group="한전 계열사"]');
     if(!kepcoAffiliateGroup) return;
     const key=kepcoAffiliateSubtab.dataset.kepcoAffiliateFilter||"all";
-    const wasActive=kepcoAffiliateSubtab.classList.contains("active")&&kepcoAffiliateGroup.classList.contains("subtab-open")&&!kepcoAffiliateGroup.classList.contains("subtab-all-open");
+    const wasActive=selectedSubtabKey(kepcoAffiliateGroup)===key&&kepcoAffiliateGroup.classList.contains("subtab-open")&&!kepcoAffiliateGroup.classList.contains("subtab-all-open");
     collapseAllSubtabsInGroup(kepcoAffiliateGroup);
     const closing=wasActive;
     activeKepcoAffiliateSubtab=closing?"all":key;
     setSelectedSubtabKey(kepcoAffiliateGroup,closing?"":key);
     kepcoAffiliateGroup.querySelectorAll(".kepco-affiliate-subtab").forEach(button=>button.classList.toggle("active",!closing&&button===kepcoAffiliateSubtab));
     kepcoAffiliateGroup.classList.toggle("subtab-open",!closing);
-    if(closing) {{ suppressLanguageReorderOnce=true; restoreArticleStackAfterSubtabs(kepcoAffiliateGroup); }} else placeArticleStackBelowSubtab(kepcoAffiliateGroup,kepcoAffiliateSubtab);
+    if(closing) {{
+      suppressLanguageReorderOnce=true;
+      restoreArticleStackAfterSubtabs(kepcoAffiliateGroup);
+      const stack=kepcoAffiliateGroup.querySelector(":scope > .article-stack")||kepcoAffiliateGroup.querySelector(".article-stack");
+      if(stack) stack.style.setProperty("display","none","important");
+    }} else placeArticleStackBelowSubtab(kepcoAffiliateGroup,kepcoAffiliateSubtab);
     filterArticles();
     return;
   }}
@@ -34216,14 +34255,19 @@ document.addEventListener("click", event => {{
     const governmentMinistryGroup=governmentMinistrySubtab.closest('.news-group[data-group="원전 관계부처"]');
     if(!governmentMinistryGroup) return;
     const key=governmentMinistrySubtab.dataset.governmentMinistryFilter||"all";
-    const wasActive=governmentMinistrySubtab.classList.contains("active")&&governmentMinistryGroup.classList.contains("subtab-open")&&!governmentMinistryGroup.classList.contains("subtab-all-open");
+    const wasActive=selectedSubtabKey(governmentMinistryGroup)===key&&governmentMinistryGroup.classList.contains("subtab-open")&&!governmentMinistryGroup.classList.contains("subtab-all-open");
     collapseAllSubtabsInGroup(governmentMinistryGroup);
     const closing=wasActive;
     activeGovernmentMinistrySubtab=closing?"all":key;
     setSelectedSubtabKey(governmentMinistryGroup,closing?"":key);
     governmentMinistryGroup.querySelectorAll(".government-ministry-subtab").forEach(button=>button.classList.toggle("active",!closing&&button===governmentMinistrySubtab));
     governmentMinistryGroup.classList.toggle("subtab-open",!closing);
-    if(closing) {{ suppressLanguageReorderOnce=true; restoreArticleStackAfterSubtabs(governmentMinistryGroup); }} else placeArticleStackBelowSubtab(governmentMinistryGroup,governmentMinistrySubtab);
+    if(closing) {{
+      suppressLanguageReorderOnce=true;
+      restoreArticleStackAfterSubtabs(governmentMinistryGroup);
+      const stack=governmentMinistryGroup.querySelector(":scope > .article-stack")||governmentMinistryGroup.querySelector(".article-stack");
+      if(stack) stack.style.setProperty("display","none","important");
+    }} else placeArticleStackBelowSubtab(governmentMinistryGroup,governmentMinistrySubtab);
     filterArticles();
     return;
   }}
@@ -34250,6 +34294,8 @@ document.addEventListener("click", event => {{
     group.classList.remove('subtab-open');
     setSelectedSubtabKey(group,"");
     restoreArticleStackAfterSubtabs(group);
+    const homeStack=group.querySelector(":scope > .article-stack")||group.querySelector(".article-stack");
+    if(homeStack) homeStack.style.setProperty("display","none","important");
     filterArticles();
   }}
   groupTitle.setAttribute("aria-expanded", String(expanded));
@@ -35922,6 +35968,8 @@ function placeArticleStackBelowSubtab(group,button){{
   if(!group||!button)return;
   const stack=group.querySelector(".article-stack");
   if(!stack)return;
+  // 개별 소탭을 열 때는 이전 접기 동작에서 걸린 inline hide를 반드시 해제합니다.
+  stack.style.removeProperty("display");
   button.insertAdjacentElement("afterend",stack);
 }}
 
