@@ -34281,7 +34281,8 @@ document.addEventListener("click", event => {{
   const collapsed = group.classList.toggle("collapsed");
   const expanded = !collapsed;
 
-  // 소탭의 '전체' 버튼을 없앴으므로 메인 기사탭을 다시 펼치면 해당 그룹 전체 기사로 복귀합니다.
+  // 소탭이 있는 메인 기사탭을 펼치면 모든 소탭과 각 소탭의 기사까지 함께 펼칩니다.
+  // 메인 기사탭을 접으면 CSS의 collapsed 상태가 소탭/기사 전체를 함께 숨깁니다.
   if(expanded){{
     const groupKey=group.dataset.group||"";
     if(groupKey==="현대차그룹사") activeHmgSubtab="all";
@@ -34289,13 +34290,16 @@ document.addEventListener("click", event => {{
     else if(groupKey==="한전 계열사") activeKepcoAffiliateSubtab="all";
     else if(groupKey==="원전 관계부처") activeGovernmentMinistrySubtab="all";
 
-    collapseAllSubtabsInGroup(group);
-    group.querySelectorAll('.hmg-subtab,.construction-subtab,.kepco-affiliate-subtab,.government-ministry-subtab').forEach(button=>button.classList.remove('active'));
-    group.classList.remove('subtab-open');
+    const hasNestedSubtabs=!!subtabMetaForGroup(group);
     setSelectedSubtabKey(group,"");
-    restoreArticleStackAfterSubtabs(group);
-    const homeStack=group.querySelector(":scope > .article-stack")||group.querySelector(".article-stack");
-    if(homeStack) homeStack.style.setProperty("display","none","important");
+    if(hasNestedSubtabs){{
+      // 기존 개별 선택 상태를 정리한 뒤 각 소탭별 article-stack으로 기사를 분배합니다.
+      collapseAllSubtabsInGroup(group);
+      group.querySelectorAll('.hmg-subtab,.construction-subtab,.kepco-affiliate-subtab,.government-ministry-subtab').forEach(button=>button.classList.remove('active'));
+      expandAllSubtabsInGroup(group);
+    }} else {{
+      group.classList.remove('subtab-open');
+    }}
     filterArticles();
   }}
   groupTitle.setAttribute("aria-expanded", String(expanded));
@@ -43630,9 +43634,17 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   body > .phone .news-group.collapsed > .article-stack {{
     display:none !important;
   }}
-  body > .phone .news-group:not(.collapsed) > .article-stack {{
+  /* 일반 기사탭은 펼치면 직속 기사목록을 보여줍니다. */
+  body > .phone .news-group:not(.collapsed):not([data-group="현대차그룹사"]):not([data-group="타 건설사"]):not([data-group="한전 계열사"]):not([data-group="원전 관계부처"]) > .article-stack {{
     display:grid !important;
     grid-template-columns:minmax(0,1fr) !important;
+  }}
+  /* 소탭이 있는 그룹은 메인 기사탭만 펼친 상태에서는 전체 기사목록을 숨깁니다. */
+  body > .phone .news-group[data-group="현대차그룹사"]:not(.subtab-open) > .article-stack,
+  body > .phone .news-group[data-group="타 건설사"]:not(.subtab-open) > .article-stack,
+  body > .phone .news-group[data-group="한전 계열사"]:not(.subtab-open) > .article-stack,
+  body > .phone .news-group[data-group="원전 관계부처"]:not(.subtab-open) > .article-stack {{
+    display:none !important;
   }}
 }}
 </style>
@@ -43647,7 +43659,11 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     var stack=group.querySelector(":scope > .article-stack");
     if(!stack) return;
     var collapsed=group.classList.contains("collapsed");
-    if(collapsed){{
+    var groupKey=group.dataset.group||"";
+    var hasNestedSubtabs=["현대차그룹사","타 건설사","한전 계열사","원전 관계부처"].includes(groupKey);
+    var subtabOpen=group.classList.contains("subtab-open");
+    if(collapsed || (hasNestedSubtabs && !subtabOpen)){{
+      /* 소탭형 그룹은 메인 탭만 펼친 상태에서 원본 전체 기사 스택을 노출하지 않습니다. */
       stack.style.setProperty("display","none","important");
     }}else{{
       stack.style.setProperty("display","grid","important");
