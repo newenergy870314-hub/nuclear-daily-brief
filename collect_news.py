@@ -9562,7 +9562,7 @@ def render_group_unified(
 
     subtabs_html = ""
     if group == "현대차그룹사":
-        hmg_counts = {"all": article_total, "exec-group": 0, "hyundai": 0, "kia": 0, "steel": 0}
+        hmg_counts = {"exec-group": 0, "hyundai": 0, "kia": 0, "steel": 0, "other": 0}
         for _article in ordered_articles:
             _subtab = _hyundai_motor_group_subtab(_article)
             if _subtab in hmg_counts:
@@ -9571,18 +9571,18 @@ def render_group_unified(
         hmg_specs = (
             ("exec-group", "경영진·그룹"),
             ("hyundai", "현대자동차"),
-            ("kia", "기아"),
+            ("kia", "기아자동차"),
             ("steel", "현대제철"),
+            ("other", "기타"),
         )
+        # 현대차그룹사 메인 기사탭의 전체 건수가 이미 총합 역할을 하므로
+        # 중복되는 '전체' 소탭은 만들지 않습니다. 분류 밖 기사는 '기타'로 표시해
+        # 소탭 기사 건수의 합이 메인 탭 기사 건수와 일치하도록 합니다.
         hmg_buttons = [
-            f'<button type="button" class="hmg-subtab active" data-hmg-filter="all">전체 <b>{hmg_counts["all"]}</b></button>'
-        ]
-        # 소탭은 실제 기사 1건 이상인 항목만 표시합니다. (전체는 항상 표시)
-        hmg_buttons.extend(
             f'<button type="button" class="hmg-subtab" data-hmg-filter="{key}">{label} <b>{hmg_counts[key]}</b></button>'
             for key, label in hmg_specs
             if hmg_counts[key] > 0
-        )
+        ]
         subtabs_html = (
             '<div class="hmg-subtabs" role="tablist" aria-label="현대차그룹 세부분류">'
             + ''.join(hmg_buttons)
@@ -13410,79 +13410,35 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 /* 현대차그룹 전용 2차 소탭 */
 .hmg-subtabs, .construction-subtabs, .kepco-affiliate-subtabs, .government-ministry-subtabs {{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:5px;
-  margin:6px 0 8px 14px;
-  padding:0;
-  width:calc(100% - 14px);
-  box-sizing:border-box;
+  display:flex; flex-wrap:wrap; gap:6px; margin:8px 2px 7px; padding:0 2px;
 }}
 .news-group.collapsed .hmg-subtabs, .news-group.collapsed .construction-subtabs, .news-group.collapsed .kepco-affiliate-subtabs, .news-group.collapsed .government-ministry-subtabs {{ display:none !important; }}
-/* 2차 소탭: 상위 기사탭과 같은 '가로 전체폭 바' 형태. 들여쓰기로 계층만 구분합니다. */
+/* 소탭은 메인 기사탭과 같은 사각형 탭 스타일로 통일 */
 .hmg-subtab, .construction-subtab, .kepco-affiliate-subtab, .government-ministry-subtab {{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:5px;
-  width:100%;
-  min-height:31px;
-  box-sizing:border-box;
-  margin:0;
-  padding:0 14px;
-  border:1px solid rgba(91,79,38,.10);
-  border-radius:14px;
-  background:#f6edbf;
-  color:#1f4f8a;
-  font:inherit;
-  font-size:11px;
-  font-weight:800;
-  line-height:1;
-  text-align:left;
-  cursor:pointer;
-  box-shadow:0 1px 2px rgba(62,52,42,.08);
+  min-height:31px; padding:0 10px;
+  border:1px solid rgba(17,24,39,.10); border-radius:8px;
+  background:rgba(255,255,255,.88); color:#344054;
+  font:inherit; font-size:10.5px; font-weight:850; line-height:1; cursor:pointer;
+  box-shadow:0 1px 2px rgba(17,24,39,.05);
 }}
-.hmg-subtab::before, .construction-subtab::before, .kepco-affiliate-subtab::before, .government-ministry-subtab::before {{
-  content:"▸";
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:10px;
-  min-width:10px;
-  color:#55789b;
-  font-size:9px;
-}}
-.hmg-subtab b, .construction-subtab b, .kepco-affiliate-subtab b, .government-ministry-subtab b {{
-  margin-left:1px;
-  color:#4f6f96;
-  font-size:11px;
-  font-weight:800;
-}}
+.hmg-subtab b, .construction-subtab b, .kepco-affiliate-subtab b, .government-ministry-subtab b {{ margin-left:3px; font-size:9.5px; font-weight:900; color:#667085; }}
 .hmg-subtab.active, .construction-subtab.active, .kepco-affiliate-subtab.active, .government-ministry-subtab.active {{
-  background:#fee500;
-  border-color:#e6cf00;
-  color:#173b61;
-  box-shadow:0 1px 3px rgba(17,24,39,.16);
+  background:#fee500; border-color:#fee500; color:#111827;
+  box-shadow:0 1px 3px rgba(17,24,39,.18);
 }}
-.hmg-subtab.active::before, .construction-subtab.active::before, .kepco-affiliate-subtab.active::before, .government-ministry-subtab.active::before {{
-  content:"▾";
-  color:#173b61;
+.hmg-subtab.active b, .construction-subtab.active b, .kepco-affiliate-subtab.active b, .government-ministry-subtab.active b {{ color:#475467; }}
+/* 선택된 2단 탭 바로 아래로 이동한 기사 목록이 소탭 폭 전체를 사용하도록 합니다. */
+.hmg-subtabs > .article-stack,
+.construction-subtabs > .article-stack,
+.kepco-affiliate-subtabs > .article-stack,
+.government-ministry-subtabs > .article-stack {{
+  width:100%; flex:0 0 100%; box-sizing:border-box; margin:4px 0 8px;
 }}
-.hmg-subtab.active b, .construction-subtab.active b, .kepco-affiliate-subtab.active b, .government-ministry-subtab.active b {{ color:#173b61; }}
 .article-stack {{ display: grid; gap: 10px; margin-top: 7px; margin-bottom: 7px; }}
 @media (min-width:1000px) {{
-  body>.phone .hmg-subtabs, body>.phone .construction-subtabs, body>.phone .kepco-affiliate-subtabs, body>.phone .government-ministry-subtabs {{
-    gap:6px;
-    margin:7px 0 9px 18px;
-    width:calc(100% - 18px);
-  }}
-  body>.phone .hmg-subtab, body>.phone .construction-subtab, body>.phone .kepco-affiliate-subtab, body>.phone .government-ministry-subtab {{
-    min-height:34px;
-    padding:0 15px;
-    border-radius:10px;
-    font-size:12px;
-  }}
-  body>.phone .hmg-subtab b, body>.phone .construction-subtab b, body>.phone .kepco-affiliate-subtab b, body>.phone .government-ministry-subtab b {{ font-size:12px; }}
+  body>.phone .hmg-subtabs, body>.phone .construction-subtabs, body>.phone .kepco-affiliate-subtabs, body>.phone .government-ministry-subtabs {{ gap:7px; margin:9px 2px 7px; }}
+  body>.phone .hmg-subtab, body>.phone .construction-subtab, body>.phone .kepco-affiliate-subtab, body>.phone .government-ministry-subtab {{ min-height:31px; padding:0 13px; font-size:12px; }}
+  body>.phone .hmg-subtab b, body>.phone .construction-subtab b, body>.phone .kepco-affiliate-subtab b, body>.phone .government-ministry-subtab b {{ font-size:11px; }}
 }}
 
 
@@ -34150,6 +34106,7 @@ document.addEventListener("click", event => {{
     hmgGroup.querySelectorAll(".hmg-subtab").forEach(button=>{{
       button.classList.toggle("active",button===hmgSubtab);
     }});
+    placeArticleStackBelowSubtab(hmgGroup,hmgSubtab);
     filterArticles();
     return;
   }}
@@ -34162,6 +34119,7 @@ document.addEventListener("click", event => {{
     constructionGroup.querySelectorAll(".construction-subtab").forEach(button=>{{
       button.classList.toggle("active",button===constructionSubtab);
     }});
+    placeArticleStackBelowSubtab(constructionGroup,constructionSubtab);
     filterArticles();
     return;
   }}
@@ -34174,6 +34132,7 @@ document.addEventListener("click", event => {{
     kepcoAffiliateGroup.querySelectorAll(".kepco-affiliate-subtab").forEach(button=>{{
       button.classList.toggle("active",button===kepcoAffiliateSubtab);
     }});
+    placeArticleStackBelowSubtab(kepcoAffiliateGroup,kepcoAffiliateSubtab);
     filterArticles();
     return;
   }}
@@ -34186,6 +34145,7 @@ document.addEventListener("click", event => {{
     governmentMinistryGroup.querySelectorAll(".government-ministry-subtab").forEach(button=>{{
       button.classList.toggle("active",button===governmentMinistrySubtab);
     }});
+    placeArticleStackBelowSubtab(governmentMinistryGroup,governmentMinistrySubtab);
     filterArticles();
     return;
   }}
@@ -35801,6 +35761,30 @@ let activeConstructionSubtab="all";
 let activeKepcoAffiliateSubtab="all";
 let activeGovernmentMinistrySubtab="all";
 
+// 소탭은 필터 버튼이 아니라 2단 기사탭처럼 동작합니다.
+// 선택한 소탭 바로 아래에 해당 기사 목록이 오도록 article-stack 자체를 이동합니다.
+function placeArticleStackBelowSubtab(group,button){{
+  if(!group||!button)return;
+  const stack=group.querySelector(".article-stack");
+  if(!stack)return;
+  button.insertAdjacentElement("afterend",stack);
+}}
+
+function placeAllArticleStacksBelowActiveSubtabs(root=document){{
+  const selectors=[
+    ['현대차그룹사','.hmg-subtab.active'],
+    ['타 건설사','.construction-subtab.active'],
+    ['한전 계열사','.kepco-affiliate-subtab.active'],
+    ['원전 관계부처','.government-ministry-subtab.active'],
+  ];
+  selectors.forEach(([groupKey,buttonSelector])=>{{
+    root.querySelectorAll(`.news-group[data-group="${{groupKey}}"]`).forEach(group=>{{
+      const button=group.querySelector(buttonSelector);
+      if(button)placeArticleStackBelowSubtab(group,button);
+    }});
+  }});
+}}
+
 function resetHmgSubtabs(panel=null){{
   activeHmgSubtab="all";
   activeConstructionSubtab="all";
@@ -35808,7 +35792,12 @@ function resetHmgSubtabs(panel=null){{
   activeGovernmentMinistrySubtab="all";
   const root=panel||document;
   root.querySelectorAll(".hmg-subtab").forEach(button=>{{
-    button.classList.toggle("active",button.dataset.hmgFilter==="all");
+    button.classList.remove("active");
+  }});
+  root.querySelectorAll('.news-group[data-group="현대차그룹사"]').forEach(group=>{{
+    const subtabs=group.querySelector('.hmg-subtabs');
+    const stack=group.querySelector('.article-stack');
+    if(subtabs&&stack) subtabs.insertAdjacentElement('afterend',stack);
   }});
   root.querySelectorAll(".construction-subtab").forEach(button=>{{
     button.classList.toggle("active",button.dataset.constructionFilter==="all");
@@ -35819,6 +35808,7 @@ function resetHmgSubtabs(panel=null){{
   root.querySelectorAll(".government-ministry-subtab").forEach(button=>{{
     button.classList.toggle("active",button.dataset.governmentMinistryFilter==="all");
   }});
+  placeAllArticleStacksBelowActiveSubtabs(root);
 }}
 
 function filterArticles(){{
@@ -35933,6 +35923,8 @@ function activatePanel(panel, button=null){{
   panel.classList.add("active");
   refreshActivePeriodUI();
 }}
+placeAllArticleStacksBelowActiveSubtabs(document);
+
 document.querySelectorAll(".tab-button").forEach(button => {{
   button.addEventListener("click", event => {{
     event.preventDefault();
