@@ -5031,18 +5031,39 @@ HYUNDAI_MOTOR_GROUP_KIA_TERMS = (
     "기아", "kia corporation",
 )
 
+HYUNDAI_MOTOR_GROUP_HYUNDAI_ENGINEERING_TERMS = (
+    "현대엔지니어링", "현대eng", "현대 eng",
+    "hyundai engineering", "hyundai eng",
+)
+
+def _mentions_hyundai_engineering_company(title: str, summary: str = "") -> bool:
+    """현대엔지니어링(현대차그룹 계열) 언급 여부. 현대건설 영문명과 혼동하지 않습니다."""
+    text = html.unescape(f"{title} {summary}").lower()
+    if any(term in text for term in ("현대엔지니어링", "현대eng", "현대 eng")):
+        return True
+    # Hyundai Engineering & Construction은 현대건설 영문명이라 제외
+    if any(term in text for term in (
+        "hyundai engineering & construction",
+        "hyundai engineering and construction",
+        "hyundai e&c",
+        "hdec",
+    )):
+        return False
+    return "hyundai engineering" in text or "hyundai eng" in text
+
 
 # 현대차그룹 탭 정렬 우선순위
 # 0순위: 정의선 회장 관련 기사
 # 1순위: 현대자동차그룹/현대차그룹 전반 기사
-# 이후: 완성차(현대자동차/기아) → 철강(현대제철)만 표시
+# 이후: 완성차(현대자동차/기아) → 현대엔지니어링 → 철강(현대제철) 순으로 표시
 HYUNDAI_MOTOR_GROUP_COMPANY_ORDER = (
-    # 0순위 정의선 회장 → 0.5순위 핵심 경영진 → 1순위 그룹 자체 → 완성차 → 철강
+    # 0순위 정의선 회장 → 0.5순위 핵심 경영진 → 1순위 그룹 자체 → 완성차 → 현대엔지니어링 → 철강
     ("정의선 회장", ("정의선", "euisun chung", "chung euisun")),
     ("핵심 경영진", HYUNDAI_MOTOR_GROUP_KEY_EXECUTIVE_TERMS),
     ("현대자동차그룹", ("현대자동차그룹", "현대차그룹", "hyundai motor group", "hmg")),
     ("현대자동차", ("현대자동차", "hyundai motor company", "hyundai motor")),
     ("기아", ("기아", "kia corporation")),
+    ("현대엔지니어링", HYUNDAI_MOTOR_GROUP_HYUNDAI_ENGINEERING_TERMS),
     ("현대제철", ("현대제철", "hyundai steel")),
 )
 
@@ -5050,7 +5071,7 @@ def _hyundai_motor_group_company_rank(article: Article) -> tuple[float, str]:
     """현대차그룹 탭 중요도/회사별 정렬 순위.
 
     0순위 정의선 회장 → 0.5순위 장재훈 등 핵심 경영진 →
-    1순위 현대자동차그룹 전체 → 현대자동차 → 기아 → 현대제철 순입니다.
+    1순위 현대자동차그룹 전체 → 현대자동차 → 기아 → 현대엔지니어링 → 현대제철 순입니다.
     회사 판정은 제목을 우선해 같은 주체의 기사가 연속 배치되도록 합니다.
     """
     title = html.unescape(getattr(article, "title", "") or "").lower()
@@ -5071,7 +5092,7 @@ def _hyundai_motor_group_company_rank(article: Article) -> tuple[float, str]:
     if any(term.lower() in title for term in group_terms):
         return (1.0, "현대자동차그룹")
 
-    # 회사별 고정 정렬: 현대자동차 → 기아 → 현대제철
+    # 회사별 고정 정렬: 현대자동차 → 기아 → 현대엔지니어링 → 현대제철
     for idx, (label, aliases) in enumerate(HYUNDAI_MOTOR_GROUP_COMPANY_ORDER[3:], start=2):
         if any(alias.lower() in title for alias in aliases):
             return (float(idx), label)
@@ -5093,6 +5114,8 @@ def _hyundai_motor_group_subtab(article: Article) -> str:
     if rank == 3.0:
         return "kia"
     if rank == 4.0:
+        return "hyundai-eng"
+    if rank == 5.0:
         return "steel"
     return "other"
 
@@ -5102,7 +5125,7 @@ def mentions_hyundai_motor_group(title: str, summary: str = "") -> bool:
 
     사용자 기준:
     - 정의선 회장/주요 경영진 동향을 최우선으로 유지
-    - 그룹 자체, 현대자동차/기아, 현대제철만 핵심 대상으로 수집
+    - 그룹 자체, 현대자동차/기아, 현대엔지니어링, 현대제철을 핵심 대상으로 수집
     - 회사 분류는 기사 제목을 우선하여 미리보기의 다른 '현대' 계열사명 때문에 오분류하지 않음
     - HD현대/현대백화점그룹/현대그룹/현대해상 등은 현대차그룹으로 보지 않음
     """
@@ -5110,13 +5133,11 @@ def mentions_hyundai_motor_group(title: str, summary: str = "") -> bool:
     summary_hay = html.unescape(summary or "").lower()
     combined = f"{title_hay} {summary_hay}"
 
-    # 현대건설/현대엔지니어링은 각각 기존 전용 탭을 우선합니다.
+    # 현대건설은 기존 전용 탭을 우선하지만, 현대엔지니어링은 현대차그룹사로 분류합니다.
     if mentions_hyundai_ec(title, summary):
         return False
-    if any(term in title_hay for term in (
-        "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng"
-    )):
-        return False
+    if _mentions_hyundai_engineering_company(title, summary):
+        return True
 
     # 제목이 다른 현대계열 그룹/회사 자체를 주체로 하는 경우 현대차그룹으로 오분류하지 않습니다.
     non_motor_hyundai_title_terms = (
@@ -5147,6 +5168,7 @@ def mentions_hyundai_motor_group(title: str, summary: str = "") -> bool:
     # 제목에 회사명이 있고 기업/경영 문맥이 있을 때만 포함합니다.
     company_terms = (
         "현대자동차", "hyundai motor company", "hyundai motor",
+        "현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng",
         "현대제철", "hyundai steel",
     )
     if any(term in title_hay for term in company_terms):
@@ -5235,7 +5257,6 @@ OTHER_CONSTRUCTION_TITLE_PRIORITY_ORDER = (
     ("두산에너빌리티", ("두산에너빌리티", "doosan enerbility")),
     ("삼성물산", ("삼성물산", "samsung c&t")),
     ("대우건설", ("대우건설", "daewoo e&c")),
-    ("현대엔지니어링", ("현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng")),
     ("HD현대", ("hd현대", "hd현대그룹", "hd hyundai", "hd hyundai group")),
     ("DL이앤씨", ("dl이앤씨", "dl e&c")),
     ("GS건설", ("gs건설", "gs e&c")),
@@ -5294,6 +5315,9 @@ def enforce_title_company_group(article: Article) -> Article:
     최종 안전장치:
     제목에 직접 나온 회사가 있으면 기존 group 값을 덮어써 제목 기준으로 고정합니다.
     """
+    if _mentions_hyundai_engineering_company(article.title or "", article.description or ""):
+        article.group = "현대차그룹사"
+        return article
     title_group = detect_title_primary_construction_company(article.title or "")
     if title_group:
         article.group = title_group
@@ -5344,6 +5368,11 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     """
     haystack = html.unescape(f"{title} {summary}").lower()
 
+    # 현대엔지니어링은 현대차그룹사 탭으로 분류합니다.
+    # 현대건설(Hyundai E&C / Hyundai Engineering & Construction)과는 구분합니다.
+    if _mentions_hyundai_engineering_company(title, summary):
+        return "현대차그룹사"
+
     # 최우선: 기사 제목에 직접 등장하는 건설사/핵심 기관 우선순위
     # 1) 현대건설은 당사 기사이므로 항상 최우선
     # 2) 한국전력기술(KEPCO E&C)이 제목에 직접 등장하면 포스코이앤씨 등
@@ -5358,7 +5387,7 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
         return title_company_group
 
     # 현대자동차그룹/주요 그룹사/정의선 회장 관련 기사는 별도 현대차그룹사 탭으로 분류
-    # 단, 위에서 현대건설/현대엔지니어링 등 건설사가 제목에 직접 잡힌 경우 그 탭을 우선합니다.
+    # 단, 위에서 현대건설 등 별도 최우선 주체가 제목에 직접 잡힌 경우 해당 탭을 우선합니다.
     if mentions_hyundai_motor_group(title, summary):
         return "현대차그룹사"
 
@@ -9069,14 +9098,13 @@ OTHER_CONSTRUCTION_COMPANY_ORDER = [
     ("두산에너빌리티", ("두산에너빌리티", "doosan enerbility")),
     ("삼성물산", ("삼성물산", "samsung c&t")),
     ("대우건설", ("대우건설", "daewoo e&c")),
-    ("현대엔지니어링", ("현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng")),
     ("HD현대", ("hd현대", "hd현대그룹", "hd hyundai", "hd hyundai group")),
     ("DL이앤씨", ("dl이앤씨", "dl e&c")),
     ("GS건설", ("gs건설", "gs e&c")),
     ("SK에코플랜트", ("sk에코플랜트", "sk ecoplant")),
     ("포스코이앤씨", ("포스코이앤씨", "posco e&c")),
     ("롯데건설", ("롯데건설", "lotte e&c")),
-    ("HDC현대산업개발", ("hdc현대산업개발", "hdc hyundai development")),
+    ("HDC현대산업개발", ("hdc현대산업개발", "현대산업개발", "hdc hyundai development")),
     ("한화 건설부문", ("한화 건설부문", "한화건설", "hanwha construction")),
 ]
 
@@ -9114,7 +9142,6 @@ OTHER_CONSTRUCTION_SUBTAB_KEYS = {
     "두산에너빌리티": "doosan",
     "삼성물산": "samsung",
     "대우건설": "daewoo",
-    "현대엔지니어링": "hyundai-eng",
     "HD현대": "hd-hyundai",
     "DL이앤씨": "dl-enc",
     "GS건설": "gs",
@@ -9562,7 +9589,7 @@ def render_group_unified(
 
     subtabs_html = ""
     if group == "현대차그룹사":
-        hmg_counts = {"exec-group": 0, "hyundai": 0, "kia": 0, "steel": 0, "other": 0}
+        hmg_counts = {"exec-group": 0, "hyundai": 0, "kia": 0, "hyundai-eng": 0, "steel": 0, "other": 0}
         for _article in ordered_articles:
             _subtab = _hyundai_motor_group_subtab(_article)
             if _subtab in hmg_counts:
@@ -9572,6 +9599,7 @@ def render_group_unified(
             ("exec-group", "경영진·그룹"),
             ("hyundai", "현대자동차"),
             ("kia", "기아자동차"),
+            ("hyundai-eng", "현대엔지니어링"),
             ("steel", "현대제철"),
             ("other", "기타"),
         )
@@ -9579,7 +9607,7 @@ def render_group_unified(
         # 중복되는 '전체' 소탭은 만들지 않습니다. 분류 밖 기사는 '기타'로 표시해
         # 소탭 기사 건수의 합이 메인 탭 기사 건수와 일치하도록 합니다.
         hmg_buttons = [
-            f'<button type="button" class="hmg-subtab" data-hmg-filter="{key}">{label} <b>{hmg_counts[key]}</b></button>'
+            f'<button type="button" class="hmg-subtab" data-hmg-filter="{key}">{label} <b>{hmg_counts[key]}건</b></button>'
             for key, label in hmg_specs
             if hmg_counts[key] > 0
         ]
@@ -9591,7 +9619,7 @@ def render_group_unified(
 
     elif group == "타 건설사":
         construction_specs = tuple(
-            (OTHER_CONSTRUCTION_SUBTAB_KEYS[label], label)
+            (OTHER_CONSTRUCTION_SUBTAB_KEYS[label], "현대산업개발" if label == "HDC현대산업개발" else label)
             for label, _aliases in OTHER_CONSTRUCTION_COMPANY_ORDER
         ) + (("other", "기타"),)
         construction_counts = {key: 0 for key, _label in construction_specs}
@@ -9603,7 +9631,7 @@ def render_group_unified(
         # 메인 '주요 건설사 N건' 탭이 전체 역할을 하므로 중복되는 '전체' 소탭은 만들지 않습니다.
         # 분류되지 않은 기사는 '기타'로 집계하여 소탭 합계가 메인 탭 총 건수와 맞도록 합니다.
         construction_buttons = [
-            f'<button type="button" class="construction-subtab" data-construction-filter="{key}">{label} <b>{construction_counts[key]}</b></button>'
+            f'<button type="button" class="construction-subtab" data-construction-filter="{key}">{label} <b>{construction_counts[key]}건</b></button>'
             for key, label in construction_specs
             if construction_counts[key] > 0
         ]
@@ -9623,7 +9651,7 @@ def render_group_unified(
 
         # 메인 '한전 계열사 N건' 탭이 전체 역할을 하므로 '전체' 소탭은 만들지 않습니다.
         kepco_affiliate_buttons = [
-            f'<button type="button" class="kepco-affiliate-subtab" data-kepco-affiliate-filter="{key}">{label} <b>{kepco_affiliate_counts[key]}</b></button>'
+            f'<button type="button" class="kepco-affiliate-subtab" data-kepco-affiliate-filter="{key}">{label} <b>{kepco_affiliate_counts[key]}건</b></button>'
             for key, label in kepco_affiliate_specs
             if kepco_affiliate_counts[key] > 0
         ]
@@ -9643,7 +9671,7 @@ def render_group_unified(
 
         # 메인 '원전 관계부처 N건' 탭이 전체 역할을 하므로 '전체' 소탭은 만들지 않습니다.
         government_ministry_buttons = [
-            f'<button type="button" class="government-ministry-subtab" data-government-ministry-filter="{key}">{label} <b>{government_ministry_counts[key]}</b></button>'
+            f'<button type="button" class="government-ministry-subtab" data-government-ministry-filter="{key}">{label} <b>{government_ministry_counts[key]}건</b></button>'
             for key, label in government_ministry_specs
             if government_ministry_counts[key] > 0
         ]
@@ -9932,7 +9960,7 @@ CONSTRUCTION_UNION_COMPANY_ALIASES = {
     "포스코이앤씨": ("포스코이앤씨", "posco e&c"),
     "롯데건설": ("롯데건설", "lotte e&c"),
     "현대엔지니어링": ("현대엔지니어링", "현대eng", "현대 eng", "hyundai engineering", "hyundai eng"),
-    "HDC현대산업개발": ("hdc현대산업개발", "hdc hyundai development"),
+    "HDC현대산업개발": ("hdc현대산업개발", "현대산업개발", "hdc hyundai development"),
     "한화 건설부문": ("한화 건설부문", "한화건설", "hanwha construction"),
     "두산에너빌리티": ("두산에너빌리티", "doosan enerbility"),
 }
@@ -13412,24 +13440,28 @@ main {{ padding: 12px 12px 34px; }}
   display:flex; align-items:center; justify-content:flex-start; gap:5px;
   width:calc(100% - 26px); height:28px; min-height:28px; margin:0 0 0 26px; padding:0 12px;
   box-sizing:border-box; border:1px solid rgba(91,79,38,.10); border-radius:12px;
-  background:#f3e7aa; color:#1f4f8a;
+  background:#f3e7aa; color:#4b5563;
   font:inherit; font-size:10.5px; font-weight:850; line-height:1; text-align:left; cursor:pointer;
   box-shadow:0 1px 2px rgba(62,52,42,.08);
 }}
 .hmg-subtab::before, .construction-subtab::before, .kepco-affiliate-subtab::before, .government-ministry-subtab::before {{
-  content:"▶"; flex:0 0 12px; width:12px; color:#52759b; font-size:7px; text-align:center;
+  content:"▶"; flex:0 0 12px; width:12px; color:#6b7280; font-size:7px; text-align:center;
 }}
 .hmg-subtab b, .construction-subtab b, .kepco-affiliate-subtab b, .government-ministry-subtab b {{
-  margin-left:2px; color:#4f6f96; font-size:9.5px; font-weight:900;
+  margin-left:2px; color:#6b7280; font-size:9.5px; font-weight:900;
 }}
 .hmg-subtab.active, .construction-subtab.active, .kepco-affiliate-subtab.active, .government-ministry-subtab.active {{
-  background:#fee500; border-color:#e4cf00; color:#1f4f8a;
+  background:#fee500; border-color:#e4cf00; color:#1f2937;
   box-shadow:0 2px 5px rgba(17,24,39,.14);
 }}
 .hmg-subtab.active::before, .construction-subtab.active::before, .kepco-affiliate-subtab.active::before, .government-ministry-subtab.active::before {{
-  content:"▼"; color:#1f4f8a;
+  content:"▼"; color:#4b5563;
 }}
-.hmg-subtab.active b, .construction-subtab.active b, .kepco-affiliate-subtab.active b, .government-ministry-subtab.active b {{ color:#4f6f96; }}
+.hmg-subtab.expanded-all::before, .construction-subtab.expanded-all::before, .kepco-affiliate-subtab.expanded-all::before, .government-ministry-subtab.expanded-all::before {{
+  content:"▼"; color:#6b7280;
+}}
+.news-group.subtab-all-open > .article-stack {{ display:none !important; }}
+.hmg-subtab.active b, .construction-subtab.active b, .kepco-affiliate-subtab.active b, .government-ministry-subtab.active b {{ color:#4b5563; }}
 
 /* 선택한 소탭의 기사 목록은 그 소탭 바로 다음 줄에 표시합니다. */
 .hmg-subtabs > .article-stack,
@@ -34105,7 +34137,24 @@ document.addEventListener("click", event => {{
     const nextCollapsed = !currentlyCollapsed;
 
     setCategoryGroups(section, nextCollapsed);
+
+    // 전체 펼치기/접기에서는 개별 소탭 필터 상태를 해제합니다.
+    activeHmgSubtab="all";
+    activeConstructionSubtab="all";
+    activeKepcoAffiliateSubtab="all";
+    activeGovernmentMinistrySubtab="all";
+
+    // 전체 펼치기에서는 2차 소탭도 모두 펼쳐서 각 소탭 기사들을 바로 아래에 배치합니다.
+    const nestedGroups=section.querySelectorAll(
+      '.news-group[data-group="현대차그룹사"],.news-group[data-group="타 건설사"],.news-group[data-group="한전 계열사"],.news-group[data-group="원전 관계부처"]'
+    );
+    nestedGroups.forEach(group=>{{
+      if(nextCollapsed) collapseAllSubtabsInGroup(group);
+      else expandAllSubtabsInGroup(group);
+    }});
+
     masterButton.dataset.collapsed = String(nextCollapsed);
+    filterArticles();
     updateMasterButtonCount(panel);
     return;
   }}
@@ -34114,6 +34163,7 @@ document.addEventListener("click", event => {{
   if(hmgSubtab) {{
     const hmgGroup=hmgSubtab.closest('.news-group[data-group="현대차그룹사"]');
     if(!hmgGroup) return;
+    collapseAllSubtabsInGroup(hmgGroup);
     const key=hmgSubtab.dataset.hmgFilter||"all";
     const closing=hmgSubtab.classList.contains("active")&&hmgGroup.classList.contains("subtab-open");
     activeHmgSubtab=closing?"all":key;
@@ -34128,6 +34178,7 @@ document.addEventListener("click", event => {{
   if(constructionSubtab) {{
     const constructionGroup=constructionSubtab.closest('.news-group[data-group="타 건설사"]');
     if(!constructionGroup) return;
+    collapseAllSubtabsInGroup(constructionGroup);
     const key=constructionSubtab.dataset.constructionFilter||"all";
     const closing=constructionSubtab.classList.contains("active")&&constructionGroup.classList.contains("subtab-open");
     activeConstructionSubtab=closing?"all":key;
@@ -34142,6 +34193,7 @@ document.addEventListener("click", event => {{
   if(kepcoAffiliateSubtab) {{
     const kepcoAffiliateGroup=kepcoAffiliateSubtab.closest('.news-group[data-group="한전 계열사"]');
     if(!kepcoAffiliateGroup) return;
+    collapseAllSubtabsInGroup(kepcoAffiliateGroup);
     const key=kepcoAffiliateSubtab.dataset.kepcoAffiliateFilter||"all";
     const closing=kepcoAffiliateSubtab.classList.contains("active")&&kepcoAffiliateGroup.classList.contains("subtab-open");
     activeKepcoAffiliateSubtab=closing?"all":key;
@@ -34156,6 +34208,7 @@ document.addEventListener("click", event => {{
   if(governmentMinistrySubtab) {{
     const governmentMinistryGroup=governmentMinistrySubtab.closest('.news-group[data-group="원전 관계부처"]');
     if(!governmentMinistryGroup) return;
+    collapseAllSubtabsInGroup(governmentMinistryGroup);
     const key=governmentMinistrySubtab.dataset.governmentMinistryFilter||"all";
     const closing=governmentMinistrySubtab.classList.contains("active")&&governmentMinistryGroup.classList.contains("subtab-open");
     activeGovernmentMinistrySubtab=closing?"all":key;
@@ -34183,6 +34236,7 @@ document.addEventListener("click", event => {{
     else if(groupKey==="한전 계열사") activeKepcoAffiliateSubtab="all";
     else if(groupKey==="원전 관계부처") activeGovernmentMinistrySubtab="all";
 
+    collapseAllSubtabsInGroup(group);
     group.querySelectorAll('.hmg-subtab,.construction-subtab,.kepco-affiliate-subtab,.government-ministry-subtab').forEach(button=>button.classList.remove('active'));
     group.classList.remove('subtab-open');
     restoreArticleStackAfterSubtabs(group);
@@ -34208,14 +34262,13 @@ function constructionCompanyRankFromCard(card){{
     ["두산에너빌리티",["두산에너빌리티","doosan enerbility"]],
     ["삼성물산",["삼성물산","samsung c&t"]],
     ["대우건설",["대우건설","daewoo e&c"]],
-    ["현대엔지니어링",["현대엔지니어링","현대eng","현대 eng","hyundai engineering","hyundai eng"]],
     ["HD현대",["hd현대","hd현대그룹","hd hyundai","hd hyundai group"]],
     ["DL이앤씨",["dl이앤씨","dl e&c"]],
     ["GS건설",["gs건설","gs e&c"]],
     ["SK에코플랜트",["sk에코플랜트","sk ecoplant"]],
     ["포스코이앤씨",["포스코이앤씨","posco e&c"]],
     ["롯데건설",["롯데건설","lotte e&c"]],
-    ["HDC현대산업개발",["hdc현대산업개발","hdc hyundai development"]],
+    ["HDC현대산업개발",["hdc현대산업개발","현대산업개발","hdc hyundai development"]],
     ["한화 건설부문",["한화 건설부문","한화건설","hanwha construction"]]
   ];
   let bestRank=companies.length, bestPos=Number.MAX_SAFE_INTEGER;
@@ -35793,6 +35846,56 @@ let activeGovernmentMinistrySubtab="all";
 
 // 소탭은 필터 버튼이 아니라 2단 기사탭 아코디언처럼 동작합니다.
 // 선택한 소탭 바로 아래에 해당 기사 목록이 오도록 article-stack 자체를 이동합니다.
+function subtabMetaForGroup(group){{
+  const key=group?.dataset?.group||"";
+  if(key==="현대차그룹사") return {{button:".hmg-subtab", buttonData:"hmgFilter", cardData:"hmgSubtab"}};
+  if(key==="타 건설사") return {{button:".construction-subtab", buttonData:"constructionFilter", cardData:"constructionSubtab"}};
+  if(key==="한전 계열사") return {{button:".kepco-affiliate-subtab", buttonData:"kepcoAffiliateFilter", cardData:"kepcoAffiliateSubtab"}};
+  if(key==="원전 관계부처") return {{button:".government-ministry-subtab", buttonData:"governmentMinistryFilter", cardData:"governmentMinistrySubtab"}};
+  return null;
+}}
+
+function collapseAllSubtabsInGroup(group){{
+  if(!group||!group.classList.contains('subtab-all-open')) return;
+  const subtabs=group.querySelector('.hmg-subtabs,.construction-subtabs,.kepco-affiliate-subtabs,.government-ministry-subtabs');
+  let home=group.querySelector(':scope > .article-stack');
+  if(!home){{
+    home=document.createElement('div');
+    home.className='article-stack';
+    if(subtabs) subtabs.insertAdjacentElement('afterend',home);
+    else group.appendChild(home);
+  }}
+  const cards=[...group.querySelectorAll('.subtab-expanded-stack .preview-card')];
+  cards.sort((a,b)=>Number(a.dataset.expandOrder||0)-Number(b.dataset.expandOrder||0));
+  cards.forEach(card=>home.appendChild(card));
+  group.querySelectorAll('.subtab-expanded-stack').forEach(stack=>stack.remove());
+  group.querySelectorAll('.hmg-subtab,.construction-subtab,.kepco-affiliate-subtab,.government-ministry-subtab').forEach(button=>button.classList.remove('expanded-all'));
+  group.classList.remove('subtab-all-open');
+}}
+
+function expandAllSubtabsInGroup(group){{
+  if(!group) return;
+  const meta=subtabMetaForGroup(group);
+  const subtabs=group.querySelector('.hmg-subtabs,.construction-subtabs,.kepco-affiliate-subtabs,.government-ministry-subtabs');
+  const home=group.querySelector(':scope > .article-stack');
+  if(!meta||!subtabs||!home) return;
+
+  collapseAllSubtabsInGroup(group);
+  const cards=[...home.querySelectorAll('.preview-card')];
+  cards.forEach((card,index)=>{{ if(!card.dataset.expandOrder) card.dataset.expandOrder=String(index); }});
+
+  group.classList.add('subtab-open','subtab-all-open');
+  group.querySelectorAll(meta.button).forEach(button=>{{
+    button.classList.remove('active');
+    button.classList.add('expanded-all');
+    const stack=document.createElement('div');
+    stack.className='article-stack subtab-expanded-stack';
+    const wanted=button.dataset[meta.buttonData]||"";
+    cards.filter(card=>(card.dataset[meta.cardData]||"")===wanted).forEach(card=>stack.appendChild(card));
+    button.insertAdjacentElement('afterend',stack);
+  }});
+}}
+
 function placeArticleStackBelowSubtab(group,button){{
   if(!group||!button)return;
   const stack=group.querySelector(".article-stack");
@@ -35831,6 +35934,7 @@ function resetHmgSubtabs(panel=null){{
   activeKepcoAffiliateSubtab="all";
   activeGovernmentMinistrySubtab="all";
   const root=panel||document;
+  root.querySelectorAll('.news-group.subtab-all-open').forEach(group=>collapseAllSubtabsInGroup(group));
   root.querySelectorAll(".hmg-subtab,.construction-subtab,.kepco-affiliate-subtab,.government-ministry-subtab").forEach(button=>{{
     button.classList.remove("active");
   }});
@@ -35854,10 +35958,12 @@ function filterArticles(){{
   let total=0;
 
   panel.querySelectorAll(".news-group").forEach(group=>{{
-    const stack=group.querySelector(".article-stack");
+    const stack=group.querySelector(":scope > .article-stack")||group.querySelector(".article-stack");
     if(!stack)return;
 
-    const cards=[...stack.querySelectorAll(".preview-card")];
+    // 전체 펼치기 상태에서는 기사들이 여러 소탭별 article-stack으로 나뉘어 있으므로
+    // 그룹 전체 카드에서 필터링합니다.
+    const cards=[...group.querySelectorAll(".preview-card")];
     let visible=[];
 
     cards.forEach(card=>{{
@@ -35924,11 +36030,13 @@ function filterArticles(){{
         if(priorityA!==priorityB)return priorityA-priorityB;
         return Number(b.dataset.published||0)-Number(a.dataset.published||0);
       }});
-      visible.forEach((card,index)=>{{
-        stack.appendChild(card);
-        const number=card.querySelector(".article-number");
-        if(number)number.textContent=String(index+1);
-      }});
+      if(!group.classList.contains('subtab-all-open')){{
+        visible.forEach((card,index)=>{{
+          stack.appendChild(card);
+          const number=card.querySelector(".article-number");
+          if(number)number.textContent=String(index+1);
+        }});
+      }}
       group.style.display=visible.length?"":"none";
     }} else {{
       group.style.display="";
