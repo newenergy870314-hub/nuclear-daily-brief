@@ -5588,11 +5588,11 @@ GOVERNMENT_MINISTRY_SUBTAB_SPECS = (
         "산업통상부", "산업통상자원부", "산업부",
         "ministry of trade, industry and energy",
     )),
-    ("climate", "기후부", (
+    ("climate", "기후에너지환경부", (
         "기후에너지환경부", "기후부",
         "ministry of climate, energy and environment",
     )),
-    ("science", "과기부", (
+    ("science", "과학기술정보통신부", (
         "과학기술정보통신부", "과기정통부", "과기부",
         "ministry of science and ict",
     )),
@@ -9594,21 +9594,19 @@ def render_group_unified(
             (OTHER_CONSTRUCTION_SUBTAB_KEYS[label], label)
             for label, _aliases in OTHER_CONSTRUCTION_COMPANY_ORDER
         ) + (("other", "기타"),)
-        construction_counts = {"all": article_total, **{key: 0 for key, _label in construction_specs}}
+        construction_counts = {key: 0 for key, _label in construction_specs}
         for _article in ordered_articles:
             _subtab = _other_construction_subtab(_article)
             if _subtab in construction_counts:
                 construction_counts[_subtab] += 1
 
+        # 메인 '주요 건설사 N건' 탭이 전체 역할을 하므로 중복되는 '전체' 소탭은 만들지 않습니다.
+        # 분류되지 않은 기사는 '기타'로 집계하여 소탭 합계가 메인 탭 총 건수와 맞도록 합니다.
         construction_buttons = [
-            f'<button type="button" class="construction-subtab active" data-construction-filter="all">전체 <b>{construction_counts["all"]}</b></button>'
-        ]
-        # 주요 건설사도 0건인 회사 소탭은 만들지 않습니다.
-        construction_buttons.extend(
             f'<button type="button" class="construction-subtab" data-construction-filter="{key}">{label} <b>{construction_counts[key]}</b></button>'
             for key, label in construction_specs
             if construction_counts[key] > 0
-        )
+        ]
         subtabs_html = (
             '<div class="construction-subtabs" role="tablist" aria-label="주요 건설사 세부분류">'
             + ''.join(construction_buttons)
@@ -9617,21 +9615,18 @@ def render_group_unified(
 
     elif group == "한전 계열사":
         kepco_affiliate_specs = tuple((key, label) for key, label, _aliases in KEPCO_AFFILIATE_SUBTAB_SPECS) + (("other", "기타"),)
-        kepco_affiliate_counts = {"all": article_total, **{key: 0 for key, _label in kepco_affiliate_specs}}
+        kepco_affiliate_counts = {key: 0 for key, _label in kepco_affiliate_specs}
         for _article in ordered_articles:
             _subtab = _kepco_affiliate_subtab(_article)
             if _subtab in kepco_affiliate_counts:
                 kepco_affiliate_counts[_subtab] += 1
 
+        # 메인 '한전 계열사 N건' 탭이 전체 역할을 하므로 '전체' 소탭은 만들지 않습니다.
         kepco_affiliate_buttons = [
-            f'<button type="button" class="kepco-affiliate-subtab active" data-kepco-affiliate-filter="all">전체 <b>{kepco_affiliate_counts["all"]}</b></button>'
-        ]
-        # 한전 계열사도 실제 기사 1건 이상인 회사 소탭만 표시합니다.
-        kepco_affiliate_buttons.extend(
             f'<button type="button" class="kepco-affiliate-subtab" data-kepco-affiliate-filter="{key}">{label} <b>{kepco_affiliate_counts[key]}</b></button>'
             for key, label in kepco_affiliate_specs
             if kepco_affiliate_counts[key] > 0
-        )
+        ]
         subtabs_html = (
             '<div class="kepco-affiliate-subtabs" role="tablist" aria-label="한전 계열사 세부분류">'
             + ''.join(kepco_affiliate_buttons)
@@ -9640,21 +9635,18 @@ def render_group_unified(
 
     elif group == "원전 관계부처":
         government_ministry_specs = tuple((key, label) for key, label, _aliases in GOVERNMENT_MINISTRY_SUBTAB_SPECS) + (("other", "기타"),)
-        government_ministry_counts = {"all": article_total, **{key: 0 for key, _label in government_ministry_specs}}
+        government_ministry_counts = {key: 0 for key, _label in government_ministry_specs}
         for _article in ordered_articles:
             _subtab = _government_ministry_subtab(_article)
             if _subtab in government_ministry_counts:
                 government_ministry_counts[_subtab] += 1
 
+        # 메인 '원전 관계부처 N건' 탭이 전체 역할을 하므로 '전체' 소탭은 만들지 않습니다.
         government_ministry_buttons = [
-            f'<button type="button" class="government-ministry-subtab active" data-government-ministry-filter="all">전체 <b>{government_ministry_counts["all"]}</b></button>'
-        ]
-        # 원전 관계부처도 실제 기사 1건 이상인 부처 소탭만 표시합니다.
-        government_ministry_buttons.extend(
             f'<button type="button" class="government-ministry-subtab" data-government-ministry-filter="{key}">{label} <b>{government_ministry_counts[key]}</b></button>'
             for key, label in government_ministry_specs
             if government_ministry_counts[key] > 0
-        )
+        ]
         subtabs_html = (
             '<div class="government-ministry-subtabs" role="tablist" aria-label="원전 관계부처 세부분류">'
             + ''.join(government_ministry_buttons)
@@ -34158,6 +34150,21 @@ document.addEventListener("click", event => {{
 
   const collapsed = group.classList.toggle("collapsed");
   const expanded = !collapsed;
+
+  // 소탭의 '전체' 버튼을 없앴으므로 메인 기사탭을 다시 펼치면 해당 그룹 전체 기사로 복귀합니다.
+  if(expanded){{
+    const groupKey=group.dataset.group||"";
+    if(groupKey==="현대차그룹사") activeHmgSubtab="all";
+    else if(groupKey==="타 건설사") activeConstructionSubtab="all";
+    else if(groupKey==="한전 계열사") activeKepcoAffiliateSubtab="all";
+    else if(groupKey==="원전 관계부처") activeGovernmentMinistrySubtab="all";
+
+    group.querySelectorAll('.hmg-subtab,.construction-subtab,.kepco-affiliate-subtab,.government-ministry-subtab').forEach(button=>button.classList.remove('active'));
+    const subtabs=group.querySelector('.hmg-subtabs,.construction-subtabs,.kepco-affiliate-subtabs,.government-ministry-subtabs');
+    const stack=group.querySelector('.article-stack');
+    if(subtabs&&stack) subtabs.insertAdjacentElement('afterend',stack);
+    filterArticles();
+  }}
   groupTitle.setAttribute("aria-expanded", String(expanded));
 
   const arrow = groupTitle.querySelector(".group-arrow");
@@ -35791,24 +35798,22 @@ function resetHmgSubtabs(panel=null){{
   activeKepcoAffiliateSubtab="all";
   activeGovernmentMinistrySubtab="all";
   const root=panel||document;
-  root.querySelectorAll(".hmg-subtab").forEach(button=>{{
+  root.querySelectorAll(".hmg-subtab,.construction-subtab,.kepco-affiliate-subtab,.government-ministry-subtab").forEach(button=>{{
     button.classList.remove("active");
   }});
-  root.querySelectorAll('.news-group[data-group="현대차그룹사"]').forEach(group=>{{
-    const subtabs=group.querySelector('.hmg-subtabs');
-    const stack=group.querySelector('.article-stack');
-    if(subtabs&&stack) subtabs.insertAdjacentElement('afterend',stack);
+  const subtabContainers=[
+    ['현대차그룹사','.hmg-subtabs'],
+    ['타 건설사','.construction-subtabs'],
+    ['한전 계열사','.kepco-affiliate-subtabs'],
+    ['원전 관계부처','.government-ministry-subtabs'],
+  ];
+  subtabContainers.forEach(([groupKey,containerSelector])=>{{
+    root.querySelectorAll(`.news-group[data-group="${{groupKey}}"]`).forEach(group=>{{
+      const subtabs=group.querySelector(containerSelector);
+      const stack=group.querySelector('.article-stack');
+      if(subtabs&&stack) subtabs.insertAdjacentElement('afterend',stack);
+    }});
   }});
-  root.querySelectorAll(".construction-subtab").forEach(button=>{{
-    button.classList.toggle("active",button.dataset.constructionFilter==="all");
-  }});
-  root.querySelectorAll(".kepco-affiliate-subtab").forEach(button=>{{
-    button.classList.toggle("active",button.dataset.kepcoAffiliateFilter==="all");
-  }});
-  root.querySelectorAll(".government-ministry-subtab").forEach(button=>{{
-    button.classList.toggle("active",button.dataset.governmentMinistryFilter==="all");
-  }});
-  placeAllArticleStacksBelowActiveSubtabs(root);
 }}
 
 function filterArticles(){{
