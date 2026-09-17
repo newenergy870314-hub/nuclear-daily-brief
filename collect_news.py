@@ -13402,25 +13402,25 @@ main {{ padding: 12px 12px 34px; }}
 .group-arrow {{ display: inline-flex; align-items: center; justify-content: center; width: 10px; min-width: 10px; height: 27px; color: #1f4f8a; font-size: 10px; line-height: 1; }}
 /* 2차 소탭: 상위 기사탭과 동일한 세로형 아코디언 구조 */
 .hmg-subtabs, .construction-subtabs, .kepco-affiliate-subtabs, .government-ministry-subtabs {{
-  display:flex; flex-direction:column; flex-wrap:nowrap; gap:4px;
-  width:100%; margin:5px 0 8px; padding:0; box-sizing:border-box;
+  display:flex; flex-direction:column; flex-wrap:nowrap; gap:3px;
+  width:100%; margin:4px 0 7px; padding:0; box-sizing:border-box;
 }}
 .news-group.collapsed .hmg-subtabs, .news-group.collapsed .construction-subtabs, .news-group.collapsed .kepco-affiliate-subtabs, .news-group.collapsed .government-ministry-subtabs {{ display:none !important; }}
 
 /* 소탭 하나하나가 독립된 기사탭처럼 보이도록 구성합니다. */
 .hmg-subtab, .construction-subtab, .kepco-affiliate-subtab, .government-ministry-subtab {{
   display:flex; align-items:center; justify-content:flex-start; gap:5px;
-  width:calc(100% - 26px); min-height:34px; margin:0 0 0 26px; padding:0 14px;
-  box-sizing:border-box; border:1px solid rgba(91,79,38,.10); border-radius:14px;
+  width:calc(100% - 26px); height:28px; min-height:28px; margin:0 0 0 26px; padding:0 12px;
+  box-sizing:border-box; border:1px solid rgba(91,79,38,.10); border-radius:12px;
   background:#f3e7aa; color:#1f4f8a;
-  font:inherit; font-size:11.5px; font-weight:850; line-height:1; text-align:left; cursor:pointer;
+  font:inherit; font-size:10.5px; font-weight:850; line-height:1; text-align:left; cursor:pointer;
   box-shadow:0 1px 2px rgba(62,52,42,.08);
 }}
 .hmg-subtab::before, .construction-subtab::before, .kepco-affiliate-subtab::before, .government-ministry-subtab::before {{
-  content:"▶"; flex:0 0 12px; width:12px; color:#52759b; font-size:8px; text-align:center;
+  content:"▶"; flex:0 0 12px; width:12px; color:#52759b; font-size:7px; text-align:center;
 }}
 .hmg-subtab b, .construction-subtab b, .kepco-affiliate-subtab b, .government-ministry-subtab b {{
-  margin-left:2px; color:#4f6f96; font-size:10.5px; font-weight:900;
+  margin-left:2px; color:#4f6f96; font-size:9.5px; font-weight:900;
 }}
 .hmg-subtab.active, .construction-subtab.active, .kepco-affiliate-subtab.active, .government-ministry-subtab.active {{
   background:#fee500; border-color:#e4cf00; color:#1f4f8a;
