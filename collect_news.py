@@ -302,6 +302,7 @@ ALWAYS_SHOW_GROUPS = {
     "국내 원자력 협회·학회",
     "해외 원자력 협회·학회",
     "국제 원자력·에너지기구",
+    "체코 두코바니 원전",
     "불가리아 코즐로두이 원전",
 }
 
@@ -624,6 +625,21 @@ GROUPS = [
         '"Nuclear Construction"', '"Nuclear Project"',
         '"Nuclear New Build"', '"New Nuclear Build"',
     ]),
+    ("체코 두코바니 원전", [
+        '"체코 원전"', '"체코 두코바니"', '"두코바니 원전"',
+        '"두코바니 5호기"', '"두코바니 6호기"',
+        '"체코 원전 시공"', '"체코 원전 수주"',
+        '"Dukovany Nuclear Power Plant"', '"Dukovany NPP"',
+        '"Dukovany" nuclear', '"Dukovany" construction',
+        '"Dukovany" EPC', '"Dukovany" contractor',
+        '"Dukovany" tender', '"Dukovany" KHNP',
+        '"Dukovany" Daewoo', '"Dukovany" Doosan',
+        '"Dukovany" Hyundai', '"Dukovany" APR1000',
+        '"Elektrarna Dukovany II"', '"Elektrárna Dukovany II"',
+        '"Dukovany" "nové bloky"', '"Dukovany" "výstavba"',
+        '"Dukovany" "dodavatel"', '"Dukovany" "smlouva"',
+        '"nová jaderná elektrárna Dukovany"',
+    ]),
     ("불가리아 코즐로두이 원전", [
         # 코즐로두이 원전 및 7·8호기 프로젝트
         '"Kozloduy Nuclear Power Plant"', '"Kozloduy NPP"',
@@ -685,6 +701,7 @@ GROUP_TAB_LABELS = {
     "국내 원자력 협회·학회": "국내 원자력 협회·학회",
     "해외 원자력 협회·학회": "원자력 협회·학회",
     "국제 원자력·에너지기구": "국제 원자력·에너지기구",
+    "체코 두코바니 원전": "체코 두코바니 원전",
     "불가리아 코즐로두이 원전": "불가리아 코즐로두이 원전",
 }
 
@@ -1835,6 +1852,10 @@ DIRECT_GROUP_KEYWORDS = {
         "oecd 원자력기구",
         "경제협력개발기구 원자력기구",
     ],
+    "체코 두코바니 원전": [
+        "두코바니", "dukovany", "체코 원전", "czech nuclear",
+        "elektrárna dukovany ii", "elektrarna dukovany ii",
+    ],
     "불가리아 코즐로두이 원전": [
         "kozloduy nuclear power plant", "kozloduy npp",
         "kozloduy 7", "kozloduy 8", "kozloduy unit 7", "kozloduy unit 8",
@@ -1955,6 +1976,7 @@ DIRECT_GROUP_PRIORITY = [
     "국내 원자력 협회·학회",
     "해외 원자력 협회·학회",
     "국제 원자력·에너지기구",
+    "체코 두코바니 원전",
     "불가리아 코즐로두이 원전",
     "해외 건설사",
     "해외 설계사",
@@ -4756,6 +4778,40 @@ def _nuclear_association_society_group(title: str, summary: str = "") -> str | N
 
     return None
 
+def _mentions_czech_dukovany_project(title: str, summary: str = "") -> bool:
+    """체코 두코바니 신규 원전 및 직접 관련 계약·시공 기사를 식별."""
+    title_l = html.unescape(title or "").lower()
+    combined = html.unescape(f"{title} {summary}").lower()
+    if "두코바니" in combined or "dukovany" in combined or "elektrárna dukovany ii" in combined or "elektrarna dukovany ii" in combined:
+        # 두코바니의 기존 1~4호기 일반 운영/정비 기사 유입 방지
+        newbuild = (
+            "원전", "원자력", "건설", "시공", "수주", "입찰", "계약", "협상",
+            "5호기", "6호기", "신규", "증설", "khnp", "한수원", "apr1000",
+            "nuclear", "reactor", "construction", "new build", "new-build",
+            "tender", "contract", "unit 5", "unit 6", "new units", "nové bloky",
+            "výstavba", "dodavatel", "smlouva", "eduii", "edu ii",
+        )
+        unrelated_existing = ("기존 1~4호기", "기존 원전 정비", "existing units 1-4")
+        return any(t in combined for t in newbuild) and not any(t in combined for t in unrelated_existing)
+    if "체코 원전" in combined or "czech nuclear" in combined or "czech republic nuclear" in combined:
+        # 체코의 일반적인 원전 정책 등은 제외하고 신규 건설 사업에 초점
+        project = ("한수원", "khnp", "대우건설", "daewoo", "두산에너빌리티",
+                   "doosan enerbility", "시공", "계약", "입찰", "수주", "신규 원전",
+                   "건설", "apr1000", "contractor", "tender", "construction",
+                   "new nuclear", "new-build", "new build", "eduii", "edu ii")
+        return any(t in combined for t in project)
+    return False
+
+
+def enforce_czech_dukovany_group(article: Article) -> Article:
+    """최종 화면 및 과거 저장 기사에서도 현대건설 > 체코 원전 우선순위를 유지."""
+    if mentions_hyundai_ec(article.title, article.description):
+        article.group = "현대건설"
+    elif _mentions_czech_dukovany_project(article.title, article.description):
+        article.group = "체코 두코바니 원전"
+    return article
+
+
 def _mentions_kozloduy_project(title: str, summary: str = "") -> bool:
     """불가리아 코즐로두이 원전 및 7·8호기 프로젝트 기사를 식별합니다."""
     haystack = html.unescape(f"{title} {summary}").lower()
@@ -5405,6 +5461,10 @@ def classify_priority_company_group(group: str, title: str, summary: str) -> str
     title_company_group = detect_title_primary_construction_company(title)
     if title_company_group == "현대건설":
         return "현대건설"
+    if mentions_hyundai_ec(title, summary):
+        return "현대건설"
+    if _mentions_czech_dukovany_project(title, summary):
+        return "체코 두코바니 원전"
     if _mentions_kepco_enc(title, ""):
         return "한국전력기술"
     if title_company_group:
@@ -5868,6 +5928,10 @@ def classify_direct_article(title: str, summary: str) -> str | None:
 
     # 최우선: 제목에 직접 등장하는 건설사 기준
     title_company_group = detect_title_primary_construction_company(title)
+    if title_company_group == "현대건설" or mentions_hyundai_ec(title, summary):
+        return "현대건설"
+    if _mentions_czech_dukovany_project(title, summary):
+        return "체코 두코바니 원전"
     if title_company_group:
         return title_company_group
 
@@ -12685,6 +12749,7 @@ def render_news_sections(
         enforce_title_kepco_priority(article)
         enforce_kaeri_group(article)
         enforce_us_nuclear_policy_group(article)
+        enforce_czech_dukovany_group(article)
 
         if article.group not in grouped:
             continue
@@ -12960,6 +13025,7 @@ def article_from_dict(data: dict) -> Article | None:
         article = enforce_kepco_kdn_group(article)
         article = enforce_kaeri_group(article)
         article = enforce_us_nuclear_policy_group(article)
+        article = enforce_czech_dukovany_group(article)
         return article
     except Exception:
         return None
@@ -13045,6 +13111,7 @@ def update_archive(
             enforce_kaeri_group(article)
             enforce_kepco_enc_group(article)
             enforce_kepco_kdn_group(article)
+            enforce_czech_dukovany_group(article)
             normalized_link = article.link.strip() if article.link else ""
             identity = normalized_link or f"{article.publisher}|{article.title}|{article.published.isoformat()}"
 
