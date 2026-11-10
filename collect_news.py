@@ -9586,6 +9586,10 @@ def render_group_unified(
         if not items:
             return []
 
+        # 단독·속보 탭은 언어 구분 없이 관련도 우선, 동일 순위에서는 최신순.
+        if group == BREAKING_EXCLUSIVE_TAB:
+            return sorted(items, key=breaking_exclusive_sort_key)
+
         # 원자력 탭은 국가별로 묶고, 같은 국가 안에서는 최신순으로 정렬
         if group == "원자력":
             return sorted(items, key=_nuclear_country_sort_key)
@@ -9648,7 +9652,7 @@ def render_group_unified(
             ordered.extend(bucket)
         return ordered
 
-    if group in ("원자력", "타 건설사", "현대건설", "현대차그룹사"):
+    if group in (BREAKING_EXCLUSIVE_TAB, "원자력", "타 건설사", "현대건설", "현대차그룹사"):
         # 원자력: 국가별 그룹핑이 언어 분리 때문에 깨지지 않도록 전체 기사 통합 정렬
         # 주요 건설사: 포스코이앤씨/POSCO E&C처럼 한·영 표기가 달라도
         # 같은 회사 기사끼리 완전히 붙도록 전체 기사 통합 정렬
@@ -12749,6 +12753,31 @@ def is_breaking_exclusive_title(title: str) -> bool:
     return bool(BREAKING_EXCLUSIVE_TITLE_RE.match(html.unescape(title or "")))
 
 
+def breaking_exclusive_sort_key(article: Article) -> tuple[int, int, float]:
+    """단독·속보 우선순위: 현대건설 원전 → 기타 원전 → 현대건설 일반 → 기타 관련 기사."""
+    title = html.unescape(article.title or "").lower()
+    summary = html.unescape(article.description or "").lower()
+    combined = f"{title} {summary}"
+    # 회사명이 제목에 명시된 경우를 우선 인정하고, 기존 현대건설 분류도 반영합니다.
+    is_hdec = (article.group == "현대건설" or any(
+        name in title for name in (
+            "현대건설", "hyundai e&c", "hyundai engineering & construction",
+            "hyundai engineering and construction", "hdec",
+        )
+    ))
+    is_nuclear = any(term in combined for term in NUCLEAR_FIRST_TERMS)
+    if is_hdec and is_nuclear:
+        rank = 0
+    elif is_nuclear:
+        rank = 1
+    elif is_hdec:
+        rank = 2
+    else:
+        rank = 3
+    return (rank, 1 if is_stock_market_low_priority_article(article) else 0,
+            -article.published.timestamp())
+
+
 def render_news_sections(
     articles: list[Article],
     new_urls: set[str] | None = None,
@@ -12792,7 +12821,7 @@ def render_news_sections(
     priority_articles = sorted(
         (article for article in visible
          if article.group in grouped and is_breaking_exclusive_title(article.title)),
-        key=lambda article: -article.published.timestamp(),
+        key=breaking_exclusive_sort_key,
     )
     sections = []
     priority_section = render_group_unified(
@@ -43773,34 +43802,17 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
     display:none !important;
   }}
 }}
-/* 단독·속보: 최상단 빨간 기사 탭, PC/모바일 공통 */
-body .news-group[data-group="단독·속보"] > .group-title,
-body > .phone .news-group[data-group="단독·속보"] > .group-title {{
-  background: #b91c1c !important;
-  border-color: #991b1b !important;
-  color: #ffffff !important;
-  box-shadow: 0 2px 7px rgba(153,27,27,.20) !important;
-}}
-body .news-group[data-group="단독·속보"] > .group-title:hover,
-body > .phone .news-group[data-group="단독·속보"] > .group-title:hover {{
-  background: #991b1b !important;
-}}
-body .news-group[data-group="단독·속보"] .group-arrow,
-body .news-group[data-group="단독·속보"] .group-count {{
-  color: #ffffff !important;
+/* 단독·속보: 기존 카테고리 배경·테두리 유지, 글자만 빨간색 */
+body .news-group[data-group="단독·속보"] > .group-title .group-name {{
+  color:#c62828 !important;
 }}
 @media (min-width:1000px) {{
   #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"] {{
-    background:#b91c1c !important;
-    border-color:#991b1b !important;
-    color:#ffffff !important;
+    color:#c62828 !important;
   }}
-  #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"].active,
-  #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"]:hover {{
-    background:#991b1b !important;
-    border-color:#7f1d1d !important;
+  #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"].active {{
+    color:#c62828 !important;
   }}
-  #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"] b {{color:#ffffff !important;}}
 }}
 </style>
 <script>
