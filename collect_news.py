@@ -13579,7 +13579,7 @@ main {{ padding: 12px 12px 34px; }}
 .group-title {{ display: flex; align-items: center; gap: 5px; width: 100%; max-width: 100%; height: 27px; box-sizing: border-box; margin: 0; padding: 0 14px; border: 1px solid rgba(91,79,38,.10); background: #efe2a1; color: #1f4f8a; border-radius: 14px; font: inherit; font-size: 11px; font-weight: 800; line-height: 1; text-align: left; box-shadow: 0 1px 2px rgba(62,52,42,.08); cursor: pointer; }}
 .group-title:active {{ transform: translateY(1px); }}
 .group-master-control {{ display: flex; justify-content: flex-end; margin: 0 0 8px; }}
-.group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid rgba(17,24,39,.12); border-radius: 7px; background: rgba(255,255,255,.88); color: #344054; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
+.group-master-button {{ width: 96px; min-width: 96px; height: 30px; padding: 0 8px; border: 1px solid #e4cf00; border-radius: 7px; background: #fee500; color: #111827; font-size: 10px; font-weight: 800; cursor: pointer; box-shadow: 0 1px 2px rgba(17,24,39,.08); }}
 .group-master-button:active {{ transform: translateY(1px); }}
 .group-name {{ display: inline-flex; align-items: center; height: 27px; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
 .group-count {{ display: inline-flex; align-items: center; height: 27px; margin-left: 2px; color: #4f6f96; font-size: 12px; font-weight: 800; line-height: 1; white-space: nowrap; }}
@@ -44074,6 +44074,10 @@ body .news-group[data-group="단독·속보"] > .group-title .group-name {{
     line-height:1 !important;
     white-space:nowrap !important;
     cursor:pointer !important;
+    background:#fee500 !important;
+    border:1px solid #e4cf00 !important;
+    color:#111827 !important;
+    font-weight:800 !important;
   }}
 
   /* Make article preview genuinely readable on desktop. */
