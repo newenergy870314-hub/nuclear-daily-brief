@@ -9092,6 +9092,7 @@ def render_card(
     article: Article,
     number: int,
     is_new: bool = False,
+    display_group: str | None = None,
 ) -> str:
     ensure_article_display_metadata(article)
     enforce_kepco_enc_group(article)
@@ -9129,7 +9130,8 @@ def render_card(
   data-url="{escape(article.link)}"
   data-title="{escape(article.title)}"
   data-publisher="{escape(article.publisher)}"
-  data-group="{escape(article.group)}"
+  data-group="{escape(display_group or article.group)}"
+  data-original-group="{escape(article.group)}"
   data-language="{escape(_article_title_display_language(article))}"
   data-priority="{_group_article_priority(article, article.group)[0]}"
   data-hmg-rank="{_hyundai_motor_group_company_rank(article)[0] if article.group == '현대차그룹사' else 99}"
@@ -9664,6 +9666,7 @@ def render_group_unified(
             article,
             index,
             article.link in new_urls,
+            display_group=group if group == BREAKING_EXCLUSIVE_TAB else None,
         )
         for index, article in enumerate(ordered_articles, start=1)
     )
@@ -12731,6 +12734,21 @@ def final_deduplicate_articles(articles: list[Article]) -> list[Article]:
     return deduplicate_articles_final(articles)
 
 
+# 기존 카테고리에서 최종 선별된 뉴스 중 제목에 명시된 단독·속보만 별도 노출합니다.
+# 원본 article.group 및 수집/저장/중복제거 로직은 변경하지 않습니다.
+BREAKING_EXCLUSIVE_TAB = "단독·속보"
+BREAKING_EXCLUSIVE_TITLE_RE = re.compile(
+    r"^\s*(?:[\[【(（]\s*(?:단독|속보|단독\s*[·/]\s*속보|breaking(?:\s+news)?|exclusive)\s*[\]】)）]"
+    r"|(?:단독|속보|breaking(?:\s+news)?|exclusive)(?=\s|[:：|·—–-]))",
+    re.IGNORECASE,
+)
+
+
+def is_breaking_exclusive_title(title: str) -> bool:
+    """제목 시작 부분의 단독/속보 표기만 인정 (본문 속 단어는 제외)."""
+    return bool(BREAKING_EXCLUSIVE_TITLE_RE.match(html.unescape(title or "")))
+
+
 def render_news_sections(
     articles: list[Article],
     new_urls: set[str] | None = None,
@@ -12769,7 +12787,25 @@ def render_news_sections(
         target_group = "원자력" if has_hangul else "Nuclear Power·Nuclear Energy"
         grouped.setdefault(target_group, []).append(article)
 
+    # 중요 뉴스는 기존 주제별 탭에 남겨두고, 맨 위에 별도로 한 번 더 노출합니다.
+    # GROUPS 목록에 추가하지 않아 수집량·기존 중복제거·archive 데이터는 그대로 유지됩니다.
+    priority_articles = sorted(
+        (article for article in visible
+         if article.group in grouped and is_breaking_exclusive_title(article.title)),
+        key=lambda article: -article.published.timestamp(),
+    )
     sections = []
+    priority_section = render_group_unified(
+        BREAKING_EXCLUSIVE_TAB, priority_articles, new_urls,
+    )
+    priority_section = priority_section.replace(
+        'class="news-group group-tab-section"', 'class="news-group collapsed"', 1,
+    ).replace(
+        'aria-expanded="true"', 'aria-expanded="false"', 1,
+    ).replace(
+        '<span class="group-arrow">▲</span>', '<span class="group-arrow">▼</span>', 1,
+    )
+    sections.append(priority_section)
     for group, _ in GROUPS:
         # 화면에서 통합/제거되는 내부 그룹은 별도 탭을 만들지 않습니다.
         if group in {
@@ -42700,9 +42736,12 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
 
   function desktop(){{return window.matchMedia("(min-width:1000px)").matches}}
   function root(){{return document.getElementById("tab-"+period)}}
-  function cards(){{
+  function cards(includePriorityCopies=false){{
     const r=root();
-    return r?Array.from(r.querySelectorAll(".preview-card")):[]
+    if(!r)return [];
+    const found=Array.from(r.querySelectorAll(".preview-card"));
+    // PC 전체건수 및 국가별 조회에 우선 탭의 복제 카드를 중복 집계하지 않습니다.
+    return includePriorityCopies ? found : found.filter(c=>c.dataset.group!=="단독·속보");
   }}
   function title(c){{return (c.dataset.title||(c.querySelector(".headline")||{{}}).textContent||"").trim()}}
   function publisher(c){{return (c.dataset.publisher||(c.querySelector(".publisher")||{{}}).textContent||"").trim()}}
@@ -42785,7 +42824,7 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   }}
 
   function currentCards(){{
-    return cards().filter(c=>{{
+    return cards(selectedGroup==="단독·속보").filter(c=>{{
       if(selectedGroup && group(c)!==selectedGroup)return false;
       if(selectedCountry && country(c)!==selectedCountry)return false;
       if(searchText && !fullText(c).includes(searchText))return false;
@@ -43733,6 +43772,35 @@ window.addEventListener('resize', () => requestAnimationFrame(layoutAndRenderCou
   body > .phone .news-group[data-group="원전 관계부처"]:not(.subtab-open) > .article-stack {{
     display:none !important;
   }}
+}}
+/* 단독·속보: 최상단 빨간 기사 탭, PC/모바일 공통 */
+body .news-group[data-group="단독·속보"] > .group-title,
+body > .phone .news-group[data-group="단독·속보"] > .group-title {{
+  background: #b91c1c !important;
+  border-color: #991b1b !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 7px rgba(153,27,27,.20) !important;
+}}
+body .news-group[data-group="단독·속보"] > .group-title:hover,
+body > .phone .news-group[data-group="단독·속보"] > .group-title:hover {{
+  background: #991b1b !important;
+}}
+body .news-group[data-group="단독·속보"] .group-arrow,
+body .news-group[data-group="단독·속보"] .group-count {{
+  color: #ffffff !important;
+}}
+@media (min-width:1000px) {{
+  #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"] {{
+    background:#b91c1c !important;
+    border-color:#991b1b !important;
+    color:#ffffff !important;
+  }}
+  #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"].active,
+  #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"]:hover {{
+    background:#991b1b !important;
+    border-color:#7f1d1d !important;
+  }}
+  #pc11-group-tabs.pc11-group-tabs button[data-group="단독·속보"] b {{color:#ffffff !important;}}
 }}
 </style>
 <script>
